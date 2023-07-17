@@ -1,0 +1,142 @@
+[gd_scene load_steps=15 format=3 uid="uid://c8q4jskbbhvnn"]
+
+[ext_resource type="Script" path="res://codings/Interactable.gd" id="1_prqri"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="2_f278q"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="2_j77no"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_6vdgc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]
+shader = ExtResource("2_f278q")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7h34c"]
+radius = 12.0416
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41wqm"]
+shader = ExtResource("2_f278q")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b86cs"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y3yu"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrmw5"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="FontVariation" id="FontVariation_s8cnr"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_iavdl"]
+default_font = SubResource("FontVariation_s8cnr")
+Button/styles/focus = SubResource("StyleBoxFlat_b86cs")
+Button/styles/hover = SubResource("StyleBoxFlat_8y3yu")
+Button/styles/pressed = SubResource("StyleBoxFlat_hrmw5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwch7"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jo5b3"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[node name="Interactable" type="Area2D"]
+process_mode = 3
+material = SubResource("ShaderMaterial_rbnbg")
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_prqri")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.8147e-06, -3.8147e-06)
+shape = SubResource("CircleShape2D_7h34c")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+visibility_layer = 1024
+z_index = 9
+material = SubResource("ShaderMaterial_41wqm")
+layout_direction = 1
+offset_left = -31.0
+offset_top = -36.0
+offset_right = 84.0
+offset_bottom = -3.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_iavdl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_pwch7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jo5b3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pwch7")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jo5b3")
+text = "Inspect"
+icon = ExtResource("2_j77no")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Arrow" type="TextureRect" parent="."]
+visible = false
+use_parent_material = true
+offset_left = -3.0
+offset_top = -13.0
+offset_right = 45.0
+offset_bottom = 79.0
+rotation = -1.57186
+scale = Vector2(0.0672756, 0.0672756)
+texture = ExtResource("3_6vdgc")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

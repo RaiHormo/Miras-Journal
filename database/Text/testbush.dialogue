@@ -1,0 +1,20 @@
+~ bush
+
+do portrait("MiraNeutural", true)
+Mira: Yes, this is [[indeed|in fact]] a bush
+- Scream
+	do portrait("MiraOpenMouth", false)
+	Mira: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	if is_in_party("Erinn"):
+		Erinn: Mira, what are you doing?
+- End
+
+=> END
+
+~ travel
+
+Where to go?
+- Temple Woods
+	do travel_to("TempleWoods", "U")
+
+=> END

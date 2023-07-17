@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=5 format=3 uid="uid://dwqk2g1b3tymy"]
+
+[ext_resource type="Script" path="res://database/Items/inventory_data.gd" id="1_yvo88"]
+[ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="2_8vvyq"]
+[ext_resource type="Script" path="res://database/Items/slot_data.gd" id="3_s2npe"]
+
+[sub_resource type="Resource" id="Resource_w4tl4"]
+script = ExtResource("3_s2npe")
+item_data = ExtResource("2_8vvyq")
+quantity = 3
+
+[resource]
+script = ExtResource("1_yvo88")
+slot_datas = Array[ExtResource("3_s2npe")]([SubResource("Resource_w4tl4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])

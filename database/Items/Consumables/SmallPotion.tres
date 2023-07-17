@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://j602f3ere055"]
+
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_q4q0e"]
+[ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_xhumv"]
+
+[resource]
+script = ExtResource("1_xhumv")
+Name = "Small Potion"
+Description = "A small bottle containing a healing
+potion.
+Drink it to recover 50 HP"
+Icon = ExtResource("1_q4q0e")
+KeyItem = false
+Consumable = true
+BattleItem = false
+Part = false
+ActionName = ""

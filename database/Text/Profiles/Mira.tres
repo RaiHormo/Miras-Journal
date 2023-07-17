@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="TextProfile" load_steps=6 format=3 uid="uid://cnpmp4umxxgic"]
+
+[ext_resource type="Script" path="res://database/Text/Profiles/profile_data.gd" id="1_3dtyf"]
+[ext_resource type="AudioStream" uid="uid://bh35f3g75ka8w" path="res://sound/SFX/beep.ogg" id="1_vk432"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxn4h"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.878431, 0.682353, 0.517647, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35jvn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.509804, 0.384314, 0.282353, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0df"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.243137, 0.203922, 0.172549, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[resource]
+script = ExtResource("1_3dtyf")
+Border1 = SubResource("StyleBoxFlat_yxn4h")
+Bord1 = Color(0.878431, 0.682353, 0.517647, 1)
+Border2 = SubResource("StyleBoxFlat_35jvn")
+Bord2 = Color(0.509804, 0.384314, 0.282353, 1)
+Border3 = SubResource("StyleBoxFlat_cg0df")
+Bord3 = Color(0.243137, 0.203922, 0.172549, 1)
+TextSound = ExtResource("1_vk432")
+AudioFrequency = 4
+PitchVariance = 0.5

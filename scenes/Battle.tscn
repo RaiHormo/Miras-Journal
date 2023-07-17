@@ -1,0 +1,986 @@
+[gd_scene load_steps=75 format=3 uid="uid://chjrhe4gw1iu6"]
+
+[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
+[ext_resource type="Script" path="res://codings/BattleBase.gd" id="1_xnc7m"]
+[ext_resource type="Resource" uid="uid://dfxf3fj1wgl5q" path="res://database/Party/Mira.tres" id="2_qqps8"]
+[ext_resource type="Script" path="res://database/Party/party_data.gd" id="3_0brgg"]
+[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="5_83x0w"]
+[ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
+[ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="8_q42xb"]
+[ext_resource type="PackedScene" uid="uid://dh64f5bodshv7" path="res://UI/Party/PartyUI.tscn" id="9_swjrk"]
+[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
+[ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
+[ext_resource type="Texture2D" uid="uid://bpdhp4otp83om" path="res://UI/Battle/MiraRing1.png" id="13_o8vaj"]
+[ext_resource type="Shader" path="res://UI/Battle/Sinewave.gdshader" id="14_6ry1t"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="14_8pkue"]
+[ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="14_id4j5"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="15_mb6ip"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="15_mlxjv"]
+[ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="15_wul0b"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="16_g8baf"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="17_uuehj"]
+[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="18_r4gxg"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="19_5nefy"]
+[ext_resource type="Script" path="res://codings/UI/EnemyUI.gd" id="20_46olp"]
+[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="20_fun7q"]
+[ext_resource type="Script" path="res://codings/Ai.gd" id="24_7iq6m"]
+
+[sub_resource type="Resource" id="Resource_y6axd"]
+script = ExtResource("3_0brgg")
+Leader = ExtResource("2_qqps8")
+
+[sub_resource type="Resource" id="Resource_bnt1k"]
+script = ExtResource("5_83x0w")
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([])
+Transition = true
+
+[sub_resource type="Curve" id="Curve_wrfky"]
+
+[sub_resource type="Shader" id="Shader_d8jwa"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 outline_color : source_color;
+uniform bool outline_enabled;
+
+
+// Texture must have 'Filter'-flag enabled!
+
+// Automatic smoothing
+// independent of geometry and perspective
+vec4 texturePointSmooth(sampler2D smp, vec2 uv, vec2 pixel_size)
+{
+	vec2 ddx = dFdx(uv);
+	vec2 ddy = dFdy(uv);
+	vec2 lxy = sqrt(ddx * ddx + ddy * ddy);
+	
+	vec2 uv_pixels = uv / pixel_size;
+	
+	vec2 uv_pixels_floor = round(uv_pixels) - vec2(0.5f);
+	vec2 uv_dxy_pixels = uv_pixels - uv_pixels_floor;
+	
+	uv_dxy_pixels = clamp((uv_dxy_pixels - vec2(0.5f)) * pixel_size / lxy + vec2(0.5f), 0.0f, 1.0f);
+	
+	uv = uv_pixels_floor * pixel_size;
+	
+	return textureGrad(smp, uv + uv_dxy_pixels * pixel_size, ddx, ddy);
+}
+
+void fragment()
+{
+	if (outline_enabled == true){
+	float size_x = 1.0/float(textureSize(TEXTURE, 0).x);
+	float size_y = 1.0/float(textureSize(TEXTURE, 0).y);
+	vec4 sprite_color = texturePointSmooth(TEXTURE, UV, TEXTURE_PIXEL_SIZE);;
+	float alpha = -4.0 * sprite_color.a;
+	alpha += texturePointSmooth(TEXTURE, UV + vec2(size_x, 0), TEXTURE_PIXEL_SIZE).a;
+	alpha += texturePointSmooth(TEXTURE, UV + vec2(-size_x, 0), TEXTURE_PIXEL_SIZE).a;
+	alpha += texturePointSmooth(TEXTURE, UV + vec2(0, size_y), TEXTURE_PIXEL_SIZE).a;
+	alpha += texturePointSmooth(TEXTURE, UV + vec2(0, -size_y), TEXTURE_PIXEL_SIZE).a ;
+	//For outlining corners
+	//Change the -4.0 to -8.0 in alpa if adding these lines
+	/*alpha += texture(TEXTURE, UV + vec2(size_x, size_y)).a;
+	alpha += texture(TEXTURE, UV + vec2(-size_x, size_y)).a;
+	alpha += texture(TEXTURE, UV + vec2(-size_x, -size_y)).a;
+	alpha += texture(TEXTURE, UV + vec2(size_x, -size_y)).a;*/
+	//sprite_color = texturePointSmooth(TEXTURE, UV, TEXTURE_PIXEL_SIZE);
+	vec4 final_color = mix(sprite_color, outline_color , clamp(alpha, 0.0, 1.0));
+	COLOR = vec4(final_color.rgb, clamp((abs(alpha)*outline_color.a) + sprite_color.a , 0.0, 1.0));
+	} else {
+		COLOR = texturePointSmooth(TEXTURE, UV, TEXTURE_PIXEL_SIZE);
+	}
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpdku"]
+resource_local_to_scene = true
+shader = SubResource("Shader_d8jwa")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_enabled = false
+
+[sub_resource type="Theme" id="Theme_ap0qn"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 30
+Label/font_sizes/font_size = 50
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxq4l"]
+atlas = ExtResource("10_7tp62")
+region = Rect2(0, 0, 97, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxc6u"]
+atlas = ExtResource("10_7tp62")
+region = Rect2(97, 0, 97, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo7gk"]
+atlas = ExtResource("10_7tp62")
+region = Rect2(194, 0, 97, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3cbo"]
+atlas = ExtResource("10_7tp62")
+region = Rect2(291, 0, 97, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xflrp"]
+atlas = ExtResource("10_7tp62")
+region = Rect2(388, 0, 97, 97)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e4dcq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxq4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxc6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo7gk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3cbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xflrp")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"SimpleHit",
+"speed": 12.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6yjmp"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_y7pbc"]
+offsets = PackedFloat32Array(0.635945, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j8g6d"]
+gradient = SubResource("Gradient_y7pbc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht7eu"]
+emission_shape = 3
+emission_box_extents = Vector3(0, 9, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-120, 0, 0)
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+linear_accel_min = -100.0
+linear_accel_max = -67.64
+tangential_accel_min = -39.71
+tangential_accel_max = 36.02
+color = Color(0.964706, 0.592157, 0.615686, 1)
+color_ramp = SubResource("GradientTexture1D_j8g6d")
+anim_speed_min = 8.9
+anim_speed_max = 11.61
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
+shader = ExtResource("15_mb6ip")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryg6s"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.07
+shader_parameter/sine_freq = 0.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65pvt"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.016
+shader_parameter/sine_freq = 0.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xpp0"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.013
+shader_parameter/sine_freq = 20.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.3
+
+[sub_resource type="Gradient" id="Gradient_8j6vo"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
+gradient = SubResource("Gradient_8j6vo")
+
+[sub_resource type="Theme" id="Theme_e6n8g"]
+Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
+
+[sub_resource type="Theme" id="Theme_bug03"]
+Label/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
+RichTextLabel/constants/line_separation = 5
+RichTextLabel/font_sizes/normal_font_size = 34
+
+[sub_resource type="Theme" id="Theme_4tyuc"]
+Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
+Label/font_sizes/font_size = 42
+RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
+RichTextLabel/constants/line_separation = 5
+RichTextLabel/font_sizes/normal_font_size = 34
+
+[sub_resource type="FontVariation" id="FontVariation_xv4x4"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_hoq1y"]
+default_font = SubResource("FontVariation_xv4x4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oa10"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjna8"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_misl1"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyes3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 14.0
+expand_margin_top = 14.0
+expand_margin_right = 21.0
+expand_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5sl2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 27.0
+expand_margin_top = 27.0
+expand_margin_right = 34.0
+expand_margin_bottom = 27.0
+
+[sub_resource type="Theme" id="Theme_t7ro7"]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6nlv"]
+content_margin_left = 7.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1740"]
+content_margin_left = 7.0
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhc1k"]
+atlas = ExtResource("15_mlxjv")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="Theme" id="Theme_g1u0r"]
+Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
+Label/font_sizes/font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86gc4"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_color = Color(0.803922, 0.784314, 0.894118, 1)
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyuo7"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0g5cc"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+corner_detail = 4
+
+[sub_resource type="Theme" id="Theme_bvcno"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cjm5j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_jepgw"]
+Panel/styles/panel = SubResource("StyleBoxFlat_w18cv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm627"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_t73mt"]
+Panel/styles/panel = SubResource("StyleBoxFlat_mm627")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ed0cv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_wxbdf"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
+
+[node name="Battle" type="Control"]
+process_mode = 3
+z_index = 8
+z_as_relative = false
+texture_filter = 2
+material = ExtResource("1_pas6x")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xnc7m")
+Party = SubResource("Resource_y6axd")
+Seq = SubResource("Resource_bnt1k")
+curve = SubResource("Curve_wrfky")
+
+[node name="Background" type="Sprite2D" parent="."]
+light_mask = 16
+material = ExtResource("1_pas6x")
+texture = ExtResource("1_lnseq")
+
+[node name="Act" type="Node2D" parent="."]
+visibility_layer = 16
+use_parent_material = true
+script = ExtResource("6_yeldr")
+
+[node name="Actor0" type="AnimatedSprite2D" parent="Act"]
+light_mask = 16
+material = SubResource("ShaderMaterial_cpdku")
+position = Vector2(-60, -39)
+sprite_frames = ExtResource("8_q42xb")
+animation = &"Ability"
+frame = 9
+frame_progress = 1.0
+offset = Vector2(0, -16)
+
+[node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
+show_behind_parent = true
+light_mask = 16
+material = ExtResource("1_pas6x")
+position = Vector2(0, 3)
+texture = ExtResource("9_w2lxs")
+offset = Vector2(0, 4)
+
+[node name="Nums" type="Label" parent="Act/Actor0"]
+visible = false
+light_mask = 16
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.5
+offset_top = -67.5
+offset_right = 182.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(218, 39)
+size_flags_horizontal = 4
+theme = SubResource("Theme_ap0qn")
+text = "15"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Effects" type="AnimatedSprite2D" parent="Act/Actor0"]
+light_mask = 16
+material = ExtResource("1_pas6x")
+sprite_frames = SubResource("SpriteFrames_e4dcq")
+animation = &"SimpleHit"
+frame = 5
+frame_progress = 1.0
+
+[node name="Particle" type="GPUParticles2D" parent="Act/Actor0"]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_6yjmp")
+position = Vector2(1, 0)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ht7eu")
+lifetime = 1.5
+one_shot = true
+speed_scale = 3.0
+explosiveness = 0.89
+fixed_fps = 60
+
+[node name="Cam" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+limit_smoothed = true
+
+[node name="PartyUI" parent="." instance=ExtResource("9_swjrk")]
+layout_mode = 1
+
+[node name="BattleUI" type="Control" parent="."]
+material = SubResource("ShaderMaterial_nmg3k")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -439.0
+offset_right = -700.0
+offset_bottom = -439.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_57ux1")
+
+[node name="Arrow" type="TextureRect" parent="BattleUI"]
+visible = false
+modulate = Color(0.901961, 0.901961, 0.901961, 1)
+use_parent_material = true
+layout_mode = 0
+offset_left = 31.0
+offset_top = -4.0
+offset_right = 79.0
+offset_bottom = 88.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("14_8pkue")
+
+[node name="BaseRing" type="TextureRect" parent="BattleUI"]
+material = SubResource("ShaderMaterial_ryg6s")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(200, 200)
+texture = ExtResource("14_id4j5")
+
+[node name="Ring1" type="TextureRect" parent="BattleUI/BaseRing"]
+material = SubResource("ShaderMaterial_65pvt")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(200, 200)
+texture = ExtResource("13_o8vaj")
+
+[node name="Ring2" type="TextureRect" parent="BattleUI/BaseRing"]
+material = SubResource("ShaderMaterial_3xpp0")
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 400.0
+pivot_offset = Vector2(200, 200)
+texture = SubResource("GradientTexture1D_litkr")
+
+[node name="DescPaper" type="TextureRect" parent="BattleUI"]
+visible = false
+use_parent_material = true
+layout_mode = 0
+offset_left = 102.0
+offset_top = -264.0
+offset_right = 771.0
+offset_bottom = 248.0
+rotation = 0.18675
+scale = Vector2(0.17, 0.17)
+pivot_offset = Vector2(-0.000183105, 317.647)
+texture = ExtResource("15_wul0b")
+
+[node name="Title" type="Label" parent="BattleUI/DescPaper"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 132.0
+offset_top = 48.0
+offset_right = 535.0
+offset_bottom = 115.0
+rotation = 0.0630125
+theme = SubResource("Theme_e6n8g")
+theme_override_font_sizes/font_size = 46
+text = "Ability Name"
+horizontal_alignment = 2
+
+[node name="Desc" type="RichTextLabel" parent="BattleUI/DescPaper"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 120.0
+offset_top = 119.0
+offset_right = 524.0
+offset_bottom = 385.0
+rotation = 0.0511767
+theme = SubResource("Theme_bug03")
+text = "This is a very long and intesting description of this ability. Using this spell the entire world will blow up.
+"
+
+[node name="Cost" type="Label" parent="BattleUI/DescPaper"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 389.118
+offset_top = 390.0
+offset_right = 499.118
+offset_bottom = 480.0
+rotation = 0.0586956
+theme = SubResource("Theme_4tyuc")
+text = "Cost 5"
+horizontal_alignment = 2
+
+[node name="ShowWheel" type="Button" parent="BattleUI/DescPaper"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+use_parent_material = true
+layout_direction = 1
+layout_mode = 0
+offset_left = 147.0
+offset_top = -59.0
+offset_right = 301.0
+offset_bottom = -26.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_hoq1y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+text = "Show Wheel"
+icon = ExtResource("19_5nefy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
+visible = false
+use_parent_material = true
+layout_mode = 0
+offset_left = 11.0
+offset_top = -159.0
+offset_right = 311.0
+offset_bottom = 285.0
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(22.75, 158)
+theme_override_styles/panel = SubResource("StyleBoxFlat_misl1")
+
+[node name="Border2" type="PanelContainer" parent="BattleUI/AbilityUI"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wyes3")
+
+[node name="Border1" type="Panel" parent="BattleUI/AbilityUI/Border2"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s5sl2")
+
+[node name="Margin" type="MarginContainer" parent="BattleUI/AbilityUI"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = -11
+theme_override_constants/margin_bottom = 14
+
+[node name="Scroller" type="ScrollContainer" parent="BattleUI/AbilityUI/Margin"]
+use_parent_material = true
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Item0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/List"]
+texture_filter = 1
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_t7ro7")
+theme_override_constants/h_separation = 10
+theme_override_constants/icon_max_width = 36
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f1740")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2oa10")
+text = "Ability Name"
+icon = SubResource("AtlasTexture_lhc1k")
+alignment = 0
+expand_icon = true
+
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/List/Item0"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 211.0
+offset_top = 4.0
+offset_right = 255.0
+offset_bottom = 49.0
+theme = SubResource("Theme_g1u0r")
+text = "5"
+horizontal_alignment = 2
+
+[node name="Ability" type="Button" parent="BattleUI"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = -15.0
+offset_right = 121.0
+offset_bottom = 18.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_hoq1y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+text = "Ability"
+icon = ExtResource("16_g8baf")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Attack" type="Button" parent="BattleUI"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -30.0
+offset_top = 20.0
+offset_right = 85.0
+offset_bottom = 53.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_hoq1y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+text = "Attack
+"
+icon = ExtResource("17_uuehj")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Item" type="Button" parent="BattleUI"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -66.0
+offset_top = -15.0
+offset_right = 33.0
+offset_bottom = 18.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_hoq1y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+text = "Item"
+icon = ExtResource("18_r4gxg")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Command" type="Button" parent="BattleUI"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -33.0
+offset_top = -51.0
+offset_right = 95.0
+offset_bottom = -18.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_hoq1y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+text = "Command"
+icon = ExtResource("19_5nefy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="EnemyUI" type="CanvasLayer" parent="."]
+script = ExtResource("20_46olp")
+
+[node name="Enemy0" type="Panel" parent="EnemyUI"]
+texture_filter = 2
+layout_direction = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 31.0
+offset_top = 25.0
+offset_right = 160.0
+offset_bottom = 110.0
+grow_horizontal = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0.137743, -0.0191193)
+theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
+
+[node name="Health" type="ProgressBar" parent="EnemyUI/Enemy0"]
+z_index = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 45.0
+offset_right = 109.0
+offset_bottom = 66.0
+theme = SubResource("Theme_bvcno")
+value = 75.0
+rounded = true
+allow_greater = true
+show_percentage = false
+
+[node name="Name" type="Label" parent="EnemyUI/Enemy0"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 115.0
+offset_bottom = 41.0
+text = "Mira"
+label_settings = SubResource("LabelSettings_cjm5j")
+horizontal_alignment = 1
+
+[node name="Border1" type="Panel" parent="EnemyUI/Enemy0"]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -7.0
+offset_right = 140.0
+offset_bottom = 96.0
+theme = SubResource("Theme_jepgw")
+
+[node name="Border2" type="Panel" parent="EnemyUI/Enemy0/Border1"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 146.0
+offset_bottom = 98.0
+theme = SubResource("Theme_t73mt")
+
+[node name="Border3" type="Panel" parent="EnemyUI/Enemy0/Border1/Border2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 5.0
+offset_right = 143.0
+offset_bottom = 89.0
+theme = SubResource("Theme_wxbdf")
+
+[node name="EnemyFocus" type="Panel" parent="EnemyUI"]
+visible = false
+texture_filter = 2
+offset_left = 980.0
+offset_top = 30.0
+offset_right = 1168.0
+offset_bottom = 115.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0.137743, -0.0191193)
+theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
+
+[node name="Icon" type="Sprite2D" parent="EnemyUI/EnemyFocus"]
+texture_filter = 2
+position = Vector2(40, 43)
+scale = Vector2(0.0374996, 0.0374996)
+texture = ExtResource("20_fun7q")
+
+[node name="Health" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
+z_index = 1
+layout_mode = 0
+offset_left = 74.0
+offset_top = 44.0
+offset_right = 159.0
+offset_bottom = 65.0
+theme = SubResource("Theme_bvcno")
+value = 75.0
+rounded = true
+allow_greater = true
+show_percentage = false
+
+[node name="Name" type="Label" parent="EnemyUI/EnemyFocus"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 14.0
+offset_right = 177.0
+offset_bottom = 54.0
+text = "Mira"
+label_settings = SubResource("LabelSettings_cjm5j")
+
+[node name="Border1" type="Panel" parent="EnemyUI/EnemyFocus"]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -7.0
+offset_right = 188.0
+offset_bottom = 96.0
+theme = SubResource("Theme_jepgw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w18cv")
+
+[node name="Border2" type="Panel" parent="EnemyUI/EnemyFocus/Border1"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 194.0
+offset_bottom = 98.0
+theme = SubResource("Theme_t73mt")
+
+[node name="Border3" type="Panel" parent="EnemyUI/EnemyFocus/Border1/Border2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 5.0
+offset_right = 191.0
+offset_bottom = 89.0
+theme = SubResource("Theme_wxbdf")
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("24_7iq6m")
+
+[connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
+[connection signal="check_party" from="." to="PartyUI" method="_check_party"]
+[connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
+[connection signal="next_turn" from="." to="." method="_on_next_turn"]
+[connection signal="next_turn" from="." to="BattleUI" method="_on_battle_next_turn"]
+[connection signal="ability" from="BattleUI" to="." method="_on_battle_ui_ability"]
+[connection signal="ability" from="BattleUI" to="PartyUI" method="_on_battle_ui_ability"]
+[connection signal="ability" from="BattleUI" to="BattleUI" method="_on_ability"]
+[connection signal="ability" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
+[connection signal="ability_returned" from="BattleUI" to="." method="_on_battle_ui_ability_returned"]
+[connection signal="ability_returned" from="BattleUI" to="BattleUI" method="_on_ability_returned"]
+[connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
+[connection signal="root" from="BattleUI" to="PartyUI" method="_on_battle_ui_root"]
+[connection signal="root" from="BattleUI" to="BattleUI" method="_on_root"]
+[connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
+[connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
+[connection signal="pressed" from="BattleUI/Ability" to="BattleUI" method="_on_ability_pressed"]
+[connection signal="pressed" from="BattleUI/Attack" to="BattleUI" method="_on_attack_pressed"]
+[connection signal="pressed" from="BattleUI/Item" to="BattleUI" method="_on_item_pressed"]
+[connection signal="pressed" from="BattleUI/Command" to="BattleUI" method="_on_command_pressed"]

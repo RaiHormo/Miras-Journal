@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=2 format=3 uid="uid://ba32ymgv2nx1w"]
+
+[ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_2243q"]
+
+[resource]
+script = ExtResource("1_2243q")
+AltConfirm = false

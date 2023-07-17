@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://ykcn5dmyux3m"]
+
+[ext_resource type="Script" path="res://codings/Loader.gd" id="1_vacb0"]
+[ext_resource type="Texture2D" uid="uid://bkckou27anci0" path="res://scenes/load.png" id="2_5gah4"]
+
+[sub_resource type="Animation" id="Animation_51g6x"]
+length = 3.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Can/Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.7, 1.2, 1.3, 1.4, 1.9, 2, 2.1, 2.6, 2.7, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_6vf3a"]
+resource_name = "exit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Can/Icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g3cgi"]
+_data = {
+"default": SubResource("Animation_51g6x"),
+"exit": SubResource("Animation_6vf3a")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxef7"]
+bg_color = Color(0.054902, 0.054902, 0.054902, 1)
+
+[node name="Loader" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vacb0")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g3cgi")
+}
+
+[node name="Can" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="Down" type="Panel" parent="Can"]
+light_mask = 16
+offset_left = -235.0
+offset_top = 786.0
+offset_right = 1490.0
+offset_bottom = 1786.0
+rotation = 0.0641833
+theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+
+[node name="Up" type="Panel" parent="Can"]
+light_mask = 16
+offset_left = -201.0
+offset_top = -1096.0
+offset_right = 1524.0
+offset_bottom = -96.0002
+rotation = 0.0641833
+theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+
+[node name="Right" type="Panel" parent="Can"]
+light_mask = 16
+offset_left = 1394.0
+offset_top = -177.0
+offset_right = 3119.0
+offset_bottom = 823.0
+rotation = 0.112435
+theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+
+[node name="Left" type="Panel" parent="Can"]
+light_mask = 16
+offset_left = -1720.0
+offset_top = -204.0
+offset_right = 5.0
+offset_bottom = 796.0
+rotation = 0.112435
+theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+
+[node name="Icon" type="Sprite2D" parent="Can"]
+z_index = 11
+texture_filter = 1
+position = Vector2(1181, 702)
+texture = ExtResource("2_5gah4")
+hframes = 4
+vframes = 4
+frame = 12
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "load",
+"only_visible": false,
+"op_exp": true,
+"player": "Anim",
+"source": "res://art/Icons/LoadingIcon.ase"
+}

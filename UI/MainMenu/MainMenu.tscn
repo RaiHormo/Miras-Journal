@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://taraixnnnyo7"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
+[ext_resource type="Texture2D" uid="uid://c6j7fjr2kcrd4" path="res://UI/MainMenu/MenuBaseOpen.png" id="2_x5brf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k55o"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(0, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58ods"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(625, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kouwa"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(1250, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6dhx"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(1875, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub5t7"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(2500, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmvbd"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(3125, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l87h1"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(3750, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i58v4"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(4375, 0, 625, 625)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1cmo"]
+atlas = ExtResource("2_x5brf")
+region = Rect2(5000, 0, 625, 625)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gyu0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7k55o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58ods")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kouwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6dhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub5t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmvbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l87h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i58v4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1cmo")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 24.0
+}]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5tx7f")
+
+[node name="Can" type="CanvasLayer" parent="."]
+
+[node name="Base" type="AnimatedSprite2D" parent="Can"]
+position = Vector2(643, 421)
+sprite_frames = SubResource("SpriteFrames_5gyu0")
+animation = &"Open"
+frame = 8
+frame_progress = 1.0

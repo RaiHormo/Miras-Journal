@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://css4l7jfuhb4v"]
+
+[ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_gxbro"]
+[ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/Erinn.tres" id="1_vkgex"]
+[ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="1_vt7ec"]
+[ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
+[ext_resource type="Texture2D" uid="uid://dhbno8wgnyhlo" path="res://art/Renders/Erinn.png" id="3_71qsx"]
+[ext_resource type="Texture2D" uid="uid://cv3xqlnokrhfw" path="res://UI/Party/ErinnShadow.png" id="4_1tt4d"]
+
+[resource]
+script = ExtResource("1_gxbro")
+FirstName = "Erinn"
+LastName = "Levenor"
+IsEnemy = false
+WeaponType = "Pole"
+Controllable = false
+StatsVisible = true
+PartyIcon = ExtResource("2_b55w6")
+RenderArtwork = ExtResource("3_71qsx")
+RenderShadow = ExtResource("4_1tt4d")
+AuraHue = 130
+MainColor = Color(0.501961, 0.694118, 0.533333, 1)
+SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
+BoxProfile = ExtResource("1_vkgex")
+MaxHP = 85
+MaxAura = 90
+Attack = 0.5
+Magic = 1.8
+Defence = 1.5
+Speed = 5.0
+Health = 85
+Aura = 90
+SkillLevel = 1
+SkillPoints = 0
+SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
+AttackMultiplier = 1.0
+DefenceMultiplier = 1.0
+MagicMultiplier = 1.0
+SpeedMultiplier = 1.0
+OV = ExtResource("1_vt7ec")
+Offset = Vector2(0, 0)
+Shadow = false
+NextAction = ""
+States = Array[Resource("res://database/States/state.gd")]([])

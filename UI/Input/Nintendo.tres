@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=6 format=3 uid="uid://4hdf3nnmcvcg"]
+
+[ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_0bv3a"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="1_h2acv"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="2_eotdb"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="3_ljdvx"]
+[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="4_wq41y"]
+
+[resource]
+script = ExtResource("1_0bv3a")
+ConfirmIcon = ExtResource("1_h2acv")
+CancelIcon = ExtResource("2_eotdb")
+AbilityIcon = ExtResource("1_h2acv")
+AttackIcon = ExtResource("2_eotdb")
+ItemIcon = ExtResource("4_wq41y")
+CommandIcon = ExtResource("3_ljdvx")
+AltConfirm = true

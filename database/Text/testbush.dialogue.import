@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_8"
+type="Resource"
+uid="uid://dgl7glsxcodaj"
+path="res://.godot/imported/testbush.dialogue-2084f2d05703ec44e00865df6ba0e051.tres"
+
+[deps]
+
+source_file="res://database/Text/testbush.dialogue"
+dest_files=["res://.godot/imported/testbush.dialogue-2084f2d05703ec44e00865df6ba0e051.tres"]
+
+[params]
+
+defaults=true
