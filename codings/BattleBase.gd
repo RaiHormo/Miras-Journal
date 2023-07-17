@@ -32,6 +32,8 @@ func _ready():
 	TurnOrder.push_front(Party.Leader)
 	PartyArray.push_back(Party.Leader)
 	$Act/Actor0.sprite_frames = Party.Leader.BT
+	$Act/Actor0.animation = &"Entrance"
+	$Act/Actor0.frame = 0
 	if Global.check_member(1):
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Actor1"
@@ -275,6 +277,9 @@ func damage(target:Actor, x:int, stat:float):
 	check_party.emit()
 	
 	pop_num(target, target.calc_dmg(x, stat, target))
+	if target.Health == 0:
+		death(target)
+		return
 	if target.has_state("Guarding"):
 		pass
 	else:
@@ -356,3 +361,6 @@ func play_sound(SoundName: String, act: Actor):
 func stop_sound(SoundName: String, act: Actor):
 	if act.node.get_node("SFX").has_node(SoundName):
 		act.node.get_node("SFX").get_node(SoundName).stop()
+
+func death(target:Actor):
+	target.add_state("KnockedOut")

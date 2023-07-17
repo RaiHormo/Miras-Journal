@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://bx4nyp37i8aar"]
+
+[ext_resource type="Script" path="res://database/States/state.gd" id="1_uh23e"]
+
+[resource]
+script = ExtResource("1_uh23e")
+name = "Kocked Out"
+Description = "Cannot act at all."
+RemovedAfterTurns = false
+turns = 0

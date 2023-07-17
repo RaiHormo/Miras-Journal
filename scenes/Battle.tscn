@@ -451,8 +451,6 @@ material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("8_q42xb")
 animation = &"Ability"
-frame = 9
-frame_progress = 1.0
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]

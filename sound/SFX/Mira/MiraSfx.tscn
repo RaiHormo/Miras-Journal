@@ -23,4 +23,4 @@ volume_db = -3.328
 
 [node name="Entrance" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ftrdi")
-volume_db = 1.0
+volume_db = -7.32

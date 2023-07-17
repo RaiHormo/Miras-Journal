@@ -85,6 +85,8 @@ func add_SP(x):
 
 func damage(x, E_atk, E:Actor):
 	Health -= calc_dmg(x, E_atk, E)
+	if Health<0:
+		Health = 0
 
 func calc_dmg(x, AttackStat: float, E: Actor):
 	#print(x, " *( ", DefenceMultiplier, " * " ,E.AttackMultiplier, " ) / (", Defence, " * ", DefenceMultiplier, ") = ", int(abs(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier)))))
