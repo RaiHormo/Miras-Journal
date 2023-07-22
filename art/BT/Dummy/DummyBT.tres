@@ -1,8 +1,9 @@
-[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://b2x5q6v6p786q"]
+[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://b2x5q6v6p786q"]
 
 [ext_resource type="Texture2D" uid="uid://do6ccwpuspt01" path="res://art/BT/Dummy/Abilityt.png" id="1_xqeyy"]
 [ext_resource type="Texture2D" uid="uid://cxnnq2mqwkki1" path="res://art/BT/Dummy/Hit.png" id="2_1ermr"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="3_482co"]
+[ext_resource type="Texture2D" uid="uid://tnbr6nsgqkuj" path="res://art/BT/Dummy/KnockOutt.png" id="4_eor35"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dgkxc"]
 atlas = ExtResource("1_xqeyy")
@@ -55,6 +56,30 @@ region = Rect2(399, 0, 57, 57)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nuro"]
 atlas = ExtResource("3_482co")
 region = Rect2(0, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukgsk"]
+atlas = ExtResource("4_eor35")
+region = Rect2(0, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3j10"]
+atlas = ExtResource("4_eor35")
+region = Rect2(57, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hi0ce"]
+atlas = ExtResource("4_eor35")
+region = Rect2(114, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuh7w"]
+atlas = ExtResource("4_eor35")
+region = Rect2(171, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdin1"]
+atlas = ExtResource("4_eor35")
+region = Rect2(228, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ks1ar"]
+atlas = ExtResource("4_eor35")
+region = Rect2(285, 0, 57, 57)
 
 [resource]
 animations = [{
@@ -111,4 +136,27 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukgsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3j10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hi0ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uuh7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdin1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ks1ar")
+}],
+"loop": false,
+"name": &"KnockOut",
+"speed": 12.0
 }]

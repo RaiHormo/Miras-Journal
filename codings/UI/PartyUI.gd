@@ -30,6 +30,10 @@ func _process(delta):
 	#print(Loader.InBattle)
 	if Expanded:
 		handle_ui()
+	if Loader.InBattle and get_parent() is Control:
+		if get_parent().Action:
+			_check_party()
+	pass
 	if not Loader.InBattle:
 		if Expanded and $CanvasLayer/Leader.scale.x==1:
 			_on_expand()
@@ -68,7 +72,8 @@ func _check_party():
 func _input(ev):
 	if Input.is_key_pressed(KEY_E):
 		Loader.travel_to("Debug", Global.get_dir_letter(Global.PlayerDir))
-		#Item.add_key_item('LightweightAxe')
+	if Input.is_key_pressed(KEY_T):
+		DialogueManager.passive("testbush", "greetings")
 	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false:
 		if not held:
 			if Expanded == true:
@@ -163,6 +168,7 @@ func _on_expand():
 	#Menu
 	Expanded = true
 	await t.finished
+	$CanvasLayer/Cursor.show()
 	focus_now()
 
 func _on_shrink():
@@ -217,7 +223,6 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Member1/Aura/AruaText, "modulate", Color.TRANSPARENT, 0.4)
 	
 	t.tween_property($CanvasLayer/Leader, "position", Vector2(0,$CanvasLayer/Leader.position.y), 0.2)
-	t.tween_property($CanvasLayer/Member1, "position", Vector2(-70,$CanvasLayer/Member1.position.y), 0.2)
 	Expanded = false
 	await t.finished
 	$CanvasLayer/Page1.hide()

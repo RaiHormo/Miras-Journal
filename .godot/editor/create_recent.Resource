@@ -1,10 +1,10 @@
+Ability
+Resource
 State
 Actor
-Ability
 BattleSequence
 TextProfile
 ControlScheme
 PartyData
 ItemData
 AtlasTexture
-Resource

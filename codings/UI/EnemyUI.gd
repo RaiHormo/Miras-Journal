@@ -5,16 +5,19 @@ var t = Tween
 var lock = false
 
 func all_enemy_ui():
-	show()
+	Troop = get_parent().Troop
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)
+#	for i in Troop:
+#		print(i.FirstName)
 	$EnemyFocus.hide()
-	$Enemy0.show()
-	Troop = get_parent().Troop
-	make_box(Troop[0], $Enemy0)
-	t.tween_property($Enemy0, "position", Vector2(1055, 25), 0.2)
+	if Troop.size() != 0:
+		$Enemy0.show()
+		Troop = get_parent().Troop
+		make_box(Troop[0], $Enemy0)
+		t.tween_property($Enemy0, "position", Vector2(1055, 25), 0.2)
 	if Troop.size() >1:
 		if not has_node("Enemy1"):
 			var dub = get_child(0).duplicate()
@@ -33,33 +36,34 @@ func all_enemy_ui():
 			make_box(Troop[2], dub)
 		$Enemy2.show()
 		t.tween_property($Enemy2, "position", Vector2(1055, 355), 0.4)
-	CurEnemy= Troop[0]
-	make_box(Troop[0], $Enemy0)
-	make_box(Troop[0], $EnemyFocus)
-	_check_party()
+	if Troop.size() != 0:
+		CurEnemy= Troop[0]
+		make_box(Troop[0], $Enemy0)
+		make_box(Troop[0], $EnemyFocus)
+		_check_party()
 
 
 
 func _on_battle_ui_target_foc(cur):
-	t.kill()
+	#t.kill()
 	CurEnemy=cur
 	for i in get_children().size():
 		get_child(i).hide()
 	make_box(cur, $EnemyFocus)
 	$EnemyFocus.show()
-	
-	#$EnemyFocus/Name.text = cur.FirstName
-	#$EnemyFocus/Health.value = cur.Health
-	#$EnemyFocus/Health.max_value = cur.MaxHP
-	#$EnemyFocus/Icon.texture = cur.PartyIcon
+	$EnemyFocus/Name.text = cur.FirstName
+	$EnemyFocus/Health.value = cur.Health
+	$EnemyFocus/Health.max_value = cur.MaxHP
+	$EnemyFocus/Icon.texture = cur.PartyIcon
 
 func _check_party():
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUAD)
-	$Enemy0/Name.text = Troop[0].FirstName
-	t.tween_property($Enemy0/Health, "value",Troop[0].Health, 0.3)
+	if Troop.size() >= 0:
+		$Enemy0/Name.text = Troop[0].FirstName
+		t.tween_property($Enemy0/Health, "value",Troop[0].Health, 0.3)
 	$Enemy0/Health.max_value = Troop[0].MaxHP
 	if Troop.size() >= 2:
 		$Enemy1/Name.text = Troop[1].FirstName
@@ -79,6 +83,8 @@ func _check_party():
 	else:
 		$EnemyFocus/Health.value = CurEnemy.Health
 	$EnemyFocus/Icon.texture = CurEnemy.PartyIcon
+	if Troop.size() != 0:
+		make_box(Troop[0], $Enemy0)
 
 func _on_battle_ui_ability():
 	colapse_root()

@@ -18,3 +18,12 @@ Where to go?
 	do travel_to("TempleWoods", "U")
 
 => END
+
+~ greetings
+
+do portrait("MiraNeutural", true)
+Mira: Hello everyone! This is a passive textbox of sorts.[next=auto]
+do portrait("MiraOpenMouth", false)
+Mira: I can still move while saying this.[next=auto]
+
+=> END

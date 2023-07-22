@@ -1,14 +1,73 @@
 extends Node
 @onready var Bt :Battle = get_parent()
+var Char :Actor
+signal ai_chosen
 
 func ai():
-	if Bt.CurrentChar.NextAction == "":
-		#if Bt.CurrentChar.Abilities.size() == 0:
-			Bt._on_battle_ui_ability_returned(Bt.CurrentChar.StandardAttack, random_target())
-				
+	Char = Bt.CurrentChar 
+	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
+	HpSortedAllies.sort_custom(Bt.hp_sort)
+	for i in HpSortedAllies:
+		print(i.FirstName, " - ", i.Health)
+	if Char.NextAction == "":
+		print("AI")
+		#Checks if they have any abilities
+		if Char.Abilities.size() == 0:
+			print("No abilities, using standard attack")
+			choose(Char.StandardAttack)
+		#Checks if they can take out the enemy
+		#Checks if anyone needs healing
+		elif (float(HpSortedAllies[0].Health)/float(HpSortedAllies[0].MaxHP)*100) <= 50 and HpSortedAllies[0].Health != 0 and has_type(4):
+			print(HpSortedAllies[0].FirstName, " needs healing")
+			#4: Healing
+			choose(find_ability(4), HpSortedAllies[0])
+		else: 
+			print("Nothing else to do, using cheap attack")
+			choose(find_ability(0))
 
-func random_target():
-	if Bt.CurrentChar.IsEnemy:
-		return Bt.PartyArray[randi_range(0, Global.number_of_party_members() -1)]
+#Finds an ability of a certain type
+func find_ability(type:int):
+	print("Chosing a ", type, " ability")
+	var AblilityList:Array[Ability] = Char.Abilities
+	AblilityList.push_front(Char.StandardAttack)
+	var Choices:Array[Ability] = []
+	for i in AblilityList:
+		if i.Type == type:
+			Choices.push_front(i)
+			print(i.name)
+	if Choices.is_empty():
+		print("I have no ", type,", using standard attack")
+		choose(Char.StandardAttack)
 	else:
-		return Bt.Troop[randi_range(0, Bt.Troop.size() -1)]
+		return Choices.pick_random()
+
+#Checks if they have an ability of a certain type
+func has_type(type:int):
+	print("checking if i have a ", type)
+	var AblilityList:Array[Ability] = Char.Abilities
+	AblilityList.push_back(Char.StandardAttack)
+	var Choices:Array[Ability]
+	for i in AblilityList:
+		if i.Type == type:
+			print("I do")
+			return true
+	print("i do not")
+	return false
+	
+func choose(ab:Ability, tar:Actor=null):
+	if Char.NextTarget==null and tar==null:
+		if ab.Target==1:
+			Char.NextTarget = Bt.get_oposing_faction(Char).pick_random()
+		if ab.Target==3:
+			Char.NextTarget = Bt.get_ally_faction(Char).pick_random()
+	elif Char.NextTarget==null:
+		Char.NextTarget = tar
+	if ab == Char.StandardAttack:
+		Char.NextAction = "Attack"
+	else: 
+		Char.NextAction = "Ability"
+	Char.NextMove=ab
+	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
+	ai_chosen.emit()
+
+

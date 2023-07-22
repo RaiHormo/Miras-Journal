@@ -3,7 +3,7 @@ extends Control
 var item : ItemData
 var ind
 @onready var panel = $Can/Panel
-@onready var t :Tween = get_tree().create_tween()
+@onready var t :Tween
 signal pickup
 
 func _ready():

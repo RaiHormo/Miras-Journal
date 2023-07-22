@@ -57,39 +57,40 @@ libraries = {
 [node name="Can" type="CanvasLayer" parent="."]
 layer = 9
 
-[node name="Down" type="Panel" parent="Can"]
+[node name="Bars" type="CanvasGroup" parent="Can"]
+position = Vector2(-201, -1096)
+
+[node name="Down" type="Panel" parent="Can/Bars"]
 light_mask = 16
-offset_left = -235.0
-offset_top = 786.0
-offset_right = 1490.0
-offset_bottom = 1786.0
+offset_left = -34.0
+offset_top = 1882.0
+offset_right = 1691.0
+offset_bottom = 2882.0
 rotation = 0.0641833
 theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
 
-[node name="Up" type="Panel" parent="Can"]
+[node name="Up" type="Panel" parent="Can/Bars"]
 light_mask = 16
-offset_left = -201.0
-offset_top = -1096.0
-offset_right = 1524.0
-offset_bottom = -96.0002
+offset_right = 1725.0
+offset_bottom = 1000.0
 rotation = 0.0641833
 theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
 
-[node name="Right" type="Panel" parent="Can"]
+[node name="Right" type="Panel" parent="Can/Bars"]
 light_mask = 16
-offset_left = 1394.0
-offset_top = -177.0
-offset_right = 3119.0
-offset_bottom = 823.0
+offset_left = 1595.0
+offset_top = 919.0
+offset_right = 3320.0
+offset_bottom = 1919.0
 rotation = 0.112435
 theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
 
-[node name="Left" type="Panel" parent="Can"]
+[node name="Left" type="Panel" parent="Can/Bars"]
 light_mask = 16
-offset_left = -1720.0
-offset_top = -204.0
-offset_right = 5.0
-offset_bottom = 796.0
+offset_left = -1519.0
+offset_top = 892.0
+offset_right = 206.0
+offset_bottom = 1892.0
 rotation = 0.112435
 theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
 

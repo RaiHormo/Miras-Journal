@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="5_83x0w"]
 [ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="8_q42xb"]
+[ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="8_iew0v"]
 [ext_resource type="PackedScene" uid="uid://dh64f5bodshv7" path="res://UI/Party/PartyUI.tscn" id="9_swjrk"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
@@ -449,8 +449,10 @@ script = ExtResource("6_yeldr")
 light_mask = 16
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
-sprite_frames = ExtResource("8_q42xb")
-animation = &"Ability"
+sprite_frames = ExtResource("8_iew0v")
+animation = &"Entrance"
+frame = 9
+frame_progress = 1.0
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
@@ -962,6 +964,20 @@ theme = SubResource("Theme_wxbdf")
 [node name="AI" type="Node" parent="."]
 script = ExtResource("24_7iq6m")
 
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Callout" type="Label" parent="Canvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = -164.0
+offset_right = 658.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 100
+text = "Ability Name"
+
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="PartyUI" method="_check_party"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
@@ -982,3 +998,4 @@ script = ExtResource("24_7iq6m")
 [connection signal="pressed" from="BattleUI/Attack" to="BattleUI" method="_on_attack_pressed"]
 [connection signal="pressed" from="BattleUI/Item" to="BattleUI" method="_on_item_pressed"]
 [connection signal="pressed" from="BattleUI/Command" to="BattleUI" method="_on_command_pressed"]
+[connection signal="ai_chosen" from="AI" to="." method="_on_ai_chosen"]

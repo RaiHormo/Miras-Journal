@@ -12,6 +12,8 @@ const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
 const DialogueSettings = preload("res://addons/dialogue_manager/components/settings.gd")
 const DialogueLine = preload("res://addons/dialogue_manager/dialogue_line.gd")
 const DialogueResponse = preload("res://addons/dialogue_manager/dialogue_response.gd")
+const Textbox2 = preload("res://codings/Textbox2.tscn")
+const Passive = preload("res://codings/Passive.tscn")
 
 const SUPPORTED_ARRAY_METHODS = [
 	"assign",
@@ -183,15 +185,21 @@ func show_example_dialogue_balloon(resource: DialogueResource, title: String = "
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(resource, title, extra_game_states)
 
-## Show the custom balloon
-func textbox(resource: DialogueResource, title: String = "0", extra_game_states: Array = []) -> void:
-	var ExampleBalloonScene = load("res://database/Text/Textbox2.tscn")
-	var SmallExampleBalloonScene = load("res://database/Text/passive.tscn")
 
-	var is_small_window: bool = ProjectSettings.get_setting("display/window/size/viewport_width") < 400
-	var balloon: Node = (SmallExampleBalloonScene if is_small_window else ExampleBalloonScene).instantiate()
+## Show the custom balloon
+func textbox(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+	Loader.load_text("res://database/Text/" + file + ".dialogue")
+	await Loader.text_loaded
+	var balloon: Node = Textbox2.instantiate()
 	get_tree().current_scene.add_child(balloon)
-	balloon.start(resource, title, extra_game_states)
+	balloon.start(ResourceLoader.load_threaded_get("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+
+func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+	Loader.load_text("res://database/Text/" + file + ".dialogue")
+	await Loader.text_loaded
+	var balloon: Node = Passive.instantiate()
+	get_tree().current_scene.add_child(balloon)
+	balloon.start(ResourceLoader.load_threaded_get("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 
 ## Testample
 func testample(resource: DialogueResource, title: String = "0", extra_game_states: Array = []) -> void:

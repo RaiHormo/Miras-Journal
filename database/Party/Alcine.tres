@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://5dk5u2y85kai"]
 
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/sheets/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/JumpAttack.tres" id="1_60slf"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_o1wey"]
+[ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_0v1ap"]
 
@@ -15,7 +17,7 @@ FirstName = "Alcine"
 LastName = ""
 IsEnemy = false
 WeaponType = "Water Whip"
-Controllable = true
+Controllable = false
 StatsVisible = false
 PartyIcon = ExtResource("1_by5ga")
 RenderArtwork = SubResource("ImageTexture_0v1ap")
@@ -34,7 +36,7 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_60slf")])
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_60slf"), ExtResource("2_2vyew")])
 StandardAttack = ExtResource("1_60slf")
 AttackMultiplier = 1.0
 DefenceMultiplier = 1.0
@@ -44,5 +46,7 @@ OV = ExtResource("1_3dlsp")
 BT = ExtResource("1_8ee1b")
 Offset = Vector2(0, 0)
 Shadow = false
+SoundSet = ExtResource("6_bqqs6")
+Disappear = false
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

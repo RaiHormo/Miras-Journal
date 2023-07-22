@@ -184,6 +184,11 @@ func _input(event):
 					TargetIndex += 1
 				else:
 					TargetIndex = 0
+				while Troop[TargetIndex].has_state("Knocked Out"):
+					if TargetIndex!=Troop.size() -1:
+						TargetIndex += 1
+					else:
+						TargetIndex = 0
 				Global.cursor_sound()
 				move_menu()
 			if Input.is_action_just_pressed("ui_up") and active:
@@ -195,6 +200,11 @@ func _input(event):
 				else:
 					TargetIndex = Troop.size() -1
 				Global.cursor_sound()
+				while Troop[TargetIndex].has_state("Knocked Out"):
+					if TargetIndex!=0:
+						TargetIndex -= 1
+					else:
+						TargetIndex = Troop.size() -1
 				move_menu()
 		if stage == "ability":
 			if Input.is_action_just_pressed(Global.cancel()):
@@ -321,6 +331,7 @@ func close():
 	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
+	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
 	get_parent().get_node("PartyUI").battle_state()
 	await t.finished
 	hide()
@@ -368,8 +379,14 @@ func get_target():
 		LastTarget = Troop[0]
 		TargetIndex = 0
 	target = LastTarget
+	while Troop[TargetIndex].has_state("Knocked Out") or Troop[TargetIndex].node ==null:
+		if TargetIndex!=Troop.size() -1:
+			TargetIndex += 1
+		else:
+			TargetIndex = 0
+	target = Troop[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
-	t.tween_property(Cam, "position", Vector2(50, target.node.position.y /2), 0.5)
+	t.tween_property(Cam, "position", Vector2(50, target.node.position.y /4), 0.5)
 	emit_signal('targetFoc', Troop[TargetIndex])
 	await t.finished
 	active = true
@@ -388,7 +405,7 @@ func move_menu():
 	if stage == "target":
 		target= Troop[TargetIndex]
 		t.set_parallel()
-		t.tween_property(Cam, "position", Vector2(50, target.node.position.y/2), 0.3)
+		t.tween_property(Cam, "position", Vector2(50, target.node.position.y/5), 0.5)
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', Troop[TargetIndex])

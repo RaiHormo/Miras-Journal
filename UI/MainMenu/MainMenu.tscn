@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=17 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://c6j7fjr2kcrd4" path="res://UI/MainMenu/MenuBaseOpen.png" id="2_x5brf"]
@@ -74,6 +74,50 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="Curve2D" id="Curve2D_v64sb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 10, 1, 197, -90.9699, 29.7536, 90.9699, -29.7536, 109, 30, -82.9405, -116.087, 82.9405, 116.087, 347, 97, 86.129, -25.7953, -86.129, 25.7953, 241, 374, 0, 0, 0, 0, 98, 353)
+}
+point_count = 5
+
+[sub_resource type="Theme" id="Theme_3lo81"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvtq8"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejomh"]
+content_margin_left = 32.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -91,3 +135,92 @@ sprite_frames = SubResource("SpriteFrames_5gyu0")
 animation = &"Open"
 frame = 8
 frame_progress = 1.0
+
+[node name="Rail" type="Path2D" parent="Can"]
+position = Vector2(458, 235)
+curve = SubResource("Curve2D_v64sb")
+
+[node name="JournalFollow" type="PathFollow2D" parent="Can/Rail"]
+position = Vector2(333.351, 78.8939)
+progress = 460.0
+rotates = false
+
+[node name="JournalButton" type="Button" parent="Can/Rail/JournalFollow"]
+offset_left = -90.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+pivot_offset = Vector2(31.8671, 30.1991)
+focus_mode = 1
+theme = SubResource("Theme_3lo81")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+text = "Journal"
+text_overrun_behavior = 1
+clip_text = true
+
+[node name="ItemFollow" type="PathFollow2D" parent="Can/Rail"]
+position = Vector2(377.481, 194.767)
+progress = 587.0
+rotates = false
+
+[node name="ItemButton" type="Button" parent="Can/Rail/ItemFollow"]
+offset_left = -90.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+pivot_offset = Vector2(31.8671, 30.1991)
+focus_mode = 1
+theme = SubResource("Theme_3lo81")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+text = "Item"
+text_overrun_behavior = 1
+clip_text = true
+
+[node name="QuestFollow" type="PathFollow2D" parent="Can/Rail"]
+position = Vector2(333.607, 306.457)
+progress = 709.0
+rotates = false
+
+[node name="QuestButton" type="Button" parent="Can/Rail/QuestFollow"]
+offset_left = -90.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+pivot_offset = Vector2(31.8671, 30.1991)
+focus_mode = 1
+theme = SubResource("Theme_3lo81")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+text = "Quest"
+text_overrun_behavior = 1
+clip_text = true
+
+[node name="OptionsFollow" type="PathFollow2D" parent="Can/Rail"]
+position = Vector2(248.871, 371.357)
+rotation = -6.28319
+progress = 817.0
+rotates = false
+
+[node name="OptionsButton" type="Button" parent="Can/Rail/OptionsFollow"]
+offset_left = -90.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+pivot_offset = Vector2(31.8671, 30.1991)
+focus_mode = 1
+theme = SubResource("Theme_3lo81")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+text = "Options"
+text_overrun_behavior = 1
+clip_text = true

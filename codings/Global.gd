@@ -100,7 +100,9 @@ func is_in_party(n):
 func portrait(img, redraw):
 	portrait_redraw = redraw
 	hasPortrait=true
-	portraitimg = load("res://art/Portraits/" + img + ".png")
+	Loader.load_text("res://art/Portraits/" + img + ".png")
+	await Loader.text_loaded
+	portraitimg = ResourceLoader.load_threaded_get("res://art/Portraits/" + img + ".png")
 
 func portrait_clear():
 	hasPortrait=false

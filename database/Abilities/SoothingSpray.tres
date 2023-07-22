@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://jbe4kiixyygg"]
+
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_0kql8"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_c3dck"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7so8r"]
+atlas = ExtResource("1_c3dck")
+region = Rect2(126, 18, 18, 18)
+
+[resource]
+script = ExtResource("1_0kql8")
+name = "Soothing Spray"
+description = "Heals a small amount of HP to one ally"
+Icon = SubResource("AtlasTexture_7so8r")
+ActionSequence = &"SoothingSpray"
+Type = 4
+AuraCost = 5
+HPCost = 0
+Damage = 1
+Target = 3
+WheelColor = Color(1, 1, 1, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0

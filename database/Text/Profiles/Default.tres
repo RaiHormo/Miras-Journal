@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=5 format=3 uid="uid://kc23d8ih5v7u"]
+[gd_resource type="Resource" script_class="TextProfile" load_steps=6 format=3 uid="uid://kc23d8ih5v7u"]
 
 [ext_resource type="Script" path="res://database/Text/Profiles/profile_data.gd" id="1_ggwfs"]
+[ext_resource type="AudioStream" uid="uid://dsw7oimwbyrq8" path="res://sound/SFX/thonk.ogg" id="1_qai8k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5sl2"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -46,5 +47,6 @@ Border2 = SubResource("StyleBoxFlat_wyes3")
 Bord2 = Color(0.584314, 0.584314, 0.584314, 1)
 Border3 = SubResource("StyleBoxFlat_misl1")
 Bord3 = Color(0.305882, 0.305882, 0.305882, 1)
+TextSound = ExtResource("1_qai8k")
 AudioFrequency = 4
 PitchVariance = 1.0

@@ -8,7 +8,7 @@ var Turn: int
 @onready var Cam :Camera2D = get_parent().get_child(2)
 @onready var Bt :Battle = get_parent()
 @onready var t: Tween
-var target
+var target:Actor
 
 func play(nam, tar):
 	TurnOrder = get_parent().TurnOrder
@@ -21,6 +21,7 @@ func play(nam, tar):
 	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(self, "position", position, 0)
 	#t.tween_property(Cam, "position", CurrentChar.node.global_position  - Vector2(Bt.offsetize(-40),0), 0.1)
 	#swdsst.parallel().tween_property(Cam, "zoom", Vector2(5,5), 0.1)
 	call(nam)
@@ -42,7 +43,7 @@ func handle_states():
 
 func AttackMira():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
-	t.parallel().tween_property(Cam, "position", target.node.global_position - Vector2(Bt.offsetize(30), 0), 0.5)
+	Bt.focus_cam(target, 0.5, 30)
 	CurrentChar.node.play("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
@@ -59,7 +60,7 @@ func AttackMira():
 	
 func JumpAttack():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
-	t.parallel().tween_property(Cam, "position", target.node.global_position  - Vector2(Bt.offsetize(30),0), 0.5)
+	Bt.focus_cam(target, 0.5, 30)
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 	await Bt.anim_done
 	Bt.play_sound("Attack2", CurrentChar)
@@ -75,9 +76,18 @@ func Guard():
 	Bt.pop_num(CurrentChar, "Guarding")
 	CurrentChar.DefenceMultiplier += 1
 	CurrentChar.node.play("Idle")
-	t.parallel().tween_property(Cam, "position", CurrentChar.node.global_position  - Vector2(Bt.offsetize(-40),0), 0.3)
+	Bt.focus_cam(CurrentChar)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_color", Bt.CurrentChar.MainColor)
 	CurrentChar.add_state("Guarding")
 	await t.finished
+	Bt.end_turn()
+
+func SoothingSpray():
+	CurrentChar.node.play("Cast")
+	t.parallel().tween_property(Cam, "zoom", Vector2(5,5), 1)
+	Bt.focus_cam(target, 1)
+	Bt.heal(target)
+	await CurrentChar.node.animation_finished
+	CurrentChar.node.play("Idle")
 	Bt.end_turn()

@@ -10,7 +10,7 @@ signal action()
 @export var item: String
 @export var hidesprite: bool = false
 @export var itemtype: String
-const Textbox = preload("res://database/Text/Textbox2.tscn")
+const Textbox = preload("res://codings/Textbox2.tscn")
 var CanInteract = false
 var t=Tween
 
@@ -71,8 +71,7 @@ func _on_button_pressed():
 			emit_signal("action")
 	if ActionType=="text":
 		Global.Controllable = false
-		await get_tree().create_timer(0.2).timeout
-		DialogueManager.textbox(load("res://database/Text/" + file + ".dialogue"), title)
+		DialogueManager.textbox(file, title)
 		await DialogueManager.dialogue_ended
 		PartyUI.UIvisible = true
 		Global.Controllable = true

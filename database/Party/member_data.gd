@@ -60,10 +60,12 @@ class_name Actor
 @export var Offset: Vector2 = Vector2.ZERO
 @export var Shadow: bool = false
 @export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
+@export var Disappear: bool
 
 @export_group("Battle params")
 @export var NextAction: String = ""
-@export var NextMove: Resource
+@export var NextMove: Resource = null
+@export var NextTarget: Actor = null
 @export var node : AnimatedSprite2D
 @export var States: Array[State]
 

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_uh23e")
-name = "Kocked Out"
+name = "Knocked Out"
 Description = "Cannot act at all."
 RemovedAfterTurns = false
 turns = 0
