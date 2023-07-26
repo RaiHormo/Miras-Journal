@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dt3173m0fj781"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ugs2e"]
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_vs1ax"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gutkw"]
+atlas = ExtResource("1_ugs2e")
+region = Rect2(0, 0, 18, 18)
+
+[resource]
+script = ExtResource("1_vs1ax")
+name = ""
+description = "Flame Spark"
+Icon = SubResource("AtlasTexture_gutkw")
+ActionSequence = &"FlameSpark"
+Type = 5
+AuraCost = 5
+HPCost = 0
+Damage = 1
+Target = 1
+WheelColor = Color(0, 0, 0, 1)
+Callout = true
+SucessChance = 0.8
+CritChance = 0.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=34 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_dogj7"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_7yih5"]
@@ -41,10 +41,6 @@ corner_detail = 4
 ProgressBar/styles/background = SubResource("StyleBoxFlat_m5kvw")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_21psf")
 
-[sub_resource type="LabelSettings" id="LabelSettings_otaj6"]
-font_size = 15
-font_color = Color(0.858824, 0.317647, 0.278431, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyuo7"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_radius_top_left = 9
@@ -60,10 +56,6 @@ corner_detail = 4
 [sub_resource type="Theme" id="Theme_t8etm"]
 ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
-
-[sub_resource type="LabelSettings" id="LabelSettings_kl8g4"]
-font_size = 15
-font_color = Color(0.878431, 0.682353, 0.517647, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2t2lh"]
 
@@ -153,10 +145,6 @@ corner_detail = 4
 ProgressBar/styles/background = SubResource("StyleBoxFlat_ki2fs")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ulk57")
 
-[sub_resource type="LabelSettings" id="LabelSettings_ddpd1"]
-font_size = 15
-font_color = Color(0.443137, 0.384314, 0.65098, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an4ms"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_radius_top_left = 9
@@ -172,10 +160,6 @@ corner_detail = 4
 [sub_resource type="Theme" id="Theme_qmrca"]
 ProgressBar/styles/background = SubResource("StyleBoxFlat_an4ms")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_017ft")
-
-[sub_resource type="LabelSettings" id="LabelSettings_wbeks"]
-font_size = 15
-font_color = Color(0.501961, 0.690196, 0.533333, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tad4t"]
 line_spacing = 5.0
@@ -239,8 +223,8 @@ offset_left = 117.738
 offset_top = 7.08405
 offset_right = 156.738
 offset_bottom = 33.084
+theme_override_font_sizes/font_size = 15
 text = "13"
-label_settings = SubResource("LabelSettings_otaj6")
 
 [node name="Health" type="ProgressBar" parent="CanvasLayer/Leader"]
 z_index = 1
@@ -257,11 +241,11 @@ show_percentage = false
 [node name="HpText" type="Label" parent="CanvasLayer/Leader/Health"]
 layout_mode = 0
 offset_left = 118.383
-offset_top = -6.6651
+offset_top = -5.99843
 offset_right = 157.383
-offset_bottom = 19.3349
+offset_bottom = 20.0016
+theme_override_font_sizes/font_size = 15
 text = "70"
-label_settings = SubResource("LabelSettings_kl8g4")
 
 [node name="Name" type="Label" parent="CanvasLayer/Leader"]
 layout_mode = 0
@@ -358,8 +342,8 @@ offset_left = 117.738
 offset_top = 7.75071
 offset_right = 156.738
 offset_bottom = 33.7507
+theme_override_font_sizes/font_size = 15
 text = "13"
-label_settings = SubResource("LabelSettings_ddpd1")
 
 [node name="Health" type="ProgressBar" parent="CanvasLayer/Member1"]
 z_index = 1
@@ -379,8 +363,8 @@ offset_left = 118.379
 offset_top = -5.33972
 offset_right = 157.379
 offset_bottom = 20.6603
+theme_override_font_sizes/font_size = 15
 text = "70"
-label_settings = SubResource("LabelSettings_wbeks")
 
 [node name="Name" type="Label" parent="CanvasLayer/Member1"]
 layout_mode = 0

@@ -130,7 +130,6 @@ func battle_bars(x: int):
 	$Can.layer = 0
 	$Can/Bars/Down.show()
 	$Can/Bars/Up.show()
-	t.kill()
 	t=create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN_OUT)

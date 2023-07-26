@@ -45,16 +45,18 @@ func all_enemy_ui():
 
 
 func _on_battle_ui_target_foc(cur):
-	#t.kill()
 	CurEnemy=cur
 	for i in get_children().size():
 		get_child(i).hide()
 	make_box(cur, $EnemyFocus)
 	$EnemyFocus.show()
 	$EnemyFocus/Name.text = cur.FirstName
-	$EnemyFocus/Health.value = cur.Health
-	$EnemyFocus/Health.max_value = cur.MaxHP
+	if not lock:
+		$EnemyFocus/Health.value = cur.Health
+		$EnemyFocus/Health.max_value = cur.MaxHP
 	$EnemyFocus/Icon.texture = cur.PartyIcon
+	$EnemyFocus/Health/HpText.add_theme_color_override("font_outline_color", CurEnemy.MainColor)
+	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
 
 func _check_party():
 	t = create_tween()
@@ -75,6 +77,7 @@ func _check_party():
 		$Enemy2/Health.max_value = Troop[2].MaxHP
 	$EnemyFocus/Name.text = CurEnemy.FirstName
 	$EnemyFocus/Health.max_value = CurEnemy.MaxHP
+	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
 	if CurEnemy!=get_parent().CurrentChar and lock == false:
 		lock = true
 		t.tween_property($EnemyFocus/Health, "value",CurEnemy.Health, 0.3)

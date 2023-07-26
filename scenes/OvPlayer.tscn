@@ -17,6 +17,7 @@ distance = 30
 offset_right = 0.0
 
 [node name="Body" parent="." instance=ExtResource("4_pg2wh")]
+process_mode = 3
 
 [node name="Camera2D" type="Camera2D" parent="Body"]
 zoom = Vector2(4, 4)
@@ -24,3 +25,11 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
+
+[node name="Fader" type="ColorRect" parent="Body"]
+show_behind_parent = true
+offset_left = -161.0
+offset_top = -101.0
+offset_right = 161.0
+offset_bottom = 101.0
+color = Color(0, 0, 0, 0)

@@ -8,8 +8,7 @@
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
-
-[sub_resource type="ImageTexture" id="ImageTexture_0v1ap"]
+[ext_resource type="Texture2D" uid="uid://bowbrndoc5x74" path="res://art/Renders/Alcine.png" id="7_4k312"]
 
 [resource]
 script = ExtResource("1_o1wey")
@@ -17,10 +16,10 @@ FirstName = "Alcine"
 LastName = ""
 IsEnemy = false
 WeaponType = "Water Whip"
-Controllable = false
+Controllable = true
 StatsVisible = false
 PartyIcon = ExtResource("1_by5ga")
-RenderArtwork = SubResource("ImageTexture_0v1ap")
+RenderArtwork = ExtResource("7_4k312")
 AuraHue = 1
 MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
@@ -36,7 +35,7 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_60slf"), ExtResource("2_2vyew")])
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("2_2vyew")])
 StandardAttack = ExtResource("1_60slf")
 AttackMultiplier = 1.0
 DefenceMultiplier = 1.0

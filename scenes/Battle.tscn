@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=76 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -417,6 +417,12 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_wxbdf"]
 Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
+
+[sub_resource type="Theme" id="Theme_2lgx1"]
+Label/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/constants/outline_size = 7
+Label/font_sizes/font_size = 14
 
 [node name="Battle" type="Control"]
 process_mode = 3
@@ -896,7 +902,6 @@ offset_bottom = 89.0
 theme = SubResource("Theme_wxbdf")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI"]
-visible = false
 texture_filter = 2
 offset_left = 980.0
 offset_top = 30.0
@@ -924,6 +929,15 @@ value = 75.0
 rounded = true
 allow_greater = true
 show_percentage = false
+
+[node name="HpText" type="Label" parent="EnemyUI/EnemyFocus/Health"]
+layout_mode = 0
+offset_left = 5.37921
+offset_top = -0.00637436
+offset_right = 44.3792
+offset_bottom = 25.9936
+theme = SubResource("Theme_2lgx1")
+text = "70"
 
 [node name="Name" type="Label" parent="EnemyUI/EnemyFocus"]
 layout_mode = 0

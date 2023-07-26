@@ -283,6 +283,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	if ab.ActionSequence != &"":
 		if CurrentAbility.Callout and CurrentChar.Controllable:
 			callout()
+		CurrentChar.add_aura(-CurrentAbility.AuraCost)
 		$Act.play(ab.ActionSequence, CurrentTarget)
 	else:
 		end_turn()
@@ -390,10 +391,10 @@ func calc_num():
 func play_effect(stri: String, tar):
 	tar.node.get_child(2).play(stri)
 	
-func offsetize(num):
-	if CurrentAbility.Target == 0:
+func offsetize(num, target=CurrentChar):
+	if CurrentAbility != null and CurrentAbility.Target == 0:
 		return 0
-	if CurrentChar.IsEnemy:
+	if target.IsEnemy:
 		return -num
 	else:
 		return num
@@ -445,11 +446,11 @@ func death(target:Actor):
 			Troop.erase(target)
 			TurnOrder.erase(target)
 
-func get_ally_faction(act: Actor):
+func get_ally_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return Troop
 	else: return PartyArray
 
-func get_oposing_faction(act: Actor):
+func get_oposing_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return PartyArray
 	else: return Troop
 

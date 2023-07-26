@@ -22,6 +22,8 @@ var tweendone = true
 var MenuIndex = 0
 var Abilities: Array[Ability]
 var PrevStage= "root"
+var TargetFaction
+@onready var Bt :Battle = get_parent()
 
 func _ready():
 	t = create_tween()
@@ -50,7 +52,7 @@ func _on_battle_get_control():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	Loader.battle_bars(1)
-	get_parent().Action = false
+	Bt.Action = false
 	show()
 	stage = "root"
 	PrevStage= "root"
@@ -58,10 +60,10 @@ func _on_battle_get_control():
 	$Item.show()
 	$Command.show()
 	$Ability.show()
-	Troop = get_parent().Troop
-	TurnOrder = get_parent().TurnOrder
-	CurrentChar = get_parent().CurrentChar
-	Party = get_parent().Party
+	Troop = Bt.Troop
+	TurnOrder = Bt.TurnOrder
+	CurrentChar = Bt.CurrentChar
+	Party = Bt.Party
 	position = CurrentChar.node.position
 	if CurrentChar.FirstName == "Mira":
 		$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
@@ -75,16 +77,17 @@ func _on_battle_get_control():
 	for n in $AbilityUI/Margin/Scroller/List.get_children():
 		$AbilityUI/Margin/Scroller/List.remove_child(n)
 		n.queue_free()
-	for i in Abilities.size():
+	for i in Abilities:
 		dub = dub.duplicate()
-		dub.name = "Item" + str(i)
 		$AbilityUI/Margin/Scroller/List.add_child(dub)
-		dub.text = Abilities[i].name
-		dub.icon = Abilities[i].Icon
-		if Abilities[i].AuraCost != 0:
-			dub.get_child(0).text = str(Abilities[i].AuraCost)
+		dub.text = i.name
+		dub.icon = i.Icon
+		if i.AuraCost != 0:
+			dub.get_child(0).text = str(i.AuraCost)
+			dub.get_child(0).show()
 		else:
 			dub.get_child(0).hide()
+		dub.name = "Item" + str(dub.get_index(true))
 	
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
@@ -119,7 +122,7 @@ func _on_root():
 	t.set_parallel()
 	stage = "root"
 	PrevStage= "root"
-	get_parent().get_node("EnemyUI").all_enemy_ui()
+	Bt.get_node("EnemyUI").all_enemy_ui()
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
 	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
 	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
@@ -147,6 +150,7 @@ func _on_root():
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", -600, 0.3).as_relative()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.5)
@@ -167,46 +171,46 @@ func _input(event):
 				attack.emit()
 			if Input.is_action_just_pressed("BtAbility"):
 				ability.emit()
-		if stage == "target":
+		elif stage == "target":
 			if Input.is_action_just_pressed(Global.confirm()):
 				Global.confirm_sound()
 				targeted.emit()
 				close()
 			if Input.is_action_just_pressed(Global.cancel()):
-				if PrevStage != stage:
+#				if PrevStage != stage:
 						Global.cancel_sound()
 						emit_signal(PrevStage)
 			if Input.is_action_just_pressed("ui_down") and active:
-				if Troop.size() == 1:
+				if TargetFaction.size() == 1:
 					Global.buzzer_sound()
 					return
-				if TargetIndex!=Troop.size() -1:
+				if TargetIndex!=TargetFaction.size() -1:
 					TargetIndex += 1
 				else:
 					TargetIndex = 0
-				while Troop[TargetIndex].has_state("Knocked Out"):
-					if TargetIndex!=Troop.size() -1:
+				while TargetFaction[TargetIndex].has_state("Knocked Out"):
+					if TargetIndex!=TargetFaction.size() -1:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
 				Global.cursor_sound()
 				move_menu()
 			if Input.is_action_just_pressed("ui_up") and active:
-				if Troop.size() == 1:
+				if TargetFaction.size() == 1:
 					Global.buzzer_sound()
 					return
 				if TargetIndex!=0:
 					TargetIndex -= 1
 				else:
-					TargetIndex = Troop.size() -1
+					TargetIndex = TargetFaction.size() -1
 				Global.cursor_sound()
-				while Troop[TargetIndex].has_state("Knocked Out"):
+				while TargetFaction[TargetIndex].has_state("Knocked Out"):
 					if TargetIndex!=0:
 						TargetIndex -= 1
 					else:
-						TargetIndex = Troop.size() -1
+						TargetIndex = TargetFaction.size() -1
 				move_menu()
-		if stage == "ability":
+		elif stage == "ability":
 			if Input.is_action_just_pressed(Global.cancel()):
 				CurrentChar.node.play("Idle")
 				Global.cancel_sound()
@@ -216,7 +220,11 @@ func _input(event):
 				if Abilities[MenuIndex].Target == 1:
 					PrevStage="ability"
 					stage = "target"
-					get_target()
+					get_target(Bt.get_oposing_faction())
+				if Abilities[MenuIndex].Target == 3:
+					PrevStage="ability"
+					stage = "target"
+					get_target(Bt.get_ally_faction())
 				if Abilities[MenuIndex].Target == 0:
 					emit_signal("ability_returned", Abilities[MenuIndex], CurrentChar)
 					close()
@@ -244,9 +252,10 @@ func _input(event):
 func _on_attack():
 	Global.confirm_sound()
 	stage="attack"
+	PrevStage="root"
 	CurrentChar.NextAction = "attack"
 	active = false
-	get_target()
+	get_target(Bt.get_oposing_faction())
 	CurrentChar.NextMove = CurrentChar.StandardAttack
 	#await targeted
 	
@@ -332,7 +341,7 @@ func close():
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
-	get_parent().get_node("PartyUI").battle_state()
+	Bt.get_node("PartyUI").battle_state()
 	await t.finished
 	hide()
 
@@ -346,13 +355,13 @@ func _on_item_pressed():
 func _on_command_pressed():
 	command.emit()
 
-func get_target():
+func get_target(faction:Array[Actor]):
+	TargetFaction = faction
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
-	
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
@@ -375,19 +384,20 @@ func get_target():
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
-	if not LastTarget in Troop:
-		LastTarget = Troop[0]
+	
+	if not LastTarget in faction:
+		LastTarget = faction[0]
 		TargetIndex = 0
 	target = LastTarget
-	while Troop[TargetIndex].has_state("Knocked Out") or Troop[TargetIndex].node ==null:
-		if TargetIndex!=Troop.size() -1:
+	while faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node ==null:
+		if TargetIndex!=faction.size() -1:
 			TargetIndex += 1
 		else:
 			TargetIndex = 0
-	target = Troop[TargetIndex]
+	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
-	t.tween_property(Cam, "position", Vector2(50, target.node.position.y /4), 0.5)
-	emit_signal('targetFoc', Troop[TargetIndex])
+	t.tween_property(Cam, "position", Vector2(Bt.offsetize(-50, target), target.node.position.y /4), 0.5)
+	emit_signal('targetFoc', faction[TargetIndex])
 	await t.finished
 	active = true
 	stage = "target"
@@ -403,12 +413,12 @@ func move_menu():
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	if stage == "target":
-		target= Troop[TargetIndex]
+		target= TargetFaction[TargetIndex]
 		t.set_parallel()
-		t.tween_property(Cam, "position", Vector2(50, target.node.position.y/5), 0.5)
+		t.tween_property(Cam, "position", Vector2(Bt.offsetize(-50, target), target.node.position.y/5), 0.5)
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
-		emit_signal('targetFoc', Troop[TargetIndex])
+		emit_signal('targetFoc', TargetFaction[TargetIndex])
 		await get_tree().create_timer(0.2).timeout
 	if stage == "ability":
 		await get_tree().create_timer(0.001).timeout
@@ -420,20 +430,20 @@ func move_menu():
 			t.tween_property($AbilityUI/Margin/Scroller, "scroll_vertical", 80 + (MenuIndex-6) *70, 0.2)
 		#print(MenuIndex)
 		$DescPaper/Desc.text = Abilities[MenuIndex].description
+		$DescPaper/Title.text = Abilities[MenuIndex].name
 		CurrentChar.NextMove = CurrentChar.Abilities[MenuIndex]
 		if Abilities[MenuIndex].AuraCost != 0:
 			$DescPaper/Cost.text = str("Cost ", str(Abilities[MenuIndex].AuraCost))
 			$DescPaper/Cost.show()
 		else:
 			$DescPaper/Cost.hide()
-	$DescPaper/Title.text = Abilities[MenuIndex].name
 	active= true
 	tweendone = true
 	
 
 
 func _on_battle_next_turn():
-	if not get_parent().CurrentChar.Controllable:
+	if not Bt.CurrentChar.Controllable:
 		hide()
 		active = false
 

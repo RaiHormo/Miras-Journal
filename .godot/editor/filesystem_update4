@@ -1,4 +1,4 @@
-res://scenes/Battle.tscn
+res://UI/Party/PartyUI.tscn
 res://art/BT/Mira/MiraBT.tres
 res://database/Abilities/Guard.tres
 res://database/Text/Profiles/Mira.tres
@@ -16,14 +16,14 @@ res://scenes/Shaders/Unshaded.gdshader
 res://codings/Interactable.gd
 res://art/sheets/AlcineOV1.tres
 res://scenes/Shaders/Actor.gdshader
-res://UI/MainMenu/MainMenu.tscn
-res://UI/MainMenu/MainMenu.gd
-res://UI/Party/PartyUI.tscn
+res://codings/UI/PartyUI.gd
 res://scenes/Rooms/Debug.tscn
 res://scenes/Interactable.tscn
 res://scenes/Rooms/TempleWoods.tscn
 res://scenes/Loader.tscn
+res://scenes/Battle.tscn
 res://scenes/OvPlayer.tscn
-res://codings/Loader.gd
-res://codings/UI/ItemManager.tscn
-res://codings/UI/ItemManager.gd
+res://UI/MainMenu/MainMenu.tscn
+res://codings/UI/BattleUI.gd
+res://UI/MainMenu/MainMenu.gd
+res://art/Icons/Items.tres

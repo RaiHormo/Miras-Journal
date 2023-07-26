@@ -15,6 +15,7 @@ var visibly=false
 @onready var t :Tween = get_tree().create_tween()
 
 func _ready():
+	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
 	_check_party()
 	await get_tree().create_timer(0.00001).timeout
@@ -70,6 +71,10 @@ func _check_party():
 		$CanvasLayer/Member1.hide()
 
 func _input(ev):
+	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable:
+		Global.Controllable=false
+		get_tree().paused = true
+		get_parent().get_node("Body").add_child(preload("res://UI/MainMenu/MainMenu.tscn").instantiate())
 	if Input.is_key_pressed(KEY_E):
 		Loader.travel_to("Debug", Global.get_dir_letter(Global.PlayerDir))
 	if Input.is_key_pressed(KEY_T):
@@ -336,6 +341,8 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
 
 func draw_bar(mem:Actor, node: Panel):
+	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.MainColor)
+	node.get_node("Aura/AruaText").add_theme_color_override("font_color", mem.SecondaryColor)
 	var hbox:StyleBoxFlat = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = mem.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
