@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=3 format=3 uid="uid://g32tgyicqumu"]
+
+[ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_b6742"]
+[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_njn2m"]
+
+[resource]
+script = ExtResource("1_njn2m")
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_b6742")])
+Transition = true

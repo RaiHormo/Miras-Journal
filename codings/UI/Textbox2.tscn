@@ -1,0 +1,229 @@
+[gd_scene load_steps=17 format=3 uid="uid://dro6xc73x3rl4"]
+
+[ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
+[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_yps78"]
+[ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnon7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_svg3g"]
+Panel/styles/panel = SubResource("StyleBoxFlat_dnon7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lay8s"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_hbabm"]
+Panel/styles/panel = SubResource("StyleBoxFlat_lay8s")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vikne"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_xqn8v"]
+Panel/styles/panel = SubResource("StyleBoxFlat_vikne")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h76us"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 16.0
+expand_margin_top = 3.0
+expand_margin_right = 16.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y11xm"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 16.0
+expand_margin_top = 3.0
+expand_margin_right = 16.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="Theme" id="Theme_qotjk"]
+Button/colors/font_focus_color = Color(0.760784, 0.482353, 0.333333, 1)
+Button/font_sizes/font_size = 32
+Button/styles/focus = SubResource("StyleBoxFlat_h76us")
+Button/styles/normal = SubResource("StyleBoxFlat_y11xm")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc2f1"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 14.0
+expand_margin_right = 14.0
+
+[sub_resource type="Theme" id="Theme_v0wf3"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 24
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 26
+
+[node name="Textbox" type="CanvasLayer"]
+script = ExtResource("1_8vluk")
+
+[node name="Balloon" type="ColorRect" parent="."]
+pivot_offset = Vector2(635, 735)
+color = Color(0, 0, 0, 1)
+
+[node name="Panel2" type="Panel" parent="Balloon"]
+layout_mode = 2
+offset_left = 257.0
+offset_top = 557.0
+offset_right = 1006.0
+offset_bottom = 787.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
+
+[node name="DialogueLabel" parent="Balloon/Panel2" instance=ExtResource("2_n6sll")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+offset_left = 45.0
+offset_top = 42.0
+offset_right = 720.0
+offset_bottom = 183.0
+theme_override_font_sizes/normal_font_size = 32
+text = "Dialogue"
+
+[node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
+layout_mode = 0
+offset_left = 692.0
+offset_top = 209.0
+offset_right = 740.0
+offset_bottom = 301.0
+rotation = -1.5708
+scale = Vector2(0.355023, 0.355023)
+texture = ExtResource("3_yps78")
+
+[node name="Border1" type="Panel" parent="Balloon/Panel2"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 762.0
+offset_bottom = 238.0
+theme = SubResource("Theme_svg3g")
+
+[node name="Border2" type="Panel" parent="Balloon/Panel2/Border1"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 759.0
+offset_bottom = 238.0
+theme = SubResource("Theme_hbabm")
+
+[node name="Border3" type="Panel" parent="Balloon/Panel2/Border1/Border2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 749.0
+offset_bottom = 227.0
+theme = SubResource("Theme_xqn8v")
+
+[node name="Responses" type="VBoxContainer" parent="Balloon"]
+layout_mode = 2
+offset_left = 832.0
+offset_top = 318.0
+offset_right = 1244.0
+offset_bottom = 529.0
+pivot_offset = Vector2(409, 118)
+theme_override_constants/separation = 24
+
+[node name="Button" type="Button" parent="Balloon/Responses"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_qotjk")
+text = "Response"
+
+[node name="Panel" type="PanelContainer" parent="Balloon"]
+layout_mode = 0
+offset_left = 342.0
+offset_top = 530.0
+offset_right = 357.0
+offset_bottom = 575.0
+scale = Vector2(1.24951, 1.24951)
+theme_override_styles/panel = SubResource("StyleBoxFlat_cc2f1")
+
+[node name="CharacterLabel" type="Label" parent="Balloon/Panel"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_v0wf3")
+text = "C
+"
+
+[node name="Margin" type="MarginContainer" parent="Balloon"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+metadata/_edit_layout_mode = 1
+
+[node name="Portrait" type="TextureRect" parent="."]
+offset_left = -55.0
+offset_top = 389.0
+offset_right = 1945.0
+offset_bottom = 2389.0
+scale = Vector2(0.205429, 0.205429)
+texture = ExtResource("4_f0nyj")
+
+[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]

@@ -223,6 +223,7 @@ texture_region_size = Vector2i(24, 24)
 7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:2/0/physics_layer_0/angular_velocity = 0.0
 7:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ul0sp")
+7:2/0/custom_data_0 = "Stone"
 6:2/0 = 0
 6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:2/0/physics_layer_0/angular_velocity = 0.0
@@ -476,28 +477,32 @@ texture_region_size = Vector2i(24, 24)
 tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 3
+custom_data_layer_0/name = "TerrainType"
+custom_data_layer_0/type = 4
 sources/1 = SubResource("TileSetAtlasSource_m6yxp")
 sources/3 = SubResource("TileSetAtlasSource_c2mgj")
 sources/0 = SubResource("TileSetAtlasSource_87swt")
 
+[sub_resource type="Gradient" id="Gradient_3bxch"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
+gradient = SubResource("Gradient_3bxch")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.512821, 0.491453)
+fill_to = Vector2(0.145299, 0.84188)
+
 [sub_resource type="Gradient" id="Gradient_4tyhe"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 0.466667)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_scwbs"]
 gradient = SubResource("Gradient_4tyhe")
 fill = 2
 fill_from = Vector2(0.504274, 0.525641)
 fill_to = Vector2(1, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_3bxch"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
-gradient = SubResource("Gradient_3bxch")
-fill = 1
-fill_from = Vector2(0.512821, 0.491453)
-fill_to = Vector2(0.136752, 0.850427)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
 atlas = ExtResource("8_hyspg")
@@ -524,7 +529,7 @@ format = 2
 layer_0/name = "Ysorted"
 layer_0/y_sort_enabled = true
 layer_0/z_index = 1
-layer_0/tile_data = PackedInt32Array(-65539, 131075, 4, 65531, 131073, 1, 262139, 131073, 1, 262140, 131073, 1, 262141, 131073, 1, 262142, 131073, 1, 262143, 131073, 1, 196608, 131073, 1, 196609, 131073, 1, 196610, 131073, 1, 196611, 131073, 1, 196612, 131073, 1, 131076, 131073, 1, 65540, 131073, 1, 4, 131073, 1, -65532, 131073, 1, -131068, 131073, 1, 131075, 131073, 1, 131074, 131073, 1, 131073, 131073, 1, 131072, 131073, 1, 196607, 131073, 1, 196606, 131073, 1, 196605, 131073, 1, 196604, 131073, 1, 131068, 131073, 1, 65532, 131073, 1, 65533, 131073, 1, 65534, 131073, 1, 65535, 131073, 1, 0, 131073, 1, 1, 131073, 1, 2, 131073, 1, 3, 131073, 1, 65539, 131073, 1, 65537, 131073, 1, 65536, 131073, 1, 131071, 131073, 1, 131070, 131073, 1, 131069, 131073, 1, -65541, 131073, 1, -131077, 131073, 1, -196613, 131073, 1, -196612, 131073, 1, -196611, 131073, 1, -131076, 131073, 1, -131075, 131073, 1, -131074, 131073, 1, -131073, 131073, 1, -196608, 524291, 7, -196607, 131073, 1, -196606, 131073, 1, -196605, 131073, 1, -196604, 131073, 1, -65537, 131073, 1, -1, 131073, 1, -65536, 131073, 1, -131072, 131073, 1, -262144, 131073, 1, -196609, 131073, 1, -196610, 131073, 1, -262143, 131073, 1, -262142, 131073, 1, -262141, 131073, 1, -262140, 131073, 1, -65533, 131073, 1, -65535, 131073, 1, -65534, 131073, 1, -131070, 786435, 7, -131071, 131073, 1, -131069, 131073, 1, 65538, 917504, 4)
+layer_0/tile_data = PackedInt32Array(-65539, 131075, 4, 262139, 131073, 1, 262140, 131073, 1, 262141, 131073, 1, 262142, 131073, 1, 262143, 131073, 1, 196608, 131073, 1, 196609, 131073, 1, 196610, 131073, 1, 196611, 131073, 1, 196612, 131073, 1, 131076, 131073, 1, 65540, 131073, 1, -131068, 131073, 1, 131075, 131073, 1, 131074, 131073, 1, 131073, 131073, 1, 131072, 131073, 1, 196607, 131073, 1, 196606, 131073, 1, 196605, 131073, 1, 196604, 131073, 1, 131068, 131073, 1, 0, 131073, 1, 65539, 131073, 1, 65537, 131073, 1, 65536, 131073, 1, 131071, 131073, 1, 131070, 131073, 1, 131069, 131073, 1, -65541, 131073, 1, -131077, 131073, 1, -196613, 131073, 1, -196612, 131073, 1, -196611, 131073, 1, -131076, 131073, 1, -131075, 131073, 1, -131074, 131073, 1, -131073, 131073, 1, -196608, 524291, 7, -196607, 131073, 1, -196606, 131073, 1, -196605, 131073, 1, -196604, 131073, 1, -65537, 131073, 1, -65536, 131073, 1, -131072, 131073, 1, -262144, 131073, 1, -196609, 131073, 1, -196610, 131073, 1, -262143, 131073, 1, -262142, 131073, 1, -262141, 131073, 1, -262140, 131073, 1, -131070, 786435, 7, -131071, 131073, 1, -131069, 131073, 1, 65538, 917504, 4)
 layer_1/name = "Bl1"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
@@ -550,31 +555,24 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 
-[node name="GloabalLight" type="PointLight2D" parent="TileMap"]
-position = Vector2(47.1884, -106.241)
-scale = Vector2(9.20552, 8.5205)
-color = Color(0.462745, 0.717647, 0.909804, 1)
-blend_mode = 1
-shadow_color = Color(0, 0, 0, 0.905882)
-texture = SubResource("GradientTexture2D_scwbs")
-texture_scale = 1.34
-script = ExtResource("5_1wqrx")
-
 [node name="PointLight2D" type="PointLight2D" parent="TileMap"]
-position = Vector2(58.7341, -37.4266)
-scale = Vector2(3.03406, 2.91899)
+position = Vector2(58.9894, -34.8328)
+scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.490196, 0.184314, 1)
+energy = 1.5
 shadow_color = Color(0, 0, 0, 0.905882)
 texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("5_1wqrx")
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="TileMap"]
-visible = false
-color = Color(0.462745, 0.717647, 0.909804, 1)
-energy = 0.4
+[node name="GloabalLight" type="PointLight2D" parent="TileMap"]
+position = Vector2(47.1884, -106.241)
+scale = Vector2(9.20552, 8.5205)
+color = Color(0.388235, 0.419608, 0.431373, 1)
+energy = 1.5
 blend_mode = 1
-range_z_max = 3
-shadow_color = Color(0, 0, 0, 0.870588)
+shadow_color = Color(0, 0, 0, 0.905882)
+texture = SubResource("GradientTexture2D_scwbs")
+script = ExtResource("5_1wqrx")
 
 [node name="Lamp" parent="TileMap" instance=ExtResource("5_pijc2")]
 z_index = 9

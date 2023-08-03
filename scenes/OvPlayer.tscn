@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwonvv3urrk1i"]
+[gd_scene load_steps=6 format=3 uid="uid://dwonvv3urrk1i"]
 
 [ext_resource type="PackedScene" uid="uid://da22xhcxygcjl" path="res://scenes/Characters/Follower.tscn" id="1_eght0"]
 [ext_resource type="PackedScene" uid="uid://dh64f5bodshv7" path="res://UI/Party/PartyUI.tscn" id="3_xhonf"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="4_e1n04"]
 [ext_resource type="PackedScene" uid="uid://sql6r7jv7fjq" path="res://scenes/Characters/Mira.tscn" id="4_pg2wh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8onko"]
+shader = ExtResource("4_e1n04")
+shader_parameter/lod = 1.0
 
 [node name="OvPlayer" type="Node2D"]
 
@@ -27,9 +32,17 @@ position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 
 [node name="Fader" type="ColorRect" parent="Body"]
-show_behind_parent = true
+visible = false
+light_mask = 0
+material = SubResource("ShaderMaterial_8onko")
 offset_left = -161.0
-offset_top = -101.0
-offset_right = 161.0
-offset_bottom = 101.0
-color = Color(0, 0, 0, 0)
+offset_top = -100.0
+offset_right = 287.0
+offset_bottom = 100.0
+color = Color(0, 0, 0, 1)
+
+[node name="Darken" type="ColorRect" parent="Body/Fader"]
+layout_mode = 0
+offset_right = 450.0
+offset_bottom = 201.0
+color = Color(0, 0, 0, 1)

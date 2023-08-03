@@ -13,11 +13,7 @@
 [resource]
 script = ExtResource("1_o1wey")
 FirstName = "Alcine"
-LastName = ""
 IsEnemy = false
-WeaponType = "Water Whip"
-Controllable = true
-StatsVisible = false
 PartyIcon = ExtResource("1_by5ga")
 RenderArtwork = ExtResource("7_4k312")
 AuraHue = 1
@@ -47,5 +43,9 @@ Offset = Vector2(0, 0)
 Shadow = false
 SoundSet = ExtResource("6_bqqs6")
 Disappear = false
+LastName = ""
+WeaponType = ""
+Controllable = false
+StatsVisible = true
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

@@ -7,5 +7,6 @@ class_name ControlScheme
 @export var AttackIcon: Texture
 @export var ItemIcon: Texture
 @export var CommandIcon: Texture
+@export var Start: Texture
+@export var Select: Texture
 @export var AltConfirm: bool
- 

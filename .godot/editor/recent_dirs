@@ -1,3 +1,7 @@
+res://art/OV/Mira
+res://art/BT/CrawlingSludge
+res://database/BattleSeq/
+res://database/Enemies/
 res://UI/MainMenu
 res://database/Abilities/
 res://art/BT/Alcine
@@ -5,7 +9,6 @@ res://art/BT/Dummy
 res://art/BT/Mira
 res://database/States/
 res://sound/SFX/Mira
-res://database/Enemies/
 res://database/Party
 res://scenes/Shaders
 res://art/Effects
@@ -14,10 +17,7 @@ res://UI/Battle
 res://codings/UI
 res://database/Abilities
 res://art/BT
-res://database/BattleSeq/
 res://scenes
 res://art/sheets
 res://database/Text/
-res://database/Party/
-res://art
 /home/rai/Downloads

@@ -1,5 +1,6 @@
 extends Control
-@export var KeyInv : Array[SlotData]
+@export var KeyInv : Array[ItemData]
+@export var ConInv : Array[ItemData]
 var item : ItemData
 var ind
 @onready var panel = $Can/Panel
@@ -9,30 +10,6 @@ signal pickup
 func _ready():
 	panel.hide()
 
-func add_key_item(ItemName: String):
-	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
-	if item == null:
-		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	ind = -1
-	var Slot = SlotData.new()
-	Slot.item_data = item
-	Slot.quantity = 1
-	for i in KeyInv.size():
-		if item == KeyInv[i].item_data:
-			ind = i
-			continue
-	if ind == -1:
-		KeyInv.push_front(Slot)
-		ind = KeyInv.size() -1
-	else:
-		KeyInv[ind].quantity += 1
-		print("---------")
-		print(ind)
-		print(KeyInv[ind].quantity)
-		print(KeyInv[ind].item_data.Name)
-		print(KeyInv.size())
-	get_animation(KeyInv[ind].item_data.Icon, KeyInv[ind].item_data.Name)
-	
 func get_animation(icon, named):
 	Global.item_sound()
 	pickup.emit()
@@ -58,17 +35,46 @@ func get_animation(icon, named):
 	panel.hide()
 	Global.check_party.emit()
 
-func check_key(ItemName):
+func add_key_item(ItemName: String):
 	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	ind = -1
-	for i in KeyInv.size():
-		if item == KeyInv[i].item_data:
-			ind = i
-			continue
-	if ind == -1:
-		return false
-	else:
-		return true
+	if item.Quantity == 0:
+		KeyInv.push_front(item)
+	item.Quantity += 1
+	get_animation(item.Icon, item.Name)
+
+func remove_key_item(ItemName: String):
+	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
+	if item == null:
+		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item.Quantity == 1:
+		KeyInv.erase(item)
+	item.Quantity -= 1
+
+func check_key(ItemName):
+	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
+	if item in KeyInv: return true
+	else: return false
 	
+func add_consumable(ItemName: String):
+	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+	if item == null:
+		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item.Quantity == 0:
+		ConInv.push_front(item)
+	item.Quantity += 1
+	get_animation(item.Icon, item.Name)
+
+func remove_consumable(ItemName: String):
+	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+	if item == null:
+		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item.Quantity == 1:
+		ConInv.erase(item)
+	item.Quantity -= 1
+
+func check_consumable(ItemName):
+	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+	if item in ConInv: return true
+	else: return false

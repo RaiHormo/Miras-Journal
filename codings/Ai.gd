@@ -22,8 +22,8 @@ func ai():
 			#4: Healing
 			choose(find_ability(4), HpSortedAllies[0])
 		else: 
-			print("Nothing else to do, using cheap attack")
-			choose(find_ability(0))
+			print("Nothing else to do, using random move")
+			choose(random_ability())
 
 #Finds an ability of a certain type
 func find_ability(type:int):
@@ -56,10 +56,13 @@ func has_type(type:int):
 	
 func choose(ab:Ability, tar:Actor=null):
 	if Char.NextTarget==null and tar==null:
-		if ab.Target==1:
-			Char.NextTarget = Bt.get_oposing_faction(Char).pick_random()
-		if ab.Target==3:
-			Char.NextTarget = Bt.get_ally_faction(Char).pick_random()
+		match ab.Target:
+			0:
+				Char.NextTarget = Char
+			1:
+				Char.NextTarget = Bt.get_oposing_faction(Char).pick_random()
+			3:
+				Char.NextTarget = Bt.get_ally_faction(Char).pick_random()
 	elif Char.NextTarget==null:
 		Char.NextTarget = tar
 	if ab == Char.StandardAttack:
@@ -70,4 +73,14 @@ func choose(ab:Ability, tar:Actor=null):
 	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
 	ai_chosen.emit()
 
-
+func random_ability():
+	var r = randi_range(0, 1)
+	while true:
+		match r:
+			0: 
+				return Char.StandardAttack
+			1:
+				if has_type(2):
+					return find_ability(2)
+				else: r-=1
+			

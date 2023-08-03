@@ -157,6 +157,8 @@ func _on_root():
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
 	tweendone = false
 	active = true
 	$Attack.show()
@@ -262,6 +264,12 @@ func _on_attack():
 
 func _on_ability():
 	active= false
+	Bt.get_node("Canvas/Confirm").show()
+	Bt.get_node("Canvas/Back").show()
+	Bt.get_node("Canvas/Confirm").text = "Confirm"
+	Bt.get_node("Canvas/Back").text = "Back"
+	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
+	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	CurrentChar.NextAction = "ability"
 	t.kill()
 	$DescPaper.show()
@@ -278,6 +286,8 @@ func _on_ability():
 	$Ability.icon = null
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,742), 0.4).from(Vector2(195,850))
+	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,742), 0.3).from(Vector2(31,850))
 	t.tween_property($Ability, "size", Vector2(115,33), 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property($AbilityUI, "modulate", Color(1,1,1,1), 0.1)
@@ -341,6 +351,10 @@ func close():
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
+	
+	
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
 	Bt.get_node("PartyUI").battle_state()
 	await t.finished
 	hide()
@@ -357,6 +371,12 @@ func _on_command_pressed():
 
 func get_target(faction:Array[Actor]):
 	TargetFaction = faction
+	Bt.get_node("Canvas/Confirm").show()
+	Bt.get_node("Canvas/Back").show()
+	Bt.get_node("Canvas/Confirm").text = "Target"
+	Bt.get_node("Canvas/Back").text = "Cancel"
+	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
+	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
@@ -371,6 +391,8 @@ func get_target(faction:Array[Actor]):
 	t.tween_property($Item, "size", Vector2(33,33), 0.2)
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
 #	t.tween_property(self, "rotation_degrees", 360, 0.2)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,742), 0.3).from(Vector2(195,850))
+	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,742), 0.4).from(Vector2(31,850))
 	
 	t.tween_property(self, "scale", Vector2(0.7,0.7), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(0.2,0.2), 0.3)

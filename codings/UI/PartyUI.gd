@@ -13,6 +13,7 @@ static var UIvisible = true
 var Tempvis = true
 var visibly=false
 @onready var t :Tween = get_tree().create_tween()
+@onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 
 func _ready():
 	$CanvasLayer.hide()
@@ -74,12 +75,15 @@ func _input(ev):
 	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable:
 		Global.Controllable=false
 		get_tree().paused = true
-		get_parent().get_node("Body").add_child(preload("res://UI/MainMenu/MainMenu.tscn").instantiate())
-	if Input.is_key_pressed(KEY_E):
+#		Loader.load_text("res://UI/MainMenu/MainMenu.tscn")
+#		await Loader.text_loaded
+#		get_parent().get_node("Body").add_child((ResourceLoader.load_threaded_get("res://UI/MainMenu/MainMenu.tscn").instantiate()))
+		get_parent().get_node("Body").add_child(MainMenu.instantiate())
+	if Input.is_action_just_pressed("Debug"):
 		Loader.travel_to("Debug", Global.get_dir_letter(Global.PlayerDir))
-	if Input.is_key_pressed(KEY_T):
+	if Input.is_action_just_pressed("DebugT"):
 		DialogueManager.passive("testbush", "greetings")
-	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false:
+	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false and not Input.is_action_pressed("Dash"):
 		if not held:
 			if Expanded == true:
 				Tempvis=true
@@ -133,7 +137,7 @@ func _on_expand():
 	#Leader
 	$CanvasLayer/Fade.show()
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur, "modulate", Color(1,1,1,1), 0.4)
+	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 	t.tween_property($CanvasLayer/Leader, "scale", Vector2(1.5,1.5), 0.4)
 	t.tween_property($CanvasLayer/Leader/Icon, "scale", Vector2(0.044,0.044), 0.4)
@@ -152,9 +156,6 @@ func _on_expand():
 	#await get_tree().create_timer(0.1).timeout
 	#Member1
 	t.tween_property($CanvasLayer/Member1, "position", Vector2(0,189), 0.4)
-	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur, "modulate", Color(1,1,1,1), 0.4)
-	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 	t.tween_property($CanvasLayer/Member1, "scale", Vector2(1.5,1.5), 0.4)
 	t.tween_property($CanvasLayer/Member1/Icon, "scale", Vector2(0.044,0.044), 0.4)
 	t.tween_property($CanvasLayer/Member1/Icon, "position", Vector2(37,50), 0.4)
@@ -197,7 +198,7 @@ func _on_shrink():
 	
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur, "modulate", Color.TRANSPARENT, 0.4)
+	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
 	t.tween_property($CanvasLayer/Leader, "scale", Vector2(1,1), 0.4)
 	t.tween_property($CanvasLayer/Leader/Icon, "scale", Vector2(0.05,0.05), 0.4)
 	t.tween_property($CanvasLayer/Leader/Icon, "position", Vector2(44,44), 0.4)

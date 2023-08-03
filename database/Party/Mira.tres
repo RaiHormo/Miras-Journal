@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dfxf3fj1wgl5q"]
 
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_e1lg0"]
 [ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="1_qv4op"]
@@ -7,17 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://cto6cesjljnwv" path="res://art/Renders/Mira.png" id="3_8yk74"]
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/Mira.tres" id="3_b1rhj"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
+[ext_resource type="SpriteFrames" uid="uid://cf3n0g1xl0bvp" path="res://art/OV/Mira/MiraOV.tres" id="4_jp4yk"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/AttackMira.tres" id="6_pdf3s"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Mira/MiraSfx.tscn" id="7_oiegd"]
 
 [resource]
 script = ExtResource("1_e1lg0")
 FirstName = "Mira"
-LastName = "Levenor"
 IsEnemy = false
-WeaponType = "Axe"
-Controllable = true
-StatsVisible = true
 PartyIcon = ExtResource("2_gadvr")
 RenderArtwork = ExtResource("3_8yk74")
 RenderShadow = ExtResource("4_cdx5x")
@@ -42,10 +39,15 @@ AttackMultiplier = 1.0
 DefenceMultiplier = 1.0
 MagicMultiplier = 1.0
 SpeedMultiplier = 1.0
+OV = ExtResource("4_jp4yk")
 BT = ExtResource("1_qv4op")
 Offset = Vector2(0, 0)
 Shadow = true
 SoundSet = ExtResource("7_oiegd")
 Disappear = false
+LastName = "Levenor"
+WeaponType = "Axe"
+Controllable = true
+StatsVisible = true
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

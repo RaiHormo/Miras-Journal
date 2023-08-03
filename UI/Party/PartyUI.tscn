@@ -180,6 +180,7 @@ Party = ExtResource("2_s37cg")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 248), Vector2(385, 408), Vector2(385, 536)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 visible = false
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]

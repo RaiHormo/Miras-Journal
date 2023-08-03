@@ -1,9 +1,14 @@
-[gd_scene load_steps=66 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=87 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="3_jns4t"]
+[ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="3_2t42f"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="4_hhf13"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="4_tlo38"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_biinq"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="5_ilv5n"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="6_b6i07"]
+[ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="6_emlrx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
 atlas = ExtResource("2_55wks")
@@ -415,62 +420,6 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eyg6"]
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-border_width_left = 11
-border_width_top = 8
-border_width_right = 16
-border_width_bottom = 8
-border_color = Color(0.305882, 0.305882, 0.305882, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0phpv"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.584314, 0.584314, 0.584314, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-expand_margin_left = 14.0
-expand_margin_top = 14.0
-expand_margin_right = 21.0
-expand_margin_bottom = 14.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nerx1"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-expand_margin_left = 27.0
-expand_margin_top = 27.0
-expand_margin_right = 34.0
-expand_margin_bottom = 27.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54y84"]
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.117647, 0.117647, 0.117647, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
 [sub_resource type="Curve2D" id="Curve2D_v64sb"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 10, 1, 197, -90.9699, 29.7536, 90.9699, -29.7536, 109, 30, -82.9405, -116.087, 82.9405, 116.087, 347, 97, 86.129, -25.7953, -86.129, 25.7953, 241, 374, 0, 0, 0, 0, 98, 353)
@@ -515,6 +464,178 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="Theme" id="Theme_p2mt1"]
+Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
+
+[sub_resource type="Theme" id="Theme_u2wyn"]
+Label/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
+RichTextLabel/constants/line_separation = 5
+RichTextLabel/font_sizes/normal_font_size = 34
+
+[sub_resource type="Theme" id="Theme_utml4"]
+Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
+Label/font_sizes/font_size = 42
+RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
+RichTextLabel/constants/line_separation = 5
+RichTextLabel/font_sizes/normal_font_size = 34
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efl2n"]
+shader = ExtResource("4_tlo38")
+
+[sub_resource type="FontVariation" id="FontVariation_8vtio"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_wjifp"]
+default_font = SubResource("FontVariation_8vtio")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbc32"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vv140"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eyg6"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0phpv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 14.0
+expand_margin_top = 14.0
+expand_margin_right = 21.0
+expand_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nerx1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 27.0
+expand_margin_top = 27.0
+expand_margin_right = 34.0
+expand_margin_bottom = 27.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nfw2e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kybai"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rrbso"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 1)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(0.203922, 0.203922, 0.203922, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh3bb"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xe1ew"]
+shader = ExtResource("4_tlo38")
+
+[sub_resource type="FontVariation" id="FontVariation_xv4x4"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_4kcni"]
+default_font = SubResource("FontVariation_xv4x4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8guh"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_5tx7f")
 
@@ -524,66 +645,13 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5gyu0")
 animation = &"Close"
 
-[node name="Inventory" type="PanelContainer" parent="."]
-use_parent_material = true
-offset_left = 803.0
-offset_top = 223.0
-offset_right = 1443.0
-offset_bottom = 667.0
-pivot_offset = Vector2(33, 210)
-theme_override_styles/panel = SubResource("StyleBoxFlat_2eyg6")
-
-[node name="Border2" type="PanelContainer" parent="Inventory"]
-use_parent_material = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0phpv")
-
-[node name="Border1" type="Panel" parent="Inventory/Border2"]
-use_parent_material = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nerx1")
-
-[node name="Margin" type="MarginContainer" parent="Inventory"]
-use_parent_material = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 19
-theme_override_constants/margin_top = 17
-theme_override_constants/margin_right = -11
-theme_override_constants/margin_bottom = 14
-
-[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin"]
-use_parent_material = true
-clip_contents = false
-layout_mode = 2
-
-[node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller"]
-layout_mode = 2
-
-[node name="KeyItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/h_separation = 21
-columns = 6
-
-[node name="PanelContainer" type="PanelContainer" parent="Inventory/Margin/Scroller/Vbox/KeyItems"]
-custom_minimum_size = Vector2(84, 84)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_54y84")
-
-[node name="TextureRect" type="TextureRect" parent="Inventory/Margin/Scroller/Vbox/KeyItems/PanelContainer"]
-material = ExtResource("3_jns4t")
-layout_mode = 2
-texture = ExtResource("4_hhf13")
-
 [node name="Rail" type="Path2D" parent="."]
 position = Vector2(458, 235)
 curve = SubResource("Curve2D_v64sb")
 
 [node name="JournalFollow" type="PathFollow2D" parent="Rail"]
-position = Vector2(377.346, 197.764)
-progress = 590.0
+position = Vector2(119.417, 365.912)
+progress = 950.0
 rotates = false
 
 [node name="JournalButton" type="Button" parent="Rail/JournalFollow"]
@@ -604,8 +672,8 @@ clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="ItemFollow" type="PathFollow2D" parent="Rail"]
-position = Vector2(312.831, 329.434)
-progress = 740.0
+position = Vector2(119.417, 365.912)
+progress = 950.0
 rotates = false
 
 [node name="ItemButton" type="Button" parent="Rail/ItemFollow"]
@@ -626,8 +694,8 @@ clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="QuestFollow" type="PathFollow2D" parent="Rail"]
-position = Vector2(216.949, 379.54)
-progress = 850.0
+position = Vector2(119.417, 365.912)
+progress = 950.0
 rotates = false
 
 [node name="QuestButton" type="Button" parent="Rail/QuestFollow"]
@@ -648,9 +716,9 @@ clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsFollow" type="PathFollow2D" parent="Rail"]
-position = Vector2(128.579, 369.968)
+position = Vector2(119.417, 365.912)
 rotation = -6.28319
-progress = 940.0
+progress = 950.0
 rotates = false
 
 [node name="OptionsButton" type="Button" parent="Rail/OptionsFollow"]
@@ -670,7 +738,205 @@ text_overrun_behavior = 1
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Rail/JournalFollow/JournalButton" to="." method="_on_journal_button_pressed"]
-[connection signal="pressed" from="Rail/ItemFollow/ItemButton" to="." method="_on_item_button_pressed"]
-[connection signal="pressed" from="Rail/QuestFollow/QuestButton" to="." method="_on_quest_button_pressed"]
-[connection signal="pressed" from="Rail/OptionsFollow/OptionsButton" to="." method="_on_options_button_pressed"]
+[node name="DescPaper" type="TextureRect" parent="."]
+use_parent_material = true
+offset_left = 737.0
+offset_top = 238.0
+offset_right = 1406.0
+offset_bottom = 750.0
+rotation = 0.0518777
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(-0.000183105, 317.647)
+texture = ExtResource("3_2t42f")
+
+[node name="Title" type="Label" parent="DescPaper"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 132.0
+offset_top = 48.0
+offset_right = 535.0
+offset_bottom = 115.0
+rotation = 0.0630125
+theme = SubResource("Theme_p2mt1")
+theme_override_font_sizes/font_size = 46
+text = "Item Name"
+horizontal_alignment = 2
+
+[node name="Desc" type="RichTextLabel" parent="DescPaper"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 120.0
+offset_top = 119.0
+offset_right = 524.0
+offset_bottom = 385.0
+rotation = 0.0511767
+theme = SubResource("Theme_u2wyn")
+text = "This item is very cool, almost too cool for you."
+
+[node name="Amount" type="Label" parent="DescPaper"]
+visible = false
+use_parent_material = true
+layout_mode = 0
+offset_left = 389.118
+offset_top = 390.0
+offset_right = 499.118
+offset_bottom = 480.0
+rotation = 0.0586956
+theme = SubResource("Theme_utml4")
+text = "x5"
+horizontal_alignment = 2
+
+[node name="ShowWheel" type="Button" parent="DescPaper"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_efl2n")
+use_parent_material = true
+layout_direction = 1
+layout_mode = 0
+offset_left = 147.0
+offset_top = -59.0
+offset_right = 301.0
+offset_bottom = -26.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_wjifp")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_lbc32")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vv140")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lbc32")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vv140")
+text = "Show Wheel"
+icon = ExtResource("5_ilv5n")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Art" type="TextureRect" parent="DescPaper"]
+layout_mode = 0
+offset_left = 32.3579
+offset_top = -491.759
+offset_right = 1382.36
+offset_bottom = 858.241
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("6_emlrx")
+
+[node name="Inventory" type="PanelContainer" parent="."]
+use_parent_material = true
+offset_left = 241.0
+offset_top = 96.0
+offset_right = 788.0
+offset_bottom = 645.0
+pivot_offset = Vector2(33, 210)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2eyg6")
+
+[node name="Border2" type="PanelContainer" parent="Inventory"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0phpv")
+
+[node name="Border1" type="Panel" parent="Inventory/Border2"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nerx1")
+
+[node name="Margin" type="MarginContainer" parent="Inventory"]
+use_parent_material = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 19
+theme_override_constants/margin_top = 17
+theme_override_constants/margin_right = -11
+theme_override_constants/margin_bottom = 14
+
+[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin"]
+use_parent_material = true
+clip_contents = false
+layout_mode = 2
+
+[node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Inventory/Margin/Scroller/Vbox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_nfw2e")
+
+[node name="KeyItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 5
+
+[node name="Item" type="Button" parent="Inventory/Margin/Scroller/Vbox/KeyItems"]
+texture_filter = 1
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kybai")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rrbso")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mh3bb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mh3bb")
+icon = ExtResource("4_hhf13")
+expand_icon = true
+
+[node name="Confirm" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_xe1ew")
+layout_direction = 1
+offset_left = 195.0
+offset_top = 741.0
+offset_right = 312.0
+offset_bottom = 774.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_4kcni")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_w0jrc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h8guh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h8guh")
+text = "Confirm"
+icon = ExtResource("5_biinq")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Back" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_xe1ew")
+layout_direction = 1
+offset_left = 31.0
+offset_top = 742.0
+offset_right = 140.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_4kcni")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_w0jrc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h8guh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h8guh")
+text = "Back"
+icon = ExtResource("6_b6i07")
+text_overrun_behavior = 1
+expand_icon = true
+
+[connection signal="pressed" from="Rail/JournalFollow/JournalButton" to="." method="_journal"]
+[connection signal="pressed" from="Rail/ItemFollow/ItemButton" to="." method="_item"]
+[connection signal="pressed" from="Rail/QuestFollow/QuestButton" to="." method="_quest"]
+[connection signal="pressed" from="Rail/OptionsFollow/OptionsButton" to="." method="_options"]
+[connection signal="button_down" from="Confirm" to="." method="_on_confirm_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]

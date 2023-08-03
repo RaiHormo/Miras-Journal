@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="PartyData" load_steps=4 format=3 uid="uid://bdn2n0yxpvdbt"]
+[gd_resource type="Resource" script_class="PartyData" load_steps=3 format=3 uid="uid://bdn2n0yxpvdbt"]
 
 [ext_resource type="Script" path="res://database/Party/party_data.gd" id="1_imsf0"]
 [ext_resource type="Resource" uid="uid://dfxf3fj1wgl5q" path="res://database/Party/Mira.tres" id="1_t3t5s"]
-[ext_resource type="Resource" uid="uid://5dk5u2y85kai" path="res://database/Party/Alcine.tres" id="2_vp21p"]
 
 [resource]
 script = ExtResource("1_imsf0")
 Leader = ExtResource("1_t3t5s")
-Member1 = ExtResource("2_vp21p")

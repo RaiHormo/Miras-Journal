@@ -12,8 +12,8 @@ const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
 const DialogueSettings = preload("res://addons/dialogue_manager/components/settings.gd")
 const DialogueLine = preload("res://addons/dialogue_manager/dialogue_line.gd")
 const DialogueResponse = preload("res://addons/dialogue_manager/dialogue_response.gd")
-const Textbox2 = preload("res://codings/Textbox2.tscn")
-const Passive = preload("res://codings/Passive.tscn")
+const Textbox2 = preload("res://codings/UI/Textbox2.tscn")
+const Passive = preload("res://codings/UI/Passive.tscn")
 
 const SUPPORTED_ARRAY_METHODS = [
 	"assign",

@@ -11,4 +11,5 @@ class_name ItemData
 @export var BattleItem: bool
 @export var Part: bool
 @export var ActionName: String = ""
+@export var Quantity: int =0
 

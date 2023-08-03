@@ -29,8 +29,7 @@ func play(nam, tar):
 ################################################
 
 func handle_states():
-	for j in TurnOrder.size():
-		var chara = TurnOrder[j-1]
+		var chara = Bt.CurrentChar
 		for i in chara.States.size():
 			var state = chara.States[i-1]
 			if state.RemovedAfterTurns:
@@ -61,16 +60,36 @@ func AttackMira():
 func JumpAttack():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.focus_cam(target, 0.5, 30)
+	CurrentChar.node.play("Attack1")
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 	await Bt.anim_done
 	Bt.play_sound("Attack2", CurrentChar)
 	Bt.damage(target, Bt.calc_num(), CurrentChar.Attack)
 	Bt.screen_shake(15, 7, 0.2)
+	CurrentChar.node.play("Attack2")
 	Bt.play_effect("SimpleHit", target)
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
+	CurrentChar.node.play("Idle")
 	Bt.end_turn()
-	
+
+func StickAttack():
+	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.focus_cam(target, 0.5, 30)
+	CurrentChar.node.play("Attack1")
+	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), -30), 4)
+	await Bt.anim_done
+	Bt.move(CurrentChar, target.node.position, 0.5, Tween.EASE_IN)
+	Bt.play_sound("Attack2", CurrentChar)
+	Bt.damage(target, Bt.calc_num(), CurrentChar.Attack)
+	Bt.screen_shake(15, 7, 0.2)
+	CurrentChar.node.play("Attack2")
+	Bt.play_effect("SimpleHit", target)
+	await get_tree().create_timer(0.4).timeout
+	Bt.return_cur()
+	CurrentChar.node.play("Idle")
+	Bt.end_turn()
+
 func Guard():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.pop_num(CurrentChar, "Guarding")

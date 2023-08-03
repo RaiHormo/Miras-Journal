@@ -1,8 +1,8 @@
+BattleSequence
+Actor
 Ability
 Resource
 State
-Actor
-BattleSequence
 TextProfile
 ControlScheme
 PartyData

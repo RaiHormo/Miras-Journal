@@ -9,11 +9,7 @@
 [resource]
 script = ExtResource("1_xk7u8")
 FirstName = "Dummy"
-LastName = ""
 IsEnemy = true
-WeaponType = ""
-Controllable = false
-StatsVisible = true
 PartyIcon = ExtResource("2_g2uxp")
 AuraHue = 300
 MainColor = Color(1, 0.25098, 1, 1)
@@ -40,5 +36,9 @@ Offset = Vector2(3, -6)
 Shadow = false
 SoundSet = ExtResource("3_nn5al")
 Disappear = true
+LastName = ""
+WeaponType = ""
+Controllable = false
+StatsVisible = true
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

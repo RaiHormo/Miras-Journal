@@ -1,90 +1,12 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=11 format=3 uid="uid://cpwqhga2rnw0s"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=5 format=3 uid="uid://cpwqhga2rnw0s"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_03qle"]
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_tyx4l"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="2_tb6xv"]
-[ext_resource type="SpriteFrames" uid="uid://b2x5q6v6p786q" path="res://art/BT/Dummy/DummyBT.tres" id="3_3pusn"]
-[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="4_jo8v8"]
-[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/JumpAttack.tres" id="4_lhrp6"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="5_25xms"]
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="9_fojsd"]
-
-[sub_resource type="Resource" id="Resource_ixd8u"]
-script = ExtResource("9_fojsd")
-FirstName = "Dummer"
-LastName = ""
-IsEnemy = true
-WeaponType = ""
-Controllable = false
-StatsVisible = true
-PartyIcon = ExtResource("4_jo8v8")
-AuraHue = 300
-MainColor = Color(0.662745, 0.635294, 0.333333, 1)
-SecondaryColor = Color(0, 0, 0, 1)
-MaxHP = 50
-MaxAura = 100
-Attack = 0.688
-Magic = 1.0
-Defence = 1.0
-Speed = 5.0
-Health = 0
-Aura = 0
-SkillLevel = 0
-SkillPoints = 0
-SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
-StandardAttack = ExtResource("4_lhrp6")
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedMultiplier = 1.0
-BT = ExtResource("3_3pusn")
-Offset = Vector2(3, -6)
-Shadow = false
-SoundSet = ExtResource("5_25xms")
-Disappear = true
-NextAction = ""
-States = Array[Resource("res://database/States/state.gd")]([])
-
-[sub_resource type="Resource" id="Resource_l4ve2"]
-script = ExtResource("9_fojsd")
-FirstName = "Dummest"
-LastName = ""
-IsEnemy = true
-WeaponType = ""
-Controllable = false
-StatsVisible = true
-PartyIcon = ExtResource("4_jo8v8")
-AuraHue = 300
-MainColor = Color(0.45098, 0.662745, 0.921569, 1)
-SecondaryColor = Color(0, 0, 0, 1)
-MaxHP = 50
-MaxAura = 100
-Attack = 0.418
-Magic = 1.0
-Defence = 2.0
-Speed = 5.0
-Health = 0
-Aura = 0
-SkillLevel = 0
-SkillPoints = 0
-SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
-StandardAttack = ExtResource("4_lhrp6")
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedMultiplier = 1.0
-BT = ExtResource("3_3pusn")
-Offset = Vector2(3, -6)
-Shadow = false
-SoundSet = ExtResource("5_25xms")
-Disappear = true
-NextAction = ""
-States = Array[Resource("res://database/States/state.gd")]([])
+[ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="8_usod5"]
 
 [resource]
 script = ExtResource("1_tyx4l")
-Enemies = Array[ExtResource("9_fojsd")]([ExtResource("2_tb6xv"), SubResource("Resource_ixd8u"), SubResource("Resource_l4ve2")])
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("8_usod5"), ExtResource("8_usod5")])
 BattleBack = ExtResource("1_03qle")
 Transition = true

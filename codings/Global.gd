@@ -15,13 +15,29 @@ var portrait_redraw = true
 static var PlayerDir : Vector2
 static var PlayerPos : Vector2
 signal check_party
+signal anim_done
+var device: String = "unknown"
 
-func get_controller():
-	if "Nintendo" in Input.get_joy_name(0):
+func _process(delta):
+	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
+
+func get_controller() -> ControlScheme:
+	if "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
 		return preload("res://UI/Input/Nintendo.tres")
+	elif "XBox" in device or "XInput" in device or "Xbox" in device:
+		return preload("res://UI/Input/Xbox.tres")
+	elif "PS4" in device or "PS3" in device or "Sony" in device or "DualShock" in device:
+		return preload("res://UI/Input/PlayStation.tres")
 	else:
 		return preload("res://UI/Input/Keyboard.tres")
-		
+
+func _input(event):
+	if event is InputEventMouseMotion: return
+	if event is InputEventJoypadMotion  and event.axis_value < 0.7: return
+	print(event)
+	if event is InputEventJoypadButton:
+		device = Input.get_joy_name(event.device)
+
 func cancel():
 	if get_controller() == preload("res://UI/Input/Nintendo.tres"):
 		return "AltCancel"
@@ -109,7 +125,7 @@ func portrait_clear():
 	
 #Match profile
 func match_profile(named):
-	if load("res://database/Text/Profiles/" + named + ".tres") == null:
+	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):
 		return preload("res://database/Text/Profiles/Default.tres")
 	else:
 		return load("res://database/Text/Profiles/" + named + ".tres")
@@ -135,3 +151,35 @@ func get_dir_letter(d):
 		return "U"
 	elif get_direction(d) == Vector2.DOWN:
 		return "D"
+
+func get_dir_name(d):
+	if get_direction(d) == Vector2.RIGHT:
+		return "Right"
+	elif get_direction(d) == Vector2.LEFT:
+		return "Left"
+	elif get_direction(d) == Vector2.UP:
+		return "Up"
+	elif get_direction(d) == Vector2.DOWN:
+		return "Down"
+
+func toggle(boo):
+	if boo: return false
+	else: return true
+	
+func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
+	var q0 = p0.lerp(p1, ti)
+	var q1 = p1.lerp(p2, ti)
+	var r = q0.lerp(q1, ti)
+	
+	target.global_position = r
+
+func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
+	var t:Tween = create_tween()
+	var start = character.global_position
+	var jump_distance : float = start.distance_to(position)
+	var jump_height : float = jump_distance * height #will need tweaking
+	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
+	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
+	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
+	await t.finished
+	anim_done.emit()

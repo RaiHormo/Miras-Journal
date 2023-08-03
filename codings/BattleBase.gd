@@ -28,6 +28,8 @@ func _ready():
 	Turn = 0
 	Seq = Loader.Seq
 	Party = preload("res://database/Party/CurrentParty.tres")
+	for i in Seq.Enemies.size():
+		Seq.Enemies[i-1] = Seq.Enemies[i-1].duplicate(true)
 	Troop = Seq.Enemies
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
@@ -186,22 +188,18 @@ func _on_next_turn():
 		victory()
 	#position_sprites()
 	Turn += 1
-	if TurnOrder.size() -1 == TurnInd:
+	if TurnOrder.size() -1 <= TurnInd:
 		TurnInd = 0
 	else:
 		TurnInd += 1
-	if TurnInd == 0 and Turn!=1:
-		$Act.handle_states()
 	CurrentChar = TurnOrder[TurnInd]
 	if CurrentChar.node == null:
 		_on_next_turn()
 		return
 	print("-------------------------------------------------")
 	print("Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
-#	for i in TurnOrder.size():
-#		if TurnOrder[i].node != null and TurnOrder[i].IsEnemy:
-#			TurnOrder[i].node.play("Idle")
 	initial = CurrentChar.node.position 
+	$Act.handle_states()
 	if CurrentChar.has_state("Knocked Out"):
 		end_turn()
 	elif CurrentChar.Controllable:
@@ -219,6 +217,7 @@ func _on_ai_chosen():
 			t.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
 			callout(CurrentChar.NextMove)
 			focus_cam(CurrentChar)
+			
 			CurrentChar.node.play("Ability")
 			await CurrentChar.node.animation_finished
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
@@ -305,18 +304,10 @@ func jump_to_target(character, tar, offset, time):
 	var jump_height : float = jump_distance * 0.5 #will need tweaking
 	var midpoint = start.lerp(target, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(_quad_bezier.bind(start, midpoint, target, character.node), 0.0, 1.0, jump_time)
+	t.tween_method(Global._quad_bezier.bind(start, midpoint, target, character.node), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
 	
-
-func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
-	
-	target.global_position = r
-
 func return_cur():
 	t= create_tween()
 	t.set_trans(Tween.TRANS_QUAD)
@@ -466,6 +457,13 @@ func focus_cam(chara:Actor, time:float=0.5, offset=-40):
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Cam, "position", Vector2(chara.node.global_position.x - offsetize(offset),chara.node.position.y /2), time)
+
+func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
+	t = create_tween()
+	t.set_ease(mode)
+	t.set_trans(Tween.TRANS_QUART)
+	t.tween_property(chara.node, "position", pos + offset, time)
+	anim_done.emit()
 
 func heal(target:Actor):
 	target.add_health(int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02))))

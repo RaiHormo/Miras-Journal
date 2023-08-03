@@ -10,7 +10,7 @@ signal action()
 @export var item: String
 @export var hidesprite: bool = false
 @export var itemtype: String
-const Textbox = preload("res://codings/Textbox2.tscn")
+const Textbox = DialogueManager.Textbox2
 var CanInteract = false
 var t=Tween
 

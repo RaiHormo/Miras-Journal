@@ -48,7 +48,7 @@ func _process(delta):
 			text_loaded.emit()
 
 func transition(dir):
-	t.kill()
+	
 	Global.Controllable = false
 	t=create_tween()
 	t.set_parallel(false)

@@ -3,16 +3,12 @@ extends Resource
 class_name Actor
 
 @export var FirstName : String = "Name"
-@export var LastName : String = ""
 
 @export var IsEnemy : bool = true
 
-@export var WeaponType : String
-@export var Controllable : bool = false
-@export var StatsVisible : bool = true
-
 @export_category("Art")
 @export var PartyIcon : Texture
+@export_subgroup("Party menu")
 @export var RenderArtwork : Texture
 @export var RenderShadow : Texture
 @export_range(1, 360) var AuraHue: int = 1
@@ -61,6 +57,13 @@ class_name Actor
 @export var Shadow: bool = false
 @export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
 @export var Disappear: bool
+
+@export_group("Party specific")
+@export var LastName : String = ""
+@export var WeaponType : String
+@export var Controllable : bool = false
+@export var StatsVisible : bool = true
+
 
 @export_group("Battle params")
 @export var NextAction: String = ""
