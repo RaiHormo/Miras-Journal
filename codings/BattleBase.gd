@@ -199,10 +199,14 @@ func _on_next_turn():
 	print("-------------------------------------------------")
 	print("Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
 	initial = CurrentChar.node.position 
-	$Act.handle_states()
 	if CurrentChar.has_state("Knocked Out"):
 		end_turn()
-	elif CurrentChar.Controllable:
+		return
+	$Act.handle_states()
+
+
+func make_move():
+	if CurrentChar.Controllable:
 		print("Control")
 		GetControl.emit()
 	else:
@@ -235,6 +239,7 @@ func _on_battle_ui_ability():
 
 func _on_battle_ui_root():
 	stop_sound("Ability", CurrentChar)
+	CurrentChar.node.play("Idle")
 
 func callout(ab:Ability = CurrentAbility):
 	if not ab.Callout:
@@ -320,7 +325,7 @@ func end_turn():
 		CurrentChar.node.z_index = 0
 	next_turn.emit()
 	
-func damage(target:Actor, x:int, stat:float):
+func damage(target:Actor, stat:float, x:int=calc_num(), effect:bool=true, limiter:bool=false):
 	take_dmg.emit()
 	target.damage(x, stat, target)
 	check_party.emit()
@@ -333,16 +338,17 @@ func damage(target:Actor, x:int, stat:float):
 		pass
 	else:
 		play_sound("Hit", target)
-		target.node.get_child(3).emitting = true
-		t = create_tween()
-		t.set_ease(Tween.EASE_IN)
-		t.set_trans(Tween.TRANS_QUART)
-		target.node.material.set_shader_parameter("outline_enabled", true)
-		target.node.material.set_shader_parameter("outline_color", target.MainColor)
+		if effect:
+			target.node.get_child(3).emitting = true
+			t = create_tween()
+			t.set_ease(Tween.EASE_IN)
+			t.set_trans(Tween.TRANS_QUART)
+			target.node.material.set_shader_parameter("outline_enabled", true)
+			target.node.material.set_shader_parameter("outline_color", target.MainColor)
+			target.node.get_child(3).process_material.gravity = Vector3(offsetize(120), 0, 0)
+			target.node.get_child(3).process_material.color = target.MainColor
+			t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 		hit_animation(target)
-		target.node.get_child(3).process_material.gravity = Vector3(offsetize(120), 0, 0)
-		target.node.get_child(3).process_material.color = target.MainColor
-		t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
 	
@@ -431,11 +437,12 @@ func death(target:Actor):
 		t = create_tween()
 		t.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
 		await t.finished
-		target.node.queue_free()
-		target.node = null
-		if target.IsEnemy:
-			Troop.erase(target)
-			TurnOrder.erase(target)
+		if target != null:
+			target.node.queue_free()
+			target.node = null
+			if target.IsEnemy:
+				Troop.erase(target)
+				TurnOrder.erase(target)
 
 func get_ally_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return Troop
@@ -447,6 +454,8 @@ func get_oposing_faction(act: Actor = CurrentChar):
 
 
 func hp_sort(a:Actor, b:Actor):
+	if a.Health==0:
+		return false
 	if a.Health <= b.Health:
 		return true
 	else:
@@ -467,6 +476,7 @@ func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE
 
 func heal(target:Actor):
 	target.add_health(int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02))))
+	check_party.emit()
 	pop_aura(target)
 	pop_num(target, str("+",int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))))
 

@@ -17,8 +17,6 @@ func _ready():
 	$Back.show()
 	$Confirm.text = "Select"
 	$Back.text = "Close"
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	Fader.show()
 	stage = "inactive"
@@ -40,7 +38,8 @@ func _ready():
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
 	t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
 	get_inventory()
-	
+	$Confirm.icon = Global.get_controller().ConfirmIcon
+	$Back.icon = Global.get_controller().CancelIcon
 	$Inventory.hide()
 	#$Rail.hide()
 	$Base.play("Open")
@@ -60,6 +59,11 @@ func _ready():
 
 
 func _input(event):
+	if Global.LastInput==Global.ProcessFrame: return
+	if Input.is_action_just_pressed(Global.confirm()):
+		PrevCtrl.emit_signal("pressed")
+	$Confirm.icon = Global.get_controller().ConfirmIcon
+	$Back.icon = Global.get_controller().CancelIcon
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
@@ -93,7 +97,7 @@ func _on_focus_changed(control:Control):
 			pass
 		else: 
 			Global.cursor_sound()
-		PrevCtrl = control
+	PrevCtrl = control
 
 func close():
 	$Base.play("Close")

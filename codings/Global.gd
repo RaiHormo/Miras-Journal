@@ -8,35 +8,54 @@ func _ready():
 	add_child(Audio)
 	add_child(Sprite)
 	Audio.volume_db = -5
+	process_mode = Node.PROCESS_MODE_ALWAYS
 static var Party = load("res://database/Party/CurrentParty.tres")
 var hasPortrait = false
 var portraitimg : Texture
 var portrait_redraw = true
-static var PlayerDir : Vector2
-static var PlayerPos : Vector2
+var PlayerDir : Vector2
+var PlayerPos : Vector2
 signal check_party
 signal anim_done
-var device: String = "unknown"
+var device: String = "Keyboard"
+var ProcessFrame=0
+var LastInput=0
+var AltConfirm
 
-func _process(delta):
+func _physics_process(delta):
 	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
+	ProcessFrame+=1
 
 func get_controller() -> ControlScheme:
+	if device == "Keyboard":
+		return preload("res://UI/Input/Keyboard.tres")
 	if "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
 		return preload("res://UI/Input/Nintendo.tres")
-	elif "XBox" in device or "XInput" in device or "Xbox" in device:
+	elif "XInput" in device or "360" in device:
+		return preload("res://UI/Input/Generic.tres")
+	elif "Series" in device or "Xbox" in device or "XBox" in device:
 		return preload("res://UI/Input/Xbox.tres")
-	elif "PS4" in device or "PS3" in device or "Sony" in device or "DualShock" in device:
+	elif "PS4" in device or "DualShock 4" in device or "PS5" in device or "DualSense" in device:
 		return preload("res://UI/Input/PlayStation.tres")
+	elif "PS3" in device or "DualShock" in device or "PS2" in device or "Sony" in device or "PlayStation" in device:
+		return preload("res://UI/Input/PlayStationOld.tres")
+	elif "Steam Virtual Gamepad" in device:
+		return preload("res://UI/Input/SteamDeck.tres")
 	else:
-		return preload("res://UI/Input/Keyboard.tres")
+		return preload("res://UI/Input/Generic.tres")
 
 func _input(event):
+	if not event.is_pressed(): return
+	if LastInput==ProcessFrame: return
 	if event is InputEventMouseMotion: return
-	if event is InputEventJoypadMotion  and event.axis_value < 0.7: return
-	print(event)
-	if event is InputEventJoypadButton:
+	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
+	if event is InputEventKey:
+		device = "Keyboard"
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		device = Input.get_joy_name(event.device)
+		AltConfirm = get_controller().AltConfirm
+	LastInput=ProcessFrame
+	#print(device)
 
 func cancel():
 	if get_controller() == preload("res://UI/Input/Nintendo.tres"):
@@ -45,11 +64,11 @@ func cancel():
 		return "ui_cancel"
 		
 func confirm():
-	if get_controller().AltConfirm:
+	if AltConfirm:
 		return "AltConfirm"
 	else:
-		return "ui_accept"
-		
+		return "MainConfirm"
+
 func cursor_sound():
 	Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
 	Audio.play()

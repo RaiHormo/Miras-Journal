@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=8 format=3 uid="uid://cegr1m704s28r"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=10 format=3 uid="uid://cegr1m704s28r"]
 
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="1_2hp4l"]
 [ext_resource type="Texture2D" uid="uid://cavhevr4pu1m2" path="res://UI/Input/D.png" id="1_35om1"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b7c6n1k4856fo" path="res://UI/Input/S.png" id="2_m1gnw"]
 [ext_resource type="Texture2D" uid="uid://cqtwxnp6fis1m" path="res://UI/Input/W.png" id="4_0np7o"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_tcskx"]
+[ext_resource type="Texture2D" uid="uid://hiql8lqd7ybf" path="res://UI/Input/⭾.png" id="7_61pbh"]
+[ext_resource type="Texture2D" uid="uid://cesgbs37xly77" path="res://UI/Input/C.png" id="8_up4nc"]
 
 [resource]
 script = ExtResource("1_g3dkl")
@@ -16,4 +18,6 @@ AbilityIcon = ExtResource("1_35om1")
 AttackIcon = ExtResource("2_m1gnw")
 ItemIcon = ExtResource("6_tcskx")
 CommandIcon = ExtResource("4_0np7o")
+Start = ExtResource("8_up4nc")
+Select = ExtResource("7_61pbh")
 AltConfirm = false

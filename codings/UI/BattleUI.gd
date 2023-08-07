@@ -45,6 +45,7 @@ func _process(delta):
 		
 
 func _on_battle_get_control():
+	if Bt.CurrentChar.Health == 0: Bt.next_turn.emit()
 	Global.ui_sound("GetControl")
 	active = true
 	t = create_tween()
@@ -167,6 +168,7 @@ func _on_root():
 	$Ability.show()
 
 func _input(event):
+	if Global.LastInput==Global.ProcessFrame: return
 	if active:
 		if stage == "root":
 			if Input.is_action_just_pressed("BtAttack"):
@@ -473,3 +475,8 @@ func _on_battle_next_turn():
 func _on_targeted():
 	emit_signal("ability_returned", CurrentChar.NextMove, target )
 
+
+
+func _on_back_pressed():
+	Global.cancel_sound()
+	emit_signal(PrevStage)

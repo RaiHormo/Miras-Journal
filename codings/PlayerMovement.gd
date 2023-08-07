@@ -12,7 +12,8 @@ var realvelocity : Vector2 = Vector2.ZERO
 var coords:Vector2
 var move_frames =0
 var midair = false
-var collides = false
+var undashable = false
+var dashdir:Vector2= Vector2.ZERO
 
 func _ready():
 	#animation_tree.active = true
@@ -26,25 +27,30 @@ func _process(delta):
 	_check_party()
 
 func _physics_process(delta):
-	collides = false
-	for i in tilemap.get_layers_count():
-		if tilemap.get_cell_tile_data(i, coords+Global.get_direction(Global.PlayerDir))!= null and tilemap.get_cell_tile_data(i, coords+Global.get_direction(Global.PlayerDir)).get_collision_polygons_count(0)>0:
-			collides=true
 	coords = tilemap.local_to_map(global_position)
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	undashable = false
+	if not dashing:
+		dashdir = Global.get_direction(Global.PlayerDir)
+	for i in tilemap.get_layers_count():
+		if ((tilemap.get_cell_tile_data(i, coords+dashdir)!= null and tilemap.get_cell_tile_data(i, coords+dashdir).get_collision_polygons_count(0)>0) or 
+			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
+			undashable=true
+	#print(dashdir)
 	if Global.Controllable:
-		if abs(realvelocity.length())>5 and Input.is_action_pressed("Dash") and Global.get_direction(direction)== Global.get_direction(realvelocity) and direction!=Vector2.ZERO:
+		if abs(realvelocity.length())>25 and Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO:
 			if not dashing:
-				if collides:
+				if undashable:
 					Global.Controllable = false
 					reset_speed()
-					$Base.play("Deny"+Global.get_dir_name(Global.PlayerDir))
+					set_anim("Deny"+Global.get_dir_name(Global.PlayerDir))
 					await $Base.animation_finished
 					set_anim("Idle"+Global.get_dir_name(Global.PlayerDir))
 					while Global.get_direction(direction)==Global.get_direction(Global.PlayerDir) and Input.is_action_pressed("Dash"):
 						await get_tree().create_timer(0.01).timeout
 					Global.Controllable = true
 				else:
+					dashdir = Global.get_direction(direction)
 					dashing = true
 					Global.Controllable=false
 					Global.jump_to(self, global_position+Global.get_direction(direction)*20, 3, 0)
@@ -52,6 +58,9 @@ func _physics_process(delta):
 					await Global.anim_done
 					speed = 175
 					Global.Controllable=true
+			elif Global.get_direction(realvelocity) != dashdir:
+				#stop_dash()
+				pass
 		elif dashing:
 			stop_dash()
 		if direction != Vector2.ZERO:
@@ -60,7 +69,7 @@ func _physics_process(delta):
 		if direction != Vector2.ZERO:
 			$DirectionMarker.global_position=global_position +direction*10
 		if dashing:
-			velocity = (Global.get_direction(realvelocity) * speed)#.normalized()
+			velocity = ((dashdir+direction).normalized() * speed)
 		else:
 			velocity = direction * speed
 		var old_position = position
@@ -84,7 +93,8 @@ func update_anim_prm():
 	if abs(realvelocity.length())>2 and Global.Controllable:
 		move_frames+=1
 		if dashing:
-			set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
+			reset_speed()
+			set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 		else:
 			set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 			$Base.speed_scale=(realvelocity.length()/75)
@@ -118,7 +128,7 @@ func _check_party():
 func set_anim(anim:String):
 	$Base.play(anim)
 	$Base/Bag.play(anim)
-	$Base/Bag/Axe.play(anim)
+	#$Base/Bag/Axe.play(anim)
 
 func bag_anim():
 	set_anim("OpenBag")
@@ -152,19 +162,23 @@ func stop_dash():
 	dashing = false
 	speed = 75
 	reset_speed()
-	if not collides:
-		print(Global.PlayerDir)
-		Global.jump_to(self, global_position+Global.get_direction(Global.PlayerDir)*15, 10, 0)
-		set_anim("Dash"+Global.get_dir_name(Global.PlayerDir)+"Stop")
+	if undashable and Global.get_direction(direction)==dashdir:
+		Global.jump_to(self, global_position-dashdir*15, 20, 0.5)
+		set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 		Global.Controllable=false
 		await $Base.animation_finished
 		Global.Controllable=true
 	else:
-		Global.jump_to(self, global_position-Global.get_direction(Global.PlayerDir)*15, 20, 0.5)
-		set_anim("Dash"+Global.get_dir_name(Global.PlayerDir)+"Hit")
+		#print(Global.PlayerDir)
+		if not undashable:
+			Global.jump_to(self, global_position+dashdir*15, 10, 0)
+		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
-		await $Base.animation_finished
+		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
+			await get_tree().create_timer(0.1).timeout
+		else: await $Base.animation_finished
 		Global.Controllable=true
+	dashdir = Vector2.ZERO
 
 func reset_speed():
 	$Base.speed_scale=1

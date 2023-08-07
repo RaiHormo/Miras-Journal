@@ -101,9 +101,9 @@ func add_state(x: String):
 	States.push_back(load("res://database/States/"+ x +".tres").duplicate())
 
 func remove_state(x: String):
-	for i in States.size():
-		if States[i-1].name == x:
-			States.erase(States[i])
+	for state in States:
+		if state.name == x:
+			States.erase(state)
 
 
 func has_state(x: String):

@@ -114,6 +114,7 @@ offset_bottom = -3.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+focus_mode = 1
 theme = SubResource("Theme_iavdl")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)

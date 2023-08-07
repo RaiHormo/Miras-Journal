@@ -26,16 +26,15 @@ func _ready():
 #	else:
 #		battle_state()
 
-	Global.check_party.connect(_check_party)
 
 func _process(delta):
 	#print(Loader.InBattle)
 	if Expanded:
 		handle_ui()
-	if Loader.InBattle and get_parent() is Control:
-		if get_parent().Action:
-			_check_party()
-	pass
+#	if Loader.InBattle and get_parent() is Control:
+#		if get_parent().Action:
+#			_check_party()
+#	pass
 	if not Loader.InBattle:
 		if Expanded and $CanvasLayer/Leader.scale.x==1:
 			_on_expand()

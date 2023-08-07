@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://bpnw7ia4xmv3"]
+
+[ext_resource type="Texture2D" uid="uid://cfr61ucg7dky8" path="res://UI/Input/O.png" id="1_8snr2"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="2_sgeot"]
+[ext_resource type="Texture2D" uid="uid://davgq77l63vh5" path="res://UI/Input/Δ.png" id="3_au7th"]
+[ext_resource type="Texture2D" uid="uid://m8glb8uico2w" path="res://UI/Input/⸋.png" id="4_y7c5o"]
+[ext_resource type="Texture2D" uid="uid://bosfbjmgy8ige" path="res://UI/Input/L1.png" id="5_m514s"]
+[ext_resource type="Texture2D" uid="uid://dehm4esf8smnk" path="res://UI/Input/L2.png" id="6_221lp"]
+[ext_resource type="Texture2D" uid="uid://be0brags5xkbs" path="res://UI/Input/R1.png" id="7_emygh"]
+[ext_resource type="Texture2D" uid="uid://bywniuow67bb" path="res://UI/Input/R2.png" id="8_ci2sn"]
+[ext_resource type="Texture2D" uid="uid://ce4tcrj5w1oat" path="res://UI/Input/⏴.png" id="9_jghai"]
+[ext_resource type="Texture2D" uid="uid://dy7snpx046t4b" path="res://UI/Input/⏵.png" id="10_mnbqi"]
+[ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="11_1k5wf"]
+
+[resource]
+script = ExtResource("11_1k5wf")
+ConfirmIcon = ExtResource("2_sgeot")
+CancelIcon = ExtResource("1_8snr2")
+AbilityIcon = ExtResource("1_8snr2")
+AttackIcon = ExtResource("2_sgeot")
+ItemIcon = ExtResource("4_y7c5o")
+CommandIcon = ExtResource("3_au7th")
+Start = ExtResource("10_mnbqi")
+Select = ExtResource("9_jghai")
+R = ExtResource("7_emygh")
+RZ = ExtResource("8_ci2sn")
+L = ExtResource("5_m514s")
+LZ = ExtResource("6_221lp")
+AltConfirm = false
