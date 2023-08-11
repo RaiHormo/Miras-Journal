@@ -12,7 +12,7 @@ signal action()
 @export var itemtype: String
 const Textbox = DialogueManager.Textbox2
 var CanInteract = false
-var t=Tween
+var t:Tween
 
 
 func _process(delta):
@@ -55,9 +55,8 @@ func _process(delta):
 		
 func CheckInput():
 	#Clicked
-	if Input.is_action_just_pressed(Global.confirm()) and CanInteract:
+	if Input.is_action_just_pressed("ui_accept") and CanInteract:
 		_on_button_pressed()
-
 
 func _on_button_pressed():
 	t = create_tween()

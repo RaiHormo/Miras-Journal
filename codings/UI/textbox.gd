@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var character_label: Label = $Balloon/Panel/CharacterLabel
 @onready var dialogue_label := $Balloon/Panel2/DialogueLabel
 @onready var responses_menu: VBoxContainer = $Balloon/Responses
-@onready var response_template: Button = $Balloon/Responses/Button
+@onready var response_template: Button = $Balloon/Responses/Button.duplicate(0)
 var currun = false
 @onready var t :Tween = get_tree().create_tween()
 
@@ -40,7 +40,7 @@ var dialogue_line: DialogueLine:
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem = Global.match_profile(character_label.text)
+		var mem = await Global.match_profile(character_label.text)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -57,12 +57,8 @@ var dialogue_line: DialogueLine:
 
 		# Show any responses we have
 		responses_menu.modulate.a = 0
-		t = create_tween()
-		t.set_parallel(true)
 		#await t.finished
 		if dialogue_line.responses.size() > 0:
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_QUAD)
 			for response in dialogue_line.responses:
 				# Duplicate the template so we can grab the fonts, sizing, etc
 				var item: Button = response_template.duplicate(0)
@@ -74,9 +70,15 @@ var dialogue_line: DialogueLine:
 				item.show()
 				
 				responses_menu.add_child(item)
+				t = create_tween()
+				t.set_parallel(true)
+				t.set_ease(Tween.EASE_OUT)
+				t.set_trans(Tween.TRANS_QUAD)
 				t.tween_property(responses_menu, "position", Vector2(832 ,318), 1).from(Vector2(2000, 318))
 		# Show our balloon
 		draw_portrait()
+		t = create_tween()
+		t.set_parallel(true)
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_BACK)
 		dialogue_label.text = ""
@@ -92,7 +94,7 @@ var dialogue_line: DialogueLine:
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
-			var prof = Global.match_profile(character_label.text)
+			var prof = await Global.match_profile(character_label.text)
 			dialogue_label.type_out(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		# Wait for input

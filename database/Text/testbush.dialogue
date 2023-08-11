@@ -15,7 +15,7 @@ Mira: Yes, this is [[indeed|in fact]] a bush
 
 Where to go?
 - Temple Woods
-	do travel_to("TempleWoods", "U")
+	do travel_to("TempleWoods")
 
 => END
 

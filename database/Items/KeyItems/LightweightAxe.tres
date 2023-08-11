@@ -14,12 +14,9 @@ region = Rect2(0, 18, 18, 18)
 script = ExtResource("1_1608p")
 Name = "Lightweight Axe"
 Description = "A light and easy to weild axe.
-It can be attached to a strap on 
-the bag."
+It can be attached to a strap on the bag."
 Icon = SubResource("AtlasTexture_w33rk")
 Artwork = ExtResource("1_ryhrm")
-KeyItem = true
-Consumable = false
-BattleItem = false
 Part = false
 ActionName = "Inspect"
+Quantity = 0

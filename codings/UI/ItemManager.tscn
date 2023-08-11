@@ -22,6 +22,7 @@ atlas = ExtResource("3_sdcre")
 region = Rect2(48, 96, 16, 16)
 
 [node name="ItemManager" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

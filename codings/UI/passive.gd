@@ -37,7 +37,7 @@ var dialogue_line: DialogueLine:
 		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		#character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem = Global.match_profile(tr(dialogue_line.character, "dialogue"))
+		var mem = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -89,7 +89,7 @@ var dialogue_line: DialogueLine:
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
-			var prof = Global.match_profile(tr(dialogue_line.character, "dialogue"))
+			var prof = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
 			dialogue_label.type_out(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		# Wait for input

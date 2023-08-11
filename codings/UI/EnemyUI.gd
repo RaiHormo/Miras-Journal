@@ -59,6 +59,7 @@ func _on_battle_ui_target_foc(cur):
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
 
 func _check_party():
+	PartyUI._check_party()
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
@@ -103,10 +104,10 @@ func colapse_root():
 		if Troop.size()>2:
 			t.tween_property($Enemy2, "position", Vector2(300, 0), 0.3).as_relative()
 	
-func _process(delta):
-	if get_parent().Action:
-		_check_party()
-	pass
+#func _process(delta):
+#	if get_parent().Action:
+#		_check_party()
+#	pass
 
 func make_box(en:Actor, node:Panel):
 	var hbox = node.get_node("Health").get_theme_stylebox("fill")

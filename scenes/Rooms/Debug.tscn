@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=23 format=3 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_g5xrf"]
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
@@ -18,15 +18,9 @@ texture_region_size = Vector2i(24, 24)
 14:4/0/physics_layer_0/angular_velocity = 0.0
 14:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_124uq"]
-vertices = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4nql7"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ul0sp"]
-vertices = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wxtjp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m6yxp"]
 texture = ExtResource("2_wvly8")
@@ -47,7 +41,7 @@ texture_region_size = Vector2i(24, 24)
 2:1/0 = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_124uq")
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4nql7")
 0:2/0 = 0
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:2/0/physics_layer_0/angular_velocity = 0.0
@@ -222,7 +216,7 @@ texture_region_size = Vector2i(24, 24)
 7:2/0 = 0
 7:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:2/0/physics_layer_0/angular_velocity = 0.0
-7:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ul0sp")
+7:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wxtjp")
 7:2/0/custom_data_0 = "Stone"
 6:2/0 = 0
 6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -509,7 +503,12 @@ atlas = ExtResource("8_hyspg")
 region = Rect2(0, 18, 18, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
-size = Vector2(9.88068, 17.0367)
+size = Vector2(19.9846, 14.1724)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6ku2x"]
+vertices = PackedVector2Array(68.76, -32.5125, 69.7004, -40.5197, 117.305, -93.8754, 117.689, 92.1269, 72.2956, 39.4632, 66.2065, 27.5082, 58.7975, -27.4382, 56.1993, 26.5826, 67.3702, 49.5001, -77.4026, 80.5781, -59.4477, 74.4444, 53.3482, 46.6044, 48.2591, 34.6419, -59.5817, 56.4449, -34.0288, -3.74691, -33.2372, -31.7536, -1.29759, -39.9915, 25.6942, -41.1923, 51.6935, -41.3858, 53.7753, -30.401, 58.6635, -45.4377, 25.5529, -60.1918, -116.689, -92.1343, -3.45379, -60.976, -56.2291, -30.5825, -89.2208, -29.337, -116.312, 92.868, -91.0347, -4.32278, -79.5588, 59.5936)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 0, 5, 7), PackedInt32Array(8, 4, 3), PackedInt32Array(8, 3, 9, 10, 11), PackedInt32Array(12, 11, 10, 13, 14), PackedInt32Array(14, 15, 16, 17, 18, 19, 7, 12), PackedInt32Array(20, 18, 17, 21, 2), PackedInt32Array(22, 23, 16, 15, 24, 25), PackedInt32Array(2, 1, 20), PackedInt32Array(22, 2, 21, 23), PackedInt32Array(26, 22, 25, 27), PackedInt32Array(26, 27, 14, 28), PackedInt32Array(19, 6, 7), PackedInt32Array(14, 13, 28), PackedInt32Array(26, 28, 9), PackedInt32Array(3, 26, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-116.689, -92.1343, -116.312, 92.868, 117.689, 92.1269, 117.305, -93.8754), PackedVector2Array(58.6635, -45.4377, 69.7004, -40.5197, 68.76, -32.5125, 58.7975, -27.4382, 53.7753, -30.401, 51.6935, -41.3858), PackedVector2Array(56.1993, 26.5826, 66.2065, 27.5082, 72.2956, 39.4632, 67.3702, 49.5001, 53.3482, 46.6044, 48.2591, 34.6419), PackedVector2Array(-1.29759, -39.9915, 25.6942, -41.1923, 25.5529, -60.1918, -3.45379, -60.976), PackedVector2Array(-56.2291, -30.5825, -33.2372, -31.7536, -34.0288, -3.74691, -91.0347, -4.32278, -89.2208, -29.337), PackedVector2Array(-79.5588, 59.5936, -59.5817, 56.4449, -59.4477, 74.4444, -77.4026, 80.5781)])
 
 [node name="Area" type="Node2D"]
 process_mode = 1
@@ -623,17 +622,31 @@ position = Vector2(0.00749207, 0.51857)
 shape = SubResource("RectangleShape2D_72f6p")
 
 [node name="Dummy" type="Sprite2D" parent="TileMap"]
+z_index = 1
+y_sort_enabled = true
 use_parent_material = true
-position = Vector2(-67.6187, 51.5045)
+position = Vector2(-69.6739, 65.6324)
 texture = ExtResource("9_1j4ra")
+offset = Vector2(2.05523, -14.1279)
 
 [node name="Fight" parent="TileMap/Dummy" instance=ExtResource("5_pijc2")]
 z_index = 9
-position = Vector2(-4.98498, 2.03715)
+position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
 ActionType = "battle"
 Length = 100
 file = "DebugDummy"
+
+[node name="Body" type="StaticBody2D" parent="TileMap/Dummy"]
+
+[node name="Collision" type="CollisionShape2D" parent="TileMap/Dummy/Body"]
+z_index = 1
+position = Vector2(-1.81813, 2.90147)
+shape = SubResource("RectangleShape2D_72f6p")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap"]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_6ku2x")
 
 [connection signal="action" from="TileMap/Lamp" to="TileMap/PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="TileMap/Bush" to="TileMap/PointLight2D" method="_on_interactable_action"]

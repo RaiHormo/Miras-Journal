@@ -1,8 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=33 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_dogj7"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_7yih5"]
-[ext_resource type="Resource" uid="uid://bdn2n0yxpvdbt" path="res://database/Party/CurrentParty.tres" id="2_s37cg"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="3_o6yw0"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="6_8fbom"]
 [ext_resource type="Texture2D" uid="uid://cto6cesjljnwv" path="res://art/Renders/Mira.png" id="7_su38b"]
@@ -176,7 +175,6 @@ offset_bottom = 0.199951
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dogj7")
-Party = ExtResource("2_s37cg")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 248), Vector2(385, 408), Vector2(385, 536)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -557,5 +555,6 @@ scale = Vector2(0.404152, 0.404152)
 texture = ExtResource("8_eiy32")
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
+bus = &"UI"
 
 [connection signal="expand" from="." to="." method="_on_expand"]

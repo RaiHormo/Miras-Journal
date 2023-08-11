@@ -4,13 +4,14 @@ var rootIndex =1
 var t: Tween
 var prevRootIndex =1
 var zoom
-@onready var Player:CharacterBody2D =get_parent()
+@onready var Player:Mira =get_parent()
 @onready var Cam:Camera2D =get_parent().get_node('Camera2D')
 @onready var Fader =get_parent().get_node("Fader")
 var PrevCtrl:Control = null
 var KeyInv :Array[ItemData]
 
 func _ready():
+	Player.reset_speed()
 	Player.bag_anim()
 	$DescPaper.hide()
 	$Confirm.show()
@@ -60,10 +61,12 @@ func _ready():
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
-	if Input.is_action_just_pressed(Global.confirm()):
-		PrevCtrl.emit_signal("pressed")
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
+#	if Input.is_action_just_pressed(Global.confirm()):
+#		PrevCtrl.emit_signal("pressed")
+#	if Input.is_action_just_pressed(Global.cancel()):
+#		_on_back_button_down()
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
@@ -82,13 +85,8 @@ func _input(event):
 					prevRootIndex = rootIndex
 					rootIndex += 1
 					move_root()
-			elif Input.is_action_just_pressed(Global.cancel()):
-				Global.cancel_sound()
-				close()
 		"item":
-			if Input.is_action_just_pressed(Global.cancel()):
-				Global.cancel_sound()
-				_root()
+			pass
 
 func _on_focus_changed(control:Control):
 	if stage == "item":
@@ -97,6 +95,7 @@ func _on_focus_changed(control:Control):
 			pass
 		else: 
 			Global.cursor_sound()
+			focus_item(control)
 	PrevCtrl = control
 
 func close():
@@ -214,7 +213,8 @@ func move_root():
 func _root():
 	t.kill()
 	#stage="inactive"
-	stage="root"
+	if stage != "options":
+		stage="root"
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	PartyUI.UIvisible = true
@@ -222,6 +222,8 @@ func _root():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
+	t.tween_property($Base, "modulate", Color.WHITE, 0.5)
+	t.tween_property($Rail, "modulate", Color.WHITE, 0.5)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
 	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
 	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
@@ -240,21 +242,26 @@ func _root():
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
 	await t.finished
-	$Inventory.hide()
+	if stage == "options": stage="root"
 	
 
 func _journal():
+	if rootIndex!=3:
+		rootIndex = 0
+		move_root()
 	pass
 
 
 func _item():
+	rootIndex = 1
+	move_root()
 	PartyUI.UIvisible = false
 	$DescPaper.show()
 	$Confirm.text = "Use"
 	$Back.text = "Back"
 	t.kill()
-	stage="inacive"
-	Global.confirm_sound()
+	#stage="inacive"
+	stage="item"
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -262,6 +269,8 @@ func _item():
 	$Rail/ItemFollow/ItemButton.toggle_mode = true
 	$Rail/ItemFollow/ItemButton.set_pressed_no_signal(true)
 	$Rail/ItemFollow.z_index = 1
+	t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
+	t.tween_property($Rail/ItemFollow, "rotation_degrees", 0, 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", 0, 0.4).from(-30)
 	t.tween_property($DescPaper, "scale", Vector2(0.7,0.7), 0.4)
 	t.tween_property($DescPaper, "modulate", Color.WHITE, 0.4)
@@ -286,17 +295,40 @@ func _item():
 	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
 	if not Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
+		focus_item($Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0))
 	t.tween_property($Rail/ItemFollow/ItemButton, "position", Vector2(-500, -340), 0.3)
+	Global.confirm_sound()
 	await t.finished
-	stage="item"
+	
 
 
 func _quest():
+	if rootIndex!=2:
+		rootIndex = 2
+		move_root()
 	pass # Replace with function body.
 
 
 func _options():
-	pass # Replace with function body.
+	if rootIndex!=3:
+		rootIndex = 3
+		move_root()
+	stage="options"
+	PartyUI.UIvisible=false
+	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+	Global.confirm_sound()
+	t=create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_IN)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property($Base, "modulate", Color.TRANSPARENT, 0.5)
+	t.tween_property($Rail, "modulate", Color.TRANSPARENT, 0.5)
+	t.tween_property($Rail, "position:x", -200, 0.5).as_relative()
+	t.tween_property($Base, "position:x", -200, 0.5).as_relative()
+	t.tween_property(Cam, "position", Vector2(70 ,-6), 0.5)
+	$Back.hide()
+	$Confirm.hide()
+	
 
 
 
@@ -306,16 +338,33 @@ func _on_confirm_button_down():
 
 
 func _on_back_button_down():
+	print(stage)
 	Global.cancel_sound()
 	match stage:
 		"root":
 			close()
 		"item":
 			_root()
+		"options":
+			if get_tree().root.get_node_or_null("Options") == null or get_tree().root.get_node("Options").stage == "main":
+				_root()
+				await get_tree().create_timer(0.5).timeout
+				$Back.show()
+				$Confirm.show()
 		
 func get_inventory():
 	for item in Item.KeyInv:
 		var dub =  $Inventory/Margin/Scroller/Vbox/KeyItems/Item.duplicate()
 		dub.icon = item.Icon
+		dub.set_meta("ItemData", item)
 		$Inventory/Margin/Scroller/Vbox/KeyItems.add_child(dub)
 	$Inventory/Margin/Scroller/Vbox/KeyItems/Item.queue_free()
+
+func focus_item(node:Button):
+	if not node.get_parent() is GridContainer: return
+	var item:ItemData = node.get_meta("ItemData")
+	$DescPaper/Title.text = item.Name
+	$DescPaper/Desc.text = item.Description
+	$DescPaper/Art.texture = item.Artwork
+	if item.Quantity>1:
+		$DescPaper/Amount.text = "x"+str(item.Quantity)

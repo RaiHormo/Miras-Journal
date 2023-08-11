@@ -1,7 +1,7 @@
 extends Control
-class_name PartyUI
+#class_name PartyUI
 
-@export var Party: PartyData
+@export var Party: PartyData = Global.Party
 @export var Expanded: bool = false
 @export var CursorPosition: Array[Vector2]
 signal expand
@@ -12,7 +12,7 @@ var focus : int = 0
 static var UIvisible = true 
 var Tempvis = true
 var visibly=false
-@onready var t :Tween = get_tree().create_tween()
+@onready var t :Tween 
 @onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 
 func _ready():
@@ -42,6 +42,7 @@ func _process(delta):
 			_on_shrink()
 		if UIvisible and $CanvasLayer.visible==false:
 			$CanvasLayer.show()
+			_check_party()
 			t = create_tween()
 			t.set_parallel(true)
 			t.tween_property($CanvasLayer/Leader, "position", Vector2(0,$CanvasLayer/Leader.position.y), 0.2)
@@ -71,18 +72,18 @@ func _check_party():
 		$CanvasLayer/Member1.hide()
 
 func _input(ev):
-	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable:
+	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
 		Global.Controllable=false
 		get_tree().paused = true
 #		Loader.load_text("res://UI/MainMenu/MainMenu.tscn")
 #		await Loader.text_loaded
 #		get_parent().get_node("Body").add_child((ResourceLoader.load_threaded_get("res://UI/MainMenu/MainMenu.tscn").instantiate()))
-		get_parent().get_node("Body").add_child(MainMenu.instantiate())
+		Global.Player.add_child(MainMenu.instantiate())
 	if Input.is_action_just_pressed("Debug"):
-		Loader.travel_to("Debug", Global.get_dir_letter(Global.PlayerDir))
+		Loader.travel_to("Debug")
 	if Input.is_action_just_pressed("DebugT"):
 		DialogueManager.passive("testbush", "greetings")
-	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false and not Input.is_action_pressed("Dash"):
+	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing:
 		if not held:
 			if Expanded == true:
 				Tempvis=true
@@ -287,7 +288,7 @@ func focus_now():
 		
 	
 func battle_state():
-	if get_parent() is Control:
+	if Loader.InBattle:
 		$CanvasLayer.show()
 		$CanvasLayer/Cursor.hide()
 		t = create_tween()
@@ -316,9 +317,9 @@ func _on_battle_ui_root():
 func _on_battle_ui_ability():
 	t = create_tween()
 	t.set_parallel(true)
-	if get_parent().CurrentChar == Party.Leader:
+	if Global.Bt.CurrentChar == Party.Leader:
 		t.tween_property($CanvasLayer/Member1, "position", Vector2(-400,$CanvasLayer/Member1.position.y), 0.2)
-	elif get_parent().CurrentChar == Party.Member1:
+	elif Global.Bt.CurrentChar == Party.Member1:
 		t.tween_property($CanvasLayer/Member1, "position", Vector2(-70,20), 0.2)
 		t.tween_property($CanvasLayer/Leader, "position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
 

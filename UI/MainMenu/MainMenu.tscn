@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=91 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
@@ -426,15 +426,37 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Theme" id="Theme_3lo81"]
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/font_sizes/font_size = 32
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvtq8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88xbf"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -450,14 +472,29 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejomh"]
+[sub_resource type="Theme" id="Theme_o6i8h"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
+Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
+Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
+Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvtq8"]
 content_margin_left = 32.0
+content_margin_top = 0.0
 content_margin_right = 32.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -602,14 +639,6 @@ corner_radius_bottom_left = 24
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xe1ew"]
 shader = ExtResource("4_tlo38")
 
-[sub_resource type="FontVariation" id="FontVariation_xv4x4"]
-variation_embolden = 0.41
-spacing_glyph = 1
-spacing_space = 1
-
-[sub_resource type="Theme" id="Theme_4kcni"]
-default_font = SubResource("FontVariation_xv4x4")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
@@ -623,18 +652,42 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8guh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
 content_margin_left = 8.0
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
 border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
-border_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 26
 corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
+
+[sub_resource type="FontVariation" id="FontVariation_smyr0"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_4kcni"]
+default_font = SubResource("FontVariation_smyr0")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_qyfpa"]
+events = [SubResource("InputEventAction_p5u4y")]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_5tx7f")
@@ -661,11 +714,7 @@ offset_right = 100.0
 offset_bottom = 30.0
 pivot_offset = Vector2(30, 30)
 focus_mode = 1
-theme = SubResource("Theme_3lo81")
-theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+theme = SubResource("Theme_o6i8h")
 text = "Journal"
 text_overrun_behavior = 1
 clip_text = true
@@ -683,11 +732,8 @@ offset_right = 100.0
 offset_bottom = 30.0
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
-theme = SubResource("Theme_3lo81")
+theme = SubResource("Theme_o6i8h")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
 text = "Item"
 text_overrun_behavior = 1
 clip_text = true
@@ -705,11 +751,7 @@ offset_right = 100.0
 offset_bottom = 30.0
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
-theme = SubResource("Theme_3lo81")
-theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+theme = SubResource("Theme_o6i8h")
 text = "Quest"
 text_overrun_behavior = 1
 clip_text = true
@@ -728,11 +770,7 @@ offset_right = 100.0
 offset_bottom = 30.0
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
-theme = SubResource("Theme_3lo81")
-theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejomh")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ejomh")
+theme = SubResource("Theme_o6i8h")
 text = "Options"
 text_overrun_behavior = 1
 clip_text = true
@@ -816,14 +854,16 @@ expand_icon = true
 
 [node name="Art" type="TextureRect" parent="DescPaper"]
 layout_mode = 0
-offset_left = 32.3579
-offset_top = -491.759
-offset_right = 1382.36
-offset_bottom = 858.241
-scale = Vector2(0.45, 0.45)
+offset_left = 76.2687
+offset_top = -472.581
+offset_right = 1476.27
+offset_bottom = 927.419
+rotation = -0.0531199
+scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("6_emlrx")
 
 [node name="Inventory" type="PanelContainer" parent="."]
+visible = false
 use_parent_material = true
 offset_left = 241.0
 offset_top = 96.0
@@ -895,15 +935,12 @@ offset_bottom = 774.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
+focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_w0jrc")
-theme_override_styles/hover = SubResource("StyleBoxFlat_h8guh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w0jrc")
-theme_override_styles/focus = SubResource("StyleBoxFlat_h8guh")
 text = "Confirm"
 icon = ExtResource("5_biinq")
 text_overrun_behavior = 1
@@ -920,15 +957,13 @@ offset_bottom = 775.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
+focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_w0jrc")
-theme_override_styles/hover = SubResource("StyleBoxFlat_h8guh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w0jrc")
-theme_override_styles/focus = SubResource("StyleBoxFlat_h8guh")
+shortcut = SubResource("Shortcut_qyfpa")
 text = "Back"
 icon = ExtResource("6_b6i07")
 text_overrun_behavior = 1
@@ -939,4 +974,4 @@ expand_icon = true
 [connection signal="pressed" from="Rail/QuestFollow/QuestButton" to="." method="_quest"]
 [connection signal="pressed" from="Rail/OptionsFollow/OptionsButton" to="." method="_options"]
 [connection signal="button_down" from="Confirm" to="." method="_on_confirm_button_down"]
-[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
+[connection signal="pressed" from="Back" to="." method="_on_back_button_down"]

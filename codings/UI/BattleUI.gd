@@ -357,7 +357,7 @@ func close():
 	
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
-	Bt.get_node("PartyUI").battle_state()
+	PartyUI.battle_state()
 	await t.finished
 	hide()
 

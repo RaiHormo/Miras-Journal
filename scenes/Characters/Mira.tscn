@@ -2837,7 +2837,7 @@ size = Vector2(14, 17)
 [sub_resource type="CircleShape2D" id="CircleShape2D_1wjc1"]
 radius = 7.0
 
-[node name="MiraBody" type="CharacterBody2D"]
+[node name="Body" type="CharacterBody2D"]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true

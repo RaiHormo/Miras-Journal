@@ -188,18 +188,18 @@ func show_example_dialogue_balloon(resource: DialogueResource, title: String = "
 
 ## Show the custom balloon
 func textbox(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	Loader.load_text("res://database/Text/" + file + ".dialogue")
-	await Loader.text_loaded
+#	Loader.load_thread("res://database/Text/" + file + ".dialogue")
+#	await Loader.thread_loaded
 	var balloon: Node = Textbox2.instantiate()
 	get_tree().current_scene.add_child(balloon)
-	balloon.start(ResourceLoader.load_threaded_get("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	Loader.load_text("res://database/Text/" + file + ".dialogue")
-	await Loader.text_loaded
+#	Loader.load_thread("res://database/Text/" + file + ".dialogue")
+#	await Loader.thread_loaded
 	var balloon: Node = Passive.instantiate()
 	get_tree().current_scene.add_child(balloon)
-	balloon.start(ResourceLoader.load_threaded_get("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 
 ## Testample
 func testample(resource: DialogueResource, title: String = "0", extra_game_states: Array = []) -> void:

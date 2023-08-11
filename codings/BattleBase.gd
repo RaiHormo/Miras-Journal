@@ -22,12 +22,13 @@ var Action: bool
 var CurrentTarget: Actor
 
 func _ready():
+	Global.Bt = self
 	$Cam.make_current()
 	Loader.InBattle = true
 	TurnInd= -1
 	Turn = 0
 	Seq = Loader.Seq
-	Party = preload("res://database/Party/CurrentParty.tres")
+	Party = Global.Party
 	for i in Seq.Enemies.size():
 		Seq.Enemies[i-1] = Seq.Enemies[i-1].duplicate(true)
 	Troop = Seq.Enemies
@@ -173,7 +174,7 @@ func entrance():
 		entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
-	$PartyUI.battle_state()
+	PartyUI.battle_state()
 	await get_tree().create_timer(0.7).timeout
 	next_turn.emit()
 	

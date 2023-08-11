@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwonvv3urrk1i"]
+[gd_scene load_steps=5 format=3 uid="uid://dwonvv3urrk1i"]
 
 [ext_resource type="PackedScene" uid="uid://da22xhcxygcjl" path="res://scenes/Characters/Follower.tscn" id="1_eght0"]
-[ext_resource type="PackedScene" uid="uid://dh64f5bodshv7" path="res://UI/Party/PartyUI.tscn" id="3_xhonf"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="4_e1n04"]
 [ext_resource type="PackedScene" uid="uid://sql6r7jv7fjq" path="res://scenes/Characters/Mira.tscn" id="4_pg2wh"]
 
@@ -18,18 +17,8 @@ member = 1
 player = NodePath("../Body")
 distance = 30
 
-[node name="PartyUI" parent="." instance=ExtResource("3_xhonf")]
-offset_right = 0.0
-
 [node name="Body" parent="." instance=ExtResource("4_pg2wh")]
 process_mode = 3
-
-[node name="Camera2D" type="Camera2D" parent="Body"]
-zoom = Vector2(4, 4)
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-rotation_smoothing_enabled = true
 
 [node name="Fader" type="ColorRect" parent="Body"]
 visible = false
@@ -46,3 +35,5 @@ layout_mode = 0
 offset_right = 450.0
 offset_bottom = 201.0
 color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="RemoteTransform2D" parent="Body"]

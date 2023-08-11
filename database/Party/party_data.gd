@@ -21,3 +21,18 @@ func check_member(n):
 		return true
 	else:
 		return false
+
+func make_unique():
+	Leader = Leader.duplicate()
+	if Member1!=null: Member1 = Member1.duplicate()
+	if Member2!=null: Member2 = Member2.duplicate()
+	if Member3!=null: Member3 = Member1.duplicate()
+
+func set_to(p:PartyData):
+	Leader = load("res://database/Party/"+p.Leader.FirstName+".tres")
+	if p.Member1!=null: Member1 = load("res://database/Party/"+p.Member1.FirstName+".tres")
+	else: Member1 = null
+	if p.Member2!=null: Member2 = load("res://database/Party/"+p.Member2.FirstName+".tres")
+	else: Member2 = null
+	if p.Member3!=null: Member3 = load("res://database/Party/"+p.Member3.FirstName+".tres")
+	else: Member3 = null

@@ -1,0 +1,655 @@
+[gd_scene load_steps=43 format=3 uid="uid://bh82q5qur5ppl"]
+
+[ext_resource type="Script" path="res://codings/UI/Options.gd" id="1_hoqsl"]
+[ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_ce8sl"]
+[ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="3_07vaa"]
+[ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="5_dciq6"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
+[ext_resource type="Texture2D" uid="uid://dcnd802jcwswl" path="res://UI/MenuTextures/down.png" id="9_mioka"]
+[ext_resource type="Texture2D" uid="uid://d2cju0uv5rmjr" path="res://UI/MenuTextures/radio_enabled.png" id="9_xvg8c"]
+[ext_resource type="Texture2D" uid="uid://daasx8kvi6kbq" path="res://UI/MenuTextures/toggle_on.png" id="9_yynoc"]
+[ext_resource type="Texture2D" uid="uid://btup6lcmt8k28" path="res://UI/MenuTextures/radio_disabled.png" id="10_bx0nk"]
+[ext_resource type="Texture2D" uid="uid://dxo3r3qn5quv3" path="res://UI/MenuTextures/toggle_off.png" id="10_p5f5g"]
+[ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
+[ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
+shader = ExtResource("2_ce8sl")
+shader_parameter/lod = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88xbf"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="Theme" id="Theme_o6i8h"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
+Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
+Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
+Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enokf"]
+shader = ExtResource("5_dciq6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
+content_margin_left = 8.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="FontVariation" id="FontVariation_smyr0"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_4kcni"]
+default_font = SubResource("FontVariation_smyr0")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_qyfpa"]
+events = [SubResource("InputEventAction_p5u4y")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t27v"]
+bg_color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfm5m"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoxig"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+border_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hr55"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.862745, 0.862745, 0.862745, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_top = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7j3ca"]
+content_margin_left = 32.0
+content_margin_top = 5.0
+content_margin_right = 24.0
+content_margin_bottom = 5.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe5m4"]
+content_margin_left = 32.0
+content_margin_top = 5.0
+content_margin_right = 24.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lbe"]
+content_margin_left = 32.0
+content_margin_top = 5.0
+content_margin_right = 24.0
+content_margin_bottom = 5.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v45v"]
+content_margin_left = 32.0
+content_margin_top = 5.0
+content_margin_right = 24.0
+content_margin_bottom = 5.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffb5s"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_right = 5
+border_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkmrk"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+border_width_left = 6
+border_width_top = 12
+border_width_right = 6
+border_width_bottom = 12
+border_color = Color(0.168627, 0.168627, 0.168627, 1)
+border_blend = true
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nw05m"]
+
+[sub_resource type="Theme" id="Theme_6ne1i"]
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+Button/font_sizes/font_size = 32
+Button/styles/normal = null
+CheckButton/icons/checked = ExtResource("9_yynoc")
+CheckButton/icons/unchecked = ExtResource("10_p5f5g")
+CheckButton/styles/focus = SubResource("StyleBoxFlat_vfm5m")
+HSlider/constants/center_grabber = -2
+HSlider/icons/grabber = ExtResource("11_ojav3")
+HSlider/icons/grabber_highlight = ExtResource("11_wuq6k")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_yoxig")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_yoxig")
+HSlider/styles/slider = SubResource("StyleBoxFlat_4hr55")
+Label/colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+Label/font_sizes/font_size = 42
+MenuButton/font_sizes/font_size = 42
+MenuButton/styles/focus = SubResource("StyleBoxFlat_7j3ca")
+MenuButton/styles/hover = SubResource("StyleBoxFlat_7j3ca")
+MenuButton/styles/normal = SubResource("StyleBoxFlat_7j3ca")
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
+OptionButton/colors/font_focus_color = Color(0, 0, 0, 1)
+OptionButton/colors/font_hover_color = Color(0.572549, 0.572549, 0.572549, 1)
+OptionButton/colors/font_pressed_color = Color(0, 0, 0, 1)
+OptionButton/constants/arrow_margin = 25
+OptionButton/constants/modulate_arrow = 100
+OptionButton/font_sizes/font_size = 43
+OptionButton/icons/arrow = ExtResource("9_mioka")
+OptionButton/styles/focus = SubResource("StyleBoxFlat_oe5m4")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_24lbe")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_5v45v")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_7j3ca")
+PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
+PopupMenu/constants/h_separation = 12
+PopupMenu/constants/indent = 32
+PopupMenu/constants/item_end_padding = 12
+PopupMenu/constants/item_start_padding = 16
+PopupMenu/constants/v_separation = 12
+PopupMenu/font_sizes/font_size = 32
+PopupMenu/icons/radio_checked = ExtResource("9_xvg8c")
+PopupMenu/icons/radio_checked_disabled = ExtResource("10_bx0nk")
+PopupMenu/icons/radio_unchecked = ExtResource("10_bx0nk")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_ffb5s")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_bkmrk")
+PopupPanel/styles/panel = SubResource("StyleBoxEmpty_nw05m")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
+content_margin_left = 24.0
+content_margin_top = 6.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj70o"]
+content_margin_left = 24.0
+content_margin_top = 6.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y0m"]
+content_margin_left = 24.0
+content_margin_top = 6.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Options" type="CanvasLayer"]
+process_mode = 3
+layer = 3
+script = ExtResource("1_hoqsl")
+
+[node name="Fader" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+light_mask = 0
+material = SubResource("ShaderMaterial_4ha3i")
+offset_left = -2.0
+offset_top = 2.0
+offset_right = 1286.0
+offset_bottom = 799.0
+color = Color(0, 0, 0, 1)
+
+[node name="Darken" type="ColorRect" parent="Fader"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -6.0
+offset_right = 1288.0
+offset_bottom = 809.0
+color = Color(0, 0, 0, 1)
+
+[node name="Silhouette" type="TextureRect" parent="."]
+offset_top = -39.0
+offset_right = 1500.0
+offset_bottom = 1361.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_07vaa")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = 560.0
+offset_right = 1660.0
+offset_bottom = 2402.0
+scale = Vector2(0.654824, 0.599552)
+texture = ExtResource("2_0dq2m")
+
+[node name="MainButtons" type="Node" parent="."]
+
+[node name="SaveManagment" type="Button" parent="MainButtons"]
+anchors_preset = -1
+anchor_left = 0.580469
+anchor_top = 0.12125
+anchor_right = 0.696875
+anchor_bottom = 0.13
+offset_left = 620.0
+offset_top = -45.0
+offset_right = 810.0
+offset_bottom = 15.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(30, 30)
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../GameSettings")
+focus_next = NodePath("../GameSettings")
+focus_previous = NodePath("../Quit")
+theme = SubResource("Theme_o6i8h")
+text = "Save Managment"
+metadata/_edit_use_anchors_ = true
+
+[node name="GameSettings" type="Button" parent="MainButtons"]
+anchors_preset = -1
+anchor_left = 0.641406
+anchor_top = 0.30125
+anchor_right = 0.717969
+anchor_bottom = 0.31
+offset_left = 608.0
+offset_top = -45.0
+offset_right = 798.0
+offset_bottom = 15.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(30, 30)
+focus_neighbor_top = NodePath("../SaveManagment")
+focus_neighbor_bottom = NodePath("../Tutorials")
+focus_next = NodePath("../Tutorials")
+focus_previous = NodePath("../SaveManagment")
+theme = SubResource("Theme_o6i8h")
+text = "Game Settings"
+metadata/_edit_use_anchors_ = true
+
+[node name="Tutorials" type="Button" parent="MainButtons"]
+anchors_preset = -1
+anchor_left = 0.730469
+anchor_top = 0.48125
+anchor_right = 0.739844
+anchor_bottom = 0.49
+offset_left = 611.0
+offset_top = -42.0
+offset_right = 801.0
+offset_bottom = 18.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(30, 30)
+focus_neighbor_top = NodePath("../GameSettings")
+focus_neighbor_bottom = NodePath("../Gallery")
+focus_next = NodePath("../Gallery")
+focus_previous = NodePath("../GameSettings")
+theme = SubResource("Theme_o6i8h")
+text = "Tutorials"
+metadata/_edit_use_anchors_ = true
+
+[node name="Gallery" type="Button" parent="MainButtons"]
+anchors_preset = -1
+anchor_left = 0.739062
+anchor_top = 0.66375
+anchor_right = 0.739062
+anchor_bottom = 0.6725
+offset_left = 641.0
+offset_top = -40.0
+offset_right = 831.0
+offset_bottom = 20.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(30, 30)
+focus_neighbor_top = NodePath("../Tutorials")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Tutorials")
+focus_mode = 1
+theme = SubResource("Theme_o6i8h")
+text = "Gallery"
+metadata/_edit_use_anchors_ = true
+
+[node name="Quit" type="Button" parent="MainButtons"]
+anchors_preset = -1
+anchor_left = 0.710156
+anchor_top = 0.8475
+anchor_right = 0.710156
+anchor_bottom = 0.85625
+offset_left = 723.0
+offset_top = -45.0
+offset_right = 913.0
+offset_bottom = 15.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(30, 30)
+focus_neighbor_top = NodePath("../Gallery")
+focus_neighbor_bottom = NodePath("../SaveManagment")
+focus_next = NodePath("../SaveManagment")
+focus_previous = NodePath("../Gallery")
+theme = SubResource("Theme_o6i8h")
+text = "Quit
+"
+icon_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="PanelContainer" parent="."]
+offset_left = 27.0
+offset_top = 27.0
+offset_right = 332.0
+offset_bottom = 106.0
+scale = Vector2(0.819045, 0.819045)
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgmdv")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="Timer"]
+custom_minimum_size = Vector2(69, 69)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Timer/HSplitContainer"]
+custom_minimum_size = Vector2(69, 69)
+layout_mode = 2
+texture = ExtResource("3_iibdn")
+
+[node name="Label" type="Label" parent="Timer/HSplitContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "12:23:02"
+
+[node name="Confirm" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_enokf")
+layout_direction = 1
+offset_left = 195.0
+offset_top = 742.0
+offset_right = 312.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Select
+"
+icon = ExtResource("6_d2agy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Back" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_enokf")
+layout_direction = 1
+offset_left = 31.0
+offset_top = 742.0
+offset_right = 140.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_qyfpa")
+text = "Back"
+icon = ExtResource("7_xdp6q")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="SidePanel" type="Panel" parent="."]
+offset_left = 1335.0
+offset_top = -62.0
+offset_right = 2352.0
+offset_bottom = 812.0
+rotation = 0.057901
+pivot_offset = Vector2(-0.00598145, 62.8742)
+theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SidePanel"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 100.0
+offset_right = 910.0
+offset_bottom = 817.0
+rotation = -0.0581765
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Input" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+text = "Input"
+
+[node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/ControlScheme"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Control scheme"
+
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/VBoxContainer/ControlScheme"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+expand_icon = true
+item_count = 10
+selected = 0
+popup/item_0/text = "Auto"
+popup/item_0/id = 0
+popup/item_1/text = "Keyboard"
+popup/item_1/id = 7
+popup/item_2/text = "Nintendo"
+popup/item_2/id = 2
+popup/item_3/text = "Xbox"
+popup/item_3/id = 3
+popup/item_4/text = "Xbox 360"
+popup/item_4/id = 1
+popup/item_5/text = "DualSense"
+popup/item_5/id = 4
+popup/item_6/text = "DualShock 4"
+popup/item_6/id = 4
+popup/item_7/text = "DualShock"
+popup/item_7/id = 6
+popup/item_8/text = "Steam Deck"
+popup/item_8/id = 5
+popup/item_9/text = "Other"
+popup/item_9/id = 1
+
+[node name="Display" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+text = "Display
+"
+
+[node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Fullscreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Fullscreen"
+
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/VBoxContainer/Fullscreen"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+alignment = 2
+
+[node name="Audio" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+text = "Audio"
+
+[node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Master"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Master"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Master"]
+custom_minimum_size = Vector2(375, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
+text = "Reset Volume"
+
+[connection signal="pressed" from="MainButtons/GameSettings" to="." method="game_settings"]
+[connection signal="pressed" from="MainButtons/Quit" to="." method="_on_quit"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Master/Slider" to="." method="_on_master_volume"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_volume_reset"]

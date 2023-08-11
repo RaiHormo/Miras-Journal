@@ -1,13 +1,10 @@
-extends CharacterBody2D
+extends NPC
 class_name Mira
 
-@onready var animation_tree : AnimationTree = $AnimationTree
 signal nearest_changed
 @onready var tilemap:TileMap =get_node_or_null(get_path_to(get_parent().get_parent()))
 var dashing = false
 var nearestactionable = null
-var speed = 75  # speed in pixels/sec
-static var direction : Vector2 = Vector2.ZERO
 var realvelocity : Vector2 = Vector2.ZERO
 var coords:Vector2
 var move_frames =0
@@ -17,10 +14,17 @@ var dashdir:Vector2= Vector2.ZERO
 
 func _ready():
 	#animation_tree.active = true
+	#speed = 75
 	Item.pickup.connect(_on_pickup)
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
-
+	Global.Player = self
+	var cam :Camera2D = get_tree().root.get_node_or_null("Area/Camera"+str(Global.CameraInd))
+	if cam !=null:
+		for i in get_tree().root.get_node("Area").get_children(): 
+			if "Camera" in i.name: i.enabled = false
+		$Camera2D.remote_path = cam.get_path()
+		cam.enabled = true
 func _process(delta):
 	if Global.Controllable:
 		update_anim_prm()
@@ -28,7 +32,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	coords = tilemap.local_to_map(global_position)
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if OverwritePrm:
+		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	else:
+		process_move()
 	undashable = false
 	if not dashing:
 		dashdir = Global.get_direction(Global.PlayerDir)
@@ -38,6 +45,7 @@ func _physics_process(delta):
 			undashable=true
 	#print(dashdir)
 	if Global.Controllable:
+		OverwritePrm=true
 		if abs(realvelocity.length())>25 and Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO:
 			if not dashing:
 				if undashable:
@@ -59,7 +67,7 @@ func _physics_process(delta):
 					speed = 175
 					Global.Controllable=true
 			elif Global.get_direction(realvelocity) != dashdir:
-				#stop_dash()
+				stop_dash()
 				pass
 		elif dashing:
 			stop_dash()
@@ -81,7 +89,7 @@ func _physics_process(delta):
 		check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):
 			print(tilemap)
-			print(tilemap.local_to_map(global_position))
+			#print(tilemap.local_to_map(global_position))
 			for i in tilemap.get_layers_count():
 				if tilemap.get_cell_tile_data(i, coords) != null:
 					check_terrain(tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))

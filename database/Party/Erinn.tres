@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://css4l7jfuhb4v"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://css4l7jfuhb4v"]
 
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_gxbro"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/Erinn.tres" id="1_vkgex"]
@@ -6,15 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
 [ext_resource type="Texture2D" uid="uid://dhbno8wgnyhlo" path="res://art/Renders/Erinn.png" id="3_71qsx"]
 [ext_resource type="Texture2D" uid="uid://cv3xqlnokrhfw" path="res://UI/Party/ErinnShadow.png" id="4_1tt4d"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_8ml7j"]
 
 [resource]
 script = ExtResource("1_gxbro")
 FirstName = "Erinn"
-LastName = "Levenor"
 IsEnemy = false
-WeaponType = "Pole"
-Controllable = false
-StatsVisible = true
 PartyIcon = ExtResource("2_b55w6")
 RenderArtwork = ExtResource("3_71qsx")
 RenderShadow = ExtResource("4_1tt4d")
@@ -41,5 +38,11 @@ SpeedMultiplier = 1.0
 OV = ExtResource("1_vt7ec")
 Offset = Vector2(0, 0)
 Shadow = false
+SoundSet = ExtResource("6_8ml7j")
+Disappear = false
+LastName = "Levenor"
+WeaponType = "Pole"
+Controllable = false
+StatsVisible = true
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

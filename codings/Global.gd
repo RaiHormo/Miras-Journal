@@ -4,12 +4,7 @@ var Controllable : bool = true
 var Type
 var Audio = AudioStreamPlayer.new()
 var Sprite = Sprite2D.new()
-func _ready():
-	add_child(Audio)
-	add_child(Sprite)
-	Audio.volume_db = -5
-	process_mode = Node.PROCESS_MODE_ALWAYS
-static var Party = load("res://database/Party/CurrentParty.tres")
+var Party:PartyData = load("res://database/Party/CurrentParty.tres")
 var hasPortrait = false
 var portraitimg : Texture
 var portrait_redraw = true
@@ -21,12 +16,36 @@ var device: String = "Keyboard"
 var ProcessFrame=0
 var LastInput=0
 var AltConfirm
+var StartTime =0
+var PlayTime =0
+var SaveTime =0
+var Player = null
+var Settings:Setting = load("user://Settings.tres")
+var Bt: Battle = null
+var CameraInd = 0
+
+func _ready():
+	StartTime=Time.get_unix_time_from_system()
+	add_child(Audio)
+	add_child(Sprite)
+	Audio.volume_db = -5
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	await get_tree().create_timer(0.01).timeout
+	get_window().grab_focus()
+	init_settings()
+	
 
 func _physics_process(delta):
 	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 	ProcessFrame+=1
 
+func get_playtime():
+	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime
+	return PlayTime
+
 func get_controller() -> ControlScheme:
+	if not Settings.ControlSchemeAuto:
+		return Settings.ControlSchemeOverride
 	if device == "Keyboard":
 		return preload("res://UI/Input/Keyboard.tres")
 	if "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
@@ -54,20 +73,51 @@ func _input(event):
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		device = Input.get_joy_name(event.device)
 		AltConfirm = get_controller().AltConfirm
+		if get_controller().AltConfirm:
+			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
+			InputMap.action_add_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
+			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
+			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
+		else:
+			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
+			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
+			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
+			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
 	LastInput=ProcessFrame
 	#print(device)
 
-func cancel():
-	if get_controller() == preload("res://UI/Input/Nintendo.tres"):
-		return "AltCancel"
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("Fullscreen"):
+		fullscreen()
+	if Input.is_action_just_pressed("Save"):
+		Loader.save()
+	if Input.is_action_just_pressed("SaveManagment"):
+		Loader.load_game()
+
+func fullscreen():
+	if get_window().mode != 3:
+			get_window().mode = Window.MODE_FULLSCREEN
+			await get_tree().create_timer(0.1).timeout
+			get_window().grab_focus()
+			Settings.Fullscreen = true
 	else:
-		return "ui_cancel"
+			get_window().mode = Window.MODE_WINDOWED
+			get_window().size = Vector2i(1280,800)
+			await get_tree().create_timer(0.03).timeout
+			get_window().position = DisplayServer.screen_get_size()/2 - Vector2i(1280,800)/2
+			await get_tree().create_timer(0.15).timeout
+			get_window().grab_focus()
+			Settings.Fullscreen = false
+	save_settings()
+
+func save_settings():
+	ResourceSaver.save(Settings, "user://Settings.tres")
+
+func cancel():
+	return "ui_cancel"
 		
 func confirm():
-	if AltConfirm:
-		return "AltConfirm"
-	else:
-		return "MainConfirm"
+	return "ui_accept"
 
 func cursor_sound():
 	Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
@@ -85,7 +135,7 @@ func item_sound():
 	Audio.stream = preload("res://sound/SFX/UI/item.ogg")
 	Audio.play()
 func ui_sound(string:String):
-	Audio.stream = load("res://sound/SFX/UI/"+string+".ogg")
+	Audio.stream = await Loader.load_res("res://sound/SFX/UI/"+string+".ogg")
 	Audio.play()
 
 func get_party():
@@ -132,12 +182,10 @@ func is_in_party(n):
 	else:
 		return false
 
-func portrait(img, redraw):
+func portrait(img, redraw=true):
 	portrait_redraw = redraw
 	hasPortrait=true
-	Loader.load_text("res://art/Portraits/" + img + ".png")
-	await Loader.text_loaded
-	portraitimg = ResourceLoader.load_threaded_get("res://art/Portraits/" + img + ".png")
+	portraitimg = await Loader.load_res("res://art/Portraits/" + img + ".png")
 
 func portrait_clear():
 	hasPortrait=false
@@ -147,9 +195,9 @@ func match_profile(named):
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):
 		return preload("res://database/Text/Profiles/Default.tres")
 	else:
-		return load("res://database/Text/Profiles/" + named + ".tres")
+		return await Loader.load_res("res://database/Text/Profiles/" + named + ".tres")
 
-func get_direction(v):
+func get_direction(v=PlayerDir):
 	if abs(v.x) > abs(v.y):
 		if v.x >0:
 			return Vector2.RIGHT
@@ -161,7 +209,7 @@ func get_direction(v):
 		else:
 			return Vector2.UP
 	
-func get_dir_letter(d):
+func get_dir_letter(d=PlayerDir):
 	if get_direction(d) == Vector2.RIGHT:
 		return "R"
 	elif get_direction(d) == Vector2.LEFT:
@@ -171,7 +219,7 @@ func get_dir_letter(d):
 	elif get_direction(d) == Vector2.DOWN:
 		return "D"
 
-func get_dir_name(d):
+func get_dir_name(d=PlayerDir):
 	if get_direction(d) == Vector2.RIGHT:
 		return "Right"
 	elif get_direction(d) == Vector2.LEFT:
@@ -202,3 +250,22 @@ func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
+
+func get_preview():
+	if Party.Leader.FirstName == "Mira" and not Party.check_member(1):
+		return preload("res://art/Previews/1.png")
+	if Party.Leader.FirstName == "Mira" and Party.Member1.FirstName == "Alcine":
+		return preload("res://art/Previews/2.png")
+	return preload("res://art/Previews/1.png")
+
+func reset_settings():
+	ResourceSaver.save(Setting.new(), "user://Settings.tres")
+
+func init_settings():
+	if not ResourceLoader.exists("user://Settings.tres"):
+		reset_settings()
+	if Settings.Fullscreen:
+		fullscreen()
+	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
+	
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=86 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
 [ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="8_1xnqk"]
-[ext_resource type="PackedScene" uid="uid://dh64f5bodshv7" path="res://UI/Party/PartyUI.tscn" id="9_swjrk"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="10_fwnkw"]
@@ -261,7 +260,12 @@ anim_speed_min = 8.9
 anim_speed_max = 11.61
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdhds"]
-animations = []
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("15_mb6ip")
@@ -599,14 +603,11 @@ fixed_fps = 60
 light_mask = 16
 material = ExtResource("1_pas6x")
 sprite_frames = SubResource("SpriteFrames_wdhds")
-animation = &""
+animation = &"new_animation"
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 limit_smoothed = true
-
-[node name="PartyUI" parent="." instance=ExtResource("9_swjrk")]
-layout_mode = 1
 
 [node name="BattleUI" type="Control" parent="."]
 material = SubResource("ShaderMaterial_nmg3k")
@@ -1137,20 +1138,17 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
-[connection signal="check_party" from="." to="PartyUI" method="_check_party"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
 [connection signal="next_turn" from="." to="." method="_on_next_turn"]
 [connection signal="next_turn" from="." to="BattleUI" method="_on_battle_next_turn"]
 [connection signal="states_handled" from="Act" to="." method="make_move"]
 [connection signal="ability" from="BattleUI" to="." method="_on_battle_ui_ability"]
-[connection signal="ability" from="BattleUI" to="PartyUI" method="_on_battle_ui_ability"]
 [connection signal="ability" from="BattleUI" to="BattleUI" method="_on_ability"]
 [connection signal="ability" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
 [connection signal="ability_returned" from="BattleUI" to="." method="_on_battle_ui_ability_returned"]
 [connection signal="ability_returned" from="BattleUI" to="BattleUI" method="_on_ability_returned"]
 [connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
 [connection signal="root" from="BattleUI" to="." method="_on_battle_ui_root"]
-[connection signal="root" from="BattleUI" to="PartyUI" method="_on_battle_ui_root"]
 [connection signal="root" from="BattleUI" to="BattleUI" method="_on_root"]
 [connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
