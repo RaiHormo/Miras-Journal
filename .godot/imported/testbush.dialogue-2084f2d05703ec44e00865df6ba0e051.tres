@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_8bmyw"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_tms7r"]
 
 [resource]
-script = ExtResource("1_8bmyw")
+script = ExtResource("1_tms7r")
 titles = {
 "bush": "3",
 "greetings": "24",
