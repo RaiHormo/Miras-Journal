@@ -1,8 +1,7 @@
 extends NPC
 
-#func _ready():
-#	speed = 10
-
-func _physics_process(delta):
-	move_dir(Vector2.RIGHT, 1)
-	process_move()
+func default():
+	speed = 10
+	while true:
+		await Event.walk(Vector2.RIGHT, 300, ID)
+		await Event.walk(Vector2.LEFT, 300, ID)

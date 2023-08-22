@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cp07hd6816l7e"]
 
-[ext_resource type="Script" path="res://codings/UI/ItemManager.gd" id="1_ixpgw"]
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_sj6no"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="3_sdcre"]
+[ext_resource type="Script" path="res://codings/Autoload/ItemManager.gd" id="1_tytpn"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_d0a2x"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="3_55ujn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6duet"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -18,7 +18,7 @@ expand_margin_bottom = 7.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7uf24"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
-atlas = ExtResource("3_sdcre")
+atlas = ExtResource("3_55ujn")
 region = Rect2(48, 96, 16, 16)
 
 [node name="ItemManager" type="Control"]
@@ -29,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ixpgw")
+script = ExtResource("1_tytpn")
 
 [node name="Can" type="CanvasLayer" parent="."]
 
@@ -56,7 +56,7 @@ text = "Item Name"
 
 [node name="Icon" type="TextureRect" parent="Can/Panel"]
 texture_filter = 1
-material = ExtResource("2_sj6no")
+material = ExtResource("2_d0a2x")
 layout_mode = 0
 offset_left = -50.0
 offset_top = 1.0

@@ -1,3 +1,6 @@
+res://art/OV/Mira
+res://codings/Autoload
+res://database/Party
 res://UI/Party
 res://codings/Characters
 res://
@@ -12,11 +15,8 @@ res://art/Effects
 res://art/BT/WhiteSpawn
 res://database/Enemies/
 res://art/BT/CrawlingSludge
-res://art/OV/Mira
 res://database/BattleSeq/
 res://UI/MainMenu
 res://database/Abilities/
 res://art/BT/Alcine
 res://art/BT/Dummy
-res://sound/SFX/Mira
-res://database/Party

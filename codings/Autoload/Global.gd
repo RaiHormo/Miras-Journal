@@ -20,7 +20,7 @@ var StartTime =0
 var PlayTime =0
 var SaveTime =0
 var Player = null
-var Settings:Setting = load("user://Settings.tres")
+var Settings:Setting
 var Bt: Battle = null
 var CameraInd = 0
 
@@ -44,6 +44,7 @@ func get_playtime():
 	return PlayTime
 
 func get_controller() -> ControlScheme:
+	if Settings == null: return preload("res://UI/Input/Keyboard.tres")
 	if not Settings.ControlSchemeAuto:
 		return Settings.ControlSchemeOverride
 	if device == "Keyboard":
@@ -264,8 +265,11 @@ func reset_settings():
 func init_settings():
 	if not ResourceLoader.exists("user://Settings.tres"):
 		reset_settings()
+		await get_tree().create_timer(1).timeout
+	Settings = load("user://Settings.tres")
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 	
-	
+func get_cam() -> Camera2D:
+	return get_tree().root.get_node("Area/Camera"+str(CameraInd))

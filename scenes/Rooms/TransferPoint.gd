@@ -8,5 +8,5 @@ func _on_area_entered(area):
 	if Direction==Global.get_direction():
 		if area.name == "Finder":
 			Global.Controllable = false
-			Global.Player.move_dir(Direction, 0.5)
+			Event.walk(Direction, 20)
 			await Loader.travel_to(Room, Position, ToCamera)

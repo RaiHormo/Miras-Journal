@@ -13,6 +13,8 @@ var undashable = false
 var dashdir:Vector2= Vector2.ZERO
 
 func _ready():
+	ID = "P"
+	Event.add_char(self)
 	#animation_tree.active = true
 	#speed = 75
 	Item.pickup.connect(_on_pickup)
@@ -25,6 +27,7 @@ func _ready():
 			if "Camera" in i.name: i.enabled = false
 		$Camera2D.remote_path = cam.get_path()
 		cam.enabled = true
+
 func _process(delta):
 	if Global.Controllable:
 		update_anim_prm()
@@ -88,7 +91,7 @@ func _physics_process(delta):
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
 		check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):
-			print(tilemap)
+			#print(tilemap)
 			#print(tilemap.local_to_map(global_position))
 			for i in tilemap.get_layers_count():
 				if tilemap.get_cell_tile_data(i, coords) != null:
@@ -126,7 +129,6 @@ func _on_pickup():
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party():
-
 	if Item.check_key("LightweightAxe"):
 		$Base/Bag/Axe.show()
 	else:
@@ -157,7 +159,7 @@ func check_for_jumps():
 					Global.Controllable = false
 					z_index+=2
 					var jump = tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
-					print(jump, "  ", coords)
+					#print(jump, "  ", coords)
 					Global.jump_to(self, tilemap.map_to_local(coords) + Vector2(tilemap.map_to_local(jump).x, 0), 5, 0.5)
 					await Global.anim_done
 					Global.Controllable = true

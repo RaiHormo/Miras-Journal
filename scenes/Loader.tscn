@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://ykcn5dmyux3m"]
 
-[ext_resource type="Script" path="res://codings/Loader.gd" id="1_vacb0"]
+[ext_resource type="Script" path="res://codings/Autoload/Loader.gd" id="1_y3gue"]
 [ext_resource type="Texture2D" uid="uid://d2ieiqgwfqltl" path="res://art/sheets/load.png" id="2_3sm07"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxef7"]
@@ -254,7 +254,7 @@ animations = [{
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_vacb0")
+script = ExtResource("1_y3gue")
 
 [node name="Can" type="CanvasLayer" parent="."]
 layer = 9

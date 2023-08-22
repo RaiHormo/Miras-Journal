@@ -5,7 +5,9 @@ var focus:Control
 var mainIndex = 0
 
 func _ready():
+	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+	$Silhouette.position = Vector2(-1000, -39)
 	$MainButtons/SaveManagment.grab_focus()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -17,8 +19,7 @@ func _ready():
 	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
-	t.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
-	$Silhouette.texture = (await Loader.load_res("user://Autosave.tres")).Preview
+	siilhouette()
 	for button in $MainButtons.get_children():
 		button.size.x=0
 		button.z_index = 0
@@ -29,7 +30,14 @@ func _ready():
 		await get_tree().create_timer(0.1).timeout
 	await t.finished
 	stage = "main"
-	
+
+func siilhouette():
+	$Silhouette.texture = (await Loader.load_res("user://Autosave.tres")).Preview
+	t=create_tween()
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_ease(Tween.EASE_OUT)
+	t.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
+
 func _physics_process(delta):
 	var playtime:Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())
 	$Timer/HSplitContainer/Label.text = str(playtime.hour)+":"+str(playtime.minute)+":"+str(playtime.second)
@@ -110,6 +118,7 @@ func load_settings():
 	$SidePanel/ScrollContainer/VBoxContainer/Master/Slider.value = Global.Settings.MasterVolume*10
 
 func _on_control_scheme(index):
+	Global.confirm_sound()
 	Global.Settings.ControlSchemeAuto = false
 	Global.Settings.ControlSchemeEnum = $SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.get_selected_id()
 	match Global.Settings.ControlSchemeEnum:
@@ -133,12 +142,14 @@ func _on_control_scheme(index):
 
 func _on_fullscreen():
 	Global.fullscreen()
+	Global.confirm_sound()
+	await get_tree().create_timer(0.5).timeout
+	load_settings()
 
 
 func _on_quit():
 	Loader.transition("L")
-	Loader.save()
-	await get_tree().create_timer(2).timeout
+	await Loader.save()
 	get_tree().quit()
 
 
@@ -149,8 +160,6 @@ func _on_master_volume(value:float):
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 	Global.cursor_sound()
 	Global.save_settings()
-	
-
 
 func _on_volume_reset():
 	Global.Settings.MasterVolume = 0
@@ -158,3 +167,9 @@ func _on_volume_reset():
 	Global.save_settings()
 	load_settings()
 	Global.confirm_sound()
+
+func confirm():
+	Global.confirm_sound()
+
+func cursor(i):
+	Global.cursor_sound()

@@ -5,12 +5,19 @@ var t: Tween
 var prevRootIndex =1
 var zoom
 @onready var Player:Mira =get_parent()
-@onready var Cam:Camera2D =get_parent().get_node('Camera2D')
+@onready var Cam:Camera2D = Global.get_cam()
+@onready var CamPrev:Camera2D = Global.get_cam().duplicate()
 @onready var Fader =get_parent().get_node("Fader")
 var PrevCtrl:Control = null
 var KeyInv :Array[ItemData]
 
 func _ready():
+	hide()
+	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
+	show()
+	Cam.limit_smoothed = true
+	Cam.position_smoothing_enabled = true
+	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	Player.reset_speed()
 	Player.bag_anim()
 	$DescPaper.hide()
@@ -27,6 +34,10 @@ func _ready():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
+	t.tween_property(Cam, "limit_bottom",  10000000, 0.5)
+	t.tween_property(Cam, "limit_top",  -10000000, 0.5)
+	t.tween_property(Cam, "limit_left",  -10000000, 0.5)
+	t.tween_property(Cam, "limit_right",  10000000, 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
 	Player.get_node("Base/Shadow").z_index = -1
@@ -34,9 +45,10 @@ func _ready():
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
-	t.tween_property(Cam, "position", Vector2(0, -6), 0.5)
+	t.tween_property(Cam, "position", Player.global_position + Vector2(0, (-11 + 	zoom.y)), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
+	
 	t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
 	get_inventory()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
@@ -101,14 +113,17 @@ func _on_focus_changed(control:Control):
 func close():
 	$Base.play("Close")
 	stage = "inactive"
-	Player.z_index = 1
-	Player.get_node("Base/Shadow").z_index = 0
 	get_tree().paused = false
 	t.kill()
 	t=create_tween()
+	Player.set_anim("Idle"+Global.get_dir_name())
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
+	t.tween_property(Cam, "limit_bottom",  CamPrev.limit_bottom, 0.3)
+	t.tween_property(Cam, "limit_top",  CamPrev.limit_top, 0.3)
+	t.tween_property(Cam, "limit_left",  CamPrev.limit_left, 0.3)
+	t.tween_property(Cam, "limit_right",  CamPrev.limit_right, 0.3)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -127,11 +142,14 @@ func close():
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
-	t.tween_property(Cam, "position", Vector2(0, 0), 0.5)
-	t.tween_property(Cam, "zoom", zoom, 0.5)
+	t.tween_property(Cam, "position", CamPrev.position, 0.3)
+	t.tween_property(Cam, "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
-	await $Base.animation_finished
+	await t.finished
+	Player.z_index = 1
+	Player.get_node("Base/Shadow").z_index = 0
 	Global.Controllable = true
+	Global.get_cam().enabled = true
 	Fader.hide()
 	queue_free()
 
@@ -238,7 +256,7 @@ func _root():
 	t.tween_property($Inventory, "size", Vector2.ZERO, 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "position", (Vector2(803, 400)), 0.3)
-	t.tween_property(Cam, "position", Vector2(0 ,-6), 0.5)
+	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.8)
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
 	await t.finished
@@ -291,7 +309,7 @@ func _item():
 	$Inventory.show()
 	t.tween_property($Inventory, "size", Vector2(547, 549), 0.3).from(Vector2.ZERO)
 	t.tween_property($Inventory, "position", Vector2(241, 123), 0.3).from(Vector2(803, 446))
-	t.tween_property(Cam, "position", Vector2(100 ,-6), 0.3)
+	t.tween_property(Cam, "offset", Vector2(100 ,0), 0.6)
 	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
 	if not Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
@@ -325,7 +343,7 @@ func _options():
 	t.tween_property($Rail, "modulate", Color.TRANSPARENT, 0.5)
 	t.tween_property($Rail, "position:x", -200, 0.5).as_relative()
 	t.tween_property($Base, "position:x", -200, 0.5).as_relative()
-	t.tween_property(Cam, "position", Vector2(70 ,-6), 0.5)
+	t.tween_property(Cam, "offset", Vector2(70 ,0), 0.5)
 	$Back.hide()
 	$Confirm.hide()
 	

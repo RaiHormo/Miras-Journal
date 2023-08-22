@@ -24,16 +24,16 @@ process_mode = 3
 visible = false
 light_mask = 0
 material = SubResource("ShaderMaterial_8onko")
-offset_left = -161.0
-offset_top = -100.0
+offset_left = -302.0
+offset_top = -232.0
 offset_right = 287.0
-offset_bottom = 100.0
+offset_bottom = 239.0
 color = Color(0, 0, 0, 1)
 
 [node name="Darken" type="ColorRect" parent="Body/Fader"]
 layout_mode = 0
-offset_right = 450.0
-offset_bottom = 201.0
+offset_right = 617.0
+offset_bottom = 467.0
 color = Color(0, 0, 0, 1)
 
 [node name="Camera2D" type="RemoteTransform2D" parent="Body"]

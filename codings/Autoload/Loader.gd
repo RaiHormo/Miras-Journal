@@ -22,6 +22,7 @@ func _ready():
 	Icon.global_position = Vector2(1181, 702)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
+	Event.List.clear()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
 	scene = "res://scenes/Rooms/" + sc + ".tscn"
@@ -97,6 +98,7 @@ func done():
 	get_tree().paused = false
 
 func detransition():
+	Global.get_cam().position_smoothing_enabled = false
 	t=create_tween()
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
@@ -119,6 +121,7 @@ func detransition():
 	$Can/Bars/Up.hide()
 	$Can/Bars/Left.hide()
 	$Can/Bars/Right.hide()
+	Global.get_cam().position_smoothing_enabled = true
 
 func StartBattle(stg):
 	PartyUI.UIvisible = false

@@ -26,6 +26,7 @@ func _physics_process(_delta: float) -> void:
 		if nav_agent.distance_to_target() > 150:
 				global_position = player.global_position
 		if nav_agent.distance_to_target() > distance:
+			$CollisionShape2D.disabled = false
 			direction = to_local(nav_agent.get_next_path_position()).normalized()
 			#print(direction)
 			#if (player.realvelocity.x  * direction.x >= 0 and player.realvelocity.y * direction.y >= 0) or player.realvelocity != Vector2.ZERO:
@@ -33,14 +34,15 @@ func _physics_process(_delta: float) -> void:
 				move_and_slide()
 			velocity = speed * direction
 			speed = max(30, player.realvelocity.length())
-		elif nav_agent.distance_to_target() < 10:
+		elif nav_agent.distance_to_target() < 20:
 			if player.direction != Vector2.ZERO:
 				#speed = 80
 				animate()
-				oposite = (Global.get_direction(player.direction) * Vector2(-1,-1)) * 150
+				#print(oposite)
+				oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite
 			realvelocity = player.direction
-			#$CollisionShape2D.disabled = true
+			$CollisionShape2D.disabled = true
 			move_and_slide()
 		if global_position.x-oldposition.x != 0 and global_position.y-oldposition.y != 0:
 			realvelocity=global_position-oldposition
