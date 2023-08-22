@@ -17,6 +17,9 @@ func walk(dir:Vector2=Global.get_direction(), time:float=60, chara:String="P"):
 	for i in time:
 		if not npc(chara) == null:
 			npc(chara).move_dir(dir)
-		await get_tree().create_timer(0.005).timeout
+		await wait()
 	if not npc(chara) == null:
 		npc(chara).direction = Vector2.ZERO
+
+func wait(time=0.005):
+	await get_tree().create_timer(time).timeout

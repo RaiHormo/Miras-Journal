@@ -18,6 +18,7 @@ func _ready():
 	#animation_tree.active = true
 	#speed = 75
 	Item.pickup.connect(_on_pickup)
+	Global.Tilemap = tilemap
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self

@@ -20,10 +20,15 @@ res://scenes/Shaders/Blur.gdshader
 res://codings/Interactable.gd
 res://art/sheets/AlcineOV1.tres
 res://scenes/Shaders/Actor.gdshader
+res://codings/NPC.gd
+res://codings/PlayerMovement.gd
+res://scenes/Rooms/TempleWoods.tscn
+res://codings/Autoload/Global.gd
 res://UI/Party/PartyUI.tscn
+res://codings/Characters/CrawlingSludge.gd
+res://codings/Autoload/Event.gd
 res://scenes/Rooms/Debug.tscn
 res://scenes/Interactable.tscn
-res://scenes/Rooms/TempleWoods.tscn
 res://scenes/Loader.tscn
 res://scenes/Battle.tscn
 res://scenes/OvPlayer.tscn

@@ -41,7 +41,14 @@ func move_dir(dir:Vector2):
 	process_move()
 
 func go_to(pos:Vector2):
-	$Nav
+	$Nav.set_target_position(Global.Tilemap.map_to_local(pos))
+	while not $Nav.is_target_reached():
+		direction = to_local($Nav.get_next_path_position()).normalized()
+		process_move()
+		await Event.wait
+		if $Nav.target_position != pos:
+			return
+
 
 
 

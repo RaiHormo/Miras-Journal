@@ -23,6 +23,7 @@ var Player = null
 var Settings:Setting
 var Bt: Battle = null
 var CameraInd = 0
+var Tilemap:TileMap
 
 func _ready():
 	StartTime=Time.get_unix_time_from_system()
