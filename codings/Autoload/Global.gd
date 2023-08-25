@@ -19,7 +19,7 @@ var AltConfirm
 var StartTime =0
 var PlayTime =0
 var SaveTime =0
-var Player = null
+var Player:Mira = null
 var Settings:Setting
 var Bt: Battle = null
 var CameraInd = 0

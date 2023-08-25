@@ -35,6 +35,7 @@ Leader = ExtResource("2_qqps8")
 script = ExtResource("5_83x0w")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([])
 Transition = true
+EscPosition = Vector2(0, 0)
 
 [sub_resource type="Curve" id="Curve_wrfky"]
 

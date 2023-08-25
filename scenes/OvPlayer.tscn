@@ -19,6 +19,7 @@ distance = 30
 
 [node name="Body" parent="." instance=ExtResource("4_pg2wh")]
 process_mode = 3
+speed = 75
 
 [node name="Fader" type="ColorRect" parent="Body"]
 visible = false

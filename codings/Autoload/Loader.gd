@@ -12,6 +12,7 @@ signal thread_loaded
 var loaded_resource
 var traveled_pos
 @onready var Icon = $Can/Icon
+var BattleResult=0
 
 func _ready():
 	Icon.hide()
@@ -124,6 +125,7 @@ func detransition():
 	Global.get_cam().position_smoothing_enabled = true
 
 func StartBattle(stg):
+	BattleResult = 0
 	PartyUI.UIvisible = false
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
@@ -194,9 +196,11 @@ func end_battle():
 		await get_tree().create_timer(0.5).timeout
 	InBattle= false
 	get_tree().paused = false
-	Global.Controllable = true
 	battle_bars(0)
 	PartyUI.UIvisible=true
+	if BattleResult == 0:
+		await Event.twean_to(Seq.EscPosition)
+	Global.Controllable = true
 
 
 func error_handle(res):

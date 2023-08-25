@@ -1944,10 +1944,11 @@ radius = 7.0011
 radius = 34.0005
 height = 155.999
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1odkf"]
-radius = 71.5682
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5d30"]
+radius = 15.0
 
 [node name="Area" type="Node2D"]
+process_mode = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -2022,7 +2023,10 @@ shape = SubResource("RectangleShape2D_vr85b")
 material = ExtResource("1_a2733")
 position = Vector2(1447.05, 223.67)
 script = ExtResource("7_0qouf")
-speed = 40
+Battle = "SludgeBattle1"
+speed = 20
+direction = null
+Facing = null
 ID = "CS1"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TileMap/CrawlingSludge"]
@@ -2040,7 +2044,9 @@ position = Vector2(0.0012207, 6.00002)
 shape = SubResource("CircleShape2D_7bu4m")
 
 [node name="Nav" type="NavigationAgent2D" parent="TileMap/CrawlingSludge"]
+path_desired_distance = 0.1
 target_desired_distance = 0.1
+path_max_distance = 20.0
 
 [node name="DirectionMarker" type="Marker2D" parent="TileMap/CrawlingSludge"]
 position = Vector2(3.00128, 5.9993)
@@ -2055,15 +2061,15 @@ rotation = 1.57007
 shape = SubResource("CapsuleShape2D_s7t5g")
 debug_color = Color(0.721569, 0.415686, 0.635294, 0.419608)
 
-[node name="EscapeArea" type="Area2D" parent="TileMap/CrawlingSludge"]
+[node name="CatchArea" type="Area2D" parent="TileMap/CrawlingSludge"]
 collision_layer = 0
-collision_mask = 256
+collision_mask = 255
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/CrawlingSludge/EscapeArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/CrawlingSludge/CatchArea"]
 position = Vector2(0.00280762, 7.99951)
 rotation = 1.57007
-shape = SubResource("CircleShape2D_1odkf")
-debug_color = Color(0.913725, 0.298039, 0, 0.419608)
+shape = SubResource("CircleShape2D_o5d30")
+debug_color = Color(0.235294, 0.631373, 0.317647, 0.419608)
 
 [node name="PointLight2D2" type="PointLight2D" parent="TileMap"]
 position = Vector2(1390.75, 145.055)

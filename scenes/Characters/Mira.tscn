@@ -2845,6 +2845,7 @@ material = ExtResource("2_lltpm")
 position = Vector2(0, -5)
 collision_layer = 2
 script = ExtResource("1_503pd")
+speed = 70
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
@@ -2937,4 +2938,9 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainDetector"]
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_1wjc1")
-debug_color = Color(0.615686, 0.533333, 0.141176, 0.419608)
+debug_color = Color(1, 0.486275, 0.0235294, 0.552941)
+
+[node name="Nav" type="NavigationAgent2D" parent="."]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
+path_max_distance = 20.0

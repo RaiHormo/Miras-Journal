@@ -6,7 +6,6 @@ signal nearest_changed
 var dashing = false
 var nearestactionable = null
 var realvelocity : Vector2 = Vector2.ZERO
-var coords:Vector2
 var move_frames =0
 var midair = false
 var undashable = false
@@ -14,6 +13,7 @@ var dashdir:Vector2= Vector2.ZERO
 
 func _ready():
 	ID = "P"
+	speed = 75
 	Event.add_char(self)
 	#animation_tree.active = true
 	#speed = 75

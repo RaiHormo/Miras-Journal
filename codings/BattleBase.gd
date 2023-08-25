@@ -27,7 +27,7 @@ func _ready():
 	Loader.InBattle = true
 	TurnInd= -1
 	Turn = 0
-	Seq = Loader.Seq
+	Seq = Loader.Seq.duplicate()
 	Party = Global.Party
 	for i in Seq.Enemies.size():
 		Seq.Enemies[i-1] = Seq.Enemies[i-1].duplicate(true)
@@ -201,8 +201,18 @@ func _on_next_turn():
 	print("Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
 	initial = CurrentChar.node.position 
 	if CurrentChar.has_state("Knocked Out"):
-		end_turn()
-		return
+		if CurrentChar.IsEnemy:
+			Troop.erase(CurrentChar)
+			TurnOrder.erase(CurrentChar)
+			if Troop.is_empty():
+				victory()
+				return
+			else:
+				end_turn()
+				return
+		else:
+			end_turn()
+			return
 	$Act.handle_states()
 
 
