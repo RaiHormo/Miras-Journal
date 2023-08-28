@@ -10,8 +10,6 @@ func default():
 
 
 func _physics_process(delta):
-	if get_tree().paused:
-		print("whjy")
 #	print($CatchArea.get_overlapping_bodies())
 	if Global.Player in $CatchArea.get_overlapping_bodies() and Global.Controllable:
 		await Loader.StartBattle(Battle)

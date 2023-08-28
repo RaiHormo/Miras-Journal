@@ -221,6 +221,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.PlayTime = Global.PlayTime
 	data.Position = Global.Player.global_position
 	data.Preview = Global.get_preview()
+	data.Camera = Global.CameraInd
 	var members: Array[Actor] = []
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = await load_res("res://database/Party/"+ i)
@@ -274,6 +275,8 @@ func load_game(filename:String="Autosave"):
 	Global.Party.set_to(data.Party)
 	await get_tree().create_timer(0.01).timeout
 	Global.Player.global_position = data.Position
+	Global.CameraInd = data.Camera
+	Global.Controllable =true
 
 func load_res(path:String):
 	loaded_resource = path

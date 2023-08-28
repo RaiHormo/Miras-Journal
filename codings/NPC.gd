@@ -33,6 +33,8 @@ func process_move():
 			Facing = Global.get_direction(direction)
 
 func update_anim_prm():
+	if RealVelocity.normalized().length()*10 != 10:
+		return
 	if abs(RealVelocity.length())>2:
 		$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
 	else:

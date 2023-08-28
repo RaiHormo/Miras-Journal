@@ -2025,8 +2025,6 @@ position = Vector2(1447.05, 223.67)
 script = ExtResource("7_0qouf")
 Battle = "SludgeBattle1"
 speed = 20
-direction = null
-Facing = null
 ID = "CS1"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TileMap/CrawlingSludge"]
@@ -2072,7 +2070,7 @@ shape = SubResource("CircleShape2D_o5d30")
 debug_color = Color(0.235294, 0.631373, 0.317647, 0.419608)
 
 [node name="PointLight2D2" type="PointLight2D" parent="TileMap"]
-position = Vector2(1390.75, 145.055)
+position = Vector2(1361.03, 149.689)
 scale = Vector2(2.64809, 2.95595)
 color = Color(0.796078, 0.745098, 0.858824, 0.964706)
 energy = 1.35

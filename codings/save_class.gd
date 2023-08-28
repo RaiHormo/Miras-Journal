@@ -6,6 +6,7 @@ class_name SaveFile
 @export var Party:PartyData
 @export var Room:PackedScene
 @export var Position:Vector2
+@export var Camera:int = 0
 @export var Members: Array[Actor]
 @export var StartTime: int
 @export var PlayTime: int

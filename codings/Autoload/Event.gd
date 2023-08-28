@@ -6,6 +6,9 @@ func _ready():
 
 func add_char(b:NPC):
 	for i in List:
+		if i==null: 
+			List.append(i)
+			continue
 		if i.ID == b.ID:
 			List[List.find(i)] = b
 			return
