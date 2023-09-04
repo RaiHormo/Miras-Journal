@@ -78,6 +78,6 @@ func _on_button_pressed():
 		if itemtype=="key":
 			Item.add_key_item(item)
 	if ActionType=="battle":
-		Loader.StartBattle(file)
+		Loader.start_battle(file)
 	if hidesprite:
 		get_parent().hide()

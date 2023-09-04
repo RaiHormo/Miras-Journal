@@ -91,11 +91,11 @@ func _ready():
 		if not i.Shadow:
 				i.node.get_child(0).hide()
 	position_sprites()
+	turn_ui_init()
 	if Seq.Transition:
 		await entrance()
 	else:
 		next_turn.emit()
-	
 
 func speed_sort(a, b):
 	if a.Speed > b.Speed:
@@ -107,6 +107,21 @@ func speed_sort(a, b):
 			return true
 	else:
 		return false
+
+func turn_ui_init():
+	for i in TurnOrder:
+		var entr = $Canvas/TurnOrderPop/Margin/List.get_child(0).duplicate()
+		entr.get_node("Icon").texture = i.PartyIcon
+		entr.get_node("Name").text = i.FirstName
+		entr.set_meta("Actor", i)
+		$Canvas/TurnOrderPop/Margin/List.add_child(entr)
+	if $Canvas/TurnOrderPop/Margin/List.get_child(0).name == "Char":
+		$Canvas/TurnOrderPop/Margin/List/Char.queue_free()
+
+func turn_ui_check():
+	for i in $Canvas/TurnOrderPop/Margin/List.get_children():
+		if i.get_meta("Actor") == CurrentChar: i.get_node("Arrow").show()
+		else: i.get_node("Arrow").hide()
 
 func position_sprites():
 	$Act/Actor0.show()
@@ -240,6 +255,10 @@ func _on_ai_chosen():
 func _input(event):
 	if Input.is_key_pressed(KEY_R):
 		end_battle()
+	if Input.is_action_pressed("Dash") and Action:
+		Engine.time_scale = 8
+	else:
+		Engine.time_scale = 1
 
 
 func _on_battle_ui_ability():
@@ -284,9 +303,12 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 				while CurrentTarget.FirstName == oldtar or CurrentTarget.has_state("Knocked Out") or CurrentTarget.node == null:
 					i += 1
 					if i>get_ally_faction(CurrentTarget).size():
-						print("The party was wiped out")
-						end_battle()
-						return
+						if get_ally_faction(CurrentTarget)[0].IsEnemy:
+							victory()
+							return
+						else:
+							game_over()
+							return
 					CurrentTarget = get_ally_faction(CurrentTarget)[i-1]
 		if tar.IsEnemy:
 			$BattleUI.emit_signal("targetFoc", tar)
@@ -502,5 +524,14 @@ func pop_aura(target: Actor, time:float=0.5):
 
 func victory():
 	print("Victory!")
+	Loader.BattleResult = 1
 	end_battle()
 	
+func escape():
+	print("Escaped")
+	Loader.BattleResult = 2
+	end_battle()
+
+func game_over():
+	print("The party was wiped out")
+	end_battle()

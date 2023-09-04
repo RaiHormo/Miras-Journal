@@ -16,7 +16,9 @@ func add_char(b:NPC):
 
 func npc(ID: String):
 	for i in List:
-		if i.ID == ID:
+		if i==null: 
+			List.append(i)
+		elif i.ID == ID:
 			return i
 
 func walk(dir:Vector2=Global.get_direction(), time:float=60, chara:String="P"):

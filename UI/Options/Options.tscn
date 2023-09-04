@@ -20,6 +20,22 @@
 shader = ExtResource("2_ce8sl")
 shader_parameter/lod = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
 content_margin_left = 11.0
 content_margin_right = 32.0
@@ -50,22 +66,6 @@ corner_radius_top_right = 42
 corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
 [sub_resource type="Theme" id="Theme_o6i8h"]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
@@ -73,7 +73,7 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/font_sizes/font_size = 32
-Button/styles/disabled = null
+Button/styles/disabled = SubResource("StyleBoxFlat_ds1ry")
 Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
 Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
 Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
@@ -368,6 +368,7 @@ focus_neighbor_bottom = NodePath("../GameSettings")
 focus_next = NodePath("../GameSettings")
 focus_previous = NodePath("../Quit")
 theme = SubResource("Theme_o6i8h")
+disabled = true
 text = "Save Managment"
 metadata/_edit_use_anchors_ = true
 
@@ -408,6 +409,7 @@ focus_neighbor_bottom = NodePath("../Gallery")
 focus_next = NodePath("../Gallery")
 focus_previous = NodePath("../GameSettings")
 theme = SubResource("Theme_o6i8h")
+disabled = true
 text = "Tutorials"
 metadata/_edit_use_anchors_ = true
 
@@ -429,6 +431,7 @@ focus_next = NodePath("../Quit")
 focus_previous = NodePath("../Tutorials")
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
+disabled = true
 text = "Gallery"
 metadata/_edit_use_anchors_ = true
 

@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=6 format=3 uid="uid://4hdf3nnmcvcg"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://4hdf3nnmcvcg"]
 
 [ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_0bv3a"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="1_h2acv"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="2_eotdb"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="3_ljdvx"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="4_wq41y"]
+[ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="5_mdrei"]
+[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="6_dyxr4"]
+[ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="7_awwx8"]
+[ext_resource type="Texture2D" uid="uid://bjy4gyndw8qxl" path="res://UI/Input/RZ.png" id="8_wa61j"]
+[ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="9_nawbh"]
+[ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="10_j45lx"]
 
 [resource]
 script = ExtResource("1_0bv3a")
@@ -14,4 +20,10 @@ AbilityIcon = ExtResource("1_h2acv")
 AttackIcon = ExtResource("2_eotdb")
 ItemIcon = ExtResource("4_wq41y")
 CommandIcon = ExtResource("3_ljdvx")
+Start = ExtResource("10_j45lx")
+Select = ExtResource("9_nawbh")
+R = ExtResource("7_awwx8")
+RZ = ExtResource("8_wa61j")
+L = ExtResource("5_mdrei")
+LZ = ExtResource("6_dyxr4")
 AltConfirm = true

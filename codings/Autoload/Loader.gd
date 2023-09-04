@@ -13,14 +13,14 @@ var loaded_resource
 var traveled_pos
 @onready var Icon = $Can/Icon
 var BattleResult=0
+var chased = false
+var Attacker: NPC
+var CamZoom:Vector2
+var Defeated:Array[NodePath]
 
 func _ready():
-	Icon.hide()
-	$Can/Bars/Down.hide()
-	$Can/Bars/Up.hide()
-	$Can/Bars/Left.hide()
-	$Can/Bars/Right.hide()
-	Icon.global_position = Vector2(1181, 702)
+	$Can.hide()
+	Icon.global_position = Vector2(1181, 870)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	Event.List.clear()
@@ -35,7 +35,6 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		done()
 	else:
-		Icon.show()
 		Icon.play("Load")
 		loading = true
 
@@ -59,31 +58,25 @@ func transition(dir=Global.get_dir_letter()):
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
+	$Can.show()
 	$Can.layer = 9
 	direc = dir
-	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+	if Icon.is_playing():
+		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	if dir == "U":
-		$Can/Bars/Down.show()
 		t.parallel()
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3).from(Vector2(-235,786))
 	elif dir == "D":
-		$Can/Bars/Up.show()
 		t.parallel()
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
 	elif dir == "R":
-		$Can/Bars/Left.show()
 		t.parallel()
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-204), 0.3).from(Vector2(-1720,-204))
 	elif dir == "L":
-		$Can/Bars/Right.show()
 		t.parallel()
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
 	else:
 		t.set_parallel(true)
-		$Can/Bars/Right.show()
-		$Can/Bars/Left.show()
-		$Can/Bars/Up.show()
-		$Can/Bars/Down.show()
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3).from(Vector2(-235,786))
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-204), 0.3).from(Vector2(-1720,-204))
@@ -114,36 +107,58 @@ func detransition():
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(2000,-204), 0.3)
 	elif direc == "L":
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-2000,-177), 0.3)
-	Icon.play("Close")
+	if Icon.is_playing():
+		Icon.play("Close")
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	$Can/Icon.hide()
-	$Can/Bars/Down.hide()
-	$Can/Bars/Up.hide()
-	$Can/Bars/Left.hide()
-	$Can/Bars/Right.hide()
+	$Can.hide()
+	$Can/Bars/Down.position = Vector2(-34, 1882)
+	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
 
-func StartBattle(stg):
+func start_battle(stg):
 	BattleResult = 0
+	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = true
 	PartyUI.UIvisible = false
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
 	#get_node("/root/Area/TileMap/OvPlayer/Body/Camera2D").current = false
-	Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
+	if stg is String:
+		Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
+	elif stg is BattleSequence:
+		Seq = stg
+	else:
+		OS.alert("THIS IS NOT A VALID BATTLE SEQUENCE", "YOU IDIOT")
+		return
+	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
 		battle_bars(4)
 		await t.finished
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
 
+func end_battle():
+	if Seq.Transition:
+		Loader.battle_bars(4)
+		await get_tree().create_timer(0.5).timeout
+	InBattle= false
+	get_tree().paused = false
+	battle_bars(0)
+	PartyUI.UIvisible=true
+	if BattleResult == 2:
+		await Event.twean_to(Seq.EscPosition)
+	if BattleResult == 1:
+		Attacker.defeat()
+	Global.Controllable = true
+	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
+
 func icon_save():
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	Icon.show()
+	$Can.show()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Save")
 	await Icon.animation_finished
@@ -152,23 +167,24 @@ func icon_save():
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	Icon.hide()
+	$Can.hide()
 
 func battle_bars(x: int):
+	if t != null:
+		t.kill()
 	$Can.layer = 0
-	$Can/Bars/Down.show()
-	$Can/Bars/Up.show()
+	$Can.show()
 	t=create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_QUART)
+	t.set_trans(Tween.TRANS_CUBIC)
 	match x:
 		0:
+			t.tween_property(Global.get_cam(), "zoom", CamZoom, 1)
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.5)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.5)
 			await t.finished
-			$Can/Bars/Down.hide()
-			$Can/Bars/Up.hide()
+			$Can.hide()
 		1:
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), 0.5)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1000), 0.5)
@@ -185,23 +201,11 @@ func battle_bars(x: int):
 			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,0.7), 1)
 			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,0.7), 1)
 		4:
+			t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), 0.5)
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), 0.5)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), 0.5)
 			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,1), 0.2)
 			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,1), 0.2)
-			
-func end_battle():
-	if Seq.Transition:
-		Loader.battle_bars(4)
-		await get_tree().create_timer(0.5).timeout
-	InBattle= false
-	get_tree().paused = false
-	battle_bars(0)
-	PartyUI.UIvisible=true
-	if BattleResult == 0:
-		await Event.twean_to(Seq.EscPosition)
-	Global.Controllable = true
-
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
@@ -222,6 +226,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Position = Global.Player.global_position
 	data.Preview = Global.get_preview()
 	data.Camera = Global.CameraInd
+	data.Defeated = Defeated
 	var members: Array[Actor] = []
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = await load_res("res://database/Party/"+ i)
@@ -258,6 +263,8 @@ func load_game(filename:String="Autosave"):
 	var data:SaveFile = await load_res("user://"+filename+".tres")
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
+	Defeated = data.Defeated
+	Global.CameraInd = data.Camera  
 	
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")
@@ -275,7 +282,6 @@ func load_game(filename:String="Autosave"):
 	Global.Party.set_to(data.Party)
 	await get_tree().create_timer(0.01).timeout
 	Global.Player.global_position = data.Position
-	Global.CameraInd = data.Camera
 	Global.Controllable =true
 
 func load_res(path:String):
@@ -284,3 +290,9 @@ func load_res(path:String):
 	loading_thread=true
 	await thread_loaded
 	return ResourceLoader.load_threaded_get(path)
+
+func chase_mode():
+	CamZoom = Global.get_cam().zoom
+	chased = true
+	while chased:
+		await Event.wait()

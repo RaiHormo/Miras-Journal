@@ -8,8 +8,10 @@ class_name SaveFile
 @export var Position:Vector2
 @export var Camera:int = 0
 @export var Members: Array[Actor]
+@export var Defeated: Array
 @export var StartTime: int
 @export var PlayTime: int
+@export var Preview: Texture = preload("res://art/Previews/1.png")
 @export_group("Items")
 @export var KeyInv: Array[ItemData]
 @export var KeyItems: Array[ItemData]
@@ -19,4 +21,3 @@ class_name SaveFile
 @export var BattleItems: Array[ItemData]
 @export var MatInv: Array[ItemData]
 @export var Materials: Array[ItemData]
-@export var Preview: Texture = preload("res://art/Previews/1.png")

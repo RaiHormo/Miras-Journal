@@ -31,8 +31,9 @@ func _ready():
 	add_child(Sprite)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	await get_tree().create_timer(0.01).timeout
-	get_window().grab_focus()
+	for i in 120:
+		await Event.wait()
+		get_window().grab_focus()
 	init_settings()
 	
 

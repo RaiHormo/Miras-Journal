@@ -1,8 +1,9 @@
+res://codings/Characters
+res://art/Effects
 res://art/OV/Mira
 res://codings/Autoload
 res://database/Party
 res://UI/Party
-res://codings/Characters
 res://
 res://UI/Options
 res://codings/UI
@@ -11,7 +12,6 @@ res://art
 /home/rai/Downloads
 res://database/States/
 res://art/BT/Mira
-res://art/Effects
 res://art/BT/WhiteSpawn
 res://database/Enemies/
 res://art/BT/CrawlingSludge

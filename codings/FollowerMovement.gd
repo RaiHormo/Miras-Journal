@@ -23,6 +23,8 @@ func _physics_process(_delta: float) -> void:
 		#speed = nav_agent.distance_to_target() * 4 - distance
 		#print(speed)
 		#print(nav_agent.distance_to_target())
+		if Loader.chased:
+			$CollisionShape2D.disabled = true
 		if nav_agent.distance_to_target() > 150:
 				global_position = player.global_position
 		if nav_agent.distance_to_target() > distance:
@@ -34,6 +36,10 @@ func _physics_process(_delta: float) -> void:
 				move_and_slide()
 			velocity = speed * direction
 			speed = max(30, player.realvelocity.length())
+			if Loader.chased:
+				$CollisionShape2D.disabled = true
+			else: 
+				$CollisionShape2D.disabled = false
 		elif nav_agent.distance_to_target() < 20:
 			if player.direction != Vector2.ZERO:
 				#speed = 80

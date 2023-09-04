@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=99 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -25,7 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="19_5nefy"]
 [ext_resource type="Script" path="res://codings/UI/EnemyUI.gd" id="20_46olp"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="20_fun7q"]
+[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="21_gc65u"]
 [ext_resource type="Script" path="res://codings/Ai.gd" id="24_7iq6m"]
+[ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="24_cl0e6"]
+[ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_0brgg")
@@ -302,6 +305,56 @@ colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
 gradient = SubResource("Gradient_8j6vo")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
+content_margin_left = 8.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="FontVariation" id="FontVariation_smyr0"]
+variation_embolden = 0.41
+spacing_glyph = 1
+spacing_space = 1
+
+[sub_resource type="Theme" id="Theme_4kcni"]
+default_font = SubResource("FontVariation_smyr0")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="InputEventAction" id="InputEventAction_is5hw"]
+action = &"LeftTrigger"
+
+[sub_resource type="Shortcut" id="Shortcut_lp475"]
+events = [SubResource("InputEventAction_is5hw")]
+
 [sub_resource type="Theme" id="Theme_e6n8g"]
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
@@ -511,6 +564,18 @@ Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/constants/outline_size = 7
 Label/font_sizes/font_size = 14
 
+[sub_resource type="InputEventAction" id="InputEventAction_oi6bj"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_o1kt8"]
+events = [SubResource("InputEventAction_oi6bj")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_sm70d"]
+action = &"PartyMenu"
+
+[sub_resource type="Shortcut" id="Shortcut_qtf0t"]
+events = [SubResource("InputEventAction_sm70d")]
+
 [node name="Battle" type="Control"]
 process_mode = 3
 z_index = 8
@@ -672,6 +737,105 @@ offset_bottom = 400.0
 pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_litkr")
 
+[node name="Diag" type="ColorRect" parent="BattleUI/BaseRing"]
+visible = false
+layout_mode = 0
+offset_left = 239.0
+offset_top = -93.0
+offset_right = 521.0
+offset_bottom = 519.0
+rotation = 0.0922729
+color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="Details" type="Button" parent="BattleUI/BaseRing/Diag"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -24.8199
+offset_top = 328.685
+offset_right = 90.1801
+offset_bottom = 361.685
+rotation = -0.0903486
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Details"
+icon = ExtResource("16_g8baf")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Swap" type="Button" parent="BattleUI/BaseRing/Diag"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -165.0
+offset_top = 289.0
+offset_right = -66.0
+offset_bottom = 322.0
+rotation = 0.0910519
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Swap"
+icon = ExtResource("18_r4gxg")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Strategize" type="Button" parent="BattleUI/BaseRing/Diag"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -144.0
+offset_top = 211.0
+offset_right = -8.0
+offset_bottom = 244.0
+rotation = 0.50977
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Strategize
+"
+icon = ExtResource("19_5nefy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Escape" type="Button" parent="BattleUI/BaseRing/Diag"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -266.379
+offset_top = 322.918
+offset_right = -151.379
+offset_bottom = 355.918
+rotation = -0.193632
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_lp475")
+text = "Escape"
+icon = ExtResource("21_gc65u")
+text_overrun_behavior = 1
+expand_icon = true
+
 [node name="DescPaper" type="TextureRect" parent="BattleUI"]
 visible = false
 use_parent_material = true
@@ -735,7 +899,7 @@ offset_bottom = -26.0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
+focus_mode = 0
 theme = SubResource("Theme_hoq1y")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -831,15 +995,9 @@ offset_bottom = 18.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
 text = "Ability"
 icon = ExtResource("16_g8baf")
 text_overrun_behavior = 1
@@ -857,15 +1015,9 @@ offset_bottom = 53.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
 text = "Attack
 "
 icon = ExtResource("17_uuehj")
@@ -884,15 +1036,9 @@ offset_bottom = 18.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
 text = "Item"
 icon = ExtResource("18_r4gxg")
 text_overrun_behavior = 1
@@ -910,15 +1056,9 @@ offset_bottom = -18.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
 text = "Command"
 icon = ExtResource("19_5nefy")
 text_overrun_behavior = 1
@@ -1073,6 +1213,7 @@ theme = SubResource("Theme_wxbdf")
 script = ExtResource("24_7iq6m")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="Callout" type="Label" parent="Canvas"]
 anchors_preset = 2
@@ -1098,15 +1239,10 @@ offset_bottom = 774.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
+shortcut = SubResource("Shortcut_o1kt8")
 text = "Confirm"
 icon = ExtResource("16_g8baf")
 text_overrun_behavior = 1
@@ -1118,23 +1254,117 @@ visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
 offset_left = 31.0
-offset_top = 742.0
+offset_top = 743.0
 offset_right = 140.0
 offset_bottom = 775.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
-theme = SubResource("Theme_hoq1y")
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
 text = "Back"
 icon = ExtResource("17_uuehj")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="TurnOrderPop" type="Panel" parent="Canvas"]
+visible = false
+use_parent_material = true
+offset_left = -468.0
+offset_top = 40.0
+offset_right = -52.0
+offset_bottom = 698.0
+pivot_offset = Vector2(22.75, 158)
+theme_override_styles/panel = SubResource("StyleBoxFlat_misl1")
+
+[node name="Fader" type="ColorRect" parent="Canvas/TurnOrderPop"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -64.0
+offset_top = -42.0
+offset_right = 1754.0
+offset_bottom = 760.0
+color = Color(0, 0, 0, 0.615686)
+
+[node name="Border2" type="PanelContainer" parent="Canvas/TurnOrderPop"]
+use_parent_material = true
+layout_mode = 2
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 400.0
+offset_bottom = 650.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wyes3")
+
+[node name="Border1" type="Panel" parent="Canvas/TurnOrderPop/Border2"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s5sl2")
+
+[node name="Margin" type="MarginContainer" parent="Canvas/TurnOrderPop"]
+use_parent_material = true
+layout_mode = 2
+offset_left = 28.0
+offset_top = 13.0
+offset_right = 400.0
+offset_bottom = 710.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = -11
+theme_override_constants/margin_bottom = 14
+
+[node name="List" type="VBoxContainer" parent="Canvas/TurnOrderPop/Margin"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Char" type="HBoxContainer" parent="Canvas/TurnOrderPop/Margin/List"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Arrow" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+modulate = Color(0.901961, 0.901961, 0.901961, 1)
+use_parent_material = true
+custom_minimum_size = Vector2(18, 36)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("14_8pkue")
+expand_mode = 1
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("24_cl0e6")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Asteria"
+
+[node name="TurnOrder" type="Button" parent="Canvas"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+offset_left = -213.701
+offset_top = 732.07
+offset_right = -75.7012
+offset_bottom = 765.07
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+action_mode = 0
+shortcut = SubResource("Shortcut_qtf0t")
+text = "Turn Order"
+icon = ExtResource("27_oqdqh")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -1149,13 +1379,19 @@ expand_icon = true
 [connection signal="ability_returned" from="BattleUI" to="." method="_on_battle_ui_ability_returned"]
 [connection signal="ability_returned" from="BattleUI" to="BattleUI" method="_on_ability_returned"]
 [connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
+[connection signal="command" from="BattleUI" to="BattleUI" method="_on_command"]
+[connection signal="command" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
 [connection signal="root" from="BattleUI" to="." method="_on_battle_ui_root"]
 [connection signal="root" from="BattleUI" to="BattleUI" method="_on_root"]
 [connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
+[connection signal="pressed" from="BattleUI/BaseRing/Diag/Escape" to="BattleUI" method="_on_escape"]
+[connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/List/Item0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="pressed" from="BattleUI/Ability" to="BattleUI" method="_on_ability_pressed"]
 [connection signal="pressed" from="BattleUI/Attack" to="BattleUI" method="_on_attack_pressed"]
 [connection signal="pressed" from="BattleUI/Item" to="BattleUI" method="_on_item_pressed"]
 [connection signal="pressed" from="BattleUI/Command" to="BattleUI" method="_on_command_pressed"]
 [connection signal="ai_chosen" from="AI" to="." method="_on_ai_chosen"]
+[connection signal="pressed" from="Canvas/Confirm" to="BattleUI" method="_on_confirm_pressed"]
 [connection signal="pressed" from="Canvas/Back" to="BattleUI" method="_on_back_pressed"]
+[connection signal="pressed" from="Canvas/TurnOrder" to="BattleUI" method="turn_order"]

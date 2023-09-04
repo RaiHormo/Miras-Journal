@@ -300,10 +300,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9JY29ucy9Mb2FkaW5nSWNvbi5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9bG9hZApvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 z_index = 11
 texture_filter = 1
-position = Vector2(1181, 702)
+position = Vector2(1181, 870)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_wpexd")
-animation = &"Save"
+animation = &"Load"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
