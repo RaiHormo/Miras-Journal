@@ -1,3 +1,5 @@
+MaterialItem
+ItemData
 State
 Actor
 BattleSequence
@@ -6,5 +8,4 @@ Resource
 TextProfile
 ControlScheme
 PartyData
-ItemData
 AtlasTexture

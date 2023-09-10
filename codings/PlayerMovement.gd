@@ -19,6 +19,10 @@ func _ready():
 	#speed = 75
 	Item.pickup.connect(_on_pickup)
 	Global.Tilemap = tilemap
+	if tilemap == null:
+		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
+		Loader.travel_to("Debug")
+		return
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
@@ -65,7 +69,7 @@ func _physics_process(delta):
 					dashdir = Global.get_direction(direction)
 					dashing = true
 					Global.Controllable=false
-					Global.jump_to(self, global_position+Global.get_direction(direction)*20, 3, 0)
+					Global.jump_to(self, position+Global.get_direction(direction)*20, 3, 0)
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
 					await Global.anim_done
 					speed = 175
@@ -174,7 +178,7 @@ func stop_dash():
 	speed = 75
 	reset_speed()
 	if undashable and Global.get_direction(direction)==dashdir:
-		Global.jump_to(self, global_position-dashdir*15, 20, 0.5)
+		Global.jump_to(self, position-dashdir*15, 20, 0.5)
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 		Global.Controllable=false
 		await $Base.animation_finished
@@ -182,7 +186,7 @@ func stop_dash():
 	else:
 		#print(Global.PlayerDir)
 		if not undashable:
-			Global.jump_to(self, global_position+dashdir*15, 10, 0)
+			Global.jump_to(self, position+dashdir*15, 10, 0)
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:

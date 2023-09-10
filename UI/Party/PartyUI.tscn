@@ -336,10 +336,10 @@ show_percentage = false
 
 [node name="AruaText" type="Label" parent="CanvasLayer/Member1/Aura"]
 layout_mode = 0
-offset_left = 117.738
-offset_top = 7.75071
-offset_right = 156.738
-offset_bottom = 33.7507
+offset_left = 117.0
+offset_top = 8.0
+offset_right = 156.0
+offset_bottom = 34.0
 theme_override_font_sizes/font_size = 15
 text = "13"
 
@@ -357,10 +357,10 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Member1/Health"]
 layout_mode = 0
-offset_left = 118.379
-offset_top = -5.33972
-offset_right = 157.379
-offset_bottom = 20.6603
+offset_left = 117.0
+offset_top = -5.0
+offset_right = 156.0
+offset_bottom = 21.0
 theme_override_font_sizes/font_size = 15
 text = "70"
 

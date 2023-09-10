@@ -241,11 +241,11 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
 	
-	target.global_position = r
+	target.position = r
 
 func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
 	var t:Tween = create_tween()
-	var start = character.global_position
+	var start = character.position
 	var jump_distance : float = start.distance_to(position)
 	var jump_height : float = jump_distance * height #will need tweaking
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
@@ -275,3 +275,11 @@ func init_settings():
 	
 func get_cam() -> Camera2D:
 	return get_tree().root.get_node("Area/Camera"+str(CameraInd))
+
+func quit():
+	Loader.icon_save()
+	await Loader.transition("L")
+	await get_node("/root/Options").close()
+	await get_node("/root/Area/TileMap/OvPlayer/Body/MainMenu").close()
+	await Loader.save()
+	get_tree().quit()

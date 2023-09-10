@@ -6,7 +6,7 @@ class_name NPC
 @export var Facing: Vector2
 var OverwritePrm = false
 var RealVelocity = Vector2.ZERO
-var coords:Vector2
+var coords:Vector2 = Vector2.ZERO
 @export var ID: String
 @export var DefaultPos = Vector2.ZERO
 var stopping=false

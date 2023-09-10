@@ -1,3 +1,5 @@
+Label
+Node
 CollisionShape2D
 Area2D
 PointLight2D
@@ -7,7 +9,6 @@ CharacterBody2D
 ColorRect
 Panel
 AnimatedSprite2D
-Label
 TextureRect
 HBoxContainer
 LightOccluder2D
@@ -28,5 +29,4 @@ VBoxContainer
 ScrollContainer
 Node2D
 Control
-Node
 CanvasLayer

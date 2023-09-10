@@ -6,6 +6,8 @@ class_name Actor
 
 @export var IsEnemy : bool = true
 
+@export var DroppedItem : ItemData = null
+
 @export_category("Art")
 @export var PartyIcon : Texture
 @export_subgroup("Party menu")

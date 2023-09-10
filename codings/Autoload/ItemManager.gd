@@ -1,10 +1,12 @@
 extends Control
 @export var KeyInv : Array[ItemData]
 @export var ConInv : Array[ItemData]
+@export var MatInv : Array[ItemData]
 var item : ItemData
 var ind
 @onready var panel = $Can/Panel
 @onready var t :Tween
+@export var HasBag = true
 signal pickup
 
 func _ready():
@@ -78,3 +80,28 @@ func check_consumable(ItemName):
 	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
 	if item in ConInv: return true
 	else: return false
+
+func add_material(ItemName: String):
+	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+	if item == null:
+		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item.Quantity == 0:
+		MatInv.push_front(item)
+	item.Quantity += 1
+	get_animation(item.Icon, item.Name)
+
+func remove_material(ItemName: String):
+	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+	if item == null:
+		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item.Quantity == 1:
+		MatInv.erase(item)
+	item.Quantity -= 1
+
+func check_material(ItemName):
+	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+	if item in MatInv: return true
+	else: return false
+
+func use(iteme:ItemData):
+	$ItemEffect.use(iteme)

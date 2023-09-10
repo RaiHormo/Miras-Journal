@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="MaterialItem" load_steps=4 format=3 uid="uid://di0tgolj2jhxg"]
+
+[ext_resource type="Script" path="res://database/Items/material_class.gd" id="1_aisg0"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ss72c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2rdi"]
+atlas = ExtResource("1_ss72c")
+region = Rect2(0, 90, 18, 18)
+
+[resource]
+script = ExtResource("1_aisg0")
+Essence = Color(0.560784, 1, 0.886275, 1)
+Name = "White Slime"
+Description = "A piece of slime from a Crawling Sludge. 
+Contains a spiritual energy."
+Icon = SubResource("AtlasTexture_o2rdi")
+Use = 0
+UsedInBattle = false
+Target = 3
+Parameter = ""
+ActionName = ""
+Quantity = 0

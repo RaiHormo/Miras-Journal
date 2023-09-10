@@ -1,7 +1,8 @@
+res://codings/Autoload
+res://art/BT/Mira
 res://codings/Characters
 res://art/Effects
 res://art/OV/Mira
-res://codings/Autoload
 res://database/Party
 res://UI/Party
 res://
@@ -11,7 +12,6 @@ res://art
 /run/media/rai/RaiDrive/Projects/Mira/deploms/2023 Aug7
 /home/rai/Downloads
 res://database/States/
-res://art/BT/Mira
 res://art/BT/WhiteSpawn
 res://database/Enemies/
 res://art/BT/CrawlingSludge

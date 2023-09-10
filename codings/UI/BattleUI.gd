@@ -27,6 +27,8 @@ var foc:Control
 @onready var Bt :Battle = get_parent()
 
 func _ready():
+	t = create_tween()
+	t.tween_property(self, "position", position, 0)
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	#t = create_tween()
 	hide()
@@ -55,6 +57,7 @@ func _on_battle_get_control():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	Loader.battle_bars(1)
+	PartyUI.battle_state()
 	Bt.Action = false
 	show()
 	stage = "root"
@@ -419,6 +422,10 @@ func get_target(faction:Array[Actor]):
 	if foc!=null:
 		foc.hide()
 		foc.show()
+	if Troop.is_empty():
+		close()
+		Bt.victory()
+		return
 	TargetFaction = faction
 	Bt.get_node("Canvas/Confirm").show()
 	Bt.get_node("Canvas/Back").show()
@@ -515,6 +522,7 @@ func move_menu():
 
 
 func _on_battle_next_turn():
+	if CurrentChar == null: return
 	if not Bt.CurrentChar.Controllable:
 		hide()
 		active = false

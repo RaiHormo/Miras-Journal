@@ -14,6 +14,7 @@ var Tempvis = true
 var visibly=false
 @onready var t :Tween 
 @onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
+var WasPaused = false
 
 func _ready():
 	$CanvasLayer.hide()
@@ -106,39 +107,44 @@ func _input(ev):
 		_on_shrink()
 		Global.cancel_sound()
 
-func _on_expand():
+func _on_expand(open_ui=0):
+	print(open_ui)
 	t.kill()
 	_check_party()
+	if open_ui == 0: WasPaused = false
+	else: WasPaused = get_tree().paused
+	get_tree().paused = true
 	Global.Controllable=false
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)
 	#Pages
-	#t.tween_property($CanvasLayer/Page1, "position", Vector2(634,44), 0.3)
-	$CanvasLayer/Page1.show()
-	if Party.check_member(1):
-		$CanvasLayer/Page2.show()
-		#t.tween_property($CanvasLayer/Page2, "position", Vector2(634,44), 0.35)
-	else:
+	if open_ui == 0:
+		$CanvasLayer/Page1.show()
+		if Party.check_member(1):
+			$CanvasLayer/Page2.show()
+		else:
+			$CanvasLayer/Page2.hide()
+		if Party.check_member(2):
+			$CanvasLayer/Page3.show()
+		else:
+			$CanvasLayer/Page3.hide()
+		if Party.check_member(3):
+			$CanvasLayer/Page4.show()
+		else:
+			$CanvasLayer/Page4.hide()
+		$CanvasLayer/Fade.show()
+	else: 
+		$CanvasLayer/Page1.hide()
 		$CanvasLayer/Page2.hide()
-	if Party.check_member(2):
-		$CanvasLayer/Page3.show()
-		
-	else:
-		#t.tween_property($CanvasLayer/Page3, "position", Vector2(634,44), 0.4)
 		$CanvasLayer/Page3.hide()
-	if Party.check_member(3):
-		$CanvasLayer/Page4.show()
-	else:
 		$CanvasLayer/Page4.hide()
-		#t.tween_property($CanvasLayer/Page4, "position", Vector2(634,44), 0.45)
-	
+	if open_ui < 2:
+		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
+		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 	#Leader
-	$CanvasLayer/Fade.show()
-	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
-	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 	t.tween_property($CanvasLayer/Leader, "scale", Vector2(1.5,1.5), 0.4)
 	t.tween_property($CanvasLayer/Leader/Icon, "scale", Vector2(0.044,0.044), 0.4)
 	t.tween_property($CanvasLayer/Leader/Icon, "position", Vector2(37,45), 0.4)
@@ -148,41 +154,49 @@ func _on_expand():
 	t.tween_property($CanvasLayer/Leader/Aura, "position", Vector2(75,37), 0.4)
 	$CanvasLayer/Leader/Name.show()
 	$CanvasLayer/Leader/Level.show()
+	$CanvasLayer/Member1/ExpBar.show()
 	t.tween_property($CanvasLayer/Leader/Health/HpText, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Leader/ExpBar, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Leader/Name, "modulate", Color(1, 1, 1, 1), 0.4)
+	$CanvasLayer/Member1/Name.position = Vector2(81,14)
 	t.tween_property($CanvasLayer/Leader/Aura/AruaText, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Leader/Level, "position", Vector2(140,69), 0.4)
-	#await get_tree().create_timer(0.1).timeout
+	
 	#Member1
 	t.tween_property($CanvasLayer/Member1, "position", Vector2(0,189), 0.4)
 	t.tween_property($CanvasLayer/Member1, "scale", Vector2(1.5,1.5), 0.4)
 	t.tween_property($CanvasLayer/Member1/Icon, "scale", Vector2(0.044,0.044), 0.4)
 	t.tween_property($CanvasLayer/Member1/Icon, "position", Vector2(37,50), 0.4)
-	$CanvasLayer/Member1/Health.size = Vector2(110,20)
+	t.tween_property($CanvasLayer/Member1/Health, "size", Vector2(110,20), 0.4)
 	t.tween_property($CanvasLayer/Member1/Health, "position", Vector2(75,41), 0.4)
-	$CanvasLayer/Member1/Aura.size = Vector2(110,27)
+	t.tween_property($CanvasLayer/Member1/Aura, "size", Vector2(110,27), 0.4)
 	t.tween_property($CanvasLayer/Member1/Aura, "position", Vector2(75,46), 0.4)
 	$CanvasLayer/Member1/Name.show()
 	$CanvasLayer/Member1/Level.show()
+	$CanvasLayer/Member1/Health/HpText.show()
+	$CanvasLayer/Member1/Aura/AruaText.show()
 	t.tween_property($CanvasLayer/Member1/Health/HpText, "modulate", Color(1, 1, 1, 1), 0.4)
+	t.tween_property($CanvasLayer/Member1/Health/HpText, "position", Vector2(117,-5), 0.4)
+	t.tween_property($CanvasLayer/Member1/Aura/AruaText, "position", Vector2(117,8), 0.4)
 	t.tween_property($CanvasLayer/Member1/ExpBar, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Name, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Aura/AruaText, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Level, "position", Vector2(140,79), 0.4)
 	
 	#Menu
-	Expanded = true
+	if open_ui == 0: Expanded = true
 	await t.finished
-	$CanvasLayer/Cursor.show()
-	focus_now()
+	if open_ui == 0:
+		$CanvasLayer/Cursor.show()
+		focus_now()
 
 func _on_shrink():
 	t.kill()
 	_check_party()
-	Global.Controllable=true
 	t = create_tween()
 	t.set_parallel(true)
+	get_tree().paused = WasPaused
+	Global.Controllable= true
 	t.set_ease(Tween.EASE_OUT)
 	focus=0
 	t.set_trans(Tween.TRANS_BACK)
@@ -220,7 +234,7 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Member1/Health, "size", Vector2(54,22), 0.4)
 	t.tween_property($CanvasLayer/Member1/Aura, "size", Vector2(54,22), 0.4)
 	t.tween_property($CanvasLayer/Member1/Health, "position", Vector2(159,30), 0.4)
-	$CanvasLayer/Member1/Aura.size = Vector2(124,26)
+	#$CanvasLayer/Member1/Aura.size = Vector2(124,26)
 	t.tween_property($CanvasLayer/Member1/Aura, "position", Vector2(159,43), 0.4)
 	t.tween_property($CanvasLayer/Member1/Name, "modulate", Color.TRANSPARENT, 0.4)
 	t.tween_property($CanvasLayer/Member1/ExpBar, "modulate", Color.TRANSPARENT, 0.4)
@@ -291,11 +305,35 @@ func battle_state():
 	if Loader.InBattle:
 		$CanvasLayer.show()
 		$CanvasLayer/Cursor.hide()
+		t.kill()
 		t = create_tween()
 		t.set_parallel(true)
 		t.tween_property($CanvasLayer/Leader, "position", Vector2(0,0), 0.2)
 		t.tween_property($CanvasLayer/Member1, "position", Vector2(-70,160), 0.2)
 		visibly=true
+		$CanvasLayer/Leader/Name.show()
+		$CanvasLayer/Leader/Level.show()
+		$CanvasLayer/Leader/Icon.scale= Vector2(0.044,0.044)
+		$CanvasLayer/Leader/Icon.position= Vector2(37,45)
+		$CanvasLayer/Leader/Health.size = Vector2(110,20)
+		$CanvasLayer/Leader/Health.position = Vector2(75,31)
+		$CanvasLayer/Leader/Aura.size = Vector2(110,27)
+		$CanvasLayer/Leader/Aura.position= Vector2(75,37)
+		$CanvasLayer/Leader/Health/HpText.modulate = Color(1, 1, 1, 1)
+		$CanvasLayer/Leader/ExpBar.modulate = Color(1, 1, 1, 1)
+		$CanvasLayer/Leader/Name.modulate = Color(1, 1, 1, 1)
+		$CanvasLayer/Leader/Aura/AruaText.modulate= Color(1, 1, 1, 1)
+		$CanvasLayer/Leader/Level.position= Vector2(140,69)
+		#$CanvasLayer/Member1.position= Vector2(0,189)
+		$CanvasLayer/Member1/Icon.scale= Vector2(0.044,0.044)
+		$CanvasLayer/Member1/Name.show()
+		$CanvasLayer/Member1/Level.show()
+		$CanvasLayer/Member1/Health/HpText.modulate= Color(1, 1, 1, 1)
+		$CanvasLayer/Member1/ExpBar.modulate= Color(1, 1, 1, 1)
+		$CanvasLayer/Member1/Name.modulate= Color(1, 1, 1, 1)
+		$CanvasLayer/Member1/Aura/AruaText.modulate= Color(1, 1, 1, 1)
+		$CanvasLayer/Member1/Level.position= Vector2(140,79)
+		
 		$CanvasLayer/Leader.scale = Vector2(1.25, 1.25)
 		$CanvasLayer/Member1.scale = Vector2(1.25, 1.25)
 		$CanvasLayer/Member1/ExpBar.hide()
@@ -359,3 +397,7 @@ func draw_bar(mem:Actor, node: Panel):
 	var bord3:StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
 	bord3.border_color = mem.BoxProfile.Bord3
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
+
+func choose_member():
+	UIvisible = true
+	_on_expand(1)

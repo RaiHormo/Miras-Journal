@@ -2123,6 +2123,7 @@ process_mode = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
+texture_filter = 2
 material = ExtResource("1_a2733")
 position = Vector2(0, -1)
 rotation = 0.000228383

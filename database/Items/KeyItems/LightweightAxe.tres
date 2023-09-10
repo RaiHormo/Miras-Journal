@@ -17,6 +17,9 @@ Description = "A light and easy to weild axe.
 It can be attached to a strap on the bag."
 Icon = SubResource("AtlasTexture_w33rk")
 Artwork = ExtResource("1_ryhrm")
-Part = false
+Use = 0
+UsedInBattle = false
+Target = 3
+Parameter = ""
 ActionName = "Inspect"
 Quantity = 0

@@ -14,12 +14,16 @@ var KeyInv :Array[ItemData]
 func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
+	if not Item.HasBag:
+		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+		return
 	show()
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	Player.reset_speed()
 	Player.bag_anim()
+	Global.ui_sound("Menu")
 	$DescPaper.hide()
 	$Confirm.show()
 	$Back.show()
@@ -29,7 +33,6 @@ func _ready():
 	Fader.show()
 	stage = "inactive"
 	zoom = Cam.zoom
-	Global.ui_sound("Menu")
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -66,10 +69,10 @@ func _ready():
 	t.set_parallel()
 	$Rail.show()
 	for i in $Rail.get_children():
-		t.tween_property(i.get_child(0), "size:x", 190, 0.5)
-		t.tween_property(i.get_child(0), "position:x", -90, 0.5)
-	$Rail/ItemFollow/ItemButton.grab_focus()
-
+		if not i.get_child(0).disabled:
+			t.tween_property(i.get_child(0), "size:x", 190, 0.5)
+			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
+	
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -161,6 +164,11 @@ func move_root():
 		t.set_trans(Tween.TRANS_CUBIC)
 		t.set_parallel()
 		if rootIndex==0:
+			if $Rail/JournalFollow/JournalButton.disabled:
+				Global.buzzer_sound()
+				rootIndex = 1
+				move_root() 
+				return
 			if prevRootIndex == 1:
 				t.set_trans(Tween.TRANS_BACK)
 				$Base.play("ItemJournal")
@@ -196,8 +204,18 @@ func move_root():
 			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 25, 0.3)
 		if rootIndex==2:
 			if prevRootIndex == 1:
+				if $Rail/QuestFollow/QuestButton.disabled:
+					rootIndex = 3
+					prevRootIndex = 2
+					move_root()
+					return
 				$Base.play("ItemQuest")
 			if prevRootIndex == 3:
+				if $Rail/QuestFollow/QuestButton.disabled:
+					rootIndex = 1
+					prevRootIndex = 2
+					move_root()
+					return
 				$Base.play("OptionsQuest")
 				t.set_trans(Tween.TRANS_BACK)
 			t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
@@ -352,6 +370,11 @@ func _options():
 
 
 func _on_confirm_button_down():
+	if stage == "item":
+		if PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
+			Item.use(PrevCtrl.get_meta("ItemData"))
+			Global.confirm_sound()
+			return
 	Global.buzzer_sound()
 
 
@@ -365,18 +388,31 @@ func _on_back_button_down():
 			_root()
 		"options":
 			if get_tree().root.get_node_or_null("Options") == null or get_tree().root.get_node("Options").stage == "main":
+				stage = "root"
 				_root()
 				await get_tree().create_timer(0.5).timeout
 				$Back.show()
 				$Confirm.show()
 		
 func get_inventory():
+	if Item.KeyInv.is_empty(): 
+		$Inventory/Margin/Scroller/Vbox/KeyItems.hide()
+		$Inventory/Margin/Scroller/Vbox/KeyLabel.hide()
+	if Item.ConInv.is_empty(): 
+		$Inventory/Margin/Scroller/Vbox/Consumables.hide()
+		$Inventory/Margin/Scroller/Vbox/ConLabel.hide()
 	for item in Item.KeyInv:
 		var dub =  $Inventory/Margin/Scroller/Vbox/KeyItems/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
 		$Inventory/Margin/Scroller/Vbox/KeyItems.add_child(dub)
 	$Inventory/Margin/Scroller/Vbox/KeyItems/Item.queue_free()
+	for item in Item.ConInv:
+		var dub =  $Inventory/Margin/Scroller/Vbox/Consumables/Item.duplicate()
+		dub.icon = item.Icon
+		dub.set_meta("ItemData", item)
+		$Inventory/Margin/Scroller/Vbox/Consumables.add_child(dub)
+	$Inventory/Margin/Scroller/Vbox/Consumables/Item.queue_free()
 
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return
@@ -386,3 +422,11 @@ func focus_item(node:Button):
 	$DescPaper/Art.texture = item.Artwork
 	if item.Quantity>1:
 		$DescPaper/Amount.text = "x"+str(item.Quantity)
+	if item.Use == 0:
+		$Confirm.hide()
+	elif item.Use == ItemData.U.INSPECT:
+		$Confirm.show()
+		$Confirm.text = "Inspect"
+	else:
+		$Confirm.show()
+		$Confirm.text = "Use"

@@ -1069,6 +1069,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sebcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fh1aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wt6q1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je3jn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geqpd")
 }],
 "loop": true,
 "name": &"IdleUp",

@@ -117,6 +117,7 @@ func detransition():
 	Global.get_cam().position_smoothing_enabled = true
 
 func start_battle(stg):
+	Global.get_cam().position_smoothing_enabled = false
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = true
 	PartyUI.UIvisible = false
@@ -138,28 +139,46 @@ func start_battle(stg):
 		await t.finished
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
-
+	if Attacker!=null: Attacker.hide()
+	Global.Player.get_parent().hide()
+	
 func end_battle():
+	PartyUI._on_shrink()
 	if Seq.Transition:
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
+	else:
+		t=create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUART)
+		t.set_parallel()
+		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
+		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5)
+		await t.finished
 	InBattle= false
-	get_tree().paused = false
-	battle_bars(0)
-	PartyUI.UIvisible=true
+	if Attacker!=null: Attacker.show()
 	if BattleResult == 2:
 		await Event.twean_to(Seq.EscPosition)
-	if BattleResult == 1:
-		Attacker.defeat()
+	if BattleResult == 1 and Attacker!=null:
+		Attacker.queue_free()
+	Global.Player.get_parent().show()
+	battle_bars(0)
+	PartyUI.UIvisible=true
+	#print(BattleResult)
 	Global.Controllable = true
-	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
+	get_tree().paused = false
+	if Global.Player != null:
+		await Event.wait(1)
+		Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
+	#Global.get_cam().position_smoothing_enabled = true
 
 func icon_save():
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can.show()
-	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
+	#.from(Vector2(1181, 900))
 	Icon.play("Save")
 	await Icon.animation_finished
 	t=create_tween()
@@ -172,7 +191,7 @@ func icon_save():
 func battle_bars(x: int):
 	if t != null:
 		t.kill()
-	$Can.layer = 0
+	$Can.layer = 2
 	$Can.show()
 	t=create_tween()
 	t.set_parallel(true)
@@ -272,7 +291,6 @@ func load_game(filename:String="Autosave"):
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
 	if get_tree().root.get_node_or_null("Area") != null:
 		get_tree().root.get_node_or_null("Area").get_tree().change_scene_to_packed(data.Room)
-	detransition()
 	
 	for i in data.Members:
 		var member:Actor = await load_res("res://database/Party/"+i.FirstName+".tres") 
@@ -283,6 +301,7 @@ func load_game(filename:String="Autosave"):
 	await get_tree().create_timer(0.01).timeout
 	Global.Player.global_position = data.Position
 	Global.Controllable =true
+	detransition()
 
 func load_res(path:String):
 	loaded_resource = path
@@ -292,7 +311,6 @@ func load_res(path:String):
 	return ResourceLoader.load_threaded_get(path)
 
 func chase_mode():
-	CamZoom = Global.get_cam().zoom
+	#CamZoom = Global.get_cam().zoom
 	chased = true
-	while chased:
-		await Event.wait()
+

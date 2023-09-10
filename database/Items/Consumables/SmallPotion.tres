@@ -1,17 +1,21 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://j602f3ere055"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://j602f3ere055"]
 
-[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_q4q0e"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_xbfcq"]
 [ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_xhumv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bywt"]
+atlas = ExtResource("1_xbfcq")
+region = Rect2(36, 72, 18, 18)
 
 [resource]
 script = ExtResource("1_xhumv")
 Name = "Small Potion"
-Description = "A small bottle containing a healing
-potion.
+Description = "A small bottle containing a healing potion.
 Drink it to recover 50 HP"
-Icon = ExtResource("1_q4q0e")
-KeyItem = false
-Consumable = true
-BattleItem = false
-Part = false
+Icon = SubResource("AtlasTexture_4bywt")
+Use = 3
+UsedInBattle = true
+Target = 3
+Parameter = "50"
 ActionName = ""
+Quantity = 1

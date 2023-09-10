@@ -58,7 +58,12 @@ func _on_back_pressed():
 
 func close():
 	if Global.Player != null:
-		Global.Player.get_node("MainMenu")._on_back_button_down()
+		if Global.Player.get_node("MainMenu").visible:
+			Global.Player.get_node("MainMenu")._on_back_button_down()
+		else:
+			get_tree().paused = false
+			Global.Controllable = true
+			Global.cancel_sound()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_IN)
@@ -148,9 +153,7 @@ func _on_fullscreen():
 
 
 func _on_quit():
-	Loader.transition("L")
-	await Loader.save()
-	get_tree().quit()
+	Global.quit()
 
 
 func _on_master_volume(value:float):

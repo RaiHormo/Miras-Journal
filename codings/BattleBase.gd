@@ -20,6 +20,7 @@ var CurrentAbility: Ability
 var PartyArray: Array[Actor] = []
 var Action: bool
 var CurrentTarget: Actor
+var AwaitVictory = false
 
 func _ready():
 	Global.Bt = self
@@ -35,6 +36,10 @@ func _ready():
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
 	PartyArray.push_back(Party.Leader)
+	$Background.texture = Seq.BattleBack
+	if Seq.BattleBack == null:
+		$Act/Actor0.light_mask = 1
+	global_position = Seq.ScenePosition
 	$Act/Actor0.sprite_frames = Party.Leader.BT
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
@@ -202,6 +207,7 @@ func entrance_anim(i):
 func _on_next_turn():
 	if Troop.size() == 0:
 		victory()
+		return
 	#position_sprites()
 	Turn += 1
 	if TurnOrder.size() -1 <= TurnInd:
@@ -253,12 +259,20 @@ func _on_ai_chosen():
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
 func _input(event):
-	if Input.is_key_pressed(KEY_R):
+	if Input.is_action_just_pressed("DebugR"):
 		end_battle()
+	if Input.is_action_just_pressed("DebugV"):
+		for i in Troop:
+			death(i)
+		$BattleUI.close()
+		victory()
 	if Input.is_action_pressed("Dash") and Action:
 		Engine.time_scale = 8
 	else:
 		Engine.time_scale = 1
+	if AwaitVictory:
+		if Input.is_action_just_released("ui_accept"):
+			end_battle()
 
 
 func _on_battle_ui_ability():
@@ -326,18 +340,13 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 		end_turn()
 		return
 
-func end_battle():
-	Loader.end_battle()
-	if Seq.Transition:
-		await get_tree().create_timer(0.5).timeout
-	queue_free()
 
 ###################################################
 
 func jump_to_target(character, tar, offset, time):
 	t = create_tween()
 	var target = tar.node.position + offset
-	var start = character.node.global_position
+	var start = character.node.position
 	var jump_distance : float = start.distance_to(target)
 	var jump_height : float = jump_distance * 0.5 #will need tweaking
 	var midpoint = start.lerp(target, 0.5) + Vector2.UP * jump_height
@@ -422,6 +431,7 @@ func play_effect(stri: String, tar):
 	tar.node.get_child(2).play(stri)
 	
 func offsetize(num, target=CurrentChar):
+	if target == null: return num
 	if CurrentAbility != null and CurrentAbility.Target == 0:
 		return 0
 	if target.IsEnemy:
@@ -451,11 +461,13 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
+	if target == null:
+		return
 	target.add_state("KnockedOut")
 	target.node.play("KnockOut")
 	target.node.get_child(3).emitting = true
 	t = create_tween()
-	
+	target.Health = 0
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	target.node.material.set_shader_parameter("outline_enabled", true)
@@ -498,7 +510,7 @@ func focus_cam(chara:Actor, time:float=0.5, offset=-40):
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property($Cam, "position", Vector2(chara.node.global_position.x - offsetize(offset),chara.node.position.y /2), time)
+	t.tween_property($Cam, "position", Vector2(chara.node.position.x - offsetize(offset),chara.node.position.y /2), time)
 
 func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 	t = create_tween()
@@ -524,9 +536,28 @@ func pop_aura(target: Actor, time:float=0.5):
 
 func victory():
 	print("Victory!")
+	$Canvas.layer = 1
 	Loader.BattleResult = 1
-	end_battle()
-	
+	for i in PartyArray:
+		victory_anim(i)
+	t = create_tween()
+	$Canvas/Callout.text = "Victory"
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.set_parallel()
+	$EnemyUI/EnemyFocus.hide()
+	$Canvas/TurnOrder.hide()
+	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
+	$Canvas/Callout.scale = Vector2(1.5,1.5)
+	PartyUI._on_expand(2)
+	t.tween_property($Canvas/Callout, "position", Vector2(720, 50), 2).from(Vector2(1200, 50))
+	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
+	t.tween_property($Cam, "position", Vector2(-20,10), 1)
+	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
+	Loader.battle_bars(1)
+	$EnemyUI.colapse_root()
+	AwaitVictory = true
+
 func escape():
 	print("Escaped")
 	Loader.BattleResult = 2
@@ -535,3 +566,15 @@ func escape():
 func game_over():
 	print("The party was wiped out")
 	end_battle()
+
+func end_battle():
+	if Global.Player != null: 
+		Global.Player.global_position = $Act/Actor0.global_position
+		Global.get_cam().global_position = Global.Player.global_position
+	await Loader.end_battle()
+	queue_free()
+
+func victory_anim(chara:Actor):
+	chara.node.play("Victory")
+	await chara.node.animation_finished
+	chara.node.play("VictoryLoop")

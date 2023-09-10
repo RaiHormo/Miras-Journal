@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="5_83x0w"]
 [ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
-[ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="8_1xnqk"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="8_wdycw"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="10_fwnkw"]
@@ -39,6 +39,7 @@ script = ExtResource("5_83x0w")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([])
 Transition = true
 EscPosition = Vector2(0, 0)
+ScenePosition = Vector2(0, 0)
 
 [sub_resource type="Curve" id="Curve_wrfky"]
 
@@ -606,11 +607,12 @@ script = ExtResource("6_yeldr")
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9XaGl0ZVNwYXduL1doaXRlU3Bhd24uYXNlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvQlQvV2hpdGVTcGF3bgpvX25hbWV8PQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 light_mask = 16
-texture_filter = 1
+texture_filter = 2
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
-sprite_frames = ExtResource("8_1xnqk")
-animation = &"Idle"
+sprite_frames = ExtResource("8_wdycw")
+animation = &"VictoryLoop"
+frame_progress = 0.432494
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
@@ -1065,6 +1067,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="EnemyUI" type="CanvasLayer" parent="."]
+layer = 2
 script = ExtResource("20_46olp")
 
 [node name="Enemy0" type="Panel" parent="EnemyUI"]
