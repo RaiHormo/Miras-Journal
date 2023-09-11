@@ -165,7 +165,7 @@ func check_for_jumps():
 					z_index+=2
 					var jump = tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
 					#print(jump, "  ", coords)
-					Global.jump_to(self, tilemap.map_to_local(coords) + Vector2(tilemap.map_to_local(jump).x, 0), 5, 0.5)
+					Global.jump_to(self, to_local(tilemap.map_to_local(coords)) + Vector2(tilemap.map_to_local(jump).x, 0), 5, 0.5)
 					await Global.anim_done
 					Global.Controllable = true
 					z_index-=2

@@ -1,8 +1,9 @@
+PointLight2D
+WorldEnvironment
 Label
 Node
 CollisionShape2D
 Area2D
-PointLight2D
 VisibleOnScreenNotifier2D
 Marker2D
 CharacterBody2D
@@ -29,4 +30,3 @@ VBoxContainer
 ScrollContainer
 Node2D
 Control
-CanvasLayer

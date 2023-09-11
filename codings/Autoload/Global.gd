@@ -35,7 +35,6 @@ func _ready():
 		await Event.wait()
 		get_window().grab_focus()
 	init_settings()
-	
 
 func _physics_process(delta):
 	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))

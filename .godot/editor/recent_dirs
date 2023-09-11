@@ -1,3 +1,4 @@
+res://scenes/Shaders
 res://codings/Autoload
 res://art/BT/Mira
 res://codings/Characters
@@ -19,4 +20,3 @@ res://database/BattleSeq/
 res://UI/MainMenu
 res://database/Abilities/
 res://art/BT/Alcine
-res://art/BT/Dummy

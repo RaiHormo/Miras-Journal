@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=58 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_a2733"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/Abad_A1.png" id="2_162u8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="8_vma8n"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="9_f5aip"]
 [ext_resource type="Script" path="res://codings/Characters/Firefly.gd" id="11_n5o8d"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Glow.gdshader" id="12_em7uw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5671e"]
 texture = ExtResource("2_b17j4")
@@ -1901,6 +1902,7 @@ colors = PackedColorArray(0.680705, 0.680705, 0.680705, 1, 0.244808, 0.244808, 0
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bexuy"]
 gradient = SubResource("Gradient_758mh")
+use_hdr = true
 fill = 1
 fill_from = Vector2(0.428436, 0.509953)
 fill_to = Vector2(0.783886, 0.235071)
@@ -2090,9 +2092,16 @@ colors = PackedColorArray(0.479205, 0.479205, 0.479205, 1, 0.124512, 0.124512, 0
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_52yds"]
 gradient = SubResource("Gradient_pqoya")
+use_hdr = true
 fill = 1
 fill_from = Vector2(0.362085, 0.581043)
 fill_to = Vector2(0.736493, 0.363033)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqoxn"]
+shader = ExtResource("12_em7uw")
+shader_parameter/bloomRadius = 100.0
+shader_parameter/bloomThreshold = 1.0
+shader_parameter/bloomIntensity = 50.0
 
 [sub_resource type="Gradient" id="Gradient_6iemy"]
 interpolation_mode = 2
@@ -2117,6 +2126,11 @@ fill_from = Vector2(0.490048, 0.505213)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px8hq"]
 size = Vector2(176.946, 52.3671)
+
+[sub_resource type="Environment" id="Environment_jtl2i"]
+background_mode = 3
+ssao_enabled = true
+glow_enabled = true
 
 [node name="Area" type="Node2D"]
 process_mode = 1
@@ -2160,7 +2174,7 @@ y_sort_enabled = true
 position = Vector2(620.112, 489.858)
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMap"]
-position = Vector2(355.499, 441.784)
+position = Vector2(366.095, 404.915)
 scale = Vector2(3.6039, 2.3729)
 color = Color(0.796078, 0.745098, 0.858824, 0.964706)
 energy = 1.35
@@ -2267,10 +2281,13 @@ texture = SubResource("GradientTexture2D_52yds")
 texture_scale = 4.94
 
 [node name="Firefly" type="Marker2D" parent="TileMap"]
+material = SubResource("ShaderMaterial_xqoxn")
 position = Vector2(147.122, 531.966)
 script = ExtResource("11_n5o8d")
 
 [node name="Light" type="PointLight2D" parent="TileMap/Firefly"]
+modulate = Color(100, 100, 100, 1)
+use_parent_material = true
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.277537, 0.265918)
 color = Color(1, 0.654902, 0.4, 0.964706)
@@ -2283,6 +2300,7 @@ position = Vector2(147.122, 531.966)
 script = ExtResource("11_n5o8d")
 
 [node name="Light" type="PointLight2D" parent="TileMap/Firefly2"]
+material = SubResource("ShaderMaterial_xqoxn")
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.277537, 0.265918)
 color = Color(1, 0.654902, 0.4, 0.964706)
@@ -2295,6 +2313,7 @@ position = Vector2(147.122, 531.966)
 script = ExtResource("11_n5o8d")
 
 [node name="Light" type="PointLight2D" parent="TileMap/Firefly3"]
+material = SubResource("ShaderMaterial_xqoxn")
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.277537, 0.265918)
 color = Color(1, 0.654902, 0.4, 0.964706)
@@ -2307,6 +2326,7 @@ position = Vector2(147.122, 531.966)
 script = ExtResource("11_n5o8d")
 
 [node name="Light" type="PointLight2D" parent="TileMap/Firefly4"]
+material = SubResource("ShaderMaterial_xqoxn")
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.277537, 0.265918)
 color = Color(1, 0.654902, 0.4, 0.964706)
@@ -2318,15 +2338,24 @@ texture_scale = 4.94
 position = Vector2(147.122, 531.966)
 script = ExtResource("11_n5o8d")
 
+[node name="Light" type="PointLight2D" parent="TileMap/Firefly5"]
+position = Vector2(-3.05176e-05, 0)
+scale = Vector2(0.277537, 0.265918)
+color = Color(1, 0.654902, 0.4, 0.964706)
+energy = 0.0
+texture = SubResource("GradientTexture2D_5n2mj")
+texture_scale = 4.94
+
 [node name="WaterLight" type="PointLight2D" parent="TileMap"]
-position = Vector2(1545.4, 303.206)
+modulate = Color(100, 100, 100, 1)
+position = Vector2(1555.07, 307.644)
 rotation = -0.287151
 scale = Vector2(5.99027, 2.54542)
 color = Color(0.596078, 1, 1, 1)
 texture = SubResource("GradientTexture2D_2eofr")
 
 [node name="WaterLight2" type="PointLight2D" parent="TileMap/WaterLight"]
-position = Vector2(-29.4069, 71.5601)
+position = Vector2(-16.314, 61.1866)
 rotation = 2.44299
 scale = Vector2(0.936808, 1.38569)
 color = Color(0.694118, 1, 1, 1)
@@ -2365,6 +2394,9 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jtl2i")
 
 [connection signal="area_entered" from="TileMap/Transfer" to="TileMap/Transfer" method="_on_area_entered"]
 [connection signal="body_entered" from="TileMap/Transfer" to="TileMap/Transfer" method="_on_body_entered"]
