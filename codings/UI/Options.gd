@@ -121,6 +121,9 @@ func load_settings():
 	$SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 	$SidePanel/ScrollContainer/VBoxContainer/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
 	$SidePanel/ScrollContainer/VBoxContainer/Master/Slider.value = Global.Settings.MasterVolume*10
+	$SidePanel/ScrollContainer/VBoxContainer/Brightness/Slider.value = World.environment.adjustment_brightness
+	$SidePanel/ScrollContainer/VBoxContainer/Contrast/Slider.value = World.environment.adjustment_contrast
+	$SidePanel/ScrollContainer/VBoxContainer/Saturation/Slider.value = World.environment.adjustment_saturation
 
 func _on_control_scheme(index):
 	Global.confirm_sound()
@@ -176,3 +179,14 @@ func confirm():
 
 func cursor(i):
 	Global.cursor_sound()
+
+func _on_brightness(value):
+	World.environment.adjustment_brightness = max(value, 0.3)
+
+
+func _on_contrast(value):
+	World.environment.adjustment_contrast = max(value, 0.3)
+
+
+func _on_saturation(value):
+	World.environment.adjustment_saturation = value

@@ -12,7 +12,7 @@ func _process(delta):
 		t= create_tween()
 		t.set_ease(randi_range(0,3))
 		t.set_trans(Tween.TRANS_QUART)
-		var s = randf_range(0.1, 1.3)
+		var s = randf_range(0.1, 0.7)
 		scale = Vector2(s,s)
 		var time = randf_range(3, 20)
 		move(time)

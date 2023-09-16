@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=28 format=3 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_g5xrf"]
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://scenes/Interactable.tscn" id="5_pijc2"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_hyspg"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_1j4ra"]
+[ext_resource type="Script" path="res://codings/NPC.gd" id="10_wjvb0"]
+[ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="11_56r5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87swt"]
 texture = ExtResource("2_am130")
@@ -522,6 +524,9 @@ vertices = PackedVector2Array(68.76, -32.5125, 69.7004, -40.5197, 117.305, -93.8
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 0, 5, 7), PackedInt32Array(8, 4, 3), PackedInt32Array(8, 3, 9, 10, 11), PackedInt32Array(12, 11, 10, 13, 14), PackedInt32Array(14, 15, 16, 17, 18, 19, 7, 12), PackedInt32Array(20, 18, 17, 21, 2), PackedInt32Array(22, 23, 16, 15, 24, 25), PackedInt32Array(2, 1, 20), PackedInt32Array(22, 2, 21, 23), PackedInt32Array(26, 22, 25, 27), PackedInt32Array(26, 27, 14, 28), PackedInt32Array(19, 6, 7), PackedInt32Array(14, 13, 28), PackedInt32Array(26, 28, 9), PackedInt32Array(3, 26, 9)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-116.689, -92.1343, -116.312, 92.868, 117.689, 92.1269, 117.305, -93.8754), PackedVector2Array(58.6635, -45.4377, 69.7004, -40.5197, 68.76, -32.5125, 58.7975, -27.4382, 53.7753, -30.401, 51.6935, -41.3858), PackedVector2Array(56.1993, 26.5826, 66.2065, 27.5082, 72.2956, 39.4632, 67.3702, 49.5001, 53.3482, 46.6044, 48.2591, 34.6419), PackedVector2Array(-1.29759, -39.9915, 25.6942, -41.1923, 25.5529, -60.1918, -3.45379, -60.976), PackedVector2Array(-56.2291, -30.5825, -33.2372, -31.7536, -34.0288, -3.74691, -91.0347, -4.32278, -89.2208, -29.337), PackedVector2Array(-79.5588, 59.5936, -59.5817, 56.4449, -59.4477, 74.4444, -77.4026, 80.5781)])
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
+radius = 7.0
+
 [node name="Area" type="Node2D"]
 process_mode = 1
 z_as_relative = false
@@ -655,6 +660,29 @@ shape = SubResource("RectangleShape2D_72f6p")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_6ku2x")
+
+[node name="NPC" type="CharacterBody2D" parent="TileMap" node_paths=PackedStringArray("Nav")]
+z_index = 1
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(1.52081, 69.9906)
+script = ExtResource("10_wjvb0")
+Nav = NodePath("Nav")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="TileMap/NPC"]
+use_parent_material = true
+position = Vector2(0.0552656, 0.0200653)
+sprite_frames = ExtResource("11_56r5q")
+animation = &"IdleDown"
+offset = Vector2(-0.0924684, -5.01993)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPC"]
+position = Vector2(0.014881, 1.99995)
+shape = SubResource("CircleShape2D_vnvbs")
+
+[node name="Nav" type="NavigationAgent2D" parent="TileMap/NPC"]
+target_desired_distance = 1.0
+path_postprocessing = 1
 
 [node name="Camera0" type="Camera2D" parent="."]
 process_mode = 3

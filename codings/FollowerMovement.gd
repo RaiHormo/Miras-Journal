@@ -12,6 +12,11 @@ var moving: bool
 @export var distance : int
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 
+func _ready():
+	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
+	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
+	velocity = oposite
+	move_and_slide()
 
 func _physics_process(_delta: float) -> void:
 	if player==null:
@@ -23,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 		#speed = nav_agent.distance_to_target() * 4 - distance
 		#print(speed)
 		#print(nav_agent.distance_to_target())
-		if Loader.chased:
+		if Loader.chased or not Global.Controllable:
 			$CollisionShape2D.disabled = true
 		if nav_agent.distance_to_target() > 150:
 				global_position = player.global_position
@@ -72,6 +77,7 @@ func animate():
 	if realvelocity.x == realvelocity.y:
 		pass
 	elif not moving:
+		position = round(position)
 		var dir = Global.get_direction(realvelocity)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("IdleRight")

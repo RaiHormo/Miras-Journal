@@ -69,7 +69,7 @@ func _ready():
 	t.set_parallel()
 	$Rail.show()
 	for i in $Rail.get_children():
-		if not i.get_child(0).disabled:
+		#if not i.get_child(0).disabled:
 			t.tween_property(i.get_child(0), "size:x", 190, 0.5)
 			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
 	
@@ -163,6 +163,7 @@ func move_root():
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
 		t.set_parallel()
+		t.tween_property($Rail, "position", $Rail.position, 0)
 		if rootIndex==0:
 			if $Rail/JournalFollow/JournalButton.disabled:
 				Global.buzzer_sound()

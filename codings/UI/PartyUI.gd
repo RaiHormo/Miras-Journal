@@ -84,6 +84,8 @@ func _input(ev):
 		Loader.travel_to("Debug")
 	if Input.is_action_just_pressed("DebugT"):
 		DialogueManager.passive("testbush", "greetings")
+	if Input.is_action_just_pressed("DebugP"):
+		Global.Controllable = Global.toggle(Global.Controllable)
 	if Input.is_action_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing:
 		if not held:
 			if Expanded == true:

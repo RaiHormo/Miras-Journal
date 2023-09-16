@@ -8,7 +8,7 @@ var Party:PartyData = load("res://database/Party/CurrentParty.tres")
 var hasPortrait = false
 var portraitimg : Texture
 var portrait_redraw = true
-var PlayerDir : Vector2
+var PlayerDir = Vector2.DOWN
 var PlayerPos : Vector2
 signal check_party
 signal anim_done
@@ -31,10 +31,17 @@ func _ready():
 	add_child(Sprite)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	for i in 120:
+	await ready_window()
+	init_settings()
+
+##Focus the window, used as a workaround to a wayland problem
+func ready_window():
+	for i in 180:
 		await Event.wait()
 		get_window().grab_focus()
-	init_settings()
+	while LastInput == 0:
+		await Event.wait()
+		get_window().grab_focus()
 
 func _physics_process(delta):
 	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
@@ -242,6 +249,13 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	
 	target.position = r
 
+func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
+	var q0 = p0.lerp(p1, ti)
+	var q1 = p1.lerp(p2, ti)
+	var r = q0.lerp(q1, ti)
+	
+	target.global_position = r
+
 func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
 	var t:Tween = create_tween()
 	var start = character.position
@@ -250,6 +264,17 @@ func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
+	await t.finished
+	anim_done.emit()
+
+func jump_to_global(character:Node, position:Vector2, time:float, height: float =0.1):
+	var t:Tween = create_tween()
+	var start = character.global_position
+	var jump_distance : float = start.distance_to(position)
+	var jump_height : float = jump_distance * height #will need tweaking
+	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
+	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
+	t.tween_method(Global.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
 

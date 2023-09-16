@@ -15,22 +15,24 @@ var traveled_pos
 var BattleResult=0
 var chased = false
 var Attacker: NPC
-var CamZoom:Vector2
+var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array[NodePath]
 
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
+	t = create_tween()
+	t.tween_property(self, "position", position, 0)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
+	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
 	scene = "res://scenes/Rooms/" + sc + ".tscn"
 	if scene != "":
 		ResourceLoader.load_threaded_request(scene)
-	transition(trans)
-	await get_tree().create_timer(0.3).timeout
+	await transition(trans)
 	status = ResourceLoader.load_threaded_get_status(scene, progress)
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		done()
@@ -54,6 +56,7 @@ func _process(delta):
 
 func transition(dir=Global.get_dir_letter()):
 	Global.Controllable = false
+	t.kill()
 	t=create_tween()
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
@@ -81,18 +84,22 @@ func transition(dir=Global.get_dir_letter()):
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-204), 0.3).from(Vector2(-1720,-204))
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
+	await t.finished
 
 func done():
 	get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
 	await get_tree().create_timer(0.1).timeout
-	detransition()
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
-	Global.Controllable = true
 	get_tree().paused = false
+	detransition()
+	Global.Player.look_to(Global.get_direction())
+	Global.Controllable = true
+	
 
 func detransition():
 	Global.get_cam().position_smoothing_enabled = false
+	t.kill()
 	t=create_tween()
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
@@ -115,6 +122,7 @@ func detransition():
 	$Can/Bars/Down.position = Vector2(-34, 1882)
 	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
+	Global.ready_window()
 
 func start_battle(stg):
 	Global.get_cam().position_smoothing_enabled = false
@@ -144,9 +152,10 @@ func start_battle(stg):
 	
 func end_battle():
 	PartyUI._on_shrink()
-	if Seq.Transition:
+	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
+		Global.Bt.queue_free()
 	else:
 		t=create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -154,14 +163,18 @@ func end_battle():
 		t.set_parallel()
 		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
 		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5)
+		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "position", Vector2(1200, 50), 0.5)
+		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "modulate", Color.TRANSPARENT, 0.5)
+		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		await t.finished
 	InBattle= false
+	Global.Player.get_parent().show()
+	Global.Bt.get_node("Act").hide()
 	if Attacker!=null: Attacker.show()
 	if BattleResult == 2:
 		await Event.twean_to(Seq.EscPosition)
 	if BattleResult == 1 and Attacker!=null:
 		Attacker.queue_free()
-	Global.Player.get_parent().show()
 	battle_bars(0)
 	PartyUI.UIvisible=true
 	#print(BattleResult)
@@ -311,6 +324,6 @@ func load_res(path:String):
 	return ResourceLoader.load_threaded_get(path)
 
 func chase_mode():
-	#CamZoom = Global.get_cam().zoom
+	CamZoom = Global.get_cam().zoom
 	chased = true
 

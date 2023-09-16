@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_njn2m")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_b6742")])
-Transition = false
+Transition = true
+Detransition = false
 EscPosition = Vector2(54, 18)
 ScenePosition = Vector2(1416, 223)

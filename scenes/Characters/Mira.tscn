@@ -2837,20 +2837,24 @@ size = Vector2(14, 17)
 [sub_resource type="CircleShape2D" id="CircleShape2D_1wjc1"]
 radius = 7.0
 
-[node name="Body" type="CharacterBody2D"]
+[node name="Body" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
+texture_filter = 2
 material = ExtResource("2_lltpm")
 position = Vector2(0, -5)
 collision_layer = 2
+motion_mode = 1
 script = ExtResource("1_503pd")
 speed = 70
+Nav = NodePath("Nav")
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 3
-texture_filter = 1
+texture_filter = 2
+material = ExtResource("2_lltpm")
 use_parent_material = true
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_ewwad")
@@ -2870,7 +2874,6 @@ metadata/_aseprite_wizard_config_ = {
 [node name="Bag" type="AnimatedSprite2D" parent="Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhZwpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YmFnCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 light_mask = 3
-texture_filter = 1
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_i8hwj")
 animation = &"DashUpHit"
@@ -2889,7 +2892,6 @@ metadata/_aseprite_wizard_config_ = {
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUF4ZQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YXhlCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
 light_mask = 2
-texture_filter = 1
 material = ExtResource("2_lltpm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_7rwjk")
@@ -2941,6 +2943,4 @@ shape = SubResource("CircleShape2D_1wjc1")
 debug_color = Color(1, 0.486275, 0.0235294, 0.552941)
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
-path_desired_distance = 0.1
-target_desired_distance = 0.1
 path_max_distance = 20.0

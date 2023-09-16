@@ -276,6 +276,7 @@ func _input(event):
 
 
 func _on_battle_ui_ability():
+	if CurrentChar.node == null: return
 	play_sound("Ability", CurrentChar)
 	CurrentChar.node.play("Ability")
 	await CurrentChar.node.animation_finished
@@ -570,6 +571,8 @@ func game_over():
 func end_battle():
 	if Global.Player != null: 
 		Global.Player.global_position = $Act/Actor0.global_position
+		if Party.check_member(1): 
+			Global.Player.get_parent().get_node("Follower1").global_position = $Act/Actor1.global_position
 		Global.get_cam().global_position = Global.Player.global_position
 	await Loader.end_battle()
 	queue_free()

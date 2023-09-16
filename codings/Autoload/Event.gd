@@ -1,9 +1,14 @@
 extends Node
+## This Autoload handles the movment of [NPC] nodes and provides useful functions for scripting cutscenes
+
+
+##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
+##Character is added to the list of NPCS
 func add_char(b:NPC):
 	for i in List:
 		if i==null: 
@@ -14,24 +19,32 @@ func add_char(b:NPC):
 			return
 	List.append(b)
 
+##Get the [NPC] node from a [String] ID
 func npc(ID: String):
+	if List.is_empty(): return NPC.new()
 	for i in List:
 		if i==null: 
 			List.append(i)
 		elif i.ID == ID:
 			return i
 
-func walk(dir:Vector2=Global.get_direction(), time:float=60, chara:String="P"):
-	for i in time:
-		if not npc(chara) == null:
-			npc(chara).move_dir(dir)
-		await wait()
-	if not npc(chara) == null:
-		npc(chara).direction = Vector2.ZERO
+##Move an [NPC] relative to their current coords
+func move_dir(dir:Vector2=Global.get_direction(), chara:String="P"):
+	await npc(chara).move_dir(dir)
 
-func wait(time=0.005):
+##Move an [NPC] to the specified coords
+func move_to(pos:Vector2=Global.get_direction(), chara:String="P"):
+	await npc(chara).go_to(pos)
+
+##Wait a specified amount of time or one frame by default
+## short for:
+## [codeblock]
+##await get_tree().create_timer(time).timeout
+##[/codeblock]
+func wait(time=get_physics_process_delta_time()):
 	await get_tree().create_timer(time).timeout
 
+##Tween an [NPC] to the specified coords (ignores all collision)
 func twean_to(pos:Vector2, time:float=1, chara:String="P"):
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -39,7 +52,7 @@ func twean_to(pos:Vector2, time:float=1, chara:String="P"):
 	t.tween_property(npc(chara), "global_position", Global.Tilemap.map_to_local(pos), time)
 	await t.finished
 
-
+##Used for jump calculations
 func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
@@ -47,6 +60,7 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	
 	target.global_position = r
 
+##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
 func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	var t:Tween = create_tween()
 	var position = Global.Tilemap.map_to_local(pos)

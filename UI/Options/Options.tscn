@@ -531,11 +531,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SidePanel"]
 layout_mode = 0
-offset_left = 127.0
-offset_top = 100.0
-offset_right = 910.0
-offset_bottom = 817.0
+offset_left = 101.0
+offset_top = 102.0
+offset_right = 902.0
+offset_bottom = 819.0
 rotation = -0.0581765
+follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
 layout_mode = 2
@@ -607,6 +608,73 @@ layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
+[node name="Brightness" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Brightness"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Brightness"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Brightness"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="Contrast" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Contrast"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Contrast
+"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Contrast"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="Saturation" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Saturation"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Saturation"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Saturation"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+max_value = 2.0
+step = 0.1
+value = 1.0
+
 [node name="Audio" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
@@ -625,8 +693,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Master"]
-custom_minimum_size = Vector2(375, 50)
+custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 4
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
@@ -656,5 +725,8 @@ text = "Reset Volume"
 [connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="confirm"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Brightness/Slider" to="." method="_on_brightness"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Contrast/Slider" to="." method="_on_contrast"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Saturation/Slider" to="." method="_on_saturation"]
 [connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Master/Slider" to="." method="_on_master_volume"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_volume_reset"]

@@ -38,6 +38,7 @@ Leader = ExtResource("2_qqps8")
 script = ExtResource("5_83x0w")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([])
 Transition = true
+Detransition = false
 EscPosition = Vector2(0, 0)
 ScenePosition = Vector2(0, 0)
 
