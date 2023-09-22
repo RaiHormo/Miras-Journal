@@ -6,11 +6,12 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibuoa"]
 atlas = ExtResource("1_6y6gt")
 region = Rect2(0, 18, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_gr1yj")
 name = "Axe Attack"
-description = "A fairly reliable standard attack that can deal heavy damage with a low chance of missing"
+description = "A fairly reliable standard attack that can deal heavy damage with a low chance of missing."
 Icon = SubResource("AtlasTexture_ibuoa")
 ActionSequence = &"AttackMira"
 Type = 0

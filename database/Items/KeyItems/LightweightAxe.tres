@@ -9,6 +9,7 @@ load_path = "res://.godot/imported/Items.png-a1707d6ce84f8e29b61e03932ed93aa1.ct
 [sub_resource type="AtlasTexture" id="AtlasTexture_w33rk"]
 atlas = SubResource("CompressedTexture2D_xa71e")
 region = Rect2(0, 18, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_1608p")

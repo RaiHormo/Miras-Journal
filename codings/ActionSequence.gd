@@ -61,11 +61,15 @@ func AttackMira():
 	Bt.play_sound("Attack1", CurrentChar)
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 	await Bt.anim_done
-	Bt.play_sound("Attack2", CurrentChar)
-	Bt.damage(target, CurrentChar.Attack)
-	Bt.screen_shake(15, 7, 0.2)
-	CurrentChar.node.play("Attack2")
-	Bt.play_effect("SimpleHit", target)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target, CurrentChar.Attack)
+		Bt.screen_shake(15, 7, 0.2)
+		CurrentChar.node.play("Attack2")
+		Bt.play_effect("SimpleHit", target)
+	else:
+		CurrentChar.node.play("Attack2")
+		Bt.miss()
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	CurrentChar.node.play("Idle")
@@ -77,15 +81,43 @@ func JumpAttack():
 	CurrentChar.node.play("Attack1")
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 	await Bt.anim_done
-	Bt.play_sound("Attack2", CurrentChar)
-	Bt.damage(target, CurrentChar.Attack)
-	Bt.screen_shake(15, 7, 0.2)
-	CurrentChar.node.play("Attack2")
-	Bt.play_effect("SimpleHit", target)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target, CurrentChar.Attack)
+		Bt.screen_shake(15, 7, 0.2)
+		CurrentChar.node.play("Attack2")
+		Bt.play_effect("SimpleHit", target)
+	else: Bt.miss()
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	CurrentChar.node.play("Idle")
 	Bt.end_turn()
+
+func AttackAlcine():
+#	Engine.time_scale = 0.2
+#	CurrentChar.set_health(90)
+	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.focus_cam(target, 0.5, 30)
+	CurrentChar.node.play("Attack1")
+	await Event.wait(0.4)
+	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57),0), 0.5, Tween.EASE_OUT)
+	if not miss:
+		Bt.damage(target, CurrentChar.Attack, Bt.calc_num())
+		Bt.screen_shake(8, 5, 0.1)
+		CurrentChar.node.play("Attack2")
+		Bt.move(target, target.node.position + Vector2(Bt.offsetize(-10),0), 0.3, Tween.EASE_OUT)
+		Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-70),0), 0.3, Tween.EASE_OUT)
+		await Event.wait(0.6)
+		Bt.screen_shake(15, 7, 0.3)
+		Bt.damage(target, CurrentChar.Magic, Bt.calc_num())
+		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10),0), 0.5, Tween.EASE_OUT)
+		await CurrentChar.node.animation_finished
+	else: Bt.miss()
+	CurrentChar.node.play("Idle")
+	await Event.wait(0.3)
+	Bt.return_cur()
+	Bt.end_turn()
+
 
 func StickAttack():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)

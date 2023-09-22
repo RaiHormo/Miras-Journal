@@ -1,10 +1,13 @@
+res://database/Party
+res://art/BT/Alcine
+res://database/Abilities/
+res://UI
 res://codings/Autoload
 res://scenes/Shaders
 res://art/BT/Mira
 res://codings/Characters
 res://art/Effects
 res://art/OV/Mira
-res://database/Party
 res://UI/Party
 res://
 res://UI/Options
@@ -17,6 +20,3 @@ res://art/BT/WhiteSpawn
 res://database/Enemies/
 res://art/BT/CrawlingSludge
 res://database/BattleSeq/
-res://UI/MainMenu
-res://database/Abilities/
-res://art/BT/Alcine

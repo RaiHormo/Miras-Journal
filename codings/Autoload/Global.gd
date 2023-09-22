@@ -19,7 +19,7 @@ var AltConfirm
 var StartTime =0
 var PlayTime =0
 var SaveTime =0
-var Player:Mira = null
+var Player:Mira
 var Settings:Setting
 var Bt: Battle = null
 var CameraInd = 0
@@ -307,3 +307,9 @@ func quit():
 	await get_node("/root/Area/TileMap/OvPlayer/Body/MainMenu").close()
 	await Loader.save()
 	get_tree().quit()
+
+func tilemapize(pos: Vector2):
+	return Tilemap.local_to_map(pos)
+
+func globalize(coords):
+	return Tilemap.map_to_local(coords)

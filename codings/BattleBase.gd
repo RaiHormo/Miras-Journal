@@ -267,8 +267,8 @@ func _input(event):
 		$BattleUI.close()
 		victory()
 	if Input.is_action_pressed("Dash") and Action:
-		Engine.time_scale = 8
-	else:
+			Engine.time_scale = 8
+	elif (not Action) or Input.is_action_just_released("Dash"):
 		Engine.time_scale = 1
 	if AwaitVictory:
 		if Input.is_action_just_released("ui_accept"):
@@ -356,11 +356,11 @@ func jump_to_target(character, tar, offset, time):
 	await t.finished
 	anim_done.emit()
 	
-func return_cur():
+func return_cur(target:Actor = CurrentChar):
 	t= create_tween()
 	t.set_trans(Tween.TRANS_QUAD)
 	t.set_ease(Tween.EASE_OUT)
-	t.tween_property(CurrentChar.node, "position", initial, 0.2)
+	t.tween_property(target.node, "position", initial, 0.2)
 	
 func end_turn():
 	await get_tree().create_timer(0.3).timeout
@@ -382,14 +382,14 @@ func damage(target:Actor, stat:float, x:int=calc_num(), effect:bool=true, limite
 	else:
 		play_sound("Hit", target)
 		if effect:
-			target.node.get_child(3).emitting = true
+			target.node.get_node("Particle").emitting = true
 			t = create_tween()
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_QUART)
 			target.node.material.set_shader_parameter("outline_enabled", true)
 			target.node.material.set_shader_parameter("outline_color", target.MainColor)
-			target.node.get_child(3).process_material.gravity = Vector3(offsetize(120), 0, 0)
-			target.node.get_child(3).process_material.color = target.MainColor
+			target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
+			target.node.get_node("Particle").process_material.color = target.MainColor
 			t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 		hit_animation(target)
 		await t.finished
@@ -428,8 +428,13 @@ func calc_num():
 		4:
 			return 48
 	
-func play_effect(stri: String, tar):
-	tar.node.get_child(2).play(stri)
+func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
+	var ef:AnimatedSprite2D = $Act/Effects.duplicate()
+	$Act.add_child(ef)
+	ef.position = tar.node.position + offset
+	ef.play(stri)
+	await ef.animation_finished
+	ef.queue_free()
 	
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
@@ -466,15 +471,15 @@ func death(target:Actor):
 		return
 	target.add_state("KnockedOut")
 	target.node.play("KnockOut")
-	target.node.get_child(3).emitting = true
+	target.node.get_node("Particle").emitting = true
 	t = create_tween()
 	target.Health = 0
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	target.node.material.set_shader_parameter("outline_enabled", true)
 	target.node.material.set_shader_parameter("outline_color", target.MainColor)
-	target.node.get_child(3).process_material.gravity = Vector3(offsetize(120), 0, 0)
-	target.node.get_child(3).process_material.color = target.MainColor
+	target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
+	target.node.get_node("Particle").process_material.color = target.MainColor
 	t.parallel().tween_property(target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
 	t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 	await t.finished
@@ -518,11 +523,13 @@ func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE
 	t.set_ease(mode)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property(chara.node, "position", pos + offset, time)
+	await t.finished
 	anim_done.emit()
 
 func heal(target:Actor):
 	target.add_health(int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02))))
 	check_party.emit()
+	PartyUI._check_party()
 	pop_aura(target)
 	pop_num(target, str("+",int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))))
 
@@ -581,3 +588,19 @@ func victory_anim(chara:Actor):
 	chara.node.play("Victory")
 	await chara.node.animation_finished
 	chara.node.play("VictoryLoop")
+
+func miss(target:Actor = CurrentTarget):
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	play_effect("Miss", target)
+	t.tween_property(target.node, "position:x", target.node.position.x + offsetize(30), 0.3)
+	pop_num(target, "Miss")
+	await Event.wait(0.5)
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property(target.node, "position:x", target.node.position.x - offsetize(30), 0.3)
+	
+
+

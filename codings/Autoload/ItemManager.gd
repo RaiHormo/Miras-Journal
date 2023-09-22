@@ -8,6 +8,7 @@ var ind
 @onready var t :Tween
 @export var HasBag = true
 signal pickup
+signal return_member(mem: Actor)
 
 func _ready():
 	panel.hide()
@@ -37,17 +38,17 @@ func get_animation(icon, named):
 	panel.hide()
 	Global.check_party.emit()
 
-func add_key_item(ItemName: String):
-	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
+func add_key_item(ItemName):
+	item = get_item(ItemName, "KeyItems")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if item.Quantity == 0:
-		KeyInv.push_front(item)
+	if not item in KeyInv:
+		KeyInv.append(item)
 	item.Quantity += 1
 	get_animation(item.Icon, item.Name)
 
-func remove_key_item(ItemName: String):
-	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
+func remove_key_item(ItemName):
+	item = get_item(ItemName, "KeyItems")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	if item.Quantity == 1:
@@ -55,21 +56,21 @@ func remove_key_item(ItemName: String):
 	item.Quantity -= 1
 
 func check_key(ItemName):
-	item = load("res://database/Items/KeyItems/"+ ItemName + ".tres")
+	item = get_item(ItemName, "KeyItems")
 	if item in KeyInv: return true
 	else: return false
 	
-func add_consumable(ItemName: String):
-	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+func add_consumable(ItemName):
+	item = get_item(ItemName, "Consumables")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if item.Quantity == 0:
-		ConInv.push_front(item)
+	if not item in ConInv:
+		ConInv.append(item)
 	item.Quantity += 1
 	get_animation(item.Icon, item.Name)
 
-func remove_consumable(ItemName: String):
-	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+func remove_consumable(ItemName):
+	item = get_item(ItemName, "Consumables")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	if item.Quantity == 1:
@@ -77,12 +78,12 @@ func remove_consumable(ItemName: String):
 	item.Quantity -= 1
 
 func check_consumable(ItemName):
-	item = load("res://database/Items/Consumables/"+ ItemName + ".tres")
+	item = get_item(ItemName, "Consumables")
 	if item in ConInv: return true
 	else: return false
 
-func add_material(ItemName: String):
-	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+func add_material(ItemName):
+	item = get_item(ItemName, "Materials")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	if item.Quantity == 0:
@@ -90,8 +91,8 @@ func add_material(ItemName: String):
 	item.Quantity += 1
 	get_animation(item.Icon, item.Name)
 
-func remove_material(ItemName: String):
-	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+func remove_material(ItemName):
+	item = get_item(ItemName, "Materials")
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	if item.Quantity == 1:
@@ -99,9 +100,14 @@ func remove_material(ItemName: String):
 	item.Quantity -= 1
 
 func check_material(ItemName):
-	item = load("res://database/Items/Materials/"+ ItemName + ".tres")
+	item = get_item(ItemName, "Materials")
 	if item in MatInv: return true
 	else: return false
 
 func use(iteme:ItemData):
 	$ItemEffect.use(iteme)
+
+func get_item(iteme, folder:String):
+	if iteme is String:
+		return load("res://database/Items/" + folder + "/"+ iteme + ".tres")
+	elif iteme is ItemData: return iteme

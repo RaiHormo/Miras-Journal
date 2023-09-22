@@ -6,6 +6,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_gutkw"]
 atlas = ExtResource("1_ugs2e")
 region = Rect2(0, 0, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_vs1ax")

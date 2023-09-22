@@ -24,6 +24,7 @@ func _ready():
 	Player.reset_speed()
 	Player.bag_anim()
 	Global.ui_sound("Menu")
+	$DottedBack.modulate = Color.TRANSPARENT
 	$DescPaper.hide()
 	$Confirm.show()
 	$Back.show()
@@ -70,7 +71,7 @@ func _ready():
 	$Rail.show()
 	for i in $Rail.get_children():
 		#if not i.get_child(0).disabled:
-			t.tween_property(i.get_child(0), "size:x", 190, 0.5)
+			t.tween_property(i.get_child(0), "size:x", 200, 0.5)
 			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
 	
 
@@ -102,6 +103,7 @@ func _input(event):
 					move_root()
 		"item":
 			pass
+			
 
 func _on_focus_changed(control:Control):
 	if stage == "item":
@@ -254,6 +256,7 @@ func _root():
 		stage="root"
 	$Confirm.text = "Select"
 	$Back.text = "Close"
+	$Confirm.show()
 	PartyUI.UIvisible = true
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -276,6 +279,7 @@ func _root():
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "position", (Vector2(803, 400)), 0.3)
 	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.8)
+	t.tween_property($DottedBack, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
 	await t.finished
@@ -312,6 +316,7 @@ func _item():
 	t.tween_property($DescPaper, "scale", Vector2(0.7,0.7), 0.4)
 	t.tween_property($DescPaper, "modulate", Color.WHITE, 0.4)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.1)
+	t.tween_property($DottedBack, "modulate", Color(0.44, 0.44, 0.44, 1), 0.4)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -372,11 +377,11 @@ func _options():
 
 func _on_confirm_button_down():
 	if stage == "item":
-		if PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
+		if PrevCtrl == null or PrevCtrl.get_meta("ItemData") == null: return
+		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
 			Item.use(PrevCtrl.get_meta("ItemData"))
+			stage = "choose_member"
 			Global.confirm_sound()
-			return
-	Global.buzzer_sound()
 
 
 func _on_back_button_down():
@@ -394,6 +399,14 @@ func _on_back_button_down():
 				await get_tree().create_timer(0.5).timeout
 				$Back.show()
 				$Confirm.show()
+		"choose_member":
+			await get_inventory()
+			$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
+			await PartyUI._on_shrink()
+			PartyUI.UIvisible = false
+			stage = "item"
+
+			
 		
 func get_inventory():
 	if Item.KeyInv.is_empty(): 
@@ -402,18 +415,31 @@ func get_inventory():
 	if Item.ConInv.is_empty(): 
 		$Inventory/Margin/Scroller/Vbox/Consumables.hide()
 		$Inventory/Margin/Scroller/Vbox/ConLabel.hide()
+	else:
+		$Inventory/Margin/Scroller/Vbox/Consumables.show()
+		$Inventory/Margin/Scroller/Vbox/ConLabel.show()
+	for i in $Inventory/Margin/Scroller/Vbox/KeyItems.get_children():
+		i.queue_free()
 	for item in Item.KeyInv:
-		var dub =  $Inventory/Margin/Scroller/Vbox/KeyItems/Item.duplicate()
+		var dub =  $Inventory/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
 		$Inventory/Margin/Scroller/Vbox/KeyItems.add_child(dub)
-	$Inventory/Margin/Scroller/Vbox/KeyItems/Item.queue_free()
+		dub.show()
+		if item.Quantity>1:
+			dub.text = str(item.Quantity)
+		else: dub.text = ""
+	for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
+		i.queue_free()
 	for item in Item.ConInv:
-		var dub =  $Inventory/Margin/Scroller/Vbox/Consumables/Item.duplicate()
+		var dub =  $Inventory/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
+		if item.Quantity>1:
+			dub.text = str(item.Quantity)
+		else: dub.text = ""
 		$Inventory/Margin/Scroller/Vbox/Consumables.add_child(dub)
-	$Inventory/Margin/Scroller/Vbox/Consumables/Item.queue_free()
+		dub.show()
 
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return
@@ -422,7 +448,10 @@ func focus_item(node:Button):
 	$DescPaper/Desc.text = item.Description
 	$DescPaper/Art.texture = item.Artwork
 	if item.Quantity>1:
-		$DescPaper/Amount.text = "x"+str(item.Quantity)
+		$DescPaper/Amount.text = str(item.Quantity) + " in bag"
+		$DescPaper/Amount.show()
+	else:
+		$DescPaper/Amount.hide()
 	if item.Use == 0:
 		$Confirm.hide()
 	elif item.Use == ItemData.U.INSPECT:

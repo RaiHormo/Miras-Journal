@@ -1,9 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dro6xc73x3rl4"]
+[gd_scene load_steps=24 format=3 uid="uid://dro6xc73x3rl4"]
 
 [ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
+[ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="3_v0xlc"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_yps78"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="5_jx045"]
+[ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="5_pkyhf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -11,6 +14,11 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="FontVariation" id="FontVariation_oe2ra"]
+base_font = ExtResource("3_v0xlc")
+spacing_space = 1
+spacing_bottom = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnon7"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -57,43 +65,94 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_xqn8v"]
 Panel/styles/panel = SubResource("StyleBoxFlat_vikne")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h76us"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgec6"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eidl"]
+content_margin_left = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 9
-border_width_top = 9
-border_width_right = 9
-border_width_bottom = 9
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwbw3"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.909804, 0.909804, 0.909804, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.909804, 0.909804, 0.909804, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wo7q"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
-expand_margin_left = 16.0
-expand_margin_top = 3.0
-expand_margin_right = 16.0
-expand_margin_bottom = 3.0
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y11xm"]
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-border_width_left = 9
-border_width_top = 9
-border_width_right = 9
-border_width_bottom = 9
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 16.0
-expand_margin_top = 3.0
-expand_margin_right = 16.0
-expand_margin_bottom = 3.0
+[sub_resource type="FontVariation" id="FontVariation_3cks5"]
+base_font = ExtResource("5_pkyhf")
+spacing_glyph = 1
 
-[sub_resource type="Theme" id="Theme_qotjk"]
-Button/colors/font_focus_color = Color(0.760784, 0.482353, 0.333333, 1)
+[sub_resource type="Theme" id="Theme_kq38n"]
+default_font = SubResource("FontVariation_3cks5")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/font_sizes/font_size = 32
-Button/styles/focus = SubResource("StyleBoxFlat_h76us")
-Button/styles/normal = SubResource("StyleBoxFlat_y11xm")
+Button/styles/disabled = SubResource("StyleBoxFlat_pgec6")
+Button/styles/focus = SubResource("StyleBoxFlat_4eidl")
+Button/styles/hover = SubResource("StyleBoxFlat_kwbw3")
+Button/styles/normal = SubResource("StyleBoxFlat_0wo7q")
+Button/styles/pressed = SubResource("StyleBoxFlat_kwbw3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc2f1"]
 bg_color = Color(1, 1, 1, 1)
@@ -105,7 +164,10 @@ expand_margin_left = 14.0
 expand_margin_right = 14.0
 
 [sub_resource type="Theme" id="Theme_v0wf3"]
+default_font = ExtResource("5_jx045")
 Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 2
 Label/font_sizes/font_size = 24
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
 RichTextLabel/font_sizes/normal_font_size = 26
@@ -130,11 +192,12 @@ layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 offset_left = 45.0
-offset_top = 42.0
+offset_top = 38.0
 offset_right = 720.0
-offset_bottom = 183.0
-theme_override_font_sizes/normal_font_size = 32
-text = "Dialogue"
+offset_bottom = 218.0
+theme_override_fonts/normal_font = SubResource("FontVariation_oe2ra")
+theme_override_font_sizes/normal_font_size = 39
+text = "Dialogue. The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -175,17 +238,18 @@ theme = SubResource("Theme_xqn8v")
 [node name="Responses" type="VBoxContainer" parent="Balloon"]
 layout_mode = 2
 offset_left = 832.0
-offset_top = 318.0
+offset_top = 30.0
 offset_right = 1244.0
-offset_bottom = 529.0
+offset_bottom = 492.0
 pivot_offset = Vector2(409, 118)
-theme_override_constants/separation = 24
+theme_override_constants/separation = 36
+alignment = 2
 
 [node name="Button" type="Button" parent="Balloon/Responses"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-theme = SubResource("Theme_qotjk")
+theme = SubResource("Theme_kq38n")
 text = "Response"
 
 [node name="Panel" type="PanelContainer" parent="Balloon"]
@@ -201,8 +265,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cc2f1")
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_v0wf3")
-text = "C
-"
+text = "Character"
+vertical_alignment = 1
 
 [node name="Margin" type="MarginContainer" parent="Balloon"]
 layout_mode = 1

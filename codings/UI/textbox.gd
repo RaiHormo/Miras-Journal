@@ -74,7 +74,7 @@ var dialogue_line: DialogueLine:
 				t.set_parallel(true)
 				t.set_ease(Tween.EASE_OUT)
 				t.set_trans(Tween.TRANS_QUAD)
-				t.tween_property(responses_menu, "position", Vector2(832 ,318), 1).from(Vector2(2000, 318))
+				t.tween_property(responses_menu, "position", Vector2(832 ,30), 1).from(Vector2(2800, 30))
 		# Show our balloon
 		draw_portrait()
 		t = create_tween()
@@ -249,7 +249,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
 		Global.confirm_sound()
 		t = create_tween()
-		t.tween_property(responses_menu, "position", Vector2(1200,318), 0.1)
+		t.tween_property(responses_menu, "position", Vector2(1832,30), 0.1)
 		await t.finished
 		next(dialogue_line.responses[item.get_index()].next_id)
 	if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():

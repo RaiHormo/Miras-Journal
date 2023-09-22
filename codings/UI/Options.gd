@@ -104,7 +104,7 @@ func game_settings():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
 	$MainButtons/GameSettings.z_index = 1
-	t.tween_property($MainButtons/GameSettings, "position", Vector2(61, 196), 0.5)
+	t.tween_property($MainButtons/GameSettings, "position", Vector2(25, 196), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(407, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
@@ -190,3 +190,4 @@ func _on_contrast(value):
 
 func _on_saturation(value):
 	World.environment.adjustment_saturation = value
+

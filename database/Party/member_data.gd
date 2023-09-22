@@ -77,15 +77,19 @@ class_name Actor
 
 func set_health(x):
 	Health = x
+	if Health > MaxHP: Health = MaxHP
 
 func add_health(x):
 	Health += x
+	if Health > MaxHP: Health = MaxHP
 
 func set_aura(x):
 	Aura = x
+	if Aura > MaxAura: Aura = MaxAura
 
 func add_aura(x):
 	Aura += x
+	if Aura > MaxAura: Aura = MaxAura
 
 func add_SP(x):
 	SkillPoints += x

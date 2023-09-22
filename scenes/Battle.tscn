@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=117 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="10_fwnkw"]
+[ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/BT/Alcine/Miss.png" id="11_41ytv"]
 [ext_resource type="Texture2D" uid="uid://bpdhp4otp83om" path="res://UI/Battle/MiraRing1.png" id="13_o8vaj"]
 [ext_resource type="Shader" path="res://UI/Battle/Sinewave.gdshader" id="14_6ry1t"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="14_8pkue"]
@@ -21,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="15_wul0b"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="16_g8baf"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="17_uuehj"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="18_fnfk1"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="18_r4gxg"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="19_5nefy"]
 [ext_resource type="Script" path="res://codings/UI/EnemyUI.gd" id="20_46olp"]
@@ -29,6 +31,7 @@
 [ext_resource type="Script" path="res://codings/Ai.gd" id="24_7iq6m"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="24_cl0e6"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
+[ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="29_it8wn"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_0brgg")
@@ -113,6 +116,43 @@ Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 30
 Label/font_sizes/font_size = 50
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6yjmp"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_y7pbc"]
+offsets = PackedFloat32Array(0.635945, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j8g6d"]
+gradient = SubResource("Gradient_y7pbc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht7eu"]
+emission_shape = 3
+emission_box_extents = Vector3(0, 9, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-120, 0, 0)
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+linear_accel_min = -100.0
+linear_accel_max = -67.64
+tangential_accel_min = -39.71
+tangential_accel_max = 36.02
+color = Color(0.964706, 0.592157, 0.615686, 1)
+color_ramp = SubResource("GradientTexture1D_j8g6d")
+anim_speed_min = 8.9
+anim_speed_max = 11.61
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wdhds"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_0wfas"]
 atlas = ExtResource("10_fwnkw")
 region = Rect2(0, 0, 57, 57)
@@ -148,6 +188,34 @@ region = Rect2(399, 0, 57, 57)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2i3hx"]
 atlas = ExtResource("10_fwnkw")
 region = Rect2(456, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7pm4"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6org"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50aci"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg6bh"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3p17"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7mcs"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yvx8"]
+atlas = ExtResource("11_41ytv")
+region = Rect2(144, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxq4l"]
 atlas = ExtResource("10_7tp62")
@@ -211,6 +279,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_i7pm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6org")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50aci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg6bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3p17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7mcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yvx8")
+}],
+"loop": false,
+"name": &"Miss",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": null
 }, {
 "duration": 1.0,
@@ -234,43 +328,6 @@ animations = [{
 "loop": false,
 "name": &"SimpleHit",
 "speed": 12.0
-}]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6yjmp"]
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Gradient" id="Gradient_y7pbc"]
-offsets = PackedFloat32Array(0.635945, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_j8g6d"]
-gradient = SubResource("Gradient_y7pbc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht7eu"]
-emission_shape = 3
-emission_box_extents = Vector3(0, 9, 1)
-particle_flag_disable_z = true
-gravity = Vector3(-120, 0, 0)
-orbit_velocity_min = -0.1
-orbit_velocity_max = 0.1
-linear_accel_min = -100.0
-linear_accel_max = -67.64
-tangential_accel_min = -39.71
-tangential_accel_max = 36.02
-color = Color(0.964706, 0.592157, 0.615686, 1)
-color_ramp = SubResource("GradientTexture1D_j8g6d")
-anim_speed_min = 8.9
-anim_speed_max = 11.61
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wdhds"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
@@ -308,7 +365,7 @@ colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 gradient = SubResource("Gradient_8j6vo")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
-content_margin_left = 8.0
+content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
 border_width_top = 5
@@ -321,7 +378,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
-content_margin_left = 8.0
+content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
 border_width_top = 5
@@ -333,23 +390,21 @@ corner_radius_top_right = 26
 corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
-[sub_resource type="FontVariation" id="FontVariation_smyr0"]
-variation_embolden = 0.41
-spacing_glyph = 1
-spacing_space = 1
-
 [sub_resource type="Theme" id="Theme_4kcni"]
-default_font = SubResource("FontVariation_smyr0")
+default_font = ExtResource("18_fnfk1")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
 Button/styles/disabled = null
 Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
 Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
 Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
 Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
 
 [sub_resource type="InputEventAction" id="InputEventAction_is5hw"]
 action = &"LeftTrigger"
@@ -357,32 +412,38 @@ action = &"LeftTrigger"
 [sub_resource type="Shortcut" id="Shortcut_lp475"]
 events = [SubResource("InputEventAction_is5hw")]
 
+[sub_resource type="FontVariation" id="FontVariation_ycqu1"]
+base_font = ExtResource("29_it8wn")
+spacing_top = 8
+
 [sub_resource type="Theme" id="Theme_e6n8g"]
+default_font = SubResource("FontVariation_ycqu1")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_dwc77"]
+base_font = ExtResource("29_it8wn")
+variation_embolden = 0.5
+spacing_glyph = -1
+spacing_space = 1
+
 [sub_resource type="Theme" id="Theme_bug03"]
+default_font = SubResource("FontVariation_dwc77")
 Label/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
-RichTextLabel/constants/line_separation = 5
-RichTextLabel/font_sizes/normal_font_size = 34
+RichTextLabel/constants/line_separation = 15
+RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_4tyuc"]
+default_font = ExtResource("29_it8wn")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
 RichTextLabel/constants/line_separation = 5
 RichTextLabel/font_sizes/normal_font_size = 34
 
-[sub_resource type="FontVariation" id="FontVariation_3oxtd"]
-variation_embolden = 0.41
-spacing_glyph = 1
-spacing_space = 1
-
-[sub_resource type="Theme" id="Theme_hoq1y"]
-default_font = SubResource("FontVariation_3oxtd")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oa10"]
-content_margin_left = 8.0
+content_margin_left = 56.0
+content_margin_right = 10.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
 border_width_top = 5
@@ -452,36 +513,32 @@ expand_margin_right = 34.0
 expand_margin_bottom = 27.0
 
 [sub_resource type="Theme" id="Theme_t7ro7"]
+default_font = ExtResource("18_fnfk1")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6nlv"]
-content_margin_left = 7.0
-bg_color = Color(0.160784, 0.160784, 0.160784, 0)
+content_margin_left = 56.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 0)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1740"]
-content_margin_left = 7.0
-bg_color = Color(1, 1, 1, 1)
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
+[sub_resource type="Theme" id="Theme_g1u0r"]
+default_font = ExtResource("18_fnfk1")
+Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
+Label/font_sizes/font_size = 28
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lhc1k"]
 atlas = ExtResource("15_mlxjv")
 region = Rect2(0, 0, 18, 18)
-
-[sub_resource type="Theme" id="Theme_g1u0r"]
-Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
-Label/font_sizes/font_size = 28
+filter_clip = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86gc4"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -509,8 +566,9 @@ corner_detail = 4
 ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
 
-[sub_resource type="LabelSettings" id="LabelSettings_cjm5j"]
-font_size = 15
+[sub_resource type="LabelSettings" id="LabelSettings_cas1x"]
+font = ExtResource("29_it8wn")
+outline_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -561,10 +619,14 @@ corner_radius_bottom_left = 24
 Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
 
 [sub_resource type="Theme" id="Theme_2lgx1"]
+default_font = ExtResource("29_it8wn")
 Label/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/constants/outline_size = 7
 Label/font_sizes/font_size = 14
+
+[sub_resource type="FontVariation" id="FontVariation_g3phn"]
+base_font = ExtResource("29_it8wn")
 
 [sub_resource type="InputEventAction" id="InputEventAction_oi6bj"]
 action = &"ui_accept"
@@ -577,6 +639,77 @@ action = &"PartyMenu"
 
 [sub_resource type="Shortcut" id="Shortcut_qtf0t"]
 events = [SubResource("InputEventAction_sm70d")]
+
+[sub_resource type="Theme" id="Theme_5tvnb"]
+default_font = ExtResource("18_fnfk1")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxtaj"]
+atlas = ExtResource("15_mlxjv")
+region = Rect2(72, 18, 18, 18)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76g7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_xlg74"]
+Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t876e"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_qg3wj"]
+Panel/styles/panel = SubResource("StyleBoxFlat_t876e")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7akpu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_lh3jm"]
+Panel/styles/panel = SubResource("StyleBoxFlat_7akpu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ku"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [node name="Battle" type="Control"]
 process_mode = 3
@@ -612,8 +745,7 @@ texture_filter = 2
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("8_wdycw")
-animation = &"VictoryLoop"
-frame_progress = 0.432494
+animation = &"AbilityLoop"
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
@@ -647,14 +779,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Effects" type="AnimatedSprite2D" parent="Act/Actor0"]
-light_mask = 16
-material = ExtResource("1_pas6x")
-sprite_frames = SubResource("SpriteFrames_e4dcq")
-animation = &"FlameSpark"
-frame = 10
-frame_progress = 1.0
-
 [node name="Particle" type="GPUParticles2D" parent="Act/Actor0"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_6yjmp")
@@ -673,6 +797,13 @@ light_mask = 16
 material = ExtResource("1_pas6x")
 sprite_frames = SubResource("SpriteFrames_wdhds")
 animation = &"new_animation"
+
+[node name="Effects" type="AnimatedSprite2D" parent="Act"]
+light_mask = 16
+material = ExtResource("1_pas6x")
+position = Vector2(-60, -39)
+sprite_frames = SubResource("SpriteFrames_e4dcq")
+animation = &"Miss"
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -856,12 +987,12 @@ texture = ExtResource("15_wul0b")
 use_parent_material = true
 layout_mode = 0
 offset_left = 132.0
-offset_top = 48.0
-offset_right = 535.0
-offset_bottom = 115.0
+offset_top = 52.0
+offset_right = 527.0
+offset_bottom = 141.0
 rotation = 0.0630125
 theme = SubResource("Theme_e6n8g")
-theme_override_font_sizes/font_size = 46
+theme_override_font_sizes/font_size = 53
 text = "Ability Name"
 horizontal_alignment = 2
 
@@ -869,10 +1000,10 @@ horizontal_alignment = 2
 use_parent_material = true
 layout_mode = 0
 offset_left = 120.0
-offset_top = 119.0
-offset_right = 524.0
-offset_bottom = 385.0
-rotation = 0.0511767
+offset_top = 124.0
+offset_right = 538.0
+offset_bottom = 425.0
+rotation = 0.0664639
 theme = SubResource("Theme_bug03")
 text = "This is a very long and intesting description of this ability. Using this spell the entire world will blow up.
 "
@@ -880,11 +1011,11 @@ text = "This is a very long and intesting description of this ability. Using thi
 [node name="Cost" type="Label" parent="BattleUI/DescPaper"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 389.118
-offset_top = 390.0
-offset_right = 499.118
-offset_bottom = 480.0
-rotation = 0.0586956
+offset_left = 302.0
+offset_top = 397.0
+offset_right = 500.0
+offset_bottom = 475.0
+rotation = 0.069544
 theme = SubResource("Theme_4tyuc")
 text = "Cost 5"
 horizontal_alignment = 2
@@ -903,7 +1034,7 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
-theme = SubResource("Theme_hoq1y")
+theme = SubResource("Theme_4kcni")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
@@ -958,20 +1089,19 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
 [node name="Item0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/List"]
-texture_filter = 1
+texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = SubResource("Theme_t7ro7")
-theme_override_constants/h_separation = 10
-theme_override_constants/icon_max_width = 36
+theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_f1740")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_b6nlv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2oa10")
 text = "Ability Name"
-icon = SubResource("AtlasTexture_lhc1k")
 alignment = 0
 expand_icon = true
 
@@ -985,6 +1115,18 @@ offset_bottom = 49.0
 theme = SubResource("Theme_g1u0r")
 text = "5"
 horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/List/Item0"]
+light_mask = 0
+texture_filter = 2
+material = ExtResource("1_pas6x")
+layout_mode = 0
+offset_left = 10.75
+offset_top = 4.0
+offset_right = 52.75
+offset_bottom = 46.0
+texture = SubResource("AtlasTexture_lhc1k")
 
 [node name="Ability" type="Button" parent="BattleUI"]
 visibility_layer = 1024
@@ -993,7 +1135,7 @@ layout_direction = 1
 layout_mode = 0
 offset_left = 6.0
 offset_top = -15.0
-offset_right = 121.0
+offset_right = 114.0
 offset_bottom = 18.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
@@ -1106,8 +1248,9 @@ offset_top = 17.0
 offset_right = 133.0
 offset_bottom = 43.0
 text = "Mira"
-label_settings = SubResource("LabelSettings_cjm5j")
+label_settings = SubResource("LabelSettings_cas1x")
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
 text_overrun_behavior = 1
 
@@ -1168,12 +1311,13 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="EnemyUI/EnemyFocus/Health"]
 layout_mode = 0
-offset_left = 5.37921
-offset_top = -0.00637436
-offset_right = 44.3792
-offset_bottom = 25.9936
+offset_left = 5.0
+offset_top = -1.0
+offset_right = 44.0
+offset_bottom = 26.0
 theme = SubResource("Theme_2lgx1")
 text = "70"
+vertical_alignment = 1
 
 [node name="Name" type="Label" parent="EnemyUI/EnemyFocus"]
 layout_mode = 0
@@ -1182,8 +1326,9 @@ offset_top = 15.0
 offset_right = 189.0
 offset_bottom = 40.0
 text = "Mira"
-label_settings = SubResource("LabelSettings_cjm5j")
+label_settings = SubResource("LabelSettings_cas1x")
 horizontal_alignment = 1
+vertical_alignment = 1
 text_overrun_behavior = 1
 
 [node name="Border1" type="Panel" parent="EnemyUI/EnemyFocus"]
@@ -1223,13 +1368,15 @@ layer = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 37.0
-offset_top = -164.0
-offset_right = 658.0
-offset_bottom = -24.0
+offset_left = 29.0
+offset_top = -172.0
+offset_right = 681.0
+offset_bottom = -14.0
 grow_vertical = 0
-theme_override_font_sizes/font_size = 100
+theme_override_fonts/font = SubResource("FontVariation_g3phn")
+theme_override_font_sizes/font_size = 116
 text = "Ability Name"
+vertical_alignment = 1
 
 [node name="Confirm" type="Button" parent="Canvas"]
 visible = false
@@ -1352,6 +1499,7 @@ theme_override_font_sizes/font_size = 32
 text = "Asteria"
 
 [node name="TurnOrder" type="Button" parent="Canvas"]
+visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -1371,6 +1519,72 @@ text = "Turn Order"
 icon = ExtResource("27_oqdqh")
 text_overrun_behavior = 1
 expand_icon = true
+
+[node name="AttackTitle" type="Button" parent="Canvas"]
+visible = false
+visibility_layer = 1024
+texture_filter = 1
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+offset_left = 840.0
+offset_top = 517.0
+offset_right = 989.0
+offset_bottom = 553.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_5tvnb")
+theme_override_font_sizes/font_size = 15
+text = "Attack Name"
+icon = SubResource("AtlasTexture_gxtaj")
+alignment = 0
+expand_icon = true
+
+[node name="Border1" type="Panel" parent="Canvas/AttackTitle"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -30.0
+offset_top = 12.0
+offset_right = 285.0
+offset_bottom = 163.0
+theme = SubResource("Theme_xlg74")
+
+[node name="Border2" type="Panel" parent="Canvas/AttackTitle/Border1"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 311.0
+offset_bottom = 148.0
+theme = SubResource("Theme_qg3wj")
+
+[node name="Border3" type="Panel" parent="Canvas/AttackTitle/Border1/Border2"]
+show_behind_parent = true
+layout_mode = 0
+offset_top = 4.0
+offset_right = 308.0
+offset_bottom = 142.0
+theme = SubResource("Theme_lh3jm")
+
+[node name="Panel" type="Panel" parent="Canvas/AttackTitle/Border1/Border2/Border3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 297.0
+offset_bottom = 134.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ah1ku")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas/AttackTitle"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 48.0
+offset_right = 253.0
+offset_bottom = 163.0
+theme_override_constants/line_separation = 12
+theme_override_font_sizes/normal_font_size = 16
+text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]

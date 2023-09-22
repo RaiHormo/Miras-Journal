@@ -65,5 +65,7 @@ offset_right = 7.0
 offset_bottom = 58.0
 texture = SubResource("AtlasTexture_gtdj1")
 
-[node name="Node" type="Node" parent="."]
+[node name="ItemEffect" type="Node" parent="."]
 script = ExtResource("4_1qmny")
+
+[connection signal="return_member" from="." to="ItemEffect" method="_on_item_manager_return_member"]

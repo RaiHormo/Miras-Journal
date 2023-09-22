@@ -1,9 +1,9 @@
+Ability
 MaterialItem
 ItemData
 State
 Actor
 BattleSequence
-Ability
 Resource
 TextProfile
 ControlScheme

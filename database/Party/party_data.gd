@@ -36,3 +36,10 @@ func set_to(p:PartyData):
 	else: Member2 = null
 	if p.Member3!=null: Member3 = load("res://database/Party/"+p.Member3.FirstName+".tres")
 	else: Member3 = null
+
+func get_member(num:int):
+	match num:
+		0: return Leader
+		1: return Member1
+		2: return Member2
+		3: return Member3

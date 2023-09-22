@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://bfoi0xxeujmlq"]
+
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_6upcm"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_tkgmi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f315r"]
+atlas = ExtResource("1_tkgmi")
+region = Rect2(72, 90, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_6upcm")
+name = "Arm-whip"
+description = "The user extends their liquid arm into a whip. Deals light damage to the target twice."
+Icon = SubResource("AtlasTexture_f315r")
+ActionSequence = &"AttackAlcine"
+Type = 0
+AuraCost = 0
+HPCost = 0
+Damage = 1
+Target = 1
+WheelColor = Color(0, 0, 0, 1)
+Callout = false
+SucessChance = 0.95
+CritChance = 0.2

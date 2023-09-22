@@ -1,16 +1,19 @@
-[gd_scene load_steps=33 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=42 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_dogj7"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_7yih5"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="3_o6yw0"]
+[ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="4_nnth8"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="6_8fbom"]
 [ext_resource type="Texture2D" uid="uid://cto6cesjljnwv" path="res://art/Renders/Mira.png" id="7_su38b"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="8_eiy32"]
-[ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="9_rv27v"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="8_p8xdc"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="9_uia6k"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="10_x2te8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("3_o6yw0")
-shader_parameter/lod = 2.065
+shader_parameter/lod = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_el5ff"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -57,9 +60,13 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_2t2lh"]
+font = ExtResource("4_nnth8")
+font_size = 20
+outline_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_owkfl"]
-font_size = 11
+font = ExtResource("4_nnth8")
+font_size = 14
 font_color = Color(0.533333, 0.533333, 0.533333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qr8wo"]
@@ -160,10 +167,58 @@ corner_detail = 4
 ProgressBar/styles/background = SubResource("StyleBoxFlat_an4ms")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_017ft")
 
-[sub_resource type="LabelSettings" id="LabelSettings_tad4t"]
+[sub_resource type="LabelSettings" id="LabelSettings_xcra6"]
 line_spacing = 5.0
-font_size = 114
+font = ExtResource("4_nnth8")
+font_size = 121
 font_color = Color(0.878431, 0.682353, 0.517647, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l726v"]
+line_spacing = 5.0
+font = ExtResource("4_nnth8")
+font_size = 121
+font_color = Color(0.878431, 0.682353, 0.517647, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_llexj"]
+shader = ExtResource("8_p8xdc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdoun"]
+content_margin_left = 0.0
+content_margin_right = 27.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[sub_resource type="Theme" id="Theme_jibpk"]
+default_font = ExtResource("9_uia6k")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_vdoun")
+Button/styles/hover = SubResource("StyleBoxFlat_vdoun")
+Button/styles/normal = SubResource("StyleBoxFlat_vdoun")
+Button/styles/pressed = SubResource("StyleBoxFlat_vdoun")
+
+[sub_resource type="Shortcut" id="Shortcut_vilg5"]
+events = [null]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk61q"]
+atlas = ExtResource("10_x2te8")
+region = Rect2(18, 72, 18, 18)
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
@@ -217,11 +272,12 @@ show_percentage = false
 
 [node name="AruaText" type="Label" parent="CanvasLayer/Leader/Aura"]
 layout_mode = 0
-offset_left = 117.738
-offset_top = 7.08405
-offset_right = 156.738
-offset_bottom = 33.084
-theme_override_font_sizes/font_size = 15
+offset_left = 119.667
+offset_top = 12.3333
+offset_right = 158.667
+offset_bottom = 38.3333
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 16
 text = "13"
 
 [node name="Health" type="ProgressBar" parent="CanvasLayer/Leader"]
@@ -238,11 +294,12 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Leader/Health"]
 layout_mode = 0
-offset_left = 118.383
-offset_top = -5.99843
-offset_right = 157.383
-offset_bottom = 20.0016
-theme_override_font_sizes/font_size = 15
+offset_left = 118.0
+offset_top = 1.0
+offset_right = 157.0
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 16
 text = "70"
 
 [node name="Name" type="Label" parent="CanvasLayer/Leader"]
@@ -253,23 +310,27 @@ offset_right = 129.0
 offset_bottom = 28.6667
 text = "Mira"
 label_settings = SubResource("LabelSettings_2t2lh")
+vertical_alignment = 1
 
 [node name="Level" type="Label" parent="CanvasLayer/Leader"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 70.0
+offset_top = 71.3334
 offset_right = 229.0
-offset_bottom = 96.0
+offset_bottom = 97.3334
 text = "S. Lv "
 label_settings = SubResource("LabelSettings_owkfl")
 
 [node name="Number" type="Label" parent="CanvasLayer/Leader/Level"]
 layout_mode = 0
-offset_left = 30.9492
-offset_top = -6.00002
-offset_right = 70.9492
-offset_bottom = 20.0
+offset_left = 32.9492
+offset_top = -9.33336
+offset_right = 72.9492
+offset_bottom = 22.6666
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 20
 text = "1"
+vertical_alignment = 1
 
 [node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Leader"]
 layout_mode = 0
@@ -336,11 +397,12 @@ show_percentage = false
 
 [node name="AruaText" type="Label" parent="CanvasLayer/Member1/Aura"]
 layout_mode = 0
-offset_left = 117.0
-offset_top = 8.0
-offset_right = 156.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 15
+offset_left = 121.667
+offset_top = 11.6667
+offset_right = 160.667
+offset_bottom = 37.6666
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 16
 text = "13"
 
 [node name="Health" type="ProgressBar" parent="CanvasLayer/Member1"]
@@ -357,11 +419,12 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Member1/Health"]
 layout_mode = 0
-offset_left = 117.0
-offset_top = -5.0
-offset_right = 156.0
-offset_bottom = 21.0
-theme_override_font_sizes/font_size = 15
+offset_left = 120.0
+offset_top = 1.0
+offset_right = 159.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 16
 text = "70"
 
 [node name="Name" type="Label" parent="CanvasLayer/Member1"]
@@ -370,32 +433,16 @@ offset_left = 81.0
 offset_top = 14.0
 offset_right = 180.0
 offset_bottom = 40.0
-text = "Mira"
+text = "Alcine"
 label_settings = SubResource("LabelSettings_2t2lh")
-
-[node name="Level" type="Label" parent="CanvasLayer/Member1"]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 76.6667
-offset_right = 229.0
-offset_bottom = 102.667
-text = "S. Lv "
-label_settings = SubResource("LabelSettings_owkfl")
-
-[node name="Number" type="Label" parent="CanvasLayer/Member1/Level"]
-layout_mode = 0
-offset_left = 30.9492
-offset_top = -5.33333
-offset_right = 70.9492
-offset_bottom = 20.6667
-text = "1"
+vertical_alignment = 1
 
 [node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Member1"]
 layout_mode = 0
 offset_left = 81.9777
-offset_top = 81.6483
+offset_top = 82.9816
 offset_right = 133.978
-offset_bottom = 88.6483
+offset_bottom = 89.9816
 theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
@@ -427,6 +474,26 @@ offset_right = 275.0
 offset_bottom = 111.0
 theme = SubResource("Theme_6a77a")
 
+[node name="Level" type="Label" parent="CanvasLayer/Member1"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 81.3333
+offset_right = 229.0
+offset_bottom = 107.333
+text = "S. Lv "
+label_settings = SubResource("LabelSettings_owkfl")
+
+[node name="Number" type="Label" parent="CanvasLayer/Member1/Level"]
+layout_mode = 0
+offset_left = 32.9492
+offset_top = -9.33336
+offset_right = 72.9492
+offset_bottom = 22.6666
+theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_font_sizes/font_size = 20
+text = "1"
+vertical_alignment = 1
+
 [node name="Page4" type="TextureRect" parent="CanvasLayer"]
 visible = false
 offset_left = 662.0
@@ -449,11 +516,10 @@ scale = Vector2(0.489946, 0.489946)
 texture = ExtResource("6_8fbom")
 
 [node name="Page2" type="TextureRect" parent="CanvasLayer"]
-visible = false
 z_index = 2
-offset_left = 638.0
+offset_left = 1350.0
 offset_top = 29.0
-offset_right = 1761.0
+offset_right = 2473.0
 offset_bottom = 1481.0
 rotation = 0.0340545
 scale = Vector2(0.489946, 0.489946)
@@ -461,19 +527,19 @@ texture = ExtResource("6_8fbom")
 
 [node name="Label" type="Label" parent="CanvasLayer/Page2"]
 layout_mode = 0
-offset_left = 125.727
-offset_top = 93.7434
-offset_right = 853.727
-offset_bottom = 254.743
+offset_left = 148.0
+offset_top = 130.0
+offset_right = 952.0
+offset_bottom = 255.0
 text = "Mira Levenor"
-label_settings = SubResource("LabelSettings_tad4t")
+label_settings = SubResource("LabelSettings_xcra6")
 
 [node name="Render" type="TextureRect" parent="CanvasLayer/Page2"]
 layout_mode = 0
-offset_left = -15.6978
-offset_top = 198.631
-offset_right = 3415.3
-offset_bottom = 3664.63
+offset_left = -21.5144
+offset_top = 147.773
+offset_right = 3409.49
+offset_bottom = 3613.77
 scale = Vector2(0.380595, 0.380595)
 texture = ExtResource("7_su38b")
 metadata/_aseprite_wizard_config_ = {
@@ -489,32 +555,50 @@ metadata/_aseprite_wizard_config_ = {
 
 [node name="Shadow" type="TextureRect" parent="CanvasLayer/Page2/Render"]
 show_behind_parent = true
+texture_filter = 4
 layout_mode = 0
-offset_left = 65.093
-offset_top = 7.17108
-offset_right = 3496.09
-offset_bottom = 3438.17
-texture = ExtResource("9_rv27v")
+offset_left = 318.411
+offset_top = 53.542
+offset_right = 9393.41
+offset_bottom = 9258.54
+scale = Vector2(0.380595, 0.380595)
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": true,
+"player": "",
+"source": ""
+}
 
 [node name="Page1" type="TextureRect" parent="CanvasLayer"]
-visible = false
 z_index = 3
-offset_left = 634.0
+offset_left = 1346.0
 offset_top = 44.0
-offset_right = 1757.0
+offset_right = 2469.0
 offset_bottom = 1496.0
 rotation = -0.00981665
 scale = Vector2(0.489946, 0.489946)
 texture = ExtResource("6_8fbom")
 
+[node name="Label" type="Label" parent="CanvasLayer/Page1"]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 130.0
+offset_right = 952.0
+offset_bottom = 255.0
+text = "Mira Levenor"
+label_settings = SubResource("LabelSettings_l726v")
+
 [node name="Render" type="TextureRect" parent="CanvasLayer/Page1"]
 layout_mode = 0
-offset_left = 0.396729
-offset_top = 185.237
-offset_right = 3431.4
-offset_bottom = 3665.24
-scale = Vector2(0.380595, 0.380595)
-texture = ExtResource("7_su38b")
+offset_left = 86.7788
+offset_top = 100.868
+offset_right = 3517.78
+offset_bottom = 3580.87
+scale = Vector2(0.43, 0.43)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -527,22 +611,25 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="Shadow" type="TextureRect" parent="CanvasLayer/Page1/Render"]
+modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
+texture_filter = 4
 layout_mode = 0
-offset_left = 1342.0
-offset_top = -173.19
-offset_right = 4773.0
-offset_bottom = 3257.81
-texture = ExtResource("9_rv27v")
-
-[node name="Label" type="Label" parent="CanvasLayer/Page1"]
-layout_mode = 0
-offset_left = 129.759
-offset_top = 89.0428
-offset_right = 857.759
-offset_bottom = 248.043
-text = "Mira Levenor"
-label_settings = SubResource("LabelSettings_tad4t")
+offset_left = 272.859
+offset_top = 20.1093
+offset_right = 9347.86
+offset_bottom = 9225.11
+scale = Vector2(0.380595, 0.380595)
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": true,
+"player": "",
+"source": ""
+}
 
 [node name="Cursor" type="TextureRect" parent="CanvasLayer"]
 visible = false
@@ -553,7 +640,31 @@ offset_bottom = 152.0
 scale = Vector2(0.404152, 0.404152)
 texture = ExtResource("8_eiy32")
 
+[node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor"]
+visible = false
+visibility_layer = 1024
+texture_filter = 1
+material = SubResource("ShaderMaterial_llexj")
+layout_direction = 1
+offset_left = 165.779
+offset_top = 27.2175
+offset_right = 253.779
+offset_bottom = 60.2175
+scale = Vector2(4, 4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_jibpk")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_vilg5")
+text = "Item x3"
+icon = SubResource("AtlasTexture_wk61q")
+expand_icon = true
+
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"
 
 [connection signal="expand" from="." to="." method="_on_expand"]
+[connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]

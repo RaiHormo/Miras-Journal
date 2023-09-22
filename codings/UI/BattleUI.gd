@@ -66,6 +66,7 @@ func _on_battle_get_control():
 	$Item.show()
 	$Command.show()
 	$Ability.show()
+	$"../Canvas/AttackTitle".hide()
 	Troop = Bt.Troop
 	TurnOrder = Bt.TurnOrder
 	CurrentChar = Bt.CurrentChar
@@ -87,7 +88,7 @@ func _on_battle_get_control():
 		dub = dub.duplicate()
 		$AbilityUI/Margin/Scroller/List.add_child(dub)
 		dub.text = i.name
-		dub.icon = i.Icon
+		dub.get_node("Icon").texture = i.Icon
 		if i.AuraCost != 0:
 			dub.get_child(0).text = str(i.AuraCost)
 			dub.get_child(0).show()
@@ -169,6 +170,7 @@ func _on_root():
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
 	Bt.get_node("Canvas/TurnOrder").show()
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,742), 0.4)
@@ -266,8 +268,8 @@ func _on_attack():
 	PrevStage="root"
 	CurrentChar.NextAction = "attack"
 	active = false
-	get_target(Bt.get_oposing_faction())
 	CurrentChar.NextMove = CurrentChar.StandardAttack
+	get_target(Bt.get_oposing_faction())
 	#await targeted
 	
 
@@ -304,7 +306,8 @@ func _on_ability():
 	t.tween_property($Ability, "modulate", Color.WHITE, 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property($AbilityUI, "modulate", Color(1,1,1,1), 0.1)
-	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(100,0), 0.3)
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
+	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(Bt.offsetize(100),0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
 	t.set_ease(Tween.EASE_OUT)
 	t.tween_property($AbilityUI, "size", Vector2(300,444), 0.3)
@@ -323,7 +326,8 @@ func _on_ability():
 	t.tween_property($Command, "position", Vector2(-20,-60), 0.3).as_relative()
 	t.tween_property($Arrow, "modulate", Color(0.9,0.9,0.9,1), 0.3)
 	$Ability.focus_mode = 0
-	#MenuIndex = 0
+	if get_node_or_null("AbilityUI/Margin/Scroller/List/Item"+str(MenuIndex)) == null:
+		MenuIndex = 0
 	get_node("AbilityUI/Margin/Scroller/List/Item"+str(MenuIndex)).grab_focus()
 	$AbilityUI/Margin/Scroller.scroll_vertical = 0
 	$DescPaper/Desc.text = Abilities[0].description
@@ -383,7 +387,7 @@ func close():
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,-33), 0.2)
+	t.tween_property($Ability, "size", Vector2(33,33), 0.2)
 	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
 	t.tween_property($Item, "size", Vector2(33,33), 0.2)
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
@@ -399,8 +403,7 @@ func close():
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
-	
-	
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.5)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
 	PartyUI.battle_state()
@@ -442,7 +445,7 @@ func get_target(faction:Array[Actor]):
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,-33), 0.2)
+	t.tween_property($Ability, "size", Vector2(33,33), 0.2)
 	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
 	t.tween_property($Item, "size", Vector2(33,33), 0.2)
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
@@ -464,6 +467,12 @@ func get_target(faction:Array[Actor]):
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
 	
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
+	$"../Canvas/AttackTitle".show()
+	$"../Canvas/AttackTitle/RichTextLabel".text = CurrentChar.NextMove.description
+	$"../Canvas/AttackTitle".text = CurrentChar.NextMove.name
+	$"../Canvas/AttackTitle".icon = CurrentChar.NextMove.Icon
+	
 	if not LastTarget in faction:
 		LastTarget = faction[0]
 		TargetIndex = 0
@@ -475,7 +484,8 @@ func get_target(faction:Array[Actor]):
 			TargetIndex = 0
 	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
-	t.tween_property(Cam, "position", Vector2(Bt.offsetize(-50, target), target.node.position.y /4), 0.5)
+	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
+	t.tween_property(Cam, "position", Vector2(target.node.position.x+10, target.node.position.y /4), 0.5)
 	emit_signal('targetFoc', faction[TargetIndex])
 	await t.finished
 	active = true
@@ -494,7 +504,7 @@ func move_menu():
 	if stage == "target":
 		target= TargetFaction[TargetIndex]
 		t.set_parallel()
-		t.tween_property(Cam, "position", Vector2(Bt.offsetize(-50, target), target.node.position.y/5), 0.5)
+		t.tween_property(Cam, "position", Vector2(target.node.position.x+10, target.node.position.y /4), 0.5)
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', TargetFaction[TargetIndex])

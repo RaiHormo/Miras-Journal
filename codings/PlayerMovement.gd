@@ -1,14 +1,19 @@
 extends NPC
 class_name Mira
+##The script that handles's Mira's movment
 
-signal nearest_changed
+##The parent of the parent node should always be a tilemap
 @onready var tilemap:TileMap =get_node_or_null(get_path_to(get_parent().get_parent()))
+##Whether the dash is active
 var dashing = false
-var nearestactionable = null
 var realvelocity : Vector2 = Vector2.ZERO
+##How many frames the player has been moving
 var move_frames =0
+##When the player is supposed to be in a midair perspective
 var midair = false
+##true is there is a wall in front of the player
 var undashable = false
+##Direction of the dash
 var dashdir:Vector2= Vector2.ZERO
 
 func _ready():
@@ -38,6 +43,8 @@ func extended_process():
 	if Global.Controllable:
 		#update_anim_prm()
 		BodyState = CONTROLLED
+	if midair:
+		pass
 	_check_party()
 
 func control_process():
@@ -68,7 +75,8 @@ func control_process():
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
 					await Global.anim_done
 					speed = 175
-					Global.Controllable=true
+					if BodyState == CONTROLLED:
+						Global.Controllable=true
 			elif Global.get_direction(realvelocity) != dashdir:
 				stop_dash()
 				pass
@@ -113,17 +121,18 @@ func update_anim_prm():
 			else:
 				if is_on_wall():
 					if round(get_wall_normal())*-1 == Global.get_direction(direction):
-						set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(direction))))
-						position = round(position)
+						speed = 60
+						set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(realvelocity))))
+						#position = round(position)
 						return
 				speed = 75
-				set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
+				set_anim(str("Walk"+Global.get_dir_name()))
 				$Base.speed_scale=(realvelocity.length()/80)
 				$Base/Bag.speed_scale=(realvelocity.length()/80)
 				$Base/Bag/Axe.speed_scale=(realvelocity.length()/80)
-		elif Global.Controllable and ("Walk" in $Base.animation or "Dash" in $Base.animation):
+		elif Global.Controllable and ("Walk" in $Base.animation or ("Dash" in $Base.animation and dashdir == Vector2.ZERO)):
 			move_frames=0
-			set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
+			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
 					move_frames = 0
 					stop_dash()
@@ -131,17 +140,19 @@ func update_anim_prm():
 		if get_real_velocity().length() >30:
 			BodyState = MOVE
 			if dashing:
-				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
+				set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 			else:
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 		else:
 			BodyState = IDLE
-			position = round(position)
+			if realvelocity == Vector2.ZERO:
+				position = round(position)
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 
 func look_to(dir:Vector2):
 	set_anim("Idle"+Global.get_dir_name(dir))
 
+##Item pickup animation
 func _on_pickup():
 	Global.Controllable = false
 	reset_speed()
@@ -156,12 +167,13 @@ func _check_party():
 	else:
 		$Base/Bag/Axe.hide()
 		
-
+##Sets the animation for all sprite layers
 func set_anim(anim:String):
 	$Base.play(anim)
 	$Base/Bag.play(anim)
 	#$Base/Bag/Axe.play(anim)
 
+##For opening the menu
 func bag_anim():
 	set_anim("OpenBag")
 	await $Base.animation_looped
@@ -170,7 +182,8 @@ func bag_anim():
 
 func check_terrain(terrain:String):
 	print(terrain)
-	
+
+##If the player dashes into a gap she will jump
 func check_for_jumps():
 	if dashing and tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)) != null:
 			if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("TerrainType") == "Gap":
@@ -188,42 +201,56 @@ func check_for_jumps():
 					z_index-=2
 					midair=false
 
+##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash():
-	if midair or BodyState!=CONTROLLED:
-		return
+	if BodyState!=CONTROLLED or "Stop" in $Base.animation or "Hit" in $Base.animation or midair: return
 	dashing = false
 	speed = 75
 	#print(realvelocity)
 	reset_speed()
 	var slide = true
 	for i in tilemap.get_layers_count():
-		if ((tilemap.get_cell_tile_data(i, coords+dashdir)!= null and tilemap.get_cell_tile_data(i, coords+dashdir).get_collision_polygons_count(0)>0) or 
+		if ((tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or 
 			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if undashable and Global.get_direction(direction)==dashdir and not slide:
-		var safe_pos = get_parent().get_node("Follower1").global_position
-		Global.jump_to_global(self, safe_pos - to_local(safe_pos).normalized()*15, 15, 0.5)
+	if undashable and Global.get_direction()==dashdir:
+#		var safe_pos = get_parent().get_node("Follower1").global_position
+#		Global.jump_to_global(self, safe_pos - to_local(safe_pos).normalized()*15, 15, 0.5)
+		Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 		Global.Controllable=false
 		await $Base.animation_finished
 		Global.Controllable=true
 	else:
 		#print(Global.PlayerDir)
-		if not undashable:
+		if slide:
 			Global.jump_to_global(self, global_position+dashdir*15, 10, 0)
+		move_and_slide()
+		if is_on_wall():
+			await Event.wait()
+			stop_dash()
+			return
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
 			await get_tree().create_timer(0.1).timeout
 		else: await $Base.animation_finished
+		if BodyState!=CONTROLLED: 
+			set_anim("Walk"+Global.get_dir_name())
+			return
 		Global.Controllable=true
+	move_and_slide()
+	if is_on_wall():
+		if wall_in_front():
+			undashable = true
+			stop_dash()
+			return
+		global_position = get_parent().get_node("Follower1").global_position
 	dashdir = Vector2.ZERO
-#	if is_on_wall():
-#			var t = create_tween()
-#			t.tween_property(self, "global_position", get_parent().get_node("Follower1").global_position, 0.5)
+	if "Stop" in $Base.animation or "Hit" in $Base.animation:
+		set_anim(str("Idle"+Global.get_dir_name()))
 
 func reset_speed():
 	$Base.speed_scale=1
 	$Base/Bag.speed_scale=1
 	$Base/Bag/Axe.speed_scale=1
-	

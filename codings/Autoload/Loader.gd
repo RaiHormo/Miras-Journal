@@ -177,7 +177,6 @@ func end_battle():
 		Attacker.queue_free()
 	battle_bars(0)
 	PartyUI.UIvisible=true
-	#print(BattleResult)
 	Global.Controllable = true
 	get_tree().paused = false
 	if Global.Player != null:

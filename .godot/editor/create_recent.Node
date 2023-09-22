@@ -1,4 +1,13 @@
+TextureRect
+SubViewport
+ColorRect
+RichTextLabel
+Panel
+MarginContainer
+Sprite2D
 NPC
+NavigationRegion2D
+NavigationObstacle2D
 NavigationAgent2D
 CollisionShape2D
 AnimatedSprite2D
@@ -10,14 +19,10 @@ Area2D
 VisibleOnScreenNotifier2D
 Marker2D
 CharacterBody2D
-ColorRect
-Panel
-TextureRect
 HBoxContainer
 LightOccluder2D
 Camera2D
 RemoteTransform2D
-NavigationRegion2D
 Button
 HSlider
 OptionButton
@@ -25,8 +30,3 @@ MenuButton
 AnimationPlayer
 AnimationTree
 CheckButton
-PopupMenu
-MenuBar
-VBoxContainer
-ScrollContainer
-Node2D
