@@ -2145,7 +2145,7 @@ gradient = SubResource("Gradient_6iemy")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.494787, 0.514692)
-fill_to = Vector2(0.840758, 0.0597157)
+fill_to = Vector2(0.835294, 0.135294)
 
 [sub_resource type="Gradient" id="Gradient_d2yr6"]
 colors = PackedColorArray(1, 1, 1, 0.47451, 0, 0, 0, 0)
@@ -2246,10 +2246,7 @@ position = Vector2(1402.05, 230.68)
 motion_mode = 1
 script = ExtResource("7_0qouf")
 Battle = ExtResource("8_vma8n")
-Defeated = null
 speed = 20
-direction = null
-Facing = null
 ID = "CS1"
 DefaultPos = Vector2(58, 9)
 Nav = NodePath("Nav")

@@ -303,8 +303,10 @@ func get_cam() -> Camera2D:
 func quit():
 	Loader.icon_save()
 	await Loader.transition("L")
-	await get_node("/root/Options").close()
-	await get_node("/root/Area/TileMap/OvPlayer/Body/MainMenu").close()
+	if get_node_or_null("/root/Options") != null:
+		await get_node("/root/Options").close()
+	if get_node_or_null("/root/Area/TileMap/OvPlayer/Body/MainMenu") != null:
+		await get_node("/root/Area/TileMap/OvPlayer/Body/MainMenu").close()
 	await Loader.save()
 	get_tree().quit()
 
@@ -313,3 +315,7 @@ func tilemapize(pos: Vector2):
 
 func globalize(coords):
 	return Tilemap.map_to_local(coords)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		quit()

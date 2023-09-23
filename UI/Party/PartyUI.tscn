@@ -646,6 +646,7 @@ visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_llexj")
 layout_direction = 1
+layout_mode = 0
 offset_left = 165.779
 offset_top = 27.2175
 offset_right = 253.779
