@@ -50,6 +50,10 @@ func _process(delta):
 
 func _on_battle_get_control():
 	if Bt.CurrentChar.Health == 0: Bt.next_turn.emit()
+	if Bt.Troop.is_empty():
+		close()
+		Bt.victory()
+		return
 	Global.ui_sound("GetControl")
 	active = true
 	t = create_tween()
@@ -103,7 +107,7 @@ func _on_battle_get_control():
 	t.tween_property($Item, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
 	t.tween_property($Command, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
 	t.tween_property($Attack, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Ability, "size", Vector2(33,-33), 0.5).from(Vector2(31,33))
+	t.tween_property($Ability, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property($Attack, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property($Item, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property($Command, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
@@ -307,7 +311,7 @@ func _on_ability():
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property($AbilityUI, "modulate", Color(1,1,1,1), 0.1)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
-	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(Bt.offsetize(100),0), 0.3)
+	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(100,0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
 	t.set_ease(Tween.EASE_OUT)
 	t.tween_property($AbilityUI, "size", Vector2(300,444), 0.3)

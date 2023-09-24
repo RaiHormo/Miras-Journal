@@ -316,7 +316,7 @@ func _item():
 	t.tween_property($DescPaper, "scale", Vector2(0.7,0.7), 0.4)
 	t.tween_property($DescPaper, "modulate", Color.WHITE, 0.4)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.1)
-	t.tween_property($DottedBack, "modulate", Color(1, 0.87, 0.72, 1), 0.4)
+	t.tween_property($DottedBack, "modulate", Color(0.67, 0.67, 0.62, 0.5), 0.4)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -401,7 +401,9 @@ func _on_back_button_down():
 				$Confirm.show()
 		"choose_member":
 			await get_inventory()
-			$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
+			if $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0) != null:
+				$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
+			else: $Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0)
 			await PartyUI._on_shrink()
 			PartyUI.UIvisible = false
 			stage = "item"

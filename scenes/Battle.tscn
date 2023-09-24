@@ -1281,6 +1281,7 @@ offset_bottom = 88.0
 theme = SubResource("Theme_wxbdf")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI"]
+visible = false
 texture_filter = 2
 offset_left = 947.0
 offset_top = 30.0

@@ -63,10 +63,10 @@ func AttackMira():
 	await Bt.anim_done
 	if not miss:
 		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target, CurrentChar.Attack)
 		Bt.screen_shake(15, 7, 0.2)
 		CurrentChar.node.play("Attack2")
 		Bt.play_effect("SimpleHit", target)
+		await Bt.damage(target, CurrentChar.Attack)
 	else:
 		CurrentChar.node.play("Attack2")
 		Bt.miss()

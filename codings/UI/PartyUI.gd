@@ -381,7 +381,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	if get_node("CanvasLayer/Page"+str(ind+1)+"/Render").texture != mem.RenderArtwork:
 		get_node("CanvasLayer/Page"+str(ind+1)+"/Render").texture = mem.RenderArtwork
 		var shadow = make_shadow(mem.RenderShadow)
-
+		get_node("CanvasLayer/Page"+str(ind+1)+"/Render/Shadow").texture = shadow
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
 	node.get_node("Health").max_value = mem.MaxHP
 	draw_bar(mem, node)

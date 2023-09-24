@@ -375,7 +375,7 @@ func damage(target:Actor, stat:float, x:int=calc_num(), effect:bool=true, limite
 	
 	pop_num(target, target.calc_dmg(x, stat, target))
 	if target.Health == 0:
-		death(target)
+		await death(target)
 		return
 	if target.has_state("Guarding"):
 		pass
@@ -469,6 +469,8 @@ func stop_sound(SoundName: String, act: Actor):
 func death(target:Actor):
 	if target == null:
 		return
+#	if target.IsEnemy and Troop.size() == 1:
+#		slowmo()
 	target.add_state("KnockedOut")
 	target.node.play("KnockOut")
 	target.node.get_node("Particle").emitting = true
@@ -483,17 +485,23 @@ func death(target:Actor):
 	t.parallel().tween_property(target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
 	t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 	await t.finished
-	target.node.material.set_shader_parameter("outline_enabled", false)
-	if target.Disappear:
-		t = create_tween()
-		t.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
-		await t.finished
-		if target != null:
-			target.node.queue_free()
-			target.node = null
-			if target.IsEnemy:
-				Troop.erase(target)
-				TurnOrder.erase(target)
+	if target.node != null:
+		target.node.material.set_shader_parameter("outline_enabled", false)
+		if target.Disappear:
+			t = create_tween()
+			t.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
+			await t.finished
+			if target != null:
+				target.node.queue_free()
+				target.node = null
+				if target.IsEnemy:
+					Troop.erase(target)
+					TurnOrder.erase(target)
+
+func slowmo(scale = 0.5, time= 1):
+	Engine.time_scale = 0.5
+	await Event.wait(time * scale)
+	Engine.time_scale = 1
 
 func get_ally_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return Troop
