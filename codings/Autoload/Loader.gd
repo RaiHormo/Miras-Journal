@@ -168,6 +168,7 @@ func end_battle():
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		await t.finished
 	InBattle= false
+	if Global.Player == null: return
 	Global.Player.get_parent().show()
 	Global.Bt.get_node("Act").hide()
 	if Attacker!=null: Attacker.show()

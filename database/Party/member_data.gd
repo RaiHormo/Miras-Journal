@@ -59,6 +59,9 @@ class_name Actor
 @export var Shadow: bool = false
 @export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
 @export var Disappear: bool
+@export var GlowDef: float = 0.0
+@export var GlowSpecial: float = 0.0
+@export var GlowAnims: Array[String] = []
 
 @export_group("Party specific")
 @export var LastName : String = ""

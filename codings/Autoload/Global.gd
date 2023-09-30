@@ -318,4 +318,10 @@ func globalize(coords):
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		quit()
+		if Controllable: quit()
+		else: get_tree().quit()
+
+func in_360(n):
+	if n in range(0, 359): return n
+	elif n > 359: return n - 359
+	elif n < 0: return 359 - n

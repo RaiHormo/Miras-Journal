@@ -4,8 +4,13 @@ extends CanvasLayer
 var t = Tween
 var lock = false
 
+func _ready():
+	t = create_tween()
+	t.tween_property($EnemyFocus, "position", $EnemyFocus.position, 0)
+
 func all_enemy_ui():
 	Troop = get_parent().Troop
+	t.kill()
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)

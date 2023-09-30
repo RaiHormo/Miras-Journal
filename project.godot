@@ -18,7 +18,7 @@ config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.1", "Mobile")
-boot_splash/show_image=false
+boot_splash/image="res://art/splash.png"
 config/icon="res://art/icon.png"
 
 [aseprite]
@@ -60,7 +60,6 @@ general/states=["Global", "Loader"]
 window/size/viewport_width=1280
 window/size/viewport_height=800
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=3
 
 [editor]
 

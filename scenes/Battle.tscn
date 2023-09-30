@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=121 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="24_cl0e6"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
 [ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="29_it8wn"]
+[ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="32_b46n3"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_0brgg")
@@ -152,6 +153,16 @@ animations = [{
 "name": &"new_animation",
 "speed": 5.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_s6doo"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tbe80"]
+gradient = SubResource("Gradient_s6doo")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.852941, 0.894118)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0wfas"]
 atlas = ExtResource("10_fwnkw")
@@ -634,6 +645,12 @@ action = &"ui_accept"
 [sub_resource type="Shortcut" id="Shortcut_o1kt8"]
 events = [SubResource("InputEventAction_oi6bj")]
 
+[sub_resource type="FontVariation" id="FontVariation_sc4xk"]
+base_font = ExtResource("32_b46n3")
+variation_embolden = 0.3
+spacing_glyph = 1
+spacing_bottom = -8
+
 [sub_resource type="InputEventAction" id="InputEventAction_sm70d"]
 action = &"PartyMenu"
 
@@ -726,6 +743,10 @@ grow_vertical = 2
 script = ExtResource("1_xnc7m")
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
+Troop = null
+TurnOrder = null
+Turn = null
+TurnInd = null
 curve = SubResource("Curve_wrfky")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -797,6 +818,13 @@ light_mask = 16
 material = ExtResource("1_pas6x")
 sprite_frames = SubResource("SpriteFrames_wdhds")
 animation = &"new_animation"
+
+[node name="Glow" type="PointLight2D" parent="Act/Actor0"]
+light_mask = 16
+energy = 0.0
+range_item_cull_mask = 17
+texture = SubResource("GradientTexture2D_tbe80")
+texture_scale = 1.5
 
 [node name="Effects" type="AnimatedSprite2D" parent="Act"]
 light_mask = 16
@@ -1048,7 +1076,6 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
-visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0
@@ -1094,6 +1121,7 @@ use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = SubResource("Theme_t7ro7")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
@@ -1496,6 +1524,7 @@ expand_mode = 1
 
 [node name="Name" type="Label" parent="Canvas/TurnOrderPop/Margin/List/Char"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_sc4xk")
 theme_override_font_sizes/font_size = 32
 text = "Asteria"
 

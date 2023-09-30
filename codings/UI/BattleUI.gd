@@ -5,6 +5,7 @@ var Party: PartyData
 var Troop: Array[Actor]
 @onready var Cam = $"../Cam"
 @onready var t= Tween
+@onready var tr= Tween
 var active: bool
 var stage: String
 signal root
@@ -29,23 +30,20 @@ var foc:Control
 func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
+	tr = create_tween()
+	tr.tween_property(self, "position", position, 0)
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	#t = create_tween()
 	hide()
+	$AbilityUI.hide()
+	$DescPaper.hide()
+	$"../Canvas/TurnOrderPop".hide()
 
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if stage=="target":
 		$BaseRing/Ring2.rotation += 0.001
-		if tweendone:
-			tweendone = false
-			t = create_tween()
-			t.set_ease(Tween.EASE_IN_OUT)
-			t.set_trans(Tween.TRANS_SINE)
-			t.tween_property($BaseRing/Ring2, "scale", Vector2(1.1,1.1), 0.7)
-			t.tween_property($BaseRing/Ring2, "scale", Vector2(1.2,1.2), 0.7)
-			await t.finished
-			tweendone = true
+
 		
 
 func _on_battle_get_control():
@@ -56,6 +54,7 @@ func _on_battle_get_control():
 		return
 	Global.ui_sound("GetControl")
 	active = true
+	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -113,8 +112,8 @@ func _on_battle_get_control():
 	t.tween_property($Command, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property(self, "rotation_degrees", -720, 0.5).from(360)
 	t.tween_property(self, "scale", Vector2(1,1), 0.5).from(Vector2(0.25,0.25))
-	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.1)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.1)
+	$BaseRing.scale= Vector2(0.25,0.25)
+	$BaseRing/Ring2.scale = Vector2(1,1)
 #	$Ability.size = Vector2(33, 33)
 #	$Item.size= Vector2(33, 33)
 #	$Command.size = Vector2(33, 33)
@@ -131,6 +130,7 @@ func _on_root():
 		foc.hide()
 		foc.show()
 	t.kill()
+	tr.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -172,7 +172,7 @@ func _on_root():
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.5)
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
+	#t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
@@ -186,6 +186,8 @@ func _on_root():
 	$Item.show()
 	$Command.show()
 	$Ability.show()
+	await t.finished
+	$DescPaper.hide()
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -238,7 +240,7 @@ func _input(event):
 				move_menu()
 		elif stage == "ability":
 			if Input.is_action_just_pressed(Global.cancel()):
-				CurrentChar.node.play("Idle")
+				Bt.anim()
 				Global.cancel_sound()
 				root.emit()
 			if Input.is_action_just_pressed("ui_up") and active:
@@ -324,7 +326,7 @@ func _on_ability():
 	
 	t.tween_property($DescPaper, "scale", Vector2(0.17,0.17), 0.4)
 	t.tween_property($DescPaper, "rotation_degrees", 0, 0.4) 
-	t.tween_property($DescPaper, "modulate", Color(1,1,1,1), 0.4)
+	t.tween_property($DescPaper, "modulate", Color(1,1,1,1), 0.3)
 	t.tween_property($Attack, "position", Vector2(-20,90), 0.3).as_relative()
 	t.tween_property($Item, "position", Vector2(-90,10), 0.3).as_relative()
 	t.tween_property($Command, "position", Vector2(-20,-60), 0.3).as_relative()
@@ -382,6 +384,7 @@ func _on_command():
 
 func close():
 	active=false
+	stage = "inactive"
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
@@ -494,7 +497,14 @@ func get_target(faction:Array[Actor]):
 	await t.finished
 	active = true
 	stage = "target"
-	tweendone = true
+	while stage == "target":
+		tr = create_tween()
+		tr.set_ease(Tween.EASE_IN_OUT)
+		tr.set_trans(Tween.TRANS_SINE)
+		tr.tween_property($BaseRing/Ring2, "scale", -Vector2(0.1,0.1), 0.7).as_relative()
+		if stage != "target": return
+		tr.tween_property($BaseRing/Ring2, "scale", Vector2(0.1,0.1), 0.7).as_relative()
+		await tr.finished
 
 func _on_ability_returned(ab:Ability, tar:Actor):
 	print("Using ", ab.name, " on ", tar.FirstName)

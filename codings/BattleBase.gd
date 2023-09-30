@@ -24,6 +24,7 @@ var AwaitVictory = false
 
 func _ready():
 	Global.Bt = self
+	Global.Controllable = false
 	$Cam.make_current()
 	Loader.InBattle = true
 	TurnInd= -1
@@ -95,6 +96,8 @@ func _ready():
 	for i in TurnOrder:
 		if not i.Shadow:
 				i.node.get_child(0).hide()
+		i.node.get_node("Glow").energy = i.GlowDef
+		i.node.get_node("Glow").color = i.MainColor
 	position_sprites()
 	turn_ui_init()
 	if Seq.Transition:
@@ -246,15 +249,14 @@ func make_move():
 
 func _on_ai_chosen():
 	if CurrentChar.NextAction == "Ability":
-			t = create_tween()
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
-			t.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
-			callout(CurrentChar.NextMove)
+			var tl = create_tween()
+			tl.set_ease(Tween.EASE_OUT)
+			tl.set_trans(Tween.TRANS_QUART)
 			focus_cam(CurrentChar)
-			
-			CurrentChar.node.play("Ability")
+			#tl.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
+			tl.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
+			callout(CurrentChar.NextMove)
+			anim("Ability")
 			await CurrentChar.node.animation_finished
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
@@ -278,13 +280,13 @@ func _input(event):
 func _on_battle_ui_ability():
 	if CurrentChar.node == null: return
 	play_sound("Ability", CurrentChar)
-	CurrentChar.node.play("Ability")
+	anim("Ability")
 	await CurrentChar.node.animation_finished
-	CurrentChar.node.play("AbilityLoop")
+	anim("AbilityLoop")
 
 func _on_battle_ui_root():
 	stop_sound("Ability", CurrentChar)
-	CurrentChar.node.play("Idle")
+	anim("Idle")
 
 func callout(ab:Ability = CurrentAbility):
 	if not ab.Callout:
@@ -357,10 +359,10 @@ func jump_to_target(character, tar, offset, time):
 	anim_done.emit()
 	
 func return_cur(target:Actor = CurrentChar):
-	t= create_tween()
-	t.set_trans(Tween.TRANS_QUAD)
-	t.set_ease(Tween.EASE_OUT)
-	t.tween_property(target.node, "position", initial, 0.2)
+	var tc= create_tween()
+	tc.set_trans(Tween.TRANS_QUAD)
+	tc.set_ease(Tween.EASE_OUT)
+	tc.tween_property(target.node, "position", initial, 0.2)
 	
 func end_turn():
 	await get_tree().create_timer(0.3).timeout
@@ -368,7 +370,7 @@ func end_turn():
 		CurrentChar.node.z_index = 0
 	next_turn.emit()
 	
-func damage(target:Actor, stat:float, x:int=calc_num(), effect:bool=true, limiter:bool=false):
+func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:bool=true, limiter:bool=false):
 	take_dmg.emit()
 	target.damage(x, stat, target)
 	check_party.emit()
@@ -394,12 +396,20 @@ func damage(target:Actor, stat:float, x:int=calc_num(), effect:bool=true, limite
 		hit_animation(target)
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
-	
+
+func get_affinity(attacker:Color, defender:Color):
+	var Affinity: Object = {
+		
+	}
+	var Affinity.oposing_hue:int = Global.to_360(attacker.h + 180)
+	var oposing_hue_range:Array = range(int(oposing_hue-attacker.s/3), int(oposing_hue+attacker.s/3))
+	var weak_hue_range:Array
+
 
 func hit_animation(tar):
-	tar.node.play("Hit")
+	anim("Hit", tar)
 	await tar.node.animation_finished
-	tar.node.play("Idle")
+	anim("Idle", tar)
 	
 
 func screen_shake(amount:float, times:float, ShakeDuration:float):
@@ -447,16 +457,21 @@ func offsetize(num, target=CurrentChar):
 		
 
 func pop_num(target:Actor, text):
-		target.node.get_child(1).show()
-		t = create_tween()
-		t.set_ease(Tween.EASE_IN)
-		t.set_trans(Tween.TRANS_QUART)
-		target.node.get_child(1).text = str(text)
-		t.tween_property(target.node.get_child(1), "position", Vector2(offsetize(20), -10), 0.3).as_relative().from(Vector2(-217, -36))
-		t.parallel().tween_property(target.node.get_child(1), "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
-		t.set_ease(Tween.EASE_OUT)
-		t.tween_property(target.node.get_child(1), "modulate", Color.TRANSPARENT, 2).from(Color.WHITE)
-		t.parallel().tween_property(target.node.get_child(1), "position", Vector2(offsetize(14), -6), 2).as_relative()
+		var number = target.node.get_node("Nums").duplicate()
+		target.node.add_child(number)
+		number.show()
+		var tn = create_tween()
+		tn.set_ease(Tween.EASE_IN)
+		tn.set_trans(Tween.TRANS_QUART)
+		number.text = str(text)
+		tn.tween_property(number, "position", Vector2(offsetize(20), -10), 0.3).as_relative().from(Vector2(-217, -36))
+		tn.parallel().tween_property(number, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
+		tn.set_ease(Tween.EASE_OUT)
+		tn.tween_property(number, "modulate", Color.TRANSPARENT, 2).from(Color.WHITE)
+		tn.parallel().tween_property(number, "position", Vector2(offsetize(14), -6), 2).as_relative()
+		await tn.finished
+		if number!=null:
+			number.queue_free()
 
 func play_sound(SoundName: String, act: Actor):
 	if act.node.get_node("SFX").has_node(SoundName):
@@ -472,7 +487,7 @@ func death(target:Actor):
 #	if target.IsEnemy and Troop.size() == 1:
 #		slowmo()
 	target.add_state("KnockedOut")
-	target.node.play("KnockOut")
+	anim("KnockOut", target)
 	target.node.get_node("Particle").emitting = true
 	t = create_tween()
 	target.Health = 0
@@ -498,9 +513,9 @@ func death(target:Actor):
 					Troop.erase(target)
 					TurnOrder.erase(target)
 
-func slowmo(scale = 0.5, time= 1):
+func slowmo(timescale = 0.5, time= 1):
 	Engine.time_scale = 0.5
-	await Event.wait(time * scale)
+	await Event.wait(time * timescale)
 	Engine.time_scale = 1
 
 func get_ally_faction(act: Actor = CurrentChar):
@@ -519,12 +534,28 @@ func hp_sort(a:Actor, b:Actor):
 		return true
 	else:
 		return false
-		
+
+func anim(animation: String="Idle", chara: Actor = CurrentChar):
+	if  animation in chara.GlowAnims and chara.GlowSpecial != 0:
+		t.kill()
+		t=create_tween()
+		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 1)
+	elif chara.node.animation in chara.GlowAnims and chara.GlowSpecial != 0:
+		t.kill()
+		t=create_tween()
+		t.tween_property(chara.node.get_node("Glow"), "energy", 0, 0.3)
+	chara.node.play(animation)
+
+func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
+	t.kill()
+	t=create_tween()
+	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
+
 func focus_cam(chara:Actor, time:float=0.5, offset=-40):
-	t = create_tween()
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property($Cam, "position", Vector2(chara.node.position.x - offsetize(offset),chara.node.position.y /2), time)
+	var tc = create_tween()
+	tc.set_ease(Tween.EASE_IN_OUT)
+	tc.set_trans(Tween.TRANS_QUART)
+	tc.tween_property($Cam, "position", Vector2(chara.node.position.x - offsetize(offset),chara.node.position.y /2), time)
 
 func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 	t = create_tween()
@@ -593,9 +624,9 @@ func end_battle():
 	queue_free()
 
 func victory_anim(chara:Actor):
-	chara.node.play("Victory")
+	anim("Victory", chara)
 	await chara.node.animation_finished
-	chara.node.play("VictoryLoop")
+	anim("VictoryLoop", chara)
 
 func miss(target:Actor = CurrentTarget):
 	t = create_tween()
