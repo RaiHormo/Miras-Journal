@@ -743,10 +743,6 @@ grow_vertical = 2
 script = ExtResource("1_xnc7m")
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
-Troop = null
-TurnOrder = null
-Turn = null
-TurnInd = null
 curve = SubResource("Curve_wrfky")
 
 [node name="Background" type="Sprite2D" parent="."]

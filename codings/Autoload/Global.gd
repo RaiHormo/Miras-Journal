@@ -33,6 +33,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	await ready_window()
 	init_settings()
+	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window():
@@ -44,7 +45,6 @@ func ready_window():
 		get_window().grab_focus()
 
 func _physics_process(delta):
-	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 	ProcessFrame+=1
 
 func get_playtime():
@@ -321,7 +321,35 @@ func _notification(what):
 		if Controllable: quit()
 		else: get_tree().quit()
 
-func in_360(n):
-	if n in range(0, 359): return n
-	elif n > 359: return n - 359
-	elif n < 0: return 359 - n
+func in_360(nm) -> int:
+	var n = int(nm)
+	if n > 359: return n - 359
+	elif n < 0: return 359 + n
+	else: return n
+
+func range_360(n1, n2) -> Array:
+	if n2 > 359:
+		var range1 = range(n1, 359)
+		var range2 = range(0, n2 - 359)
+		range1.append_array(range2)
+		return range1
+	elif n1 < 0:
+		var range1 = range(0, n2)
+		var range2 = range(359 + n1, 359)
+		range2.append_array(range1)
+		return range2
+	else: return range(n1, n2)
+
+func get_affinity(attacker:Color) -> Affinity:
+	var aff = Affinity.new()
+	var pres = round(remap(attacker.s, 0, 1, 10, 75))
+	var hue = round(remap(attacker.h, 0, 1, 0, 359))
+	#print(in_360(hue-pres/4)," ", in_360(hue+pres/4))
+	aff.hue = hue
+	aff.color = attacker
+	aff.oposing_hue = in_360(hue + 180)
+	aff.oposing_range = range_360(aff.oposing_hue-pres/4, aff.oposing_hue+pres/4)
+	aff.weak_range = range_360(aff.oposing_range[0]-1-pres, aff.oposing_range[0]+1)
+	aff.resist_range = range_360(aff.oposing_range[-1]+1, aff.oposing_range[-1]+1+max(pres, 15))
+	aff.near_range = range_360(hue-max(pres/3, 10), hue+max(pres/3, 10))
+	return aff

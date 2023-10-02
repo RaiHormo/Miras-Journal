@@ -1,3 +1,5 @@
+res://codings/UI
+res://codings
 res://art
 res://database/Party
 res://art/BT/Alcine
@@ -12,11 +14,9 @@ res://art/OV/Mira
 res://UI/Party
 res://
 res://UI/Options
-res://codings/UI
 /run/media/rai/RaiDrive/Projects/Mira/deploms/2023 Aug7
 /home/rai/Downloads
 res://database/States/
 res://art/BT/WhiteSpawn
 res://database/Enemies/
 res://art/BT/CrawlingSludge
-res://database/BattleSeq/

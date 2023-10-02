@@ -397,14 +397,6 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
 
-func get_affinity(attacker:Color, defender:Color):
-	var Affinity: Object = {
-		
-	}
-	var Affinity.oposing_hue:int = Global.to_360(attacker.h + 180)
-	var oposing_hue_range:Array = range(int(oposing_hue-attacker.s/3), int(oposing_hue+attacker.s/3))
-	var weak_hue_range:Array
-
 
 func hit_animation(tar):
 	anim("Hit", tar)

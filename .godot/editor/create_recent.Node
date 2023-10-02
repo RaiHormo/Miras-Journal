@@ -1,11 +1,13 @@
-PointLight2D
 TextureRect
+Panel
+Sprite2D
+Node2D
+Node
+PointLight2D
 SubViewport
 ColorRect
 RichTextLabel
-Panel
 MarginContainer
-Sprite2D
 NPC
 NavigationRegion2D
 NavigationObstacle2D
@@ -14,7 +16,6 @@ CollisionShape2D
 AnimatedSprite2D
 WorldEnvironment
 Label
-Node
 Area2D
 VisibleOnScreenNotifier2D
 Marker2D
@@ -29,4 +30,3 @@ OptionButton
 MenuButton
 AnimationPlayer
 AnimationTree
-CheckButton

@@ -11,3 +11,6 @@ script = ExtResource("1_tyx4l")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("8_usod5"), ExtResource("4_0rjg7")])
 BattleBack = ExtResource("1_03qle")
 Transition = true
+Detransition = false
+EscPosition = Vector2(0, 0)
+ScenePosition = Vector2(0, 0)

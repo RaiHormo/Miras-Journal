@@ -88,6 +88,7 @@ position = Vector2(-3.8147e-06, -3.8147e-06)
 shape = SubResource("CircleShape2D_7h34c")
 
 [node name="Button" type="Button" parent="."]
+visible = false
 visibility_layer = 1024
 z_index = 9
 material = SubResource("ShaderMaterial_41wqm")

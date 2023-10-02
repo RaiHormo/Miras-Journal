@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=43 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_dogj7"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_7yih5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="8_p8xdc"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="9_uia6k"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="10_x2te8"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="11_rdec1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("3_o6yw0")
@@ -663,6 +664,12 @@ shortcut = SubResource("Shortcut_vilg5")
 text = "Item x3"
 icon = SubResource("AtlasTexture_wk61q")
 expand_icon = true
+
+[node name="Wheel" parent="CanvasLayer" instance=ExtResource("11_rdec1")]
+visible = false
+position = Vector2(650, 408)
+scale = Vector2(0.7, 0.7)
+color = Color(1, 0, 0.356863, 1)
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

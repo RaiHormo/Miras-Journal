@@ -544,7 +544,6 @@ y_sort_enabled = true
 texture_filter = 2
 material = ExtResource("1_g5xrf")
 use_parent_material = true
-rotation = 0.00744056
 tile_set = SubResource("TileSet_dw7lm")
 format = 2
 layer_0/name = "Ysorted"
@@ -666,6 +665,7 @@ position = Vector2(-1.81813, 2.90147)
 shape = SubResource("RectangleShape2D_72f6p")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap"]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_6ku2x")
 
 [node name="NPC" type="CharacterBody2D" parent="TileMap" node_paths=PackedStringArray("Nav")]
