@@ -37,14 +37,13 @@ func _ready():
 	hide()
 	$AbilityUI.hide()
 	$DescPaper.hide()
+	$CommandMenu.hide()
 	$"../Canvas/TurnOrderPop".hide()
 
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if stage=="target":
-		$BaseRing/Ring2.rotation += 0.001
-
-		
+		$BaseRing/Ring2.rotation -= 0.002
 
 func _on_battle_get_control():
 	if Bt.CurrentChar.Health == 0: Bt.next_turn.emit()
@@ -162,7 +161,8 @@ func _on_root():
 	t.tween_property($Item, "position", Vector2(-66,-15), 0.3)
 	t.tween_property($Command, "position", Vector2(-33,-51), 0.3)
 	$Ability.add_theme_constant_override("icon_max_width", 0)
-	$BaseRing/Diag.hide()
+	t.tween_property($CommandMenu/Escape, "rotation_degrees", -180, 0.3)
+	t.tween_property($CommandMenu, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", -600, 0.3).as_relative()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
@@ -188,6 +188,7 @@ func _on_root():
 	$Ability.show()
 	await t.finished
 	$DescPaper.hide()
+	$CommandMenu.hide()
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -289,6 +290,7 @@ func _on_ability():
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	$DescPaper/ShowWheel.icon = Global.get_controller().CommandIcon
 	CurrentChar.NextAction = "ability"
 	t.kill()
 	$DescPaper.show()
@@ -358,12 +360,14 @@ func _on_command():
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	Global.confirm_sound()
+	$CommandMenu/Escape.icon = Global.get_controller().LZ
+	$CommandMenu.modulate = Color.WHITE
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.3)
+	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,742), 0.3).from(Vector2(31,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
@@ -376,11 +380,15 @@ func _on_command():
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.6,0.6), 0.3)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.4,1.4), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(0.6,0.6), 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-170,-200), 0.3)
-	t.tween_property($BaseRing/Ring2, "position", Vector2(-45,0), 0.3)
-	$BaseRing/Diag.show()
+	t.tween_property($BaseRing, "position", Vector2(-160,-200), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2(50,-20), 0.3)
+	t.tween_property($CommandMenu/Escape, "rotation_degrees", 0, 0.3).from(-180)
+	t.tween_property($CommandMenu/CmdBack, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
+	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
+	#t.tween_property($CommandMenu/CmdBack, "position", Vector2(-884, -768), 0.5).from(Vector2(-584, -868))
+	$CommandMenu.show()
 
 func close():
 	active=false
@@ -443,6 +451,12 @@ func get_target(faction:Array[Actor]):
 	Bt.get_node("Canvas/Back").text = "Cancel"
 	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
+	if CurrentChar.NextAction == "ability" and CurrentChar.NextMove.WheelColor.s > 0:
+		$"../Canvas/AttackTitle/Wheel".show()
+		$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
+	else:
+		$"../Canvas/AttackTitle/Wheel".hide()
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
@@ -492,8 +506,9 @@ func get_target(faction:Array[Actor]):
 	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
-	t.tween_property(Cam, "position", Vector2(target.node.position.x+10, target.node.position.y /4), 0.5)
+	t.tween_property(Cam, "position", Vector2(target.node.position.x, target.node.position.y /4), 0.5)
 	emit_signal('targetFoc', faction[TargetIndex])
+	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 	await t.finished
 	active = true
 	stage = "target"
@@ -518,10 +533,11 @@ func move_menu():
 	if stage == "target":
 		target= TargetFaction[TargetIndex]
 		t.set_parallel()
-		t.tween_property(Cam, "position", Vector2(target.node.position.x+10, target.node.position.y /4), 0.5)
+		t.tween_property(Cam, "position", Vector2(target.node.position.x, target.node.position.y /4), 0.5)
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', TargetFaction[TargetIndex])
+		$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.2).timeout
 	if stage == "ability":
 		await get_tree().create_timer(0.001).timeout
@@ -540,10 +556,13 @@ func move_menu():
 			$DescPaper/Cost.show()
 		else:
 			$DescPaper/Cost.hide()
+		if CurrentChar.NextMove.WheelColor.s > 0:
+			$DescPaper/ShowWheel.show()
+			$DescPaper/ShowWheel/Wheel.show_atk_color(CurrentChar.NextMove.WheelColor)
+		else:
+			$DescPaper/ShowWheel.hide()
 	active= true
 	tweendone = true
-	
-
 
 func _on_battle_next_turn():
 	if CurrentChar == null: return
@@ -551,12 +570,9 @@ func _on_battle_next_turn():
 		hide()
 		active = false
 
-
 func _on_targeted():
 	if CurrentChar.NextMove == null: return
 	emit_signal("ability_returned", CurrentChar.NextMove, target )
-
-
 
 func _on_back_pressed():
 	Global.cancel_sound()
@@ -612,6 +628,25 @@ func turn_order():
 
 
 
-
 func _on_escape():
 	Bt.escape()
+
+
+func _on_show_wheel_pressed():
+	Global.confirm_sound()
+	t.kill()
+	t = create_tween()
+	t.set_ease(Tween.EASE_IN_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.set_parallel()
+	if $DescPaper/ShowWheel/Wheel.visible:
+		$DescPaper/ShowWheel.text = "Show wheel"
+		t.tween_property($DescPaper/ShowWheel, "position:x", 140, 0.3)
+		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.TRANSPARENT, 0.3)
+		await t.finished
+		$DescPaper/ShowWheel/Wheel.hide()
+	else:
+		$DescPaper/ShowWheel/Wheel.show()
+		$DescPaper/ShowWheel.text = "Hide wheel"
+		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
+		t.tween_property($DescPaper/ShowWheel, "position:x", 520, 0.3)

@@ -16,7 +16,7 @@ enum D {NONE, LIGHT, MEDIUM, HEAVY, SEVERE}
 enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES}
 @export var Target: T = T.SELF
 
-@export var WheelColor :Color  
+@export_color_no_alpha var WheelColor :Color  
 @export var Callout: bool
 
 @export_range(0,1) var SucessChance: float = 1

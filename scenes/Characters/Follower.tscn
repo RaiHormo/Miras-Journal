@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://da22xhcxygcjl"]
+[gd_scene load_steps=9 format=3 uid="uid://da22xhcxygcjl"]
 
 [ext_resource type="Script" path="res://codings/FollowerMovement.gd" id="1_hsmgh"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_n50o6"]
@@ -9,6 +9,16 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvt3h"]
 radius = 7.99264
 height = 17.9995
+
+[sub_resource type="Gradient" id="Gradient_s6doo"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2e8bj"]
+gradient = SubResource("Gradient_s6doo")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.852941, 0.894118)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 1
@@ -48,5 +58,11 @@ show_behind_parent = true
 use_parent_material = true
 position = Vector2(0, 8)
 texture = ExtResource("5_15r76")
+
+[node name="Glow" type="PointLight2D" parent="."]
+color = Color(0.498039, 0.768627, 0.768627, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_2e8bj")
+texture_scale = 1.5
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

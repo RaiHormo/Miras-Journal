@@ -279,9 +279,10 @@ func _input(event):
 
 func _on_battle_ui_ability():
 	if CurrentChar.node == null: return
-	play_sound("Ability", CurrentChar)
-	anim("Ability")
-	await CurrentChar.node.animation_finished
+	if $BattleUI.PrevStage == "root": 
+		play_sound("Ability", CurrentChar)
+		anim("Ability")
+		await CurrentChar.node.animation_finished
 	anim("AbilityLoop")
 
 func _on_battle_ui_root():
@@ -635,3 +636,7 @@ func miss(target:Actor = CurrentTarget):
 	
 
 
+
+
+func _on_battle_ui_command():
+	anim("Command")

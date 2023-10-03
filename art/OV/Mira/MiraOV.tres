@@ -592,6 +592,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3k8nw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08h5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v5mt")
 }],
 "loop": true,
 "name": &"BagIdle",

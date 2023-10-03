@@ -2858,7 +2858,7 @@ material = ExtResource("2_lltpm")
 use_parent_material = true
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_ewwad")
-animation = &"IdleRight"
+animation = &"DashLeftStart"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",

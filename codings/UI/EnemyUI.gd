@@ -97,6 +97,7 @@ func _check_party():
 
 func _on_battle_ui_ability():
 	colapse_root()
+	$EnemyFocus.hide()
 
 func colapse_root():
 	t = create_tween()

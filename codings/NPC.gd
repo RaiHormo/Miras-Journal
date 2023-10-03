@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name NPC
 ##An extension of [CharacterBody2D] designed for this game. Provides basic movment and interaction.
 
-enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE}
+enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM}
 
 ##Speed of movment
 @export var speed = 75
@@ -63,6 +63,8 @@ func _physics_process(delta):
 			move_and_slide()
 		CONTROLLED:
 			control_process()
+		CUSTOM:
+			move_and_slide()
 	if direction != Vector2.ZERO:
 		if get_node_or_null("DirectionMarker") != null:
 			$DirectionMarker.global_position=global_position +direction*10
@@ -72,6 +74,7 @@ func _physics_process(delta):
 
 func update_anim_prm():
 	#print(round(get_real_velocity().length()))
+	if BodyState == CUSTOM:return
 	if get_real_velocity().length() >5:
 		#BodyState = MOVE
 		$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))

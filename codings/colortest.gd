@@ -1,9 +1,12 @@
 extends Node2D
+class_name Wheel
 @export var color:Color
 @export var affinity:Affinity
+var tar_aff:Affinity
+var relation_ico = null
+var blinking= false
+var t: Tween
 
-func _process(delta):
-	draw_wheel()
 
 func draw_wheel():
 	if color.s != 0:
@@ -38,3 +41,33 @@ func draw_wheel():
 func avrage_dg(d1, d2):
 	if d1<d2: return ((359 + d1) + d2)/2
 	else: return (d1 + d2)/2
+
+func show_atk_color(clr: Color):
+	color = clr
+	draw_wheel()
+
+func show_trg_color(clr: Color):
+	blinking = false
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	tar_aff = Global.get_affinity(clr)
+	t.tween_property($ColorIndicator, "rotation_degrees", tar_aff.hue, 0.3)
+	var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel").duplicate()
+	IndicatorPanel.bg_color = tar_aff.color
+	$ColorIndicator.add_theme_stylebox_override("panel", IndicatorPanel)
+	relation_ico = null
+	await t.finished
+	if tar_aff.hue in affinity.oposing_range: relation_ico = $DoubleWeakIcon
+	elif tar_aff.hue in affinity.weak_range: relation_ico = $WeakIcon
+	elif tar_aff.hue in affinity.resist_range: relation_ico = $ResistIcon
+	elif tar_aff.hue in affinity.near_range: relation_ico = $NearIcon
+	blinking = true
+	while $"/root/Battle/BattleUI".stage == "target" and relation_ico != null and blinking:
+		t = create_tween()
+		t.set_ease(Tween.EASE_IN_OUT)
+		t.set_trans(Tween.TRANS_SINE)
+		t.tween_property(relation_ico, "modulate", Color(1,1,1,0.5), 0.2).from(Color(1,1,1,1))
+		if not blinking: return
+		t.tween_property(relation_ico, "modulate", Color(1,1,1,1), 0.2).from(Color(1,1,1,0.5))
+		await t.finished

@@ -53,17 +53,20 @@ func control_process():
 	undashable = false
 	if not dashing:
 		dashdir = Global.get_direction(Global.PlayerDir)
-	if is_on_wall(): undashable = true
+	if is_on_wall(): 
+		if round(get_wall_normal())*-1 == Global.get_direction(direction):
+			undashable = true
 	if Global.Controllable:
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO:
 			if not dashing:
 				if undashable:
 #					Global.Controllable = false
 					reset_speed()
-					position = round(position)
+					#position = round(position)
 					set_anim("Deny"+Global.get_dir_name(Global.PlayerDir))
 					await $Base.animation_finished
 					set_anim("Idle"+Global.get_dir_name(Global.PlayerDir))
+					return
 #					while Global.get_direction(direction)==Global.get_direction(Global.PlayerDir) and Input.is_action_pressed("Dash"):
 #						await get_tree().create_timer(0.01).timeout
 #					Global.Controllable = true
@@ -71,11 +74,15 @@ func control_process():
 					dashdir = Global.get_direction(direction)
 					dashing = true
 					Global.Controllable=false
-					Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
-					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
-					await Global.anim_done
 					speed = 175
-					if BodyState == CONTROLLED:
+					BodyState = CUSTOM
+					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
+					while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
+						velocity = dashdir * speed
+						if is_on_wall(): Global.Controllable=true; set_anim("Idle"+Global.get_dir_name()); return
+						await Event.wait()
+					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
+					if BodyState == CUSTOM:
 						Global.Controllable=true
 			elif Global.get_direction(realvelocity) != dashdir:
 				stop_dash()
@@ -107,11 +114,12 @@ func control_process():
 			for i in tilemap.get_layers_count():
 				if tilemap.get_cell_tile_data(i, coords) != null:
 					check_terrain(tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
-	elif dashing and not Input.is_action_pressed("Dash"):
-		stop_dash()
+#	elif dashing and not Input.is_action_pressed("Dash"):
+#		stop_dash()
 
 
 func update_anim_prm():
+	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
 		if abs(realvelocity.length())>10 and Global.Controllable:
 			move_frames+=1
@@ -119,12 +127,12 @@ func update_anim_prm():
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
-				if is_on_wall():
-					if round(get_wall_normal())*-1 == Global.get_direction(direction):
-						speed = 60
-						set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(realvelocity))))
-						#position = round(position)
-						return
+#				if is_on_wall():
+#					if round(get_wall_normal())*-1 == Global.get_direction(direction):
+#						speed = 60
+#						set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(realvelocity))))
+#						#position = round(position)
+#						return
 				speed = 75
 				set_anim(str("Walk"+Global.get_dir_name()))
 				$Base.speed_scale=(realvelocity.length()/80)
@@ -156,7 +164,8 @@ func look_to(dir:Vector2):
 func _on_pickup():
 	Global.Controllable = false
 	reset_speed()
-	set_anim(str("PickUp"+Global.get_dir_name(Global.get_direction(Vector2(Global.PlayerDir.x, 0)))))
+	if Global.get_direction() == Vector2.LEFT: set_anim("PickUpLeft")
+	else: set_anim("PickUpRight")
 	await $Base.animation_looped
 	Global.Controllable = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
@@ -222,10 +231,6 @@ func stop_dash():
 		await $Base.animation_finished
 		Global.Controllable=true
 	else:
-		#print(Global.PlayerDir)
-		if slide:
-			Global.jump_to_global(self, global_position+dashdir*15, 10, 0)
-		move_and_slide()
 		if is_on_wall():
 			await Event.wait()
 			stop_dash()
@@ -234,18 +239,27 @@ func stop_dash():
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
 			await get_tree().create_timer(0.1).timeout
-		else: await $Base.animation_finished
-		if BodyState!=CONTROLLED: 
-			set_anim("Walk"+Global.get_dir_name())
-			return
+		else: 
+			BodyState = CUSTOM
+			speed = 75
+			while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
+				velocity = dashdir * speed
+				speed -= 1
+				#move_and_slide()
+				await Event.wait()
+#		if BodyState!=CONTROLLED: 
+#			set_anim("Walk"+Global.get_dir_name())
+#			return
 		Global.Controllable=true
-	move_and_slide()
-	if is_on_wall():
-		if wall_in_front():
-			undashable = true
-			stop_dash()
-			return
-		global_position = get_parent().get_node("Follower1").global_position
+		BodyState = CONTROLLED
+		speed = 75
+		velocity = Vector2.ZERO
+#	if is_on_wall():
+#		if wall_in_front():
+#			undashable = true
+#			stop_dash()
+#			return
+#		global_position = get_parent().get_node("Follower1").global_position
 	dashdir = Vector2.ZERO
 	if "Stop" in $Base.animation or "Hit" in $Base.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))

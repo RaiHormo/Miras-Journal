@@ -1,9 +1,11 @@
+PointLight2D
 TextureRect
+Control
+Label
 Panel
 Sprite2D
 Node2D
 Node
-PointLight2D
 SubViewport
 ColorRect
 RichTextLabel
@@ -15,7 +17,6 @@ NavigationAgent2D
 CollisionShape2D
 AnimatedSprite2D
 WorldEnvironment
-Label
 Area2D
 VisibleOnScreenNotifier2D
 Marker2D
@@ -29,4 +30,3 @@ HSlider
 OptionButton
 MenuButton
 AnimationPlayer
-AnimationTree

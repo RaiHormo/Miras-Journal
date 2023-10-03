@@ -301,6 +301,7 @@ func get_cam() -> Camera2D:
 	return get_tree().root.get_node("Area/Camera"+str(CameraInd))
 
 func quit():
+	if Loader.InBattle or Player == null or $"/root/Area" == null: get_tree().quit()
 	Loader.icon_save()
 	await Loader.transition("L")
 	if get_node_or_null("/root/Options") != null:

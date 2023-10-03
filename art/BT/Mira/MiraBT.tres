@@ -1,8 +1,9 @@
-[gd_resource type="SpriteFrames" load_steps=102 format=3 uid="uid://betyaul8nc6fe"]
+[gd_resource type="SpriteFrames" load_steps=106 format=3 uid="uid://betyaul8nc6fe"]
 
 [ext_resource type="Texture2D" uid="uid://dwmfsk8kaksvw" path="res://art/BT/Mira/Ability.png" id="1_olfb7"]
 [ext_resource type="Texture2D" uid="uid://c6jhbwfqv5kjs" path="res://art/BT/Mira/Attack.png" id="2_3x432"]
 [ext_resource type="Texture2D" uid="uid://b6007oboj8wvf" path="res://art/BT/Mira/Idle.png" id="2_gym3n"]
+[ext_resource type="Texture2D" uid="uid://70m7fwft6akm" path="res://art/BT/Mira/CommandItem.png" id="3_3p101"]
 [ext_resource type="Texture2D" uid="uid://c4mttev617cc2" path="res://art/BT/Mira/Hit.png" id="3_xmspf"]
 [ext_resource type="Texture2D" uid="uid://d4jk8yy2l8l7m" path="res://art/BT/Mira/Entrance.png" id="3_ywd34"]
 [ext_resource type="Texture2D" uid="uid://dpgu4x70pxeer" path="res://art/BT/Mira/FlameSpark.png" id="4_j4f16"]
@@ -104,6 +105,18 @@ region = Rect2(228, 0, 57, 57)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6vddi"]
 atlas = ExtResource("2_3x432")
 region = Rect2(285, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2iuli"]
+atlas = ExtResource("3_3p101")
+region = Rect2(0, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x32se"]
+atlas = ExtResource("3_3p101")
+region = Rect2(57, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28pjn"]
+atlas = ExtResource("3_3p101")
+region = Rect2(114, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2rxj3"]
 atlas = ExtResource("3_ywd34")
@@ -474,6 +487,23 @@ animations = [{
 "loop": false,
 "name": &"Attack2",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2iuli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x32se")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28pjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x32se")
+}],
+"loop": true,
+"name": &"Command",
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 4.0,

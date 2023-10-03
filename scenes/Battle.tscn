@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=127 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -27,9 +27,12 @@
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="19_5nefy"]
 [ext_resource type="Script" path="res://codings/UI/EnemyUI.gd" id="20_46olp"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="20_fun7q"]
+[ext_resource type="Texture2D" uid="uid://cpky7bvi6uvm1" path="res://UI/Battle/EscapeButton.png" id="21_eqid7"]
 [ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="21_gc65u"]
+[ext_resource type="Texture2D" uid="uid://bq6u87p34d13v" path="res://UI/Battle/CommandBackground.png" id="23_shvua"]
 [ext_resource type="Script" path="res://codings/Ai.gd" id="24_7iq6m"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="24_cl0e6"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="27_5ua74"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
 [ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="29_it8wn"]
 [ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="32_b46n3"]
@@ -154,11 +157,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_s6doo"]
+[sub_resource type="Gradient" id="Gradient_yb76s"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tbe80"]
-gradient = SubResource("Gradient_s6doo")
+gradient = SubResource("Gradient_yb76s")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -344,37 +347,6 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("15_mb6ip")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryg6s"]
-shader = ExtResource("14_6ry1t")
-shader_parameter/circle_size = 0.725
-shader_parameter/circle_thickness = 0.07
-shader_parameter/sine_freq = 0.0
-shader_parameter/sine_amp = 0.03
-shader_parameter/sine_phase = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_65pvt"]
-shader = ExtResource("14_6ry1t")
-shader_parameter/circle_size = 0.725
-shader_parameter/circle_thickness = 0.016
-shader_parameter/sine_freq = 0.0
-shader_parameter/sine_amp = 0.03
-shader_parameter/sine_phase = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xpp0"]
-shader = ExtResource("14_6ry1t")
-shader_parameter/circle_size = 0.725
-shader_parameter/circle_thickness = 0.013
-shader_parameter/sine_freq = 20.0
-shader_parameter/sine_amp = 0.03
-shader_parameter/sine_phase = 0.3
-
-[sub_resource type="Gradient" id="Gradient_8j6vo"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
-gradient = SubResource("Gradient_8j6vo")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
@@ -417,11 +389,51 @@ Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
 Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
 Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b0ek"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="InputEventAction" id="InputEventAction_is5hw"]
 action = &"LeftTrigger"
 
 [sub_resource type="Shortcut" id="Shortcut_lp475"]
 events = [SubResource("InputEventAction_is5hw")]
+
+[sub_resource type="FontVariation" id="FontVariation_tjob6"]
+base_font = ExtResource("32_b46n3")
+variation_embolden = 2.0
+spacing_glyph = -1
+spacing_bottom = -5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryg6s"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.07
+shader_parameter/sine_freq = 0.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65pvt"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.016
+shader_parameter/sine_freq = 0.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xpp0"]
+shader = ExtResource("14_6ry1t")
+shader_parameter/circle_size = 0.725
+shader_parameter/circle_thickness = 0.013
+shader_parameter/sine_freq = 20.0
+shader_parameter/sine_amp = 0.03
+shader_parameter/sine_phase = 0.3
+
+[sub_resource type="Gradient" id="Gradient_8j6vo"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
+gradient = SubResource("Gradient_8j6vo")
 
 [sub_resource type="FontVariation" id="FontVariation_ycqu1"]
 base_font = ExtResource("29_it8wn")
@@ -452,32 +464,12 @@ RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
 RichTextLabel/constants/line_separation = 5
 RichTextLabel/font_sizes/normal_font_size = 34
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oa10"]
-content_margin_left = 56.0
-content_margin_right = 10.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
+[sub_resource type="InputEventAction" id="InputEventAction_m2l8n"]
+action = &"BtCommand"
+pressed = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjna8"]
-content_margin_left = 8.0
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(0.160784, 0.160784, 0.160784, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_right = 26
-corner_radius_bottom_left = 26
+[sub_resource type="Shortcut" id="Shortcut_loao7"]
+events = [SubResource("InputEventAction_m2l8n")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_misl1"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -535,6 +527,20 @@ Button/constants/outline_size = 0
 content_margin_left = 56.0
 content_margin_right = 5.0
 bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oa10"]
+content_margin_left = 56.0
+content_margin_right = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
@@ -762,7 +768,8 @@ texture_filter = 2
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("8_wdycw")
-animation = &"AbilityLoop"
+animation = &"Command"
+frame_progress = 0.610158
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
@@ -861,6 +868,148 @@ offset_bottom = 88.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("14_8pkue")
 
+[node name="CommandMenu" type="Control" parent="BattleUI"]
+light_mask = 0
+anchors_preset = 0
+offset_left = 81.0
+offset_top = -68.0
+offset_right = 360.0
+offset_bottom = 234.0
+rotation = 0.0922729
+scale = Vector2(0.7, 0.7)
+
+[node name="Details" type="Button" parent="BattleUI/CommandMenu"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -24.8199
+offset_top = 328.685
+offset_right = 90.1801
+offset_bottom = 361.685
+rotation = -0.0903486
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Details"
+icon = ExtResource("16_g8baf")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Swap" type="Button" parent="BattleUI/CommandMenu"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -165.0
+offset_top = 289.0
+offset_right = -66.0
+offset_bottom = 322.0
+rotation = 0.0910519
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Swap"
+icon = ExtResource("18_r4gxg")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Strategize" type="Button" parent="BattleUI/CommandMenu"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -144.0
+offset_top = 211.0
+offset_right = -8.0
+offset_bottom = 244.0
+rotation = 0.50977
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Strategize
+"
+icon = ExtResource("19_5nefy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Escape" type="Button" parent="BattleUI/CommandMenu"]
+visibility_layer = 1024
+z_index = 12
+z_as_relative = false
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+layout_mode = 0
+offset_left = -257.68
+offset_top = -24.9344
+offset_right = -142.68
+offset_bottom = 8.06561
+rotation = -0.316611
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(91.1154, 187.232)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_8b0ek")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8b0ek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8b0ek")
+shortcut = SubResource("Shortcut_lp475")
+icon = ExtResource("21_gc65u")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="BattleUI/CommandMenu/Escape"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 0
+offset_left = 1.50745
+offset_top = -43.4662
+offset_right = 416.507
+offset_bottom = 219.534
+rotation = 0.27361
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("21_eqid7")
+
+[node name="Label" type="Label" parent="BattleUI/CommandMenu/Escape"]
+light_mask = 0
+layout_mode = 0
+offset_left = 33.9212
+offset_top = 0.453796
+offset_right = 97.9212
+offset_bottom = 15.4538
+rotation = -0.24525
+scale = Vector2(0.988627, 1.08387)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = SubResource("FontVariation_tjob6")
+text = "Escape"
+
+[node name="CmdBack" type="TextureRect" parent="BattleUI/CommandMenu"]
+light_mask = 0
+layout_mode = 0
+offset_left = -884.0
+offset_top = -768.0
+offset_right = 818.0
+offset_bottom = 732.0
+rotation = 0.20944
+scale = Vector2(0.155, 0.155)
+pivot_offset = Vector2(805.518, 875.041)
+texture = ExtResource("23_shvua")
+
 [node name="BaseRing" type="TextureRect" parent="BattleUI"]
 material = SubResource("ShaderMaterial_ryg6s")
 layout_mode = 1
@@ -894,105 +1043,6 @@ offset_right = 400.0
 offset_bottom = 400.0
 pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_litkr")
-
-[node name="Diag" type="ColorRect" parent="BattleUI/BaseRing"]
-visible = false
-layout_mode = 0
-offset_left = 239.0
-offset_top = -93.0
-offset_right = 521.0
-offset_bottom = 519.0
-rotation = 0.0922729
-color = Color(0.109804, 0.109804, 0.109804, 1)
-
-[node name="Details" type="Button" parent="BattleUI/BaseRing/Diag"]
-visible = false
-visibility_layer = 1024
-material = SubResource("ShaderMaterial_nmg3k")
-layout_direction = 1
-layout_mode = 0
-offset_left = -24.8199
-offset_top = 328.685
-offset_right = 90.1801
-offset_bottom = 361.685
-rotation = -0.0903486
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-text = "Details"
-icon = ExtResource("16_g8baf")
-text_overrun_behavior = 1
-expand_icon = true
-
-[node name="Swap" type="Button" parent="BattleUI/BaseRing/Diag"]
-visible = false
-visibility_layer = 1024
-material = SubResource("ShaderMaterial_nmg3k")
-layout_direction = 1
-layout_mode = 0
-offset_left = -165.0
-offset_top = 289.0
-offset_right = -66.0
-offset_bottom = 322.0
-rotation = 0.0910519
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-text = "Swap"
-icon = ExtResource("18_r4gxg")
-text_overrun_behavior = 1
-expand_icon = true
-
-[node name="Strategize" type="Button" parent="BattleUI/BaseRing/Diag"]
-visible = false
-visibility_layer = 1024
-material = SubResource("ShaderMaterial_nmg3k")
-layout_direction = 1
-layout_mode = 0
-offset_left = -144.0
-offset_top = 211.0
-offset_right = -8.0
-offset_bottom = 244.0
-rotation = 0.50977
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-text = "Strategize
-"
-icon = ExtResource("19_5nefy")
-text_overrun_behavior = 1
-expand_icon = true
-
-[node name="Escape" type="Button" parent="BattleUI/BaseRing/Diag"]
-visibility_layer = 1024
-material = SubResource("ShaderMaterial_nmg3k")
-layout_direction = 1
-layout_mode = 0
-offset_left = -266.379
-offset_top = 322.918
-offset_right = -151.379
-offset_bottom = 355.918
-rotation = -0.193632
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-shortcut = SubResource("Shortcut_lp475")
-text = "Escape"
-icon = ExtResource("21_gc65u")
-text_overrun_behavior = 1
-expand_icon = true
 
 [node name="DescPaper" type="TextureRect" parent="BattleUI"]
 visible = false
@@ -1047,29 +1097,30 @@ horizontal_alignment = 2
 [node name="ShowWheel" type="Button" parent="BattleUI/DescPaper"]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
-use_parent_material = true
 layout_direction = 1
 layout_mode = 0
-offset_left = 147.0
-offset_top = -59.0
-offset_right = 301.0
-offset_bottom = -26.0
-scale = Vector2(2, 2)
+offset_left = 123.096
+offset_top = -44.0
+offset_right = 279.096
+offset_bottom = -11.0
+scale = Vector2(1.8, 1.8)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vjna8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vjna8")
-text = "Show Wheel"
+action_mode = 0
+shortcut = SubResource("Shortcut_loao7")
+text = "Show wheel"
 icon = ExtResource("19_5nefy")
 text_overrun_behavior = 1
 expand_icon = true
+
+[node name="Wheel" parent="BattleUI/DescPaper/ShowWheel" instance=ExtResource("27_5ua74")]
+visible = false
+position = Vector2(-101.985, -85.6016)
+scale = Vector2(0.234695, 0.234695)
+color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
 use_parent_material = true
@@ -1525,7 +1576,6 @@ theme_override_font_sizes/font_size = 32
 text = "Asteria"
 
 [node name="TurnOrder" type="Button" parent="Canvas"]
-visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -1553,9 +1603,9 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
 offset_left = 840.0
-offset_top = 517.0
+offset_top = 536.0
 offset_right = 989.0
-offset_bottom = 553.0
+offset_bottom = 572.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
@@ -1612,6 +1662,11 @@ theme_override_constants/line_separation = 12
 theme_override_font_sizes/normal_font_size = 16
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
+[node name="Wheel" parent="Canvas/AttackTitle" instance=ExtResource("27_5ua74")]
+position = Vector2(182.418, -105.725)
+scale = Vector2(0.2, 0.2)
+color = Color(1, 0, 0.356863, 1)
+
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
 [connection signal="next_turn" from="." to="." method="_on_next_turn"]
@@ -1623,13 +1678,15 @@ text = "When you attack everyone you know and love will die. This deals 99999999
 [connection signal="ability_returned" from="BattleUI" to="." method="_on_battle_ui_ability_returned"]
 [connection signal="ability_returned" from="BattleUI" to="BattleUI" method="_on_ability_returned"]
 [connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
+[connection signal="command" from="BattleUI" to="." method="_on_battle_ui_command"]
 [connection signal="command" from="BattleUI" to="BattleUI" method="_on_command"]
 [connection signal="command" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
 [connection signal="root" from="BattleUI" to="." method="_on_battle_ui_root"]
 [connection signal="root" from="BattleUI" to="BattleUI" method="_on_root"]
 [connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
-[connection signal="pressed" from="BattleUI/BaseRing/Diag/Escape" to="BattleUI" method="_on_escape"]
+[connection signal="pressed" from="BattleUI/CommandMenu/Escape" to="BattleUI" method="_on_escape"]
+[connection signal="pressed" from="BattleUI/DescPaper/ShowWheel" to="BattleUI" method="_on_show_wheel_pressed"]
 [connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/List/Item0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="pressed" from="BattleUI/Ability" to="BattleUI" method="_on_ability_pressed"]
 [connection signal="pressed" from="BattleUI/Attack" to="BattleUI" method="_on_attack_pressed"]
