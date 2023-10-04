@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_gr1yj")
-name = "Axe Attack"
+name = "Axe attack"
 description = "A fairly reliable standard attack that can deal heavy damage with a low chance of missing."
 Icon = SubResource("AtlasTexture_ibuoa")
 ActionSequence = &"AttackMira"

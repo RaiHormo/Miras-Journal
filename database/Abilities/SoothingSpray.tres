@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_0kql8")
-name = "Soothing Spray"
+name = "Soothing spray"
 description = "Heals a small amount of HP to one ally"
 Icon = SubResource("AtlasTexture_7so8r")
 ActionSequence = &"SoothingSpray"

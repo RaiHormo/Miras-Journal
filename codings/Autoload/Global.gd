@@ -33,7 +33,6 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	await ready_window()
 	init_settings()
-	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window():
@@ -93,6 +92,7 @@ func _input(event):
 			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
 	LastInput=ProcessFrame
+	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 	#print(device)
 
 func _unhandled_input(event):

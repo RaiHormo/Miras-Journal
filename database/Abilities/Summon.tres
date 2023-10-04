@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dmhsvhd1lkkue"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_5lxbp"]
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_mflmy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm0qg"]
+atlas = ExtResource("1_5lxbp")
+region = Rect2(162, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_mflmy")
+name = ""
+description = "Chance to summon a new ally into battle"
+Icon = SubResource("AtlasTexture_rm0qg")
+ActionSequence = &"Summon"
+Type = 5
+AuraCost = 5
+HPCost = 0
+Damage = 0
+Target = 0
+WheelColor = Color(1, 1, 1, 1)
+Callout = true
+SucessChance = 0.75
+CritChance = 0.0

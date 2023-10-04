@@ -125,7 +125,6 @@ func detransition():
 	Global.ready_window()
 
 func start_battle(stg):
-	Global.get_cam().position_smoothing_enabled = false
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = true
 	PartyUI.UIvisible = false
@@ -145,6 +144,7 @@ func start_battle(stg):
 	if Seq.Transition:
 		battle_bars(4)
 		await t.finished
+	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
 	if Attacker!=null: Attacker.hide()
@@ -163,6 +163,7 @@ func end_battle():
 		t.set_parallel()
 		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
 		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5)
+		t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "position", Vector2(1200, 50), 0.5)
 		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
@@ -170,8 +171,10 @@ func end_battle():
 	InBattle= false
 	if Global.Player == null: return
 	Global.Player.get_parent().show()
+	Global.Player.set_anim("Idle"+Global.get_dir_name())
+	Global.Player.dashing = false
 	Global.Bt.get_node("Act").hide()
-	if Attacker!=null: Attacker.show()
+	if Attacker!=null and BattleResult!= 1: Attacker.show()
 	if BattleResult == 2:
 		await Event.twean_to(Seq.EscPosition)
 	if BattleResult == 1 and Attacker!=null:

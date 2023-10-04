@@ -39,6 +39,7 @@ func _ready():
 	$DescPaper.hide()
 	$CommandMenu.hide()
 	$"../Canvas/TurnOrderPop".hide()
+	$"../Canvas/DottedBack".hide()
 
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001

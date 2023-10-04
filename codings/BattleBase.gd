@@ -292,18 +292,19 @@ func _on_battle_ui_root():
 func callout(ab:Ability = CurrentAbility):
 	if not ab.Callout:
 		return
-	t.kill()
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUINT)
+	var tc = create_tween()
+	tc.set_ease(Tween.EASE_OUT)
+	tc.set_trans(Tween.TRANS_QUINT)
 	$Canvas/Callout.text = ab.name
 	$Canvas/Callout.add_theme_color_override("font_color", CurrentAbility.WheelColor)
-	t.tween_property($Canvas/Callout, "position", Vector2(37, 636), 2).from(Vector2(400, 636))
-	t.parallel().tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
-	#await t.finished
-	t.set_ease(Tween.EASE_IN)
-	t.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(4)
-	t.parallel().tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.5)
+	tc.tween_property($Canvas/Callout, "position", Vector2(37, 636), 2).from(Vector2(400, 636))
+	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
+	#await tc.finished
+	#print("call")
+	tc.set_ease(Tween.EASE_IN)
+	if CurrentChar.Controllable: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(1)
+	else: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(4)
+	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.5)
 
 func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	CurrentChar.NextAction = ""
@@ -590,6 +591,8 @@ func victory():
 	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
 	$Canvas/Callout.scale = Vector2(1.5,1.5)
 	PartyUI._on_expand(2)
+	$Canvas/DottedBack.show()
+	t.tween_property($Canvas/DottedBack, "modulate", Color(0.2,0.2,0.2,0.4), 1).from(Color.TRANSPARENT)
 	t.tween_property($Canvas/Callout, "position", Vector2(720, 50), 2).from(Vector2(1200, 50))
 	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,10), 1)
@@ -608,6 +611,7 @@ func game_over():
 	end_battle()
 
 func end_battle():
+	if get_tree().root.get_node_or_null("Area") == null: Loader.travel_to("Debug"); queue_free(); return
 	if Global.Player != null: 
 		Global.Player.global_position = $Act/Actor0.global_position
 		if Party.check_member(1): 

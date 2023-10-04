@@ -49,7 +49,10 @@ func extended_process():
 
 func control_process():
 	coords = tilemap.local_to_map(global_position)
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1, 0)): 
+		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	else:
+		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
 	undashable = false
 	if not dashing:
 		dashdir = Global.get_direction(Global.PlayerDir)
@@ -244,12 +247,8 @@ func stop_dash():
 			speed = 75
 			while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
 				velocity = dashdir * speed
-				speed -= 1
-				#move_and_slide()
+				speed = max(0, speed - 2)
 				await Event.wait()
-#		if BodyState!=CONTROLLED: 
-#			set_anim("Walk"+Global.get_dir_name())
-#			return
 		Global.Controllable=true
 		BodyState = CONTROLLED
 		speed = 75

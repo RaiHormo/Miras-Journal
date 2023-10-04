@@ -438,7 +438,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"DashDownStart",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 3.0,
@@ -506,7 +506,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"DashLeftStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -577,7 +577,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"DashRightStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -639,7 +639,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"DashUpStart",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -2858,7 +2858,7 @@ material = ExtResource("2_lltpm")
 use_parent_material = true
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_ewwad")
-animation = &"DashLeftStart"
+animation = &"DashDownStart"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -2876,7 +2876,7 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 light_mask = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_i8hwj")
-animation = &"DashUpHit"
+animation = &"DashUpStart"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",

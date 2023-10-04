@@ -652,7 +652,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"DashDownStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -720,7 +720,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"DashLeftStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -791,7 +791,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"DashRightStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -856,7 +856,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"DashUpStart",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 2.0,

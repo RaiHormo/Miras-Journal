@@ -283,6 +283,27 @@ DebugI={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":73,"key_label":0,"unicode":105,"echo":false,"script":null)
 ]
 }
+MoveRight={
+"deadzone": 0.3,
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":14,"pressure":0.0,"pressed":true,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
+]
+}
+MoveLeft={
+"deadzone": 0.3,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+]
+}
+MoveUp={
+"deadzone": 0.3,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":-1.0,"script":null)
+]
+}
+MoveDown={
+"deadzone": 0.3,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
+]
+}
 
 [internationalization]
 
@@ -298,3 +319,4 @@ locale/translations_pot_files=PackedStringArray("res://database/text/testbush.di
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.0901961, 0.0901961, 0.0901961, 1)
+anti_aliasing/quality/msaa_2d=1

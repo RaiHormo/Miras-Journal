@@ -14,12 +14,6 @@ func extended_process():
 		hide()
 		$CatchArea/CollisionShape2D.disabled = true
 		return
-	if Global.Player in $CatchArea.get_overlapping_bodies() and Global.Controllable and not lock:
-		lock = true
-		Loader.Attacker = self
-		#$CatchArea/CollisionShape2D.disabled = true
-		await Loader.start_battle(Battle)
-		global_position = Global.Tilemap.map_to_local(DefaultPos)
 #	if $DirectionMarker/Finder.get_overlapping_areas().is_empty():
 #		PinRange = false
 
@@ -49,3 +43,10 @@ func _on_finder_area_entered(area):
 		Loader.chased = false
 		PinRange = false
 		default()
+
+
+func _on_catch_area_body_entered(body):
+	if Global.Player in $CatchArea.get_overlapping_bodies() and Global.Controllable and not lock:
+		Loader.Attacker = self
+		await Loader.start_battle(Battle)
+		global_position = Global.Tilemap.map_to_local(DefaultPos)

@@ -1,3 +1,4 @@
+res://database/Abilities
 res://art/BT/Mira
 res://codings/UI
 res://codings
@@ -19,4 +20,3 @@ res://UI/Options
 res://database/States/
 res://art/BT/WhiteSpawn
 res://database/Enemies/
-res://art/BT/CrawlingSludge

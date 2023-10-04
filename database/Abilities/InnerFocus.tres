@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://du1gofmain0gg"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_m2to7"]
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_xawne"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u6t4"]
+atlas = ExtResource("1_m2to7")
+region = Rect2(36, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_xawne")
+name = "Inner focus"
+description = "Inner focus"
+Icon = SubResource("AtlasTexture_0u6t4")
+ActionSequence = &"InnerFocus"
+Type = 3
+AuraCost = 3
+HPCost = 0
+Damage = 0
+Target = 0
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 1.0
+CritChance = 0.0

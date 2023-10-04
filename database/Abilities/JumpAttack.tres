@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_3b0eu")
-name = "Jump Attack"
+name = "Jump attack"
 description = ""
 ActionSequence = &"JumpAttack"
 Type = 0

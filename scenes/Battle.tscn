@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=128 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
 [ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="29_it8wn"]
 [ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="32_b46n3"]
+[ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="37_mwxl7"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_0brgg")
@@ -1439,6 +1440,17 @@ script = ExtResource("24_7iq6m")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 3
+
+[node name="DottedBack" type="TextureRect" parent="Canvas"]
+modulate = Color(0.388235, 0.388235, 0.388235, 1)
+show_behind_parent = true
+light_mask = 0
+offset_left = 387.0
+offset_top = -8.0
+offset_right = 1695.0
+offset_bottom = 1016.0
+scale = Vector2(0.688708, 0.8)
+texture = ExtResource("37_mwxl7")
 
 [node name="Callout" type="Label" parent="Canvas"]
 anchors_preset = 2
