@@ -47,6 +47,7 @@ func show_atk_color(clr: Color):
 	draw_wheel()
 
 func show_trg_color(clr: Color):
+	if affinity == null: return
 	blinking = false
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)

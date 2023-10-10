@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clrbc8epe56ef"
-path="res://.godot/imported/Miraov-Sheet.png-6904de9e7836f12f8d61a6953936b689.ctex"
+uid="uid://b8aiagab31eok"
+path="res://.godot/imported/flameFlame.png-cb99d429ef3b7ef0c4efefbbbe3828cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/OV/Mira/Miraov-Sheet.png"
-dest_files=["res://.godot/imported/Miraov-Sheet.png-6904de9e7836f12f8d61a6953936b689.ctex"]
+source_file="res://art/sheets/flameFlame.png"
+dest_files=["res://.godot/imported/flameFlame.png-cb99d429ef3b7ef0c4efefbbbe3828cd.ctex"]
 
 [params]
 

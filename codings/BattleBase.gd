@@ -600,6 +600,11 @@ func victory():
 	Loader.battle_bars(1)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
+	if Global.Player != null: 
+		Global.Player.global_position = $Act/Actor0.global_position
+		if Party.check_member(1): 
+			Global.Player.get_parent().get_node("Follower1").global_position = $Act/Actor1.global_position
+		Global.get_cam().global_position = Global.Player.global_position
 
 func escape():
 	print("Escaped")
@@ -612,11 +617,6 @@ func game_over():
 
 func end_battle():
 	if get_tree().root.get_node_or_null("Area") == null: Loader.travel_to("Debug"); queue_free(); return
-	if Global.Player != null: 
-		Global.Player.global_position = $Act/Actor0.global_position
-		if Party.check_member(1): 
-			Global.Player.get_parent().get_node("Follower1").global_position = $Act/Actor1.global_position
-		Global.get_cam().global_position = Global.Player.global_position
 	await Loader.end_battle()
 	queue_free()
 

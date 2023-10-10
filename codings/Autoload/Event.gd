@@ -52,6 +52,10 @@ func twean_to(pos:Vector2, time:float=1, chara:String="P"):
 	t.tween_property(npc(chara), "global_position", Global.Tilemap.map_to_local(pos), time)
 	await t.finished
 
+##Instantly move an [NPC] to the specified coords (ignores all collision)
+func warp_to(pos:Vector2, chara:String="P"):
+	npc(chara).global_position = Global.Tilemap.map_to_local(pos)
+
 ##Used for jump calculations
 func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)

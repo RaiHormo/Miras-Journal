@@ -25,6 +25,7 @@ func _ready():
 	t.tween_property(self, "position", position, 0)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
+	
 	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos
@@ -87,6 +88,7 @@ func transition(dir=Global.get_dir_letter()):
 	await t.finished
 
 func done():
+	chased = false
 	get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
 	await get_tree().create_timer(0.1).timeout
 	if traveled_pos != Vector2.ZERO:
@@ -155,7 +157,7 @@ func end_battle():
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
-		Global.Bt.queue_free()
+		if Global.Bt != null: Global.Bt.queue_free()
 	else:
 		t=create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -173,10 +175,10 @@ func end_battle():
 	Global.Player.get_parent().show()
 	Global.Player.set_anim("Idle"+Global.get_dir_name())
 	Global.Player.dashing = false
-	Global.Bt.get_node("Act").hide()
-	if Attacker!=null and BattleResult!= 1: Attacker.show()
+	if Global.Bt != null: Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
-		await Event.twean_to(Seq.EscPosition)
+		Event.warp_to(Seq.EscPosition)
+	if Attacker!=null and BattleResult!= 1: Attacker.show()
 	if BattleResult == 1 and Attacker!=null:
 		Attacker.queue_free()
 	battle_bars(0)

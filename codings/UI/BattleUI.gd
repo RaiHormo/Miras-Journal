@@ -428,13 +428,14 @@ func close():
 
 
 func _on_ability_pressed():
-	ability.emit()
+	if stage == "root": ability.emit()
 func _on_attack_pressed():
 	attack.emit()
 func _on_item_pressed():
 	item.emit()
 func _on_command_pressed():
-	command.emit()
+	if stage == "root": command.emit()
+	if stage == "command": _on_escape()
 
 func get_target(faction:Array[Actor]):
 	if Bt.Action: return

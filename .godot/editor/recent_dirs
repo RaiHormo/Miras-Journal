@@ -1,3 +1,5 @@
+res://
+res://scenes
 res://database/Abilities
 res://art/BT/Mira
 res://codings/UI
@@ -13,10 +15,8 @@ res://codings/Characters
 res://art/Effects
 res://art/OV/Mira
 res://UI/Party
-res://
 res://UI/Options
 /run/media/rai/RaiDrive/Projects/Mira/deploms/2023 Aug7
 /home/rai/Downloads
 res://database/States/
 res://art/BT/WhiteSpawn
-res://database/Enemies/

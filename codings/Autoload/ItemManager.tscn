@@ -20,7 +20,7 @@ expand_margin_bottom = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
 atlas = ExtResource("3_55ujn")
-region = Rect2(48, 96, 16, 16)
+region = Rect2(18, 72, 18, 18)
 
 [node name="ItemManager" type="Control"]
 process_mode = 3

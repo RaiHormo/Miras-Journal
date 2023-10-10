@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=130 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -395,6 +395,8 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="InputEventAction" id="InputEventAction_is5hw"]
 action = &"LeftTrigger"
+pressed = true
+strength = 0.5
 
 [sub_resource type="Shortcut" id="Shortcut_lp475"]
 events = [SubResource("InputEventAction_is5hw")]
@@ -557,6 +559,14 @@ Label/font_sizes/font_size = 28
 atlas = ExtResource("15_mlxjv")
 region = Rect2(0, 0, 18, 18)
 filter_clip = true
+
+[sub_resource type="InputEventAction" id="InputEventAction_h53gq"]
+action = &"LeftTrigger"
+pressed = true
+strength = 0.1
+
+[sub_resource type="Shortcut" id="Shortcut_5fadb"]
+events = [SubResource("InputEventAction_h53gq")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86gc4"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -1280,6 +1290,7 @@ size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_5fadb")
 text = "Command"
 icon = ExtResource("19_5nefy")
 text_overrun_behavior = 1

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccdb2idnmv6of"]
+
+[ext_resource type="Script" path="res://ctrltest.gd" id="1_vdotq"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w508h"]
+size = Vector2(10, 10)
+
+[node name="Node2D" type="CanvasLayer"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(580, 375)
+script = ExtResource("1_vdotq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = SubResource("PlaceholderTexture2D_w508h")

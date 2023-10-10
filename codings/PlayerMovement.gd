@@ -15,6 +15,9 @@ var midair = false
 var undashable = false
 ##Direction of the dash
 var dashdir:Vector2= Vector2.ZERO
+##Use flame to light up the enviroment
+@export var flame_active = false
+
 
 func _ready():
 	ID = "P"
@@ -49,10 +52,10 @@ func extended_process():
 
 func control_process():
 	coords = tilemap.local_to_map(global_position)
-	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1, 0)): 
-		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	else:
-		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
+#	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)): 
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
+#	else:
+#		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
 	undashable = false
 	if not dashing:
 		dashdir = Global.get_direction(Global.PlayerDir)
@@ -79,6 +82,7 @@ func control_process():
 					Global.Controllable=false
 					speed = 175
 					BodyState = CUSTOM
+					reset_speed()
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
 					while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
 						velocity = dashdir * speed
@@ -138,9 +142,9 @@ func update_anim_prm():
 #						return
 				speed = 75
 				set_anim(str("Walk"+Global.get_dir_name()))
-				$Base.speed_scale=(realvelocity.length()/80)
-				$Base/Bag.speed_scale=(realvelocity.length()/80)
-				$Base/Bag/Axe.speed_scale=(realvelocity.length()/80)
+				$Base.speed_scale=(realvelocity.length()/70)
+				$Base/Bag.speed_scale=(realvelocity.length()/70)
+				$Base/Bag/Axe.speed_scale=(realvelocity.length()/70)
 		elif Global.Controllable and ("Walk" in $Base.animation or ("Dash" in $Base.animation and dashdir == Vector2.ZERO)):
 			move_frames=0
 			set_anim(str("Idle"+Global.get_dir_name()))
@@ -174,6 +178,7 @@ func _on_pickup():
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party():
+	$Base.sprite_frames =  Global.Party.Leader.OV
 	if Item.check_key("LightweightAxe"):
 		$Base/Bag/Axe.show()
 	else:
@@ -183,6 +188,14 @@ func _check_party():
 func set_anim(anim:String):
 	$Base.play(anim)
 	$Base/Bag.play(anim)
+	if flame_active:
+		var t = create_tween()
+		if not dashing:
+			if $Flame.energy == 0:
+				t.tween_property($Flame, "energy", 1, 1)
+			$Base/Flame.show()
+			$Base/Flame.play(anim)
+		else: t.tween_property($Flame, "energy", 0, 0.1); $Base/Flame.hide()
 	#$Base/Bag/Axe.play(anim)
 
 ##For opening the menu

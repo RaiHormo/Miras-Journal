@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=147 format=3 uid="uid://cf3n0g1xl0bvp"]
 
-[ext_resource type="Texture2D" uid="uid://ckk4sfc8rmpp" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
+[ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
 [ext_resource type="Texture2D" uid="uid://cqg3mi1kvrgip" path="res://art/OV/Mira/DashDown.png" id="2_b2w1q"]
 [ext_resource type="Texture2D" uid="uid://o3cfbnxkskhq" path="res://art/OV/Mira/DashUp.png" id="4_8t402"]

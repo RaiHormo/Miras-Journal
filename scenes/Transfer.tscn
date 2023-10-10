@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccm0r6n0e8q8e"]
+
+[ext_resource type="Script" path="res://scenes/Rooms/TransferPoint.gd" id="1_8x11e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr85b"]
+size = Vector2(92.4443, 84.0007)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8txy"]
+size = Vector2(32, 85)
+
+[node name="Transfer" type="Area2D"]
+position = Vector2(766.116, 508.825)
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("1_8x11e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.116028, 0.174988)
+shape = SubResource("RectangleShape2D_vr85b")
+
+[node name="Preview" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Preview"]
+position = Vector2(53.884, 0.174988)
+shape = SubResource("RectangleShape2D_h8txy")
+debug_color = Color(0.968627, 0, 0.47451, 0.419608)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
