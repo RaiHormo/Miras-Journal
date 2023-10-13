@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_mflmy")
-name = ""
+name = "Summon"
 description = "Chance to summon a new ally into battle"
 Icon = SubResource("AtlasTexture_rm0qg")
 ActionSequence = &"Summon"

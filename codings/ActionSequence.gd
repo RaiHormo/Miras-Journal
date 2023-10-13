@@ -175,3 +175,7 @@ func FlameSpark():
 	await get_tree().create_timer(0.5).timeout
 	Bt.anim("Idle")
 	Bt.end_turn()
+
+func Summon():
+	Bt.add_to_troop(load("res://database/Enemies/WhiteSpawn.tres"))
+	Bt.end_turn()

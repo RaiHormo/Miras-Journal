@@ -193,7 +193,7 @@ func _on_expand(open_ui=0):
 	#if open_ui == 0: 
 	Expanded = true
 	await t.finished
-	$CanvasLayer/Cursor.show()
+	if open_ui != 2: $CanvasLayer/Cursor.show()
 	if open_ui == 0:
 		focus_now()
 

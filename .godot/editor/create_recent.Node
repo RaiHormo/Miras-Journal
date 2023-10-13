@@ -1,3 +1,5 @@
+Polygon2D
+NavigationRegion2D
 CanvasLayer
 Sprite2D
 CharacterBody2D
@@ -16,7 +18,6 @@ ColorRect
 RichTextLabel
 MarginContainer
 NPC
-NavigationRegion2D
 NavigationObstacle2D
 NavigationAgent2D
 WorldEnvironment
@@ -30,4 +31,3 @@ Button
 HSlider
 OptionButton
 MenuButton
-AnimationPlayer

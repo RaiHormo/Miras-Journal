@@ -3322,6 +3322,7 @@ position = Vector2(0, -5)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_503pd")
+flame_active = true
 speed = 70
 Nav = NodePath("Nav")
 

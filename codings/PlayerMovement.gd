@@ -121,8 +121,8 @@ func control_process():
 			for i in tilemap.get_layers_count():
 				if tilemap.get_cell_tile_data(i, coords) != null:
 					check_terrain(tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
-#	elif dashing and not Input.is_action_pressed("Dash"):
-#		stop_dash()
+	elif dashing and not Input.is_action_pressed("Dash"):
+		stop_dash()
 
 
 func update_anim_prm():

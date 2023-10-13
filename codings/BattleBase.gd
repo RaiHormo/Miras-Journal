@@ -275,6 +275,8 @@ func _input(event):
 	if AwaitVictory:
 		if Input.is_action_just_released("ui_accept"):
 			end_battle()
+	if Input.is_action_just_pressed("DebugF"):
+		print(relation_to_dmg_modifier(color_relation(CurrentChar.MainColor, $BattleUI.target.MainColor)))
 
 
 func _on_battle_ui_ability():
@@ -305,6 +307,8 @@ func callout(ab:Ability = CurrentAbility):
 	if CurrentChar.Controllable: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(1)
 	else: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(4)
 	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.5)
+	await tc.finished
+	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
 
 func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	CurrentChar.NextAction = ""
@@ -640,7 +644,39 @@ func miss(target:Actor = CurrentTarget):
 	
 
 
-
-
 func _on_battle_ui_command():
 	anim("Command")
+
+func add_to_troop(en: Actor):
+	Troop.append(en)
+	var dub = $Act/Actor0.duplicate()
+	dub.name = "Enemy" + str(Troop.size())
+	$Act.add_child(dub)
+	TurnOrder.push_front(en)
+	en.node = dub
+	dub.sprite_frames = en.BT
+	dub.material = dub.material.duplicate()
+	dub.offset = en.Offset
+	dub.play("Idle")
+	en.Health = en.MaxHP
+	en.Aura = en.MaxAura
+	dub.add_child(en.SoundSet.instantiate())
+	position_sprites()
+
+func color_relation(attacker:Color, defender:Color) -> String:
+	var affinity = Global.get_affinity(attacker)
+	var def = Global.get_affinity(defender)
+	if def.hue in affinity.oposing_range: return "op"
+	elif def.hue in affinity.weak_range: return "wk"
+	elif def.hue in affinity.resist_range: return "res"
+	elif def.hue in affinity.near_range: return "res"
+	else: return "n"
+
+func relation_to_dmg_modifier(relation:String) -> float:
+	var base: float
+	var value_mod: float = remap(CurrentChar.MainColor.v, 0,1,2,1)
+	if relation == "op": base = 2 * value_mod
+	elif relation == "wk": base = 1.5 * value_mod
+	elif relation == "res": base = 0.5
+	else: return 1
+	return round(base*10)/10

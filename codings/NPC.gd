@@ -128,6 +128,7 @@ func _input(event):
 		#Event.move_dir(Vector2.LEFT*5)
 
 func set_direction_to(pos):
+	var prev = Nav.target_position
 	Nav.set_target_position(Global.globalize(pos))
 	direction = to_local(Nav.get_next_path_position()).normalized()
 

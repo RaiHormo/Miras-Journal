@@ -957,6 +957,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Escape" type="Button" parent="BattleUI/CommandMenu"]
+visible = false
 visibility_layer = 1024
 z_index = 12
 z_as_relative = false

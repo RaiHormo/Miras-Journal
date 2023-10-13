@@ -3,6 +3,7 @@ var PinRange = false
 @export var Battle: BattleSequence
 @export var Defeated = false
 var lock = false
+@export var RoamRegion: Polygon2D
 
 func default():
 	while not PinRange:
@@ -19,7 +20,8 @@ func extended_process():
 
 
 func _on_finder_area_entered(area):
-	if not PinRange and not Loader.chased: 
+	Nav.target_position = Global.Player.global_position
+	if not PinRange and not Loader.chased and Nav.is_target_reachable(): 
 		PinRange = true
 		await stop_going()
 		Loader.chase_mode()
@@ -32,8 +34,9 @@ func _on_finder_area_entered(area):
 		#go_to(Global.Player.coords)
 		var tmr:SceneTreeTimer = get_tree().create_timer(3)
 		while tmr.time_left != 0:
-			BodyState=CHASE
-			if $DirectionMarker/Finder.has_overlapping_areas():
+			if Nav.is_target_reachable(): BodyState = CHASE
+			else: BodyState = IDLE
+			if $DirectionMarker/Finder.has_overlapping_areas() and Nav.is_target_reachable():
 				if  tmr.time_left < 2:
 					tmr.set_time_left(2)
 			set_direction_to(Global.Player.coords)
@@ -50,3 +53,4 @@ func _on_catch_area_body_entered(body):
 		Loader.Attacker = self
 		await Loader.start_battle(Battle)
 		global_position = Global.Tilemap.map_to_local(DefaultPos)
+
