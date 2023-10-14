@@ -378,9 +378,10 @@ func end_turn():
 	
 func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:bool=true, limiter:bool=false):
 	take_dmg.emit()
-	target.damage(x, stat, target)
+	var el_mod: float = 1
+	if elemental: el_mod = relation_to_dmg_modifier(color_relation(CurrentAbility.WheelColor, target.MainColor))
+	target.damage(x * el_mod, stat, target)
 	check_party.emit()
-	
 	pop_num(target, target.calc_dmg(x, stat, target))
 	if target.Health == 0:
 		await death(target)
@@ -388,9 +389,9 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 	if target.has_state("Guarding"):
 		pass
 	else:
-		play_sound("Hit", target)
-		if effect:
-			target.node.get_node("Particle").emitting = true
+		if effect and elemental:
+			if el_mod > 1:
+				target.node.get_node("Particle").emitting = true
 			t = create_tween()
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_QUART)
@@ -399,6 +400,7 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 			target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
 			target.node.get_node("Particle").process_material.color = target.MainColor
 			t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
+		else: play_sound("Hit", target)
 		hit_animation(target)
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)

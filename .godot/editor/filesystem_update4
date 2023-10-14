@@ -6,6 +6,7 @@ res://database/Text/Profiles/Mira.tres
 res://database/Abilities/Summon.tres
 res://art/OV/Mira/MiraOV.tres
 res://database/Abilities/AttackMira.tres
+res://database/Party/Mira.tres
 res://art/sheets/AlcineOV2.tres
 res://art/BT/Alcine/AlcineBT.tres
 res://database/Abilities/SoothingSpray.tres
@@ -26,3 +27,18 @@ res://database/BattleSeq/SludgeBattle1.tres
 res://scenes/Shaders/Glow.gdshader
 res://scenes/Shaders/Actor.gdshader
 res://UI/Party/Shadow.gdshader
+res://UI/Party/PartyUI.tscn
+res://scenes/Rooms/Debug.tscn
+res://scenes/Interactable.tscn
+res://scenes/Rooms/TempleWoods.tscn
+res://scenes/Loader.tscn
+res://scenes/OvPlayer.tscn
+res://scenes/Characters/Mira.tscn
+res://codings/Autoload/ItemManager.tscn
+res://UI/MainMenu/MainMenu.tscn
+res://UI/Options/Options.tscn
+res://codings/UI/Textbox2.tscn
+res://scenes/Characters/Follower.tscn
+res://scenes/Transfer.tscn
+res://test.tscn
+res://codings/UI/BattleUI.gd

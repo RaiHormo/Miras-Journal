@@ -65,6 +65,10 @@ func _on_battle_get_control():
 	show()
 	stage = "root"
 	PrevStage= "root"
+	$Ability.icon = Global.get_controller().AbilityIcon
+	$Attack.icon = Global.get_controller().AttackIcon
+	$Item.icon = Global.get_controller().ItemIcon
+	$Command.icon = Global.get_controller().CommandIcon
 	$Attack.show()
 	$Item.show()
 	$Command.show()
@@ -99,6 +103,11 @@ func _on_battle_get_control():
 			dub.get_child(0).hide()
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
+	for i in $AbilityUI/Margin/Scroller/List.get_children():
+		if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
+			i.disabled = true
+			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+			$AbilityUI/Margin/Scroller/List.get_children().push_back(i)
 	
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
@@ -407,6 +416,11 @@ func close():
 	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
 	t.tween_property($Item, "size", Vector2(33,33), 0.2)
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
+	
+	$Ability.icon = Global.get_controller().AbilityIcon
+	$Attack.icon = Global.get_controller().AttackIcon
+	$Item.icon = Global.get_controller().ItemIcon
+	$Command.icon = Global.get_controller().CommandIcon
 	
 	t.tween_property($BaseRing, "scale", Vector2(0.01,0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(5,5), 0.4)

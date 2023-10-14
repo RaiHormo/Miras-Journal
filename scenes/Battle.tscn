@@ -521,6 +521,7 @@ expand_margin_bottom = 27.0
 [sub_resource type="Theme" id="Theme_t7ro7"]
 default_font = ExtResource("18_fnfk1")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -957,7 +958,6 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Escape" type="Button" parent="BattleUI/CommandMenu"]
-visible = false
 visibility_layer = 1024
 z_index = 12
 z_as_relative = false
