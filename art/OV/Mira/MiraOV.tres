@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=147 format=3 uid="uid://cf3n0g1xl0bvp"]
+[gd_resource type="SpriteFrames" load_steps=147 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]

@@ -57,8 +57,8 @@ func control_process():
 #	else:
 #		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
 	undashable = false
-	if not dashing:
-		dashdir = Global.get_direction(Global.PlayerDir)
+#	if not dashing:
+#		dashdir = Global.get_direction(Global.PlayerDir)
 	if is_on_wall(): 
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
 			undashable = true
@@ -178,7 +178,10 @@ func _on_pickup():
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party():
-	$Base.sprite_frames =  Global.Party.Leader.OV
+	if flame_active:
+		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
+	else:
+		$Base.sprite_frames =  Global.Party.Leader.OV
 	if Item.check_key("LightweightAxe"):
 		$Base/Bag/Axe.show()
 	else:
@@ -190,12 +193,21 @@ func set_anim(anim:String):
 	$Base/Bag.play(anim)
 	if flame_active:
 		var t = create_tween()
-		if not dashing:
-			if $Flame.energy == 0:
-				t.tween_property($Flame, "energy", 1, 1)
+		if "Walk" in $Base.animation or "Idle" in $Base.animation:
 			$Base/Flame.show()
 			$Base/Flame.play(anim)
-		else: t.tween_property($Flame, "energy", 0, 0.1); $Base/Flame.hide()
+			if $Flame.energy == 0:
+				while "Walk" in $Base.animation or "Idle" in $Base.animation and $Flame.energy < 1:
+					$Flame.energy += 0.03
+					await Event.wait()
+				$Flame.energy = 1
+				#t.tween_property($Flame, "energy", 1, 1)
+		else: 
+			#if $Flame.energy == 1:
+			t.tween_property($Flame, "energy", 0, 0.1)
+			$Base/Flame.hide()
+	else:
+		$Base/Flame.hide()
 	#$Base/Bag/Axe.play(anim)
 
 ##For opening the menu

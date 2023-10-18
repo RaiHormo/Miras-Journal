@@ -9,8 +9,8 @@
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/Mira.tres" id="3_b1rhj"]
 [ext_resource type="Resource" uid="uid://dmhsvhd1lkkue" path="res://database/Abilities/Summon.tres" id="3_rhifm"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
-[ext_resource type="SpriteFrames" uid="uid://cf3n0g1xl0bvp" path="res://art/OV/Mira/MiraOV.tres" id="4_jp4yk"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/AttackMira.tres" id="6_pdf3s"]
+[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Mira/MiraSfx.tscn" id="7_oiegd"]
 
 [resource]
@@ -41,7 +41,7 @@ AttackMultiplier = 1.0
 DefenceMultiplier = 1.0
 MagicMultiplier = 1.0
 SpeedMultiplier = 1.0
-OV = ExtResource("4_jp4yk")
+OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
 Offset = Vector2(0, 0)
 Shadow = true

@@ -651,7 +651,7 @@ func _on_battle_ui_command():
 
 func add_to_troop(en: Actor):
 	Troop.append(en)
-	var dub = $Act/Actor0.duplicate()
+	dub = $Act/Actor0.duplicate()
 	dub.name = "Enemy" + str(Troop.size())
 	$Act.add_child(dub)
 	TurnOrder.push_front(en)
