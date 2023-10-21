@@ -36,7 +36,7 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_
 	await transition(trans)
 	status = ResourceLoader.load_threaded_get_status(scene, progress)
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		done()
+		await done()
 	else:
 		Icon.play("Load")
 		loading = true
@@ -94,9 +94,9 @@ func done():
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
-	detransition()
 	Global.Player.look_to(Global.get_direction())
 	Global.Controllable = true
+	await detransition()
 	
 
 func detransition():

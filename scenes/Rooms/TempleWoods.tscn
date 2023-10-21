@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=68 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_a2733"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/Abad_A1.png" id="2_162u8"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="9_f5aip"]
 [ext_resource type="Script" path="res://codings/Characters/Firefly.gd" id="11_n5o8d"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Glow.gdshader" id="12_em7uw"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="15_3y2yq"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="16_f4ioa"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="17_otx6b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5671e"]
 texture = ExtResource("2_b17j4")
@@ -2166,6 +2169,70 @@ fill_to = Vector2(0.878431, 0.137255)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px8hq"]
 size = Vector2(176.946, 52.3671)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_llchn"]
+shader = ExtResource("15_3y2yq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b86cs"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrmw5"]
+content_margin_left = 8.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_m14l1"]
+default_font = ExtResource("16_f4ioa")
+default_font_size = 16
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 1
+Button/styles/focus = SubResource("StyleBoxFlat_b86cs")
+Button/styles/hover = SubResource("StyleBoxFlat_b86cs")
+Button/styles/pressed = SubResource("StyleBoxFlat_hrmw5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqvjw"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvxt0"]
+content_margin_left = 8.0
+bg_color = Color(0.909804, 0.909804, 0.909804, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.909804, 0.909804, 0.909804, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
 [node name="Area" type="Node2D"]
 process_mode = 1
 
@@ -2206,7 +2273,7 @@ layer_3/tile_data = PackedInt32Array(852012, 327684, 6, 852011, 262148, 6, 52433
 [node name="OvPlayer" parent="TileMap" instance=ExtResource("5_twitj")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(620.112, 489.858)
+position = Vector2(132.125, 545.97)
 
 [node name="PointLight2D" type="PointLight2D" parent="TileMap"]
 position = Vector2(375.834, 404.915)
@@ -2414,6 +2481,34 @@ position = Vector2(1554.99, -29.3551)
 position = Vector2(-55.1327, 27.9801)
 rotation = 0.694515
 shape = SubResource("RectangleShape2D_px8hq")
+
+[node name="GetUp" type="Button" parent="TileMap"]
+modulate = Color(1, 1, 1, 0)
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_llchn")
+layout_direction = 1
+offset_left = 100.0
+offset_top = 512.0
+offset_right = 215.0
+offset_bottom = 545.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_m14l1")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mqvjw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gvxt0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mqvjw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gvxt0")
+text = "Get up"
+icon = ExtResource("17_otx6b")
+text_overrun_behavior = 1
+expand_icon = true
 
 [node name="Camera0" type="Camera2D" parent="."]
 position = Vector2(-1, -1)

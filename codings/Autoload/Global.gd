@@ -5,9 +5,9 @@ var Type
 var Audio = AudioStreamPlayer.new()
 var Sprite = Sprite2D.new()
 var Party:PartyData = load("res://database/Party/CurrentParty.tres")
-var hasPortrait = false
-var portraitimg : Texture
-var portrait_redraw = true
+var HasPortrait = false
+var PortraitIMG : Texture
+var PortraitRedraw = true
 var PlayerDir = Vector2.DOWN
 var PlayerPos : Vector2
 signal check_party
@@ -192,12 +192,12 @@ func is_in_party(n):
 		return false
 
 func portrait(img, redraw=true):
-	portrait_redraw = redraw
-	hasPortrait=true
-	portraitimg = await Loader.load_res("res://art/Portraits/" + img + ".png")
+	PortraitRedraw = redraw
+	HasPortrait=true
+	PortraitIMG = await Loader.load_res("res://art/Portraits/" + img + ".png")
 
 func portrait_clear():
-	hasPortrait=false
+	HasPortrait=false
 	
 #Match profile
 func match_profile(named):
@@ -354,3 +354,43 @@ func get_affinity(attacker:Color) -> Affinity:
 	aff.resist_range = range_360(aff.oposing_range[-1]+1, aff.oposing_range[-1]+1+max(pres, 15))
 	aff.near_range = range_360(hue-max(pres/3, 10), hue+max(pres/3, 10))
 	return aff
+
+func new_game():
+	Event.Flags.clear()
+	Event.add_flag("Started")
+	Event.Day = 10
+	Item.HasBag = false
+	Item.KeyInv.clear()
+	Item.ConInv.clear()
+	Item.MatInv.clear()
+	Party.reset_party()
+	await Loader.travel_to("TempleWoods")
+	Controllable = false
+	Global.Player.get_node("Base").play("OnFloor")
+	Global.Player.get_node("Base/Shadow").hide()
+	Global.Player._check_party()
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	PartyUI.UIvisible = false
+	t.tween_property(Global.get_cam(), "zoom", Vector2(6,6), 10).from(Vector2(4,4))
+	await t.finished
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
+	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
+	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
+	get_tree().root.get_node("Area/TileMap/GetUp").show()
+	await get_tree().root.get_node("Area/TileMap/GetUp").pressed
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "size", Vector2(41, 33), 0.1)
+	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	Global.Player.set_anim("IdleUp")
+	Global.Player.get_node("Base/Shadow").show()
+	Global.Controllable = true
+	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 3)

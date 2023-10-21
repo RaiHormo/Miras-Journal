@@ -186,6 +186,10 @@ func _check_party():
 		$Base/Bag/Axe.show()
 	else:
 		$Base/Bag/Axe.hide()
+	if Item.HasBag:
+		$Base/Bag.show()
+	else:
+		$Base/Bag.hide()
 		
 ##Sets the animation for all sprite layers
 func set_anim(anim:String):

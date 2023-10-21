@@ -4,6 +4,8 @@ extends Node
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
+var Flags: Array[String]
+var Day: int
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -75,3 +77,10 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
+
+func check_flag(flag: String):
+	if flag in Flags: return true
+	else: return false
+
+func add_flag(flag: String):
+	if flag not in Flags: Flags.append(flag)

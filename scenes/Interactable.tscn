@@ -15,7 +15,7 @@ radius = 12.0416
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_41wqm"]
 shader = ExtResource("2_f278q")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b86cs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iklx"]
 content_margin_left = 8.0
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
 border_width_left = 12
@@ -28,7 +28,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrmw5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh1f3"]
 content_margin_left = 8.0
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
 border_width_left = 12
@@ -46,9 +46,9 @@ default_font = ExtResource("3_cho3r")
 default_font_size = 16
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 1
-Button/styles/focus = SubResource("StyleBoxFlat_b86cs")
-Button/styles/hover = SubResource("StyleBoxFlat_b86cs")
-Button/styles/pressed = SubResource("StyleBoxFlat_hrmw5")
+Button/styles/focus = SubResource("StyleBoxFlat_5iklx")
+Button/styles/hover = SubResource("StyleBoxFlat_5iklx")
+Button/styles/pressed = SubResource("StyleBoxFlat_jh1f3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwch7"]
 content_margin_left = 8.0

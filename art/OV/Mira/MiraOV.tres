@@ -1,10 +1,11 @@
-[gd_resource type="SpriteFrames" load_steps=147 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=149 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
 [ext_resource type="Texture2D" uid="uid://cqg3mi1kvrgip" path="res://art/OV/Mira/DashDown.png" id="2_b2w1q"]
 [ext_resource type="Texture2D" uid="uid://o3cfbnxkskhq" path="res://art/OV/Mira/DashUp.png" id="4_8t402"]
 [ext_resource type="Texture2D" uid="uid://rp8uf0rdpmbv" path="res://art/OV/Mira/Deny.png" id="5_50yt6"]
+[ext_resource type="Texture2D" uid="uid://c82b6gas0em35" path="res://art/BT/Mira/KnockOut..png" id="6_gsyqc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0usjx"]
 atlas = ExtResource("1_uisfp")
@@ -473,6 +474,10 @@ region = Rect2(160, 480, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_sebcy"]
 atlas = ExtResource("1_uisfp")
 region = Rect2(192, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb377"]
+atlas = ExtResource("6_gsyqc")
+region = Rect2(0, 84, 32, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jthf"]
 atlas = ExtResource("1_uisfp")
@@ -1091,6 +1096,14 @@ animations = [{
 "loop": true,
 "name": &"IdleUp",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb377")
+}],
+"loop": true,
+"name": &"OnFloor",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

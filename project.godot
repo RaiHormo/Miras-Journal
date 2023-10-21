@@ -53,7 +53,7 @@ gdscript/warnings/integer_division=0
 
 [dialogue_manager]
 
-general/states=["Global", "Loader"]
+general/states=["Global", "Loader", "World", "Event", "PartyUI", "Item"]
 
 [display]
 

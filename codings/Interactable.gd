@@ -65,19 +65,22 @@ func _on_button_pressed():
 	t.set_trans(Tween.TRANS_LINEAR)
 	t.tween_property($Button, "scale", Vector2(0.311,0.311), 0.1).from(Vector2(0.269,0.269))
 	await t.finished
-	if ActionType=="toggle":
+	match ActionType:
+		"toggle":
 			Global.confirm_sound()
 			emit_signal("action")
-	if ActionType=="text":
-		Global.Controllable = false
-		DialogueManager.textbox(file, title)
-		await DialogueManager.dialogue_ended
-		PartyUI.UIvisible = true
-		Global.Controllable = true
-	if ActionType=="item":
-		if itemtype=="key":
-			Item.add_key_item(item)
-	if ActionType=="battle":
-		Loader.start_battle(file)
+		"text":
+			Global.Controllable = false
+			DialogueManager.textbox(file, title)
+			await DialogueManager.dialogue_ended
+			PartyUI.UIvisible = true
+			Global.Controllable = true
+		"item":
+			if itemtype=="key":
+				Item.add_key_item(item)
+		"battle":
+			Loader.start_battle(file)
+		"global":
+			Global.call(file)
 	if hidesprite:
 		get_parent().hide()

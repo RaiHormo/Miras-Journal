@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
-[ext_resource type="Texture2D" uid="uid://bowbrndoc5x74" path="res://art/Renders/Alcine.png" id="7_4k312"]
+[ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="7_4k312"]
 [ext_resource type="Texture2D" uid="uid://dwbnmt2k8ms6p" path="res://UI/Party/AlcineShadow.png" id="7_5nnfn"]
 [ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/AttackAlcine.tres" id="9_k8sqf"]
 

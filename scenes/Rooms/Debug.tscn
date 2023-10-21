@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=30 format=3 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_g5xrf"]
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_1j4ra"]
 [ext_resource type="Script" path="res://codings/NPC.gd" id="10_wjvb0"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="11_56r5q"]
+[ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Harold.png" id="12_d384d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87swt"]
 texture = ExtResource("2_am130")
@@ -597,6 +598,14 @@ LabelText = "Toggle Lamp"
 ActionType = "toggle"
 Length = 160
 
+[node name="NewGame" parent="TileMap" instance=ExtResource("5_pijc2")]
+z_index = 9
+position = Vector2(-39, -64)
+LabelText = "New Game"
+ActionType = "global"
+Length = 140
+file = "new_game"
+
 [node name="Bush" parent="TileMap" instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(60.2736, 36.5526)
@@ -702,7 +711,13 @@ limit_right = 180
 limit_bottom = 140
 limit_smoothed = true
 
+[node name="Harold" type="Sprite2D" parent="."]
+material = ExtResource("1_g5xrf")
+position = Vector2(-39, -72)
+texture = ExtResource("12_d384d")
+
 [connection signal="action" from="TileMap/Lamp" to="TileMap/PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="TileMap/NewGame" to="TileMap/PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="TileMap/Bush" to="TileMap/PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="TileMap/FastTravel" to="TileMap/PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="TileMap/Axe/PickUp" to="TileMap/PointLight2D" method="_on_interactable_action"]

@@ -275,11 +275,11 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 func draw_portrait():
 	#await get_tree().create_timer(0.2).timeout
-	if Global.hasPortrait:
-		$Portrait.texture = Global.portraitimg
+	if Global.HasPortrait:
+		$Portrait.texture = Global.PortraitIMG
 		Global.portrait_clear()
 		$Portrait.show()
-		if Global.portrait_redraw:
+		if Global.PortraitRedraw:
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)

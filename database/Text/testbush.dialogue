@@ -15,7 +15,10 @@ Mira: Yes, this is [[indeed|in fact]] a bush
 
 Where to go?
 - Temple Woods
-	do travel_to("TempleWoods")
+	- Part 1
+		do travel_to("TempleWoods")
+	- Part 2
+		do travel_to("TempleWoods", Vector2(1255, 449), 1)
 
 => END
 

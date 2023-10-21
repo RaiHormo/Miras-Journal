@@ -66,6 +66,7 @@ func _physics_process(_delta: float) -> void:
 		
 	else:
 		hide()
+		$CollisionShape2D.disabled = true
 
 func makepath() -> void:
 	nav_agent.set_target_position(player.global_position)
