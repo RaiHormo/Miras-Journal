@@ -1,19 +1,18 @@
-[gd_scene load_steps=43 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=42 format=3 uid="uid://dh64f5bodshv7"]
 
-[ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_dogj7"]
-[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_7yih5"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="3_o6yw0"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="4_nnth8"]
-[ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="6_8fbom"]
-[ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="7_su38b"]
-[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="8_eiy32"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="8_p8xdc"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="9_uia6k"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="10_x2te8"]
-[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="11_rdec1"]
+[ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
+[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_cich6"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="4_ujk23"]
+[ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="5_1ty82"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_w2g12"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="7_jb2qv"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="8_wqv20"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="9_r3lax"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="10_ihe7c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
-shader = ExtResource("3_o6yw0")
+shader = ExtResource("2_v7eva")
 shader_parameter/lod = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_el5ff"]
@@ -61,12 +60,12 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_2t2lh"]
-font = ExtResource("4_nnth8")
+font = ExtResource("4_ujk23")
 font_size = 20
 outline_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_owkfl"]
-font = ExtResource("4_nnth8")
+font = ExtResource("4_ujk23")
 font_size = 14
 font_color = Color(0.533333, 0.533333, 0.533333, 1)
 
@@ -170,20 +169,20 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_017ft")
 
 [sub_resource type="LabelSettings" id="LabelSettings_xcra6"]
 line_spacing = 5.0
-font = ExtResource("4_nnth8")
+font = ExtResource("4_ujk23")
 font_size = 121
 font_color = Color(0.878431, 0.682353, 0.517647, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l726v"]
 line_spacing = 5.0
-font = ExtResource("4_nnth8")
+font = ExtResource("4_ujk23")
 font_size = 121
 font_color = Color(0.878431, 0.682353, 0.517647, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_llexj"]
-shader = ExtResource("8_p8xdc")
+shader = ExtResource("7_jb2qv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdoun"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jd4al"]
 content_margin_left = 0.0
 content_margin_right = 27.0
 bg_color = Color(1, 1, 1, 1)
@@ -200,7 +199,7 @@ expand_margin_left = 6.0
 expand_margin_right = 6.0
 
 [sub_resource type="Theme" id="Theme_jibpk"]
-default_font = ExtResource("9_uia6k")
+default_font = ExtResource("8_wqv20")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -209,16 +208,16 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_vdoun")
-Button/styles/hover = SubResource("StyleBoxFlat_vdoun")
-Button/styles/normal = SubResource("StyleBoxFlat_vdoun")
-Button/styles/pressed = SubResource("StyleBoxFlat_vdoun")
+Button/styles/focus = SubResource("StyleBoxFlat_jd4al")
+Button/styles/hover = SubResource("StyleBoxFlat_jd4al")
+Button/styles/normal = SubResource("StyleBoxFlat_jd4al")
+Button/styles/pressed = SubResource("StyleBoxFlat_jd4al")
 
 [sub_resource type="Shortcut" id="Shortcut_vilg5"]
 events = [null]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wk61q"]
-atlas = ExtResource("10_x2te8")
+atlas = ExtResource("9_r3lax")
 region = Rect2(18, 72, 18, 18)
 
 [node name="PartyUI" type="Control"]
@@ -230,7 +229,7 @@ offset_right = -3.0
 offset_bottom = 0.199951
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_dogj7")
+script = ExtResource("1_nullq")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 248), Vector2(385, 408), Vector2(385, 536)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -258,7 +257,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Leader"]
 position = Vector2(37, 45)
 scale = Vector2(0.0442713, 0.0442713)
-texture = ExtResource("2_7yih5")
+texture = ExtResource("3_cich6")
 
 [node name="Aura" type="ProgressBar" parent="CanvasLayer/Leader"]
 layout_mode = 0
@@ -277,7 +276,7 @@ offset_left = 119.667
 offset_top = 12.3333
 offset_right = 158.667
 offset_bottom = 38.3333
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
@@ -299,7 +298,7 @@ offset_left = 118.0
 offset_top = 1.0
 offset_right = 157.0
 offset_bottom = 24.0
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
@@ -328,7 +327,7 @@ offset_left = 32.9492
 offset_top = -9.33336
 offset_right = 72.9492
 offset_bottom = 22.6666
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
@@ -383,7 +382,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Member1"]
 position = Vector2(37, 54.333)
 scale = Vector2(0.0442713, 0.0442713)
-texture = ExtResource("2_7yih5")
+texture = ExtResource("3_cich6")
 
 [node name="Aura" type="ProgressBar" parent="CanvasLayer/Member1"]
 layout_mode = 0
@@ -402,7 +401,7 @@ offset_left = 121.667
 offset_top = 11.6667
 offset_right = 160.667
 offset_bottom = 37.6666
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
@@ -424,7 +423,7 @@ offset_left = 120.0
 offset_top = 1.0
 offset_right = 159.0
 offset_bottom = 25.0
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
@@ -490,7 +489,7 @@ offset_left = 32.9492
 offset_top = -9.33336
 offset_right = 72.9492
 offset_bottom = 22.6666
-theme_override_fonts/font = ExtResource("4_nnth8")
+theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
@@ -503,7 +502,7 @@ offset_right = 1785.0
 offset_bottom = 1475.0
 rotation = 0.069947
 scale = Vector2(0.489946, 0.489946)
-texture = ExtResource("6_8fbom")
+texture = ExtResource("5_1ty82")
 
 [node name="Page3" type="TextureRect" parent="CanvasLayer"]
 visible = false
@@ -514,7 +513,7 @@ offset_right = 1728.0
 offset_bottom = 1508.0
 rotation = -0.0396787
 scale = Vector2(0.489946, 0.489946)
-texture = ExtResource("6_8fbom")
+texture = ExtResource("5_1ty82")
 
 [node name="Page2" type="TextureRect" parent="CanvasLayer"]
 z_index = 2
@@ -524,7 +523,7 @@ offset_right = 2473.0
 offset_bottom = 1481.0
 rotation = 0.0340545
 scale = Vector2(0.489946, 0.489946)
-texture = ExtResource("6_8fbom")
+texture = ExtResource("5_1ty82")
 
 [node name="Label" type="Label" parent="CanvasLayer/Page2"]
 layout_mode = 0
@@ -542,7 +541,6 @@ offset_top = 147.773
 offset_right = 3409.49
 offset_bottom = 3613.77
 scale = Vector2(0.380595, 0.380595)
-texture = ExtResource("7_su38b")
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -582,7 +580,7 @@ offset_right = 2469.0
 offset_bottom = 1496.0
 rotation = -0.00981665
 scale = Vector2(0.489946, 0.489946)
-texture = ExtResource("6_8fbom")
+texture = ExtResource("5_1ty82")
 
 [node name="Label" type="Label" parent="CanvasLayer/Page1"]
 layout_mode = 0
@@ -639,7 +637,7 @@ offset_top = 60.0
 offset_right = 433.0
 offset_bottom = 152.0
 scale = Vector2(0.404152, 0.404152)
-texture = ExtResource("8_eiy32")
+texture = ExtResource("6_w2g12")
 
 [node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor"]
 visible = false
@@ -665,7 +663,7 @@ text = "Item x3"
 icon = SubResource("AtlasTexture_wk61q")
 expand_icon = true
 
-[node name="Wheel" parent="CanvasLayer" instance=ExtResource("11_rdec1")]
+[node name="Wheel" parent="CanvasLayer" instance=ExtResource("10_ihe7c")]
 visible = false
 position = Vector2(650, 408)
 scale = Vector2(0.7, 0.7)

@@ -25,7 +25,7 @@ func _ready():
 	t.tween_property(self, "position", position, 0)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
-	
+	direc = trans
 	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos
@@ -56,6 +56,7 @@ func _process(delta):
 			thread_loaded.emit()
 
 func transition(dir=Global.get_dir_letter()):
+	if dir == "none": return
 	Global.Controllable = false
 	t.kill()
 	t=create_tween()
@@ -100,6 +101,7 @@ func done():
 	
 
 func detransition():
+	if direc == "none": return
 	Global.get_cam().position_smoothing_enabled = false
 	t.kill()
 	t=create_tween()
@@ -332,3 +334,19 @@ func chase_mode():
 	CamZoom = Global.get_cam().zoom
 	chased = true
 
+func white_fadeout(out_time:float=7, wait_time=2, in_time:float = 0.1):
+	$Can.show()
+	var fader = $Can/Bars/Left.duplicate()
+	$Can/Bars.add_child(fader)
+	fader.position = Vector2(50,900)
+	fader.modulate = Color.TRANSPARENT
+	var white = StyleBoxFlat.new()
+	white.bg_color = Color.WHITE
+	fader.add_theme_stylebox_override("panel", white)
+	var tf = create_tween()
+	tf.tween_property(fader, "modulate", Color.WHITE, in_time)
+	await Event.wait(wait_time)
+	tf = create_tween()
+	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
+	await tf.finished
+	fader.queue_free()

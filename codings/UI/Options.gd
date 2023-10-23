@@ -9,17 +9,17 @@ func _ready():
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	$Silhouette.position = Vector2(-1000, -39)
 	$MainButtons/SaveManagment.grab_focus()
+	$Confirm.icon = Global.get_controller().ConfirmIcon
+	$Back.icon = Global.get_controller().CancelIcon
+	siilhouette()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
 	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
-	siilhouette()
 	for button in $MainButtons.get_children():
 		button.size.x=0
 		button.z_index = 0
@@ -33,10 +33,10 @@ func _ready():
 
 func siilhouette():
 	$Silhouette.texture = (await Loader.load_res("user://Autosave.tres")).Preview
-	t=create_tween()
-	t.set_trans(Tween.TRANS_QUART)
-	t.set_ease(Tween.EASE_OUT)
-	t.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
+	var ts=create_tween()
+	ts.set_trans(Tween.TRANS_QUART)
+	ts.set_ease(Tween.EASE_OUT)
+	ts.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
 
 func _physics_process(delta):
 	var playtime:Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())

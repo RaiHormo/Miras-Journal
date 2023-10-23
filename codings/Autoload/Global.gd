@@ -364,7 +364,9 @@ func new_game():
 	Item.ConInv.clear()
 	Item.MatInv.clear()
 	Party.reset_party()
-	await Loader.travel_to("TempleWoods")
+	Loader.white_fadeout()
+	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, "none")
+	await Event.wait(1)
 	Controllable = false
 	Global.Player.get_node("Base").play("OnFloor")
 	Global.Player.get_node("Base/Shadow").hide()

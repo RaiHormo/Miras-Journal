@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccm0r6n0e8q8e"]
+[gd_scene load_steps=5 format=3 uid="uid://ccm0r6n0e8q8e"]
 
 [ext_resource type="Script" path="res://scenes/Rooms/TransferPoint.gd" id="1_8x11e"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="2_as2d5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr85b"]
 size = Vector2(92.4443, 84.0007)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8txy"]
-size = Vector2(32, 85)
+size = Vector2(39, 85)
 
 [node name="Transfer" type="Area2D"]
 position = Vector2(766.116, 508.825)
@@ -19,10 +20,26 @@ position = Vector2(-0.116028, 0.174988)
 shape = SubResource("RectangleShape2D_vr85b")
 
 [node name="Preview" type="Area2D" parent="."]
+z_as_relative = false
+collision_layer = 0
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Preview"]
-position = Vector2(53.884, 0.174988)
+position = Vector2(63.384, 0.174988)
 shape = SubResource("RectangleShape2D_h8txy")
 debug_color = Color(0.968627, 0, 0.47451, 0.419608)
 
+[node name="Cursor" type="TextureRect" parent="."]
+visible = false
+light_mask = 0
+z_index = 10
+offset_left = 24.8838
+offset_top = -4.82495
+offset_right = 72.8838
+offset_bottom = 87.175
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_as2d5")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="Preview" to="." method="_on_preview_entered"]
+[connection signal="area_exited" from="Preview" to="." method="_on_preview_exited"]

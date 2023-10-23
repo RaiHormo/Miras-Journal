@@ -23,8 +23,6 @@ func _ready():
 	ID = "P"
 	speed = 75
 	Event.add_char(self)
-	#animation_tree.active = true
-	#speed = 75
 	Item.pickup.connect(_on_pickup)
 	Global.Tilemap = tilemap
 	if tilemap == null:
@@ -57,12 +55,12 @@ func control_process():
 #	else:
 #		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
 	undashable = false
-#	if not dashing:
-#		dashdir = Global.get_direction(Global.PlayerDir)
 	if is_on_wall(): 
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
 			undashable = true
 	if Global.Controllable:
+		if "Dash" in $Base.animation and not dashing:
+			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO:
 			if not dashing:
 				if undashable:
@@ -73,9 +71,6 @@ func control_process():
 					await $Base.animation_finished
 					set_anim("Idle"+Global.get_dir_name(Global.PlayerDir))
 					return
-#					while Global.get_direction(direction)==Global.get_direction(Global.PlayerDir) and Input.is_action_pressed("Dash"):
-#						await get_tree().create_timer(0.01).timeout
-#					Global.Controllable = true
 				else:
 					dashdir = Global.get_direction(direction)
 					dashing = true
@@ -121,8 +116,6 @@ func control_process():
 			for i in tilemap.get_layers_count():
 				if tilemap.get_cell_tile_data(i, coords) != null:
 					check_terrain(tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
-	elif dashing and not Input.is_action_pressed("Dash"):
-		stop_dash()
 
 
 func update_anim_prm():
@@ -134,12 +127,6 @@ func update_anim_prm():
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
-#				if is_on_wall():
-#					if round(get_wall_normal())*-1 == Global.get_direction(direction):
-#						speed = 60
-#						set_anim(str("Walk"+Global.get_dir_name(Global.get_direction(realvelocity))))
-#						#position = round(position)
-#						return
 				speed = 75
 				set_anim(str("Walk"+Global.get_dir_name()))
 				$Base.speed_scale=(realvelocity.length()/70)
@@ -222,25 +209,29 @@ func bag_anim():
 
 
 func check_terrain(terrain:String):
-	print(terrain)
+	if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)) != null:
+		if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("TerrainType") == terrain: 
+			return true
+	else: return false
 
 ##If the player dashes into a gap she will jump
 func check_for_jumps():
-	if dashing and tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)) != null:
-			if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("TerrainType") == "Gap":
-				if Global.get_direction(tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
-					reset_speed()
-					set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
-					midair = true
-					Global.Controllable = false
-					z_index+=2
-					var jump = tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
-					#print(jump, "  ", coords)
-					Global.jump_to_global(self, tilemap.map_to_local(coords) + jump*24, 5, 0.5)
-					await Global.anim_done
-					Global.Controllable = true
-					z_index-=2
-					midair=false
+	if dashing and check_terrain("Gap"):
+		if Global.get_direction(tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
+			reset_speed()
+			set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
+			midair = true
+			Global.Controllable = false
+			$CollisionShape2D.disabled = true
+			z_index+=2
+			var jump = tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
+			#print(jump, "  ", coords)
+			Global.jump_to_global(self, tilemap.map_to_local(coords) + jump*24, 5, 0.5)
+			await Global.anim_done
+			Global.Controllable = true
+			z_index-=2
+			$CollisionShape2D.disabled = false
+			midair=false
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash():
@@ -254,19 +245,13 @@ func stop_dash():
 		if ((tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or 
 			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if undashable and Global.get_direction()==dashdir:
-#		var safe_pos = get_parent().get_node("Follower1").global_position
-#		Global.jump_to_global(self, safe_pos - to_local(safe_pos).normalized()*15, 15, 0.5)
+	if undashable and Global.get_direction()==dashdir and check_terrain(""):
 		Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 		Global.Controllable=false
 		await $Base.animation_finished
 		Global.Controllable=true
 	else:
-		if is_on_wall():
-			await Event.wait()
-			stop_dash()
-			return
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
@@ -282,12 +267,6 @@ func stop_dash():
 		BodyState = CONTROLLED
 		speed = 75
 		velocity = Vector2.ZERO
-#	if is_on_wall():
-#		if wall_in_front():
-#			undashable = true
-#			stop_dash()
-#			return
-#		global_position = get_parent().get_node("Follower1").global_position
 	dashdir = Vector2.ZERO
 	if "Stop" in $Base.animation or "Hit" in $Base.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))

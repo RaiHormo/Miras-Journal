@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dxo3r3qn5quv3" path="res://UI/MenuTextures/toggle_off.png" id="10_p5f5g"]
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
-[ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="17_bj1qd"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="17_bj1qd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_ce8sl")

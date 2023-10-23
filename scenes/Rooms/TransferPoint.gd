@@ -10,3 +10,10 @@ func _on_area_entered(area):
 			Global.Controllable = false
 			Event.move_dir(Direction*5)
 			await Loader.travel_to(Room, Position, ToCamera)
+
+
+func _on_preview_exited():
+	$Cursor.hide()
+
+func _on_preview_entered(): 
+	$Cursor.show()
