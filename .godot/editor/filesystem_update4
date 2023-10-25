@@ -1,4 +1,4 @@
-res://scenes/Rooms/TempleWoods.tscn
+res://UI/Options/Options.tscn
 res://art/BT/Mira/MiraBT.tres
 res://database/Abilities/Guard.tres
 res://database/Abilities/FlameSpark.tres
@@ -20,7 +20,9 @@ res://codings/Interactable.gd
 res://art/sheets/AlcineOV1.tres
 res://art/sheets/ErinnOV.tres
 res://database/BattleSeq/SludgeBattle1.tres
+res://codings/Autoload/Loader.gd
 res://scenes/Rooms/Debug.tscn
+res://scenes/Rooms/TempleWoods.tscn
 res://codings/Autoload/PartyUI.tscn
 res://scenes/Transfer.tscn
 res://UI/MainMenu/MainMenu.tscn
@@ -29,5 +31,16 @@ res://scenes/Characters/Mira.tscn
 res://scenes/Battle.tscn
 res://scenes/Characters/Follower.tscn
 res://codings/Autoload/ItemManager.tscn
-res://UI/Options/Options.tscn
 res://codings/Autoload/Loader.tscn
+res://codings/Autoload/ItemManager.gd
+res://database/Items/Consumables/SmallPotion.tres
+res://codings/PlayerMovement.gd
+res://codings/UI/PartyUI.gd
+res://database/Items/KeyItems/LightweightAxe.tres
+res://UI/MainMenu/MainMenu.gd
+res://database/Items/item_data.gd
+res://codings/Autoload/ItemEffect.gd
+res://codings/Autoload/Global.gd
+res://database/Text/Profiles/Erinn.tres
+res://codings/save_class.gd
+res://database/Party/party_data.gd

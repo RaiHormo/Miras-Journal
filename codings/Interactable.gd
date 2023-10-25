@@ -10,6 +10,7 @@ signal action()
 @export var item: String
 @export var hidesprite: bool = false
 @export var itemtype: String
+@export var Collision: CollisionShape2D = null
 const Textbox = DialogueManager.Textbox2
 var CanInteract = false
 var t:Tween
@@ -76,11 +77,13 @@ func _on_button_pressed():
 			PartyUI.UIvisible = true
 			Global.Controllable = true
 		"item":
-			if itemtype=="key":
-				Item.add_key_item(item)
+			Item.add_item(item, itemtype)
 		"battle":
 			Loader.start_battle(file)
 		"global":
 			Global.call(file)
+		"event":
+			Event.call(file)
 	if hidesprite:
 		get_parent().hide()
+		if Collision != null: Collision.disabled = true

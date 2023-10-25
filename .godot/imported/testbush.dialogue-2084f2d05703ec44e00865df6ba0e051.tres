@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ly2bn"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_kc0ob"]
 
 [resource]
-script = ExtResource("1_ly2bn")
+script = ExtResource("1_kc0ob")
 titles = {
 "bush": "3",
-"greetings": "27",
+"greetings": "30",
 "travel": "16"
 }
 character_names = PackedStringArray("Mira", "Erinn")
@@ -46,7 +46,7 @@ lines = {
 },
 "17": {
 "next_id": "18",
-"next_id_after": "23",
+"next_id_after": "26",
 "responses": PackedStringArray("17"),
 "text": "Temple Woods",
 "text_replacements": Array[Dictionary]([]),
@@ -54,16 +54,26 @@ lines = {
 "type": "response"
 },
 "18": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
 "next_id": "19",
-"next_id_after": "23",
 "parent_id": "17",
-"responses": PackedStringArray("18", "20"),
+"text": "Part?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Part?",
+"type": "dialogue"
+},
+"19": {
+"next_id": "20",
+"next_id_after": "26",
+"parent_id": "17",
+"responses": PackedStringArray("19", "21", "23"),
 "text": "Part 1",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Part 1",
 "type": "response"
 },
-"19": {
+"20": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "travel_to",
@@ -74,20 +84,20 @@ lines = {
 }])])
 }])
 },
-"next_id": "23",
-"parent_id": "18",
+"next_id": "26",
+"parent_id": "19",
 "type": "mutation"
 },
-"20": {
-"next_id": "21",
-"next_id_after": "23",
+"21": {
+"next_id": "22",
+"next_id_after": "26",
 "parent_id": "17",
 "text": "Part 2",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Part 2",
 "type": "response"
 },
-"21": {
+"22": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "travel_to",
@@ -111,62 +121,56 @@ lines = {
 }])])
 }])
 },
-"next_id": "23",
-"parent_id": "20",
+"next_id": "26",
+"parent_id": "21",
 "type": "mutation"
 },
 "23": {
+"next_id": "24",
+"next_id_after": "26",
+"parent_id": "17",
+"text": "Part 3",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Part 3",
+"type": "response"
+},
+"24": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "travel_to_coords",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "TempleWoods"
+}]), Array[Dictionary]([{
+"function": "Vector2",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "number",
+"value": 59
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 0
+}])])
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 1
+}])])
+}])
+},
+"next_id": "26",
+"parent_id": "23",
+"type": "mutation"
+},
+"26": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"25": {
-"next_id": "27",
+"28": {
+"next_id": "30",
 "text": "greetings",
 "type": "title"
-},
-"27": {
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraNeutural"
-}]), Array[Dictionary]([{
-"type": "bool",
-"value": true
-}])])
-}])
-},
-"next_id": "28",
-"type": "mutation"
-},
-"28": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"next_id": "29",
-"text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
-"type": "dialogue"
-},
-"29": {
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraOpenMouth"
-}]), Array[Dictionary]([{
-"type": "bool",
-"value": false
-}])])
-}])
-},
-"next_id": "30",
-"type": "mutation"
 },
 "3": {
 "mutation": {
@@ -186,15 +190,58 @@ lines = {
 "type": "mutation"
 },
 "30": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}]), Array[Dictionary]([{
+"type": "bool",
+"value": true
+}])])
+}])
+},
+"next_id": "31",
+"type": "mutation"
+},
+"31": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "32",
+"text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
+"type": "dialogue"
+},
+"32": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraOpenMouth"
+}]), Array[Dictionary]([{
+"type": "bool",
+"value": false
+}])])
+}])
+},
+"next_id": "33",
+"type": "mutation"
+},
+"33": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "35",
 "text": "I can still move while saying this.[next=auto]",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I can still move while saying this.[next=auto]",
 "type": "dialogue"
 },
-"32": {
+"35": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"

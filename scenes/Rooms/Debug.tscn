@@ -638,7 +638,7 @@ file = "testbush"
 title = "travel"
 item = "LightweightAxe"
 hidesprite = true
-itemtype = "key"
+itemtype = "Key"
 
 [node name="Body" type="StaticBody2D" parent="TileMap/Axe"]
 

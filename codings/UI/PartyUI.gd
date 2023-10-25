@@ -64,6 +64,7 @@ func _process(delta):
 			$CanvasLayer.hide()
 
 func _check_party():
+	Party = Global.Party
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
@@ -91,7 +92,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("DebugP"):
 		Global.Controllable = Global.toggle(Global.Controllable)
 	if Input.is_action_just_pressed("DebugI"):
-		Item.add_consumable("SmallPotion")
+		Item.add_item("SmallPotion", "Con")
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing:
 			if Expanded == true:
 				Tempvis=true

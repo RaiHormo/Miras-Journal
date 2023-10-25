@@ -4,7 +4,7 @@ var item:ItemData
 func use(item_data: ItemData):
 	item = item_data
 	if item.Use == ItemData.U.CUSTOM:
-		call(item.ActionName)
+		call(item.filename)
 	elif item.Use == ItemData.U.HEALING:
 		get_target()
 
@@ -18,4 +18,4 @@ func _on_item_manager_return_member(mem:Actor):
 		mem.add_health(float(item.Parameter))
 	#PartyUI._on_shrink()
 	PartyUI._check_party()
-	Item.remove_consumable(item)
+	Item.remove_item(item, "Con")

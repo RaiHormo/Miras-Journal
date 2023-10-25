@@ -84,3 +84,8 @@ func check_flag(flag: String):
 
 func add_flag(flag: String):
 	if flag not in Flags: Flags.append(flag)
+
+func take_bag():
+	Global.item_sound()
+	Item.HasBag = true
+	Global.Player._check_party()

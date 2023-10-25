@@ -24,6 +24,7 @@ var Settings:Setting
 var Bt: Battle = null
 var CameraInd = 0
 var Tilemap:TileMap
+var Members: Array[Actor]
 
 func _ready():
 	StartTime=Time.get_unix_time_from_system()
@@ -33,6 +34,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	await ready_window()
 	init_settings()
+	init_party()
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window():
@@ -356,6 +358,7 @@ func get_affinity(attacker:Color) -> Affinity:
 	return aff
 
 func new_game():
+	init_party()
 	Event.Flags.clear()
 	Event.add_flag("Started")
 	Event.Day = 10
@@ -396,3 +399,15 @@ func new_game():
 	Global.Player.get_node("Base/Shadow").show()
 	Global.Controllable = true
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 3)
+
+func init_party():
+	Members.clear()
+	for i in DirAccess.get_files_at("res://database/Party"):
+		var file = await Loader.load_res("res://database/Party/"+ i)
+		if file is Actor:
+			Members.push_front(file)
+	Party.set_to(Party)
+
+func find_member(Name: String):
+	for i in Members:
+		if i.FirstName == Name: return i

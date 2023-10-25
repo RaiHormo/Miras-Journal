@@ -14,7 +14,7 @@ var KeyInv :Array[ItemData]
 func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
-	if not Item.HasBag:
+	if not Item.HasBag or Item.KeyInv.is_empty():
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
 		return
 	show()
@@ -125,6 +125,7 @@ func close():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
+	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.8)
 	t.tween_property(Cam, "limit_bottom",  CamPrev.limit_bottom, 0.3)
 	t.tween_property(Cam, "limit_top",  CamPrev.limit_top, 0.3)
 	t.tween_property(Cam, "limit_left",  CamPrev.limit_left, 0.3)
@@ -287,6 +288,7 @@ func _root():
 	
 
 func _journal():
+	if stage == "inactive": return
 	if rootIndex!=3:
 		rootIndex = 0
 		move_root()
@@ -294,6 +296,7 @@ func _journal():
 
 
 func _item():
+	if stage == "inactive": return
 	rootIndex = 1
 	move_root()
 	PartyUI.UIvisible = false
@@ -345,6 +348,7 @@ func _item():
 
 
 func _quest():
+	if stage == "inactive": return
 	if rootIndex!=2:
 		rootIndex = 2
 		move_root()
@@ -352,6 +356,7 @@ func _quest():
 
 
 func _options():
+	if stage == "inactive": return
 	if rootIndex!=3:
 		rootIndex = 3
 		move_root()
@@ -385,7 +390,7 @@ func _on_confirm_button_down():
 
 
 func _on_back_button_down():
-	print(stage)
+	#print(stage)
 	Global.cancel_sound()
 	match stage:
 		"root":
@@ -411,6 +416,7 @@ func _on_back_button_down():
 			
 		
 func get_inventory():
+	await Item.verify_inventory()
 	if Item.KeyInv.is_empty(): 
 		$Inventory/Margin/Scroller/Vbox/KeyItems.hide()
 		$Inventory/Margin/Scroller/Vbox/KeyLabel.hide()

@@ -17,12 +17,16 @@ var chased = false
 var Attacker: NPC
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array[NodePath]
+@onready var Preview = (await load_res("user://Autosave.tres")).Preview
 
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
+
+func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
+	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	direc = trans
@@ -266,38 +270,27 @@ func save(filename:String="Autosave", showicon=true):
 	data.Preview = Global.get_preview()
 	data.Camera = Global.CameraInd
 	data.Defeated = Defeated
-	var members: Array[Actor] = []
-	for i in DirAccess.get_files_at("res://database/Party"):
-		var file = await load_res("res://database/Party/"+ i)
-		if file is Actor:
-			members.push_front(file.duplicate())
-	data.Members = members
+	data.Members = Global.Members.duplicate()
+	for i in data.Members:
+		data.Members[data.Members.find(i)] = i.duplicate()
 	
-	var key: Array[ItemData] = []
-	for file in DirAccess.get_files_at("res://database/Items/KeyItems"):
-		if ".tres" in file:
-			var item:ItemData =(await load_res("res://database/Items/KeyItems/"+ file)).duplicate()
-			item.filename = file
-			key.push_front(item)
-	data.KeyItems = key
 	data.KeyInv = Item.KeyInv.duplicate()
-	
-	var con: Array[ItemData] = []
-	for file in DirAccess.get_files_at("res://database/Items/Consumables"):
-		if ".tres" in file:
-			var item:ItemData = (await load_res("res://database/Items/Consumables/"+ file)).duplicate()
-			item.filename = file
-			con.push_front(item)
-	data.Consumables = con
+	for i in data.KeyInv:
+		data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
 	data.ConInv = Item.ConInv.duplicate()
+	for i in data.ConInv:
+		data.ConInv[data.ConInv.find(i)] = i.duplicate()
 	var room=PackedScene.new()
 	room.pack(get_tree().root.get_node_or_null("Area"))
 	data.Room = room
-	
 	ResourceSaver.save(data, "user://"+filename+".tres")
+	Preview = (await load_res("user://Autosave.tres")).Preview
 
 func load_game(filename:String="Autosave"):
 	transition("R")
+	t = create_tween()
+	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+	Icon.play("Load")
 	await get_tree().create_timer(1).timeout
 	var data:SaveFile = await load_res("user://"+filename+".tres")
 	Global.StartTime = Time.get_unix_time_from_system()
@@ -312,15 +305,17 @@ func load_game(filename:String="Autosave"):
 	if get_tree().root.get_node_or_null("Area") != null:
 		get_tree().root.get_node_or_null("Area").get_tree().change_scene_to_packed(data.Room)
 	
-	for i in data.Members:
-		var member:Actor = await load_res("res://database/Party/"+i.FirstName+".tres") 
-		member.Health = i.Health
-		member.Aura = i.Aura
-		member.Abilities = i.Abilities
+	Item.KeyInv = data.KeyInv.duplicate()
+	Item.ConInv = data.ConInv.duplicate()
+	
+	Global.Members = data.Members
 	Global.Party.set_to(data.Party)
+	
 	await get_tree().create_timer(0.01).timeout
 	Global.Player.global_position = data.Position
 	Global.Controllable =true
+	PartyUI._check_party()
+	await Item.verify_inventory()
 	detransition()
 
 func load_res(path:String):

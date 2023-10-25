@@ -169,7 +169,7 @@ func _check_party():
 		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	else:
 		$Base.sprite_frames =  Global.Party.Leader.OV
-	if Item.check_key("LightweightAxe"):
+	if Item.check_item("LightweightAxe", "Key"):
 		$Base/Bag/Axe.show()
 	else:
 		$Base/Bag/Axe.hide()

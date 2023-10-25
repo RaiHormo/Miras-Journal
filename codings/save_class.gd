@@ -14,10 +14,9 @@ class_name SaveFile
 @export var Preview: Texture = preload("res://art/Previews/1.png")
 @export_group("Items")
 @export var KeyInv: Array[ItemData]
-@export var KeyItems: Array[ItemData]
 @export var ConInv: Array[ItemData]
-@export var Consumables: Array[ItemData]
 @export var BatInv: Array[ItemData]
-@export var BattleItems: Array[ItemData]
 @export var MatInv: Array[ItemData]
-@export var Materials: Array[ItemData]
+@export var Flags: Array[String]
+@export var Day: int 
+var version = 1

@@ -38,76 +38,88 @@ func get_animation(icon, named):
 	panel.hide()
 	Global.check_party.emit()
 
-func add_key_item(ItemName):
-	item = get_item(ItemName, "KeyItems")
+func add_item(ItemName, type: String, animate=true):
+	item = get_item(ItemName, type).duplicate()
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if not item in KeyInv:
-		KeyInv.append(item)
-	item.Quantity += 1
-	get_animation(item.Icon, item.Name)
+	var inv: Array[ItemData] = get_inv(type)
+	if not check_item(ItemName, type):
+		item.Quantity = 1
+		inv.append(item)
+	else: for i in inv:
+		if i.filename == item.filename:
+			i.Quantity += 1
+	overwrite_inv(inv, type)
+	if animate: get_animation(item.Icon, item.Name)
 
-func remove_key_item(ItemName):
-	item = get_item(ItemName, "KeyItems")
+func remove_item(ItemName, type):
+	item = get_item(ItemName, type)
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	var inv: Array[ItemData] = get_inv(type)
 	if item.Quantity == 1:
-		KeyInv.erase(item)
+		inv.erase(item)
 	item.Quantity -= 1
+	overwrite_inv(inv, type)
 
-func check_key(ItemName):
-	item = get_item(ItemName, "KeyItems")
-	if item in KeyInv: return true
-	else: return false
-	
-func add_consumable(ItemName):
-	item = get_item(ItemName, "Consumables")
-	if item == null:
-		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if not item in ConInv:
-		ConInv.append(item)
-	item.Quantity += 1
-	get_animation(item.Icon, item.Name)
-
-func remove_consumable(ItemName):
-	item = get_item(ItemName, "Consumables")
-	if item == null:
-		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if item.Quantity == 1:
-		ConInv.erase(item)
-	item.Quantity -= 1
-
-func check_consumable(ItemName):
-	item = get_item(ItemName, "Consumables")
-	if item in ConInv: return true
+func check_item(ItemName, type):
+	item = get_item(ItemName, type)
+	if item == null: OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if item in get_inv(type): return true
 	else: return false
 
-func add_material(ItemName):
-	item = get_item(ItemName, "Materials")
-	if item == null:
-		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if item.Quantity == 0:
-		MatInv.push_front(item)
-	item.Quantity += 1
-	get_animation(item.Icon, item.Name)
+func get_inv(type: String):
+	match type:
+		"Key": return KeyInv
+		"Con": return ConInv
+		"Mat": return MatInv
 
-func remove_material(ItemName):
-	item = get_item(ItemName, "Materials")
-	if item == null:
-		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-	if item.Quantity == 1:
-		MatInv.erase(item)
-	item.Quantity -= 1
+func overwrite_inv(inv: Array, type: String):
+	match type:
+		"Key": KeyInv = inv
+		"Con": ConInv = inv
+		"Mat": MatInv = inv
 
-func check_material(ItemName):
-	item = get_item(ItemName, "Materials")
-	if item in MatInv: return true
-	else: return false
+func get_folder(type: String):
+	match type:
+		"Key": return "KeyItems"
+		"Con": return "Consumables"
+		"Mat": return "Materials"
 
 func use(iteme:ItemData):
 	$ItemEffect.use(iteme)
 
-func get_item(iteme, folder:String):
+func get_item(iteme, type:String):
+	var ritem = null 
 	if iteme is String:
-		return load("res://database/Items/" + folder + "/"+ iteme + ".tres")
-	elif iteme is ItemData: return iteme
+		for i in get_inv(type):
+			if iteme == i.filename:
+				ritem = i
+		if ritem == null: 
+			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme + ".tres")
+			ritem.filename = iteme
+	elif iteme is ItemData:
+		if iteme.filename == "Invalid filename":
+			OS.alert(iteme.filename)
+		for i in get_inv(type):
+			if iteme.filename == i.filename:
+				ritem = i
+		if ritem == null: 
+			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme.filename + ".tres")
+			ritem.filename = iteme
+	else: OS.alert("That's not a valid item name")
+	return ritem
+
+func find_filename(iteme, type):
+	for file in DirAccess.get_files_at("res://database/Items/" + get_folder(type)):
+		if ".tres" in file:
+			var ritem:ItemData = await Loader.load_res("res://database/Items/"+get_folder(type)+"/"+ file)
+			if ritem.Name == iteme.Name: iteme.filename = file.erase(file.length()-5, 5)
+
+func verify_inventory():
+	for i in KeyInv:
+		if i.filename == "Invalid filename": await find_filename(i, "Key")
+	for i in ConInv:
+		if i.filename == "Invalid filename": await find_filename(i, "Con")
+	for i in MatInv:
+		if i.filename == "Invalid filename": await find_filename(i, "Mat")

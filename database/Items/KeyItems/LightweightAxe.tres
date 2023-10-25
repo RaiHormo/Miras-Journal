@@ -22,5 +22,4 @@ Use = 0
 UsedInBattle = false
 Target = 3
 Parameter = ""
-ActionName = "Inspect"
 Quantity = 0

@@ -32,7 +32,7 @@ func _ready():
 	stage = "main"
 
 func siilhouette():
-	$Silhouette.texture = (await Loader.load_res("user://Autosave.tres")).Preview
+	$Silhouette.texture = Loader.Preview
 	var ts=create_tween()
 	ts.set_trans(Tween.TRANS_QUART)
 	ts.set_ease(Tween.EASE_OUT)

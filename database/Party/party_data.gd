@@ -7,7 +7,7 @@ class_name PartyData
 @export var Member3: Actor
 
 func reset_party():
-	Leader = load("res://database/Party/Mira.tres")
+	Leader = Global.find_member("Mira")
 	Member1 = null
 	Member2 = null
 	Member3 = null
@@ -29,12 +29,12 @@ func make_unique():
 	if Member3!=null: Member3 = Member1.duplicate()
 
 func set_to(p:PartyData):
-	Leader = load("res://database/Party/"+p.Leader.FirstName+".tres")
-	if p.Member1!=null: Member1 = load("res://database/Party/"+p.Member1.FirstName+".tres")
+	Leader = Global.find_member(p.Leader.FirstName)
+	if p.Member1!=null: Member1 = Global.find_member(p.Member1.FirstName)
 	else: Member1 = null
-	if p.Member2!=null: Member2 = load("res://database/Party/"+p.Member2.FirstName+".tres")
+	if p.Member2!=null: Member2 = Global.find_member(p.Member2.FirstName)
 	else: Member2 = null
-	if p.Member3!=null: Member3 = load("res://database/Party/"+p.Member3.FirstName+".tres")
+	if p.Member3!=null: Member3 = Global.find_member(p.Member3.FirstName)
 	else: Member3 = null
 
 func get_member(num:int):
