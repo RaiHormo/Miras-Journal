@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_uxycv"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
-[ext_resource type="Texture2D" uid="uid://cto6cesjljnwv" path="res://art/Renders/Mira.png" id="3_8yk74"]
+[ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="3_8yk74"]
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/Mira.tres" id="3_b1rhj"]
 [ext_resource type="Resource" uid="uid://dmhsvhd1lkkue" path="res://database/Abilities/Summon.tres" id="3_rhifm"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]

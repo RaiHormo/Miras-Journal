@@ -1,7 +1,7 @@
 extends Resource
 class_name PartyData
 
-@export var Leader: Actor
+@export var Leader: Actor = preload("res://database/Party/Mira.tres")
 @export var Member1: Actor
 @export var Member2: Actor
 @export var Member3: Actor
@@ -23,7 +23,7 @@ func check_member(n):
 		return false
 
 func make_unique():
-	Leader = Leader.duplicate()
+	if Leader!=null: Leader = Leader.duplicate()
 	if Member1!=null: Member1 = Member1.duplicate()
 	if Member2!=null: Member2 = Member2.duplicate()
 	if Member3!=null: Member3 = Member1.duplicate()

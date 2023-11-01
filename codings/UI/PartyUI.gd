@@ -64,6 +64,7 @@ func _process(delta):
 			$CanvasLayer.hide()
 
 func _check_party():
+	if Global.Party == null: return
 	Party = Global.Party
 	t = create_tween()
 	t.set_parallel(true)

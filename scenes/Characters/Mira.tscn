@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=135 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -298,6 +298,34 @@ region = Rect2(128, 96, 32, 32)
 atlas = ExtResource("3_b3y6v")
 region = Rect2(96, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2xdp"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3lsr"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(32, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwvhx"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(64, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7x1u"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(96, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tdxy"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(128, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri84a"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(160, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdvk2"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(192, 512, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdpr3"]
 atlas = ExtResource("3_b3y6v")
 region = Rect2(32, 96, 32, 32)
@@ -357,6 +385,18 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfu7y"]
 atlas = ExtResource("3_b3y6v")
 region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdsns"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(0, 1152, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ggyo"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(32, 1152, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2d81"]
+atlas = ExtResource("9_1utjp")
+region = Rect2(64, 1152, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i8hwj"]
 animations = [{
@@ -847,46 +887,40 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h1s0m")
+"texture": SubResource("AtlasTexture_t2xdp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h1s0m")
+"texture": SubResource("AtlasTexture_d3lsr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_lwvhx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ndj2g")
+"texture": SubResource("AtlasTexture_l7x1u")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_8tdxy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_ri84a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bwiay")
+"texture": SubResource("AtlasTexture_rdvk2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_ri84a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_8tdxy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bwiay")
+"texture": SubResource("AtlasTexture_l7x1u")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_lwvhx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ndj2g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdpr3")
+"texture": SubResource("AtlasTexture_d3lsr")
 }],
 "loop": true,
 "name": &"IdleUp",
@@ -1689,16 +1723,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yut77")
+"texture": SubResource("AtlasTexture_bdsns")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nyn2n")
+"texture": SubResource("AtlasTexture_3ggyo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dfu7y")
+"texture": SubResource("AtlasTexture_t2d81")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nyn2n")
+"texture": SubResource("AtlasTexture_3ggyo")
 }],
 "loop": true,
 "name": &"WalkUp",
@@ -3157,14 +3191,15 @@ size = Vector2(14, 17)
 radius = 7.0
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]
+offsets = PackedFloat32Array(0, 0.995098)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2e8bj"]
 gradient = SubResource("Gradient_s6doo")
 use_hdr = true
 fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.852941, 0.894118)
+fill_from = Vector2(0.487179, 0.495726)
+fill_to = Vector2(0.782051, 0.876068)
 
 [node name="Body" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 z_index = 1
@@ -3185,10 +3220,9 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 light_mask = 3
 texture_filter = 2
 material = ExtResource("2_lltpm")
-use_parent_material = true
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"OnFloor"
+animation = &"GetUp"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -3203,10 +3237,11 @@ metadata/_aseprite_wizard_config_ = {
 
 [node name="Bag" type="AnimatedSprite2D" parent="Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhZwpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YmFnCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+visible = false
 light_mask = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_i8hwj")
-animation = &"DashUpStart"
+animation = &"WalkUp"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",
@@ -3247,9 +3282,12 @@ texture = ExtResource("6_xyod4")
 
 [node name="Flame" type="AnimatedSprite2D" parent="Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
+
+[node name="Shadow1" type="Sprite2D" parent="Base"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
@@ -3285,4 +3323,4 @@ path_max_distance = 20.0
 color = Color(0.905882, 0.411765, 0, 1)
 energy = 0.0
 texture = SubResource("GradientTexture2D_2e8bj")
-texture_scale = 2.0
+texture_scale = 3.0

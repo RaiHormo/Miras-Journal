@@ -50,6 +50,8 @@ func _on_finder_area_entered(area):
 
 func _on_catch_area_body_entered(body):
 	if Global.Player in $CatchArea.get_overlapping_bodies() and Global.Controllable and not lock:
+		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
+		Global.Player.bump()
 		Loader.Attacker = self
 		await Loader.start_battle(Battle)
 		global_position = Global.Tilemap.map_to_local(DefaultPos)

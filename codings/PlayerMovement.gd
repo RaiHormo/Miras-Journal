@@ -167,7 +167,7 @@ func _on_pickup():
 func _check_party():
 	if flame_active:
 		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
-	else:
+	elif Global.Party.Leader != null:
 		$Base.sprite_frames =  Global.Party.Leader.OV
 	if Item.check_item("LightweightAxe", "Key"):
 		$Base/Bag/Axe.show()
@@ -188,10 +188,10 @@ func set_anim(anim:String):
 			$Base/Flame.show()
 			$Base/Flame.play(anim)
 			if $Flame.energy == 0:
-				while "Walk" in $Base.animation or "Idle" in $Base.animation and $Flame.energy < 1:
+				while "Walk" in $Base.animation or "Idle" in $Base.animation and $Flame.energy < 1.5:
 					$Flame.energy += 0.03
 					await Event.wait()
-				$Flame.energy = 1
+				$Flame.energy = 1.5
 				#t.tween_property($Flame, "energy", 1, 1)
 		else: 
 			#if $Flame.energy == 1:
@@ -246,11 +246,7 @@ func stop_dash():
 			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
 	if undashable and Global.get_direction()==dashdir and check_terrain(""):
-		Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
-		set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
-		Global.Controllable=false
-		await $Base.animation_finished
-		Global.Controllable=true
+		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
@@ -275,3 +271,10 @@ func reset_speed():
 	$Base.speed_scale=1
 	$Base/Bag.speed_scale=1
 	$Base/Bag/Axe.speed_scale=1
+
+func bump():
+	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
+	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
+	Global.Controllable=false
+	await $Base.animation_finished
+	Global.Controllable=true

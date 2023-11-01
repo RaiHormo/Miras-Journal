@@ -8,7 +8,6 @@ var moving: bool
 
 @export var member : int
 @export var player : Node2D
-@export var party : PartyData
 @export var distance : int
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 
@@ -22,21 +21,17 @@ func _physics_process(_delta: float) -> void:
 	if player==null:
 		OS.alert("WRONG SCENE IDIOT, THIS IS THE FOLLOWER SCENE!", "YOU STUPID")
 		get_tree().change_scene_to_file("res://scenes/Rooms/Debug.tscn")
-	if party.check_member(member):
+	if Global.Party.check_member(member):
 		show()
 		var oldposition=global_position
-		#speed = nav_agent.distance_to_target() * 4 - distance
-		#print(speed)
-		#print(nav_agent.distance_to_target())
+		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased or not Global.Controllable:
 			$CollisionShape2D.disabled = true
 		if nav_agent.distance_to_target() > 150:
 				global_position = player.global_position
-		if nav_agent.distance_to_target() > distance:
+		if round(nav_agent.distance_to_target()) > distance:
 			$CollisionShape2D.disabled = false
 			direction = to_local(nav_agent.get_next_path_position()).normalized()
-			#print(direction)
-			#if (player.realvelocity.x  * direction.x >= 0 and player.realvelocity.y * direction.y >= 0) or player.realvelocity != Vector2.ZERO:
 			if nav_agent.is_target_reachable():
 				move_and_slide()
 			velocity = speed * direction
@@ -46,6 +41,7 @@ func _physics_process(_delta: float) -> void:
 			else: 
 				$CollisionShape2D.disabled = false
 		elif nav_agent.distance_to_target() < 20:
+			add_collision_exception_with(Global.Player)
 			if player.direction != Vector2.ZERO:
 				#speed = 80
 				animate()
@@ -53,11 +49,12 @@ func _physics_process(_delta: float) -> void:
 				oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite
 			realvelocity = player.direction
-			$CollisionShape2D.disabled = true
 			move_and_slide()
-		if global_position.x-oldposition.x != 0 and global_position.y-oldposition.y != 0:
-			realvelocity=global_position-oldposition
+			#$CollisionShape2D.disabled = true
+		#print((global_position-oldposition).length())
+		if (global_position-oldposition).length() > 0.5:
 			moving =true
+			realvelocity=global_position-oldposition
 		else:
 			moving =false
 		
@@ -102,10 +99,10 @@ func animate():
 
 
 func _on_timer_timeout():
-	if party.check_member(member):
+	if Global.Party.check_member(member):
 		animate()
 	
 func member_info():
 	if member == 1:
-		return party.Member1
+		return Global.Party.Member1
 	

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
-[ext_resource type="FontFile" uid="uid://nvrncwkr1wgb" path="res://UI/cyrenia-regular.ttf" id="3_v0xlc"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="3_v0xlc"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_yps78"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="5_jx045"]
-[ext_resource type="FontFile" uid="uid://b2vln2etyafcs" path="res://UI/cyrenia-bold.ttf" id="5_pkyhf"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="5_pkyhf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)

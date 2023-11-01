@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/Erinn.tres" id="1_vkgex"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="1_vt7ec"]
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
-[ext_resource type="Texture2D" uid="uid://dhbno8wgnyhlo" path="res://art/Renders/Erinn.png" id="3_71qsx"]
+[ext_resource type="Texture2D" uid="uid://dfuq3a5bdug03" path="res://art/Renders/Erinn.png" id="3_71qsx"]
 [ext_resource type="Texture2D" uid="uid://cv3xqlnokrhfw" path="res://UI/Party/ErinnShadow.png" id="4_1tt4d"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_8ml7j"]
 
@@ -40,6 +40,9 @@ Offset = Vector2(0, 0)
 Shadow = false
 SoundSet = ExtResource("6_8ml7j")
 Disappear = false
+GlowDef = 0.0
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
 LastName = "Levenor"
 WeaponType = "Pole"
 Controllable = false

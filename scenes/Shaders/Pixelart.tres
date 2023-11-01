@@ -4,4 +4,3 @@
 
 [resource]
 shader = ExtResource("1_upu8h")
-shader_parameter/alpha = 20.0

@@ -345,9 +345,9 @@ modulate = Color(1, 1, 1, 0)
 light_mask = 0
 material = SubResource("ShaderMaterial_4ha3i")
 offset_left = -2.0
-offset_top = 2.0
+offset_top = -4.0
 offset_right = 1286.0
-offset_bottom = 799.0
+offset_bottom = 801.0
 color = Color(0, 0, 0, 1)
 
 [node name="Darken" type="ColorRect" parent="Fader"]

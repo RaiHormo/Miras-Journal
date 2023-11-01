@@ -119,7 +119,7 @@ func close():
 	$Base.play("Close")
 	stage = "inactive"
 	get_tree().paused = false
-	t.kill()
+	if t != null: t.kill()
 	t=create_tween()
 	Player.set_anim("Idle"+Global.get_dir_name())
 	t.set_ease(Tween.EASE_OUT)

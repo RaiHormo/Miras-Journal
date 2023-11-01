@@ -4,7 +4,7 @@ var Controllable : bool = true
 var Type
 var Audio = AudioStreamPlayer.new()
 var Sprite = Sprite2D.new()
-var Party:PartyData = load("res://database/Party/CurrentParty.tres")
+var Party:PartyData = PartyData.new()
 var HasPortrait = false
 var PortraitIMG : Texture
 var PortraitRedraw = true
@@ -32,9 +32,10 @@ func _ready():
 	add_child(Sprite)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	await ready_window()
+	init_party(load("res://database/Party/CurrentParty.tres"))
+	if OS.get_name() == "Linux": await ready_window()
+	else: await Event.wait(0.5)
 	init_settings()
-	init_party()
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window():
@@ -106,19 +107,21 @@ func _unhandled_input(event):
 		Loader.load_game()
 
 func fullscreen():
+	if Settings == null: await init_settings()
 	if get_window().mode != 3:
 			get_window().mode = Window.MODE_FULLSCREEN
 			await get_tree().create_timer(0.1).timeout
 			get_window().grab_focus()
 			Settings.Fullscreen = true
 	else:
-			get_window().mode = Window.MODE_WINDOWED
+		get_window().mode = Window.MODE_WINDOWED
+		if OS.get_name() == "Linux":
 			get_window().size = Vector2i(1280,800)
 			await get_tree().create_timer(0.03).timeout
-			get_window().position = DisplayServer.screen_get_size()/2 - Vector2i(1280,800)/2
+			get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
 			await get_tree().create_timer(0.15).timeout
 			get_window().grab_focus()
-			Settings.Fullscreen = false
+		Settings.Fullscreen = false
 	save_settings()
 
 func save_settings():
@@ -293,8 +296,8 @@ func reset_settings():
 func init_settings():
 	if not ResourceLoader.exists("user://Settings.tres"):
 		reset_settings()
-		await get_tree().create_timer(1).timeout
-	Settings = load("user://Settings.tres")
+		await get_tree().create_timer(0.5).timeout
+	Settings = preload("user://Settings.tres")
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
@@ -358,7 +361,7 @@ func get_affinity(attacker:Color) -> Affinity:
 	return aff
 
 func new_game():
-	init_party()
+	init_party(PartyData.new())
 	Event.Flags.clear()
 	Event.add_flag("Started")
 	Event.Day = 10
@@ -395,18 +398,21 @@ func new_game():
 	t.set_parallel()
 	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "size", Vector2(41, 33), 0.1)
 	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 5)
+	Global.Player.set_anim("GetUp")
+	await Global.Player.get_node("Base").animation_finished
 	Global.Player.set_anim("IdleUp")
 	Global.Player.get_node("Base/Shadow").show()
 	Global.Controllable = true
-	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 3)
 
-func init_party():
+func init_party(party:PartyData):
 	Members.clear()
 	for i in DirAccess.get_files_at("res://database/Party"):
-		var file = await Loader.load_res("res://database/Party/"+ i)
+		var file = load("res://database/Party/"+ i)
 		if file is Actor:
 			Members.push_front(file)
-	Party.set_to(Party)
+	#Party = PartyData.new()
+	Party.set_to(party)
 
 func find_member(Name: String):
 	for i in Members:

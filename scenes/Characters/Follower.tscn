@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://da22xhcxygcjl"]
+[gd_scene load_steps=8 format=3 uid="uid://da22xhcxygcjl"]
 
 [ext_resource type="Script" path="res://codings/FollowerMovement.gd" id="1_hsmgh"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_n50o6"]
-[ext_resource type="Resource" uid="uid://bdn2n0yxpvdbt" path="res://database/Party/CurrentParty.tres" id="2_vocos"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/sheets/AlcineOV1.tres" id="4_tsaay"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="5_15r76"]
 
@@ -10,11 +9,11 @@
 radius = 7.99264
 height = 17.9995
 
-[sub_resource type="Gradient" id="Gradient_s6doo"]
+[sub_resource type="Gradient" id="Gradient_mydrh"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2e8bj"]
-gradient = SubResource("Gradient_s6doo")
+gradient = SubResource("Gradient_mydrh")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -29,10 +28,11 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_hsmgh")
-party = ExtResource("2_vocos")
 distance = 25
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 25.0
+target_desired_distance = 25.0
 navigation_layers = 3
 debug_enabled = true
 debug_path_custom_color = Color(0.984314, 0.411765, 0.552941, 1)
