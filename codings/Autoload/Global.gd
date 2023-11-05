@@ -25,6 +25,9 @@ var Bt: Battle = null
 var CameraInd = 0
 var Tilemap:TileMap
 var Members: Array[Actor]
+var Lights:Array[Light2D] = []
+var Area
+signal lights_loaded
 
 func _ready():
 	StartTime=Time.get_unix_time_from_system()
@@ -36,6 +39,8 @@ func _ready():
 	if OS.get_name() == "Linux": await ready_window()
 	else: await Event.wait(0.5)
 	init_settings()
+	await nodes_of_type(Tilemap, "Light2D", Lights)
+	lights_loaded.emit()
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window():
@@ -129,7 +134,7 @@ func save_settings():
 
 func cancel():
 	return "ui_cancel"
-		
+
 func confirm():
 	return "ui_accept"
 
@@ -154,7 +159,7 @@ func ui_sound(string:String):
 
 func get_party():
 	return preload("res://database/Party/CurrentParty.tres")
-	
+
 func check_member(n):
 	return Party.check_member(n)
 	#Sprite.texture = preload("res://art/Placeholder.png")
@@ -203,7 +208,7 @@ func portrait(img, redraw=true):
 
 func portrait_clear():
 	HasPortrait=false
-	
+
 #Match profile
 func match_profile(named):
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):
@@ -222,7 +227,7 @@ func get_direction(v=PlayerDir):
 			return Vector2.DOWN
 		else:
 			return Vector2.UP
-	
+
 func get_dir_letter(d=PlayerDir):
 	if get_direction(d) == Vector2.RIGHT:
 		return "R"
@@ -246,19 +251,19 @@ func get_dir_name(d=PlayerDir):
 func toggle(boo):
 	if boo: return false
 	else: return true
-	
+
 func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
-	
+
 	target.position = r
 
 func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
-	
+
 	target.global_position = r
 
 func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
@@ -301,18 +306,18 @@ func init_settings():
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
-	
+
 func get_cam() -> Camera2D:
-	return get_tree().root.get_node("Area/Camera"+str(CameraInd))
+	return Area.get_node("Camera"+str(CameraInd))
 
 func quit():
-	if Loader.InBattle or Player == null or $"/root/Area" == null: get_tree().quit()
+	if Loader.InBattle or Player == null or Area == null: get_tree().quit()
 	Loader.icon_save()
 	await Loader.transition("L")
 	if get_node_or_null("/root/Options") != null:
 		await get_node("/root/Options").close()
-	if get_node_or_null("/root/Area/TileMap/OvPlayer/Body/MainMenu") != null:
-		await get_node("/root/Area/TileMap/OvPlayer/Body/MainMenu").close()
+	if Player.get_node_or_null("MainMenu") != null:
+		await Player.get_node("MainMenu").close()
 	await Loader.save()
 	get_tree().quit()
 
@@ -387,17 +392,17 @@ func new_game():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
-	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
-	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
-	get_tree().root.get_node("Area/TileMap/GetUp").show()
-	await get_tree().root.get_node("Area/TileMap/GetUp").pressed
+	t.tween_property(Tilemap.get_node("GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
+	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
+	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
+	Tilemap.get_node("GetUp").show()
+	await Tilemap.get_node("GetUp").pressed
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "size", Vector2(41, 33), 0.1)
-	t.tween_property(get_tree().root.get_node("Area/TileMap/GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
+	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 5)
 	Global.Player.set_anim("GetUp")
 	await Global.Player.get_node("Base").animation_finished
@@ -417,3 +422,9 @@ func init_party(party:PartyData):
 func find_member(Name: String):
 	for i in Members:
 		if i.FirstName == Name: return i
+
+func nodes_of_type(node: Node, className : String, result : Array) -> void:
+	if node.is_class(className):
+		if node != null and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
+	for child in node.get_children():
+		await nodes_of_type(child, className, result)

@@ -25,6 +25,10 @@ var coords:Vector2 = Vector2.ZERO
 @export var SpawnOnCameraInd = false
 @export var CameraIndex: int
 var stopping=false
+@export var Footsteps = true
+var LastStepFrame = -1
+##How many frames the character has been moving
+var move_frames =0
 
 func _ready():
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
@@ -82,6 +86,35 @@ func update_anim_prm():
 		#BodyState = IDLE
 		position = round(position)
 		$Sprite.play(str("Idle"+Global.get_dir_name(Facing)))
+	if Footsteps: handle_step_sounds($Sprite)
+
+func handle_step_sounds(sprite: AnimatedSprite2D):
+	if "Idle" in sprite.animation: LastStepFrame = -1
+	if get_node_or_null("StdrFootsteps") == null: return
+	if (("Walk" in sprite.animation and (sprite.frame == 0 or sprite.frame == 2)) or ("Dash" in sprite.animation and (sprite.frame == 0 or sprite.frame == 4))) and sprite.frame != LastStepFrame and move_frames>10:
+		LastStepFrame = sprite.frame
+		var rand
+		if sprite.frame == 0: rand = str(randi_range(1,3))
+		else: rand = str(randi_range(4,6))
+		if $StdrFootsteps.get_node_or_null(get_terrain() + str(rand)) == null: return
+		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
+
+
+func check_terrain(terrain:String, layer=1):
+	if get_tile(layer) != null:
+		if get_tile(layer).get_custom_data("TerrainType") == terrain:
+			return true
+	else: return false
+
+func get_terrain() -> String:
+	if get_tile(1) != null and get_tile(1).get_custom_data("TerrainType") != "":
+		return get_tile(1).get_custom_data("TerrainType")
+	elif get_tile(0) != null and get_tile(0).get_custom_data("TerrainType") != "":
+		return get_tile(0).get_custom_data("TerrainType")
+	else: return "Generic"
+
+func get_tile(layer:int):
+	return Global.Tilemap.get_cell_tile_data(layer, Global.Tilemap.local_to_map(global_position))
 
 func move_dir(dir:Vector2, exact=true, autostop = true):
 	await go_to(coords+(dir), exact, autostop)
@@ -101,7 +134,7 @@ func go_to(pos:Vector2,  exact=true, autostop = true):
 		direction = to_local(Nav.get_next_path_position()).normalized()
 		await Event.wait()
 		#print(not Global.Tilemap.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
-		if ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping: 
+		if ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping:
 			BodyState= IDLE
 			return
 	if Global.Tilemap.map_to_local(pos) != global_position and Global.Tilemap.local_to_map(global_position) == Vector2i(pos) and exact:

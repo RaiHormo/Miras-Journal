@@ -18,5 +18,5 @@ class_name SaveFile
 @export var BatInv: Array[ItemData]
 @export var MatInv: Array[ItemData]
 @export var Flags: Array[String]
-@export var Day: int 
+@export var Day: int
 var version = 1

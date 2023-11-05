@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/AttackMira.tres" id="6_pdf3s"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
-[ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Mira/MiraSfx.tscn" id="7_oiegd"]
+[ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="10_rljiu"]
 
 [resource]
 script = ExtResource("1_e1lg0")
@@ -45,7 +45,7 @@ OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
 Offset = Vector2(0, 0)
 Shadow = true
-SoundSet = ExtResource("7_oiegd")
+SoundSet = ExtResource("10_rljiu")
 Disappear = false
 GlowDef = 0.0
 GlowSpecial = 1.0

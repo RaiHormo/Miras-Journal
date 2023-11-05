@@ -34,11 +34,12 @@ buses/default_bus_layout="res://sound/bus.tres"
 [autoload]
 
 Global="*res://codings/Autoload/Global.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-Loader="*res://codings/Autoload/Loader.tscn"
-Item="*res://codings/Autoload/ItemManager.tscn"
+View="*res://codings/Autoload/Viewport.tscn"
 PartyUI="*res://codings/Autoload/PartyUI.tscn"
+Loader="*res://codings/Autoload/Loader.tscn"
 Event="*res://codings/Autoload/Event.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 
 [debug]
@@ -325,3 +326,4 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.0901961, 0.0901961, 0.0901961, 1)
 anti_aliasing/quality/msaa_2d=1
+2d/snap/snap_2d_transforms_to_pixel=true

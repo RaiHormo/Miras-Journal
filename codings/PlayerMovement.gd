@@ -7,8 +7,6 @@ class_name Mira
 ##Whether the dash is active
 var dashing = false
 var realvelocity : Vector2 = Vector2.ZERO
-##How many frames the player has been moving
-var move_frames =0
 ##When the player is supposed to be in a midair perspective
 var midair = false
 ##true is there is a wall in front of the player
@@ -25,6 +23,7 @@ func _ready():
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	Global.Tilemap = tilemap
+	Global.Area = tilemap.get_parent()
 	if tilemap == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
@@ -32,9 +31,9 @@ func _ready():
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
-	var cam :Camera2D = get_tree().root.get_node_or_null("Area/Camera"+str(Global.CameraInd))
+	var cam :Camera2D = Global.get_cam()
 	if cam !=null:
-		for i in get_tree().root.get_node("Area").get_children(): 
+		for i in Global.Area.get_children():
 			if "Camera" in i.name: i.enabled = false
 		$Camera2D.remote_path = cam.get_path()
 		cam.enabled = true
@@ -50,12 +49,12 @@ func extended_process():
 
 func control_process():
 	coords = tilemap.local_to_map(global_position)
-#	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)): 
+#	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 #	else:
 #		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
 	undashable = false
-	if is_on_wall(): 
+	if is_on_wall():
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
 			undashable = true
 	if Global.Controllable:
@@ -119,6 +118,7 @@ func control_process():
 
 
 func update_anim_prm():
+	if Footsteps: handle_step_sounds($Base)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
 		if abs(realvelocity.length())>10 and Global.Controllable:
@@ -177,7 +177,7 @@ func _check_party():
 		$Base/Bag.show()
 	else:
 		$Base/Bag.hide()
-		
+
 ##Sets the animation for all sprite layers
 func set_anim(anim:String):
 	$Base.play(anim)
@@ -193,7 +193,7 @@ func set_anim(anim:String):
 					await Event.wait()
 				$Flame.energy = 1.5
 				#t.tween_property($Flame, "energy", 1, 1)
-		else: 
+		else:
 			#if $Flame.energy == 1:
 			t.tween_property($Flame, "energy", 0, 0.1)
 			$Base/Flame.hide()
@@ -206,13 +206,6 @@ func bag_anim():
 	set_anim("OpenBag")
 	await $Base.animation_looped
 	set_anim("BagIdle")
-
-
-func check_terrain(terrain:String):
-	if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)) != null:
-		if tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("TerrainType") == terrain: 
-			return true
-	else: return false
 
 ##If the player dashes into a gap she will jump
 func check_for_jumps():
@@ -242,7 +235,7 @@ func stop_dash():
 	reset_speed()
 	var slide = true
 	for i in tilemap.get_layers_count():
-		if ((tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or 
+		if ((tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
 	if undashable and Global.get_direction()==dashdir and check_terrain(""):
@@ -252,7 +245,7 @@ func stop_dash():
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
 			await get_tree().create_timer(0.1).timeout
-		else: 
+		else:
 			BodyState = CUSTOM
 			speed = 75
 			while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":

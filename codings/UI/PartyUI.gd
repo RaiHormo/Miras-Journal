@@ -20,8 +20,8 @@ var MemberChoosing = false
 func _ready():
 	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
-	_check_party()
 	await get_tree().create_timer(0.00001).timeout
+	_check_party()
 	if not Loader.InBattle:
 		_on_shrink()
 		UIvisible = true
@@ -82,10 +82,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
 		Global.Controllable=false
 		get_tree().paused = true
-#		Loader.load_text("res://UI/MainMenu/MainMenu.tscn")
-#		await Loader.text_loaded
-#		get_parent().get_node("Body").add_child((ResourceLoader.load_threaded_get("res://UI/MainMenu/MainMenu.tscn").instantiate()))
-		Global.Player.add_child(MainMenu.instantiate())
+		get_tree().root.add_child(MainMenu.instantiate())
 	if Input.is_action_just_pressed("Debug"):
 		Loader.travel_to("Debug")
 	if Input.is_action_just_pressed("DebugT"):
@@ -118,6 +115,7 @@ func _on_expand(open_ui=0):
 	print(open_ui)
 	t.kill()
 	_check_party()
+	UIvisible = true
 	if open_ui == 0: WasPaused = false
 	else: WasPaused = get_tree().paused
 	get_tree().paused = true
@@ -169,7 +167,7 @@ func _on_expand(open_ui=0):
 	$CanvasLayer/Member1/Name.position = Vector2(81,14)
 	t.tween_property($CanvasLayer/Leader/Aura/AruaText, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Leader/Level, "position", Vector2(140,70), 0.4)
-	
+
 	#Member1
 	t.tween_property($CanvasLayer/Member1, "position", Vector2(0,189), 0.4)
 	t.tween_property($CanvasLayer/Member1, "scale", Vector2(1.5,1.5), 0.4)
@@ -190,9 +188,9 @@ func _on_expand(open_ui=0):
 	t.tween_property($CanvasLayer/Member1/Name, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Aura/AruaText, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Level, "position", Vector2(140,80), 0.4)
-	
+
 	#Menu
-	#if open_ui == 0: 
+	#if open_ui == 0:
 	Expanded = true
 	await t.finished
 	if open_ui != 2: $CanvasLayer/Cursor.show()
@@ -217,9 +215,9 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Page3, "position", Vector2(1366,44), 0.3)
 	t.tween_property($CanvasLayer/Page4, "position", Vector2(1366,44), 0.3)
 	t.tween_property($CanvasLayer/Page1/Render, "position", Vector2(179,44), 0.6)
-	
+
 	#Leader
-	
+
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
@@ -235,7 +233,7 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Leader/Level, "position", Vector2(90,64), 0.4)
 	t.tween_property($CanvasLayer/Leader/Health/HpText, "modulate", Color.TRANSPARENT, 0.4)
 	t.tween_property($CanvasLayer/Leader/Aura/AruaText, "modulate", Color.TRANSPARENT, 0.4)
-	
+
 	#Member1
 	t.tween_property($CanvasLayer/Member1, "scale", Vector2(1,1), 0.4)
 	t.tween_property($CanvasLayer/Member1/Icon, "scale", Vector2(0.05,0.05), 0.4)
@@ -251,7 +249,7 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Member1/Level, "position", Vector2(160,76), 0.4)
 	t.tween_property($CanvasLayer/Member1/Health/HpText, "modulate", Color.TRANSPARENT, 0.4)
 	t.tween_property($CanvasLayer/Member1/Aura/AruaText, "modulate", Color.TRANSPARENT, 0.4)
-	
+
 	t.tween_property($CanvasLayer/Leader, "position", Vector2(0,$CanvasLayer/Leader.position.y), 0.2)
 	Expanded = false
 	await t.finished
@@ -281,7 +279,7 @@ func handle_ui():
 			$Audio.play()
 		else:
 			Global.buzzer_sound()
-	
+
 func focus_now():
 	t.kill()
 	t = create_tween()
@@ -313,8 +311,8 @@ func focus_now():
 		t.tween_property($CanvasLayer/Page2,"position", Vector2(634, 44), 0.3)
 		t.tween_property($CanvasLayer/Page2/Render,"position", Vector2(280, 187), 0.5)
 		t.tween_property($CanvasLayer/Page1/Render/Shadow,"position", Vector2(0,0), 0.3)
-		
-	
+
+
 func battle_state():
 	if Loader.InBattle:
 		$CanvasLayer.show()
@@ -347,7 +345,7 @@ func battle_state():
 		$CanvasLayer/Member1/Name.modulate= Color(1, 1, 1, 1)
 		$CanvasLayer/Member1/Aura/AruaText.modulate= Color(1, 1, 1, 1)
 		$CanvasLayer/Member1/Level.position= Vector2(140,81)
-		
+
 		$CanvasLayer/Leader.scale = Vector2(1.25, 1.25)
 		$CanvasLayer/Member1.scale = Vector2(1.25, 1.25)
 		$CanvasLayer/Member1/ExpBar.hide()

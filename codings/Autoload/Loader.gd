@@ -17,13 +17,14 @@ var chased = false
 var Attacker: NPC
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array[NodePath]
-@onready var Preview = (await load_res("user://Autosave.tres")).Preview
+var Preview
 
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
+	if FileAccess.file_exists("user://Autosave.tres"): Preview = (await load_res("user://Autosave.tres")).Preview
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
@@ -94,15 +95,20 @@ func transition(dir=Global.get_dir_letter()):
 
 func done():
 	chased = false
-	get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
+	Global.Area.queue_free()
+	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
+	View.get_node("Screen").add_child(ResourceLoader.load_threaded_get(scene).instantiate())
 	await get_tree().create_timer(0.1).timeout
+	Global.Lights.clear()
+	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
+	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
 	Global.Player.look_to(Global.get_direction())
 	Global.Controllable = true
 	await detransition()
-	
+
 
 func detransition():
 	if direc == "none": return
@@ -157,7 +163,7 @@ func start_battle(stg):
 	#InBattle = true
 	if Attacker!=null: Attacker.hide()
 	Global.Player.get_parent().hide()
-	
+
 func end_battle():
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
@@ -273,7 +279,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Members = Global.Members.duplicate()
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
-	
+
 	data.KeyInv = Item.KeyInv.duplicate()
 	for i in data.KeyInv:
 		data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
@@ -281,7 +287,7 @@ func save(filename:String="Autosave", showicon=true):
 	for i in data.ConInv:
 		data.ConInv[data.ConInv.find(i)] = i.duplicate()
 	var room=PackedScene.new()
-	room.pack(get_tree().root.get_node_or_null("Area"))
+	room.pack(Global.Area)
 	data.Room = room
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (await load_res("user://Autosave.tres")).Preview
@@ -296,21 +302,21 @@ func load_game(filename:String="Autosave"):
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
-	Global.CameraInd = data.Camera  
-	
+	Global.CameraInd = data.Camera
+
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")
 	if data.Room == null:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	if get_tree().root.get_node_or_null("Area") != null:
-		get_tree().root.get_node_or_null("Area").get_tree().change_scene_to_packed(data.Room)
-	
+	if Global.Area != null:
+		Global.Area.get_tree().change_scene_to_packed(data.Room)
+
 	Item.KeyInv = data.KeyInv.duplicate()
 	Item.ConInv = data.ConInv.duplicate()
-	
+
 	Global.Members = data.Members
 	Global.Party.set_to(data.Party)
-	
+
 	await get_tree().create_timer(0.01).timeout
 	Global.Player.global_position = data.Position
 	Global.Controllable =true

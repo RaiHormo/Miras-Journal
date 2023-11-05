@@ -27,13 +27,13 @@ var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
 		is_waiting_for_input = false
 		$Balloon/Panel2/InputIndicator.hide()
-		
+
 		if not next_dialogue_line:
 			return
-		
-		
+
+
 		dialogue_line = next_dialogue_line
-			
+
 		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		#character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
@@ -46,8 +46,8 @@ var dialogue_line: DialogueLine:
 		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		
-		
+
+
 		dialogue_label.modulate.a = 0
 		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
 		dialogue_label.dialogue_line = dialogue_line
@@ -69,7 +69,7 @@ var dialogue_line: DialogueLine:
 					item.modulate.a = 0.4
 				item.text = response.text
 				item.show()
-				
+
 				responses_menu.add_child(item)
 				t.tween_property(responses_menu, "position", Vector2(832 ,318), 1).from(Vector2(2000, 318))
 		# Show our balloon
@@ -85,7 +85,7 @@ var dialogue_line: DialogueLine:
 #		else:
 #			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
 		will_hide_balloon = false
-		
+
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
@@ -114,10 +114,10 @@ func _ready() -> void:
 	Portrait.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
-	
+
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	Engine.get_singleton("DialogueManager").close.connect(_on_close)
- 
+
 
 
 ## Start some dialogue
@@ -163,18 +163,18 @@ func _on_mutated(_mutation: Dictionary) -> void:
 			will_hide_balloon = false
 
 			)
-	
-	
+
+
 
 
 
 func draw_portrait():
 	#await get_tree().create_timer(0.2).timeout
-	if Global.hasPortrait:
-		Portrait.texture = Global.portraitimg
+	if Global.HasPortrait:
+		Portrait.texture = Global.PortraitIMG
 		Global.portrait_clear()
 		Portrait.show()
-		if Global.portrait_redraw:
+		if Global.PortraitRedraw:
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
@@ -191,4 +191,4 @@ func draw_portrait():
 			#t.tween_property(Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
 		Portrait.hide()
-		
+

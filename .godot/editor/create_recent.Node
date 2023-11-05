@@ -1,3 +1,10 @@
+Camera2D
+AudioListener2D
+SubViewport
+SubViewportContainer
+Window
+CanvasGroup
+AudioStreamPlayer2D
 DirectionalLight2D
 NPC
 Sprite2D
@@ -16,7 +23,6 @@ Label
 Panel
 Node2D
 Node
-SubViewport
 ColorRect
 RichTextLabel
 MarginContainer
@@ -24,10 +30,3 @@ NavigationObstacle2D
 NavigationAgent2D
 WorldEnvironment
 VisibleOnScreenNotifier2D
-Marker2D
-HBoxContainer
-Camera2D
-RemoteTransform2D
-Button
-HSlider
-OptionButton

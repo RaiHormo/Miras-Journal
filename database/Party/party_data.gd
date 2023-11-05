@@ -11,7 +11,7 @@ func reset_party():
 	Member1 = null
 	Member2 = null
 	Member3 = null
-	
+
 func check_member(n):
 	if n == 1 and Member1 != null:
 		return true

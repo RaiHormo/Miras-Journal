@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://tw1kc2hybp1c"]
+
+[ext_resource type="AudioStream" uid="uid://c7aoplhdkj5oi" path="res://sound/SFX/Battle/Mira/Ability.ogg" id="1_a550i"]
+[ext_resource type="AudioStream" uid="uid://b2fdey2sr4k5a" path="res://sound/SFX/Battle/Mira/Attack2.ogg" id="2_8yylm"]
+[ext_resource type="AudioStream" uid="uid://4efiq3r3t53u" path="res://sound/SFX/Battle/Mira/Attack1.ogg" id="3_dp8qr"]
+[ext_resource type="AudioStream" uid="uid://f5ynh18bpdf4" path="res://sound/SFX/Battle/Mira/Scream.ogg" id="4_p65ng"]
+[ext_resource type="AudioStream" uid="uid://cgi1pgg42mkmr" path="res://sound/SFX/Battle/Mira/Entrance.ogg" id="5_oqoq6"]
+
+[node name="SFX" type="Node"]
+
+[node name="Ability" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_a550i")
+
+[node name="Attack2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8yylm")
+
+[node name="Attack1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_dp8qr")
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_p65ng")
+volume_db = -3.328
+
+[node name="Entrance" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_oqoq6")
+volume_db = -7.32

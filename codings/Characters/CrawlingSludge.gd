@@ -11,7 +11,7 @@ func default():
 
 
 func extended_process():
-	if self.get_path in Loader.Defeated: 
+	if self.get_path in Loader.Defeated:
 		hide()
 		$CatchArea/CollisionShape2D.disabled = true
 		return
@@ -21,7 +21,7 @@ func extended_process():
 
 func _on_finder_area_entered(area):
 	Nav.target_position = Global.Player.global_position
-	if not PinRange and not Loader.chased and Nav.is_target_reachable(): 
+	if not PinRange and not Loader.chased and Nav.is_target_reachable():
 		PinRange = true
 		await stop_going()
 		Loader.chase_mode()
@@ -30,7 +30,7 @@ func _on_finder_area_entered(area):
 		BodyState = IDLE
 		$Bubble.play("Surprise")
 		look_to(to_local(Global.Player.global_position))
-		await $Bubble.animation_finished 
+		await $Bubble.animation_finished
 		#go_to(Global.Player.coords)
 		var tmr:SceneTreeTimer = get_tree().create_timer(3)
 		while tmr.time_left != 0:

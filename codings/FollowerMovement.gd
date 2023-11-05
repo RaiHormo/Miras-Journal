@@ -38,7 +38,7 @@ func _physics_process(_delta: float) -> void:
 			speed = max(30, player.realvelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
-			else: 
+			else:
 				$CollisionShape2D.disabled = false
 		elif nav_agent.distance_to_target() < 20:
 			add_collision_exception_with(Global.Player)
@@ -57,17 +57,17 @@ func _physics_process(_delta: float) -> void:
 			realvelocity=global_position-oldposition
 		else:
 			moving =false
-		
+
 		makepath()
-		
-		
+
+
 	else:
 		hide()
 		$CollisionShape2D.disabled = true
 
 func makepath() -> void:
 	nav_agent.set_target_position(player.global_position)
-	
+
 
 func animate():
 	if $AnimatedSprite2D.sprite_frames != member_info().OV:
@@ -95,14 +95,14 @@ func animate():
 			$AnimatedSprite2D.play("WalkUp")
 		elif dir == Vector2.DOWN:
 			$AnimatedSprite2D.play("WalkDown")
-			
+
 
 
 func _on_timer_timeout():
 	if Global.Party.check_member(member):
 		animate()
-	
+
 func member_info():
 	if member == 1:
 		return Global.Party.Member1
-	
+

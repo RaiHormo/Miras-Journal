@@ -26,17 +26,17 @@ var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
 		is_waiting_for_input = false
 		$Balloon/Panel2/InputIndicator.hide()
-		
+
 		if not next_dialogue_line:
 			return
-		
+
 		# Remove any previous responses
 		for child in responses_menu.get_children():
 			responses_menu.remove_child(child)
 			child.queue_free()
-		
+
 		dialogue_line = next_dialogue_line
-			
+
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
@@ -49,8 +49,8 @@ var dialogue_line: DialogueLine:
 		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		
-		
+
+
 		dialogue_label.modulate.a = 0
 		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
 		dialogue_label.dialogue_line = dialogue_line
@@ -68,7 +68,7 @@ var dialogue_line: DialogueLine:
 					item.modulate.a = 0.4
 				item.text = response.text
 				item.show()
-				
+
 				responses_menu.add_child(item)
 				t = create_tween()
 				t.set_parallel(true)
@@ -90,7 +90,7 @@ var dialogue_line: DialogueLine:
 		else:
 			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
 		will_hide_balloon = false
-		
+
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
@@ -119,10 +119,10 @@ func _ready() -> void:
 	$Portrait.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
-	
+
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	Engine.get_singleton("DialogueManager").close.connect(_on_close)
- 
+
 
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -152,33 +152,33 @@ func next(next_id: String) -> void:
 # Set up keyboard movement and signals for the response menu
 func configure_menu() -> void:
 	balloon.focus_mode = Control.FOCUS_NONE
-	
+
 	var items = get_responses()
 	for i in items.size():
 		var item: Control = items[i]
-		
+
 		item.focus_mode = Control.FOCUS_ALL
-		
+
 		item.focus_neighbor_left = item.get_path()
 		item.focus_neighbor_right = item.get_path()
-		
+
 		if i == 0:
 			item.focus_neighbor_top = item.get_path()
 			item.focus_previous = item.get_path()
 		else:
 			item.focus_neighbor_top = items[i - 1].get_path()
 			item.focus_previous = items[i - 1].get_path()
-		
+
 		if i == items.size() - 1:
 			item.focus_neighbor_bottom = item.get_path()
 			item.focus_next = item.get_path()
 		else:
 			item.focus_neighbor_bottom = items[i + 1].get_path()
 			item.focus_next = items[i + 1].get_path()
-		
+
 		item.mouse_entered.connect(_on_response_mouse_entered.bind(item))
 		item.gui_input.connect(_on_response_gui_input.bind(item))
-	
+
 	items[0].grab_focus()
 
 
@@ -188,7 +188,7 @@ func get_responses() -> Array:
 	for child in responses_menu.get_children():
 		if "Disallowed" in child.name: continue
 		items.append(child)
-		
+
 	return items
 
 
@@ -196,7 +196,7 @@ func get_responses() -> Array:
 #	if not is_instance_valid(margin):
 #		call_deferred("handle_resize")
 #		return
-#		
+#
 #	balloon.custom_minimum_size.y = margin.size.y
 	# Force a resize on only the height
 #	balloon.size.y = 0
@@ -230,13 +230,13 @@ func _on_mutated(_mutation: Dictionary) -> void:
 			will_hide_balloon = false
 
 			)
-	
-	
+
+
 
 
 func _on_response_mouse_entered(item: Control) -> void:
 	if "Disallowed" in item.name: return
-	
+
 	item.grab_focus()
 
 
@@ -260,7 +260,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
-	# When there are no response options the balloon itself is the clickable thing	
+	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
@@ -296,4 +296,4 @@ func draw_portrait():
 			t.tween_property($Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
 		$Portrait.hide()
-		
+

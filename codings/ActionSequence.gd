@@ -74,7 +74,7 @@ func AttackMira():
 	Bt.return_cur()
 	Bt.anim("Idle")
 	Bt.end_turn()
-	
+
 func JumpAttack():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.focus_cam(target, 0.5, 30)

@@ -15,5 +15,5 @@ func _on_area_entered(area):
 func _on_preview_exited():
 	$Cursor.hide()
 
-func _on_preview_entered(): 
+func _on_preview_entered():
 	$Cursor.show()

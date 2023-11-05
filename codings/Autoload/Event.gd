@@ -13,7 +13,7 @@ func _ready():
 ##Character is added to the list of NPCS
 func add_char(b:NPC):
 	for i in List:
-		if i==null: 
+		if i==null:
 			List.append(i)
 			continue
 		if i.ID == b.ID:
@@ -25,7 +25,7 @@ func add_char(b:NPC):
 func npc(ID: String):
 	if List.is_empty(): return NPC.new()
 	for i in List:
-		if i==null: 
+		if i==null:
 			List.append(i)
 		elif i.ID == ID:
 			return i
@@ -63,7 +63,7 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
-	
+
 	target.global_position = r
 
 ##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low

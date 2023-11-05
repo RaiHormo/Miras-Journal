@@ -4,10 +4,10 @@ var rootIndex =1
 var t: Tween
 var prevRootIndex =1
 var zoom
-@onready var Player:Mira =get_parent()
+@onready var Player:Mira = Global.Player
 @onready var Cam:Camera2D = Global.get_cam()
 @onready var CamPrev:Camera2D = Global.get_cam().duplicate()
-@onready var Fader =get_parent().get_node("Fader")
+@onready var Fader = Global.Player.get_node("Fader")
 var PrevCtrl:Control = null
 var KeyInv :Array[ItemData]
 
@@ -16,6 +16,7 @@ func _ready():
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 	if not Item.HasBag or Item.KeyInv.is_empty():
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+		queue_free()
 		return
 	show()
 	Cam.limit_smoothed = true
@@ -33,7 +34,7 @@ func _ready():
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	Fader.show()
 	stage = "inactive"
-	zoom = Cam.zoom
+	zoom = View.scale
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -50,9 +51,9 @@ func _ready():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
 	t.tween_property(Cam, "position", Player.global_position + Vector2(0, (-11 + 	zoom.y)), 0.5)
-	t.tween_property(Cam, "zoom", Vector2(5, 5), 0.5)
+	t.tween_property($/root/View, "scale", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
-	
+
 	t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
 	get_inventory()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
@@ -73,7 +74,7 @@ func _ready():
 		#if not i.get_child(0).disabled:
 			t.tween_property(i.get_child(0), "size:x", 200, 0.5)
 			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
-	
+
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -103,14 +104,14 @@ func _input(event):
 					move_root()
 		"item":
 			pass
-			
+
 
 func _on_focus_changed(control:Control):
 	if stage == "item":
 		if PrevCtrl == control or control == null:
 			#Global.buzzer_sound()
 			pass
-		else: 
+		else:
 			Global.cursor_sound()
 			focus_item(control)
 	PrevCtrl = control
@@ -149,7 +150,7 @@ func close():
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
-	t.tween_property(Cam, "zoom", zoom, 0.3)
+	t.tween_property($/root/View, "scale", zoom, 0.3)
 	PartyUI.UIvisible = true
 	await t.finished
 	Player.z_index = 1
@@ -171,7 +172,7 @@ func move_root():
 			if $Rail/JournalFollow/JournalButton.disabled:
 				Global.buzzer_sound()
 				rootIndex = 1
-				move_root() 
+				move_root()
 				return
 			if prevRootIndex == 1:
 				t.set_trans(Tween.TRANS_BACK)
@@ -285,7 +286,7 @@ func _root():
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
 	await t.finished
 	if stage == "options": stage="root"
-	
+
 
 func _journal():
 	if stage == "inactive": return
@@ -344,7 +345,7 @@ func _item():
 	t.tween_property($Rail/ItemFollow/ItemButton, "position", Vector2(-500, -340), 0.3)
 	Global.confirm_sound()
 	await t.finished
-	
+
 
 
 func _quest():
@@ -375,7 +376,7 @@ func _options():
 	t.tween_property(Cam, "offset", Vector2(70 ,0), 0.5)
 	$Back.hide()
 	$Confirm.hide()
-	
+
 
 
 
@@ -413,14 +414,14 @@ func _on_back_button_down():
 			PartyUI.UIvisible = false
 			stage = "item"
 
-			
-		
+
+
 func get_inventory():
 	await Item.verify_inventory()
-	if Item.KeyInv.is_empty(): 
+	if Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.hide()
 		$Inventory/Margin/Scroller/Vbox/KeyLabel.hide()
-	if Item.ConInv.is_empty(): 
+	if Item.ConInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/Consumables.hide()
 		$Inventory/Margin/Scroller/Vbox/ConLabel.hide()
 	else:

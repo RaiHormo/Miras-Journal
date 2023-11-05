@@ -191,7 +191,7 @@ func textbox(file: String, title: String = "0", extra_game_states: Array = []) -
 #	Loader.load_thread("res://database/Text/" + file + ".dialogue")
 #	await Loader.thread_loaded
 	var balloon: Node = Textbox2.instantiate()
-	get_tree().current_scene.add_child(balloon)
+	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:

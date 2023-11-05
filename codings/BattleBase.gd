@@ -153,7 +153,7 @@ func position_sprites():
 		$Act/Actor2.position = Vector2(-45,35)
 		$Act/Actor3.show()
 		$Act/Actor3.position = Vector2(-45,70)
-	
+
 	if Troop.size() == 1:
 		$Act/Enemy0.show()
 		$Act/Enemy0.position = Vector2(66,0)
@@ -200,7 +200,7 @@ func entrance():
 	PartyUI.battle_state()
 	await get_tree().create_timer(0.7).timeout
 	next_turn.emit()
-	
+
 func entrance_anim(i):
 	$Act.get_node("Actor" + str(i)).play("Entrance")
 	play_sound("Entrance", PartyArray[i])
@@ -223,7 +223,7 @@ func _on_next_turn():
 		return
 	print("-------------------------------------------------")
 	print("Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
-	initial = CurrentChar.node.position 
+	initial = CurrentChar.node.position
 	if CurrentChar.has_state("Knocked Out"):
 		if CurrentChar.IsEnemy:
 			Troop.erase(CurrentChar)
@@ -281,7 +281,7 @@ func _input(event):
 
 func _on_battle_ui_ability():
 	if CurrentChar.node == null: return
-	if $BattleUI.PrevStage == "root": 
+	if $BattleUI.PrevStage == "root":
 		play_sound("Ability", CurrentChar)
 		anim("Ability")
 		await CurrentChar.node.animation_finished
@@ -321,7 +321,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 		return
 	if ab.Target == 1:
 		if tar.has_state("Knocked Out"):
-				var i = -1 
+				var i = -1
 				var oldtar = CurrentTarget.FirstName
 				while CurrentTarget.FirstName == oldtar or CurrentTarget.has_state("Knocked Out") or CurrentTarget.node == null:
 					i += 1
@@ -336,7 +336,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 		if tar.IsEnemy:
 			$BattleUI.emit_signal("targetFoc", tar)
 	elif ab.Target == 0:
-		if CurrentChar.IsEnemy: 
+		if CurrentChar.IsEnemy:
 			$BattleUI.emit_signal("targetFoc", CurrentChar)
 	if CurrentChar.IsEnemy:
 		$BattleUI.emit_signal("targetFoc", CurrentChar)
@@ -363,19 +363,19 @@ func jump_to_target(character, tar, offset, time):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, target, character.node), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
-	
+
 func return_cur(target:Actor = CurrentChar):
 	var tc= create_tween()
 	tc.set_trans(Tween.TRANS_QUAD)
 	tc.set_ease(Tween.EASE_OUT)
 	tc.tween_property(target.node, "position", initial, 0.2)
-	
+
 func end_turn():
 	await get_tree().create_timer(0.3).timeout
 	if CurrentChar.node != null:
 		CurrentChar.node.z_index = 0
 	next_turn.emit()
-	
+
 func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:bool=true, limiter:bool=false):
 	take_dmg.emit()
 	var el_mod: float = 1
@@ -410,7 +410,7 @@ func hit_animation(tar):
 	anim("Hit", tar)
 	await tar.node.animation_finished
 	anim("Idle", tar)
-	
+
 
 func screen_shake(amount:float, times:float, ShakeDuration:float):
 	t = create_tween()
@@ -437,7 +437,7 @@ func calc_num():
 			return 32
 		4:
 			return 48
-	
+
 func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
 	var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 	$Act.add_child(ef)
@@ -445,7 +445,7 @@ func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
 	ef.play(stri)
 	await ef.animation_finished
 	ef.queue_free()
-	
+
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
 	if CurrentAbility != null and CurrentAbility.Target == 0:
@@ -454,7 +454,7 @@ func offsetize(num, target=CurrentChar):
 		return -num
 	else:
 		return num
-		
+
 
 func pop_num(target:Actor, text):
 		var number = target.node.get_node("Nums").duplicate()
@@ -476,7 +476,7 @@ func pop_num(target:Actor, text):
 func play_sound(SoundName: String, act: Actor):
 	if act.node.get_node("SFX").has_node(SoundName):
 		act.node.get_node("SFX").get_node(SoundName).play()
-		
+
 func stop_sound(SoundName: String, act: Actor):
 	if act.node.get_node("SFX").has_node(SoundName):
 		act.node.get_node("SFX").get_node(SoundName).stop()
@@ -606,9 +606,9 @@ func victory():
 	Loader.battle_bars(1)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
-	if Global.Player != null: 
+	if Global.Player != null:
 		Global.Player.global_position = $Act/Actor0.global_position
-		if Party.check_member(1): 
+		if Party.check_member(1):
 			Global.Player.get_parent().get_node("Follower1").global_position = $Act/Actor1.global_position
 		Global.get_cam().global_position = Global.Player.global_position
 
@@ -643,7 +643,7 @@ func miss(target:Actor = CurrentTarget):
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(target.node, "position:x", target.node.position.x - offsetize(30), 0.3)
-	
+
 
 
 func _on_battle_ui_command():

@@ -37,7 +37,7 @@ func _process(delta):
 			t.tween_property($Button, "position", Vector2(-33-int((Length - 120)/10),-35), 0.1).from(Vector2(-19,-35))
 			await get_tree().create_timer(0.1).timeout
 			CanInteract = true
-		
+
 	elif $Button != null:
 		#Disappear
 		if $Button.visible:
@@ -53,7 +53,7 @@ func _process(delta):
 			$Button.hide()
 			$Arrow.hide()
 			CanInteract = false
-		
+
 func CheckInput():
 	#Clicked
 	if Input.is_action_just_pressed("ui_accept") and CanInteract:

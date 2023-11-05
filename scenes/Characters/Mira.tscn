@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=137 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -6,9 +6,11 @@
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_qf6k3"]
 [ext_resource type="Texture2D" uid="uid://lgbejsagsjik" path="res://art/sheets/axeAxe.png" id="4_r1qq4"]
 [ext_resource type="Texture2D" uid="uid://cp3tfsrympduk" path="res://art/OV/Mira/BagDash.png" id="5_07nn0"]
-[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="6_xyod4"]
 [ext_resource type="Texture2D" uid="uid://b8aiagab31eok" path="res://art/sheets/flameFlame.png" id="8_awiv6"]
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="9_1utjp"]
+[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_7rao0"]
+[ext_resource type="Script" path="res://codings/Shadow.gd" id="9_ktblf"]
+[ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="10_s8qxo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwtxo"]
 atlas = ExtResource("3_b3y6v")
@@ -3201,28 +3203,25 @@ fill = 1
 fill_from = Vector2(0.487179, 0.495726)
 fill_to = Vector2(0.782051, 0.876068)
 
-[node name="Body" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
+[node name="Body" type="CharacterBody2D"]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-texture_filter = 2
-material = ExtResource("2_lltpm")
+texture_filter = 1
 position = Vector2(0, -5)
 collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_503pd")
 speed = 70
-Nav = NodePath("Nav")
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 3
-texture_filter = 2
-material = ExtResource("2_lltpm")
+texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"GetUp"
+animation = &"IdleDown"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -3272,13 +3271,22 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
-[node name="Shadow" type="Sprite2D" parent="Base"]
-modulate = Color(1, 1, 1, 0.745098)
+[node name="Shadow" type="CanvasGroup" parent="Base"]
+modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 light_mask = 3
-use_parent_material = true
-position = Vector2(0, 10)
-texture = ExtResource("6_xyod4")
+texture_filter = 1
+position = Vector2(0, 15)
+script = ExtResource("9_ktblf")
+SampleParent = 1
+
+[node name="Circle" type="Sprite2D" parent="Base/Shadow"]
+modulate = Color(0, 0, 0, 0.509804)
+show_behind_parent = true
+light_mask = 3
+texture_filter = 1
+texture = ExtResource("9_7rao0")
+offset = Vector2(0, -15)
 
 [node name="Flame" type="AnimatedSprite2D" parent="Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
@@ -3286,8 +3294,6 @@ visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
-
-[node name="Shadow1" type="Sprite2D" parent="Base"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
@@ -3320,7 +3326,13 @@ debug_color = Color(1, 0.486275, 0.0235294, 0.552941)
 path_max_distance = 20.0
 
 [node name="Flame" type="PointLight2D" parent="."]
+texture_filter = 2
 color = Color(0.905882, 0.411765, 0, 1)
 energy = 0.0
 texture = SubResource("GradientTexture2D_2e8bj")
 texture_scale = 3.0
+
+[node name="StdrFootsteps" parent="." instance=ExtResource("10_s8qxo")]
+
+[node name="Ear" type="AudioListener2D" parent="."]
+current = true

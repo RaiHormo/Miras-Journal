@@ -20,7 +20,6 @@ func all_enemy_ui():
 	$EnemyFocus.hide()
 	if Troop.size() != 0:
 		$Enemy0.show()
-		Troop = get_parent().Troop
 		make_box(Troop[0], $Enemy0)
 		t.tween_property($Enemy0, "position", Vector2(1055, 25), 0.2)
 	if Troop.size() >1:
@@ -109,7 +108,7 @@ func colapse_root():
 		t.tween_property($Enemy1, "position", Vector2(300, 0), 0.4).as_relative()
 		if Troop.size()>2:
 			t.tween_property($Enemy2, "position", Vector2(300, 0), 0.3).as_relative()
-	
+
 #func _process(delta):
 #	if get_parent().Action:
 #		_check_party()

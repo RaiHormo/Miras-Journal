@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5xih1ic13bkc"]
+
+[ext_resource type="Script" path="res://codings/Autoload/Viewport.gd" id="1_cp1ee"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_p3r0t"]
+
+[node name="Viewport" type="SubViewportContainer"]
+texture_filter = 1
+material = ExtResource("1_p3r0t")
+offset_left = 480.0
+offset_top = 300.0
+offset_right = 800.0
+offset_bottom = 500.0
+scale = Vector2(4, 4)
+pivot_offset = Vector2(160, 100)
+script = ExtResource("1_cp1ee")
+
+[node name="Screen" type="SubViewport" parent="."]
+disable_3d = true
+handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(320, 200)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(160.5, 100.75)
+scale = Vector2(0.25, 0.25)
+position_smoothing_enabled = true

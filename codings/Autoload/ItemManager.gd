@@ -19,7 +19,7 @@ func get_animation(icon, named):
 	$Can/Panel/Con/Label.text = named
 	$Can/Panel/Icon.texture = icon
 	await get_tree().create_timer(0.1).timeout
-	t = create_tween() 
+	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -28,7 +28,7 @@ func get_animation(icon, named):
 	panel.show()
 	$Can/Panel.size.x = $Can/Panel/Con.size.x + 30
 	await get_tree().create_timer(1).timeout
-	t = create_tween() 
+	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
@@ -90,12 +90,12 @@ func use(iteme:ItemData):
 	$ItemEffect.use(iteme)
 
 func get_item(iteme, type:String):
-	var ritem = null 
+	var ritem = null
 	if iteme is String:
 		for i in get_inv(type):
 			if iteme == i.filename:
 				ritem = i
-		if ritem == null: 
+		if ritem == null:
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme + ".tres")
 			ritem.filename = iteme
 	elif iteme is ItemData:
@@ -104,7 +104,7 @@ func get_item(iteme, type:String):
 		for i in get_inv(type):
 			if iteme.filename == i.filename:
 				ritem = i
-		if ritem == null: 
+		if ritem == null:
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme.filename + ".tres")
 			ritem.filename = iteme
 	else: OS.alert("That's not a valid item name")

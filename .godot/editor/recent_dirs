@@ -1,4 +1,8 @@
 res://art/OV/Mira
+res://codings/Autoload
+res://scenes/Shaders
+res://codings
+res://sound/SFX/Battle/Mira
 res://codings/Interactions
 res://art/BT/Mira
 U:/Documents/Miras-Journal/codings/Autoload
@@ -10,13 +14,9 @@ res://
 res://scenes
 res://database/Abilities
 res://codings/UI
-res://codings
 res://database/Party
 res://art/BT/Alcine
 res://database/Abilities/
 res://UI
-res://codings/Autoload
-res://scenes/Shaders
 res://codings/Characters
 res://art/Effects
-res://UI/Party

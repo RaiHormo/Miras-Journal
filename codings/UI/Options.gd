@@ -58,8 +58,8 @@ func _on_back_pressed():
 
 func close():
 	if Global.Player != null:
-		if Global.Player.get_node("MainMenu").visible:
-			Global.Player.get_node("MainMenu")._on_back_button_down()
+		if $/root.get_node_or_null("MainMenu") != null:
+			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
 			get_tree().paused = false
 			Global.Controllable = true
@@ -110,7 +110,7 @@ func game_settings():
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
 	$SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.grab_focus()
 	Global.confirm_sound()
-	
+
 func _on_focus_changed(control:Control):
 	Global.cursor_sound()
 	focus = control
