@@ -26,7 +26,7 @@ var CameraInd = 0
 var Tilemap:TileMap
 var Members: Array[Actor]
 var Lights:Array[Light2D] = []
-var Area
+var Area: Room
 signal lights_loaded
 
 func _ready():
@@ -308,7 +308,8 @@ func init_settings():
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 
 func get_cam() -> Camera2D:
-	return Area.get_node("Camera"+str(CameraInd))
+	return View.get_node("Camera")
+	#return Area.get_node("Camera"+str(CameraInd))
 
 func quit():
 	if Loader.InBattle or Player == null or Area == null: get_tree().quit()

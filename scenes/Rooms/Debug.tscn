@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
 [ext_resource type="Texture2D" uid="uid://b6xr1r1yiws1m" path="res://art/Tilesets/Inside_A5.png" id="2_wvly8"]
 [ext_resource type="Texture2D" uid="uid://3bhtg8c7bss5" path="res://art/Tilesets/Inside_B.png" id="3_bqpa3"]
-[ext_resource type="PackedScene" uid="uid://dwonvv3urrk1i" path="res://scenes/OvPlayer.tscn" id="4_s7c74"]
 [ext_resource type="Script" path="res://codings/Interactions/Lamp.gd" id="5_1wqrx"]
+[ext_resource type="Script" path="res://codings/room_class.gd" id="5_iiwcs"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://scenes/Interactable.tscn" id="5_pijc2"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_hyspg"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_1j4ra"]
@@ -533,13 +533,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-116.689, -92.1343, -11
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
 radius = 7.0
 
-[node name="Area" type="Node2D"]
-process_mode = 1
-z_as_relative = false
-material = ExtResource("1_g5xrf")
-position = Vector2(-1, 0)
-
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap"]
 z_as_relative = false
 y_sort_enabled = true
 texture_filter = 2
@@ -564,11 +558,9 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = -1
 layer_2/tile_data = PackedInt32Array()
+script = ExtResource("5_iiwcs")
 
-[node name="OvPlayer" parent="TileMap" instance=ExtResource("4_s7c74")]
-y_sort_enabled = true
-
-[node name="PointLight2D" type="PointLight2D" parent="TileMap"]
+[node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(58.9894, -34.8328)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.490196, 0.184314, 1)
@@ -577,10 +569,9 @@ shadow_enabled = true
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_tk2xs")
-height = 100.0
 script = ExtResource("5_1wqrx")
 
-[node name="GloabalLight" type="PointLight2D" parent="TileMap"]
+[node name="GloabalLight" type="PointLight2D" parent="."]
 position = Vector2(41, -112)
 scale = Vector2(9.20552, 8.5205)
 color = Color(0.388235, 0.419608, 0.431373, 1)
@@ -590,29 +581,21 @@ shadow_color = Color(0, 0, 0, 0.905882)
 texture = SubResource("GradientTexture2D_scwbs")
 script = ExtResource("5_1wqrx")
 
-[node name="Lamp" parent="TileMap" instance=ExtResource("5_pijc2")]
+[node name="Lamp" parent="." instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(59.7305, -36.4454)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
 Length = 160
 
-[node name="NewGame" parent="TileMap" instance=ExtResource("5_pijc2")]
-z_index = 9
-position = Vector2(-39, -64)
-LabelText = "New Game"
-ActionType = "global"
-Length = 140
-file = "new_game"
-
-[node name="Bush" parent="TileMap" instance=ExtResource("5_pijc2")]
+[node name="Bush" parent="." instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(60.2736, 36.5526)
 ActionType = "text"
 file = "testbush"
 title = "bush"
 
-[node name="FastTravel" parent="TileMap" instance=ExtResource("5_pijc2")]
+[node name="FastTravel" parent="." instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(11.5979, -54.0878)
 LabelText = "Fast Travel"
@@ -621,12 +604,12 @@ Length = 150
 file = "testbush"
 title = "travel"
 
-[node name="Axe" type="Sprite2D" parent="TileMap"]
+[node name="Axe" type="Sprite2D" parent="."]
 use_parent_material = true
 position = Vector2(-41.8575, 19.312)
 texture = SubResource("AtlasTexture_gtdj1")
 
-[node name="PickUp" parent="TileMap/Axe" instance=ExtResource("5_pijc2")]
+[node name="PickUp" parent="Axe" instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
@@ -639,17 +622,17 @@ item = "LightweightAxe"
 hidesprite = true
 itemtype = "Key"
 
-[node name="Body" type="StaticBody2D" parent="TileMap/Axe"]
+[node name="Body" type="StaticBody2D" parent="Axe"]
 
-[node name="Collision" type="CollisionShape2D" parent="TileMap/Axe/Body"]
+[node name="Collision" type="CollisionShape2D" parent="Axe/Body"]
 z_index = 1
 position = Vector2(0.00749207, 0.51857)
 shape = SubResource("RectangleShape2D_72f6p")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap/Axe"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Axe"]
 navigation_polygon = SubResource("NavigationPolygon_n2ngs")
 
-[node name="Dummy" type="Sprite2D" parent="TileMap"]
+[node name="Dummy" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
@@ -657,7 +640,7 @@ position = Vector2(-69.6739, 65.6324)
 texture = ExtResource("9_1j4ra")
 offset = Vector2(2.05523, -14.1279)
 
-[node name="Fight" parent="TileMap/Dummy" instance=ExtResource("5_pijc2")]
+[node name="Fight" parent="Dummy" instance=ExtResource("5_pijc2")]
 z_index = 9
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
@@ -665,38 +648,37 @@ ActionType = "battle"
 Length = 100
 file = "DebugDummy"
 
-[node name="Body" type="StaticBody2D" parent="TileMap/Dummy"]
+[node name="Body" type="StaticBody2D" parent="Dummy"]
 
-[node name="Collision" type="CollisionShape2D" parent="TileMap/Dummy/Body"]
+[node name="Collision" type="CollisionShape2D" parent="Dummy/Body"]
 z_index = 1
 position = Vector2(-1.81813, 2.90147)
 shape = SubResource("RectangleShape2D_72f6p")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_6ku2x")
 
-[node name="NPC" type="CharacterBody2D" parent="TileMap" node_paths=PackedStringArray("Nav")]
+[node name="NPC" type="CharacterBody2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
 position = Vector2(1.52081, 69.9906)
 motion_mode = 1
 script = ExtResource("10_wjvb0")
-Nav = NodePath("Nav")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="TileMap/NPC"]
+[node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
 use_parent_material = true
 position = Vector2(0.0552656, 0.0200653)
 sprite_frames = ExtResource("11_56r5q")
 animation = &"IdleDown"
 offset = Vector2(-0.0924684, -5.01993)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPC"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
 position = Vector2(0.014881, 1.99995)
 shape = SubResource("CircleShape2D_vnvbs")
 
-[node name="Nav" type="NavigationAgent2D" parent="TileMap/NPC"]
+[node name="Nav" type="NavigationAgent2D" parent="NPC"]
 target_desired_distance = 1.0
 path_postprocessing = 1
 
@@ -705,17 +687,17 @@ material = ExtResource("1_g5xrf")
 position = Vector2(-39, -72)
 texture = ExtResource("12_d384d")
 
-[node name="Camera0" type="Camera2D" parent="."]
-process_mode = 3
-offset = Vector2(4, 4)
-limit_left = -200
-limit_top = -140
-limit_right = 180
-limit_bottom = 140
+[node name="NewGame" parent="Harold" instance=ExtResource("5_pijc2")]
+z_index = 9
+position = Vector2(0, 8)
+LabelText = "New Game"
+ActionType = "global"
+Length = 140
+file = "new_game"
 
-[connection signal="action" from="TileMap/Lamp" to="TileMap/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="TileMap/NewGame" to="TileMap/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="TileMap/Bush" to="TileMap/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="TileMap/FastTravel" to="TileMap/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="TileMap/Axe/PickUp" to="TileMap/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="TileMap/Dummy/Fight" to="TileMap/PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="Lamp" to="PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="Bush" to="PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="FastTravel" to="PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="Axe/PickUp" to="PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="Dummy/Fight" to="PointLight2D" method="_on_interactable_action"]
+[connection signal="action" from="Harold/NewGame" to="PointLight2D" method="_on_interactable_action"]

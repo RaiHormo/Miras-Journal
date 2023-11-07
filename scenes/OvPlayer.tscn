@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwonvv3urrk1i"]
+[gd_scene load_steps=3 format=3 uid="uid://dwonvv3urrk1i"]
 
 [ext_resource type="PackedScene" uid="uid://da22xhcxygcjl" path="res://scenes/Characters/Follower.tscn" id="1_eght0"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="4_e1n04"]
 [ext_resource type="PackedScene" uid="uid://sql6r7jv7fjq" path="res://scenes/Characters/Mira.tscn" id="4_pg2wh"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8onko"]
-shader = ExtResource("4_e1n04")
-shader_parameter/lod = 1.0
 
 [node name="OvPlayer" type="Node2D"]
 
@@ -18,23 +13,4 @@ player = NodePath("../Body")
 distance = 30
 
 [node name="Body" parent="." instance=ExtResource("4_pg2wh")]
-process_mode = 3
 speed = 75
-
-[node name="Fader" type="ColorRect" parent="Body"]
-visible = false
-light_mask = 0
-material = SubResource("ShaderMaterial_8onko")
-offset_left = -302.0
-offset_top = -232.0
-offset_right = 287.0
-offset_bottom = 239.0
-color = Color(0, 0, 0, 1)
-
-[node name="Darken" type="ColorRect" parent="Body/Fader"]
-layout_mode = 0
-offset_right = 617.0
-offset_bottom = 467.0
-color = Color(0, 0, 0, 1)
-
-[node name="Camera2D" type="RemoteTransform2D" parent="Body"]

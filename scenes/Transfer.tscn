@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccm0r6n0e8q8e"]
 
-[ext_resource type="Script" path="res://scenes/Rooms/TransferPoint.gd" id="1_8x11e"]
+[ext_resource type="Script" path="res://codings/TransferPoint.gd" id="1_6swgh"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="2_as2d5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr85b"]
@@ -13,7 +13,7 @@ size = Vector2(39, 85)
 position = Vector2(766.116, 508.825)
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("1_8x11e")
+script = ExtResource("1_6swgh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.116028, 0.174988)

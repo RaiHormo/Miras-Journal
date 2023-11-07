@@ -20,7 +20,7 @@ var RealVelocity = Vector2.ZERO
 var coords:Vector2 = Vector2.ZERO
 ##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
 @export var ID: String
-@export var DefaultPos = Vector2.ZERO
+var DefaultPos = Vector2.ZERO
 @export var Nav:NavigationAgent2D
 @export var SpawnOnCameraInd = false
 @export var CameraIndex: int
@@ -34,6 +34,7 @@ func _ready():
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
 	if self.get_path() in Loader.Defeated: queue_free()
 	#motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	await Event.wait()
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	DefaultPos = Global.Tilemap.local_to_map(global_position)
 	Event.add_char(self)
@@ -56,7 +57,7 @@ func _physics_process(delta):
 		return
 	extended_process()
 	if self.get_path() in Loader.Defeated: queue_free()
-	coords = Global.Tilemap.local_to_map(global_position)
+	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 	match BodyState:
 		MOVE, CHASE:
 			velocity = direction * speed

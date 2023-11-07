@@ -14,47 +14,58 @@ signal action()
 const Textbox = DialogueManager.Textbox2
 var CanInteract = false
 var t:Tween
+@onready var button:Button
+@onready var arrow:TextureRect
+@onready var pack = $Pack.duplicate()
 
 
 func _process(delta):
+	if pack == null:
+		pack = $Pack.duplicate()
 	if has_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
-		if not $Button.visible:
-			$Button.text = LabelText
-			$Button.icon = Global.get_controller().ConfirmIcon
+		if not pack in get_tree().root.get_children():
+			$/root.add_child(pack)
+			button = pack.get_node("Button")
+			arrow = pack.get_node("Arrow")
+
+			pack.position = $Pack.global_position
+			pack.show()
+			button.text = LabelText
+			button.icon = Global.get_controller().ConfirmIcon
 			t = create_tween()
-			$Button.modulate = Color.TRANSPARENT
-			$Arrow.modulate = Color.TRANSPARENT
-			$Button.show()
-			$Arrow.show()
+			button.modulate = Color.TRANSPARENT
+			arrow.modulate = Color.TRANSPARENT
+			button.show()
+			arrow.show()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Button, "modulate", Color(1,1,1,1), 0.05)
-			t.tween_property($Arrow, "modulate", Color(1,1,1,1), 0.1)
-			t.tween_property($Button, "size", Vector2(Length,33), 0.1).from(Vector2(41, 33))
-			t.tween_property($Button, "position", Vector2(-33-int((Length - 120)/10),-35), 0.1).from(Vector2(-19,-35))
+			t.tween_property(button, "modulate", Color(1,1,1,1), 0.05)
+			t.tween_property(arrow, "modulate", Color(1,1,1,1), 0.1)
+			t.tween_property(button, "size", Vector2(Length,33), 0.1).from(Vector2(41, 33))
+			t.tween_property(button, "position", Vector2(-44-int((Length - 120)/10),-47), 0.1).from(Vector2(-5,-47))
 			await get_tree().create_timer(0.1).timeout
 			CanInteract = true
 
-	elif $Button != null:
+	elif button != null:
 		#Disappear
-		if $Button.visible:
+		if button.visible:
 			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_LINEAR)
-			t.tween_property($Button, "modulate", Color(0,0,0,0), 0.1)
-			t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.1)
-			t.tween_property($Button, "size", Vector2(41,33), 0.1)
-			t.tween_property($Button, "position", Vector2(-19,-35), 0.1)
+			t.tween_property(button, "modulate", Color(0,0,0,0), 0.1)
+			t.tween_property(arrow, "modulate", Color(0,0,0,0), 0.1)
+			t.tween_property(button, "size", Vector2(41,33), 0.1)
+			t.tween_property(button, "position", Vector2(-5,-47), 0.1)
 			await get_tree().create_timer(0.2).timeout
-			$Button.hide()
-			$Arrow.hide()
+			if pack in get_tree().root.get_children(): pack.queue_free()
 			CanInteract = false
 
 func CheckInput():
+	print($Pack.global_position)
 	#Clicked
 	if Input.is_action_just_pressed("ui_accept") and CanInteract:
 		_on_button_pressed()
@@ -64,7 +75,7 @@ func _on_button_pressed():
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_LINEAR)
-	t.tween_property($Button, "scale", Vector2(0.311,0.311), 0.1).from(Vector2(0.269,0.269))
+	t.tween_property(button, "scale", Vector2(0.311,0.311), 0.1).from(Vector2(0.269,0.269))
 	await t.finished
 	match ActionType:
 		"toggle":

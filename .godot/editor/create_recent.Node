@@ -1,7 +1,10 @@
+GridMap
+SubViewportContainer
+SubViewport
+Control
+Room
 Camera2D
 AudioListener2D
-SubViewport
-SubViewportContainer
 Window
 CanvasGroup
 AudioStreamPlayer2D
@@ -18,7 +21,6 @@ Area2D
 PointLight2D
 AnimatedSprite2D
 TextureRect
-Control
 Label
 Panel
 Node2D
@@ -29,4 +31,3 @@ MarginContainer
 NavigationObstacle2D
 NavigationAgent2D
 WorldEnvironment
-VisibleOnScreenNotifier2D

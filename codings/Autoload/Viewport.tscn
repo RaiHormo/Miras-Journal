@@ -1,27 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://c5xih1ic13bkc"]
 
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1rx44"]
 [ext_resource type="Script" path="res://codings/Autoload/Viewport.gd" id="1_cp1ee"]
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_p3r0t"]
 
 [node name="Viewport" type="SubViewportContainer"]
-texture_filter = 1
-material = ExtResource("1_p3r0t")
-offset_left = 480.0
-offset_top = 300.0
-offset_right = 800.0
-offset_bottom = 500.0
-scale = Vector2(4, 4)
-pivot_offset = Vector2(160, 100)
+texture_filter = 2
+material = ExtResource("1_1rx44")
+offset_right = 1280.0
+offset_bottom = 800.0
+pivot_offset = Vector2(640, 400)
 script = ExtResource("1_cp1ee")
+metadata/_edit_use_anchors_ = true
 
 [node name="Screen" type="SubViewport" parent="."]
 disable_3d = true
 handle_input_locally = false
 audio_listener_enable_2d = true
-size = Vector2i(320, 200)
+size = Vector2i(1280, 800)
 render_target_update_mode = 4
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(160.5, 100.75)
-scale = Vector2(0.25, 0.25)
-position_smoothing_enabled = true
+position = Vector2(160, 100)
+zoom = Vector2(4, 4)
+limit_smoothed = true

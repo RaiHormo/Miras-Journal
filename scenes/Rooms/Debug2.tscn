@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://rlt4w1o6y5tg"]
+
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_0h048"]
+[ext_resource type="PackedScene" uid="uid://cyk04tp4jiw8n" path="res://scenes/Rooms/Debug.tscn" id="2_kwxjl"]
+
+[node name="Area" type="Node2D"]
+process_mode = 1
+z_as_relative = false
+material = ExtResource("1_0h048")
+position = Vector2(-1, 0)
+
+[node name="TileMap" parent="." instance=ExtResource("2_kwxjl")]
+
+[node name="Camera0" type="Camera2D" parent="."]
+process_mode = 3
+offset = Vector2(4, 4)
+limit_left = -200
+limit_top = -140
+limit_right = 180
+limit_bottom = 140

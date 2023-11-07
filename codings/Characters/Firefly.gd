@@ -7,8 +7,8 @@ func _process(delta):
 	if not moving:
 		moving = true
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		var d = Global.get_direction()*50 
-		global_position = Global.Player.global_position + Vector2(randf_range(-180 , 180), randf_range(-150, 150)) +d
+		var d = Global.get_direction()*50
+		if Global.Player != null: global_position = Global.Player.global_position + Vector2(randf_range(-180 , 180), randf_range(-150, 150)) +d
 		t= create_tween()
 		t.set_ease(randi_range(0,3))
 		t.set_trans(Tween.TRANS_QUART)
@@ -19,7 +19,7 @@ func _process(delta):
 		var n = randf_range(0.3, 1.5)
 		t.tween_property($Light, "energy", n, time/2)
 		t.tween_property($Light, "energy", 0, time/2)
-		
+
 		await t.finished
 		moving = false
 

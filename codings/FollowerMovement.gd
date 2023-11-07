@@ -12,15 +12,15 @@ var moving: bool
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 
 func _ready():
+	await Event.wait()
+	player = Global.Player
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
 	velocity = oposite
 	move_and_slide()
 
 func _physics_process(_delta: float) -> void:
-	if player==null:
-		OS.alert("WRONG SCENE IDIOT, THIS IS THE FOLLOWER SCENE!", "YOU STUPID")
-		get_tree().change_scene_to_file("res://scenes/Rooms/Debug.tscn")
+	if player==null: return
 	if Global.Party.check_member(member):
 		show()
 		var oldposition=global_position

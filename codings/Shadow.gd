@@ -1,5 +1,6 @@
 extends CanvasGroup
 @export_enum("No sampling", "Sample AnimatedSprite2D", "Sample Sprite2D") var SampleParent: int = 0
+@onready var parent = get_parent()
 
 func _ready():
 	#get_node("/root/Area/TileSet").get_children()
@@ -21,16 +22,16 @@ func _ready():
 func _physics_process(delta):
 	if SampleParent == 1:
 		for i in get_children():
-			var anim = get_parent().animation
-			var frame = get_parent().frame
+			var anim = parent.animation
+			var frame = parent.frame
 			if "H" in i.name:
 				if "Left" in anim: anim = anim.replace("Left", "Down")
 				elif "Right" in anim: anim = anim.replace("Right", "Up")
 				elif "Down" in anim: anim = anim.replace("Down", "Left")
 				elif "Up" in anim: anim = anim.replace("Up", "Right")
-			if frame >= get_parent().sprite_frames.get_frame_count(get_parent().animation) -1:
-				frame = min(get_parent().sprite_frames.get_frame_count(anim)-1, get_parent().sprite_frames.get_frame_count(get_parent().animation)-1)
-			if i.name != "Circle" and not "Pick" in anim: i.texture = get_parent().sprite_frames.get_frame_texture(anim, frame)
+			if frame >= parent.sprite_frames.get_frame_count(parent.animation) -1:
+				frame = min(parent.sprite_frames.get_frame_count(anim)-1, parent.sprite_frames.get_frame_count(parent.animation)-1)
+			if i.name != "Circle" and not "Pick" in anim: i.texture = parent.sprite_frames.get_frame_texture(anim, frame)
 	for light in Global.Lights:
 		if light != null:
 			if get_node_or_null(light.name+"V") == null: return

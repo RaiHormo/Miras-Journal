@@ -1,6 +1,7 @@
+res://scenes/Rooms
+res://scenes/Shaders
 res://art/OV/Mira
 res://codings/Autoload
-res://scenes/Shaders
 res://codings
 res://sound/SFX/Battle/Mira
 res://codings/Interactions
@@ -19,4 +20,3 @@ res://art/BT/Alcine
 res://database/Abilities/
 res://UI
 res://codings/Characters
-res://art/Effects

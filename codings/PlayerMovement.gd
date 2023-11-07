@@ -2,8 +2,8 @@ extends NPC
 class_name Mira
 ##The script that handles's Mira's movment
 
-##The parent of the parent node should always be a tilemap
-@onready var tilemap:TileMap =get_node_or_null(get_path_to(get_parent().get_parent()))
+##The parent of the parent node should always be a Global.Tilemap
+#@onready var Global.Tilemap:TileMap = Global.Tilemap
 ##Whether the dash is active
 var dashing = false
 var realvelocity : Vector2 = Vector2.ZERO
@@ -22,21 +22,22 @@ func _ready():
 	speed = 75
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
-	Global.Tilemap = tilemap
-	Global.Area = tilemap.get_parent()
-	if tilemap == null:
+	#Global.Tilemap = Global.Tilemap
+	#Global.Area = Global.Tilemap.get_parent()
+	await Event.wait()
+	if Global.Tilemap == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
 		return
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
-	var cam :Camera2D = Global.get_cam()
-	if cam !=null:
-		for i in Global.Area.get_children():
-			if "Camera" in i.name: i.enabled = false
-		$Camera2D.remote_path = cam.get_path()
-		cam.enabled = true
+#	var cam :Camera2D = Global.get_cam()
+#	if cam !=null:
+#		for i in Global.Area.get_children():
+#			if "Camera" in i.name: i.enabled = false
+#		$Camera2D.remote_path = cam.get_path()
+#		cam.enabled = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
 
 func extended_process():
@@ -48,7 +49,7 @@ func extended_process():
 	_check_party()
 
 func control_process():
-	coords = tilemap.local_to_map(global_position)
+	coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 #	else:
@@ -110,11 +111,11 @@ func control_process():
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
 		check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):
-			#print(tilemap)
-			#print(tilemap.local_to_map(global_position))
-			for i in tilemap.get_layers_count():
-				if tilemap.get_cell_tile_data(i, coords) != null:
-					check_terrain(tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
+			#print(Global.Tilemap)
+			#print(Global.Tilemap.local_to_map(global_position))
+			for i in Global.Tilemap.get_layers_count():
+				if Global.Tilemap.get_cell_tile_data(i, coords) != null:
+					check_terrain(Global.Tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
 
 
 func update_anim_prm():
@@ -210,16 +211,16 @@ func bag_anim():
 ##If the player dashes into a gap she will jump
 func check_for_jumps():
 	if dashing and check_terrain("Gap"):
-		if Global.get_direction(tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
+		if Global.get_direction(Global.Tilemap.get_cell_tile_data(1, Global.Tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
 			reset_speed()
 			set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
 			midair = true
 			Global.Controllable = false
 			$CollisionShape2D.disabled = true
 			z_index+=2
-			var jump = tilemap.get_cell_tile_data(1, tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
+			var jump = Global.Tilemap.get_cell_tile_data(1, Global.Tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
 			#print(jump, "  ", coords)
-			Global.jump_to_global(self, tilemap.map_to_local(coords) + jump*24, 5, 0.5)
+			Global.jump_to_global(self, Global.Tilemap.map_to_local(coords) + jump*24, 5, 0.5)
 			await Global.anim_done
 			Global.Controllable = true
 			z_index-=2
@@ -234,9 +235,9 @@ func stop_dash():
 	#print(realvelocity)
 	reset_speed()
 	var slide = true
-	for i in tilemap.get_layers_count():
-		if ((tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
-			tilemap.get_cell_tile_data(i, coords)!= null and tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
+	for i in Global.Tilemap.get_layers_count():
+		if ((Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
+			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
 	if undashable and Global.get_direction()==dashdir and check_terrain(""):
 		await bump()

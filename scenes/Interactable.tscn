@@ -87,17 +87,27 @@ script = ExtResource("1_prqri")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 shape = SubResource("CircleShape2D_7h34c")
 
-[node name="Button" type="Button" parent="."]
+[node name="Pack" type="Control" parent="."]
 visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -13.0
+offset_top = -12.0
+offset_right = 13.0
+offset_bottom = 12.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(13, 12)
+
+[node name="Button" type="Button" parent="Pack"]
 visibility_layer = 1024
 z_index = 9
 material = SubResource("ShaderMaterial_41wqm")
 layout_direction = 1
-offset_left = -31.0
-offset_top = -36.0
-offset_right = 84.0
-offset_bottom = -3.0
-scale = Vector2(0.311428, 0.311428)
+layout_mode = 0
+offset_left = -44.0
+offset_top = -47.0
+offset_right = 71.0
+offset_bottom = -14.0
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 1
@@ -116,15 +126,15 @@ icon = ExtResource("2_j77no")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Arrow" type="TextureRect" parent="."]
-visible = false
+[node name="Arrow" type="TextureRect" parent="Pack"]
 use_parent_material = true
-offset_left = -3.0
-offset_top = -13.0
-offset_right = 45.0
-offset_bottom = 79.0
+layout_mode = 0
+offset_left = 4.0
+offset_top = -5.0
+offset_right = 52.0
+offset_bottom = 87.0
 rotation = -1.57186
-scale = Vector2(0.0672756, 0.0672756)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_6vdgc")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Pack/Button" to="." method="_on_button_pressed"]

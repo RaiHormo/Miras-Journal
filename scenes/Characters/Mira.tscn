@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=139 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_7rao0"]
 [ext_resource type="Script" path="res://codings/Shadow.gd" id="9_ktblf"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="10_s8qxo"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="12_l2wig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwtxo"]
 atlas = ExtResource("3_b3y6v")
@@ -3203,11 +3204,16 @@ fill = 1
 fill_from = Vector2(0.487179, 0.495726)
 fill_to = Vector2(0.782051, 0.876068)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7m28b"]
+shader = ExtResource("12_l2wig")
+shader_parameter/lod = 1.0
+
 [node name="Body" type="CharacterBody2D"]
+process_mode = 3
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-texture_filter = 1
+texture_filter = 2
 position = Vector2(0, -5)
 collision_layer = 3
 collision_mask = 15
@@ -3271,12 +3277,19 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
+[node name="Flame" type="AnimatedSprite2D" parent="Base"]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_spx3p")
+animation = &"WalkRight"
+
 [node name="Shadow" type="CanvasGroup" parent="Base"]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 light_mask = 3
 texture_filter = 1
-position = Vector2(0, 15)
+position = Vector2(0, 14)
 script = ExtResource("9_ktblf")
 SampleParent = 1
 
@@ -3287,13 +3300,6 @@ light_mask = 3
 texture_filter = 1
 texture = ExtResource("9_7rao0")
 offset = Vector2(0, -15)
-
-[node name="Flame" type="AnimatedSprite2D" parent="Base"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
-visible = false
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_spx3p")
-animation = &"WalkRight"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
@@ -3336,3 +3342,21 @@ texture_scale = 3.0
 
 [node name="Ear" type="AudioListener2D" parent="."]
 current = true
+
+[node name="Camera2D" type="RemoteTransform2D" parent="."]
+
+[node name="Fader" type="ColorRect" parent="."]
+visible = false
+light_mask = 0
+material = SubResource("ShaderMaterial_7m28b")
+offset_left = -302.0
+offset_top = -232.0
+offset_right = 287.0
+offset_bottom = 239.0
+color = Color(0, 0, 0, 1)
+
+[node name="Darken" type="ColorRect" parent="Fader"]
+layout_mode = 0
+offset_right = 617.0
+offset_bottom = 467.0
+color = Color(0, 0, 0, 1)
