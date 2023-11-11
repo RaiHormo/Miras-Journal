@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var dialogue_label := $Balloon/Panel2/DialogueLabel
 @onready var responses_menu: VBoxContainer = $Balloon/Responses
 @onready var response_template: Button = $Balloon/Responses/Button.duplicate(0)
+var mem: TextProfile
 var currun = false
 @onready var t :Tween = get_tree().create_tween()
 
@@ -40,7 +41,7 @@ var dialogue_line: DialogueLine:
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem = await Global.match_profile(character_label.text)
+		mem = await Global.match_profile(character_label.text)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -50,6 +51,10 @@ var dialogue_line: DialogueLine:
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
+		var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
+		glow_bord.draw_center = true
+		glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
+		glow_bord.border_color = Color.TRANSPARENT
 
 		dialogue_label.modulate.a = 0
 		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
@@ -77,17 +82,20 @@ var dialogue_line: DialogueLine:
 				t.tween_property(responses_menu, "position", Vector2(832 ,30), 1).from(Vector2(2800, 30))
 		# Show our balloon
 		draw_portrait()
-		t = create_tween()
-		t.set_parallel(true)
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_BACK)
 		dialogue_label.text = ""
 
 		if not balloon.visible:
 			balloon.show()
-			t.tween_property($Balloon, "modulate", Color(1,1,1,1), 0.3).from(Color(0,0,0,0))
-			t.tween_property($Balloon, "scale", Vector2(1,1), 0.3).from(Vector2(0.7,0.2))
+			t = create_tween()
+			t.set_parallel(true)
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_EXPO)
+			t.tween_property($Balloon, "modulate", Color(1,1,1,1), 0.4).from(Color(0,0,0,0))
+			t.tween_property($Balloon, "scale", Vector2(1,1), 0.4).from(Vector2(0.7,0.2))
 		else:
+			t = create_tween()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_BACK)
 			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
 		will_hide_balloon = false
 
@@ -137,7 +145,7 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	is_waiting_for_input = false
 	resource = dialogue_resource
 	PartyUI.UIvisible = false
-	await get_tree().create_timer(0.3).timeout
+	#await get_tree().create_timer(0.3).timeout
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
 
@@ -214,7 +222,7 @@ func _on_close() -> void:
 	responses_menu.hide()
 	if $Portrait.visible:
 		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
-#		t.tween_property($Portrait, "position", Vector2(-300, 389), 0.2)
+		t.tween_property($Portrait, "position", Vector2(-100, 389), 0.2)
 	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
@@ -257,6 +265,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("Dash"): is_waiting_for_input = true
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
@@ -264,7 +273,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
-	elif event.is_action_pressed(Global.confirm()) and get_viewport().gui_get_focus_owner() == balloon:
+	elif (event.is_action_pressed(Global.confirm()) or event.is_action_pressed("Dash")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 
@@ -273,27 +282,34 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 
 
-func draw_portrait():
+func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
 	if Global.HasPortrait:
+		$Balloon/Arrow.show()
+		var pan = $Balloon/Arrow.get_theme_stylebox("panel")
+		pan.bg_color = mem.Bord1
 		$Portrait.texture = Global.PortraitIMG
+		$Portrait/Shadow.texture = $Portrait.texture
 		Global.portrait_clear()
 		$Portrait.show()
 		if Global.PortraitRedraw:
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_CUBIC)
-			t.tween_property($Portrait, "modulate", Color(1,1,1,1), 0.3).from(Color(0,0,0,0))
-			t.tween_property($Portrait, "position", Vector2(-55, 389), 0.3).from(Vector2(-200, 389))
+			t.set_trans(Tween.TRANS_QUINT)
+			t.tween_property($Portrait, "modulate", Color(1,1,1,1), 0.8).from(Color(0,0,0,0))
+			t.tween_property($Portrait, "position", Vector2(-55, 389), 0.8).from(Vector2(-200, 389))
+			t.tween_property($Portrait/Shadow, "position", Vector2(-131, 150), 1).from(Vector2(0, 0))
 	else:
+		$Balloon/Arrow.hide()
 		if $Portrait.visible:
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_CUBIC)
-			t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
+			t.set_trans(Tween.TRANS_QUAD)
+			t.tween_property($Portrait/Shadow, "position", Vector2(0, 0), 0.2)
+			t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.3)
 			t.tween_property($Portrait, "position", Vector2(-200, 389), 0.3)
-			await get_tree().create_timer(0.2).timeout
+			await t.finished
 		$Portrait.hide()
 

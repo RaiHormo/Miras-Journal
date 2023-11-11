@@ -5,19 +5,20 @@ class_name Mira
 ##The parent of the parent node should always be a Global.Tilemap
 #@onready var Global.Tilemap:TileMap = Global.Tilemap
 ##Whether the dash is active
-var dashing = false
+var dashing := false
 var realvelocity : Vector2 = Vector2.ZERO
 ##When the player is supposed to be in a midair perspective
-var midair = false
+var midair := false
 ##true is there is a wall in front of the player
-var undashable = false
+var undashable := false
 ##Direction of the dash
-var dashdir:Vector2= Vector2.ZERO
+var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
-@export var flame_active = false
+@export var flame_active := false
+@export var can_dash = true
 
 
-func _ready():
+func _ready() -> void:
 	ID = "P"
 	speed = 75
 	Event.add_char(self)
@@ -32,21 +33,24 @@ func _ready():
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
-#	var cam :Camera2D = Global.get_cam()
-#	if cam !=null:
-#		for i in Global.Area.get_children():
-#			if "Camera" in i.name: i.enabled = false
-#		$Camera2D.remote_path = cam.get_path()
-#		cam.enabled = true
+	Global.Follower[0] = self
+	var cam :Camera2D = Global.get_cam()
+	if cam !=null:
+		for i in Global.Area.get_children():
+			if "Camera" in i.name: i.enabled = false
+		$Camera2D.remote_path = cam.get_path()
+		cam.enabled = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
 
-func extended_process():
+
+func extended_process() -> void:
 	if Global.Controllable:
 		#update_anim_prm()
 		BodyState = CONTROLLED
 	if midair:
 		pass
 	_check_party()
+	if flame_active and $Flame.energy == 0 and Global.Controllable: activate_flame(false)
 
 func control_process():
 	coords = Global.Tilemap.local_to_map(global_position)
@@ -60,8 +64,9 @@ func control_process():
 			undashable = true
 	if Global.Controllable:
 		if "Dash" in $Base.animation and not dashing:
+			print(1)
 			stop_dash()
-		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO:
+		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
 			if not dashing:
 				if undashable:
 #					Global.Controllable = false
@@ -86,10 +91,11 @@ func control_process():
 					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
 					if BodyState == CUSTOM:
 						Global.Controllable=true
-			elif Global.get_direction(realvelocity) != dashdir:
+			elif Global.get_direction(direction) != dashdir:
+				print(2)
 				stop_dash()
-				pass
 		elif dashing:
+			print(3)
 			stop_dash()
 		if direction != Vector2.ZERO:
 			Global.PlayerDir = direction
@@ -118,7 +124,7 @@ func control_process():
 					check_terrain(Global.Tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
 
 
-func update_anim_prm():
+func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds($Base)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
@@ -138,6 +144,7 @@ func update_anim_prm():
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
 					move_frames = 0
+					print(4)
 					stop_dash()
 	else:
 		if get_real_velocity().length() >30:
@@ -152,11 +159,11 @@ func update_anim_prm():
 				position = round(position)
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 
-func look_to(dir:Vector2):
+func look_to(dir:Vector2) -> void:
 	set_anim("Idle"+Global.get_dir_name(dir))
 
 ##Item pickup animation
-func _on_pickup():
+func _on_pickup() -> void:
 	Global.Controllable = false
 	reset_speed()
 	if Global.get_direction() == Vector2.LEFT: set_anim("PickUpLeft")
@@ -165,7 +172,7 @@ func _on_pickup():
 	Global.Controllable = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
-func _check_party():
+func _check_party() -> void:
 	if flame_active:
 		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	elif Global.Party.Leader != null:
@@ -180,36 +187,46 @@ func _check_party():
 		$Base/Bag.hide()
 
 ##Sets the animation for all sprite layers
-func set_anim(anim:String):
+func set_anim(anim:String) -> void:
 	$Base.play(anim)
-	$Base/Bag.play(anim)
+	if anim in $Base/Bag.sprite_frames.get_animation_names() and Item.HasBag: $Base/Bag.play(anim)
+	else: $Base/Bag.hide()
+	if anim in $Base/Flame.sprite_frames.get_animation_names() and flame_active:
+		$Base/Flame.show()
+		$Base/Flame.play(anim)
+	else: $Base/Flame.hide()
+
+func activate_flame(animate:=true) -> void:
+	flame_active = true
+	_check_party()
+	await Event.wait()
+	check_flame()
+	if animate:
+		set_anim("FlameActive")
+		await Event.wait(0.75)
+		set_anim("IdleRight")
+	$Base/Flame.show()
+
+
+
+func check_flame() -> void:
 	if flame_active:
-		var t = create_tween()
-		if "Walk" in $Base.animation or "Idle" in $Base.animation:
-			$Base/Flame.show()
-			$Base/Flame.play(anim)
-			if $Flame.energy == 0:
-				while "Walk" in $Base.animation or "Idle" in $Base.animation and $Flame.energy < 1.5:
-					$Flame.energy += 0.03
-					await Event.wait()
-				$Flame.energy = 1.5
-				#t.tween_property($Flame, "energy", 1, 1)
-		else:
-			#if $Flame.energy == 1:
-			t.tween_property($Flame, "energy", 0, 0.1)
-			$Base/Flame.hide()
+		if $Flame.energy == 0:
+			while $Flame.energy < 1.5:
+				$Flame.energy += 0.03
+				await Event.wait()
+			$Flame.energy = 1.5
 	else:
-		$Base/Flame.hide()
-	#$Base/Bag/Axe.play(anim)
+		$Flame.energy = 0
 
 ##For opening the menu
-func bag_anim():
+func bag_anim() -> void:
 	set_anim("OpenBag")
 	await $Base.animation_looped
 	set_anim("BagIdle")
 
 ##If the player dashes into a gap she will jump
-func check_for_jumps():
+func check_for_jumps() -> void:
 	if dashing and check_terrain("Gap"):
 		if Global.get_direction(Global.Tilemap.get_cell_tile_data(1, Global.Tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
 			reset_speed()
@@ -228,7 +245,7 @@ func check_for_jumps():
 			midair=false
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
-func stop_dash():
+func stop_dash() -> void:
 	if BodyState!=CONTROLLED or "Stop" in $Base.animation or "Hit" in $Base.animation or midair: return
 	dashing = false
 	speed = 75
@@ -239,7 +256,7 @@ func stop_dash():
 		if ((Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if undashable and Global.get_direction()==dashdir and check_terrain(""):
+	if undashable and Global.get_direction()==dashdir and not check_terrain("Gap"):
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
@@ -261,12 +278,12 @@ func stop_dash():
 	if "Stop" in $Base.animation or "Hit" in $Base.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))
 
-func reset_speed():
+func reset_speed() -> void:
 	$Base.speed_scale=1
 	$Base/Bag.speed_scale=1
 	$Base/Bag/Axe.speed_scale=1
 
-func bump():
+func bump() -> void:
 	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 	Global.Controllable=false

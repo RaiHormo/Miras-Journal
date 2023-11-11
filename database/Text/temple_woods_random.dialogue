@@ -1,0 +1,17 @@
+~ getting_dark
+...It's getting a little dark.
+=> END
+
+~ that_should_do_it
+That should do it.
+=> END
+
+~ was_that_a
+It... ran away?[wait=0.4]\nWas that another monster?
+Maybe I should follow it.
+=> END
+
+~ cant_dash_on_flame
+do portrait("MiraNeutural")
+Mira: I can't dash and hold this flame at the same time.[wait=0.3][next=auto]
+=> END

@@ -43,7 +43,7 @@ func move_to(pos:Vector2=Global.get_direction(), chara:String="P"):
 ## [codeblock]
 ##await get_tree().create_timer(time).timeout
 ##[/codeblock]
-func wait(time=get_physics_process_delta_time()):
+func wait(time:float=0.01) -> void:
 	await get_tree().create_timer(time).timeout
 
 ##Tween an [NPC] to the specified coords (ignores all collision)

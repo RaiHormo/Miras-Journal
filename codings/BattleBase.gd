@@ -46,6 +46,7 @@ func _ready():
 	$Act/Actor0.frame = 0
 	$Act/Actor0/Shadow.modulate = Color.WHITE
 	$Canvas/Callout.modulate = Color.TRANSPARENT
+	Global.Area.show()
 	if Global.check_member(1):
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Actor1"
@@ -536,13 +537,16 @@ func hp_sort(a:Actor, b:Actor):
 		return false
 
 func anim(animation: String="Idle", chara: Actor = CurrentChar):
-	if  animation in chara.GlowAnims and chara.GlowSpecial != 0:
+	if animation not in chara.node.sprite_frames.get_animation_names(): return
+	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t.kill()
 		t=create_tween()
+		chara.node.get_node("Glow").color = chara.MainColor
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 1)
 	elif chara.node.animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t.kill()
 		t=create_tween()
+		chara.node.get_node("Glow").color = chara.MainColor
 		t.tween_property(chara.node.get_node("Glow"), "energy", 0, 0.3)
 	chara.node.play(animation)
 
@@ -622,7 +626,7 @@ func game_over():
 	end_battle()
 
 func end_battle():
-	if get_tree().root.get_node_or_null("Area") == null: Loader.travel_to("Debug"); queue_free(); return
+	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
 	await Loader.end_battle()
 	queue_free()
 

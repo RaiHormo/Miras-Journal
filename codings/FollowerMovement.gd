@@ -12,6 +12,7 @@ var moving: bool
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 
 func _ready():
+	Global.Follower[member] = self
 	await Event.wait()
 	player = Global.Player
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150

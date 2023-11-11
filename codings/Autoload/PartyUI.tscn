@@ -233,7 +233,7 @@ script = ExtResource("1_nullq")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 248), Vector2(385, 408), Vector2(385, 536)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 3
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1282.0

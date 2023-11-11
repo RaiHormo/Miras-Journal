@@ -193,6 +193,7 @@ func textbox(file: String, title: String = "0", extra_game_states: Array = []) -
 	var balloon: Node = Textbox2.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	await dialogue_ended
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 #	Loader.load_thread("res://database/Text/" + file + ".dialogue")
@@ -236,7 +237,6 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 
 	# See if we just ended the conversation
 	if key in [DialogueConstants.ID_END, DialogueConstants.ID_NULL, null]:
-		Global.Controllable = true
 		if stack.size() > 0:
 			return await get_line(resource, "|".join(stack), extra_game_states)
 		else:

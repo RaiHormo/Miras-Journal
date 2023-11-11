@@ -1,5 +1,5 @@
 extends Marker2D
-var moving= false
+var moving := false
 var direction:Vector2
 var t:Tween
 

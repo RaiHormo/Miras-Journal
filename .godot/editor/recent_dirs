@@ -1,6 +1,9 @@
+res://codings/Characters
+res://scenes/Characters
+res://art/OV/Mira
+res://scenes
 res://scenes/Rooms
 res://scenes/Shaders
-res://art/OV/Mira
 res://codings/Autoload
 res://codings
 res://sound/SFX/Battle/Mira
@@ -12,11 +15,8 @@ U:/Downloads/platform-tools_r34.0.5-windows/platform-tools
 res://art
 U:/Documents/git test
 res://
-res://scenes
 res://database/Abilities
 res://codings/UI
 res://database/Party
 res://art/BT/Alcine
 res://database/Abilities/
-res://UI
-res://codings/Characters

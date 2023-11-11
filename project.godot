@@ -34,7 +34,6 @@ buses/default_bus_layout="res://sound/bus.tres"
 [autoload]
 
 Global="*res://codings/Autoload/Global.gd"
-View="*res://codings/Autoload/Viewport.tscn"
 PartyUI="*res://codings/Autoload/PartyUI.tscn"
 Loader="*res://codings/Autoload/Loader.tscn"
 Event="*res://codings/Autoload/Event.gd"
@@ -311,14 +310,22 @@ MoveDown={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://database/text/testbush.dialogue", "res://database/Text/testbush.dialogue")
+locale/translations_pot_files=PackedStringArray("res://database/text/testbush.dialogue", "res://database/Text/testbush.dialogue", "res://database/Text/temple_woods_random.dialogue")
 
 [layer_names]
 
 2d_physics/layer_1="Ysort"
 2d_physics/layer_9="Interactable"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 

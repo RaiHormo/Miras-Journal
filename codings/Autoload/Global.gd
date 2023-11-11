@@ -1,35 +1,36 @@
 extends Node
 
 var Controllable : bool = true
-var Type
-var Audio = AudioStreamPlayer.new()
-var Sprite = Sprite2D.new()
-var Party:PartyData = PartyData.new()
-var HasPortrait = false
-var PortraitIMG : Texture
-var PortraitRedraw = true
-var PlayerDir = Vector2.DOWN
-var PlayerPos : Vector2
-signal check_party
-signal anim_done
+var Audio := AudioStreamPlayer.new()
+var Sprite := Sprite2D.new()
+var Party: PartyData = PartyData.new()
+var HasPortrait := false
+var PortraitIMG: Texture
+var PortraitRedraw := true
+var PlayerDir := Vector2.DOWN
+var PlayerPos: Vector2
 var device: String = "Keyboard"
-var ProcessFrame=0
+var ProcessFrame := 0
 var LastInput=0
-var AltConfirm
-var StartTime =0
-var PlayTime =0
-var SaveTime =0
-var Player:Mira
+var AltConfirm: bool
+var StartTime := 0.0
+var PlayTime := 0.0
+var SaveTime := 0.0
+var Player: Mira
+var Follower: Array[CharacterBody2D] = [null, null, null, null]
 var Settings:Setting
 var Bt: Battle = null
-var CameraInd = 0
-var Tilemap:TileMap
+var CameraInd := 0
+var Tilemap: TileMap
 var Members: Array[Actor]
-var Lights:Array[Light2D] = []
+var Lights: Array[Light2D] = []
 var Area: Room
 signal lights_loaded
+signal check_party
+signal anim_done
+signal area_initialized
 
-func _ready():
+func _ready() -> void:
 	StartTime=Time.get_unix_time_from_system()
 	add_child(Audio)
 	add_child(Sprite)
@@ -43,7 +44,7 @@ func _ready():
 	lights_loaded.emit()
 
 ##Focus the window, used as a workaround to a wayland problem
-func ready_window():
+func ready_window() -> void:
 	for i in 180:
 		await Event.wait()
 		get_window().grab_focus()
@@ -51,12 +52,12 @@ func ready_window():
 		await Event.wait()
 		get_window().grab_focus()
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
 
-func get_playtime():
+func get_playtime() -> int:
 	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime
-	return PlayTime
+	return int(PlayTime)
 
 func get_controller() -> ControlScheme:
 	if Settings == null: return preload("res://UI/Input/Keyboard.tres")
@@ -79,7 +80,7 @@ func get_controller() -> ControlScheme:
 	else:
 		return preload("res://UI/Input/Generic.tres")
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if not event.is_pressed(): return
 	if LastInput==ProcessFrame: return
 	if event is InputEventMouseMotion: return
@@ -103,7 +104,7 @@ func _input(event):
 	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 	#print(device)
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Fullscreen"):
 		fullscreen()
 	if Input.is_action_just_pressed("Save"):
@@ -111,7 +112,7 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("SaveManagment"):
 		Loader.load_game()
 
-func fullscreen():
+func fullscreen() -> void:
 	if Settings == null: await init_settings()
 	if get_window().mode != 3:
 			get_window().mode = Window.MODE_FULLSCREEN
@@ -129,42 +130,42 @@ func fullscreen():
 		Settings.Fullscreen = false
 	save_settings()
 
-func save_settings():
+func save_settings() -> void:
 	ResourceSaver.save(Settings, "user://Settings.tres")
 
-func cancel():
+func cancel() -> String:
 	return "ui_cancel"
 
-func confirm():
+func confirm() -> String:
 	return "ui_accept"
 
-func cursor_sound():
+func cursor_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
 	Audio.play()
-func buzzer_sound():
+func buzzer_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/buzzer.ogg")
 	Audio.play()
-func confirm_sound():
+func confirm_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/confirm.ogg")
 	Audio.play()
-func cancel_sound():
+func cancel_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/Quit.ogg")
 	Audio.play()
-func item_sound():
+func item_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/item.ogg")
 	Audio.play()
-func ui_sound(string:String):
+func ui_sound(string:String) -> void:
 	Audio.stream = await Loader.load_res("res://sound/SFX/UI/"+string+".ogg")
 	Audio.play()
 
-func get_party():
+func get_party() -> PartyData:
 	return preload("res://database/Party/CurrentParty.tres")
 
-func check_member(n):
+func check_member(n:int) -> bool:
 	return Party.check_member(n)
 	#Sprite.texture = preload("res://art/Placeholder.png")
 
-func get_member_name(n):
+func get_member_name(n:int) -> String:
 	if Party.check_member(0) and n==0:
 		return Party.Leader.FirstName
 	elif Party.check_member(1) and n==1:
@@ -176,7 +177,7 @@ func get_member_name(n):
 	else:
 		return "Null"
 
-func number_of_party_members():
+func number_of_party_members() -> int:
 	var num= 1
 	if check_member(1):
 		num+=1
@@ -186,37 +187,34 @@ func number_of_party_members():
 		num+=1
 	return num
 
-func is_in_party(n):
+func is_in_party(n:String) -> bool:
 	if Party.Leader.FirstName == n:
 		return true
-	if Party.check_member(1):
-		if Party.Member1.FirstName == n:
-			return true
-	if Party.check_member(2):
-		if Party.Member2.FirstName == n:
-			return true
-	if Party.check_member(3):
-		if Party.Member3.FirstName == n:
-			return true
+	elif Party.check_member(1) and Party.Member1.FirstName == n:
+		return true
+	elif Party.check_member(2) and Party.Member2.FirstName == n:
+		return true
+	elif Party.check_member(3) and Party.Member3.FirstName == n:
+		return true
 	else:
 		return false
 
-func portrait(img, redraw=true):
+func portrait(img:String, redraw:=true) -> void:
 	PortraitRedraw = redraw
 	HasPortrait=true
 	PortraitIMG = await Loader.load_res("res://art/Portraits/" + img + ".png")
 
-func portrait_clear():
+func portrait_clear() -> void:
 	HasPortrait=false
 
 #Match profile
-func match_profile(named):
+func match_profile(named:String) -> TextProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):
 		return preload("res://database/Text/Profiles/Default.tres")
 	else:
 		return await Loader.load_res("res://database/Text/Profiles/" + named + ".tres")
 
-func get_direction(v=PlayerDir):
+func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 	if abs(v.x) > abs(v.y):
 		if v.x >0:
 			return Vector2.RIGHT
@@ -228,7 +226,7 @@ func get_direction(v=PlayerDir):
 		else:
 			return Vector2.UP
 
-func get_dir_letter(d=PlayerDir):
+func get_dir_letter(d: Vector2 = PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:
 		return "R"
 	elif get_direction(d) == Vector2.LEFT:
@@ -237,8 +235,9 @@ func get_dir_letter(d=PlayerDir):
 		return "U"
 	elif get_direction(d) == Vector2.DOWN:
 		return "D"
+	else: return "C"
 
-func get_dir_name(d=PlayerDir):
+func get_dir_name(d: Vector2 = PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:
 		return "Right"
 	elif get_direction(d) == Vector2.LEFT:
@@ -247,8 +246,9 @@ func get_dir_name(d=PlayerDir):
 		return "Up"
 	elif get_direction(d) == Vector2.DOWN:
 		return "Down"
+	else: return "Center"
 
-func toggle(boo):
+func toggle(boo:bool) -> bool:
 	if boo: return false
 	else: return true
 
@@ -266,7 +266,7 @@ func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, tar
 
 	target.global_position = r
 
-func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
+func jump_to(character:Node, position:Vector2, time:float, height: float =0.1) -> void:
 	var t:Tween = create_tween()
 	var start = character.position
 	var jump_distance : float = start.distance_to(position)
@@ -277,7 +277,7 @@ func jump_to(character:Node, position:Vector2, time:float, height: float =0.1):
 	await t.finished
 	anim_done.emit()
 
-func jump_to_global(character:Node, position:Vector2, time:float, height: float =0.1):
+func jump_to_global(character:Node, position:Vector2, time:float, height: float =0.1) -> void:
 	var t:Tween = create_tween()
 	var start = character.global_position
 	var jump_distance : float = start.distance_to(position)
@@ -288,17 +288,17 @@ func jump_to_global(character:Node, position:Vector2, time:float, height: float 
 	await t.finished
 	anim_done.emit()
 
-func get_preview():
+func get_preview() -> Texture:
 	if Party.Leader.FirstName == "Mira" and not Party.check_member(1):
 		return preload("res://art/Previews/1.png")
 	if Party.Leader.FirstName == "Mira" and Party.Member1.FirstName == "Alcine":
 		return preload("res://art/Previews/2.png")
 	return preload("res://art/Previews/1.png")
 
-func reset_settings():
+func reset_settings() -> void:
 	ResourceSaver.save(Setting.new(), "user://Settings.tres")
 
-func init_settings():
+func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.tres"):
 		reset_settings()
 		await get_tree().create_timer(0.5).timeout
@@ -308,10 +308,10 @@ func init_settings():
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 
 func get_cam() -> Camera2D:
-	return View.get_node("Camera")
+	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
 
-func quit():
+func quit() -> void:
 	if Loader.InBattle or Player == null or Area == null: get_tree().quit()
 	Loader.icon_save()
 	await Loader.transition("L")
@@ -322,13 +322,13 @@ func quit():
 	await Loader.save()
 	get_tree().quit()
 
-func tilemapize(pos: Vector2):
+func tilemapize(pos: Vector2) -> void:
 	return Tilemap.local_to_map(pos)
 
-func globalize(coords):
+func globalize(coords :Vector2i) -> Vector2:
 	return Tilemap.map_to_local(coords)
 
-func _notification(what):
+func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if Controllable: quit()
 		else: get_tree().quit()
@@ -366,7 +366,7 @@ func get_affinity(attacker:Color) -> Affinity:
 	aff.near_range = range_360(hue-max(pres/3, 10), hue+max(pres/3, 10))
 	return aff
 
-func new_game():
+func new_game() -> void:
 	init_party(PartyData.new())
 	Event.Flags.clear()
 	Event.add_flag("Started")
@@ -411,7 +411,7 @@ func new_game():
 	Global.Player.get_node("Base/Shadow").show()
 	Global.Controllable = true
 
-func init_party(party:PartyData):
+func init_party(party:PartyData) -> void:
 	Members.clear()
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
@@ -420,9 +420,10 @@ func init_party(party:PartyData):
 	#Party = PartyData.new()
 	Party.set_to(party)
 
-func find_member(Name: String):
+func find_member(Name: String) -> Actor:
 	for i in Members:
 		if i.FirstName == Name: return i
+	return Party.Leader
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if node.is_class(className):

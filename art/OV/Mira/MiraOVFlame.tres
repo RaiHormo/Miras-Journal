@@ -1,10 +1,11 @@
-[gd_resource type="SpriteFrames" load_steps=148 format=3 uid="uid://cf3n0g1xl0bvp"]
+[gd_resource type="SpriteFrames" load_steps=155 format=3 uid="uid://cf3n0g1xl0bvp"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_dcugi"]
 [ext_resource type="Texture2D" uid="uid://cqg3mi1kvrgip" path="res://art/OV/Mira/DashDown.png" id="2_3wec2"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="3_lnhjf"]
 [ext_resource type="Texture2D" uid="uid://o3cfbnxkskhq" path="res://art/OV/Mira/DashUp.png" id="4_nf2we"]
 [ext_resource type="Texture2D" uid="uid://rp8uf0rdpmbv" path="res://art/OV/Mira/Deny.png" id="5_u6t3b"]
+[ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="6_r4tmv"]
 [ext_resource type="Texture2D" uid="uid://cslhxxrst7p4j" path="res://art/OV/Mira/FlameWalk.png" id="6_y0ei8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0usjx"]
@@ -318,6 +319,30 @@ region = Rect2(448, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_v80ts"]
 atlas = ExtResource("5_u6t3b")
 region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5vlb"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc10o"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2385h"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abcad"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ln2g7"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsop4"]
+atlas = ExtResource("6_r4tmv")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bbbqx"]
 atlas = ExtResource("6_y0ei8")
@@ -946,6 +971,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_a5vlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc10o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2385h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abcad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ln2g7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsop4")
+}],
+"loop": false,
+"name": &"FlameActive",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bbbqx")
 }, {
 "duration": 1.0,
@@ -1076,6 +1124,21 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_egks6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqvhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7gf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3d25m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tov2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8ngx")
 }],
 "loop": true,
 "name": &"IdleUp",

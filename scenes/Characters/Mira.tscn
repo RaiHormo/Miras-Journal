@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=138 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -6,10 +6,9 @@
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_qf6k3"]
 [ext_resource type="Texture2D" uid="uid://lgbejsagsjik" path="res://art/sheets/axeAxe.png" id="4_r1qq4"]
 [ext_resource type="Texture2D" uid="uid://cp3tfsrympduk" path="res://art/OV/Mira/BagDash.png" id="5_07nn0"]
+[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="8_332ra"]
 [ext_resource type="Texture2D" uid="uid://b8aiagab31eok" path="res://art/sheets/flameFlame.png" id="8_awiv6"]
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="9_1utjp"]
-[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_7rao0"]
-[ext_resource type="Script" path="res://codings/Shadow.gd" id="9_ktblf"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="10_s8qxo"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="12_l2wig"]
 
@@ -3185,7 +3184,7 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o8id2"]
 custom_solver_bias = 0.146
-size = Vector2(13.5, 8)
+size = Vector2(14, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qv763"]
 size = Vector2(14, 17)
@@ -3219,6 +3218,7 @@ collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_503pd")
+flame_active = true
 speed = 70
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
@@ -3227,8 +3227,10 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"IdleDown"
+animation = &"FlameActive"
 autoplay = "IdleDown"
+frame = 5
+frame_progress = 1.0
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",
@@ -3277,29 +3279,16 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
+[node name="Shadow" type="Sprite2D" parent="Base"]
+show_behind_parent = true
+position = Vector2(0, 10)
+texture = ExtResource("8_332ra")
+
 [node name="Flame" type="AnimatedSprite2D" parent="Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
-visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
-
-[node name="Shadow" type="CanvasGroup" parent="Base"]
-modulate = Color(0, 0, 0, 1)
-show_behind_parent = true
-light_mask = 3
-texture_filter = 1
-position = Vector2(0, 14)
-script = ExtResource("9_ktblf")
-SampleParent = 1
-
-[node name="Circle" type="Sprite2D" parent="Base/Shadow"]
-modulate = Color(0, 0, 0, 0.509804)
-show_behind_parent = true
-light_mask = 3
-texture_filter = 1
-texture = ExtResource("9_7rao0")
-offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)

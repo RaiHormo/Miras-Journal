@@ -11,26 +11,30 @@ signal action()
 @export var hidesprite: bool = false
 @export var itemtype: String
 @export var Collision: CollisionShape2D = null
-const Textbox = DialogueManager.Textbox2
-var CanInteract = false
+@export var Height: int = 0
+const Textbox := DialogueManager.Textbox2
+var CanInteract := false
 var t:Tween
 @onready var button:Button
 @onready var arrow:TextureRect
-@onready var pack = $Pack.duplicate()
+@onready var pack := $Pack
 
 
-func _process(delta):
+func _ready() -> void:
+	$Pack.hide()
+	$Pack.position.y -= Height
+
+func _process(delta: float) -> void:
 	if pack == null:
 		pack = $Pack.duplicate()
 	if has_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
-		if not pack in get_tree().root.get_children():
-			$/root.add_child(pack)
+		if not pack.visible:
+			#$/root.add_child(pack)
 			button = pack.get_node("Button")
 			arrow = pack.get_node("Arrow")
-
-			pack.position = $Pack.global_position
+			#pack.position = $Pack.global_position
 			pack.show()
 			button.text = LabelText
 			button.icon = Global.get_controller().ConfirmIcon
@@ -61,21 +65,22 @@ func _process(delta):
 			t.tween_property(button, "size", Vector2(41,33), 0.1)
 			t.tween_property(button, "position", Vector2(-5,-47), 0.1)
 			await get_tree().create_timer(0.2).timeout
-			if pack in get_tree().root.get_children(): pack.queue_free()
+			#if pack in get_tree().root.get_children(): pack.queue_free()
+			pack.hide()
 			CanInteract = false
 
-func CheckInput():
-	print($Pack.global_position)
+func CheckInput() -> void:
+	#print($Pack.global_position)
 	#Clicked
 	if Input.is_action_just_pressed("ui_accept") and CanInteract:
 		_on_button_pressed()
 
-func _on_button_pressed():
+func _on_button_pressed() -> void:
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_LINEAR)
-	t.tween_property(button, "scale", Vector2(0.311,0.311), 0.1).from(Vector2(0.269,0.269))
+	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
 	await t.finished
 	match ActionType:
 		"toggle":

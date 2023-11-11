@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmpwjae3tgvdx"]
+[gd_scene load_steps=12 format=3 uid="uid://bmpwjae3tgvdx"]
 
 [ext_resource type="Script" path="res://codings/UI/passive.gd" id="1_6n3th"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_h3x8f"]
-[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_ph0mx"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_nhavb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
@@ -95,17 +94,6 @@ offset_right = 607.0
 offset_bottom = 133.0
 theme_override_font_sizes/normal_font_size = 26
 text = "Dialogue"
-
-[node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
-visible = false
-layout_mode = 0
-offset_left = 692.0
-offset_top = 209.0
-offset_right = 740.0
-offset_bottom = 301.0
-rotation = -1.5708
-scale = Vector2(0.355023, 0.355023)
-texture = ExtResource("3_ph0mx")
 
 [node name="Border1" type="Panel" parent="Balloon/Panel2"]
 layout_mode = 0

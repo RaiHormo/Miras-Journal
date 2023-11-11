@@ -839,7 +839,7 @@ light_mask = 16
 energy = 0.0
 range_item_cull_mask = 17
 texture = SubResource("GradientTexture2D_tbe80")
-texture_scale = 1.5
+texture_scale = 2.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="Act"]
 light_mask = 16

@@ -3,9 +3,9 @@ var PinRange = false
 @export var Battle: BattleSequence
 @export var Defeated = false
 var lock = false
-@export var RoamRegion: Polygon2D
 
 func default():
+	Nav = $Nav
 	while not PinRange:
 		await move_dir(Vector2(randf_range(-3,3), randf_range(-3,3)), false)
 
@@ -51,8 +51,9 @@ func _on_finder_area_entered(area):
 func _on_catch_area_body_entered(body):
 	if Global.Player in $CatchArea.get_overlapping_bodies() and Global.Controllable and not lock:
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
+		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
 		Loader.Attacker = self
 		await Loader.start_battle(Battle)
-		global_position = Global.Tilemap.map_to_local(DefaultPos)
+		global_position = DefaultPos
 

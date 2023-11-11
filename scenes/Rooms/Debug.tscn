@@ -416,9 +416,10 @@ texture_region_size = Vector2i(24, 24)
 11:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 11:7/0/physics_layer_0/angular_velocity = 0.0
 12:7/0 = 0
+12:7/0/y_sort_origin = -1
 12:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 12:7/0/physics_layer_0/angular_velocity = 0.0
-12:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7, -1, 6.5, -1, 6.5, 7, -6.5, 7)
+12:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 0, 6, 0, 6, 6, 0, 6, -6, 6)
 0:8/0 = 0
 0:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:8/0/physics_layer_0/angular_velocity = 0.0
@@ -518,7 +519,7 @@ atlas = ExtResource("8_hyspg")
 region = Rect2(0, 18, 18, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
-size = Vector2(19.9846, 14.1724)
+size = Vector2(16, 12.5)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n2ngs"]
 vertices = PackedVector2Array(-9.97737, 3.0743, -8.05927, -7.94028, 9.94023, -8.07421, 9.05186, 6.93282, -1.91807, 11.0146)
@@ -559,6 +560,7 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = -1
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("5_iiwcs")
+SpawnPos = Vector2(0, -2)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(58.9894, -34.8328)
@@ -594,6 +596,7 @@ position = Vector2(60.2736, 36.5526)
 ActionType = "text"
 file = "testbush"
 title = "bush"
+Height = 4
 
 [node name="FastTravel" parent="." instance=ExtResource("5_pijc2")]
 z_index = 9
@@ -603,6 +606,7 @@ ActionType = "text"
 Length = 150
 file = "testbush"
 title = "travel"
+Height = 16
 
 [node name="Axe" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -647,12 +651,13 @@ LabelText = "Fight"
 ActionType = "battle"
 Length = 100
 file = "DebugDummy"
+Height = 16
 
 [node name="Body" type="StaticBody2D" parent="Dummy"]
 
 [node name="Collision" type="CollisionShape2D" parent="Dummy/Body"]
 z_index = 1
-position = Vector2(-1.81813, 2.90147)
+position = Vector2(-1.3261, 2.8676)
 shape = SubResource("RectangleShape2D_72f6p")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
@@ -683,6 +688,7 @@ target_desired_distance = 1.0
 path_postprocessing = 1
 
 [node name="Harold" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = ExtResource("1_g5xrf")
 position = Vector2(-39, -72)
 texture = ExtResource("12_d384d")
@@ -694,6 +700,15 @@ LabelText = "New Game"
 ActionType = "global"
 Length = 140
 file = "new_game"
+Height = 16
+
+[node name="Body2" type="StaticBody2D" parent="Harold"]
+position = Vector2(0, 8)
+
+[node name="Collision" type="CollisionShape2D" parent="Harold/Body2"]
+z_index = 1
+position = Vector2(0, 2.25)
+shape = SubResource("RectangleShape2D_72f6p")
 
 [connection signal="action" from="Lamp" to="PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="Bush" to="PointLight2D" method="_on_interactable_action"]

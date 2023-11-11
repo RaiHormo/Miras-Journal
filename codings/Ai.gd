@@ -4,7 +4,7 @@ var Char :Actor
 signal ai_chosen
 
 func ai():
-	Char = Bt.CurrentChar 
+	Char = Bt.CurrentChar
 	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
 	HpSortedAllies.sort_custom(Bt.hp_sort)
 	for i in HpSortedAllies:
@@ -21,7 +21,7 @@ func ai():
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			#4: Healing
 			choose(find_ability(4), HpSortedAllies[0])
-		else: 
+		else:
 			print("Nothing else to do, using random move")
 			choose(random_ability())
 
@@ -53,7 +53,7 @@ func has_type(type:int):
 			return true
 	print("i do not")
 	return false
-	
+
 func choose(ab:Ability, tar:Actor=null):
 	if Char.NextTarget==null and tar==null:
 		match ab.Target:
@@ -67,7 +67,7 @@ func choose(ab:Ability, tar:Actor=null):
 		Char.NextTarget = tar
 	if ab == Char.StandardAttack:
 		Char.NextAction = "Attack"
-	else: 
+	else:
 		Char.NextAction = "Ability"
 	Char.NextMove=ab
 	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
@@ -77,10 +77,10 @@ func random_ability():
 	var r = randi_range(0, 1)
 	while true:
 		match r:
-			0: 
+			0:
 				return Char.StandardAttack
 			1:
 				if has_type(2):
 					return find_ability(2)
 				else: r-=1
-			
+

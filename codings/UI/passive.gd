@@ -26,7 +26,6 @@ var will_hide_balloon: bool = false
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
 		is_waiting_for_input = false
-		$Balloon/Panel2/InputIndicator.hide()
 
 		if not next_dialogue_line:
 			return
@@ -102,7 +101,6 @@ var dialogue_line: DialogueLine:
 			next(dialogue_line.next_id)
 		else:
 			is_waiting_for_input = true
-			$Balloon/Panel2/InputIndicator.show()
 			balloon.focus_mode = Control.FOCUS_ALL
 			balloon.grab_focus()
 	get:

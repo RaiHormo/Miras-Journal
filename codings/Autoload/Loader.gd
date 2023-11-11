@@ -16,7 +16,7 @@ var BattleResult=0
 var chased = false
 var Attacker: NPC
 var CamZoom:Vector2 = Vector2(4,4)
-var Defeated:Array[NodePath]
+var Defeated:Array
 var Preview
 
 func _ready():
@@ -97,7 +97,7 @@ func done():
 	chased = false
 	Global.Area.queue_free()
 	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
-	View.get_node("Screen").add_child(ResourceLoader.load_threaded_get(scene).instantiate())
+	$/root.add_child(ResourceLoader.load_threaded_get(scene).instantiate())
 	await get_tree().create_timer(0.1).timeout
 	Global.Lights.clear()
 	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
@@ -162,9 +162,11 @@ func start_battle(stg):
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
 	if Attacker!=null: Attacker.hide()
-	Global.Player.get_parent().hide()
+	for i in Global.Follower:
+		if i != null: i.hide()
 
 func end_battle():
+	Global.get_cam().zoom = Vector2(5,5)
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
@@ -184,22 +186,25 @@ func end_battle():
 		await t.finished
 	InBattle= false
 	if Global.Player == null: return
-	Global.Player.get_parent().show()
-	Global.Player.set_anim("Idle"+Global.get_dir_name())
+	for i in Global.Follower:
+		if i != null: i.show()
+	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
 	if Global.Bt != null: Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
 		Event.warp_to(Seq.EscPosition)
 	if Attacker!=null and BattleResult!= 1: Attacker.show()
 	if BattleResult == 1 and Attacker!=null:
-		Attacker.queue_free()
+		Attacker.defeat()
+	Global.Controllable = false
 	battle_bars(0)
-	PartyUI.UIvisible=true
-	Global.Controllable = true
 	get_tree().paused = false
 	if Global.Player != null:
-		await Event.wait(1)
 		Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
+		await Event.wait(0.1)
+		if Global.Player.flame_active: await Global.Player.activate_flame()
+	PartyUI.UIvisible=true
+	Global.Controllable = true
 	#Global.get_cam().position_smoothing_enabled = true
 
 func icon_save():
@@ -317,7 +322,7 @@ func load_game(filename:String="Autosave"):
 	Global.Members = data.Members
 	Global.Party.set_to(data.Party)
 
-	await get_tree().create_timer(0.01).timeout
+	await Global.area_initialized
 	Global.Player.global_position = data.Position
 	Global.Controllable =true
 	PartyUI._check_party()

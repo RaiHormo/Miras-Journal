@@ -34,7 +34,7 @@ func _ready():
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	Fader.show()
 	stage = "inactive"
-	zoom = View.scale
+	zoom = Global.get_cam().zoom
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -51,7 +51,7 @@ func _ready():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
 	t.tween_property(Cam, "position", Player.global_position + Vector2(0, (-11 + 	zoom.y)), 0.5)
-	t.tween_property($/root/View, "scale", Vector2(5, 5), 0.5)
+	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
 
 	t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
@@ -150,7 +150,7 @@ func close():
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
-	t.tween_property($/root/View, "scale", zoom, 0.3)
+	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
 	await t.finished
 	Player.z_index = 1

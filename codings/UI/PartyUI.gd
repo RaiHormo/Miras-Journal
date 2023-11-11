@@ -12,6 +12,7 @@ var focus : int = 0
 var UIvisible = true
 var Tempvis = true
 var visibly=false
+var enabled = true
 @onready var t :Tween
 @onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 var WasPaused = false
@@ -42,7 +43,8 @@ func _process(delta):
 #			_on_expand()
 #		elif (not Expanded) and $CanvasLayer/Leader.scale.x==1.5:
 #			_on_shrink()
-		if UIvisible and $CanvasLayer.visible==false:
+		if not enabled: UIvisible = false
+		if UIvisible and $CanvasLayer.visible==false and enabled:
 			$CanvasLayer.show()
 			_check_party()
 			t = create_tween()
@@ -91,7 +93,7 @@ func _input(ev):
 		Global.Controllable = Global.toggle(Global.Controllable)
 	if Input.is_action_just_pressed("DebugI"):
 		Item.add_item("SmallPotion", "Con")
-	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing:
+	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 			if Expanded == true:
 				Tempvis=true
 				$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
@@ -424,6 +426,7 @@ func draw_bar(mem:Actor, node: Panel):
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 func choose_member():
+	if Item.get_node("ItemEffect").item == null: return
 	_on_expand(1)
 	UIvisible = true
 	t = create_tween()
