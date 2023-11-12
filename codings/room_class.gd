@@ -18,6 +18,8 @@ func _ready():
 #	if not get_parent() is SubViewport:
 #		View.change_scene(get_tree().current_scene.scene_file_path)
 #		queue_free()
+	material = preload("res://scenes/Shaders/Pixelart.tres")
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
 	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
 	if AutoLimits:

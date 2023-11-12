@@ -207,6 +207,9 @@ func portrait(img:String, redraw:=true) -> void:
 func portrait_clear() -> void:
 	HasPortrait=false
 
+func next_box(profile:String) -> void:
+	$/root.get_node("Textbox").next_box = profile
+
 #Match profile
 func match_profile(named:String) -> TextProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):

@@ -1,12 +1,16 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_xes3h"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ehlld"]
 
 [resource]
-script = ExtResource("1_xes3h")
+script = ExtResource("1_ehlld")
 titles = {
+"as_lost_as_you": "34",
 "cant_dash_on_flame": "15",
 "getting_dark": "2",
+"hey_wait": "20",
+"im_not_gonna_harm_you": "27",
+"stay_back": "41",
 "that_should_do_it": "6",
 "was_that_a": "10"
 }
@@ -66,15 +70,20 @@ Was that another monster?",
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "17",
-"text": "I can't dash and hold this flame at the same time.[wait=0.3][next=auto]",
+"text": "I can't dash and hold this flame at the same time.[next=4]",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "I can't dash and hold this flame at the same time.[wait=0.3][next=auto]",
+"translation_key": "I can't dash and hold this flame at the same time.[next=4]",
 "type": "dialogue"
 },
 "17": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
+},
+"19": {
+"next_id": "20",
+"text": "hey_wait",
+"type": "title"
 },
 "2": {
 "character": "",
@@ -85,10 +94,208 @@ Was that another monster?",
 "translation_key": "...It's getting a little dark.",
 "type": "dialogue"
 },
+"20": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraOpenMouth"
+}])])
+}])
+},
+"next_id": "21",
+"type": "mutation"
+},
+"21": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "22",
+"text": "Hey wait![next=2]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Hey wait![next=2]",
+"type": "dialogue"
+},
+"22": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}]), Array[Dictionary]([{
+"type": "bool",
+"value": false
+}])])
+}])
+},
+"next_id": "23",
+"type": "mutation"
+},
+"23": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "24",
+"text": "Is it scared of me?[next=2]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Is it scared of me?[next=2]",
+"type": "dialogue"
+},
+"24": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"26": {
+"next_id": "27",
+"text": "im_not_gonna_harm_you",
+"type": "title"
+},
+"27": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "next_box",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "Alcine"
+}])])
+}])
+},
+"next_id": "28",
+"type": "mutation"
+},
+"28": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "29",
+"text": "...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...",
+"type": "dialogue"
+},
+"29": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraSmile"
+}])])
+}])
+},
+"next_id": "30",
+"type": "mutation"
+},
 "3": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
+},
+"30": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "31",
+"text": "Calm down.
+I'm not going to harm you.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Calm down.
+I'm not going to harm you.",
+"type": "dialogue"
+},
+"31": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"33": {
+"next_id": "34",
+"text": "as_lost_as_you",
+"type": "title"
+},
+"34": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "next_box",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "Alcine"
+}])])
+}])
+},
+"next_id": "35",
+"type": "mutation"
+},
+"35": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "36",
+"text": "...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...",
+"type": "dialogue"
+},
+"36": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "37",
+"type": "mutation"
+},
+"37": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "38",
+"text": "I'm as lost as you are right now...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "I'm as lost as you are right now...",
+"type": "dialogue"
+},
+"38": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"40": {
+"next_id": "41",
+"text": "stay_back",
+"type": "title"
+},
+"41": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraOpenMouth"
+}])])
+}])
+},
+"next_id": "42",
+"type": "mutation"
+},
+"42": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "",
+"text": "You stay back.
+I'll deal with them!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "You stay back.
+I'll deal with them!",
+"type": "dialogue"
 },
 "5": {
 "next_id": "6",

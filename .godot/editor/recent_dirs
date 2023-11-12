@@ -1,6 +1,7 @@
+res://art/OV/Mira
+res://art/OV/Alcine
 res://codings/Characters
 res://scenes/Characters
-res://art/OV/Mira
 res://scenes
 res://scenes/Rooms
 res://scenes/Shaders
@@ -19,4 +20,3 @@ res://database/Abilities
 res://codings/UI
 res://database/Party
 res://art/BT/Alcine
-res://database/Abilities/

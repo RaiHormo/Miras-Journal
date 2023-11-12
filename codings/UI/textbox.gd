@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var responses_menu: VBoxContainer = $Balloon/Responses
 @onready var response_template: Button = $Balloon/Responses/Button.duplicate(0)
 var mem: TextProfile
+var next_box: String = ""
 var currun = false
 @onready var t :Tween = get_tree().create_tween()
 
@@ -41,7 +42,8 @@ var dialogue_line: DialogueLine:
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		mem = await Global.match_profile(character_label.text)
+		if next_box == "": next_box = character_label.text
+		mem = await Global.match_profile(next_box)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -151,6 +153,7 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 
 ## Go to the next line
 func next(next_id: String) -> void:
+	next_box = ""
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
 
 

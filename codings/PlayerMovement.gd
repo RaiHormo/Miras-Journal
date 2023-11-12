@@ -181,20 +181,19 @@ func _check_party() -> void:
 		$Base/Bag/Axe.show()
 	else:
 		$Base/Bag/Axe.hide()
-	if Item.HasBag:
-		$Base/Bag.show()
-	else:
-		$Base/Bag.hide()
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String) -> void:
 	$Base.play(anim)
-	if anim in $Base/Bag.sprite_frames.get_animation_names() and Item.HasBag: $Base/Bag.play(anim)
+	if anim in $Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
+		$Base/Bag.show()
+		$Base/Bag.play(anim)
 	else: $Base/Bag.hide()
 	if anim in $Base/Flame.sprite_frames.get_animation_names() and flame_active:
 		$Base/Flame.show()
 		$Base/Flame.play(anim)
 	else: $Base/Flame.hide()
+	if $Base.is_playing(): await $Base.animation_finished
 
 func activate_flame(animate:=true) -> void:
 	flame_active = true
@@ -289,3 +288,7 @@ func bump() -> void:
 	Global.Controllable=false
 	await $Base.animation_finished
 	Global.Controllable=true
+
+func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
+	$Camera2D.update_position = follow
+

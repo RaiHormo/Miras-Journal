@@ -125,13 +125,14 @@ func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
 	await go_to(coords+(dir), exact, autostop)
 
 func look_to(dir:Vector2):
+	BodyState = IDLE
 	Facing=Global.get_direction(dir.normalized())
 	print(dir, Facing)
 
 func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: return
-	await stop_going()
+	#await stop_going()
 	Nav.set_target_position(Global.Tilemap.map_to_local(pos))
 	BodyState = MOVE
 	#print("Target: ", Vector2(pos))
@@ -147,8 +148,9 @@ func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
 		var t = create_tween()
 		t.tween_property(self, "global_position", Global.Tilemap.map_to_local(pos), Nav.distance_to_target()/speed)
 		await t.finished
-	if BodyState == MOVE: BodyState= IDLE
-#	direction = Vector2.ZERO
+	BodyState= IDLE
+	direction = Vector2.ZERO
+	await Event.wait()
 
 func stop_going() -> void:
 	stopping = true
@@ -173,3 +175,7 @@ func set_direction_to(pos:Vector2i) -> void:
 func wall_in_front() -> bool:
 	if is_on_wall() and Global.get_direction(get_wall_normal()) == Global.get_direction(): return true
 	else: return false
+
+func bubble(str:String) -> void:
+	$Bubble.play(str)
+	await $Bubble.animation_finished

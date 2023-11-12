@@ -400,6 +400,7 @@ theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="."]
+visible = false
 offset_left = -55.0
 offset_top = 389.0
 offset_right = 1945.0

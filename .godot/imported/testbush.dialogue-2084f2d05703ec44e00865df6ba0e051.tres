@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_kc0ob"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_p85s3"]
 
 [resource]
-script = ExtResource("1_kc0ob")
+script = ExtResource("1_p85s3")
 titles = {
 "bush": "3",
-"greetings": "30",
+"greetings": "32",
 "travel": "16"
 }
 character_names = PackedStringArray("Mira", "Erinn")
@@ -46,7 +46,7 @@ lines = {
 },
 "17": {
 "next_id": "18",
-"next_id_after": "26",
+"next_id_after": "28",
 "responses": PackedStringArray("17"),
 "text": "Temple Woods",
 "text_replacements": Array[Dictionary]([]),
@@ -65,12 +65,12 @@ lines = {
 },
 "19": {
 "next_id": "20",
-"next_id_after": "26",
+"next_id_after": "28",
 "parent_id": "17",
-"responses": PackedStringArray("19", "21", "23"),
-"text": "Part 1",
+"responses": PackedStringArray("19", "21", "23", "25"),
+"text": "Start",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Part 1",
+"translation_key": "Start",
 "type": "response"
 },
 "20": {
@@ -84,17 +84,17 @@ lines = {
 }])])
 }])
 },
-"next_id": "26",
+"next_id": "28",
 "parent_id": "19",
 "type": "mutation"
 },
 "21": {
 "next_id": "22",
-"next_id_after": "26",
+"next_id_after": "28",
 "parent_id": "17",
-"text": "Part 2",
+"text": "Lake",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Part 2",
+"translation_key": "Lake",
 "type": "response"
 },
 "22": {
@@ -121,17 +121,17 @@ lines = {
 }])])
 }])
 },
-"next_id": "26",
+"next_id": "28",
 "parent_id": "21",
 "type": "mutation"
 },
 "23": {
 "next_id": "24",
-"next_id_after": "26",
+"next_id_after": "28",
 "parent_id": "17",
-"text": "Part 3",
+"text": "Small temple",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Part 3",
+"translation_key": "Small temple",
 "type": "response"
 },
 "24": {
@@ -158,19 +158,51 @@ lines = {
 }])])
 }])
 },
-"next_id": "26",
+"next_id": "28",
 "parent_id": "23",
 "type": "mutation"
 },
+"25": {
+"next_id": "26",
+"next_id_after": "28",
+"parent_id": "17",
+"text": "Road",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Road",
+"type": "response"
+},
 "26": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "travel_to",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "TempleWoods"
+}]), Array[Dictionary]([{
+"function": "Vector2",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "number",
+"value": 1272
+}]), Array[Dictionary]([{
+"type": "number",
+"value": -966
+}])])
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 2
+}])])
+}])
+},
+"next_id": "28",
+"parent_id": "25",
+"type": "mutation"
+},
+"28": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
-},
-"28": {
-"next_id": "30",
-"text": "greetings",
-"type": "title"
 },
 "3": {
 "mutation": {
@@ -190,6 +222,11 @@ lines = {
 "type": "mutation"
 },
 "30": {
+"next_id": "32",
+"text": "greetings",
+"type": "title"
+},
+"32": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -203,19 +240,19 @@ lines = {
 }])])
 }])
 },
-"next_id": "31",
+"next_id": "33",
 "type": "mutation"
 },
-"31": {
+"33": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"next_id": "32",
+"next_id": "34",
 "text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
 "type": "dialogue"
 },
-"32": {
+"34": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -229,19 +266,19 @@ lines = {
 }])])
 }])
 },
-"next_id": "33",
+"next_id": "35",
 "type": "mutation"
 },
-"33": {
+"35": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"next_id": "35",
+"next_id": "37",
 "text": "I can still move while saying this.[next=auto]",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I can still move while saying this.[next=auto]",
 "type": "dialogue"
 },
-"35": {
+"37": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
