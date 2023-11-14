@@ -176,6 +176,6 @@ func wall_in_front() -> bool:
 	if is_on_wall() and Global.get_direction(get_wall_normal()) == Global.get_direction(): return true
 	else: return false
 
-func bubble(str:String) -> void:
-	$Bubble.play(str)
+func bubble(stri:String) -> void:
+	$Bubble.play(stri)
 	await $Bubble.animation_finished

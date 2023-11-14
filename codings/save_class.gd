@@ -19,4 +19,4 @@ class_name SaveFile
 @export var MatInv: Array[ItemData]
 @export var Flags: Array[String]
 @export var Day: int
-var version = 2
+@export var version = 2

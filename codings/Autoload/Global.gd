@@ -40,7 +40,7 @@ func _ready() -> void:
 	if OS.get_name() == "Linux": await ready_window()
 	else: await Event.wait(0.5)
 	init_settings()
-	await nodes_of_type(Tilemap, "Light2D", Lights)
+	if Tilemap != null: await nodes_of_type(Tilemap, "Light2D", Lights)
 	lights_loaded.emit()
 
 ##Focus the window, used as a workaround to a wayland problem
@@ -429,6 +429,7 @@ func find_member(Name: String) -> Actor:
 	return Party.Leader
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
+	if node == null: return
 	if node.is_class(className):
 		if node != null and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
 	for child in node.get_children():

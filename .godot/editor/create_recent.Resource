@@ -1,8 +1,8 @@
 Ability
+Actor
 MaterialItem
 ItemData
 State
-Actor
 BattleSequence
 Resource
 TextProfile

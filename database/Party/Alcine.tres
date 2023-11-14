@@ -5,11 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_o1wey"]
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
+[ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="2_3o6lq"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
 [ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="7_4k312"]
 [ext_resource type="Texture2D" uid="uid://dwbnmt2k8ms6p" path="res://UI/Party/AlcineShadow.png" id="7_5nnfn"]
-[ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/AttackAlcine.tres" id="9_k8sqf"]
 
 [resource]
 script = ExtResource("1_o1wey")
@@ -28,13 +28,13 @@ Attack = 0.4
 Magic = 1.6
 Defence = 0.8
 Speed = 4.0
-Health = 40
+Health = 90
 Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("2_2vyew"), ExtResource("9_k8sqf")])
-StandardAttack = ExtResource("9_k8sqf")
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("2_2vyew"), ExtResource("2_3o6lq")])
+StandardAttack = ExtResource("2_3o6lq")
 AttackMultiplier = 1.0
 DefenceMultiplier = 1.0
 MagicMultiplier = 1.0
@@ -50,7 +50,7 @@ GlowSpecial = 0.0
 GlowAnims = Array[String]([])
 LastName = ""
 WeaponType = ""
-Controllable = true
+Controllable = false
 StatsVisible = true
 NextAction = ""
 States = Array[Resource("res://database/States/state.gd")]([])

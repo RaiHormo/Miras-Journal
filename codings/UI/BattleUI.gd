@@ -93,7 +93,7 @@ func _on_battle_get_control():
 		n.queue_free()
 	for i in Abilities:
 		dub = dub.duplicate()
-		$AbilityUI/Margin/Scroller/List.add_child(dub)
+		if dub.get_parent() != $AbilityUI/Margin/Scroller/List: $AbilityUI/Margin/Scroller/List.add_child(dub)
 		dub.text = i.name
 		dub.get_node("Icon").texture = i.Icon
 		if i.AuraCost != 0:

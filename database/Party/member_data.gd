@@ -24,12 +24,13 @@ class_name Actor
 
 @export_group("Stats")
 
-@export var MaxHP : int
-@export var MaxAura : int
-@export_range(0, 2) var Attack : float
-@export_range(0, 2) var Magic : float
-@export_range(0, 2) var Defence : float
-@export_range(0, 10) var Speed : float
+@export var MaxHP : int = 99
+@export var MaxAura : int = 99
+
+@export_range(0, 2) var Attack : float = 1
+@export_range(0, 2) var Magic : float = 1
+@export_range(0, 2) var Defence : float = 1
+@export_range(0, 10) var Speed : float = 5
 
 @export_subgroup("Current")
 @export_range(0, 9999) var Health : int

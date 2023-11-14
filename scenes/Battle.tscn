@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="5_83x0w"]
 [ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="8_wdycw"]
+[ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="8_km0il"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="10_fwnkw"]
@@ -779,9 +779,8 @@ light_mask = 16
 texture_filter = 2
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
-sprite_frames = ExtResource("8_wdycw")
-animation = &"Command"
-frame_progress = 0.610158
+sprite_frames = ExtResource("8_km0il")
+animation = &"Attack1"
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
@@ -853,6 +852,7 @@ zoom = Vector2(4, 4)
 limit_smoothed = true
 
 [node name="BattleUI" type="Control" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_nmg3k")
 layout_mode = 1
 anchors_preset = 8

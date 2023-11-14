@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://dmm26g6xg665u"]
+
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_p6in8"]
+
+[resource]
+script = ExtResource("1_p6in8")
+name = "Warp attack"
+description = "The "
+ActionSequence = &"WarpAttack"
+Type = 0
+AuraCost = 0
+HPCost = 0
+Damage = 2
+Target = 1
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 0.9
+CritChance = 0.2

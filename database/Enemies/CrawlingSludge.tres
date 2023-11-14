@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_iy5kn"]
-[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/JumpAttack.tres" id="4_rtvyb"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_rtvyb"]
 
 [resource]
 script = ExtResource("2_iy5kn")

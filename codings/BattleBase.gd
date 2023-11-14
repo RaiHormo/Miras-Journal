@@ -46,7 +46,7 @@ func _ready():
 	$Act/Actor0.frame = 0
 	$Act/Actor0/Shadow.modulate = Color.WHITE
 	$Canvas/Callout.modulate = Color.TRANSPARENT
-	Global.Area.show()
+	if Global.Area != null: Global.Area.show()
 	if Global.check_member(1):
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Actor1"
@@ -370,6 +370,7 @@ func return_cur(target:Actor = CurrentChar):
 	tc.set_trans(Tween.TRANS_QUAD)
 	tc.set_ease(Tween.EASE_OUT)
 	tc.tween_property(target.node, "position", initial, 0.2)
+	await tc.finished
 
 func end_turn():
 	await get_tree().create_timer(0.3).timeout
@@ -413,7 +414,7 @@ func hit_animation(tar):
 	anim("Idle", tar)
 
 
-func screen_shake(amount:float, times:float, ShakeDuration:float):
+func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -549,6 +550,7 @@ func anim(animation: String="Idle", chara: Actor = CurrentChar):
 		chara.node.get_node("Glow").color = chara.MainColor
 		t.tween_property(chara.node.get_node("Glow"), "energy", 0, 0.3)
 	chara.node.play(animation)
+	await chara.node.animation_finished
 
 func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
 	t.kill()
@@ -686,3 +688,10 @@ func relation_to_dmg_modifier(relation:String) -> float:
 	elif relation == "res": base = 0.5
 	else: return 1
 	return round(base*10)/10
+
+@warning_ignore("shadowed_global_identifier")
+func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
+	t = create_tween()
+	t.set_ease(ease)
+	t.tween_property($Cam, "zoom", Vector2(am,am), time)
+	await t.finished

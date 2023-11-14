@@ -1,4 +1,7 @@
 extends Control
+
+const SaveVersion = 3
+
 @export var scene:String
 var status
 var progress = []
@@ -19,12 +22,19 @@ var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
 
+
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
-	if FileAccess.file_exists("user://Autosave.tres"): Preview = (await load_res("user://Autosave.tres")).Preview
+	if FileAccess.file_exists("user://Autosave.tres"):
+		var autosave = load("user://Autosave.tres")
+		if autosave != null:
+			Preview = autosave.Preview
+		else:
+			OS.alert("The last autosave file is corrupt or from an incompatible version and will now be deleted", "Can't read file")
+			OS.move_to_trash("user://Autosave.tres")
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
@@ -95,7 +105,7 @@ func transition(dir=Global.get_dir_letter()):
 
 func done():
 	chased = false
-	Global.Area.queue_free()
+	if Global.Area != null: Global.Area.queue_free()
 	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
 	$/root.add_child(ResourceLoader.load_threaded_get(scene).instantiate())
 	await get_tree().create_timer(0.1).timeout
@@ -282,6 +292,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Camera = Global.CameraInd
 	data.Defeated = Defeated
 	data.Members = Global.Members.duplicate()
+	data.version = SaveVersion
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
 

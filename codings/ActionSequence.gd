@@ -118,7 +118,6 @@ func AttackAlcine():
 	Bt.return_cur()
 	Bt.end_turn()
 
-
 func StickAttack():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.focus_cam(target, 0.5, 30)
@@ -133,8 +132,33 @@ func StickAttack():
 	Bt.play_effect("SimpleHit", target)
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
-	Bt.anim("Idle")
+	Bt.anim()
 	Bt.end_turn()
+
+func WarpAttack():
+	Bt.zoom()
+	Bt.move(CurrentChar, Vector2(Bt.offsetize(30), Bt.initial.y), 0.4)
+	Bt.focus_cam(target, 0.6, 30)
+	CurrentChar.node.get_node("Shadow").hide()
+	await Bt.anim("Attack1")
+	CurrentChar.node.global_position = Vector2(target.node.global_position.x + Bt.offsetize(-30), target.node.global_position.y)
+	Bt.move(CurrentChar, target.node.global_position + Vector2(Bt.offsetize(-20), 0), 0.8)
+	Bt.anim("Attack2")
+	await Event.wait(0.2)
+	Bt.damage(target, CurrentChar.Attack)
+	Bt.screen_shake()
+	await Event.wait(0.7)
+	CurrentChar.node.global_position = Bt.initial + Vector2(Bt.offsetize(-50), 0)
+	Bt.return_cur()
+	CurrentChar.node.get_node("Shadow").show()
+	Bt.end_turn()
+	var temp = CurrentChar
+	temp.node.play_backwards("Attack1")
+	await temp.node.animation_finished
+	Bt.anim("Idle", temp)
+
+
+################################################
 
 func Guard():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
@@ -166,6 +190,7 @@ func FlameSpark():
 	await get_tree().create_timer(0.3).timeout
 	Bt.play_effect("FlameSpark", target)
 	Bt.focus_cam(target, 0.3, 20)
+	t.stop()
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	await get_tree().create_timer(0.2).timeout
 	Bt.damage(target, CurrentChar.Magic)

@@ -49,6 +49,9 @@ gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_private_class_variable=0
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/shadowed_variable_base_class=0
+gdscript/warnings/shadowed_global_identifier=0
 gdscript/warnings/integer_division=0
 
 [dialogue_manager]
