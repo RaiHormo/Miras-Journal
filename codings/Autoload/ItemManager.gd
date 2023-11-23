@@ -2,6 +2,7 @@ extends Control
 @export var KeyInv : Array[ItemData]
 @export var ConInv : Array[ItemData]
 @export var MatInv : Array[ItemData]
+@export var BtiInv : Array[ItemData]
 var item : ItemData
 var ind
 @onready var panel = $Can/Panel
@@ -73,18 +74,21 @@ func get_inv(type: String):
 		"Key": return KeyInv
 		"Con": return ConInv
 		"Mat": return MatInv
+		"Bti": return BtiInv
 
 func overwrite_inv(inv: Array, type: String):
 	match type:
 		"Key": KeyInv = inv
 		"Con": ConInv = inv
 		"Mat": MatInv = inv
+		"Bti": BtiInv = inv
 
 func get_folder(type: String):
 	match type:
 		"Key": return "KeyItems"
 		"Con": return "Consumables"
 		"Mat": return "Materials"
+		"Bti": return "BattleItems"
 
 func use(iteme:ItemData):
 	$ItemEffect.use(iteme)
@@ -123,3 +127,5 @@ func verify_inventory():
 		if i.filename == "Invalid filename": await find_filename(i, "Con")
 	for i in MatInv:
 		if i.filename == "Invalid filename": await find_filename(i, "Mat")
+	for i in BtiInv:
+		if i.filename == "Invalid filename": await find_filename(i, "Bti")

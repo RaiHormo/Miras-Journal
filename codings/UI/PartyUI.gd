@@ -366,7 +366,7 @@ func _on_battle_ui_root():
 	battle_state()
 
 
-func _on_battle_ui_ability():
+func only_current():
 	t = create_tween()
 	t.set_parallel(true)
 	if Global.Bt.CurrentChar == Party.Leader:

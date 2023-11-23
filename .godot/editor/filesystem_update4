@@ -16,7 +16,6 @@ res://scenes/Shaders/Pixelart.gdshader
 res://art/sheets/AlcineOV1.tres
 res://art/BT/Dummy/DummyBT.tres
 res://art/BT/Pterogon/PetrogonBT.tres
-res://database/Enemies/Pterogon.tres
 res://art/BT/WhiteSpawn/WhiteSpawnBT.tres
 res://art/sheets/ErinnOV.tres
 res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres
@@ -41,7 +40,8 @@ res://codings/Autoload/Loader.tscn
 res://codings/UI/Textbox2.tscn
 res://scenes/Characters/WanderingEnemy.tscn
 res://codings/UI/Passive.tscn
-res://codings/ActionSequence.gd
+res://codings/UI/BattleUI.gd
 res://codings/BattleBase.gd
-res://database/Party/Alcine.tres
-res://database/Party/Mira.tres
+res://codings/Autoload/Loader.gd
+res://codings/save_class.gd
+res://codings/room_class.gd

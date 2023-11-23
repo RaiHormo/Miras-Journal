@@ -510,22 +510,22 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="FontVariation" id="FontVariation_ycqu1"]
+[sub_resource type="FontVariation" id="FontVariation_4a8fb"]
 base_font = ExtResource("5_40ubq")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e6n8g"]
-default_font = SubResource("FontVariation_ycqu1")
+default_font = SubResource("FontVariation_4a8fb")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
-[sub_resource type="FontVariation" id="FontVariation_dwc77"]
+[sub_resource type="FontVariation" id="FontVariation_4wn81"]
 base_font = ExtResource("5_40ubq")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
 
 [sub_resource type="Theme" id="Theme_bug03"]
-default_font = SubResource("FontVariation_dwc77")
+default_font = SubResource("FontVariation_4wn81")
 Label/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
 RichTextLabel/constants/line_separation = 15
@@ -542,13 +542,13 @@ RichTextLabel/font_sizes/normal_font_size = 37
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_efl2n"]
 shader = ExtResource("4_tlo38")
 
-[sub_resource type="FontVariation" id="FontVariation_8vtio"]
+[sub_resource type="FontVariation" id="FontVariation_ochjv"]
 variation_embolden = 0.41
 spacing_glyph = 1
 spacing_space = 1
 
 [sub_resource type="Theme" id="Theme_wjifp"]
-default_font = SubResource("FontVariation_8vtio")
+default_font = SubResource("FontVariation_ochjv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbc32"]
 content_margin_left = 8.0

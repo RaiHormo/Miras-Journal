@@ -3329,7 +3329,6 @@ collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_503pd")
-flame_active = true
 speed = 70
 Nav = NodePath("Nav")
 

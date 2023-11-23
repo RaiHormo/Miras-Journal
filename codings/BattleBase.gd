@@ -689,9 +689,13 @@ func relation_to_dmg_modifier(relation:String) -> float:
 	else: return 1
 	return round(base*10)/10
 
-@warning_ignore("shadowed_global_identifier")
 func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
 	t = create_tween()
 	t.set_ease(ease)
 	t.tween_property($Cam, "zoom", Vector2(am,am), time)
 	await t.finished
+
+
+func _on_battle_ui_item() -> void:
+	await anim("Bag")
+	anim("BagLoop")

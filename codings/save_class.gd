@@ -4,7 +4,7 @@ class_name SaveFile
 @export var Name:String="Autosave"
 @export var Datetime:Dictionary
 @export var Party:PartyData
-@export var Room:PackedScene
+@export var Room: String
 @export var Position:Vector2
 @export var Camera:int = 0
 @export var Members: Array[Actor]
@@ -15,8 +15,8 @@ class_name SaveFile
 @export_group("Items")
 @export var KeyInv: Array[ItemData]
 @export var ConInv: Array[ItemData]
-@export var BatInv: Array[ItemData]
+@export var BtiInv: Array[ItemData]
 @export var MatInv: Array[ItemData]
 @export var Flags: Array[String]
 @export var Day: int
-@export var version = 2
+@export var version = 3

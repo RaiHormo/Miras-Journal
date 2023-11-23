@@ -1,9 +1,12 @@
-AnimationPlayer
+Sprite2D
+Button
+TabBar
 Panel
+TabContainer
+AnimationPlayer
 Area2D
 CollisionShape2D
 NavigationAgent2D
-Sprite2D
 Room
 GridMap
 SubViewportContainer
@@ -27,7 +30,3 @@ TextureRect
 Label
 Node2D
 Node
-ColorRect
-RichTextLabel
-MarginContainer
-NavigationObstacle2D

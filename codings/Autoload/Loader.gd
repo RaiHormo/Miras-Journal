@@ -1,6 +1,6 @@
 extends Control
 
-const SaveVersion = 3
+const SaveVersion = 4
 
 @export var scene:String
 var status
@@ -28,13 +28,91 @@ func _ready():
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
-	if FileAccess.file_exists("user://Autosave.tres"):
-		var autosave = load("user://Autosave.tres")
-		if autosave != null:
-			Preview = autosave.Preview
-		else:
-			OS.alert("The last autosave file is corrupt or from an incompatible version and will now be deleted", "Can't read file")
-			OS.move_to_trash("user://Autosave.tres")
+	validate_save()
+
+func save(filename:String="Autosave", showicon=true):
+	if Global.Player == null or Global.Area == null:
+		OS.alert("Cannot save right now")
+		return
+	if showicon:
+		icon_save()
+	var data:SaveFile =SaveFile.new()
+	data.Datetime = Time.get_datetime_dict_from_system()
+	data.Party = PartyData.new()
+	data.Party.set_to(Global.Party)
+	data.Party.make_unique()
+	data.StartTime = Global.StartTime
+	data.PlayTime = Global.PlayTime
+	data.Position = Global.Player.global_position
+	data.Preview = Global.get_preview()
+	data.Camera = Global.CameraInd
+	data.Defeated = Defeated
+	data.Members = Global.Members.duplicate()
+	data.version = SaveVersion
+	for i in data.Members:
+		data.Members[data.Members.find(i)] = i.duplicate()
+
+	data.KeyInv = Item.KeyInv.duplicate()
+	for i in data.KeyInv:
+		data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
+	data.ConInv = Item.ConInv.duplicate()
+	for i in data.ConInv:
+		data.ConInv[data.ConInv.find(i)] = i.duplicate()
+	data.MatInv = Item.MatInv.duplicate()
+	for i in data.MatInv:
+		data.MatInv[data.MatInv.find(i)] = i.duplicate()
+	data.BtiInv = Item.BtiInv.duplicate()
+	for i in data.BtiInv:
+		data.BtiInv[data.BtiInv.find(i)] = i.duplicate()
+	data.Room = Global.Area.scene_file_path
+	ResourceSaver.save(data, "user://"+filename+".tres")
+	Preview = (await load_res("user://Autosave.tres")).Preview
+
+func load_game(filename:String="Autosave"):
+	if not FileAccess.file_exists("user://"+filename+".tres"): await save()
+	transition("R")
+	t = create_tween()
+	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+	Icon.play("Load")
+	await get_tree().create_timer(1).timeout
+	var data:SaveFile = await load_res("user://"+filename+".tres")
+	if not validate_save(data):
+		OS.alert("Please reopen the game")
+		get_tree().quit()
+	Global.StartTime = Time.get_unix_time_from_system()
+	Global.SaveTime = data.PlayTime
+	Defeated = data.Defeated
+	Global.CameraInd = data.Camera
+
+	if data == null:
+		OS.alert("This save file doen't exist", "WHERE FILE")
+	if data.Room == null:
+		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
+	for i in $/root.get_children():
+		if i is TileMap: i.queue_free()
+	get_tree().root.add_child((await load_res(data.Room)).instantiate())
+
+	Item.KeyInv = data.KeyInv.duplicate()
+	Item.ConInv = data.ConInv.duplicate()
+	Item.MatInv = data.MatInv.duplicate()
+	Item.BtiInv = data.BtiInv.duplicate()
+
+	Global.Members = data.Members
+	Global.Party.set_to(data.Party)
+
+	await Global.area_initialized
+	Global.Player.global_position = data.Position
+	Global.Controllable =true
+	PartyUI._check_party()
+	await Item.verify_inventory()
+	detransition()
+
+func load_res(path:String):
+	loaded_resource = path
+	ResourceLoader.load_threaded_request(path)
+	loading_thread=true
+	await thread_loaded
+	return ResourceLoader.load_threaded_get(path)
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
@@ -277,75 +355,7 @@ func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!", "OH FUCK")
 
-func save(filename:String="Autosave", showicon=true):
-	if showicon:
-		icon_save()
-	var data:SaveFile =SaveFile.new()
-	data.Datetime = Time.get_datetime_dict_from_system()
-	data.Party = PartyData.new()
-	data.Party.set_to(Global.Party)
-	data.Party.make_unique()
-	data.StartTime = Global.StartTime
-	data.PlayTime = Global.PlayTime
-	data.Position = Global.Player.global_position
-	data.Preview = Global.get_preview()
-	data.Camera = Global.CameraInd
-	data.Defeated = Defeated
-	data.Members = Global.Members.duplicate()
-	data.version = SaveVersion
-	for i in data.Members:
-		data.Members[data.Members.find(i)] = i.duplicate()
 
-	data.KeyInv = Item.KeyInv.duplicate()
-	for i in data.KeyInv:
-		data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
-	data.ConInv = Item.ConInv.duplicate()
-	for i in data.ConInv:
-		data.ConInv[data.ConInv.find(i)] = i.duplicate()
-	var room=PackedScene.new()
-	room.pack(Global.Area)
-	data.Room = room
-	ResourceSaver.save(data, "user://"+filename+".tres")
-	Preview = (await load_res("user://Autosave.tres")).Preview
-
-func load_game(filename:String="Autosave"):
-	transition("R")
-	t = create_tween()
-	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
-	Icon.play("Load")
-	await get_tree().create_timer(1).timeout
-	var data:SaveFile = await load_res("user://"+filename+".tres")
-	Global.StartTime = Time.get_unix_time_from_system()
-	Global.SaveTime = data.PlayTime
-	Defeated = data.Defeated
-	Global.CameraInd = data.Camera
-
-	if data == null:
-		OS.alert("This save file doen't exist", "WHERE FILE")
-	if data.Room == null:
-		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	if Global.Area != null:
-		Global.Area.get_tree().change_scene_to_packed(data.Room)
-
-	Item.KeyInv = data.KeyInv.duplicate()
-	Item.ConInv = data.ConInv.duplicate()
-
-	Global.Members = data.Members
-	Global.Party.set_to(data.Party)
-
-	await Global.area_initialized
-	Global.Player.global_position = data.Position
-	Global.Controllable =true
-	PartyUI._check_party()
-	await Item.verify_inventory()
-	detransition()
-
-func load_res(path:String):
-	loaded_resource = path
-	ResourceLoader.load_threaded_request(path)
-	loading_thread=true
-	await thread_loaded
-	return ResourceLoader.load_threaded_get(path)
 
 func chase_mode():
 	CamZoom = Global.get_cam().zoom
@@ -367,3 +377,14 @@ func white_fadeout(out_time:float=7, wait_time=2, in_time:float = 0.1):
 	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
 	await tf.finished
 	fader.queue_free()
+
+func validate_save(save: SaveFile = load("user://Autosave.tres")) -> bool:
+	if FileAccess.file_exists("user://Autosave.tres"):
+		if save != null and save.version == SaveVersion:
+			Preview = save.Preview
+			return true
+		else:
+			OS.alert("This save file is corrupt or from an incompatible version and will now be deleted", "Can't read file")
+			DirAccess.remove_absolute("user://Autosave.tres")
+			return false
+	else: return false

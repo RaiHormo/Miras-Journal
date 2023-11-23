@@ -50,6 +50,7 @@ func extended_process() -> void:
 	if midair:
 		pass
 	_check_party()
+	check_flame()
 	if flame_active and $Flame.energy == 0 and Global.Controllable: activate_flame(false)
 
 func control_process():

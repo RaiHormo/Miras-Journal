@@ -73,6 +73,7 @@ func _on_battle_get_control():
 	$Item.show()
 	$Command.show()
 	$Ability.show()
+	$Inventory.hide()
 	$"../Canvas/AttackTitle".hide()
 	Troop = Bt.Troop
 	TurnOrder = Bt.TurnOrder
@@ -87,28 +88,8 @@ func _on_battle_get_control():
 	$Attack.icon = Global.get_controller().AttackIcon
 	$Item.icon = Global.get_controller().ItemIcon
 	$Command.icon = Global.get_controller().CommandIcon
-	var dub = $AbilityUI/Margin/Scroller/List/Item0.duplicate()
-	for n in $AbilityUI/Margin/Scroller/List.get_children():
-		$AbilityUI/Margin/Scroller/List.remove_child(n)
-		n.queue_free()
-	for i in Abilities:
-		dub = dub.duplicate()
-		if dub.get_parent() != $AbilityUI/Margin/Scroller/List: $AbilityUI/Margin/Scroller/List.add_child(dub)
-		dub.text = i.name
-		dub.get_node("Icon").texture = i.Icon
-		if i.AuraCost != 0:
-			dub.get_child(0).text = str(i.AuraCost)
-			dub.get_child(0).show()
-		else:
-			dub.get_child(0).hide()
-		dub.name = "Item" + str(dub.get_index(true))
-		dub.set_meta("Ability", i)
-	for i in $AbilityUI/Margin/Scroller/List.get_children():
-		if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
-			i.disabled = true
-			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
-			$AbilityUI/Margin/Scroller/List.get_children().push_back(i)
-
+	fetch_abilities()
+	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
 	t.tween_property($Ability, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
@@ -199,83 +180,91 @@ func _on_root():
 	await t.finished
 	$DescPaper.hide()
 	$CommandMenu.hide()
+	$Inventory.hide()
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	if active:
-		if stage == "root":
-			if Input.is_action_just_pressed("BtAttack"):
-				attack.emit()
-			if Input.is_action_just_pressed("BtCommand"):
-				command.emit()
-			if Input.is_action_just_pressed("BtAbility"):
-				while Input.is_action_pressed("ui_accept"):
-					await Event.wait()
-				ability.emit()
-		elif stage == "target":
-#			if Input.is_action_just_pressed(Global.confirm()):
-#				_on_confirm_pressed()
-			if Input.is_action_just_pressed(Global.cancel()):
-#				if PrevStage != stage:
-						Global.cancel_sound()
-						emit_signal(PrevStage)
-			if Input.is_action_just_pressed("ui_down") and active:
-				if TargetFaction.size() == 1:
-					Global.buzzer_sound()
-					return
-				if TargetIndex!=TargetFaction.size() -1:
-					TargetIndex += 1
-				else:
-					TargetIndex = 0
-				while TargetFaction[TargetIndex].has_state("Knocked Out"):
+		match stage:
+			"root":
+				if Input.is_action_just_pressed("BtAttack") and not $Attack.disabled:
+					while Input.is_action_pressed("ui_accept"): await Event.wait()
+					attack.emit()
+				if Input.is_action_just_pressed("BtCommand") and not $Command.disabled:
+					command.emit()
+				if Input.is_action_just_pressed("BtItem") and not $Item.disabled:
+					item.emit()
+				if Input.is_action_just_pressed("BtAbility") and not $Ability.disabled:
+					while Input.is_action_pressed("ui_accept"): await Event.wait()
+					ability.emit()
+			"target":
+	#			if Input.is_action_just_pressed(Global.confirm()):
+	#				_on_confirm_pressed()
+				if Input.is_action_just_pressed(Global.cancel()):
+	#				if PrevStage != stage:
+							Global.cancel_sound()
+							emit_signal(PrevStage)
+				if Input.is_action_just_pressed("ui_down") and active:
+					if TargetFaction.size() == 1:
+						Global.buzzer_sound()
+						return
 					if TargetIndex!=TargetFaction.size() -1:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
-				Global.cursor_sound()
-				move_menu()
-			if Input.is_action_just_pressed("ui_up") and active:
-				if TargetFaction.size() == 1:
-					Global.buzzer_sound()
-					return
-				if TargetIndex!=0:
-					TargetIndex -= 1
-				else:
-					TargetIndex = TargetFaction.size() -1
-				Global.cursor_sound()
-				while TargetFaction[TargetIndex].has_state("Knocked Out"):
+					while TargetFaction[TargetIndex].has_state("Knocked Out"):
+						if TargetIndex!=TargetFaction.size() -1:
+							TargetIndex += 1
+						else:
+							TargetIndex = 0
+					Global.cursor_sound()
+					move_menu()
+				if Input.is_action_just_pressed("ui_up") and active:
+					if TargetFaction.size() == 1:
+						Global.buzzer_sound()
+						return
 					if TargetIndex!=0:
 						TargetIndex -= 1
 					else:
 						TargetIndex = TargetFaction.size() -1
-				move_menu()
-		elif stage == "ability":
-			if Input.is_action_just_pressed(Global.cancel()):
-				Bt.anim()
-				Global.cancel_sound()
-				root.emit()
-			if Input.is_action_just_pressed("ui_up") and active:
-				if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
-					Global.buzzer_sound()
-					return
-				if MenuIndex!= 0:
-					MenuIndex -= 1
-				else:
-					MenuIndex = $AbilityUI/Margin/Scroller/List.get_child_count() -1
-				Global.cursor_sound()
-				move_menu()
-			if Input.is_action_just_pressed("ui_down") and active:
-				if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
-					Global.buzzer_sound()
-					return
-				if MenuIndex!=$AbilityUI/Margin/Scroller/List.get_child_count() -1:
-					MenuIndex += 1
-				else:
-					MenuIndex = 0
-				Global.cursor_sound()
-				move_menu()
-		elif stage == "command":
-			if Input.is_action_just_pressed(Global.cancel()):
+					Global.cursor_sound()
+					while TargetFaction[TargetIndex].has_state("Knocked Out"):
+						if TargetIndex!=0:
+							TargetIndex -= 1
+						else:
+							TargetIndex = TargetFaction.size() -1
+					move_menu()
+			"ability":
+				if Input.is_action_just_pressed(Global.cancel()):
+					Bt.anim()
+					Global.cancel_sound()
+					root.emit()
+				if Input.is_action_just_pressed("ui_up") and active:
+					if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
+						Global.buzzer_sound()
+						return
+					if MenuIndex!= 0:
+						MenuIndex -= 1
+					else:
+						MenuIndex = $AbilityUI/Margin/Scroller/List.get_child_count() -1
+					Global.cursor_sound()
+					move_menu()
+				if Input.is_action_just_pressed("ui_down") and active:
+					if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
+						Global.buzzer_sound()
+						return
+					if MenuIndex!=$AbilityUI/Margin/Scroller/List.get_child_count() -1:
+						MenuIndex += 1
+					else:
+						MenuIndex = 0
+					Global.cursor_sound()
+					move_menu()
+			"command":
+				if Input.is_action_just_pressed(Global.cancel()):
+					Global.cancel_sound()
+					emit_signal(PrevStage)
+			"item":
+				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
 
@@ -294,12 +283,12 @@ func _on_ability():
 	active= false
 	stage = "ability"
 	PrevStage= "root"
-	Bt.get_node("Canvas/Confirm").show()
-	Bt.get_node("Canvas/Back").show()
-	Bt.get_node("Canvas/Confirm").text = "Confirm"
-	Bt.get_node("Canvas/Back").text = "Back"
-	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
-	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	$"../Canvas/Confirm".show()
+	$"../Canvas/Back".show()
+	$"../Canvas/Confirm".text = "Confirm"
+	$"../Canvas/Back".text = "Back"
+	$"../Canvas/Confirm".icon = Global.get_controller().ConfirmIcon
+	$"../Canvas/Back".icon = Global.get_controller().CancelIcon
 	$DescPaper/ShowWheel.icon = Global.get_controller().CommandIcon
 	CurrentChar.NextAction = "ability"
 	t.kill()
@@ -318,8 +307,8 @@ func _on_ability():
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,742), 0.4).from(Vector2(195,850))
-	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,742), 0.3).from(Vector2(31,850))
+	t.tween_property($"../Canvas/Confirm", "position", Vector2(195,742), 0.4).from(Vector2(195,850))
+	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
 	t.tween_property($Ability, "size", Vector2(115,33), 0.3)
 	t.tween_property($Ability, "modulate", Color.WHITE, 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
@@ -376,6 +365,7 @@ func _on_command():
 	Global.confirm_sound()
 	$CommandMenu/Escape.icon = Global.get_controller().LZ
 	$CommandMenu.modulate = Color.WHITE
+	PartyUI.only_current()
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
@@ -399,6 +389,41 @@ func _on_command():
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
 	#t.tween_property($CommandMenu/CmdBack, "position", Vector2(-884, -768), 0.5).from(Vector2(-584, -868))
 	$CommandMenu.show()
+
+func _on_item() -> void:
+	stage = "item"
+	PrevStage= "root"
+	Bt.get_node("Canvas/Back").show()
+	Bt.get_node("Canvas/Back").text = "Back"
+	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	$Inventory.show()
+	CurrentChar.NextAction = "item"
+	t.kill()
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	Global.confirm_sound()
+	Bt.get_node("EnemyUI").colapse_root()
+	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
+	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
+	t.tween_property($"../Canvas/Confirm", "position", Vector2(195,742), 0.4).from(Vector2(195,850))
+	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
+	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
+	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
+	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
+	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
+	t.tween_property($Ability, "size", Vector2(33,-33), 0.2)
+	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
+	t.tween_property($Item, "size", Vector2(33,33), 0.2)
+	t.tween_property($Command, "size", Vector2(33,33), 0.2)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.9,0.9), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2(160,0), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(1.1,1.1), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-320,-200), 0.3)
+	PartyUI.only_current()
 
 func close():
 	active=false
@@ -599,6 +624,7 @@ func _on_focus_changed(control:Control):
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
+	if stage == "item": focus_item(control)
 
 func _on_ability_entry():
 	if active:
@@ -666,3 +692,94 @@ func _on_show_wheel_pressed():
 		$DescPaper/ShowWheel.text = "Hide wheel"
 		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		t.tween_property($DescPaper/ShowWheel, "position:x", 520, 0.3)
+
+func fetch_inventory():
+	await Item.verify_inventory()
+	if Item.ConInv.is_empty() and Item.BtiInv.is_empty():
+		$Item.disabled = true
+		return
+	if Item.ConInv.is_empty():
+		$Inventory/Cbutton.disabled = true
+		$Inventory/Margin.current_tab = 0
+	if Item.BtiInv.is_empty():
+		$Inventory/BIbutton.disabled = true
+		$Inventory/Margin.current_tab = 1
+	for i in $Inventory/Margin/Consumables/Grid.get_children():
+		i.queue_free()
+	for i in $Inventory/Margin/Consumables/Grid.get_children():
+		i.queue_free()
+	for item in Item.ConInv:
+		var dub =  $Inventory/Item.duplicate()
+		dub.icon = item.Icon
+		dub.set_meta("ItemData", item)
+		if item.Quantity>1:
+			dub.text = str(item.Quantity)
+		else: dub.text = ""
+		$Inventory/Margin/Consumables/Grid.add_child(dub)
+		dub.show()
+	match $Inventory/Margin.current_tab:
+		"0": $Inventory/Margin/BattleItems.get_child(0).grab_focus()
+		"1": $Inventory/Margin/Consumables.get_child(0).grab_focus()
+
+func fetch_abilities():
+	var dub = $AbilityUI/Margin/Scroller/List/Item0.duplicate()
+	for n in $AbilityUI/Margin/Scroller/List.get_children():
+		$AbilityUI/Margin/Scroller/List.remove_child(n)
+		n.queue_free()
+	for i in Abilities:
+		dub = dub.duplicate()
+		if dub.get_parent() != $AbilityUI/Margin/Scroller/List: $AbilityUI/Margin/Scroller/List.add_child(dub)
+		dub.text = i.name
+		dub.get_node("Icon").texture = i.Icon
+		if i.AuraCost != 0:
+			dub.get_child(0).text = str(i.AuraCost)
+			dub.get_child(0).show()
+		else:
+			dub.get_child(0).hide()
+		dub.name = "Item" + str(dub.get_index(true))
+		dub.set_meta("Ability", i)
+	for i in $AbilityUI/Margin/Scroller/List.get_children():
+		if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
+			i.disabled = true
+			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+			$AbilityUI/Margin/Scroller/List.get_children().push_back(i)
+
+func _on_b_ibutton_pressed(tog:bool) -> void:
+	match tog:
+		true:
+			if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
+			if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
+			$Inventory/Cbutton.button_pressed = false
+			$Inventory/Margin.current_tab = 0
+		false: $Inventory/BIbutton.button_pressed = true
+
+
+func _on_cbutton_pressed(tog:bool) -> void:
+	match tog:
+		true:
+			if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
+			if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
+			$Inventory/BIbutton.button_pressed = false
+			$Inventory/Margin.current_tab = 1
+		false: $Inventory/Cbutton.button_pressed = true
+
+func focus_item(node:Button):
+	if not node.get_parent() is GridContainer: return
+	var item:ItemData = node.get_meta("ItemData")
+	$Inventory/DescPaper/Title.text = item.Name
+	$Inventory/DescPaper/Desc.text = item.Description
+	$Inventory/DescPaper/Art.texture = item.Artwork
+	if item.Quantity>1:
+		$Inventory/DescPaper/Amount.text = str(item.Quantity) + " in bag"
+		$Inventory/DescPaper/Amount.show()
+	else:
+		$Inventory/DescPaper/Amount.hide()
+	if item.Use == 0:
+		$"../Canvas/Confirm".hide()
+	elif item.Use == ItemData.U.INSPECT:
+		$"../Canvas/Confirm".show()
+		$"../Canvas/Confirm".text = "Inspect"
+	else:
+		$"../Canvas/Confirm".show()
+		$"../Canvas/Confirm".text = "Use"
+
