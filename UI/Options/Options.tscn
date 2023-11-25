@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_ce8sl"]
 [ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="3_07vaa"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="5_6bhcc"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="5_dciq6"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dxo3r3qn5quv3" path="res://UI/MenuTextures/toggle_off.png" id="10_p5f5g"]
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="17_bj1qd"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_ce8sl")
@@ -69,7 +69,7 @@ corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
 [sub_resource type="Theme" id="Theme_o6i8h"]
-default_font = ExtResource("5_6bhcc")
+default_font = ExtResource("5_80sd8")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -112,7 +112,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_4kcni"]
-default_font = ExtResource("5_6bhcc")
+default_font = ExtResource("5_80sd8")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -252,7 +252,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_6ne1i"]
-default_font = ExtResource("17_bj1qd")
+default_font = ExtResource("17_chpua")
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 Button/font_sizes/font_size = 32
 Button/styles/normal = null

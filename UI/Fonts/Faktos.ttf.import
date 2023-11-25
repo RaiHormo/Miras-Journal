@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cumufnoi2wx0i"
-path="res://.godot/imported/cyrenia-bold.ttf-bed7dbb913185db6a5306b87857c0b28.fontdata"
+uid="uid://bks6fau84dtru"
+path="res://.godot/imported/Faktos.ttf-3cf9656f134556d1dad4bf20d55e3334.fontdata"
 
 [deps]
 
-source_file="res://UI/cyrenia-bold.ttf"
-dest_files=["res://.godot/imported/cyrenia-bold.ttf-bed7dbb913185db6a5306b87857c0b28.fontdata"]
+source_file="res://UI/Fonts/Faktos.ttf"
+dest_files=["res://.godot/imported/Faktos.ttf-3cf9656f134556d1dad4bf20d55e3334.fontdata"]
 
 [params]
 
@@ -20,13 +20,13 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
-hinting=2
+hinting=1
 subpixel_positioning=1
-oversampling=5.0
+oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
-compress=false
+compress=true
 preload=[]
 language_support={}
 script_support={}

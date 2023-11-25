@@ -31,7 +31,8 @@ func play(nam, tar):
 	if randf_range(0,1)<Bt.CurrentAbility.CritChance: crit = true
 	#t.tween_property(Cam, "position", CurrentChar.node.global_position  - Vector2(Bt.offsetize(-40),0), 0.1)
 	#swdsst.parallel().tween_property(Cam, "zoom", Vector2(5,5), 0.1)
-	call(nam)
+	if has_method(nam): call(nam)
+	else: OS.alert("Invalid action sequence"); Bt.end_turn()
 
 ################################################
 
@@ -203,4 +204,13 @@ func FlameSpark():
 
 func Summon():
 	Bt.add_to_troop(load("res://database/Enemies/WhiteSpawn.tres"))
+	Bt.end_turn()
+
+################################################
+
+func Drink():
+	Bt.focus_cam(CurrentChar, 0.3)
+	Bt.zoom(5.5)
+	if Bt.CurrentAbility.Type == Ability.TP.HEALING :Bt.heal(target, Bt.CurrentAbility.Parameter)
+	await Bt.anim("Drink")
 	Bt.end_turn()

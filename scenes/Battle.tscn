@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=168 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="8_km0il"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="10_2oj1a"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="10_fwnkw"]
 [ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/BT/Alcine/Miss.png" id="11_41ytv"]
@@ -21,23 +22,23 @@
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="15_mlxjv"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="15_wul0b"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="16_g8baf"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="16_lt2mw"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="17_uuehj"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="18_fnfk1"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="18_r4gxg"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="19_5nefy"]
 [ext_resource type="Script" path="res://codings/UI/EnemyUI.gd" id="20_46olp"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="20_fun7q"]
 [ext_resource type="Texture2D" uid="uid://cpky7bvi6uvm1" path="res://UI/Battle/EscapeButton.png" id="21_eqid7"]
 [ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="21_gc65u"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="22_m47vp"]
 [ext_resource type="Texture2D" uid="uid://bq6u87p34d13v" path="res://UI/Battle/CommandBackground.png" id="23_shvua"]
 [ext_resource type="Script" path="res://codings/Ai.gd" id="24_7iq6m"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="24_cl0e6"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="24_ptxpe"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="27_5ua74"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="27_oqdqh"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="29_it8wn"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="28_kt0tm"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="32_2bcpl"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="32_b46n3"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="33_ca0l3"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="35_fjllb"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="37_mwxl7"]
@@ -120,6 +121,7 @@ shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_enabled = false
 
 [sub_resource type="Theme" id="Theme_ap0qn"]
+default_font = ExtResource("10_2oj1a")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 30
@@ -392,7 +394,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_4kcni"]
-default_font = ExtResource("18_fnfk1")
+default_font = ExtResource("16_lt2mw")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -419,7 +421,7 @@ strength = 0.5
 events = [SubResource("InputEventAction_is5hw")]
 
 [sub_resource type="FontVariation" id="FontVariation_tjob6"]
-base_font = ExtResource("32_b46n3")
+base_font = ExtResource("22_m47vp")
 variation_embolden = 2.0
 spacing_glyph = -1
 spacing_bottom = -5
@@ -456,7 +458,7 @@ colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 gradient = SubResource("Gradient_8j6vo")
 
 [sub_resource type="FontVariation" id="FontVariation_ycqu1"]
-base_font = ExtResource("29_it8wn")
+base_font = ExtResource("28_kt0tm")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e6n8g"]
@@ -464,7 +466,7 @@ default_font = SubResource("FontVariation_ycqu1")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_dwc77"]
-base_font = ExtResource("29_it8wn")
+base_font = ExtResource("28_kt0tm")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
@@ -477,7 +479,7 @@ RichTextLabel/constants/line_separation = 15
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_4tyuc"]
-default_font = ExtResource("29_it8wn")
+default_font = ExtResource("28_kt0tm")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
@@ -536,7 +538,7 @@ expand_margin_right = 34.0
 expand_margin_bottom = 27.0
 
 [sub_resource type="Theme" id="Theme_t7ro7"]
-default_font = ExtResource("18_fnfk1")
+default_font = ExtResource("16_lt2mw")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -569,7 +571,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_g1u0r"]
-default_font = ExtResource("18_fnfk1")
+default_font = ExtResource("16_lt2mw")
 Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
 Label/font_sizes/font_size = 28
 
@@ -623,7 +625,7 @@ expand_margin_right = 34.0
 expand_margin_bottom = 27.0
 
 [sub_resource type="FontVariation" id="FontVariation_kjo3a"]
-base_font = ExtResource("32_b46n3")
+base_font = ExtResource("22_m47vp")
 variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -45
@@ -769,7 +771,7 @@ action = &"ShoulderRight"
 events = [SubResource("InputEventAction_1e1px")]
 
 [sub_resource type="FontVariation" id="FontVariation_j8f6m"]
-base_font = ExtResource("29_it8wn")
+base_font = ExtResource("28_kt0tm")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e2gdg"]
@@ -777,7 +779,7 @@ default_font = SubResource("FontVariation_j8f6m")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_4crsw"]
-base_font = ExtResource("29_it8wn")
+base_font = ExtResource("28_kt0tm")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
@@ -790,7 +792,7 @@ RichTextLabel/constants/line_separation = 15
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_noiys"]
-default_font = ExtResource("29_it8wn")
+default_font = ExtResource("28_kt0tm")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
@@ -869,7 +871,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_cas1x"]
-font = ExtResource("29_it8wn")
+font = ExtResource("28_kt0tm")
 outline_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
@@ -921,14 +923,14 @@ corner_radius_bottom_left = 24
 Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
 
 [sub_resource type="Theme" id="Theme_2lgx1"]
-default_font = ExtResource("29_it8wn")
+default_font = ExtResource("28_kt0tm")
 Label/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/constants/outline_size = 7
 Label/font_sizes/font_size = 14
 
 [sub_resource type="FontVariation" id="FontVariation_g3phn"]
-base_font = ExtResource("29_it8wn")
+base_font = ExtResource("28_kt0tm")
 
 [sub_resource type="InputEventAction" id="InputEventAction_oi6bj"]
 action = &"ui_accept"
@@ -937,7 +939,7 @@ action = &"ui_accept"
 events = [SubResource("InputEventAction_oi6bj")]
 
 [sub_resource type="FontVariation" id="FontVariation_sc4xk"]
-base_font = ExtResource("32_b46n3")
+base_font = ExtResource("22_m47vp")
 variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -8
@@ -949,7 +951,7 @@ action = &"PartyMenu"
 events = [SubResource("InputEventAction_sm70d")]
 
 [sub_resource type="Theme" id="Theme_5tvnb"]
-default_font = ExtResource("18_fnfk1")
+default_font = ExtResource("16_lt2mw")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1551,7 +1553,7 @@ offset_bottom = 523.0
 theme = SubResource("Theme_dgr6n")
 theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_colors/font_unselected_color = Color(0.368627, 0.368627, 0.368627, 1)
-theme_override_fonts/font = ExtResource("32_b46n3")
+theme_override_fonts/font = ExtResource("22_m47vp")
 theme_override_font_sizes/font_size = 27
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_qtsua")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_6vorb")
@@ -1675,7 +1677,7 @@ offset_right = 214.55
 offset_bottom = 52.6755
 focus_mode = 0
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("32_b46n3")
+theme_override_fonts/font = ExtResource("22_m47vp")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_wrwr7")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tcjvu")
@@ -1698,7 +1700,7 @@ offset_right = 411.55
 offset_bottom = 52.6755
 focus_mode = 0
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("32_b46n3")
+theme_override_fonts/font = ExtResource("22_m47vp")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_1s3iy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jp3jx")
@@ -2207,10 +2209,10 @@ text = "Asteria"
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
-offset_left = -213.701
-offset_top = 732.07
-offset_right = -75.7012
-offset_bottom = 765.07
+offset_left = -214.0
+offset_top = 732.0
+offset_right = -72.0
+offset_bottom = 765.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0

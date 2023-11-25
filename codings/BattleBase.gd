@@ -249,16 +249,22 @@ func make_move():
 		$AI.ai()
 
 func _on_ai_chosen():
-	if CurrentChar.NextAction == "Ability":
-			var tl = create_tween()
-			tl.set_ease(Tween.EASE_OUT)
-			tl.set_trans(Tween.TRANS_QUART)
-			focus_cam(CurrentChar)
-			#tl.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
-			tl.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
-			callout(CurrentChar.NextMove)
-			anim("Ability")
-			await CurrentChar.node.animation_finished
+	confirm_next()
+
+func confirm_next(action_anim = true):
+	if CurrentChar.Controllable: $BattleUI.close()
+	if action_anim:
+		match CurrentChar.NextAction:
+			"Ability":
+				var tl = create_tween()
+				tl.set_ease(Tween.EASE_OUT)
+				tl.set_trans(Tween.TRANS_QUART)
+				focus_cam(CurrentChar)
+				#tl.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
+				tl.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
+				callout(CurrentChar.NextMove)
+				anim("Ability")
+				await CurrentChar.node.animation_finished
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
 func _input(event):
@@ -571,12 +577,12 @@ func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE
 	await t.finished
 	anim_done.emit()
 
-func heal(target:Actor):
-	target.add_health(int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02))))
+func heal(target:Actor, amount: int = int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))):
+	target.add_health(amount)
 	check_party.emit()
 	PartyUI._check_party()
 	pop_aura(target)
-	pop_num(target, str("+",int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))))
+	pop_num(target, "+"+str(amount))
 
 func pop_aura(target: Actor, time:float=0.5):
 	target.node.material.set_shader_parameter("outline_enabled", true)

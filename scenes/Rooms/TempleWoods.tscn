@@ -16,8 +16,8 @@
 [ext_resource type="Shader" path="res://scenes/Shaders/Glow.gdshader" id="15_b28cm"]
 [ext_resource type="Script" path="res://codings/Characters/Firefly.gd" id="16_bxxdh"]
 [ext_resource type="Script" path="res://codings/Interactions/LightUp.gd" id="17_crm5x"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_eilxj"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="18_imqtb"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="19_i1a35"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="20_ou6el"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="21_pxc8k"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://scenes/Interactable.tscn" id="22_yc4ou"]
@@ -2674,7 +2674,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_m14l1"]
-default_font = ExtResource("19_i1a35")
+default_font = ExtResource("18_eilxj")
 default_font_size = 16
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 1

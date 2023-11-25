@@ -165,6 +165,7 @@ func _on_root():
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
 	#t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property($Inventory, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
 	Bt.get_node("Canvas/TurnOrder").show()
@@ -396,13 +397,15 @@ func _on_item() -> void:
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	$Inventory/Cbutton.icon = Global.get_controller().R
+	$Inventory/BIbutton.icon = Global.get_controller().L
 	$Inventory.show()
 	CurrentChar.NextAction = "item"
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
+	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
 	Global.confirm_sound()
 	Bt.get_node("EnemyUI").colapse_root()
@@ -412,6 +415,7 @@ func _on_item() -> void:
 	t.tween_property($"../Canvas/Confirm", "position", Vector2(195,742), 0.4).from(Vector2(195,850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
+	t.tween_property($Inventory, "modulate", Color.WHITE, 0.3).from(Color.WHITE)
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
@@ -424,6 +428,10 @@ func _on_item() -> void:
 	t.tween_property($BaseRing, "scale", Vector2(1.1,1.1), 0.3)
 	t.tween_property($BaseRing, "position", Vector2(-320,-200), 0.3)
 	PartyUI.only_current()
+	match $Inventory/Margin.current_tab:
+		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
+		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
+
 
 func close():
 	active=false
@@ -448,6 +456,7 @@ func close():
 	$Command.icon = Global.get_controller().CommandIcon
 
 	t.tween_property($BaseRing, "scale", Vector2(0.01,0.01), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2.ZERO, 0.3)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(5,5), 0.4)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", +600, 0.3).as_relative()
 	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
@@ -567,11 +576,11 @@ func _on_ability_returned(ab:Ability, tar:Actor):
 	close()
 
 func move_menu():
-	active= false
-	t = create_tween()
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
 	if stage == "target":
+		active= false
+		t = create_tween()
+		t.set_ease(Tween.EASE_IN_OUT)
+		t.set_trans(Tween.TRANS_CUBIC)
 		target= TargetFaction[TargetIndex]
 		t.set_parallel()
 		t.tween_property(Cam, "position", Vector2(target.node.position.x, target.node.position.y /4), 0.5)
@@ -581,7 +590,11 @@ func move_menu():
 		$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.2).timeout
 	if stage == "ability":
+		active= false
 		await get_tree().create_timer(0.001).timeout
+		t = create_tween()
+		t.set_ease(Tween.EASE_IN_OUT)
+		t.set_trans(Tween.TRANS_CUBIC)
 		if not $AbilityUI/Margin/Scroller/List.get_child(MenuIndex).has_focus():
 			$AbilityUI/Margin/Scroller/List.get_child(MenuIndex).grab_focus()
 		if MenuIndex < 6:
@@ -649,6 +662,13 @@ func _on_confirm_pressed():
 			Global.confirm_sound()
 			targeted.emit()
 			close()
+		if stage == "item":
+			if foc == null or foc.get_meta("ItemData") == null: return
+			elif foc is Button and foc.get_meta("ItemData").Use != 0:
+				CurrentChar.NextTarget = CurrentChar
+				Item.use(foc.get_meta("ItemData"))
+				Global.confirm_sound()
+				Bt.confirm_next(false)
 
 func turn_order():
 	t = create_tween()
@@ -695,20 +715,11 @@ func _on_show_wheel_pressed():
 
 func fetch_inventory():
 	await Item.verify_inventory()
-	if Item.ConInv.is_empty() and Item.BtiInv.is_empty():
-		$Item.disabled = true
-		return
-	if Item.ConInv.is_empty():
-		$Inventory/Cbutton.disabled = true
-		$Inventory/Margin.current_tab = 0
-	if Item.BtiInv.is_empty():
-		$Inventory/BIbutton.disabled = true
-		$Inventory/Margin.current_tab = 1
 	for i in $Inventory/Margin/Consumables/Grid.get_children():
 		i.queue_free()
-	for i in $Inventory/Margin/Consumables/Grid.get_children():
+	for i in $Inventory/Margin/BattleItems/Grid.get_children():
 		i.queue_free()
-	for item in Item.ConInv:
+	for item in Item.ConInv: if item.UsedInBattle:
 		var dub =  $Inventory/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
@@ -717,9 +728,16 @@ func fetch_inventory():
 		else: dub.text = ""
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
-	match $Inventory/Margin.current_tab:
-		"0": $Inventory/Margin/BattleItems.get_child(0).grab_focus()
-		"1": $Inventory/Margin/Consumables.get_child(0).grab_focus()
+	await Event.wait()
+	if $Inventory/Margin/Consumables/Grid.get_children().is_empty():
+		$Inventory/Cbutton.disabled = true
+		$Inventory/Margin.current_tab = 0
+	if $Inventory/Margin/BattleItems/Grid.get_children().is_empty():
+		$Inventory/BIbutton.disabled = true
+		$Inventory/Margin.current_tab = 1
+	if $Inventory/Cbutton.disabled and $Inventory/BIbutton.disabled:
+		$Item.disabled = true
+		return
 
 func fetch_abilities():
 	var dub = $AbilityUI/Margin/Scroller/List/Item0.duplicate()
@@ -751,7 +769,7 @@ func _on_b_ibutton_pressed(tog:bool) -> void:
 			if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
 			$Inventory/Cbutton.button_pressed = false
 			$Inventory/Margin.current_tab = 0
-		false: $Inventory/BIbutton.button_pressed = true
+		false: $Inventory/BIbutton.set_pressed_no_signal(true)
 
 
 func _on_cbutton_pressed(tog:bool) -> void:
@@ -761,7 +779,7 @@ func _on_cbutton_pressed(tog:bool) -> void:
 			if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
 			$Inventory/BIbutton.button_pressed = false
 			$Inventory/Margin.current_tab = 1
-		false: $Inventory/Cbutton.button_pressed = true
+		false: $Inventory/Cbutton.set_pressed_no_signal(true)
 
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return

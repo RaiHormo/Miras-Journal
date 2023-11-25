@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dgygoowvwayc"
-path="res://.godot/imported/cyrenia-regular.ttf-2a26b17b84f81d437a22eb46bbcb4f15.fontdata"
+path="res://.godot/imported/cyrenia-regular.ttf-dff3bc1432fe22c0b8771910e3e4e93a.fontdata"
 
 [deps]
 
-source_file="res://UI/cyrenia-regular.ttf"
-dest_files=["res://.godot/imported/cyrenia-regular.ttf-2a26b17b84f81d437a22eb46bbcb4f15.fontdata"]
+source_file="res://UI/Fonts/cyrenia-regular.ttf"
+dest_files=["res://.godot/imported/cyrenia-regular.ttf-dff3bc1432fe22c0b8771910e3e4e93a.fontdata"]
 
 [params]
 

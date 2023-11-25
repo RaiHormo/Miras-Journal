@@ -4,15 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="2_w0qna"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="3_2t42f"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="3_wdq4t"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="4_hhf13"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="4_pkqpv"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="4_tlo38"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="5_40ubq"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_biinq"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="5_ilv5n"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="6_b6i07"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="6_emlrx"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="11_j48a6"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="6_pyltt"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
 atlas = ExtResource("2_55wks")
@@ -477,7 +477,7 @@ corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
 [sub_resource type="FontVariation" id="FontVariation_mqv20"]
-base_font = ExtResource("3_wdq4t")
+base_font = ExtResource("4_pkqpv")
 spacing_bottom = -2
 
 [sub_resource type="Theme" id="Theme_o6i8h"]
@@ -511,7 +511,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
 [sub_resource type="FontVariation" id="FontVariation_4a8fb"]
-base_font = ExtResource("5_40ubq")
+base_font = ExtResource("6_pyltt")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e6n8g"]
@@ -519,7 +519,7 @@ default_font = SubResource("FontVariation_4a8fb")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_4wn81"]
-base_font = ExtResource("5_40ubq")
+base_font = ExtResource("6_pyltt")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
@@ -532,7 +532,7 @@ RichTextLabel/constants/line_separation = 15
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_utml4"]
-default_font = ExtResource("5_40ubq")
+default_font = ExtResource("6_pyltt")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
@@ -621,7 +621,7 @@ expand_margin_right = 34.0
 expand_margin_bottom = 27.0
 
 [sub_resource type="FontVariation" id="FontVariation_160jv"]
-base_font = ExtResource("3_wdq4t")
+base_font = ExtResource("4_pkqpv")
 variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -45
@@ -692,7 +692,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_4kcni"]
-default_font = ExtResource("11_j48a6")
+default_font = ExtResource("11_ogd2p")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -945,7 +945,7 @@ theme_override_constants/separation = 10
 [node name="KeyLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-theme_override_fonts/font = ExtResource("3_wdq4t")
+theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Key Items"
 
@@ -959,7 +959,7 @@ columns = 5
 [node name="ConLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
-theme_override_fonts/font = ExtResource("3_wdq4t")
+theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Consumables"
 

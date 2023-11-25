@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="2_f278q"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="2_j77no"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_6vdgc"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="3_cho3r"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="3_cho3r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]
 shader = ExtResource("2_f278q")

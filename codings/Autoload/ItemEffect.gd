@@ -1,16 +1,16 @@
 extends Node
 var item:ItemData
 
-func use(item_data: ItemData):
-	item = item_data
-	if item.Use == ItemData.U.CUSTOM:
-		call(item.filename)
-	elif item.Use == ItemData.U.HEALING:
-		get_target()
 
-func get_target():
+func use(item_data: ItemData, battle_target: Actor = Global.Bt.CurrentChar):
+	item = item_data
 	if not Loader.InBattle:
-		PartyUI.choose_member()
+		if item.Use == ItemData.U.CUSTOM:
+			call(item.filename)
+		elif item.Use == ItemData.U.HEALING:
+			PartyUI.choose_member()
+	elif item.UsedInBattle:
+		battle_target.NextMove = item.BattleEffect
 
 
 func _on_item_manager_return_member(mem:Actor):

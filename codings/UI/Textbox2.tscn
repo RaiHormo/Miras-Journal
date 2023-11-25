@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="3_v0xlc"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_7bk5c"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_yps78"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="5_jx045"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/cyrenia-bold.ttf" id="5_pkyhf"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="5_5e2vd"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_iffim"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nv2a"]
 bg_color = Color(0.623529, 0.596078, 0.572549, 0.721569)
@@ -29,7 +29,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="FontVariation" id="FontVariation_oe2ra"]
-base_font = ExtResource("3_v0xlc")
+base_font = ExtResource("3_7bk5c")
 spacing_space = 1
 spacing_bottom = 5
 
@@ -153,7 +153,7 @@ expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
 [sub_resource type="FontVariation" id="FontVariation_3cks5"]
-base_font = ExtResource("5_pkyhf")
+base_font = ExtResource("5_5e2vd")
 spacing_glyph = 1
 
 [sub_resource type="Theme" id="Theme_kq38n"]
@@ -180,7 +180,7 @@ expand_margin_left = 14.0
 expand_margin_right = 14.0
 
 [sub_resource type="Theme" id="Theme_v0wf3"]
-default_font = ExtResource("5_jx045")
+default_font = ExtResource("6_iffim")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 2

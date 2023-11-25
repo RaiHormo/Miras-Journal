@@ -18,6 +18,7 @@ Type = 2
 AuraCost = 0
 HPCost = 0
 Damage = 0
+Parameter = 0.0
 Target = 0
 WheelColor = Color(1, 1, 1, 1)
 Callout = true

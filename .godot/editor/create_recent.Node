@@ -1,3 +1,4 @@
+Label
 Sprite2D
 Button
 TabBar
@@ -27,6 +28,5 @@ CharacterBody2D
 PointLight2D
 AnimatedSprite2D
 TextureRect
-Label
 Node2D
 Node
