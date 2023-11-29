@@ -67,6 +67,7 @@ func _physics_process(delta) -> void:
 			direction = Vector2.ZERO
 			velocity = direction
 			move_and_slide()
+			round(position)
 		CONTROLLED:
 			control_process()
 		CUSTOM:
@@ -149,6 +150,7 @@ func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
 		t.tween_property(self, "global_position", Global.Tilemap.map_to_local(pos), Nav.distance_to_target()/speed)
 		await t.finished
 	BodyState= IDLE
+	round(position)
 	direction = Vector2.ZERO
 	await Event.wait()
 

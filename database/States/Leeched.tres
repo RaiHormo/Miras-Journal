@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://c22qro3ss1nuy"]
+
+[ext_resource type="Script" path="res://database/States/state.gd" id="1_3cc81"]
+
+[resource]
+script = ExtResource("1_3cc81")
+name = ""
+Description = ""
+RemovedAfterTurns = false
+turns = 0

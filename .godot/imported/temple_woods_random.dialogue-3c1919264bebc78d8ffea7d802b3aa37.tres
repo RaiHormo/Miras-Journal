@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ehlld"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_2qjik"]
 
 [resource]
-script = ExtResource("1_ehlld")
+script = ExtResource("1_2qjik")
 titles = {
 "as_lost_as_you": "34",
 "cant_dash_on_flame": "15",
 "getting_dark": "2",
 "hey_wait": "20",
 "im_not_gonna_harm_you": "27",
-"stay_back": "41",
+"stay_back": "43",
 "that_should_do_it": "6",
 "was_that_a": "10"
 }
@@ -199,11 +199,9 @@ Was that another monster?",
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "31",
-"text": "Calm down.
-I'm not going to harm you.",
+"text": "Come on, don't be scared. Nobody's gonna hurt you.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Calm down.
-I'm not going to harm you.",
+"translation_key": "Come on, don't be scared. Nobody's gonna hurt you.",
 "type": "dialogue"
 },
 "31": {
@@ -257,22 +255,48 @@ I'm not going to harm you.",
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "38",
-"text": "I'm as lost as you are right now...",
+"text": "I guess you're lost as well...",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "I'm as lost as you are right now...",
+"translation_key": "I guess you're lost as well...",
 "type": "dialogue"
 },
 "38": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraOpenMouth"
+}]), Array[Dictionary]([{
+"type": "bool",
+"value": false
+}])])
+}])
+},
+"next_id": "39",
+"type": "mutation"
+},
+"39": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "40",
+"text": "This forest is not safe, we should look for a way-[next=0.4]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This forest is not safe, we should look for a way-[next=0.4]",
+"type": "dialogue"
+},
+"40": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"40": {
-"next_id": "41",
+"42": {
+"next_id": "43",
 "text": "stay_back",
 "type": "title"
 },
-"41": {
+"43": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -283,18 +307,18 @@ I'm not going to harm you.",
 }])])
 }])
 },
-"next_id": "42",
+"next_id": "44",
 "type": "mutation"
 },
-"42": {
+"44": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "",
-"text": "You stay back.
-I'll deal with them!",
+"text": "You stay behind me,
+I'll deal with it!",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "You stay back.
-I'll deal with them!",
+"translation_key": "You stay behind me,
+I'll deal with it!",
 "type": "dialogue"
 },
 "5": {

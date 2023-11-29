@@ -40,6 +40,7 @@ func _ready():
 	$Background.texture = Seq.BattleBack
 	if Seq.BattleBack == null:
 		$Act/Actor0.light_mask = 1
+	if Seq.PositionSameAsPlayer: Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
 	$Act/Actor0.sprite_frames = Party.Leader.BT
 	$Act/Actor0.animation = &"Entrance"
@@ -311,7 +312,8 @@ func callout(ab:Ability = CurrentAbility):
 	#await tc.finished
 	#print("call")
 	tc.set_ease(Tween.EASE_IN)
-	if CurrentChar.Controllable: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(1)
+	if CurrentChar.Controllable:
+		tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(1)
 	else: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(4)
 	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.5)
 	await tc.finished
@@ -326,20 +328,22 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	if ab == null:
 		end_turn()
 		return
+	if ab.ColorSameAsActor:
+		ab.WheelColor = CurrentChar.MainColor
 	if ab.Target == 1:
 		if tar.has_state("Knocked Out"):
-				var i = -1
-				var oldtar = CurrentTarget.FirstName
-				while CurrentTarget.FirstName == oldtar or CurrentTarget.has_state("Knocked Out") or CurrentTarget.node == null:
-					i += 1
-					if i>get_ally_faction(CurrentTarget).size():
-						if get_ally_faction(CurrentTarget)[0].IsEnemy:
-							victory()
-							return
-						else:
-							game_over()
-							return
-					CurrentTarget = get_ally_faction(CurrentTarget)[i-1]
+			var i = -1
+			var oldtar = CurrentTarget.FirstName
+			while CurrentTarget.FirstName == oldtar or CurrentTarget.has_state("Knocked Out") or CurrentTarget.node == null:
+				i += 1
+				if i>get_ally_faction(CurrentTarget).size():
+					if get_ally_faction(CurrentTarget)[0].IsEnemy:
+						victory()
+						return
+					else:
+						game_over()
+						return
+				CurrentTarget = get_ally_faction(CurrentTarget)[i-1]
 		if tar.IsEnemy:
 			$BattleUI.emit_signal("targetFoc", tar)
 	elif ab.Target == 0:
@@ -387,10 +391,17 @@ func end_turn():
 func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:bool=true, limiter:bool=false):
 	take_dmg.emit()
 	var el_mod: float = 1
-	if elemental: el_mod = relation_to_dmg_modifier(color_relation(CurrentAbility.WheelColor, target.MainColor))
+	if elemental:
+		var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
+		if relation == "wk": pop_num(target, "WEAK")
+		print(relation)
+		el_mod = relation_to_dmg_modifier(relation)
+	var dmg = target.calc_dmg(x * el_mod, stat, target)
 	target.damage(x * el_mod, stat, target)
+	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
 	check_party.emit()
-	pop_num(target, target.calc_dmg(x, stat, target))
+	if elemental: pop_num(target, dmg, CurrentAbility.WheelColor)
+	else: pop_num(target, dmg)
 	if target.Health == 0:
 		await death(target)
 		return
@@ -463,20 +474,24 @@ func offsetize(num, target=CurrentChar):
 	else:
 		return num
 
-
-func pop_num(target:Actor, text):
-		var number = target.node.get_node("Nums").duplicate()
+func pop_num(target:Actor, text, color: Color = Color.WHITE):
+		var number:Label = target.node.get_node("Nums").duplicate()
 		target.node.add_child(number)
 		number.show()
+		number.add_theme_color_override("font_color", color)
 		var tn = create_tween()
 		tn.set_ease(Tween.EASE_IN)
 		tn.set_trans(Tween.TRANS_QUART)
 		number.text = str(text)
-		tn.tween_property(number, "position", Vector2(offsetize(20), -10), 0.3).as_relative().from(Vector2(-217, -36))
+		var off:int = 1
+		if text is String: off = 0
+		tn.tween_property(number, "position", Vector2(offsetize(20*off)*
+			randf_range(0.8,1.2), -10*randf_range(0.8,1.2)), 0.3).as_relative().from(Vector2(-217, -36))
 		tn.parallel().tween_property(number, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		tn.set_ease(Tween.EASE_OUT)
 		tn.tween_property(number, "modulate", Color.TRANSPARENT, 2).from(Color.WHITE)
-		tn.parallel().tween_property(number, "position", Vector2(offsetize(14), -6), 2).as_relative()
+		tn.parallel().tween_property(number, "position", Vector2(offsetize(14*off)*
+			randf_range(0.8,1.2), -6*randf_range(0.8,1.2)), 2).as_relative()
 		await tn.finished
 		if number!=null:
 			number.queue_free()
@@ -546,7 +561,6 @@ func hp_sort(a:Actor, b:Actor):
 func anim(animation: String="Idle", chara: Actor = CurrentChar):
 	if animation not in chara.node.sprite_frames.get_animation_names(): return
 	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
-		t.kill()
 		t=create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 1)

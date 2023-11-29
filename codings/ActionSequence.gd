@@ -46,6 +46,7 @@ func handle_states():
 			chara. DefenceMultiplier -= 1
 			chara.node.material.set_shader_parameter("outline_enabled", false)
 		if state.name == "Burned":
+			chara.node.get_node("State").play("Burned")
 			Bt.focus_cam(chara, 0.3)
 			if chara.Health - chara.calc_dmg(20,1,chara)<=0:
 				chara.set_health(1)
@@ -53,6 +54,7 @@ func handle_states():
 				Bt.damage(chara, 1, false, 20, false)
 				print(chara.FirstName, chara.States)
 			await get_tree().create_timer(0.8).timeout
+
 	states_handled.emit()
 
 func AttackMira():
@@ -77,7 +79,7 @@ func AttackMira():
 	Bt.end_turn()
 
 func JumpAttack():
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.zoom(5)
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
@@ -89,7 +91,7 @@ func JumpAttack():
 		Bt.anim("Attack2")
 		Bt.play_effect("SimpleHit", target)
 	else: Bt.miss()
-	await get_tree().create_timer(0.4).timeout
+	await Event.wait(0.4)
 	Bt.return_cur()
 	Bt.anim("Idle")
 	Bt.end_turn()

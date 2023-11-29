@@ -20,6 +20,7 @@ HPCost = 0
 Damage = 0
 Parameter = 0.0
 Target = 0
+ColorSameAsActor = true
 WheelColor = Color(1, 1, 1, 1)
 Callout = true
 SucessChance = 1.0

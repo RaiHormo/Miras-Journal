@@ -1,10 +1,10 @@
+BattleSequence
+State
+Resource
 Ability
 Actor
 MaterialItem
 ItemData
-State
-BattleSequence
-Resource
 TextProfile
 ControlScheme
 PartyData

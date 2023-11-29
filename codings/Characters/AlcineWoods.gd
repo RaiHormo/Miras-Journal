@@ -51,13 +51,17 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Global.Player.flame_active = false
 			Global.Player.bubble("Surprise")
 			Global.Player.look_to(Vector2.RIGHT)
+			$"../Petrogon".show()
+			Global.get_cam().position += Vector2(50, 0)
 			await move_dir(Vector2.LEFT*2)
 			await move_dir(Vector2.UP)
 			BodyState = CUSTOM
 			$Sprite.stop()
 			$Sprite.animation = &"Scared"
 			$Sprite.frame = 0
-
+			await DialogueManager.textbox("temple_woods_random", "stay_back")
+			await Event.wait(1)
+			Loader.start_battle("AlcineFollow1")
 
 
 		elif Global.CameraInd == 1:

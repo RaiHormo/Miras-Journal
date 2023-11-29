@@ -1,3 +1,6 @@
+res://database/BattleSeq
+res://art/Effects
+res://database/States
 res://database/Party
 res://art/BT/Mira
 res://database/Abilities/Attacks
@@ -17,6 +20,4 @@ res://codings/Interactions
 U:/Documents/Miras-Journal/codings/Autoload
 U:/Downloads/platform-tools_r34.0.5-windows
 U:/Downloads/platform-tools_r34.0.5-windows/platform-tools
-res://art
 U:/Documents/git test
-res://

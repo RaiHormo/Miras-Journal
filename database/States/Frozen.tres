@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://d05eisax2ikpg"]
+
+[ext_resource type="Script" path="res://database/States/state.gd" id="1_wpwwi"]
+
+[resource]
+script = ExtResource("1_wpwwi")
+name = ""
+Description = ""
+RemovedAfterTurns = false
+turns = 0

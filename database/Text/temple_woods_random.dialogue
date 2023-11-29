@@ -27,16 +27,18 @@ Mira: Is it scared of me?[next=2]
 do next_box("Alcine")
 ...
 do portrait("MiraSmile")
-Mira: Calm down.\nI'm not going to harm you.
+Mira: Come on, don't be scared. Nobody's gonna hurt you.
 => END
 
 ~ as_lost_as_you
 do next_box("Alcine")
 ...
 do portrait("MiraNeutural")
-Mira: I'm as lost as you are right now...
+Mira: I guess you're lost as well...
+do portrait("MiraOpenMouth", false)
+Mira: This forest is not safe, we should look for a way-[next=0.4] 
 => END
 
 ~ stay_back
 do portrait("MiraOpenMouth")
-Mira: You stay back.\nI'll deal with them!
+Mira: You stay behind me,\nI'll deal with it!

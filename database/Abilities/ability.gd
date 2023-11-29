@@ -17,6 +17,7 @@ enum D {NONE, LIGHT, MEDIUM, HEAVY, SEVERE, CUSTOM}
 enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES}
 @export var Target: T = T.SELF
 
+@export var ColorSameAsActor := false
 @export_color_no_alpha var WheelColor :Color  = Color(1,1,1,1)
 @export var Callout: bool
 
