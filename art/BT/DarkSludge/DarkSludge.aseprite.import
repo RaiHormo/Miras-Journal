@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cxgm685aon3e8"
+path="res://.godot/imported/DarkSludge.aseprite-c222bee722f154f4017a0d4080563f92.res"
+
+[deps]
+
+source_file="res://art/BT/DarkSludge/DarkSludge.aseprite"
+dest_files=["res://.godot/imported/DarkSludge.aseprite-c222bee722f154f4017a0d4080563f92.res"]
+
+[params]
+

@@ -1,5 +1,5 @@
 extends Node
-
+class_name DialogueMgr
 
 signal passed_title(title)
 signal got_dialogue(line)

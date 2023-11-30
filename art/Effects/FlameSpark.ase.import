@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://s6nenwqyio82"
+path="res://.godot/imported/FlameSpark.ase-36ccf20e281f9477ac2c14a7b042c8fc.res"
+
+[deps]
+
+source_file="res://art/Effects/FlameSpark.ase"
+dest_files=["res://.godot/imported/FlameSpark.ase-36ccf20e281f9477ac2c14a7b042c8fc.res"]
+
+[params]
+

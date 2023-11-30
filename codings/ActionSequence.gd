@@ -213,6 +213,6 @@ func Summon():
 func Drink():
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	if Bt.CurrentAbility.Type == Ability.TP.HEALING :Bt.heal(target, Bt.CurrentAbility.Parameter)
+	if Bt.CurrentAbility.Type == Ability.TP.HEALING: Bt.heal(target, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Drink")
 	Bt.end_turn()

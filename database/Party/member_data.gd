@@ -71,12 +71,12 @@ class_name Actor
 @export var StatsVisible : bool = true
 
 
-@export_group("Battle params")
-@export var NextAction: String = ""
-@export var NextMove: Resource = null
-@export var NextTarget: Actor = null
-@export var node : AnimatedSprite2D
-@export var States: Array[State]
+#@export_group("Battle params")
+var NextAction: String = ""
+var NextMove: Resource = null
+var NextTarget: Actor = null
+var node : AnimatedSprite2D
+var States: Array[State]
 
 
 func set_health(x):

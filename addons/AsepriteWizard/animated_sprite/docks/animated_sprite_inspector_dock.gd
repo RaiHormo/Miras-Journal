@@ -3,6 +3,7 @@ extends PanelContainer
 
 const wizard_config = preload("../../config/wizard_config.gd")
 const result_code = preload("../../config/result_codes.gd")
+var _aseprite_file_exporter = preload("../../aseprite/file_exporter.gd").new()
 var sprite_frames_creator = preload("../sprite_frames_creator.gd").new()
 
 var scene: Node
@@ -13,8 +14,8 @@ var file_system: EditorFileSystem
 
 var _layer: String = ""
 var _source: String = ""
-var _file_dialog_aseprite: FileDialog
-var _output_folder_dialog: FileDialog
+var _file_dialog_aseprite: EditorFileDialog
+var _output_folder_dialog: EditorFileDialog
 var _importing := false
 
 var _output_folder := ""
@@ -38,7 +39,8 @@ func _ready():
 	else:
 		_load_config(cfg)
 
-	sprite_frames_creator.init(config, file_system)
+	sprite_frames_creator.init(config)
+	_aseprite_file_exporter.init(config)
 
 
 func _load_config(cfg):
@@ -49,8 +51,7 @@ func _load_config(cfg):
 		_layer_field.clear()
 		_set_layer(cfg.layer)
 
-	_output_folder = cfg.get("o_folder", "")
-	_out_folder_field.text = _output_folder if _output_folder != "" else _out_folder_default
+	_set_out_folder(cfg.get("o_folder", ""))
 	_out_filename_field.text = cfg.get("o_name", "")
 	_visible_layers_field.button_pressed = cfg.get("only_visible", false)
 	_ex_pattern_field.text = cfg.get("o_ex_p", "")
@@ -118,8 +119,8 @@ func _on_import_pressed():
 		_importing = false
 		return
 
+	var source_path = ProjectSettings.globalize_path(_source)
 	var options = {
-		"source": ProjectSettings.globalize_path(_source),
 		"output_folder": _output_folder if _output_folder != "" else root.scene_file_path.get_base_dir(),
 		"exception_pattern": _ex_pattern_field.text,
 		"only_visible_layers": _visible_layers_field.button_pressed,
@@ -129,8 +130,23 @@ func _on_import_pressed():
 
 	_save_config()
 
-	await sprite_frames_creator.create_animations(sprite, options)
+	var aseprite_output = _aseprite_file_exporter.generate_aseprite_file(source_path, options)
+
+	if not aseprite_output.is_ok:
+		var error = result_code.get_error_message(aseprite_output.code)
+		printerr(error)
+		_show_message(error)
+		return
+
+	file_system.scan()
+	await file_system.filesystem_changed
+
+	sprite_frames_creator.create_animations(sprite, aseprite_output.content)
 	_importing = false
+
+	if config.should_remove_source_files():
+		DirAccess.remove_absolute(aseprite_output.content.data_file)
+		file_system.call_deferred("scan")
 
 
 func _save_config():
@@ -149,14 +165,14 @@ func _open_source_dialog():
 	_file_dialog_aseprite = _create_aseprite_file_selection()
 	get_parent().add_child(_file_dialog_aseprite)
 	if _source != "":
-		_file_dialog_aseprite.current_dir = _source.get_base_dir()
+		_file_dialog_aseprite.current_dir = ProjectSettings.globalize_path(_source.get_base_dir())
 	_file_dialog_aseprite.popup_centered_ratio()
 
 
 func _create_aseprite_file_selection():
-	var file_dialog = FileDialog.new()
-	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	var file_dialog = EditorFileDialog.new()
+	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
 	file_dialog.connect("file_selected",Callable(self,"_on_aseprite_file_selected"))
 	file_dialog.set_filters(PackedStringArray(["*.ase","*.aseprite"]))
 	return file_dialog
@@ -195,14 +211,28 @@ func _on_out_folder_pressed():
 
 
 func _create_output_folder_selection():
-	var file_dialog = FileDialog.new()
-	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
-	file_dialog.access = FileDialog.ACCESS_RESOURCES
+	var file_dialog = EditorFileDialog.new()
+	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_DIR
+	file_dialog.access = EditorFileDialog.ACCESS_RESOURCES
 	file_dialog.connect("dir_selected",Callable(self,"_on_output_folder_selected"))
 	return file_dialog
 
 
 func _on_output_folder_selected(path):
+	_set_out_folder(path)
+	_output_folder_dialog.queue_free()
+
+
+func _on_source_aseprite_file_dropped(path):
+	_set_source(path)
+	_save_config()
+
+
+func _on_out_dir_dropped(path):
+	_set_out_folder(path)
+
+
+func _set_out_folder(path):
 	_output_folder = path
 	_out_folder_field.text = _output_folder if _output_folder != "" else _out_folder_default
-	_output_folder_dialog.queue_free()
+	_out_folder_field.tooltip_text = _out_folder_field.text

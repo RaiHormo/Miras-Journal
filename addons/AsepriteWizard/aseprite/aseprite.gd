@@ -30,6 +30,9 @@ func export_file(file_name: String, output_folder: String, options: Dictionary) 
 
 	_add_ignore_layer_arguments(file_name, arguments, exception_pattern)
 
+	var local_sprite_sheet_path = ProjectSettings.localize_path(sprite_sheet)
+	var is_new = not ResourceLoader.exists(local_sprite_sheet_path)
+
 	var exit_code = _execute(arguments, output)
 	if exit_code != 0:
 		printerr('aseprite: failed to export spritesheet')
@@ -37,8 +40,9 @@ func export_file(file_name: String, output_folder: String, options: Dictionary) 
 		return {}
 
 	return {
-		'data_file': ProjectSettings.localize_path(data_file),
-		"sprite_sheet": ProjectSettings.localize_path(sprite_sheet)
+		"data_file": ProjectSettings.localize_path(data_file),
+		"sprite_sheet": local_sprite_sheet_path,
+		"is_first_import": is_new,
 	}
 
 
@@ -67,8 +71,11 @@ func export_layer(file_name: String, layer_name: String, output_folder: String, 
 	var arguments = _export_command_common_arguments(file_name, data_file, sprite_sheet)
 	arguments.push_front(layer_name)
 	arguments.push_front("--layer")
-	
+
 	_add_sheet_type_arguments(arguments, options)
+
+	var local_sprite_sheet_path = ProjectSettings.localize_path(sprite_sheet)
+	var is_new = not ResourceLoader.exists(local_sprite_sheet_path)
 
 	var exit_code = _execute(arguments, output)
 	if exit_code != 0:
@@ -77,8 +84,9 @@ func export_layer(file_name: String, layer_name: String, output_folder: String, 
 		return {}
 
 	return {
-		'data_file': ProjectSettings.localize_path(data_file),
-		"sprite_sheet": ProjectSettings.localize_path(sprite_sheet)
+		"data_file": ProjectSettings.localize_path(data_file),
+		"sprite_sheet": local_sprite_sheet_path,
+		"is_first_import": is_new,
 	}
 
 
@@ -129,7 +137,7 @@ func list_layers(file_name: String, only_visible = false) -> Array:
 
 	if output.is_empty():
 		return output
-	
+
 	var raw = output[0].split('\n')
 	var sanitized = []
 	for s in raw:
@@ -185,3 +193,48 @@ func is_valid_spritesheet(content):
 
 func get_content_frames(content):
 	return content.frames if typeof(content.frames) == TYPE_ARRAY  else content.frames.values()
+
+
+##
+## Exports tileset layers
+##
+## Return (dictionary):
+##      data_file: path to aseprite generated JSON file
+##      sprite_sheet: localized path to spritesheet file
+func export_tileset_texture(file_name: String, output_folder: String, options: Dictionary) -> Dictionary:
+	var exception_pattern = options.get('exception_pattern', "")
+	var only_visible_layers = options.get('only_visible_layers', false)
+	var output_name = file_name if options.get('output_filename') == "" else options.get('output_filename', file_name)
+	var basename = _get_file_basename(output_name)
+	var output_dir = ProjectSettings.globalize_path(output_folder)
+	var data_path = "%s/%s.json" % [output_dir, basename]
+	var sprite_sheet = "%s/%s.png" % [output_dir, basename]
+	var output = []
+
+	var arguments = [
+		"-b",
+		"--export-tileset",
+		"--data",
+		data_path,
+		"--format",
+		"json-array",
+		"--sheet",
+		sprite_sheet,
+		file_name
+	]
+
+	if not only_visible_layers:
+		arguments.push_front("--all-layers")
+
+	_add_ignore_layer_arguments(file_name, arguments, exception_pattern)
+
+	var exit_code = _execute(arguments, output)
+	if exit_code != 0:
+		printerr('aseprite: failed to export spritesheet')
+		printerr(output)
+		return {}
+
+	return {
+		"data_file": ProjectSettings.localize_path(data_path),
+		"sprite_sheet": ProjectSettings.localize_path(sprite_sheet)
+	}

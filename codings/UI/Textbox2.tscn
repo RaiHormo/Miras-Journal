@@ -421,9 +421,9 @@ scale = Vector2(0.205429, 0.205429)
 texture = ExtResource("4_f0nyj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Glow"
 libraries = {
 "": SubResource("AnimationLibrary_tbycd")
 }
+autoplay = "Glow"
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]

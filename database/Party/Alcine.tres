@@ -52,5 +52,3 @@ LastName = ""
 WeaponType = ""
 Controllable = false
 StatsVisible = true
-NextAction = ""
-States = Array[Resource("res://database/States/state.gd")]([])

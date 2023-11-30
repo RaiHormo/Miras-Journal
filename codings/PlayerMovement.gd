@@ -47,7 +47,7 @@ func extended_process() -> void:
 	if Global.Controllable:
 		#update_anim_prm()
 		BodyState = CONTROLLED
-		_check_party()
+		call_deferred("_check_party")
 		check_flame()
 		if flame_active and $Flame.energy == 0 and Global.Controllable: activate_flame(false)
 	if midair:

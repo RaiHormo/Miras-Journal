@@ -17,7 +17,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.1", "Mobile")
+config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/image="res://art/splash.png"
 config/icon="res://art/icon.png"
 
@@ -71,6 +71,18 @@ naming/scene_name_casing=1
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://UI/": "green",
+"res://addons/": "gray",
+"res://art/": "pink",
+"res://codings/": "blue",
+"res://database/": "yellow",
+"res://scenes/": "orange",
+"res://sound/": "red"
+}
 
 [filesystem]
 
@@ -348,3 +360,4 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.0901961, 0.0901961, 0.0901961, 1)
 anti_aliasing/quality/msaa_2d=1
+environment/stretch/scale_mode="fractional"

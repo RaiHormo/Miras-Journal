@@ -1,66 +1,20 @@
 @tool
-extends RefCounted
-
-var result_code = preload("../config/result_codes.gd")
-var _aseprite = preload("../aseprite/aseprite.gd").new()
+extends "../base_sprite_resource_creator.gd"
 
 enum {
 	FILE_EXPORT_MODE,
 	LAYERS_EXPORT_MODE
 }
 
-var _config
-var _file_system: EditorFileSystem
-var _should_check_file_system := false
-
-
-func init(config, editor_file_system: EditorFileSystem = null):
-	_config = config
-	_file_system = editor_file_system
-	_should_check_file_system = _file_system != null
-	_aseprite.init(config)
-
-
-func _initial_checks(source: String, options: Dictionary) -> int:
-	if not _aseprite.test_command():
-		return result_code.ERR_ASEPRITE_CMD_NOT_FOUND
-
-	if not FileAccess.file_exists(source):
-		return result_code.ERR_SOURCE_FILE_NOT_FOUND
-
-	if not DirAccess.dir_exists_absolute(options.output_folder):
-		return result_code.ERR_OUTPUT_FOLDER_NOT_FOUND
-	
-	return result_code.SUCCESS
-
-
-func create_animations(sprite: Node, options: Dictionary) -> void:
-	var input_check = _initial_checks(options.source, options)
-	
-	if input_check != result_code.SUCCESS:
-		printerr(result_code.get_error_message(input_check))
-		return
-
-	var result = await _create_animations_from_file(sprite, options)
-
-	if result != result_code.SUCCESS:
-		printerr(result_code.get_error_message(result))
-
-
-func _create_animations_from_file(animated_sprite: Node, options: Dictionary) -> int:
-	var output = _export_aseprite_file(options)
-
-	if not output.is_ok:
-		return output.code
-
-	if _config.is_import_preset_enabled():
-		_config.create_import_file(output.content)
-
-	await _scan_filesystem()
-
-	var sprite_frames_result = _create_sprite_frames(output.content)
+###
+### Create SpriteFrames from aseprite files and insert
+### them to the animated_sprite node
+###
+func create_animations(animated_sprite: Node, aseprite_files: Dictionary) -> void:
+	var sprite_frames_result = _create_sprite_frames(aseprite_files)
 	if not sprite_frames_result.is_ok:
-		return sprite_frames_result.code
+		printerr(result_code.get_error_message(sprite_frames_result.code))
+		return
 
 	animated_sprite.frames = sprite_frames_result.content
 
@@ -69,86 +23,16 @@ func _create_animations_from_file(animated_sprite: Node, options: Dictionary) ->
 	else:
 		animated_sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
-	if _config.should_remove_source_files():
-		DirAccess.remove_absolute(output.content.data_file)
-		await _scan_filesystem()
 
-	return result_code.SUCCESS
-
-
-func _export_aseprite_file(options: Dictionary) -> Dictionary:
-	var output
-
-	if options.get("layer", "") == "":
-		output = _aseprite.export_file(options.source, options.output_folder, options)
-	else:
-		output = _aseprite.export_layer(options.source, options.layer, options.output_folder, options)
-
-	if output.is_empty():
-		return result_code.error(result_code.ERR_ASEPRITE_EXPORT_FAILED)
-
-	return result_code.result(output)
-
-
-func create_and_save_resources(source_file: String, options: Dictionary) -> int:
-	var resources = await create_resources(source_file, options)
+func create_and_save_resources(source_files: Array) -> int:
+	var resources = create_resources(source_files)
 	if resources.is_ok:
 		return _save_resources(resources.content)
 
 	return resources.code
 
 
-func create_resources(source_file: String, options = {}) -> Dictionary:
-	var input_check = _initial_checks(source_file, options)
-
-	if input_check != result_code.SUCCESS:
-		return result_code.error(input_check)
-
-	var output = _create_aseprite_output_files(source_file, options)
-
-	if not output.is_ok:
-		return output
-
-	await _scan_filesystem()
-
-	var result = await _create_sprite_frames_from_source(output.content, options)
-
-	if not result.is_ok:
-		return result
-
-	var should_remove_source = _config.should_remove_source_files()	
-
-	if should_remove_source:
-		_remove_source_files(result.content)
-
-	return result
-
-
-func _remove_source_files(source_files: Array):
-	for s in source_files:
-		DirAccess.remove_absolute(s.data_file)
-
-	await _scan_filesystem()
-
-
-func _create_aseprite_output_files(source_file: String, options: Dictionary):
-	match options.get('export_mode', FILE_EXPORT_MODE):
-		FILE_EXPORT_MODE:
-			return result_code.result(
-				[_aseprite.export_file(source_file, options.output_folder, options)]
-			)
-		LAYERS_EXPORT_MODE:
-			var output = _aseprite.export_layers(source_file, options.output_folder, options)
-			if output.is_empty():
-				return result_code.error(result_code.ERR_NO_VALID_LAYERS_FOUND)
-			return result_code.result(output)
-		_:
-			return result_code.error(result_code.ERR_UNKNOWN_EXPORT_MODE)
-
-
-func _create_sprite_frames_from_source(source_files: Array, options: Dictionary) -> Dictionary:
-	var should_remove_source = _config.should_remove_source_files()
-
+func create_resources(source_files: Array) -> Dictionary:
 	var resources = []
 
 	for o in source_files:
@@ -182,32 +66,17 @@ func _create_sprite_frames(data) -> Dictionary:
 
 
 func _load_aseprite_resources(aseprite_data: Dictionary):
-	var content_result = _load_json_content(aseprite_data.data_file)
+	var content_result = _aseprite_file_exporter.load_json_content(aseprite_data.data_file)
 
 	if not content_result.is_ok:
 		return content_result
 
-	var texture = _parse_texture_path(aseprite_data.sprite_sheet)
+	var texture = _load_texture(aseprite_data.sprite_sheet)
 
 	return result_code.result({
 		"metadata": content_result.content,
 		"texture": texture
 	})
-
-
-func _load_json_content(source_file: String) -> Dictionary:
-	var file = FileAccess.open(source_file, FileAccess.READ)
-	if file == null:
-		return result_code.error(file.get_open_error())
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(file.get_as_text())
-
-	var content = test_json_conv.get_data()
-
-	if not _aseprite.is_valid_spritesheet(content):
-		return result_code.error(result_code.ERR_INVALID_ASEPRITE_SPRITESHEET)
-
-	return result_code.result(content)
 
 
 func _save_resources(resources: Array) -> int:
@@ -234,7 +103,7 @@ func _create_sprite_frames_with_animations(content, texture) -> SpriteFrames:
 	if content.meta.has("frameTags") and content.meta.frameTags.size() > 0:
 		for tag in content.meta.frameTags:
 			var selected_frames = frames.slice(tag.from, tag.to + 1)
-			_add_animation_frames(sprite_frames, tag.name, selected_frames, texture, tag.direction, frame_cache)
+			_add_animation_frames(sprite_frames, tag.name, selected_frames, texture, tag.direction, int(tag.get("repeat", -1)), frame_cache)
 	else:
 		_add_animation_frames(sprite_frames, "default", frames, texture)
 
@@ -244,15 +113,16 @@ func _create_sprite_frames_with_animations(content, texture) -> SpriteFrames:
 func _add_animation_frames(
 	sprite_frames: SpriteFrames,
 	anim_name: String,
-	frames : Array,
+	frames: Array,
 	texture,
 	direction = 'forward',
+	repeat = -1,
 	frame_cache = {}
 ):
 	var animation_name := anim_name
-	var is_loopable = _is_loop_config_enabled()
+	var is_loopable = _config.is_default_animation_loop_enabled()
 
-	var loop_prefix := _loop_config_prefix()
+	var loop_prefix = _config.get_animation_loop_exception_prefix()
 	if animation_name.begins_with(loop_prefix):
 		animation_name = anim_name.trim_prefix(loop_prefix)
 		is_loopable = not is_loopable
@@ -262,20 +132,28 @@ func _add_animation_frames(
 	var min_duration = _get_min_duration(frames)
 	var fps = _calculate_fps(min_duration)
 
-	if direction == 'reverse':
+	if direction == "reverse" or direction == "pingpong_reverse":
 		frames.reverse()
 
-	for frame in frames:
-		_add_to_sprite_frames(sprite_frames, animation_name, texture, frame, min_duration, frame_cache)
+	var repetition = 1
 
-	if direction == 'pingpong':
-		frames.remove_at(frames.size() - 1)
-		if is_loopable:
-			frames.remove_at(0)
-		frames.reverse()
+	if repeat != -1:
+		is_loopable = false
+		repetition = repeat
 
+	for i in range(repetition):
 		for frame in frames:
 			_add_to_sprite_frames(sprite_frames, animation_name, texture, frame, min_duration, frame_cache)
+
+		if direction.begins_with("pingpong"):
+			var working_frames = frames.duplicate()
+			working_frames.remove_at(working_frames.size() - 1)
+			if is_loopable or (repetition > 1 and i < repetition - 1):
+				working_frames.remove_at(0)
+			working_frames.reverse()
+
+			for frame in working_frames:
+				_add_to_sprite_frames(sprite_frames, animation_name, texture, frame, min_duration, frame_cache)
 
 	sprite_frames.set_animation_loop(animation_name, is_loopable)
 	sprite_frames.set_animation_speed(animation_name, fps)
@@ -293,8 +171,8 @@ func _get_min_duration(frames) -> int:
 	return min_duration
 
 
-func _parse_texture_path(path):
-	return ResourceLoader.load(path, 'Image', ResourceLoader.CACHE_MODE_REPLACE)
+func _load_texture(path) -> CompressedTexture2D:
+	return ResourceLoader.load(path, "CompressedTexture2D", ResourceLoader.CACHE_MODE_REPLACE)
 
 
 func _add_to_sprite_frames(
@@ -306,10 +184,8 @@ func _add_to_sprite_frames(
 	frame_cache: Dictionary
 ):
 	var atlas : AtlasTexture = _create_atlastexture_from_frame(texture, frame, sprite_frames, frame_cache)
-
-	var number_of_sprites = ceil(frame.duration / min_duration)
-	for _i in range(number_of_sprites):
-		sprite_frames.add_frame(animation_name, atlas)
+	var duration = frame.duration / min_duration
+	sprite_frames.add_frame(animation_name, atlas, duration)
 
 
 func _create_atlastexture_from_frame(
@@ -336,22 +212,9 @@ func _create_atlastexture_from_frame(
 	return atlas_texture
 
 
-func _scan_filesystem():
-	_file_system.scan()
-	await _file_system.filesystem_changed
-
-
 func list_layers(file: String, only_visibles = false) -> Array:
 	return _aseprite.list_layers(file, only_visibles)
 
 
 func _get_file_basename(file_path: String) -> String:
 	return file_path.get_file().trim_suffix('.%s' % file_path.get_extension())
-
-
-func _loop_config_prefix() -> String:
-	return _config.get_animation_loop_exception_prefix()
-
-
-func _is_loop_config_enabled() -> bool:
-	return _config.is_default_animation_loop_enabled()

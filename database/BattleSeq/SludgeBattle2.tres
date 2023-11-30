@@ -10,4 +10,6 @@ Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1
 Transition = true
 Detransition = false
 EscPosition = Vector2(54, 18)
+PositionSameAsPlayer = false
 ScenePosition = Vector2(1416, 223)
+CanEscape = true

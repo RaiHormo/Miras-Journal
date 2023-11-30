@@ -144,12 +144,12 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_y7pbc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht7eu"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(0, 9, 1)
-particle_flag_disable_z = true
-gravity = Vector3(-120, 0, 0)
 orbit_velocity_min = -0.1
 orbit_velocity_max = 0.1
+gravity = Vector3(-120, 0, 0)
 linear_accel_min = -100.0
 linear_accel_max = -67.64
 tangential_accel_min = -39.71
@@ -1161,7 +1161,6 @@ explosiveness = 0.89
 fixed_fps = 60
 
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
-visible = false
 light_mask = 16
 material = ExtResource("1_pas6x")
 position = Vector2(2, -13)

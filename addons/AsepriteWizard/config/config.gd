@@ -14,10 +14,6 @@ const _LOOP_ENABLED = 'aseprite/animation/loop/enabled'
 const _LOOP_EXCEPTION_PREFIX = 'aseprite/animation/loop/exception_prefix'
 const _USE_METADATA = 'aseprite/animation/storage/use_metadata'
 
-# custom preset
-const _IMPORT_PRESET_ENABLED = 'aseprite/import/preset/enable_custom_preset'
-const _IMPORT_PRESET_KEY = 'aseprite/import/preset/preset'
-const _PIXEL_2D_PRESET_CFG = 'res://addons/AsepriteWizard/config/2d_pixel_preset.cfg'
 
 # cleanup
 const _REMOVE_SOURCE_FILES_KEY = 'aseprite/import/cleanup/remove_json_file'
@@ -26,6 +22,11 @@ const _SET_VISIBLE_TRACK_AUTOMATICALLY = 'aseprite/import/cleanup/automatically_
 
 # automatic importer
 const _IMPORTER_ENABLE_KEY = 'aseprite/import/import_plugin/enable_automatic_importer'
+const _DEFAULT_IMPORTER_KEY = 'aseprite/import/import_plugin/default_automatic_importer'
+
+const IMPORTER_SPRITEFRAMES_NAME = "SpriteFrames"
+const IMPORTER_NOOP_NAME = "No Import"
+const TILESET_TEXTURE_NAME = "Tileset Texture"
 
 # wizard history
 const _HISTORY_CONFIG_FILE_CFG_KEY = 'aseprite/wizard/history/cache_file_path'
@@ -65,13 +66,19 @@ func is_command_or_control_pressed() -> String:
 #######################################################
 # PROJECT SETTINGS
 ######################################################
+
+# remove this config in the next major version
 func is_importer_enabled() -> bool:
 	return _get_project_setting(_IMPORTER_ENABLE_KEY, false)
-	
-	
+
+
+func get_default_importer() -> String:
+	return _get_project_setting(_DEFAULT_IMPORTER_KEY, IMPORTER_SPRITEFRAMES_NAME if is_importer_enabled() else IMPORTER_NOOP_NAME)
+
+
 func is_exporter_enabled() -> bool:
 	return _get_project_setting(_EXPORTER_ENABLE_KEY, true)
-	
+
 
 func should_remove_source_files() -> bool:
 	return _get_project_setting(_REMOVE_SOURCE_FILES_KEY, true)
@@ -83,17 +90,13 @@ func is_default_animation_loop_enabled() -> bool:
 
 func get_animation_loop_exception_prefix() -> String:
 	return _get_project_setting(_LOOP_EXCEPTION_PREFIX, _DEFAULT_LOOP_EX_PREFIX)
-	
+
 func is_use_metadata_enabled() -> bool:
 	return _get_project_setting(_USE_METADATA, true)
 
 
 func get_default_exclusion_pattern() -> String:
 	return _get_project_setting(_DEFAULT_EXCLUSION_PATTERN_KEY, "")
-
-
-func is_import_preset_enabled() -> bool:
-	return _get_project_setting(_IMPORT_PRESET_ENABLED, false)
 
 
 func is_single_file_history() -> bool:
@@ -133,20 +136,6 @@ func save_import_history(history: Array):
 
 func _get_history_file_path() -> String:
 	return _get_project_setting(_HISTORY_CONFIG_FILE_CFG_KEY, _DEFAULT_HISTORY_CONFIG_FILE_PATH)
-
-
-func create_import_preset_setting() -> void:
-	if ProjectSettings.has_setting(_IMPORT_PRESET_KEY) && (ProjectSettings.get_setting(_IMPORT_PRESET_KEY) as Dictionary).size() > 0:
-		return
-
-	var preset := ConfigFile.new()
-	preset.load(_PIXEL_2D_PRESET_CFG)
-
-	var dict = {}
-	for key in preset.get_section_keys("preset"):
-		dict[key] = preset.get_value("preset", key)
-
-	_initialize_project_cfg(_IMPORT_PRESET_KEY, dict, TYPE_DICTIONARY)
 
 
 #######################################################
@@ -228,11 +217,15 @@ func initialize_project_settings():
 	_initialize_project_cfg(_LOOP_EXCEPTION_PREFIX, _DEFAULT_LOOP_EX_PREFIX, TYPE_STRING)
 	_initialize_project_cfg(_USE_METADATA, true, TYPE_BOOL)
 
-	_initialize_project_cfg(_IMPORT_PRESET_ENABLED, false, TYPE_BOOL)
-
 	_initialize_project_cfg(_REMOVE_SOURCE_FILES_KEY, true, TYPE_BOOL)
-	_initialize_project_cfg(_IMPORTER_ENABLE_KEY, false, TYPE_BOOL)
-	
+	_initialize_project_cfg(
+		_DEFAULT_IMPORTER_KEY,
+		IMPORTER_SPRITEFRAMES_NAME if is_importer_enabled() else IMPORTER_NOOP_NAME,
+		TYPE_STRING,
+		PROPERTY_HINT_ENUM,
+		"%s,%s,%s" % [IMPORTER_NOOP_NAME, IMPORTER_SPRITEFRAMES_NAME, TILESET_TEXTURE_NAME]
+	)
+
 	_initialize_project_cfg(_EXPORTER_ENABLE_KEY, true, TYPE_BOOL)
 
 	_initialize_project_cfg(_HISTORY_CONFIG_FILE_CFG_KEY, _DEFAULT_HISTORY_CONFIG_FILE_PATH, TYPE_STRING, PROPERTY_HINT_GLOBAL_FILE)
@@ -251,10 +244,8 @@ func clear_project_settings():
 		_LOOP_ENABLED,
 		_LOOP_EXCEPTION_PREFIX,
 		_USE_METADATA,
-		_IMPORT_PRESET_ENABLED,
-		_IMPORT_PRESET_KEY,
 		_REMOVE_SOURCE_FILES_KEY,
-		_IMPORTER_ENABLE_KEY,
+		_DEFAULT_IMPORTER_KEY,
 		_EXPORTER_ENABLE_KEY,
 		_HISTORY_CONFIG_FILE_CFG_KEY,
 		_HISTORY_SINGLE_ENTRY_KEY,
@@ -265,47 +256,32 @@ func clear_project_settings():
 	ProjectSettings.save()
 
 
-func _initialize_project_cfg(key: String, default_value, type: int, hint: int = PROPERTY_HINT_NONE):
+func _initialize_project_cfg(key: String, default_value, type: int, hint: int = PROPERTY_HINT_NONE, hint_string = null):
 	if not ProjectSettings.has_setting(key):
 		ProjectSettings.set(key, default_value)
-		ProjectSettings.set_initial_value(key, default_value)
-		ProjectSettings.add_property_info({
-			"name": key,
-			"type": type,
-			"hint": hint,
-		})
+	ProjectSettings.set_initial_value(key, default_value)
+	ProjectSettings.add_property_info({
+		"name": key,
+		"type": type,
+		"hint": hint,
+		"hint_string": hint_string,
+	})
 
 
 func _get_project_setting(key: String, default_value):
+	if not ProjectSettings.has_setting(key):
+		return default_value
+
 	var p = ProjectSettings.get(key)
 	return p if p != null else default_value
-
-
-func create_import_file(data: Dictionary) -> void:
-	if !ProjectSettings.has_setting(_IMPORT_PRESET_KEY):
-		push_warning("no import settings found for 'aseprite_texture' in Project Settings")
-		return
-
-	var file_path := "%s.import" % [data.sprite_sheet]
-	var import_file := ConfigFile.new()
-	if import_file.load(file_path) == OK:
-		return
-
-	import_file.set_value("remap", "importer", "texture")
-	import_file.set_value("remap", "type", "CompressedTexture2D")
-	import_file.set_value("deps", "source_file", data.sprite_sheet)
-	var preset: Dictionary = ProjectSettings.get_setting(_IMPORT_PRESET_KEY)
-	for key in preset:
-		import_file.set_value("params", key, preset[key])
-	import_file.save(file_path)
 
 
 func _initialize_editor_cfg(key: String, default_value, type: int, hint: int = PROPERTY_HINT_NONE):
 	if not _editor_settings.has_setting(key):
 		_editor_settings.set(key, default_value)
-		_editor_settings.set_initial_value(key, default_value, false)
-		_editor_settings.add_property_info({
-			"name": key,
-			"type": type,
-			"hint": hint,
-		})
+	_editor_settings.set_initial_value(key, default_value, false)
+	_editor_settings.add_property_info({
+		"name": key,
+		"type": type,
+		"hint": hint,
+	})

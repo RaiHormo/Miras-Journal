@@ -3,6 +3,7 @@ extends PanelContainer
 
 const wizard_config = preload("../../config/wizard_config.gd")
 const result_code = preload("../../config/result_codes.gd")
+var _aseprite_file_exporter = preload("../../aseprite/file_exporter.gd").new()
 
 const AnimationCreator = preload("../animation_creator.gd")
 const SpriteAnimationCreator = preload("../sprite_animation_creator.gd")
@@ -19,8 +20,8 @@ var file_system: EditorFileSystem
 var _layer: String = ""
 var _source: String = ""
 var _animation_player_path: String
-var _file_dialog_aseprite: FileDialog
-var _output_folder_dialog: FileDialog
+var _file_dialog_aseprite: EditorFileDialog
+var _output_folder_dialog: EditorFileDialog
 var _importing := false
 
 var _output_folder := ""
@@ -37,6 +38,7 @@ var _layer_default := "[all]"
 @onready var _visible_layers_field =  $margin/VBoxContainer/options/visible_layers/CheckButton
 @onready var _ex_pattern_field = $margin/VBoxContainer/options/ex_pattern/LineEdit
 @onready var _cleanup_hide_unused_nodes =  $margin/VBoxContainer/options/auto_visible_track/CheckButton
+@onready var _keep_length =  $margin/VBoxContainer/options/keep_length/CheckButton
 
 
 func _ready():
@@ -49,9 +51,10 @@ func _ready():
 	if target_node is Sprite2D || target_node is Sprite3D:
 		animation_creator = SpriteAnimationCreator.new()
 	if target_node is TextureRect:
-		animation_creator = TextureRectAnimationCreator.new()		
+		animation_creator = TextureRectAnimationCreator.new()
 
-	animation_creator.init(config, file_system)
+	animation_creator.init(config)
+	_aseprite_file_exporter.init(config)
 
 
 func _load_config(cfg):
@@ -66,12 +69,12 @@ func _load_config(cfg):
 		_layer_field.clear()
 		_set_layer(cfg.layer)
 
-	_output_folder = cfg.get("o_folder", "")
-	_out_folder_field.text = _output_folder if _output_folder != "" else _out_folder_default
+	_set_out_folder(cfg.get("o_folder", ""))
 	_out_filename_field.text = cfg.get("o_name", "")
 	_visible_layers_field.button_pressed = cfg.get("only_visible", false)
 	_ex_pattern_field.text = cfg.get("o_ex_p", "")
 	_cleanup_hide_unused_nodes.button_pressed = cfg.get("set_vis_track", config.is_set_visible_track_automatically_enabled())
+	_keep_length.button_pressed = cfg.get("keep_anim_length", false)
 
 	_set_options_visible(cfg.get("op_exp", false))
 
@@ -184,20 +187,39 @@ func _on_import_pressed():
 		_importing = false
 		return
 
+	var source_path = ProjectSettings.globalize_path(_source)
 	var options = {
-		"source": ProjectSettings.globalize_path(_source),
 		"output_folder": _output_folder if _output_folder != "" else root.scene_file_path.get_base_dir(),
 		"exception_pattern": _ex_pattern_field.text,
 		"only_visible_layers": _visible_layers_field.button_pressed,
 		"output_filename": _out_filename_field.text,
-		"cleanup_hide_unused_nodes": _cleanup_hide_unused_nodes.button_pressed,
 		"layer": _layer
 	}
 
 	_save_config()
 
-	await animation_creator.create_animations(target_node, root.get_node(_animation_player_path), options)
+	var aseprite_output = _aseprite_file_exporter.generate_aseprite_file(source_path, options)
+
+	if not aseprite_output.is_ok:
+		var error = result_code.get_error_message(aseprite_output.code)
+		printerr(error)
+		_show_message(error)
+		return
+
+	file_system.scan()
+	await file_system.filesystem_changed
+
+	var anim_options = {
+		"keep_anim_length": _keep_length.button_pressed,
+		"cleanup_hide_unused_nodes": _cleanup_hide_unused_nodes.button_pressed,
+	}
+
+	animation_creator.create_animations(target_node, root.get_node(_animation_player_path), aseprite_output.content, anim_options)
 	_importing = false
+
+	if config.should_remove_source_files():
+		DirAccess.remove_absolute(aseprite_output.content.data_file)
+		file_system.call_deferred("scan")
 
 
 func _save_config():
@@ -210,6 +232,7 @@ func _save_config():
 		"o_name": _out_filename_field.text,
 		"only_visible": _visible_layers_field.button_pressed,
 		"o_ex_p": _ex_pattern_field.text,
+		"keep_anim_length": _keep_length.button_pressed,
 	}
 
 	if _cleanup_hide_unused_nodes.button_pressed != config.is_set_visible_track_automatically_enabled():
@@ -227,9 +250,9 @@ func _open_source_dialog():
 
 
 func _create_aseprite_file_selection():
-	var file_dialog = FileDialog.new()
-	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	var file_dialog = EditorFileDialog.new()
+	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
 	file_dialog.connect("file_selected",Callable(self,"_on_aseprite_file_selected"))
 	file_dialog.set_filters(PackedStringArray(["*.ase","*.aseprite"]))
 	return file_dialog
@@ -268,14 +291,41 @@ func _on_out_folder_pressed():
 
 
 func _create_output_folder_selection():
-	var file_dialog = FileDialog.new()
-	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
-	file_dialog.access = FileDialog.ACCESS_RESOURCES
+	var file_dialog = EditorFileDialog.new()
+	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_DIR
+	file_dialog.access = EditorFileDialog.ACCESS_RESOURCES
 	file_dialog.connect("dir_selected",Callable(self,"_on_output_folder_selected"))
 	return file_dialog
 
 
 func _on_output_folder_selected(path):
+	_set_out_folder(path)
+	_output_folder_dialog.queue_free()
+
+
+func _on_source_aseprite_file_dropped(path):
+	_set_source(path)
+	_save_config()
+
+
+func _on_animation_player_node_dropped(node_path):
+	var node = get_node(node_path)
+	var root = get_tree().get_edited_scene_root()
+
+	_animation_player_path = root.get_path_to(node)
+
+	for i in range(_options_field.get_item_count()):
+		if _options_field.get_item_text(i) == _animation_player_path:
+			_options_field.select(i)
+			break
+	_save_config()
+
+
+func _on_out_dir_dropped(path):
+	_set_out_folder(path)
+
+
+func _set_out_folder(path):
 	_output_folder = path
 	_out_folder_field.text = _output_folder if _output_folder != "" else _out_folder_default
-	_output_folder_dialog.queue_free()
+	_out_folder_field.tooltip_text = _out_folder_field.text
