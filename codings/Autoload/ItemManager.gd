@@ -71,29 +71,29 @@ func check_item(ItemName, type):
 
 func get_inv(type: String):
 	match type:
-		"Key": return KeyInv
-		"Con": return ConInv
-		"Mat": return MatInv
-		"Bti": return BtiInv
+		&"Key": return KeyInv
+		&"Con": return ConInv
+		&"Mat": return MatInv
+		&"Bti": return BtiInv
 
-func overwrite_inv(inv: Array, type: String):
+func overwrite_inv(inv: Array, type: StringName):
 	match type:
-		"Key": KeyInv = inv
-		"Con": ConInv = inv
-		"Mat": MatInv = inv
-		"Bti": BtiInv = inv
+		&"Key": KeyInv = inv
+		&"Con": ConInv = inv
+		&"Mat": MatInv = inv
+		&"Bti": BtiInv = inv
 
-func get_folder(type: String):
+func get_folder(type: StringName):
 	match type:
-		"Key": return "KeyItems"
-		"Con": return "Consumables"
-		"Mat": return "Materials"
-		"Bti": return "BattleItems"
+		&"Key": return "KeyItems"
+		&"Con": return "Consumables"
+		&"Mat": return "Materials"
+		&"Bti": return "BattleItems"
 
 func use(iteme:ItemData):
 	$ItemEffect.use(iteme)
 
-func get_item(iteme, type:String):
+func get_item(iteme, type:StringName):
 	var ritem = null
 	if iteme is String:
 		for i in get_inv(type):
@@ -122,10 +122,10 @@ func find_filename(iteme, type):
 
 func verify_inventory():
 	for i in KeyInv:
-		if i.filename == "Invalid filename": await find_filename(i, "Key")
+		if i.filename == "Invalid filename": await find_filename(i, &"Key")
 	for i in ConInv:
-		if i.filename == "Invalid filename": await find_filename(i, "Con")
+		if i.filename == "Invalid filename": await find_filename(i, &"Con")
 	for i in MatInv:
-		if i.filename == "Invalid filename": await find_filename(i, "Mat")
+		if i.filename == "Invalid filename": await find_filename(i, &"Mat")
 	for i in BtiInv:
-		if i.filename == "Invalid filename": await find_filename(i, "Bti")
+		if i.filename == "Invalid filename": await find_filename(i, &"Bti")

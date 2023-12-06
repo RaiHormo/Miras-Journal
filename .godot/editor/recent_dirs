@@ -1,3 +1,6 @@
+res://art/Icons/Party
+res://codings
+res://scenes
 res://database/BattleSeq
 res://art/Effects
 res://database/States
@@ -10,11 +13,9 @@ res://art/OV/Mira
 res://art/OV/Alcine
 res://codings/Characters
 res://scenes/Characters
-res://scenes
 res://scenes/Rooms
 res://scenes/Shaders
 res://codings/Autoload
-res://codings
 res://sound/SFX/Battle/Mira
 res://codings/Interactions
 U:/Documents/Miras-Journal/codings/Autoload

@@ -1,16 +1,18 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_2qjik"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ixdjh"]
 
 [resource]
-script = ExtResource("1_2qjik")
+script = ExtResource("1_ixdjh")
 titles = {
-"as_lost_as_you": "34",
+"as_lost_as_you": "32",
 "cant_dash_on_flame": "15",
 "getting_dark": "2",
+"good_on_you": "48",
+"haha": "39",
 "hey_wait": "20",
-"im_not_gonna_harm_you": "27",
-"stay_back": "43",
+"im_not_gonna_harm_you": "25",
+"stay_back": "53",
 "that_should_do_it": "6",
 "was_that_a": "10"
 }
@@ -118,42 +120,16 @@ Was that another monster?",
 "type": "dialogue"
 },
 "22": {
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraNeutural"
-}]), Array[Dictionary]([{
-"type": "bool",
-"value": false
-}])])
-}])
-},
-"next_id": "23",
-"type": "mutation"
-},
-"23": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"next_id": "24",
-"text": "Is it scared of me?[next=2]",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Is it scared of me?[next=2]",
-"type": "dialogue"
-},
-"24": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"26": {
-"next_id": "27",
+"24": {
+"next_id": "25",
 "text": "im_not_gonna_harm_you",
 "type": "title"
 },
-"27": {
+"25": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "next_box",
@@ -164,19 +140,19 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "28",
+"next_id": "26",
 "type": "mutation"
 },
-"28": {
+"26": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
-"next_id": "29",
+"next_id": "27",
 "text": "...",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "...",
 "type": "dialogue"
 },
-"29": {
+"27": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -187,57 +163,36 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "30",
+"next_id": "28",
 "type": "mutation"
+},
+"28": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "29",
+"text": "Come on, don't be scared.
+ Nobody's gonna hurt you.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Come on, don't be scared.
+ Nobody's gonna hurt you.",
+"type": "dialogue"
+},
+"29": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
 },
 "3": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"30": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"next_id": "31",
-"text": "Come on, don't be scared. Nobody's gonna hurt you.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Come on, don't be scared. Nobody's gonna hurt you.",
-"type": "dialogue"
-},
 "31": {
-"is_snippet": false,
-"next_id": "end",
-"type": "goto"
-},
-"33": {
-"next_id": "34",
+"next_id": "32",
 "text": "as_lost_as_you",
 "type": "title"
 },
-"34": {
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "next_box",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "Alcine"
-}])])
-}])
-},
-"next_id": "35",
-"type": "mutation"
-},
-"35": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
-"next_id": "36",
-"text": "...",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "...",
-"type": "dialogue"
-},
-"36": {
+"32": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -248,19 +203,19 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "37",
+"next_id": "33",
 "type": "mutation"
 },
-"37": {
+"33": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"next_id": "38",
-"text": "I guess you're lost as well...",
+"next_id": "34",
+"text": "I guess you're just as lost.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "I guess you're lost as well...",
+"translation_key": "I guess you're just as lost.",
 "type": "dialogue"
 },
-"38": {
+"34": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -274,29 +229,146 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "39",
+"next_id": "35",
 "type": "mutation"
 },
-"39": {
+"35": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"next_id": "40",
-"text": "This forest is not safe, we should look for a way-[next=0.4]",
+"next_id": "36",
+"text": "This forest is not safe, we should look for a way out",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "This forest is not safe, we should look for a way-[next=0.4]",
+"translation_key": "This forest is not safe, we should look for a way out",
 "type": "dialogue"
 },
-"40": {
+"36": {
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
+"38": {
+"next_id": "39",
+"text": "haha",
+"type": "title"
+},
+"39": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "next_box",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "Alcine"
+}])])
+}])
+},
+"next_id": "40",
+"type": "mutation"
+},
+"40": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "41",
+"text": "...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...",
+"type": "dialogue"
+},
+"41": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraSmile"
+}])])
+}])
+},
+"next_id": "42",
+"type": "mutation"
+},
 "42": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
 "next_id": "43",
+"text": "Haha, you can have that if you want!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Haha, you can have that if you want!",
+"type": "dialogue"
+},
+"43": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraSmile"
+}])])
+}])
+},
+"next_id": "44",
+"type": "mutation"
+},
+"44": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "45",
+"text": "Here.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Here.",
+"type": "dialogue"
+},
+"45": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"47": {
+"next_id": "48",
+"text": "good_on_you",
+"type": "title"
+},
+"48": {
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraSmile"
+}])])
+}])
+},
+"next_id": "49",
+"type": "mutation"
+},
+"49": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"next_id": "50",
+"text": "Looks good on you!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Looks good on you!",
+"type": "dialogue"
+},
+"5": {
+"next_id": "6",
+"text": "that_should_do_it",
+"type": "title"
+},
+"50": {
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"52": {
+"next_id": "53",
 "text": "stay_back",
 "type": "title"
 },
-"43": {
+"53": {
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -307,10 +379,10 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "44",
+"next_id": "54",
 "type": "mutation"
 },
-"44": {
+"54": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "next_id": "",
@@ -320,11 +392,6 @@ I'll deal with it!",
 "translation_key": "You stay behind me,
 I'll deal with it!",
 "type": "dialogue"
-},
-"5": {
-"next_id": "6",
-"text": "that_should_do_it",
-"type": "title"
 },
 "6": {
 "character": "",

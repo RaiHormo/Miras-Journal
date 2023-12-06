@@ -216,7 +216,9 @@ func check_flame() -> void:
 				$Flame.energy += 0.03
 				await Event.wait()
 			$Flame.energy = 1.5
+			$Flame.flicker = true
 	else:
+		$Flame.flicker = false
 		$Flame.energy = 0
 
 ##For opening the menu

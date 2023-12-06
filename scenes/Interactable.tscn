@@ -43,7 +43,7 @@ corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_iavdl"]
 default_font = ExtResource("3_cho3r")
-default_font_size = 16
+default_font_size = 15
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 1
 Button/styles/focus = SubResource("StyleBoxFlat_5iklx")

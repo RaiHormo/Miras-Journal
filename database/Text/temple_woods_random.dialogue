@@ -19,24 +19,34 @@ Mira: I can't dash and hold this flame at the same time.[next=4]
 ~ hey_wait
 do portrait("MiraOpenMouth")
 Mira: Hey wait![next=2]
-do portrait("MiraNeutural", false)
-Mira: Is it scared of me?[next=2]
 => END
 
 ~ im_not_gonna_harm_you
 do next_box("Alcine")
 ...
 do portrait("MiraSmile")
-Mira: Come on, don't be scared. Nobody's gonna hurt you.
+Mira: Come on, don't be scared.\n Nobody's gonna hurt you.
 => END
 
 ~ as_lost_as_you
+do portrait("MiraNeutural")
+Mira: I guess you're just as lost.
+do portrait("MiraOpenMouth", false)
+Mira: This forest is not safe, we should look for a way out
+=> END
+
+~ haha
 do next_box("Alcine")
 ...
-do portrait("MiraNeutural")
-Mira: I guess you're lost as well...
-do portrait("MiraOpenMouth", false)
-Mira: This forest is not safe, we should look for a way-[next=0.4] 
+do portrait("MiraSmile")
+Mira: Haha, you can have that if you want!
+do portrait("MiraSmile")
+Mira: Here.
+=> END
+
+~ good_on_you
+do portrait("MiraSmile")
+Mira: Looks good on you!
 => END
 
 ~ stay_back

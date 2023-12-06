@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://jbqc6bbxg02s"]
+
+[ext_resource type="Script" path="res://codings/room_class.gd" id="1_s3ulv"]
+
+[node name="AmberelmRuins" type="TileMap"]
+format = 2
+script = ExtResource("1_s3ulv")
+Name = "Amberelm ruins"

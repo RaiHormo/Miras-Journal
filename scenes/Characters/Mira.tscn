@@ -1,4 +1,4 @@
-[gd_scene load_steps=154 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=155 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="9_1utjp"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="10_bjqs2"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="10_s8qxo"]
+[ext_resource type="Script" path="res://codings/flickering_light.gd" id="11_vngmy"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="12_l2wig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwtxo"]
@@ -3303,15 +3304,16 @@ size = Vector2(14, 17)
 radius = 7.0
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]
-offsets = PackedFloat32Array(0, 0.995098)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.456522, 0.757246, 0.995098)
+colors = PackedColorArray(1, 1, 1, 1, 0.3, 0.3, 0.3, 1, 0.15, 0.15, 0.15, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2e8bj"]
 gradient = SubResource("Gradient_s6doo")
 use_hdr = true
 fill = 1
-fill_from = Vector2(0.487179, 0.495726)
-fill_to = Vector2(0.782051, 0.876068)
+fill_from = Vector2(0.504274, 0.487179)
+fill_to = Vector2(0.811966, 0.850427)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7m28b"]
 shader = ExtResource("12_l2wig")
@@ -3329,6 +3331,7 @@ collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_503pd")
+flame_active = true
 speed = 70
 Nav = NodePath("Nav")
 
@@ -3441,10 +3444,13 @@ path_max_distance = 20.0
 
 [node name="Flame" type="PointLight2D" parent="."]
 texture_filter = 2
-color = Color(0.905882, 0.411765, 0, 1)
+color = Color(1, 0.333333, 0, 1)
 energy = 0.0
 texture = SubResource("GradientTexture2D_2e8bj")
 texture_scale = 3.0
+script = ExtResource("11_vngmy")
+around_scale = 3.5
+amount = 0.08
 
 [node name="StdrFootsteps" parent="." instance=ExtResource("10_s8qxo")]
 

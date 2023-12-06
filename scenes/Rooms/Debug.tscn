@@ -497,14 +497,15 @@ sources/0 = SubResource("TileSetAtlasSource_87swt")
 
 [sub_resource type="Gradient" id="Gradient_3bxch"]
 interpolation_mode = 2
+interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
 gradient = SubResource("Gradient_3bxch")
 use_hdr = true
 fill = 1
-fill_from = Vector2(0.512821, 0.491453)
-fill_to = Vector2(0.141026, 0.880342)
+fill_from = Vector2(0.538462, 0.461538)
+fill_to = Vector2(0.115385, 0.867521)
 
 [sub_resource type="Gradient" id="Gradient_4tyhe"]
 offsets = PackedFloat32Array(0)
@@ -532,7 +533,7 @@ vertices = PackedVector2Array(84, -61, 116, -93, 115, 91, 83, -14, -118, -93, 36
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 1, 0, 5), PackedInt32Array(6, 5, 7, 8), PackedInt32Array(4, 5, 6, 9), PackedInt32Array(10, 4, 9, 11), PackedInt32Array(7, 3, 2, 10, 8), PackedInt32Array(8, 10, 11)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-129, -104, 127, -103, 125, 101, -126, 102), PackedVector2Array(46, 23, 74, 23, 74, 50, 47, 50), PackedVector2Array(-50, 9, -33, 9, -33, 29, -51, 30), PackedVector2Array(-82, 46, -59, 47, -56, 80, -86, 79), PackedVector2Array(-88, -4, -33, -4, -32, -24, -89, -24), PackedVector2Array(47, -24, 73, -24, 74, -51, 46, -51), PackedVector2Array(-7, -66, 28, -65, 28, -37, -5, -38)])
 source_geometry_mode = 1
-source_geometry_group_name = &"navigation_polygon_source_group"
+source_geometry_group_name = &"physics"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
 radius = 7.0
@@ -556,13 +557,13 @@ layer_2/name = "Bl1"
 layer_2/z_index = -1
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("5_iiwcs")
-Name = "Debug"
+Name = "Debug room"
 SpawnPos = Vector2(0, -2)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(58.9894, -34.8328)
+position = Vector2(60, -36)
 scale = Vector2(4.18577, 3.73135)
-color = Color(1, 0.490196, 0.184314, 1)
+color = Color(1, 0.317647, 0, 1)
 energy = 1.5
 shadow_enabled = true
 shadow_filter_smooth = 11.0
