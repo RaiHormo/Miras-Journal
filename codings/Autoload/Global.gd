@@ -91,6 +91,7 @@ func new_game() -> void:
 	Global.Player.get_node("Base").play("OnFloor")
 	Global.Player.get_node("Base/Shadow").hide()
 	Global.Player._check_party()
+	Global.Player.flame_active = false
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -281,6 +282,10 @@ func get_member_name(n:int) -> String:
 	else:
 		return "Null"
 
+func find_member(Name: String) -> Actor:
+	for i in Members:
+		if i.FirstName == Name: return i
+	return Party.Leader
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
@@ -353,10 +358,21 @@ func get_cam() -> Camera2D:
 	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
 
-func find_member(Name: String) -> Actor:
-	for i in Members:
-		if i.FirstName == Name: return i
-	return Party.Leader
+func get_mmm(month: int) -> String:
+	match month:
+		1: return "Jan"
+		2: return "Fed"
+		3: return "Mar"
+		4: return "Apr"
+		5: return "May"
+		6: return "Jun"
+		7: return "Jul"
+		8: return "Aug"
+		9: return "Sep"
+		10: return "Oct"
+		11: return "Nov"
+		12: return "Dec"
+	return "???"
 
 func get_dir_letter(d: Vector2 = PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:

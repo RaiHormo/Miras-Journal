@@ -115,7 +115,6 @@ func remove_state(x: String):
 		if state.name == x:
 			States.erase(state)
 
-
 func has_state(x: String):
 	for i in States.size():
 		if States[i-1].name == x:

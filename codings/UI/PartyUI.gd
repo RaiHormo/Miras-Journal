@@ -93,6 +93,8 @@ func _input(ev):
 		Global.Controllable = Global.toggle(Global.Controllable)
 	if Input.is_action_just_pressed("DebugI"):
 		Item.add_item("SmallPotion", "Con")
+	if Input.is_action_just_pressed("DebugA"):
+		DialogueManager.textbox("testbush", "add_to_party")
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 			if Expanded == true:
 				Tempvis=true

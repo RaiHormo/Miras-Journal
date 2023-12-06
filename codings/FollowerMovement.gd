@@ -15,6 +15,7 @@ func _ready():
 	Global.Follower[member] = self
 	await Event.wait()
 	player = Global.Player
+	distance = 25*member
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
 	velocity = oposite
@@ -103,7 +104,6 @@ func _on_timer_timeout():
 	if Global.Party.check_member(member):
 		animate()
 
-func member_info():
-	if member == 1:
-		return Global.Party.Member1
+func member_info() -> Actor:
+	return Global.Party.get_member(member)
 

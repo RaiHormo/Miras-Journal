@@ -34,7 +34,7 @@ func _ready():
 	if SpawnPlayer:
 		var Player = preload("res://scenes/Characters/Mira.tscn").instantiate()
 		SpawnPath.add_child(Player)
-		for i in range(1,3):
+		for i in range(1,4):
 			var follower = preload("res://scenes/Characters/Follower.tscn").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i

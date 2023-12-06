@@ -6,6 +6,7 @@ extends Node
 var List: Array[NPC]
 var Flags: Array[String]
 var Day: int
+var Month: String = "November"
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE

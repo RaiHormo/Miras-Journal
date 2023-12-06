@@ -12,7 +12,8 @@ func reset_party():
 	Member2 = null
 	Member3 = null
 
-func check_member(n):
+func check_member(n) -> bool:
+	if n==0: return true
 	if n == 1 and Member1 != null:
 		return true
 	elif n == 2 and Member2 != null:
@@ -37,9 +38,21 @@ func set_to(p:PartyData):
 	if p.Member3!=null: Member3 = Global.find_member(p.Member3.FirstName)
 	else: Member3 = null
 
-func get_member(num:int):
+func get_member(num:int) -> Actor:
 	match num:
 		0: return Leader
 		1: return Member1
 		2: return Member2
 		3: return Member3
+	return null
+
+func overwrite_member(num:int, actor:Actor):
+	match num:
+		0: Leader = actor
+		1: Member1 = actor
+		2: Member2 = actor
+		3: Member3 = actor
+
+func add(member: String):
+	overwrite_member(Global.number_of_party_members(), Global.find_member(member))
+	Global.check_party.emit()

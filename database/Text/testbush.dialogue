@@ -35,3 +35,18 @@ do portrait("MiraOpenMouth", false)
 Mira: I can still move while saying this.[next=auto]
 
 => END
+
+~ add_to_party
+
+Add to party
+- Mira
+	do Party.add("Mira")
+- Alcine
+	do Party.add("Alcine")
+- Erinn
+	do Party.add("Erinn")
+- Clear
+	do Party.reset_party()
+do Controllable = true
+
+=> END

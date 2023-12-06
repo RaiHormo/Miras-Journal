@@ -574,8 +574,7 @@ script = ExtResource("5_1wqrx")
 [node name="GloabalLight" type="PointLight2D" parent="."]
 position = Vector2(41, -112)
 scale = Vector2(9.20552, 8.5205)
-color = Color(0.388235, 0.419608, 0.431373, 1)
-energy = 1.5
+color = Color(0.839216, 0.803922, 0.690196, 1)
 blend_mode = 1
 shadow_color = Color(0, 0, 0, 0.905882)
 texture = SubResource("GradientTexture2D_scwbs")

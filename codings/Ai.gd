@@ -55,6 +55,7 @@ func has_type(type:int):
 	return false
 
 func choose(ab:Ability, tar:Actor=null):
+	if ab == null: Bt.end_turn(); return
 	if Char.NextTarget==null and tar==null:
 		match ab.Target:
 			0:

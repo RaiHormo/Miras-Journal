@@ -22,6 +22,8 @@ var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
 
+signal ungray
+
 
 func _ready():
 	$Can.hide()
@@ -37,11 +39,13 @@ func save(filename:String="Autosave", showicon=true):
 	if showicon:
 		icon_save()
 	var data:SaveFile =SaveFile.new()
+	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = PartyData.new()
 	data.Party.set_to(Global.Party)
 	data.Party.make_unique()
 	data.StartTime = Global.StartTime
+	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.PlayTime
 	data.Position = Global.Player.global_position
 	data.Preview = Global.get_preview()
@@ -65,6 +69,8 @@ func save(filename:String="Autosave", showicon=true):
 	for i in data.BtiInv:
 		data.BtiInv[data.BtiInv.find(i)] = i.duplicate()
 	data.Room = Global.Area.scene_file_path
+	data.RoomName = Global.Area.Name
+	data.Day = Event.Day
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (await load_res("user://Autosave.tres")).Preview
 
@@ -193,7 +199,7 @@ func done():
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
-	Global.Player.look_to(Global.get_direction())
+	if Global.Player != null: Global.Player.look_to(Global.get_direction())
 	Global.Controllable = true
 	await detransition()
 
@@ -356,7 +362,6 @@ func error_handle(res):
 		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!", "OH FUCK")
 
 
-
 func chase_mode():
 	CamZoom = Global.get_cam().zoom
 	chased = true
@@ -373,6 +378,23 @@ func white_fadeout(out_time:float=7, wait_time=2, in_time:float = 0.1):
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.WHITE, in_time)
 	await Event.wait(wait_time)
+	tf = create_tween()
+	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
+	await tf.finished
+	fader.queue_free()
+
+func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
+	$Can.show()
+	var fader = $Can/Bars/Left.duplicate()
+	$Can/Bars.add_child(fader)
+	fader.position = Vector2(50,900)
+	fader.modulate = Color.TRANSPARENT
+	var white = StyleBoxFlat.new()
+	white.bg_color = Color.BLACK
+	fader.add_theme_stylebox_override("panel", white)
+	var tf = create_tween()
+	tf.tween_property(fader, "modulate", Color(0,0,0,amount), in_time)
+	await ungray
 	tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
 	await tf.finished
