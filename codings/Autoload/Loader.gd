@@ -36,6 +36,7 @@ func save(filename:String="Autosave", showicon=true):
 	if Global.Player == null or Global.Area == null:
 		OS.alert("Cannot save right now")
 		return
+	print("Saving to user://"+filename+".tres")
 	if showicon:
 		icon_save()
 	var data:SaveFile =SaveFile.new()
@@ -53,6 +54,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Defeated = Defeated
 	data.Members = Global.Members.duplicate()
 	data.version = SaveVersion
+	data.Flags = Event.Flags
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
 
@@ -75,8 +77,11 @@ func save(filename:String="Autosave", showicon=true):
 	Preview = (await load_res("user://Autosave.tres")).Preview
 
 func load_game(filename:String="Autosave"):
+	Global.ui_sound("Load")
+	if filename=="File0": filename = "Autosave"
 	if not FileAccess.file_exists("user://"+filename+".tres"): await save()
-	transition("R")
+	print("Loading user://"+filename+".tres")
+	transition("L")
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -109,9 +114,17 @@ func load_game(filename:String="Autosave"):
 	await Global.area_initialized
 	Global.Player.global_position = data.Position
 	Global.Controllable =true
+	Event.Flags = data.Flags
 	PartyUI._check_party()
 	await Item.verify_inventory()
-	detransition()
+	if $/root.get_node_or_null("MainMenu") != null:
+		$/root.get_node("MainMenu").queue_free()
+	if $/root.get_node_or_null("Options") != null:
+		$/root.get_node("Options").queue_free()
+	get_tree().paused = false
+	await detransition()
+	Global.Controllable = true
+
 
 func load_res(path:String):
 	loaded_resource = path

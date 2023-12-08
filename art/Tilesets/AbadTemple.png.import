@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://86fa1oxhyg4u"
-path="res://.godot/imported/Abad_A2.png-e714a9145602ab9b1a4c0cfdd05bc692.ctex"
+uid="uid://s38ia6u3uhd1"
+path="res://.godot/imported/AbadTemple.png-b3a78e75545b2a5c861fe06be78afba3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Abad_A2.png"
-dest_files=["res://.godot/imported/Abad_A2.png-e714a9145602ab9b1a4c0cfdd05bc692.ctex"]
+source_file="res://art/Tilesets/AbadTemple.png"
+dest_files=["res://.godot/imported/AbadTemple.png-b3a78e75545b2a5c861fe06be78afba3.ctex"]
 
 [params]
 

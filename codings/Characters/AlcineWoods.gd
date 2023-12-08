@@ -48,7 +48,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await bubble("Surprise")
 			await move_dir(Vector2.LEFT*2)
 			await move_dir(Vector2.DOWN)
-			Global.Player.flame_active = false
+			Event.remove_flag(&"FlameActive")
 			Global.Player.bubble("Surprise")
 			Global.Player.look_to(Vector2.RIGHT)
 			$"../Petrogon".show()
@@ -81,6 +81,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Event.check_flag("CantDashOnFlame"): return
-	if Global.Player.flame_active and event.is_action_pressed("Dash"):
+	if Event.check_flag(&"FlameActive") and event.is_action_pressed("Dash"):
 		Event.add_flag("CantDashOnFlame")
 		DialogueManager.passive("temple_woods_random", "cant_dash_on_flame")

@@ -14,7 +14,6 @@ var undashable := false
 ##Direction of the dash
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
-@export var flame_active := false
 @export var can_dash = true
 
 
@@ -23,6 +22,8 @@ func _ready() -> void:
 	speed = 75
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
+	#if Event.check_flag("FlameActive"): activate_flame(false)
+	#else: flame_active = false
 	#Global.Tilemap = Global.Tilemap
 	#Global.Area = Global.Tilemap.get_parent()
 	await Event.wait()
@@ -49,7 +50,6 @@ func extended_process() -> void:
 		BodyState = CONTROLLED
 		call_deferred("_check_party")
 		check_flame()
-		if flame_active and $Flame.energy == 0 and Global.Controllable: activate_flame(false)
 	if midair:
 		pass
 
@@ -174,7 +174,7 @@ func _on_pickup() -> void:
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party() -> void:
-	if flame_active:
+	if Event.check_flag(&"FlameActive"):
 		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	elif Global.Party.Leader != null:
 		$Base.sprite_frames =  Global.Party.Leader.OV
@@ -190,14 +190,14 @@ func set_anim(anim:String) -> void:
 		$Base/Bag.show()
 		$Base/Bag.play(anim)
 	else: $Base/Bag.hide()
-	if anim in $Base/Flame.sprite_frames.get_animation_names() and flame_active:
+	if anim in $Base/Flame.sprite_frames.get_animation_names() and Event.check_flag(&"FlameActive"):
 		$Base/Flame.show()
 		$Base/Flame.play(anim)
 	else: $Base/Flame.hide()
 	if $Base.is_playing(): await $Base.animation_finished
 
 func activate_flame(animate:=true) -> void:
-	flame_active = true
+	Event.add_flag(&"FlameActive")
 	_check_party()
 	await Event.wait()
 	check_flame()
@@ -207,11 +207,10 @@ func activate_flame(animate:=true) -> void:
 		set_anim("IdleRight")
 	$Base/Flame.show()
 
-
-
 func check_flame() -> void:
-	if flame_active:
+	if Event.check_flag(&"FlameActive"):
 		if $Flame.energy == 0:
+			activate_flame(false)
 			while $Flame.energy < 1.5:
 				$Flame.energy += 0.03
 				await Event.wait()

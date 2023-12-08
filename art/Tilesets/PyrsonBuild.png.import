@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://enc0u6y8cw5w"
-path="res://.godot/imported/Abad_B.png-2c1c57b3af67068d0613d4151c5bdfeb.ctex"
+uid="uid://dlag315pv85pe"
+path="res://.godot/imported/PyrsonBuild.png-5f8344f2f6e28b3b0af3a198a90d02a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Abad_B.png"
-dest_files=["res://.godot/imported/Abad_B.png-2c1c57b3af67068d0613d4151c5bdfeb.ctex"]
+source_file="res://art/Tilesets/PyrsonBuild.png"
+dest_files=["res://.godot/imported/PyrsonBuild.png-5f8344f2f6e28b3b0af3a198a90d02a4.ctex"]
 
 [params]
 

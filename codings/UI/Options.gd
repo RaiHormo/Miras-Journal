@@ -136,7 +136,6 @@ func save_managment() -> void:
 	$SavePanel/Buttons/Load.icon = Global.get_controller().ConfirmIcon
 	$SavePanel/Buttons/Overwrite.icon = Global.get_controller().ItemIcon
 	$SavePanel/Buttons/Delete.icon = Global.get_controller().CommandIcon
-
 	stage="save_managment"
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -150,6 +149,7 @@ func save_managment() -> void:
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
 	$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
 	Global.confirm_sound()
+	$SavePanel/Buttons/Load.button_pressed = false
 
 func _on_focus_changed(control:Control):
 	Global.cursor_sound()
@@ -197,7 +197,7 @@ func load_save_files():
 				$SavePanel/ScrollContainer/Files.add_child(newpanel)
 			draw_file(await Loader.load_res("user://" + i), newpanel)
 	for j in $SavePanel/ScrollContainer/Files.get_children():
-		if j.get_meta(&"Unprocessed"): j.queue_free()
+		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
 	await Event.wait()
 
 func draw_file(file: SaveFile, node: Control):
@@ -232,6 +232,7 @@ func hold_down():
 func _on_save_delete() -> void:
 	var panel = focus.get_parent()
 	var index = focus.get_index()
+	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 2
 		await Event.wait()
@@ -253,7 +254,68 @@ func _on_save_delete() -> void:
 		hold_down()
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
-		t.tween_property(panel.get_node("ProgressBar"), "value", 0, 0.3)
+		t.set_parallel()
+		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 0.3)
+		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
+		await t.finished
+		panel.get_node("ProgressBar").value = 0
+		panel.get_node("ProgressBar").modulate.a = 1
+
+
+func _on_save_overwrite() -> void:
+	var panel = focus.get_parent()
+	var index = focus.get_index()
+	panel.get_node("ProgressBar").value = 8
+	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
+		panel.get_node("ProgressBar").value += 4
+		await Event.wait()
+	$SavePanel/Buttons/Overwrite.button_pressed = false
+	if panel.get_node("ProgressBar").value == 100:
+		Loader.gray_out()
+		Global.confirm_sound()
+		print("Overwriting user://"+panel.name+".tres")
+		Loader.save(panel.name)
+		await load_save_files()
+		t = create_tween()
+		t.set_trans(Tween.TRANS_CUBIC)
+		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 1)
+		#$SavePanel/ScrollContainer/Files.get_child($SavePanel/ScrollContainer/Files.get_child_count() -1).get_node("Button").grab_focus()
+		await t.finished
+		Loader.ungray.emit()
+	else:
+		Global.buzzer_sound()
+		hold_down()
+		t = create_tween()
+		t.set_trans(Tween.TRANS_CUBIC)
+		t.set_parallel()
+		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 0.3)
+		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
+		await t.finished
+	panel.get_node("ProgressBar").value = 0
+	panel.get_node("ProgressBar").modulate.a = 1
+
+func _on_save_load() -> void:
+	var panel = focus.get_parent()
+	if not "File" in panel.name: return
+	var index = focus.get_index()
+	panel.get_node("ProgressBar").value = 8
+	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
+		panel.get_node("ProgressBar").value += 6
+		await Event.wait()
+	if panel.get_node("ProgressBar").value == 100:
+		await Loader.load_game(panel.name)
+	else:
+		Global.buzzer_sound()
+		hold_down()
+		t = create_tween()
+		t.set_trans(Tween.TRANS_CUBIC)
+		t.set_parallel()
+		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 0.3)
+		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
+		await t.finished
+	panel.get_node("ProgressBar").value = 0
+	panel.get_node("ProgressBar").modulate.a = 1
+	$SavePanel/Buttons/Load.button_pressed = false
 
 func _new_file() -> void:
 	Global.confirm_sound()

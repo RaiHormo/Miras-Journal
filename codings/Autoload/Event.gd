@@ -4,7 +4,7 @@ extends Node
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
-var Flags: Array[String]
+var Flags: Array[StringName]
 var Day: int
 var Month: String = "November"
 
@@ -15,7 +15,7 @@ func _ready():
 func add_char(b:NPC):
 	for i in List:
 		if i==null:
-			List.append(i)
+			#List.remove_at
 			continue
 		if i.ID == b.ID:
 			List[List.find(i)] = b
@@ -27,8 +27,9 @@ func npc(ID: String):
 	if List.is_empty(): return NPC.new()
 	for i in List:
 		if i==null:
-			List.append(i)
-		elif i.ID == ID:
+			#List.erase(i)
+			continue
+		if i.ID == ID:
 			return i
 
 ##Move an [NPC] relative to their current coords
@@ -79,12 +80,15 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
-func check_flag(flag: String):
+func check_flag(flag: StringName):
 	if flag in Flags: return true
 	else: return false
 
-func add_flag(flag: String):
+func add_flag(flag: StringName):
 	if flag not in Flags: Flags.append(flag)
+
+func remove_flag(flag: StringName):
+	if flag in Flags: Flags.erase(flag)
 
 func take_bag():
 	Global.item_sound()

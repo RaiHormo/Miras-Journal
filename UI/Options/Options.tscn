@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=66 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" path="res://codings/UI/Options.gd" id="1_hoqsl"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
@@ -381,7 +381,7 @@ expand_margin_bottom = 8.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5hkq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f7o0"]
-bg_color = Color(0, 0, 0, 0.831373)
+bg_color = Color(0, 0, 0, 0.623529)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -390,6 +390,20 @@ expand_margin_left = 12.0
 expand_margin_top = 8.0
 expand_margin_right = 12.0
 expand_margin_bottom = 8.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_4n6jo"]
+action = &"ui_accept"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_6pens"]
+events = [SubResource("InputEventAction_4n6jo")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_mntml"]
+action = &"BtItem"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_wppp7"]
+events = [SubResource("InputEventAction_mntml")]
 
 [sub_resource type="InputEventAction" id="InputEventAction_mvsib"]
 action = &"BtCommand"
@@ -1048,7 +1062,10 @@ theme = SubResource("Theme_4kcni")
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 24
-shortcut = SubResource("Shortcut_qyfpa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d0taf")
+toggle_mode = true
+action_mode = 0
+shortcut = SubResource("Shortcut_6pens")
 text = "Load"
 icon = ExtResource("6_d2agy")
 
@@ -1063,7 +1080,10 @@ theme = SubResource("Theme_4kcni")
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 24
-shortcut = SubResource("Shortcut_qyfpa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d0taf")
+toggle_mode = true
+action_mode = 0
+shortcut = SubResource("Shortcut_wppp7")
 text = "Overwrite"
 icon = ExtResource("22_xyl14")
 
@@ -1118,6 +1138,6 @@ text = "Hold the button down to confirm"
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_last_setting"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_volume_reset"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile/Button" to="." method="_new_file"]
-[connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="SavePanel/Buttons/Overwrite" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]
+[connection signal="pressed" from="SavePanel/Buttons/Overwrite" to="." method="_on_save_overwrite"]
 [connection signal="pressed" from="SavePanel/Buttons/Delete" to="." method="_on_save_delete"]
