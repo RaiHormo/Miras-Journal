@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://dro6xc73x3rl4"]
+[gd_scene load_steps=29 format=3 uid="uid://dro6xc73x3rl4"]
 
 [ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
 [ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_7bk5c"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_yps78"]
+[ext_resource type="Script" path="res://codings/UI/dialogue_label_ext.gd" id="4_dyh0k"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="5_5e2vd"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_iffim"]
@@ -303,7 +304,7 @@ offset_right = 1006.0
 offset_bottom = 787.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
-[node name="DialogueLabel" parent="Balloon/Panel2" instance=ExtResource("2_n6sll")]
+[node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_n6sll")]
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
@@ -314,6 +315,8 @@ offset_bottom = 218.0
 theme_override_fonts/normal_font = SubResource("FontVariation_oe2ra")
 theme_override_font_sizes/normal_font_size = 39
 text = "Dialogue. The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
+script = ExtResource("4_dyh0k")
+AudioPlayer = NodePath("../../../AudioStreamPlayer")
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -426,4 +429,7 @@ libraries = {
 }
 autoplay = "Glow"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="spoke" from="Balloon/Panel2/DialogueLabel" to="Balloon/Panel2/DialogueLabel" method="_on_spoke"]

@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ixdjh"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_c8t7k"]
 
 [resource]
-script = ExtResource("1_ixdjh")
+script = ExtResource("1_c8t7k")
+using_states = PackedStringArray()
 titles = {
 "as_lost_as_you": "32",
 "cant_dash_on_flame": "15",
@@ -20,6 +21,7 @@ character_names = PackedStringArray("Mira")
 first_title = "2"
 lines = {
 "1": {
+"id": "1",
 "next_id": "2",
 "text": "getting_dark",
 "type": "title"
@@ -27,7 +29,9 @@ lines = {
 "10": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "10",
 "next_id": "11",
+"tags": PackedStringArray(),
 "text": "It... ran away?[wait=0.4]
 Was that another monster?",
 "text_replacements": Array[Dictionary]([]),
@@ -38,23 +42,28 @@ Was that another monster?",
 "11": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "11",
 "next_id": "12",
+"tags": PackedStringArray(),
 "text": "Maybe I should follow it.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Maybe I should follow it.",
 "type": "dialogue"
 },
 "12": {
+"id": "12",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "14": {
+"id": "14",
 "next_id": "15",
 "text": "cant_dash_on_flame",
 "type": "title"
 },
 "15": {
+"id": "15",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -71,18 +80,22 @@ Was that another monster?",
 "16": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "16",
 "next_id": "17",
+"tags": PackedStringArray(),
 "text": "I can't dash and hold this flame at the same time.[next=4]",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I can't dash and hold this flame at the same time.[next=4]",
 "type": "dialogue"
 },
 "17": {
+"id": "17",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "19": {
+"id": "19",
 "next_id": "20",
 "text": "hey_wait",
 "type": "title"
@@ -90,13 +103,16 @@ Was that another monster?",
 "2": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "2",
 "next_id": "3",
+"tags": PackedStringArray(),
 "text": "...It's getting a little dark.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "...It's getting a little dark.",
 "type": "dialogue"
 },
 "20": {
+"id": "20",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -113,23 +129,28 @@ Was that another monster?",
 "21": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "21",
 "next_id": "22",
+"tags": PackedStringArray(),
 "text": "Hey wait![next=2]",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Hey wait![next=2]",
 "type": "dialogue"
 },
 "22": {
+"id": "22",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "24": {
+"id": "24",
 "next_id": "25",
 "text": "im_not_gonna_harm_you",
 "type": "title"
 },
 "25": {
+"id": "25",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "next_box",
@@ -146,13 +167,16 @@ Was that another monster?",
 "26": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "26",
 "next_id": "27",
+"tags": PackedStringArray(),
 "text": "...",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "...",
 "type": "dialogue"
 },
 "27": {
+"id": "27",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -169,7 +193,9 @@ Was that another monster?",
 "28": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "28",
 "next_id": "29",
+"tags": PackedStringArray(),
 "text": "Come on, don't be scared.
  Nobody's gonna hurt you.",
 "text_replacements": Array[Dictionary]([]),
@@ -178,21 +204,25 @@ Was that another monster?",
 "type": "dialogue"
 },
 "29": {
+"id": "29",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "3": {
+"id": "3",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "31": {
+"id": "31",
 "next_id": "32",
 "text": "as_lost_as_you",
 "type": "title"
 },
 "32": {
+"id": "32",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -209,13 +239,16 @@ Was that another monster?",
 "33": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "33",
 "next_id": "34",
+"tags": PackedStringArray(),
 "text": "I guess you're just as lost.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I guess you're just as lost.",
 "type": "dialogue"
 },
 "34": {
+"id": "34",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -224,8 +257,8 @@ Was that another monster?",
 "type": "string",
 "value": "MiraOpenMouth"
 }]), Array[Dictionary]([{
-"type": "bool",
-"value": false
+"type": "variable",
+"value": "false"
 }])])
 }])
 },
@@ -235,23 +268,28 @@ Was that another monster?",
 "35": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "35",
 "next_id": "36",
+"tags": PackedStringArray(),
 "text": "This forest is not safe, we should look for a way out",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "This forest is not safe, we should look for a way out",
 "type": "dialogue"
 },
 "36": {
+"id": "36",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "38": {
+"id": "38",
 "next_id": "39",
 "text": "haha",
 "type": "title"
 },
 "39": {
+"id": "39",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "next_box",
@@ -268,13 +306,16 @@ Was that another monster?",
 "40": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "40",
 "next_id": "41",
+"tags": PackedStringArray(),
 "text": "...",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "...",
 "type": "dialogue"
 },
 "41": {
+"id": "41",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -291,13 +332,16 @@ Was that another monster?",
 "42": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "42",
 "next_id": "43",
+"tags": PackedStringArray(),
 "text": "Haha, you can have that if you want!",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Haha, you can have that if you want!",
 "type": "dialogue"
 },
 "43": {
+"id": "43",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -314,23 +358,28 @@ Was that another monster?",
 "44": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "44",
 "next_id": "45",
+"tags": PackedStringArray(),
 "text": "Here.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Here.",
 "type": "dialogue"
 },
 "45": {
+"id": "45",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "47": {
+"id": "47",
 "next_id": "48",
 "text": "good_on_you",
 "type": "title"
 },
 "48": {
+"id": "48",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -347,28 +396,34 @@ Was that another monster?",
 "49": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "49",
 "next_id": "50",
+"tags": PackedStringArray(),
 "text": "Looks good on you!",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Looks good on you!",
 "type": "dialogue"
 },
 "5": {
+"id": "5",
 "next_id": "6",
 "text": "that_should_do_it",
 "type": "title"
 },
 "50": {
+"id": "50",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "52": {
+"id": "52",
 "next_id": "53",
 "text": "stay_back",
 "type": "title"
 },
 "53": {
+"id": "53",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -385,7 +440,9 @@ Was that another monster?",
 "54": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
+"id": "54",
 "next_id": "",
+"tags": PackedStringArray(),
 "text": "You stay behind me,
 I'll deal with it!",
 "text_replacements": Array[Dictionary]([]),
@@ -396,21 +453,25 @@ I'll deal with it!",
 "6": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
+"id": "6",
 "next_id": "7",
+"tags": PackedStringArray(),
 "text": "That should do it.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "That should do it.",
 "type": "dialogue"
 },
 "7": {
+"id": "7",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
 "9": {
+"id": "9",
 "next_id": "10",
 "text": "was_that_a",
 "type": "title"
 }
 }
-metadata/dialogue_manager_version = "2.16.0"
+metadata/dialogue_manager_version = "2.31.0"

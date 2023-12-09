@@ -1,16 +1,121 @@
 using Godot;
 using Godot.Collections;
+using System;
+using System.Reflection;
 using System.Threading.Tasks;
+
+#nullable enable
 
 namespace DialogueManagerRuntime
 {
+  public enum TranslationSource
+  {
+    None,
+    Guess,
+    CSV,
+    PO
+  }
+
   public partial class DialogueManager : Node
   {
-    public static async Task<DialogueLine> GetNextDialogueLine(Resource dialogueResource, string key = "0", Array<Variant> extraGameStates = null)
+    public delegate void PassedTitleEventHandler(string title);
+    public delegate void GotDialogueEventHandler(DialogueLine dialogueLine);
+    public delegate void MutatedEventHandler(Dictionary mutation);
+    public delegate void DialogueEndedEventHandler(Resource dialogueResource);
+
+    public static PassedTitleEventHandler? PassedTitle;
+    public static GotDialogueEventHandler? GotDialogue;
+    public static MutatedEventHandler? Mutated;
+    public static DialogueEndedEventHandler? DialogueEnded;
+
+    [Signal] public delegate void ResolvedEventHandler(Variant value);
+
+    private static GodotObject? instance;
+    public static GodotObject Instance
     {
-      var dialogueManager = Engine.GetSingleton("DialogueManager");
-      dialogueManager.Call("_bridge_get_next_dialogue_line", dialogueResource, key, extraGameStates ?? new Array<Variant>());
-      var result = await dialogueManager.ToSignal(dialogueManager, "bridge_get_next_dialogue_line_completed");
+      get
+      {
+        if (instance == null)
+        {
+          instance = Engine.GetSingleton("DialogueManager");
+        }
+        return instance;
+      }
+    }
+
+
+    public static Godot.Collections.Array GameStates
+    {
+      get => (Godot.Collections.Array)Instance.Get("game_states");
+      set => Instance.Set("game_states", value);
+    }
+
+
+    public static bool IncludeSingletons
+    {
+      get => (bool)Instance.Get("include_singletons");
+      set => Instance.Set("include_singletons", value);
+    }
+
+
+    public static bool IncludeClasses
+    {
+      get => (bool)Instance.Get("include_classes");
+      set => Instance.Set("include_classes", value);
+    }
+
+
+    public static TranslationSource TranslationSource
+    {
+      get => (TranslationSource)(int)Instance.Get("translation_source");
+      set => Instance.Set("translation_source", (int)value);
+    }
+
+
+    public static Func<Node> GetCurrentScene
+    {
+      set => Instance.Set("get_current_scene", Callable.From(value));
+    }
+
+
+    public void Prepare()
+    {
+      Instance.Connect("passed_title", Callable.From((string title) => PassedTitle?.Invoke(title)));
+      Instance.Connect("got_dialogue", Callable.From((RefCounted line) => GotDialogue?.Invoke(new DialogueLine(line))));
+      Instance.Connect("mutated", Callable.From((Dictionary mutation) => Mutated?.Invoke(mutation)));
+      Instance.Connect("dialogue_ended", Callable.From((Resource dialogueResource) => DialogueEnded?.Invoke(dialogueResource)));
+    }
+
+
+    public static async Task<GodotObject> GetSingleton()
+    {
+      if (instance != null) return instance;
+
+      var tree = Engine.GetMainLoop();
+      int x = 0;
+
+      // Try and find the singleton for a few seconds
+      while (!Engine.HasSingleton("DialogueManager") && x < 300)
+      {
+        await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+        x++;
+      }
+
+      // If it times out something is wrong
+      if (x >= 300)
+      {
+        throw new Exception("The DialogueManager singleton is missing.");
+      }
+
+      instance = Engine.GetSingleton("DialogueManager");
+      return instance;
+    }
+
+
+    public static async Task<DialogueLine?> GetNextDialogueLine(Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
+    {
+      Instance.Call("_bridge_get_next_dialogue_line", dialogueResource, key, extraGameStates ?? new Array<Variant>());
+      var result = await Instance.ToSignal(Instance, "bridge_get_next_dialogue_line_completed");
 
       if ((RefCounted)result[0] == null) return null;
 
@@ -18,10 +123,52 @@ namespace DialogueManagerRuntime
     }
 
 
-    public static void ShowExampleDialogueBalloon(Resource dialogueResource, string key = "0", Array<Variant> extraGameStates = null)
+    public static CanvasLayer ShowExampleDialogueBalloon(Resource dialogueResource, string key = "", Array<Variant>? extraGameStates = null)
     {
-      Engine.GetSingleton("DialogueManager").Call("show_example_dialogue_balloon", dialogueResource, key, extraGameStates ?? new Array<Variant>());
+      return (CanvasLayer)Instance.Call("show_example_dialogue_balloon", dialogueResource, key, extraGameStates ?? new Array<Variant>());
     }
+
+
+    public bool ThingHasMethod(GodotObject thing, string method)
+    {
+      MethodInfo? info = thing.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+      return info != null;
+    }
+
+    public async void ResolveThingMethod(GodotObject thing, string method, Array<Variant> args)
+    {
+      MethodInfo? info = thing.GetType().GetMethod(method, BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+
+      if (info == null) return;
+
+#nullable disable
+      // Convert the method args to something reflection can handle
+      ParameterInfo[] argTypes = info.GetParameters();
+      object[] _args = new object[argTypes.Length];
+      for (int i = 0; i < argTypes.Length; i++)
+      {
+        if (i < args.Count && args[i].Obj != null)
+        {
+          _args[i] = Convert.ChangeType(args[i].Obj, argTypes[i].ParameterType);
+        }
+        else if (argTypes[i].DefaultValue != null)
+        {
+          _args[i] = argTypes[i].DefaultValue;
+        }
+      }
+
+      if (info.ReturnType == typeof(Task))
+      {
+        await (Task)info.Invoke(thing, _args);
+        EmitSignal(SignalName.Resolved, null);
+      }
+      else
+      {
+        var value = (Variant)info.Invoke(thing, _args);
+        EmitSignal(SignalName.Resolved, value);
+      }
+    }
+#nullable enable
   }
 
 
@@ -68,8 +215,8 @@ namespace DialogueManagerRuntime
       get => responses;
     }
 
-    private string time = null;
-    public string Time
+    private string? time = null;
+    public string? Time
     {
       get => time;
     }
@@ -77,11 +224,15 @@ namespace DialogueManagerRuntime
     private Dictionary pauses = new Dictionary();
     private Dictionary speeds = new Dictionary();
 
-    private Array<Array> inline_mutations = new Array<Array>();
+    private Array<Godot.Collections.Array> inline_mutations = new Array<Godot.Collections.Array>();
 
     private Array<Variant> extra_game_states = new Array<Variant>();
 
-
+    private Array<string> tags = new Array<string>();
+    public Array<string> Tags
+    {
+      get => tags;
+    }
 
     public DialogueLine(RefCounted data)
     {
@@ -92,12 +243,27 @@ namespace DialogueManagerRuntime
       translation_key = (string)data.Get("translation_key");
       pauses = (Dictionary)data.Get("pauses");
       speeds = (Dictionary)data.Get("speeds");
-      inline_mutations = (Array<Array>)data.Get("inline_mutations");
+      inline_mutations = (Array<Godot.Collections.Array>)data.Get("inline_mutations");
+      time = (string)data.Get("time");
+      tags = (Array<string>)data.Get("tags");
 
       foreach (var response in (Array<RefCounted>)data.Get("responses"))
       {
         responses.Add(new DialogueResponse(response));
       }
+    }
+
+    public string GetTagValue(string tagName)
+    {
+      string wrapped = $"{tagName}=";
+      foreach (var tag in tags)
+      {
+        if (tag.StartsWith(wrapped))
+        {
+          return tag.Substring(wrapped.Length);
+        }
+      }
+      return "";
     }
   }
 
@@ -132,6 +298,11 @@ namespace DialogueManagerRuntime
       set => translation_key = value;
     }
 
+    private Array<string> tags = new Array<string>();
+    public Array<string> Tags
+    {
+      get => tags;
+    }
 
     public DialogueResponse(RefCounted data)
     {
@@ -139,6 +310,21 @@ namespace DialogueManagerRuntime
       is_allowed = (bool)data.Get("is_allowed");
       text = (string)data.Get("text");
       translation_key = (string)data.Get("translation_key");
+      tags = (Array<string>)data.Get("tags");
+    }
+
+    public string GetTagValue(string tagName) 
+    {
+      string wrapped = $"{tagName}=";
+      foreach (var tag in tags) 
+      {
+        if (tag.StartsWith(wrapped)) 
+        {
+          return tag.Substring(wrapped.Length);
+        }
+      }
+      return "";
     }
   }
 }
+

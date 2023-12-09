@@ -45,6 +45,9 @@ msgstr "Translations"
 msgid "settings"
 msgstr "Settings"
 
+msgid "show_support"
+msgstr "Support Dialogue Manager"
+
 msgid "docs"
 msgstr "Docs"
 
@@ -132,11 +135,23 @@ msgstr "Copy file path"
 msgid "buffer.show_in_filesystem"
 msgstr "Show in FileSystem"
 
+msgid "settings.invalid_test_scene"
+msgstr "\"{path}\" does not extend BaseDialogueTestScene."
+
 msgid "settings.revert_to_default_test_scene"
 msgstr "Revert to default test scene"
 
+msgid "settings.default_balloon_hint"
+msgstr "Custom balloon to use when calling \"DialogueManager.show_balloon()\""
+
+msgid "settings.revert_to_default_balloon"
+msgstr "Revert to default balloon"
+
+msgid "settings.default_balloon_path"
+msgstr "<example balloon>"
+
 msgid "settings.autoload"
-msgstr "Autload"
+msgstr "Autoload"
 
 msgid "settings.path"
 msgstr "Path"
@@ -150,14 +165,23 @@ msgstr "Treat missing translation keys as errors"
 msgid "settings.missing_keys_hint"
 msgstr "If you are using static translation keys then having this enabled will help you find any lines that you haven't added a key to yet."
 
+msgid "settings.characters_translations"
+msgstr "Export character names in translation files"
+
 msgid "settings.wrap_long_lines"
 msgstr "Wrap long lines"
 
 msgid "settings.include_failed_responses"
 msgstr "Include responses with failed conditions"
 
+msgid "settings.ignore_missing_state_values"
+msgstr "Skip over missing state value errors (not recommended)"
+
 msgid "settings.custom_test_scene"
 msgstr "Custom test scene (must extend BaseDialogueTestScene)"
+
+msgid "settings.default_csv_locale"
+msgstr "Default CSV Locale"
 
 msgid "settings.states_shortcuts"
 msgstr "State Shortcuts"
@@ -167,6 +191,12 @@ msgstr "If an autoload is enabled here you can refer to its properties and metho
 
 msgid "settings.states_hint"
 msgstr "ie. Instead of \"SomeState.some_property\" you could just use \"some_property\""
+
+msgid "settings.recompile_warning"
+msgstr "Changing these settings will force a recompile of all dialogue. Only change them if you know what you are doing."
+
+msgid "settings.create_lines_for_responses_with_characters"
+msgstr "Create child dialogue line for responses with character names in them"
 
 msgid "n_of_n"
 msgstr "{index} of {total}"
@@ -198,6 +228,9 @@ msgstr "Filter files"
 msgid "titles_list.filter"
 msgstr "Filter titles"
 
+msgid "errors.key_not_found"
+msgstr "Key \"{key}\" not found."
+
 msgid "errors.line_and_message"
 msgstr "Error at {line}, {column}: {message}"
 
@@ -216,6 +249,9 @@ msgstr "File already imported."
 msgid "errors.duplicate_import"
 msgstr "Duplicate import name."
 
+msgid "errors.unknown_using"
+msgstr "Unknown autoload in using statement."
+
 msgid "errors.empty_title"
 msgstr "Titles cannot be empty."
 
@@ -223,7 +259,7 @@ msgid "errors.duplicate_title"
 msgstr "There is already a title with that name."
 
 msgid "errors.nested_title"
-msgstr "Titles cannot be nested."
+msgstr "Titles cannot be indented."
 
 msgid "errors.invalid_title_string"
 msgstr "Titles can only contain alphanumeric characters and numbers."
@@ -259,7 +295,7 @@ msgid "errors.condition_has_no_content"
 msgstr "A condition line needs an indented line below it."
 
 msgid "errors.incomplete_expression"
-msgstr "Incomplate expression."
+msgstr "Incomplete expression."
 
 msgid "errors.invalid_expression_for_value"
 msgstr "Invalid expression for value."
@@ -372,6 +408,9 @@ msgstr "Calling \"{method_name}\" on an array isn't supported."
 msgid "runtime.unsupported_dictionary_method"
 msgstr "Calling \"{method_name}\" on a dictionary isn't supported."
 
+msgid "runtime.unsupported_quaternion_method"
+msgstr "Calling \"{method_name}\" on a quaternion isn't supported."
+
 msgid "runtime.array_index_out_of_bounds"
 msgstr "Index {index} out of bounds of array \"{array}\"."
 
@@ -384,6 +423,9 @@ msgstr "Key \"{key}\" not found in dictionary \"{dictionary}\""
 msgid "runtime.property_not_found"
 msgstr "\"{property}\" is not a property on any game states ({states})."
 
+msgid "runtime.property_not_found_missing_export"
+msgstr "\"{property}\" is not a property on any game states ({states}). You might need to add an [Export] decorator."
+
 msgid "runtime.method_not_found"
 msgstr "\"{method}\" is not a method on any game states ({states})"
 
@@ -395,6 +437,9 @@ msgstr "\"{method}\" is not a callable method on \"{object}\""
 
 msgid "runtime.unknown_operator"
 msgstr "Unknown operator."
+
+msgid "runtime.unknown_autoload"
+msgstr "\"{autoload}\" doesn't appear to be a valid autoload."
 
 msgid "runtime.something_went_wrong"
 msgstr "Something went wrong."

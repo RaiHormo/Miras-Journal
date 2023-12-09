@@ -12,7 +12,6 @@ signal action()
 @export var itemtype: String
 @export var Collision: CollisionShape2D = null
 @export var Height: int = 0
-const Textbox := DialogueManager.Textbox2
 var CanInteract := false
 var t:Tween
 @onready var button:Button
@@ -88,8 +87,7 @@ func _on_button_pressed() -> void:
 			emit_signal("action")
 		"text":
 			Global.Controllable = false
-			DialogueManager.textbox(file, title)
-			await DialogueManager.dialogue_ended
+			await Global.textbox(file, title)
 			PartyUI.UIvisible = true
 			Global.Controllable = true
 		"item":

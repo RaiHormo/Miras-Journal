@@ -5,11 +5,10 @@ extends EditorImportPlugin
 signal compiled_resource(resource: Resource)
 
 
-const DialogueResource = preload("res://addons/dialogue_manager/dialogue_resource.gd")
-const compiler_version = 8
+const DialogueResource = preload("./dialogue_resource.gd")
+const DialogueManagerParseResult = preload("./components/parse_result.gd")
 
-
-var editor_plugin
+const compiler_version = 11
 
 
 func _get_importer_name() -> String:
@@ -63,26 +62,24 @@ func _get_option_visibility(path: String, option_name: StringName, options: Dict
 
 
 func _import(source_file: String, save_path: String, options: Dictionary, platform_variants: Array[String], gen_files: Array[String]) -> Error:
-	return compile_file(source_file, "%s.%s" % [save_path, _get_save_extension()])
+	var cache = Engine.get_meta("DialogueCache")
 
-
-func compile_file(path: String, resource_path: String, will_cascade_cache_data: bool = true) -> Error:
 	# Get the raw file contents
-	if not FileAccess.file_exists(path): return ERR_FILE_NOT_FOUND
+	if not FileAccess.file_exists(source_file): return ERR_FILE_NOT_FOUND
 
-	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	var file: FileAccess = FileAccess.open(source_file, FileAccess.READ)
 	var raw_text: String = file.get_as_text()
 
 	# Parse the text
 	var parser: DialogueManagerParser = DialogueManagerParser.new()
-	var err: Error = parser.parse(raw_text, path)
+	var err: Error = parser.parse(raw_text, source_file)
 	var data: DialogueManagerParseResult = parser.get_data()
 	var errors: Array[Dictionary] = parser.get_errors()
 	parser.free()
 
 	if err != OK:
-		printerr("%d errors found in %s" % [errors.size(), path])
-		editor_plugin.add_errors_to_dialogue_file_cache(path, errors)
+		printerr("%d errors found in %s" % [errors.size(), source_file])
+		cache.add_errors_to_file(source_file, errors)
 		return err
 
 	# Get the current addon version
@@ -94,16 +91,22 @@ func compile_file(path: String, resource_path: String, will_cascade_cache_data: 
 	var resource: DialogueResource = DialogueResource.new()
 	resource.set_meta("dialogue_manager_version", version)
 
+	resource.using_states = data.using_states
 	resource.titles = data.titles
 	resource.first_title = data.first_title
 	resource.character_names = data.character_names
 	resource.lines = data.lines
 
-	if will_cascade_cache_data:
-		editor_plugin.add_to_dialogue_file_cache(path, resource_path, data)
+	# Clear errors and possibly trigger any cascade recompiles
+	cache.add_file(source_file, data)
 
-	err = ResourceSaver.save(resource, resource_path)
+	err = ResourceSaver.save(resource, "%s.%s" % [save_path, _get_save_extension()])
 
 	compiled_resource.emit(resource)
+
+	# Recompile any dependencies
+	var dependent_paths: PackedStringArray = cache.get_dependent_paths(source_file)
+	for path in dependent_paths:
+		append_import_external_resource(path)
 
 	return err

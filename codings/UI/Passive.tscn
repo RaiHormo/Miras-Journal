@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmpwjae3tgvdx"]
+[gd_scene load_steps=13 format=3 uid="uid://bmpwjae3tgvdx"]
 
 [ext_resource type="Script" path="res://codings/UI/passive.gd" id="1_6n3th"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_h3x8f"]
+[ext_resource type="Script" path="res://codings/UI/dialogue_label_ext.gd" id="3_oyln6"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_nhavb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
@@ -84,7 +85,7 @@ offset_right = 1006.0
 offset_bottom = 787.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
-[node name="DialogueLabel" parent="Balloon/Panel2" instance=ExtResource("2_h3x8f")]
+[node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_h3x8f")]
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
@@ -94,6 +95,8 @@ offset_right = 607.0
 offset_bottom = 133.0
 theme_override_font_sizes/normal_font_size = 26
 text = "Dialogue"
+script = ExtResource("3_oyln6")
+AudioPlayer = NodePath("../../../AudioStreamPlayer")
 
 [node name="Border1" type="Panel" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -143,5 +146,7 @@ offset_right = 1812.0
 offset_bottom = 2156.0
 scale = Vector2(0.5461, 0.5461)
 texture = ExtResource("4_nhavb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]

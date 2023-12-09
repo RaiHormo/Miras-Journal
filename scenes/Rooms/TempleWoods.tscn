@@ -648,7 +648,7 @@ use_parent_material = true
 position = Vector2(155.1, 435.965)
 texture = SubResource("AtlasTexture_b05s0")
 
-[node name="PickUp" parent="Bag" node_paths=PackedStringArray("Collision") instance=ExtResource("22_yc4ou")]
+[node name="PickUp" parent="Bag" instance=ExtResource("22_yc4ou")]
 z_index = 9
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
@@ -657,7 +657,6 @@ LabelText = "Pick up"
 ActionType = "event"
 file = "take_bag"
 hidesprite = true
-Collision = NodePath("../Body/Collision")
 
 [node name="Body" type="StaticBody2D" parent="Bag"]
 

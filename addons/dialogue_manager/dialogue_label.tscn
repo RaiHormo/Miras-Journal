@@ -16,5 +16,3 @@ hint_underlined = false
 deselect_on_focus_loss_enabled = false
 visible_characters_behavior = 1
 script = ExtResource("1_cital")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

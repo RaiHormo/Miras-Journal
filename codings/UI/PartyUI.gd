@@ -88,13 +88,13 @@ func _input(ev):
 	if Input.is_action_just_pressed("Debug"):
 		Loader.travel_to("Debug")
 	if Input.is_action_just_pressed("DebugT"):
-		DialogueManager.passive("testbush", "greetings")
+		Global.passive("testbush", "greetings")
 	if Input.is_action_just_pressed("DebugP"):
 		Global.Controllable = Global.toggle(Global.Controllable)
 	if Input.is_action_just_pressed("DebugI"):
 		Item.add_item("SmallPotion", "Con")
 	if Input.is_action_just_pressed("DebugA"):
-		DialogueManager.textbox("testbush", "add_to_party")
+		Global.textbox("testbush", "add_to_party")
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 			if Expanded == true:
 				Tempvis=true

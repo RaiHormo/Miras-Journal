@@ -28,6 +28,7 @@ var dialogue_line: DialogueLine:
 		is_waiting_for_input = false
 
 		if not next_dialogue_line:
+			_on_close()
 			return
 
 
@@ -89,7 +90,7 @@ var dialogue_line: DialogueLine:
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
 			var prof = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
-			dialogue_label.type_out(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
+			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		# Wait for input
 #		if dialogue_line.responses.size() > 0:
@@ -114,7 +115,7 @@ func _ready() -> void:
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
 
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
-	Engine.get_singleton("DialogueManager").close.connect(_on_close)
+	#Engine.get_singleton("DialogueManager").close.connect(_on_close)
 
 
 

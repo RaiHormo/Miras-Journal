@@ -707,10 +707,3 @@ position = Vector2(0, 8)
 z_index = 1
 position = Vector2(0, 2.25)
 shape = SubResource("RectangleShape2D_72f6p")
-
-[connection signal="action" from="Lamp" to="PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="Bush" to="PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="FastTravel" to="PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="Axe/PickUp" to="PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="Dummy/Fight" to="PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="Harold/NewGame" to="PointLight2D" method="_on_interactable_action"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=155 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
-[ext_resource type="Material" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
 [ext_resource type="Texture2D" uid="uid://d4jahgbnuvhlp" path="res://art/sheets/bagBag.png" id="3_b3y6v"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_qf6k3"]
 [ext_resource type="Texture2D" uid="uid://lgbejsagsjik" path="res://art/sheets/axeAxe.png" id="4_r1qq4"]

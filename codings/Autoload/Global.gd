@@ -25,10 +25,13 @@ var Tilemap: TileMap
 var Members: Array[Actor]
 var Lights: Array[Light2D] = []
 var Area: Room
+var Textbox2 = preload("res://codings/UI/Textbox2.tscn")
+var Passive = preload("res://codings/UI/Passive.tscn")
 signal lights_loaded
 signal check_party
 signal anim_done
 signal area_initialized
+signal textbox_close
 
 #region System
 func _ready() -> void:
@@ -320,7 +323,25 @@ func is_in_party(n:String) -> bool:
 
 #endregion
 
-#region Portrait Managment
+#region Textbox Managment
+
+## Show the custom balloon
+func textbox(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+#	Loader.load_thread("res://database/Text/" + file + ".dialogue")
+#	await Loader.thread_loaded
+	var balloon: Node = Textbox2.instantiate()
+	get_tree().root.add_child(balloon)
+	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	await textbox_close
+
+func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+#	Loader.load_thread("res://database/Text/" + file + ".dialogue")
+#	await Loader.thread_loaded
+	var balloon: Node = Passive.instantiate()
+	get_tree().root.add_child(balloon)
+	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	await textbox_close
+
 func portrait(img:String, redraw:=true) -> void:
 	PortraitRedraw = redraw
 	HasPortrait=true

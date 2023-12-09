@@ -30,6 +30,7 @@ var dialogue_line: DialogueLine:
 		$Balloon/Panel2/InputIndicator.hide()
 
 		if not next_dialogue_line:
+			_on_close()
 			return
 
 		# Remove any previous responses
@@ -105,13 +106,14 @@ var dialogue_line: DialogueLine:
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
 			var prof = await Global.match_profile(character_label.text)
-			dialogue_label.type_out(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
+			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
+
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
 			responses_menu.modulate.a = 1
 			configure_menu()
-		elif dialogue_line.time != null:
+		elif dialogue_line.time != "":
 			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
@@ -131,7 +133,7 @@ func _ready() -> void:
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
 
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
-	Engine.get_singleton("DialogueManager").close.connect(_on_close)
+	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
 
 
 
@@ -231,6 +233,7 @@ func _on_close() -> void:
 	await t.finished
 	$Portrait.hide()
 	balloon.hide()
+	Global.textbox_close.emit()
 	queue_free()
 
 func _on_mutated(_mutation: Dictionary) -> void:

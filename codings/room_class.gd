@@ -6,7 +6,7 @@ class_name Room
 @export var SpawnPath: Node = self
 ##In tilemap coords
 @export var SpawnPos: Vector2 = Vector2(0,0)
-@export var SpawnZ: int = 0
+@export var SpawnZ: int = 1
 @export_flags_2d_physics var SpawnLayers
 @export var AutoLimits = false
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
