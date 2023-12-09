@@ -4,7 +4,10 @@ class_name Room
 @export var Name: String = "???"
 @export var SpawnPlayer = true
 @export var SpawnPath: Node = self
+##In tilemap coords
 @export var SpawnPos: Vector2 = Vector2(0,0)
+@export var SpawnZ: int = 0
+@export_flags_2d_physics var SpawnLayers
 @export var AutoLimits = false
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
@@ -14,7 +17,9 @@ var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()
 
+
 func _ready():
+	print(SpawnLayers)
 	material = preload("res://scenes/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
@@ -45,6 +50,7 @@ func _ready():
 	Global.Tilemap = self
 	await Event.wait()
 	if SpawnPlayer: Global.Player.global_position = map_to_local(SpawnPos)
+	Global.Player.z_index = SpawnZ
 	Global.area_initialized.emit()
 
 func calculate_bounds():

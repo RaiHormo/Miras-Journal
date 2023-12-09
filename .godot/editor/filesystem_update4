@@ -1,4 +1,4 @@
-res://scenes/Rooms/TempleWoods.tscn
+res://scenes/Rooms/Amberelm.tscn
 res://art/BT/Mira/MiraBT.tres
 res://database/Abilities/Guard.tres
 res://database/Abilities/FlameSpark.tres
@@ -13,6 +13,7 @@ res://art/BT/Dummy/DummyBT.tres
 res://art/BT/Pterogon/PetrogonBT.tres
 res://art/BT/WhiteSpawn/WhiteSpawnBT.tres
 res://art/sheets/ErinnOV.tres
+res://art/Tilesets/Abad.tres
 res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres
 res://database/Enemies/CrawlingSludge.tres
 res://database/BattleSeq/SludgeBattle1.tres
@@ -22,5 +23,4 @@ res://scenes/Characters/Hshadow.gdshader
 res://scenes/Shaders/Blend.gdshader
 res://scenes/Shaders/Pixelate.gdshader
 res://scenes/Shaders/Viewport.gdshader
-res://scenes/Rooms/AmberelmRuins.tscn
-res://art/Tilesets/Abad.tres
+res://scenes/Characters/Mira.tscn

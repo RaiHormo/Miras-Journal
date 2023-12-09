@@ -24,6 +24,10 @@ Where to go?
 		do travel_to_coords("TempleWoods", Vector2(59, 0), 1)
 	- Road
 		do travel_to("TempleWoods", Vector2(1272, -966), 2)
+- Amberelm
+	Part?
+	- Start
+		do travel_to("Amberelm")
 
 => END
 
