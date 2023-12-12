@@ -2,6 +2,7 @@ extends Resource
 class_name Setting
 
 @export_category("Input")
+@export var AutoHideHUD: int = 0
 @export var ControlSchemeAuto:bool = true
 @export var ControlSchemeEnum:int = 0
 @export var ControlSchemeOverride:ControlScheme = null

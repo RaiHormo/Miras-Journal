@@ -269,6 +269,7 @@ func _on_save_overwrite() -> void:
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 4
 		await Event.wait()
+		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	$SavePanel/Buttons/Overwrite.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Loader.gray_out()
@@ -302,6 +303,7 @@ func _on_save_load() -> void:
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 6
 		await Event.wait()
+		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	if panel.get_node("ProgressBar").value == 100:
 		await Loader.load_game(panel.name)
 	else:
@@ -398,7 +400,5 @@ func _on_saturation(value):
 	World.environment.adjustment_saturation = value
 
 
-
-
-
-
+func _on_auto_hide_hud(index: int) -> void:
+	Global.Settings.AutoHideHUD = index

@@ -1,15 +1,19 @@
-[gd_scene load_steps=42 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=48 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_cich6"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/cyrenia-regular.ttf" id="4_ujk23"]
+[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_ujk23"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="5_1ty82"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_w2g12"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="7_jb2qv"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/cyrenia-button.tres" id="8_wqv20"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="8_wqv20"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="9_r3lax"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://codings/UI/Wheel.tscn" id="10_ihe7c"]
+[ext_resource type="Texture2D" uid="uid://5205kcxrxgw4" path="res://UI/Calendar/Base.png" id="11_4pd7b"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="12_2fkxq"]
+[ext_resource type="Script" path="res://codings/UI/Calendar.gd" id="12_wtwla"]
+[ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -219,6 +223,26 @@ events = [null]
 [sub_resource type="AtlasTexture" id="AtlasTexture_wk61q"]
 atlas = ExtResource("9_r3lax")
 region = Rect2(18, 72, 18, 18)
+
+[sub_resource type="Theme" id="Theme_f46jh"]
+default_font = ExtResource("12_2fkxq")
+Label/font_sizes/font_size = 224
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37wmm"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_left = 12.0
+expand_margin_right = 8.0
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
@@ -668,6 +692,71 @@ visible = false
 position = Vector2(650, 408)
 scale = Vector2(0.7, 0.7)
 color = Color(1, 0, 0.356863, 1)
+
+[node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1456.0
+offset_right = 86.0
+offset_bottom = 660.0
+grow_horizontal = 0
+scale = Vector2(0.260146, 0.260146)
+pivot_offset = Vector2(1542.39, 0)
+texture = ExtResource("11_4pd7b")
+script = ExtResource("12_wtwla")
+HideOnDays = Array[int]([0])
+
+[node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
+offset_left = 369.524
+offset_top = 19.957
+offset_right = 1119.52
+offset_bottom = 363.957
+size_flags_horizontal = 10
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="Month" type="Label" parent="CanvasLayer/CalendarBase/Date"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_f46jh")
+theme_override_colors/font_color = Color(0.309804, 0.235294, 0.203922, 1)
+text = "Nov"
+horizontal_alignment = 2
+
+[node name="Day" type="Label" parent="CanvasLayer/CalendarBase/Date"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_f46jh")
+theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
+theme_override_font_sizes/font_size = 265
+text = "12"
+horizontal_alignment = 1
+
+[node name="Container" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.743
+anchor_right = 0.743
+offset_left = -1540.25
+offset_top = 333.566
+offset_right = -809.248
+offset_bottom = 423.566
+scale = Vector2(2, 2)
+alignment = 2
+
+[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Container"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/icon_max_width = 64
+theme_override_fonts/font = ExtResource("12_2fkxq")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
+button_mask = 0
+text = "Morning"
+icon = ExtResource("14_fmwou")
+alignment = 2
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

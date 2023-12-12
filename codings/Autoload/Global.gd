@@ -395,6 +395,10 @@ func get_mmm(month: int) -> String:
 		12: return "Dec"
 	return "???"
 
+func get_month(day: int) -> int:
+	if day>0 and day<=30: return 11
+	else: return 0
+
 func get_dir_letter(d: Vector2 = PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:
 		return "R"

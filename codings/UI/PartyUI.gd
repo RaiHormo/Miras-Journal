@@ -21,8 +21,9 @@ var MemberChoosing = false
 func _ready():
 	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
+	Global.check_party.connect(_check_party)
 	await get_tree().create_timer(0.00001).timeout
-	_check_party()
+	Global.check_party.emit()
 	if not Loader.InBattle:
 		_on_shrink()
 		UIvisible = true
@@ -46,7 +47,7 @@ func _process(delta):
 		if not enabled: UIvisible = false
 		if UIvisible and $CanvasLayer.visible==false and enabled:
 			$CanvasLayer.show()
-			_check_party()
+			Global.check_party.emit()
 			t = create_tween()
 			t.set_parallel(true)
 			if Expanded:
@@ -118,7 +119,7 @@ func _input(ev):
 func _on_expand(open_ui=0):
 	print(open_ui)
 	t.kill()
-	_check_party()
+	Global.check_party.emit()
 	UIvisible = true
 	if open_ui == 0: WasPaused = false
 	else: WasPaused = get_tree().paused
@@ -203,7 +204,7 @@ func _on_expand(open_ui=0):
 
 func _on_shrink():
 	t.kill()
-	_check_party()
+	Global.check_party.emit()
 	t = create_tween()
 	t.set_parallel(true)
 	get_tree().paused = WasPaused
@@ -447,3 +448,4 @@ func _on_item_preview_pressed():
 		Item.emit_signal("return_member", (Party.get_member(focus)))
 	else: Global.buzzer_sound()
 	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
+

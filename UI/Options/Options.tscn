@@ -657,6 +657,35 @@ theme_override_constants/separation = 16
 [node name="MarginContainer" type="MarginContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+text = "Gameplay"
+
+[node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Auto-hide HUD"
+
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+expand_icon = true
+item_count = 3
+selected = 0
+popup/item_0/text = "On idle"
+popup/item_0/id = 0
+popup/item_1/text = "When moving"
+popup/item_1/id = 1
+popup/item_2/text = "Never"
+popup/item_2/id = 2
+
 [node name="Input" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
@@ -834,6 +863,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -934,7 +964,7 @@ horizontal_alignment = 2
 [node name="Day" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_colors/font_color = Color(1, 0.54902, 0, 1)
+theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
 text = "22"
 horizontal_alignment = 2
 
@@ -1126,6 +1156,10 @@ text = "Hold the button down to confirm"
 [connection signal="pressed" from="MainButtons/GameSettings" to="." method="game_settings"]
 [connection signal="pressed" from="MainButtons/Quit" to="." method="_on_quit"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/Gameplay" to="." method="_on_first_setting"]
+[connection signal="item_focused" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="cursor"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="_on_auto_hide_hud"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="confirm"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/Input" to="." method="_on_first_setting"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
