@@ -86,16 +86,6 @@ func _input(ev):
 		Global.Controllable=false
 		get_tree().paused = true
 		get_tree().root.add_child(MainMenu.instantiate())
-	if Input.is_action_just_pressed("Debug"):
-		Loader.travel_to("Debug")
-	if Input.is_action_just_pressed("DebugT"):
-		Global.passive("testbush", "greetings")
-	if Input.is_action_just_pressed("DebugP"):
-		Global.Controllable = Global.toggle(Global.Controllable)
-	if Input.is_action_just_pressed("DebugI"):
-		Item.add_item("SmallPotion", "Con")
-	if Input.is_action_just_pressed("DebugA"):
-		Global.textbox("testbush", "add_to_party")
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 			if Expanded == true:
 				Tempvis=true
@@ -115,6 +105,19 @@ func _input(ev):
 		Global.cancel_sound()
 	if Input.is_action_pressed("ui_accept") and MemberChoosing:
 		_on_item_preview_pressed()
+
+	##Debug shortcuts
+	if Input.is_action_just_pressed("Debug"):
+		Loader.travel_to("Debug")
+	if Input.is_action_just_pressed("DebugT"):
+		Global.passive("testbush", "greetings")
+	if Input.is_action_just_pressed("DebugP"):
+		Global.toast("Controllable set to " + str(Global.toggle(Global.Controllable)))
+		Global.Controllable = Global.toggle(Global.Controllable)
+	if Input.is_action_just_pressed("DebugI"):
+		Item.add_item("SmallPotion", "Con")
+	if Input.is_action_just_pressed("DebugA"):
+		Global.textbox("testbush", "add_to_party")
 
 func _on_expand(open_ui=0):
 	print(open_ui)

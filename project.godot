@@ -88,10 +88,6 @@ folder_colors={
 
 import/blender/enabled=false
 
-[gui]
-
-common/snap_controls_to_pixels=false
-
 [input]
 
 ui_accept={

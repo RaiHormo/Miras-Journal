@@ -115,6 +115,7 @@ func control_process():
 			realvelocity = (global_position - old_position)/ get_physics_process_delta_time()
 			position = round(position)
 		if Input.is_action_just_pressed("DebugF"):
+			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
 		check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):

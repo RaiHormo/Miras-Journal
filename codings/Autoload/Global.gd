@@ -16,7 +16,7 @@ var AltConfirm: bool
 var StartTime := 0.0
 var PlayTime := 0.0
 var SaveTime := 0.0
-var Player: Mira
+var Player: CharacterBody2D
 var Follower: Array[CharacterBody2D] = [null, null, null, null]
 var Settings:Setting
 var Bt: Battle = null
@@ -352,6 +352,15 @@ func portrait_clear() -> void:
 
 func next_box(profile:String) -> void:
 	$/root.get_node("Textbox").next_box = profile
+
+func toast(string: String) -> void:
+	if get_node_or_null("/root/Toast") != null:
+		$/root/Toast.queue_free()
+		await Event.wait()
+	get_tree().root.add_child(preload("res://UI/Misc/Toast.tscn").instantiate())
+	await Event.wait()
+	$"/root/Toast/BoxContainer/Toast/Label".text = string
+
 
 #Match profile
 func match_profile(named:String) -> TextProfile:

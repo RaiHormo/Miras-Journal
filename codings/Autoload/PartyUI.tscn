@@ -708,6 +708,7 @@ script = ExtResource("12_wtwla")
 HideOnDays = Array[int]([0])
 
 [node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
+layout_mode = 0
 offset_left = 369.524
 offset_top = 19.957
 offset_right = 1119.52

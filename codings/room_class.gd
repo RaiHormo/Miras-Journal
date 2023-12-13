@@ -7,8 +7,9 @@ class_name Room
 ##In tilemap coords
 @export var SpawnPos: Vector2 = Vector2(0,0)
 @export var SpawnZ: int = 1
-@export_flags_2d_physics var SpawnLayers
+@export_flags_2d_physics var SpawnLayers := 1
 @export var AutoLimits = false
+##[x]: left [y]: top [z]: right [w]: bottom]
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
@@ -19,7 +20,7 @@ var Cam = Camera2D.new()
 
 
 func _ready():
-	print(SpawnLayers)
+	#print(SpawnLayers)
 	material = preload("res://scenes/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
@@ -49,8 +50,11 @@ func _ready():
 	Global.Area = self
 	Global.Tilemap = self
 	await Event.wait()
-	if SpawnPlayer: Global.Player.global_position = map_to_local(SpawnPos)
-	Global.Player.z_index = SpawnZ
+	if SpawnPlayer:
+		Global.Player.global_position = map_to_local(SpawnPos)
+		Global.Player.z_index = SpawnZ
+		Global.Player.collision_layer = SpawnLayers
+		Global.Player.collision_mask = SpawnLayers
 	Global.area_initialized.emit()
 
 func calculate_bounds():

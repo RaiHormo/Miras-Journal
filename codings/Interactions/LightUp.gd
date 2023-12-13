@@ -6,11 +6,10 @@ func _on_body_entered(body):
 		await Global.Player.stop_dash()
 		Global.Controllable = false
 		Global.Player.set_anim("IdleRight")
-		await DialogueManager.textbox("temple_woods_random", "getting_dark")
-		Global.Player.flame_active = true
+		await Global.textbox("temple_woods_random", "getting_dark")
 		await Global.Player.activate_flame()
 		await Event.wait(0.5)
-		await DialogueManager.textbox("temple_woods_random", "that_should_do_it")
+		await Global.textbox("temple_woods_random", "that_should_do_it")
 		PartyUI.UIvisible = true
 		Global.Controllable = true
 		Event.add_flag("TWflame")

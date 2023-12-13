@@ -8,7 +8,7 @@ func default() -> void:
 		Event.warp_to(Vector2(55, -44), "AlcineChase")
 		await Event.wait(0.2)
 		await move_dir(Vector2.UP)
-		DialogueManager.passive("temple_woods_random", "hey_wait")
+		Global.passive("temple_woods_random", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
 		BodyState = CUSTOM
 		$Sprite.stop()
@@ -40,10 +40,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.play("Scared")
 			await $Sprite.animation_finished
 			await Event.wait(1)
-			await DialogueManager.textbox("temple_woods_random", "im_not_gonna_harm_you")
+			await Global.textbox("temple_woods_random", "im_not_gonna_harm_you")
 			$Sprite.play("ScaredTurn")
 			await Event.wait(1)
-			await DialogueManager.textbox("temple_woods_random", "as_lost_as_you")
+			await Global.textbox("temple_woods_random", "as_lost_as_you")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
 			await move_dir(Vector2.LEFT*2)
@@ -59,7 +59,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.stop()
 			$Sprite.animation = &"Scared"
 			$Sprite.frame = 0
-			await DialogueManager.textbox("temple_woods_random", "stay_back")
+			await Global.textbox("temple_woods_random", "stay_back")
 			await Event.wait(1)
 			Loader.start_battle("AlcineFollow1")
 
@@ -74,7 +74,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Bubble.play("Surprise")
 			await $Bubble.animation_finished
 			await move_dir(Vector2.UP*5)
-			await DialogueManager.textbox("temple_woods_random", "was_that_a")
+			await Global.textbox("temple_woods_random", "was_that_a")
 			Global.Controllable = true
 			Event.add_flag("AlcineFollow1")
 			PartyUI.UIvisible = true
@@ -83,4 +83,4 @@ func _input(event: InputEvent) -> void:
 	if Event.check_flag("CantDashOnFlame"): return
 	if Event.check_flag(&"FlameActive") and event.is_action_pressed("Dash"):
 		Event.add_flag("CantDashOnFlame")
-		DialogueManager.passive("temple_woods_random", "cant_dash_on_flame")
+		Global.passive("temple_woods_random", "cant_dash_on_flame")
