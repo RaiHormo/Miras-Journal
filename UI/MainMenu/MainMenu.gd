@@ -345,6 +345,8 @@ func _item():
 	t.tween_property($Rail/ItemFollow/ItemButton, "position", Vector2(-500, -340), 0.3)
 	Global.confirm_sound()
 	await t.finished
+	t = create_tween()
+	$Rail/ItemFollow/ItemButton.position = Vector2(-500, -340)
 
 
 

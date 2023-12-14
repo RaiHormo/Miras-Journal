@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=55 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -14,6 +14,7 @@
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="12_2fkxq"]
 [ext_resource type="Script" path="res://codings/UI/Calendar.gd" id="12_wtwla"]
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -244,6 +245,56 @@ corner_radius_bottom_left = 42
 expand_margin_left = 12.0
 expand_margin_right = 8.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jf75l"]
+shader = ExtResource("7_jb2qv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rj3v"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw783"]
+content_margin_left = 8.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_xncxc"]
+default_font = ExtResource("8_wqv20")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_3rj3v")
+Button/styles/hover = SubResource("StyleBoxFlat_bw783")
+Button/styles/normal = SubResource("StyleBoxFlat_3rj3v")
+Button/styles/pressed = SubResource("StyleBoxFlat_3rj3v")
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_xaphv"]
+events = [SubResource("InputEventAction_p5u4y")]
+
 [node name="PartyUI" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -273,9 +324,8 @@ offset_bottom = 799.0
 [node name="Leader" type="Panel" parent="CanvasLayer"]
 texture_filter = 2
 offset_left = -368.0
-offset_right = -134.0
-offset_bottom = 100.0
-scale = Vector2(1.5, 1.5)
+offset_right = -140.0
+offset_bottom = 94.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Leader"]
@@ -296,10 +346,10 @@ show_percentage = false
 
 [node name="AruaText" type="Label" parent="CanvasLayer/Leader/Aura"]
 layout_mode = 0
-offset_left = 119.667
-offset_top = 12.3333
-offset_right = 158.667
-offset_bottom = 38.3333
+offset_left = 115.0
+offset_top = 12.0
+offset_right = 154.0
+offset_bottom = 38.0
 theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
@@ -318,9 +368,9 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Leader/Health"]
 layout_mode = 0
-offset_left = 118.0
+offset_left = 115.0
 offset_top = 1.0
-offset_right = 157.0
+offset_right = 154.0
 offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
@@ -329,9 +379,9 @@ text = "70"
 [node name="Name" type="Label" parent="CanvasLayer/Leader"]
 layout_mode = 0
 offset_left = 82.0
-offset_top = 2.66667
+offset_top = 3.0
 offset_right = 129.0
-offset_bottom = 28.6667
+offset_bottom = 29.0
 text = "Mira"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
@@ -397,9 +447,8 @@ theme = SubResource("Theme_6a77a")
 texture_filter = 2
 offset_left = -368.0
 offset_top = 189.0
-offset_right = -134.0
-offset_bottom = 298.0
-scale = Vector2(1.5, 1.5)
+offset_right = -140.0
+offset_bottom = 293.0
 pivot_offset = Vector2(0.137743, -0.0191193)
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
@@ -421,10 +470,10 @@ show_percentage = false
 
 [node name="AruaText" type="Label" parent="CanvasLayer/Member1/Aura"]
 layout_mode = 0
-offset_left = 121.667
-offset_top = 11.6667
-offset_right = 160.667
-offset_bottom = 37.6666
+offset_left = 115.0
+offset_top = 12.0
+offset_right = 154.0
+offset_bottom = 37.9999
 theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
@@ -443,9 +492,9 @@ show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Member1/Health"]
 layout_mode = 0
-offset_left = 120.0
+offset_left = 115.0
 offset_top = 1.0
-offset_right = 159.0
+offset_right = 154.0
 offset_bottom = 25.0
 theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
@@ -759,8 +808,33 @@ text = "Morning"
 icon = ExtResource("14_fmwou")
 alignment = 2
 
+[node name="Back" type="Button" parent="CanvasLayer"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_jf75l")
+layout_direction = 1
+offset_left = -150.0
+offset_top = 750.0
+offset_right = -41.0
+offset_bottom = 783.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_xncxc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_xaphv")
+shortcut_in_tooltip = false
+text = "Back"
+icon = ExtResource("15_rt2n5")
+text_overrun_behavior = 1
+expand_icon = true
+
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"
 
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
+[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_shrink"]

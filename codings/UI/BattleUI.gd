@@ -494,6 +494,8 @@ func get_target(faction:Array[Actor]):
 		close()
 		Bt.victory()
 		return
+	active = true
+	stage = "pre_target"
 	TargetFaction = faction
 	Bt.get_node("Canvas/Confirm").show()
 	Bt.get_node("Canvas/Back").show()
@@ -560,7 +562,6 @@ func get_target(faction:Array[Actor]):
 	emit_signal('targetFoc', faction[TargetIndex])
 	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 	await t.finished
-	active = true
 	stage = "target"
 	while stage == "target":
 		tr = create_tween()
@@ -658,6 +659,12 @@ func _on_ability_entry():
 
 func _on_confirm_pressed():
 	if active:
+		if stage == "pre_target":
+			active = false
+			Global.confirm_sound()
+			while stage != "target": await Event.wait()
+			targeted.emit()
+			close()
 		if stage == "target":
 			Global.confirm_sound()
 			targeted.emit()

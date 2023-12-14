@@ -65,7 +65,7 @@ func control_process():
 			undashable = true
 	if Global.Controllable:
 		if "Dash" in $Base.animation and not dashing:
-			print(1)
+			#print(1)
 			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
 			if not dashing:
@@ -93,10 +93,10 @@ func control_process():
 					if BodyState == CUSTOM:
 						Global.Controllable=true
 			elif Global.get_direction(direction) != dashdir:
-				print(2)
+				#print(2)
 				stop_dash()
 		elif dashing:
-			print(3)
+			#print(3)
 			stop_dash()
 		if direction != Vector2.ZERO:
 			Global.PlayerDir = direction
@@ -146,7 +146,7 @@ func update_anim_prm() -> void:
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
 					move_frames = 0
-					print(4)
+					#print(4)
 					stop_dash()
 	else:
 		if get_real_velocity().length() >30:

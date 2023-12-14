@@ -309,7 +309,7 @@ func end_battle():
 	if Global.Player != null:
 		Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
 		await Event.wait(0.1)
-		if Global.Player.flame_active: await Global.Player.activate_flame()
+		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	PartyUI.UIvisible=true
 	Global.Controllable = true
 	#Global.get_cam().position_smoothing_enabled = true
