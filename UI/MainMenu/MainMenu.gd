@@ -45,7 +45,7 @@ func _ready():
 	t.tween_property(Cam, "limit_right",  10000000, 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
-	Player.get_node("Base/Shadow").z_index = -1
+	Player.get_node("%Base/Shadow").z_index = -1
 	Player.z_index = 9
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
@@ -154,7 +154,7 @@ func close():
 	PartyUI.UIvisible = true
 	await t.finished
 	Player.z_index = 1
-	Player.get_node("Base/Shadow").z_index = 0
+	Player.get_node("%Base/Shadow").z_index = 0
 	Global.Controllable = true
 	Global.get_cam().enabled = true
 	Fader.hide()

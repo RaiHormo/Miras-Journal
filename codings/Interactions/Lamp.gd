@@ -8,7 +8,6 @@ func _on_interactable_action():
 		t.tween_property(self, "energy", 0, 0.1)
 		Light = false
 	else:
-		t.tween_property(self, "energy", 1, 0.5)
-		t.set_trans(Tween.TRANS_BACK)
+		t.tween_property(self, "energy", 1.5, 0.5)
 		Light = true
-	
+

@@ -29,6 +29,7 @@ var stopping:=false
 var LastStepFrame := -1
 ##How many frames the character has been moving
 var move_frames := 0
+@export var Shadow: Node2D
 
 func _ready() -> void:
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
@@ -113,11 +114,10 @@ func check_terrain(terrain:String, layer:=1) -> bool:
 	return false
 
 func get_terrain() -> String:
-	if get_tile(1) != null and get_tile(1).get_custom_data("TerrainType") != "":
-		return get_tile(1).get_custom_data("TerrainType")
-	elif get_tile(0) != null and get_tile(0).get_custom_data("TerrainType") != "":
-		return get_tile(0).get_custom_data("TerrainType")
-	else: return "Generic"
+	for i in Global.Area.get_layers_count() -1:
+		if get_tile(i) != null and get_tile(i).get_custom_data("TerrainType") != "":
+			return get_tile(i).get_custom_data("TerrainType")
+	return "Generic"
 
 func get_tile(layer:int):
 	return Global.Tilemap.get_cell_tile_data(layer, Global.Tilemap.local_to_map(global_position))
@@ -181,3 +181,11 @@ func wall_in_front() -> bool:
 func bubble(stri:String) -> void:
 	$Bubble.play(stri)
 	await $Bubble.animation_finished
+
+func shade(opacity: float = 0.8) -> void:
+	var t = create_tween()
+	t.tween_property($Sprite, "modulate", Color(opacity, opacity, opacity, 1), 0.3)
+
+func unshade() -> void:
+	var t = create_tween()
+	t.tween_property($Sprite, "modulate", Color.WHITE, 0.3)

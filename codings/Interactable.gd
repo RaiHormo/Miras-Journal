@@ -81,10 +81,10 @@ func _on_button_pressed() -> void:
 	t.set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
 	await t.finished
+	action.emit()
 	match ActionType:
 		"toggle":
 			Global.confirm_sound()
-			emit_signal("action")
 		"text":
 			Global.Controllable = false
 			await Global.textbox(file, title)

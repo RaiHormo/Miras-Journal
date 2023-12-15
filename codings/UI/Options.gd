@@ -4,12 +4,36 @@ var stage = "inactive"
 var focus:Control
 var mainIndex = 0
 signal loaded
+var was_controllable: bool
+var was_paused: bool
 
 func _ready():
-	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
+	if $/root.get_node_or_null("MainMenu") != null and $/root/MainMenu.stage != "options":
+		$/root/MainMenu._on_back_button_down()
+		queue_free()
+		return
+	if $/root.get_node_or_null("Options") != null and $/root/Options != self:
+		$/root/Options._on_back_pressed()
+		queue_free()
+		return
+	if Loader.InBattle:
+		if ($/root.get_node_or_null("Battle/BattleUI") == null or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active):
+			queue_free()
+			return
+		$/root/Battle/BattleUI.active = false
+		$/root/Battle/BattleUI.stage = "options"
+	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null:
+		$MainButtons/SaveManagment.disabled = true
+		$MainButtons/GameSettings.grab_focus()
+	else:
+		if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
+		$MainButtons/SaveManagment.grab_focus()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+	was_controllable = Global.Controllable
+	Global.Controllable=false
+	was_paused = get_tree().paused
+	get_tree().paused = true
 	$Silhouette.position = Vector2(-1000, -39)
-	$MainButtons/SaveManagment.grab_focus()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	siilhouette()
@@ -22,7 +46,7 @@ func _ready():
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
 	for button in $MainButtons.get_children():
-		button.size.x=0
+		#button.size.x=0
 		button.z_index = 0
 		t=create_tween()
 		t.set_trans(Tween.TRANS_QUART)
@@ -43,7 +67,7 @@ func siilhouette():
 
 func _physics_process(delta):
 	var playtime:Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())
-	$Timer/HSplitContainer/Label.text = str(playtime.hour)+":"+str(playtime.minute)+":"+str(playtime.second)
+	$Timer/HSplitContainer/Label.text = "%02d:%02d:%02d" % [playtime.hour, playtime.minute, playtime.second]
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -67,8 +91,8 @@ func close():
 		if $/root.get_node_or_null("MainMenu") != null:
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
-			get_tree().paused = false
-			Global.Controllable = true
+			get_tree().paused = was_paused
+			Global.Controllable = was_controllable
 			Global.cancel_sound()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -79,6 +103,9 @@ func close():
 	t.tween_property($Silhouette, "position", Vector2(-1000, -39), 0.5)
 	t.tween_property($Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0), 0.5)
+	if Loader.InBattle:
+		$/root/Battle/BattleUI.active = true
+		$/root/Battle/BattleUI.stage = "root"
 	for button in $MainButtons.get_children():
 		t.tween_property(button, "position:x", 700, 0.3).as_relative()
 	await t.finished
@@ -117,12 +144,13 @@ func game_settings():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
+	$SidePanel/ScrollContainer.scroll_horizontal = 0
 	$MainButtons/GameSettings.z_index = 1
 	t.tween_property($MainButtons/GameSettings, "position", Vector2(25, 196), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(407, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
-	$SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.grab_focus()
+	%SettingsVbox/ControlScheme/MenuBar.grab_focus()
 	Global.confirm_sound()
 	$SidePanel.show()
 
@@ -147,7 +175,7 @@ func save_managment() -> void:
 	t.tween_property($SavePanel, "position", Vector2(710, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-50, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
-	$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
+	%Files/File0/Button.grab_focus()
 	Global.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
 
@@ -173,30 +201,35 @@ func _on_focus_changed(control:Control):
 				$SavePanel/Buttons/Delete.disabled = false
 
 func load_settings():
-	$SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
-	$SidePanel/ScrollContainer/VBoxContainer/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
-	$SidePanel/ScrollContainer/VBoxContainer/Master/Slider.value = Global.Settings.MasterVolume*10
-	$SidePanel/ScrollContainer/VBoxContainer/Brightness/Slider.value = World.environment.adjustment_brightness
-	$SidePanel/ScrollContainer/VBoxContainer/Contrast/Slider.value = World.environment.adjustment_contrast
-	$SidePanel/ScrollContainer/VBoxContainer/Saturation/Slider.value = World.environment.adjustment_saturation
+	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
+	%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
+	%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume*10
+	%SettingsVbox/EnvSFX/Slider.value = Global.Settings.EnvSFXVolume*10
+	%SettingsVbox/BtSFX/Slider.value = Global.Settings.BtSFXVolume*10
+	%SettingsVbox/Music/Slider.value = Global.Settings.MusicVolume*10
+	%SettingsVbox/UI/Slider.value = Global.Settings.UIVolume*10
+	%SettingsVbox/Voices/Slider.value = Global.Settings.VoicesVolume*10
+	%SettingsVbox/BCSadjust/BrtSlider.value = World.environment.adjustment_brightness
+	%SettingsVbox/BCSadjust/ConSlider.value = World.environment.adjustment_contrast
+	%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
 
 func load_save_files():
-	for i in $SavePanel/ScrollContainer/Files.get_children():
+	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
-	draw_file(await Loader.load_res("user://Autosave.tres"), $SavePanel/ScrollContainer/Files/File0)
+	draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	for i in DirAccess.get_files_at("user://"):
 		if ".tres" in i and not "Autosave" in i and await Loader.load_res("user://"+i) is SaveFile:
 			var newpanel:PanelContainer = null
-			for j in $SavePanel/ScrollContainer/Files.get_children():
+			for j in %Files.get_children():
 				if j.name in i:
 					newpanel = j
 					j.set_meta(&"Unprocessed", false)
 			if newpanel == null:
-				newpanel = $SavePanel/ScrollContainer/Files/File0.duplicate()
+				newpanel = %Files/File0.duplicate()
 				newpanel.name = i.replace(".tres", "")
-				$SavePanel/ScrollContainer/Files.add_child(newpanel)
+				%Files.add_child(newpanel)
 			draw_file(await Loader.load_res("user://" + i), newpanel)
-	for j in $SavePanel/ScrollContainer/Files.get_children():
+	for j in %Files.get_children():
 		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
 	await Event.wait()
 
@@ -245,10 +278,10 @@ func _on_save_delete() -> void:
 		t2.tween_property(panel, "modulate:a", 0, 0.5)
 		await t2.finished
 		await load_save_files()
-		if $SavePanel/ScrollContainer/Files.get_child_count() <= index:
-			$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
+		if %Files.get_child_count() <= index:
+			%Files/File0/Button.grab_focus()
 		else:
-			$SavePanel/ScrollContainer/Files.get_child(index).get_node("Button").grab_focus()
+			%Files.get_child(index).get_node("Button").grab_focus()
 	else:
 		Global.buzzer_sound()
 		hold_down()
@@ -280,7 +313,7 @@ func _on_save_overwrite() -> void:
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 1)
-		#$SavePanel/ScrollContainer/Files.get_child($SavePanel/ScrollContainer/Files.get_child_count() -1).get_node("Button").grab_focus()
+		#%Files.get_child(%Files.get_child_count() -1).get_node("Button").grab_focus()
 		await t.finished
 		Loader.ungray.emit()
 	else:
@@ -296,6 +329,7 @@ func _on_save_overwrite() -> void:
 	panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_load() -> void:
+	if focus == null: return
 	var panel = focus.get_parent()
 	if not "File" in panel.name: return
 	var index = focus.get_index()
@@ -322,21 +356,21 @@ func _on_save_load() -> void:
 func _new_file() -> void:
 	Global.confirm_sound()
 	Loader.gray_out()
-	$SavePanel/ScrollContainer/Files/New/NewFile.hide()
-	$SavePanel/ScrollContainer/Files/New/NewFile.show()
+	%Files/New/NewFile.hide()
+	%Files/New/NewFile.show()
 	Loader.icon_save()
-	await Loader.save("File"+str($SavePanel/ScrollContainer/Files.get_child_count()-1), false)
+	await Loader.save("File"+str(%Files.get_child_count()-1), false)
 	await load_save_files()
 	if Loader.get_node("Can/Icon").is_playing():
 		await Loader.get_node("Can/Icon").animation_finished
 	Loader.ungray.emit()
-	$SavePanel/ScrollContainer/Files.get_child($SavePanel/ScrollContainer/Files.get_child_count() -1).get_node("Button").grab_focus()
+	%Files.get_child(%Files.get_child_count() -1).get_node("Button").grab_focus()
 
 
 func _on_control_scheme(index):
 	Global.confirm_sound()
 	Global.Settings.ControlSchemeAuto = false
-	Global.Settings.ControlSchemeEnum = $SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar.get_selected_id()
+	Global.Settings.ControlSchemeEnum = %SettingsVbox/ControlScheme/MenuBar.get_selected_id()
 	match Global.Settings.ControlSchemeEnum:
 		0:
 			Global.Settings.ControlSchemeAuto = true
@@ -372,12 +406,24 @@ func _on_master_volume(value:float):
 	if Global.Settings.MasterVolume == -30:
 		Global.Settings.MasterVolume = -80
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
-	Global.cursor_sound()
+	$AudioTester.bus = "Master"
+	$AudioTester.play()
+	Global.save_settings()
+
+func _on_EnvSFX_volume(value: float) -> void:
+	Global.Settings.EnvSFXVolume = value/10
+	if Global.Settings.EnvSFXVolume == -30:
+		Global.Settings.EnvSFXVolume = -80
+	AudioServer.set_bus_volume_db(2, Global.Settings.EnvSFXVolume)
+	$AudioTester.bus = "EnvSFX"
+	$AudioTester.play()
 	Global.save_settings()
 
 func _on_volume_reset():
 	Global.Settings.MasterVolume = 0
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
+	Global.Settings.EnvSFXVolume = 0
+	AudioServer.set_bus_volume_db(2, Global.Settings.MasterVolume)
 	Global.save_settings()
 	load_settings()
 	Global.confirm_sound()
@@ -402,3 +448,15 @@ func _on_saturation(value):
 
 func _on_auto_hide_hud(index: int) -> void:
 	Global.Settings.AutoHideHUD = index
+
+
+func _show_image_test() -> void:
+	$ImageTester.show()
+
+func _hide_image_test() -> void:
+	$ImageTester.hide()
+
+
+func _on_adjust_image(toggle:bool) -> void:
+	if toggle: %SettingsVbox/BCSadjust.show()
+	else: %SettingsVbox/BCSadjust.hide()

@@ -88,6 +88,8 @@ func _input(ev):
 		Global.Controllable=false
 		get_tree().paused = true
 		get_tree().root.add_child(MainMenu.instantiate())
+	if Input.is_action_just_pressed("Options") and not Global.Player.dashing:
+		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 			if Expanded == true:
 				Tempvis=true

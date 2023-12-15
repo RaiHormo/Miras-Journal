@@ -3319,7 +3319,7 @@ fill_to = Vector2(0.811966, 0.850427)
 shader = ExtResource("12_l2wig")
 shader_parameter/lod = 1.0
 
-[node name="Body" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
+[node name="Mira" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 process_mode = 3
 z_index = 1
 z_as_relative = false
@@ -3334,7 +3334,10 @@ script = ExtResource("1_503pd")
 speed = 70
 Nav = NodePath("Nav")
 
-[node name="Base" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="CanvasGroup" parent="."]
+
+[node name="Base" type="AnimatedSprite2D" parent="Sprite"]
+unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 3
 texture_filter = 1
@@ -3355,7 +3358,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
-[node name="Bag" type="AnimatedSprite2D" parent="Base"]
+[node name="Bag" type="AnimatedSprite2D" parent="Sprite/Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhZwpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YmFnCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
 light_mask = 3
@@ -3373,7 +3376,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
-[node name="Axe" type="AnimatedSprite2D" parent="Base/Bag"]
+[node name="Axe" type="AnimatedSprite2D" parent="Sprite/Base/Bag"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUF4ZQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YXhlCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
 light_mask = 2
@@ -3392,16 +3395,17 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
-[node name="Shadow" type="Sprite2D" parent="Base"]
-show_behind_parent = true
-position = Vector2(0, 10)
-texture = ExtResource("8_332ra")
-
-[node name="Flame" type="AnimatedSprite2D" parent="Base"]
+[node name="Flame" type="AnimatedSprite2D" parent="Sprite/Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
+
+[node name="Shadow" type="Sprite2D" parent="Sprite/Base"]
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(0, 10)
+texture = ExtResource("8_332ra")
 
 [node name="Bubble" type="AnimatedSprite2D" parent="."]
 light_mask = 0

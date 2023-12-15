@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=68 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" path="res://codings/UI/Options.gd" id="1_hoqsl"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="23_gmb0o"]
 [ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
+[ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/UI/cursor.wav" id="25_u17hy"]
+[ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_ce8sl")
@@ -277,6 +279,7 @@ Button/font_sizes/font_size = 32
 Button/styles/normal = null
 CheckButton/icons/checked = ExtResource("9_yynoc")
 CheckButton/icons/unchecked = ExtResource("10_p5f5g")
+CheckButton/styles/disabled = SubResource("StyleBoxFlat_vfm5m")
 CheckButton/styles/focus = SubResource("StyleBoxFlat_vfm5m")
 HSlider/constants/center_grabber = -2
 HSlider/icons/grabber = ExtResource("11_ojav3")
@@ -531,7 +534,7 @@ anchor_right = 0.739062
 anchor_bottom = 0.6725
 offset_left = 641.0
 offset_top = -40.0
-offset_right = 831.0
+offset_right = 832.0
 offset_bottom = 20.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(30, 30)
@@ -553,7 +556,7 @@ anchor_right = 0.710156
 anchor_bottom = 0.85625
 offset_left = 723.0
 offset_top = -45.0
-offset_right = 913.0
+offset_right = 866.0
 offset_bottom = 15.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(30, 30)
@@ -632,6 +635,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -650,30 +654,31 @@ rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
+[node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="MarginContainer" type="MarginContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 
-[node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 text = "Gameplay"
 
-[node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Auto-hide HUD"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
@@ -686,23 +691,23 @@ popup/item_1/id = 1
 popup/item_2/text = "Never"
 popup/item_2/id = 2
 
-[node name="Input" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 text = "Input"
 
-[node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/ControlScheme"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Control scheme"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/VBoxContainer/ControlScheme"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
@@ -729,57 +734,88 @@ popup/item_8/id = 5
 popup/item_9/text = "Other"
 popup/item_9/id = 1
 
-[node name="Display" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 text = "Display
 "
 
-[node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Fullscreen"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fullscreen"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/VBoxContainer/Fullscreen"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="Brightness" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="GlowEffect" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 170
+theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Brightness"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Glow effect"
+
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+alignment = 2
+
+[node name="ResetVolume2" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
+toggle_mode = true
+text = "Adjust Image"
+icon = ExtResource("9_mioka")
+icon_alignment = 2
+
+[node name="BCSadjust" type="GridContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 160
+columns = 2
+
+[node name="BrtLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Brightness"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Brightness"]
-custom_minimum_size = Vector2(340, 50)
+[node name="BrtSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="Contrast" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 170
-
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Contrast"]
+[node name="ConLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_6ne1i")
@@ -787,56 +823,49 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Contrast
 "
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Contrast"]
-custom_minimum_size = Vector2(340, 50)
+[node name="ConSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="Saturation" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 170
-
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Saturation"]
+[node name="SatLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Saturation"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Saturation"]
-custom_minimum_size = Vector2(340, 50)
+[node name="SatSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="Audio" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Audio" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 text = "Audio"
 
-[node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/VBoxContainer/Master"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Master"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/VBoxContainer/Master"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master"]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -846,7 +875,114 @@ min_value = -300.0
 max_value = 60.0
 step = 10.0
 
-[node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/VBoxContainer"]
+[node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Music"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Music"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="EnvSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Enviroment SFX"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Battle SFX"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 170
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UI"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "UI"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/UI"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Voices"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Text sounds"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Voices"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_6ne1i")
+min_value = -300.0
+max_value = 60.0
+step = 10.0
+
+[node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -863,7 +999,6 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -884,6 +1019,7 @@ theme = SubResource("Theme_6ne1i")
 follow_focus = true
 
 [node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 32
 
@@ -1152,25 +1288,49 @@ theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
+[node name="AudioTester" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_u17hy")
+
+[node name="ImageTester" type="Node2D" parent="."]
+visible = false
+position = Vector2(253, 504)
+scale = Vector2(0.742924, 0.742924)
+
+[node name="Sprite2D" type="Sprite2D" parent="ImageTester"]
+texture = ExtResource("26_375bk")
+
 [connection signal="pressed" from="MainButtons/SaveManagment" to="." method="save_managment"]
 [connection signal="pressed" from="MainButtons/GameSettings" to="." method="game_settings"]
 [connection signal="pressed" from="MainButtons/Quit" to="." method="_on_quit"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
-[connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/Gameplay" to="." method="_on_first_setting"]
-[connection signal="item_focused" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="cursor"]
-[connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="_on_auto_hide_hud"]
-[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/AutoHideHUD/MenuBar" to="." method="confirm"]
-[connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/Input" to="." method="_on_first_setting"]
-[connection signal="item_focused" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="cursor"]
-[connection signal="item_selected" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
-[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ControlScheme/MenuBar" to="." method="confirm"]
-[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Brightness/Slider" to="." method="_on_brightness"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Contrast/Slider" to="." method="_on_contrast"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Saturation/Slider" to="." method="_on_saturation"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/VBoxContainer/Master/Slider" to="." method="_on_master_volume"]
-[connection signal="focus_entered" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_last_setting"]
-[connection signal="pressed" from="SidePanel/ScrollContainer/VBoxContainer/ResetVolume" to="." method="_on_volume_reset"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/Gameplay" to="." method="_on_first_setting"]
+[connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="cursor"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="_on_auto_hide_hud"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="confirm"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/Input" to="." method="_on_first_setting"]
+[connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="cursor"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume2" to="." method="_on_last_setting"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume2" to="." method="_on_adjust_image"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_show_image_test"]
+[connection signal="focus_exited" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_hide_image_test"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_on_brightness"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/ConSlider" to="." method="_show_image_test"]
+[connection signal="focus_exited" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/ConSlider" to="." method="_hide_image_test"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/ConSlider" to="." method="_on_contrast"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_show_image_test"]
+[connection signal="focus_exited" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_hide_image_test"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_on_saturation"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Master/Slider" to="." method="_on_master_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Music/Slider" to="." method="_on_master_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/EnvSFX/Slider" to="." method="_on_EnvSFX_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BtSFX/Slider" to="." method="_on_master_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/UI/Slider" to="." method="_on_master_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Voices/Slider" to="." method="_on_master_volume"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_last_setting"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile/Button" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]
 [connection signal="pressed" from="SavePanel/Buttons/Overwrite" to="." method="_on_save_overwrite"]

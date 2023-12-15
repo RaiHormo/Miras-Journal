@@ -183,7 +183,7 @@ func _on_root():
 	$CommandMenu.hide()
 	$Inventory.hide()
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if Global.LastInput==Global.ProcessFrame: return
 	if active:
 		match stage:
@@ -268,6 +268,37 @@ func _input(event):
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
+			"pre_target":
+				if Input.is_action_just_pressed("ui_down") and active:
+					if TargetFaction.size() == 1:
+						Global.buzzer_sound()
+						return
+					if TargetIndex!=TargetFaction.size() -1:
+						TargetIndex += 1
+					else:
+						TargetIndex = 0
+					while TargetFaction[TargetIndex].has_state("Knocked Out"):
+						if TargetIndex!=TargetFaction.size() -1:
+							TargetIndex += 1
+						else:
+							TargetIndex = 0
+					Global.cursor_sound()
+					move_menu()
+				if Input.is_action_just_pressed("ui_up") and active:
+					if TargetFaction.size() == 1:
+						Global.buzzer_sound()
+						return
+					if TargetIndex!=0:
+						TargetIndex -= 1
+					else:
+						TargetIndex = TargetFaction.size() -1
+					Global.cursor_sound()
+					while TargetFaction[TargetIndex].has_state("Knocked Out"):
+						if TargetIndex!=0:
+							TargetIndex -= 1
+						else:
+							TargetIndex = TargetFaction.size() -1
+					move_menu()
 
 func _on_attack():
 	Global.confirm_sound()
@@ -577,8 +608,8 @@ func _on_ability_returned(ab:Ability, tar:Actor):
 	close()
 
 func move_menu():
-	if stage == "target":
-		active= false
+	if stage == "target" or stage == "pre_target":
+		#active= false
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)

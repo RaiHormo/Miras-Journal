@@ -54,7 +54,7 @@ func extended_process() -> void:
 		pass
 
 func control_process():
-	coords = Global.Tilemap.local_to_map(global_position)
+	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 #	else:
@@ -64,7 +64,7 @@ func control_process():
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
 			undashable = true
 	if Global.Controllable:
-		if "Dash" in $Base.animation and not dashing:
+		if "Dash" in %Base.animation and not dashing:
 			#print(1)
 			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
@@ -74,7 +74,7 @@ func control_process():
 					reset_speed()
 					#position = round(position)
 					set_anim("Deny"+Global.get_dir_name(Global.PlayerDir))
-					await $Base.animation_finished
+					await %Base.animation_finished
 					set_anim("Idle"+Global.get_dir_name(Global.PlayerDir))
 					return
 				else:
@@ -85,7 +85,7 @@ func control_process():
 					BodyState = CUSTOM
 					reset_speed()
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
-					while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
+					while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
 						velocity = dashdir * speed
 						if is_on_wall(): Global.Controllable=true; set_anim("Idle"+Global.get_dir_name()); return
 						await Event.wait()
@@ -127,7 +127,7 @@ func control_process():
 
 
 func update_anim_prm() -> void:
-	if Footsteps: handle_step_sounds($Base)
+	if Footsteps: handle_step_sounds(%Base)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
 		if abs(realvelocity.length())>10 and Global.Controllable:
@@ -138,10 +138,10 @@ func update_anim_prm() -> void:
 			else:
 				speed = 75
 				set_anim(str("Walk"+Global.get_dir_name()))
-				$Base.speed_scale=(realvelocity.length()/70)
-				$Base/Bag.speed_scale=(realvelocity.length()/70)
-				$Base/Bag/Axe.speed_scale=(realvelocity.length()/70)
-		elif Global.Controllable and ("Walk" in $Base.animation or ("Dash" in $Base.animation and dashdir == Vector2.ZERO)):
+				%Base.speed_scale=(realvelocity.length()/70)
+				%Base/Bag.speed_scale=(realvelocity.length()/70)
+				%Base/Bag/Axe.speed_scale=(realvelocity.length()/70)
+		elif Global.Controllable and ("Walk" in %Base.animation or ("Dash" in %Base.animation and dashdir == Vector2.ZERO)):
 			move_frames=0
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
@@ -170,32 +170,32 @@ func _on_pickup() -> void:
 	reset_speed()
 	if Global.get_direction() == Vector2.LEFT: set_anim("PickUpLeft")
 	else: set_anim("PickUpRight")
-	await $Base.animation_looped
+	await %Base.animation_looped
 	Global.Controllable = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party() -> void:
 	if Event.check_flag(&"FlameActive"):
-		$Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
+		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	elif Global.Party.Leader != null:
-		$Base.sprite_frames =  Global.Party.Leader.OV
+		%Base.sprite_frames =  Global.Party.Leader.OV
 	if Item.check_item("LightweightAxe", "Key"):
-		$Base/Bag/Axe.show()
+		%Base/Bag/Axe.show()
 	else:
-		$Base/Bag/Axe.hide()
+		%Base/Bag/Axe.hide()
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String) -> void:
-	$Base.play(anim)
-	if anim in $Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
-		$Base/Bag.show()
-		$Base/Bag.play(anim)
-	else: $Base/Bag.hide()
-	if anim in $Base/Flame.sprite_frames.get_animation_names() and Event.check_flag(&"FlameActive"):
-		$Base/Flame.show()
-		$Base/Flame.play(anim)
-	else: $Base/Flame.hide()
-	if $Base.is_playing(): await $Base.animation_finished
+	%Base.play(anim)
+	if anim in %Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
+		%Base/Bag.show()
+		%Base/Bag.play(anim)
+	else: %Base/Bag.hide()
+	if anim in %Base/Flame.sprite_frames.get_animation_names() and Event.check_flag(&"FlameActive"):
+		%Base/Flame.show()
+		%Base/Flame.play(anim)
+	else: %Base/Flame.hide()
+	if %Base.is_playing(): await %Base.animation_finished
 
 func activate_flame(animate:=true) -> void:
 	Event.add_flag(&"FlameActive")
@@ -206,7 +206,7 @@ func activate_flame(animate:=true) -> void:
 		set_anim("FlameActive")
 		await Event.wait(0.75)
 		set_anim("IdleRight")
-	$Base/Flame.show()
+	%Base/Flame.show()
 
 func check_flame() -> void:
 	if Event.check_flag(&"FlameActive"):
@@ -224,7 +224,7 @@ func check_flame() -> void:
 ##For opening the menu
 func bag_anim() -> void:
 	set_anim("OpenBag")
-	await $Base.animation_looped
+	await %Base.animation_looped
 	set_anim("BagIdle")
 
 ##If the player dashes into a gap she will jump
@@ -248,7 +248,7 @@ func check_for_jumps() -> void:
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash() -> void:
-	if BodyState!=CONTROLLED or "Stop" in $Base.animation or "Hit" in $Base.animation or midair: return
+	if BodyState!=CONTROLLED or "Stop" in %Base.animation or "Hit" in %Base.animation or midair: return
 	dashing = false
 	speed = 75
 	#print(realvelocity)
@@ -268,7 +268,7 @@ func stop_dash() -> void:
 		else:
 			BodyState = CUSTOM
 			speed = 75
-			while $Base.is_playing() and $Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
+			while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
 				velocity = dashdir * speed
 				speed = max(0, speed - 2)
 				await Event.wait()
@@ -277,19 +277,19 @@ func stop_dash() -> void:
 		speed = 75
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO
-	if "Stop" in $Base.animation or "Hit" in $Base.animation:
+	if "Stop" in %Base.animation or "Hit" in %Base.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))
 
 func reset_speed() -> void:
-	$Base.speed_scale=1
-	$Base/Bag.speed_scale=1
-	$Base/Bag/Axe.speed_scale=1
+	%Base.speed_scale=1
+	%Base/Bag.speed_scale=1
+	%Base/Bag/Axe.speed_scale=1
 
 func bump() -> void:
 	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 	Global.Controllable=false
-	await $Base.animation_finished
+	await %Base.animation_finished
 	Global.Controllable=true
 
 func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:

@@ -1,5 +1,5 @@
+#region Variables
 extends Node
-
 var Controllable : bool = true
 var Audio := AudioStreamPlayer.new()
 var Sprite := Sprite2D.new()
@@ -16,7 +16,7 @@ var AltConfirm: bool
 var StartTime := 0.0
 var PlayTime := 0.0
 var SaveTime := 0.0
-var Player: CharacterBody2D
+var Player := Mira.new()
 var Follower: Array[CharacterBody2D] = [null, null, null, null]
 var Settings:Setting
 var Bt: Battle = null
@@ -32,6 +32,7 @@ signal check_party
 signal anim_done
 signal area_initialized
 signal textbox_close
+#endregion
 
 #region System
 func _ready() -> void:
