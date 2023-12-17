@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=56 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -294,6 +294,16 @@ action = &"ui_cancel"
 
 [sub_resource type="Shortcut" id="Shortcut_xaphv"]
 events = [SubResource("InputEventAction_p5u4y")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0357"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
@@ -831,6 +841,19 @@ text = "Back"
 icon = ExtResource("15_rt2n5")
 text_overrun_behavior = 1
 expand_icon = true
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer"]
+visible = false
+offset_left = 10.0
+offset_top = 699.0
+offset_right = 521.0
+offset_bottom = 782.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
+theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
+placeholder_text = "Enter a flag"
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

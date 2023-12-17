@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=72 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1b1u1"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_bpc20"]
@@ -326,8 +326,11 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-9.97737, 3.0743, -8.05927, -7.94028, 9.94023, -8.07421, 9.05186, 6.93282, -1.91807, 11.0146)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
+[sub_resource type="Gradient" id="Gradient_slh88"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 0, 0, 0, 0)
+
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2eofr"]
-gradient = SubResource("Gradient_d2yr6")
+gradient = SubResource("Gradient_slh88")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.91453, 0.461538)

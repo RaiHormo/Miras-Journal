@@ -122,6 +122,19 @@ func _input(ev):
 		Item.add_item("SmallPotion", "Con")
 	if Input.is_action_just_pressed("DebugA"):
 		Global.textbox("testbush", "add_to_party")
+	if Input.is_action_just_pressed("DebugFlag"):
+		if not $CanvasLayer/TextEdit.visible:
+			print(Event.Flags)
+			$CanvasLayer/TextEdit.show()
+			$CanvasLayer/TextEdit.text = ""
+			$CanvasLayer/TextEdit.grab_focus()
+			Global.Controllable = false
+		else:
+			if $CanvasLayer/TextEdit.text != "":
+				Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
+				Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
+			$CanvasLayer/TextEdit.hide()
+			Global.Controllable = true
 
 func _on_expand(open_ui=0):
 	#print(open_ui)
