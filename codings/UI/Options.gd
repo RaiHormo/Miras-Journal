@@ -234,8 +234,13 @@ func load_save_files():
 	await Event.wait()
 
 func draw_file(file: SaveFile, node: Control):
-	node.get_node("Info/FileName").text = file.Name
 	var panel = node.get_child(0)
+	if file == null:
+		node.get_node("Info/FileName").text = "Corrupt data"
+		panel.get_node("Date/Month").text = "Please"
+		panel.get_node("Date/Day").text = "Delete"
+		return
+	node.get_node("Info/FileName").text = file.Name
 	panel.get_node("Date/Day").text = str(file.Day)
 	if file.Day <= 30 and file.Day > 0:
 		panel.get_node("Date/Month").text = "November"

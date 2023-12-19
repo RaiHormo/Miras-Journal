@@ -1504,13 +1504,16 @@ theme_override_constants/margin_bottom = 14
 use_parent_material = true
 layout_mode = 2
 
-[node name="List" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller"]
+[node name="AbilityList" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller"]
+unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Item0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/List"]
+[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller"]
+unique_name_in_owner = true
+visible = false
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -1528,7 +1531,7 @@ text = "Ability Name"
 alignment = 0
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/List/Item0"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -1540,7 +1543,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/List/Item0"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]
 light_mask = 0
 texture_filter = 2
 material = ExtResource("1_pas6x")
@@ -2379,7 +2382,7 @@ color = Color(1, 0, 0.356863, 1)
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
 [connection signal="pressed" from="BattleUI/CommandMenu/Escape" to="BattleUI" method="_on_escape"]
 [connection signal="pressed" from="BattleUI/DescPaper/ShowWheel" to="BattleUI" method="_on_show_wheel_pressed"]
-[connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/List/Item0" to="BattleUI" method="_on_ability_entry"]
+[connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/Ab0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="toggled" from="BattleUI/Inventory/BIbutton" to="BattleUI" method="_on_b_ibutton_pressed"]
 [connection signal="toggled" from="BattleUI/Inventory/Cbutton" to="BattleUI" method="_on_cbutton_pressed"]
 [connection signal="pressed" from="BattleUI/Ability" to="BattleUI" method="_on_ability_pressed"]

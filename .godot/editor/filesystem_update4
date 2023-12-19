@@ -14,15 +14,4 @@ res://art/BT/WhiteSpawn/WhiteSpawnBT.tres
 res://database/Items/KeyItems/Wallet.tres
 res://art/sheets/ErinnOV.tres
 res://art/Tilesets/Abad.tres
-res://scenes/Rooms/Debug.tscn
-res://UI/Options/Options.tscn
-res://codings/Autoload/PartyUI.tscn
-res://scenes/Characters/Mira.tscn
-res://codings/Autoload/ItemManager.tscn
-res://UI/MainMenu/MainMenu.tscn
-res://scenes/Battle.tscn
-res://sound/SFX/Footsteps/StdrFootsteps.tscn
-res://codings/PlayerMovement.gd
 res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres
-res://scenes/Rooms/TempleWoods.tscn
-res://codings/UI/PartyUI.gd

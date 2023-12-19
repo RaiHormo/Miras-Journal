@@ -241,20 +241,20 @@ func _input(event: InputEvent) -> void:
 					Global.cancel_sound()
 					root.emit()
 				if Input.is_action_just_pressed("ui_up") and active:
-					if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
+					if %AbilityList.get_child_count() == 1:
 						Global.buzzer_sound()
 						return
 					if MenuIndex!= 0:
 						MenuIndex -= 1
 					else:
-						MenuIndex = $AbilityUI/Margin/Scroller/List.get_child_count() -1
+						MenuIndex = %AbilityList.get_child_count() -1
 					Global.cursor_sound()
 					move_menu()
 				if Input.is_action_just_pressed("ui_down") and active:
-					if $AbilityUI/Margin/Scroller/List.get_child_count() == 1:
+					if %AbilityList.get_child_count() == 1:
 						Global.buzzer_sound()
 						return
-					if MenuIndex!=$AbilityUI/Margin/Scroller/List.get_child_count() -1:
+					if MenuIndex!=%AbilityList.get_child_count() -1:
 						MenuIndex += 1
 					else:
 						MenuIndex = 0
@@ -365,9 +365,9 @@ func _on_ability():
 	t.tween_property($Command, "position", Vector2(-20,-60), 0.3).as_relative()
 	t.tween_property($Arrow, "modulate", Color(0.9,0.9,0.9,1), 0.3)
 	$Ability.focus_mode = 0
-	if get_node_or_null("AbilityUI/Margin/Scroller/List/Item"+str(MenuIndex)) == null:
+	if get_node_or_null("%AbilityList/Item"+str(MenuIndex)) == null:
 		MenuIndex = 0
-	get_node("AbilityUI/Margin/Scroller/List/Item"+str(MenuIndex)).grab_focus()
+	%AbilityList.get_child(MenuIndex).grab_focus()
 	$AbilityUI/Margin/Scroller.scroll_vertical = 0
 	$DescPaper/Desc.text = Abilities[0].description
 	if Abilities[0].AuraCost != 0:
@@ -627,8 +627,8 @@ func move_menu():
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
-		if not $AbilityUI/Margin/Scroller/List.get_child(MenuIndex).has_focus():
-			$AbilityUI/Margin/Scroller/List.get_child(MenuIndex).grab_focus()
+		if not %AbilityList.get_child(MenuIndex).has_focus():
+			%AbilityList.get_child(MenuIndex).grab_focus()
 		if MenuIndex < 6:
 			t.tween_property($AbilityUI/Margin/Scroller, "scroll_vertical", 0, 0.2)
 		if MenuIndex >= 6:
@@ -674,7 +674,7 @@ func _on_focus_changed(control:Control):
 func _on_ability_entry():
 	if active:
 		Global.confirm_sound()
-		var ab = $AbilityUI/Margin/Scroller/List.get_child(MenuIndex).get_meta("Ability")
+		var ab = %AbilityList.get_child(MenuIndex).get_meta("Ability")
 		if ab.Target == 1:
 			PrevStage="ability"
 			stage = "target"
@@ -778,13 +778,13 @@ func fetch_inventory():
 		return
 
 func fetch_abilities():
-	var dub = $AbilityUI/Margin/Scroller/List/Item0.duplicate()
-	for n in $AbilityUI/Margin/Scroller/List.get_children():
-		$AbilityUI/Margin/Scroller/List.remove_child(n)
+	for n in %AbilityList.get_children():
+		%AbilityList.remove_child(n)
 		n.queue_free()
 	for i in Abilities:
-		dub = dub.duplicate()
-		if dub.get_parent() != $AbilityUI/Margin/Scroller/List: $AbilityUI/Margin/Scroller/List.add_child(dub)
+		var dub = %Ab0.duplicate()
+		dub.show()
+		%AbilityList.add_child(dub)
 		dub.text = i.name
 		dub.get_node("Icon").texture = i.Icon
 		if i.AuraCost != 0:
@@ -794,11 +794,11 @@ func fetch_abilities():
 			dub.get_child(0).hide()
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
-	for i in $AbilityUI/Margin/Scroller/List.get_children():
+	for i in %AbilityList.get_children():
 		if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
 			i.disabled = true
 			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
-			$AbilityUI/Margin/Scroller/List.get_children().push_back(i)
+			%AbilityList.get_children().push_back(i)
 
 func _on_b_ibutton_pressed(tog:bool) -> void:
 	match tog:

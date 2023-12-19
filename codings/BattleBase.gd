@@ -509,6 +509,7 @@ func death(target:Actor):
 		return
 #	if target.IsEnemy and Troop.size() == 1:
 #		slowmo()
+	target.States.clear()
 	target.add_state("KnockedOut")
 	anim("KnockOut", target)
 	target.node.get_node("Particle").emitting = true

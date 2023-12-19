@@ -7,6 +7,7 @@ var status
 var progress = []
 var loading = false
 var loading_thread = false
+var load_failed = false
 @export var direc : String
 @onready var t: Tween
 var Seq :BattleSequence= preload("res://database/BattleSeq/DebugDummy.tres")
@@ -21,6 +22,7 @@ var Attacker: NPC
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
+
 
 signal ungray
 
@@ -39,7 +41,7 @@ func save(filename:String="Autosave", showicon=true):
 	print("Saving to user://"+filename+".tres")
 	if showicon:
 		icon_save()
-	var data:SaveFile =SaveFile.new()
+	var data:SaveFile = SaveFile.new()
 	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = PartyData.new()
@@ -88,8 +90,10 @@ func load_game(filename:String="Autosave"):
 	await get_tree().create_timer(1).timeout
 	var data:SaveFile = await load_res("user://"+filename+".tres")
 	if not validate_save(data):
-		OS.alert("Please reopen the game")
+		OS.alert("Save data is corrupt")
+		OS.set_restart_on_exit(true)
 		get_tree().quit()
+		return
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
@@ -127,10 +131,12 @@ func load_game(filename:String="Autosave"):
 
 
 func load_res(path:String):
+	load_failed = false
 	loaded_resource = path
 	ResourceLoader.load_threaded_request(path)
 	loading_thread=true
 	await thread_loaded
+	if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
@@ -163,7 +169,7 @@ func _process(delta):
 	if loading_thread == true:
 		status = ResourceLoader.load_threaded_get_status(loaded_resource)
 		error_handle(status)
-		if status == ResourceLoader.THREAD_LOAD_LOADED:
+		if status == ResourceLoader.THREAD_LOAD_LOADED or load_failed:
 			loading_thread = false
 			thread_loaded.emit()
 
@@ -370,9 +376,11 @@ func battle_bars(x: int):
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		OS.alert("THE RESOURCE FAILED TO LOAD, AND IT YOUR DAMN FAULT!", "OH FUCK")
+		OS.alert("THE RESOURCE FAILED TO LOAD! IF YOU ARE SAVE EDITING DELETE THE FILE RIGHT NOW!")
+		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
-		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!", "OH FUCK")
+		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!")
+		load_failed = true
 
 
 func chase_mode():

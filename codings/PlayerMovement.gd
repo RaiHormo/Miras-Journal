@@ -15,6 +15,7 @@ var undashable := false
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
 @export var can_dash = true
+const dash_speed := 200
 
 
 func _ready() -> void:
@@ -81,7 +82,7 @@ func control_process():
 					dashdir = Global.get_direction(direction)
 					dashing = true
 					Global.Controllable=false
-					speed = 175
+					speed = dash_speed
 					BodyState = CUSTOM
 					reset_speed()
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")

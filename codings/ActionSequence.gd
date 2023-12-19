@@ -52,7 +52,7 @@ func handle_states():
 				chara.set_health(1)
 			else:
 				Bt.damage(chara, 1, false, 20, false)
-				print(chara.FirstName, chara.States)
+				#print(chara.FirstName, chara.States)
 			await get_tree().create_timer(0.8).timeout
 
 	states_handled.emit()
