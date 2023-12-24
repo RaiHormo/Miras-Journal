@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=160 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -6,6 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_qf6k3"]
 [ext_resource type="Texture2D" uid="uid://lgbejsagsjik" path="res://art/sheets/axeAxe.png" id="4_r1qq4"]
 [ext_resource type="Texture2D" uid="uid://cp3tfsrympduk" path="res://art/OV/Mira/BagDash.png" id="5_07nn0"]
+[ext_resource type="Texture2D" uid="uid://y76yw14c0rn" path="res://art/OV/Mira/Sitting.png" id="7_xvm7m"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="8_332ra"]
 [ext_resource type="Texture2D" uid="uid://b8aiagab31eok" path="res://art/sheets/flameFlame.png" id="8_awiv6"]
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="9_1utjp"]
@@ -389,6 +390,22 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfu7y"]
 atlas = ExtResource("3_b3y6v")
 region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvust"]
+atlas = ExtResource("7_xvm7m")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gohd0"]
+atlas = ExtResource("7_xvm7m")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaawa"]
+atlas = ExtResource("7_xvm7m")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6yv"]
+atlas = ExtResource("7_xvm7m")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdsns"]
 atlas = ExtResource("9_1utjp")
@@ -1617,6 +1634,38 @@ animations = [{
 }],
 "loop": true,
 "name": &"PickUpRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvust")
+}],
+"loop": false,
+"name": &"SitDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gohd0")
+}],
+"loop": false,
+"name": &"SitLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iaawa")
+}],
+"loop": false,
+"name": &"SitRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr6yv")
+}],
+"loop": false,
+"name": &"SitUp",
 "speed": 5.0
 }, {
 "frames": [{
@@ -3343,10 +3392,8 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"DashLeftLoop"
+animation = &"SitDown"
 autoplay = "IdleDown"
-frame = 4
-frame_progress = 0.231303
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",
@@ -3364,7 +3411,7 @@ visible = false
 light_mask = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_i8hwj")
-animation = &"WalkUp"
+animation = &"SitDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",

@@ -102,3 +102,6 @@ func take_bag():
 	Global.item_sound()
 	Item.HasBag = true
 	Global.Player._check_party()
+
+func pass_time():
+	PartyUI.confirm_time_passage("Rest", "Fully recovers the party's HP", 2)

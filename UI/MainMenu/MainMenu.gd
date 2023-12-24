@@ -4,6 +4,7 @@ var rootIndex =1
 var t: Tween
 var prevRootIndex =1
 var zoom
+var z: int
 @onready var Player:Mira = Global.Player
 @onready var Cam:Camera2D = Global.get_cam()
 @onready var CamPrev:Camera2D = Global.get_cam().duplicate()
@@ -46,6 +47,7 @@ func _ready():
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
 	Player.get_node("%Base/Shadow").z_index = -1
+	z = Player.z_index
 	Player.z_index = 9
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
@@ -75,7 +77,6 @@ func _ready():
 			t.tween_property(i.get_child(0), "size:x", 200, 0.5)
 			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
 
-
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
@@ -104,7 +105,6 @@ func _input(event):
 					move_root()
 		"item":
 			pass
-
 
 func _on_focus_changed(control:Control):
 	if stage == "item":
@@ -153,7 +153,7 @@ func close():
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
 	await t.finished
-	Player.z_index = 1
+	Global.Area.handle_z(z)
 	Player.get_node("%Base/Shadow").z_index = 0
 	Global.Controllable = true
 	Global.get_cam().enabled = true
@@ -287,14 +287,12 @@ func _root():
 	await t.finished
 	if stage == "options": stage="root"
 
-
 func _journal():
 	if stage == "inactive": return
 	if rootIndex!=3:
 		rootIndex = 0
 		move_root()
 	pass
-
 
 func _item():
 	if stage == "inactive": return
@@ -379,10 +377,6 @@ func _options():
 	$Back.hide()
 	$Confirm.hide()
 
-
-
-
-
 func _on_confirm_button_down():
 	if stage == "item":
 		if PrevCtrl == null or PrevCtrl.get_meta("ItemData") == null: return
@@ -390,7 +384,6 @@ func _on_confirm_button_down():
 			Item.use(PrevCtrl.get_meta("ItemData"))
 			stage = "choose_member"
 			Global.confirm_sound()
-
 
 func _on_back_button_down():
 	#print(stage)
@@ -415,8 +408,6 @@ func _on_back_button_down():
 			await PartyUI._on_shrink()
 			PartyUI.UIvisible = false
 			stage = "item"
-
-
 
 func get_inventory():
 	await Item.verify_inventory()

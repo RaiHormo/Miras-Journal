@@ -26,7 +26,6 @@ var Preview
 
 signal ungray
 
-
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
@@ -48,6 +47,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Party.set_to(Global.Party)
 	data.Party.make_unique()
 	data.StartTime = Global.StartTime
+	data.Z = Global.Player.z_index
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.PlayTime
 	data.Position = Global.Player.global_position
@@ -120,6 +120,7 @@ func load_game(filename:String="Autosave"):
 	Global.Controllable =true
 	Event.Flags = data.Flags
 	PartyUI._check_party()
+	Global.Area.handle_z(data.Z)
 	await Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu") != null:
 		$/root.get_node("MainMenu").queue_free()
@@ -142,7 +143,7 @@ func load_res(path:String):
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
 
-func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
+func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans
 	if t.is_running(): await t.finished
 	Event.List.clear()
@@ -155,6 +156,7 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_
 	status = ResourceLoader.load_threaded_get_status(scene, progress)
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		await done()
+		if z >= 0: Global.Area.handle_z(z)
 	else:
 		Icon.play("Load")
 		loading = true

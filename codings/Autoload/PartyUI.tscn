@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=74 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -244,6 +244,199 @@ corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 expand_margin_left = 12.0
 expand_margin_right = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovcy8"]
+shader = ExtResource("7_jb2qv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+expand_margin_left = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ff6va"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_6s6fi"]
+default_font = ExtResource("8_wqv20")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
+Panel/styles/panel = SubResource("StyleBoxFlat_ff6va")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76g7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_jjjvx"]
+Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t876e"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_bumyi"]
+Panel/styles/panel = SubResource("StyleBoxFlat_t876e")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7akpu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_h8rhe"]
+Panel/styles/panel = SubResource("StyleBoxFlat_7akpu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ffbd"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgec6"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eidl"]
+content_margin_left = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwbw3"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.909804, 0.909804, 0.909804, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.909804, 0.909804, 0.909804, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wo7q"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="FontVariation" id="FontVariation_3cks5"]
+base_font = ExtResource("12_2fkxq")
+spacing_glyph = 1
+
+[sub_resource type="Theme" id="Theme_uf457"]
+default_font = SubResource("FontVariation_3cks5")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_pgec6")
+Button/styles/focus = SubResource("StyleBoxFlat_4eidl")
+Button/styles/hover = SubResource("StyleBoxFlat_kwbw3")
+Button/styles/normal = SubResource("StyleBoxFlat_0wo7q")
+Button/styles/pressed = SubResource("StyleBoxFlat_kwbw3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksnvr"]
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 25
+corner_radius_bottom_left = 25
+corner_detail = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf75l"]
 shader = ExtResource("7_jb2qv")
@@ -809,14 +1002,149 @@ alignment = 2
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("14_fmwou")
 alignment = 2
+
+[node name="Future" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.743
+anchor_right = 0.743
+offset_left = -1530.66
+offset_top = 807.239
+offset_right = -799.655
+offset_bottom = 897.239
+scale = Vector2(2, 2)
+alignment = 2
+
+[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Future"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_constants/icon_max_width = 64
+theme_override_fonts/font = ExtResource("12_2fkxq")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
+button_mask = 0
+text = "Morning"
+icon = ExtResource("14_fmwou")
+alignment = 2
+
+[node name="Action" type="Button" parent="CanvasLayer/CalendarBase"]
+visibility_layer = 1024
+texture_filter = 1
+material = SubResource("ShaderMaterial_ovcy8")
+layout_direction = 1
+offset_left = -1750.0
+offset_top = 208.0
+offset_right = -1719.0
+offset_bottom = 244.0
+scale = Vector2(5, 5)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_6s6fi")
+theme_override_font_sizes/font_size = 18
+text = "H"
+expand_icon = true
+
+[node name="Border1" type="Panel" parent="CanvasLayer/CalendarBase/Action"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -51.0
+offset_top = 12.0
+offset_right = 334.0
+offset_bottom = 174.0
+theme = SubResource("Theme_jjjvx")
+
+[node name="Border2" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 382.0
+offset_bottom = 159.0
+theme = SubResource("Theme_bumyi")
+
+[node name="Border3" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 380.0
+offset_bottom = 152.0
+theme = SubResource("Theme_h8rhe")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2/Border3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 369.0
+offset_bottom = 146.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ffbd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CalendarBase/Action"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 48.0
+offset_right = 304.0
+offset_bottom = 133.0
+theme_override_constants/line_separation = 12
+theme_override_font_sizes/normal_font_size = 18
+text = "Killing yourself will take you about an infinite amount of time."
+
+[node name="Nevermind" type="Button" parent="CanvasLayer/CalendarBase/Action"]
+unique_name_in_owner = true
+offset_left = -17.6555
+offset_top = 155.625
+offset_right = 213.345
+offset_bottom = 189.625
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 8
+theme = SubResource("Theme_uf457")
+text = "Nevermind"
+
+[node name="UseTime" type="Button" parent="CanvasLayer/CalendarBase/Action"]
+unique_name_in_owner = true
+offset_left = 157.631
+offset_top = 156.394
+offset_right = 364.631
+offset_bottom = 190.394
+scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 8
+theme = SubResource("Theme_uf457")
+text = "Use time"
+
+[node name="Arrow" type="Panel" parent="CanvasLayer/CalendarBase/Action"]
+offset_left = 344.397
+offset_top = 72.5096
+offset_right = 366.397
+offset_bottom = 113.51
+rotation = 3.14159
+scale = Vector2(0.559689, 0.559689)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ksnvr")
+
+[node name="Arrow" type="TextureRect" parent="CanvasLayer/CalendarBase"]
+visible = false
+layout_mode = 0
+offset_left = 687.524
+offset_top = 699.607
+offset_right = 761.524
+offset_bottom = 841.607
+rotation = -1.57079
+texture = ExtResource("6_w2g12")
 
 [node name="Back" type="Button" parent="CanvasLayer"]
 visibility_layer = 1024
@@ -860,4 +1188,5 @@ bus = &"UI"
 
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
+[connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_shrink"]

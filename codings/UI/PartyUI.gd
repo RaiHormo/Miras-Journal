@@ -136,6 +136,20 @@ func _input(ev):
 			$CanvasLayer/TextEdit.hide()
 			Global.Controllable = true
 
+func darken(toggle := true):
+	var t = create_tween()
+	t.set_parallel()
+	if toggle:
+		$CanvasLayer/Fade.show()
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
+		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+	else:
+		t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
+		await t.finished
+		$CanvasLayer/Fade.hide()
+
+
 func _on_expand(open_ui=0):
 	#print(open_ui)
 	t.kill()
@@ -176,8 +190,7 @@ func _on_expand(open_ui=0):
 		$CanvasLayer/Page4.hide()
 	if open_ui < 2:
 		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
-		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
-		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+		darken()
 
 	expand_panel(Partybox.get_node("Leader"))
 	expand_panel(Partybox.get_node("Member1"), 1)
@@ -252,8 +265,7 @@ func _on_shrink():
 
 	t.tween_property($CanvasLayer/Back, "position:x", -150, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
-	t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
+	darken(false)
 
 	shrink_panel(Partybox.get_node("Leader"), 0)
 	shrink_panel(Partybox.get_node("Member1"), 1)
@@ -492,4 +504,7 @@ func _on_item_preview_pressed():
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 	else: Global.buzzer_sound()
 	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
+
+func confirm_time_passage(title: String, description: String, to_time: int):
+	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=178 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -436,6 +436,7 @@ corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
+expand_margin_left = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
 content_margin_left = 6.0
@@ -1007,6 +1008,32 @@ action = &"PartyMenu"
 [sub_resource type="Shortcut" id="Shortcut_qtf0t"]
 events = [SubResource("InputEventAction_sm70d")]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mog53"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5wxi"]
+content_margin_left = 6.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
 [sub_resource type="Theme" id="Theme_5tvnb"]
 default_font = ExtResource("16_lt2mw")
 Button/colors/font_color = Color(0, 0, 0, 1)
@@ -1017,17 +1044,17 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
-Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
-Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/focus = SubResource("StyleBoxFlat_mog53")
+Button/styles/hover = SubResource("StyleBoxFlat_f5wxi")
+Button/styles/normal = SubResource("StyleBoxFlat_mog53")
+Button/styles/pressed = SubResource("StyleBoxFlat_mog53")
+Panel/styles/panel = SubResource("StyleBoxFlat_mog53")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxtaj"]
 atlas = ExtResource("15_mlxjv")
 region = Rect2(72, 18, 18, 18)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76g7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8st6"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1041,9 +1068,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_xlg74"]
-Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
+Panel/styles/panel = SubResource("StyleBoxFlat_u8st6")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t876e"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxqvi"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1057,9 +1084,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_qg3wj"]
-Panel/styles/panel = SubResource("StyleBoxFlat_t876e")
+Panel/styles/panel = SubResource("StyleBoxFlat_nxqvi")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7akpu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oukki"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1073,7 +1100,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_lh3jm"]
-Panel/styles/panel = SubResource("StyleBoxFlat_7akpu")
+Panel/styles/panel = SubResource("StyleBoxFlat_oukki")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ku"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)

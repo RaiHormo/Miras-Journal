@@ -82,7 +82,7 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_xqn8v"]
 Panel/styles/panel = SubResource("StyleBoxFlat_vikne")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgec6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56ras"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -100,7 +100,7 @@ corner_radius_bottom_left = 32
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eidl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8juak"]
 content_margin_left = 32.0
 content_margin_right = 32.0
 content_margin_bottom = 0.0
@@ -117,7 +117,7 @@ corner_radius_bottom_left = 42
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwbw3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tr53"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -135,7 +135,7 @@ corner_radius_bottom_left = 42
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wo7q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1d67"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -153,23 +153,23 @@ corner_radius_bottom_left = 32
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="FontVariation" id="FontVariation_3cks5"]
+[sub_resource type="FontVariation" id="FontVariation_ti8n5"]
 base_font = ExtResource("5_5e2vd")
 spacing_glyph = 1
 
 [sub_resource type="Theme" id="Theme_kq38n"]
-default_font = SubResource("FontVariation_3cks5")
+default_font = SubResource("FontVariation_ti8n5")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxFlat_pgec6")
-Button/styles/focus = SubResource("StyleBoxFlat_4eidl")
-Button/styles/hover = SubResource("StyleBoxFlat_kwbw3")
-Button/styles/normal = SubResource("StyleBoxFlat_0wo7q")
-Button/styles/pressed = SubResource("StyleBoxFlat_kwbw3")
+Button/styles/disabled = SubResource("StyleBoxFlat_56ras")
+Button/styles/focus = SubResource("StyleBoxFlat_8juak")
+Button/styles/hover = SubResource("StyleBoxFlat_6tr53")
+Button/styles/normal = SubResource("StyleBoxFlat_y1d67")
+Button/styles/pressed = SubResource("StyleBoxFlat_6tr53")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc2f1"]
 bg_color = Color(1, 1, 1, 1)
@@ -249,9 +249,9 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(-2, -2, -2),
+"transitions": PackedFloat32Array(-1.27456, -2, -2),
 "update": 0,
-"values": [Vector2(694, 220), Vector2(694, 210), Vector2(694, 220)]
+"values": [Vector2(694, 195), Vector2(694, 200), Vector2(694, 195)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbycd"]
@@ -268,24 +268,23 @@ pivot_offset = Vector2(635, 735)
 color = Color(0, 0, 0, 1)
 
 [node name="Glow" type="Panel" parent="Balloon"]
-modulate = Color(1, 1, 1, 0.139403)
+modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 0
-offset_left = 258.0
+offset_left = 255.0
 offset_top = 554.0
 offset_right = 1018.0
-offset_bottom = 794.0
-scale = Vector2(1.04065, 1.10568)
+offset_bottom = 777.0
 pivot_offset = Vector2(382, 120)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
 [node name="Glow2" type="Panel" parent="Balloon"]
-modulate = Color(0.7644, 0.747221, 0.732496, 0.48741)
+modulate = Color(0.623529, 0.596078, 0.572549, 0.333333)
 layout_mode = 0
-offset_left = 258.0
+offset_left = 255.0
 offset_top = 554.0
 offset_right = 1018.0
-offset_bottom = 794.0
-scale = Vector2(1.01565, 1.04068)
+offset_bottom = 779.0
+scale = Vector2(1.025, 1.065)
 pivot_offset = Vector2(382, 120)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
@@ -302,7 +301,7 @@ layout_mode = 2
 offset_left = 257.0
 offset_top = 557.0
 offset_right = 1006.0
-offset_bottom = 787.0
+offset_bottom = 764.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
 [node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_n6sll")]
@@ -322,9 +321,9 @@ AudioPlayer = NodePath("../../../AudioStreamPlayer")
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
 offset_left = 694.0
-offset_top = 217.2
+offset_top = 195.0
 offset_right = 742.0
-offset_bottom = 309.203
+offset_bottom = 287.004
 rotation = -1.5708
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_yps78")
@@ -334,7 +333,7 @@ layout_mode = 0
 offset_left = -1.0
 offset_top = -4.0
 offset_right = 759.0
-offset_bottom = 238.0
+offset_bottom = 220.0
 theme = SubResource("Theme_svg3g")
 
 [node name="Border2" type="Panel" parent="Balloon/Panel2/Border1"]
@@ -343,7 +342,7 @@ layout_mode = 0
 offset_left = 6.0
 offset_top = 5.0
 offset_right = 754.0
-offset_bottom = 237.0
+offset_bottom = 220.0
 theme = SubResource("Theme_hbabm")
 
 [node name="Border3" type="Panel" parent="Balloon/Panel2/Border1/Border2"]
@@ -352,7 +351,7 @@ layout_mode = 0
 offset_left = 3.0
 offset_top = 6.0
 offset_right = 743.0
-offset_bottom = 226.0
+offset_bottom = 210.0
 theme = SubResource("Theme_xqn8v")
 
 [node name="Responses" type="VBoxContainer" parent="Balloon"]

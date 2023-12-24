@@ -89,7 +89,7 @@ func new_game() -> void:
 	Item.MatInv.clear()
 	Party.reset_party()
 	Loader.white_fadeout()
-	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, "none")
+	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none")
 	await Event.wait(1)
 	Controllable = false
 	Global.Player.get_node("Base").play("OnFloor")

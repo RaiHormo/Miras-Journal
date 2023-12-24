@@ -28,6 +28,8 @@ Where to go?
 	Part?
 	- Start
 		do travel_to("Amberelm")
+	- Upstairs
+		do travel_to("Amberelm", Vector2(155, 347), 0, 7)
 
 => END
 

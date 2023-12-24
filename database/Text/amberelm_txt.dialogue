@@ -1,0 +1,13 @@
+~ amberelm_sign
+It's a broken sign with Cyrenian writing on it
+"Amberelm town"
+=> END
+
+~ the_sky
+do portrait("MiraNeutural")
+Mira: The sky here is as strange as ever.
+do portrait("MiraNeutural", false)
+Mira: Looks like we're near the sea, but it fades into those strange lines.
+do portrait("MiraNeutural", false)
+Mira: It's definitely far from my home...
+=> END

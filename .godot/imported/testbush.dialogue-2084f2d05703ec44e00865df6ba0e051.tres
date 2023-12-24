@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_xrk04"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_diacx"]
 
 [resource]
-script = ExtResource("1_xrk04")
+script = ExtResource("1_diacx")
 using_states = PackedStringArray()
 titles = {
-"add_to_party": "45",
+"add_to_party": "47",
 "bush": "3",
-"greetings": "36",
+"greetings": "38",
 "travel": "16"
 }
 character_names = PackedStringArray("Mira", "Erinn")
@@ -60,7 +60,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "17",
 "next_id": "18",
-"next_id_after": "32",
+"next_id_after": "34",
 "responses": PackedStringArray("17", "27"),
 "tags": PackedStringArray(),
 "text": "Temple Woods",
@@ -85,7 +85,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "19",
 "next_id": "20",
-"next_id_after": "32",
+"next_id_after": "34",
 "parent_id": "17",
 "responses": PackedStringArray("19", "21", "23", "25"),
 "tags": PackedStringArray(),
@@ -106,7 +106,7 @@ lines = {
 }])])
 }])
 },
-"next_id": "32",
+"next_id": "34",
 "parent_id": "19",
 "type": "mutation"
 },
@@ -115,7 +115,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "21",
 "next_id": "22",
-"next_id_after": "32",
+"next_id_after": "34",
 "parent_id": "17",
 "tags": PackedStringArray(),
 "text": "Lake",
@@ -148,7 +148,7 @@ lines = {
 }])])
 }])
 },
-"next_id": "32",
+"next_id": "34",
 "parent_id": "21",
 "type": "mutation"
 },
@@ -157,7 +157,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "23",
 "next_id": "24",
-"next_id_after": "32",
+"next_id_after": "34",
 "parent_id": "17",
 "tags": PackedStringArray(),
 "text": "Small temple",
@@ -190,7 +190,7 @@ lines = {
 }])])
 }])
 },
-"next_id": "32",
+"next_id": "34",
 "parent_id": "23",
 "type": "mutation"
 },
@@ -199,7 +199,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "25",
 "next_id": "26",
-"next_id_after": "32",
+"next_id_after": "34",
 "parent_id": "17",
 "tags": PackedStringArray(),
 "text": "Road",
@@ -232,7 +232,7 @@ lines = {
 }])])
 }])
 },
-"next_id": "32",
+"next_id": "34",
 "parent_id": "25",
 "type": "mutation"
 },
@@ -241,7 +241,7 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "27",
 "next_id": "28",
-"next_id_after": "32",
+"next_id_after": "34",
 "tags": PackedStringArray(),
 "text": "Amberelm",
 "text_replacements": Array[Dictionary]([]),
@@ -265,9 +265,9 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "29",
 "next_id": "30",
-"next_id_after": "32",
+"next_id_after": "34",
 "parent_id": "27",
-"responses": PackedStringArray("29"),
+"responses": PackedStringArray("29", "31"),
 "tags": PackedStringArray(),
 "text": "Start",
 "text_replacements": Array[Dictionary]([]),
@@ -304,24 +304,69 @@ lines = {
 }])])
 }])
 },
-"next_id": "32",
+"next_id": "34",
 "parent_id": "29",
 "type": "mutation"
 },
+"31": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "31",
+"next_id": "32",
+"next_id_after": "34",
+"parent_id": "27",
+"tags": PackedStringArray(),
+"text": "Upstairs",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Upstairs",
+"type": "response"
+},
 "32": {
 "id": "32",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "travel_to",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "Amberelm"
+}]), Array[Dictionary]([{
+"function": "Vector2",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "number",
+"value": 155
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 347
+}])])
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 0
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 7
+}])])
+}])
+},
+"next_id": "34",
+"parent_id": "31",
+"type": "mutation"
+},
+"34": {
+"id": "34",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"34": {
-"id": "34",
-"next_id": "36",
+"36": {
+"id": "36",
+"next_id": "38",
 "text": "greetings",
 "type": "title"
 },
-"36": {
-"id": "36",
+"38": {
+"id": "38",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -335,35 +380,6 @@ lines = {
 }])])
 }])
 },
-"next_id": "37",
-"type": "mutation"
-},
-"37": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"id": "37",
-"next_id": "38",
-"tags": PackedStringArray(),
-"text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
-"type": "dialogue"
-},
-"38": {
-"id": "38",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraOpenMouth"
-}]), Array[Dictionary]([{
-"type": "variable",
-"value": "false"
-}])])
-}])
-},
 "next_id": "39",
 "type": "mutation"
 },
@@ -371,11 +387,11 @@ lines = {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "id": "39",
-"next_id": "41",
+"next_id": "40",
 "tags": PackedStringArray(),
-"text": "I can still move while saying this.[next=auto]",
+"text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "I can still move while saying this.[next=auto]",
+"translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
 "type": "dialogue"
 },
 "4": {
@@ -389,73 +405,69 @@ lines = {
 "translation_key": "Yes, this is [[indeed|in fact]] a bush",
 "type": "dialogue"
 },
+"40": {
+"id": "40",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraOpenMouth"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "false"
+}])])
+}])
+},
+"next_id": "41",
+"type": "mutation"
+},
 "41": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
 "id": "41",
+"next_id": "43",
+"tags": PackedStringArray(),
+"text": "I can still move while saying this.[next=auto]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "I can still move while saying this.[next=auto]",
+"type": "dialogue"
+},
+"43": {
+"id": "43",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"43": {
-"id": "43",
-"next_id": "45",
+"45": {
+"id": "45",
+"next_id": "47",
 "text": "add_to_party",
 "type": "title"
 },
-"45": {
+"47": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
-"id": "45",
-"next_id": "46",
+"id": "47",
+"next_id": "48",
 "tags": PackedStringArray(),
 "text": "Add to party",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Add to party",
 "type": "dialogue"
 },
-"46": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
-"id": "46",
-"next_id": "47",
-"next_id_after": "54",
-"responses": PackedStringArray("46", "48", "50", "52"),
-"tags": PackedStringArray(),
-"text": "Mira",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Mira",
-"type": "response"
-},
-"47": {
-"id": "47",
-"mutation": {
-"expression": Array[Dictionary]([{
-"type": "variable",
-"value": "Party"
-}, {
-"type": "dot"
-}, {
-"function": "add",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "Mira"
-}])])
-}])
-},
-"next_id": "54",
-"parent_id": "46",
-"type": "mutation"
-},
 "48": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
 "id": "48",
 "next_id": "49",
-"next_id_after": "54",
+"next_id_after": "56",
+"responses": PackedStringArray("48", "50", "52", "54"),
 "tags": PackedStringArray(),
-"text": "Alcine",
+"text": "Mira",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Alcine",
+"translation_key": "Mira",
 "type": "response"
 },
 "49": {
@@ -471,11 +483,11 @@ lines = {
 "type": "function",
 "value": Array[Array]([Array[Dictionary]([{
 "type": "string",
-"value": "Alcine"
+"value": "Mira"
 }])])
 }])
 },
-"next_id": "54",
+"next_id": "56",
 "parent_id": "48",
 "type": "mutation"
 },
@@ -497,11 +509,11 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "50",
 "next_id": "51",
-"next_id_after": "54",
+"next_id_after": "56",
 "tags": PackedStringArray(),
-"text": "Erinn",
+"text": "Alcine",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Erinn",
+"translation_key": "Alcine",
 "type": "response"
 },
 "51": {
@@ -517,11 +529,11 @@ lines = {
 "type": "function",
 "value": Array[Array]([Array[Dictionary]([{
 "type": "string",
-"value": "Erinn"
+"value": "Alcine"
 }])])
 }])
 },
-"next_id": "54",
+"next_id": "56",
 "parent_id": "50",
 "type": "mutation"
 },
@@ -530,15 +542,48 @@ lines = {
 "character_replacements": Array[Dictionary]([]),
 "id": "52",
 "next_id": "53",
-"next_id_after": "54",
+"next_id_after": "56",
+"tags": PackedStringArray(),
+"text": "Erinn",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Erinn",
+"type": "response"
+},
+"53": {
+"id": "53",
+"mutation": {
+"expression": Array[Dictionary]([{
+"type": "variable",
+"value": "Party"
+}, {
+"type": "dot"
+}, {
+"function": "add",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "Erinn"
+}])])
+}])
+},
+"next_id": "56",
+"parent_id": "52",
+"type": "mutation"
+},
+"54": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "54",
+"next_id": "55",
+"next_id_after": "56",
 "tags": PackedStringArray(),
 "text": "Clear",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Clear",
 "type": "response"
 },
-"53": {
-"id": "53",
+"55": {
+"id": "55",
 "mutation": {
 "expression": Array[Dictionary]([{
 "type": "variable",
@@ -551,12 +596,12 @@ lines = {
 "value": Array[Array]([])
 }])
 },
-"next_id": "54",
-"parent_id": "52",
+"next_id": "56",
+"parent_id": "54",
 "type": "mutation"
 },
-"54": {
-"id": "54",
+"56": {
+"id": "56",
 "mutation": {
 "expression": Array[Dictionary]([{
 "type": "variable",
@@ -569,11 +614,11 @@ lines = {
 "value": "true"
 }])
 },
-"next_id": "56",
+"next_id": "58",
 "type": "mutation"
 },
-"56": {
-"id": "56",
+"58": {
+"id": "58",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"

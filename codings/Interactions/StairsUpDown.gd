@@ -1,4 +1,5 @@
 extends Area2D
+class_name Stair
 
 @export_flags_2d_physics var LayersUp := 1
 @export_flags_2d_physics var LayersDown := 1
@@ -14,13 +15,19 @@ func _on_body_entered(body: Node2D) -> void:
 		dir = Global.get_direction(dir)
 		if Swap: dir *= -1
 		if dir == Vector2.UP:
-			Global.Player.collision_layer = LayersUp
-			Global.Player.collision_mask = LayersUp
-			Global.Player.z_index = zUp
+			go_up()
 		elif dir == Vector2.DOWN:
-			Global.Player.collision_layer = LayersDown
-			Global.Player.collision_mask = LayersDown
-			Global.Player.z_index = zDown
+			go_down()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Finder": _on_body_entered(body)
+
+func go_up():
+	Global.Player.collision_layer = LayersUp
+	Global.Player.collision_mask = LayersUp
+	Global.Player.z_index = zUp
+
+func go_down():
+	Global.Player.collision_layer = LayersDown
+	Global.Player.collision_mask = LayersDown
+	Global.Player.z_index = zDown

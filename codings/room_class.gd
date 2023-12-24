@@ -6,12 +6,13 @@ class_name Room
 @export var SpawnPath: Node = self
 ##In tilemap coords
 @export var SpawnPos: Vector2 = Vector2(0,0)
-@export var SpawnZ: int = 1
+@export var SpawnZ: Array[int] = [1]
 @export_flags_2d_physics var SpawnLayers := 1
 @export var AutoLimits = false
 ##[x]: left [y]: top [z]: right [w]: bottom]
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
+@export var Stairs: Array[Stair]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 ##[0]: left [1]: top [2]: right [3: bottom]
 var bounds : Vector4
@@ -52,7 +53,7 @@ func _ready():
 	await Event.wait()
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)
-		Global.Player.z_index = SpawnZ
+		handle_z()
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers
 	Global.area_initialized.emit()
@@ -70,5 +71,14 @@ func calculate_bounds():
 	bounds *= 24
 	Size = Vector2(abs(bounds[LEFT])+bounds[RIGHT], abs(bounds[TOP])+bounds[BOTTOM])
 
-
+func handle_z(z := SpawnZ[Global.CameraInd]):
+	Global.Player.z_index = z
+	for i in get_children():
+		if i is Stair and i not in Stairs:
+			Stairs.append(i)
+	for i in Stairs:
+		if i.zUp == Global.Player.z_index:
+			i.go_up()
+		if i.zDown == Global.Player.z_index:
+			i.go_down()
 

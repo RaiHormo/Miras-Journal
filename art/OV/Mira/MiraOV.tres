@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=179 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=184 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://rp8uf0rdpmbv" path="res://art/OV/Mira/Deny.png" id="5_50yt6"]
 [ext_resource type="Texture2D" uid="uid://dlt2hga7mq0aw" path="res://art/OV/Mira/Getup.png" id="6_2ft10"]
 [ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="6_iuohf"]
+[ext_resource type="Texture2D" uid="uid://y76yw14c0rn" path="res://art/OV/Mira/Sitting.png" id="8_0hv12"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0usjx"]
 atlas = ExtResource("1_uisfp")
@@ -643,6 +644,22 @@ region = Rect2(32, 1600, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_80ebs"]
 atlas = ExtResource("1_uisfp")
 region = Rect2(64, 1600, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6cy3"]
+atlas = ExtResource("8_0hv12")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s41nh"]
+atlas = ExtResource("8_0hv12")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64b6o"]
+atlas = ExtResource("8_0hv12")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u1id"]
+atlas = ExtResource("8_0hv12")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lk5pe"]
 atlas = ExtResource("1_uisfp")
@@ -1380,6 +1397,38 @@ animations = [{
 }],
 "loop": true,
 "name": &"PickUpRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6cy3")
+}],
+"loop": false,
+"name": &"SitDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s41nh")
+}],
+"loop": false,
+"name": &"SitLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64b6o")
+}],
+"loop": false,
+"name": &"SitRight",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u1id")
+}],
+"loop": false,
+"name": &"SitUp",
 "speed": 5.0
 }, {
 "frames": [{

@@ -7,7 +7,8 @@ class_name SaveFile
 @export var Room: String
 @export var RoomName: String = "???"
 @export var Position:Vector2
-@export var Camera:int = 0
+@export var Camera: int = 0
+@export var Z: int = 1
 @export var Members: Array[Actor]
 @export var Defeated: Array
 @export var StartTime: float
