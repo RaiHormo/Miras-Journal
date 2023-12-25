@@ -7,6 +7,7 @@ var List: Array[NPC]
 var Flags: Array[StringName]
 var Day: int
 var Month: String = "November"
+var tutorial: String
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -105,3 +106,7 @@ func take_bag():
 
 func pass_time():
 	PartyUI.confirm_time_passage("Rest", "Fully recovers the party's HP", 2)
+
+func pop_tutorial(id: String):
+	tutorial = id
+	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())

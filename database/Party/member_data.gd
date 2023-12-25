@@ -120,3 +120,7 @@ func has_state(x: String):
 		if States[i-1].name == x:
 			return true
 	return false
+
+func full_heal():
+	Health = MaxHP
+	Aura = MaxAura

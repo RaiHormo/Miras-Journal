@@ -91,16 +91,16 @@ func new_game() -> void:
 	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none")
 	await Event.wait(1)
+	reset_all_members()
 	Controllable = false
-	Global.Player.get_node("Base").play("OnFloor")
-	Global.Player.get_node("Base/Shadow").hide()
-	Global.Player._check_party()
-	Global.Player.flame_active = false
+	Player.set_anim("OnFloor")
+	Player.get_node("%Base/Shadow").modulate = Color.TRANSPARENT
+	Player._check_party()
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	PartyUI.UIvisible = false
-	t.tween_property(Global.get_cam(), "zoom", Vector2(6,6), 10).from(Vector2(4,4))
+	t.tween_property(get_cam(), "zoom", Vector2(6,6), 10).from(Vector2(4,4))
 	await t.finished
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -115,14 +115,14 @@ func new_game() -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
+	PartyUI.disabled = true
 	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
 	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
-	t.tween_property(Global.get_cam(), "zoom", Vector2(5,5), 5)
-	Global.Player.set_anim("GetUp")
-	await Global.Player.get_node("Base").animation_finished
-	Global.Player.set_anim("IdleUp")
-	Global.Player.get_node("Base/Shadow").show()
-	Global.Controllable = true
+	t.tween_property(get_cam(), "zoom", Vector2(5,5), 5)
+	t.tween_property(Player.get_node("%Base/Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
+	await Player.set_anim("GetUp")
+	Player.set_anim("IdleUp")
+	Controllable = true
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if node == null: return
@@ -228,12 +228,13 @@ func reset_settings() -> void:
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.tres"):
+		print("No settings found, initializing...")
 		reset_settings()
 		await get_tree().create_timer(0.5).timeout
-	Settings = preload("user://Settings.tres")
+	Settings = load("user://Settings.tres")
 	if Settings.Fullscreen:
 		fullscreen()
-	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
+	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 
 func get_playtime() -> int:
 	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime
@@ -286,6 +287,14 @@ func get_member_name(n:int) -> String:
 	else:
 		return "Null"
 
+func heal_party() -> void:
+	for i in Members:
+		i.full_heal()
+
+func reset_all_members() -> void:
+	for i in range(-1, Members.size() - 1):
+		Members[i] = load("res://database/Party/"+ Members[i].FirstName +".tres")
+
 func find_member(Name: String) -> Actor:
 	for i in Members:
 		if i.FirstName == Name: return i
@@ -296,7 +305,7 @@ func init_party(party:PartyData) -> void:
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
-			Members.push_front(file)
+			Members.push_front(file.duplicate())
 	#Party = PartyData.new()
 	Party.set_to(party)
 
@@ -498,7 +507,7 @@ func jump_to(character:Node, position:Vector2, time:float, height: float =0.1) -
 	var jump_height : float = jump_distance * height #will need tweaking
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
+	t.tween_method(_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
 
@@ -509,7 +518,7 @@ func jump_to_global(character:Node, position:Vector2, time:float, height: float 
 	var jump_height : float = jump_distance * height #will need tweaking
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(Global.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
+	t.tween_method(global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
 

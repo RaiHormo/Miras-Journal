@@ -18,6 +18,7 @@ var enabled = true
 var WasPaused = false
 var MemberChoosing = false
 @onready var Partybox = $CanvasLayer
+var disabled = false
 
 func _ready():
 	$CanvasLayer.hide()
@@ -28,23 +29,13 @@ func _ready():
 	if not Loader.InBattle:
 		_on_shrink()
 		UIvisible = true
-#	else:
-#		battle_state()
 
 
 func _process(delta):
-	#print(Loader.InBattle)
+	if disabled: UIvisible = false
 	if Expanded:
 		handle_ui()
-#	if Loader.InBattle and get_parent() is Control:
-#		if get_parent().Action:
-#			_check_party()
-#	pass
 	if not Loader.InBattle:
-#		if Expanded and $CanvasLayer/Leader.scale.x==1:
-#			_on_expand()
-#		elif (not Expanded) and $CanvasLayer/Leader.scale.x==1.5:
-#			_on_shrink()
 		if not enabled: UIvisible = false
 		if UIvisible and $CanvasLayer.visible==false and enabled:
 			$CanvasLayer.show()
@@ -91,17 +82,20 @@ func _input(ev):
 	if Input.is_action_just_pressed("Options") and not Global.Player.dashing:
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
-			if Expanded == true:
-				Tempvis=true
-				$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
-				$Audio.play()
-				_on_shrink()
-				Global.cancel_sound()
-			elif Global.Controllable:
-				_on_expand()
-				$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
-				$Audio.play()
-				Global.confirm_sound()
+		if disabled:
+			Global.buzzer_sound()
+			return
+		if Expanded == true:
+			Tempvis=true
+			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
+			$Audio.play()
+			_on_shrink()
+			Global.cancel_sound()
+		elif Global.Controllable:
+			_on_expand()
+			$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
+			$Audio.play()
+			Global.confirm_sound()
 	if Input.is_action_pressed(Global.cancel()) and Expanded:
 		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 		$Audio.play()
@@ -130,7 +124,10 @@ func _input(ev):
 			$CanvasLayer/TextEdit.grab_focus()
 			Global.Controllable = false
 		else:
-			if $CanvasLayer/TextEdit.text != "":
+			if "/day " in $CanvasLayer/TextEdit.text:
+				$CanvasLayer/TextEdit.text.replace("/day ", "")
+				Event.Day = int($CanvasLayer/TextEdit.text)
+			elif $CanvasLayer/TextEdit.text != "":
 				Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
 				Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
 			$CanvasLayer/TextEdit.hide()

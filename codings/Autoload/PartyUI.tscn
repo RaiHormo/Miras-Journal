@@ -248,7 +248,7 @@ expand_margin_right = 8.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ovcy8"]
 shader = ExtResource("7_jb2qv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jen5"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -262,7 +262,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 expand_margin_left = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ff6va"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pu2pc"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -285,13 +285,13 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/hover = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
-Panel/styles/panel = SubResource("StyleBoxFlat_ff6va")
+Button/styles/focus = SubResource("StyleBoxFlat_7jen5")
+Button/styles/hover = SubResource("StyleBoxFlat_7jen5")
+Button/styles/normal = SubResource("StyleBoxFlat_7jen5")
+Button/styles/pressed = SubResource("StyleBoxFlat_7jen5")
+Panel/styles/panel = SubResource("StyleBoxFlat_pu2pc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76g7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nu4k"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -305,9 +305,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_jjjvx"]
-Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
+Panel/styles/panel = SubResource("StyleBoxFlat_8nu4k")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t876e"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yo7cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -321,9 +321,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_bumyi"]
-Panel/styles/panel = SubResource("StyleBoxFlat_t876e")
+Panel/styles/panel = SubResource("StyleBoxFlat_yo7cv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7akpu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tos5t"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -337,12 +337,12 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_h8rhe"]
-Panel/styles/panel = SubResource("StyleBoxFlat_7akpu")
+Panel/styles/panel = SubResource("StyleBoxFlat_tos5t")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ffbd"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgec6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lo1s"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -360,7 +360,7 @@ corner_radius_bottom_left = 32
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eidl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1c5u"]
 content_margin_left = 32.0
 content_margin_right = 32.0
 content_margin_bottom = 0.0
@@ -377,7 +377,7 @@ corner_radius_bottom_left = 42
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwbw3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rw7mo"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -395,7 +395,7 @@ corner_radius_bottom_left = 42
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wo7q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dt4t"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -413,12 +413,12 @@ corner_radius_bottom_left = 32
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
-[sub_resource type="FontVariation" id="FontVariation_3cks5"]
+[sub_resource type="FontVariation" id="FontVariation_hi2ka"]
 base_font = ExtResource("12_2fkxq")
 spacing_glyph = 1
 
 [sub_resource type="Theme" id="Theme_uf457"]
-default_font = SubResource("FontVariation_3cks5")
+default_font = SubResource("FontVariation_hi2ka")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_hover_color = Color(0.890196, 0.576471, 0.431373, 1)
@@ -426,11 +426,11 @@ Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxFlat_pgec6")
-Button/styles/focus = SubResource("StyleBoxFlat_4eidl")
-Button/styles/hover = SubResource("StyleBoxFlat_kwbw3")
-Button/styles/normal = SubResource("StyleBoxFlat_0wo7q")
-Button/styles/pressed = SubResource("StyleBoxFlat_kwbw3")
+Button/styles/disabled = SubResource("StyleBoxFlat_7lo1s")
+Button/styles/focus = SubResource("StyleBoxFlat_m1c5u")
+Button/styles/hover = SubResource("StyleBoxFlat_rw7mo")
+Button/styles/normal = SubResource("StyleBoxFlat_0dt4t")
+Button/styles/pressed = SubResource("StyleBoxFlat_rw7mo")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksnvr"]
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
@@ -1046,6 +1046,7 @@ visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_ovcy8")
 layout_direction = 1
+layout_mode = 0
 offset_left = -1750.0
 offset_top = 208.0
 offset_right = -1719.0
@@ -1107,6 +1108,7 @@ text = "Killing yourself will take you about an infinite amount of time."
 
 [node name="Nevermind" type="Button" parent="CanvasLayer/CalendarBase/Action"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = -17.6555
 offset_top = 155.625
 offset_right = 213.345
@@ -1118,6 +1120,7 @@ text = "Nevermind"
 
 [node name="UseTime" type="Button" parent="CanvasLayer/CalendarBase/Action"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 157.631
 offset_top = 156.394
 offset_right = 364.631
@@ -1128,6 +1131,7 @@ theme = SubResource("Theme_uf457")
 text = "Use time"
 
 [node name="Arrow" type="Panel" parent="CanvasLayer/CalendarBase/Action"]
+layout_mode = 0
 offset_left = 344.397
 offset_top = 72.5096
 offset_right = 366.397

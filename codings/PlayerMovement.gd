@@ -23,14 +23,11 @@ func _ready() -> void:
 	speed = 75
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
-	#if Event.check_flag("FlameActive"): activate_flame(false)
-	#else: flame_active = false
-	#Global.Tilemap = Global.Tilemap
-	#Global.Area = Global.Tilemap.get_parent()
 	await Event.wait()
 	if Global.Tilemap == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
+		queue_free()
 		return
 	Global.check_party.connect(_check_party)
 	Loader.InBattle = false

@@ -737,14 +737,11 @@ navigation_polygon = SubResource("NavigationPolygon_p1yj5")
 
 [node name="TutorialDash" type="Area2D" parent="."]
 position = Vector2(117.057, 250.973)
-collision_layer = 15
-collision_mask = 15
 script = ExtResource("20_3kjcl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialDash"]
 position = Vector2(0.488701, 23.4993)
 shape = SubResource("RectangleShape2D_gy6qp")
-debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
 
 [connection signal="body_entered" from="Alcine/Area2D" to="Alcine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LightUp" to="LightUp" method="_on_body_entered"]

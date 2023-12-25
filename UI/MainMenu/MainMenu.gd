@@ -16,8 +16,10 @@ func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 	if not Item.HasBag or Item.KeyInv.is_empty():
-		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+		Global.buzzer_sound()
 		queue_free()
+		get_tree().paused = false
+		Global.Controllable = true
 		return
 	show()
 	Cam.limit_smoothed = true

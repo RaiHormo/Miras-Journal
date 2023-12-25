@@ -281,7 +281,7 @@ func start_battle(stg):
 		if i != null: i.hide()
 
 func end_battle():
-	Global.get_cam().zoom = Vector2(5,5)
+	Global.get_cam().zoom = CamZoom
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)

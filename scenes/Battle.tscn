@@ -436,7 +436,6 @@ corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
-expand_margin_left = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
 content_margin_left = 6.0
