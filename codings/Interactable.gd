@@ -17,16 +17,22 @@ var t:Tween
 @onready var button:Button
 @onready var arrow:TextureRect
 @onready var pack := $Pack
+@export var hide_on_flag: StringName
+@export var add_flag: bool = false
+@export var hide_parent: bool = false
 
 
 func _ready() -> void:
 	$Pack.hide()
 	$Pack.position.y -= Height
+	if Event.f(hide_on_flag):
+		if hide_parent: get_parent().queue_free()
+		else: queue_free()
 
 func _process(delta: float) -> void:
 	if pack == null:
 		pack = $Pack.duplicate()
-	if has_overlapping_areas() and Global.Controllable:
+	if Global.Player != null and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
 		if not pack.visible:
@@ -91,6 +97,7 @@ func _on_button_pressed() -> void:
 			PartyUI.UIvisible = true
 			Global.Controllable = true
 		"item":
+			if not Item.HasBag: Global.toast("A bag is needed to store that."); return
 			Item.add_item(item, itemtype)
 		"battle":
 			Loader.start_battle(file)
@@ -99,5 +106,7 @@ func _on_button_pressed() -> void:
 		"event":
 			Event.call(file)
 	if hidesprite:
-		get_parent().hide()
+		if add_flag: Event.f(hide_on_flag, true)
 		if Collision != null: Collision.disabled = true
+		if hide_parent: get_parent().queue_free()
+		else: queue_free()

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ckt1n"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_qpg8b"]
 
 [resource]
-script = ExtResource("1_ckt1n")
+script = ExtResource("1_qpg8b")
 using_states = PackedStringArray()
 titles = {
 "as_lost_as_you": "32",
@@ -13,6 +13,7 @@ titles = {
 "haha": "39",
 "hey_wait": "20",
 "im_not_gonna_harm_you": "25",
+"skeleton": "57",
 "stay_back": "53",
 "that_should_do_it": "6",
 "was_that_a": "10"
@@ -441,13 +442,64 @@ Was that another monster?",
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "id": "54",
-"next_id": "",
+"next_id": "57",
 "tags": PackedStringArray(),
 "text": "You stay behind me,
 I'll deal with it!",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "You stay behind me,
 I'll deal with it!",
+"type": "dialogue"
+},
+"56": {
+"id": "56",
+"next_id": "57",
+"text": "skeleton",
+"type": "title"
+},
+"57": {
+"condition": {
+"expression": Array[Dictionary]([{
+"type": "not"
+}, {
+"function": "f",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtSkeleton"
+}])])
+}, {
+"type": "colon"
+}])
+},
+"id": "57",
+"next_conditional_id": "61",
+"next_id": "58",
+"next_id_after": "end!",
+"type": "condition"
+},
+"58": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "58",
+"next_id": "59",
+"parent_id": "57",
+"tags": PackedStringArray(),
+"text": "...There's no mistaking it, that's a skeleton.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...There's no mistaking it, that's a skeleton.",
+"type": "dialogue"
+},
+"59": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "59",
+"next_id": "60",
+"parent_id": "57",
+"tags": PackedStringArray(),
+"text": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
 "type": "dialogue"
 },
 "6": {
@@ -459,6 +511,44 @@ I'll deal with it!",
 "text": "That should do it.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "That should do it.",
+"type": "dialogue"
+},
+"60": {
+"id": "60",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "f",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtSkeleton"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "true"
+}])])
+}])
+},
+"next_id": "end!",
+"parent_id": "57",
+"type": "mutation"
+},
+"61": {
+"id": "61",
+"next_conditional_id": "end!",
+"next_id": "62",
+"next_id_after": "end!",
+"type": "condition"
+},
+"62": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "62",
+"next_id": "end!",
+"parent_id": "61",
+"tags": PackedStringArray(),
+"text": "...Let's just move on.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...Let's just move on.",
 "type": "dialogue"
 },
 "7": {

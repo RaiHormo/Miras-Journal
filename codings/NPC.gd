@@ -189,3 +189,6 @@ func shade(opacity: float = 0.8) -> void:
 func unshade() -> void:
 	var t = create_tween()
 	t.tween_property($Sprite, "modulate", Color.WHITE, 0.3)
+
+func collision(tog: bool = $CollisionShape2D.disabled):
+	$CollisionShape2D.disabled = not tog

@@ -123,6 +123,7 @@ func new_game() -> void:
 	await Player.set_anim("GetUp")
 	Player.set_anim("IdleUp")
 	Controllable = true
+	Event.pop_tutorial("walk")
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if node == null: return
@@ -480,8 +481,7 @@ func get_affinity(attacker:Color) -> Affinity:
 	return aff
 
 func toggle(boo:bool) -> bool:
-	if boo: return false
-	else: return true
+	return not boo
 
 func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
@@ -496,7 +496,6 @@ func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, tar
 	var r = q0.lerp(q1, ti)
 
 	target.global_position = r
-
 #endregion
 
 #region Quick Tweens

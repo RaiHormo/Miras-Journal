@@ -52,3 +52,11 @@ Mira: Looks good on you!
 ~ stay_back
 do portrait("MiraOpenMouth")
 Mira: You stay behind me,\nI'll deal with it!
+
+~ skeleton
+if not f("LookedAtSkeleton"):
+	...There's no mistaking it, that's a skeleton.
+	From the skull shape it seems human, but I don't want to look at it more than I have to.
+	do f("LookedAtSkeleton", true)
+else: 
+	...Let's just move on.

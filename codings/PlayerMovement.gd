@@ -115,7 +115,7 @@ func control_process():
 		if Input.is_action_just_pressed("DebugF"):
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
-		check_for_jumps()
+		#check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):
 			#print(Global.Tilemap)
 			#print(Global.Tilemap.local_to_map(global_position))

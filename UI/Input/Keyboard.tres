@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_g3dkl"]
 [ext_resource type="Texture2D" uid="uid://c67hybgw1i630" path="res://UI/Input/Z.png" id="2_08ilm"]
 [ext_resource type="Texture2D" uid="uid://b7c6n1k4856fo" path="res://UI/Input/S.png" id="2_m1gnw"]
-[ext_resource type="Texture2D" uid="uid://davgq77l63vh5" path="res://UI/Input/Δ.png" id="4_6u7fm"]
+[ext_resource type="Texture2D" uid="uid://cvx36n4qs58sf" path="res://UI/Input/⇧.png" id="4_b52jf"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="5_c1tnp"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_tcskx"]
 [ext_resource type="Texture2D" uid="uid://hiql8lqd7ybf" path="res://UI/Input/⭾.png" id="7_61pbh"]
@@ -23,7 +23,7 @@ ItemIcon = ExtResource("6_tcskx")
 CommandIcon = ExtResource("2_m1gnw")
 Start = ExtResource("8_up4nc")
 Select = ExtResource("7_61pbh")
-Dash = ExtResource("4_6u7fm")
+Dash = ExtResource("4_b52jf")
 R = ExtResource("7_g0u4i")
 RZ = ExtResource("8_vqo3u")
 L = ExtResource("5_c1tnp")

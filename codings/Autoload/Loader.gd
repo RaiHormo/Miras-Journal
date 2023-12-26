@@ -196,7 +196,7 @@ func transition(dir=Global.get_dir_letter()):
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
 	elif dir == "R":
 		t.parallel()
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-204), 0.3).from(Vector2(-1720,-204))
+		t.tween_property($Can/Bars/Left, "global_position", Vector2(0,-204), 0.3).from(Vector2(-1720,-204))
 	elif dir == "L":
 		t.parallel()
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))

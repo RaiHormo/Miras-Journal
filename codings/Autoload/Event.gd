@@ -92,12 +92,10 @@ func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
 
 func f(flag:StringName, state = null) -> bool:
-	if state == null:
-		return check_flag(flag)
-	elif state is bool:
-		if state: add_flag(flag); return true
-		else: remove_flag(flag); return false
-	else: return false
+	if state is bool:
+		if state: add_flag(flag)
+		else: remove_flag(flag)
+	return check_flag(flag)
 
 func take_bag():
 	Global.item_sound()

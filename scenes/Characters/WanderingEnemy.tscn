@@ -249,7 +249,7 @@ shape = SubResource("CapsuleShape2D_s7t5g")
 debug_color = Color(0.721569, 0.415686, 0.635294, 0.419608)
 
 [node name="CatchArea" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 255
 collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CatchArea"]

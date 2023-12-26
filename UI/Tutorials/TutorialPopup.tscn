@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dp06lj85ovb8f"]
+[gd_scene load_steps=8 format=3 uid="uid://dp06lj85ovb8f"]
 
 [ext_resource type="Script" path="res://codings/UI/tutorial_popup.gd" id="1_kw845"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="2_irc8o"]
@@ -20,40 +20,17 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_77ie1"]
 Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t876e"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-draw_center = false
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.584314, 0.584314, 0.584314, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcgxk"]
+content_margin_left = 48.0
+content_margin_top = 18.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.921569, 0.921569, 0.921569, 1)
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-
-[sub_resource type="Theme" id="Theme_kore5"]
-Panel/styles/panel = SubResource("StyleBoxFlat_t876e")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7akpu"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-draw_center = false
-border_width_left = 11
-border_width_top = 8
-border_width_right = 16
-border_width_bottom = 8
-border_color = Color(0.305882, 0.305882, 0.305882, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="Theme" id="Theme_x2cbo"]
-Panel/styles/panel = SubResource("StyleBoxFlat_7akpu")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba28o"]
-bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dxh1"]
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
@@ -64,73 +41,37 @@ corner_detail = 1
 [node name="Control" type="CanvasLayer"]
 script = ExtResource("1_kw845")
 
-[node name="Border1" type="Panel" parent="."]
+[node name="Border1" type="PanelContainer" parent="."]
 show_behind_parent = true
-offset_left = -33.0
-offset_top = 622.0
+offset_left = -20.0
+offset_top = 628.0
 offset_right = 352.0
-offset_bottom = 785.0
+offset_bottom = 708.0
 theme = SubResource("Theme_77ie1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
 
 [node name="Label" type="Label" parent="Border1"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 102.0
-offset_right = 356.0
-offset_bottom = 151.0
+visible = false
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 0.466667)
 theme_override_fonts/font = ExtResource("2_irc8o")
 theme_override_font_sizes/font_size = 48
 text = "TUTORIAL"
 
-[node name="Border2" type="Panel" parent="Border1"]
-show_behind_parent = true
-layout_mode = 2
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 381.0
-offset_bottom = 159.0
-theme = SubResource("Theme_kore5")
-
-[node name="Border3" type="Panel" parent="Border1/Border2"]
-show_behind_parent = true
-layout_mode = 0
-offset_left = 1.0
-offset_top = 4.0
-offset_right = 377.0
-offset_bottom = 152.0
-theme = SubResource("Theme_x2cbo")
-
-[node name="Panel" type="Panel" parent="Border1/Border2/Border3"]
-show_behind_parent = true
-layout_mode = 0
-offset_left = 7.0
-offset_top = 6.0
-offset_right = 369.0
-offset_bottom = 146.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ba28o")
-
 [node name="Text" type="RichTextLabel" parent="Border1"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 56.0
-offset_top = 24.0
-offset_right = 345.0
-offset_bottom = 138.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 12
 theme_override_fonts/normal_font = ExtResource("3_c8w00")
 theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
-text = "Press  [img]res://UI/Input/Z.png[/img]  to blah blah."
+text = "[center]Press  [img]res://UI/Input/Z.png[/img]  to blah blah.[/center]"
+fit_content = true
+scroll_active = false
 autowrap_mode = 2
 
 [node name="Arrow" type="Panel" parent="Border1"]
 visible = false
 layout_mode = 2
-offset_left = 344.397
-offset_top = 72.5096
-offset_right = 366.397
-offset_bottom = 113.51
-rotation = 3.14159
-scale = Vector2(0.559689, 0.559689)
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
