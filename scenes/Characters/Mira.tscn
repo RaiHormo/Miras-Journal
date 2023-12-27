@@ -1,4 +1,4 @@
-[gd_scene load_steps=160 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=161 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -3368,6 +3368,9 @@ fill_to = Vector2(0.811966, 0.850427)
 shader = ExtResource("12_l2wig")
 shader_parameter/lod = 1.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vcrc"]
+size = Vector2(27.5, 24)
+
 [node name="Mira" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 process_mode = 3
 z_index = 1
@@ -3392,7 +3395,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"SitDown"
+animation = &"AttackRightWindup"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -3444,7 +3447,6 @@ metadata/_aseprite_wizard_config_ = {
 
 [node name="Flame" type="AnimatedSprite2D" parent="Sprite/Base"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
-light_mask = 0
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
@@ -3527,3 +3529,13 @@ layout_mode = 0
 offset_right = 617.0
 offset_bottom = 467.0
 color = Color(0, 0, 0, 1)
+
+[node name="Attack" type="Area2D" parent="."]
+visible = false
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+position = Vector2(22.9999, -0.0677922)
+shape = SubResource("RectangleShape2D_0vcrc")
+debug_color = Color(0.964706, 0, 0.494118, 0.419608)

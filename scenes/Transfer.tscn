@@ -18,6 +18,7 @@ script = ExtResource("1_6swgh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.116028, 0.174988)
 shape = SubResource("RectangleShape2D_vr85b")
+debug_color = Color(0.294118, 0.611765, 0.427451, 0.419608)
 
 [node name="Preview" type="Area2D" parent="."]
 z_as_relative = false

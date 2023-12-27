@@ -456,12 +456,22 @@ func _on_auto_hide_hud(index: int) -> void:
 
 
 func _show_image_test() -> void:
-	$ImageTester.show()
+	#$ImageTester.show()
+	$Fader.hide()
+	%SettingsVbox/BCSadjust.show()
 
 func _hide_image_test() -> void:
 	$ImageTester.hide()
+	$Fader.show()
+	Event.wait(0.1)
+	%SettingsVbox/AdjustImage.button_pressed = false
+	_on_adjust_image(false)
 
 
 func _on_adjust_image(toggle:bool) -> void:
-	if toggle: %SettingsVbox/BCSadjust.show()
+	if toggle:
+		%SettingsVbox/BCSadjust.show()
+		%SettingsVbox/BCSadjust/BrtSlider.grab_focus()
+		await Event.wait()
+		Global.confirm_sound()
 	else: %SettingsVbox/BCSadjust.hide()

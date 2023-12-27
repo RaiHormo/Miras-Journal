@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://86w2a5minhs3"
+path="res://.godot/imported/VinesBlockingTheWay.aseprite-c2009dc6f21f5e3fafc0f814b0245f49.res"
+
+[deps]
+
+source_file="res://art/OV/Objects/VinesBlockingTheWay.aseprite"
+dest_files=["res://.godot/imported/VinesBlockingTheWay.aseprite-c2009dc6f21f5e3fafc0f814b0245f49.res"]
+
+[params]
+

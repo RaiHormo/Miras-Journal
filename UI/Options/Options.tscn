@@ -771,10 +771,11 @@ text = "Glow effect"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../AdjustImage")
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="ResetVolume2" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="AdjustImage" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -1312,8 +1313,8 @@ texture = ExtResource("26_375bk")
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
-[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume2" to="." method="_on_last_setting"]
-[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume2" to="." method="_on_adjust_image"]
+[connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_last_setting"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_adjust_image"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_show_image_test"]
 [connection signal="focus_exited" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_hide_image_test"]
 [connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_on_brightness"]

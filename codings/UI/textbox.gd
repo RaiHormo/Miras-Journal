@@ -263,7 +263,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
 		Global.confirm_sound()
 		t = create_tween()
-		t.tween_property(responses_menu, "position", Vector2(1832,30), 0.1)
+		t.tween_property(responses_menu, "position", Vector2(1032,30), 0.1)
 		await t.finished
 		next(dialogue_line.responses[item.get_index()].next_id)
 	if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():

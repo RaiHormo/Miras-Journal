@@ -86,6 +86,7 @@ script = ExtResource("1_prqri")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.8147e-06, -3.8147e-06)
 shape = SubResource("CircleShape2D_7h34c")
+debug_color = Color(0.745098, 0.337255, 0.803922, 0.419608)
 
 [node name="Pack" type="Control" parent="."]
 visible = false

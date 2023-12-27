@@ -40,6 +40,7 @@ func _ready() -> void:
 		$Camera2D.remote_path = cam.get_path()
 		cam.enabled = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
+	$Attack/CollisionShape2D.disabled = true
 
 
 func extended_process() -> void:
@@ -122,6 +123,8 @@ func control_process():
 			for i in Global.Tilemap.get_layers_count():
 				if Global.Tilemap.get_cell_tile_data(i, coords) != null:
 					check_terrain(Global.Tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
+		if Input.is_action_just_pressed("OVAttack"):
+			attack()
 
 
 func update_anim_prm() -> void:
@@ -183,7 +186,8 @@ func _check_party() -> void:
 		%Base/Bag/Axe.hide()
 
 ##Sets the animation for all sprite layers
-func set_anim(anim:String) -> void:
+func set_anim(anim:String = "Idle"+Global.get_dir_name()) -> void:
+	if anim not in %Base.sprite_frames.get_animation_names(): return
 	%Base.play(anim)
 	if anim in %Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
 		%Base/Bag.show()
@@ -293,3 +297,20 @@ func bump() -> void:
 func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
 	$Camera2D.update_position = follow
 
+func attack():
+	reset_speed()
+	Global.Controllable = false
+	set_anim("Attack"+Global.get_dir_name()+"Windup")
+	while Input.is_action_pressed("OVAttack"): await Event.wait()
+	$Attack/CollisionShape2D.disabled = false
+	$Attack.rotation = Global.get_direction().angle()
+	var hits = false
+	for i in Global.Tilemap.get_layers_count():
+		if ((Global.Tilemap.get_cell_tile_data(i, coords+Global.get_direction()*1)!= null and Global.Tilemap.get_cell_tile_data(i, coords+Global.get_direction()*1).get_collision_polygons_count(0)>0) or
+			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
+				hits = true
+	if hits: await set_anim("Attack" + Global.get_dir_name() + "Hit")
+	else: await set_anim("Attack" + Global.get_dir_name())
+	Global.Controllable = true
+	set_anim()
+	$Attack/CollisionShape2D.disabled = true
