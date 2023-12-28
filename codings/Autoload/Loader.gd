@@ -22,6 +22,7 @@ var Attacker: NPC
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
+var BtAdvantage = 0
 
 
 signal ungray
@@ -185,6 +186,7 @@ func transition(dir=Global.get_dir_letter()):
 	t.set_trans(Tween.TRANS_QUART)
 	$Can.show()
 	$Can.layer = 9
+	$Can/Bars.modulate = Color.WHITE
 	direc = dir
 	if Icon.is_playing():
 		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
@@ -233,8 +235,7 @@ func detransition():
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
-	$Can/Bars/Up.modulate = Color.WHITE
-	$Can/Bars/Down.modulate = Color.WHITE
+	$Can/Bars.self_modulate = Color.WHITE
 	if direc == "U":
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-1096), 0.3)
 	elif direc == "D":
@@ -253,15 +254,16 @@ func detransition():
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
 
-func start_battle(stg):
+##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
+func start_battle(stg, advantage := 0):
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = true
 	PartyUI.UIvisible = false
+	BtAdvantage = advantage
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
-	#get_node("/root/Area/TileMap/OvPlayer/Body/Camera2D").current = false
 	if stg is String:
 		Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
 	elif stg is BattleSequence:
@@ -271,9 +273,16 @@ func start_battle(stg):
 		return
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
-		battle_bars(4)
+		battle_bars(2, 0.8, Tween.EASE_OUT)
+		t = create_tween()
+		t.set_trans(Tween.TRANS_QUART)
+		t.set_ease(Tween.EASE_OUT)
+		t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.8).as_relative()
+		#t.tween_property(Global.get_cam(), "global_position", global_position, 0.4)
 		await t.finished
+		await battle_bars(4, 0.5, Tween.EASE_IN)
 	Global.get_cam().position_smoothing_enabled = false
+	#Engine.time_scale = 1
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
 	if Attacker!=null: Attacker.hide()
@@ -338,43 +347,39 @@ func icon_save():
 	await t.finished
 	$Can.hide()
 
-func battle_bars(x: int):
+func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	if t != null:
 		t.kill()
 	$Can.layer = 2
 	$Can.show()
 	t=create_tween()
 	t.set_parallel(true)
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
+	t.set_ease(ease)
+	t.set_trans(Tween.TRANS_QUART)
 	match x:
 		0:
 			t.tween_property(Global.get_cam(), "zoom", CamZoom, 1)
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.5)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.5)
-			await t.finished
-			$Can.hide()
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), time)
 		1:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), 0.5)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1000), 0.5)
-			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,0.5), 1)
-			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,0.5), 1)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1000), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.5), time)
 		2:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,600), 0.5)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-900), 0.5)
-			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,0.7), 1)
-			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,0.7), 1)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,600), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-900), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.7), time)
 		3:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,550), 0.5)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-850), 0.5)
-			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,0.7), 1)
-			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,0.7), 1)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,550), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-850), time)
+			#t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.7), time*2)
 		4:
-			t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), 0.5)
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), 0.5)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), 0.5)
-			t.tween_property($Can/Bars/Up, "modulate", Color(1,1,1,1), 0.2)
-			t.tween_property($Can/Bars/Down, "modulate", Color(1,1,1,1), 0.2)
+			t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), time)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)
+	await t.finished
+	if x == 0: $Can.hide()
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
@@ -433,3 +438,9 @@ func validate_save(save: SaveFile = load("user://Autosave.tres")) -> bool:
 			DirAccess.remove_absolute("user://Autosave.tres")
 			return false
 	else: return false
+
+func flash_attacker():
+	if Attacker == null: return
+	t = create_tween()
+	t.tween_property(Attacker.get_node("Flash"), "energy", 10, 0.1)
+	t.tween_property(Attacker.get_node("Flash"), "energy", 0, 1)

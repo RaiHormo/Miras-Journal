@@ -9,7 +9,7 @@ extends CanvasLayer
 var mem: TextProfile
 var next_box: String = ""
 var currun = false
-@onready var t :Tween = get_tree().create_tween()
+@onready var t :Tween
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -241,12 +241,7 @@ func _on_mutated(_mutation: Dictionary) -> void:
 	will_hide_balloon = true
 	get_tree().create_timer(0.1).timeout.connect(func():
 		if will_hide_balloon:
-			will_hide_balloon = false
-
-			)
-
-
-
+			will_hide_balloon = false)
 
 func _on_response_mouse_entered(item: Control) -> void:
 	if "Disallowed" in item.name: return
@@ -281,12 +276,6 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 		next(dialogue_line.next_id)
 	elif (event.is_action_pressed(Global.confirm()) or event.is_action_pressed("Dash")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
-
-
-#func _on_margin_resized() -> void:
-#	handle_resize()
-
-
 
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout

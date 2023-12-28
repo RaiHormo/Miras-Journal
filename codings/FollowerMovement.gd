@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Follower
 
 var speed = 60
 var direction : Vector2
@@ -28,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 		collision_mask = Global.Player.collision_mask
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
-		if Loader.chased or not Global.Controllable:
+		if Loader.chased:
 			$CollisionShape2D.disabled = true
 		if nav_agent.distance_to_target() > 150:
 				global_position = Global.Player.global_position
@@ -45,15 +46,11 @@ func _physics_process(_delta: float) -> void:
 				$CollisionShape2D.disabled = false
 		elif nav_agent.distance_to_target() < 20:
 			add_collision_exception_with(Global.Player)
-			if Global.Player.direction != Vector2.ZERO:
-				#speed = 80
-				animate()
-				#print(oposite)
-				oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
+			animate()
+			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite
 			realvelocity = Global.Player.direction
 			move_and_slide()
-			#$CollisionShape2D.disabled = true
 		#if realvelocity == Vector2.ZERO:
 			#position = round(position)
 		#print((global_position-oldposition).length())
@@ -101,7 +98,6 @@ func animate():
 			$AnimatedSprite2D.play("WalkDown")
 
 
-
 func _on_timer_timeout():
 	if Global.Party.check_member(member):
 		animate()
@@ -109,3 +105,5 @@ func _on_timer_timeout():
 func member_info() -> Actor:
 	return Global.Party.get_member(member)
 
+func attacked():
+	Global.jump_to(self, position-Vector2(Global.get_direction()*24), 5, 0.5)

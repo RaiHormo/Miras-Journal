@@ -5,7 +5,7 @@ class_name Battle
 @export var Troop: Array[Actor]
 @export var TurnOrder: Array[Actor]
 @export var Turn: int = 0
-@export var CurrentChar: Actor
+@export var CurrentChar: Actor = Global.Party.Leader
 @export var TurnInd: int = -1
 signal GetControl
 @onready var t = Tween
@@ -91,6 +91,9 @@ func _ready():
 		Troop[i].Health = Troop[i].MaxHP
 		Troop[i].Aura = Troop[i].MaxAura
 		dub.add_child(Troop[i].SoundSet.instantiate())
+	if Loader.BtAdvantage == 1:
+		for i in TurnOrder:
+			if not i.IsEnemy: i.Speed += 5
 	TurnOrder.sort_custom(speed_sort)
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder.size():
@@ -194,6 +197,8 @@ func entrance():
 	t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
 	await get_tree().create_timer(0.3).timeout
 	$EnemyUI.all_enemy_ui()
+	if Loader.BtAdvantage == 1:
+		for i in Troop: damage(i, 1, false, 24/Troop.size())
 	await get_tree().create_timer(0.5).timeout
 	for i in Global.number_of_party_members():
 		entrance_anim(i)

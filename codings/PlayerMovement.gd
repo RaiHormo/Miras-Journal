@@ -41,6 +41,7 @@ func _ready() -> void:
 		cam.enabled = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
+	$Attack/AttackPreview/CollisionShape2D.disabled = true
 
 
 func extended_process() -> void:
@@ -51,6 +52,7 @@ func extended_process() -> void:
 		check_flame()
 	if midair:
 		pass
+	if direction != Vector2.ZERO: Global.PlayerDir = direction
 
 func control_process():
 	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
@@ -300,17 +302,60 @@ func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
 func attack():
 	reset_speed()
 	Global.Controllable = false
-	set_anim("Attack"+Global.get_dir_name()+"Windup")
-	while Input.is_action_pressed("OVAttack"): await Event.wait()
-	$Attack/CollisionShape2D.disabled = false
+	$Attack/AttackPreview.collision_layer = collision_layer
+	$Attack/AttackPreview/CollisionShape2D.disabled = false
+	var checked := false
+	await Event.wait()
+	check_before_attack()
 	$Attack.rotation = Global.get_direction().angle()
+	await set_anim("Attack"+Global.get_dir_name()+"Windup")
+	while Input.is_action_pressed("OVAttack") or not checked:
+		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
+		if direction != Vector2.ZERO: Global.PlayerDir = direction
+		set_anim("Attack"+Global.get_dir_name()+"Windup")
+		check_before_attack()
+		checked = true
+		await get_tree().physics_frame
+	$Attack/CollisionShape2D.disabled = false
 	var hits = false
-	for i in Global.Tilemap.get_layers_count():
-		if ((Global.Tilemap.get_cell_tile_data(i, coords+Global.get_direction()*1)!= null and Global.Tilemap.get_cell_tile_data(i, coords+Global.get_direction()*1).get_collision_polygons_count(0)>0) or
-			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
-				hits = true
-	if hits: await set_anim("Attack" + Global.get_dir_name() + "Hit")
-	else: await set_anim("Attack" + Global.get_dir_name())
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	for i in $Attack.get_overlapping_bodies():
+		print(i)
+		if not (i is NPC or i is Follower or i is Mira):
+			hits = true
+	#print("pt1: " + str(hits))
+	for i in $Attack.get_overlapping_bodies():
+		print(i)
+		if (i is NPC or i is Follower) and not i is Mira:
+			hits = false
+	#print("pt2: " + str(hits))
+	var audio = preload("res://sound/SFX/Etc/Swing.ogg")
+	var anim = "Attack" + Global.get_dir_name()
+	if hits:
+		anim = "Attack" + Global.get_dir_name() + "Hit"
+		audio = preload("res://sound/SFX/Etc/AxeBlock.ogg")
+	$Audio.stream = audio
+	$Audio.play()
+	await set_anim(anim)
 	Global.Controllable = true
-	set_anim()
-	$Attack/CollisionShape2D.disabled = true
+	if Input.is_action_pressed("OVAttack"): attack()
+	else:
+		set_anim()
+		$Attack/CollisionShape2D.disabled = true
+		$Attack/AttackPreview/CollisionShape2D.disabled = true
+
+func check_before_attack():
+	%Base.frame = 1
+	$Attack.rotation = Global.get_direction().angle()
+	for i in $Attack/AttackPreview.get_overlapping_bodies():
+		if i is NPC or i is Follower:
+			i.attacked()
+
+func dramatic_attack_pause():
+	while not Global.Controllable:
+		if %Base.animation == "Attack"+Global.get_dir_name():
+			%Base.pause()
+			#Loader.flash_attacker()
+			return
+		else: await Event.wait()

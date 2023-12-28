@@ -68,6 +68,7 @@ func _check_party():
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUAD)
+	Troop = get_parent().Troop
 	if Troop.size() >= 0:
 		$Enemy0/Name.text = Troop[0].FirstName
 		t.tween_property($Enemy0/Health, "value",Troop[0].Health, 0.3)

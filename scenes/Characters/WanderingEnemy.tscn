@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://usn8pirw8kjc"]
+[gd_scene load_steps=31 format=3 uid="uid://usn8pirw8kjc"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" path="res://codings/Characters/CrawlingSludge.gd" id="2_2fny2"]
@@ -90,7 +90,6 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
-radius = 7.0011
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7t5g"]
 radius = 34.0005
@@ -208,16 +207,27 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
+[sub_resource type="Gradient" id="Gradient_4pn5g"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v3lgp"]
+gradient = SubResource("Gradient_4pn5g")
+fill = 1
+fill_from = Vector2(0.491453, 0.504274)
+fill_to = Vector2(0.141026, 0.884615)
+
+[node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 material = ExtResource("1_blols")
-position = Vector2(1639.09, 373.626)
+collision_layer = 513
+collision_mask = 513
 motion_mode = 1
 script = ExtResource("2_2fny2")
 Battle = ExtResource("3_ku8yi")
 speed = 20
 ID = "CS2"
-Nav = NodePath("Nav")
+Nav = Object(NavigationAgent2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","target_position":Vector2(0, 0),"path_desired_distance":20.0,"target_desired_distance":1.0,"path_max_distance":100.0,"navigation_layers":2,"pathfinding_algorithm":0,"path_postprocessing":0,"path_metadata_flags":7,"avoidance_enabled":false,"velocity":Vector2(0, 0),"radius":10.0,"neighbor_distance":500.0,"max_neighbors":10,"time_horizon_agents":1.0,"time_horizon_obstacles":0.0,"max_speed":100.0,"avoidance_layers":1,"avoidance_mask":1,"avoidance_priority":1.0,"debug_enabled":false,"debug_use_custom":false,"debug_path_custom_color":Color(1, 1, 1, 1),"debug_path_custom_point_size":4.0,"debug_path_custom_line_width":-1.0,"script":null)
+
 SpawnOnCameraInd = true
 CameraIndex = 1
 
@@ -226,17 +236,14 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-0.0498047, 5.866)
 sprite_frames = SubResource("SpriteFrames_hks0y")
 animation = &"WalkLeft"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0.0012207, 6.00002)
 shape = SubResource("CircleShape2D_7bu4m")
 
 [node name="DirectionMarker" type="Marker2D" parent="."]
-position = Vector2(3.00128, 5.9993)
 
 [node name="Finder" type="Area2D" parent="DirectionMarker"]
 collision_layer = 0
@@ -249,11 +256,11 @@ shape = SubResource("CapsuleShape2D_s7t5g")
 debug_color = Color(0.721569, 0.415686, 0.635294, 0.419608)
 
 [node name="CatchArea" type="Area2D" parent="."]
-collision_layer = 255
-collision_mask = 255
+collision_layer = 767
+collision_mask = 767
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CatchArea"]
-position = Vector2(0.00280762, 7.99951)
+position = Vector2(0, 4.76837e-07)
 rotation = 1.57007
 shape = SubResource("CircleShape2D_o5d30")
 debug_color = Color(0.235294, 0.631373, 0.317647, 0.419608)
@@ -272,5 +279,12 @@ frame_progress = 1.0
 target_desired_distance = 1.0
 navigation_layers = 2
 
+[node name="Flash" type="PointLight2D" parent="."]
+position = Vector2(0, 3.8147e-06)
+scale = Vector2(2.70313, 2.70313)
+energy = 0.0
+texture = SubResource("GradientTexture2D_v3lgp")
+
 [connection signal="area_entered" from="DirectionMarker/Finder" to="." method="_on_finder_area_entered"]
+[connection signal="area_entered" from="CatchArea" to="." method="_on_catch_area_area_entered"]
 [connection signal="body_entered" from="CatchArea" to="." method="_on_catch_area_body_entered"]

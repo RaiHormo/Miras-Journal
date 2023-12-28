@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=202 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=205 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
@@ -29,6 +29,22 @@ region = Rect2(384, 40, 96, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_smibv"]
 atlas = ExtResource("2_too55")
 region = Rect2(480, 40, 96, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbvek"]
+atlas = ExtResource("2_too55")
+region = Rect2(0, 120, 96, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyio1"]
+atlas = ExtResource("2_too55")
+region = Rect2(96, 120, 96, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vpa6"]
+atlas = ExtResource("2_too55")
+region = Rect2(192, 120, 96, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l46gg"]
+atlas = ExtResource("2_too55")
+region = Rect2(288, 120, 96, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfn0k"]
 atlas = ExtResource("2_too55")
@@ -69,10 +85,6 @@ region = Rect2(192, 80, 96, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_78ylx"]
 atlas = ExtResource("2_too55")
 region = Rect2(288, 80, 96, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vjw8x"]
-atlas = ExtResource("2_too55")
-region = Rect2(384, 80, 96, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uujl"]
 atlas = ExtResource("2_too55")
@@ -807,6 +819,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tbvek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyio1")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_3vpa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l46gg")
+}],
+"loop": false,
+"name": &"AttackLeftHit",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dfn0k")
 }, {
 "duration": 1.0,
@@ -840,14 +869,11 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lrmrc")
 }, {
-"duration": 1.0,
+"duration": 1.2,
 "texture": SubResource("AtlasTexture_6bpdn")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_78ylx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vjw8x")
 }],
 "loop": false,
 "name": &"AttackRightHit",

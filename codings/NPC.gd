@@ -130,6 +130,9 @@ func look_to(dir:Vector2):
 	Facing=Global.get_direction(dir.normalized())
 	print(dir, Facing)
 
+func go_to_global(pos:Vector2,  exact=true, autostop = true) -> void:
+	await go_to(Global.Tilemap.local_to_map(pos), exact, autostop)
+
 func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: return
@@ -192,3 +195,6 @@ func unshade() -> void:
 
 func collision(tog: bool = $CollisionShape2D.disabled):
 	$CollisionShape2D.disabled = not tog
+
+func attacked():
+	pass

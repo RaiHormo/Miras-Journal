@@ -46,8 +46,11 @@ func move_to(pos:Vector2=Global.get_direction(), chara:String="P"):
 ## [codeblock]
 ##await get_tree().create_timer(time).timeout
 ##[/codeblock]
-func wait(time:float=0.01) -> void:
-	await get_tree().create_timer(time).timeout
+func wait(time:float=0) -> void:
+	if time != 0:
+		await get_tree().create_timer(time).timeout
+	else:
+		await get_tree().physics_frame
 
 ##Tween an [NPC] to the specified coords (ignores all collision)
 func twean_to(pos:Vector2, time:float=1, chara:String="P"):

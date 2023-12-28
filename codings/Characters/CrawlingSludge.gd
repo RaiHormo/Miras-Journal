@@ -3,12 +3,20 @@ var PinRange = false
 @export var Battle: BattleSequence
 @export var Defeated = false
 var lock = false
+var homepoints: Array[Vector2]
 
 func default():
 	Nav = $Nav
-	while not PinRange:
-		await move_dir(Vector2(randf_range(-3,3), randf_range(-3,3)), false)
+	if get_node_or_null("HomePoints") != null:
+		for i in $HomePoints.get_children():
+			homepoints.append(i.global_position)
+	patrol()
 
+func patrol():
+	if not homepoints.is_empty():
+		while not PinRange:
+			await go_to_global(homepoints.pick_random())
+			await Event.wait(randf_range(0,3))
 
 func extended_process():
 	if self.get_path in Loader.Defeated:
@@ -45,7 +53,7 @@ func _on_finder_area_entered(area):
 		speed = 20
 		Loader.chased = false
 		PinRange = false
-		default()
+		patrol()
 
 
 func _on_catch_area_body_entered(body):
@@ -53,7 +61,18 @@ func _on_catch_area_body_entered(body):
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		Loader.Attacker = self
-		await Loader.start_battle(Battle)
-		global_position = DefaultPos
+		begin_battle()
 
+func begin_battle(advatage := 0):
+	Loader.Attacker = self
+	await Loader.start_battle(Battle, advatage)
+	global_position = DefaultPos
+
+func attacked():
+	#Global.jump_to(self, position+Global.get_direction()*12, 5, 0.5)
+	if PinRange: begin_battle()
+	else: begin_battle(1)
+	await Global.Player.dramatic_attack_pause()
+
+func _on_catch_area_area_entered(area: Area2D) -> void:
+	if area.name == "Attack": attacked()

@@ -488,7 +488,8 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
 
-	target.position = r
+	if target.has_method("is_on_wall") and target.is_on_wall(): return
+	else: target.position = r
 
 func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
@@ -499,7 +500,7 @@ func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, tar
 #endregion
 
 #region Quick Tweens
-func jump_to(character:Node, position:Vector2, time:float, height: float =0.1) -> void:
+func jump_to(character:Node, position:Vector2, time:float=5, height: float =0.5) -> void:
 	var t:Tween = create_tween()
 	var start = character.position
 	var jump_distance : float = start.distance_to(position)
