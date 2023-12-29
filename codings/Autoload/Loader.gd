@@ -141,8 +141,8 @@ func load_res(path:String):
 	if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
-func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, trans=Global.get_dir_letter()):
-	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, trans)
+func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
+	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, z, trans)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans

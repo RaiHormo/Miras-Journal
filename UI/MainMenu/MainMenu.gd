@@ -3,6 +3,7 @@ var stage
 var rootIndex =1
 var t: Tween
 var prevRootIndex =1
+var prevPos: Vector2
 var zoom
 var z: int
 @onready var Player:Mira = Global.Player
@@ -38,14 +39,17 @@ func _ready():
 	Fader.show()
 	stage = "inactive"
 	zoom = Global.get_cam().zoom
+	prevPos = Global.Player.global_position
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	t.tween_property(Cam, "limit_bottom",  10000000, 0.5)
-	t.tween_property(Cam, "limit_top",  -10000000, 0.5)
-	t.tween_property(Cam, "limit_left",  -10000000, 0.5)
-	t.tween_property(Cam, "limit_right",  10000000, 0.5)
+	#t.tween_property(Cam, "limit_bottom",  10000000, 0.5)
+	#t.tween_property(Cam, "limit_top",  -10000000, 0.5)
+	#t.tween_property(Cam, "limit_left",  -10000000, 0.5)
+	#t.tween_property(Cam, "limit_right",  10000000, 0.5)
+	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
+	t.tween_property(Global.Player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
 	Player.get_node("%Base/Shadow").z_index = -1
@@ -54,7 +58,6 @@ func _ready():
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
-	t.tween_property(Cam, "position", Player.global_position + Vector2(0, (-11 + 	zoom.y)), 0.5)
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
 
@@ -147,6 +150,7 @@ func close():
 	t.tween_property($Rail/QuestFollow/QuestButton, "position:x", -30, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "size:x", 64, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "position:x", -30, 0.3)
+	t.tween_property(Global.Player, "global_position", prevPos, 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
@@ -154,9 +158,9 @@ func close():
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
-	await t.finished
 	Global.Area.handle_z(z)
 	Player.get_node("%Base/Shadow").z_index = 0
+	await t.finished
 	Global.Controllable = true
 	Global.get_cam().enabled = true
 	Fader.hide()
@@ -282,7 +286,7 @@ func _root():
 	t.tween_property($Inventory, "size", Vector2.ZERO, 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "position", (Vector2(803, 400)), 0.3)
-	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.8)
+	t.tween_property(Cam, "offset:x", 0, 0.8)
 	t.tween_property($DottedBack, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
@@ -337,7 +341,7 @@ func _item():
 	$Inventory.show()
 	t.tween_property($Inventory, "size", Vector2(547, 549), 0.3).from(Vector2.ZERO)
 	t.tween_property($Inventory, "position", Vector2(241, 123), 0.3).from(Vector2(803, 446))
-	t.tween_property(Cam, "offset", Vector2(100 ,0), 0.6)
+	t.tween_property(Cam, "offset:x", 100, 0.6)
 	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
 	if not Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
@@ -375,7 +379,7 @@ func _options():
 	t.tween_property($Rail, "modulate", Color.TRANSPARENT, 0.5)
 	t.tween_property($Rail, "position:x", -200, 0.5).as_relative()
 	t.tween_property($Base, "position:x", -200, 0.5).as_relative()
-	t.tween_property(Cam, "offset", Vector2(70 ,0), 0.5)
+	t.tween_property(Cam, "offset:x", 70, 0.5)
 	$Back.hide()
 	$Confirm.hide()
 

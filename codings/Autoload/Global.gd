@@ -370,6 +370,7 @@ func toast(string: String) -> void:
 		await Event.wait()
 	get_tree().root.add_child(preload("res://UI/Misc/Toast.tscn").instantiate())
 	await Event.wait()
+	if get_node_or_null("/root/Toast") == null: return
 	$"/root/Toast/BoxContainer/Toast/Label".text = string
 
 

@@ -189,7 +189,9 @@ func _check_party() -> void:
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String = "Idle"+Global.get_dir_name()) -> void:
-	if anim not in %Base.sprite_frames.get_animation_names(): return
+	if anim not in %Base.sprite_frames.get_animation_names():
+		await Event.wait()
+		return
 	%Base.play(anim)
 	if anim in %Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
 		%Base/Bag.show()
@@ -252,7 +254,7 @@ func check_for_jumps() -> void:
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash() -> void:
-	if BodyState!=CONTROLLED or "Stop" in %Base.animation or "Hit" in %Base.animation or midair: return
+	if BodyState!=CONTROLLED or "Stop" in %Base.animation or "Hit" in %Base.animation or midair or not dashing: return
 	dashing = false
 	speed = 75
 	#print(realvelocity)
@@ -293,7 +295,7 @@ func bump() -> void:
 	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 	Global.Controllable=false
-	await %Base.animation_finished
+	if %Base.is_playing(): await %Base.animation_finished
 	Global.Controllable=true
 
 func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:

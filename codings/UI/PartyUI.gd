@@ -79,7 +79,7 @@ func _input(ev):
 		Global.Controllable=false
 		get_tree().paused = true
 		get_tree().root.add_child(MainMenu.instantiate())
-	if Input.is_action_just_pressed("Options") and not Global.Player.dashing:
+	if Input.is_action_just_pressed("Options") and "Idle" in Global.Player.get_node("%Base").animation:
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
 	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
 		if disabled:
@@ -117,21 +117,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("DebugA"):
 		Global.textbox("testbush", "add_to_party")
 	if Input.is_action_just_pressed("DebugFlag"):
-		if not $CanvasLayer/TextEdit.visible:
-			print(Event.Flags)
-			$CanvasLayer/TextEdit.show()
-			$CanvasLayer/TextEdit.text = ""
-			$CanvasLayer/TextEdit.grab_focus()
-			Global.Controllable = false
-		else:
-			if "/day " in $CanvasLayer/TextEdit.text:
-				$CanvasLayer/TextEdit.text.replace("/day ", "")
-				Event.Day = int($CanvasLayer/TextEdit.text)
-			elif $CanvasLayer/TextEdit.text != "":
-				Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
-				Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
-			$CanvasLayer/TextEdit.hide()
-			Global.Controllable = true
+		cmd()
 
 func darken(toggle := true):
 	var t = create_tween()
@@ -505,3 +491,19 @@ func _on_item_preview_pressed():
 func confirm_time_passage(title: String, description: String, to_time: int):
 	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
 
+func cmd():
+	if not $CanvasLayer/TextEdit.visible:
+		print(Event.Flags)
+		$CanvasLayer/TextEdit.show()
+		$CanvasLayer/TextEdit.text = ""
+		$CanvasLayer/TextEdit.grab_focus()
+		Global.Controllable = false
+	else:
+		if "/day " in $CanvasLayer/TextEdit.text:
+			$CanvasLayer/TextEdit.text.replace("/day ", "")
+			Event.Day = int($CanvasLayer/TextEdit.text)
+		elif $CanvasLayer/TextEdit.text != "":
+			Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
+			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
+		$CanvasLayer/TextEdit.hide()
+		Global.Controllable = true
