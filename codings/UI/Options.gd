@@ -393,6 +393,8 @@ func _on_control_scheme(index):
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStationOld.tres")
 		5:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/SteamDeck.tres")
+		10:
+			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/None.tres")
 	Global.save_settings()
 
 func _on_fullscreen():

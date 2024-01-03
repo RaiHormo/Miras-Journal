@@ -257,7 +257,7 @@ func detransition():
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
 	BattleResult = 0
-	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = true
+	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 	PartyUI.UIvisible = false
 	BtAdvantage = advantage
 	#Engine.time_scale = 0.1
@@ -273,16 +273,18 @@ func start_battle(stg, advantage := 0):
 		return
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
-		battle_bars(2, 0.8, Tween.EASE_OUT)
-		t = create_tween()
-		t.set_trans(Tween.TRANS_QUART)
-		t.set_ease(Tween.EASE_OUT)
-		t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.8).as_relative()
-		#t.tween_property(Global.get_cam(), "global_position", global_position, 0.4)
-		await t.finished
+		if Attacker != null:
+			battle_bars(2, 0.8, Tween.EASE_OUT)
+			t = create_tween()
+			t.set_trans(Tween.TRANS_QUART)
+			t.set_ease(Tween.EASE_OUT)
+			t.set_parallel()
+			t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.8).as_relative()
+			t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
+			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
-	Global.get_cam().position_smoothing_enabled = false
 	#Engine.time_scale = 1
+	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true
 	if Attacker!=null: Attacker.hide()
@@ -316,7 +318,7 @@ func end_battle():
 	Global.Player.dashing = false
 	if Global.Bt != null: Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
-		Event.warp_to(Seq.EscPosition)
+		Global.Player.position = Global.globalize(Seq.EscPosition)
 	if Attacker!=null and BattleResult!= 1: Attacker.show()
 	if BattleResult == 1 and Attacker!=null:
 		Attacker.defeat()
@@ -324,7 +326,7 @@ func end_battle():
 	battle_bars(0)
 	get_tree().paused = false
 	if Global.Player != null:
-		Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
+		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		await Event.wait(0.1)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	PartyUI.UIvisible=true

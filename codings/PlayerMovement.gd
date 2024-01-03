@@ -228,7 +228,7 @@ func check_flame() -> void:
 ##For opening the menu
 func bag_anim() -> void:
 	set_anim("OpenBag")
-	await %Base.animation_looped
+	await %Base.animation_finished
 	set_anim("BagIdle")
 
 ##If the player dashes into a gap she will jump
@@ -304,6 +304,7 @@ func attack():
 	reset_speed()
 	Global.Controllable = false
 	$Attack/AttackPreview.collision_layer = collision_layer
+	$Attack/AttackPreview.collision_mask = collision_mask
 	$Attack/AttackPreview/CollisionShape2D.disabled = false
 	var checked := false
 	await Event.wait()
@@ -321,7 +322,7 @@ func attack():
 	var hits = false
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-	for i in $Attack.get_overlapping_bodies():
+	for i in $Attack/AttackPreview.get_overlapping_bodies():
 		print(i)
 		if not (i is NPC or i is Follower or i is Mira):
 			hits = true
@@ -354,13 +355,27 @@ func check_before_attack():
 			i.attacked()
 
 func dramatic_attack_pause():
+	print("Dash"+Global.get_dir_name()+"Hit")
 	while not Global.Controllable:
 		if %Base.animation == "Attack"+Global.get_dir_name():
-			%Base.pause()
-			#Loader.flash_attacker()
+			pause_anim()
+			return
+		elif %Base.animation == "Dash"+Global.get_dir_name()+"Hit":
+			pause_anim()
 			return
 		else: await Event.wait()
 
-
 func _on_open_menu_pressed() -> void:
 	PartyUI.main_menu()
+
+func remove_light(node:Node2D = $Sprite):
+	for i in node.get_children():
+		i.light_mask = 0
+		remove_light(i)
+
+func pause_anim(node:Node2D = $Sprite):
+	for i in node.get_children():
+		if i is AnimatedSprite2D:
+			i.pause()
+			pause_anim(i)
+

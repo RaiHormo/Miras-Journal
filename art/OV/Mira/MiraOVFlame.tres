@@ -1200,7 +1200,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_12b4h")
 }],
-"loop": true,
+"loop": false,
 "name": &"OpenBag",
 "speed": 10.0
 }, {

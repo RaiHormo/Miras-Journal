@@ -37,7 +37,7 @@ func draw_wheel():
 		$ColorIndicator.rotation_degrees = affinity.hue
 		var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
 		IndicatorPanel.bg_color = affinity.color
-	
+
 func avrage_dg(d1, d2):
 	if d1<d2: return ((359 + d1) + d2)/2
 	else: return (d1 + d2)/2

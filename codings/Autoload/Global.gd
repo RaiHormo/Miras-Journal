@@ -142,7 +142,9 @@ func get_controller() -> ControlScheme:
 		return Settings.ControlSchemeOverride
 	if device == "Keyboard":
 		return preload("res://UI/Input/Keyboard.tres")
-	if "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
+	elif device == "Touch":
+		return preload("res://UI/Input/None.tres")
+	elif "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
 		return preload("res://UI/Input/Nintendo.tres")
 	elif "XInput" in device or "360" in device:
 		return preload("res://UI/Input/Generic.tres")
@@ -164,6 +166,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
 	if event is InputEventKey:
 		device = "Keyboard"
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		device = "Touch"
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		device = Input.get_joy_name(event.device)
 		AltConfirm = get_controller().AltConfirm

@@ -57,6 +57,8 @@ func _process(delta):
 			t.tween_property(Partybox.get_node("Member1"), "position", Vector2(-300, Partybox.get_node("Member1").position.y), 0.2)
 			await t.finished
 			$CanvasLayer.hide()
+		if not Global.Controllable:
+			$CanvasLayer/VirtualJoystick.hide()
 
 func _check_party():
 	if Global.Party == null: return

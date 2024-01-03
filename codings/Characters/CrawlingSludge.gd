@@ -65,6 +65,7 @@ func _on_catch_area_body_entered(body):
 
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
+	await Global.Player.dramatic_attack_pause()
 	await Loader.start_battle(Battle, advatage)
 	global_position = DefaultPos
 
@@ -72,7 +73,6 @@ func attacked():
 	#Global.jump_to(self, position+Global.get_direction()*12, 5, 0.5)
 	if PinRange: begin_battle()
 	else: begin_battle(1)
-	await Global.Player.dramatic_attack_pause()
 
 func _on_catch_area_area_entered(area: Area2D) -> void:
 	if area.name == "Attack": attacked()

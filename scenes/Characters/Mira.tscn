@@ -3539,7 +3539,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"IdleRight"
+animation = &"OpenBag"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -3598,6 +3598,7 @@ sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
 
 [node name="Shadow" type="Sprite2D" parent="Sprite/Base"]
+unique_name_in_owner = true
 show_behind_parent = true
 light_mask = 0
 texture_filter = 1
@@ -3673,12 +3674,14 @@ offset_left = -302.0
 offset_top = -232.0
 offset_right = 287.0
 offset_bottom = 239.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Darken" type="ColorRect" parent="Fader"]
 layout_mode = 0
 offset_right = 617.0
 offset_bottom = 467.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Attack" type="Area2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=82 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://codings/UI/Calendar.gd" id="12_wtwla"]
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://UI/joystick/virtual_joystick.tscn" id="16_86i7e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -532,6 +533,7 @@ layer = 3
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1282.0
 offset_bottom = 801.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Blur" type="ColorRect" parent="CanvasLayer/Fade"]
@@ -539,6 +541,7 @@ material = SubResource("ShaderMaterial_j4job")
 layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 799.0
+mouse_filter = 2
 
 [node name="Leader" type="Panel" parent="CanvasLayer"]
 texture_filter = 2
@@ -1217,6 +1220,8 @@ shortcut = SubResource("Shortcut_dk2bs")
 shortcut_feedback = false
 shortcut_in_tooltip = false
 flat = true
+
+[node name="VirtualJoystick" parent="CanvasLayer" instance=ExtResource("16_86i7e")]
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

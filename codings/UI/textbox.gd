@@ -79,11 +79,8 @@ var dialogue_line: DialogueLine:
 
 				responses_menu.add_child(item)
 				item.connect("focus_entered", _on_button_focus_entered)
-				t = create_tween()
-				t.set_parallel(true)
-				t.set_ease(Tween.EASE_OUT)
-				t.set_trans(Tween.TRANS_QUAD)
-				t.tween_property(responses_menu, "position", Vector2(832 ,30), 1).from(Vector2(2800, 30))
+				item.modulate = Color.TRANSPARENT
+			animate_responces()
 		# Show our balloon
 		draw_portrait()
 		dialogue_label.text = ""
@@ -136,12 +133,9 @@ func _ready() -> void:
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
 
-
-
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
-
 
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
@@ -259,17 +253,19 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		Global.cursor_sound()
 	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
 		Global.confirm_sound()
+		t = create_tween()
+		t.set_parallel()
+		t.set_trans(Tween.TRANS_QUART)
+		t.tween_property(get_viewport().gui_get_focus_owner(), "position:x", -100, 0.2).as_relative()
+		t.tween_property(get_viewport().gui_get_focus_owner(), "modulate", Color.TRANSPARENT, 0.2)
 		for i in responses_menu.get_children():
-			t = create_tween()
-			t.set_parallel()
-			t.set_trans(Tween.TRANS_QUART)
-			t.set_ease(Tween.EASE_IN)
 			if get_viewport().gui_get_focus_owner() != i:
-				t.tween_property(i, "position:x", 500, 0.1).as_relative()
-			else:
-				t.tween_property(i, "position:x", -50, 0.3).as_relative()
-				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.3)
-			await Event.wait(0.037)
+				t = create_tween()
+				t.set_parallel()
+				t.set_trans(Tween.TRANS_QUART)
+				t.set_ease(Tween.EASE_IN)
+				t.tween_property(i, "position:x", 500, 0.2).as_relative()
+				await Event.wait(0.05)
 		await t.finished
 		next(dialogue_line.responses[item.get_index()].next_id)
 	#if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
@@ -321,3 +317,14 @@ func draw_portrait() -> void:
 
 func _on_button_focus_entered() -> void:
 	Global.cursor_sound()
+
+func animate_responces():
+	await dialogue_label.finished_typing
+	for i in responses_menu.get_children():
+		t = create_tween()
+		t.set_parallel(true)
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUAD)
+		t.tween_property(i, "position:x", i.position.x, 0.3).from(500)
+		t.tween_property(i, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
+		await Event.wait(0.1)

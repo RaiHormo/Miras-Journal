@@ -570,11 +570,7 @@ navigation_layers = 2
 [node name="CrawlingSludge1" parent="." instance=ExtResource("12_g0eyk")]
 position = Vector2(1365.05, 222.688)
 Battle = ExtResource("10_nsotm")
-Defeated = null
-direction = null
-Facing = null
 ID = "CS1"
-Footsteps = null
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge1"]
 
@@ -603,19 +599,11 @@ z_index = 1
 position = Vector2(61.036, 153.986)
 
 [node name="CrawlingSludge4" parent="." instance=ExtResource("12_g0eyk")]
-Defeated = null
-direction = null
-Facing = null
-Footsteps = null
 
 [node name="CrawlingSludge3" parent="." instance=ExtResource("12_g0eyk")]
 position = Vector2(1189, -338)
 Battle = ExtResource("13_sj6eh")
-Defeated = null
-direction = null
-Facing = null
 ID = "CS3"
-Footsteps = null
 
 [node name="Firefly" type="Marker2D" parent="."]
 process_mode = 3

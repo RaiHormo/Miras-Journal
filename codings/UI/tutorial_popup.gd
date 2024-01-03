@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 func _ready():
+	if Global.device == "Touch": return
 	call(Event.tutorial)
 
 func pop_down():

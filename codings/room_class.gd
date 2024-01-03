@@ -26,6 +26,9 @@ func _ready():
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
 	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+	Cam.limit_smoothed = true
+	Cam.position_smoothing_enabled = true
+	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	if AutoLimits:
 		Cam.limit_left = bounds[LEFT]
 		Cam.limit_right = bounds[RIGHT]

@@ -6,12 +6,13 @@ var prevRootIndex =1
 var prevPos: Vector2
 var zoom
 var z: int
-@onready var Player:Mira = Global.Player
 @onready var Cam:Camera2D = Global.get_cam()
 @onready var CamPrev:Camera2D = Global.get_cam().duplicate()
-@onready var Fader = Global.Player.get_node("Fader")
+@onready var Fader
 var PrevCtrl:Control = null
 var KeyInv :Array[ItemData]
+var player: Mira
+var duplicated := false
 
 func _ready():
 	hide()
@@ -23,11 +24,24 @@ func _ready():
 		Global.Controllable = true
 		return
 	show()
+	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
+		duplicated = true
+		Global.Player.set_anim("OpenBag")
+		player = Global.Player.duplicate()
+		Global.Area.add_child(player)
+		await Event.wait()
+		player.remove_light()
+		player.collision_layer = 0
+		player.collision_mask = 0
+		player.get_node("%Shadow").hide()
+		player.get_node("Flame").free()
+	else: player = Global.Player
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
-	Player.reset_speed()
-	Player.bag_anim()
+	Fader = player.get_node("Fader")
+	player.reset_speed()
+	player.bag_anim()
 	Global.ui_sound("Menu")
 	$DottedBack.modulate = Color.TRANSPARENT
 	$DescPaper.hide()
@@ -39,29 +53,26 @@ func _ready():
 	Fader.show()
 	stage = "inactive"
 	zoom = Global.get_cam().zoom
-	prevPos = Global.Player.global_position
+	prevPos = player.global_position
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	#t.tween_property(Cam, "limit_bottom",  10000000, 0.5)
-	#t.tween_property(Cam, "limit_top",  -10000000, 0.5)
-	#t.tween_property(Cam, "limit_left",  -10000000, 0.5)
-	#t.tween_property(Cam, "limit_right",  10000000, 0.5)
 	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
-	t.tween_property(Global.Player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
-	Player.get_node("%Base/Shadow").z_index = -1
-	z = Player.z_index
-	Player.z_index = 9
+	player.get_node("%Base/Shadow").z_index = -1
+	z = player.z_index
+	player.z_index = 9
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
-
-	t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
+	if duplicated:
+		t.tween_property(player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
+		t.tween_property(Fader.material, "shader_parameter/lod", 2.5, 0.5).from(0.0)
+	else: t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
 	get_inventory()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
@@ -86,10 +97,6 @@ func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
-#	if Input.is_action_just_pressed(Global.confirm()):
-#		PrevCtrl.emit_signal("pressed")
-#	if Input.is_action_just_pressed(Global.cancel()):
-#		_on_back_button_down()
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
@@ -127,15 +134,15 @@ func close():
 	get_tree().paused = false
 	if t != null: t.kill()
 	t=create_tween()
-	Player.set_anim("Idle"+Global.get_dir_name())
+	Global.Player.set_anim()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.8)
-	t.tween_property(Cam, "limit_bottom",  CamPrev.limit_bottom, 0.3)
-	t.tween_property(Cam, "limit_top",  CamPrev.limit_top, 0.3)
-	t.tween_property(Cam, "limit_left",  CamPrev.limit_left, 0.3)
-	t.tween_property(Cam, "limit_right",  CamPrev.limit_right, 0.3)
+	#t.tween_property(Cam, "limit_bottom",  CamPrev.limit_bottom, 0.3)
+	#t.tween_property(Cam, "limit_top",  CamPrev.limit_top, 0.3)
+	#t.tween_property(Cam, "limit_left",  CamPrev.limit_left, 0.3)
+	#t.tween_property(Cam, "limit_right",  CamPrev.limit_right, 0.3)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -150,7 +157,7 @@ func close():
 	t.tween_property($Rail/QuestFollow/QuestButton, "position:x", -30, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "size:x", 64, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "position:x", -30, 0.3)
-	t.tween_property(Global.Player, "global_position", prevPos, 0.5)
+	t.tween_property(player, "global_position", prevPos, 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
@@ -158,12 +165,17 @@ func close():
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
-	Global.Area.handle_z(z)
-	Player.get_node("%Base/Shadow").z_index = 0
+	if not duplicated: Global.Area.handle_z(z)
+	else: t.tween_property(player, "modulate", Color(0,0,0,0), 0.5)
+	player.get_node("%Base/Shadow").z_index = 0
 	await t.finished
+	if duplicated:
+		player.free()
+		Global.Player = Global.Area.get_child(0)
 	Global.Controllable = true
+	Global.Player.set_anim()
 	Global.get_cam().enabled = true
-	Fader.hide()
+	if Fader != null: Fader.hide()
 	queue_free()
 
 func move_root():

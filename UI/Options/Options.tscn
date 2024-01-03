@@ -711,7 +711,7 @@ text = "Control scheme"
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
-item_count = 10
+item_count = 11
 selected = 0
 popup/item_0/text = "Auto"
 popup/item_0/id = 0
@@ -733,6 +733,8 @@ popup/item_8/text = "Steam Deck"
 popup/item_8/id = 5
 popup/item_9/text = "Other"
 popup/item_9/id = 1
+popup/item_10/text = "No prompts"
+popup/item_10/id = 10
 
 [node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
