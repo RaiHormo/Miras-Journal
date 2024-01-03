@@ -1,4 +1,4 @@
-[gd_scene load_steps=182 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=183 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Script" path="res://codings/PlayerMovement.gd" id="1_503pd"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_lltpm"]
@@ -3512,6 +3512,8 @@ size = Vector2(19.7501, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jnlw"]
 size = Vector2(13, 6)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_siatn"]
+
 [node name="Mira" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 process_mode = 3
 z_index = 1
@@ -3700,5 +3702,16 @@ debug_color = Color(0.321569, 0.533333, 0.870588, 0.419608)
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 bus = &"EnvSFX"
 
+[node name="OpenMenu" type="Button" parent="."]
+offset_left = -18.0
+offset_top = -22.0
+offset_right = 20.0
+offset_bottom = 16.0
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_siatn")
+flat = true
+
 [connection signal="area_entered" from="Attack" to="." method="_on_attack_area_entered"]
 [connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
+[connection signal="pressed" from="OpenMenu" to="." method="_on_open_menu_pressed"]

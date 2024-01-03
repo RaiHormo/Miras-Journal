@@ -75,27 +75,10 @@ func _check_party():
 		Partybox.get_node("Member1").hide()
 
 func _input(ev):
-	if Input.is_action_just_pressed("MainMenu") and not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
-		Global.Controllable=false
-		get_tree().paused = true
-		get_tree().root.add_child(MainMenu.instantiate())
+	if Input.is_action_just_pressed("MainMenu"):
+		main_menu()
 	if Input.is_action_just_pressed("Options") and "Idle" in Global.Player.get_node("%Base").animation:
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
-	if Input.is_action_just_pressed("PartyMenu") and Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
-		if disabled:
-			Global.buzzer_sound()
-			return
-		if Expanded == true:
-			Tempvis=true
-			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
-			$Audio.play()
-			_on_shrink()
-			Global.cancel_sound()
-		elif Global.Controllable:
-			_on_expand()
-			$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
-			$Audio.play()
-			Global.confirm_sound()
 	if Input.is_action_pressed(Global.cancel()) and Expanded:
 		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 		$Audio.play()
@@ -120,17 +103,18 @@ func _input(ev):
 		cmd()
 
 func darken(toggle := true):
-	var t = create_tween()
+	t = create_tween()
 	t.set_parallel()
 	if toggle:
 		$CanvasLayer/Fade.show()
 		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
 		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+		await t.finished
 	else:
 		t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
 		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
 		await t.finished
-		$CanvasLayer/Fade.hide()
+		if $CanvasLayer/Fade.color == Color.TRANSPARENT: $CanvasLayer/Fade.hide()
 
 
 func _on_expand(open_ui=0):
@@ -180,8 +164,8 @@ func _on_expand(open_ui=0):
 
 	#Menu
 	#if open_ui == 0:
-	Expanded = true
 	await t.finished
+	Expanded = true
 	if open_ui != 2: $CanvasLayer/Cursor.show()
 	if open_ui == 0:
 		focus_now()
@@ -222,7 +206,7 @@ func expand_panel(Pan:Panel, mem := 0):
 	t.tween_property(Pan.get_node("Health/HpText"), "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property(Pan.get_node("Aura/AruaText"), "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property(Pan.get_node("Health/HpText"), "position", Vector2(115, 1), 0.4)
-	t.tween_property(Pan.get_node("Health/AuraText"), "position", Vector2(115, 1), 0.4)
+	t.tween_property(Pan.get_node("Health/HpText"), "position", Vector2(115, 1), 0.4)
 	t.tween_property(Pan, "position:x", 0, 0.4)
 	if mem != 0:
 		t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
@@ -252,7 +236,6 @@ func _on_shrink():
 
 	shrink_panel(Partybox.get_node("Leader"), 0)
 	shrink_panel(Partybox.get_node("Member1"), 1)
-
 	Expanded = false
 	await t.finished
 	$CanvasLayer/Back.hide()
@@ -507,3 +490,26 @@ func cmd():
 			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true
+
+func party_menu():
+	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
+		if disabled:
+			Global.buzzer_sound()
+			return
+		if Expanded == true:
+			Tempvis=true
+			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
+			$Audio.play()
+			_on_shrink()
+			Global.cancel_sound()
+		elif Global.Controllable:
+			_on_expand()
+			$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
+			$Audio.play()
+			Global.confirm_sound()
+
+func main_menu():
+	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
+		Global.Controllable=false
+		get_tree().paused = true
+		get_tree().root.add_child(MainMenu.instantiate())

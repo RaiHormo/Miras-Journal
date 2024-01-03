@@ -128,7 +128,6 @@ func control_process():
 		if Input.is_action_just_pressed("OVAttack"):
 			attack()
 
-
 func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds(%Base)
 	if BodyState == CUSTOM: return
@@ -148,7 +147,6 @@ func update_anim_prm() -> void:
 			move_frames=0
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
-					move_frames = 0
 					#print(4)
 					stop_dash()
 	else:
@@ -264,7 +262,7 @@ func stop_dash() -> void:
 		if ((Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(i, coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if undashable and Global.get_direction()==dashdir and not check_terrain("Gap"):
+	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 20:
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
@@ -283,6 +281,7 @@ func stop_dash() -> void:
 		speed = 75
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO
+	move_frames = 0
 	if "Stop" in %Base.animation or "Hit" in %Base.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))
 
@@ -361,3 +360,7 @@ func dramatic_attack_pause():
 			#Loader.flash_attacker()
 			return
 		else: await Event.wait()
+
+
+func _on_open_menu_pressed() -> void:
+	PartyUI.main_menu()

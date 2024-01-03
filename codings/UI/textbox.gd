@@ -78,6 +78,7 @@ var dialogue_line: DialogueLine:
 				item.show()
 
 				responses_menu.add_child(item)
+				item.connect("focus_entered", _on_button_focus_entered)
 				t = create_tween()
 				t.set_parallel(true)
 				t.set_ease(Tween.EASE_OUT)
@@ -193,6 +194,7 @@ func configure_menu() -> void:
 		item.gui_input.connect(_on_response_gui_input.bind(item))
 
 	items[0].grab_focus()
+	Global.Audio.stop()
 
 
 # Get a list of enabled items
@@ -257,12 +259,21 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		Global.cursor_sound()
 	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
 		Global.confirm_sound()
-		t = create_tween()
-		t.tween_property(responses_menu, "position", Vector2(1032,30), 0.1)
+		for i in responses_menu.get_children():
+			t = create_tween()
+			t.set_parallel()
+			t.set_trans(Tween.TRANS_QUART)
+			t.set_ease(Tween.EASE_IN)
+			if get_viewport().gui_get_focus_owner() != i:
+				t.tween_property(i, "position:x", 500, 0.1).as_relative()
+			else:
+				t.tween_property(i, "position:x", -50, 0.3).as_relative()
+				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.3)
+			await Event.wait(0.037)
 		await t.finished
 		next(dialogue_line.responses[item.get_index()].next_id)
-	if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
-		Global.cursor_sound()
+	#if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
+		#Global.cursor_sound()
 
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
@@ -308,3 +319,5 @@ func draw_portrait() -> void:
 			await t.finished
 		$Portrait.hide()
 
+func _on_button_focus_entered() -> void:
+	Global.cursor_sound()

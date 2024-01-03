@@ -79,8 +79,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Event.add_flag("AlcineFollow1")
 			PartyUI.UIvisible = true
 
-func _input(event: InputEvent) -> void:
-	if Event.check_flag("CantDashOnFlame"): return
-	if Event.check_flag(&"FlameActive") and event.is_action_pressed("Dash"):
-		Event.add_flag("CantDashOnFlame")
-		Global.passive("temple_woods_random", "cant_dash_on_flame")
+#func _input(event: InputEvent) -> void:
+	#if Event.check_flag("CantDashOnFlame"): return
+	#if Event.check_flag(&"FlameActive") and event.is_action_pressed("Dash"):
+		#Event.add_flag("CantDashOnFlame")
+		#Global.passive("temple_woods_random", "cant_dash_on_flame")

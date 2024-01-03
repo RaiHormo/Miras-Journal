@@ -7,7 +7,7 @@ var Troop: Array[Actor]
 @onready var t= Tween
 @onready var tr= Tween
 var active: bool
-var stage: String
+var stage: StringName
 signal root
 signal ability
 signal attack
@@ -19,10 +19,10 @@ signal targetFoc(ind :Actor)
 var target : Actor
 var LastTarget : Actor
 var TargetIndex: int
-var tweendone = true
-var MenuIndex = 0
+var tweendone := true
+var MenuIndex := 0
 var Abilities: Array[Ability]
-var PrevStage= "root"
+var PrevStage := &"root"
 var TargetFaction
 var foc:Control
 @onready var Bt :Battle = get_parent()
@@ -63,8 +63,8 @@ func _on_battle_get_control():
 	PartyUI.battle_state()
 	Bt.Action = false
 	show()
-	stage = "root"
-	PrevStage= "root"
+	stage = &"root"
+	PrevStage = &"root"
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
 	$Item.icon = Global.get_controller().ItemIcon
@@ -125,8 +125,8 @@ func _on_root():
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
-	stage = "root"
-	PrevStage= "root"
+	stage = &"root"
+	PrevStage = &"root"
 	Bt.get_node("EnemyUI").all_enemy_ui()
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
 	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
@@ -187,7 +187,7 @@ func _input(event: InputEvent) -> void:
 	if Global.LastInput==Global.ProcessFrame: return
 	if active:
 		match stage:
-			"root":
+			&"root":
 				if Input.is_action_just_pressed("BtAttack") and not $Attack.disabled:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					attack.emit()
@@ -198,7 +198,7 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("BtAbility") and not $Ability.disabled:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					ability.emit()
-			"target":
+			&"target":
 	#			if Input.is_action_just_pressed(Global.confirm()):
 	#				_on_confirm_pressed()
 				if Input.is_action_just_pressed(Global.cancel()):
@@ -235,7 +235,7 @@ func _input(event: InputEvent) -> void:
 						else:
 							TargetIndex = TargetFaction.size() -1
 					move_menu()
-			"ability":
+			&"ability":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Bt.anim()
 					Global.cancel_sound()
@@ -260,15 +260,15 @@ func _input(event: InputEvent) -> void:
 						MenuIndex = 0
 					Global.cursor_sound()
 					move_menu()
-			"command":
+			&"command":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
-			"item":
+			&"item":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
-			"pre_target":
+			&"pre_target":
 				if Input.is_action_just_pressed("ui_down") and active:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
@@ -313,8 +313,8 @@ func _on_attack():
 
 func _on_ability():
 	active= false
-	stage = "ability"
-	PrevStage= "root"
+	stage = &"ability"
+	PrevStage = &"root"
 	$"../Canvas/Confirm".show()
 	$"../Canvas/Back".show()
 	$"../Canvas/Confirm".text = "Confirm"
@@ -382,8 +382,8 @@ func _on_ability():
 
 
 func _on_command():
-	stage = "command"
-	PrevStage= "root"
+	stage = &"inactive"
+	PrevStage= &"root"
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
@@ -421,10 +421,13 @@ func _on_command():
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
 	#t.tween_property($CommandMenu/CmdBack, "position", Vector2(-884, -768), 0.5).from(Vector2(-584, -868))
 	$CommandMenu.show()
+	await t.finished
+	stage = &"command"
+
 
 func _on_item() -> void:
-	stage = "item"
-	PrevStage= "root"
+	stage = &"item"
+	PrevStage = &"root"
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
@@ -466,7 +469,7 @@ func _on_item() -> void:
 
 func close():
 	active=false
-	stage = "inactive"
+	stage = &"inactive"
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
@@ -507,14 +510,14 @@ func close():
 
 
 func _on_ability_pressed():
-	if stage == "root": ability.emit()
+	if stage == &"root": ability.emit()
 func _on_attack_pressed():
 	attack.emit()
 func _on_item_pressed():
 	item.emit()
 func _on_command_pressed():
-	if stage == "root": command.emit()
-	if stage == "command": _on_escape()
+	if stage == &"root": command.emit()
+	if stage == &"command": _on_escape()
 
 func get_target(faction:Array[Actor]):
 	if Bt.Action: return
@@ -526,7 +529,7 @@ func get_target(faction:Array[Actor]):
 		Bt.victory()
 		return
 	active = true
-	stage = "pre_target"
+	stage = &"pre_target"
 	TargetFaction = faction
 	Bt.get_node("Canvas/Confirm").show()
 	Bt.get_node("Canvas/Back").show()
@@ -593,8 +596,8 @@ func get_target(faction:Array[Actor]):
 	emit_signal('targetFoc', faction[TargetIndex])
 	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 	await t.finished
-	stage = "target"
-	while stage == "target":
+	stage = &"target"
+	while stage == &"target":
 		tr = create_tween()
 		tr.set_ease(Tween.EASE_IN_OUT)
 		tr.set_trans(Tween.TRANS_SINE)
@@ -608,7 +611,7 @@ func _on_ability_returned(ab:Ability, tar:Actor):
 	close()
 
 func move_menu():
-	if stage == "target" or stage == "pre_target":
+	if stage == &"target" or stage == &"pre_target":
 		#active= false
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
@@ -621,7 +624,7 @@ func move_menu():
 		emit_signal('targetFoc', TargetFaction[TargetIndex])
 		$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.2).timeout
-	if stage == "ability":
+	if stage == &"ability":
 		active= false
 		await get_tree().create_timer(0.001).timeout
 		t = create_tween()
@@ -669,7 +672,7 @@ func _on_focus_changed(control:Control):
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
-	if stage == "item": focus_item(control)
+	if stage == &"item": focus_item(control)
 
 func _on_ability_entry():
 	if active:
@@ -677,11 +680,11 @@ func _on_ability_entry():
 		var ab = %AbilityList.get_child(MenuIndex).get_meta("Ability")
 		if ab.Target == 1:
 			PrevStage="ability"
-			stage = "target"
+			stage = &"target"
 			get_target(Bt.get_oposing_faction())
 		if ab.Target == 3:
 			PrevStage="ability"
-			stage = "target"
+			stage = &"target"
 			get_target(Bt.get_ally_faction())
 		if ab.Target == 0:
 			emit_signal("ability_returned", ab, CurrentChar)
@@ -690,17 +693,17 @@ func _on_ability_entry():
 
 func _on_confirm_pressed():
 	if active:
-		if stage == "pre_target":
+		if stage == &"pre_target":
 			active = false
 			Global.confirm_sound()
 			while stage != "target": await Event.wait()
 			targeted.emit()
 			close()
-		if stage == "target":
+		if stage == &"target":
 			Global.confirm_sound()
 			targeted.emit()
 			close()
-		if stage == "item":
+		if stage == &"item":
 			if foc == null or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").Use != 0:
 				CurrentChar.NextTarget = CurrentChar
@@ -729,7 +732,8 @@ func turn_order():
 
 
 func _on_escape():
-	Bt.escape()
+	if stage == &"command":
+		Bt.escape()
 
 
 func _on_show_wheel_pressed():

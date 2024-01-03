@@ -721,7 +721,6 @@ func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
 	t.tween_property($Cam, "zoom", Vector2(am,am), time)
 	await t.finished
 
-
 func _on_battle_ui_item() -> void:
 	await anim("Bag")
 	anim("BagLoop")

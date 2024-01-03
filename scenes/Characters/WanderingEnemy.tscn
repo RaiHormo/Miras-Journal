@@ -216,7 +216,7 @@ fill = 1
 fill_from = Vector2(0.491453, 0.504274)
 fill_to = Vector2(0.141026, 0.884615)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
+[node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 material = ExtResource("1_blols")
 collision_layer = 513
@@ -226,7 +226,6 @@ script = ExtResource("2_2fny2")
 Battle = ExtResource("3_ku8yi")
 speed = 20
 ID = "CS2"
-Nav = NodePath("")
 SpawnOnCameraInd = true
 CameraIndex = 1
 

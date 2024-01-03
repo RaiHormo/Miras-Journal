@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=81 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -497,6 +497,22 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t386i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlcri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvj12"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_8yp3f"]
+action = &"PartyMenu"
+
+[sub_resource type="Shortcut" id="Shortcut_dk2bs"]
+events = [SubResource("InputEventAction_8yp3f")]
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
@@ -1187,6 +1203,21 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
 theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
 placeholder_text = "Enter a flag"
 
+[node name="PartyMenuButton" type="Button" parent="CanvasLayer"]
+offset_right = 231.0
+offset_bottom = 431.0
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t386i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jlcri")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gvj12")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rj6wa")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_38op6")
+shortcut = SubResource("Shortcut_dk2bs")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+flat = true
+
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"
 
@@ -1194,3 +1225,4 @@ bus = &"UI"
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_shrink"]
+[connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]
