@@ -515,6 +515,7 @@ func death(target:Actor):
 #	if target.IsEnemy and Troop.size() == 1:
 #		slowmo()
 	target.States.clear()
+	target.node.get_node("State").play("None")
 	target.add_state("KnockedOut")
 	anim("KnockOut", target)
 	target.node.get_node("Particle").emitting = true
@@ -655,6 +656,7 @@ func game_over():
 
 func end_battle():
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
+	for i in TurnOrder: i.States.clear()
 	await Loader.end_battle()
 	queue_free()
 

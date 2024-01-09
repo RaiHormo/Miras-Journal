@@ -12,7 +12,6 @@ var focus : int = 0
 var UIvisible = true
 var Tempvis = true
 var visibly=false
-var enabled = true
 @onready var t :Tween
 @onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 var WasPaused = false
@@ -36,8 +35,8 @@ func _process(delta):
 	if Expanded:
 		handle_ui()
 	if not Loader.InBattle:
-		if not enabled: UIvisible = false
-		if UIvisible and $CanvasLayer.visible==false and enabled:
+		if disabled: UIvisible = false
+		if UIvisible and $CanvasLayer.visible==false and not disabled:
 			$CanvasLayer.show()
 			Global.check_party.emit()
 			t = create_tween()
@@ -494,7 +493,7 @@ func cmd():
 		Global.Controllable = true
 
 func party_menu():
-	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and enabled:
+	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing:
 		if disabled:
 			Global.buzzer_sound()
 			return

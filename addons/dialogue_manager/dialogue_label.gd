@@ -31,7 +31,7 @@ signal finished_typing()
 @export var skip_pause_at_character_if_followed_by: String = ")\""
 
 ## The amount of time to pause when exposing a character present in pause_at_characters.
-@export var seconds_per_pause_step: float = 0.3
+@export var seconds_per_pause_step: float = 0.1
 
 
 ## The current line of dialogue.

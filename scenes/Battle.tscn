@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="5_83x0w"]
 [ext_resource type="Script" path="res://codings/UI/BattleUI.gd" id="6_57ux1"]
 [ext_resource type="Script" path="res://codings/ActionSequence.gd" id="6_yeldr"]
-[ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="8_km0il"]
+[ext_resource type="SpriteFrames" uid="uid://d1xgldxgwt31e" path="res://art/BT/DarkSludge/DarkSludgeBt.tres" id="8_wqq7f"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/sheets/Shadow1.png" id="9_w2lxs"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="10_2oj1a"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="10_7tp62"]
@@ -1133,13 +1133,14 @@ use_parent_material = true
 script = ExtResource("6_yeldr")
 
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9XaGl0ZVNwYXduL1doaXRlU3Bhd24uYXNlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvQlQvV2hpdGVTcGF3bgpvX25hbWV8PQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9EYXJrU2x1ZGdlL0RhcmtTbHVkZ2UuYXNlcHJpdGUKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9CVC9EYXJrU3Bhd24Kb19uYW1lfD0Kb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 16
-texture_filter = 2
+texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60, -39)
-sprite_frames = ExtResource("8_km0il")
-animation = &"Attack1"
+sprite_frames = ExtResource("8_wqq7f")
+animation = &"Idle"
+frame_progress = 0.864725
 offset = Vector2(0, -16)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]

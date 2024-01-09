@@ -10,22 +10,31 @@ class_name Actor
 
 @export_category("Art")
 @export var PartyIcon : Texture
-@export_subgroup("Party menu")
-@export var RenderArtwork : Texture
-@export var RenderShadow : Texture
-@export_range(1, 360) var AuraHue: int = 1
-@export var PartyPage : Texture
 
 @export_category("Color")
 @export var MainColor : Color
+
+@export_group("Party specific")
 @export var SecondaryColor : Color
 
 @export var BoxProfile : TextProfile
 
+@export var LastName : String = ""
+@export var codename : StringName = &"Actor"
+@export var WeaponType : String
+@export var Controllable : bool = false
+@export var StatsVisible : bool = true
+
+@export_subgroup("Party menu")
+@export var RenderArtwork : Texture
+@export var RenderShadow : Texture
+@export var PartyPage : Texture
+
+@export_category("Details")
 @export_group("Stats")
 
-@export var MaxHP : int = 99
-@export var MaxAura : int = 99
+@export_range(1, 9999, 1, "suffix:HP") var MaxHP : int = 99
+@export_range(1, 9999, 1, "suffix:AP") var MaxAura : int = 99
 
 @export_range(0, 2) var Attack : float = 1
 @export_range(0, 2) var Magic : float = 1
@@ -36,6 +45,12 @@ class_name Actor
 @export_range(0, 9999) var Health : int
 @export_range(0, 9999) var Aura : int
 
+@export_subgroup("Multipliers")
+@export var AttackMultiplier : float = 1
+@export var DefenceMultiplier : float = 1
+@export var MagicMultiplier : float = 1
+@export var SpeedMultiplier : float = 1
+
 @export_subgroup("Skill points")
 @export var SkillLevel : int
 @export var SkillPoints : int
@@ -45,12 +60,6 @@ class_name Actor
 @export_group("Skills")
 @export var Abilities: Array[Ability]
 @export var StandardAttack: Ability
-
-@export_group("Multipliers")
-@export var AttackMultiplier : float = 1
-@export var DefenceMultiplier : float = 1
-@export var MagicMultiplier : float = 1
-@export var SpeedMultiplier : float = 1
 
 @export_group("Sprites")
 @export var OV : SpriteFrames
@@ -65,10 +74,6 @@ class_name Actor
 @export var GlowAnims: Array[String] = []
 
 @export_group("Party specific")
-@export var LastName : String = ""
-@export var WeaponType : String
-@export var Controllable : bool = false
-@export var StatsVisible : bool = true
 
 
 #@export_group("Battle params")

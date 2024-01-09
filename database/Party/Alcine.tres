@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://5dk5u2y85kai"]
 
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/sheets/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
@@ -8,20 +8,21 @@
 [ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="2_3o6lq"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
-[ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="7_4k312"]
-[ext_resource type="Texture2D" uid="uid://dwbnmt2k8ms6p" path="res://UI/Party/AlcineShadow.png" id="7_5nnfn"]
 
 [resource]
 script = ExtResource("1_o1wey")
 FirstName = "Alcine"
 IsEnemy = false
 PartyIcon = ExtResource("1_by5ga")
-RenderArtwork = ExtResource("7_4k312")
-RenderShadow = ExtResource("7_5nnfn")
-AuraHue = 1
 MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
 BoxProfile = ExtResource("3_g20a1")
+LastName = ""
+codename = &"Alcine"
+WeaponType = ""
+Controllable = false
+StatsVisible = true
+AuraHue = 1
 MaxHP = 90
 MaxAura = 120
 Attack = 0.4
@@ -30,15 +31,15 @@ Defence = 0.8
 Speed = 4.0
 Health = 90
 Aura = 90
+AttackMultiplier = 1.0
+DefenceMultiplier = 1.0
+MagicMultiplier = 1.0
+SpeedMultiplier = 1.0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
 Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("2_2vyew"), ExtResource("2_3o6lq")])
 StandardAttack = ExtResource("2_3o6lq")
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedMultiplier = 1.0
 OV = ExtResource("1_3dlsp")
 BT = ExtResource("1_8ee1b")
 Offset = Vector2(0, 0)
@@ -48,7 +49,3 @@ Disappear = false
 GlowDef = 0.3
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
-LastName = ""
-WeaponType = ""
-Controllable = false
-StatsVisible = true

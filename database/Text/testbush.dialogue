@@ -7,6 +7,25 @@ Mira: Yes, this is [[indeed|in fact]] a bush
 	Mira: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	if is_in_party("Erinn"):
 		Erinn: Mira, what are you doing?
+- Talk a lot
+	do portrait("MiraSmile", false)
+	Mira: Yeah, sure i can say a bunch of stuff.
+	do portrait("MiraSmile", false)
+	Mira: I just like the sound of my voice, beep boop.
+	do portrait("MiraSmile", false)
+	Mira: So how's your day bush?\nAnything going on?
+	do portrait("MiraSmile", false)
+	Mira: ...
+	do portrait("MiraSmile", false)
+	Mira: Yeah I thought so.
+	do portrait("MiraSmile", false)
+	Mira: The purpose of this dialog is to test text sounds and dialog skipping.
+	do portrait("MiraSmile", false)
+	Mira: I can hold shift to skip all of it.
+	Also here are some thought sounds.
+	Ok I think that's enough.
+	
+	
 - End
 
 => END
@@ -51,8 +70,14 @@ Add to party
 	do Party.add("Alcine")
 - Erinn
 	do Party.add("Erinn")
-- Clear
-	do Party.reset_party()
+- More party options
+	What to do?
+	- Clear party
+		do Party.reset_party()
+	- Full heal
+		do heal_party()
+	- Give Mira lots of HP
+		do Party.Leader.Health = 9999
 do Controllable = true
 
 => END

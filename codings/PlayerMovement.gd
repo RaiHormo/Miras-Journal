@@ -16,6 +16,7 @@ var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
 @export var can_dash = true
 const dash_speed := 200
+var first_frame := true
 
 
 func _ready() -> void:
@@ -50,11 +51,17 @@ func extended_process() -> void:
 		BodyState = CONTROLLED
 		call_deferred("_check_party")
 		check_flame()
+	else:
+		if BodyState == CONTROLLED: BodyState = CUSTOM
+		first_frame = true
 	if midair:
 		pass
 	if direction != Vector2.ZERO: Global.PlayerDir = direction
 
 func control_process():
+	if first_frame:
+		Engine.time_scale = 1
+		first_frame = false
 	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
@@ -129,6 +136,7 @@ func control_process():
 			attack()
 
 func update_anim_prm() -> void:
+	if get_node_or_null("%Base") == null: return
 	if Footsteps: handle_step_sounds(%Base)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
@@ -176,6 +184,7 @@ func _on_pickup() -> void:
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
 func _check_party() -> void:
+	if get_node_or_null("%Base") == null: return
 	if Event.check_flag(&"FlameActive"):
 		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	elif Global.Party.Leader != null:
@@ -187,6 +196,7 @@ func _check_party() -> void:
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String = "Idle"+Global.get_dir_name()) -> void:
+	if get_node_or_null("%Base") == null: return
 	if anim not in %Base.sprite_frames.get_animation_names():
 		await Event.wait()
 		return
@@ -286,6 +296,7 @@ func stop_dash() -> void:
 		set_anim(str("Idle"+Global.get_dir_name()))
 
 func reset_speed() -> void:
+	if get_node_or_null("%Base") == null: return
 	%Base.speed_scale=1
 	%Base/Bag.speed_scale=1
 	%Base/Bag/Axe.speed_scale=1

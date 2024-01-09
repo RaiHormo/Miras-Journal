@@ -30,12 +30,12 @@ func make_unique():
 	if Member3!=null: Member3 = Member1.duplicate()
 
 func set_to(p:PartyData):
-	Leader = Global.find_member(p.Leader.FirstName)
-	if p.Member1!=null: Member1 = Global.find_member(p.Member1.FirstName)
+	Leader = Global.find_member(p.Leader.codename)
+	if p.Member1!=null: Member1 = Global.find_member(p.Member1.codename)
 	else: Member1 = null
-	if p.Member2!=null: Member2 = Global.find_member(p.Member2.FirstName)
+	if p.Member2!=null: Member2 = Global.find_member(p.Member2.codename)
 	else: Member2 = null
-	if p.Member3!=null: Member3 = Global.find_member(p.Member3.FirstName)
+	if p.Member3!=null: Member3 = Global.find_member(p.Member3.codename)
 	else: Member3 = null
 
 func get_member(num:int) -> Actor:

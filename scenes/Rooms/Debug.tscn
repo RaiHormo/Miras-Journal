@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_1j4ra"]
 [ext_resource type="Script" path="res://codings/NPC.gd" id="10_wjvb0"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="11_56r5q"]
-[ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Harold.png" id="12_d384d"]
+[ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Objects/Harold.png" id="12_d384d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87swt"]
 texture = ExtResource("2_am130")

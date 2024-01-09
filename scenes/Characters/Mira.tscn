@@ -3715,6 +3715,4 @@ mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_siatn")
 flat = true
 
-[connection signal="area_entered" from="Attack" to="." method="_on_attack_area_entered"]
-[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
 [connection signal="pressed" from="OpenMenu" to="." method="_on_open_menu_pressed"]

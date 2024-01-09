@@ -4,13 +4,15 @@
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_tyx4l"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="2_tb6xv"]
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Pterogon.tres" id="3_46esa"]
-[ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="4_0rjg7"]
+[ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="4_8fqca"]
 
 [resource]
 script = ExtResource("1_tyx4l")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("3_46esa"), ExtResource("4_0rjg7")])
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("3_46esa"), ExtResource("4_8fqca")])
 BattleBack = ExtResource("1_03qle")
 Transition = true
 Detransition = false
 EscPosition = Vector2(0, 0)
+PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)
+CanEscape = true

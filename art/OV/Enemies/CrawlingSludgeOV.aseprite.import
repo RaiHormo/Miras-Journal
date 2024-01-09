@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bqr0qxfq0vvjg"
+path="res://.godot/imported/CrawlingSludgeOV.aseprite-eb6ea53705d17e71137f00f7f6872ae6.res"
+
+[deps]
+
+source_file="res://art/OV/Enemies/CrawlingSludgeOV.aseprite"
+dest_files=["res://.godot/imported/CrawlingSludgeOV.aseprite-eb6ea53705d17e71137f00f7f6872ae6.res"]
+
+[params]
+

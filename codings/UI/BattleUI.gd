@@ -47,10 +47,13 @@ func _process(delta):
 		$BaseRing/Ring2.rotation -= 0.002
 
 func _on_battle_get_control():
-	if Bt.CurrentChar.Health == 0: Bt.next_turn.emit()
 	if Bt.Troop.is_empty():
 		close()
 		Bt.victory()
+		return
+	if Bt.CurrentChar.Health == 0:
+		Bt.death(Bt.CurrentChar)
+		Bt.next_turn.emit()
 		return
 	Global.ui_sound("GetControl")
 	active = true

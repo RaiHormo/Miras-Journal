@@ -222,9 +222,9 @@ func fullscreen() -> void:
 	save_settings()
 
 func get_preview() -> Texture:
-	if Party.Leader.FirstName == "Mira" and not Party.check_member(1):
+	if Party.Leader.codename == "Mira" and not Party.check_member(1):
 		return preload("res://art/Previews/1.png")
-	if Party.Leader.FirstName == "Mira" and Party.Member1.FirstName == "Alcine":
+	if Party.Leader.codename == "Mira" and Party.Member1.codename == "Alcine":
 		return preload("res://art/Previews/2.png")
 	return preload("res://art/Previews/1.png")
 
@@ -282,13 +282,13 @@ func check_member(n:int) -> bool:
 
 func get_member_name(n:int) -> String:
 	if Party.check_member(0) and n==0:
-		return Party.Leader.FirstName
+		return Party.Leader.codename
 	elif Party.check_member(1) and n==1:
-		return Party.Member1.FirstName
+		return Party.Member1.codename
 	elif Party.check_member(2) and n==2:
-		return Party.Member2.FirstName
+		return Party.Member2.codename
 	elif Party.check_member(3) and n==2:
-		return Party.Member3.FirstName
+		return Party.Member3.codename
 	else:
 		return "Null"
 
@@ -298,11 +298,11 @@ func heal_party() -> void:
 
 func reset_all_members() -> void:
 	for i in range(-1, Members.size() - 1):
-		Members[i] = load("res://database/Party/"+ Members[i].FirstName +".tres")
+		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres")
 
 func find_member(Name: String) -> Actor:
 	for i in Members:
-		if i.FirstName == Name: return i
+		if i.codename == Name: return i
 	return Party.Leader
 
 func init_party(party:PartyData) -> void:
@@ -325,13 +325,13 @@ func number_of_party_members() -> int:
 	return num
 
 func is_in_party(n:String) -> bool:
-	if Party.Leader.FirstName == n:
+	if Party.Leader.codename == n:
 		return true
-	elif Party.check_member(1) and Party.Member1.FirstName == n:
+	elif Party.check_member(1) and Party.Member1.codename == n:
 		return true
-	elif Party.check_member(2) and Party.Member2.FirstName == n:
+	elif Party.check_member(2) and Party.Member2.codename == n:
 		return true
-	elif Party.check_member(3) and Party.Member3.FirstName == n:
+	elif Party.check_member(3) and Party.Member3.codename == n:
 		return true
 	else:
 		return false

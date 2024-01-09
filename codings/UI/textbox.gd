@@ -10,6 +10,8 @@ var mem: TextProfile
 var next_box: String = ""
 var currun = false
 @onready var t :Tween
+const hold_time = 30
+
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -229,6 +231,7 @@ func _on_close() -> void:
 	await t.finished
 	$Portrait.hide()
 	balloon.hide()
+	Engine.time_scale = 1
 	Global.textbox_close.emit()
 	queue_free()
 
@@ -271,9 +274,24 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	#if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
 		#Global.cursor_sound()
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_pressed("Dash"):
+		var hold_frames := 1
+		while Input.is_action_pressed("Dash"):
+			hold_frames += 1
+			if dialogue_line != null and dialogue_line.responses.size() > 0:
+				Engine.time_scale = 1
+			elif hold_frames > hold_time:
+				Engine.time_scale = 20 + hold_frames/10
+				if is_waiting_for_input: next(dialogue_line.next_id)
+			await Event.wait()
+		if hold_frames < hold_time and dialogue_label.is_typing:
+			Engine.time_scale = 40
+			await dialogue_label.finished_typing
+			Engine.time_scale = 1
+		Engine.time_scale = 1
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Dash"): is_waiting_for_input = true
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
@@ -281,7 +299,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
-	elif (event.is_action_pressed(Global.confirm()) or event.is_action_pressed("Dash")) and get_viewport().gui_get_focus_owner() == balloon:
+	elif (event.is_action_pressed(Global.confirm())) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 func draw_portrait() -> void:
@@ -320,6 +338,7 @@ func _on_button_focus_entered() -> void:
 
 func animate_responces():
 	await dialogue_label.finished_typing
+	Engine.time_scale = 1
 	for i in responses_menu.get_children():
 		t = create_tween()
 		t.set_parallel(true)
