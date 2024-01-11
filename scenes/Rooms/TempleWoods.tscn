@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=103 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1b1u1"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_bpc20"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://scenes/Transfer.tscn" id="8_ffii8"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="10_8nxki"]
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="10_nsotm"]
+[ext_resource type="Texture2D" uid="uid://drxdw6syeob5f" path="res://art/OV/Enemies/WhiteSpawnOV.png" id="11_2lpke"]
 [ext_resource type="Script" path="res://codings/Characters/AlcineWoods.gd" id="11_pxo5a"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://scenes/Characters/WanderingEnemy.tscn" id="12_g0eyk"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="12_xu38q"]
@@ -197,10 +198,137 @@ animations = [{
 size = Vector2(206, 89.0016)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ovn4b"]
-vertices = PackedVector2Array(1242, 196, 1241, 195, 1284, 192, 1333, 465, 1292, 433, 1349, 398, 1358, 458, 1569, 220, 1583, 225, 1578, 231, 1484, 242, 1551, 206, 1531, 212, 1488, 221, 1488, 397, 1528, 403, 1516, 458, 1390, 455, 1432, 372, 1462, 383, 1389, 455, 1370, 355, 1457, 285, 1466, 218, 1477, 278, 1244, 278, 1237, 278, 1237, 274, 1269, 257, 1292, 269, 1253, 236, 1220, 218, 1216, 203, 1321, 196, 1337, 246, 1301, 174, 1462, 382, 1290, 174, 1382, 280, 1361, 200, 1379, 175, 1389, 158, 1425, 157, 1432, 173, 1426, 320, 1392, 325, 1378, 176, 1451, 185, 1663, 284, 1656, 282, 1673, 270, 1695, 274, 1710, 281, 1662, 365, 1627, 400, 1624, 384, 1629, 347, 1663, 341, 1674, 320, 1710, 310, 1156, -384, 1138, -393, 1158, -399, 1178, -359, 1154, -310, 1137, -330, 1244, -268, 1190, -185, 1184, -189, 1192, -202, 1216, -216, 1175, -231, 1168, -254, 1302, -373, 1315, -325, 1307, -295, 1273, -295, 1221, -364, 1241, -411, 1277, -454, 1297, -445, 1144, -275, 1167, -236)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(11, 7, 10, 12), PackedInt32Array(13, 12, 10), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(18, 19, 14, 17, 20, 5, 21), PackedInt32Array(22, 23, 13, 10, 24), PackedInt32Array(25, 26, 27, 28, 29), PackedInt32Array(30, 31, 32, 0, 2), PackedInt32Array(20, 6, 5), PackedInt32Array(33, 34, 29, 28, 30, 2, 35), PackedInt32Array(18, 36, 19), PackedInt32Array(2, 37, 35), PackedInt32Array(38, 34, 33, 39, 22), PackedInt32Array(40, 41, 42, 43, 22), PackedInt32Array(44, 18, 21, 45), PackedInt32Array(44, 45, 38, 22), PackedInt32Array(22, 39, 46, 40), PackedInt32Array(22, 43, 47, 23), PackedInt32Array(48, 49, 50, 51, 52), PackedInt32Array(53, 54, 55, 56, 57), PackedInt32Array(58, 53, 57), PackedInt32Array(58, 57, 48), PackedInt32Array(59, 58, 48, 52), PackedInt32Array(60, 61, 62), PackedInt32Array(60, 62, 63), PackedInt32Array(64, 65, 60, 63, 66), PackedInt32Array(67, 68, 69, 70), PackedInt32Array(64, 66, 70, 69, 71, 72), PackedInt32Array(73, 74, 75, 76, 77, 78), PackedInt32Array(78, 79, 80, 73), PackedInt32Array(77, 76, 66, 63), PackedInt32Array(72, 81, 64), PackedInt32Array(72, 71, 82)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1326.04, 185.697, 1356.04, 188.69, 1370.04, 169.687, 1383.03, 148.684, 1432.03, 146.673, 1440.04, 165.671, 1459.04, 178.667, 1473.05, 208.664, 1488.05, 210.66, 1529.05, 201.651, 1553.04, 195.645, 1574.05, 210.641, 1600.05, 221.635, 1583.06, 240.638, 1493.06, 250.659, 1487.07, 285.66, 1463.07, 293.666, 1436.07, 322.672, 1441.08, 364.671, 1467.09, 373.665, 1491.09, 386.659, 1541.09, 394.648, 1525.11, 468.652, 1390.11, 464.683, 1360.11, 467.689, 1332.11, 476.696, 1276.1, 432.709, 1341.09, 390.694, 1362.08, 348.689, 1381.07, 322.685, 1373.07, 285.686, 1336.06, 257.695, 1294.06, 278.704, 1246.07, 287.715, 1227.07, 289.72, 1227.06, 267.72, 1254.06, 253.714, 1246.06, 243.715, 1212.05, 224.723, 1204.04, 195.725, 1239.04, 185.717, 1277.04, 182.708, 1284.04, 164.707, 1307.04, 163.702), PackedVector2Array(1270.05, 221.71, 1283.05, 209.707, 1296.05, 215.704, 1299.05, 228.703, 1278.05, 237.708), PackedVector2Array(1632.07, 286.627, 1671.06, 259.618, 1697.06, 263.612, 1721.06, 275.607, 1720.07, 318.607, 1682.07, 327.616, 1672.08, 369.618, 1621.1, 420.63, 1614.09, 385.631, 1621.08, 338.63, 1653.08, 332.622, 1653.07, 291.622), PackedVector2Array(1163.91, -412.266, 1183.92, -370.27, 1213.91, -373.277, 1232.9, -417.282, 1274.89, -467.291, 1306.9, -452.298, 1311.91, -375.3, 1325.93, -325.303, 1314.93, -285.3, 1276.93, -285.292, 1251.94, -262.286, 1223.95, -210.28, 1192.96, -173.272, 1169.96, -185.267, 1179.95, -202.269, 1166.95, -224.267, 1156.95, -231.264, 1157.94, -250.264, 1132.94, -273.259, 1142.93, -308.261, 1126.93, -328.257, 1143.91, -379.261, 1110.91, -396.254)])
+vertices = PackedVector2Array(1671, 372, 1622, 433, 1605, 389, 1609, 340, 1661, 340, 1711, 279, 1658, 291, 1645, 286, 1666, 262, 1694, 258, 1686, 330, 1717, 315, 1250, -260, 1251, -261, 1216, -216, 1156, -384, 1138, -393, 1158, -399, 1178, -359, 1154, -310, 1137, -330, 1233, -419, 1261, -496, 1321, -522, 1319, -382, 1222, -364, 1232, -419, 1215, -215, 1192, -176, 1180, -188, 1181, -199, 1176, -230, 1333, -323, 1320, -285, 1272, -296, 1168, -254, 1144, -275, 1167, -236, 1318, 223, 1488, 221, 1583, 225, 1578, 231, 1483, 242, 1244, 245, 1216, 240, 1196, 193, 1242, 191, 1243, 191, 1333, 465, 1292, 433, 1349, 398, 1358, 458, 1478, 396, 1530, 396, 1516, 458, 1390, 455, 1292, 271, 1242, 293, 1237, 289, 1261, 261, 1290, 251, 1273, 189, 1255, 229, 1432, 366, 1389, 455, 1371, 352, 1435, 316, 1483, 284, 1463, 290, 1458, 307, 1384, 280, 1467, 368, 1282, 207, 1284, 170, 1300, 173, 1321, 196, 1389, 158, 1425, 157, 1432, 173, 1379, 175, 1378, 326, 1378, 325, 1336, 261, 1268, 235, 1267, 235, 1268, 216, 1361, 200, 1466, 218, 1531, 212, 1551, 206, 1569, 220, 1378, 176, 1451, 185)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(10, 0, 4, 6), PackedInt32Array(11, 10, 6, 5), PackedInt32Array(12, 13, 14), PackedInt32Array(15, 16, 17), PackedInt32Array(15, 17, 18), PackedInt32Array(19, 20, 15, 18, 12), PackedInt32Array(21, 22, 23, 24, 25), PackedInt32Array(21, 26, 22), PackedInt32Array(27, 28, 29, 30), PackedInt32Array(27, 30, 31, 14), PackedInt32Array(25, 24, 32, 33, 34), PackedInt32Array(25, 34, 12, 18), PackedInt32Array(35, 36, 19, 12, 14), PackedInt32Array(37, 35, 14, 31), PackedInt32Array(38, 39, 40, 41, 42), PackedInt32Array(43, 44, 45, 46, 47), PackedInt32Array(48, 49, 50, 51), PackedInt32Array(52, 53, 54, 55), PackedInt32Array(56, 57, 58, 59, 60), PackedInt32Array(43, 47, 61, 62), PackedInt32Array(63, 64, 51, 50, 65, 66), PackedInt32Array(38, 42, 67, 68), PackedInt32Array(38, 68, 69, 66, 70), PackedInt32Array(63, 71, 52, 55, 64), PackedInt32Array(72, 61, 73, 74, 75, 38), PackedInt32Array(76, 77, 78, 79), PackedInt32Array(66, 65, 80), PackedInt32Array(66, 80, 81, 70), PackedInt32Array(38, 70, 82), PackedInt32Array(60, 38, 82, 56), PackedInt32Array(83, 60, 59, 43, 84), PackedInt32Array(62, 84, 43), PackedInt32Array(85, 62, 61), PackedInt32Array(72, 85, 61), PackedInt32Array(38, 75, 86, 87), PackedInt32Array(88, 89, 90), PackedInt32Array(86, 91, 79, 78, 92, 87), PackedInt32Array(39, 88, 90, 40), PackedInt32Array(38, 87, 39)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1326.04, 185.697, 1356.04, 188.69, 1370.04, 169.687, 1383.03, 148.684, 1432.03, 146.673, 1440.04, 165.671, 1459.04, 178.667, 1473.05, 208.664, 1488.05, 210.66, 1529.05, 201.651, 1553.04, 195.645, 1574.05, 210.641, 1600.05, 221.635, 1583.06, 240.638, 1493.06, 250.659, 1494.07, 291.659, 1471.07, 297.664, 1467.07, 315.665, 1445.07, 322.67, 1443.08, 356.67, 1474.08, 358.663, 1485.09, 385.661, 1542.09, 385.648, 1525.11, 468.652, 1390.11, 464.683, 1360.11, 467.689, 1332.11, 476.696, 1276.1, 432.709, 1341.09, 390.694, 1362.08, 348.689, 1368.07, 323.688, 1373.07, 285.686, 1335.06, 270.695, 1295.06, 280.704, 1242.07, 303.716, 1222.07, 290.721, 1247.06, 261.715, 1238.05, 210.717, 1274.05, 226.709, 1289.05, 237.706, 1301.05, 225.703, 1283.05, 217.707, 1274.05, 223.709, 1249.06, 263.715, 1239.06, 253.717, 1210.06, 249.724, 1182.04, 183.73, 1242.04, 180.716, 1267.04, 178.711, 1280.04, 159.708, 1307.04, 163.702), PackedVector2Array(1628.07, 289.628, 1662.06, 252.62, 1699.06, 247.612, 1721.06, 275.607, 1729.07, 320.605, 1694.08, 336.613, 1679.09, 377.617, 1620.1, 452.63, 1595.09, 390.636, 1600.08, 330.635, 1650.08, 329.623, 1648.07, 297.624), PackedVector2Array(1163.91, -412.266, 1183.92, -370.27, 1213.91, -373.277, 1222.9, -421.279, 1253.88, -504.286, 1331.88, -538.304, 1328.91, -383.304, 1343.93, -323.307, 1327.94, -274.303, 1276.93, -285.292, 1258.94, -255.288, 1223.95, -210.28, 1194.96, -160.273, 1169.96, -185.267, 1170.95, -199.267, 1166.95, -224.267, 1156.95, -231.264, 1157.94, -250.264, 1132.94, -273.259, 1142.93, -308.261, 1126.93, -328.257, 1143.91, -379.261, 1110.91, -396.254)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rkcm"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knl1r"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbpvv"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gh42e"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trv60"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umt01"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ss7if"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q05fi"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5eab"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tvkt"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwvq8"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnghs"]
+atlas = ExtResource("11_2lpke")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_41qc4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rkcm")
+}],
+"loop": true,
+"name": &"IdleDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knl1r")
+}],
+"loop": true,
+"name": &"IdleLeft",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbpvv")
+}],
+"loop": true,
+"name": &"IdleRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gh42e")
+}],
+"loop": true,
+"name": &"IdleUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trv60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umt01")
+}],
+"loop": true,
+"name": &"WalkDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ss7if")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q05fi")
+}],
+"loop": true,
+"name": &"WalkLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5eab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tvkt")
+}],
+"loop": true,
+"name": &"WalkRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwvq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnghs")
+}],
+"loop": true,
+"name": &"WalkUp",
+"speed": 5.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqoxn"]
 shader = ExtResource("15_b28cm")
@@ -543,6 +671,7 @@ animation = &"Idle"
 
 [node name="Transfer" parent="." instance=ExtResource("8_ffii8")]
 position = Vector2(775.117, 511.823)
+scale = Vector2(0.96, 1.21)
 Direction = Vector2(1, 0)
 Position = Vector2(1255, 449)
 Room = "TempleWoods"
@@ -599,11 +728,56 @@ z_index = 1
 position = Vector2(61.036, 153.986)
 
 [node name="CrawlingSludge4" parent="." instance=ExtResource("12_g0eyk")]
+position = Vector2(1638.08, 368.626)
+
+[node name="Sprite" parent="CrawlingSludge4" index="0"]
+position = Vector2(-0.995502, 1.00012)
+sprite_frames = SubResource("SpriteFrames_41qc4")
+animation = &"WalkUp"
+offset = Vector2(-1.86265e-08, -2.86102e-06)
+
+[node name="HomePoints" type="Node2D" parent="CrawlingSludge4"]
+
+[node name="0" type="Marker2D" parent="CrawlingSludge4/HomePoints"]
+
+[node name="1" type="Marker2D" parent="CrawlingSludge4/HomePoints"]
+position = Vector2(-20.9902, 43.0048)
+
+[node name="2" type="Marker2D" parent="CrawlingSludge4/HomePoints"]
+position = Vector2(64.9852, -65.0149)
+
+[node name="3" type="Marker2D" parent="CrawlingSludge4/HomePoints"]
+position = Vector2(35.981, -83.0082)
+
+[node name="4" type="Marker2D" parent="CrawlingSludge4/HomePoints"]
+position = Vector2(-17.0046, -19.9961)
 
 [node name="CrawlingSludge3" parent="." instance=ExtResource("12_g0eyk")]
 position = Vector2(1189, -338)
 Battle = ExtResource("13_sj6eh")
 ID = "CS3"
+
+[node name="HomePoints" type="Node2D" parent="CrawlingSludge3"]
+
+[node name="0" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+
+[node name="1" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(4.95202, 127.727)
+
+[node name="2" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(-48.0736, 15.7394)
+
+[node name="3" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(123.93, 32.7002)
+
+[node name="4" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(37.9374, 63.7198)
+
+[node name="5" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(65.9084, -63.2866)
+
+[node name="6" type="Marker2D" parent="CrawlingSludge3/HomePoints"]
+position = Vector2(100.893, -132.295)
 
 [node name="Firefly" type="Marker2D" parent="."]
 process_mode = 3
@@ -819,7 +993,9 @@ navigation_polygon = SubResource("NavigationPolygon_p1yj5")
 visible = false
 position = Vector2(-3.00019, 1.00111)
 script = ExtResource("21_ax1rm")
+jump_dirs = null
 jump_am = 2
+time = null
 height = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe/JumpPoint4"]
@@ -842,6 +1018,8 @@ position = Vector2(494.091, 396.887)
 script = ExtResource("21_ax1rm")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
+time = null
+height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1"]
 position = Vector2(21.9993, -1.37897)
@@ -852,6 +1030,8 @@ position = Vector2(469.068, 297.893)
 script = ExtResource("21_ax1rm")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
+time = null
+height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint4"]
 position = Vector2(21.9993, -1.37897)
@@ -862,6 +1042,8 @@ position = Vector2(276.059, 258.937)
 script = ExtResource("21_ax1rm")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
 jump_am = 3
+time = null
+height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint2"]
 position = Vector2(-0.000457764, -1.7525)
@@ -872,6 +1054,8 @@ position = Vector2(420.06, 260.904)
 script = ExtResource("21_ax1rm")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
 jump_am = 3
+time = null
+height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint3"]
 position = Vector2(-2.00049, -1.99966)
@@ -927,5 +1111,6 @@ debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 [connection signal="body_entered" from="JumpPoint3" to="JumpPoint3" method="_on_entered"]
 [connection signal="area_entered" from="Vines/AreaBreak" to="Vines" method="_on_area_break_area_entered"]
 
+[editable path="CrawlingSludge4"]
 [editable path="Axe/PickUp"]
 [editable path="Skeleton"]

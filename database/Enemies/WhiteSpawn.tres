@@ -4,33 +4,37 @@
 [ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="1_e5cux"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_udw1f"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_a457n"]
-[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/JumpAttack.tres" id="4_cbmb1"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_cbmb1"]
 
 [resource]
 script = ExtResource("2_a457n")
 FirstName = "White Spawn"
 IsEnemy = true
 PartyIcon = ExtResource("1_udw1f")
-AuraHue = 1
 MainColor = Color(0.768627, 1, 0.85098, 1)
 SecondaryColor = Color(0, 0, 0, 1)
+LastName = ""
+codename = &"Actor"
+WeaponType = ""
+Controllable = false
+StatsVisible = true
 MaxHP = 50
 MaxAura = 35
-Attack = 0.5
-Magic = 1.0
+Attack = 0.3
+Magic = 0.4
 Defence = 0.9
 Speed = 8.0
 Health = 0
 Aura = 0
+AttackMultiplier = 1.0
+DefenceMultiplier = 1.0
+MagicMultiplier = 1.0
+SpeedMultiplier = 1.0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
 Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
 StandardAttack = ExtResource("4_cbmb1")
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedMultiplier = 1.0
 BT = ExtResource("1_e5cux")
 Offset = Vector2(0, -15)
 Shadow = false
@@ -39,9 +43,3 @@ Disappear = true
 GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
-LastName = ""
-WeaponType = ""
-Controllable = false
-StatsVisible = true
-NextAction = ""
-States = Array[Resource("res://database/States/state.gd")]([])

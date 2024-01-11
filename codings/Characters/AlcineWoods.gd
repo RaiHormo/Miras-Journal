@@ -20,7 +20,7 @@ func default() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
 		if Event.check_flag("AlcineFollow1") and Event.check_flag("AlcineFollow2"):
-			Global.Controllable = false
+			await Event.take_control()
 			Global.Player.set_anim("IdleRight")
 			Global.Player.camera_follow()
 			Global.get_cam().position.x = 1650
@@ -62,12 +62,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("temple_woods_random", "stay_back")
 			await Event.wait(1)
 			Loader.start_battle("AlcineFollow1")
-
-
 		elif Global.CameraInd == 1:
 			BodyState = IDLE
-			PartyUI.UIvisible = false
-			Global.Controllable = false
+			await Event.take_control()
 			Global.Player.set_anim("IdleUp")
 			await Event.wait(0.5)
 			look_to(Vector2.DOWN)
@@ -75,9 +72,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await $Bubble.animation_finished
 			await move_dir(Vector2.UP*5)
 			await Global.textbox("temple_woods_random", "was_that_a")
-			Global.Controllable = true
+			await Event.give_control()
 			Event.add_flag("AlcineFollow1")
-			PartyUI.UIvisible = true
 
 #func _input(event: InputEvent) -> void:
 	#if Event.check_flag("CantDashOnFlame"): return

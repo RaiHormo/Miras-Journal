@@ -6,6 +6,7 @@ class_name Mira
 #@onready var Global.Tilemap:TileMap = Global.Tilemap
 ##Whether the dash is active
 var dashing := false
+var winding_attack := false
 var realvelocity : Vector2 = Vector2.ZERO
 ##When the player is supposed to be in a midair perspective
 var midair := false
@@ -43,6 +44,10 @@ func _ready() -> void:
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
+	if Global.Controllable:
+		PartyUI.UIvisible = true
+		for i in Global.Area.Followers:
+			i.dont_follow = false
 
 
 func extended_process() -> void:
@@ -61,6 +66,8 @@ func extended_process() -> void:
 func control_process():
 	if first_frame:
 		Engine.time_scale = 1
+		$Attack/CollisionShape2D.set_deferred("disabled", true)
+		$Attack/AttackPreview/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
 	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
@@ -91,6 +98,7 @@ func control_process():
 					Global.Controllable=false
 					speed = dash_speed
 					BodyState = CUSTOM
+					direction = dashdir
 					reset_speed()
 					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
 					while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
@@ -121,7 +129,7 @@ func control_process():
 			realvelocity = get_real_velocity()
 		else:
 			realvelocity = (global_position - old_position)/ get_physics_process_delta_time()
-			position = round(position)
+			#position = round(position)
 		if Input.is_action_just_pressed("DebugF"):
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
@@ -223,6 +231,7 @@ func activate_flame(animate:=true) -> void:
 	%Base/Flame.show()
 
 func check_flame() -> void:
+	if get_node_or_null("$Flame") == null: return
 	if Event.check_flag(&"FlameActive"):
 		if $Flame.energy == 0:
 			activate_flame(false)
@@ -237,6 +246,7 @@ func check_flame() -> void:
 
 ##For opening the menu
 func bag_anim() -> void:
+	if get_node_or_null("%Base") == null: return
 	set_anim("OpenBag")
 	await %Base.animation_finished
 	set_anim("BagIdle")
@@ -302,6 +312,7 @@ func reset_speed() -> void:
 	%Base/Bag/Axe.speed_scale=1
 
 func bump() -> void:
+	direction = Vector2.ZERO
 	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 	Global.Controllable=false
@@ -312,7 +323,9 @@ func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
 	$Camera2D.update_position = follow
 
 func attack():
+	if dashing: await stop_dash()
 	reset_speed()
+	speed = 40
 	Global.Controllable = false
 	$Attack/AttackPreview.collision_layer = collision_layer
 	$Attack/AttackPreview.collision_mask = collision_mask
@@ -322,24 +335,29 @@ func attack():
 	check_before_attack()
 	$Attack.rotation = Global.get_direction().angle()
 	await set_anim("Attack"+Global.get_dir_name()+"Windup")
+	winding_attack = true
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 		if direction != Vector2.ZERO: Global.PlayerDir = direction
 		set_anim("Attack"+Global.get_dir_name()+"Windup")
 		check_before_attack()
+		if winding_attack == false: return
 		checked = true
 		await get_tree().physics_frame
+	winding_attack = false
 	$Attack/CollisionShape2D.disabled = false
 	var hits = false
+	BodyState = CUSTOM
+	direction = Vector2.ZERO
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	for i in $Attack/AttackPreview.get_overlapping_bodies():
-		print(i)
+		#print(i)
 		if not (i is NPC or i is Follower or i is Mira):
 			hits = true
 	#print("pt1: " + str(hits))
 	for i in $Attack.get_overlapping_bodies():
-		print(i)
+		#print(i)
 		if (i is NPC or i is Follower) and not i is Mira:
 			hits = false
 	#print("pt2: " + str(hits))
@@ -389,4 +407,3 @@ func pause_anim(node:Node2D = $Sprite):
 		if i is AnimatedSprite2D:
 			i.pause()
 			pause_anim(i)
-

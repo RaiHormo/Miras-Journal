@@ -223,7 +223,7 @@ func done():
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
 	if Global.Player != null: Global.Player.look_to(Global.get_direction())
-	Global.Controllable = true
+	Event.give_control()
 	await detransition()
 
 
@@ -284,6 +284,7 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
+	Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
 	#InBattle = true

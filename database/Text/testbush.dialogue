@@ -78,6 +78,6 @@ Add to party
 		do heal_party()
 	- Give Mira lots of HP
 		do Party.Leader.Health = 9999
-do Controllable = true
+do give_control()
 
 => END

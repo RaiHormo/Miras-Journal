@@ -8,6 +8,7 @@ func _on_entered(body: Node2D) -> void:
 	if body == Global.Player and Global.Player.dashing and Global.Controllable:
 		if jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs:
 			var prev_z = Global.Player.z_index
+			Global.Player.BodyState = NPC.NONE
 			Global.Player.z_index += 10
 			Global.Controllable = false
 			Global.Player.collision(false)

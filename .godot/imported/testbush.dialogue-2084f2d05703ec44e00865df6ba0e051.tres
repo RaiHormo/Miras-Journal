@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_h74x4"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_806j1"]
 
 [resource]
-script = ExtResource("1_h74x4")
+script = ExtResource("1_806j1")
 using_states = PackedStringArray()
 titles = {
 "add_to_party": "66",
@@ -1003,14 +1003,9 @@ Anything going on?",
 "id": "81",
 "mutation": {
 "expression": Array[Dictionary]([{
-"type": "variable",
-"value": "Controllable"
-}, {
-"type": "assignment",
-"value": "="
-}, {
-"type": "variable",
-"value": "true"
+"function": "give_control",
+"type": "function",
+"value": Array[Array]([])
 }])
 },
 "next_id": "83",

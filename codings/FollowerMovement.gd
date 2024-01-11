@@ -10,6 +10,7 @@ var moving: bool
 @export var member : int
 @export var distance : int
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@export var dont_follow := false
 
 func _ready():
 	Global.Follower[member] = self
@@ -22,6 +23,11 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	if Global.Player==null: return
+	if dont_follow:
+		direction = Vector2.ZERO
+		moving = false
+		animate()
+		return
 	if Global.Party.check_member(member):
 		show()
 		z_index = Global.Player.z_index
@@ -72,6 +78,7 @@ func makepath() -> void:
 
 
 func animate():
+	if not Global.check_member(member): return
 	if $AnimatedSprite2D.sprite_frames != member_info().OV:
 		$AnimatedSprite2D.sprite_frames = member_info().OV
 	if realvelocity.x == realvelocity.y:

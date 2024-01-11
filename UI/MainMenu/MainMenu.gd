@@ -23,6 +23,7 @@ func _ready():
 		get_tree().paused = false
 		Global.Controllable = true
 		return
+	await Event.take_control()
 	show()
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
@@ -172,7 +173,7 @@ func close():
 	if duplicated:
 		player.free()
 		Global.Player = Global.Area.get_child(0)
-	Global.Controllable = true
+	Event.give_control()
 	Global.Player.set_anim()
 	Global.get_cam().enabled = true
 	if Fader != null: Fader.hide()

@@ -42,6 +42,7 @@ func _ready():
 		$Act/Actor0.light_mask = 1
 	if Seq.PositionSameAsPlayer: Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
+	global_position = round(global_position)
 	$Act/Actor0.sprite_frames = Party.Leader.BT
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
@@ -158,6 +159,8 @@ func position_sprites():
 		$Act/Actor2.position = Vector2(-45,35)
 		$Act/Actor3.show()
 		$Act/Actor3.position = Vector2(-45,70)
+	for i in TurnOrder:
+		i.node.global_position = round(i.node.global_position)
 
 	if Troop.size() == 1:
 		$Act/Enemy0.show()
@@ -642,7 +645,11 @@ func victory():
 	if Global.Player != null:
 		Global.Player.global_position = $Act/Actor0.global_position
 		if Party.check_member(1):
-			Global.Player.get_parent().get_node("Follower1").global_position = $Act/Actor1.global_position
+			Global.Area.get_node("Follower1").global_position = $Act/Actor1.global_position
+		if Party.check_member(2):
+			Global.Area.get_node("Follower3").global_position = $Act/Actor2.global_position
+		if Party.check_member(3):
+			Global.Area.get_node("Follower3").global_position = $Act/Actor3.global_position
 		Global.get_cam().global_position = Global.Player.global_position
 
 func escape():

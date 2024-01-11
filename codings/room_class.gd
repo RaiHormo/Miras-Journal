@@ -18,6 +18,7 @@ enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()
+var Followers: Array[Follower] = []
 
 
 func _ready():
@@ -48,7 +49,8 @@ func _ready():
 			var follower = preload("res://scenes/Characters/Follower.tscn").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
-			SpawnPath.add_child(follower.duplicate())
+			Followers.append(follower)
+			SpawnPath.add_child(follower)
 		move_child(Player, 0)
 #	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self

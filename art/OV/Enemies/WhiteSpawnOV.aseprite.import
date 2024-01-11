@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bckx5xavadiug"
+path="res://.godot/imported/WhiteSpawnOV.aseprite-641194c1af0bee0be3ac0e747d6886e1.res"
+
+[deps]
+
+source_file="res://art/OV/Enemies/WhiteSpawnOV.aseprite"
+dest_files=["res://.godot/imported/WhiteSpawnOV.aseprite-641194c1af0bee0be3ac0e747d6886e1.res"]
+
+[params]
+

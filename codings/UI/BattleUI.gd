@@ -431,6 +431,7 @@ func _on_command():
 func _on_item() -> void:
 	stage = &"item"
 	PrevStage = &"root"
+	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true; return
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon

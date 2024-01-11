@@ -100,7 +100,7 @@ func f(flag:StringName, state = null) -> bool:
 		else: remove_flag(flag)
 	return check_flag(flag)
 
-func take_bag():
+func bag_seq():
 	Global.item_sound()
 	Item.HasBag = true
 	Global.Player._check_party()
@@ -111,3 +111,24 @@ func pass_time():
 func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
+
+func take_control():
+	if Global.Player == null:  return
+	if Global.Player.dashing: await Global.Player.stop_dash()
+	Global.Player.winding_attack = false
+	Global.Player.direction = Vector2.ZERO
+	PartyUI.UIvisible = false
+	Global.Controllable = false
+	Global.Player.BodyState = NPC.IDLE
+	Global.Player.set_anim()
+	for i in Global.Area.Followers:
+		i.dont_follow = true
+
+func give_control():
+	if Global.Player == null:  return
+	Global.Player.direction = Vector2.ZERO
+	PartyUI.UIvisible = true
+	Global.Controllable = true
+	get_tree().paused = false
+	for i in Global.Area.Followers:
+		i.dont_follow = false

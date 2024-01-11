@@ -4,6 +4,7 @@ var PinRange = false
 @export var Defeated = false
 var lock = false
 var homepoints: Array[Vector2]
+@export var give_up_after := 3
 
 func default():
 	Nav = $Nav
@@ -15,6 +16,7 @@ func default():
 func patrol():
 	if not homepoints.is_empty():
 		while not PinRange:
+			$Collision.set_deferred("disabled", true)
 			await go_to_global(homepoints.pick_random())
 			await Event.wait(randf_range(0,3))
 
@@ -31,7 +33,7 @@ func _on_finder_area_entered(area):
 	Nav.target_position = Global.Player.global_position
 	if not PinRange and not Loader.chased and Nav.is_target_reachable():
 		PinRange = true
-		await stop_going()
+		#await stop_going()
 		Loader.chase_mode()
 		speed = 40
 		Loader.battle_bars(1)
@@ -40,8 +42,9 @@ func _on_finder_area_entered(area):
 		look_to(to_local(Global.Player.global_position))
 		await $Bubble.animation_finished
 		#go_to(Global.Player.coords)
-		var tmr:SceneTreeTimer = get_tree().create_timer(3)
+		var tmr:SceneTreeTimer = get_tree().create_timer(give_up_after)
 		while tmr.time_left != 0:
+			$Collision.set_deferred("disabled", false)
 			if Nav.is_target_reachable(): BodyState = CHASE
 			else: BodyState = IDLE
 			if $DirectionMarker/Finder.has_overlapping_areas() and Nav.is_target_reachable():

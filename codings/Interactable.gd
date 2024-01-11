@@ -92,7 +92,7 @@ func _on_button_pressed() -> void:
 		"toggle":
 			Global.confirm_sound()
 		"text":
-			Global.Controllable = false
+			await Event.take_control()
 			await Global.textbox(file, title)
 			PartyUI.UIvisible = true
 			Global.Controllable = true

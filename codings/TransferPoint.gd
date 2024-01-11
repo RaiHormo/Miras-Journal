@@ -6,7 +6,7 @@ extends Area2D
 
 func _on_entered(body):
 	if Direction==Global.get_direction() and body == Global.Player:
-		Global.Controllable = false
+		await Event.take_control()
 		body.move_dir(Direction*5)
 		await Loader.travel_to(Room, Position, ToCamera)
 
