@@ -21,6 +21,7 @@ var PartyArray: Array[Actor] = []
 var Action: bool
 var CurrentTarget: Actor
 var AwaitVictory = false
+var count: int
 
 func _ready():
 	Global.Bt = self
@@ -48,6 +49,8 @@ func _ready():
 	$Act/Actor0.frame = 0
 	$Act/Actor0/Shadow.modulate = Color.WHITE
 	$Canvas/Callout.modulate = Color.TRANSPARENT
+	$Canvas/SPGain.hide()
+	$Canvas/VictoryItems.hide()
 	if Global.Area != null: Global.Area.show()
 	if Global.check_member(1):
 		dub = $Act/Actor0.duplicate()
@@ -634,12 +637,14 @@ func victory():
 	$Canvas/Callout.scale = Vector2(1.5,1.5)
 	PartyUI._on_expand(2)
 	$Canvas/DottedBack.show()
-	t.tween_property($Canvas/DottedBack, "modulate", Color(0.2,0.2,0.2,0.4), 1).from(Color.TRANSPARENT)
-	t.tween_property($Canvas/Callout, "position", Vector2(720, 50), 2).from(Vector2(1200, 50))
+	t.tween_property($Canvas/DottedBack, "modulate", Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
+	t.tween_property($Canvas/Callout, "position", Vector2(700, 50), 2).from(Vector2(1200, 50))
 	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,10), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
-	Loader.battle_bars(1)
+	victory_count_sp()
+	victory_show_items()
+	Loader.battle_bars(0)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
 	if Global.Player != null:
@@ -672,6 +677,58 @@ func victory_anim(chara:Actor):
 	await chara.node.animation_finished
 	anim("VictoryLoop", chara)
 
+func victory_count_sp():
+	await Event.wait(0.7)
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.set_parallel()
+	$Canvas/SPGain.show()
+	t.tween_property($Canvas/SPGain, "position:x", 918, 0.5).from(1000)
+	t.tween_property($Canvas/SPGain, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+	t.tween_property($Canvas/SPGain, "size:x", 260, 0.5).from(1)
+	t.tween_property($Canvas/SPGain/VBoxContainer/Text, "custom_minimum_size:x", 140, 0.5).from(1)
+	await t.finished
+	var sp = 26
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.tween_property(self, "count", sp, 2).from(0)
+	while $Canvas/SPGain/VBoxContainer/Number.text != str(sp):
+		$Canvas/SPGain/VBoxContainer/Number.text = str(count)
+		await Event.wait()
+	var dub = $Canvas/SPGain.duplicate()
+	$Canvas.add_child(dub)
+	await Event.wait()
+	t = create_tween()
+	t.set_parallel()
+	t.tween_property(dub, "scale", Vector2(1.5, 1.5), 0.3)
+	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
+	await t.finished
+	dub.queue_free()
+
+func victory_show_items():
+	await Event.wait(2)
+	for i in $Canvas/VictoryItems.get_children():
+		i.modulate = Color.TRANSPARENT
+	await Event.wait()
+	$Canvas/VictoryItems.show()
+	for i in $Canvas/VictoryItems.get_children():
+		t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUINT)
+		t.set_parallel()
+		t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+		t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
+		await t.finished
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	$Canvas/TurnOrder.show()
+	$Canvas/TurnOrder.icon = Global.get_controller().ConfirmIcon
+	$Canvas/TurnOrder.text = "Continue"
+	t.tween_property($Canvas/TurnOrder, "position:x", 1060, 0.5).from(1500)
+
 func miss(target:Actor = CurrentTarget):
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -684,8 +741,6 @@ func miss(target:Actor = CurrentTarget):
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(target.node, "position:x", target.node.position.x - offsetize(30), 0.3)
-
-
 
 func _on_battle_ui_command():
 	anim("Command")

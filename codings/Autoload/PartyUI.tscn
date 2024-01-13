@@ -628,12 +628,12 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Leader"]
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Leader/Level"]
 layout_mode = 0
-offset_left = 81.9777
-offset_top = 72.9816
-offset_right = 133.978
-offset_bottom = 79.9816
+offset_left = -58.0223
+offset_top = 1.6482
+offset_right = -6.02201
+offset_bottom = 8.6482
 theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
@@ -732,17 +732,6 @@ text = "Alcine"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Member1"]
-layout_mode = 0
-offset_left = 81.9777
-offset_top = 82.9816
-offset_right = 133.978
-offset_bottom = 89.9816
-theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
-theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
-value = 30.0
-show_percentage = false
-
 [node name="Border1" type="Panel" parent="CanvasLayer/Member1"]
 layout_mode = 0
 offset_left = -40.0
@@ -788,6 +777,17 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
+
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Member1/Level"]
+layout_mode = 0
+offset_left = -60.0
+offset_top = 2.66669
+offset_right = -7.99969
+offset_bottom = 9.66669
+theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
+value = 30.0
+show_percentage = false
 
 [node name="Page4" type="TextureRect" parent="CanvasLayer"]
 visible = false

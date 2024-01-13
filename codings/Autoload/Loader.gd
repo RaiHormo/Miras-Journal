@@ -305,10 +305,14 @@ func end_battle():
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_parallel()
 		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
-		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5)
-		t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color.TRANSPARENT, 0.5)
-		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "position", Vector2(1200, 50), 0.5)
-		t.tween_property(Global.Bt.get_node("Canvas/Callout"), "modulate", Color.TRANSPARENT, 0.5)
+		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5 )
+		t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
+		for i in Global.Bt.TurnOrder:
+			t.tween_property(i.node.get_node("Glow"), "energy", 0, 0.3)
+		for i in Global.Bt.get_node("Canvas").get_children():
+			if i.name != "DottedBack":
+				t.tween_property(i, "position:x", i.position.x + 500, 0.5)
+				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		await t.finished
 	InBattle= false

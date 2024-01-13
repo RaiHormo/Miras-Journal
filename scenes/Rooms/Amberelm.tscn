@@ -279,7 +279,6 @@ energy = 1.5
 texture = SubResource("GradientTexture1D_shwm3")
 
 [node name="Sign" parent="." instance=ExtResource("5_sm3rn")]
-z_index = 9
 position = Vector2(347, 391)
 LabelText = "Read"
 ActionType = "text"
@@ -292,7 +291,6 @@ Height = 5
 position = Vector2(-1, 8)
 
 [node name="RestTree" parent="." instance=ExtResource("5_sm3rn")]
-z_index = 9
 position = Vector2(106, 344)
 LabelText = "Rest"
 ActionType = "event"
@@ -304,7 +302,6 @@ Height = 5
 position = Vector2(-1, 13)
 
 [node name="InspectBackround" parent="." instance=ExtResource("5_sm3rn")]
-z_index = 9
 position = Vector2(69, 206)
 ActionType = "text"
 file = "amberelm_txt"

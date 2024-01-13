@@ -737,6 +737,7 @@ func turn_order():
 
 func _on_escape():
 	if stage == &"command":
+		stage = &"inactive"
 		Bt.escape()
 
 

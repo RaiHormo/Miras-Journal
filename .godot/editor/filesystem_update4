@@ -1,4 +1,4 @@
-res://scenes/Battle.tscn
+res://scenes/Interactable.tscn
 res://art/OV/Mira/MiraOVFlame.tres
 res://art/BT/Mira/MiraBT.tres
 res://database/Abilities/Guard.tres
@@ -24,6 +24,7 @@ res://scenes/Shaders/Multiply.gdshader
 res://scenes/Rooms/Debug.tscn
 res://scenes/Rooms/Amberelm.tscn
 res://scenes/Rooms/TempleWoods.tscn
+res://scenes/Battle.tscn
 res://scenes/Characters/WanderingEnemy.tscn
 res://UI/MainMenu/MainMenu.tscn
 res://codings/Autoload/PartyUI.tscn
@@ -32,14 +33,8 @@ res://scenes/Characters/Mira.tscn
 res://UI/Options/Options.tscn
 res://codings/Autoload/Loader.tscn
 res://codings/UI/Textbox2.tscn
-res://codings/PlayerMovement.gd
-res://UI/MainMenu/MainMenu.gd
-res://codings/Autoload/Event.gd
-res://UI/Fonts/cyrenia-button.tres
-res://codings/UI/BattleUI.gd
-res://codings/Characters/CrawlingSludge.gd
-res://codings/Interactions/ground_item.gd
 res://scenes/GroundItem.tscn
-res://database/Items/Consumables/SmallPotion.tres
-res://codings/Interactable.gd
-res://scenes/Interactable.tscn
+res://codings/BattleBase.gd
+res://codings/UI/PartyUI.gd
+res://codings/UI/BattleUI.gd
+res://codings/Autoload/Loader.gd

@@ -915,7 +915,6 @@ position = Vector2(155.1, 435.965)
 texture = SubResource("AtlasTexture_b05s0")
 
 [node name="PickUp" parent="Bag" instance=ExtResource("22_yc4ou")]
-z_index = 9
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -963,7 +962,6 @@ position = Vector2(519.113, 492.881)
 texture = SubResource("AtlasTexture_1djdy")
 
 [node name="PickUp" parent="Axe" node_paths=PackedStringArray("Collision") instance=ExtResource("22_yc4ou")]
-z_index = 9
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -1062,7 +1060,6 @@ position = Vector2(-2.00049, -1.99966)
 shape = SubResource("RectangleShape2D_2uc1h")
 
 [node name="Skeleton" parent="." instance=ExtResource("22_yc4ou")]
-z_index = 9
 position = Vector2(1233.99, -52.2818)
 collision_layer = 257
 collision_mask = 257

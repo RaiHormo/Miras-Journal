@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=177 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -1096,6 +1096,23 @@ Panel/styles/panel = SubResource("StyleBoxFlat_oukki")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ku"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gdq3"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+expand_margin_left = 12.0
+expand_margin_top = 2.0
+expand_margin_right = 12.0
+expand_margin_bottom = 2.0
+
 [node name="Battle" type="Control"]
 process_mode = 3
 z_index = 8
@@ -2140,7 +2157,7 @@ script = ExtResource("24_7iq6m")
 layer = 3
 
 [node name="DottedBack" type="TextureRect" parent="Canvas"]
-modulate = Color(0.388235, 0.388235, 0.388235, 1)
+modulate = Color(0.188235, 0.188235, 0.188235, 0.8)
 show_behind_parent = true
 light_mask = 0
 offset_left = 387.0
@@ -2376,6 +2393,87 @@ text = "When you attack everyone you know and love will die. This deals 99999999
 position = Vector2(182.418, -105.725)
 scale = Vector2(0.2, 0.2)
 color = Color(1, 0, 0.356863, 1)
+
+[node name="SPGain" type="PanelContainer" parent="Canvas"]
+clip_contents = true
+offset_left = 953.0
+offset_top = 308.0
+offset_right = 1213.0
+offset_bottom = 366.0
+scale = Vector2(1.2, 1.2)
+pivot_offset = Vector2(130.984, 30.2405)
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0jrc")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Canvas/SPGain"]
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="Plus" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("28_kt0tm")
+theme_override_font_sizes/font_size = 48
+text = "+"
+horizontal_alignment = 2
+
+[node name="Number" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("28_kt0tm")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+
+[node name="Text" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.388235, 0.388235, 0.388235, 1)
+theme_override_fonts/font = ExtResource("28_kt0tm")
+theme_override_font_sizes/font_size = 26
+text = " Skill Points"
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="VictoryItems" type="VBoxContainer" parent="Canvas"]
+offset_left = 870.0
+offset_top = 414.0
+offset_right = 1206.0
+offset_bottom = 542.0
+theme_override_constants/separation = 24
+
+[node name="Text" type="Label" parent="Canvas/VictoryItems"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_m47vp")
+theme_override_font_sizes/font_size = 42
+text = "Obtained items:"
+horizontal_alignment = 2
+
+[node name="ItemTemp" type="PanelContainer" parent="Canvas/VictoryItems"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_4gdq3")
+
+[node name="Hbox" type="HBoxContainer" parent="Canvas/VictoryItems/ItemTemp"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+material = ExtResource("1_pas6x")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("24_ptxpe")
+
+[node name="ItemName" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("28_kt0tm")
+theme_override_font_sizes/font_size = 38
+text = "Item name"
+vertical_alignment = 1
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]

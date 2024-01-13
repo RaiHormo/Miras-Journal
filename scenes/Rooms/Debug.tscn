@@ -570,7 +570,6 @@ shadow_color = Color(0, 0, 0, 0.905882)
 texture = SubResource("GradientTexture2D_scwbs")
 
 [node name="Lamp" parent="." instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(59.7305, -36.4454)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
@@ -588,7 +587,6 @@ texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("5_1wqrx")
 
 [node name="Bush" parent="." instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(60.2736, 36.5526)
 ActionType = "text"
 file = "testbush"
@@ -596,7 +594,6 @@ title = "bush"
 Height = 4
 
 [node name="FastTravel" parent="." instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(11.5979, -54.0878)
 LabelText = "Fast Travel"
 ActionType = "text"
@@ -611,7 +608,6 @@ position = Vector2(-41.8575, 19.312)
 texture = SubResource("AtlasTexture_gtdj1")
 
 [node name="PickUp" parent="Axe" instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -641,7 +637,6 @@ texture = ExtResource("9_1j4ra")
 offset = Vector2(2.05523, -14.1279)
 
 [node name="Fight" parent="Dummy" instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
 ActionType = "battle"
@@ -690,7 +685,6 @@ position = Vector2(-39, -72)
 texture = ExtResource("12_d384d")
 
 [node name="NewGame" parent="Harold" instance=ExtResource("5_pijc2")]
-z_index = 9
 position = Vector2(0, 8)
 LabelText = "New Game"
 ActionType = "global"
