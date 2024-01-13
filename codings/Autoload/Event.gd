@@ -112,12 +112,12 @@ func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
-func take_control():
+func take_control(keep_ui = false):
 	if Global.Player == null:  return
 	if Global.Player.dashing: await Global.Player.stop_dash()
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
-	PartyUI.UIvisible = false
+	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
 	Global.Player.BodyState = NPC.IDLE
 	Global.Player.set_anim()

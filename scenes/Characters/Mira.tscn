@@ -3531,6 +3531,7 @@ Nav = NodePath("Nav")
 
 [node name="Sprite" type="CanvasGroup" parent="."]
 light_mask = 3
+texture_filter = 2
 
 [node name="Base" type="AnimatedSprite2D" parent="Sprite"]
 unique_name_in_owner = true
@@ -3539,7 +3540,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"OpenBag"
+animation = &"IdleRight"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -3558,7 +3559,7 @@ visible = false
 light_mask = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_i8hwj")
-animation = &"SitDown"
+animation = &"IdleRight"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",
@@ -3574,7 +3575,6 @@ metadata/_aseprite_wizard_config_ = {
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUF4ZQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YXhlCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
 light_mask = 3
-material = ExtResource("2_lltpm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_7rwjk")
 animation = &"DashDownLoop"
@@ -3593,7 +3593,7 @@ metadata/_aseprite_wizard_config_ = {
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
 light_mask = 3
-texture_filter = 1
+material = ExtResource("2_lltpm")
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"WalkRight"
 

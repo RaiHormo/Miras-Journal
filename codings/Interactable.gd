@@ -20,24 +20,53 @@ var t:Tween
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
 @export var hide_parent: bool = false
+@export var arrow_up := false
 
 
 func _ready() -> void:
 	$Pack.hide()
-	$Pack.position.y -= Height
-	if Event.f(hide_on_flag):
-		if hide_parent: get_parent().queue_free()
-		else: queue_free()
 
 func _process(delta: float) -> void:
+	if Event.check_flag(hide_on_flag):
+		if hide_parent: get_parent().queue_free()
+		else: queue_free()
 	if pack == null:
 		pack = $Pack.duplicate()
 	if Global.Player != null and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
 		if not pack.visible:
+			match Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - 5))):
+				Vector2.UP:
+					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+					$Pack/Cnt.position.x = -166
+					$Pack.position.y = 17 - Height
+					$Pack.position.x = -15
+					$Pack/Arrow.flip_h = true
+					$Pack/Arrow.position.y = -42
+				Vector2.DOWN:
+					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+					$Pack/Cnt.position.x = -166
+					$Pack.position.x = -15
+					$Pack.position.y = -17 - Height
+					$Pack/Arrow.flip_h = false
+					$Pack/Arrow.position.y = -6
+				Vector2.LEFT:
+					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
+					$Pack/Cnt.position.x = 0
+					$Pack.position.x = -15
+					$Pack.position.y = -17 - Height
+					$Pack/Arrow.flip_h = false
+					$Pack/Arrow.position.y = -6
+				Vector2.RIGHT:
+					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_END
+					$Pack/Cnt.position.x = -330
+					$Pack.position.x = -15
+					$Pack/Arrow.position.y = -6
+					$Pack.position.y = -17 - Height
+					$Pack/Arrow.flip_h = false
 			#$/root.add_child(pack)
-			button = pack.get_node("Button")
+			button = pack.get_node("Cnt/Button")
 			arrow = pack.get_node("Arrow")
 			#pack.position = $Pack.global_position
 			pack.show()
@@ -53,11 +82,9 @@ func _process(delta: float) -> void:
 			t.set_trans(Tween.TRANS_BACK)
 			t.tween_property(button, "modulate", Color(1,1,1,1), 0.05)
 			t.tween_property(arrow, "modulate", Color(1,1,1,1), 0.1)
-			t.tween_property(button, "size", Vector2(Length,33), 0.1).from(Vector2(41, 33))
-			t.tween_property(button, "position", Vector2(-44-int((Length - 120)/10),-47), 0.1).from(Vector2(-5,-47))
+			t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 			await get_tree().create_timer(0.1).timeout
 			CanInteract = true
-
 	elif button != null:
 		#Disappear
 		if button.visible:
@@ -65,10 +92,9 @@ func _process(delta: float) -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_LINEAR)
-			t.tween_property(button, "modulate", Color(0,0,0,0), 0.1)
+			t.tween_property(button, "modulate", Color(0,0,0,0), 0.2)
 			t.tween_property(arrow, "modulate", Color(0,0,0,0), 0.1)
-			t.tween_property(button, "size", Vector2(41,33), 0.1)
-			t.tween_property(button, "position", Vector2(-5,-47), 0.1)
+			t.tween_property(button, "custom_minimum_size:x", 48, 0.2)
 			await get_tree().create_timer(0.2).timeout
 			#if pack in get_tree().root.get_children(): pack.queue_free()
 			pack.hide()

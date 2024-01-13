@@ -23,7 +23,7 @@ func patrol():
 func extended_process():
 	if self.get_path in Loader.Defeated:
 		hide()
-		$CatchArea/CollisionShape2D.disabled = true
+		$CatchArea/CollisionShape2D.set_deferred("disabled", true)
 		return
 #	if $DirectionMarker/Finder.get_overlapping_areas().is_empty():
 #		PinRange = false

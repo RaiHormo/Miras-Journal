@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=31 format=3 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_g5xrf"]
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://codings/NPC.gd" id="10_wjvb0"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/sheets/ErinnOV.tres" id="11_56r5q"]
 [ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Objects/Harold.png" id="12_d384d"]
+[ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://scenes/GroundItem.tscn" id="13_fr1t8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87swt"]
 texture = ExtResource("2_am130")
@@ -617,7 +618,6 @@ collision_mask = 257
 LabelText = "Pick up"
 ActionType = "item"
 file = "testbush"
-title = "travel"
 item = "LightweightAxe"
 hidesprite = true
 itemtype = "Key"
@@ -705,5 +705,9 @@ position = Vector2(0, 8)
 z_index = 1
 position = Vector2(0, 2.25)
 shape = SubResource("RectangleShape2D_72f6p")
+
+[node name="DebugPotion" parent="." instance=ExtResource("13_fr1t8")]
+position = Vector2(-61, 59)
+item_name = "SmallPotion"
 
 [connection signal="action" from="Lamp" to="Lamp/PointLight2D" method="_on_interactable_action"]

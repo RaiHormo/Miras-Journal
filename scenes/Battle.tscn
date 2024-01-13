@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=176 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -468,14 +468,6 @@ Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b0ek"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="InputEventAction" id="InputEventAction_is5hw"]
-action = &"LeftTrigger"
-pressed = true
-strength = 0.5
-
-[sub_resource type="Shortcut" id="Shortcut_lp475"]
-events = [SubResource("InputEventAction_is5hw")]
 
 [sub_resource type="FontVariation" id="FontVariation_tjob6"]
 base_font = ExtResource("22_m47vp")
@@ -1339,7 +1331,6 @@ theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_8b0ek")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8b0ek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8b0ek")
-shortcut = SubResource("Shortcut_lp475")
 icon = ExtResource("21_gc65u")
 text_overrun_behavior = 1
 expand_icon = true

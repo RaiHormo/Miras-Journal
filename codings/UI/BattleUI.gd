@@ -267,6 +267,7 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
+				if Input.is_action_just_pressed("LeftTrigger"): _on_escape()
 			&"item":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
@@ -422,9 +423,8 @@ func _on_command():
 	t.tween_property($CommandMenu/Escape, "rotation_degrees", 0, 0.3).from(-180)
 	t.tween_property($CommandMenu/CmdBack, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
-	#t.tween_property($CommandMenu/CmdBack, "position", Vector2(-884, -768), 0.5).from(Vector2(-584, -868))
 	$CommandMenu.show()
-	await t.finished
+	await Event.wait()
 	stage = &"command"
 
 

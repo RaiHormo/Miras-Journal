@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dr0r43kx24n6c"
+path="res://.godot/imported/ItemSparkle.aseprite-932699382b415e28d5f7a5b9c561c531.res"
+
+[deps]
+
+source_file="res://art/OV/Objects/ItemSparkle.aseprite"
+dest_files=["res://.godot/imported/ItemSparkle.aseprite-932699382b415e28d5f7a5b9c561c531.res"]
+
+[params]
+

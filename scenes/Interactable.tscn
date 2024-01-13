@@ -78,6 +78,7 @@ corner_radius_bottom_left = 26
 
 [node name="Interactable" type="Area2D"]
 process_mode = 3
+z_index = 9
 material = SubResource("ShaderMaterial_rbnbg")
 collision_layer = 256
 collision_mask = 256
@@ -89,27 +90,29 @@ shape = SubResource("CircleShape2D_7h34c")
 debug_color = Color(0.745098, 0.337255, 0.803922, 0.419608)
 
 [node name="Pack" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = -15.5512
-offset_top = -17.7638
-offset_right = 10.4488
-offset_bottom = 6.23623
+offset_left = -15.0
+offset_top = -17.0
+offset_right = 11.0
+offset_bottom = 7.00003
 scale = Vector2(0.4, 0.4)
 pivot_offset = Vector2(15.5692, 17.792)
 
-[node name="Button" type="Button" parent="Pack"]
-visibility_layer = 1024
-z_index = 9
-material = SubResource("ShaderMaterial_41wqm")
-layout_direction = 1
+[node name="Cnt" type="BoxContainer" parent="Pack"]
 layout_mode = 0
-offset_left = -46.4651
-offset_top = -45.2942
-offset_right = 68.5349
-offset_bottom = -12.2942
-pivot_offset = Vector2(19.2536, 14.8241)
+offset_left = -166.0
+offset_top = -44.0
+offset_right = 196.0
+offset_bottom = -12.0
+alignment = 1
+
+[node name="Button" type="Button" parent="Pack/Cnt"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_41wqm")
+custom_minimum_size = Vector2(120, 0)
+layout_direction = 1
+layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 1
 theme = SubResource("Theme_iavdl")
@@ -125,18 +128,19 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_ovhbv")
 text = "Inspect"
 icon = ExtResource("2_j77no")
 text_overrun_behavior = 1
+clip_text = true
 expand_icon = true
 
 [node name="Arrow" type="TextureRect" parent="Pack"]
 light_mask = 0
 use_parent_material = true
 layout_mode = 0
-offset_left = 6.03491
-offset_top = -5.29419
-offset_right = 54.0349
-offset_bottom = 86.7058
+offset_left = 6.6462
+offset_top = -4.188
+offset_right = 57.6462
+offset_bottom = 87.812
 rotation = -1.57186
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_6vdgc")
 
-[connection signal="pressed" from="Pack/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Pack/Cnt/Button" to="." method="_on_button_pressed"]

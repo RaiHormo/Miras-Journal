@@ -23,7 +23,7 @@ func _ready():
 		get_tree().paused = false
 		Global.Controllable = true
 		return
-	await Event.take_control()
+	await Event.take_control(true)
 	show()
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
@@ -51,6 +51,7 @@ func _ready():
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+	if Fader == null: queue_free(); return
 	Fader.show()
 	stage = "inactive"
 	zoom = Global.get_cam().zoom

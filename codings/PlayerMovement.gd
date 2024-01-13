@@ -71,9 +71,9 @@ func control_process():
 		first_frame = false
 	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
-#	else:
-#		direction = (Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")*2).limit_length()
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4).normalized()
+	if abs(direction.x) < 0.1: direction.y += direction.x; direction.x = 0
+	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
 	undashable = false
 	if is_on_wall():
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
@@ -118,11 +118,13 @@ func control_process():
 			Global.PlayerDir = direction
 			Global.PlayerPos = global_position
 		if direction != Vector2.ZERO:
-			$DirectionMarker.global_position=global_position +direction*10
+			$DirectionMarker.global_position = global_position + direction*10
 		if dashing:
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
 			velocity = direction * speed
+		if realvelocity.x == 0: position.x = roundf(position.x)
+		if realvelocity.y == 0: position.y = roundf(position.y)
 		var old_position = global_position
 		if direction.length()>0.1:
 			move_and_slide()
@@ -160,7 +162,9 @@ func update_anim_prm() -> void:
 				%Base/Bag.speed_scale=(realvelocity.length()/70)
 				%Base/Bag/Axe.speed_scale=(realvelocity.length()/70)
 		elif Global.Controllable and ("Walk" in %Base.animation or ("Dash" in %Base.animation and dashdir == Vector2.ZERO)):
-			move_frames=0
+			if move_frames != 0:
+				move_frames = 0
+				#if direction==Vector2.ZERO: position = Vector2i(position)
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
 					#print(4)
@@ -231,8 +235,8 @@ func activate_flame(animate:=true) -> void:
 	%Base/Flame.show()
 
 func check_flame() -> void:
-	if get_node_or_null("$Flame") == null: return
 	if Event.check_flag(&"FlameActive"):
+		if get_node_or_null("Flame") == null: return
 		if $Flame.energy == 0:
 			activate_flame(false)
 			while $Flame.energy < 1.5:
@@ -395,7 +399,8 @@ func dramatic_attack_pause():
 		else: await Event.wait()
 
 func _on_open_menu_pressed() -> void:
-	PartyUI.main_menu()
+	if Global.Controllable:
+		PartyUI.main_menu()
 
 func remove_light(node:Node2D = $Sprite):
 	for i in node.get_children():
