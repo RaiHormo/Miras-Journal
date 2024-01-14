@@ -22,6 +22,7 @@ var Action: bool
 var CurrentTarget: Actor
 var AwaitVictory = false
 var count: int
+var totalSP: int = 0
 
 func _ready():
 	Global.Bt = self
@@ -163,7 +164,8 @@ func position_sprites():
 		$Act/Actor3.show()
 		$Act/Actor3.position = Vector2(-45,70)
 	for i in TurnOrder:
-		i.node.global_position = round(i.node.global_position)
+		pixel_perfectize(i)
+
 
 	if Troop.size() == 1:
 		$Act/Enemy0.show()
@@ -206,7 +208,7 @@ func entrance():
 	if Loader.BtAdvantage == 1:
 		for i in Troop: damage(i, 1, false, 24/Troop.size())
 	await get_tree().create_timer(0.5).timeout
-	for i in Global.number_of_party_members():
+	for i in TurnOrder:
 		entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
@@ -214,11 +216,10 @@ func entrance():
 	await get_tree().create_timer(0.7).timeout
 	next_turn.emit()
 
-func entrance_anim(i):
-	$Act.get_node("Actor" + str(i)).play("Entrance")
-	play_sound("Entrance", PartyArray[i])
-	await $Act.get_node("Actor" + str(i)).animation_finished
-	$Act.get_node("Actor" + str(i)).play("Idle")
+func entrance_anim(i: Actor):
+	play_sound("Entrance", i)
+	await anim(&"Entrance")
+	anim(&"Idle")
 
 func _on_next_turn():
 	if Troop.size() == 0:
@@ -516,13 +517,13 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
-	if target == null:
-		return
+	if target == null or target.has_state("KnockedOut"): return
 #	if target.IsEnemy and Troop.size() == 1:
 #		slowmo()
 	target.States.clear()
 	target.node.get_node("State").play("None")
 	target.add_state("KnockedOut")
+	if target.IsEnemy: totalSP += target.RecivedSP
 	anim("KnockOut", target)
 	target.node.get_node("Particle").emitting = true
 	t = create_tween()
@@ -583,7 +584,14 @@ func anim(animation: String="Idle", chara: Actor = CurrentChar):
 		chara.node.get_node("Glow").color = chara.MainColor
 		t.tween_property(chara.node.get_node("Glow"), "energy", 0, 0.3)
 	chara.node.play(animation)
+	pixel_perfectize(chara)
 	await chara.node.animation_finished
+
+func pixel_perfectize(chara: Actor, xy: int = 0):
+	if int(chara.node.sprite_frames.get_frame_texture(chara.node.animation, chara.node.frame).get_size()[xy]) % 2 == 0:
+		chara.node.offset[xy] = chara.Offset[xy]
+	else: chara.node.offset[xy] = chara.Offset[xy] + 0.5
+	if xy == 0: pixel_perfectize(chara, 1)
 
 func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
 	t.kill()
@@ -689,7 +697,7 @@ func victory_count_sp():
 	t.tween_property($Canvas/SPGain, "size:x", 260, 0.5).from(1)
 	t.tween_property($Canvas/SPGain/VBoxContainer/Text, "custom_minimum_size:x", 140, 0.5).from(1)
 	await t.finished
-	var sp = 26
+	var sp = totalSP
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -755,7 +763,7 @@ func add_to_troop(en: Actor):
 	dub.sprite_frames = en.BT
 	dub.material = dub.material.duplicate()
 	dub.offset = en.Offset
-	dub.play("Idle")
+	anim(&"Idle", en)
 	en.Health = en.MaxHP
 	en.Aura = en.MaxAura
 	dub.add_child(en.SoundSet.instantiate())

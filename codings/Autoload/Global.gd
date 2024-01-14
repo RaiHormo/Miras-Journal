@@ -87,6 +87,9 @@ func new_game() -> void:
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
 	Item.MatInv.clear()
+	Item.add_item("PenCase", &"Key", false)
+	Item.add_item("FoldedPaper", &"Key", false)
+	Item.add_item("Wallet", &"Key", false)
 	Party.reset_party()
 	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none")
@@ -363,17 +366,22 @@ func portrait(img:String, redraw:=true) -> void:
 func portrait_clear() -> void:
 	HasPortrait=false
 
+func fade_txt_background(alpha := 0.8):
+	var t = create_tween()
+	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
+
 func next_box(profile:String) -> void:
 	$/root.get_node("Textbox").next_box = profile
 
 func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast") != null:
-		$/root/Toast.queue_free()
+		$/root/Toast.free()
 		await Event.wait()
-	get_tree().root.add_child(preload("res://UI/Misc/Toast.tscn").instantiate())
+	var tost = preload("res://UI/Misc/Toast.tscn").instantiate()
+	get_tree().root.add_child(tost)
 	await Event.wait()
 	if get_node_or_null("/root/Toast") == null: return
-	$"/root/Toast/BoxContainer/Toast/Label".text = string
+	tost.get_node("BoxContainer/Toast/Label").text = string
 
 
 #Match profile

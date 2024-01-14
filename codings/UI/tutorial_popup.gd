@@ -26,6 +26,15 @@ func dash():
 	await close()
 	queue_free()
 
+func ov_attack():
+	%Text.text = "[center]Press [img]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
+	await pop_down()
+	while not Input.is_action_pressed("OVAttack"):
+		await Event.wait()
+	await Event.wait(3)
+	await close()
+	queue_free()
+
 func walk():
 	if Global.device == "Keyboard":
 		%Text.text = "[center]Use the arrow keys to walk.[/center]"

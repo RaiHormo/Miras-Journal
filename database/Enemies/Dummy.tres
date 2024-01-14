@@ -3,17 +3,22 @@
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_xk7u8"]
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="2_g2uxp"]
 [ext_resource type="SpriteFrames" uid="uid://b2x5q6v6p786q" path="res://art/BT/Dummy/DummyBT.tres" id="2_ioagn"]
-[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/JumpAttack.tres" id="3_i7jnc"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="3_i7jnc"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_nn5al"]
 
 [resource]
 script = ExtResource("1_xk7u8")
 FirstName = "Dummy"
 IsEnemy = true
+RecivedSP = 999
 PartyIcon = ExtResource("2_g2uxp")
-AuraHue = 300
 MainColor = Color(1, 0.25098, 1, 1)
 SecondaryColor = Color(0, 0, 0, 1)
+LastName = ""
+codename = &"Actor"
+WeaponType = ""
+Controllable = false
+StatsVisible = true
 MaxHP = 200
 MaxAura = 100
 Attack = 0.368
@@ -22,15 +27,15 @@ Defence = 2.0
 Speed = 5.0
 Health = 0
 Aura = 0
+AttackMultiplier = 1.0
+DefenceMultiplier = 1.0
+MagicMultiplier = 1.0
+SpeedMultiplier = 1.0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
 Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
 StandardAttack = ExtResource("3_i7jnc")
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedMultiplier = 1.0
 BT = ExtResource("2_ioagn")
 Offset = Vector2(3, -6)
 Shadow = false
@@ -39,9 +44,3 @@ Disappear = true
 GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
-LastName = ""
-WeaponType = ""
-Controllable = false
-StatsVisible = true
-NextAction = ""
-States = Array[Resource("res://database/States/state.gd")]([])

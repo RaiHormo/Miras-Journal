@@ -51,7 +51,7 @@ func _ready():
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
-	if Fader == null: queue_free(); return
+	if Fader == null: queue_free(); get_tree().paused = false; return
 	Fader.show()
 	stage = "inactive"
 	zoom = Global.get_cam().zoom
@@ -127,7 +127,7 @@ func _on_focus_changed(control:Control):
 			pass
 		else:
 			Global.cursor_sound()
-			focus_item(control)
+			if control is Button: focus_item(control)
 	PrevCtrl = control
 
 func close():
@@ -402,7 +402,6 @@ func _on_confirm_button_down():
 		if PrevCtrl == null or PrevCtrl.get_meta("ItemData") == null: return
 		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
 			Item.use(PrevCtrl.get_meta("ItemData"))
-			stage = "choose_member"
 			Global.confirm_sound()
 
 func _on_back_button_down():
@@ -422,12 +421,16 @@ func _on_back_button_down():
 				$Confirm.show()
 		"choose_member":
 			await get_inventory()
-			if $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0) != null:
-				$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
-			else: $Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0)
 			await PartyUI._on_shrink()
-			PartyUI.UIvisible = false
+			await Event.wait()
 			stage = "item"
+			for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
+				if i.get_meta("ItemData") == Item.item: i.grab_focus()
+			if get_viewport().gui_get_focus_owner() == null and $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0) != null:
+				$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
+			elif get_viewport().gui_get_focus_owner() == null: $Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
+			PartyUI.UIvisible = false
+			PartyUI.MemberChoosing = false
 
 func get_inventory():
 	await Item.verify_inventory()

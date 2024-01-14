@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://ci6asie02dl6j"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_4mk51"]
+[ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_larht"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4axw"]
+atlas = ExtResource("1_4mk51")
+region = Rect2(126, 90, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_larht")
+Name = "Folded paper"
+Description = "A sheet of paper folded twice."
+Icon = SubResource("AtlasTexture_a4axw")
+Use = 1
+UsedInBattle = false
+OvTarget = 3
+Parameter = "folded_paper"
+Quantity = 0

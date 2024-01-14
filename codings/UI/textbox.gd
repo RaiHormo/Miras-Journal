@@ -227,6 +227,7 @@ func _on_close() -> void:
 		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
 		t.tween_property($Portrait, "position", Vector2(-100, 389), 0.2)
 	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
+	t.tween_property($Fader, "color", Color(0,0,0,0), 0.5)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
 	$Portrait.hide()
@@ -246,7 +247,6 @@ func _on_response_mouse_entered(item: Control) -> void:
 	if "Disallowed" in item.name: return
 
 	item.grab_focus()
-
 
 func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	if "Disallowed" in item.name:
@@ -285,10 +285,10 @@ func _input(event: InputEvent) -> void:
 				Engine.time_scale = 20 + hold_frames/10
 				if is_waiting_for_input: next(dialogue_line.next_id)
 			await Event.wait()
-		if hold_frames < hold_time and dialogue_label.is_typing:
-			Engine.time_scale = 40
-			await dialogue_label.finished_typing
-			Engine.time_scale = 1
+		#if hold_frames < hold_time and dialogue_label.is_typing:
+			#Engine.time_scale = 40
+			#await dialogue_label.finished_typing
+			#Engine.time_scale = 1
 		Engine.time_scale = 1
 
 func _on_balloon_gui_input(event: InputEvent) -> void:

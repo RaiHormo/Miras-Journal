@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://c2cqusickawh0"]
 
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_thmpc"]
-[ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="2_48cnf"]
+[ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="2_7yq6g"]
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="3_jdfoh"]
 
 [resource]
 script = ExtResource("3_jdfoh")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_thmpc"), ExtResource("2_48cnf")])
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_thmpc"), ExtResource("2_7yq6g")])
 Transition = true
 Detransition = false
 EscPosition = Vector2(54, 18)

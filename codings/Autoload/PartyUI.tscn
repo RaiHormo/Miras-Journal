@@ -1227,6 +1227,7 @@ flat = true
 bus = &"UI"
 
 [connection signal="expand" from="." to="." method="_on_expand"]
+[connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_shrink"]

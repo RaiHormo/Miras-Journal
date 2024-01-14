@@ -16,6 +16,7 @@
 script = ExtResource("1_e1lg0")
 FirstName = "Mira"
 IsEnemy = false
+RecivedSP = 0
 PartyIcon = ExtResource("2_gadvr")
 MainColor = Color(0.878431, 0.682353, 0.517647, 1)
 SecondaryColor = Color(0.886275, 0.345098, 0.192157, 1)
@@ -46,7 +47,7 @@ Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource(
 StandardAttack = ExtResource("6_pdf3s")
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
-Offset = Vector2(0, 0)
+Offset = Vector2(0, -15)
 Shadow = true
 SoundSet = ExtResource("10_rljiu")
 Disappear = false

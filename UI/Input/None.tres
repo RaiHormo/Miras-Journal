@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=2 format=3 uid="uid://dxkj4vowlw8um"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=3 format=3 uid="uid://dxkj4vowlw8um"]
 
 [ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_1a562"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_x7dg0"]
+
 [resource]
 script = ExtResource("1_1a562")
+ConfirmIcon = SubResource("CanvasTexture_x7dg0")
 AltConfirm = false

@@ -4,7 +4,7 @@ extends Control
 #@export var Global.Party: Global.PartyData = Global.Party
 @export var Expanded: bool = false
 @export var CursorPosition: Array[Vector2]
-signal expand
+signal expand(i)
 signal shrink
 var held = false
 var focus : int = 0
@@ -26,7 +26,7 @@ func _ready():
 	await get_tree().create_timer(0.00001).timeout
 	Global.check_party.emit()
 	if not Loader.InBattle:
-		_on_shrink()
+		shrink.emit()
 		UIvisible = true
 
 
@@ -80,12 +80,12 @@ func _input(ev):
 		main_menu()
 	if Input.is_action_just_pressed("Options") and "Idle" in Global.Player.get_node("%Base").animation:
 		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
-	if Input.is_action_pressed(Global.cancel()) and Expanded:
+	if Input.is_action_just_pressed(Global.cancel()) and Expanded and not MemberChoosing:
 		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 		$Audio.play()
-		_on_shrink()
+		shrink.emit()
 		Global.cancel_sound()
-	if Input.is_action_pressed("ui_accept") and MemberChoosing:
+	if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
 		_on_item_preview_pressed()
 
 	##Debug shortcuts
@@ -219,8 +219,6 @@ func _on_shrink():
 	t = create_tween()
 	t.set_parallel(true)
 	get_tree().paused = WasPaused
-	MemberChoosing = false
-	Global.Controllable= true
 	t.set_ease(Tween.EASE_OUT)
 	focus=0
 	t.set_trans(Tween.TRANS_BACK)
@@ -240,6 +238,8 @@ func _on_shrink():
 	shrink_panel(Partybox.get_node("Member1"), 1)
 	Expanded = false
 	await t.finished
+	if not MemberChoosing: Global.Controllable= true
+	MemberChoosing = false
 	$CanvasLayer/Back.hide()
 	$CanvasLayer/Page1.hide()
 	$CanvasLayer/Page2.hide()
@@ -459,13 +459,13 @@ func choose_member():
 	t = create_tween()
 	$CanvasLayer/Fade.show()
 	MemberChoosing = true
+	$/root/MainMenu.stage = "choose_member"
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
-
 
 func _on_item_preview_pressed():
 	if Item.get_node("ItemEffect").item.Quantity != 0:
@@ -502,10 +502,10 @@ func party_menu():
 			Tempvis=true
 			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 			$Audio.play()
-			_on_shrink()
+			shrink.emit()
 			Global.cancel_sound()
 		elif Global.Controllable:
-			_on_expand()
+			expand.emit()
 			$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
 			$Audio.play()
 			Global.confirm_sound()

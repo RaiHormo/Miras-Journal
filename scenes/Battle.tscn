@@ -1146,10 +1146,10 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC
 light_mask = 16
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
-position = Vector2(-60, -39)
+position = Vector2(-60.5, -39.5)
 sprite_frames = ExtResource("8_0vxnh")
 animation = &"KnockOut"
-offset = Vector2(0, -16)
+offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
 show_behind_parent = true
@@ -1198,7 +1198,7 @@ fixed_fps = 60
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
 light_mask = 16
 material = ExtResource("1_pas6x")
-position = Vector2(2, -13)
+position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_wdhds")
 animation = &"None"
 autoplay = "None"

@@ -356,7 +356,7 @@ pointing/emulate_mouse_from_touch=false
 [internationalization]
 
 rendering/root_node_layout_direction=1
-locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.dialogue", "res://database/Text/temple_woods_random.dialogue", "res://database/Text/amberelm_txt.dialogue")
+locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.dialogue", "res://database/Text/temple_woods_random.dialogue", "res://database/Text/amberelm_txt.dialogue", "res://database/Text/item_inspect.dialogue")
 
 [layer_names]
 

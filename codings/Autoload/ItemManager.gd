@@ -39,7 +39,7 @@ func get_animation(icon, named):
 	panel.hide()
 	Global.check_party.emit()
 
-func add_item(ItemName, type: String, animate=true):
+func add_item(ItemName, type: StringName, animate=true):
 	item = get_item(ItemName, type).duplicate()
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
@@ -91,6 +91,7 @@ func get_folder(type: StringName):
 		&"Bti": return "BattleItems"
 
 func use(iteme:ItemData):
+	item = iteme
 	$ItemEffect.use(iteme)
 
 func get_item(iteme, type:StringName):

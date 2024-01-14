@@ -263,6 +263,11 @@ _data = {
 process_mode = 3
 script = ExtResource("1_8vluk")
 
+[node name="Fader" type="ColorRect" parent="."]
+offset_right = 1284.0
+offset_bottom = 803.0
+color = Color(0, 0, 0, 0)
+
 [node name="Balloon" type="ColorRect" parent="."]
 pivot_offset = Vector2(635, 735)
 color = Color(0, 0, 0, 1)
@@ -317,6 +322,9 @@ theme_override_font_sizes/normal_font_size = 39
 text = "Dialogue. The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
 script = ExtResource("4_dyh0k")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
+skip_action = &"Dash"
+pause_at_characters = ".?!,"
+seconds_per_pause_step = 0.2
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0

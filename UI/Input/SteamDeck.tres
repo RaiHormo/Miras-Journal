@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://c3ryci4mcw7ea"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=13 format=3 uid="uid://c3ryci4mcw7ea"]
 
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="1_djl3r"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="2_h2m6s"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bosfbjmgy8ige" path="res://UI/Input/L1.png" id="5_m02ca"]
 [ext_resource type="Texture2D" uid="uid://dehm4esf8smnk" path="res://UI/Input/L2.png" id="6_o8ygp"]
 [ext_resource type="Texture2D" uid="uid://be0brags5xkbs" path="res://UI/Input/R1.png" id="7_ga2wi"]
+[ext_resource type="Texture2D" uid="uid://c5jexglyr0fg0" path="res://UI/Input/RT.png" id="7_otym8"]
 [ext_resource type="Texture2D" uid="uid://bywniuow67bb" path="res://UI/Input/R2.png" id="8_lxtkj"]
 [ext_resource type="Texture2D" uid="uid://dgrbl3qls8air" path="res://UI/Input/◲.png" id="9_862gb"]
 [ext_resource type="Texture2D" uid="uid://ctahm5vw8dw80" path="res://UI/Input/Ξ.png" id="10_26i4l"]
@@ -27,4 +28,5 @@ R = ExtResource("7_ga2wi")
 RZ = ExtResource("8_lxtkj")
 L = ExtResource("5_m02ca")
 LZ = ExtResource("6_o8ygp")
+OVAttack = ExtResource("7_otym8")
 AltConfirm = false
