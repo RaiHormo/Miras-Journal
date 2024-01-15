@@ -18,6 +18,7 @@ var WasPaused = false
 var MemberChoosing = false
 @onready var Partybox = $CanvasLayer
 var disabled = false
+var LevelupChain: Array[Actor] = []
 
 func _ready():
 	$CanvasLayer.hide()
@@ -62,10 +63,6 @@ func _process(delta):
 func _check_party():
 	if Global.Party == null: return
 	Global.Party = Global.Party
-	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUAD)
 	#Leader
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	#Member 1
@@ -108,12 +105,12 @@ func darken(toggle := true):
 	t.set_parallel()
 	if toggle:
 		$CanvasLayer/Fade.show()
-		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
-		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.3)
+		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.3)
 		await t.finished
 	else:
-		t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.4)
-		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.4)
+		t.tween_property($CanvasLayer/Fade, "color", Color(0,0,0,0), 0.3)
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 0, 0.3)
 		await t.finished
 		if $CanvasLayer/Fade.color == Color.TRANSPARENT: $CanvasLayer/Fade.hide()
 
@@ -403,6 +400,10 @@ func only_current():
 		t.tween_property($CanvasLayer/Leader, "position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
 	var character_label = mem.FirstName
 	get_node("CanvasLayer/Page"+str(ind+1)+"/Label").label_settings.font_color = mem.MainColor
@@ -416,12 +417,33 @@ func check_member(mem:Actor, node:Panel, ind):
 	draw_bar(mem, node)
 	node.get_node("Aura").max_value = mem.MaxAura
 	node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
-	t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	t.tween_property(node.get_node("Aura"), "value", mem.Aura, 1)
 	node.get_node("Icon").texture = mem.PartyIcon
 	node.get_node("Health/HpText").text = str(mem.Health)
 	node.get_node("Aura/AruaText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
+	check_for_levelups(mem, node)
+
+func check_for_levelups(mem:Actor, node:Panel):
+	if mem.SkillPointsFor.size() - 1 == mem.SkillLevel: return
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	if mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]:
+		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
+	else:
+		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
+		await t.finished
+		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
+		t = create_tween()
+		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
+		await t.finished
+		LevelupChain.append(mem)
+		mem.SkillLevel += 1
+		node.get_node("Level/Number").text = str(mem.SkillLevel)
+		node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
+		check_for_levelups(mem, node)
 
 func make_shadow(texture: Texture2D) -> Texture2D:
 	var old_image := texture.get_image() #// Gets the image from the old texture.
@@ -462,15 +484,20 @@ func choose_member():
 	$/root/MainMenu.stage = "choose_member"
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 	$CanvasLayer/Cursor/ItemPreview.show()
+	$CanvasLayer/Back.show()
 	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
+	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
+	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 
 func _on_item_preview_pressed():
-	if Item.get_node("ItemEffect").item.Quantity != 0:
+	if Item.get_node("ItemEffect").item.Quantity != 0 and Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
-	else: Global.buzzer_sound()
+	else:
+		if Item.get_node("ItemEffect").item.Quantity != 0: Global.toast("HP is already maxed out")
+		Global.buzzer_sound()
 	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
 
 func confirm_time_passage(title: String, description: String, to_time: int):

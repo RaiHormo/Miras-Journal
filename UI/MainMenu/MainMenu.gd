@@ -13,6 +13,7 @@ var PrevCtrl:Control = null
 var KeyInv :Array[ItemData]
 var player: Mira
 var duplicated := false
+var focused_item:ItemData = null
 
 func _ready():
 	hide()
@@ -304,6 +305,7 @@ func _root():
 	t.tween_property($DottedBack, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
+	PartyUI.darken(false)
 	await t.finished
 	if stage == "options": stage="root"
 
@@ -363,7 +365,6 @@ func _item():
 	t.tween_property($Rail/ItemFollow/ItemButton, "position", Vector2(-500, -340), 0.3)
 	Global.confirm_sound()
 	await t.finished
-	t = create_tween()
 	$Rail/ItemFollow/ItemButton.position = Vector2(-500, -340)
 
 
@@ -399,7 +400,7 @@ func _options():
 
 func _on_confirm_button_down():
 	if stage == "item":
-		if PrevCtrl == null or PrevCtrl.get_meta("ItemData") == null: return
+		if PrevCtrl == null or not PrevCtrl.has_meta("ItemData"): return
 		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
 			Item.use(PrevCtrl.get_meta("ItemData"))
 			Global.confirm_sound()
@@ -420,12 +421,14 @@ func _on_back_button_down():
 				$Back.show()
 				$Confirm.show()
 		"choose_member":
+			if not PartyUI.Expanded: return
 			await get_inventory()
 			await PartyUI._on_shrink()
 			await Event.wait()
 			stage = "item"
+			#print(Item.item.Name)
 			for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
-				if i.get_meta("ItemData") == Item.item: i.grab_focus()
+				if i.get_meta("ItemData") == focused_item: i.grab_focus()
 			if get_viewport().gui_get_focus_owner() == null and $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0) != null:
 				$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
 			elif get_viewport().gui_get_focus_owner() == null: $Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
@@ -469,6 +472,7 @@ func get_inventory():
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return
 	var item:ItemData = node.get_meta("ItemData")
+	focused_item = item
 	$DescPaper/Title.text = item.Name
 	$DescPaper/Desc.text = item.Description
 	$DescPaper/Art.texture = item.Artwork

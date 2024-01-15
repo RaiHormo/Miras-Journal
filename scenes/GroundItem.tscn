@@ -110,7 +110,7 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_t6ikl")
 autoplay = "default"
-frame_progress = 0.516823
+frame_progress = 0.770717
 
 [node name="Interactable" parent="." instance=ExtResource("3_uqxwf")]
 LabelText = "Search"
@@ -119,4 +119,4 @@ Length = 110
 hidesprite = true
 add_flag = true
 hide_parent = true
-arrow_up = true
+offset = 10

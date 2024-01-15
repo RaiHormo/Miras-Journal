@@ -439,6 +439,7 @@ func _on_item() -> void:
 	$Inventory/BIbutton.icon = Global.get_controller().L
 	$Inventory.show()
 	CurrentChar.NextAction = "item"
+	await fetch_inventory()
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
@@ -465,11 +466,14 @@ func _on_item() -> void:
 	t.tween_property($BaseRing/Ring2, "position", Vector2(160,0), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(1.1,1.1), 0.3)
 	t.tween_property($BaseRing, "position", Vector2(-320,-200), 0.3)
+	$Item.hide()
+	$Ability.hide()
+	$Command.hide()
+	$Attack.hide()
 	PartyUI.only_current()
-	match $Inventory/Margin.current_tab:
-		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
-		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
-
+	focus_inv_default()
+	await Event.wait(0.1)
+	focus_inv_default()
 
 func close():
 	active=false
@@ -676,7 +680,9 @@ func _on_focus_changed(control:Control):
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
-	if stage == &"item": focus_item(control)
+	if stage == &"item":
+		print(control)
+		focus_item(control)
 
 func _on_ability_entry():
 	if active:
@@ -808,6 +814,14 @@ func fetch_abilities():
 			i.disabled = true
 			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			%AbilityList.get_children().push_back(i)
+
+func focus_inv_default():
+	if $Inventory/Margin/BattleItems/Grid.get_child_count() == 0:
+		$Inventory/Margin.current_tab = 1
+	else: $Inventory/Margin.current_tab = 0
+	match $Inventory/Margin.current_tab:
+		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
+		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
 
 func _on_b_ibutton_pressed(tog:bool) -> void:
 	match tog:

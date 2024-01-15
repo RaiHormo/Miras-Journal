@@ -303,7 +303,7 @@ func reset_all_members() -> void:
 	for i in range(-1, Members.size() - 1):
 		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres")
 
-func find_member(Name: String) -> Actor:
+func find_member(Name: StringName) -> Actor:
 	for i in Members:
 		if i.codename == Name: return i
 	return Party.Leader

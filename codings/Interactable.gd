@@ -20,7 +20,7 @@ var t:Tween
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
 @export var hide_parent: bool = false
-@export var arrow_up := false
+@export var offset := 5
 
 
 func _ready() -> void:
@@ -36,35 +36,7 @@ func _process(delta: float) -> void:
 		CheckInput()
 		#Appear
 		if not pack.visible:
-			match Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - 5))):
-				Vector2.UP:
-					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
-					$Pack/Cnt.position.x = -166
-					$Pack.position.y = 17 - Height
-					$Pack.position.x = -15
-					$Pack/Arrow.flip_h = true
-					$Pack/Arrow.position.y = -42
-				Vector2.DOWN:
-					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
-					$Pack/Cnt.position.x = -166
-					$Pack.position.x = -15
-					$Pack.position.y = -17 - Height
-					$Pack/Arrow.flip_h = false
-					$Pack/Arrow.position.y = -6
-				Vector2.LEFT:
-					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
-					$Pack/Cnt.position.x = 0
-					$Pack.position.x = -15
-					$Pack.position.y = -17 - Height
-					$Pack/Arrow.flip_h = false
-					$Pack/Arrow.position.y = -6
-				Vector2.RIGHT:
-					$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_END
-					$Pack/Cnt.position.x = -330
-					$Pack.position.x = -15
-					$Pack/Arrow.position.y = -6
-					$Pack.position.y = -17 - Height
-					$Pack/Arrow.flip_h = false
+			do_position()
 			#$/root.add_child(pack)
 			button = pack.get_node("Cnt/Button")
 			arrow = pack.get_node("Arrow")
@@ -105,6 +77,37 @@ func CheckInput() -> void:
 	#Clicked
 	if Input.is_action_just_pressed("ui_accept") and CanInteract:
 		_on_button_pressed()
+
+func do_position():
+	match Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset))):
+		Vector2.UP:
+			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+			$Pack/Cnt.position.x = -166
+			$Pack.position.y = 17 - Height
+			$Pack.position.x = -15
+			$Pack/Arrow.flip_h = true
+			$Pack/Arrow.position.y = -42
+		Vector2.DOWN:
+			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+			$Pack/Cnt.position.x = -166
+			$Pack.position.x = -15
+			$Pack.position.y = -17 - Height
+			$Pack/Arrow.flip_h = false
+			$Pack/Arrow.position.y = -6
+		Vector2.LEFT:
+			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
+			$Pack/Cnt.position.x = 0
+			$Pack.position.x = -15
+			$Pack.position.y = -17 - Height
+			$Pack/Arrow.flip_h = false
+			$Pack/Arrow.position.y = -6
+		Vector2.RIGHT:
+			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_END
+			$Pack/Cnt.position.x = -330
+			$Pack.position.x = -15
+			$Pack/Arrow.position.y = -6
+			$Pack.position.y = -17 - Height
+			$Pack/Arrow.flip_h = false
 
 func _on_button_pressed() -> void:
 	t = create_tween()

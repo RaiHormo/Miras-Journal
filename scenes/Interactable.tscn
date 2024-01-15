@@ -90,6 +90,7 @@ shape = SubResource("CircleShape2D_7h34c")
 debug_color = Color(0.745098, 0.337255, 0.803922, 0.419608)
 
 [node name="Pack" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -15.0
@@ -98,6 +99,18 @@ offset_right = 11.0
 offset_bottom = 7.00003
 scale = Vector2(0.4, 0.4)
 pivot_offset = Vector2(15.5692, 17.792)
+
+[node name="Arrow" type="TextureRect" parent="Pack"]
+light_mask = 0
+use_parent_material = true
+layout_mode = 0
+offset_left = 6.6462
+offset_top = -4.188
+offset_right = 57.6462
+offset_bottom = 87.812
+rotation = -1.57186
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_6vdgc")
 
 [node name="Cnt" type="BoxContainer" parent="Pack"]
 layout_mode = 0
@@ -114,7 +127,7 @@ custom_minimum_size = Vector2(120, 0)
 layout_direction = 1
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
-focus_mode = 1
+focus_mode = 0
 theme = SubResource("Theme_iavdl")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -130,17 +143,5 @@ icon = ExtResource("2_j77no")
 text_overrun_behavior = 1
 clip_text = true
 expand_icon = true
-
-[node name="Arrow" type="TextureRect" parent="Pack"]
-light_mask = 0
-use_parent_material = true
-layout_mode = 0
-offset_left = 6.6462
-offset_top = -4.188
-offset_right = 57.6462
-offset_bottom = 87.812
-rotation = -1.57186
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_6vdgc")
 
 [connection signal="pressed" from="Pack/Cnt/Button" to="." method="_on_button_pressed"]

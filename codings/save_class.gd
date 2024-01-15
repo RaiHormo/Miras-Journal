@@ -3,7 +3,7 @@ class_name SaveFile
 
 @export var Name:String="Autosave"
 @export var Datetime:Dictionary
-@export var Party:PartyData
+@export var Party: Array[StringName]
 @export var Room: String
 @export var RoomName: String = "???"
 @export var Position:Vector2

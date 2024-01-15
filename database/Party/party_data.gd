@@ -38,6 +38,23 @@ func set_to(p:PartyData):
 	if p.Member3!=null: Member3 = Global.find_member(p.Member3.codename)
 	else: Member3 = null
 
+func set_to_strarr(p:Array[StringName]):
+	Leader = Global.find_member(p[0])
+	if p[1] != &"": Member1 = Global.find_member(p[1])
+	else: Member1 = null
+	if p[2] != &"": Member2 = Global.find_member(p[2])
+	else: Member2 = null
+	if p[3] != &"": Member3 = Global.find_member(p[3])
+	else: Member3 = null
+
+func get_strarr() -> Array[StringName]:
+	var arr: Array[StringName] = [&"", &"", &"", &""]
+	arr[0] = Leader.codename
+	if check_member(1): arr[1] = Member1.codename
+	if check_member(2): arr[2] = Member2.codename
+	if check_member(3): arr[3] = Member3.codename
+	return arr
+
 func get_member(num:int) -> Actor:
 	match num:
 		0: return Leader

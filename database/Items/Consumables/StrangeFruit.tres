@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dxj2fsd3j1mvp"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_kck5k"]
+[ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_t4t8r"]
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="2_n4kvo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
+atlas = ExtResource("1_kck5k")
+region = Rect2(126, 18, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_53v3u"]
+script = ExtResource("2_n4kvo")
+name = "Eat healing item"
+description = "This is used internally for healing items in battle."
+Icon = SubResource("AtlasTexture_uyukm")
+ActionSequence = &"Eat"
+Type = 4
+AuraCost = 0
+HPCost = 0
+Damage = 5
+Parameter = 30.0
+Target = 0
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 1.0
+CritChance = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sl0m"]
+atlas = ExtResource("1_kck5k")
+region = Rect2(126, 72, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_t4t8r")
+Name = "Strange fruit"
+Description = "Eddible probably?
+Restores 30 HP
+"
+Icon = SubResource("AtlasTexture_1sl0m")
+Use = 3
+UsedInBattle = true
+OvTarget = 3
+BattleEffect = SubResource("Resource_53v3u")
+Parameter = "30"
+Quantity = 0

@@ -15,6 +15,8 @@ expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
 [node name="Toast" type="CanvasLayer"]
+process_mode = 3
+layer = 12
 script = ExtResource("1_1ovav")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
@@ -32,5 +34,5 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0wg3v")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_foll0")
 theme_override_font_sizes/font_size = 28
-text = "This is a cool toast message"
+text = "..."
 horizontal_alignment = 1

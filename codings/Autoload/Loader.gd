@@ -44,9 +44,7 @@ func save(filename:String="Autosave", showicon=true):
 	var data:SaveFile = SaveFile.new()
 	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()
-	data.Party = PartyData.new()
-	data.Party.set_to(Global.Party)
-	data.Party.make_unique()
+	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.StartTime
 	data.Z = Global.Player.z_index
 	data.SavedTime = Time.get_unix_time_from_system()
@@ -99,6 +97,7 @@ func load_game(filename:String="Autosave"):
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
 	Global.CameraInd = data.Camera
+	PartyUI.UIvisible = true
 
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")
@@ -114,7 +113,7 @@ func load_game(filename:String="Autosave"):
 	Item.BtiInv = data.BtiInv.duplicate()
 
 	Global.Members = data.Members
-	Global.Party.set_to(data.Party)
+	Global.Party.set_to_strarr(data.Party)
 
 	await Global.area_initialized
 	Global.Player.global_position = data.Position

@@ -1960,6 +1960,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Item" type="Button" parent="BattleUI"]
+visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1

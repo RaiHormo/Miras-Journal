@@ -8,6 +8,7 @@ func type_out_with_sound(sound, freq, vari) -> void:
 	AudioPlayer.stream = sound
 	soundfreq = freq
 	varience = vari
+	count = soundfreq-1
 	type_out()
 
 

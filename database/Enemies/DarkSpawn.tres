@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=5 format=3 uid="uid://bdfytl8ohvtj6"]
+[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://bdfytl8ohvtj6"]
 
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_gfcpg"]
 [ext_resource type="SpriteFrames" uid="uid://d3xamvjet470a" path="res://art/BT/DarkSpawn/DarkSpawnBT.tres" id="1_gt5hy"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_lfptl"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_nskis"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_bmd5k"]
 
 [resource]
 script = ExtResource("2_nskis")
@@ -34,6 +35,7 @@ SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
 Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
+StandardAttack = ExtResource("4_bmd5k")
 BT = ExtResource("1_gt5hy")
 Offset = Vector2(-5, -15)
 Shadow = false

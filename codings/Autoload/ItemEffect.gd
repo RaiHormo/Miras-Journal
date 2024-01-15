@@ -14,6 +14,7 @@ func use(item_data: ItemData, battle_target: Actor = null):
 				await call(item.filename)
 			ItemData.U.HEALING:
 				await PartyUI.choose_member()
+				return
 			ItemData.U.INSPECT:
 				await Global.textbox("item_inspect", item.Parameter)
 		if prevfoc != null: prevfoc.grab_focus()

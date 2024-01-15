@@ -7,6 +7,7 @@ func default() -> void:
 		Event.add_flag("AlcineFollow1")
 		Event.warp_to(Vector2(55, -44), "AlcineChase")
 		await Event.wait(0.2)
+		Event.add_flag("AlcineFollow2")
 		await move_dir(Vector2.UP)
 		Global.passive("temple_woods_random", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
@@ -14,7 +15,6 @@ func default() -> void:
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
 		$Sprite.frame = 0
-		Event.add_flag("AlcineFollow2")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -62,7 +62,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("temple_woods_random", "stay_back")
 			await Event.wait(1)
 			Loader.start_battle("AlcineFollow1")
-		elif Global.CameraInd == 1:
+		elif Global.CameraInd == 1 and not Event.f(&"AlcineFollow1"):
 			BodyState = IDLE
 			await Event.take_control()
 			Global.Player.set_anim("IdleUp")

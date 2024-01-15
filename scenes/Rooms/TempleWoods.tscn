@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=104 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1b1u1"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_bpc20"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="22_8nst1"]
 [ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="22_dcmpa"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://scenes/Interactable.tscn" id="22_yc4ou"]
+[ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://scenes/GroundItem.tscn" id="25_1615u"]
 
 [sub_resource type="Gradient" id="Gradient_pqoya"]
 interpolation_mode = 2
@@ -691,6 +692,13 @@ Position = Vector2(1272, -966)
 Room = "TempleWoods"
 ToCamera = 2
 
+[node name="Transfer4" parent="." instance=ExtResource("8_ffii8")]
+position = Vector2(1257.8, -864.287)
+Direction = Vector2(0, 1)
+Position = Vector2(1254, -650)
+Room = "TempleWoods"
+ToCamera = 1
+
 [node name="CS1Region" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_ovn4b")
 use_edge_connections = false
@@ -1097,6 +1105,14 @@ collision_mask = 512
 position = Vector2(1.61475, 5.84274)
 shape = SubResource("RectangleShape2D_gbt1u")
 debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
+[node name="StrangeFruit1" parent="." instance=ExtResource("25_1615u")]
+position = Vector2(1346.12, 508.693)
+item_name = "StrangeFruit"
+
+[node name="StrangeFruit2" parent="." instance=ExtResource("25_1615u")]
+position = Vector2(1540.09, 393.648)
+item_name = "StrangeFruit"
 
 [connection signal="body_entered" from="Alcine/Area2D" to="Alcine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LightUp" to="LightUp" method="_on_body_entered"]

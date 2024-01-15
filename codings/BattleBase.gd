@@ -208,7 +208,7 @@ func entrance():
 	if Loader.BtAdvantage == 1:
 		for i in Troop: damage(i, 1, false, 24/Troop.size())
 	await get_tree().create_timer(0.5).timeout
-	for i in TurnOrder:
+	for i in PartyArray:
 		entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
@@ -218,7 +218,7 @@ func entrance():
 
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
-	await anim(&"Entrance")
+	await anim(&"Entrance", i)
 	anim(&"Idle")
 
 func _on_next_turn():
@@ -706,6 +706,9 @@ func victory_count_sp():
 		$Canvas/SPGain/VBoxContainer/Number.text = str(count)
 		await Event.wait()
 	var dub = $Canvas/SPGain.duplicate()
+	for i in PartyArray:
+		i.add_SP(totalSP)
+	Global.check_party.emit()
 	$Canvas.add_child(dub)
 	await Event.wait()
 	t = create_tween()
