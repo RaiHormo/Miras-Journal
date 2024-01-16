@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://bdfytl8ohvtj6"]
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://bdfytl8ohvtj6"]
 
+[ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="1_1iwl4"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_gfcpg"]
 [ext_resource type="SpriteFrames" uid="uid://d3xamvjet470a" path="res://art/BT/DarkSpawn/DarkSpawnBT.tres" id="1_gt5hy"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_lfptl"]
@@ -9,6 +10,7 @@
 [resource]
 script = ExtResource("2_nskis")
 FirstName = "Dark spawn"
+ActorClass = ""
 IsEnemy = true
 RecivedSP = 2
 PartyIcon = ExtResource("1_gfcpg")
@@ -20,10 +22,10 @@ WeaponType = ""
 Controllable = false
 StatsVisible = true
 MaxHP = 45
-MaxAura = 40
+MaxAura = 15
 Attack = 0.5
 Magic = 0.5
-Defence = 0.8
+Defence = 0.6
 Speed = 3.0
 Health = 0
 Aura = 0
@@ -34,7 +36,7 @@ SpeedMultiplier = 1.0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_1iwl4")])
 StandardAttack = ExtResource("4_bmd5k")
 BT = ExtResource("1_gt5hy")
 Offset = Vector2(-5, -15)

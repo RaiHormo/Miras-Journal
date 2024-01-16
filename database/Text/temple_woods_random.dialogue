@@ -52,6 +52,7 @@ Mira: Looks good on you!
 ~ stay_back
 do portrait("MiraOpenMouth")
 Mira: You stay behind me,\nI'll deal with it!
+=> END!
 
 ~ skeleton
 if not f("LookedAtSkeleton"):
@@ -60,3 +61,9 @@ if not f("LookedAtSkeleton"):
 	do f("LookedAtSkeleton", true)
 else: 
 	...Let's just move on.
+=> END!
+
+~ not_going_well
+do portrait("MiraNeutural")
+Mira: Ow, this hurts...[next=auto]
+Mira: Do I have anything that could heal me?[next=auto]

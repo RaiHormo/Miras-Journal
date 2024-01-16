@@ -13,3 +13,5 @@ EscPosition = Vector2(68, 9)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(1600, 225)
 CanEscape = true
+DeleteAttacker = true
+Events = Array[Resource("res://database/BattleSeq/battle_event.gd")]([])

@@ -31,7 +31,7 @@ func _ready() -> void:
 		Loader.travel_to("Debug")
 		queue_free()
 		return
-	Global.check_party.connect(_check_party)
+	#Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
 	Global.Follower[0] = self
@@ -48,13 +48,14 @@ func _ready() -> void:
 		PartyUI.UIvisible = true
 		for i in Global.Area.Followers:
 			i.dont_follow = false
+	Event.give_control()
 
 
 func extended_process() -> void:
 	if Global.Controllable:
 		#update_anim_prm()
 		BodyState = CONTROLLED
-		call_deferred("_check_party")
+		#call_deferred("_check_party")
 		check_flame()
 	else:
 		if BodyState == CONTROLLED: BodyState = CUSTOM
@@ -207,10 +208,10 @@ func _check_party() -> void:
 		%Base/Bag/Axe.hide()
 
 ##Sets the animation for all sprite layers
-func set_anim(anim:String = "Idle"+Global.get_dir_name()) -> void:
+func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false) -> void:
 	if get_node_or_null("%Base") == null: return
 	if anim not in %Base.sprite_frames.get_animation_names():
-		await Event.wait()
+		if wait: await Event.wait()
 		return
 	%Base.play(anim)
 	if anim in %Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
@@ -221,23 +222,26 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name()) -> void:
 		%Base/Flame.show()
 		%Base/Flame.play(anim)
 	else: %Base/Flame.hide()
-	if %Base.is_playing(): await %Base.animation_finished
+	if wait and %Base.is_playing(): await %Base.animation_finished
 
 func activate_flame(animate:=true) -> void:
 	Event.add_flag(&"FlameActive")
-	_check_party()
 	await Event.wait()
 	check_flame()
 	if animate:
-		set_anim("FlameActive")
-		await Event.wait(0.75)
+		Global.Controllable = false
+		BodyState = NONE
+		await set_anim("FlameActive", true)
 		set_anim("IdleRight")
 	%Base/Flame.show()
 
 func check_flame() -> void:
+	if not Global.Controllable: return
 	if Event.check_flag(&"FlameActive"):
 		if get_node_or_null("Flame") == null: return
+		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 		if $Flame.energy == 0:
+			$Flame.flicker = true
 			activate_flame(false)
 			while $Flame.energy < 1.5:
 				$Flame.energy += 0.03
@@ -245,8 +249,12 @@ func check_flame() -> void:
 			$Flame.energy = 1.5
 			$Flame.flicker = true
 	else:
+		reset_sprite()
 		$Flame.flicker = false
 		$Flame.energy = 0
+
+func reset_sprite():
+	%Base.sprite_frames = Global.Party.Leader.OV
 
 ##For opening the menu
 func bag_anim() -> void:
@@ -338,7 +346,7 @@ func attack():
 	await Event.wait()
 	check_before_attack()
 	$Attack.rotation = Global.get_direction().angle()
-	await set_anim("Attack"+Global.get_dir_name()+"Windup")
+	await set_anim("Attack"+Global.get_dir_name()+"Windup", true)
 	winding_attack = true
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
@@ -372,7 +380,7 @@ func attack():
 		audio = preload("res://sound/SFX/Etc/AxeBlock.ogg")
 	$Audio.stream = audio
 	$Audio.play()
-	await set_anim(anim)
+	await set_anim(anim, true)
 	Global.Controllable = true
 	if Input.is_action_pressed("OVAttack"): attack()
 	else:

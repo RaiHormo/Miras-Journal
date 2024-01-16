@@ -10,7 +10,7 @@
 script = ExtResource("1_xk7u8")
 FirstName = "Dummy"
 IsEnemy = true
-RecivedSP = 999
+RecivedSP = 99
 PartyIcon = ExtResource("2_g2uxp")
 MainColor = Color(1, 0.25098, 1, 1)
 SecondaryColor = Color(0, 0, 0, 1)

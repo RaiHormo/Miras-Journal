@@ -1,14 +1,29 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=3 format=3 uid="uid://c3jgxjdaf6cqb"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=5 format=3 uid="uid://c3jgxjdaf6cqb"]
 
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_6ngvg"]
-[ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Pterogon.tres" id="1_momyi"]
+[ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_uhysb"]
+[ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="2_yeq0t"]
+
+[sub_resource type="Resource" id="Resource_cbbvb"]
+script = ExtResource("2_yeq0t")
+flag = &"AlcineFollow4"
+flag_should_be = false
+after_turn = 3
+actor_hp_low = &"Mira"
+low_hp = 20
+result = 0
+parameter1 = "temple_woods_random"
+parameter2 = "not_going_well"
+add_flag = true
 
 [resource]
 script = ExtResource("1_6ngvg")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_momyi")])
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_uhysb")])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
 PositionSameAsPlayer = true
 ScenePosition = Vector2(0, 0)
 CanEscape = true
+DeleteAttacker = false
+Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_cbbvb")])

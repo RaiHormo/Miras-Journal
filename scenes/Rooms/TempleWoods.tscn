@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=106 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1b1u1"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_bpc20"]
@@ -196,7 +196,17 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6qhg"]
-size = Vector2(206, 89.0016)
+size = Vector2(206, 79.0111)
+
+[sub_resource type="Gradient" id="Gradient_yb76s"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nc5ly"]
+gradient = SubResource("Gradient_yb76s")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.852941, 0.894118)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ovn4b"]
 vertices = PackedVector2Array(1671, 372, 1622, 433, 1605, 389, 1609, 340, 1661, 340, 1711, 279, 1658, 291, 1645, 286, 1666, 262, 1694, 258, 1686, 330, 1717, 315, 1250, -260, 1251, -261, 1216, -216, 1156, -384, 1138, -393, 1158, -399, 1178, -359, 1154, -310, 1137, -330, 1233, -419, 1261, -496, 1321, -522, 1319, -382, 1222, -364, 1232, -419, 1215, -215, 1192, -176, 1180, -188, 1181, -199, 1176, -230, 1333, -323, 1320, -285, 1272, -296, 1168, -254, 1144, -275, 1167, -236, 1318, 223, 1488, 221, 1583, 225, 1578, 231, 1483, 242, 1244, 245, 1216, 240, 1196, 193, 1242, 191, 1243, 191, 1333, 465, 1292, 433, 1349, 398, 1358, 458, 1478, 396, 1530, 396, 1516, 458, 1390, 455, 1292, 271, 1242, 293, 1237, 289, 1261, 261, 1290, 251, 1273, 189, 1255, 229, 1432, 366, 1389, 455, 1371, 352, 1435, 316, 1483, 284, 1463, 290, 1458, 307, 1384, 280, 1467, 368, 1282, 207, 1284, 170, 1300, 173, 1321, 196, 1389, 158, 1425, 157, 1432, 173, 1379, 175, 1378, 326, 1378, 325, 1336, 261, 1268, 235, 1267, 235, 1268, 216, 1361, 200, 1466, 218, 1531, 212, 1551, 206, 1569, 220, 1378, 176, 1451, 185)
@@ -660,7 +670,7 @@ animation = &"Surprise"
 [node name="Area2D" type="Area2D" parent="Alcine"]
 
 [node name="SceneShape" type="CollisionShape2D" parent="Alcine/Area2D"]
-position = Vector2(-50.9993, -0.499451)
+position = Vector2(-50.9991, -5.49469)
 shape = SubResource("RectangleShape2D_e6qhg")
 
 [node name="Petrogon" type="AnimatedSprite2D" parent="."]
@@ -669,6 +679,14 @@ use_parent_material = true
 position = Vector2(1730.75, -1080.39)
 sprite_frames = ExtResource("10_8nxki")
 animation = &"Idle"
+
+[node name="Glow" type="PointLight2D" parent="Petrogon"]
+light_mask = 16
+color = Color(1, 0.278431, 0.552941, 1)
+energy = 0.3
+range_item_cull_mask = 17
+texture = SubResource("GradientTexture2D_nc5ly")
+texture_scale = 2.0
 
 [node name="Transfer" parent="." instance=ExtResource("8_ffii8")]
 position = Vector2(775.117, 511.823)
@@ -695,7 +713,7 @@ ToCamera = 2
 [node name="Transfer4" parent="." instance=ExtResource("8_ffii8")]
 position = Vector2(1257.8, -864.287)
 Direction = Vector2(0, 1)
-Position = Vector2(1254, -650)
+Position = Vector2(1254, -640)
 Room = "TempleWoods"
 ToCamera = 1
 
@@ -1112,6 +1130,14 @@ item_name = "StrangeFruit"
 
 [node name="StrangeFruit2" parent="." instance=ExtResource("25_1615u")]
 position = Vector2(1540.09, 393.648)
+item_name = "StrangeFruit"
+
+[node name="StrangeFruit3" parent="." instance=ExtResource("25_1615u")]
+position = Vector2(1306.74, -1141.3)
+item_name = "StrangeFruit"
+
+[node name="StrangeFruit4" parent="." instance=ExtResource("25_1615u")]
+position = Vector2(1430.78, -966.327)
 item_name = "StrangeFruit"
 
 [connection signal="body_entered" from="Alcine/Area2D" to="Alcine" method="_on_area_2d_body_entered"]

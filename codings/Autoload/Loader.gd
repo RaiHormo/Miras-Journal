@@ -18,7 +18,7 @@ var traveled_pos
 @onready var Icon = $Can/Icon
 var BattleResult=0
 var chased = false
-var Attacker: NPC
+var Attacker: Node2D
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
@@ -286,10 +286,10 @@ func start_battle(stg, advantage := 0):
 	Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
-	#InBattle = true
-	if Attacker!=null: Attacker.hide()
+	if Attacker != null: Attacker.hide()
 	for i in Global.Follower:
 		if i != null: i.hide()
+	#InBattle = true
 
 func end_battle():
 	Global.get_cam().zoom = CamZoom
@@ -324,7 +324,7 @@ func end_battle():
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
 	if Attacker!=null and BattleResult!= 1: Attacker.show()
-	if BattleResult == 1 and Attacker!=null:
+	if Seq.DeleteAttacker and BattleResult == 1 and Attacker!=null:
 		Attacker.defeat()
 	Global.Controllable = false
 	battle_bars(0)

@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://dhcj1318p3b4g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://dhcj1318p3b4g"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_4agl2"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_fnv26"]
 [ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_iy5kn"]
+[ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="2_pm52f"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_rtvyb"]
 
 [resource]
 script = ExtResource("2_iy5kn")
 FirstName = "Crawling sludge"
+ActorClass = ""
 IsEnemy = true
 RecivedSP = 5
 PartyIcon = ExtResource("1_u1o0b")
@@ -22,8 +24,8 @@ Controllable = false
 StatsVisible = true
 MaxHP = 80
 MaxAura = 25
-Attack = 0.3
-Magic = 0.1
+Attack = 0.4
+Magic = 0.5
 Defence = 1.0
 Speed = 3.0
 Health = 0
@@ -35,7 +37,7 @@ SpeedMultiplier = 1.0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_fnv26")])
+Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_fnv26"), ExtResource("2_pm52f")])
 StandardAttack = ExtResource("4_rtvyb")
 BT = ExtResource("1_nfmau")
 Offset = Vector2(0, -17)

@@ -687,18 +687,26 @@ func _on_focus_changed(control:Control):
 func _on_ability_entry():
 	if active:
 		Global.confirm_sound()
-		var ab = %AbilityList.get_child(MenuIndex).get_meta("Ability")
-		if ab.Target == 1:
-			PrevStage="ability"
-			stage = &"target"
-			get_target(Bt.get_oposing_faction())
-		if ab.Target == 3:
-			PrevStage="ability"
-			stage = &"target"
-			get_target(Bt.get_ally_faction())
-		if ab.Target == 0:
-			emit_signal("ability_returned", ab, CurrentChar)
-			close()
+		var ab:Ability = %AbilityList.get_child(MenuIndex).get_meta("Ability")
+		match ab.Target:
+			Ability.T.ONE_ENEMY:
+				PrevStage="ability"
+				stage = &"target"
+				get_target(Bt.get_oposing_faction())
+			Ability.T.ONE_ALLY:
+				PrevStage="ability"
+				stage = &"target"
+				get_target(Bt.get_ally_faction())
+			Ability.T.SELF:
+				emit_signal("ability_returned", ab, CurrentChar)
+				close()
+			Ability.T.ANY:
+				PrevStage="ability"
+				stage = &"target"
+				get_target(Bt.TurnOrder)
+			_:
+				emit_signal("ability_returned", ab)
+				close()
 
 
 func _on_confirm_pressed():

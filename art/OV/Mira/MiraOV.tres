@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=220 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=221 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dlt2hga7mq0aw" path="res://art/OV/Mira/Getup.png" id="6_2ft10"]
 [ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="6_iuohf"]
 [ext_resource type="Texture2D" uid="uid://y76yw14c0rn" path="res://art/OV/Mira/Sitting.png" id="8_0hv12"]
+[ext_resource type="Texture2D" uid="uid://cmlhbydgt44yv" path="res://art/OV/Mira/EntrancePrep.png" id="8_vlp71"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0usjx"]
 atlas = ExtResource("1_uisfp")
@@ -1371,6 +1372,14 @@ animations = [{
 "loop": false,
 "name": &"DenyUp",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_vlp71")
+}],
+"loop": false,
+"name": &"EntrancePrep",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,

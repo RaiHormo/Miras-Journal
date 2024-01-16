@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_qpg8b"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_0sc05"]
 
 [resource]
-script = ExtResource("1_qpg8b")
+script = ExtResource("1_0sc05")
 using_states = PackedStringArray()
 titles = {
 "as_lost_as_you": "32",
@@ -13,7 +13,8 @@ titles = {
 "haha": "39",
 "hey_wait": "20",
 "im_not_gonna_harm_you": "25",
-"skeleton": "57",
+"not_going_well": "67",
+"skeleton": "58",
 "stay_back": "53",
 "that_should_do_it": "6",
 "was_that_a": "10"
@@ -442,7 +443,7 @@ Was that another monster?",
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
 "id": "54",
-"next_id": "57",
+"next_id": "55",
 "tags": PackedStringArray(),
 "text": "You stay behind me,
 I'll deal with it!",
@@ -451,13 +452,19 @@ I'll deal with it!",
 I'll deal with it!",
 "type": "dialogue"
 },
-"56": {
-"id": "56",
-"next_id": "57",
+"55": {
+"id": "55",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
+},
+"57": {
+"id": "57",
+"next_id": "58",
 "text": "skeleton",
 "type": "title"
 },
-"57": {
+"58": {
 "condition": {
 "expression": Array[Dictionary]([{
 "type": "not"
@@ -472,34 +479,22 @@ I'll deal with it!",
 "type": "colon"
 }])
 },
-"id": "57",
-"next_conditional_id": "61",
-"next_id": "58",
-"next_id_after": "end!",
-"type": "condition"
-},
-"58": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "58",
+"next_conditional_id": "62",
 "next_id": "59",
-"parent_id": "57",
-"tags": PackedStringArray(),
-"text": "...There's no mistaking it, that's a skeleton.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "...There's no mistaking it, that's a skeleton.",
-"type": "dialogue"
+"next_id_after": "64",
+"type": "condition"
 },
 "59": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
 "id": "59",
 "next_id": "60",
-"parent_id": "57",
+"parent_id": "58",
 "tags": PackedStringArray(),
-"text": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
+"text": "...There's no mistaking it, that's a skeleton.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
+"translation_key": "...There's no mistaking it, that's a skeleton.",
 "type": "dialogue"
 },
 "6": {
@@ -514,7 +509,19 @@ I'll deal with it!",
 "type": "dialogue"
 },
 "60": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
 "id": "60",
+"next_id": "61",
+"parent_id": "58",
+"tags": PackedStringArray(),
+"text": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
+"type": "dialogue"
+},
+"61": {
+"id": "61",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "f",
@@ -528,27 +535,76 @@ I'll deal with it!",
 }])])
 }])
 },
-"next_id": "end!",
-"parent_id": "57",
+"next_id": "64",
+"parent_id": "58",
 "type": "mutation"
 },
-"61": {
-"id": "61",
-"next_conditional_id": "end!",
-"next_id": "62",
-"next_id_after": "end!",
+"62": {
+"id": "62",
+"next_conditional_id": "64",
+"next_id": "63",
+"next_id_after": "64",
 "type": "condition"
 },
-"62": {
+"63": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
-"id": "62",
-"next_id": "end!",
-"parent_id": "61",
+"id": "63",
+"next_id": "64",
+"parent_id": "62",
 "tags": PackedStringArray(),
 "text": "...Let's just move on.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "...Let's just move on.",
+"type": "dialogue"
+},
+"64": {
+"id": "64",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
+},
+"66": {
+"id": "66",
+"next_id": "67",
+"text": "not_going_well",
+"type": "title"
+},
+"67": {
+"id": "67",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "68",
+"type": "mutation"
+},
+"68": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "68",
+"next_id": "69",
+"tags": PackedStringArray(),
+"text": "Ow, this hurts...[next=auto]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Ow, this hurts...[next=auto]",
+"type": "dialogue"
+},
+"69": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "69",
+"next_id": "",
+"tags": PackedStringArray(),
+"text": "Do I have anything that could heal me?[next=auto]",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Do I have anything that could heal me?[next=auto]",
 "type": "dialogue"
 },
 "7": {

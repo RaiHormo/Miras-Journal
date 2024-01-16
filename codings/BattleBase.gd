@@ -44,7 +44,7 @@ func _ready():
 		$Act/Actor0.light_mask = 1
 	if Seq.PositionSameAsPlayer: Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
-	global_position = round(global_position)
+	global_position = Vector2i(global_position)
 	$Act/Actor0.sprite_frames = Party.Leader.BT
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
@@ -106,14 +106,15 @@ func _ready():
 	for i in TurnOrder:
 		if not i.Shadow:
 				i.node.get_child(0).hide()
-		i.node.get_node("Glow").energy = i.GlowDef
+		if i.IsEnemy: i.node.get_node("Glow").energy = i.GlowDef
+		else:
+			t = create_tween()
+			t.tween_property(i.node.get_node("Glow"), "energy", i.GlowDef, 1)
 		i.node.get_node("Glow").color = i.MainColor
 	position_sprites()
 	turn_ui_init()
-	if Seq.Transition:
-		await entrance()
-	else:
-		next_turn.emit()
+	if Loader.Attacker != null: Loader.Attacker.hide()
+	await entrance()
 
 func speed_sort(a, b):
 	if a.Speed > b.Speed:
@@ -189,29 +190,35 @@ func position_sprites():
 			$Act/Enemy2.position = Vector2(66,55)
 
 func entrance():
-	$Cam.zoom = Vector2(5,5)
-	$Cam.position = Vector2(90,10)
-	PartyUI.UIvisible = false
 	t = create_tween()
-	#t.set_parallel()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	if Troop.size()<3:
-		Loader.battle_bars(3)
+	if Seq.Transition:
+		$Cam.zoom = Vector2(5,5)
+		$Cam.position = Vector2(90,10)
+		PartyUI.UIvisible = false
+		if Troop.size()<3:
+			Loader.battle_bars(3)
+		else:
+			Loader.battle_bars(2)
+		t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
+		t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
+		t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
+		await get_tree().create_timer(0.3).timeout
+		$EnemyUI.all_enemy_ui()
+		if Loader.BtAdvantage == 1:
+			for i in Troop: damage(i, 1, false, 24/Troop.size())
+		await get_tree().create_timer(0.5).timeout
 	else:
-		Loader.battle_bars(2)
-	t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
-	t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
-	t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
-	await get_tree().create_timer(0.3).timeout
-	$EnemyUI.all_enemy_ui()
-	if Loader.BtAdvantage == 1:
-		for i in Troop: damage(i, 1, false, 24/Troop.size())
-	await get_tree().create_timer(0.5).timeout
+		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
+		$EnemyUI.all_enemy_ui()
+		$Cam.global_position = Global.get_cam().global_position
+		$Cam.zoom = Global.get_cam().zoom
 	for i in PartyArray:
 		entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
+	PartyUI.UIvisible = true
 	PartyUI.battle_state()
 	await get_tree().create_timer(0.7).timeout
 	next_turn.emit()
@@ -395,6 +402,9 @@ func return_cur(target:Actor = CurrentChar):
 	await tc.finished
 
 func end_turn():
+	if Seq.check_events():
+		await Seq.call_events()
+	Seq.reset_events()
 	await get_tree().create_timer(0.3).timeout
 	if CurrentChar.node != null:
 		CurrentChar.node.z_index = 0
@@ -406,10 +416,12 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 	if elemental:
 		var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
 		if relation == "wk": pop_num(target, "WEAK")
+		if relation == "op": pop_num(target, "WEAK!")
+		if relation == "res": pop_num(target, "RESIST")
 		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
 	var dmg = target.calc_dmg(x * el_mod, stat, target)
-	target.damage(x * el_mod, stat, target)
+	target.damage(dmg)
 	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
 	check_party.emit()
 	if elemental: pop_num(target, dmg, CurrentAbility.WheelColor)
@@ -430,7 +442,7 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 			target.node.material.set_shader_parameter("outline_color", target.MainColor)
 			target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
 			target.node.get_node("Particle").process_material.color = target.MainColor
-			t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
+			t.tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 		else: play_sound("Hit", target)
 		hit_animation(target)
 		await t.finished
@@ -489,6 +501,7 @@ func offsetize(num, target=CurrentChar):
 func pop_num(target:Actor, text, color: Color = Color.WHITE):
 		var number:Label = target.node.get_node("Nums").duplicate()
 		target.node.add_child(number)
+		number.modulate = Color.TRANSPARENT
 		number.show()
 		number.add_theme_color_override("font_color", color)
 		var tn = create_tween()
@@ -799,3 +812,11 @@ func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
 func _on_battle_ui_item() -> void:
 	await anim("Bag")
 	anim("BagLoop")
+
+func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03):
+	for i in repeat:
+		t = create_tween()
+		t.tween_property(chara.node, "position:x", amount, time).as_relative()
+		t.tween_property(chara.node, "position:x", -amount*2, time*2).as_relative()
+		t.tween_property(chara.node, "position:x", amount, time).as_relative()
+		await t.finished

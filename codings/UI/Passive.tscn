@@ -67,6 +67,8 @@ border_width_bottom = 50
 corner_radius_bottom_left = 74
 
 [node name="Textbox" type="CanvasLayer"]
+process_mode = 3
+layer = 10
 script = ExtResource("1_6n3th")
 
 [node name="Balloon" type="ColorRect" parent="."]
@@ -149,4 +151,4 @@ texture = ExtResource("4_nhavb")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="spoke" from="Balloon/Panel2/DialogueLabel" to="Balloon/Panel2/DialogueLabel" method="_on_spoke"]

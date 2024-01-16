@@ -4,6 +4,8 @@ class_name Actor
 
 @export var FirstName: String = "Name"
 
+@export_enum("Unknown", "Attacker", "Mage", "Support", "Tank", "Boss") var ActorClass: String
+
 @export var IsEnemy: bool = true
 
 @export var DroppedItem: ItemData = null
@@ -77,7 +79,6 @@ class_name Actor
 
 @export_group("Party specific")
 
-
 #@export_group("Battle params")
 var NextAction: String = ""
 var NextMove: Resource = null
@@ -105,14 +106,14 @@ func add_aura(x):
 func add_SP(x):
 	SkillPoints += x
 
-func damage(x, E_atk, E:Actor):
-	Health -= calc_dmg(x, E_atk, E)
+func damage(dmg: int):
+	Health -= dmg
 	if Health<0:
 		Health = 0
 
-func calc_dmg(x, AttackStat: float, E: Actor):
+func calc_dmg(x, AttackStat: float, E: Actor) -> int:
 	#print(x, " *( ", DefenceMultiplier, " * " ,E.AttackMultiplier, " ) / (", Defence, " * ", DefenceMultiplier, ") = ", int(abs(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier)))))
-	return  int(abs(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier))))
+	return max(int(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier))), 1)
 
 func add_state(x: String):
 	States.push_back(load("res://database/States/"+ x +".tres").duplicate())

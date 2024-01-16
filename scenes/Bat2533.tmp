@@ -1219,10 +1219,6 @@ grow_vertical = 2
 script = ExtResource("1_xnc7m")
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
-Troop = null
-TurnOrder = null
-Turn = null
-TurnInd = null
 curve = SubResource("Curve_wrfky")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -2577,7 +2573,6 @@ vertical_alignment = 1
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
 [connection signal="next_turn" from="." to="." method="_on_next_turn"]
 [connection signal="next_turn" from="." to="BattleUI" method="_on_battle_next_turn"]
-[connection signal="states_handled" from="Act" to="." method="make_move"]
 [connection signal="ability" from="BattleUI" to="." method="_on_battle_ui_ability"]
 [connection signal="ability" from="BattleUI" to="BattleUI" method="_on_ability"]
 [connection signal="ability" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]

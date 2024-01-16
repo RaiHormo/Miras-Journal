@@ -8,7 +8,7 @@ extends CanvasLayer
 @onready var response_template: Button = null
 @onready var Portrait: TextureRect = $Balloon/Margin/Portrait
 var currun = false
-@onready var t :Tween = get_tree().create_tween()
+@onready var t :Tween
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -54,10 +54,10 @@ var dialogue_line: DialogueLine:
 
 		# Show any responses we have
 		#responses_menu.modulate.a = 0
-		t = create_tween()
-		t.set_parallel(true)
 		#await t.finished
 		if dialogue_line.responses.size() > 0:
+			t = create_tween()
+			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUAD)
 			for response in dialogue_line.responses:
@@ -74,12 +74,14 @@ var dialogue_line: DialogueLine:
 				t.tween_property(responses_menu, "position", Vector2(832 ,318), 1).from(Vector2(2000, 318))
 		# Show our balloon
 		draw_portrait()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_BACK)
 		dialogue_label.text = ""
 
 		if not balloon.visible:
 			balloon.show()
+			t = create_tween()
+			t.set_parallel(true)
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_BACK)
 			t.tween_property($Balloon, "modulate", Color(1,1,1,1), 0.3).from(Color(0,0,0,0))
 			t.tween_property($Balloon, "scale", Vector2(1,1), 0.3).from(Vector2(0.7,0.2))
 #		else:
@@ -92,18 +94,14 @@ var dialogue_line: DialogueLine:
 			var prof = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
-		# Wait for input
-#		if dialogue_line.responses.size() > 0:
-#			responses_menu.modulate.a = 1
-#			configure_menu()
-		if dialogue_line.time != null:
+		if dialogue_line.time != "":
 			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
-			is_waiting_for_input = true
-			balloon.focus_mode = Control.FOCUS_ALL
-			balloon.grab_focus()
+			var time = dialogue_line.text.length() * 0.05 + 0.5
+			await get_tree().create_timer(time).timeout
+			next(dialogue_line.next_id)
 	get:
 		return dialogue_line
 
@@ -143,29 +141,21 @@ func _on_close() -> void:
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
-	#responses_menu.hide()
-	if Portrait.visible:
-		t.tween_property(Portrait, "modulate", Color(0,0,0,0), 0.2)
-#		t.tween_property(Portrait, "position", Vector2(-300, 389), 0.2)
+	t.tween_property(Portrait, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
 	Portrait.hide()
 	balloon.hide()
-	queue_free()
+	Global.textbox_close.emit()
+	if self != null: queue_free()
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
 	will_hide_balloon = true
 	get_tree().create_timer(0.1).timeout.connect(func():
 		if will_hide_balloon:
-			will_hide_balloon = false
-
-			)
-
-
-
-
+			will_hide_balloon = false)
 
 func draw_portrait():
 	#await get_tree().create_timer(0.2).timeout

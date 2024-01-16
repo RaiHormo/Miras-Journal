@@ -9,6 +9,7 @@
 [resource]
 script = ExtResource("2_o0ova")
 FirstName = "Dark sludge"
+ActorClass = ""
 IsEnemy = true
 RecivedSP = 7
 PartyIcon = ExtResource("1_l4uns")

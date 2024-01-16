@@ -1,14 +1,16 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_806j1"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_yecsa"]
 
 [resource]
-script = ExtResource("1_806j1")
+script = ExtResource("1_yecsa")
 using_states = PackedStringArray()
 titles = {
 "add_to_party": "66",
+"battle_event": "86",
 "bush": "3",
 "greetings": "57",
+"mira_hp_low": "90",
 "travel": "35"
 }
 character_names = PackedStringArray("Mira", "Erinn")
@@ -668,9 +670,9 @@ Anything going on?",
 "id": "58",
 "next_id": "59",
 "tags": PackedStringArray(),
-"text": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
+"text": "Hello everyone! This is a passive textbox of sorts.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Hello everyone! This is a passive textbox of sorts.[next=auto]",
+"translation_key": "Hello everyone! This is a passive textbox of sorts.",
 "type": "dialogue"
 },
 "59": {
@@ -716,9 +718,9 @@ Anything going on?",
 "id": "60",
 "next_id": "62",
 "tags": PackedStringArray(),
-"text": "I can still move while saying this.[next=auto]",
+"text": "I can still move while saying this.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "I can still move while saying this.[next=auto]",
+"translation_key": "I can still move while saying this.",
 "type": "dialogue"
 },
 "62": {
@@ -1017,6 +1019,51 @@ Anything going on?",
 "next_id": "end",
 "type": "goto"
 },
+"85": {
+"id": "85",
+"next_id": "86",
+"text": "battle_event",
+"type": "title"
+},
+"86": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "86",
+"next_id": "87",
+"tags": PackedStringArray(),
+"text": "Turn {{Global.Bt.Turn}}",
+"text_replacements": Array[Dictionary]([{
+"expression": Array[Dictionary]([{
+"type": "variable",
+"value": "Global"
+}, {
+"type": "dot"
+}, {
+"type": "variable",
+"value": "Bt"
+}, {
+"type": "dot"
+}, {
+"type": "variable",
+"value": "Turn"
+}]),
+"value_in_text": "{{Global.Bt.Turn}}"
+}]),
+"translation_key": "Turn {{Global.Bt.Turn}}",
+"type": "dialogue"
+},
+"87": {
+"id": "87",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
+},
+"89": {
+"id": "89",
+"next_id": "90",
+"text": "mira_hp_low",
+"type": "title"
+},
 "9": {
 "character": "Erinn",
 "character_replacements": Array[Dictionary]([]),
@@ -1028,6 +1075,38 @@ Anything going on?",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Mira, what are you doing?",
 "type": "dialogue"
+},
+"90": {
+"id": "90",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "91",
+"type": "mutation"
+},
+"91": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "91",
+"next_id": "92",
+"tags": PackedStringArray(),
+"text": "My hp is low",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "My hp is low",
+"type": "dialogue"
+},
+"92": {
+"id": "92",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
 }
 }
 metadata/dialogue_manager_version = "2.31.0"

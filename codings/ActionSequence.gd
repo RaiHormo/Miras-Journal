@@ -54,9 +54,9 @@ func handle_states():
 				Bt.damage(chara, 1, false, 20, false)
 				#print(chara.FirstName, chara.States)
 			await get_tree().create_timer(0.8).timeout
-
 	states_handled.emit()
 
+#region Attacks
 func AttackMira():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.focus_cam(target, 0.5, 30)
@@ -144,14 +144,14 @@ func WarpAttack():
 	Bt.focus_cam(target, 0.6, 30)
 	CurrentChar.node.get_node("Shadow").hide()
 	await Bt.anim("Attack1")
-	CurrentChar.node.global_position = Vector2(target.node.global_position.x + Bt.offsetize(-30), target.node.global_position.y)
-	Bt.move(CurrentChar, target.node.global_position + Vector2(Bt.offsetize(-20), 0), 0.8)
+	CurrentChar.node.position = Vector2(target.node.position.x + Bt.offsetize(-30), target.node.position.y)
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
 	Bt.anim("Attack2")
 	await Event.wait(0.2)
 	Bt.damage(target, CurrentChar.Attack)
 	Bt.screen_shake()
 	await Event.wait(0.7)
-	CurrentChar.node.global_position = Bt.initial + Vector2(Bt.offsetize(-50), 0)
+	CurrentChar.node.position = Bt.initial + Vector2(Bt.offsetize(-50), 0)
 	Bt.return_cur()
 	CurrentChar.node.get_node("Shadow").show()
 	Bt.end_turn()
@@ -159,10 +159,12 @@ func WarpAttack():
 	temp.node.play_backwards("Attack1")
 	await temp.node.animation_finished
 	Bt.anim("Idle", temp)
+#endregion
 
 
 ################################################
 
+#region Abilities
 func Guard():
 	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	Bt.pop_num(CurrentChar, "Guarding")
@@ -198,9 +200,8 @@ func FlameSpark():
 	await get_tree().create_timer(0.2).timeout
 	Bt.damage(target, CurrentChar.Magic)
 	target.add_state("Burned")
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.8).timeout
 	Bt.pop_num(target, "Burned")
-	await get_tree().create_timer(0.5).timeout
 	Bt.anim("Idle")
 	Bt.end_turn()
 
@@ -208,11 +209,33 @@ func Summon():
 	Bt.add_to_troop(load("res://database/Enemies/WhiteSpawn.tres"))
 	Bt.end_turn()
 
+func SoulTap():
+	Bt.focus_cam(target, 1, 0)
+	Bt.play_effect("SoulTap", target)
+	await Event.wait(1)
+	await Bt.shake_actor(target, 1)
+	Bt.screen_shake(8, 5, 0.1)
+	Bt.damage(target, CurrentChar.Magic)
+	await Event.wait(1)
+	Bt.anim("Idle")
+	Bt.end_turn()
+
+#endregion
+
 ################################################
 
+#region Items
 func Drink():
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	if Bt.CurrentAbility.Type == Ability.TP.HEALING: Bt.heal(target, int(Bt.CurrentAbility.Parameter))
+	if Bt.CurrentAbility.Type == "Healing": Bt.heal(target, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Drink")
 	Bt.end_turn()
+
+func Eat():
+	Bt.focus_cam(CurrentChar, 0.3)
+	Bt.zoom(5.5)
+	if Bt.CurrentAbility.Type == "Healing": Bt.heal(target, int(Bt.CurrentAbility.Parameter))
+	await Bt.anim("Drink")
+	Bt.end_turn()
+#endregion

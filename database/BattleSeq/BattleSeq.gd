@@ -9,4 +9,20 @@ class_name BattleSequence
 @export var PositionSameAsPlayer := false
 @export var ScenePosition: Vector2 = Vector2.ZERO
 @export var CanEscape := true
-#@export var Defeated = false
+@export var DeleteAttacker := true
+@export var Events: Array[BattleEvent] = []
+
+func call_events():
+	for i in Events:
+		if i.check():
+			await i.run()
+
+func check_events() -> bool:
+	var rtn = false
+	for i in Events:
+		if i.check(): return true
+	return false
+
+func reset_events():
+	for i in Events:
+		i.ran_this_turn = false

@@ -41,7 +41,7 @@ func _ready():
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
-	Fader = player.get_node("Fader")
+	Fader = player.get_node_or_null("Fader")
 	player.reset_speed()
 	player.bag_anim()
 	Global.ui_sound("Menu")

@@ -55,9 +55,9 @@ Where to go?
 ~ greetings
 
 do portrait("MiraNeutural", true)
-Mira: Hello everyone! This is a passive textbox of sorts.[next=auto]
+Mira: Hello everyone! This is a passive textbox of sorts.
 do portrait("MiraOpenMouth", false)
-Mira: I can still move while saying this.[next=auto]
+Mira: I can still move while saying this.
 
 => END
 
@@ -81,3 +81,12 @@ Add to party
 do give_control()
 
 => END
+
+~ battle_event
+Turn {{Global.Bt.Turn}}
+=> END!
+
+~ mira_hp_low
+do portrait("MiraNeutural")
+Mira: My hp is low
+=> END!

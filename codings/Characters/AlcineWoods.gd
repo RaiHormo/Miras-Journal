@@ -1,16 +1,23 @@
 extends NPC
 
 func default() -> void:
+	$"../Petrogon".hide()
 	if Global.CameraInd == 1 and Event.check_flag("AlcineFollow1"): hide()
 	else: $Sprite.play("IdleRight")
 	if Global.CameraInd == 2 and not Event.check_flag("AlcineFollow2"):
 		Event.add_flag("AlcineFollow1")
 		Event.warp_to(Vector2(55, -44), "AlcineChase")
 		await Event.wait(0.2)
-		Event.add_flag("AlcineFollow2")
 		await move_dir(Vector2.UP)
 		Global.passive("temple_woods_random", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
+		BodyState = CUSTOM
+		$Sprite.stop()
+		$Sprite.animation = &"Scared"
+		$Sprite.frame = 0
+		Event.add_flag("AlcineFollow2")
+	elif Global.CameraInd == 2 and Event.f("AlcineFollow2") and not Event.f("AlcineFollow3"):
+		Event.warp_to(Vector2(55+15, -45), "AlcineChase")
 		BodyState = CUSTOM
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
@@ -19,7 +26,7 @@ func default() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
-		if Event.check_flag("AlcineFollow1") and Event.check_flag("AlcineFollow2"):
+		if Event.check_flag("AlcineFollow1") and Event.check_flag("AlcineFollow2") and Global.CameraInd == 2:
 			await Event.take_control()
 			Global.Player.set_anim("IdleRight")
 			Global.Player.camera_follow()
@@ -34,8 +41,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t.set_parallel()
 			t.tween_property($Glow, "energy", 0.6, 2)
 			t.tween_property($Glow, "texture_scale", 4, 2)
+			Global.Player.get_node("Flame").flicker = false
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
+			Event.f("FlameActive", false)
 			BodyState = CUSTOM
 			$Sprite.play("Scared")
 			await $Sprite.animation_finished
@@ -47,20 +56,24 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
 			await move_dir(Vector2.LEFT*2)
-			await move_dir(Vector2.DOWN)
+			await move_dir(Vector2.UP)
 			Event.remove_flag(&"FlameActive")
 			Global.Player.bubble("Surprise")
-			Global.Player.look_to(Vector2.RIGHT)
+			Global.Player.reset_sprite()
+			await Event.wait()
+			Global.Player.set_anim("EntrancePrep")
 			$"../Petrogon".show()
+			$"../Petrogon".play("Idle")
 			Global.get_cam().position += Vector2(50, 0)
 			await move_dir(Vector2.LEFT*2)
-			await move_dir(Vector2.UP)
+			await move_dir(Vector2.DOWN)
 			BodyState = CUSTOM
 			$Sprite.stop()
 			$Sprite.animation = &"Scared"
 			$Sprite.frame = 0
 			await Global.textbox("temple_woods_random", "stay_back")
-			await Event.wait(1)
+			Loader.Attacker = Global.Area.get_node("Petrogon")
+			await Event.wait(0.1)
 			Loader.start_battle("AlcineFollow1")
 		elif Global.CameraInd == 1 and not Event.f(&"AlcineFollow1"):
 			BodyState = IDLE
