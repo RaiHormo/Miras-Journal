@@ -279,7 +279,7 @@ func start_battle(stg, advantage := 0):
 			t.set_ease(Tween.EASE_OUT)
 			t.set_parallel()
 			t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.8).as_relative()
-			t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
+			if advantage == 1: t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1

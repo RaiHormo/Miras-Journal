@@ -352,7 +352,12 @@ func textbox(file: String, title: String = "0", extra_game_states: Array = []) -
 	await textbox_close
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
+	if get_node_or_null("/root/Textbox") != null:
+		$"/root/Textbox"._on_close()
+		await textbox_close
+		await Event.wait(0.1)
+		passive(file, title, extra_game_states)
+		return
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
@@ -446,6 +451,9 @@ func tilemapize(pos: Vector2) -> void:
 
 func globalize(coords :Vector2i) -> Vector2:
 	return Tilemap.map_to_local(coords)
+
+func get_state(stat: StringName) -> State:
+	return await Loader.load_res("res://database/States/" + stat + ".tres")
 
 func get_dir_name(d: Vector2 = PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:

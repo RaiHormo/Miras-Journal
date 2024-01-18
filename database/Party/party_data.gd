@@ -1,10 +1,10 @@
 extends Resource
 class_name PartyData
 
-@export var Leader: Actor = preload("res://database/Party/Mira.tres")
-@export var Member1: Actor
-@export var Member2: Actor
-@export var Member3: Actor
+@export var Leader: Actor = load("res://database/Party/Mira.tres")
+@export var Member1: Actor = null
+@export var Member2: Actor = null
+@export var Member3: Actor = null
 
 func reset_party():
 	Leader = Global.find_member("Mira")

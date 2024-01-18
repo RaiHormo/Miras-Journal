@@ -546,7 +546,7 @@ func get_target(faction:Array[Actor]):
 	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
-	if CurrentChar.NextAction == "ability" and CurrentChar.NextMove.WheelColor.s > 0:
+	if CurrentChar.NextAction == "ability" and CurrentChar.NextMove.WheelColor.s > 0 and CurrentChar.NextMove.Damage != 0:
 		$"../Canvas/AttackTitle/Wheel".show()
 		$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
 	else:
@@ -747,13 +747,10 @@ func turn_order():
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(-468, 40), 0.3)
 
-
-
 func _on_escape():
 	if stage == &"command":
 		stage = &"inactive"
 		Bt.escape()
-
 
 func _on_show_wheel_pressed():
 	Global.confirm_sound()

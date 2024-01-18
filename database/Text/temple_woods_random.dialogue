@@ -65,5 +65,7 @@ else:
 
 ~ not_going_well
 do portrait("MiraNeutural")
-Mira: Ow, this hurts...[next=auto]
-Mira: Do I have anything that could heal me?[next=auto]
+Mira: Ow, this hurts...
+do portrait("MiraNeutural")
+Mira: Do I have anything that could heal me?
+=> END

@@ -115,8 +115,20 @@ func calc_dmg(x, AttackStat: float, E: Actor) -> int:
 	#print(x, " *( ", DefenceMultiplier, " * " ,E.AttackMultiplier, " ) / (", Defence, " * ", DefenceMultiplier, ") = ", int(abs(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier)))))
 	return max(int(((x * (AttackStat * E.AttackMultiplier)) / (Defence * DefenceMultiplier))), 1)
 
-func add_state(x: String):
-	States.push_back(load("res://database/States/"+ x +".tres").duplicate())
+func add_state(x, turns = -1):
+	var state: State
+	if x is State:
+		state = x
+	else:
+		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
+	if turns != -1:
+		state.RemovedAfterTurns = turns
+	States.push_back(state)
+	if node != null:
+		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
+			await Global.Bt.play_effect(state.name, self)
+		if node.get_node("State").sprite_frames.has_animation(state.name):
+			node.get_node("State").play(state.name)
 
 func remove_state(x: String):
 	for state in States:

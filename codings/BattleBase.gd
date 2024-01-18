@@ -5,7 +5,7 @@ class_name Battle
 @export var Troop: Array[Actor]
 @export var TurnOrder: Array[Actor]
 @export var Turn: int = 0
-@export var CurrentChar: Actor = Global.Party.Leader
+@onready var CurrentChar: Actor = Global.Party.Leader
 @export var TurnInd: int = -1
 signal GetControl
 @onready var t = Tween
@@ -23,6 +23,7 @@ var CurrentTarget: Actor
 var AwaitVictory = false
 var count: int
 var totalSP: int = 0
+var callout_onscreen := false
 
 func _ready():
 	Global.Bt = self
@@ -99,11 +100,15 @@ func _ready():
 	if Loader.BtAdvantage == 1:
 		for i in TurnOrder:
 			if not i.IsEnemy: i.Speed += 5
+	elif Loader.BtAdvantage == 2:
+		for i in TurnOrder:
+			if i.IsEnemy: i.Speed += 5
 	TurnOrder.sort_custom(speed_sort)
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder.size():
 		print(TurnOrder[i].Speed, " - ", TurnOrder[i].FirstName)
 	for i in TurnOrder:
+		i.node.get_node("State").play("None")
 		if not i.Shadow:
 				i.node.get_child(0).hide()
 		if i.IsEnemy: i.node.get_node("Glow").energy = i.GlowDef
@@ -211,13 +216,13 @@ func entrance():
 		await get_tree().create_timer(0.5).timeout
 	else:
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
-		$EnemyUI.all_enemy_ui()
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
 	for i in PartyArray:
 		entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
+	if not Seq.Transition: $EnemyUI.all_enemy_ui()
 	PartyUI.UIvisible = true
 	PartyUI.battle_state()
 	await get_tree().create_timer(0.7).timeout
@@ -284,7 +289,9 @@ func confirm_next(action_anim = true):
 				tl.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
 				callout(CurrentChar.NextMove)
 				anim("Ability")
+				var timer = get_tree().create_timer(1)
 				await CurrentChar.node.animation_finished
+				if timer.time_left != 0: await timer.timeout
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
 func _input(event):
@@ -324,8 +331,16 @@ func callout(ab:Ability = CurrentAbility):
 	var tc = create_tween()
 	tc.set_ease(Tween.EASE_OUT)
 	tc.set_trans(Tween.TRANS_QUINT)
+	if callout_onscreen:
+		tc.tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.2)
+		await tc.finished
+		tc = create_tween()
+		tc.set_ease(Tween.EASE_OUT)
+		tc.set_trans(Tween.TRANS_QUINT)
+	callout_onscreen = true
+	if ab.ColorSameAsActor: ab.WheelColor = CurrentChar.MainColor
 	$Canvas/Callout.text = ab.name
-	$Canvas/Callout.add_theme_color_override("font_color", CurrentAbility.WheelColor)
+	$Canvas/Callout.add_theme_color_override("font_color", ab.WheelColor)
 	tc.tween_property($Canvas/Callout, "position", Vector2(37, 636), 2).from(Vector2(400, 636))
 	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	#await tc.finished
@@ -336,7 +351,7 @@ func callout(ab:Ability = CurrentAbility):
 	else: tc.tween_property($Canvas/Callout, "position", Vector2(-200, 636), 0.5).set_delay(4)
 	tc.parallel().tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.5)
 	await tc.finished
-	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
+	callout_onscreen = false
 
 func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	CurrentChar.NextAction = ""
@@ -482,12 +497,13 @@ func calc_num():
 			return 48
 
 func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
-	var ef:AnimatedSprite2D = $Act/Effects.duplicate()
-	$Act.add_child(ef)
-	ef.position = tar.node.position + offset
-	ef.play(stri)
-	await ef.animation_finished
-	ef.queue_free()
+	if $Act/Effects.sprite_frames.has_animation(stri):
+		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
+		$Act.add_child(ef)
+		ef.position = tar.node.position + offset
+		ef.play(stri)
+		await ef.animation_finished
+		ef.queue_free()
 
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
@@ -555,6 +571,7 @@ func death(target:Actor):
 		if target.Disappear:
 			t = create_tween()
 			t.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
+			t.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 			await t.finished
 			if target != null:
 				target.node.queue_free()
@@ -820,3 +837,23 @@ func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03)
 		t.tween_property(chara.node, "position:x", -amount*2, time*2).as_relative()
 		t.tween_property(chara.node, "position:x", amount, time).as_relative()
 		await t.finished
+
+func stat_change(stat: StringName, amount: float, chara := CurrentChar, turns: int = 3):
+	var updown: String
+	if amount > 1: updown = "Up"
+	else: updown = "Down"
+	match stat:
+		&"Atk": chara.AttackMultiplier *= amount
+		&"Mag": chara.MagicMultiplier *= amount
+		&"Def": chara.DefenceMultiplier *= amount
+	chara.add_state(stat + updown)
+	await Event.wait(1.2)
+	pop_num(chara, stat_name(stat) + " x" + str(amount), (await Global.get_state(stat + updown)).color)
+
+func stat_name(stat: StringName) -> String:
+	match stat:
+		&"Atk": return "Attack"
+		&"Def": return "Defense"
+		&"Mag": return "Magic"
+		_: return "Stat"
+

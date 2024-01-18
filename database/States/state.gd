@@ -6,3 +6,4 @@ class_name State
 @export var RemovedAfterTurns:bool
 @export var turns: int
 @export var icon: Texture
+@export var color: Color

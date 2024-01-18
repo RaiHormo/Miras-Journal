@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_0sc05"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_7lyd6"]
 
 [resource]
-script = ExtResource("1_0sc05")
+script = ExtResource("1_7lyd6")
 using_states = PackedStringArray()
 titles = {
 "as_lost_as_you": "32",
@@ -591,24 +591,45 @@ I'll deal with it!",
 "id": "68",
 "next_id": "69",
 "tags": PackedStringArray(),
-"text": "Ow, this hurts...[next=auto]",
+"text": "Ow, this hurts...",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Ow, this hurts...[next=auto]",
+"translation_key": "Ow, this hurts...",
 "type": "dialogue"
 },
 "69": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
 "id": "69",
-"next_id": "",
-"tags": PackedStringArray(),
-"text": "Do I have anything that could heal me?[next=auto]",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Do I have anything that could heal me?[next=auto]",
-"type": "dialogue"
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "70",
+"type": "mutation"
 },
 "7": {
 "id": "7",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"70": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "70",
+"next_id": "71",
+"tags": PackedStringArray(),
+"text": "Do I have anything that could heal me?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Do I have anything that could heal me?",
+"type": "dialogue"
+},
+"71": {
+"id": "71",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"

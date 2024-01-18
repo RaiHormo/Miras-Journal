@@ -54,6 +54,10 @@ func handle_states():
 				Bt.damage(chara, 1, false, 20, false)
 				#print(chara.FirstName, chara.States)
 			await get_tree().create_timer(0.8).timeout
+		if "Atk" in state.name: chara.AttackMultiplier = 1
+		if "Def" in state.name: chara.DefenceMultiplier = 1
+		if "Mag" in state.name: chara.MagicMultiplier = 1
+	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
 
 #region Attacks
@@ -216,6 +220,14 @@ func SoulTap():
 	await Bt.shake_actor(target, 1)
 	Bt.screen_shake(8, 5, 0.1)
 	Bt.damage(target, CurrentChar.Magic)
+	await Event.wait(1)
+	Bt.anim("Idle")
+	Bt.end_turn()
+
+func AttackUp3():
+	Bt.anim("Cast")
+	Bt.focus_cam(target)
+	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, 3)
 	await Event.wait(1)
 	Bt.anim("Idle")
 	Bt.end_turn()

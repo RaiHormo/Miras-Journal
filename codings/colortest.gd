@@ -4,7 +4,6 @@ class_name Wheel
 @export var affinity:Affinity
 var tar_aff:Affinity
 var relation_ico = null
-var blinking= false
 var t: Tween
 
 
@@ -48,7 +47,6 @@ func show_atk_color(clr: Color):
 
 func show_trg_color(clr: Color):
 	if affinity == null: return
-	blinking = false
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -63,12 +61,15 @@ func show_trg_color(clr: Color):
 	elif tar_aff.hue in affinity.weak_range: relation_ico = $WeakIcon
 	elif tar_aff.hue in affinity.resist_range: relation_ico = $ResistIcon
 	elif tar_aff.hue in affinity.near_range: relation_ico = $NearIcon
-	blinking = true
-	while $"/root/Battle/BattleUI".stage == "target" and relation_ico != null and blinking:
+	if Global.Bt.get_node("BattleUI").stage != "target": await Event.wait(0.3)
+	if relation_ico != null:
+		blink_icon(relation_ico)
+
+func blink_icon(icon: TextureRect):
+	while icon == relation_ico and Global.Bt.get_node("BattleUI").stage == "target":
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_SINE)
-		t.tween_property(relation_ico, "modulate", Color(1,1,1,0.5), 0.2).from(Color(1,1,1,1))
-		if not blinking: return
-		t.tween_property(relation_ico, "modulate", Color(1,1,1,1), 0.2).from(Color(1,1,1,0.5))
+		t.tween_property(relation_ico, "modulate", Color(1,1,1,0.4), 0.3).from(Color(1,1,1,1))
+		t.tween_property(relation_ico, "modulate", Color(1,1,1,1), 0.3).from(Color(1,1,1,0.4))
 		await t.finished

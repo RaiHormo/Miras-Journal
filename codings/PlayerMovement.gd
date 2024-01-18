@@ -18,6 +18,7 @@ var dashdir: Vector2 = Vector2.ZERO
 @export var can_dash = true
 const dash_speed := 200
 var first_frame := true
+@onready var flame: PointLight2D = $Flame
 
 
 func _ready() -> void:
@@ -240,18 +241,18 @@ func check_flame() -> void:
 	if Event.check_flag(&"FlameActive"):
 		if get_node_or_null("Flame") == null: return
 		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
-		if $Flame.energy == 0:
-			$Flame.flicker = true
+		if flame.energy == 0:
+			flame.flicker = true
 			activate_flame(false)
-			while $Flame.energy < 1.5:
-				$Flame.energy += 0.03
+			while flame.energy < 1.5:
+				flame.energy += 0.03
 				await Event.wait()
-			$Flame.energy = 1.5
-			$Flame.flicker = true
+			flame.energy = 1.5
+			flame.flicker = true
 	else:
 		reset_sprite()
-		$Flame.flicker = false
-		$Flame.energy = 0
+		flame.flicker = false
+		flame.energy = 0
 
 func reset_sprite():
 	%Base.sprite_frames = Global.Party.Leader.OV
@@ -395,16 +396,19 @@ func check_before_attack():
 		if i is NPC or i is Follower:
 			i.attacked()
 
-func dramatic_attack_pause():
-	print("Dash"+Global.get_dir_name()+"Hit")
-	while not Global.Controllable:
-		if %Base.animation == "Attack"+Global.get_dir_name():
+func dramatic_attack_pause(attacked := false):
+	while not Loader.InBattle and not Global.Controllable:
+		Global.Controllable = false
+		BodyState = CUSTOM
+		if attacked:
+			set_anim("Attack" + Global.get_dir_name())
 			pause_anim()
-			return
-		elif %Base.animation == "Dash"+Global.get_dir_name()+"Hit":
+			%Base.animation = "Attack" + Global.get_dir_name()
+			%Base.frame = 1
+		else:
+			set_anim("Dash" + Global.get_dir_name() + "Hit")
 			pause_anim()
-			return
-		else: await Event.wait()
+		await Event.wait()
 
 func _on_open_menu_pressed() -> void:
 	if Global.Controllable:

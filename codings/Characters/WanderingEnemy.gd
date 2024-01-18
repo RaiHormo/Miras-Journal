@@ -58,17 +58,18 @@ func _on_finder_area_entered(area):
 		PinRange = false
 		patrol()
 
-
 func _on_catch_area_body_entered(body):
-	if body == Global.Player and Global.Controllable and not lock:
+	if body == Global.Player and not lock and not Loader.InBattle:
+		Event.take_control()
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		begin_battle()
+		begin_battle(2)
 
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
-	await Global.Player.dramatic_attack_pause()
+	if advatage == 1: Global.Player.dramatic_attack_pause(true)
+	else: Global.Player.dramatic_attack_pause(false)
 	await Loader.start_battle(Battle, advatage)
 	global_position = DefaultPos
 

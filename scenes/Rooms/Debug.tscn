@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=30 format=3 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_g5xrf"]
 [ext_resource type="Texture2D" uid="uid://tat0rce4u478" path="res://art/Tilesets/Outside_B.png" id="2_am130"]
@@ -525,10 +525,6 @@ region = Rect2(0, 18, 18, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
 size = Vector2(16, 12.5)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_n2ngs"]
-outlines = Array[PackedVector2Array]([PackedVector2Array(-9.97737, 3.0743, -8.05927, -7.94028, 9.94023, -8.07421, 9.05186, 6.93282, -1.91807, 11.0146)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c61np"]
 vertices = PackedVector2Array(84, -61, 116, -93, 115, 91, 83, -14, -118, -93, 36, -61, -21, -34, 37, -14, -23, 6, -100, -34, -116, 91, -98, 6)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 1, 0, 5), PackedInt32Array(6, 5, 7, 8), PackedInt32Array(4, 5, 6, 9), PackedInt32Array(10, 4, 9, 11), PackedInt32Array(7, 3, 2, 10, 8), PackedInt32Array(8, 10, 11)])
@@ -604,7 +600,7 @@ Height = 16
 
 [node name="Axe" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2(-41.8575, 19.312)
+position = Vector2(-42, 19)
 texture = SubResource("AtlasTexture_gtdj1")
 
 [node name="PickUp" parent="Axe" instance=ExtResource("5_pijc2")]
@@ -617,6 +613,7 @@ file = "testbush"
 item = "LightweightAxe"
 hidesprite = true
 itemtype = "Key"
+hide_parent = true
 
 [node name="Body" type="StaticBody2D" parent="Axe"]
 
@@ -624,9 +621,6 @@ itemtype = "Key"
 z_index = 1
 position = Vector2(0.00749207, 0.51857)
 shape = SubResource("RectangleShape2D_72f6p")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Axe"]
-navigation_polygon = SubResource("NavigationPolygon_n2ngs")
 
 [node name="Dummy" type="Sprite2D" parent="."]
 z_index = 1

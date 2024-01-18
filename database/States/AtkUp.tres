@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://dx7qwcecyns1x"]
+
+[ext_resource type="Script" path="res://database/States/state.gd" id="1_1vjby"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_rniet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx88a"]
+atlas = ExtResource("1_rniet")
+region = Rect2(0, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_1vjby")
+name = "AttackUp"
+Description = "Weapon attacks deal more damage."
+RemovedAfterTurns = true
+turns = 3
+icon = SubResource("AtlasTexture_jx88a")
+color = Color(0.87451, 0.215686, 0.215686, 1)

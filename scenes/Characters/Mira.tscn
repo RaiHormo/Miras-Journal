@@ -3540,7 +3540,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"EntrancePrep"
+animation = &"AttackRight"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",

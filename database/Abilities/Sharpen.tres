@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dsel12nodt7a6"]
+
+[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="1_67y3j"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_cqy58"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u5mo"]
+atlas = ExtResource("1_cqy58")
+region = Rect2(0, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_67y3j")
+name = "Sharpen"
+description = "Increases the attack of an ally by 1.5x for 3 turns."
+Icon = SubResource("AtlasTexture_7u5mo")
+ActionSequence = &"AttackUp3"
+Type = "CheapAttack"
+AuraCost = 5
+HPCost = 0
+Damage = 0
+Parameter = 1.5
+Target = 3
+ColorSameAsActor = false
+WheelColor = Color(0.87451, 0.215686, 0.215686, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
