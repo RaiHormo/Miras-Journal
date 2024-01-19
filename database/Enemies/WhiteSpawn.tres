@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("2_a457n")
 FirstName = "White Spawn"
-ActorClass = ""
+ActorClass = "Support"
 IsEnemy = true
 RecivedSP = 2
 PartyIcon = ExtResource("1_udw1f")

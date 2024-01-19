@@ -50,6 +50,7 @@ func all_enemy_ui():
 
 func _on_battle_ui_target_foc(cur):
 	CurEnemy=cur
+	_check_party()
 	for i in get_children().size():
 		get_child(i).hide()
 	make_box(cur, $EnemyFocus)
@@ -82,6 +83,7 @@ func _check_party():
 		t.tween_property($Enemy2/Health, "value",Troop[2].Health, 0.3)
 		$Enemy2/Health.max_value = Troop[2].MaxHP
 	$EnemyFocus/Name.text = CurEnemy.FirstName
+	$EnemyFocus/Icon/State.texture = null if CurEnemy.States.is_empty() else CurEnemy.States[0].icon
 	$EnemyFocus/Health.max_value = CurEnemy.MaxHP
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
 	if CurEnemy!=get_parent().CurrentChar and lock == false:

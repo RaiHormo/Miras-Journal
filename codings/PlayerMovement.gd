@@ -249,7 +249,7 @@ func check_flame() -> void:
 				await Event.wait()
 			flame.energy = 1.5
 			flame.flicker = true
-	else:
+	elif get_node_or_null("Flame") == null and flame.energy != 0:
 		reset_sprite()
 		flame.flicker = false
 		flame.energy = 0

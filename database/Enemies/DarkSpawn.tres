@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("2_nskis")
 FirstName = "Dark spawn"
-ActorClass = ""
+ActorClass = "Support"
 IsEnemy = true
 RecivedSP = 2
 PartyIcon = ExtResource("1_gfcpg")

@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("2_o0ova")
 FirstName = "Dark sludge"
-ActorClass = ""
+ActorClass = "Mage"
 IsEnemy = true
 RecivedSP = 7
 PartyIcon = ExtResource("1_l4uns")
@@ -20,11 +20,11 @@ codename = &"Actor"
 WeaponType = ""
 Controllable = false
 StatsVisible = true
-MaxHP = 120
+MaxHP = 80
 MaxAura = 42
-Attack = 1.2
-Magic = 1.1
-Defence = 0.8
+Attack = 0.6
+Magic = 1.0
+Defence = 0.4
 Speed = 2.0
 Health = 0
 Aura = 0

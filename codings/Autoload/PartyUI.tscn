@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=83 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://codings/UI/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -28,6 +28,11 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 expand_margin_left = 18.0
 expand_margin_top = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvx2b"]
+atlas = ExtResource("9_r3lax")
+region = Rect2(162, 18, 18, 18)
+filter_clip = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5kvw"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
@@ -546,7 +551,7 @@ mouse_filter = 2
 [node name="Leader" type="Panel" parent="CanvasLayer"]
 texture_filter = 2
 offset_left = -368.0
-offset_right = -140.0
+offset_right = -147.0
 offset_bottom = 94.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
@@ -554,6 +559,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 position = Vector2(37, 45)
 scale = Vector2(0.0442713, 0.0442713)
 texture = ExtResource("3_cich6")
+
+[node name="State" type="TextureRect" parent="CanvasLayer/Leader/Icon"]
+texture_filter = 1
+offset_left = -68.0
+offset_top = -1016.0
+offset_right = 880.0
+offset_bottom = -112.0
+texture = SubResource("AtlasTexture_rvx2b")
+stretch_mode = 4
 
 [node name="Aura" type="ProgressBar" parent="CanvasLayer/Leader"]
 layout_mode = 0
@@ -643,7 +657,7 @@ show_percentage = false
 layout_mode = 0
 offset_left = -40.0
 offset_top = -25.0
-offset_right = 241.0
+offset_right = 240.0
 offset_bottom = 105.0
 theme = SubResource("Theme_x6d55")
 
@@ -652,7 +666,7 @@ show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
 offset_top = 5.0
-offset_right = 277.0
+offset_right = 276.0
 offset_bottom = 126.0
 theme = SubResource("Theme_3xf0g")
 
@@ -661,7 +675,7 @@ show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
 offset_top = -3.0
-offset_right = 274.0
+offset_right = 267.0
 offset_bottom = 117.0
 theme = SubResource("Theme_6a77a")
 
@@ -678,6 +692,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 position = Vector2(37, 54.333)
 scale = Vector2(0.0442713, 0.0442713)
 texture = ExtResource("3_cich6")
+
+[node name="State" type="TextureRect" parent="CanvasLayer/Member1/Icon"]
+texture_filter = 1
+offset_left = -68.0
+offset_top = -1016.0
+offset_right = 880.0
+offset_bottom = -112.0
+texture = SubResource("AtlasTexture_rvx2b")
+stretch_mode = 4
 
 [node name="Aura" type="ProgressBar" parent="CanvasLayer/Member1"]
 layout_mode = 0
@@ -754,7 +777,7 @@ show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 275.0
+offset_right = 270.0
 offset_bottom = 111.0
 theme = SubResource("Theme_6a77a")
 

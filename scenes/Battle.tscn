@@ -1,4 +1,4 @@
-[gd_scene load_steps=219 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=220 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -1278,6 +1278,11 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_wxbdf"]
 Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtoyd"]
+atlas = ExtResource("15_mlxjv")
+region = Rect2(162, 18, 18, 18)
+filter_clip = true
+
 [sub_resource type="Theme" id="Theme_2lgx1"]
 default_font = ExtResource("28_kt0tm")
 Label/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
@@ -2380,7 +2385,6 @@ offset_bottom = 88.0
 theme = SubResource("Theme_wxbdf")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI"]
-visible = false
 texture_filter = 2
 offset_left = 947.0
 offset_top = 30.0
@@ -2395,6 +2399,15 @@ texture_filter = 2
 position = Vector2(40, 43)
 scale = Vector2(0.0374996, 0.0374996)
 texture = ExtResource("20_fun7q")
+
+[node name="State" type="TextureRect" parent="EnemyUI/EnemyFocus/Icon"]
+texture_filter = 1
+offset_left = -227.68
+offset_top = -177.67
+offset_right = 927.32
+offset_bottom = 924.33
+texture = SubResource("AtlasTexture_mtoyd")
+stretch_mode = 4
 
 [node name="Health" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
 z_index = 1

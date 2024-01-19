@@ -68,6 +68,7 @@ func _on_battle_get_control():
 	show()
 	stage = &"root"
 	PrevStage = &"root"
+	$Ability.add_theme_constant_override("icon_max_width", 0)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
 	$Item.icon = Global.get_controller().ItemIcon
@@ -87,10 +88,6 @@ func _on_battle_get_control():
 		$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
-	$Ability.icon = Global.get_controller().AbilityIcon
-	$Attack.icon = Global.get_controller().AttackIcon
-	$Item.icon = Global.get_controller().ItemIcon
-	$Command.icon = Global.get_controller().CommandIcon
 	fetch_abilities()
 	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
@@ -592,7 +589,7 @@ func get_target(faction:Array[Actor]):
 		LastTarget = faction[0]
 		TargetIndex = 0
 	target = LastTarget
-	while faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node ==null:
+	while TargetIndex!=faction.size() -1 or faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node == null:
 		if TargetIndex!=faction.size() -1:
 			TargetIndex += 1
 		else:

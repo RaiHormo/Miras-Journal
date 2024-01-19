@@ -41,28 +41,28 @@ func handle_states():
 	for state in chara.States:
 		if state.RemovedAfterTurns:
 			state.turns -= 1
-		if state.name == "Guarding" and state.turns == 0:
-			chara.remove_state("Guarding")
-			chara. DefenceMultiplier -= 1
-			chara.node.material.set_shader_parameter("outline_enabled", false)
-		if state.name == "Burned":
-			chara.node.get_node("State").play("Burned")
-			Bt.focus_cam(chara, 0.3)
-			if chara.Health - chara.calc_dmg(20,1,chara)<=0:
-				chara.set_health(1)
-			else:
-				Bt.damage(chara, 1, false, 20, false)
-				#print(chara.FirstName, chara.States)
-			await get_tree().create_timer(0.8).timeout
-		if "Atk" in state.name: chara.AttackMultiplier = 1
-		if "Def" in state.name: chara.DefenceMultiplier = 1
-		if "Mag" in state.name: chara.MagicMultiplier = 1
+			if state.turns == 0:
+				match state.name:
+					"Guarding":
+						chara. DefenceMultiplier -= 1
+						chara.node.material.set_shader_parameter("outline_enabled", false)
+					"AttackUp": chara.AttackMultiplier -= 1.5
+					"DefenceUp": chara.DefenceMultiplier -= 1.5
+					"MagicUp": chara.MagicMultiplier -= 1.5
+				chara.remove_state(state)
+				continue
+		match state.name:
+			"Burned":
+				chara.node.get_node("State").play("Burned")
+				Bt.focus_cam(chara, 0.3)
+				Bt.damage(chara, false, false, chara.MaxHP * randf_range(0.2, 0.1), false, true, true)
+				await get_tree().create_timer(0.8).timeout
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
 
 #region Attacks
 func AttackMira():
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.zoom()
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
@@ -73,7 +73,7 @@ func AttackMira():
 		Bt.screen_shake(15, 7, 0.2)
 		Bt.anim("Attack2")
 		Bt.play_effect("SimpleHit", target)
-		await Bt.damage(target, CurrentChar.Attack, false)
+		await Bt.damage(target)
 	else:
 		Bt.anim("Attack2")
 		Bt.miss()
@@ -101,15 +101,13 @@ func JumpAttack():
 	Bt.end_turn()
 
 func AttackAlcine():
-#	Engine.time_scale = 0.2
-#	CurrentChar.set_health(90)
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.zoom()
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	await Event.wait(0.4)
 	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57),0), 0.5, Tween.EASE_OUT)
 	if not miss:
-		Bt.damage(target, CurrentChar.Attack, false, Bt.calc_num())
+		Bt.damage(target)
 		Bt.screen_shake(8, 5, 0.1)
 		Bt.anim("Attack2")
 		Bt.move(target, target.node.position + Vector2(Bt.offsetize(-10),0), 0.3, Tween.EASE_OUT)
@@ -126,14 +124,14 @@ func AttackAlcine():
 	Bt.end_turn()
 
 func StickAttack():
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
+	Bt.zoom()
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), -30), 4)
 	await Bt.anim_done
 	Bt.move(CurrentChar, target.node.position, 0.5, Tween.EASE_IN)
 	Bt.play_sound("Attack2", CurrentChar)
-	Bt.damage(target, CurrentChar.Attack, false)
+	Bt.damage(target)
 	Bt.screen_shake(15, 7, 0.2)
 	Bt.anim("Attack2")
 	Bt.play_effect("SimpleHit", target)
@@ -152,8 +150,11 @@ func WarpAttack():
 	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
 	Bt.anim("Attack2")
 	await Event.wait(0.2)
-	Bt.damage(target, CurrentChar.Attack)
-	Bt.screen_shake()
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.screen_shake()
+	else: Bt.miss()
 	await Event.wait(0.7)
 	CurrentChar.node.position = Bt.initial + Vector2(Bt.offsetize(-50), 0)
 	Bt.return_cur()
@@ -170,18 +171,18 @@ func WarpAttack():
 
 #region Abilities
 func Guard():
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
-	Bt.pop_num(CurrentChar, "Guarding")
+	Bt.zoom()
 	CurrentChar.DefenceMultiplier += 1
 	Bt.anim("Idle")
 	Bt.focus_cam(CurrentChar)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_color", Bt.CurrentChar.MainColor)
 	CurrentChar.add_state("Guarding")
-	await t.finished
+	await Bt.pop_num(CurrentChar, "Guarding")
 	Bt.end_turn()
 
 func SoothingSpray():
+	Bt.zoom(6)
 	Bt.anim("Cast")
 	t.parallel().tween_property(Cam, "zoom", Vector2(5,5), 1)
 	Bt.focus_cam(target, 1)
@@ -191,7 +192,7 @@ func SoothingSpray():
 	Bt.end_turn()
 
 func FlameSpark():
-	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.5)
+	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.anim("FlameSpark")
 	await Event.wait(0.1)
@@ -200,9 +201,8 @@ func FlameSpark():
 	Bt.play_effect("FlameSpark", target)
 	Bt.focus_cam(target, 0.3, 20)
 	t.stop()
-	t.tween_property(Cam, "zoom", Vector2(5,5), 0.5)
 	await get_tree().create_timer(0.2).timeout
-	Bt.damage(target, CurrentChar.Magic)
+	Bt.damage(target, true, true)
 	target.add_state("Burned")
 	await get_tree().create_timer(0.8).timeout
 	Bt.pop_num(target, "Burned")
@@ -214,18 +214,21 @@ func Summon():
 	Bt.end_turn()
 
 func SoulTap():
+	Bt.zoom(5)
 	Bt.focus_cam(target, 1, 0)
+	Bt.anim("Cast", CurrentChar)
 	Bt.play_effect("SoulTap", target)
 	await Event.wait(1)
 	await Bt.shake_actor(target, 1)
 	Bt.screen_shake(8, 5, 0.1)
-	Bt.damage(target, CurrentChar.Magic)
+	Bt.damage(target, true, true)
 	await Event.wait(1)
 	Bt.anim("Idle")
 	Bt.end_turn()
 
 func AttackUp3():
-	Bt.anim("Cast")
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
 	Bt.focus_cam(target)
 	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, 3)
 	await Event.wait(1)

@@ -22,3 +22,6 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 
 @export_range(0,1) var SucessChance: float = 1
 @export_range(0,1) var CritChance: float = 0
+
+@export var RecoverAura: bool = false
+@export var DmgVarience: bool = true

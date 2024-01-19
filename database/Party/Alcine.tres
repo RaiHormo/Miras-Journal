@@ -12,6 +12,7 @@
 [resource]
 script = ExtResource("1_o1wey")
 FirstName = "Alcine"
+ActorClass = ""
 IsEnemy = false
 RecivedSP = 0
 PartyIcon = ExtResource("1_by5ga")
@@ -42,7 +43,7 @@ Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource(
 StandardAttack = ExtResource("2_3o6lq")
 OV = ExtResource("1_3dlsp")
 BT = ExtResource("1_8ee1b")
-Offset = Vector2(0, -15)
+Offset = Vector2(-3, -15)
 Shadow = false
 SoundSet = ExtResource("6_bqqs6")
 Disappear = false

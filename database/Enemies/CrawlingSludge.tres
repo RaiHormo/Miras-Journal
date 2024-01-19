@@ -11,7 +11,7 @@
 [resource]
 script = ExtResource("2_iy5kn")
 FirstName = "Crawling sludge"
-ActorClass = ""
+ActorClass = "Attacker"
 IsEnemy = true
 RecivedSP = 5
 PartyIcon = ExtResource("1_u1o0b")

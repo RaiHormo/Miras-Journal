@@ -9,6 +9,7 @@
 [resource]
 script = ExtResource("5_3pau3")
 FirstName = "Petrogon"
+ActorClass = "Boss"
 IsEnemy = true
 RecivedSP = 12
 PartyIcon = ExtResource("2_p85n4")

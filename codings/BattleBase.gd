@@ -16,7 +16,7 @@ signal next_turn
 signal check_party
 signal anim_done
 signal take_dmg
-var CurrentAbility: Ability
+var CurrentAbility: Ability = Global.Party.Leader.StandardAttack
 var PartyArray: Array[Actor] = []
 var Action: bool
 var CurrentTarget: Actor
@@ -386,9 +386,9 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	if CurrentChar.IsEnemy:
 		$BattleUI.emit_signal("targetFoc", CurrentChar)
 	if ab.ActionSequence != &"":
+		CurrentChar.add_aura(-CurrentAbility.AuraCost)
 		if CurrentAbility.Callout and CurrentChar.Controllable:
 			callout()
-		CurrentChar.add_aura(-CurrentAbility.AuraCost)
 		$Act.play(ab.ActionSequence, CurrentTarget)
 	else:
 		end_turn()
@@ -417,6 +417,7 @@ func return_cur(target:Actor = CurrentChar):
 	await tc.finished
 
 func end_turn():
+	Global.check_party.emit()
 	if Seq.check_events():
 		await Seq.call_events()
 	Seq.reset_events()
@@ -425,7 +426,7 @@ func end_turn():
 		CurrentChar.node.z_index = 0
 	next_turn.emit()
 
-func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:bool=true, limiter:bool=false):
+func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
 	take_dmg.emit()
 	var el_mod: float = 1
 	if elemental:
@@ -435,10 +436,13 @@ func damage(target:Actor, stat:float, elemental=true, x:int=calc_num(), effect:b
 		if relation == "res": pop_num(target, "RESIST")
 		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
-	var dmg = target.calc_dmg(x * el_mod, stat, target)
+	print("Attack power: ", x, " * ", el_mod)
+	var dmg = target.calc_dmg(x * el_mod, is_magic, CurrentChar)
+	if ignore_stats: dmg = x
 	target.damage(dmg)
 	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
 	check_party.emit()
+	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
 	if elemental: pop_num(target, dmg, CurrentAbility.WheelColor)
 	else: pop_num(target, dmg)
 	if target.Health == 0:
@@ -484,17 +488,16 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
 
 func calc_num():
+	var base: int
 	match CurrentAbility.Damage:
-		0:
-			return 0
-		1:
-			return 12
-		2:
-			return 24
-		3:
-			return 32
-		4:
-			return 48
+		0: base = 0
+		1: base = 12
+		2: base = 24
+		3: base = 48
+		4: base = 96
+	if CurrentAbility.DmgVarience:
+		base = int(base * randf_range(0.8, 1.2))
+	return base
 
 func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
 	if $Act/Effects.sprite_frames.has_animation(stri):
@@ -706,11 +709,13 @@ func game_over():
 
 func end_battle():
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
-	for i in TurnOrder: i.States.clear()
+	for i in TurnOrder:
+		for j in i.States: if j.RemovedOnBattleEnd: i.States.erase(j)
 	await Loader.end_battle()
 	queue_free()
 
 func victory_anim(chara:Actor):
+	chara.node.get_node("State").play("None")
 	anim("Victory", chara)
 	await chara.node.animation_finished
 	anim("VictoryLoop", chara)
@@ -843,9 +848,9 @@ func stat_change(stat: StringName, amount: float, chara := CurrentChar, turns: i
 	if amount > 1: updown = "Up"
 	else: updown = "Down"
 	match stat:
-		&"Atk": chara.AttackMultiplier *= amount
-		&"Mag": chara.MagicMultiplier *= amount
-		&"Def": chara.DefenceMultiplier *= amount
+		&"Atk": chara.AttackMultiplier += amount
+		&"Mag": chara.MagicMultiplier += amount
+		&"Def": chara.DefenceMultiplier += amount
 	chara.add_state(stat + updown)
 	await Event.wait(1.2)
 	pop_num(chara, stat_name(stat) + " x" + str(amount), (await Global.get_state(stat + updown)).color)
@@ -857,3 +862,7 @@ func stat_name(stat: StringName) -> String:
 		&"Mag": return "Magic"
 		_: return "Stat"
 
+func on_state_add(state: State, chara: Actor):
+	match state.name:
+		"Guarding":
+			chara.Defence *= 2

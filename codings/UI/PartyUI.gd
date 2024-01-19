@@ -419,6 +419,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
 	t.tween_property(node.get_node("Aura"), "value", mem.Aura, 1)
 	node.get_node("Icon").texture = mem.PartyIcon
+	node.get_node("Icon/State").texture = null if mem.States.is_empty() else mem.States[0].icon
 	node.get_node("Health/HpText").text = str(mem.Health)
 	node.get_node("Aura/AruaText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
