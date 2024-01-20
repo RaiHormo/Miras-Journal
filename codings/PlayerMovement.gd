@@ -19,6 +19,7 @@ var dashdir: Vector2 = Vector2.ZERO
 const dash_speed := 200
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
+var attacking := false
 
 
 func _ready() -> void:
@@ -54,12 +55,9 @@ func _ready() -> void:
 
 func extended_process() -> void:
 	if Global.Controllable:
-		#update_anim_prm()
 		BodyState = CONTROLLED
-		#call_deferred("_check_party")
 		check_flame()
 	else:
-		if BodyState == CONTROLLED: BodyState = CUSTOM
 		first_frame = true
 	if midair:
 		pass
@@ -209,13 +207,15 @@ func _check_party() -> void:
 		%Base/Bag/Axe.hide()
 
 ##Sets the animation for all sprite layers
-func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false) -> void:
+func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrite_bodystate = false) -> void:
 	if get_node_or_null("%Base") == null: return
+	if not Global.Controllable: reset_speed()
 	if anim not in %Base.sprite_frames.get_animation_names():
 		if wait: await Event.wait()
 		return
+	if overwrite_bodystate: BodyState = CUSTOM
 	%Base.play(anim)
-	if anim in %Base/Bag.sprite_frames.get_animation_names() and Item.HasBag:
+	if anim in %Base/Bag.sprite_frames.get_animation_names() and Event.f("HasBag"):
 		%Base/Bag.show()
 		%Base/Bag.play(anim)
 	else: %Base/Bag.hide()
@@ -228,7 +228,7 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false) -> void:
 func activate_flame(animate:=true) -> void:
 	Event.add_flag(&"FlameActive")
 	await Event.wait()
-	check_flame()
+	check_flame(true)
 	if animate:
 		Global.Controllable = false
 		BodyState = NONE
@@ -236,14 +236,14 @@ func activate_flame(animate:=true) -> void:
 		set_anim("IdleRight")
 	%Base/Flame.show()
 
-func check_flame() -> void:
-	if not Global.Controllable: return
+func check_flame(force:= false) -> void:
+	if not Global.Controllable and not force: return
 	if Event.check_flag(&"FlameActive"):
 		if get_node_or_null("Flame") == null: return
 		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 		if flame.energy == 0:
 			flame.flicker = true
-			activate_flame(false)
+			if not force: activate_flame(false)
 			while flame.energy < 1.5:
 				flame.energy += 0.03
 				await Event.wait()
@@ -303,7 +303,7 @@ func stop_dash() -> void:
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction!=Vector2.ZERO:
 			await get_tree().create_timer(0.1).timeout
 		else:
-			BodyState = CUSTOM
+			#BodyState = CUSTOM
 			speed = 75
 			while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
 				velocity = dashdir * speed
@@ -344,6 +344,7 @@ func attack():
 	$Attack/AttackPreview.collision_mask = collision_mask
 	$Attack/AttackPreview/CollisionShape2D.disabled = false
 	var checked := false
+	attacking = true
 	await Event.wait()
 	check_before_attack()
 	$Attack.rotation = Global.get_direction().angle()
@@ -354,7 +355,7 @@ func attack():
 		if direction != Vector2.ZERO: Global.PlayerDir = direction
 		set_anim("Attack"+Global.get_dir_name()+"Windup")
 		check_before_attack()
-		if winding_attack == false: return
+		if winding_attack == false: break
 		checked = true
 		await get_tree().physics_frame
 	winding_attack = false
@@ -385,6 +386,7 @@ func attack():
 	Global.Controllable = true
 	if Input.is_action_pressed("OVAttack"): attack()
 	else:
+		attacking = false
 		set_anim()
 		$Attack/CollisionShape2D.disabled = true
 		$Attack/AttackPreview/CollisionShape2D.disabled = true
@@ -396,11 +398,12 @@ func check_before_attack():
 		if i is NPC or i is Follower:
 			i.attacked()
 
-func dramatic_attack_pause(attacked := false):
+func dramatic_attack_pause():
 	while not Loader.InBattle and not Global.Controllable:
 		Global.Controllable = false
 		BodyState = CUSTOM
-		if attacked:
+		print(attacking)
+		if attacking:
 			set_anim("Attack" + Global.get_dir_name())
 			pause_anim()
 			%Base.animation = "Attack" + Global.get_dir_name()

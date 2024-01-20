@@ -7,19 +7,6 @@
 [ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="4_8fqca"]
 [ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="5_a1d4h"]
 
-[sub_resource type="Resource" id="Resource_xkcu8"]
-script = ExtResource("5_a1d4h")
-flag = &""
-flag_should_be = false
-after_turn = -1
-actor_hp_low = &""
-low_hp = -1
-result = 0
-parameter1 = "testbush"
-parameter2 = "battle_event"
-hold_turn = false
-add_flag = false
-
 [sub_resource type="Resource" id="Resource_5vx4i"]
 script = ExtResource("5_a1d4h")
 flag = &""
@@ -33,6 +20,19 @@ parameter2 = "mira_hp_low"
 hold_turn = false
 add_flag = false
 
+[sub_resource type="Resource" id="Resource_wpf26"]
+script = ExtResource("5_a1d4h")
+flag = &"DebugBattle"
+flag_should_be = false
+after_turn = 0
+actor_hp_low = &""
+low_hp = -1
+result = 0
+parameter1 = "testbush"
+parameter2 = "debug_battle_begin"
+hold_turn = false
+add_flag = true
+
 [resource]
 script = ExtResource("1_tyx4l")
 Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("3_uu4ek"), ExtResource("4_8fqca")])
@@ -44,4 +44,4 @@ PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)
 CanEscape = true
 DeleteAttacker = true
-Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_xkcu8"), SubResource("Resource_5vx4i")])
+Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_5vx4i"), SubResource("Resource_wpf26")])

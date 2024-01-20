@@ -90,3 +90,25 @@ Turn {{Global.Bt.Turn}}
 do portrait("MiraNeutural")
 Mira: My hp is low
 => END!
+
+~ debug_battle_begin
+do Party.Leader.Health = 9999
+Debug battle begin!
+=> END!
+
+~ prototype_message
+Note: This is an early prototype build.\nIt is very short and a lot of things such as music are missing.
+Note: Please provide feedback to the developer after testing.
+- Continue
+- Developer info
+	This game was made by Rai. They can be found at @RaiDev_ on Twitter or @raidev on discord.
+=> END!
+
+~ welcome_back
+Note: Oh welcome back!
+Note: With this prototype being so short, a titlescreen wasn't implemented...[wait=1] So use this menu as one.
+- Continue
+	do load_game()
+- New game
+	do new_game()
+=> END!

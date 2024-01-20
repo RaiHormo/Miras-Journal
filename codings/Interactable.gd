@@ -21,12 +21,14 @@ var t:Tween
 @export var add_flag: bool = false
 @export var hide_parent: bool = false
 @export var offset := 5
+@export var proper_pos:= Vector2.ZERO
 
 
 func _ready() -> void:
 	$Pack.hide()
 
 func _process(delta: float) -> void:
+	if Loader.InBattle: return
 	if Event.check_flag(hide_on_flag):
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
@@ -116,6 +118,10 @@ func _on_button_pressed() -> void:
 	t.set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
 	await t.finished
+	if proper_pos != Vector2.ZERO:
+		await Event.take_control()
+		Global.Player.collision(false)
+		await Global.Player.go_to_global(proper_pos, true)
 	action.emit()
 	match ActionType:
 		"toggle":

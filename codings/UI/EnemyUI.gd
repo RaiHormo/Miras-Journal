@@ -5,60 +5,48 @@ var t = Tween
 var lock = false
 
 func _ready():
-	t = create_tween()
-	t.tween_property($EnemyFocus, "position", $EnemyFocus.position, 0)
+	$AllEnemies.hide()
+	$EnemyFocus.hide()
 
 func all_enemy_ui():
 	Troop = get_parent().Troop
-	t.kill()
-	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_BACK)
-#	for i in Troop:
-#		print(i.FirstName)
+	if Troop.size() < $AllEnemies.get_child_count():
+		$AllEnemies.get_child($AllEnemies.get_child_count()-1).free()
+		all_enemy_ui()
+		return
 	$EnemyFocus.hide()
-	if Troop.size() != 0:
-		$Enemy0.show()
-		make_box(Troop[0], $Enemy0)
-		t.tween_property($Enemy0, "position", Vector2(1055, 25), 0.2)
-	if Troop.size() >1:
-		if not has_node("Enemy1"):
-			var dub = get_child(0).duplicate()
-			dub.name = "Enemy1"
-			add_child(dub)
-			dub.position.y = 190
-			make_box(Troop[1], dub)
-		$Enemy1.show()
-		t.tween_property($Enemy1, "position", Vector2(1055, 190), 0.3)
-	if Troop.size() >2:
-		if not has_node("Enemy2"):
-			var dub = get_child(0).duplicate()
-			dub.name = "Enemy2"
-			add_child(dub)
-			dub.position.y = 355
-			make_box(Troop[2], dub)
-		$Enemy2.show()
-		t.tween_property($Enemy2, "position", Vector2(1055, 355), 0.4)
+	$AllEnemies.show()
+	for enemy in Troop:
+		var panel: Panel
+		if get_node_or_null("AllEnemies/Enemy" + str(Troop.find(enemy))) != null:
+			panel = get_node("AllEnemies/Enemy" + str(Troop.find(enemy)))
+		else:
+			panel = $AllEnemies/Enemy0.duplicate()
+			panel.name = "Enemy" + str(Troop.find(enemy))
+			$AllEnemies.add_child(panel)
+		make_box(enemy, panel)
+		panel.show()
+		if panel.position.x != 0:
+			t = create_tween()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property(panel, "position:x", 0, 0.2)
+			await Event.wait(0.05)
 	if Troop.size() != 0:
 		CurEnemy= Troop[0]
-		make_box(Troop[0], $Enemy0)
+		make_box(Troop[0], $AllEnemies/Enemy0)
 		make_box(Troop[0], $EnemyFocus)
 		_check_party()
-
-
 
 func _on_battle_ui_target_foc(cur):
 	CurEnemy=cur
 	_check_party()
-	for i in get_children().size():
-		get_child(i).hide()
+	$AllEnemies.hide()
 	make_box(cur, $EnemyFocus)
 	$EnemyFocus.show()
 	$EnemyFocus/Name.text = cur.FirstName
-	if not lock:
-		$EnemyFocus/Health.value = cur.Health
-		$EnemyFocus/Health.max_value = cur.MaxHP
+	$EnemyFocus/Health.value = cur.Health
+	$EnemyFocus/Health.max_value = cur.MaxHP
 	$EnemyFocus/Icon.texture = cur.PartyIcon
 	$EnemyFocus/Health/HpText.add_theme_color_override("font_outline_color", CurEnemy.MainColor)
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
@@ -70,24 +58,23 @@ func _check_party():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUAD)
 	Troop = get_parent().Troop
-	if Troop.size() >= 0:
-		$Enemy0/Name.text = Troop[0].FirstName
-		t.tween_property($Enemy0/Health, "value",Troop[0].Health, 0.3)
-	$Enemy0/Health.max_value = Troop[0].MaxHP
-	if Troop.size() >= 2:
-		$Enemy1/Name.text = Troop[1].FirstName
-		t.tween_property($Enemy1/Health, "value",Troop[1].Health, 0.3)
-		$Enemy1/Health.max_value = Troop[1].MaxHP
-	if Troop.size() >= 3:
-		$Enemy2/Name.text = Troop[2].FirstName
-		t.tween_property($Enemy2/Health, "value",Troop[2].Health, 0.3)
-		$Enemy2/Health.max_value = Troop[2].MaxHP
+	for i in Troop:
+		check_panel(i, get_node_or_null("AllEnemies/Enemy" + str(Troop.find(i))))
 	$EnemyFocus/Name.text = CurEnemy.FirstName
-	$EnemyFocus/Icon/State.texture = null if CurEnemy.States.is_empty() else CurEnemy.States[0].icon
+	for i in $EnemyFocus/States.get_children():
+		if i.name != "State": i.queue_free()
+	for i in CurEnemy.States:
+		var dub = $EnemyFocus/States/State.duplicate()
+		dub.texture = i.icon
+		dub.show()
+		dub.tooltip_text = i.name + "\n" + i.Description
+		dub.name = i.name
+		$EnemyFocus/States.add_child(dub)
 	$EnemyFocus/Health.max_value = CurEnemy.MaxHP
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
-	if CurEnemy!=get_parent().CurrentChar and lock == false:
+	if CurEnemy!=get_parent().CurrentChar and lock == false and get_parent().Action:
 		lock = true
+		remap($EnemyFocus/Health.value, 0, $EnemyFocus/Health.max_value, 0, CurEnemy.MaxHP)
 		t.tween_property($EnemyFocus/Health, "value",CurEnemy.Health, 0.3)
 		await t.finished
 		lock = false
@@ -95,7 +82,17 @@ func _check_party():
 		$EnemyFocus/Health.value = CurEnemy.Health
 	$EnemyFocus/Icon.texture = CurEnemy.PartyIcon
 	if Troop.size() != 0:
-		make_box(Troop[0], $Enemy0)
+		make_box(Troop[0], $AllEnemies/Enemy0)
+
+func check_panel(chara: Actor, panel: Panel):
+	if panel == null: return
+	if chara.FirstName.length() > 16: panel.get_node("Name").add_theme_font_size_override("font_size", 12)
+	elif chara.FirstName.length() > 12	: panel.get_node("Name").add_theme_font_size_override("font_size", 14)
+	elif chara.FirstName.length() > 6: panel.get_node("Name").add_theme_font_size_override("font_size", 18)
+	else: panel.get_node("Name").add_theme_font_size_override("font_size", 20)
+	panel.get_node("Name").text = chara.FirstName
+	t.tween_property(panel.get_node("Health"), "value", chara.Health, 0.3)
+	panel.get_node("Health").max_value = chara.MaxHP
 
 func _on_battle_ui_ability():
 	colapse_root()
@@ -106,11 +103,8 @@ func colapse_root():
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)
-	t.tween_property($Enemy0, "position", Vector2(300, 0), 0.5).as_relative()
-	if Troop.size()>1:
-		t.tween_property($Enemy1, "position", Vector2(300, 0), 0.4).as_relative()
-		if Troop.size()>2:
-			t.tween_property($Enemy2, "position", Vector2(300, 0), 0.3).as_relative()
+	for i in $AllEnemies.get_children():
+		t.tween_property(i, "position", Vector2(300, 0), 0.5).as_relative()
 
 #func _process(delta):
 #	if get_parent().Action:

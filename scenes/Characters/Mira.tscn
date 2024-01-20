@@ -3507,7 +3507,7 @@ shader = ExtResource("12_l2wig")
 shader_parameter/lod = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vcrc"]
-size = Vector2(19.7501, 21)
+size = Vector2(16.875, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jnlw"]
 size = Vector2(13, 6)
@@ -3540,8 +3540,10 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_qf6k3")
-animation = &"AttackRight"
+animation = &"BagGet"
 autoplay = "IdleDown"
+frame = 7
+frame_progress = 1.0
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",
@@ -3684,12 +3686,12 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Attack" type="Area2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 2)
 collision_layer = 767
 collision_mask = 767
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-position = Vector2(19, 0)
+position = Vector2(17.5625, 0)
 shape = SubResource("RectangleShape2D_0vcrc")
 debug_color = Color(0.964706, 0, 0.494118, 0.419608)
 

@@ -59,8 +59,11 @@ func _on_finder_area_entered(area):
 		patrol()
 
 func _on_catch_area_body_entered(body):
-	if body == Global.Player and not lock and not Loader.InBattle:
-		Event.take_control()
+	Global.Player.winding_attack = false
+	if (body == Global.Player and (not lock) and (not Loader.InBattle) and
+	(Global.Controllable or Global.Player.dashing) and (not Global.Player.attacking)):
+		print(Global.Player.attacking)
+		await Event.take_control()
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
@@ -68,8 +71,7 @@ func _on_catch_area_body_entered(body):
 
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
-	if advatage == 1: Global.Player.dramatic_attack_pause(true)
-	else: Global.Player.dramatic_attack_pause(false)
+	Global.Player.dramatic_attack_pause()
 	await Loader.start_battle(Battle, advatage)
 	global_position = DefaultPos
 

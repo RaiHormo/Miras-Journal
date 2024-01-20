@@ -125,6 +125,9 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	resource = dialogue_resource
 	#PartyUI.UIvisible = false
 	#await get_tree().create_timer(0.3).timeout
+	if resource == null:
+		queue_free()
+		return
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
 

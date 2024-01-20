@@ -615,7 +615,7 @@ func anim(animation: String="Idle", chara: Actor = CurrentChar):
 		t.kill()
 		t=create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor
-		t.tween_property(chara.node.get_node("Glow"), "energy", 0, 0.3)
+		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
 	await chara.node.animation_finished
@@ -863,6 +863,18 @@ func stat_name(stat: StringName) -> String:
 		_: return "Stat"
 
 func on_state_add(state: State, chara: Actor):
+	add_state_effect(state, chara)
 	match state.name:
 		"Guarding":
 			chara.Defence *= 2
+
+func add_state_effect(state: State, chara: Actor):
+	if chara.node.get_node_or_null(state.name) == null and chara.node.get_node("State").sprite_frames.has_animation(state.name):
+		var dub = chara.node.get_node("State").duplicate()
+		dub.name = state.name
+		chara.node.add_child(dub)
+		dub.play(state.name)
+
+func remove_state_effect(state: State, chara: Actor):
+	if chara.node.get_node_or_null(state.name) != null:
+		chara.node.get_node(state.name).queue_free()

@@ -1,19 +1,20 @@
-[gd_scene load_steps=106 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=107 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1b1u1"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_bpc20"]
 [ext_resource type="Script" path="res://codings/room_class.gd" id="6_ngp57"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://scenes/Transfer.tscn" id="8_ffii8"]
+[ext_resource type="Script" path="res://codings/StoryEvents/FirstBattle.gd" id="9_46rxg"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="10_8nxki"]
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="10_nsotm"]
 [ext_resource type="Texture2D" uid="uid://drxdw6syeob5f" path="res://art/OV/Enemies/WhiteSpawnOV.png" id="11_2lpke"]
-[ext_resource type="Script" path="res://codings/Characters/AlcineWoods.gd" id="11_pxo5a"]
+[ext_resource type="Script" path="res://codings/StoryEvents/AlcineWoods.gd" id="11_pxo5a"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://scenes/Characters/WanderingEnemy.tscn" id="12_g0eyk"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="12_xu38q"]
 [ext_resource type="Resource" uid="uid://c2cqusickawh0" path="res://database/BattleSeq/SludgeBattle3.tres" id="13_sj6eh"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/sheets/AlcineOV1.tres" id="14_xf7ap"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Glow.gdshader" id="15_b28cm"]
-[ext_resource type="Script" path="res://codings/Characters/Firefly.gd" id="16_bxxdh"]
+[ext_resource type="Script" path="res://codings/Interactions/Firefly.gd" id="16_bxxdh"]
 [ext_resource type="Script" path="res://codings/Interactions/LightUp.gd" id="17_crm5x"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_eilxj"]
 [ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="18_imqtb"]
@@ -691,6 +692,7 @@ texture_scale = 2.0
 [node name="Transfer" parent="." instance=ExtResource("8_ffii8")]
 position = Vector2(775.117, 511.823)
 scale = Vector2(0.96, 1.21)
+script = ExtResource("9_46rxg")
 Direction = Vector2(1, 0)
 Position = Vector2(1255, 449)
 Room = "TempleWoods"
@@ -937,7 +939,7 @@ expand_icon = true
 
 [node name="Bag" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2(155.1, 435.965)
+position = Vector2(143.098, 430.967)
 texture = SubResource("AtlasTexture_b05s0")
 
 [node name="PickUp" parent="Bag" instance=ExtResource("22_yc4ou")]
@@ -951,6 +953,7 @@ hidesprite = true
 hide_on_flag = &"HasBag"
 add_flag = true
 hide_parent = true
+proper_pos = Vector2(143, 431)
 
 [node name="Body" type="StaticBody2D" parent="Bag"]
 
@@ -992,10 +995,8 @@ position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
 LabelText = "Pick up"
-ActionType = "item"
-file = "testbush"
-title = "travel"
-item = "LightweightAxe"
+ActionType = "event"
+file = "axe_seq"
 hidesprite = true
 itemtype = "Key"
 Collision = NodePath("../Body/Collision")

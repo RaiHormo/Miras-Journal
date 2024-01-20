@@ -20,7 +20,6 @@ var Size:Vector2
 var Cam = Camera2D.new()
 var Followers: Array[Follower] = []
 
-
 func _ready():
 	#print(SpawnLayers)
 	material = preload("res://scenes/Shaders/Pixelart.tres")
@@ -29,6 +28,7 @@ func _ready():
 	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
+	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	if AutoLimits:
 		Cam.limit_left = bounds[LEFT]

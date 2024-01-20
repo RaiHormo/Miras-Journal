@@ -178,6 +178,7 @@ func _process(delta):
 func transition(dir=Global.get_dir_letter()):
 	if dir == "none": return
 	Global.Controllable = false
+	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
 	t.kill()
 	t=create_tween()
 	t.set_parallel(false)
@@ -225,7 +226,6 @@ func done():
 	Event.give_control()
 	await detransition()
 
-
 func detransition():
 	if direc == "none": return
 	Global.get_cam().position_smoothing_enabled = false
@@ -243,6 +243,12 @@ func detransition():
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(2000,-204), 0.3)
 	elif direc == "L":
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-2000,-177), 0.3)
+	else:
+		t.set_parallel(true)
+		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.5).from(Vector2(-235,-126))
+		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.5).from(Vector2(-156,-126))
+		t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5).from(Vector2(-200,-204))
+		t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5).from(Vector2(-200,-177))
 	if Icon.is_playing():
 		Icon.play("Close")
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)

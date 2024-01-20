@@ -100,11 +100,6 @@ func f(flag:StringName, state = null) -> bool:
 		else: remove_flag(flag)
 	return check_flag(flag)
 
-func bag_seq():
-	Global.item_sound()
-	Item.HasBag = true
-	Global.Player._check_party()
-
 func pass_time():
 	PartyUI.confirm_time_passage("Rest", "Fully recovers the party's HP", 2)
 
@@ -123,12 +118,32 @@ func take_control(keep_ui = false):
 	Global.Player.set_anim()
 	for i in Global.Area.Followers:
 		i.dont_follow = true
+	await wait()
 
 func give_control():
 	if Global.Player == null:  return
 	Global.Player.direction = Vector2.ZERO
+	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
+
+##########################################################
+
+#region Sequences
+func bag_seq():
+	Global.Player.BodyState = NPC.CUSTOM
+	await Global.Player.set_anim("BagGet", true)
+	Global.Player.set_anim("IdleRight")
+	Global.item_sound()
+	Item.get_animation(preload("res://art/Icons/Items.tres"), "Flimsy bag", false)
+	f(&"HasBag", true)
+	give_control()
+	Global.Player._check_party()
+
+func axe_seq():
+	Item.add_item("LightweightAxe", &"Key")
+	pop_tutorial("ov_attack")
+#endregion

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=221 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=230 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="1_uisfp"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cqg3mi1kvrgip" path="res://art/OV/Mira/DashDown.png" id="2_b2w1q"]
 [ext_resource type="Texture2D" uid="uid://b5fgqb4riqm5y" path="res://art/OV/Mira/axe.png" id="2_too55"]
 [ext_resource type="Texture2D" uid="uid://o3cfbnxkskhq" path="res://art/OV/Mira/DashUp.png" id="4_8t402"]
+[ext_resource type="Texture2D" uid="uid://dku3o6fs2o58o" path="res://art/OV/Mira/bagGet.png" id="4_yxmp6"]
 [ext_resource type="Texture2D" uid="uid://rp8uf0rdpmbv" path="res://art/OV/Mira/Deny.png" id="5_50yt6"]
 [ext_resource type="Texture2D" uid="uid://dlt2hga7mq0aw" path="res://art/OV/Mira/Getup.png" id="6_2ft10"]
 [ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="6_iuohf"]
@@ -151,6 +152,38 @@ region = Rect2(0, 0, 48, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oesxb"]
 atlas = ExtResource("2_ag6f7")
 region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srbif"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl8qb"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic7q8"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m32xp"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux70a"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ie2"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu6np"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q24ii"]
+atlas = ExtResource("4_yxmp6")
+region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ky5df"]
 atlas = ExtResource("1_uisfp")
@@ -1009,6 +1042,35 @@ animations = [{
 "loop": false,
 "name": &"AttackUpWindup",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srbif")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_bl8qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic7q8")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_m32xp")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_ux70a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ie2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu6np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q24ii")
+}],
+"loop": false,
+"name": &"BagGet",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,

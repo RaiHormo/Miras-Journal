@@ -680,10 +680,10 @@ texture = ExtResource("12_d384d")
 
 [node name="NewGame" parent="Harold" instance=ExtResource("5_pijc2")]
 position = Vector2(0, 8)
-LabelText = "New Game"
+LabelText = "Exit debug mode"
 ActionType = "global"
-Length = 140
-file = "new_game"
+Length = 200
+file = "normal_mode"
 Height = 16
 
 [node name="Body2" type="StaticBody2D" parent="Harold"]

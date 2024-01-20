@@ -1,19 +1,22 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_yecsa"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_yxf8v"]
 
 [resource]
-script = ExtResource("1_yecsa")
+script = ExtResource("1_yxf8v")
 using_states = PackedStringArray()
 titles = {
 "add_to_party": "66",
 "battle_event": "86",
 "bush": "3",
+"debug_battle_begin": "95",
 "greetings": "57",
 "mira_hp_low": "90",
-"travel": "35"
+"prototype_message": "100",
+"travel": "35",
+"welcome_back": "108"
 }
-character_names = PackedStringArray("Mira", "Erinn")
+character_names = PackedStringArray("Mira", "Erinn", "Note")
 first_title = "3"
 lines = {
 "1": {
@@ -34,6 +37,101 @@ lines = {
 "translation_key": "Talk a lot",
 "type": "response"
 },
+"100": {
+"character": "Note",
+"character_replacements": Array[Dictionary]([]),
+"id": "100",
+"next_id": "101",
+"tags": PackedStringArray(),
+"text": "This is an early prototype build.
+It is very short and a lot of things such as music are missing.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This is an early prototype build.
+It is very short and a lot of things such as music are missing.",
+"type": "dialogue"
+},
+"101": {
+"character": "Note",
+"character_replacements": Array[Dictionary]([]),
+"id": "101",
+"next_id": "102",
+"tags": PackedStringArray(),
+"text": "Please provide feedback to the developer after testing.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Please provide feedback to the developer after testing.",
+"type": "dialogue"
+},
+"102": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "102",
+"next_id": "105",
+"next_id_after": "105",
+"responses": PackedStringArray("102", "103"),
+"tags": PackedStringArray(),
+"text": "Continue",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Continue",
+"type": "response"
+},
+"103": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "103",
+"next_id": "104",
+"next_id_after": "105",
+"tags": PackedStringArray(),
+"text": "Developer info",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Developer info",
+"type": "response"
+},
+"104": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "104",
+"next_id": "105",
+"parent_id": "103",
+"tags": PackedStringArray(),
+"text": "This game was made by Rai. They can be found at @RaiDev_ on Twitter or @raidev on discord.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This game was made by Rai. They can be found at @RaiDev_ on Twitter or @raidev on discord.",
+"type": "dialogue"
+},
+"105": {
+"id": "105",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
+},
+"107": {
+"id": "107",
+"next_id": "108",
+"text": "welcome_back",
+"type": "title"
+},
+"108": {
+"character": "Note",
+"character_replacements": Array[Dictionary]([]),
+"id": "108",
+"next_id": "109",
+"tags": PackedStringArray(),
+"text": "Oh welcome back!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Oh welcome back!",
+"type": "dialogue"
+},
+"109": {
+"character": "Note",
+"character_replacements": Array[Dictionary]([]),
+"id": "109",
+"next_id": "110",
+"tags": PackedStringArray(),
+"text": "With this prototype being so short, a titlescreen wasn't implemented...[wait=1] So use this menu as one.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "With this prototype being so short, a titlescreen wasn't implemented...[wait=1] So use this menu as one.",
+"type": "dialogue"
+},
 "11": {
 "id": "11",
 "mutation": {
@@ -52,6 +150,63 @@ lines = {
 "next_id": "12",
 "parent_id": "10",
 "type": "mutation"
+},
+"110": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "110",
+"next_id": "111",
+"next_id_after": "114",
+"responses": PackedStringArray("110", "112"),
+"tags": PackedStringArray(),
+"text": "Continue",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Continue",
+"type": "response"
+},
+"111": {
+"id": "111",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "load_game",
+"type": "function",
+"value": Array[Array]([])
+}])
+},
+"next_id": "114",
+"parent_id": "110",
+"type": "mutation"
+},
+"112": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "112",
+"next_id": "113",
+"next_id_after": "114",
+"tags": PackedStringArray(),
+"text": "New game",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "New game",
+"type": "response"
+},
+"113": {
+"id": "113",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "new_game",
+"type": "function",
+"value": Array[Array]([])
+}])
+},
+"next_id": "114",
+"parent_id": "112",
+"type": "mutation"
+},
+"114": {
+"id": "114",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
 },
 "12": {
 "character": "Mira",
@@ -1107,6 +1262,62 @@ Anything going on?",
 "is_snippet": false,
 "next_id": "end!",
 "type": "goto"
+},
+"94": {
+"id": "94",
+"next_id": "95",
+"text": "debug_battle_begin",
+"type": "title"
+},
+"95": {
+"id": "95",
+"mutation": {
+"expression": Array[Dictionary]([{
+"type": "variable",
+"value": "Party"
+}, {
+"type": "dot"
+}, {
+"type": "variable",
+"value": "Leader"
+}, {
+"type": "dot"
+}, {
+"type": "variable",
+"value": "Health"
+}, {
+"type": "assignment",
+"value": "="
+}, {
+"type": "number",
+"value": 9999
+}])
+},
+"next_id": "96",
+"type": "mutation"
+},
+"96": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "96",
+"next_id": "97",
+"tags": PackedStringArray(),
+"text": "Debug battle begin!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Debug battle begin!",
+"type": "dialogue"
+},
+"97": {
+"id": "97",
+"is_snippet": false,
+"next_id": "end!",
+"type": "goto"
+},
+"99": {
+"id": "99",
+"next_id": "100",
+"text": "prototype_message",
+"type": "title"
 }
 }
 metadata/dialogue_manager_version = "2.31.0"

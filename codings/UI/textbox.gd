@@ -282,7 +282,6 @@ func _input(event: InputEvent) -> void:
 			if dialogue_line != null and dialogue_line.responses.size() > 0:
 				Engine.time_scale = 1
 			elif hold_frames > hold_time:
-				Engine.time_scale = 20 + hold_frames/10
 				if is_waiting_for_input: next(dialogue_line.next_id)
 			await Event.wait()
 		#if hold_frames < hold_time and dialogue_label.is_typing:

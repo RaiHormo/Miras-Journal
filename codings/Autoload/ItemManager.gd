@@ -10,15 +10,17 @@ var ind
 @export var HasBag = true
 signal pickup
 signal return_member(mem: Actor)
+@onready var Dicon: TextureRect = $Can/Panel/HBoxContainer/Icon
+@onready var label: Label = $Can/Panel/HBoxContainer/Label
 
 func _ready():
 	panel.hide()
 
-func get_animation(icon, named):
+func get_animation(icon, named, pickup_anim:= true):
 	Global.item_sound()
-	pickup.emit()
-	$Can/Panel/Con/Label.text = named
-	$Can/Panel/Icon.texture = icon
+	if pickup_anim: pickup.emit()
+	label.text = named
+	Dicon.texture = icon
 	await get_tree().create_timer(0.1).timeout
 	t = create_tween()
 	t.set_parallel()
@@ -27,7 +29,6 @@ func get_animation(icon, named):
 	t.tween_property(panel, "position", Vector2(555,250), 0.5).from(Vector2(555,300))
 	t.tween_property(panel, "modulate", Color(1,1,1,1), 0.5).from(Color(0,0,0,0))
 	panel.show()
-	$Can/Panel.size.x = $Can/Panel/Con.size.x + 30
 	await get_tree().create_timer(1).timeout
 	t = create_tween()
 	t.set_parallel()

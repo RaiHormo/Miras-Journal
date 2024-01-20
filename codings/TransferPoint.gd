@@ -10,7 +10,6 @@ func _on_entered(body):
 		body.move_dir(Direction*5)
 		await Loader.travel_to(Room, Position, ToCamera)
 
-
 func _on_preview_exited(body):
 	if body  == Global.Player: $Cursor.hide()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cp07hd6816l7e"]
+[gd_scene load_steps=10 format=3 uid="uid://cp07hd6816l7e"]
 
 [ext_resource type="Script" path="res://codings/Autoload/ItemManager.gd" id="1_tytpn"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_d0a2x"]
@@ -14,12 +14,10 @@ corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
-expand_margin_left = 62.0
-expand_margin_top = 7.0
-expand_margin_right = 2.0
-expand_margin_bottom = 7.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7uf24"]
+expand_margin_left = 12.0
+expand_margin_top = 4.0
+expand_margin_right = 16.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
 atlas = ExtResource("3_55ujn")
@@ -38,7 +36,7 @@ KeyInv = Array[Resource("res://database/Items/item_data.gd")]([ExtResource("2_jp
 
 [node name="Can" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="Can"]
+[node name="Panel" type="PanelContainer" parent="Can"]
 offset_left = 542.0
 offset_top = 376.0
 offset_right = 699.0
@@ -46,28 +44,21 @@ offset_bottom = 433.0
 pivot_offset = Vector2(54, 28)
 theme_override_styles/panel = SubResource("StyleBoxFlat_6duet")
 
-[node name="Con" type="PanelContainer" parent="Can/Panel"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 1.0
-offset_right = 160.0
-offset_bottom = 56.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_7uf24")
+[node name="HBoxContainer" type="HBoxContainer" parent="Can/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="Can/Panel/Con"]
+[node name="Icon" type="TextureRect" parent="Can/Panel/HBoxContainer"]
+texture_filter = 1
+material = ExtResource("2_d0a2x")
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_gtdj1")
+
+[node name="Label" type="Label" parent="Can/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Item Name"
-
-[node name="Icon" type="TextureRect" parent="Can/Panel"]
-texture_filter = 1
-material = ExtResource("2_d0a2x")
-layout_mode = 0
-offset_left = -50.0
-offset_top = 1.0
-offset_right = 7.0
-offset_bottom = 58.0
-texture = SubResource("AtlasTexture_gtdj1")
 
 [node name="ItemEffect" type="Node" parent="."]
 script = ExtResource("4_1qmny")

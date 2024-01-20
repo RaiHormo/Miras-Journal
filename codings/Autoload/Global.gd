@@ -58,6 +58,10 @@ func quit() -> void:
 	await Loader.save()
 	get_tree().quit()
 
+func normal_mode():
+	Area.queue_free()
+	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
+
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if Controllable: quit()
@@ -78,7 +82,11 @@ func ready_window() -> void:
 func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
 
+func options():
+	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+
 func new_game() -> void:
+	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
 	init_party(PartyData.new())
 	Event.Flags.clear()
 	Event.add_flag("Started")
@@ -123,10 +131,11 @@ func new_game() -> void:
 	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
 	t.tween_property(get_cam(), "zoom", Vector2(5,5), 5)
 	t.tween_property(Player.get_node("%Base/Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
-	await Player.set_anim("GetUp")
+	await Player.set_anim("GetUp", true)
 	Player.set_anim("IdleUp")
 	Controllable = true
 	Event.pop_tutorial("walk")
+	Loader.save()
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if node == null: return
@@ -163,14 +172,17 @@ func get_controller() -> ControlScheme:
 		return preload("res://UI/Input/Generic.tres")
 
 func _input(event: InputEvent) -> void:
-	if not event.is_pressed(): return
 	if LastInput==ProcessFrame: return
-	if event is InputEventMouseMotion: return
 	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
-	if event is InputEventKey:
-		device = "Keyboard"
+	if event is InputEventMouseMotion:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		return
 	if event is InputEventScreenTouch or event is InputEventScreenDrag:
 		device = "Touch"
+	if not event.is_pressed(): return
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	if event is InputEventKey:
+		device = "Keyboard"
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		device = Input.get_joy_name(event.device)
 		AltConfirm = get_controller().AltConfirm

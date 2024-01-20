@@ -561,6 +561,7 @@ scale = Vector2(0.0442713, 0.0442713)
 texture = ExtResource("3_cich6")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Leader/Icon"]
+visible = false
 texture_filter = 1
 offset_left = -68.0
 offset_top = -1016.0
@@ -694,6 +695,7 @@ scale = Vector2(0.0442713, 0.0442713)
 texture = ExtResource("3_cich6")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Member1/Icon"]
+visible = false
 texture_filter = 1
 offset_left = -68.0
 offset_top = -1016.0
@@ -1248,6 +1250,11 @@ flat = true
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"
+
+[node name="StateTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+autostart = true
 
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="shrink" from="." to="." method="_on_shrink"]

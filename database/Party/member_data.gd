@@ -139,15 +139,16 @@ func add_state(x, turns = -1):
 		Global.Bt.on_state_add(state, self)
 		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
 			await Global.Bt.play_effect(state.name, self)
-		if node.get_node("State").sprite_frames.has_animation(state.name):
-			node.get_node("State").play(state.name)
+		#if node.get_node("State").sprite_frames.has_animation(state.name):
+			#node.get_node("State").play(state.name)
 
 func remove_state(x):
-	for state in States:
-		if x is State:
-			if state == x: States.erase(state)
-		elif state.name == x:
-				States.erase(state)
+	var state: State
+	if x is State:
+		state = x
+	else: state = await Global.get_state(x)
+	States.erase(state)
+	Global.Bt.remove_state_effect(state, self)
 
 func has_state(x: String) -> bool:
 	for i in States.size():

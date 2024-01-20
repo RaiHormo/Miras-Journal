@@ -9,7 +9,7 @@ signal shrink
 var held = false
 var focus : int = 0
 #t : Tween
-var UIvisible = true
+var UIvisible = false
 var Tempvis = true
 var visibly=false
 @onready var t :Tween
@@ -29,7 +29,6 @@ func _ready():
 	if not Loader.InBattle:
 		shrink.emit()
 		UIvisible = true
-
 
 func _process(delta):
 	if disabled: UIvisible = false
@@ -75,8 +74,8 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if Input.is_action_just_pressed("Options") and "Idle" in Global.Player.get_node("%Base").animation:
-		get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+	if Input.is_action_just_pressed("Options") and Global.Player != null and "Idle" in Global.Player.get_node("%Base").animation:
+		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()) and Expanded and not MemberChoosing:
 		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 		$Audio.play()
@@ -87,7 +86,7 @@ func _input(ev):
 
 	##Debug shortcuts
 	if Input.is_action_just_pressed("Debug"):
-		Loader.travel_to("Debug")
+		Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
 	if Input.is_action_just_pressed("DebugT"):
 		Global.passive("testbush", "greetings")
 	if Input.is_action_just_pressed("DebugP"):
@@ -419,7 +418,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
 	t.tween_property(node.get_node("Aura"), "value", mem.Aura, 1)
 	node.get_node("Icon").texture = mem.PartyIcon
-	node.get_node("Icon/State").texture = null if mem.States.is_empty() else mem.States[0].icon
+	cycle_states(mem, node.get_node("Icon/State"))
 	node.get_node("Health/HpText").text = str(mem.Health)
 	node.get_node("Aura/AruaText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
@@ -543,3 +542,14 @@ func main_menu():
 		Global.Controllable=false
 		get_tree().paused = true
 		get_tree().root.add_child(MainMenu.instantiate())
+
+func cycle_states(chara: Actor, rect: TextureRect):
+	if rect.texture != null and rect.visible: return
+	var index:= 0
+	rect.show()
+	while not chara.States.is_empty():
+		rect.texture = chara.States[index].icon
+		await $StateTimer.timeout
+		index += 1
+		if index == chara.States.size(): index = 0
+	rect.texture = null
