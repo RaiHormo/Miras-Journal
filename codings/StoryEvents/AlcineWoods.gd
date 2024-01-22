@@ -67,14 +67,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.play("ScaredTurn")
 			await Event.wait(1)
 			await Global.textbox("temple_woods_random", "as_lost_as_you")
-			await move_dir(Vector2(-1, 0))
+			await move_dir(Vector2(-2, 0))
 			await bubble("Ellipsis")
 			await Global.Player.bubble("Question")
 			Global.jump_to_global(self, position, 1, 0.5)
 			await Global.textbox("temple_woods_random", "haha")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
-			await move_dir(Vector2.LEFT*2)
 			await move_dir(Vector2.UP)
 			Event.remove_flag(&"FlameActive")
 			Global.Player.bubble("Surprise")
@@ -112,7 +111,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func skip():
 	if Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and Global.CameraInd == 2 and not Event.f("AlcineFollow4"):
 		Event.flag_progress("AlcineFollow", 3)
-
 		$"../Petrogon".hide()
 		$"../Petrogon".play("Idle")
 		BodyState = CUSTOM

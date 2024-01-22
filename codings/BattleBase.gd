@@ -24,9 +24,11 @@ var AwaitVictory = false
 var count: int
 var totalSP: int = 0
 var callout_onscreen := false
+var lock_turn:= false
 
 func _ready():
 	Global.Bt = self
+	get_tree().paused = false
 	Global.Controllable = false
 	$Cam.make_current()
 	Loader.InBattle = true
@@ -417,6 +419,8 @@ func return_cur(target:Actor = CurrentChar):
 	await tc.finished
 
 func end_turn():
+	while lock_turn:
+		await Event.wait()
 	Global.check_party.emit()
 	if Seq.check_events():
 		await Seq.call_events()
@@ -468,6 +472,7 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 		target.node.material.set_shader_parameter("outline_enabled", false)
 
 
+
 func hit_animation(tar):
 	anim("Hit", tar)
 	await tar.node.animation_finished
@@ -486,6 +491,7 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		#print(amount, " / ", times, " = ",amount/times)
 		t.tween_property($Cam, "offset", Vector2(randi_range(-am,am), randi_range(-am,am)), dur).as_relative()
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
+	await t.finished
 
 func calc_num():
 	var base: int
@@ -549,14 +555,23 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
+	lock_turn = true
 	if target == null or target.has_state("KnockedOut"): return
-#	if target.IsEnemy and Troop.size() == 1:
-#		slowmo()
 	target.States.clear()
 	target.node.get_node("State").play("None")
 	target.add_state("KnockedOut")
 	if target.IsEnemy: totalSP += target.RecivedSP
 	anim("KnockOut", target)
+	if target.codename == &"Mira":
+		await Event.wait()
+		get_tree().paused = true
+		CurrentChar.node.pause()
+		target.node.pause()
+		await screen_shake(30, 10)
+		await Event.wait(1, false)
+		CurrentChar.node.play()
+		target.node.play()
+		get_tree().paused = false
 	target.node.get_node("Particle").emitting = true
 	t = create_tween()
 	target.Health = 0
@@ -582,6 +597,7 @@ func death(target:Actor):
 				if target.IsEnemy:
 					Troop.erase(target)
 					TurnOrder.erase(target)
+	lock_turn = false
 
 func slowmo(timescale = 0.5, time= 1):
 	Engine.time_scale = 0.5
@@ -705,7 +721,7 @@ func escape():
 
 func game_over():
 	print("The party was wiped out")
-	end_battle()
+	Global.game_over()
 
 func end_battle():
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return

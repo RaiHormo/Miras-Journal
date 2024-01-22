@@ -1511,6 +1511,7 @@ material = ExtResource("1_pas6x")
 texture = ExtResource("1_lnseq")
 
 [node name="Act" type="Node2D" parent="."]
+process_mode = 1
 visibility_layer = 16
 use_parent_material = true
 script = ExtResource("6_yeldr")

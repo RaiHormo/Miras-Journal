@@ -166,7 +166,6 @@ func WarpAttack():
 	Bt.anim("Idle", temp)
 #endregion
 
-
 ################################################
 
 #region Abilities
@@ -261,5 +260,4 @@ func Eat():
 #region Battle events
 func AlcineWoods1():
 	await Global.passive("temple_woods_random", "going_nowhere")
-	Bt.end_battle()
 #endregion

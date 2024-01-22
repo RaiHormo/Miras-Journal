@@ -45,3 +45,15 @@ res://codings/UI/Passive.tscn
 res://codings/Autoload/ItemManager.tscn
 res://scenes/Characters/WanderingEnemy.tscn
 res://scenes/Initializer.tscn
+res://codings/StoryEvents/AlcineWoods.gd
+res://database/Enemies/Petrogon.tres
+res://codings/Initializer.gd
+res://codings/ActionSequence.gd
+res://codings/UI/GameOver.gd
+res://UI/GameOver/GameOver.tscn
+res://codings/Autoload/Global.gd
+res://codings/BattleBase.gd
+res://codings/UI/Options.gd
+res://codings/Autoload/Loader.gd
+res://codings/Autoload/Event.gd
+res://codings/NPC.gd

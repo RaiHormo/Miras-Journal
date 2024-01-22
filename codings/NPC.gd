@@ -55,7 +55,7 @@ func control_process() -> void:
 	BodyState=IDLE
 
 func _physics_process(delta) -> void:
-	if get_tree().paused:
+	if get_tree().paused or Loader.InBattle:
 		return
 	extended_process()
 	if self.get_path() in Loader.Defeated: queue_free()

@@ -22,7 +22,7 @@ func _ready():
 			return
 		$/root/Battle/BattleUI.active = false
 		$/root/Battle/BattleUI.stage = "options"
-	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null:
+	if Loader.InBattle:
 		$MainButtons/SaveManagment.disabled = true
 		$MainButtons/GameSettings.grab_focus()
 	else:
@@ -199,6 +199,9 @@ func _on_focus_changed(control:Control):
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
 				$SavePanel/Buttons/Delete.disabled = false
+	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null:
+		$SavePanel/Buttons/Overwrite.disabled = true
+		$SavePanel/ScrollContainer/Files/New/NewFile/Button.disabled = true
 
 func load_settings():
 	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum

@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://dna5vcce2e6gi"]
+
+[ext_resource type="Script" path="res://codings/UI/GameOver.gd" id="1_slw46"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="2_1b12g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88xbf"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y4ku"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.054902, 0.054902, 0.054902, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="Theme" id="Theme_8enlg"]
+default_font = ExtResource("2_1b12g")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_ds1ry")
+Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
+Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
+Button/styles/normal = SubResource("StyleBoxFlat_0y4ku")
+Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
+
+[node name="GameOver" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_slw46")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.054902, 0.054902, 1)
+
+[node name="Options" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -114.0
+offset_right = 76.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="Retry" type="Button" parent="Options"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+theme = SubResource("Theme_8enlg")
+text = "Retry"
+
+[node name="Load" type="Button" parent="Options"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme = SubResource("Theme_8enlg")
+text = "Load
+"
+
+[node name="Quit" type="Button" parent="Options"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Retry")
+theme = SubResource("Theme_8enlg")
+text = "Quit"
+
+[connection signal="pressed" from="Options/Retry" to="." method="retry"]
+[connection signal="pressed" from="Options/Load" to="." method="_load"]
+[connection signal="pressed" from="Options/Quit" to="." method="_quit"]

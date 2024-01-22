@@ -50,7 +50,7 @@ func _ready() -> void:
 func quit() -> void:
 	if Loader.InBattle or Player == null or Area == null: get_tree().quit()
 	Loader.icon_save()
-	await Loader.transition("L")
+	await Loader.transition("")
 	if get_node_or_null("/root/Options") != null:
 		await get_node("/root/Options").close()
 	if Player.get_node_or_null("MainMenu") != null:
@@ -61,6 +61,9 @@ func quit() -> void:
 func normal_mode():
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
+
+func game_over():
+	$"/root".add_child(preload("res://UI/GameOver/GameOver.tscn").instantiate())
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -497,6 +500,10 @@ func range_360(n1, n2) -> Array:
 		range2.append_array(range1)
 		return range2
 	else: return range(n1, n2)
+
+func make_array_unique(arr: Array):
+	for i in range(-1, arr.size() - 1):
+		arr[i] = arr[i].duplicate()
 
 func get_affinity(attacker:Color) -> Affinity:
 	var aff = Affinity.new()

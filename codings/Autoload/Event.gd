@@ -47,9 +47,9 @@ func move_to(pos:Vector2=Global.get_direction(), chara:String="P"):
 ## [codeblock]
 ##await get_tree().create_timer(time).timeout
 ##[/codeblock]
-func wait(time:float=0) -> void:
+func wait(time:float=0, pausable:= true) -> void:
 	if time != 0:
-		await get_tree().create_timer(time).timeout
+		await get_tree().create_timer(time, !pausable).timeout
 	else:
 		await get_tree().physics_frame
 

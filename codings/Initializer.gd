@@ -12,7 +12,9 @@ func _ready() -> void:
 	else:
 		print("Debug mode initialized, traveling to the debug room")
 		#await Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
-		await Loader.load_game()
+		if FileAccess.file_exists("user://Autosave.tres"):
+			await Loader.load_game()
+		else: Global.new_game()
 		PartyUI.disabled = false
 		PartyUI.visible = true
 

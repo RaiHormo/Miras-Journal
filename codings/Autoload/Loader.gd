@@ -54,6 +54,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Camera = Global.CameraInd
 	data.Defeated = Defeated
 	data.Members = Global.Members.duplicate()
+	Global.make_array_unique(data.Members)
 	data.version = SaveVersion
 	data.Flags = Event.Flags
 	for i in data.Members:
@@ -98,6 +99,7 @@ func load_game(filename:String="Autosave"):
 	Defeated = data.Defeated
 	Global.CameraInd = data.Camera
 	PartyUI.UIvisible = true
+	PartyUI.disabled = false
 	Event.Flags = data.Flags
 
 	if data == null:
@@ -113,7 +115,8 @@ func load_game(filename:String="Autosave"):
 	Item.MatInv = data.MatInv.duplicate()
 	Item.BtiInv = data.BtiInv.duplicate()
 
-	Global.Members = data.Members
+	Global.Members = data.Members.duplicate()
+	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)
 
 	await Global.area_initialized
