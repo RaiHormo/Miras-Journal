@@ -9,10 +9,11 @@
 
 [sub_resource type="Resource" id="Resource_5vx4i"]
 script = ExtResource("5_a1d4h")
+repeatable = false
 flag = &""
 flag_should_be = false
 after_turn = -1
-actor_hp_low = &"Mira"
+actor = &""
 low_hp = 20
 result = 0
 parameter1 = "testbush"
@@ -22,10 +23,11 @@ add_flag = false
 
 [sub_resource type="Resource" id="Resource_wpf26"]
 script = ExtResource("5_a1d4h")
+repeatable = false
 flag = &"DebugBattle"
 flag_should_be = false
 after_turn = 0
-actor_hp_low = &""
+actor = &""
 low_hp = -1
 result = 0
 parameter1 = "testbush"

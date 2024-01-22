@@ -82,7 +82,7 @@ func load_game(filename:String="Autosave"):
 	if filename=="File0": filename = "Autosave"
 	if not FileAccess.file_exists("user://"+filename+".tres"): await save()
 	print("Loading user://"+filename+".tres")
-	transition("L")
+	transition("")
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -98,6 +98,7 @@ func load_game(filename:String="Autosave"):
 	Defeated = data.Defeated
 	Global.CameraInd = data.Camera
 	PartyUI.UIvisible = true
+	Event.Flags = data.Flags
 
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")
@@ -118,7 +119,6 @@ func load_game(filename:String="Autosave"):
 	await Global.area_initialized
 	Global.Player.global_position = data.Position
 	Global.Controllable =true
-	Event.Flags = data.Flags
 	PartyUI._check_party()
 	Global.Area.handle_z(data.Z)
 	await Item.verify_inventory()
@@ -261,6 +261,7 @@ func detransition():
 
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
+	if get_node_or_null("/root/Battle") != null: return
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 	PartyUI.UIvisible = false

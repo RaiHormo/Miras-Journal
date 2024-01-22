@@ -585,15 +585,12 @@ func get_target(faction:Array[Actor]):
 	$"../Canvas/AttackTitle".text = CurrentChar.NextMove.name
 	$"../Canvas/AttackTitle".icon = CurrentChar.NextMove.Icon
 
-	if not LastTarget in faction:
+	if LastTarget == null or not LastTarget in faction:
 		LastTarget = faction[0]
 		TargetIndex = 0
 	target = LastTarget
-	while TargetIndex!=faction.size() -1 or faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node == null:
-		if TargetIndex!=faction.size() -1:
-			TargetIndex += 1
-		else:
-			TargetIndex = 0
+	if TargetIndex >= faction.size() -1 or faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node == null:
+		TargetIndex = 0
 	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)

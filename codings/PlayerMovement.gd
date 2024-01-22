@@ -43,7 +43,7 @@ func _ready() -> void:
 			if "Camera" in i.name: i.enabled = false
 		$Camera2D.remote_path = cam.get_path()
 		cam.enabled = true
-	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction())))
+	set_anim("Idle"+str(Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	if Global.Controllable:
@@ -108,7 +108,7 @@ func control_process():
 					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
 					if BodyState == CUSTOM:
 						Global.Controllable=true
-			elif Global.get_direction(direction) != dashdir:
+			elif Global.get_direction(direction) != dashdir or not can_dash:
 				#print(2)
 				stop_dash()
 		elif dashing:
@@ -171,19 +171,14 @@ func update_anim_prm() -> void:
 					stop_dash()
 	else:
 		if get_real_velocity().length() >30:
-			BodyState = MOVE
 			if dashing:
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 			else:
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 		else:
-			BodyState = IDLE
 			if realvelocity == Vector2.ZERO:
 				position = round(position)
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
-
-func look_to(dir:Vector2) -> void:
-	set_anim("Idle"+Global.get_dir_name(dir))
 
 ##Item pickup animation
 func _on_pickup() -> void:
@@ -249,7 +244,7 @@ func check_flame(force:= false) -> void:
 				await Event.wait()
 			flame.energy = 1.5
 			flame.flicker = true
-	elif get_node_or_null("Flame") == null and flame.energy != 0:
+	elif get_node_or_null("Flame") != null and flame.energy != 0:
 		reset_sprite()
 		flame.flicker = false
 		flame.energy = 0
@@ -259,6 +254,7 @@ func reset_sprite():
 
 ##For opening the menu
 func bag_anim() -> void:
+	BodyState = NONE
 	if get_node_or_null("%Base") == null: return
 	set_anim("OpenBag")
 	await %Base.animation_finished

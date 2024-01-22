@@ -128,14 +128,19 @@ func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
 	await go_to(coords+(dir), exact, autostop)
 
 func look_to(dir:Vector2):
+	BodyState = MOVE
+	Facing = dir
+	direction = dir
+	await Event.wait()
 	BodyState = IDLE
-	Facing=Global.get_direction(dir.normalized())
-	print(dir, Facing)
 
-func go_to_global(pos:Vector2,  exact=true, autostop = true) -> void:
-	await go_to(Global.Tilemap.local_to_map(pos), exact, autostop)
+func go_to_global(pos:Vector2,  exact=true, autostop = true, look_to: Vector2 = Vector2.ZERO) -> void:
+	await go_to(Global.Tilemap.local_to_map(pos), exact, autostop, look_to)
 
-func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
+func set_anim(anim: String):
+	pass
+
+func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: return
 	#await stop_going()
@@ -158,6 +163,8 @@ func go_to(pos:Vector2,  exact=true, autostop = true) -> void:
 	position = Vector2i(position)
 	direction = Vector2.ZERO
 	await Event.wait()
+	if look_dir != Vector2.ZERO:
+		await look_to(look_dir)
 
 func stop_going() -> void:
 	stopping = true

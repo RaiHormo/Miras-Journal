@@ -1,21 +1,25 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_7lyd6"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_gxdk1"]
 
 [resource]
-script = ExtResource("1_7lyd6")
+script = ExtResource("1_gxdk1")
 using_states = PackedStringArray()
 titles = {
-"as_lost_as_you": "32",
+"approach": "25",
+"as_lost_as_you": "34",
 "cant_dash_on_flame": "15",
 "getting_dark": "2",
+"going_nowhere": "98",
 "good_on_you": "48",
-"haha": "39",
+"haha": "41",
 "hey_wait": "20",
-"im_not_gonna_harm_you": "25",
-"not_going_well": "67",
+"im_not_gonna_harm_you": "29",
+"not_going_well": "91",
 "skeleton": "58",
+"statue_legs": "85",
 "stay_back": "53",
+"symbol": "67",
 "that_should_do_it": "6",
 "was_that_a": "10"
 }
@@ -40,6 +44,64 @@ Was that another monster?",
 "translation_key": "It... ran away?[wait=0.4]
 Was that another monster?",
 "type": "dialogue"
+},
+"100": {
+"id": "100",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "101",
+"type": "mutation"
+},
+"101": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "101",
+"next_id": "102",
+"tags": PackedStringArray(),
+"text": "If I heal it will just deal more damage.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "If I heal it will just deal more damage.",
+"type": "dialogue"
+},
+"102": {
+"id": "102",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "103",
+"type": "mutation"
+},
+"103": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "103",
+"next_id": "104",
+"tags": PackedStringArray(),
+"text": "Is there anything I can do?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Is there anything I can do?",
+"type": "dialogue"
+},
+"104": {
+"id": "104",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
 },
 "11": {
 "character": "",
@@ -148,37 +210,34 @@ Was that another monster?",
 "24": {
 "id": "24",
 "next_id": "25",
-"text": "im_not_gonna_harm_you",
+"text": "approach",
 "type": "title"
 },
 "25": {
-"id": "25",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "next_box",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "Alcine"
-}])])
-}])
-},
-"next_id": "26",
-"type": "mutation"
-},
-"26": {
 "character": "",
 "character_replacements": Array[Dictionary]([]),
-"id": "26",
-"next_id": "27",
+"id": "25",
+"next_id": "26",
 "tags": PackedStringArray(),
-"text": "...",
+"text": "It seems scared of me...",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "...",
+"translation_key": "It seems scared of me...",
 "type": "dialogue"
 },
-"27": {
-"id": "27",
+"26": {
+"id": "26",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"28": {
+"id": "28",
+"next_id": "29",
+"text": "im_not_gonna_harm_you",
+"type": "title"
+},
+"29": {
+"id": "29",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -189,27 +248,8 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "28",
+"next_id": "30",
 "type": "mutation"
-},
-"28": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"id": "28",
-"next_id": "29",
-"tags": PackedStringArray(),
-"text": "Come on, don't be scared.
- Nobody's gonna hurt you.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "Come on, don't be scared.
- Nobody's gonna hurt you.",
-"type": "dialogue"
-},
-"29": {
-"id": "29",
-"is_snippet": false,
-"next_id": "end",
-"type": "goto"
 },
 "3": {
 "id": "3",
@@ -217,14 +257,31 @@ Was that another monster?",
 "next_id": "end",
 "type": "goto"
 },
+"30": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "30",
+"next_id": "31",
+"tags": PackedStringArray(),
+"text": "Come on, it's all fine. I don't want to harm you.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Come on, it's all fine. I don't want to harm you.",
+"type": "dialogue"
+},
 "31": {
 "id": "31",
-"next_id": "32",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"33": {
+"id": "33",
+"next_id": "34",
 "text": "as_lost_as_you",
 "type": "title"
 },
-"32": {
-"id": "32",
+"34": {
+"id": "34",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -235,22 +292,22 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "33",
+"next_id": "35",
 "type": "mutation"
 },
-"33": {
+"35": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"id": "33",
-"next_id": "34",
+"id": "35",
+"next_id": "36",
 "tags": PackedStringArray(),
 "text": "I guess you're just as lost.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I guess you're just as lost.",
 "type": "dialogue"
 },
-"34": {
-"id": "34",
+"36": {
+"id": "36",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -264,57 +321,31 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "35",
+"next_id": "37",
 "type": "mutation"
 },
-"35": {
+"37": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"id": "35",
-"next_id": "36",
+"id": "37",
+"next_id": "38",
 "tags": PackedStringArray(),
-"text": "This forest is not safe, we should look for a way out",
+"text": "This forest is not safe, we should look for a way out.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "This forest is not safe, we should look for a way out",
+"translation_key": "This forest is not safe, we should look for a way out.",
 "type": "dialogue"
 },
-"36": {
-"id": "36",
+"38": {
+"id": "38",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
 },
-"38": {
-"id": "38",
-"next_id": "39",
-"text": "haha",
-"type": "title"
-},
-"39": {
-"id": "39",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "next_box",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "Alcine"
-}])])
-}])
-},
-"next_id": "40",
-"type": "mutation"
-},
 "40": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "40",
 "next_id": "41",
-"tags": PackedStringArray(),
-"text": "...",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "...",
-"type": "dialogue"
+"text": "haha",
+"type": "title"
 },
 "41": {
 "id": "41",
@@ -567,49 +598,57 @@ I'll deal with it!",
 "66": {
 "id": "66",
 "next_id": "67",
-"text": "not_going_well",
+"text": "symbol",
 "type": "title"
 },
 "67": {
-"id": "67",
-"mutation": {
+"condition": {
 "expression": Array[Dictionary]([{
-"function": "portrait",
+"function": "flag_int",
 "type": "function",
 "value": Array[Array]([Array[Dictionary]([{
 "type": "string",
-"value": "MiraNeutural"
+"value": "LookedAtTempleSymbol"
 }])])
+}, {
+"type": "comparison",
+"value": "=="
+}, {
+"type": "number",
+"value": 0
+}, {
+"type": "colon"
 }])
 },
+"id": "67",
+"next_conditional_id": "73",
 "next_id": "68",
-"type": "mutation"
+"next_id_after": "82",
+"type": "condition"
 },
 "68": {
-"character": "Mira",
+"character": "",
 "character_replacements": Array[Dictionary]([]),
 "id": "68",
 "next_id": "69",
+"parent_id": "67",
 "tags": PackedStringArray(),
-"text": "Ow, this hurts...",
+"text": "There is a symbol engraved on the ground.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Ow, this hurts...",
+"translation_key": "There is a symbol engraved on the ground.",
 "type": "dialogue"
 },
 "69": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
 "id": "69",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraNeutural"
-}])])
-}])
-},
 "next_id": "70",
-"type": "mutation"
+"parent_id": "67",
+"tags": PackedStringArray(),
+"text": "Looks like some sort of bird... with a clover head?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Looks like some sort of bird... with a clover head?",
+"type": "dialogue"
 },
 "7": {
 "id": "7",
@@ -618,18 +657,238 @@ I'll deal with it!",
 "type": "goto"
 },
 "70": {
-"character": "Mira",
+"character": "",
 "character_replacements": Array[Dictionary]([]),
 "id": "70",
 "next_id": "71",
+"parent_id": "67",
 "tags": PackedStringArray(),
-"text": "Do I have anything that could heal me?",
+"text": "...",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Do I have anything that could heal me?",
+"translation_key": "...",
 "type": "dialogue"
 },
 "71": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
 "id": "71",
+"next_id": "72",
+"parent_id": "67",
+"tags": PackedStringArray(),
+"text": "I just noticed that it's not perfectly symmetrical, which makes looking at it increasingly painful.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "I just noticed that it's not perfectly symmetrical, which makes looking at it increasingly painful.",
+"type": "dialogue"
+},
+"72": {
+"id": "72",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "flag_progress",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 1
+}])])
+}])
+},
+"next_id": "82",
+"parent_id": "67",
+"type": "mutation"
+},
+"73": {
+"condition": {
+"expression": Array[Dictionary]([{
+"function": "flag_int",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}])])
+}, {
+"type": "comparison",
+"value": "=="
+}, {
+"type": "number",
+"value": 1
+}, {
+"type": "colon"
+}])
+},
+"id": "73",
+"next_conditional_id": "76",
+"next_id": "74",
+"next_id_after": "82",
+"type": "condition"
+},
+"74": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "74",
+"next_id": "75",
+"parent_id": "73",
+"tags": PackedStringArray(),
+"text": "The pain grows.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "The pain grows.",
+"type": "dialogue"
+},
+"75": {
+"id": "75",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "flag_progress",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 2
+}])])
+}])
+},
+"next_id": "82",
+"parent_id": "73",
+"type": "mutation"
+},
+"76": {
+"condition": {
+"expression": Array[Dictionary]([{
+"function": "flag_int",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}])])
+}, {
+"type": "comparison",
+"value": "=="
+}, {
+"type": "number",
+"value": 2
+}, {
+"type": "colon"
+}])
+},
+"id": "76",
+"next_conditional_id": "80",
+"next_id": "77",
+"next_id_after": "82",
+"type": "condition"
+},
+"77": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "77",
+"next_id": "78",
+"parent_id": "76",
+"tags": PackedStringArray(),
+"text": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
+"type": "dialogue"
+},
+"78": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "78",
+"next_id": "79",
+"parent_id": "76",
+"tags": PackedStringArray(),
+"text": "I don't recall ever seeing something like it though.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "I don't recall ever seeing something like it though.",
+"type": "dialogue"
+},
+"79": {
+"id": "79",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "flag_progress",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 3
+}])])
+}])
+},
+"next_id": "82",
+"parent_id": "76",
+"type": "mutation"
+},
+"80": {
+"id": "80",
+"next_conditional_id": "82",
+"next_id": "81",
+"next_id_after": "82",
+"type": "condition"
+},
+"81": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "81",
+"next_id": "82",
+"parent_id": "80",
+"tags": PackedStringArray(),
+"text": "Let's move on, I can't stand here looking at this all day.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Let's move on, I can't stand here looking at this all day.",
+"type": "dialogue"
+},
+"82": {
+"id": "82",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"84": {
+"id": "84",
+"next_id": "85",
+"text": "statue_legs",
+"type": "title"
+},
+"85": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "85",
+"next_id": "86",
+"tags": PackedStringArray(),
+"text": "Looks like a statue.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Looks like a statue.",
+"type": "dialogue"
+},
+"86": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "86",
+"next_id": "87",
+"tags": PackedStringArray(),
+"text": "Or, to be more precise, the legs of a statue.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Or, to be more precise, the legs of a statue.",
+"type": "dialogue"
+},
+"87": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "87",
+"next_id": "88",
+"tags": PackedStringArray(),
+"text": "From the shape, these seem more like human legs, but it's hard to tell.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "From the shape, these seem more like human legs, but it's hard to tell.",
+"type": "dialogue"
+},
+"88": {
+"id": "88",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
@@ -639,6 +898,102 @@ I'll deal with it!",
 "next_id": "10",
 "text": "was_that_a",
 "type": "title"
+},
+"90": {
+"id": "90",
+"next_id": "91",
+"text": "not_going_well",
+"type": "title"
+},
+"91": {
+"id": "91",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "92",
+"type": "mutation"
+},
+"92": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "92",
+"next_id": "93",
+"tags": PackedStringArray(),
+"text": "Ow, this hurts...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Ow, this hurts...",
+"type": "dialogue"
+},
+"93": {
+"id": "93",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "94",
+"type": "mutation"
+},
+"94": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "94",
+"next_id": "95",
+"tags": PackedStringArray(),
+"text": "Do I have anything that could heal me?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Do I have anything that could heal me?",
+"type": "dialogue"
+},
+"95": {
+"id": "95",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"97": {
+"id": "97",
+"next_id": "98",
+"text": "going_nowhere",
+"type": "title"
+},
+"98": {
+"id": "98",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "99",
+"type": "mutation"
+},
+"99": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "99",
+"next_id": "100",
+"tags": PackedStringArray(),
+"text": "This is going nowhere.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This is going nowhere.",
+"type": "dialogue"
 }
 }
 metadata/dialogue_manager_version = "2.31.0"

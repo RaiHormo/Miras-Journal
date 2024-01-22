@@ -83,6 +83,21 @@ material = SubResource("ShaderMaterial_rbnbg")
 collision_layer = 256
 collision_mask = 256
 script = ExtResource("1_prqri")
+LabelText = null
+ActionType = null
+Length = null
+file = null
+title = null
+item = null
+hidesprite = null
+itemtype = null
+Height = null
+hide_on_flag = null
+add_flag = null
+hide_parent = null
+offset = null
+proper_pos = null
+proper_face = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.8147e-06, -3.8147e-06)

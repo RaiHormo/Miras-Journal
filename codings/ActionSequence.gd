@@ -46,16 +46,16 @@ func handle_states():
 					"Guarding":
 						chara. DefenceMultiplier -= 1
 						chara.node.material.set_shader_parameter("outline_enabled", false)
-					"AttackUp": chara.AttackMultiplier -= 1.5
-					"DefenceUp": chara.DefenceMultiplier -= 1.5
-					"MagicUp": chara.MagicMultiplier -= 1.5
+					"AttackUp": chara.AttackMultiplier -= 0.5
+					"DefenceUp": chara.DefenceMultiplier -= 0.5
+					"MagicUp": chara.MagicMultiplier -= 0.5
 				chara.remove_state(state)
 				continue
 		match state.name:
 			"Burned":
 				chara.node.get_node("State").play("Burned")
 				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, false, false, chara.MaxHP * randf_range(0.2, 0.1), false, true, true)
+				Bt.damage(chara, false, false, randi_range(3, 12), false, true, true)
 				await get_tree().create_timer(0.8).timeout
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
@@ -178,7 +178,8 @@ func Guard():
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_color", Bt.CurrentChar.MainColor)
 	CurrentChar.add_state("Guarding")
-	await Bt.pop_num(CurrentChar, "Guarding")
+	Bt.pop_num(CurrentChar, "Guarding")
+	await Event.wait(0.5)
 	Bt.end_turn()
 
 func SoothingSpray():
@@ -253,4 +254,12 @@ func Eat():
 	if Bt.CurrentAbility.Type == "Healing": Bt.heal(target, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Drink")
 	Bt.end_turn()
+#endregion
+
+################################################
+
+#region Battle events
+func AlcineWoods1():
+	await Global.passive("temple_woods_random", "going_nowhere")
+	Bt.end_battle()
 #endregion

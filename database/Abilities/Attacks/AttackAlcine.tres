@@ -26,3 +26,4 @@ Callout = false
 SucessChance = 0.8
 CritChance = 0.2
 RecoverAura = true
+DmgVarience = true

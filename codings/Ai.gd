@@ -24,6 +24,10 @@ func ai():
 		else:
 			print("Nothing else to do, using random move")
 			choose(random_ability())
+	else:
+		match Char.NextAction:
+			"Ability":
+				choose(Char.NextMove, Char.NextTarget)
 
 #Finds an ability of a certain type
 func find_ability(type:String, targets: Ability.T = Ability.T.ANY):
@@ -32,10 +36,11 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY):
 	AblilityList.push_front(Char.StandardAttack)
 	var Choices:Array[Ability] = []
 	for i in AblilityList:
-		if (i.Type == type and i.AuraCost < Char.Aura and i.HPCost < Char.Health and
-		(targets == Ability.T.ANY or i.Target == targets)):
-			Choices.push_front(i)
-			print(i.name)
+		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
+			if i.AuraCost < Char.Aura and i.HPCost < Char.Health:
+				Choices.push_front(i)
+			else: print("Not enough resources")
+		print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
 	if Choices.is_empty():
 		return null
 	else:

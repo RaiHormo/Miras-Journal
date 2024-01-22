@@ -270,6 +270,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
 				await Event.wait(0.05)
 		await t.finished
+		if item == null: _on_close(); return
 		next(dialogue_line.responses[item.get_index()].next_id)
 	#if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
 		#Global.cursor_sound()
@@ -279,16 +280,11 @@ func _input(event: InputEvent) -> void:
 		var hold_frames := 1
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
-			if dialogue_line != null and dialogue_line.responses.size() > 0:
-				Engine.time_scale = 1
-			elif hold_frames > hold_time:
-				if is_waiting_for_input: next(dialogue_line.next_id)
+			if hold_frames > hold_time: break
 			await Event.wait()
-		#if hold_frames < hold_time and dialogue_label.is_typing:
-			#Engine.time_scale = 40
-			#await dialogue_label.finished_typing
-			#Engine.time_scale = 1
-		Engine.time_scale = 1
+		if hold_frames > hold_time:
+			Event.skip_cutscene()
+			_on_close()
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return

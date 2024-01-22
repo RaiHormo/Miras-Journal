@@ -8,6 +8,7 @@ var Flags: Array[StringName]
 var Day: int
 var Month: String = "November"
 var tutorial: String
+var CutsceneHandler: Node = null
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -98,6 +99,8 @@ func f(flag:StringName, state = null) -> bool:
 	if state is bool:
 		if state: add_flag(flag)
 		else: remove_flag(flag)
+	if state is int:
+		return f_past(flag, state)
 	return check_flag(flag)
 
 func pass_time():
@@ -129,6 +132,35 @@ func give_control():
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
+
+func flag_int(str: String, max_num:= 9) -> int:
+	for i in range(0, max_num):
+		if check_flag(str + str(i)): return i
+	return 0
+
+func flag_progress(str: String, to:= 1):
+	var num:= flag_int(str)
+	if num == 0: add_flag(str+str(to))
+	elif num < to:
+		remove_flag(str+str(num))
+		add_flag(str+str(to))
+
+func f_past(str: String, has_passed:= 9) -> bool:
+	if flag_int(str) >= has_passed:
+		return true
+	else: return false
+
+func skip_cutscene():
+	if CutsceneHandler != null and CutsceneHandler.has_method(&"skip"):
+		await Loader.transition("")
+		CutsceneHandler.skip()
+		await Event.wait()
+		var dub = CutsceneHandler.duplicate()
+		CutsceneHandler.free()
+		Global.Area.add_child(dub)
+		await Event.wait()
+		dub.skip()
+		Loader.detransition()
 
 ##########################################################
 

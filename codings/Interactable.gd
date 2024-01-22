@@ -22,6 +22,7 @@ var t:Tween
 @export var hide_parent: bool = false
 @export var offset := 5
 @export var proper_pos:= Vector2.ZERO
+@export var proper_face:= Vector2.ZERO
 
 
 func _ready() -> void:
@@ -121,7 +122,7 @@ func _on_button_pressed() -> void:
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
-		await Global.Player.go_to_global(proper_pos, true)
+		await Global.Player.go_to_global(proper_pos, true, true, proper_face)
 	action.emit()
 	match ActionType:
 		"toggle":

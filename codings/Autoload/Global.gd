@@ -360,6 +360,7 @@ func textbox(file: String, title: String = "0", extra_game_states: Array = []) -
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
 	var balloon: Node = Textbox2.instantiate()
 	get_tree().root.add_child(balloon)
+	if balloon == null: return
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 	await textbox_close
 

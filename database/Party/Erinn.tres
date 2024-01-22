@@ -11,19 +11,20 @@
 [resource]
 script = ExtResource("1_gxbro")
 FirstName = "Erinn"
+ActorClass = ""
 IsEnemy = false
+codename = &"Erinn"
+RecivedSP = 0
 PartyIcon = ExtResource("2_b55w6")
 MainColor = Color(0.501961, 0.694118, 0.533333, 1)
 SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
 BoxProfile = ExtResource("1_vkgex")
 LastName = "Levenor"
-codename = &"Erinn"
 WeaponType = "Pole"
 Controllable = false
 StatsVisible = true
 RenderArtwork = ExtResource("3_71qsx")
 RenderShadow = ExtResource("4_1tt4d")
-AuraHue = 130
 MaxHP = 85
 MaxAura = 90
 Attack = 0.5

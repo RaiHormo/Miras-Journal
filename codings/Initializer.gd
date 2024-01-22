@@ -11,7 +11,8 @@ func _ready() -> void:
 			Global.new_game()
 	else:
 		print("Debug mode initialized, traveling to the debug room")
-		await Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+		#await Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+		await Loader.load_game()
 		PartyUI.disabled = false
 		PartyUI.visible = true
 

@@ -1,20 +1,52 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=5 format=3 uid="uid://c3jgxjdaf6cqb"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://c3jgxjdaf6cqb"]
 
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_6ngvg"]
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_uhysb"]
 [ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="2_yeq0t"]
+[ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="3_bbvgb"]
 
 [sub_resource type="Resource" id="Resource_cbbvb"]
 script = ExtResource("2_yeq0t")
+repeatable = false
 flag = &"AlcineFollow4"
 flag_should_be = false
-after_turn = 3
-actor_hp_low = &"Mira"
-low_hp = 20
+after_turn = -1
+actor = &"Mira"
+low_hp = 30
 result = 0
 parameter1 = "temple_woods_random"
 parameter2 = "not_going_well"
+hold_turn = false
 add_flag = true
+
+[sub_resource type="Resource" id="Resource_eg56s"]
+script = ExtResource("2_yeq0t")
+repeatable = false
+flag = &"AlcineFollow4"
+flag_should_be = true
+after_turn = 10
+actor = &""
+low_hp = -1
+result = 1
+parameter1 = "AlcineWoods1"
+parameter2 = ""
+hold_turn = true
+add_flag = true
+
+[sub_resource type="Resource" id="Resource_jw6e0"]
+script = ExtResource("2_yeq0t")
+repeatable = false
+flag = &""
+flag_should_be = false
+after_turn = -1
+actor = &"Petrogon"
+low_hp = -1
+result = 3
+parameter1 = "Ability"
+parameter2 = ""
+resource = ExtResource("3_bbvgb")
+hold_turn = false
+add_flag = false
 
 [resource]
 script = ExtResource("1_6ngvg")
@@ -26,4 +58,4 @@ PositionSameAsPlayer = true
 ScenePosition = Vector2(0, 0)
 CanEscape = true
 DeleteAttacker = false
-Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_cbbvb")])
+Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_cbbvb"), SubResource("Resource_eg56s"), SubResource("Resource_jw6e0")])

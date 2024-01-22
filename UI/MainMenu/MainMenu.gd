@@ -25,10 +25,9 @@ func _ready():
 		Global.Controllable = true
 		return
 	await Event.take_control(true)
-	show()
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
-		Global.Player.set_anim("OpenBag")
+		Global.Player.bag_anim()
 		player = Global.Player.duplicate()
 		Global.Area.add_child(player)
 		await Event.wait()
@@ -42,9 +41,6 @@ func _ready():
 	Cam.position_smoothing_enabled = true
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	Fader = player.get_node_or_null("Fader")
-	player.reset_speed()
-	player.bag_anim()
-	Global.ui_sound("Menu")
 	$DottedBack.modulate = Color.TRANSPARENT
 	$DescPaper.hide()
 	$Confirm.show()
@@ -84,6 +80,12 @@ func _ready():
 	$Base.play("Open")
 	rootIndex=1
 	move_root()
+	show()
+	await Event.take_control(true)
+	get_tree().paused = true
+	player.reset_speed()
+	player.bag_anim()
+	Global.ui_sound("Menu")
 	await $Base.animation_finished
 	stage = "root"
 	t=create_tween()
@@ -137,7 +139,7 @@ func close():
 	get_tree().paused = false
 	if t != null: t.kill()
 	t=create_tween()
-	Global.Player.set_anim()
+	Global.Area.get_node("Mira").set_anim()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()

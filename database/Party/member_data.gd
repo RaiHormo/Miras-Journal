@@ -10,6 +10,8 @@ class_name Actor
 
 @export var DroppedItem: ItemData = null
 
+@export var codename: StringName = &"Actor"
+
 @export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 0
 
 @export_category("Art")
@@ -24,7 +26,6 @@ class_name Actor
 @export var BoxProfile: TextProfile
 
 @export var LastName: String = ""
-@export var codename: StringName = &"Actor"
 @export var WeaponType: String
 @export var Controllable: bool = false
 @export var StatsVisible: bool = true
@@ -110,10 +111,13 @@ func add_aura(x):
 func add_SP(x):
 	SkillPoints += x
 
-func damage(dmg: int):
-	Health -= dmg
-	if Health<0:
-		Health = 0
+func damage(dmg: int, limiter:= false):
+	var hp = Health - dmg
+	if hp < 0:
+		if limiter:
+			hp = min(Health, randf_range(1, 5))
+		else: hp = 0
+	Health = hp
 
 func calc_dmg(x, is_magic: bool, E: Actor) -> int:
 	var stat: float

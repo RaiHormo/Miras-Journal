@@ -375,10 +375,10 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qa3v2")
 }, {
-"duration": 3.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dmjw3")
 }, {
-"duration": 8.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hnypu")
 }, {
 "duration": 2.0,
@@ -389,7 +389,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Scared",
-"speed": 8.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,

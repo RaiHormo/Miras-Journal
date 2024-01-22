@@ -439,7 +439,7 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 	print("Attack power: ", x, " * ", el_mod)
 	var dmg = target.calc_dmg(x * el_mod, is_magic, CurrentChar)
 	if ignore_stats: dmg = x
-	target.damage(dmg)
+	target.damage(dmg, limiter)
 	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
 	check_party.emit()
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
@@ -845,7 +845,7 @@ func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03)
 
 func stat_change(stat: StringName, amount: float, chara := CurrentChar, turns: int = 3):
 	var updown: String
-	if amount > 1: updown = "Up"
+	if amount > 0: updown = "Up"
 	else: updown = "Down"
 	match stat:
 		&"Atk": chara.AttackMultiplier += amount
@@ -878,3 +878,8 @@ func add_state_effect(state: State, chara: Actor):
 func remove_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(state.name) != null:
 		chara.node.get_node(state.name).queue_free()
+
+func get_actor(codename: StringName) -> Actor:
+	for i in TurnOrder:
+		if i.codename == codename: return i
+	return null

@@ -25,3 +25,5 @@ WheelColor = Color(1, 1, 1, 1)
 Callout = false
 SucessChance = 1.0
 CritChance = 0.0
+RecoverAura = false
+DmgVarience = true

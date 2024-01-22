@@ -25,4 +25,5 @@ func check_events() -> bool:
 
 func reset_events():
 	for i in Events:
-		i.ran_this_turn = false
+		if i.repeatable:
+			i.ran_this_turn = false
