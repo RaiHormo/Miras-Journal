@@ -23,6 +23,7 @@ var CurrentTarget: Actor
 var AwaitVictory = false
 var count: int
 var totalSP: int = 0
+var ObtainedItems: Array[ItemData] = []
 var callout_onscreen := false
 var lock_turn:= false
 
@@ -560,7 +561,9 @@ func death(target:Actor):
 	target.States.clear()
 	target.node.get_node("State").play("None")
 	target.add_state("KnockedOut")
-	if target.IsEnemy: totalSP += target.RecivedSP
+	if target.IsEnemy:
+		totalSP += target.RecivedSP
+		if target.DroppedItem != null: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
 	if target.codename == &"Mira":
 		await Event.wait()
@@ -699,7 +702,7 @@ func victory():
 	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,10), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
-	victory_count_sp()
+	if totalSP != 0: victory_count_sp()
 	victory_show_items()
 	Loader.battle_bars(0)
 	$EnemyUI.colapse_root()
@@ -731,13 +734,14 @@ func end_battle():
 	queue_free()
 
 func victory_anim(chara:Actor):
+	$Act.process_mode = Node.PROCESS_MODE_ALWAYS
 	chara.node.get_node("State").play("None")
 	anim("Victory", chara)
 	await chara.node.animation_finished
 	anim("VictoryLoop", chara)
 
 func victory_count_sp():
-	await Event.wait(0.7)
+	await Event.wait(0.7, false)
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -770,19 +774,31 @@ func victory_count_sp():
 	dub.queue_free()
 
 func victory_show_items():
-	await Event.wait(2)
-	for i in $Canvas/VictoryItems.get_children():
-		i.modulate = Color.TRANSPARENT
-	await Event.wait()
-	$Canvas/VictoryItems.show()
-	for i in $Canvas/VictoryItems.get_children():
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_QUINT)
-		t.set_parallel()
-		t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-		t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
-		await t.finished
+	await Event.wait(2, false)
+	if not ObtainedItems.is_empty():
+		for i in $Canvas/VictoryItems.get_children():
+			i.modulate = Color.TRANSPARENT
+		await Event.wait()
+		$Canvas/VictoryItems/ItemTemp.hide()
+		for i in ObtainedItems:
+			if i != null:
+				var dub = $Canvas/VictoryItems/ItemTemp.duplicate()
+				dub.get_node("Hbox/ItemName").text = i.Name
+				dub.get_node("Hbox/Icon").texture = i.Icon
+				await Item.find_filename(i, &"Mat")
+				Item.add_item(i, &"Mat", false)
+				dub.show()
+				$Canvas/VictoryItems.add_child(dub)
+		$Canvas/VictoryItems.show()
+		for i in $Canvas/VictoryItems.get_children():
+			if i == $Canvas/VictoryItems/ItemTemp: continue
+			t = create_tween()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUINT)
+			t.set_parallel()
+			t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+			t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
+			await t.finished
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)

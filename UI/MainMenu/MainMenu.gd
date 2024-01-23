@@ -439,37 +439,37 @@ func _on_back_button_down():
 
 func get_inventory():
 	await Item.verify_inventory()
-	if Item.KeyInv.is_empty():
-		$Inventory/Margin/Scroller/Vbox/KeyItems.hide()
-		$Inventory/Margin/Scroller/Vbox/KeyLabel.hide()
+
 	if Item.ConInv.is_empty():
-		$Inventory/Margin/Scroller/Vbox/Consumables.hide()
-		$Inventory/Margin/Scroller/Vbox/ConLabel.hide()
-	else:
-		$Inventory/Margin/Scroller/Vbox/Consumables.show()
-		$Inventory/Margin/Scroller/Vbox/ConLabel.show()
+		$Inventory/Margin/Scroller/Vbox/Consumables.visible = !Item.ConInv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/ConLabel.visible = !Item.ConInv.is_empty()
+	if Item.MatInv.is_empty():
+		$Inventory/Margin/Scroller/Vbox/Materials.visible = !Item.MatInv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/MatLabel.visible = !Item.MatInv.is_empty()
+
 	for i in $Inventory/Margin/Scroller/Vbox/KeyItems.get_children():
 		i.queue_free()
-	for item in Item.KeyInv:
-		var dub =  $Inventory/Item.duplicate()
-		dub.icon = item.Icon
-		dub.set_meta("ItemData", item)
-		$Inventory/Margin/Scroller/Vbox/KeyItems.add_child(dub)
-		dub.show()
-		if item.Quantity>1:
-			dub.text = str(item.Quantity)
-		else: dub.text = ""
 	for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
 		i.queue_free()
+	for i in $Inventory/Margin/Scroller/Vbox/Materials.get_children():
+		i.queue_free()
+
+	for item in Item.KeyInv:
+		make_slot(item, $Inventory/Margin/Scroller/Vbox/KeyItems)
 	for item in Item.ConInv:
-		var dub =  $Inventory/Item.duplicate()
-		dub.icon = item.Icon
-		dub.set_meta("ItemData", item)
-		if item.Quantity>1:
-			dub.text = str(item.Quantity)
-		else: dub.text = ""
-		$Inventory/Margin/Scroller/Vbox/Consumables.add_child(dub)
-		dub.show()
+		make_slot(item, $Inventory/Margin/Scroller/Vbox/Consumables)
+	for item in Item.MatInv:
+		make_slot(item, $Inventory/Margin/Scroller/Vbox/Materials)
+
+func make_slot(item: ItemData, grid: GridContainer):
+	var dub =  $Inventory/Item.duplicate()
+	dub.icon = item.Icon
+	dub.set_meta("ItemData", item)
+	if item.Quantity>1:
+		dub.text = str(item.Quantity)
+	else: dub.text = ""
+	grid.add_child(dub)
+	dub.show()
 
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return

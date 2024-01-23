@@ -32,6 +32,12 @@ signal check_party
 signal anim_done
 signal area_initialized
 signal textbox_close
+
+var ElementColor: Dictionary = {
+	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
+	wind = Color.hex(0x56d741ff), spiritual = Color.hex(0x52f8b5ff), cold = Color.hex(0x52f8b5ff),
+	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc34dc3ffff),
+	physical = Color.hex(0xd3446dff)}
 #endregion
 
 #region System
@@ -401,8 +407,8 @@ func toast(string: String) -> void:
 	var tost = preload("res://UI/Misc/Toast.tscn").instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
-	if get_node_or_null("/root/Toast") == null: return
-	tost.get_node("BoxContainer/Toast/Label").text = string
+	if tost != null:
+		tost.get_node("BoxContainer/Toast/Label").text = string
 
 
 #Match profile
@@ -415,6 +421,17 @@ func match_profile(named:String) -> TextProfile:
 #endregion
 
 #region Quick Queries
+func colorize(str: String) -> String:
+	for i in ElementColor.keys():
+		var elname: String = i
+		elname = elname.to_pascal_case()
+		if elname in str:
+			var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
+			var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
+			str = str.replace(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
+			print(str)
+	return str
+
 func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 	if abs(v.x) > abs(v.y):
 		if v.x >0:

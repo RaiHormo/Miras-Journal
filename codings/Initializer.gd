@@ -10,10 +10,10 @@ func _ready() -> void:
 			await Global.textbox("testbush", "prototype_message")
 			Global.new_game()
 	else:
-		print("Debug mode initialized, traveling to the debug room")
+		print("Debug mode initialized")
 		#await Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
 		if FileAccess.file_exists("user://Autosave.tres"):
-			await Loader.load_game()
+			await Loader.load_game("Autosave", false)
 		else: Global.new_game()
 		PartyUI.disabled = false
 		PartyUI.visible = true

@@ -23,6 +23,7 @@ var t:Tween
 @export var offset := 5
 @export var proper_pos:= Vector2.ZERO
 @export var proper_face:= Vector2.ZERO
+@export var needs_bag:= false
 
 
 func _ready() -> void:
@@ -124,6 +125,7 @@ func _on_button_pressed() -> void:
 		Global.Player.collision(false)
 		await Global.Player.go_to_global(proper_pos, true, true, proper_face)
 	action.emit()
+	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
 	match ActionType:
 		"toggle":
 			Global.confirm_sound()
@@ -133,7 +135,6 @@ func _on_button_pressed() -> void:
 			PartyUI.UIvisible = true
 			Global.Controllable = true
 		"item":
-			if not Item.HasBag: Global.toast("A bag is needed to store that."); return
 			Item.add_item(item, itemtype)
 		"battle":
 			Loader.start_battle(file)
@@ -143,6 +144,6 @@ func _on_button_pressed() -> void:
 			Event.call(file)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
-		if Collision != null: Collision.disabled = true
+		if Collision != null: Collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()

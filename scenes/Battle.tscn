@@ -1498,10 +1498,6 @@ grow_vertical = 2
 script = ExtResource("1_xnc7m")
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
-Troop = null
-TurnOrder = null
-Turn = null
-TurnInd = null
 curve = SubResource("Curve_wrfky")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -1835,6 +1831,7 @@ offset_right = 538.0
 offset_bottom = 425.0
 rotation = 0.0664639
 theme = SubResource("Theme_bug03")
+bbcode_enabled = true
 text = "This is a very long and intesting description of this ability. Using this spell the entire world will blow up.
 "
 
@@ -2237,6 +2234,7 @@ offset_right = 523.341
 offset_bottom = 446.512
 rotation = -0.0763998
 theme = SubResource("Theme_gsplh")
+bbcode_enabled = true
 text = "This item is very cool, almost too cool for you."
 
 [node name="Amount" type="Label" parent="BattleUI/Inventory/DescPaper"]
@@ -2848,7 +2846,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+[node name="Icon" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
 material = ExtResource("1_pas6x")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2

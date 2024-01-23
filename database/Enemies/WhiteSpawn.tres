@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://of5cf81xb3dd"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://of5cf81xb3dd"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_6rebp"]
 [ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="1_e5cux"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="1_p3tw5"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_udw1f"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_a457n"]
+[ext_resource type="Resource" uid="uid://di0tgolj2jhxg" path="res://database/Items/Materials/WhiteSlime.tres" id="3_r050w"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_cbmb1"]
 
 [resource]
@@ -12,6 +13,7 @@ script = ExtResource("2_a457n")
 FirstName = "White Spawn"
 ActorClass = "Support"
 IsEnemy = true
+DroppedItem = ExtResource("3_r050w")
 codename = &"Actor"
 RecivedSP = 2
 PartyIcon = ExtResource("1_udw1f")

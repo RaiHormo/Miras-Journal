@@ -133,12 +133,10 @@ func look_to(dir:Vector2):
 	direction = dir
 	await Event.wait()
 	BodyState = IDLE
+	await Event.wait()
 
 func go_to_global(pos:Vector2,  exact=true, autostop = true, look_to: Vector2 = Vector2.ZERO) -> void:
 	await go_to(Global.Tilemap.local_to_map(pos), exact, autostop, look_to)
-
-func set_anim(anim: String):
-	pass
 
 func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
@@ -165,6 +163,9 @@ func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector
 	await Event.wait()
 	if look_dir != Vector2.ZERO:
 		await look_to(look_dir)
+
+func set_anim(anim: String):
+	pass
 
 func stop_going() -> void:
 	stopping = true

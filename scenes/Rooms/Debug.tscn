@@ -570,6 +570,18 @@ position = Vector2(59.7305, -36.4454)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
 Length = 160
+file = ""
+title = ""
+item = ""
+hidesprite = false
+itemtype = ""
+Height = 0
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="PointLight2D" type="PointLight2D" parent="Lamp"]
 position = Vector2(0.269501, 0.4454)
@@ -584,10 +596,21 @@ script = ExtResource("5_1wqrx")
 
 [node name="Bush" parent="." instance=ExtResource("5_pijc2")]
 position = Vector2(60.2736, 36.5526)
+LabelText = "Inspect"
 ActionType = "text"
+Length = 120
 file = "testbush"
 title = "bush"
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 4
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="FastTravel" parent="." instance=ExtResource("5_pijc2")]
 position = Vector2(11.5979, -54.0878)
@@ -596,7 +619,16 @@ ActionType = "text"
 Length = 150
 file = "testbush"
 title = "travel"
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 16
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="Axe" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -609,11 +641,19 @@ collision_layer = 257
 collision_mask = 257
 LabelText = "Pick up"
 ActionType = "item"
+Length = 120
 file = "testbush"
+title = ""
 item = "LightweightAxe"
 hidesprite = true
 itemtype = "Key"
+Height = 0
+hide_on_flag = &""
+add_flag = false
 hide_parent = true
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="Body" type="StaticBody2D" parent="Axe"]
 
@@ -636,7 +676,17 @@ LabelText = "Fight"
 ActionType = "battle"
 Length = 100
 file = "DebugDummy"
+title = ""
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 16
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="Body" type="StaticBody2D" parent="Dummy"]
 
@@ -684,7 +734,17 @@ LabelText = "Exit debug mode"
 ActionType = "global"
 Length = 200
 file = "normal_mode"
+title = ""
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 16
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="Body2" type="StaticBody2D" parent="Harold"]
 position = Vector2(0, 8)

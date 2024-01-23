@@ -78,8 +78,8 @@ func save(filename:String="Autosave", showicon=true):
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (await load_res("user://Autosave.tres")).Preview
 
-func load_game(filename:String="Autosave"):
-	Global.ui_sound("Load")
+func load_game(filename:String="Autosave", sound:= true):
+	if sound: Global.ui_sound("Load")
 	if filename=="File0": filename = "Autosave"
 	if not FileAccess.file_exists("user://"+filename+".tres"): await save()
 	print("Loading user://"+filename+".tres")

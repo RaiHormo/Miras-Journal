@@ -11,12 +11,11 @@ region = Rect2(0, 90, 18, 18)
 script = ExtResource("1_aisg0")
 Essence = Color(0.560784, 1, 0.886275, 1)
 Name = "White Slime"
-Description = "A piece of slime from a Crawling Sludge. 
+Description = "A piece of slime from a white sludge monster. 
 Contains a spiritual energy."
 Icon = SubResource("AtlasTexture_o2rdi")
 Use = 0
 UsedInBattle = false
-Target = 3
+OvTarget = 3
 Parameter = ""
-ActionName = ""
 Quantity = 0

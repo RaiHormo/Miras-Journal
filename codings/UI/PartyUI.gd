@@ -480,8 +480,6 @@ func choose_member():
 	UIvisible = true
 	t = create_tween()
 	$CanvasLayer/Fade.show()
-	MemberChoosing = true
-	$/root/MainMenu.stage = "choose_member"
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Back.show()
@@ -491,6 +489,9 @@ func choose_member():
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+	await Event.wait(0.3, false)
+	MemberChoosing = true
+	$/root/MainMenu.stage = "choose_member"
 
 func _on_item_preview_pressed():
 	if Item.get_node("ItemEffect").item.Quantity != 0 and Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:

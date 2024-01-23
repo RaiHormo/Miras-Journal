@@ -112,11 +112,11 @@ func get_item(iteme, type:StringName):
 				ritem = i
 		if ritem == null:
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme.filename + ".tres")
-			ritem.filename = iteme
+			ritem.filename = iteme.filename
 	else: OS.alert("That's not a valid item name")
 	return ritem
 
-func find_filename(iteme, type):
+func find_filename(iteme: ItemData, type):
 	for file in DirAccess.get_files_at("res://database/Items/" + get_folder(type)):
 		if ".tres" in file:
 			var ritem:ItemData = await Loader.load_res("res://database/Items/"+get_folder(type)+"/"+ file)

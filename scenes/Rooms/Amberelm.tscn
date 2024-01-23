@@ -285,7 +285,16 @@ ActionType = "text"
 Length = 100
 file = "amberelm_txt"
 title = "amberelm_sign"
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 5
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="CollisionShape2D" parent="Sign" index="0"]
 position = Vector2(-1, 8)
@@ -296,17 +305,38 @@ LabelText = "Rest"
 ActionType = "event"
 Length = 100
 file = "pass_time"
+title = ""
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 5
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="CollisionShape2D" parent="RestTree" index="0"]
 position = Vector2(-1, 13)
 
 [node name="InspectBackround" parent="." instance=ExtResource("5_sm3rn")]
 position = Vector2(69, 206)
+LabelText = "Inspect"
 ActionType = "text"
+Length = 120
 file = "amberelm_txt"
 title = "the_sky"
+item = ""
+hidesprite = false
+itemtype = ""
 Height = 5
+hide_on_flag = &""
+add_flag = false
+hide_parent = false
+offset = 5
+proper_pos = Vector2(0, 0)
+proper_face = Vector2(0, 0)
 
 [node name="CollisionShape2D" parent="InspectBackround" index="0"]
 position = Vector2(0, 5)

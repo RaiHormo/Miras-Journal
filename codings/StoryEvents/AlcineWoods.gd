@@ -94,7 +94,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Event.wait(0.1)
 			Event.flag_progress("AlcineFollow", 3)
 			Loader.start_battle("AlcineFollow1")
-		elif Global.CameraInd == 1 and not Event.f(&"AlcineFollow1"):
+		elif Global.CameraInd == 1 and not Event.f("AlcineFollow", 1):
+			print("a")
 			show()
 			BodyState = IDLE
 			await Event.take_control()
