@@ -6,6 +6,7 @@ var mainIndex = 0
 signal loaded
 var was_controllable: bool
 var was_paused: bool
+var cant_save:= false
 
 func _ready():
 	if $/root.get_node_or_null("MainMenu") != null and $/root/MainMenu.stage != "options":
@@ -28,6 +29,7 @@ func _ready():
 	else:
 		if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 		$MainButtons/SaveManagment.grab_focus()
+	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null: cant_save = true
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
 	Global.Controllable=false
@@ -127,7 +129,7 @@ func main():
 	t.tween_property($Silhouette, "position", Vector2(0, -39), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
-	await Event.wait(0.2)
+	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
 		i.z_index = 0
 		i.toggle_mode=false
@@ -199,7 +201,7 @@ func _on_focus_changed(control:Control):
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
 				$SavePanel/Buttons/Delete.disabled = false
-	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null:
+	if cant_save:
 		$SavePanel/Buttons/Overwrite.disabled = true
 		$SavePanel/ScrollContainer/Files/New/NewFile/Button.disabled = true
 
@@ -266,7 +268,7 @@ func hold_down():
 	if $SavePanel/Toast.modulate != Color.TRANSPARENT: return
 	t= create_tween()
 	t.tween_property($SavePanel/Toast, "modulate:a", 1, 0.3)
-	await Event.wait(2)
+	await Event.wait(2, false)
 	var t2= create_tween()
 	t2.tween_property($SavePanel/Toast, "modulate:a", 0, 1)
 
@@ -468,7 +470,7 @@ func _show_image_test() -> void:
 func _hide_image_test() -> void:
 	$ImageTester.hide()
 	$Fader.show()
-	Event.wait(0.1)
+	Event.wait(0.1, false)
 	%SettingsVbox/AdjustImage.button_pressed = false
 	_on_adjust_image(false)
 

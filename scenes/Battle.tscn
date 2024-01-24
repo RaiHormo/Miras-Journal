@@ -1,4 +1,4 @@
-[gd_scene load_steps=225 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=228 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -59,6 +59,8 @@ PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)
 CanEscape = true
 DeleteAttacker = true
+EntranceSequence = ""
+VictorySequence = ""
 Events = Array[Resource("res://database/BattleSeq/battle_event.gd")]([])
 
 [sub_resource type="Curve" id="Curve_wrfky"]
@@ -718,7 +720,7 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("15_mb6ip")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jsk3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbgu3"]
 content_margin_left = 6.0
 bg_color = Color(0.768627, 0.768627, 0.768627, 1)
 border_width_left = 12
@@ -731,7 +733,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ola61"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -744,7 +746,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0g7o"]
 content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -766,12 +768,12 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
-Button/styles/disabled = SubResource("StyleBoxFlat_1jsk3")
-Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
-Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
-Button/styles/pressed = SubResource("StyleBoxFlat_w0jrc")
-Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/disabled = SubResource("StyleBoxFlat_dbgu3")
+Button/styles/focus = SubResource("StyleBoxFlat_ola61")
+Button/styles/hover = SubResource("StyleBoxFlat_g0g7o")
+Button/styles/normal = SubResource("StyleBoxFlat_ola61")
+Button/styles/pressed = SubResource("StyleBoxFlat_ola61")
+Panel/styles/panel = SubResource("StyleBoxFlat_ola61")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b0ek"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1237,7 +1239,7 @@ Label/font_sizes/font_size = 14
 font = ExtResource("28_kt0tm")
 outline_size = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsc7l"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1251,10 +1253,23 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_jepgw"]
-Panel/styles/panel = SubResource("StyleBoxFlat_w18cv")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_w18cv")
+Panel/styles/panel = SubResource("StyleBoxFlat_lsc7l")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_lsc7l")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm627"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2i6qu"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1267,7 +1282,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o36pc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmd8s"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1285,8 +1300,8 @@ expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
 [sub_resource type="Theme" id="Theme_t73mt"]
-Panel/styles/panel = SubResource("StyleBoxFlat_mm627")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_o36pc")
+Panel/styles/panel = SubResource("StyleBoxFlat_2i6qu")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_nmd8s")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ed0cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1327,7 +1342,20 @@ atlas = ExtResource("15_mlxjv")
 region = Rect2(162, 18, 18, 18)
 filter_clip = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4wnh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxkm0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc8sg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1345,8 +1373,8 @@ expand_margin_right = 10.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="Theme" id="Theme_fkhdn"]
-Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_v4wnh")
+Panel/styles/panel = SubResource("StyleBoxFlat_wxkm0")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_nc8sg")
 
 [sub_resource type="FontVariation" id="FontVariation_g3phn"]
 base_font = ExtResource("28_kt0tm")
@@ -1466,6 +1494,19 @@ Panel/styles/panel = SubResource("StyleBoxFlat_oukki")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ku"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gdq3"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
@@ -1485,7 +1526,7 @@ expand_margin_bottom = 2.0
 
 [node name="Battle" type="Control"]
 process_mode = 3
-z_index = 8
+z_index = 5
 z_as_relative = false
 texture_filter = 2
 material = ExtResource("1_pas6x")
@@ -1515,6 +1556,7 @@ script = ExtResource("6_yeldr")
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9EYXJrU3Bhd24vRGFya3NwYXduLmFzZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L0JUL0RhcmtTcGF3bgpvX25hbWV8PQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 light_mask = 16
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
 sprite_frames = ExtResource("8_0vxnh")
@@ -1524,6 +1566,7 @@ offset = Vector2(0.5, -15.5)
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
 show_behind_parent = true
 light_mask = 16
+z_index = 1
 material = ExtResource("1_pas6x")
 position = Vector2(0, 3)
 texture = ExtResource("9_w2lxs")
@@ -1532,6 +1575,7 @@ offset = Vector2(0, 4)
 [node name="Nums" type="Label" parent="Act/Actor0"]
 visible = false
 light_mask = 16
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1554,6 +1598,7 @@ autowrap_mode = 1
 
 [node name="Particle" type="GPUParticles2D" parent="Act/Actor0"]
 show_behind_parent = true
+z_index = 1
 material = SubResource("CanvasItemMaterial_6yjmp")
 position = Vector2(1, 0)
 emitting = false
@@ -1567,6 +1612,7 @@ fixed_fps = 60
 
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
 light_mask = 16
+z_index = 1
 material = ExtResource("1_pas6x")
 position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_wdhds")
@@ -1575,6 +1621,7 @@ autoplay = "None"
 
 [node name="Glow" type="PointLight2D" parent="Act/Actor0"]
 light_mask = 16
+z_index = 1
 energy = 0.0
 range_item_cull_mask = 17
 texture = SubResource("GradientTexture2D_tbe80")
@@ -1592,7 +1639,12 @@ animation = &"AttackUp"
 zoom = Vector2(4, 4)
 limit_smoothed = true
 
+[node name="AI" type="Node" parent="."]
+script = ExtResource("24_7iq6m")
+
 [node name="BattleUI" type="Control" parent="."]
+z_index = 10
+z_as_relative = false
 material = SubResource("ShaderMaterial_nmg3k")
 layout_mode = 1
 anchors_preset = 8
@@ -2534,9 +2586,6 @@ show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fkhdn")
 
-[node name="AI" type="Node" parent="."]
-script = ExtResource("24_7iq6m")
-
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 3
 
@@ -2865,6 +2914,7 @@ vertical_alignment = 1
 [connection signal="next_turn" from="." to="." method="_on_next_turn"]
 [connection signal="next_turn" from="." to="BattleUI" method="_on_battle_next_turn"]
 [connection signal="states_handled" from="Act" to="." method="make_move"]
+[connection signal="ai_chosen" from="AI" to="." method="_on_ai_chosen"]
 [connection signal="ability" from="BattleUI" to="." method="_on_battle_ui_ability"]
 [connection signal="ability" from="BattleUI" to="BattleUI" method="_on_ability"]
 [connection signal="ability" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
@@ -2889,7 +2939,6 @@ vertical_alignment = 1
 [connection signal="pressed" from="BattleUI/Attack" to="BattleUI" method="_on_attack_pressed"]
 [connection signal="pressed" from="BattleUI/Item" to="BattleUI" method="_on_item_pressed"]
 [connection signal="pressed" from="BattleUI/Command" to="BattleUI" method="_on_command_pressed"]
-[connection signal="ai_chosen" from="AI" to="." method="_on_ai_chosen"]
 [connection signal="pressed" from="Canvas/Confirm" to="BattleUI" method="_on_confirm_pressed"]
 [connection signal="pressed" from="Canvas/Back" to="BattleUI" method="_on_back_pressed"]
 [connection signal="pressed" from="Canvas/TurnOrder" to="BattleUI" method="turn_order"]

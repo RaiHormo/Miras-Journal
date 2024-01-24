@@ -32,6 +32,7 @@ func default() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
 		if Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and Global.CameraInd == 2 and not Event.f("AlcineFollow", 3):
+			Global.Party.Leader.ClutchDmg = true
 			Event.CutsceneHandler = self
 			await Event.take_control()
 			Global.Player.set_anim("IdleRight")
@@ -125,3 +126,22 @@ func skip():
 		global_position = Global.globalize(Vector2(66, -45))
 		Loader.Attacker = Global.Area.get_node("Petrogon")
 		Loader.start_battle("AlcineFollow1")
+
+func alcine_helps():
+	$Sprite.play("IdleRight")
+	await bubble("Surprise")
+	var hp = Global.Bt.get_actor("Petrogon").Health
+	await move_dir(Vector2.UP)
+	await move_dir(Vector2.RIGHT)
+	z_index = 9
+	Global.jump_to_global(self, Vector2(1660, -1068), 7, 0.5)
+	Loader.white_fadeout(2, 1.5, 0.5)
+	await Event.wait(0.5)
+	Global.Bt.end_battle()
+	await Event.wait(1)
+	hide()
+	Global.Party.add("Alcine")
+	await Loader.start_battle("AlcineFollow2")
+	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
+	Global.Bt.get_actor("Petrogon").Health = hp
+

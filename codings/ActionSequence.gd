@@ -182,9 +182,8 @@ func Guard():
 	Bt.end_turn()
 
 func SoothingSpray():
-	Bt.zoom(6)
+	Bt.zoom(5)
 	Bt.anim("Cast")
-	t.parallel().tween_property(Cam, "zoom", Vector2(5,5), 1)
 	Bt.focus_cam(target, 1)
 	Bt.heal(target)
 	await CurrentChar.node.animation_finished
@@ -243,15 +242,20 @@ func AttackUp3():
 func Drink():
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	if Bt.CurrentAbility.Type == "Healing": Bt.heal(target, int(Bt.CurrentAbility.Parameter))
-	await Bt.anim("Drink")
+	if Bt.CurrentAbility.Type == "Healing":
+		Bt.heal(target, int(Bt.CurrentAbility.Parameter))
+	await Bt.anim("Cast")
+	await Event.wait(1)
 	Bt.end_turn()
 
 func Eat():
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	if Bt.CurrentAbility.Type == "Healing": Bt.heal(target, int(Bt.CurrentAbility.Parameter))
-	await Bt.anim("Drink")
+	print(Bt.CurrentAbility.Type)
+	if Bt.CurrentAbility.Type == "Healing":
+		Bt.heal(target, int(Bt.CurrentAbility.Parameter))
+	await Bt.anim("Cast")
+	await Event.wait(1)
 	Bt.end_turn()
 #endregion
 
@@ -259,5 +263,40 @@ func Eat():
 
 #region Battle events
 func AlcineWoods1():
+	Bt.lock_turn = true
 	await Global.passive("temple_woods_random", "going_nowhere")
+	Event.CutsceneHandler.alcine_helps()
 #endregion
+
+func AlcineWoods2():
+	for i in Bt.TurnOrder:
+		Bt.anim("Idle", i)
+	Bt.focus_cam(Bt.get_actor("Alcine"))
+	Bt.get_actor("Alcine").Speed =+ 10
+	Bt.TurnOrder.sort_custom(Bt.speed_sort)
+	Bt.get_actor("Alcine").NextAction = "Ability"
+	Bt.get_actor("Alcine").NextMove = preload("res://database/Abilities/SoothingSpray.tres")
+	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
+	Bt.get_actor("Alcine").node.show()
+	await Event.wait(1)
+	Bt.end_turn()
+
+func AlcineWoods3():
+	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
+	await Global.passive("temple_woods_random", "amazing")
+
+func AlcineWoods4():
+	if Event.f("AlcineFollow", 5): return
+	Bt.CurrentChar = Bt.get_actor("Petrogon")
+	Bt.death(Bt.get_actor("Petrogon"))
+	Bt.focus_cam(Bt.get_actor("Petrogon"), 0.5, -20)
+	Bt.zoom(6)
+	await Event.wait(1, false)
+	Global.toast("Petrogon retreats from the battle")
+	await Bt.move(Bt.get_actor("Petrogon"), Vector2(Bt.get_actor("Petrogon").node.position.x, -500), 1)
+	Bt.lock_turn = true
+	Event.flag_progress("AlcineFollow", 5)
+	#Event.CutsceneHandler
+	await Event.wait(1, false)
+	Bt.victory()
+

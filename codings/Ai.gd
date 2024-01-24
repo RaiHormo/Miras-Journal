@@ -5,6 +5,7 @@ signal ai_chosen
 
 func ai():
 	Char = Bt.CurrentChar
+	if Char.has_state("KnockedOut"): Bt.end_turn(); return
 	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
 	HpSortedAllies.sort_custom(Bt.hp_sort)
 	#for i in HpSortedAllies:
@@ -17,7 +18,7 @@ func ai():
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif (float(HpSortedAllies[0].Health)/float(HpSortedAllies[0].MaxHP)*100) <= 50 and HpSortedAllies[0].Health != 0 and has_type("Healing"):
+		elif (float(HpSortedAllies[0].Health)/float(HpSortedAllies[0].MaxHP)*100) <= 40	 and HpSortedAllies[0].Health != 0 and has_type("Healing"):
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			#4: Healing
 			choose(find_ability("Healing"), HpSortedAllies[0])

@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://dm1nvrvosexxj"]
+
+[ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_ianey"]
+[ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="2_xpmoy"]
+[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="4_7uopt"]
+
+[sub_resource type="Resource" id="Resource_7bvd2"]
+script = ExtResource("2_xpmoy")
+repeatable = false
+flag = &""
+flag_should_be = false
+after_turn = 1
+actor = &""
+low_hp = 6
+result = 1
+parameter1 = "AlcineWoods3"
+parameter2 = ""
+hold_turn = true
+add_flag = false
+
+[sub_resource type="Resource" id="Resource_q672f"]
+script = ExtResource("2_xpmoy")
+repeatable = false
+flag = &""
+flag_should_be = false
+after_turn = 2
+actor = &"Petrogon"
+low_hp = 6
+result = 1
+parameter1 = "AlcineWoods4"
+parameter2 = ""
+hold_turn = true
+add_flag = false
+
+[resource]
+script = ExtResource("4_7uopt")
+Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_ianey")])
+Transition = false
+Detransition = false
+EscPosition = Vector2(0, 0)
+PositionSameAsPlayer = true
+ScenePosition = Vector2(1665, -1067)
+CanEscape = false
+DeleteAttacker = false
+EntranceSequence = "AlcineWoods2"
+VictorySequence = ""
+Events = Array[ExtResource("2_xpmoy")]([SubResource("Resource_7bvd2"), SubResource("Resource_q672f")])

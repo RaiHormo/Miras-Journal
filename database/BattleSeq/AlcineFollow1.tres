@@ -22,8 +22,8 @@ add_flag = true
 [sub_resource type="Resource" id="Resource_eg56s"]
 script = ExtResource("2_yeq0t")
 repeatable = false
-flag = &"AlcineFollow4"
-flag_should_be = true
+flag = &""
+flag_should_be = false
 after_turn = 10
 actor = &""
 low_hp = -1
@@ -31,7 +31,7 @@ result = 1
 parameter1 = "AlcineWoods1"
 parameter2 = ""
 hold_turn = true
-add_flag = true
+add_flag = false
 
 [sub_resource type="Resource" id="Resource_jw6e0"]
 script = ExtResource("2_yeq0t")
@@ -55,7 +55,9 @@ Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
 PositionSameAsPlayer = true
-ScenePosition = Vector2(0, 0)
-CanEscape = true
+ScenePosition = Vector2(1665, -1067)
+CanEscape = false
 DeleteAttacker = false
+EntranceSequence = ""
+VictorySequence = "AlcineWoods1"
 Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_cbbvb"), SubResource("Resource_eg56s"), SubResource("Resource_jw6e0")])

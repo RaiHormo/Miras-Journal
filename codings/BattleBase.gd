@@ -36,6 +36,7 @@ func _ready():
 	TurnInd= -1
 	Turn = 0
 	Seq = Loader.Seq.duplicate()
+	Seq.reset_events(true)
 	Party = Global.Party
 	for i in Seq.Enemies.size():
 		Seq.Enemies[i-1] = Seq.Enemies[i-1].duplicate(true)
@@ -221,15 +222,18 @@ func entrance():
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
-	for i in PartyArray:
-		entrance_anim(i)
+	if Seq.EntranceSequence == "":
+		for i in PartyArray:
+			entrance_anim(i)
+	else:
+		$Act.call(Seq.EntranceSequence)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
 	if not Seq.Transition: $EnemyUI.all_enemy_ui()
 	PartyUI.UIvisible = true
 	PartyUI.battle_state()
 	await get_tree().create_timer(0.7).timeout
-	next_turn.emit()
+	if Seq.EntranceSequence == "": next_turn.emit()
 
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
@@ -400,7 +404,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 
 ###################################################
 
-func jump_to_target(character, tar, offset, time):
+func jump_to_target(character: Actor, tar: Actor, offset: Vector2, time: float) -> void:
 	t = create_tween()
 	var target = tar.node.position + offset
 	var start = character.node.position
@@ -420,12 +424,13 @@ func return_cur(target:Actor = CurrentChar):
 	await tc.finished
 
 func end_turn():
-	while lock_turn:
-		await Event.wait()
 	Global.check_party.emit()
 	if Seq.check_events():
 		await Seq.call_events()
 	Seq.reset_events()
+	TurnOrder.sort_custom(speed_sort)
+	while lock_turn:
+		await Event.wait()
 	await get_tree().create_timer(0.3).timeout
 	if CurrentChar.node != null:
 		CurrentChar.node.z_index = 0
@@ -451,8 +456,11 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 	if elemental: pop_num(target, dmg, CurrentAbility.WheelColor)
 	else: pop_num(target, dmg)
 	if target.Health == 0:
-		await death(target)
-		return
+		if target.CantDie:
+			target.Health = 1
+		else:
+			await death(target)
+			return
 	if target.has_state("Guarding"):
 		pass
 	else:
@@ -651,6 +659,7 @@ func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
 	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
 
 func focus_cam(chara:Actor, time:float=0.5, offset=-40):
+	if chara.node == null: return
 	var tc = create_tween()
 	tc.set_ease(Tween.EASE_IN_OUT)
 	tc.set_trans(Tween.TRANS_QUART)
@@ -666,6 +675,7 @@ func move(chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE
 
 func heal(target:Actor, amount: int = int(max(calc_num(), target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))):
 	target.add_health(amount)
+	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
 	PartyUI._check_party()
 	pop_aura(target)
@@ -682,6 +692,9 @@ func pop_aura(target: Actor, time:float=0.5):
 
 func victory():
 	print("Victory!")
+	if Seq.VictorySequence != "":
+		$Act.call(Seq.VictorySequence)
+		return
 	$Canvas.layer = 1
 	Loader.BattleResult = 1
 	for i in PartyArray:
@@ -885,7 +898,7 @@ func stat_change(stat: StringName, amount: float, chara := CurrentChar, turns: i
 		&"Def": chara.DefenceMultiplier += amount
 	chara.add_state(stat + updown)
 	await Event.wait(1.2)
-	pop_num(chara, stat_name(stat) + " x" + str(amount), (await Global.get_state(stat + updown)).color)
+	pop_num(chara, stat_name(stat) + " x" + str(amount+1), (await Global.get_state(stat + updown)).color)
 
 func stat_name(stat: StringName) -> String:
 	match stat:

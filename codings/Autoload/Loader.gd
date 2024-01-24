@@ -48,7 +48,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.StartTime = Global.StartTime
 	data.Z = Global.Player.z_index
 	data.SavedTime = Time.get_unix_time_from_system()
-	data.PlayTime = Global.PlayTime
+	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
 	data.Preview = Global.get_preview()
 	data.Camera = Global.CameraInd
@@ -410,7 +410,7 @@ func chase_mode():
 	CamZoom = Global.get_cam().zoom
 	chased = true
 
-func white_fadeout(out_time:float=7, wait_time=2, in_time:float = 0.1):
+func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1):
 	$Can.show()
 	var fader = $Can/Bars/Left.duplicate()
 	$Can/Bars.add_child(fader)

@@ -429,7 +429,6 @@ func colorize(str: String) -> String:
 			var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
 			var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
 			str = str.replace(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
-			print(str)
 	return str
 
 func get_direction(v: Vector2 = PlayerDir) -> Vector2:

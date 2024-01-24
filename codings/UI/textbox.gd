@@ -129,6 +129,7 @@ var dialogue_line: DialogueLine:
 func _ready() -> void:
 	response_template.hide()
 	$Portrait.hide()
+	$Hints.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
 
@@ -253,7 +254,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		return
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
-		Global.cursor_sound()
+		Global.confirm_sound()
 	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
 		Global.confirm_sound()
 		t = create_tween()
@@ -272,11 +273,9 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		await t.finished
 		if item == null: _on_close(); return
 		next(dialogue_line.responses[item.get_index()].next_id)
-	#if (event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down")) and item in get_responses():
-		#Global.cursor_sound()
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("Dash"):
+	if Input.is_action_just_pressed("Dash"):
 		var hold_frames := 1
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
@@ -285,6 +284,19 @@ func _input(event: InputEvent) -> void:
 		if hold_frames > hold_time:
 			Event.skip_cutscene()
 			_on_close()
+	elif not $Hints.visible and get_responses().is_empty() and not Input.is_action_pressed("ui_accept"):
+		$Hints/Skip.icon = Global.get_controller().Dash
+		$Hints/Advance.icon = Global.get_controller().ConfirmIcon
+		$Hints.show()
+		t = create_tween()
+		t.set_trans(Tween.TRANS_QUART)
+		t.tween_property($Hints, "position:x", 1188, 0.5).from(1400)
+		await Event.wait(4, false)
+		t = create_tween()
+		t.set_trans(Tween.TRANS_QUART)
+		t.tween_property($Hints, "position:x", 1400, 0.5)
+		await t.finished
+		$Hints.hide()
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return

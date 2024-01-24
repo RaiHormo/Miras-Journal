@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dro6xc73x3rl4"]
+[gd_scene load_steps=46 format=3 uid="uid://dro6xc73x3rl4"]
 
 [ext_resource type="Script" path="res://codings/UI/textbox.gd" id="1_8vluk"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_n6sll"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_f0nyj"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="5_5e2vd"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_iffim"]
+[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="9_ptjx2"]
+[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="10_51qjc"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="11_bqsji"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nv2a"]
 bg_color = Color(0.623529, 0.596078, 0.572549, 0.721569)
@@ -34,7 +37,7 @@ base_font = ExtResource("3_7bk5c")
 spacing_space = 1
 spacing_bottom = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnon7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -47,10 +50,11 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_svg3g"]
-Panel/styles/panel = SubResource("StyleBoxFlat_dnon7")
+[sub_resource type="Theme" id="Theme_ukaqu"]
+Panel/styles/panel = SubResource("StyleBoxFlat_w18cv")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_w18cv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lay8s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm627"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -63,10 +67,28 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_hbabm"]
-Panel/styles/panel = SubResource("StyleBoxFlat_lay8s")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o36pc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vikne"]
+[sub_resource type="Theme" id="Theme_fl2w0"]
+Panel/styles/panel = SubResource("StyleBoxFlat_mm627")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_o36pc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ed0cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -79,8 +101,26 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_xqn8v"]
-Panel/styles/panel = SubResource("StyleBoxFlat_vikne")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4wnh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 10.0
+expand_margin_top = 8.0
+expand_margin_right = 10.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="Theme" id="Theme_wbt4v"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ed0cv")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_v4wnh")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56ras"]
 content_margin_left = 32.0
@@ -259,6 +299,118 @@ _data = {
 "Glow": SubResource("Animation_ogxme")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymvef"]
+shader = ExtResource("9_ptjx2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jsk3"]
+content_margin_left = 6.0
+bg_color = Color(0.768627, 0.768627, 0.768627, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.768627, 0.768627, 0.768627, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
+content_margin_left = 6.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22him"]
+content_margin_left = 6.0
+bg_color = Color(0.854902, 0.854902, 0.854902, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.854902, 0.854902, 0.854902, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_fhrxs"]
+default_font = ExtResource("6_iffim")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/styles/disabled = SubResource("StyleBoxFlat_1jsk3")
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_22him")
+Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="InputEventAction" id="InputEventAction_6r0ux"]
+action = &"Dash"
+
+[sub_resource type="Shortcut" id="Shortcut_62mq5"]
+events = [SubResource("InputEventAction_6r0ux")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffef1"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_royor"]
+default_font = ExtResource("6_iffim")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/styles/disabled = SubResource("StyleBoxFlat_1jsk3")
+Button/styles/focus = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/hover = SubResource("StyleBoxFlat_d0taf")
+Button/styles/normal = SubResource("StyleBoxFlat_w0jrc")
+Button/styles/pressed = SubResource("StyleBoxFlat_ffef1")
+Panel/styles/panel = SubResource("StyleBoxFlat_w0jrc")
+
+[sub_resource type="InputEventAction" id="InputEventAction_jeo6e"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_a7vvg"]
+events = [SubResource("InputEventAction_jeo6e")]
+
 [node name="Textbox" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_8vluk")
@@ -295,9 +447,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
 [node name="Arrow" type="Panel" parent="Balloon"]
 layout_mode = 0
-offset_left = 241.0
+offset_left = 238.0
 offset_top = 621.0
-offset_right = 263.0
+offset_right = 260.0
 offset_bottom = 654.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1o1fc")
 
@@ -313,13 +465,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
-offset_left = 45.0
-offset_top = 38.0
-offset_right = 720.0
-offset_bottom = 218.0
+offset_left = 34.0
+offset_top = 34.0
+offset_right = 721.0
+offset_bottom = 210.0
 theme_override_fonts/normal_font = SubResource("FontVariation_oe2ra")
 theme_override_font_sizes/normal_font_size = 39
-text = "Dialogue. The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
+text = "The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
 script = ExtResource("4_dyh0k")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"Dash"
@@ -336,31 +488,23 @@ rotation = -1.5708
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_yps78")
 
-[node name="Border1" type="Panel" parent="Balloon/Panel2"]
+[node name="Border1" type="PanelContainer" parent="Balloon/Panel2"]
 layout_mode = 0
-offset_left = -1.0
-offset_top = -4.0
-offset_right = 759.0
-offset_bottom = 220.0
-theme = SubResource("Theme_svg3g")
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 762.0
+offset_bottom = 221.0
+theme = SubResource("Theme_ukaqu")
 
-[node name="Border2" type="Panel" parent="Balloon/Panel2/Border1"]
+[node name="Border2" type="PanelContainer" parent="Balloon/Panel2/Border1"]
 show_behind_parent = true
-layout_mode = 0
-offset_left = 6.0
-offset_top = 5.0
-offset_right = 754.0
-offset_bottom = 220.0
-theme = SubResource("Theme_hbabm")
+layout_mode = 2
+theme = SubResource("Theme_fl2w0")
 
-[node name="Border3" type="Panel" parent="Balloon/Panel2/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="Balloon/Panel2/Border1/Border2"]
 show_behind_parent = true
-layout_mode = 0
-offset_left = 3.0
-offset_top = 6.0
-offset_right = 743.0
-offset_bottom = 210.0
-theme = SubResource("Theme_xqn8v")
+layout_mode = 2
+theme = SubResource("Theme_wbt4v")
 
 [node name="Responses" type="VBoxContainer" parent="Balloon"]
 layout_mode = 2
@@ -438,6 +582,58 @@ libraries = {
 autoplay = "Glow"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Hints" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1188.0
+offset_top = 751.0
+offset_right = 1228.0
+offset_bottom = 791.0
+
+[node name="Skip" type="Button" parent="Hints"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_ymvef")
+layout_direction = 1
+layout_mode = 2
+offset_left = -82.0
+offset_top = -73.0
+offset_right = 38.0
+offset_bottom = -40.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_fhrxs")
+theme_override_font_sizes/font_size = 15
+button_mask = 0
+shortcut = SubResource("Shortcut_62mq5")
+text = "Skip"
+icon = ExtResource("10_51qjc")
+expand_icon = true
+
+[node name="Advance" type="Button" parent="Hints"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_ymvef")
+layout_direction = 1
+layout_mode = 2
+offset_left = -82.0
+offset_top = -11.0
+offset_right = 38.0
+offset_bottom = 22.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_royor")
+theme_override_font_sizes/font_size = 15
+button_mask = 0
+shortcut = SubResource("Shortcut_a7vvg")
+text = "Advance
+"
+icon = ExtResource("11_bqsji")
+text_overrun_behavior = 1
+expand_icon = true
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="spoke" from="Balloon/Panel2/DialogueLabel" to="Balloon/Panel2/DialogueLabel" method="_on_spoke"]

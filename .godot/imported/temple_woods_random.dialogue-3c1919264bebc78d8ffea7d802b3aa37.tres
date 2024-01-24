@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_gxdk1"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_3gghk"]
 
 [resource]
-script = ExtResource("1_gxdk1")
+script = ExtResource("1_3gghk")
 using_states = PackedStringArray()
 titles = {
+"amazing": "111",
 "approach": "25",
 "as_lost_as_you": "34",
 "cant_dash_on_flame": "15",
@@ -23,7 +24,7 @@ titles = {
 "that_should_do_it": "6",
 "was_that_a": "10"
 }
-character_names = PackedStringArray("Mira")
+character_names = PackedStringArray("Mira", "Alcine")
 first_title = "2"
 lines = {
 "1": {
@@ -46,33 +47,19 @@ Was that another monster?",
 "type": "dialogue"
 },
 "100": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
 "id": "100",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "portrait",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "MiraNeutural"
-}])])
-}])
-},
 "next_id": "101",
-"type": "mutation"
+"parent_id": "98",
+"tags": PackedStringArray(),
+"text": "The healing of these fruits isn't enough.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "The healing of these fruits isn't enough.",
+"type": "dialogue"
 },
 "101": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
 "id": "101",
-"next_id": "102",
-"tags": PackedStringArray(),
-"text": "If I heal it will just deal more damage.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "If I heal it will just deal more damage.",
-"type": "dialogue"
-},
-"102": {
-"id": "102",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -83,22 +70,90 @@ Was that another monster?",
 }])])
 }])
 },
-"next_id": "103",
+"next_id": "102",
+"parent_id": "98",
 "type": "mutation"
 },
-"103": {
+"102": {
 "character": "Mira",
 "character_replacements": Array[Dictionary]([]),
-"id": "103",
-"next_id": "104",
+"id": "102",
+"next_id": "103",
+"parent_id": "98",
 "tags": PackedStringArray(),
-"text": "Is there anything I can do?",
+"text": "If this goes on...",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Is there anything I can do?",
+"translation_key": "If this goes on...",
 "type": "dialogue"
 },
+"103": {
+"id": "103",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "false"
+}])])
+}])
+},
+"next_id": "104",
+"parent_id": "98",
+"type": "mutation"
+},
 "104": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
 "id": "104",
+"next_id": "108",
+"parent_id": "98",
+"tags": PackedStringArray(),
+"text": "Hey, I think we might have to run away!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Hey, I think we might have to run away!",
+"type": "dialogue"
+},
+"105": {
+"id": "105",
+"next_conditional_id": "108",
+"next_id": "106",
+"next_id_after": "108",
+"type": "condition"
+},
+"106": {
+"id": "106",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "107",
+"parent_id": "105",
+"type": "mutation"
+},
+"107": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "107",
+"next_id": "108",
+"parent_id": "105",
+"tags": PackedStringArray(),
+"text": "...I don't think I can go on like this.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...I don't think I can go on like this.",
+"type": "dialogue"
+},
+"108": {
+"id": "108",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
@@ -113,6 +168,84 @@ Was that another monster?",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "Maybe I should follow it.",
 "type": "dialogue"
+},
+"110": {
+"id": "110",
+"next_id": "111",
+"text": "amazing",
+"type": "title"
+},
+"111": {
+"id": "111",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}])])
+}])
+},
+"next_id": "112",
+"type": "mutation"
+},
+"112": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "112",
+"next_id": "113",
+"tags": PackedStringArray(),
+"text": "Woah, you can use healing magic!?",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Woah, you can use healing magic!?",
+"type": "dialogue"
+},
+"113": {
+"id": "113",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "portrait",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "MiraNeutural"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "false"
+}])])
+}])
+},
+"next_id": "114",
+"type": "mutation"
+},
+"114": {
+"character": "Mira",
+"character_replacements": Array[Dictionary]([]),
+"id": "114",
+"next_id": "115",
+"tags": PackedStringArray(),
+"text": "We might have a chance like this!",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "We might have a chance like this!",
+"type": "dialogue"
+},
+"115": {
+"character": "Alcine",
+"character_replacements": Array[Dictionary]([]),
+"id": "115",
+"next_id": "116",
+"tags": PackedStringArray(),
+"text": "(happy noises)",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "(happy noises)",
+"type": "dialogue"
+},
+"116": {
+"id": "116",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
 },
 "12": {
 "id": "12",
@@ -517,16 +650,23 @@ I'll deal with it!",
 "type": "condition"
 },
 "59": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "59",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "f",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtSkeleton"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "true"
+}])])
+}])
+},
 "next_id": "60",
 "parent_id": "58",
-"tags": PackedStringArray(),
-"text": "...There's no mistaking it, that's a skeleton.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "...There's no mistaking it, that's a skeleton.",
-"type": "dialogue"
+"type": "mutation"
 },
 "6": {
 "character": "",
@@ -546,29 +686,22 @@ I'll deal with it!",
 "next_id": "61",
 "parent_id": "58",
 "tags": PackedStringArray(),
+"text": "...There's no mistaking it, that's a skeleton.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...There's no mistaking it, that's a skeleton.",
+"type": "dialogue"
+},
+"61": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "61",
+"next_id": "64",
+"parent_id": "58",
+"tags": PackedStringArray(),
 "text": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "From the skull shape it seems human, but I don't want to look at it more than I have to.",
 "type": "dialogue"
-},
-"61": {
-"id": "61",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "f",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "LookedAtSkeleton"
-}]), Array[Dictionary]([{
-"type": "variable",
-"value": "true"
-}])])
-}])
-},
-"next_id": "64",
-"parent_id": "58",
-"type": "mutation"
 },
 "62": {
 "id": "62",
@@ -627,16 +760,23 @@ I'll deal with it!",
 "type": "condition"
 },
 "68": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "68",
+"mutation": {
+"expression": Array[Dictionary]([{
+"function": "flag_progress",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "LookedAtTempleSymbol"
+}]), Array[Dictionary]([{
+"type": "number",
+"value": 1
+}])])
+}])
+},
 "next_id": "69",
 "parent_id": "67",
-"tags": PackedStringArray(),
-"text": "There is a symbol engraved on the ground.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "There is a symbol engraved on the ground.",
-"type": "dialogue"
+"type": "mutation"
 },
 "69": {
 "character": "",
@@ -645,9 +785,9 @@ I'll deal with it!",
 "next_id": "70",
 "parent_id": "67",
 "tags": PackedStringArray(),
-"text": "Looks like some sort of bird... with a clover head?",
+"text": "There is a symbol engraved on the ground.",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "Looks like some sort of bird... with a clover head?",
+"translation_key": "There is a symbol engraved on the ground.",
 "type": "dialogue"
 },
 "7": {
@@ -663,9 +803,9 @@ I'll deal with it!",
 "next_id": "71",
 "parent_id": "67",
 "tags": PackedStringArray(),
-"text": "...",
+"text": "Looks like some sort of bird... with a clover head?",
 "text_replacements": Array[Dictionary]([]),
-"translation_key": "...",
+"translation_key": "Looks like some sort of bird... with a clover head?",
 "type": "dialogue"
 },
 "71": {
@@ -675,29 +815,22 @@ I'll deal with it!",
 "next_id": "72",
 "parent_id": "67",
 "tags": PackedStringArray(),
+"text": "...",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "...",
+"type": "dialogue"
+},
+"72": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "72",
+"next_id": "82",
+"parent_id": "67",
+"tags": PackedStringArray(),
 "text": "I just noticed that it's not perfectly symmetrical, which makes looking at it increasingly painful.",
 "text_replacements": Array[Dictionary]([]),
 "translation_key": "I just noticed that it's not perfectly symmetrical, which makes looking at it increasingly painful.",
 "type": "dialogue"
-},
-"72": {
-"id": "72",
-"mutation": {
-"expression": Array[Dictionary]([{
-"function": "flag_progress",
-"type": "function",
-"value": Array[Array]([Array[Dictionary]([{
-"type": "string",
-"value": "LookedAtTempleSymbol"
-}]), Array[Dictionary]([{
-"type": "number",
-"value": 1
-}])])
-}])
-},
-"next_id": "82",
-"parent_id": "67",
-"type": "mutation"
 },
 "73": {
 "condition": {
@@ -725,19 +858,7 @@ I'll deal with it!",
 "type": "condition"
 },
 "74": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "74",
-"next_id": "75",
-"parent_id": "73",
-"tags": PackedStringArray(),
-"text": "The pain grows.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "The pain grows.",
-"type": "dialogue"
-},
-"75": {
-"id": "75",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "flag_progress",
@@ -751,9 +872,21 @@ I'll deal with it!",
 }])])
 }])
 },
-"next_id": "82",
+"next_id": "75",
 "parent_id": "73",
 "type": "mutation"
+},
+"75": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "75",
+"next_id": "82",
+"parent_id": "73",
+"tags": PackedStringArray(),
+"text": "The pain grows.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "The pain grows.",
+"type": "dialogue"
 },
 "76": {
 "condition": {
@@ -781,31 +914,7 @@ I'll deal with it!",
 "type": "condition"
 },
 "77": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
 "id": "77",
-"next_id": "78",
-"parent_id": "76",
-"tags": PackedStringArray(),
-"text": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
-"type": "dialogue"
-},
-"78": {
-"character": "",
-"character_replacements": Array[Dictionary]([]),
-"id": "78",
-"next_id": "79",
-"parent_id": "76",
-"tags": PackedStringArray(),
-"text": "I don't recall ever seeing something like it though.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "I don't recall ever seeing something like it though.",
-"type": "dialogue"
-},
-"79": {
-"id": "79",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "flag_progress",
@@ -819,9 +928,33 @@ I'll deal with it!",
 }])])
 }])
 },
-"next_id": "82",
+"next_id": "78",
 "parent_id": "76",
 "type": "mutation"
+},
+"78": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "78",
+"next_id": "79",
+"parent_id": "76",
+"tags": PackedStringArray(),
+"text": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "This place seems like an old abandoned temple, so this must be some sort of religious symbol.",
+"type": "dialogue"
+},
+"79": {
+"character": "",
+"character_replacements": Array[Dictionary]([]),
+"id": "79",
+"next_id": "82",
+"parent_id": "76",
+"tags": PackedStringArray(),
+"text": "I don't recall ever seeing something like it though.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "I don't recall ever seeing something like it though.",
+"type": "dialogue"
 },
 "80": {
 "id": "80",
@@ -940,6 +1073,9 @@ I'll deal with it!",
 "value": Array[Array]([Array[Dictionary]([{
 "type": "string",
 "value": "MiraNeutural"
+}]), Array[Dictionary]([{
+"type": "variable",
+"value": "false"
 }])])
 }])
 },
@@ -970,7 +1106,26 @@ I'll deal with it!",
 "type": "title"
 },
 "98": {
+"condition": {
+"expression": Array[Dictionary]([{
+"function": "f",
+"type": "function",
+"value": Array[Array]([Array[Dictionary]([{
+"type": "string",
+"value": "AlcineFollow4"
+}])])
+}, {
+"type": "colon"
+}])
+},
 "id": "98",
+"next_conditional_id": "105",
+"next_id": "99",
+"next_id_after": "108",
+"type": "condition"
+},
+"99": {
+"id": "99",
 "mutation": {
 "expression": Array[Dictionary]([{
 "function": "portrait",
@@ -981,19 +1136,9 @@ I'll deal with it!",
 }])])
 }])
 },
-"next_id": "99",
-"type": "mutation"
-},
-"99": {
-"character": "Mira",
-"character_replacements": Array[Dictionary]([]),
-"id": "99",
 "next_id": "100",
-"tags": PackedStringArray(),
-"text": "This is going nowhere.",
-"text_replacements": Array[Dictionary]([]),
-"translation_key": "This is going nowhere.",
-"type": "dialogue"
+"parent_id": "98",
+"type": "mutation"
 }
 }
 metadata/dialogue_manager_version = "2.31.0"

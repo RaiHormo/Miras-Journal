@@ -161,6 +161,7 @@ func skip_cutscene():
 		await Event.wait()
 		dub.skip()
 		Loader.detransition()
+		CutsceneHandler = dub
 
 ##########################################################
 

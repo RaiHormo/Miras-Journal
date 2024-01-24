@@ -448,6 +448,7 @@ func _on_item() -> void:
 	t.set_parallel()
 	Global.confirm_sound()
 	Bt.get_node("EnemyUI").colapse_root()
+	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
@@ -681,7 +682,7 @@ func _on_focus_changed(control:Control):
 		MenuIndex = control.get_index()
 		move_menu()
 	if stage == &"item":
-		print(control)
+		#print(control)
 		focus_item(control)
 
 func _on_ability_entry():
@@ -724,10 +725,12 @@ func _on_confirm_pressed():
 		if stage == &"item":
 			if foc == null or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").Use != 0:
+				var item: ItemData = foc.get_meta("ItemData")
 				CurrentChar.NextTarget = CurrentChar
-				Item.use(foc.get_meta("ItemData"))
+				#Item.use(foc.get_meta("ItemData"))
+				if item.BattleEffect.Target == Ability.T.SELF:
+					ability_returned.emit(item.BattleEffect, CurrentChar)
 				Global.confirm_sound()
-				Bt.confirm_next(false)
 
 func turn_order():
 	t = create_tween()

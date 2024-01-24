@@ -12,6 +12,9 @@ class_name Actor
 
 @export var codename: StringName = &"Actor"
 
+@export var ClutchDmg:= false
+@export var CantDie:= false
+
 @export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 0
 
 @export_category("Art")
@@ -114,7 +117,7 @@ func add_SP(x):
 func damage(dmg: int, limiter:= false):
 	var hp = Health - dmg
 	if hp < 0:
-		if limiter:
+		if limiter or CantDie or (ClutchDmg and Health > 15):
 			hp = min(Health, randf_range(1, 5))
 		else: hp = 0
 	Health = hp

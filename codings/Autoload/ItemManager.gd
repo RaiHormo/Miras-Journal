@@ -7,7 +7,6 @@ var item : ItemData
 var ind
 @onready var panel = $Can/Panel
 @onready var t :Tween
-@export var HasBag = true
 signal pickup
 signal return_member(mem: Actor)
 @onready var Dicon: TextureRect = $Can/Panel/HBoxContainer/Icon

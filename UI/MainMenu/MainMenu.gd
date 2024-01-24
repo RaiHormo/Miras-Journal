@@ -18,7 +18,7 @@ var focused_item:ItemData = null
 func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
-	if not Item.HasBag or Item.KeyInv.is_empty():
+	if not Event.f(&"HasBag") or Item.KeyInv.is_empty():
 		Global.buzzer_sound()
 		queue_free()
 		get_tree().paused = false
@@ -166,7 +166,7 @@ func close():
 	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
-	t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
+	if Fader != null: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true

@@ -52,7 +52,7 @@ func _on_finder_area_entered(area):
 					tmr.set_time_left(2)
 			set_direction_to(Global.Player.coords)
 			await Event.wait()
-		Loader.battle_bars(0)
+		if not Loader.InBattle: Loader.battle_bars(0)
 		speed = 20
 		Loader.chased = false
 		PinRange = false

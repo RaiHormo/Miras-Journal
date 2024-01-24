@@ -46,4 +46,5 @@ PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)
 CanEscape = true
 DeleteAttacker = true
+EntranceSequence = ""
 Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_5vx4i"), SubResource("Resource_wpf26")])
