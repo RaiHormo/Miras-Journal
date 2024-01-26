@@ -165,6 +165,7 @@ func _on_root():
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
 	#t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
@@ -264,7 +265,7 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
-				if Input.is_action_just_pressed("LeftTrigger"): _on_escape()
+				if Bt.Seq.CanEscape and Input.is_action_just_pressed("LeftTrigger"): _on_escape()
 			&"item":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
@@ -399,8 +400,6 @@ func _on_command():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	Global.confirm_sound()
-	$CommandMenu/Escape.icon = Global.get_controller().LZ
-	$CommandMenu.modulate = Color.WHITE
 	PartyUI.only_current()
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
@@ -420,9 +419,14 @@ func _on_command():
 	t.tween_property($BaseRing, "scale", Vector2(0.6,0.6), 0.3)
 	t.tween_property($BaseRing, "position", Vector2(-160,-200), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2(50,-20), 0.3)
-	t.tween_property($CommandMenu/Escape, "rotation_degrees", 0, 0.3).from(-180)
 	t.tween_property($CommandMenu/CmdBack, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
+	if Bt.Seq.CanEscape:
+		$CommandMenu/Escape.show()
+		t.tween_property($CommandMenu/Escape, "rotation_degrees", 0, 0.3).from(-180)
+		$CommandMenu/Escape.icon = Global.get_controller().LZ
+		$CommandMenu.modulate = Color.WHITE
+	else: $CommandMenu/Escape.hide()
 	$CommandMenu.show()
 	await Event.wait()
 	stage = &"command"
@@ -456,6 +460,7 @@ func _on_item() -> void:
 	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.3).from(Color.WHITE)
+	t.tween_property($Inventory, "scale", Vector2(0.21, 0.21), 0.3).from(Vector2(0.1, 0.1))
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
@@ -500,7 +505,7 @@ func close():
 
 	t.tween_property($BaseRing, "scale", Vector2(0.01,0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2.ZERO, 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(5,5), 0.4)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.4)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", +600, 0.3).as_relative()
 	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
@@ -509,6 +514,8 @@ func close():
 	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
+	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
+	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.5)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)

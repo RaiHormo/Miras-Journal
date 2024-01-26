@@ -16,17 +16,19 @@ name = "Drink healing item"
 description = "This is used internally for healing items in battle."
 Icon = SubResource("AtlasTexture_uyukm")
 ActionSequence = &"Drink"
-Type = 4
+Type = "Healing"
 AuraCost = 0
 HPCost = 0
 Damage = 5
 Parameter = 50.0
-Target = 3
+Target = 0
 ColorSameAsActor = false
 WheelColor = Color(1, 1, 1, 1)
 Callout = false
 SucessChance = 1.0
 CritChance = 0.0
+RecoverAura = false
+DmgVarience = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4bywt"]
 atlas = ExtResource("1_xbfcq")
@@ -37,7 +39,7 @@ filter_clip = true
 script = ExtResource("1_xhumv")
 Name = "Small Potion"
 Description = "A small bottle containing a healing potion.
-Drink it to recover 50 HP"
+Restores 50 HP"
 Icon = SubResource("AtlasTexture_4bywt")
 Artwork = ExtResource("1_vdi2s")
 Use = 3

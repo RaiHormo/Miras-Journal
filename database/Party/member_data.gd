@@ -2,20 +2,24 @@ extends Resource
 
 class_name Actor
 
+##Displayed name of the character
 @export var FirstName: String = "Name"
-
+##Used for AI decisions
 @export_enum("Unknown", "Attacker", "Mage", "Support", "Tank", "Boss") var ActorClass: String
-
+##Used to check if the character is an enemy internally
 @export var IsEnemy: bool = true
-
-@export var DroppedItem: ItemData = null
-
-@export var codename: StringName = &"Actor"
-
-@export var ClutchDmg:= false
-@export var CantDie:= false
-
+##Material item that the enemy drops at the end of battle
+@export var DroppedItem: MaterialItem = null
+##Skill Points the party recives for defeating the enemy at the end of battle
 @export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 0
+##Used for refrencing the character in code
+@export var codename: StringName = &"Actor"
+##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
+var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
+##If true, the character cannot die unless in very low hp
+@export var ClutchDmg:= false
+##If true, the character cannot die, and will always stay at low hp
+@export var CantDie:= false
 
 @export_category("Art")
 @export var PartyIcon: Texture
@@ -57,7 +61,7 @@ class_name Actor
 @export var AttackMultiplier: float = 1
 @export var DefenceMultiplier: float = 1
 @export var MagicMultiplier: float = 1
-@export var SpeedMultiplier: float = 1
+@export var SpeedBoost: int = 0
 
 @export_subgroup("Skill points")
 @export var SkillLevel: int
@@ -122,16 +126,16 @@ func damage(dmg: int, limiter:= false):
 		else: hp = 0
 	Health = hp
 
-func calc_dmg(x, is_magic: bool, E: Actor) -> int:
-	var stat: float
+func calc_dmg(pow, is_magic: bool, E: Actor) -> int:
+	var atk_stat: float
 	if is_magic:
 		print("Magic stat: ", E.Magic, " * ", E.MagicMultiplier)
-		stat = E.Magic * E.MagicMultiplier
+		atk_stat = E.Magic * E.MagicMultiplier
 	else:
-		stat = E.Attack * E.AttackMultiplier
-		print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", stat)
-	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.5)"% [x, stat, Defence, DefenceMultiplier])
-	return int(max(((x * stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
+		atk_stat = E.Attack * E.AttackMultiplier
+		print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
+	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.5)"% [pow, atk_stat, Defence, DefenceMultiplier])
+	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
 
 func add_state(x, turns = -1):
 	var state: State

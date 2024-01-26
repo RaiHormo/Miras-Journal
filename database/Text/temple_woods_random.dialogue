@@ -95,16 +95,10 @@ Mira: Do I have anything that could heal me?
 => END
 
 ~ going_nowhere
-if f("AlcineFollow4"):
-	do portrait("MiraNeutural")
-	Mira: The healing of these fruits isn't enough.
-	do portrait("MiraNeutural")
-	Mira: If this goes on...
-	do portrait("MiraNeutural", false)
-	Mira: Hey, I think we might have to run away!
-else:
-	do portrait("MiraNeutural")
-	Mira: ...I don't think I can go on like this.
+do portrait("MiraNeutural")
+Mira: If this goes on...
+do portrait("MiraNeutural", false)
+Mira: Hey, I think we might have to run away!
 => END
 
 ~ amazing

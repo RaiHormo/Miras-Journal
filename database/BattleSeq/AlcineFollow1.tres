@@ -5,6 +5,20 @@
 [ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="2_yeq0t"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="3_bbvgb"]
 
+[sub_resource type="Resource" id="Resource_eg56s"]
+script = ExtResource("2_yeq0t")
+repeatable = false
+flag = &"AlcineFollow4"
+flag_should_be = true
+after_turn = 12
+actor = &"Mira"
+low_hp = 40
+result = 1
+parameter1 = "AlcineWoods1"
+parameter2 = ""
+hold_turn = true
+add_flag = false
+
 [sub_resource type="Resource" id="Resource_cbbvb"]
 script = ExtResource("2_yeq0t")
 repeatable = false
@@ -18,20 +32,6 @@ parameter1 = "temple_woods_random"
 parameter2 = "not_going_well"
 hold_turn = false
 add_flag = true
-
-[sub_resource type="Resource" id="Resource_eg56s"]
-script = ExtResource("2_yeq0t")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = 10
-actor = &""
-low_hp = -1
-result = 1
-parameter1 = "AlcineWoods1"
-parameter2 = ""
-hold_turn = true
-add_flag = false
 
 [sub_resource type="Resource" id="Resource_jw6e0"]
 script = ExtResource("2_yeq0t")
@@ -60,4 +60,4 @@ CanEscape = false
 DeleteAttacker = false
 EntranceSequence = ""
 VictorySequence = "AlcineWoods1"
-Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_cbbvb"), SubResource("Resource_eg56s"), SubResource("Resource_jw6e0")])
+Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_eg56s"), SubResource("Resource_cbbvb"), SubResource("Resource_jw6e0")])

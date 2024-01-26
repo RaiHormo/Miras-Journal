@@ -1,4 +1,4 @@
-[gd_scene load_steps=228 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=238 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -940,47 +940,11 @@ filter_clip = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inmoa"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-border_width_left = 11
-border_width_top = 8
-border_width_right = 16
-border_width_bottom = 8
 border_color = Color(0.305882, 0.305882, 0.305882, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_booa0"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.584314, 0.584314, 0.584314, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-expand_margin_left = 14.0
-expand_margin_top = 14.0
-expand_margin_right = 21.0
-expand_margin_bottom = 14.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lhyf"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-expand_margin_left = 27.0
-expand_margin_top = 27.0
-expand_margin_right = 34.0
-expand_margin_bottom = 27.0
 
 [sub_resource type="FontVariation" id="FontVariation_kjo3a"]
 base_font = ExtResource("22_m47vp")
@@ -1194,6 +1158,151 @@ corner_radius_top_right = 26
 corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux7hg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3sgg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_8i68l"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ux7hg")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_n3sgg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kisea"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8742"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3chc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="Theme" id="Theme_gjtdb"]
+Panel/styles/panel = SubResource("StyleBoxFlat_h8742")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_o3chc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg5jp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.584314, 0.584314, 0.584314, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uohd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn0gx"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 10.0
+expand_margin_top = 8.0
+expand_margin_right = 10.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="Theme" id="Theme_pg44w"]
+Panel/styles/panel = SubResource("StyleBoxFlat_0uohd")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_dn0gx")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvanb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 11
+border_width_top = 8
+border_width_right = 16
+border_width_bottom = 8
+border_color = Color(0.305882, 0.305882, 0.305882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 10.0
+expand_margin_top = 8.0
+expand_margin_right = 10.0
+expand_margin_bottom = 8.0
+
 [sub_resource type="InputEventAction" id="InputEventAction_h53gq"]
 action = &"LeftTrigger"
 pressed = true
@@ -1355,7 +1464,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc8sg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g77ug"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1374,7 +1483,7 @@ expand_margin_bottom = 8.0
 
 [sub_resource type="Theme" id="Theme_fkhdn"]
 Panel/styles/panel = SubResource("StyleBoxFlat_wxkm0")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_nc8sg")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_g77ug")
 
 [sub_resource type="FontVariation" id="FontVariation_g3phn"]
 base_font = ExtResource("28_kt0tm")
@@ -2013,7 +2122,6 @@ offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
 [node name="Inventory" type="Panel" parent="BattleUI"]
-visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -2025,20 +2133,6 @@ offset_bottom = 271.0
 scale = Vector2(0.21, 0.21)
 pivot_offset = Vector2(465.351, 259.974)
 theme_override_styles/panel = SubResource("StyleBoxFlat_inmoa")
-
-[node name="Border2" type="PanelContainer" parent="BattleUI/Inventory"]
-use_parent_material = true
-layout_mode = 2
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 432.0
-offset_bottom = 523.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_booa0")
-
-[node name="Border1" type="Panel" parent="BattleUI/Inventory/Border2"]
-use_parent_material = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3lhyf")
 
 [node name="Item" type="Button" parent="BattleUI/Inventory"]
 visible = false
@@ -2241,8 +2335,17 @@ expand_icon = true
 modulate = Color(0.380392, 0.380392, 0.380392, 1)
 show_behind_parent = true
 light_mask = 0
-position = Vector2(39.8699, 260.098)
-scale = Vector2(0.7, 0.7)
+position = Vector2(39.8699, 257.851)
+scale = Vector2(0.7, 0.899713)
+texture = ExtResource("37_mwxl7")
+flip_h = true
+
+[node name="DottedBack2" type="Sprite2D" parent="BattleUI/Inventory"]
+modulate = Color(0.380392, 0.380392, 0.380392, 1)
+show_behind_parent = true
+light_mask = 0
+position = Vector2(-729.57, 257.289)
+scale = Vector2(-0.485233, -0.898616)
 texture = ExtResource("37_mwxl7")
 flip_h = true
 
@@ -2342,6 +2445,30 @@ offset_bottom = 980.591
 rotation = -0.0531199
 scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("35_fjllb")
+
+[node name="Border1" type="PanelContainer" parent="BattleUI/Inventory"]
+light_mask = 0
+layout_mode = 0
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 458.0
+offset_bottom = 537.0
+theme = SubResource("Theme_8i68l")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kisea")
+
+[node name="Border2" type="PanelContainer" parent="BattleUI/Inventory/Border1"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_gjtdb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lg5jp")
+
+[node name="Border3" type="PanelContainer" parent="BattleUI/Inventory/Border1/Border2"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_pg44w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvanb")
 
 [node name="Ability" type="Button" parent="BattleUI"]
 visibility_layer = 1024

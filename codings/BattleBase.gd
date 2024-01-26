@@ -103,14 +103,11 @@ func _ready():
 		dub.add_child(Troop[i].SoundSet.instantiate())
 	if Loader.BtAdvantage == 1:
 		for i in TurnOrder:
-			if not i.IsEnemy: i.Speed += 5
+			if not i.IsEnemy: i.SpeedBoost += 5
 	elif Loader.BtAdvantage == 2:
 		for i in TurnOrder:
-			if i.IsEnemy: i.Speed += 5
-	TurnOrder.sort_custom(speed_sort)
+			if i.IsEnemy: i.SpeedBoost += 5
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
-	for i in TurnOrder.size():
-		print(TurnOrder[i].Speed, " - ", TurnOrder[i].FirstName)
 	for i in TurnOrder:
 		i.node.get_node("State").play("None")
 		if not i.Shadow:
@@ -123,12 +120,16 @@ func _ready():
 	position_sprites()
 	turn_ui_init()
 	if Loader.Attacker != null: Loader.Attacker.hide()
+	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
+	TurnOrder.sort_custom(speed_sort)
+	for i in TurnOrder:
+		print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	await entrance()
 
-func speed_sort(a, b):
-	if a.Speed > b.Speed:
+func speed_sort(a: Actor, b: Actor):
+	if a.Speed + a.SpeedBoost > b.Speed + b.SpeedBoost:
 		return true
-	elif a.Speed == b.Speed:
+	elif a.Speed + a.SpeedBoost == b.Speed + b.SpeedBoost:
 		if a.IsEnemy:
 			return false
 		else:
@@ -225,8 +226,6 @@ func entrance():
 	if Seq.EntranceSequence == "":
 		for i in PartyArray:
 			entrance_anim(i)
-	else:
-		$Act.call(Seq.EntranceSequence)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
 	if not Seq.Transition: $EnemyUI.all_enemy_ui()
@@ -429,6 +428,8 @@ func end_turn():
 		await Seq.call_events()
 	Seq.reset_events()
 	TurnOrder.sort_custom(speed_sort)
+	for i in TurnOrder:
+		print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	while lock_turn:
 		await Event.wait()
 	await get_tree().create_timer(0.3).timeout
@@ -690,46 +691,6 @@ func pop_aura(target: Actor, time:float=0.5):
 	await t.finished
 	target.node.material.set_shader_parameter("outline_enabled", false)
 
-func victory():
-	print("Victory!")
-	if Seq.VictorySequence != "":
-		$Act.call(Seq.VictorySequence)
-		return
-	$Canvas.layer = 1
-	Loader.BattleResult = 1
-	for i in PartyArray:
-		victory_anim(i)
-	t = create_tween()
-	$Canvas/Callout.text = "Victory"
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUINT)
-	t.set_parallel()
-	$EnemyUI/EnemyFocus.hide()
-	$Canvas/TurnOrder.hide()
-	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
-	$Canvas/Callout.scale = Vector2(1.5,1.5)
-	PartyUI._on_expand(2)
-	$Canvas/DottedBack.show()
-	t.tween_property($Canvas/DottedBack, "modulate", Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
-	t.tween_property($Canvas/Callout, "position", Vector2(700, 50), 2).from(Vector2(1200, 50))
-	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
-	t.tween_property($Cam, "position", Vector2(-20,10), 1)
-	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
-	if totalSP != 0: victory_count_sp()
-	victory_show_items()
-	Loader.battle_bars(0)
-	$EnemyUI.colapse_root()
-	AwaitVictory = true
-	if Global.Player != null:
-		Global.Player.global_position = $Act/Actor0.global_position
-		if Party.check_member(1):
-			Global.Area.get_node("Follower1").global_position = $Act/Actor1.global_position
-		if Party.check_member(2):
-			Global.Area.get_node("Follower3").global_position = $Act/Actor2.global_position
-		if Party.check_member(3):
-			Global.Area.get_node("Follower3").global_position = $Act/Actor3.global_position
-		Global.get_cam().global_position = Global.Player.global_position
-
 func escape():
 	print("Escaped")
 	Loader.BattleResult = 2
@@ -740,11 +701,18 @@ func game_over():
 	Global.game_over()
 
 func end_battle():
+	reset_all()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
-	for i in TurnOrder:
-		for j in i.States: if j.RemovedOnBattleEnd: i.States.erase(j)
 	await Loader.end_battle()
 	queue_free()
+
+func reset_all():
+	for i in TurnOrder:
+		for j in i.States: if j.RemovedOnBattleEnd: i.States.erase(j)
+		i.AttackMultiplier = 1
+		i.DefenceMultiplier = 1
+		i.MagicMultiplier = 1
+		i.SpeedBoost = 0
 
 func victory_anim(chara:Actor):
 	$Act.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -785,6 +753,46 @@ func victory_count_sp():
 	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
 	await t.finished
 	dub.queue_free()
+
+func victory():
+	print("Victory!")
+	if Seq.VictorySequence != "":
+		$Act.call(Seq.VictorySequence)
+		return
+	$Canvas.layer = 1
+	Loader.BattleResult = 1
+	for i in PartyArray:
+		victory_anim(i)
+	t = create_tween()
+	$Canvas/Callout.text = "Victory"
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.set_parallel()
+	$EnemyUI/EnemyFocus.hide()
+	$Canvas/TurnOrder.hide()
+	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
+	$Canvas/Callout.scale = Vector2(1.5,1.5)
+	PartyUI._on_expand(2)
+	$Canvas/DottedBack.show()
+	t.tween_property($Canvas/DottedBack, "modulate", Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
+	t.tween_property($Canvas/Callout, "position", Vector2(700, 50), 2).from(Vector2(1200, 50))
+	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
+	t.tween_property($Cam, "position", Vector2(-20,10), 1)
+	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
+	if totalSP != 0: victory_count_sp()
+	victory_show_items()
+	Loader.battle_bars(0)
+	$EnemyUI.colapse_root()
+	AwaitVictory = true
+	if Global.Player != null:
+		Global.Player.global_position = $Act/Actor0.global_position
+		if Party.check_member(1):
+			Global.Area.get_node("Follower1").global_position = $Act/Actor1.global_position
+		if Party.check_member(2):
+			Global.Area.get_node("Follower3").global_position = $Act/Actor2.global_position
+		if Party.check_member(3):
+			Global.Area.get_node("Follower3").global_position = $Act/Actor3.global_position
+		Global.get_cam().global_position = Global.Player.global_position
 
 func victory_show_items():
 	await Event.wait(2, false)
@@ -899,6 +907,7 @@ func stat_change(stat: StringName, amount: float, chara := CurrentChar, turns: i
 	chara.add_state(stat + updown)
 	await Event.wait(1.2)
 	pop_num(chara, stat_name(stat) + " x" + str(amount+1), (await Global.get_state(stat + updown)).color)
+	print(chara.FirstName, "'s ", stat, " was multiplied by ", str(amount+1))
 
 func stat_name(stat: StringName) -> String:
 	match stat:
@@ -906,6 +915,9 @@ func stat_name(stat: StringName) -> String:
 		&"Def": return "Defense"
 		&"Mag": return "Magic"
 		_: return "Stat"
+
+func health_precentage(chara: Actor) -> float:
+	return (float(chara.Health)/float(chara.MaxHP)*100)
 
 func on_state_add(state: State, chara: Actor):
 	add_state_effect(state, chara)

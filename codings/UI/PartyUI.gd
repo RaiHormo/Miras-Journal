@@ -123,10 +123,6 @@ func _on_expand(open_ui=0):
 	else: WasPaused = get_tree().paused
 	get_tree().paused = true
 	Global.Controllable=false
-	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_BACK)
 	$CanvasLayer/Cursor/ItemPreview.hide()
 	#Pages
 	if open_ui == 0:
@@ -145,6 +141,9 @@ func _on_expand(open_ui=0):
 			$CanvasLayer/Page4.hide()
 		$CanvasLayer/Fade.show()
 		$CanvasLayer/Back.show()
+		t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_BACK)
 		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	else:
@@ -153,6 +152,7 @@ func _on_expand(open_ui=0):
 		$CanvasLayer/Page3.hide()
 		$CanvasLayer/Page4.hide()
 	if open_ui < 2:
+		t = create_tween()
 		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
 		darken()
 

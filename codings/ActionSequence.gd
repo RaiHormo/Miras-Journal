@@ -242,6 +242,7 @@ func AttackUp3():
 func Drink():
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
+	print(Bt.CurrentAbility.Type)
 	if Bt.CurrentAbility.Type == "Healing":
 		Bt.heal(target, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
@@ -263,6 +264,7 @@ func Eat():
 
 #region Battle events
 func AlcineWoods1():
+	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
 	await Global.passive("temple_woods_random", "going_nowhere")
 	Event.CutsceneHandler.alcine_helps()
@@ -272,7 +274,7 @@ func AlcineWoods2():
 	for i in Bt.TurnOrder:
 		Bt.anim("Idle", i)
 	Bt.focus_cam(Bt.get_actor("Alcine"))
-	Bt.get_actor("Alcine").Speed =+ 10
+	Bt.get_actor("Alcine").SpeedBoost =+ 10
 	Bt.TurnOrder.sort_custom(Bt.speed_sort)
 	Bt.get_actor("Alcine").NextAction = "Ability"
 	Bt.get_actor("Alcine").NextMove = preload("res://database/Abilities/SoothingSpray.tres")

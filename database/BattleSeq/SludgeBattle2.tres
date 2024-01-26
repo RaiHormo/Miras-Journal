@@ -15,4 +15,5 @@ ScenePosition = Vector2(1600, 225)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
+VictorySequence = ""
 Events = Array[Resource("res://database/BattleSeq/battle_event.gd")]([])

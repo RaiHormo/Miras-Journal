@@ -444,6 +444,7 @@ func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 			return Vector2.UP
 
 func get_cam() -> Camera2D:
+	if Area == null: return null
 	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
 

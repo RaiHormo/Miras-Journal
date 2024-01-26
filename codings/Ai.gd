@@ -3,7 +3,7 @@ extends Node
 var Char :Actor
 signal ai_chosen
 
-func ai():
+func ai() -> void:
 	Char = Bt.CurrentChar
 	if Char.has_state("KnockedOut"): Bt.end_turn(); return
 	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
@@ -18,20 +18,21 @@ func ai():
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif (float(HpSortedAllies[0].Health)/float(HpSortedAllies[0].MaxHP)*100) <= 40	 and HpSortedAllies[0].Health != 0 and has_type("Healing"):
+		elif Bt.health_precentage(HpSortedAllies[0]) <= 40	 and HpSortedAllies[0].Health != 0 and has_type("Healing"):
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			#4: Healing
-			choose(find_ability("Healing"), HpSortedAllies[0])
+			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
 		else:
-			print("Nothing else to do, using random move")
-			choose(random_ability())
+			print("Nothing specific to do")
+			choose(pick_general_ability())
 	else:
+		print("Forced move")
 		match Char.NextAction:
 			"Ability":
 				choose(Char.NextMove, Char.NextTarget)
 
 #Finds an ability of a certain type
-func find_ability(type:String, targets: Ability.T = Ability.T.ANY):
+func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
 	#print("Chosing a ", type, " ability")
 	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
@@ -40,15 +41,12 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY):
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
 			if i.AuraCost < Char.Aura and i.HPCost < Char.Health:
 				Choices.push_front(i)
+				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
 			else: print("Not enough resources")
-		print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
-	if Choices.is_empty():
-		return null
-	else:
-		return Choices.pick_random()
+	return Choices
 
 #Checks if they have an ability of a certain type
-func has_type(type:String, targets: Ability.T = Ability.T.ANY):
+func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
 	print("checking if i have a ", type)
 	if find_ability(type, targets) != null:
 		print("i do")
@@ -57,7 +55,7 @@ func has_type(type:String, targets: Ability.T = Ability.T.ANY):
 		print("i do not")
 		return false
 
-func choose(ab:Ability, tar:Actor=null):
+func choose(ab:Ability, tar:Actor=null) -> void:
 	if ab == null: Bt.end_turn(); return
 	if Char.NextTarget==null and tar==null:
 		match ab.Target:
@@ -77,7 +75,7 @@ func choose(ab:Ability, tar:Actor=null):
 	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
 	ai_chosen.emit()
 
-func random_ability():
+func pick_general_ability() -> Ability:
 	const n = 1
 	var r: int
 	while true:
@@ -85,8 +83,30 @@ func random_ability():
 		match r:
 			0:
 				if has_type("CheapAttack"):
-					return find_ability("CheapAttack")
+					return find_ability("CheapAttack").pick_random()
 			1:
 				if Char.Health < Char.MaxHP * 0.7 and has_type("Defensive"):
-					return find_ability("Defensive")
+					return find_ability("Defensive").pick_random()
+				if has_type("AtkBuff") and has_class_in_faction("Attacker", Bt.get_ally_faction()):
+					var tar: Actor = get_class_in_faction("Attacker", Bt.get_ally_faction()).pick_random()
+					print("Found ", tar.FirstName)
+					if tar.AttackMultiplier == 1 and ((tar == Char and Char.Health > 40) or tar != Char):
+						Char.NextTarget = tar
+						return find_ability("AtkBuff").pick_random()
+					print(tar.FirstName, " is a bad target")
+	return null
 
+func has_class_in_faction(type: String, faction: Array[Actor]) -> bool:
+	print("Checking if there's a "+ type)
+	for i in faction:
+		if i.ActorClass == type:
+			return true
+	"There's not"
+	return false
+
+func get_class_in_faction(type: String, faction: Array[Actor]) -> Array[Actor]:
+	var rtn: Array[Actor] = []
+	for i in faction:
+		if i.ActorClass == type:
+			rtn.append(i)
+	return rtn

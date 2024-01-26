@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("5_3pau3")
 FirstName = "Petrogon"
-ActorClass = "Boss"
+ActorClass = "Attacker"
 IsEnemy = true
 codename = &"Petrogon"
 ClutchDmg = false

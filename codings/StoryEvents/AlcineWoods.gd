@@ -130,6 +130,7 @@ func skip():
 func alcine_helps():
 	$Sprite.play("IdleRight")
 	await bubble("Surprise")
+	PartyUI.only_current()
 	var hp = Global.Bt.get_actor("Petrogon").Health
 	await move_dir(Vector2.UP)
 	await move_dir(Vector2.RIGHT)
