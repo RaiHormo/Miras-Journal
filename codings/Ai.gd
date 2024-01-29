@@ -18,9 +18,8 @@ func ai() -> void:
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif Bt.health_precentage(HpSortedAllies[0]) <= 40	 and HpSortedAllies[0].Health != 0 and has_type("Healing"):
+		elif has_type("Healing") and Bt.health_precentage(HpSortedAllies[0]) <= 40 and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
-			#4: Healing
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
 		else:
 			print("Nothing specific to do")
@@ -39,7 +38,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	var Choices:Array[Ability] = []
 	for i in AblilityList:
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
-			if i.AuraCost < Char.Aura and i.HPCost < Char.Health:
+			if (i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health:
 				Choices.push_front(i)
 				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
 			else: print("Not enough resources")
@@ -48,7 +47,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 #Checks if they have an ability of a certain type
 func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
 	print("checking if i have a ", type)
-	if find_ability(type, targets) != null:
+	if not find_ability(type, targets).is_empty():
 		print("i do")
 		return true
 	else:
@@ -78,7 +77,12 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 func pick_general_ability() -> Ability:
 	const n = 1
 	var r: int
+	var tries:= 0
 	while true:
+		tries += 1
+		if tries > 99:
+			OS.alert("The AI got stuck in an infinite loop, the dev might want to check on that")
+			return Char.StandardAttack
 		r = randi_range(0, n)
 		match r:
 			0:

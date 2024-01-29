@@ -17,7 +17,7 @@ var visibly=false
 var WasPaused = false
 var MemberChoosing = false
 @onready var Partybox = $CanvasLayer
-var disabled = false
+var disabled = true
 var LevelupChain: Array[Actor] = []
 
 func _ready():
@@ -74,7 +74,7 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if Input.is_action_just_pressed("Options") and Global.Player != null and "Idle" in Global.Player.get_node("%Base").animation:
+	if Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null and "Idle" in Global.Player.get_node("%Base").animation:
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()) and Expanded and not MemberChoosing:
 		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
@@ -186,7 +186,7 @@ func expand_panel(Pan:Panel, mem := 0):
 		au_pos = Vector2(75,37)
 		nam_pos = Vector2(82, 3)
 	t.tween_property(Pan, "scale", Vector2(1.5,1.5), 0.4)
-	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.044,0.044), 0.4)
+	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
 	t.tween_property(Pan.get_node("Health"), "size", Vector2(110,20), 0.4)
 	t.tween_property(Pan.get_node("Aura"), "size", Vector2(110,27), 0.4)
@@ -263,7 +263,7 @@ func shrink_panel(Pan:Panel, mem = 0,):
 		bar_size = Vector2(124,22)
 		nam_pos = Vector2(82, 3)
 	t.tween_property(Pan, "scale", Vector2(1,1), 0.4)
-	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.05,0.05), 0.4)
+	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
 	t.tween_property(Pan.get_node("Health"), "size", bar_size, 0.4)
 	t.tween_property(Pan.get_node("Aura"), "size", bar_size, 0.4)
@@ -350,7 +350,7 @@ func battle_state():
 		visibly=true
 		Partybox.get_node("Leader/Name").show()
 		Partybox.get_node("Leader/Level").show()
-		Partybox.get_node("Leader/Icon").scale= Vector2(0.044,0.044)
+		Partybox.get_node("Leader/Icon").scale= Vector2(0.09,0.09)
 		Partybox.get_node("Leader/Icon").position= Vector2(37,45)
 		Partybox.get_node("Leader/Health").size = Vector2(110,20)
 		Partybox.get_node("Leader/Health").position = Vector2(75,31)
@@ -399,6 +399,7 @@ func only_current():
 		t.tween_property($CanvasLayer/Leader, "position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
+
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)

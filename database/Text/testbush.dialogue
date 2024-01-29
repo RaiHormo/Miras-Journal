@@ -63,21 +63,23 @@ Mira: I can still move while saying this.
 
 ~ add_to_party
 
-Add to party
-- Mira
-	do Party.add("Mira")
-- Alcine
-	do Party.add("Alcine")
-- Erinn
-	do Party.add("Erinn")
-- More party options
-	What to do?
-	- Clear party
-		do Party.reset_party()
-	- Full heal
-		do heal_party()
-	- Give Mira lots of HP
-		do Party.Leader.Health = 9999
+What to do?
+- Add to party
+	Who to add?
+	- Mira
+		do Party.add("Mira")
+	- Alcine
+		do Party.add("Alcine")
+	- Erinn
+		do Party.add("Erinn")
+- Clear party
+	do Party.reset_party()
+- Full heal
+	do heal_party()
+- Give Mira lots of HP
+	do Party.Leader.Health = 9999
+- Reset all members
+	do reset_all_members()
 do give_control()
 
 => END

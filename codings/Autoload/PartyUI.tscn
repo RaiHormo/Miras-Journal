@@ -94,7 +94,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvspt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bo6w3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -108,9 +108,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_x6d55"]
-Panel/styles/panel = SubResource("StyleBoxFlat_nvspt")
+Panel/styles/panel = SubResource("StyleBoxFlat_bo6w3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgdav"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fditx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -124,9 +124,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_3xf0g"]
-Panel/styles/panel = SubResource("StyleBoxFlat_rgdav")
+Panel/styles/panel = SubResource("StyleBoxFlat_fditx")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icqax"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jllno"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -140,9 +140,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_6a77a"]
-Panel/styles/panel = SubResource("StyleBoxFlat_icqax")
+Panel/styles/panel = SubResource("StyleBoxFlat_jllno")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki2fs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0m0a"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
@@ -150,7 +150,7 @@ corner_radius_bottom_right = 9
 corner_radius_bottom_left = 9
 corner_detail = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulk57"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqvw1"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
@@ -159,24 +159,24 @@ corner_radius_bottom_left = 9
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_k7w14"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_ki2fs")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_ulk57")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_a0m0a")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_wqvw1")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an4ms"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dava"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
 corner_detail = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_017ft"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0w2l"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_qmrca"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_an4ms")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_017ft")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_1dava")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_c0w2l")
 
 [sub_resource type="LabelSettings" id="LabelSettings_xcra6"]
 line_spacing = 5.0
@@ -447,7 +447,7 @@ corner_detail = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf75l"]
 shader = ExtResource("7_jb2qv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rj3v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jraqj"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -460,7 +460,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw783"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_is7ve"]
 content_margin_left = 8.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -483,10 +483,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_3rj3v")
-Button/styles/hover = SubResource("StyleBoxFlat_bw783")
-Button/styles/normal = SubResource("StyleBoxFlat_3rj3v")
-Button/styles/pressed = SubResource("StyleBoxFlat_3rj3v")
+Button/styles/focus = SubResource("StyleBoxFlat_jraqj")
+Button/styles/hover = SubResource("StyleBoxFlat_is7ve")
+Button/styles/normal = SubResource("StyleBoxFlat_jraqj")
+Button/styles/pressed = SubResource("StyleBoxFlat_jraqj")
 
 [sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
 action = &"ui_cancel"
@@ -557,16 +557,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Leader"]
 position = Vector2(37, 45)
-scale = Vector2(0.0442713, 0.0442713)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Leader/Icon"]
 visible = false
 texture_filter = 1
-offset_left = -68.0
-offset_top = -1016.0
-offset_right = 880.0
-offset_bottom = -112.0
+offset_left = -88.8889
+offset_top = -477.778
+offset_right = 411.111
+offset_bottom = -0.77774
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
@@ -691,16 +691,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Member1"]
 position = Vector2(37, 54.333)
-scale = Vector2(0.0442713, 0.0442713)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Member1/Icon"]
 visible = false
 texture_filter = 1
-offset_left = -68.0
-offset_top = -1016.0
-offset_right = 880.0
-offset_bottom = -112.0
+offset_left = -107.0
+offset_top = -504.0
+offset_right = 417.0
+offset_bottom = -4.0
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 

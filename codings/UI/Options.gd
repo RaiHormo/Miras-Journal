@@ -87,6 +87,8 @@ func _on_back_pressed():
 			main()
 		"save_managment":
 			main()
+		"gallery":
+			main()
 
 func close():
 	if Global.Player != null:
@@ -123,12 +125,16 @@ func main():
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5)
 	t.tween_property($MainButtons/GameSettings, "position:x", 729, 0.5)
 	t.tween_property($MainButtons/SaveManagment, "position", Vector2(663, 52), 0.5)
+	t.tween_property($MainButtons/Gallery, "position", Vector2(887, 491), 0.5)
+	t.tween_property($MainButtons/Tutorials, "position", Vector2(846, 343), 0.5)
+	t.tween_property($MainButtons/Quit, "position", Vector2(932, 633), 0.5)
 	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1)
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(0, -39), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
+	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
 	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
 		i.z_index = 0
@@ -180,6 +186,28 @@ func save_managment() -> void:
 	%Files/File0/Button.grab_focus()
 	Global.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
+
+func gallery():
+	if stage == "gallery": return
+	if stage != "main": await loaded
+	$MainButtons/Gallery.toggle_mode=true
+	$MainButtons/Gallery.button_pressed=true
+	stage="gallery"
+	t=create_tween()
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_ease(Tween.EASE_OUT)
+	t.set_parallel()
+	$GalleryPanel/ScrollContainer.scroll_horizontal = 0
+	$MainButtons/Gallery.z_index = 1
+	t.tween_property($MainButtons/Gallery, "position", Vector2(570, 491), 0.5)
+	for i in $MainButtons.get_children():
+		if i != $MainButtons/Gallery: t.tween_property(i, "position:x", 850, 0.5)
+	t.tween_property($GalleryPanel, "position", Vector2(800, -62), 0.5)
+	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
+	t.tween_property($Background, "position", Vector2(400, 0), 0.5)
+	$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
+	Global.confirm_sound()
+	$GalleryPanel.show()
 
 func _on_focus_changed(control:Control):
 	Global.cursor_sound()

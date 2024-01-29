@@ -269,6 +269,7 @@ func _on_next_turn():
 		else:
 			end_turn()
 			return
+	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
 	$Act.handle_states()
 
 
@@ -325,7 +326,7 @@ func _on_battle_ui_ability():
 		play_sound("Ability", CurrentChar)
 		anim("Ability")
 		await CurrentChar.node.animation_finished
-	anim("AbilityLoop")
+	if CurrentChar.node.animation == "Ability": anim("AbilityLoop")
 
 func _on_battle_ui_root():
 	stop_sound("Ability", CurrentChar)
@@ -428,8 +429,8 @@ func end_turn():
 		await Seq.call_events()
 	Seq.reset_events()
 	TurnOrder.sort_custom(speed_sort)
-	for i in TurnOrder:
-		print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
+	#for i in TurnOrder:
+		#print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	while lock_turn:
 		await Event.wait()
 	await get_tree().create_timer(0.3).timeout
@@ -440,8 +441,8 @@ func end_turn():
 func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
 	take_dmg.emit()
 	var el_mod: float = 1
+	var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
 	if elemental:
-		var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
 		if relation == "wk": pop_num(target, "WEAK")
 		if relation == "op": pop_num(target, "WEAK!")
 		if relation == "res": pop_num(target, "RESIST")
@@ -452,10 +453,14 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 	if ignore_stats: dmg = x
 	target.damage(dmg, limiter)
 	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
-	check_party.emit()
-	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
-	if elemental: pop_num(target, dmg, CurrentAbility.WheelColor)
+	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/4)
+	if elemental:
+		var aur_dmg = relation_to_aura_dmg(relation, dmg)
+		print(target.FirstName, " takes ", aur_dmg, " aura damage")
+		target.add_aura(-aur_dmg)
+		pop_num(target, dmg, CurrentAbility.WheelColor)
 	else: pop_num(target, dmg)
+	check_party.emit()
 	if target.Health == 0:
 		if target.CantDie:
 			target.Health = 1
@@ -463,7 +468,7 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 			await death(target)
 			return
 	if target.has_state("Guarding"):
-		pass
+		target.add_aura(dmg/2)
 	else:
 		if effect and elemental:
 			if el_mod > 1:
@@ -481,13 +486,10 @@ func damage(target: Actor, is_magic:= false, elemental:= false, x: int = calc_nu
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
 
-
-
 func hit_animation(tar):
 	anim("Hit", tar)
 	await tar.node.animation_finished
 	anim("Idle", tar)
-
 
 func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
 	t = create_tween()
@@ -565,11 +567,12 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
-	lock_turn = true
 	if target == null or target.has_state("KnockedOut"): return
+	lock_turn = true
 	target.States.clear()
 	target.node.get_node("State").play("None")
 	target.add_state("KnockedOut")
+	target.set_aura(0)
 	if target.IsEnemy:
 		totalSP += target.RecivedSP
 		if target.DroppedItem != null: ObtainedItems.append(target.DroppedItem)
@@ -585,24 +588,24 @@ func death(target:Actor):
 		target.node.play()
 		get_tree().paused = false
 	target.node.get_node("Particle").emitting = true
-	t = create_tween()
+	var td = create_tween()
 	target.Health = 0
-	t.set_ease(Tween.EASE_IN)
-	t.set_trans(Tween.TRANS_QUART)
+	td.set_ease(Tween.EASE_IN)
+	td.set_trans(Tween.TRANS_QUART)
 	target.node.material.set_shader_parameter("outline_enabled", true)
 	target.node.material.set_shader_parameter("outline_color", target.MainColor)
 	target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
 	target.node.get_node("Particle").process_material.color = target.MainColor
-	t.parallel().tween_property(target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
-	t.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
-	await t.finished
+	td.parallel().tween_property(target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
+	td.parallel().tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
+	await td.finished
 	if target.node != null:
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
-			t = create_tween()
-			t.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
-			t.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
-			await t.finished
+			td = create_tween()
+			td.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
+			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
+			await td.finished
 			if target != null:
 				target.node.queue_free()
 				target.node = null
@@ -623,7 +626,6 @@ func get_ally_faction(act: Actor = CurrentChar):
 func get_oposing_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return PartyArray
 	else: return Troop
-
 
 func hp_sort(a:Actor, b:Actor):
 	if a.Health==0:
@@ -763,6 +765,8 @@ func victory():
 	Loader.BattleResult = 1
 	for i in PartyArray:
 		victory_anim(i)
+	check_party.emit()
+	$EnemyUI.colapse_root()
 	t = create_tween()
 	$Canvas/Callout.text = "Victory"
 	t.set_ease(Tween.EASE_OUT)
@@ -773,15 +777,22 @@ func victory():
 	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
 	$Canvas/Callout.scale = Vector2(1.5,1.5)
 	PartyUI._on_expand(2)
+	Loader.battle_bars(0)
 	$Canvas/DottedBack.show()
 	t.tween_property($Canvas/DottedBack, "modulate", Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
 	t.tween_property($Canvas/Callout, "position", Vector2(700, 50), 2).from(Vector2(1200, 50))
 	t.tween_property($Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,10), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
-	if totalSP != 0: victory_count_sp()
-	victory_show_items()
-	Loader.battle_bars(0)
+	if totalSP != 0: await victory_count_sp()
+	if not ObtainedItems.is_empty(): await victory_show_items()
+	$Canvas/TurnOrder.hide()
+	$Canvas/Continue.show()
+	$Canvas/Continue.icon = Global.get_controller().ConfirmIcon
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
 	if Global.Player != null:
@@ -795,38 +806,29 @@ func victory():
 		Global.get_cam().global_position = Global.Player.global_position
 
 func victory_show_items():
-	await Event.wait(2, false)
-	if not ObtainedItems.is_empty():
-		for i in $Canvas/VictoryItems.get_children():
-			i.modulate = Color.TRANSPARENT
-		await Event.wait()
-		$Canvas/VictoryItems/ItemTemp.hide()
-		for i in ObtainedItems:
-			if i != null:
-				var dub = $Canvas/VictoryItems/ItemTemp.duplicate()
-				dub.get_node("Hbox/ItemName").text = i.Name
-				dub.get_node("Hbox/Icon").texture = i.Icon
-				await Item.find_filename(i, &"Mat")
-				Item.add_item(i, &"Mat", false)
-				dub.show()
-				$Canvas/VictoryItems.add_child(dub)
-		$Canvas/VictoryItems.show()
-		for i in $Canvas/VictoryItems.get_children():
-			if i == $Canvas/VictoryItems/ItemTemp: continue
-			t = create_tween()
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_QUINT)
-			t.set_parallel()
-			t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-			t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
-			await t.finished
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUINT)
-	$Canvas/TurnOrder.show()
-	$Canvas/TurnOrder.icon = Global.get_controller().ConfirmIcon
-	$Canvas/TurnOrder.text = "Continue"
-	t.tween_property($Canvas/TurnOrder, "position:x", 1060, 0.5).from(1500)
+	for i in $Canvas/VictoryItems.get_children():
+		i.modulate = Color.TRANSPARENT
+	await Event.wait()
+	$Canvas/VictoryItems/ItemTemp.hide()
+	for i in ObtainedItems:
+		if i != null:
+			var dub = $Canvas/VictoryItems/ItemTemp.duplicate()
+			dub.get_node("Hbox/ItemName").text = i.Name
+			dub.get_node("Hbox/Icon").texture = i.Icon
+			await Item.find_filename(i, &"Mat")
+			Item.add_item(i, &"Mat", false)
+			dub.show()
+			$Canvas/VictoryItems.add_child(dub)
+	$Canvas/VictoryItems.show()
+	for i in $Canvas/VictoryItems.get_children():
+		if i == $Canvas/VictoryItems/ItemTemp: continue
+		t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUINT)
+		t.set_parallel()
+		t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+		t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
+		await t.finished
 
 func miss(target:Actor = CurrentTarget):
 	t = create_tween()
@@ -878,6 +880,12 @@ func relation_to_dmg_modifier(relation:String) -> float:
 	else: return 1
 	return round(base*10)/10
 
+func relation_to_aura_dmg(relation:String, dmg: int) -> int:
+	print("Color value: ", CurrentChar.MainColor.v)
+	if relation == "op": return int(dmg * CurrentChar.MainColor.v)
+	elif relation == "wk": return int(dmg * (CurrentChar.MainColor.v / 2))
+	else: return 0
+
 func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
 	t = create_tween()
 	t.set_ease(ease)
@@ -886,7 +894,7 @@ func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
 
 func _on_battle_ui_item() -> void:
 	await anim("Bag")
-	anim("BagLoop")
+	if CurrentChar.node.animation == "Bag": anim("BagLoop")
 
 func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03):
 	for i in repeat:
@@ -920,10 +928,11 @@ func health_precentage(chara: Actor) -> float:
 	return (float(chara.Health)/float(chara.MaxHP)*100)
 
 func on_state_add(state: State, chara: Actor):
-	add_state_effect(state, chara)
-	match state.name:
-		"Guarding":
-			chara.Defence *= 2
+	if chara.Health != 0:
+		add_state_effect(state, chara)
+		match state.name:
+			"Guarding":
+				chara.Defence *= 2
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(state.name) == null and chara.node.get_node("State").sprite_frames.has_animation(state.name):

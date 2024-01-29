@@ -1,4 +1,4 @@
-[gd_scene load_steps=238 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=241 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_lnseq"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_pas6x"]
@@ -1158,7 +1158,7 @@ corner_radius_top_right = 26
 corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux7hg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui641"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1171,7 +1171,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3sgg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn54k"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1185,8 +1185,8 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_8i68l"]
-Panel/styles/panel = SubResource("StyleBoxFlat_ux7hg")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_n3sgg")
+Panel/styles/panel = SubResource("StyleBoxFlat_ui641")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_hn54k")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kisea"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1201,7 +1201,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8742"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvlw5"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1214,7 +1214,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3chc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b51m8"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1232,8 +1232,8 @@ expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
 [sub_resource type="Theme" id="Theme_gjtdb"]
-Panel/styles/panel = SubResource("StyleBoxFlat_h8742")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_o3chc")
+Panel/styles/panel = SubResource("StyleBoxFlat_mvlw5")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_b51m8")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg5jp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1252,7 +1252,7 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uohd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5klk4"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1265,7 +1265,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn0gx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vltne"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1283,8 +1283,8 @@ expand_margin_right = 10.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="Theme" id="Theme_pg44w"]
-Panel/styles/panel = SubResource("StyleBoxFlat_0uohd")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_dn0gx")
+Panel/styles/panel = SubResource("StyleBoxFlat_5klk4")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_vltne")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvanb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1327,6 +1327,9 @@ corner_detail = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0g5cc"]
 bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_right = 1
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
 corner_radius_top_left = 9
 corner_radius_top_right = 9
 corner_radius_bottom_right = 9
@@ -1336,6 +1339,26 @@ corner_detail = 4
 [sub_resource type="Theme" id="Theme_bvcno"]
 ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq83d"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkyqb"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_right = 1
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_detail = 4
+
+[sub_resource type="Theme" id="Theme_imlp7"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_wq83d")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_nkyqb")
 
 [sub_resource type="Theme" id="Theme_2lgx1"]
 default_font = ExtResource("28_kt0tm")
@@ -1675,7 +1698,7 @@ offset = Vector2(0.5, -15.5)
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
 show_behind_parent = true
 light_mask = 16
-z_index = 1
+z_index = -1
 material = ExtResource("1_pas6x")
 position = Vector2(0, 3)
 texture = ExtResource("9_w2lxs")
@@ -2560,7 +2583,6 @@ layer = 2
 script = ExtResource("20_46olp")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI"]
-visible = false
 texture_filter = 2
 offset_left = 947.0
 offset_top = 30.0
@@ -2573,18 +2595,30 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
 [node name="Icon" type="Sprite2D" parent="EnemyUI/EnemyFocus"]
 texture_filter = 2
 position = Vector2(40, 43)
-scale = Vector2(0.0374996, 0.0374996)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("20_fun7q")
+
+[node name="Aura" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
+z_index = 1
+layout_mode = 0
+offset_left = 74.0
+offset_top = 45.0
+offset_right = 178.0
+offset_bottom = 69.0
+theme = SubResource("Theme_bvcno")
+value = 100.0
+rounded = true
+allow_greater = true
+show_percentage = false
 
 [node name="Health" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
 z_index = 1
 layout_mode = 0
 offset_left = 74.0
-offset_top = 44.0
+offset_top = 39.0
 offset_right = 178.0
-offset_bottom = 65.0
-theme = SubResource("Theme_bvcno")
-value = 75.0
+offset_bottom = 60.0
+theme = SubResource("Theme_imlp7")
 rounded = true
 allow_greater = true
 show_percentage = false
@@ -2656,6 +2690,7 @@ texture = SubResource("AtlasTexture_mtoyd")
 stretch_mode = 4
 
 [node name="AllEnemies" type="VBoxContainer" parent="EnemyUI"]
+visible = false
 offset_left = 1081.42
 offset_top = 18.3067
 offset_right = 1233.42
@@ -2881,6 +2916,28 @@ action_mode = 0
 shortcut = SubResource("Shortcut_qtf0t")
 text = "Turn Order"
 icon = ExtResource("27_oqdqh")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Continue" type="Button" parent="Canvas"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+offset_left = -214.0
+offset_top = 732.0
+offset_right = -72.0
+offset_bottom = 765.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+action_mode = 0
+shortcut = SubResource("Shortcut_qtf0t")
+text = "Continue
+"
+icon = ExtResource("16_g8baf")
 text_overrun_behavior = 1
 expand_icon = true
 

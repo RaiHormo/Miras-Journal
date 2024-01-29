@@ -25,15 +25,15 @@ var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
 @export var PartyIcon: Texture
 
 @export_category("Color")
-@export var MainColor: Color
+@export var MainColor: Color = Color.WHITE
 
 @export_group("Party specific")
-@export var SecondaryColor: Color
+@export var SecondaryColor: Color = Color.BLACK
 
 @export var BoxProfile: TextProfile
 
 @export var LastName: String = ""
-@export var WeaponType: String
+@export var Weapon: String
 @export var Controllable: bool = false
 @export var StatsVisible: bool = true
 
@@ -112,6 +112,7 @@ func set_aura(x):
 
 func add_aura(x):
 	Aura += x
+	if Aura < 0: Aura = 0
 	if Aura > MaxAura: Aura = MaxAura
 	Global.check_party.emit()
 
@@ -138,6 +139,7 @@ func calc_dmg(pow, is_magic: bool, E: Actor) -> int:
 	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
 
 func add_state(x, turns = -1):
+	if Health == 0: return
 	var state: State
 	if x is State:
 		state = x

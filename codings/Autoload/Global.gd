@@ -322,7 +322,7 @@ func heal_party() -> void:
 
 func reset_all_members() -> void:
 	for i in range(-1, Members.size() - 1):
-		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres")
+		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
 
 func find_member(Name: StringName) -> Actor:
 	for i in Members:
@@ -369,8 +369,7 @@ func textbox(file: String, title: String = "0", extra_game_states: Array = []) -
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
 	var balloon: Node = Textbox2.instantiate()
 	get_tree().root.add_child(balloon)
-	if balloon == null: return
-	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	if balloon != null: balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 	await textbox_close
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:

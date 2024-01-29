@@ -146,8 +146,8 @@ func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector
 	BodyState = MOVE
 	#print("Target: ", Vector2(pos))
 	while (not Nav.is_target_reached() and (not Global.Tilemap.local_to_map(global_position) == Vector2i(pos))) and BodyState == MOVE:
-		direction = to_local(Nav.get_next_path_position()).normalized()
 		await Event.wait()
+		direction = to_local(Nav.get_next_path_position()).normalized()
 		#print(not Global.Tilemap.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
 		if Nav == null or ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping:
 			BodyState= IDLE

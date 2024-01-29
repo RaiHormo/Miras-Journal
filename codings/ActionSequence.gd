@@ -205,6 +205,7 @@ func FlameSpark():
 	target.add_state("Burned")
 	await get_tree().create_timer(0.8).timeout
 	Bt.pop_num(target, "Burned")
+	await get_tree().create_timer(0.5).timeout
 	Bt.anim("Idle")
 	Bt.end_turn()
 
@@ -233,7 +234,6 @@ func AttackUp3():
 	await Event.wait(1)
 	Bt.anim("Idle")
 	Bt.end_turn()
-
 #endregion
 
 ################################################

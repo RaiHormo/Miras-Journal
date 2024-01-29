@@ -94,6 +94,7 @@ func load_game(filename:String="Autosave", sound:= true):
 		OS.set_restart_on_exit(true)
 		get_tree().quit()
 		return
+
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
@@ -101,7 +102,7 @@ func load_game(filename:String="Autosave", sound:= true):
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
 	Event.Flags = data.Flags
-
+	get_tree().paused = true
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")
 	if data.Room == null:
@@ -129,10 +130,9 @@ func load_game(filename:String="Autosave", sound:= true):
 		$/root.get_node("MainMenu").queue_free()
 	if $/root.get_node_or_null("Options") != null:
 		$/root.get_node("Options").queue_free()
-	get_tree().paused = false
 	await detransition()
 	Global.Controllable = true
-
+	get_tree().paused = false
 
 func load_res(path:String):
 	load_failed = false
@@ -250,8 +250,8 @@ func detransition():
 		t.set_parallel(true)
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.5).from(Vector2(-235,-126))
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.5).from(Vector2(-156,-126))
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5).from(Vector2(-200,-204))
-		t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5).from(Vector2(-200,-177))
+	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5).from(Vector2(-200,-204))
+	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5).from(Vector2(-200,-177))
 	if Icon.is_playing():
 		Icon.play("Close")
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
@@ -394,6 +394,9 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
 			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)
+	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5)
+	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5)
+	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 	if x == 0: $Can.hide()
 

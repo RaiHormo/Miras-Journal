@@ -275,28 +275,34 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Dash"):
-		var hold_frames := 1
-		while Input.is_action_pressed("Dash"):
-			hold_frames += 1
-			if hold_frames > hold_time: break
-			await Event.wait()
-		if hold_frames > hold_time:
-			Event.skip_cutscene()
-			_on_close()
-	elif not $Hints.visible and get_responses().is_empty() and not Input.is_action_pressed("ui_accept"):
-		$Hints/Skip.icon = Global.get_controller().Dash
-		$Hints/Advance.icon = Global.get_controller().ConfirmIcon
-		$Hints.show()
-		t = create_tween()
-		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property($Hints, "position:x", 1188, 0.5).from(1400)
-		await Event.wait(4, false)
-		t = create_tween()
-		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property($Hints, "position:x", 1400, 0.5)
-		await t.finished
-		$Hints.hide()
+	if event is InputEventKey or event is InputEventJoypadButton:
+		if Input.is_action_just_pressed("Dash"):
+			var hold_frames := 1
+			t = create_tween()
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($Hints, "position:x", 1400, 0.5)
+			while Input.is_action_pressed("Dash"):
+				hold_frames += 1
+				if hold_frames > hold_time: break
+				await Event.wait()
+			if hold_frames > hold_time:
+				Event.skip_cutscene()
+				_on_close()
+			else: Global.toast("Hold the button down to skip")
+		elif event.is_pressed() and not event.is_action("ui_accept") and is_waiting_for_input:
+			print(event)
+			$Hints/Skip.icon = Global.get_controller().Dash
+			$Hints/Advance.icon = Global.get_controller().ConfirmIcon
+			$Hints.show()
+			t = create_tween()
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($Hints, "position:x", 1188, 0.5).from(1400)
+			await Event.wait(4, false)
+			t = create_tween()
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($Hints, "position:x", 1400, 0.5)
+			await t.finished
+			$Hints.hide()
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return
@@ -304,7 +310,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		next(dialogue_line.next_id)
 	elif (event.is_action_pressed(Global.confirm())) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
