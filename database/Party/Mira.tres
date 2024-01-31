@@ -1,23 +1,23 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://dfxf3fj1wgl5q"]
 
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_e1lg0"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_e1lg0"]
 [ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="1_qv4op"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_uxycv"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
 [ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="3_8yk74"]
-[ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/Mira.tres" id="3_b1rhj"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="3_d4a5v"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="4_f3dmc"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="6_pdf3s"]
+[ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="10_rljiu"]
 
 [resource]
 script = ExtResource("1_e1lg0")
 FirstName = "Mira"
-ActorClass = ""
+ActorClass = "Attacker"
 IsEnemy = false
 RecivedSP = 0
 codename = &"Mira"
@@ -26,7 +26,7 @@ CantDie = false
 PartyIcon = ExtResource("2_gadvr")
 MainColor = Color(0.878431, 0.682353, 0.517647, 1)
 SecondaryColor = Color(0.886275, 0.345098, 0.192157, 1)
-BoxProfile = ExtResource("3_b1rhj")
+BoxProfile = ExtResource("6_u8hid")
 LastName = "Levenor"
 Weapon = "Lightweight Axe"
 Controllable = true
@@ -48,7 +48,7 @@ SpeedBoost = 0
 SkillLevel = 1
 SkillPoints = 13
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), ExtResource("3_d4a5v"), ExtResource("4_f3dmc")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), ExtResource("3_d4a5v"), ExtResource("4_f3dmc")])
 StandardAttack = ExtResource("6_pdf3s")
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")

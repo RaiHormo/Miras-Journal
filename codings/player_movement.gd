@@ -169,7 +169,7 @@ func update_anim_prm() -> void:
 					#print(4)
 					stop_dash()
 	else:
-		if get_real_velocity().length() >30:
+		if get_real_velocity().length() > 30:
 			if dashing:
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 			else:

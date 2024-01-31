@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_fnv26"]
 [ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="2_iy5kn"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_iy5kn"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="2_pm52f"]
 [ext_resource type="Resource" uid="uid://di0tgolj2jhxg" path="res://database/Items/Materials/WhiteSlime.tres" id="4_n0njt"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_rtvyb"]
@@ -41,7 +41,7 @@ SpeedBoost = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_fnv26"), ExtResource("2_pm52f")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_fnv26"), ExtResource("2_pm52f")])
 StandardAttack = ExtResource("4_rtvyb")
 BT = ExtResource("1_nfmau")
 Offset = Vector2(0, -17)

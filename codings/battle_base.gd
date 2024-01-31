@@ -5,7 +5,7 @@ class_name Battle
 @export var Troop: Array[Actor]
 @export var TurnOrder: Array[Actor]
 @export var Turn: int = 0
-@onready var CurrentChar: Actor = Global.Party.Leader
+@onready var CurrentChar: Actor
 @export var TurnInd: int = -1
 signal GetControl
 @onready var t = Tween
@@ -16,7 +16,7 @@ signal next_turn
 signal check_party
 signal anim_done
 signal take_dmg
-var CurrentAbility: Ability = Global.Party.Leader.StandardAttack
+var CurrentAbility: Ability
 var PartyArray: Array[Actor] = []
 var Action: bool
 var CurrentTarget: Actor
@@ -35,6 +35,8 @@ func _ready():
 	Loader.InBattle = true
 	TurnInd= -1
 	Turn = 0
+	CurrentChar = Global.Party.Leader
+	CurrentAbility = Global.Party.Leader.StandardAttack
 	Seq = Loader.Seq.duplicate()
 	Seq.reset_events(true)
 	Party = Global.Party

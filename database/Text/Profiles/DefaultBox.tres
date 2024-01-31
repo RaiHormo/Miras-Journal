@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TextProfile" load_steps=6 format=3 uid="uid://kc23d8ih5v7u"]
 
-[ext_resource type="Script" path="res://database/Text/Profiles/profile_data.gd" id="1_ggwfs"]
+[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="1_ggwfs"]
 [ext_resource type="AudioStream" uid="uid://dsw7oimwbyrq8" path="res://sound/SFX/Text/thonk.ogg" id="1_qai8k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5sl2"]

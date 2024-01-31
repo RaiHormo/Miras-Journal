@@ -10,7 +10,7 @@ var loading_thread = false
 var load_failed = false
 @export var direc : String
 @onready var t: Tween
-var Seq :BattleSequence= preload("res://database/BattleSeq/DebugDummy.tres")
+var Seq: BattleSequence = preload("res://database/BattleSeq/DebugDummy.tres")
 var InBattle = false
 signal thread_loaded
 var loaded_resource
@@ -76,7 +76,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.RoomName = Global.Area.Name
 	data.Day = Event.Day
 	ResourceSaver.save(data, "user://"+filename+".tres")
-	Preview = (await load_res("user://Autosave.tres")).Preview
+	Preview = (data.Preview)
 
 func load_game(filename:String="Autosave", sound:= true):
 	if sound: Global.ui_sound("Load")
@@ -250,8 +250,8 @@ func detransition():
 		t.set_parallel(true)
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.5).from(Vector2(-235,-126))
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.5).from(Vector2(-156,-126))
-	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5).from(Vector2(-200,-204))
-	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5).from(Vector2(-200,-177))
+		t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5).from(Vector2(-200,-204))
+		t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5).from(Vector2(-200,-177))
 	if Icon.is_playing():
 		Icon.play("Close")
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
@@ -394,15 +394,15 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
 			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)
-	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.5)
-	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.5)
+	$Can/Bars/Left.global_position = Vector2(-1720,-204)
+	$Can/Bars/Right.global_position = Vector2(1394,-177)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 	if x == 0: $Can.hide()
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		OS.alert("THE RESOURCE FAILED TO LOAD! IF YOU ARE SAVE EDITING DELETE THE FILE RIGHT NOW!")
+		OS.alert("Either the dev made a mistake, there's an outdated save file or you were save editing." ,"THE RESOURCE FAILED TO LOAD!")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!")

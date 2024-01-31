@@ -1026,6 +1026,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1069,7 +1070,6 @@ text = "Credits
 "
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1154,7 +1154,7 @@ columns = 2
 [node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Autosave"
+text = "Loading..."
 
 [node name="Date" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
@@ -1166,14 +1166,14 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "November"
+text = "Please"
 horizontal_alignment = 2
 
 [node name="Day" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
-text = "22"
+text = "Wait"
 horizontal_alignment = 2
 
 [node name="Party" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
@@ -1252,7 +1252,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 32
-text = "12:23:02"
+text = "00:00:02"
 horizontal_alignment = 2
 
 [node name="Clock" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Time"]

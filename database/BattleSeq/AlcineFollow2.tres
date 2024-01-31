@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://dm1nvrvosexxj"]
 
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_ianey"]
-[ext_resource type="Script" path="res://database/BattleSeq/battle_event.gd" id="2_xpmoy"]
-[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="4_7uopt"]
+[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_xpmoy"]
+[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_7uopt"]
 
 [sub_resource type="Resource" id="Resource_7bvd2"]
 script = ExtResource("2_xpmoy")
@@ -34,7 +34,7 @@ add_flag = false
 
 [resource]
 script = ExtResource("4_7uopt")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_ianey")])
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_ianey")])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)

@@ -2,8 +2,8 @@
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" path="res://codings/battle_base.gd" id="2_xgmkj"]
-[ext_resource type="Script" path="res://database/Party/party_data.gd" id="3_ifrv7"]
-[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="4_cdjs6"]
+[ext_resource type="Script" path="res://codings/Classes/party_data.gd" id="3_wsnu2"]
+[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_e2t6x"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="5_441cr"]
 [ext_resource type="Script" path="res://codings/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="SpriteFrames" uid="uid://d3xamvjet470a" path="res://art/BT/DarkSpawn/DarkSpawnBT.tres" id="7_vf8ht"]
@@ -47,11 +47,11 @@
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="45_lj4u5"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
-script = ExtResource("3_ifrv7")
+script = ExtResource("3_wsnu2")
 
 [sub_resource type="Resource" id="Resource_bnt1k"]
-script = ExtResource("4_cdjs6")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([])
+script = ExtResource("4_e2t6x")
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([])
 Transition = true
 Detransition = false
 EscPosition = Vector2(0, 0)
@@ -61,7 +61,7 @@ CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
 VictorySequence = ""
-Events = Array[Resource("res://database/BattleSeq/battle_event.gd")]([])
+Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])
 
 [sub_resource type="Curve" id="Curve_wrfky"]
 

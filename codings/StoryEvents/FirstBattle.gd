@@ -1,2 +1,2 @@
-extends "res://codings/TransferPoint.gd"
+extends "res://codings/transfer_zone.gd"
 

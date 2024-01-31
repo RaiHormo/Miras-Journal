@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://dumcwabsghqgu"]
 
-[ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_1608p"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_1608p"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="1_ryhrm"]
+
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xa71e"]
 load_path = "res://.godot/imported/Items.png-a1707d6ce84f8e29b61e03932ed93aa1.ctex"

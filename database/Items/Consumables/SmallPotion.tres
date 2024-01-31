@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://ccfqo6konaev3" path="res://art/Items/SmallPotion.png" id="1_vdi2s"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_xbfcq"]
-[ext_resource type="Script" path="res://database/Items/item_data.gd" id="1_xhumv"]
-[ext_resource type="Script" path="res://database/Abilities/ability.gd" id="3_y38if"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_xhumv"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="3_y38if"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
 atlas = ExtResource("1_xbfcq")

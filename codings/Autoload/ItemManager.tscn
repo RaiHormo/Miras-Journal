@@ -32,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tytpn")
-KeyInv = Array[Resource("res://database/Items/item_data.gd")]([ExtResource("2_jpvbu"), ExtResource("3_p3mct"), ExtResource("4_22d57")])
+KeyInv = Array[Resource("res://codings/Classes/item_data.gd")]([ExtResource("2_jpvbu"), ExtResource("3_p3mct"), ExtResource("4_22d57")])
 
 [node name="Can" type="CanvasLayer" parent="."]
 

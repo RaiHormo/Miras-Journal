@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cqr2l0aaignpu" path="res://art/Icons/Enemies/Dragon.png" id="2_p85n4"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_8nbn3"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_mbwgc"]
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="5_3pau3"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="5_3pau3"]
 
 [resource]
 script = ExtResource("5_3pau3")
@@ -20,7 +20,7 @@ PartyIcon = ExtResource("2_p85n4")
 MainColor = Color(1, 0.278431, 0.552941, 1)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
-WeaponType = ""
+Weapon = ""
 Controllable = false
 StatsVisible = true
 MaxHP = 200
@@ -38,7 +38,7 @@ SpeedBoost = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("1_nai06")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_nai06")])
 StandardAttack = ExtResource("4_mbwgc")
 BT = ExtResource("1_a6ph1")
 Offset = Vector2(0, -13)

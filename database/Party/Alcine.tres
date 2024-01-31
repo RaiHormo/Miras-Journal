@@ -3,10 +3,10 @@
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_o1wey"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_o1wey"]
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
 [ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="2_3o6lq"]
-[ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/Alcine.tres" id="3_g20a1"]
+[ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="4_roarn"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_bqqs6"]
 [ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="7_infcy"]
 [ext_resource type="Texture2D" uid="uid://dwbnmt2k8ms6p" path="res://UI/Party/AlcineShadow.png" id="8_yatxu"]
@@ -14,7 +14,7 @@
 [resource]
 script = ExtResource("1_o1wey")
 FirstName = "Alcine"
-ActorClass = ""
+ActorClass = "Support"
 IsEnemy = false
 RecivedSP = 0
 codename = &"Alcine"
@@ -23,7 +23,7 @@ CantDie = true
 PartyIcon = ExtResource("1_by5ga")
 MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
-BoxProfile = ExtResource("3_g20a1")
+BoxProfile = ExtResource("4_roarn")
 LastName = ""
 Weapon = "Arms?"
 Controllable = false
@@ -45,7 +45,7 @@ SpeedBoost = 0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([ExtResource("2_2vyew"), ExtResource("2_3o6lq")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("2_2vyew"), ExtResource("2_3o6lq")])
 StandardAttack = ExtResource("2_3o6lq")
 OV = ExtResource("1_3dlsp")
 BT = ExtResource("1_8ee1b")

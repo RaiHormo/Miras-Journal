@@ -2,11 +2,11 @@
 
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_thmpc"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="2_7yq6g"]
-[ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="3_jdfoh"]
+[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="3_jdfoh"]
 
 [resource]
 script = ExtResource("3_jdfoh")
-Enemies = Array[Resource("res://database/Party/member_data.gd")]([ExtResource("1_thmpc"), ExtResource("2_7yq6g")])
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_thmpc"), ExtResource("2_7yq6g")])
 Transition = true
 Detransition = false
 EscPosition = Vector2(58, -15)
@@ -16,4 +16,4 @@ CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
 VictorySequence = ""
-Events = Array[Resource("res://database/BattleSeq/battle_event.gd")]([])
+Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])

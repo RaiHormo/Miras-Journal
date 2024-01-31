@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://cwp57sgr8rbwo"]
 
-[ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_xk7u8"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_xk7u8"]
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="2_g2uxp"]
 [ext_resource type="SpriteFrames" uid="uid://b2x5q6v6p786q" path="res://art/BT/Dummy/DummyBT.tres" id="2_ioagn"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="3_i7jnc"]
@@ -19,7 +19,7 @@ PartyIcon = ExtResource("2_g2uxp")
 MainColor = Color(1, 0.25098, 1, 1)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
-WeaponType = ""
+Weapon = ""
 Controllable = false
 StatsVisible = true
 MaxHP = 200
@@ -37,7 +37,7 @@ SpeedBoost = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://database/Abilities/ability.gd")]([])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 StandardAttack = ExtResource("3_i7jnc")
 BT = ExtResource("2_ioagn")
 Offset = Vector2(3, -6)

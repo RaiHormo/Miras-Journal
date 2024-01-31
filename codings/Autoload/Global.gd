@@ -3,7 +3,7 @@ extends Node
 var Controllable : bool = true
 var Audio := AudioStreamPlayer.new()
 var Sprite := Sprite2D.new()
-var Party: PartyData = PartyData.new()
+var Party: PartyData
 var HasPortrait := false
 var PortraitIMG: Texture
 var PortraitRedraw := true
@@ -47,7 +47,7 @@ func _ready() -> void:
 	add_child(Sprite)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	init_party(load("res://database/Party/CurrentParty.tres"))
+	init_party(Party)
 	await ready_window()
 	init_settings()
 	if Tilemap != null: await nodes_of_type(Tilemap, "Light2D", Lights)
@@ -96,7 +96,7 @@ func options():
 
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
-	init_party(PartyData.new())
+	init_party(Party)
 	Event.Flags.clear()
 	Event.add_flag("Started")
 	Event.Day = 10
@@ -298,7 +298,7 @@ func ui_sound(string:String) -> void:
 
 #region Party Checks
 func get_party() -> PartyData:
-	return preload("res://database/Party/CurrentParty.tres")
+	return Global.Party
 
 func check_member(n:int) -> bool:
 	return Party.check_member(n)
@@ -331,11 +331,12 @@ func find_member(Name: StringName) -> Actor:
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
+	if party == null: party = PartyData.new()
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
 			Members.push_front(file.duplicate())
-	#Party = PartyData.new()
+	Party = PartyData.new()
 	Party.set_to(party)
 
 func number_of_party_members() -> int:
@@ -412,10 +413,10 @@ func toast(string: String) -> void:
 
 #Match profile
 func match_profile(named:String) -> TextProfile:
-	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + ".tres"):
-		return preload("res://database/Text/Profiles/Default.tres")
+	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
+		return preload("res://database/Text/Profiles/DefaultBox.tres")
 	else:
-		return await Loader.load_res("res://database/Text/Profiles/" + named + ".tres")
+		return await Loader.load_res("res://database/Text/Profiles/" + named + "Box.tres")
 
 #endregion
 
