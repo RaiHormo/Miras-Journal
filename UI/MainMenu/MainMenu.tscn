@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="3_2t42f"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="4_hhf13"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="4_pkqpv"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="4_tlo38"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_biinq"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="5_ilv5n"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="6_b6i07"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="6_emlrx"]
 [ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="6_pyltt"]
+[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
@@ -540,7 +540,7 @@ RichTextLabel/constants/line_separation = 5
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_efl2n"]
-shader = ExtResource("4_tlo38")
+shader = ExtResource("7_fk5rv")
 
 [sub_resource type="FontVariation" id="FontVariation_ochjv"]
 variation_embolden = 0.41
@@ -663,7 +663,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xe1ew"]
-shader = ExtResource("4_tlo38")
+shader = ExtResource("7_fk5rv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhyn7"]
 content_margin_left = 8.0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://5dk5u2y85kai"]
 
-[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/sheets/AlcineOV2.tres" id="1_3dlsp"]
+[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
 [ext_resource type="Script" path="res://database/Party/member_data.gd" id="1_o1wey"]

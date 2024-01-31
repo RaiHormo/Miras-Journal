@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwonvv3urrk1i"]
+
+[ext_resource type="PackedScene" uid="uid://da22xhcxygcjl" path="res://codings/Follower.tscn" id="1_eght0"]
+[ext_resource type="PackedScene" uid="uid://sql6r7jv7fjq" path="res://codings/Mira.tscn" id="4_pg2wh"]
+
+
+[node name="OvPlayer" type="Node2D"]
+
+[node name="Follower1" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_eght0")]
+z_as_relative = false
+position = Vector2(1, 31)
+member = 1
+player = NodePath("../Body")
+distance = 30
+
+[node name="Body" parent="." instance=ExtResource("4_pg2wh")]
+speed = 75

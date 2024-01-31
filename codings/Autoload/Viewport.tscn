@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://c5xih1ic13bkc"]
 
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="1_1rx44"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_1rx44"]
 [ext_resource type="Script" path="res://codings/Autoload/Viewport.gd" id="1_cp1ee"]
+
 
 [node name="Viewport" type="SubViewportContainer"]
 texture_filter = 2

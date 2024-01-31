@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bk3wcarpqpgmi"]
-
-[ext_resource type="Shader" path="res://scenes/Shaders/Pixelart.gdshader" id="1_upu8h"]
-
-[resource]
-shader = ExtResource("1_upu8h")

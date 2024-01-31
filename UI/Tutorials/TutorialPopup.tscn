@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dp06lj85ovb8f"]
 
-[ext_resource type="Script" path="res://codings/UI/tutorial_popup.gd" id="1_kw845"]
+[ext_resource type="Script" path="res://UI/Tutorials/tutorial_popup.gd" id="1_kw845"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="2_irc8o"]
 [ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_c8w00"]
 

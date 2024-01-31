@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dna5vcce2e6gi"]
 
-[ext_resource type="Script" path="res://codings/UI/GameOver.gd" id="1_slw46"]
+[ext_resource type="Script" path="res://UI/GameOver/game_overUI.gd" id="1_slw46"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="2_1b12g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]

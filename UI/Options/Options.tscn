@@ -1,14 +1,14 @@
 [gd_scene load_steps=70 format=3 uid="uid://bh82q5qur5ppl"]
 
-[ext_resource type="Script" path="res://codings/UI/Options.gd" id="1_hoqsl"]
+[ext_resource type="Script" path="res://UI/Options/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Blur.gdshader" id="2_ce8sl"]
+[ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
 [ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="3_07vaa"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
-[ext_resource type="Shader" path="res://scenes/Shaders/Unshaded.gdshader" id="5_dciq6"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
+[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
 [ext_resource type="Texture2D" uid="uid://dcnd802jcwswl" path="res://UI/MenuTextures/down.png" id="9_mioka"]
 [ext_resource type="Texture2D" uid="uid://d2cju0uv5rmjr" path="res://UI/MenuTextures/radio_enabled.png" id="9_xvg8c"]
 [ext_resource type="Texture2D" uid="uid://daasx8kvi6kbq" path="res://UI/MenuTextures/toggle_on.png" id="9_yynoc"]
@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
-shader = ExtResource("2_ce8sl")
+shader = ExtResource("2_0ss3e")
 shader_parameter/lod = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2u6j"]
@@ -106,7 +106,7 @@ corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_enokf"]
-shader = ExtResource("5_dciq6")
+shader = ExtResource("8_pum06")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jsk3"]
 content_margin_left = 6.0
@@ -454,7 +454,7 @@ expand_margin_bottom = 2.0
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 3
-script = ExtResource("1_hoqsl")
+script = ExtResource("1_k6uh5")
 
 [node name="Fader" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)

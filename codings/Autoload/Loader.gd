@@ -152,7 +152,7 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Gl
 	Event.List.clear()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
-	scene = "res://scenes/Rooms/" + sc + ".tscn"
+	scene = "res://rooms/" + sc + ".tscn"
 	if scene != "":
 		ResourceLoader.load_threaded_request(scene)
 	await transition(trans)
@@ -295,7 +295,7 @@ func start_battle(stg, advantage := 0):
 	#Engine.time_scale = 1
 	Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
-	get_tree().get_root().add_child(preload("res://scenes/Battle.tscn").instantiate())
+	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if Attacker != null: Attacker.hide()
 	for i in Global.Follower:
 		if i != null: i.hide()

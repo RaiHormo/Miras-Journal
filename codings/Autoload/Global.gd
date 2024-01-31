@@ -25,8 +25,8 @@ var Tilemap: TileMap
 var Members: Array[Actor]
 var Lights: Array[Light2D] = []
 var Area: Room
-var Textbox2 = preload("res://codings/UI/Textbox2.tscn")
-var Passive = preload("res://codings/UI/Passive.tscn")
+var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
+var Passive = preload("res://UI/Textbox/Passive.tscn")
 signal lights_loaded
 signal check_party
 signal anim_done
@@ -100,7 +100,7 @@ func new_game() -> void:
 	Event.Flags.clear()
 	Event.add_flag("Started")
 	Event.Day = 10
-	Item.HasBag = false
+	Event.f("HasBag", false)
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
 	Item.MatInv.clear()

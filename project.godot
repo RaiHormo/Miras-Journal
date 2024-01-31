@@ -12,14 +12,14 @@ config_version=5
 
 config/name="Mira's Journal - Prototype"
 config/description="Made by Rai"
-run/main_scene="res://scenes/Initializer.tscn"
+run/main_scene="res://codings/Initializer.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.2", "Mobile")
-boot_splash/image="res://art/splash.png"
-config/icon="res://art/icon.png"
+boot_splash/image="res://art/Branding/splash.png"
+config/icon="res://art/Branding/icon.png"
 
 [aseprite]
 
@@ -80,7 +80,7 @@ folder_colors={
 "res://art/": "pink",
 "res://codings/": "blue",
 "res://database/": "yellow",
-"res://scenes/": "orange",
+"res://rooms/": "orange",
 "res://sound/": "red"
 }
 
@@ -232,7 +232,7 @@ MainConfirm={
 Fullscreen={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194342,"key_label":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194335,"key_label":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 Save={

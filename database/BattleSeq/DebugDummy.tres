@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=9 format=3 uid="uid://cpwqhga2rnw0s"]
 
-[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/BattleBacks/Debug.png" id="1_03qle"]
+[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="1_03qle"]
 [ext_resource type="Script" path="res://database/BattleSeq/BattleSeq.gd" id="1_tyx4l"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="2_tb6xv"]
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="3_uu4ek"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cp07hd6816l7e"]
 
 [ext_resource type="Script" path="res://codings/Autoload/ItemManager.gd" id="1_tytpn"]
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://scenes/Shaders/Pixelart.tres" id="2_d0a2x"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_d0a2x"]
 [ext_resource type="Resource" uid="uid://r736fdcx3r12" path="res://database/Items/KeyItems/Wallet.tres" id="2_jpvbu"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="3_55ujn"]
 [ext_resource type="Resource" uid="uid://ci6asie02dl6j" path="res://database/Items/KeyItems/FoldedPaper.tres" id="3_p3mct"]
