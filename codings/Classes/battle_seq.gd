@@ -12,6 +12,7 @@ class_name BattleSequence
 @export var DeleteAttacker:= true
 @export var EntranceSequence:= ""
 @export var VictorySequence:= ""
+@export var VictoryBanter:= ""
 @export var Events: Array[BattleEvent] = []
 
 func call_events():

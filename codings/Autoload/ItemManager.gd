@@ -53,14 +53,16 @@ func add_item(ItemName, type: StringName, animate=true):
 	overwrite_inv(inv, type)
 	if animate: get_animation(item.Icon, item.Name)
 
-func remove_item(ItemName, type):
+func remove_item(ItemName, type: StringName = &""):
 	item = get_item(ItemName, type)
+	if type == &"": type = find_type(item)
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
-	if item.Quantity == 1:
-		inv.erase(item)
 	item.Quantity -= 1
+	if item.Quantity <= 0:
+		item.Quantity = 0
+		inv.erase(item)
 	overwrite_inv(inv, type)
 
 func check_item(ItemName, type):
@@ -94,8 +96,9 @@ func use(iteme:ItemData):
 	item = iteme
 	$ItemEffect.use(iteme)
 
-func get_item(iteme, type:StringName):
+func get_item(iteme, type:StringName = &""):
 	var ritem = null
+	if type == &"": type = find_type(iteme)
 	if iteme is String:
 		for i in get_inv(type):
 			if iteme == i.filename:
@@ -130,3 +133,14 @@ func verify_inventory():
 		if i.filename == "Invalid filename": await find_filename(i, &"Mat")
 	for i in BtiInv:
 		if i.filename == "Invalid filename": await find_filename(i, &"Bti")
+
+func find_type(iteme: ItemData) -> StringName:
+	if iteme in KeyInv:
+		return &"Key"
+	if iteme in ConInv:
+		return &"Con"
+	if iteme in MatInv:
+		return &"Mat"
+	if iteme in BtiInv:
+		return &"Bti"
+	return &""

@@ -9,12 +9,12 @@ class_name Room
 @export var SpawnZ: Array[int] = [1]
 @export_flags_2d_physics var SpawnLayers := 1
 @export var AutoLimits = false
-##[x]: left [y]: top [z]: right [w]: bottom]
+##[x]: left [y]: top [z]: right [w]: bottom
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
 @export var Stairs: Array[Stair]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
-##[0]: left [1]: top [2]: right [3: bottom]
+##[0]: left [1]: top [2]: right [3]: bottom
 var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()

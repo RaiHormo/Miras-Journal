@@ -9,6 +9,7 @@ func _ready():
 	$EnemyFocus.hide()
 
 func all_enemy_ui():
+	lock = false
 	Troop = get_parent().Troop
 	if Troop.size() < $AllEnemies.get_child_count():
 		$AllEnemies.get_child($AllEnemies.get_child_count()-1).free()

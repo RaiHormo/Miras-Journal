@@ -42,10 +42,24 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
+		if dialogue_line.text == " ":
+			await hide_box()
+
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
-		character_label.text = tr(dialogue_line.character, "dialogue")
+		var char_name = tr(dialogue_line.character, "dialogue")
+		while "." in char_name:
+			#print(char_name)
+			char_name = char_name.erase(char_name.length()-1)
+		if "." in tr(dialogue_line.character, "dialogue"):
+			var redraw: bool = true
+			if character_label.text == char_name: redraw = false
+			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
+		if Global.find_member(char_name) == null:
+			character_label.text = char_name
+		else: character_label.text = Global.find_member(char_name).FirstName
+
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		if next_box == "": next_box = character_label.text
+		if next_box == "": next_box = char_name
 		mem = await Global.match_profile(next_box)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
@@ -87,7 +101,7 @@ var dialogue_line: DialogueLine:
 		draw_portrait()
 		dialogue_label.text = ""
 
-		if not balloon.visible:
+		if not balloon.visible and dialogue_line.text != " ":
 			balloon.show()
 			t = create_tween()
 			t.set_parallel(true)
@@ -99,15 +113,15 @@ var dialogue_line: DialogueLine:
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
+			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.95,0.95))
 		will_hide_balloon = false
 
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
-		if not dialogue_line.text.is_empty():
-			var prof = await Global.match_profile(character_label.text)
-			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
-			await dialogue_label.finished_typing
+		#if not dialogue_line.text.is_empty():
+		var prof = await Global.match_profile(char_name)
+		dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
+		await dialogue_label.finished_typing
 
 		# Wait for input
 		if dialogue_line.responses.size() > 0:
@@ -219,11 +233,18 @@ func get_responses() -> Array:
 ### Signals
 
 func _on_close() -> void:
+	await hide_box()
+	$Portrait.hide()
+	Engine.time_scale = 1
+	responses_menu.hide()
+	Global.textbox_close.emit()
+	if self != null: queue_free()
+
+func hide_box():
 	t=create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
-	responses_menu.hide()
 	if $Portrait.visible:
 		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
 		t.tween_property($Portrait, "position", Vector2(-100, 389), 0.2)
@@ -231,11 +252,7 @@ func _on_close() -> void:
 	t.tween_property($Fader, "color", Color(0,0,0,0), 0.5)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
-	$Portrait.hide()
 	balloon.hide()
-	Engine.time_scale = 1
-	Global.textbox_close.emit()
-	queue_free()
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false

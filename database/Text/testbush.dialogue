@@ -1,27 +1,19 @@
 ~ bush
 
-do portrait("MiraNeutural", true)
-Mira: Yes, this is [[indeed|in fact]] a bush
+Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 - Scream
-	do portrait("MiraOpenMouth", false)
-	Mira: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	Mira.OpenMouth: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	if is_in_party("Erinn"):
 		Erinn: Mira, what are you doing?
 - Talk a lot
-	do portrait("MiraSmile", false)
-	Mira: Yeah, sure i can say a bunch of stuff.
-	do portrait("MiraSmile", false)
-	Mira: I just like the sound of my voice, beep boop.
-	do portrait("MiraSmile", false)
-	Mira: So how's your day bush?\nAnything going on?
-	do portrait("MiraSmile", false)
-	Mira: ...
-	do portrait("MiraSmile", false)
-	Mira: Yeah I thought so.
-	do portrait("MiraSmile", false)
-	Mira: The purpose of this dialog is to test text sounds and dialog skipping.
-	do portrait("MiraSmile", false)
-	Mira: I can hold shift to skip all of it.
+	Mira.Smile: Yeah, sure i can say a bunch of stuff.
+	Mira.Smile: I just like the sound of my voice, beep boop.
+	Mira.Smile: So how's your day bush?\nAnything going on?
+	[wait=3] [next=auto]
+	Mira.Smile: ...
+	Mira.Smile: Yeah I thought so.
+	Mira.Smile: The purpose of this dialog is to test text sounds and dialog skipping.
+	Mira.Smile: I can hold shift to skip all of it.
 	Also here are some thought sounds.
 	Ok I think that's enough.
 	
@@ -53,16 +45,11 @@ Where to go?
 => END
 
 ~ greetings
-
-do portrait("MiraNeutural", true)
-Mira: Hello everyone! This is a passive textbox of sorts.
-do portrait("MiraOpenMouth", false)
-Mira: I can still move while saying this.
-
+Mira.Neutural: Hello everyone! This is a passive textbox of sorts.
+Mira.OpenMouth: I can still move while saying this.
 => END
 
 ~ add_to_party
-
 What to do?
 - Add to party
 	Who to add?
@@ -89,8 +76,7 @@ Turn {{Global.Bt.Turn}}
 => END!
 
 ~ mira_hp_low
-do portrait("MiraNeutural")
-Mira: My hp is low
+Mira.Neutural: My hp is low
 => END!
 
 ~ debug_battle_begin

@@ -264,6 +264,7 @@ func Eat():
 
 #region Battle events
 func AlcineWoods1():
+	if Bt.get_actor("Mira").Health == 0: return
 	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
 	await Global.passive("temple_woods_random", "going_nowhere")
@@ -301,4 +302,5 @@ func AlcineWoods4():
 	#Event.CutsceneHandler
 	await Event.wait(1, false)
 	Bt.victory()
+	Event.CutsceneHandler.after_battle()
 

@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var Portrait: TextureRect = $Balloon/Margin/Portrait
 var currun = false
 @onready var t :Tween
+var prev_char := ""
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -31,13 +32,25 @@ var dialogue_line: DialogueLine:
 			_on_close()
 			return
 
-
 		dialogue_line = next_dialogue_line
+
+		var char_name = tr(dialogue_line.character, "dialogue")
+		while "." in char_name:
+			#print(char_name)
+			char_name = char_name.erase(char_name.length()-1)
+		if "." in tr(dialogue_line.character, "dialogue"):
+			var redraw: bool = true
+			if prev_char == char_name: redraw = false
+			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
+		prev_char = char_name
+		#if Global.find_member(char_name) == null:
+			#character_label.text = char_name
+		#else: character_label.text = Global.find_member(char_name).FirstName
 
 		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		#character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
+		var mem = await Global.match_profile(char_name)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")

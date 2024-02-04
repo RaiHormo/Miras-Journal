@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=84 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://UI/Party/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://UI/joystick/virtual_joystick.tscn" id="16_86i7e"]
+[ext_resource type="Script" path="res://addons/onscreenkeyboard/onscreen_keyboard.gd" id="17_bim50"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -1247,6 +1248,13 @@ shortcut_in_tooltip = false
 flat = true
 
 [node name="VirtualJoystick" parent="CanvasLayer" instance=ExtResource("16_86i7e")]
+
+[node name="OnscreenKeyboard" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 429.0
+offset_top = 12.0
+offset_right = 917.0
+offset_bottom = 298.0
+script = ExtResource("17_bim50")
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

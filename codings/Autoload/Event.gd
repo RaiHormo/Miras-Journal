@@ -25,14 +25,14 @@ func add_char(b:NPC):
 	List.append(b)
 
 ##Get the [NPC] node from a [String] ID
-func npc(ID: String):
-	if List.is_empty(): return NPC.new()
+func npc(ID: String) -> NPC:
 	for i in List:
 		if i==null:
 			#List.erase(i)
 			continue
 		if i.ID == ID:
 			return i
+	return NPC.new()
 
 ##Move an [NPC] relative to their current coords
 func move_dir(dir:Vector2=Global.get_direction(), chara:String="P"):
@@ -111,7 +111,7 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui = false):
-	if Global.Player == null:  return
+	if Global.Player == null or Global.Area == null:  return
 	if Global.Player.dashing: await Global.Player.stop_dash()
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
@@ -129,6 +129,7 @@ func give_control():
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
+	Global.Player.camera_follow(true)
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
@@ -162,6 +163,9 @@ func skip_cutscene():
 		dub.skip()
 		Loader.detransition()
 		CutsceneHandler = dub
+
+func bubble(anim: String, npc: String):
+	npc(npc).bubble(anim)
 
 ##########################################################
 

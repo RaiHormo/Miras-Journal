@@ -18,8 +18,9 @@ const DEFAULT_SETTINGS = {
 	custom_test_scene_path = preload("./test_scene.tscn").resource_path,
 	default_csv_locale = "en",
 	balloon_path = "",
-	has_dotnet_solution = false,
-	create_lines_for_responses_with_characters = true
+	create_lines_for_responses_with_characters = true,
+	include_character_in_translation_exports = false,
+	include_notes_in_translation_exports = false
 }
 
 
@@ -39,10 +40,19 @@ static func prepare() -> void:
 			ProjectSettings.set_setting("dialogue_manager/%s" % key, null)
 			set_setting(key, value)
 
-	# Set up defaults
+	# Set up initial settings
 	for setting in DEFAULT_SETTINGS:
-		if ProjectSettings.has_setting("dialogue_manager/general/%s" % setting):
-			ProjectSettings.set_initial_value("dialogue_manager/general/%s" % setting, DEFAULT_SETTINGS[setting])
+		var setting_name: String = "dialogue_manager/general/%s" % setting
+		if not ProjectSettings.has_setting(setting_name):
+			set_setting(setting, DEFAULT_SETTINGS[setting])
+		ProjectSettings.set_initial_value(setting_name, DEFAULT_SETTINGS[setting])
+		if setting.ends_with("_path"):
+			ProjectSettings.add_property_info({
+				"name": setting_name,
+				"type": TYPE_STRING,
+				"hint": PROPERTY_HINT_FILE,
+			})
+
 	ProjectSettings.save()
 
 
@@ -77,7 +87,9 @@ static func get_user_config() -> Dictionary:
 		carets = {},
 		run_title = "",
 		run_resource_path = "",
-		is_running_test_scene = false
+		is_running_test_scene = false,
+		has_dotnet_solution = false,
+		open_in_external_editor = false
 	}
 
 	if FileAccess.file_exists(DialogueConstants.USER_CONFIG_PATH):
@@ -150,3 +162,20 @@ static func get_caret(path: String) -> Vector2:
 		return Vector2(caret.x, caret.y)
 	else:
 		return Vector2.ZERO
+
+
+static func has_dot_net_solution() -> bool:
+	if get_user_value("has_dotnet_solution", false): return true
+
+	if ProjectSettings.has_setting("dotnet/project/solution_directory"):
+		var directory: String = ProjectSettings.get("dotnet/project/solution_directory")
+		var file_name: String = ProjectSettings.get("dotnet/project/assembly_name")
+		var has_dotnet_solution: bool = FileAccess.file_exists("res://%s/%s.sln" % [directory, file_name])
+		set_user_value("has_dotnet_solution", has_dotnet_solution)
+		return has_dotnet_solution
+	else:
+		var plugin_path: String = new().get_script().resource_path.get_base_dir()
+		if not ResourceLoader.exists(plugin_path + "/DialogueManager.cs"): return false
+		if load(plugin_path + "/DialogueManager.cs") == null: return false
+
+	return true

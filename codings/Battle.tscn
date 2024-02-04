@@ -61,6 +61,7 @@ CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
 VictorySequence = ""
+VictoryBanter = ""
 Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])
 
 [sub_resource type="Curve" id="Curve_wrfky"]
@@ -2934,7 +2935,6 @@ focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 action_mode = 0
-shortcut = SubResource("Shortcut_qtf0t")
 text = "Continue
 "
 icon = ExtResource("22_wtv1c")
@@ -3114,7 +3114,6 @@ vertical_alignment = 1
 [connection signal="root" from="BattleUI" to="BattleUI" method="_on_root"]
 [connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
-[connection signal="pressed" from="BattleUI/CommandMenu/Escape" to="BattleUI" method="_on_escape"]
 [connection signal="pressed" from="BattleUI/DescPaper/ShowWheel" to="BattleUI" method="_on_show_wheel_pressed"]
 [connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/Ab0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="toggled" from="BattleUI/Inventory/BIbutton" to="BattleUI" method="_on_b_ibutton_pressed"]

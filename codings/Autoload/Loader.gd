@@ -32,7 +32,7 @@ func _ready():
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
-	validate_save()
+	validate_save(load("user://Autosave.tres"))
 
 func save(filename:String="Autosave", showicon=true):
 	if Global.Player == null or Global.Area == null:
@@ -46,7 +46,8 @@ func save(filename:String="Autosave", showicon=true):
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.StartTime
-	data.Z = Global.Player.z_index
+	data.Z = (Global.Player.z_index if get_node_or_null("/root/MainMenu") == null
+		else $"/root/MainMenu".z)
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
@@ -398,7 +399,7 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	$Can/Bars/Right.global_position = Vector2(1394,-177)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	if x == 0: $Can.hide()
+	#if x == 0: $Can.hide()
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
@@ -424,7 +425,9 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1)
 	fader.add_theme_stylebox_override("panel", white)
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.WHITE, in_time)
-	await Event.wait(wait_time)
+	await tf.finished
+	await Event.wait(wait_time, false)
+	$Can.show()
 	tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
 	await tf.finished
@@ -447,7 +450,7 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 	await tf.finished
 	fader.queue_free()
 
-func validate_save(save: SaveFile = load("user://Autosave.tres")) -> bool:
+func validate_save(save: SaveFile) -> bool:
 	if FileAccess.file_exists("user://Autosave.tres"):
 		if save != null and save.version == SaveVersion:
 			Preview = save.Preview

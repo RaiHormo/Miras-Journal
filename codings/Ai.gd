@@ -18,10 +18,11 @@ func ai() -> void:
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif has_type("Healing") and Bt.health_precentage(HpSortedAllies[0]) <= 40 and HpSortedAllies[0].Health != 0:
+		elif Bt.health_precentage(HpSortedAllies[0]) <= 40 and has_type("Healing") and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
 		else:
+			#print(Bt.health_precentage(HpSortedAllies[0]))
 			print("Nothing specific to do")
 			choose(pick_general_ability())
 	else:

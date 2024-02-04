@@ -16,4 +16,5 @@ CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
 VictorySequence = ""
+VictoryBanter = ""
 Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])

@@ -4,6 +4,7 @@ func _ready() -> void:
 	Loader.InBattle = false
 	Global.Bt.queue_free()
 	Global.Area.queue_free()
+	PartyUI.disabled = true
 	get_viewport().gui_focus_changed.connect(focus)
 	$Options/Retry.grab_focus()
 

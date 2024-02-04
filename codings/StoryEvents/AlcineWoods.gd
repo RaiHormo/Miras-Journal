@@ -8,7 +8,7 @@ func default() -> void:
 	if Global.CameraInd == 2 and not Event.f("AlcineFollow", 2):
 		$"../Petrogon".hide()
 		Event.flag_progress("AlcineFollow", 1)
-		Event.warp_to(Vector2(55, -44), "AlcineChase")
+		Event.warp_to(Vector2(55, -44), "Alcine")
 		await Event.wait(0.2)
 		Global.Player.can_dash = false
 		await move_dir(Vector2.UP)
@@ -20,9 +20,10 @@ func default() -> void:
 		$Sprite.frame = 0
 		Event.flag_progress("AlcineFollow", 2)
 		Global.Player.can_dash = true
-	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 2) and not Event.f("AlcineFollow", 3):
+	elif (Global.CameraInd == 2 and Event.f("AlcineFollow", 2)
+	and not Event.f("AlcineFollow", 3)):
 		$"../Petrogon".hide()
-		Event.warp_to(Vector2(55+15, -45), "AlcineChase")
+		Event.warp_to(Vector2(55+15, -45), "Alcine")
 		BodyState = CUSTOM
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
@@ -31,7 +32,8 @@ func default() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
-		if Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and Global.CameraInd == 2 and not Event.f("AlcineFollow", 3):
+		if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
+		Global.CameraInd == 2 and not Event.f("AlcineFollow", 3)):
 			Global.Party.Leader.ClutchDmg = true
 			Event.CutsceneHandler = self
 			await Event.take_control()
@@ -111,7 +113,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Event.flag_progress("AlcineFollow", 1)
 
 func skip():
-	if Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and Global.CameraInd == 2 and not Event.f("AlcineFollow4"):
+	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
+	Global.CameraInd == 2 and not Event.f("AlcineFollow4")):
 		Event.flag_progress("AlcineFollow", 3)
 		$"../Petrogon".hide()
 		$"../Petrogon".play("Idle")
@@ -131,18 +134,41 @@ func alcine_helps():
 	$Sprite.play("IdleRight")
 	await bubble("Surprise")
 	PartyUI.only_current()
-	var hp = Global.Bt.get_actor("Petrogon").Health
+	var hp := Global.Bt.get_actor("Petrogon").Health
 	await move_dir(Vector2.UP)
 	await move_dir(Vector2.RIGHT)
 	z_index = 9
 	Global.jump_to_global(self, Vector2(1660, -1068), 7, 0.5)
-	Loader.white_fadeout(2, 1.5, 0.5)
+	Loader.white_fadeout(2, 3, 0.5)
 	await Event.wait(0.5)
 	Global.Bt.end_battle()
-	await Event.wait(1)
 	hide()
 	Global.Party.add("Alcine")
+	await Event.wait(1)
 	await Loader.start_battle("AlcineFollow2")
 	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
 	Global.Bt.get_actor("Petrogon").Health = hp
 
+func after_battle():
+	while Loader.InBattle: await Event.wait(0.1)
+	z_index = 0
+	show()
+	Global.Player.get_node("%Base").sprite_frames = Global.find_member("Mira").OV
+	Global.Area.Followers[0].hide()
+	position = Global.Area.Followers[0].position
+	await Global.Player.go_to(Vector2(67, -45), true)
+	await go_to(Vector2(66, -45), true)
+	await Event.wait(0.3)
+	look_to(Vector2.RIGHT)
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.tween_property(Global.get_cam(), "position", Global.Player.position - Vector2(18, 0), 1)
+	Event.take_control()
+	Global.Player.look_to(Vector2.LEFT)
+	await Global.textbox("temple_woods_random", "got_through_that")
+	await Loader.transition("R")
+	hide()
+	Global.get_cam().zoom = Vector2(4, 4)
+	await Loader.detransition()
+	Event.give_control()

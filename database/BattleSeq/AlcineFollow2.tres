@@ -44,4 +44,5 @@ CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "AlcineWoods2"
 VictorySequence = ""
+VictoryBanter = "it_flew_away"
 Events = Array[ExtResource("2_xpmoy")]([SubResource("Resource_7bvd2"), SubResource("Resource_q672f")])

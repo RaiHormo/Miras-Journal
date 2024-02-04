@@ -1,0 +1,4 @@
+~ it_flew_away
+do portrait("MiraNeutural")
+Mira: Oh it flew away...\nI guess we'll be ok.
+=> END

@@ -132,8 +132,7 @@ func _on_button_pressed() -> void:
 		"text":
 			await Event.take_control()
 			await Global.textbox(file, title)
-			PartyUI.UIvisible = true
-			Global.Controllable = true
+			Event.give_control()
 		"item":
 			Item.add_item(item, itemtype)
 		"battle":

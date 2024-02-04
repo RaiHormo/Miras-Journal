@@ -1,6 +1,7 @@
 @icon("./assets/icon.svg")
 
 @tool
+
 ## A RichTextLabel specifically for use with [b]Dialogue Manager[/b] dialogue.
 class_name DialogueLabel extends RichTextLabel
 
@@ -18,7 +19,7 @@ signal skipped_typing()
 signal finished_typing()
 
 
-## The action to press to skip typing.
+# The action to press to skip typing.
 @export var skip_action: StringName = &"ui_cancel"
 
 ## The speed with which the text types out.
@@ -30,8 +31,13 @@ signal finished_typing()
 ## Don't auto pause if the charcter after the pause is one of these.
 @export var skip_pause_at_character_if_followed_by: String = ")\""
 
+## Don't auto pause after these abbreviations (only if "." is in `pause_at_characters`).[br]
+## Abbreviations are limitted to 5 characters in length [br]
+## Does not support multi-period abbreviations (ex. "p.m.")
+@export var skip_pause_at_abbreviations: PackedStringArray = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
+
 ## The amount of time to pause when exposing a character present in pause_at_characters.
-@export var seconds_per_pause_step: float = 0.1
+@export var seconds_per_pause_step: float = 0.3
 
 
 ## The current line of dialogue.
@@ -74,6 +80,9 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Note: this will no longer be reached if using Dialogue Manager > 2.32.2. To make skip handling
+	# simpler (so all of mouse/keyboard/joypad are together) it is now the responsibility of the
+	# dialogue balloon.
 	if self.is_typing and visible_ratio < 1 and InputMap.has_action(skip_action) and event.is_action_pressed(skip_action):
 		get_viewport().set_input_as_handled()
 		skip_typing()
@@ -188,6 +197,15 @@ func _should_auto_pause() -> bool:
 		var possible_number: String = parsed_text.substr(visible_characters - 2, 3)
 		if str(float(possible_number)) == possible_number:
 			return false
+
+	# Ignore "." if it's used in an abbreviation
+	# Note: does NOT support multi-period abbreviations (ex. p.m.)
+	if "." in pause_at_characters and parsed_text[visible_characters - 1] == ".":
+		for abbreviation in skip_pause_at_abbreviations:
+			if visible_characters >= abbreviation.length():
+				var previous_characters: String = parsed_text.substr(visible_characters - abbreviation.length() - 1, abbreviation.length())
+				if previous_characters == abbreviation:
+					return false
 
 	# Ignore two non-"." characters next to each other
 	var other_pause_characters: PackedStringArray = pause_at_characters.replace(".", "").split()

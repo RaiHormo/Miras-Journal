@@ -54,7 +54,7 @@ func _ready() -> void:
 	lights_loaded.emit()
 
 func quit() -> void:
-	if Loader.InBattle or Player == null or Area == null: get_tree().quit()
+	if Loader.InBattle or not Global.Controllable or Player == null or Area == null: get_tree().quit()
 	Loader.icon_save()
 	await Loader.transition("")
 	if get_node_or_null("/root/Options") != null:
@@ -327,7 +327,7 @@ func reset_all_members() -> void:
 func find_member(Name: StringName) -> Actor:
 	for i in Members:
 		if i.codename == Name: return i
-	return Party.Leader
+	return null
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
@@ -365,12 +365,12 @@ func is_in_party(n:String) -> bool:
 
 #region Textbox Managment
 
-## Show the custom balloon
 func textbox(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
 	var balloon: Node = Textbox2.instantiate()
+	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
-	if balloon != null: balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	if balloon != null: balloon.start(text, title, extra_game_states)
 	await textbox_close
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
@@ -410,7 +410,6 @@ func toast(string: String) -> void:
 	if tost != null:
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
-
 #Match profile
 func match_profile(named:String) -> TextProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
@@ -444,9 +443,12 @@ func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 			return Vector2.UP
 
 func get_cam() -> Camera2D:
-	if Area == null: return null
+	if Area == null: return Camera2D.new()
 	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
+
+func str_length(str: String):
+	return str.length()
 
 func get_mmm(month: int) -> String:
 	match month:

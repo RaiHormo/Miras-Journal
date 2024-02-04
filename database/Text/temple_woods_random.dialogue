@@ -12,13 +12,11 @@ Maybe I should follow it.
 => END
 
 ~ cant_dash_on_flame
-do portrait("MiraNeutural")
-Mira: I can't dash and hold this flame at the same time.[next=4]
+Mira.Neutural: I can't dash and hold this flame at the same time.[next=4]
 => END
 
 ~ hey_wait
-do portrait("MiraOpenMouth")
-Mira: Hey wait![next=2]
+Mira.OpenMouth: Hey wait![next=2]
 => END
 
 ~ approach
@@ -26,32 +24,25 @@ It seems scared of me...
 => END
 
 ~ im_not_gonna_harm_you
-do portrait("MiraSmile")
-Mira: Come on, it's all fine. I don't want to harm you.
+Mira.Smile: Come on, it's all fine. I don't want to harm you.
 => END
 
 ~ as_lost_as_you
-do portrait("MiraNeutural")
-Mira: I guess you're just as lost.
-do portrait("MiraOpenMouth", false)
-Mira: This forest is not safe, we should look for a way out.
+Mira.Neutural: I guess you're just as lost.
+Mira.OpenMouth: This forest is not safe, we should look for a way out.
 => END
 
 ~ haha
-do portrait("MiraSmile")
-Mira: Haha, you can have that if you want!
-do portrait("MiraSmile")
-Mira: Here.
+Mira.Smile: Haha, you can have that if you want!
+Mira.Smile: Here.
 => END
 
 ~ good_on_you
-do portrait("MiraSmile")
-Mira: Looks good on you!
+Mira.Smile: Looks good on you!
 => END
 
 ~ stay_back
-do portrait("MiraOpenMouth")
-Mira: You stay behind me,\nI'll deal with it!
+Mira.OpenMouth: You stay behind me,\nI'll deal with it!
 => END!
 
 ~ skeleton
@@ -88,23 +79,51 @@ From the shape, these seem more like human legs, but it's hard to tell.
 => END
 
 ~ not_going_well
-do portrait("MiraNeutural")
-Mira: Ow, this hurts...
-do portrait("MiraNeutural", false)
-Mira: Do I have anything that could heal me?
+Mira.Neutural: Ow, this hurts...
+Mira.Neutural: Do I have anything that could heal me?
 => END
 
 ~ going_nowhere
-do portrait("MiraNeutural")
-Mira: If this goes on...
-do portrait("MiraNeutural", false)
-Mira: Hey, I think we might have to run away!
+Mira.Neutural: If this goes on...
+Mira.Neutural: Hey, I think we might have to run away!
 => END
 
 ~ amazing
-do portrait("MiraNeutural")
-Mira: Woah, you can use healing magic!?
-do portrait("MiraNeutural", false)
-Mira: We might have a chance like this!
+Mira.Neutural: Woah, you can use healing magic!?
+Mira.Neutural: We might have a chance like this!
 Alcine: (happy noises)
+=> END
+
+~ got_through_that
+Mira.Neutural: We should be safe now.
+Mira.Neutural: If it wasn't for you, I'd be done for.
+Mira.Neutural: We should stick together for now, [wait=0.5]umm...
+Mira.Neutural: Wait, do you have a name?
+ [next=auto]
+do bubble("Question", "Alcine")
+[wait=1] [next=auto]
+Mira.Neutural: Oh right, you can't talk.\nBut I need to call you something...
+Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alright?
+
+~ what_about
+if find_member("Alcine").FirstName == "Alcine":
+	"Alcine". I think that's the best name I can think of.
+	- Use this name
+		=> use_name
+	- Let's rethink this
+elif "Mira" in find_member("Alcine").FirstName or "Levenor" in find_member("Alcine").FirstName:
+	Name them after me? That might get confusing easily, let's rethink this.
+elif str_length(find_member("Alcine").FirstName) > 12:
+	Isn't that a bit too long? Let's try something shorter.
+elif str_length(find_member("Alcine").FirstName) == 1:
+	Let's try to be a little more creative.
+else:
+	"{{find_member("Alcine").FirstName}}". Should I go with this?
+	- Use this name
+		=> use_name
+	- Let's rethink this
+=> what_about
+
+~ use_name
+Mira: What about "{{find_member("Alcine").FirstName}}"?
 => END

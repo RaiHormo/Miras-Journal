@@ -362,7 +362,7 @@ func battle_state():
 		Partybox.get_node("Leader/Aura/AruaText").modulate= Color(1, 1, 1, 1)
 		Partybox.get_node("Leader/Level").position= Vector2(140,71)
 		#Partybox.get_node("Member1").position= Vector2(0,189)
-		Partybox.get_node("Member1/Icon").scale= Vector2(0.044,0.044)
+		Partybox.get_node("Member1/Icon").scale= Vector2(0.09,0.09)
 		Partybox.get_node("Member1/Name").show()
 		Partybox.get_node("Member1/Level").show()
 		Partybox.get_node("Member1/Health/HpText").modulate= Color(1, 1, 1, 1)
@@ -388,7 +388,6 @@ func battle_state():
 func _on_battle_ui_root():
 	battle_state()
 
-
 func only_current():
 	t = create_tween()
 	t.set_parallel(true)
@@ -399,7 +398,6 @@ func only_current():
 		t.tween_property($CanvasLayer/Leader, "position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
-
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)

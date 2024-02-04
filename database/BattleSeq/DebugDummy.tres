@@ -48,4 +48,5 @@ CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
 VictorySequence = ""
+VictoryBanter = ""
 Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_5vx4i"), SubResource("Resource_wpf26")])
