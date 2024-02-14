@@ -104,7 +104,7 @@ var dialogue_line: DialogueLine:
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
-			var prof = await Global.match_profile(tr(dialogue_line.character, "dialogue"))
+			var prof = await Global.match_profile(char_name)
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		if dialogue_line.time != "":

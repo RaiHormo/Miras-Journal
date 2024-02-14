@@ -51,6 +51,7 @@ func _ready() -> void:
 		for i in Global.Area.Followers:
 			i.dont_follow = false
 	Event.give_control()
+	Global.player_ready.emit()
 
 
 func extended_process() -> void:
@@ -155,7 +156,6 @@ func update_anim_prm() -> void:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
-				speed = 75
 				set_anim(str("Walk"+Global.get_dir_name()))
 				%Base.speed_scale=(realvelocity.length()/70)
 				%Base/Bag.speed_scale=(realvelocity.length()/70)

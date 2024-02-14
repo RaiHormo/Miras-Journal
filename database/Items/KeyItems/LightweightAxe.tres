@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_1608p"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="1_ryhrm"]
 
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xa71e"]
 load_path = "res://.godot/imported/Items.png-a1707d6ce84f8e29b61e03932ed93aa1.ctex"
 
@@ -19,8 +18,9 @@ Description = "A light and easy to weild axe.
 It can be attached to a strap on the bag."
 Icon = SubResource("AtlasTexture_w33rk")
 Artwork = ExtResource("1_ryhrm")
+Quantity = 0
+QuantityMeansUses = false
 Use = 0
 UsedInBattle = false
-Target = 3
+OvTarget = 3
 Parameter = ""
-Quantity = 0

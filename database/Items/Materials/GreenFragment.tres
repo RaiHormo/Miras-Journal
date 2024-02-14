@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MaterialItem" load_steps=4 format=3 uid="uid://cmokwg7s4gasp"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ag23r"]
+[ext_resource type="Script" path="res://codings/Classes/material_class.gd" id="1_khxi8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2sve"]
+atlas = ExtResource("1_ag23r")
+region = Rect2(126, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_khxi8")
+Essence = Color(0.337255, 0.843137, 0.254902, 1)
+Name = "Green Fragment"
+Description = "A small crystal that contains a pure essence of Wind."
+Icon = SubResource("AtlasTexture_n2sve")
+Quantity = 0
+Use = 0
+UsedInBattle = false
+OvTarget = 3
+Parameter = ""

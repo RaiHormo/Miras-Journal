@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxghrxdajokgh"]
+
+[ext_resource type="Script" path="res://UI/Misc/location_name.gd" id="1_gl338"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="1_uejks"]
+
+[node name="LocationName" type="CanvasLayer"]
+script = ExtResource("1_gl338")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -399.5
+offset_top = -206.5
+offset_right = 399.5
+offset_bottom = 206.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(399.5, 206.5)
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_uejks")
+theme_override_font_sizes/font_size = 120
+text = "The Name of the Location"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 235

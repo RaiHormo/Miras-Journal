@@ -90,8 +90,10 @@ func _input(ev):
 	if Input.is_action_just_pressed("DebugT"):
 		Global.passive("testbush", "greetings")
 	if Input.is_action_just_pressed("DebugP"):
-		Global.toast("Controllable set to " + str(Global.toggle(Global.Controllable)))
-		Global.Controllable = Global.toggle(Global.Controllable)
+		Global.toast("Controllable set to " + str(!Global.Controllable))
+		if Global.Controllable == true:
+			Event.take_control()
+		else: Event.give_control()
 	if Input.is_action_just_pressed("DebugI"):
 		Item.add_item("SmallPotion", "Con")
 	if Input.is_action_just_pressed("DebugA"):

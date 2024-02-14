@@ -42,9 +42,10 @@ Description = "A small bottle containing a healing potion.
 Restores 50 HP"
 Icon = SubResource("AtlasTexture_4bywt")
 Artwork = ExtResource("1_vdi2s")
+Quantity = 0
+QuantityMeansUses = false
 Use = 3
 UsedInBattle = true
 OvTarget = 3
 BattleEffect = SubResource("Resource_iwvc1")
 Parameter = "50"
-Quantity = 0

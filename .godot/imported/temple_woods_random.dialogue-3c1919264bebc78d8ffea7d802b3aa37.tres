@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_56puj"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_3y6t4"]
 
 [resource]
-script = ExtResource("1_56puj")
+script = ExtResource("1_3y6t4")
 using_states = PackedStringArray()
 titles = {
+"a_bridge": "132",
 "amazing": "92",
 "approach": "23",
 "as_lost_as_you": "31",
@@ -515,6 +516,42 @@ But I need to call you something...",
 },
 "129": {
 "id": "129",
+"is_snippet": false,
+"next_id": "end",
+"type": "goto"
+},
+"131": {
+"id": "131",
+"next_id": "132",
+"text": "a_bridge",
+"type": "title"
+},
+"132": {
+"character": "Mira.Neutural",
+"character_replacements": Array[Dictionary]([]),
+"id": "132",
+"next_id": "133",
+"notes": "",
+"tags": PackedStringArray(),
+"text": "Oh a bridge.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Oh a bridge.",
+"type": "dialogue"
+},
+"133": {
+"character": "Mira.Neutural",
+"character_replacements": Array[Dictionary]([]),
+"id": "133",
+"next_id": "134",
+"notes": "",
+"tags": PackedStringArray(),
+"text": "Seems like this is our way out of this forest.",
+"text_replacements": Array[Dictionary]([]),
+"translation_key": "Seems like this is our way out of this forest.",
+"type": "dialogue"
+},
+"134": {
+"id": "134",
 "is_snippet": false,
 "next_id": "end",
 "type": "goto"
@@ -1465,5 +1502,10 @@ else:
 
 ~ use_name
 Mira: What about \"{{find_member(\"Alcine\").FirstName}}\"?
+=> END
+
+~ a_bridge
+Mira.Neutural: Oh a bridge.
+Mira.Neutural: Seems like this is our way out of this forest.
 => END"
 metadata/dialogue_manager_version = "2.33.1"

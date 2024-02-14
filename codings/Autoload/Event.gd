@@ -110,7 +110,7 @@ func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
-func take_control(keep_ui = false):
+func take_control(keep_ui := false, keep_followers := false):
 	if Global.Player == null or Global.Area == null:  return
 	if Global.Player.dashing: await Global.Player.stop_dash()
 	Global.Player.winding_attack = false
@@ -119,8 +119,9 @@ func take_control(keep_ui = false):
 	Global.Controllable = false
 	Global.Player.BodyState = NPC.IDLE
 	Global.Player.set_anim()
-	for i in Global.Area.Followers:
-		i.dont_follow = true
+	if not keep_followers:
+		for i in Global.Area.Followers:
+			i.dont_follow = true
 	await wait()
 
 func give_control():
@@ -158,7 +159,7 @@ func skip_cutscene():
 		await Event.wait()
 		var dub = CutsceneHandler.duplicate()
 		CutsceneHandler.free()
-		Global.Area.add_child(dub)
+		if Global.Area != null: Global.Area.add_child(dub)
 		await Event.wait()
 		dub.skip()
 		Loader.detransition()
@@ -166,7 +167,6 @@ func skip_cutscene():
 
 func bubble(anim: String, npc: String):
 	npc(npc).bubble(anim)
-
 ##########################################################
 
 #region Sequences

@@ -32,6 +32,7 @@ signal check_party
 signal anim_done
 signal area_initialized
 signal textbox_close
+signal player_ready
 
 var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
@@ -410,6 +411,16 @@ func toast(string: String) -> void:
 	if tost != null:
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
+func location_name(string: String) -> void:
+	if get_node_or_null("/root/LocationName") != null:
+		$/root/LocationName.free()
+		await Event.wait()
+	var tost = preload("res://UI/Misc/LocationName.tscn").instantiate()
+	get_tree().root.add_child(tost)
+	await Event.wait()
+	if tost != null:
+		tost.get_node("Label").text = string
+
 #Match profile
 func match_profile(named:String) -> TextProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
@@ -506,6 +517,9 @@ func in_360(nm) -> int:
 	if n > 359: return n - 359
 	elif n < 0: return 359 + n
 	else: return n
+
+func alcine_name() -> String:
+	return find_member("Alcine").FirstName
 
 func range_360(n1, n2) -> Array:
 	if n2 > 359:

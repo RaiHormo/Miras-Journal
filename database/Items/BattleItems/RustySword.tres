@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bosscgoo8k16u"]
+
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_jpavj"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ua74k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asmxh"]
+atlas = ExtResource("1_ua74k")
+region = Rect2(18, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_jpavj")
+Name = "Rusty Sword"
+Description = "An old rusty sword found in an abandoned building.
+It could be used 3 times before it breaks."
+Icon = SubResource("AtlasTexture_asmxh")
+Quantity = 0
+QuantityMeansUses = true
+AmountOnAdd = 3
+Use = 0
+UsedInBattle = true
+OvTarget = 1
+Parameter = ""

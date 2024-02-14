@@ -28,6 +28,9 @@ func default() -> void:
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
 		$Sprite.frame = 0
+	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
+		position = Vector2(1963, -1312)
+		hide()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -111,6 +114,15 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("temple_woods_random", "was_that_a")
 			await Event.give_control()
 			Event.flag_progress("AlcineFollow", 1)
+		elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
+			await Event.take_control()
+			Event.give_control()
+			Global.Player.can_dash = false
+			Global.Player.speed = 50
+			await Global.passive("temple_woods_random", "a_bridge")
+			Global.Player.can_dash = true
+			Global.Player.speed = 75
+
 
 func skip():
 	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
@@ -172,3 +184,4 @@ func after_battle():
 	Global.get_cam().zoom = Vector2(4, 4)
 	await Loader.detransition()
 	Event.give_control()
+	default()

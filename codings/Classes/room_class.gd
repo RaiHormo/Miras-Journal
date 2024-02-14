@@ -12,7 +12,7 @@ class_name Room
 ##[x]: left [y]: top [z]: right [w]: bottom
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
-@export var Stairs: Array[Stair]
+var Stairs: Array[Stair]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 ##[0]: left [1]: top [2]: right [3]: bottom
 var bounds : Vector4
@@ -21,7 +21,6 @@ var Cam = Camera2D.new()
 var Followers: Array[Follower] = []
 
 func _ready():
-	#print(SpawnLayers)
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
@@ -55,13 +54,18 @@ func _ready():
 #	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self
 	Global.Tilemap = self
-	await Event.wait()
+	await Global.player_ready
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)
 		handle_z()
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers
+	await Event.wait()
 	Global.area_initialized.emit()
+	default()
+
+func default():
+	pass
 
 func calculate_bounds():
 	for pos in get_used_cells(0):

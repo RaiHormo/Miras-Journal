@@ -442,12 +442,17 @@ func get_inventory():
 	if Item.MatInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/Materials.visible = !Item.MatInv.is_empty()
 		$Inventory/Margin/Scroller/Vbox/MatLabel.visible = !Item.MatInv.is_empty()
+	if Item.BtiInv.is_empty():
+		$Inventory/Margin/Scroller/Vbox/BattleItems.visible = !Item.BtiInv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/BtiLabel.visible = !Item.BtiInv.is_empty()
 
 	for i in $Inventory/Margin/Scroller/Vbox/KeyItems.get_children():
 		i.queue_free()
 	for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
 		i.queue_free()
 	for i in $Inventory/Margin/Scroller/Vbox/Materials.get_children():
+		i.queue_free()
+	for i in $Inventory/Margin/Scroller/Vbox/BattleItems.get_children():
 		i.queue_free()
 
 	for item in Item.KeyInv:
@@ -456,6 +461,8 @@ func get_inventory():
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/Consumables)
 	for item in Item.MatInv:
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/Materials)
+	for item in Item.BtiInv:
+		make_slot(item, $Inventory/Margin/Scroller/Vbox/BattleItems)
 
 func make_slot(item: ItemData, grid: GridContainer):
 	var dub =  $Inventory/Item.duplicate()
@@ -474,8 +481,13 @@ func focus_item(node:Button):
 	$DescPaper/Title.text = item.Name
 	$DescPaper/Desc.text = item.Description
 	$DescPaper/Art.texture = item.Artwork
+	if node.get_parent().name == "KeyItems":
+		$Inventory/Margin/Scroller.scroll_vertical = 0
 	if item.Quantity>1:
-		$DescPaper/Amount.text = str(item.Quantity) + " in bag"
+		if item.QuantityMeansUses:
+			$DescPaper/Amount.text = str(item.Quantity) + " uses remain"
+		else:
+			$DescPaper/Amount.text = str(item.Quantity) + " in bag"
 		$DescPaper/Amount.show()
 	else:
 		$DescPaper/Amount.hide()

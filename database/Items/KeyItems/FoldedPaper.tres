@@ -10,11 +10,12 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_larht")
-Name = "Folded paper"
+Name = "Folded Paper"
 Description = "A sheet of paper folded twice."
 Icon = SubResource("AtlasTexture_a4axw")
+Quantity = 0
+QuantityMeansUses = false
 Use = 1
 UsedInBattle = false
 OvTarget = 3
 Parameter = "folded_paper"
-Quantity = 0

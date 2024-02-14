@@ -12,10 +12,11 @@ script = ExtResource("1_aisg0")
 Essence = Color(0.560784, 1, 0.886275, 1)
 Name = "White Slime"
 Description = "A piece of slime from a white sludge monster. 
-Contains a spiritual energy."
+Contains a Spiritual energy."
 Icon = SubResource("AtlasTexture_o2rdi")
+Quantity = 0
+QuantityMeansUses = false
 Use = 0
 UsedInBattle = false
 OvTarget = 3
 Parameter = ""
-Quantity = 0

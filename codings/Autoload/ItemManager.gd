@@ -45,11 +45,11 @@ func add_item(ItemName, type: StringName, animate=true):
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
 	if not check_item(ItemName, type):
-		item.Quantity = 1
+		item.Quantity = item.AmountOnAdd
 		inv.append(item)
 	else: for i in inv:
 		if i.filename == item.filename:
-			i.Quantity += 1
+			i.Quantity += item.AmountOnAdd
 	overwrite_inv(inv, type)
 	if animate: get_animation(item.Icon, item.Name)
 

@@ -140,7 +140,7 @@ func go_to_global(pos:Vector2,  exact=true, autostop = true, look_to: Vector2 = 
 
 func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
-	if self is Mira and Global.Controllable: return
+	if self is Mira and Global.Controllable: await Event.take_control()
 	#await stop_going()
 	Nav.set_target_position(Global.Tilemap.map_to_local(pos))
 	BodyState = MOVE
@@ -208,3 +208,7 @@ func collision(tog: bool = $CollisionShape2D.disabled):
 
 func attacked():
 	pass
+
+func chain_moves(moves: Array[Vector2]):
+	for i in moves:
+		await move_dir(i)

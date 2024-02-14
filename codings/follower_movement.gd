@@ -50,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 				$CollisionShape2D.disabled = true
 			else:
 				$CollisionShape2D.disabled = false
-		elif nav_agent.distance_to_target() < 20:
+		elif nav_agent.distance_to_target() < 20 and Global.Controllable:
 			add_collision_exception_with(Global.Player)
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
@@ -60,14 +60,13 @@ func _physics_process(_delta: float) -> void:
 		#if realvelocity == Vector2.ZERO:
 			#position = round(position)
 		#print((global_position-oldposition).length())
-		if (global_position-oldposition).length() > 0.5:
+		if (global_position-oldposition).length() > 0.3:
 			moving =true
 			realvelocity=global_position-oldposition
 		else:
 			moving =false
 
 		makepath()
-
 
 	else:
 		hide()

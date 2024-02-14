@@ -5,8 +5,9 @@ extends Area2D
 @export var ToCamera:int =0
 
 func _on_entered(body):
-	if body == Global.Player:
+	if body == Global.Player and Global.Controllable:
 		await Event.take_control()
+		body.collision(false)
 		body.move_dir(Direction*5)
 		await Loader.travel_to(Room, Position, ToCamera)
 

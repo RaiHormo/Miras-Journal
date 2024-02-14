@@ -3279,7 +3279,6 @@ collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("2_d6ige")
-speed = 70
 Nav = NodePath("Nav")
 
 [node name="Sprite" type="CanvasGroup" parent="."]
@@ -3293,10 +3292,8 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"BagGet"
+animation = &"SitRight"
 autoplay = "IdleDown"
-frame = 7
-frame_progress = 1.0
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",

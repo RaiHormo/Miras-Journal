@@ -36,14 +36,15 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_t4t8r")
-Name = "Strange fruit"
+Name = "Strange Fruit"
 Description = "Eddible probably?
 Restores 30 HP
 "
 Icon = SubResource("AtlasTexture_1sl0m")
+Quantity = 0
+QuantityMeansUses = false
 Use = 3
 UsedInBattle = true
 OvTarget = 3
 BattleEffect = SubResource("Resource_53v3u")
 Parameter = "30"
-Quantity = 0

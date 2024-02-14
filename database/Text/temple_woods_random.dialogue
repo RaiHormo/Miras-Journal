@@ -127,3 +127,8 @@ else:
 ~ use_name
 Mira: What about "{{find_member("Alcine").FirstName}}"?
 => END
+
+~ a_bridge
+Mira.Neutural: Oh a bridge.
+Mira.Neutural: Seems like this is our way out of this forest.
+=> END
