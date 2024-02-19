@@ -15,6 +15,7 @@ Description = "A case with a few writting supplies."
 Icon = SubResource("AtlasTexture_dacdr")
 Quantity = 0
 QuantityMeansUses = false
+AmountOnAdd = 1
 Use = 1
 UsedInBattle = false
 OvTarget = 3

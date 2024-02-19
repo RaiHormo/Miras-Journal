@@ -53,6 +53,8 @@ func _ready() -> void:
 	init_settings()
 	if Tilemap != null: await nodes_of_type(Tilemap, "Light2D", Lights)
 	lights_loaded.emit()
+	#print(Input.get_joy_name(0))
+	Input.start_joy_vibration(0, 1, 1)
 
 func quit() -> void:
 	if Loader.InBattle or not Global.Controllable or Player == null or Area == null: get_tree().quit()
