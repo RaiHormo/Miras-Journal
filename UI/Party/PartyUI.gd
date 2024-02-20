@@ -19,20 +19,27 @@ var MemberChoosing = false
 @onready var Partybox = $CanvasLayer
 var disabled = true
 var LevelupChain: Array[Actor] = []
+var submenu_opened := false
 
 func _ready():
 	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
-	Global.check_party.connect(_check_party)
-	await get_tree().create_timer(0.00001).timeout
-	Global.check_party.emit()
+	await Event.wait()
+	for i in range(1, 4):
+		var page = %Pages/Page0.duplicate()
+		page.name = "Page"+str(i)
+		page.z_index = 3 - i
+		
+		%Pages.add_child(page)
 	if not Loader.InBattle:
 		shrink.emit()
 		UIvisible = true
+	Global.check_party.connect(_check_party)
+	Global.check_party.emit()
 
 func _process(delta):
 	if disabled: UIvisible = false
-	if Expanded:
+	if Expanded and not submenu_opened:
 		handle_ui()
 	if not Loader.InBattle:
 		if disabled: UIvisible = false
@@ -74,13 +81,11 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null and "Idle" in Global.Player.get_node("%Base").animation:
+	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null 
+	and "Idle" in Global.Player.get_node("%Base").animation):
 		Global.options()
-	if Input.is_action_just_pressed(Global.cancel()) and Expanded and not MemberChoosing:
-		$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
-		$Audio.play()
-		shrink.emit()
-		Global.cancel_sound()
+	if Input.is_action_just_pressed(Global.cancel()):
+		back()
 	if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
 		_on_item_preview_pressed()
 
@@ -115,7 +120,6 @@ func darken(toggle := true):
 		await t.finished
 		if $CanvasLayer/Fade.color == Color.TRANSPARENT: $CanvasLayer/Fade.hide()
 
-
 func _on_expand(open_ui=0):
 	#print(open_ui)
 	t.kill()
@@ -126,36 +130,35 @@ func _on_expand(open_ui=0):
 	get_tree().paused = true
 	Global.Controllable=false
 	$CanvasLayer/Cursor/ItemPreview.hide()
+	%Pages.show()
 	#Pages
+	for page in %Pages.get_children():
+		page.rotation_degrees = randf_range(-2, 2)
 	if open_ui == 0:
-		$CanvasLayer/Page1.show()
-		if Global.Party.check_member(1):
-			$CanvasLayer/Page2.show()
-		else:
-			$CanvasLayer/Page2.hide()
-		if Global.Party.check_member(2):
-			$CanvasLayer/Page3.show()
-		else:
-			$CanvasLayer/Page3.hide()
-		if Global.Party.check_member(3):
-			$CanvasLayer/Page4.show()
-		else:
-			$CanvasLayer/Page4.hide()
+		for i in range(0,4):
+			if Global.check_member(i): get_node("%Pages/Page"+str(i)).show()
+			else: get_node("%Pages/Page"+str(i)).hide()
+		$CanvasLayer/Cursor/MemberOptions.show()
+		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Global.get_controller().CommandIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.icon = Global.get_controller().ConfirmIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
+		$CanvasLayer/Cursor/MemberOptions.size.y = 1
 		$CanvasLayer/Fade.show()
 		$CanvasLayer/Back.show()
 		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_BACK)
-		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
+		t.set_parallel()
+		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.4)
+		t.tween_property($CanvasLayer/Cursor/MemberOptions, 
+		"size:x", $CanvasLayer/Cursor/MemberOptions.size.x, 0.3).from(0)
 		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	else:
-		$CanvasLayer/Page1.hide()
-		$CanvasLayer/Page2.hide()
-		$CanvasLayer/Page3.hide()
-		$CanvasLayer/Page4.hide()
+		$CanvasLayer/Cursor/MemberOptions.hide()
+		%Pages.hide()
 	if open_ui < 2:
 		t = create_tween()
-		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
+		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.2)
 		darken()
 
 	expand_panel(Partybox.get_node("Leader"))
@@ -222,11 +225,11 @@ func _on_shrink():
 	t.set_trans(Tween.TRANS_BACK)
 	#Pages
 	$CanvasLayer/Cursor.position=CursorPosition[0]
-	t.tween_property($CanvasLayer/Page1, "position", Vector2(1300,44), 0.3)
-	t.tween_property($CanvasLayer/Page2, "position", Vector2(1300,44), 0.3)
-	t.tween_property($CanvasLayer/Page3, "position", Vector2(1366,44), 0.3)
-	t.tween_property($CanvasLayer/Page4, "position", Vector2(1366,44), 0.3)
-	t.tween_property($CanvasLayer/Page1/Render, "position", Vector2(179,44), 0.6)
+	t.tween_property(%Pages/Page1, "position", Vector2(1300,44), 0.3)
+	t.tween_property(%Pages/Page2, "position", Vector2(1300,44), 0.3)
+	t.tween_property(%Pages/Page3, "position", Vector2(1366,44), 0.3)
+	t.tween_property(%Pages/Page0, "position", Vector2(1366,44), 0.3)
+	t.tween_property(%Pages/Page0/Render, "position", Vector2(179,44), 0.6)
 
 	t.tween_property($CanvasLayer/Back, "position:x", -150, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
@@ -239,10 +242,7 @@ func _on_shrink():
 	if not MemberChoosing: Global.Controllable= true
 	MemberChoosing = false
 	$CanvasLayer/Back.hide()
-	$CanvasLayer/Page1.hide()
-	$CanvasLayer/Page2.hide()
-	$CanvasLayer/Page3.hide()
-	$CanvasLayer/Page4.hide()
+	%Pages.hide()
 
 func shrink_panel(Pan:Panel, mem = 0,):
 	t = create_tween()
@@ -316,29 +316,58 @@ func focus_now():
 	t.tween_property($CanvasLayer/Cursor, "position", CursorPosition[focus], 0.1)
 	#await get_tree().create_timer(0.3).timeout
 	if MemberChoosing: return
-	if focus == 0:
-		t.tween_property($CanvasLayer/Page1,"position", Vector2(634, 44), 0.5)#.from(Vector2(1200,44))
-		t.tween_property($CanvasLayer/Page2,"position", Vector2(634, 44), 0.4)
-		t.tween_property($CanvasLayer/Page3,"position", Vector2(634, 44), 0.3)
-		t.tween_property($CanvasLayer/Page4,"position", Vector2(634, 44), 0.2)
-		t.tween_property($CanvasLayer/Page1/Render,"position", Vector2(150, 130), 0.5)#.from(Vector2(-15, 198))
-		t.tween_property($CanvasLayer/Page2/Render,"position", Vector2(-15, 150), 0.3)
-		t.tween_property($CanvasLayer/Page1/Render/Shadow, "modulate", Color(1,1,1,0.5), 0.5)
-		t.tween_property($CanvasLayer/Page2/Render/Shadow, "modulate", Color.TRANSPARENT, 0.5)
-		t.tween_property($CanvasLayer/Page1/Render/Shadow,"position", Vector2(-35,143), 0.5,)#.from(Vector2(120,80))
-		t.tween_property($CanvasLayer/Page2/Render/Shadow,"position", Vector2(100,0), 0.5,)
-	if focus == 1:
-		t.tween_property($CanvasLayer/Page1,"position", Vector2(1300, 44), 0.3)
-		t.tween_property($CanvasLayer/Page3,"position", Vector2(634, 44), 0.3)
-		t.tween_property($CanvasLayer/Page4,"position", Vector2(634, 44), 0.3)
-		t.tween_property($CanvasLayer/Page1/Render/Shadow, "modulate", Color.TRANSPARENT, 0.3)
-		t.tween_property($CanvasLayer/Page2/Render/Shadow, "modulate", Color(1,1,1, 0.5), 0.5)
-		t.tween_property($CanvasLayer/Page2/Render/Shadow,"position", Vector2(-35,143), 0.5)
-		t.tween_property($CanvasLayer/Page1/Render,"position", Vector2(-15, 150), 0.3)
-		t.tween_property($CanvasLayer/Page2,"position", Vector2(634, 44), 0.3)
-		t.tween_property($CanvasLayer/Page2/Render,"position", Vector2(280, 187), 0.5)
-		t.tween_property($CanvasLayer/Page1/Render/Shadow,"position", Vector2(0,0), 0.3)
-
+	if focus == 0: $CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
+	else: $CanvasLayer/Cursor/MemberOptions/VBox/Talk.show()
+	$CanvasLayer/Cursor/MemberOptions.size.y = 1
+	for i in range(0, focus):
+		t.tween_property(get_node("%Pages/Page"+str(i)), 
+		"position", Vector2(1300, 44), 0.3)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
+		"modulate", Color.TRANSPARENT, 0.5)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
+		"position", Vector2(-15, 0), 0.3)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
+		"position", Vector2(100,0), 0.5)
+	t.tween_property(get_node("%Pages/Page"+str(focus)), 
+	"position", Vector2(634, 44), 0.5)
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render"), 
+	"position", Vector2(150, 130), 0.5)
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"), 
+	"modulate", Color(1,1,1,0.5), 0.5)
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"), 
+	"position", Vector2(-35,143), 0.5)
+	for i in range(focus+1, 4):
+		t.tween_property(get_node("%Pages/Page"+str(i)), 
+		"position", Vector2(634, 44), 0.5)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
+		"position", Vector2(-15, 0), 0.3)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
+		"modulate", Color.TRANSPARENT, 0.5)
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
+		"position", Vector2(100,0), 0.5)
+	#return
+	#if focus == 0:
+		#t.tween_property(%Pages/Page1,"position", Vector2(634, 44), 0.5)#.from(Vector2(1200,44))
+		#t.tween_property(%Pages/Page2,"position", Vector2(634, 44), 0.4)
+		#t.tween_property(%Pages/Page3,"position", Vector2(634, 44), 0.3)
+		#t.tween_property(%Pages/Page4,"position", Vector2(634, 44), 0.2)
+		#t.tween_property(%Pages/Page1/Render,"position", Vector2(150, 130), 0.5)#.from(Vector2(-15, 198))
+		#t.tween_property(%Pages/Page2/Render,"position", Vector2(-15, 150), 0.3)
+		#t.tween_property(%Pages/Page1/Render/Shadow, "modulate", Color(1,1,1,0.5), 0.5)
+		#t.tween_property(%Pages/Page2/Render/Shadow, "modulate", Color.TRANSPARENT, 0.5)
+		#t.tween_property(%Pages/Page1/Render/Shadow,"position", Vector2(-35,143), 0.5,)#.from(Vector2(120,80))
+		#t.tween_property(%Pages/Page2/Render/Shadow,"position", Vector2(100,0), 0.5,)
+	#if focus == 1:
+		#t.tween_property(%Pages/Page1,"position", Vector2(1300, 44), 0.3)
+		#t.tween_property(%Pages/Page3,"position", Vector2(634, 44), 0.3)
+		#t.tween_property(%Pages/Page4,"position", Vector2(634, 44), 0.3)
+		#t.tween_property(%Pages/Page1/Render/Shadow, "modulate", Color.TRANSPARENT, 0.3)
+		#t.tween_property(%Pages/Page2/Render/Shadow, "modulate", Color(1,1,1, 0.5), 0.5)
+		#t.tween_property(%Pages/Page2/Render/Shadow,"position", Vector2(-35,143), 0.5)
+		#t.tween_property(%Pages/Page1/Render,"position", Vector2(-15, 150), 0.3)
+		#t.tween_property(%Pages/Page2,"position", Vector2(634, 44), 0.3)
+		#t.tween_property(%Pages/Page2/Render,"position", Vector2(280, 187), 0.5)
+		#t.tween_property(%Pages/Page1/Render/Shadow,"position", Vector2(0,0), 0.3)
 
 func battle_state():
 	if Loader.InBattle:
@@ -394,10 +423,12 @@ func only_current():
 	t = create_tween()
 	t.set_parallel(true)
 	if Global.Bt.CurrentChar == Global.Party.Leader:
-		t.tween_property($CanvasLayer/Member1, "position", Vector2(-400,$CanvasLayer/Member1.position.y), 0.2)
+		t.tween_property($CanvasLayer/Member1, 
+		"position", Vector2(-400,$CanvasLayer/Member1.position.y), 0.2)
 	elif Global.Bt.CurrentChar == Global.Party.Member1:
 		t.tween_property($CanvasLayer/Member1, "position", Vector2(-70,20), 0.2)
-		t.tween_property($CanvasLayer/Leader, "position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
+		t.tween_property($CanvasLayer/Leader, 
+		"position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
 	t = create_tween()
@@ -406,12 +437,12 @@ func check_member(mem:Actor, node:Panel, ind):
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
 	var character_label = mem.FirstName
-	get_node("CanvasLayer/Page"+str(ind+1)+"/Label").label_settings.font_color = mem.MainColor
-	get_node("CanvasLayer/Page"+str(ind+1)+"/Label").text = mem.FirstName + " " + mem.LastName
-	if get_node("CanvasLayer/Page"+str(ind+1)+"/Render").texture != mem.RenderArtwork:
-		get_node("CanvasLayer/Page"+str(ind+1)+"/Render").texture = mem.RenderArtwork
+	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", mem.MainColor)
+	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
+	if get_node("%Pages/Page"+str(ind)+"/Render").texture != mem.RenderArtwork:
+		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
 		var shadow = make_shadow(mem.RenderShadow)
-		get_node("CanvasLayer/Page"+str(ind+1)+"/Render/Shadow").texture = shadow
+		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = shadow
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
 	node.get_node("Health").max_value = mem.MaxHP
 	draw_bar(mem, node)
@@ -451,8 +482,10 @@ func make_shadow(texture: Texture2D) -> Texture2D:
 	var old_size := old_image.get_size() #// Gets the size of the image as a Vector2i
 	var image = old_image.duplicate()
 	#// Gets a new image, identical to the old one.
-	image.resize(old_size.x / 20, old_size.y / 20) #// Resizes the image, to one fifth of the original. Tweak this a lot depending on use, obviously.
-	var new_texture = ImageTexture.create_from_image(image) #// We make a new ImageTexture (similar to any other StandardTexture2D) from our image and...
+	#// Resizes the image, to one fifth of the original. Tweak this a lot depending on use, obviously.
+	image.resize(old_size.x / 20, old_size.y / 20) 
+	#// We make a new ImageTexture (similar to any other StandardTexture2D) from our image and...
+	var new_texture = ImageTexture.create_from_image(image) 
 	return new_texture #// Set it as out texture.
 
 
@@ -484,7 +517,8 @@ func choose_member():
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Back.show()
-	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
+	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x" 
+	+ str(Item.get_node("ItemEffect").item.Quantity))
 	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
@@ -495,12 +529,14 @@ func choose_member():
 	$/root/MainMenu.stage = "choose_member"
 
 func _on_item_preview_pressed():
-	if Item.get_node("ItemEffect").item.Quantity != 0 and Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
+	if (Item.get_node("ItemEffect").item.Quantity != 0 and 
+	Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP):
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 	else:
 		if Item.get_node("ItemEffect").item.Quantity != 0: Global.toast("HP is already maxed out")
 		Global.buzzer_sound()
-	$CanvasLayer/Cursor/ItemPreview.text = Item.get_node("ItemEffect").item.Name + " x" + str(Item.get_node("ItemEffect").item.Quantity)
+	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x" 
+	+ str(Item.get_node("ItemEffect").item.Quantity))
 
 func confirm_time_passage(title: String, description: String, to_time: int):
 	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
@@ -517,13 +553,15 @@ func cmd():
 			$CanvasLayer/TextEdit.text.replace("/day ", "")
 			Event.Day = int($CanvasLayer/TextEdit.text)
 		elif $CanvasLayer/TextEdit.text != "":
+			$CanvasLayer/TextEdit.text.replace("/", "")
 			Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
-			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " + str(Event.f($CanvasLayer/TextEdit.text)))
+			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " 
+			+ str(Event.f($CanvasLayer/TextEdit.text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true
 
 func party_menu():
-	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing:
+	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and Global.Controllable:
 		if disabled:
 			Global.buzzer_sound()
 			return
@@ -555,3 +593,25 @@ func cycle_states(chara: Actor, rect: TextureRect):
 		index += 1
 		if index == chara.States.size(): index = 0
 	rect.texture = null
+
+func details():
+	if Expanded:
+		%Pages.hide()
+		$CanvasLayer/Cursor.hide()
+		Global.member_details(Global.Party.array()[focus])
+		submenu_opened = true
+		$CanvasLayer/Back.hide()
+
+func back():
+	if not MemberChoosing and Expanded:
+		if not submenu_opened:
+			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
+			$Audio.play()
+			shrink.emit()
+			Global.cancel_sound()
+		else:
+			$CanvasLayer/Back.show()
+			%Pages.show()
+			$CanvasLayer/Cursor.show()
+			await Event.wait()
+			submenu_opened = false

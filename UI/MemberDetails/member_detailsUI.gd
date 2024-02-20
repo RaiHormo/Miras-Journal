@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-func _ready() -> void:
-	draw_charaber(preload("res://database/Party/Mira.tres"))
+func _ready():
+	hide()
 
-func draw_charaber(chara: Actor):
+func draw_character(chara: Actor):
 	$Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
 	$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
@@ -53,11 +53,16 @@ func draw_charaber(chara: Actor):
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
+	$Render.texture = chara.RenderArtwork
 
 	for i in $Line1/NameChain.get_children():
 		i.text = chara.FirstName.to_upper() + " " + chara.LastName.to_upper() + " "
 		#i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
-	await Event.wait(0.1)
+	await Event.wait(0.1, false)
 	var anim: Animation = $AnimationPlayer.get_animation("scrollname")
 	anim.track_set_key_value(0, 1, Vector2(-$Line1/NameChain/Name3.size.x, 130))
+	$StatPanel/Wheel.draw_wheel()
+	show()
 
+func _on_back_pressed():
+	queue_free()

@@ -10,13 +10,13 @@
 [resource]
 script = ExtResource("5_3pau3")
 FirstName = "Petrogon"
+PartyIcon = ExtResource("2_p85n4")
 ActorClass = "Attacker"
-IsEnemy = true
-RecivedSP = 12
 codename = &"Petrogon"
 ClutchDmg = false
 CantDie = true
-PartyIcon = ExtResource("2_p85n4")
+IsEnemy = true
+RecivedSP = 12
 MainColor = Color(1, 0.278431, 0.552941, 1)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""

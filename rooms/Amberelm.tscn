@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
-[ext_resource type="Script" path="res://codings/Interactions/Stairs_up_down.gd" id="3_s8jlk"]
+[ext_resource type="Script" path="res://codings/Interactions/stairs_up_down.gd" id="3_s8jlk"]
 [ext_resource type="Script" path="res://codings/Interactions/shade.gd" id="4_dwguh"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="5_3ycob"]
 [ext_resource type="Texture2D" uid="uid://i8rst2uerw8" path="res://art/Backgrounds/AbadParallax1.png" id="6_gki33"]

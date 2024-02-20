@@ -76,7 +76,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 1
+	const n = 3
 	var r: int
 	var tries:= 0
 	while true:
@@ -84,14 +84,11 @@ func pick_general_ability() -> Ability:
 		if tries > 99:
 			OS.alert("The AI got stuck in an infinite loop, the dev might want to check on that")
 			return Char.StandardAttack
-		r = randi_range(0, n)
+		var atk_chance = 0
+		if Char.ActorClass == "Attacker": atk_chance = -n
+		r = randi_range(atk_chance, n)
 		match r:
-			0:
-				if has_type("CheapAttack"):
-					return find_ability("CheapAttack").pick_random()
 			1:
-				if Char.Health < Char.MaxHP * 0.7 and has_type("Defensive"):
-					return find_ability("Defensive").pick_random()
 				if has_type("AtkBuff") and has_class_in_faction("Attacker", Bt.get_ally_faction()):
 					var tar: Actor = get_class_in_faction("Attacker", Bt.get_ally_faction()).pick_random()
 					print("Found ", tar.FirstName)
@@ -99,6 +96,15 @@ func pick_general_ability() -> Ability:
 						Char.NextTarget = tar
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
+			2:
+				if has_type("Curse"):
+					return find_ability("Curse").pick_random()
+			3:
+				if Char.Health < Char.MaxHP * 0.7 and has_type("Defensive"):
+					return find_ability("Defensive").pick_random()
+			_:
+				if has_type("CheapAttack"):
+					return find_ability("CheapAttack").pick_random()
 	return null
 
 func has_class_in_faction(type: String, faction: Array[Actor]) -> bool:

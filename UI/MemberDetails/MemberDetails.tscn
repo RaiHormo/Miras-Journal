@@ -390,6 +390,8 @@ _data = {
 }
 
 [node name="MemberDetails" type="CanvasLayer"]
+process_mode = 3
+layer = 11
 script = ExtResource("1_uy7q8")
 
 [node name="Fade" type="ColorRect" parent="."]
@@ -399,7 +401,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 0.827451)
 
 [node name="Blur" type="ColorRect" parent="Fade"]
 material = SubResource("ShaderMaterial_km2id")
@@ -703,12 +705,12 @@ text = "Weapon  "
 texture_filter = 1
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_rvp3l")
+stretch_mode = 4
 
 [node name="WeaponName" type="Label" parent="StatPanel/Weapon"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
@@ -854,3 +856,5 @@ libraries = {
 "": SubResource("AnimationLibrary_of3rt")
 }
 autoplay = "scrollname"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

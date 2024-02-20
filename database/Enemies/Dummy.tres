@@ -9,13 +9,13 @@
 [resource]
 script = ExtResource("1_xk7u8")
 FirstName = "Dummy"
+PartyIcon = ExtResource("2_g2uxp")
 ActorClass = "Unknown"
-IsEnemy = true
-RecivedSP = 99
 codename = &"Actor"
 ClutchDmg = false
 CantDie = false
-PartyIcon = ExtResource("2_g2uxp")
+IsEnemy = true
+RecivedSP = 99
 MainColor = Color(1, 0.25098, 1, 1)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""

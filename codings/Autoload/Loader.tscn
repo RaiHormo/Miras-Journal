@@ -1,10 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://ykcn5dmyux3m"]
+[gd_scene load_steps=29 format=3 uid="uid://ykcn5dmyux3m"]
 
 [ext_resource type="Script" path="res://codings/Autoload/Loader.gd" id="1_5wiw1"]
 [ext_resource type="Texture2D" uid="uid://d2ieiqgwfqltl" path="res://art/Icons/load2.png" id="2_1flqv"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxef7"]
-bg_color = Color(0.054902, 0.054902, 0.054902, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2b0o"]
 atlas = ExtResource("2_1flqv")
@@ -250,39 +247,43 @@ layer = 9
 [node name="Bars" type="CanvasGroup" parent="Can"]
 position = Vector2(-201, -1096)
 
-[node name="Down" type="Panel" parent="Can/Bars"]
+[node name="Down" type="ColorRect" parent="Can/Bars"]
 light_mask = 16
 offset_left = -34.0
 offset_top = 1882.0
 offset_right = 1691.0
 offset_bottom = 2882.0
 rotation = 0.0641833
-theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+color = Color(0.054902, 0.054902, 0.054902, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Up" type="Panel" parent="Can/Bars"]
+[node name="Up" type="ColorRect" parent="Can/Bars"]
 light_mask = 16
 offset_right = 1725.0
 offset_bottom = 1000.0
 rotation = 0.0641833
-theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+color = Color(0.054902, 0.054902, 0.054902, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Right" type="Panel" parent="Can/Bars"]
+[node name="Right" type="ColorRect" parent="Can/Bars"]
 light_mask = 16
 offset_left = 1595.0
 offset_top = 919.0
 offset_right = 3320.0
 offset_bottom = 1919.0
 rotation = 0.112435
-theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+color = Color(0.054902, 0.054902, 0.054902, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Left" type="Panel" parent="Can/Bars"]
+[node name="Left" type="ColorRect" parent="Can/Bars"]
 light_mask = 16
 offset_left = -1519.0
 offset_top = 892.0
 offset_right = 206.0
 offset_bottom = 1892.0
 rotation = 0.112435
-theme_override_styles/panel = SubResource("StyleBoxFlat_rxef7")
+color = Color(0.054902, 0.054902, 0.054902, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="AnimatedSprite2D" parent="Can"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9JY29ucy9Mb2FkaW5nSWNvbi5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9bG9hZApvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="

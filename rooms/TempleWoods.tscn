@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://drxdw6syeob5f" path="res://art/OV/Enemies/WhiteSpawnOV.png" id="12_hp7lo"]
 [ext_resource type="Resource" uid="uid://c2cqusickawh0" path="res://database/BattleSeq/SludgeBattle3.tres" id="13_812cc"]
 [ext_resource type="Shader" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
-[ext_resource type="Script" path="res://codings/Interactions/Firefly.gd" id="15_71knk"]
+[ext_resource type="Script" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
 [ext_resource type="Script" path="res://codings/Interactions/light_up.gd" id="16_0acit"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]

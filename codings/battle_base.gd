@@ -112,14 +112,7 @@ func _ready():
 			if i.IsEnemy: i.SpeedBoost += 5
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder:
-		i.node.get_node("State").play("None")
-		if not i.Shadow:
-				i.node.get_child(0).hide()
-		if i.IsEnemy: i.node.get_node("Glow").energy = i.GlowDef
-		else:
-			t = create_tween()
-			t.tween_property(i.node.get_node("Glow"), "energy", i.GlowDef, 1)
-		i.node.get_node("Glow").color = i.MainColor
+		sprite_init(i)
 	position_sprites()
 	turn_ui_init()
 	if Loader.Attacker != null: Loader.Attacker.hide()
@@ -128,6 +121,16 @@ func _ready():
 	for i in TurnOrder:
 		print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	await entrance()
+
+func sprite_init(i: Actor):
+	i.node.get_node("State").play("None")
+	if not i.Shadow:
+			i.node.get_child(0).hide()
+	if i.IsEnemy: i.node.get_node("Glow").energy = i.GlowDef
+	else:
+		t = create_tween()
+		t.tween_property(i.node.get_node("Glow"), "energy", i.GlowDef, 1)
+	i.node.get_node("Glow").color = i.MainColor
 
 func speed_sort(a: Actor, b: Actor):
 	if a.Speed + a.SpeedBoost > b.Speed + b.SpeedBoost:
@@ -157,50 +160,64 @@ func turn_ui_check():
 
 func position_sprites():
 	$Act/Actor0.show()
-	if Global.number_of_party_members()==1:
-		$Act/Actor0.position = Vector2(-45,0)
-	if Global.number_of_party_members()==2:
-		$Act/Actor0.position = Vector2(-45,-15)
-		$Act/Actor1.show()
-		$Act/Actor1.position = Vector2(-45,45)
-	if Global.number_of_party_members()==3:
-		$Act/Actor0.position = Vector2(-45,-25)
-		$Act/Actor1.show()
-		$Act/Actor1.position = Vector2(-45,15)
-		$Act/Actor2.show()
-		$Act/Actor2.position = Vector2(-45,55)
-	if Global.number_of_party_members()==4:
-		$Act/Actor0.position = Vector2(-45,-35)
-		$Act/Actor1.show()
-		$Act/Actor1.position = Vector2(-45,0)
-		$Act/Actor2.show()
-		$Act/Actor2.position = Vector2(-45,35)
-		$Act/Actor3.show()
-		$Act/Actor3.position = Vector2(-45,70)
+	match Global.number_of_party_members():
+		1:
+			$Act/Actor0.position = Vector2(-45,0)
+		2:
+			$Act/Actor0.position = Vector2(-45,-15)
+			$Act/Actor1.show()
+			$Act/Actor1.position = Vector2(-45,45)
+		3:
+			$Act/Actor0.position = Vector2(-45,-25)
+			$Act/Actor1.show()
+			$Act/Actor1.position = Vector2(-45,15)
+			$Act/Actor2.show()
+			$Act/Actor2.position = Vector2(-45,55)
+		4:
+			$Act/Actor0.position = Vector2(-45,-35)
+			$Act/Actor1.show()
+			$Act/Actor1.position = Vector2(-45,0)
+			$Act/Actor2.show()
+			$Act/Actor2.position = Vector2(-45,35)
+			$Act/Actor3.show()
+			$Act/Actor3.position = Vector2(-45,70)
+
+	match Troop.size():
+		1:
+			$Act/Enemy0.show()
+			$Act/Enemy0.position = Vector2(66,0)
+		2:
+			if $Act.has_node("Enemy0"):
+				$Act/Enemy0.show()
+				$Act/Enemy0.position = Vector2(66,-15)
+			if $Act.has_node("Enemy1"):
+				$Act/Enemy1.show()
+				$Act/Enemy1.position = Vector2(46,30)
+		3:
+			if $Act.has_node("Enemy0"):
+				$Act/Enemy0.show()
+				$Act/Enemy0.position = Vector2(66,-25)
+			if $Act.has_node("Enemy1"):
+				$Act/Enemy1.show()
+				$Act/Enemy1.position = Vector2(36,15)
+			if $Act.has_node("Enemy2"):
+				$Act/Enemy2.show()
+				$Act/Enemy2.position = Vector2(66,55)
+		4:
+			if $Act.has_node("Enemy0"):
+				$Act/Enemy0.show()
+				$Act/Enemy0.position = Vector2(66,-35)
+			if $Act.has_node("Enemy1"):
+				$Act/Enemy1.show()
+				$Act/Enemy1.position = Vector2(36,15)
+			if $Act.has_node("Enemy2"):
+				$Act/Enemy2.show()
+				$Act/Enemy2.position = Vector2(90, 15)
+			if $Act.has_node("Enemy3"):
+				$Act/Enemy3.show()
+				$Act/Enemy3.position = Vector2(66,65)
 	for i in TurnOrder:
 		pixel_perfectize(i)
-
-
-	if Troop.size() == 1:
-		$Act/Enemy0.show()
-		$Act/Enemy0.position = Vector2(66,0)
-	if Troop.size() == 2:
-		if $Act.has_node("Enemy0"):
-			$Act/Enemy0.show()
-			$Act/Enemy0.position = Vector2(66,-15)
-		if $Act.has_node("Enemy1"):
-			$Act/Enemy1.show()
-			$Act/Enemy1.position = Vector2(46,30)
-	if Troop.size() == 3:
-		if $Act.has_node("Enemy0"):
-			$Act/Enemy0.show()
-			$Act/Enemy0.position = Vector2(66,-25)
-		if $Act.has_node("Enemy1"):
-			$Act/Enemy1.show()
-			$Act/Enemy1.position = Vector2(36,15)
-		if $Act.has_node("Enemy2"):
-			$Act/Enemy2.show()
-			$Act/Enemy2.position = Vector2(66,55)
 
 func entrance():
 	t = create_tween()
@@ -901,9 +918,10 @@ func _on_battle_ui_command():
 	anim("Command")
 
 func add_to_troop(en: Actor):
+	lock_turn = true
 	Troop.append(en)
 	dub = $Act/Actor0.duplicate()
-	dub.name = "Enemy" + str(Troop.size())
+	dub.name = "Enemy" + str(Troop.size() -1)
 	$Act.add_child(dub)
 	TurnOrder.push_front(en)
 	en.node = dub
@@ -915,6 +933,11 @@ func add_to_troop(en: Actor):
 	en.Aura = en.MaxAura
 	dub.add_child(en.SoundSet.instantiate())
 	position_sprites()
+	sprite_init(en)
+	focus_cam(en, 0.3)
+	await Event.wait(1)
+	position_sprites()
+	lock_turn = false
 
 func color_relation(attacker:Color, defender:Color) -> String:
 	var affinity = Global.get_affinity(attacker)

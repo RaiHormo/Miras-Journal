@@ -416,13 +416,11 @@ func chase_mode():
 
 func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1):
 	$Can.show()
-	var fader = $Can/Bars/Left.duplicate()
-	$Can/Bars.add_child(fader)
-	fader.position = Vector2(50,900)
+	var fader:ColorRect = $Can/Bars/Left.duplicate()
+	$Can.add_child(fader)
+	fader.position = Vector2(-134,-189)
 	fader.modulate = Color.TRANSPARENT
-	var white = StyleBoxFlat.new()
-	white.bg_color = Color.WHITE
-	fader.add_theme_stylebox_override("panel", white)
+	fader.color = Color.WHITE
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.WHITE, in_time)
 	await tf.finished
@@ -436,12 +434,10 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1)
 func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 	$Can.show()
 	var fader = $Can/Bars/Left.duplicate()
-	$Can/Bars.add_child(fader)
+	$Can.add_child(fader)
 	fader.position = Vector2(50,900)
 	fader.modulate = Color.TRANSPARENT
-	var white = StyleBoxFlat.new()
-	white.bg_color = Color.BLACK
-	fader.add_theme_stylebox_override("panel", white)
+	fader.color = Color.BLACK
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate", Color(0,0,0,amount), in_time)
 	await ungray

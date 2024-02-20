@@ -1,11 +1,14 @@
 extends Node2D
 class_name Wheel
 @export var color:Color
-@export var affinity:Affinity
+var affinity:Affinity
 var tar_aff:Affinity
 var relation_ico = null
 var t: Tween
 
+func _input(event):
+	if event.is_action_pressed("DebugC"):
+		draw_wheel()
 
 func draw_wheel():
 	if color.s != 0:
@@ -35,7 +38,7 @@ func draw_wheel():
 		$NeturalIcon2.rotation_degrees = avrage_dg($Rangenear1.rotation_degrees, $Rangeresist.rotation_degrees)
 		$ColorIndicator.rotation_degrees = affinity.hue
 		var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
-		IndicatorPanel.bg_color = affinity.color
+		IndicatorPanel.bg_color = color
 
 func avrage_dg(d1, d2):
 	if d1<d2: return ((359 + d1) + d2)/2

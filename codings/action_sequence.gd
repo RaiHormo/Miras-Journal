@@ -187,7 +187,7 @@ func SoothingSpray():
 	Bt.focus_cam(target, 1)
 	Bt.heal(target)
 	await CurrentChar.node.animation_finished
-	Bt.anim("Idle")
+	Bt.anim()
 	Bt.end_turn()
 
 func FlameSpark():
@@ -210,7 +210,19 @@ func FlameSpark():
 	Bt.end_turn()
 
 func Summon():
-	Bt.add_to_troop(load("res://database/Enemies/WhiteSpawn.tres"))
+	Bt.zoom(5)
+	Bt.focus_cam(CurrentChar, 0.3)
+	await Bt.anim("Cast")
+	if CurrentChar.SummonedAllies.is_empty(): Global.toast("But " + CurrentChar.FirstName + " has no friends.")
+	elif miss:
+		Global.toast("But nobody came.")
+		await Event.wait(1)
+	else:
+		Loader.white_fadeout(1, 0.5, 1)
+		await Event.wait(1)
+		Bt.add_to_troop(CurrentChar.SummonedAllies.pick_random())
+		await Event.wait(2)
+	Bt.anim()
 	Bt.end_turn()
 
 func SoulTap():
@@ -223,7 +235,7 @@ func SoulTap():
 	Bt.screen_shake(8, 5, 0.1)
 	Bt.damage(target, true, true)
 	await Event.wait(1)
-	Bt.anim("Idle")
+	Bt.anim()
 	Bt.end_turn()
 
 func AttackUp3():
@@ -232,7 +244,7 @@ func AttackUp3():
 	Bt.focus_cam(target)
 	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, 3)
 	await Event.wait(1)
-	Bt.anim("Idle")
+	Bt.anim()
 	Bt.end_turn()
 #endregion
 
@@ -247,6 +259,7 @@ func Drink():
 		Bt.heal(target, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
 	await Event.wait(1)
+	Bt.anim()
 	Bt.end_turn()
 
 func Eat():

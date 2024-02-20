@@ -49,7 +49,7 @@ func _ready() -> void:
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
-	await ready_window()
+	#ready_window()
 	init_settings()
 	if Tilemap != null: await nodes_of_type(Tilemap, "Light2D", Lights)
 	lights_loaded.emit()
@@ -82,20 +82,26 @@ func _notification(what) -> void:
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window() -> void:
 	if not OS.get_name() == "Linux":
-		Event.wait(0.5)
+		await Event.wait(0.5)
 		return
-	for i in 180:
-		await Event.wait()
-		get_window().grab_focus()
-	while LastInput == 0:
-		await Event.wait()
-		get_window().grab_focus()
+	#for i in 180:
+		#await Event.wait()
+		#get_window().grab_focus()
+	#while LastInput == 0:
+		#await Event.wait()
+		#get_window().grab_focus()
 
 func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
 
 func options():
 	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+
+func member_details(chara: Actor):
+	var dub = preload("res://UI/MemberDetails/MemberDetails.tscn").instantiate()
+	get_tree().root.add_child(dub)
+	await Event.wait()
+	dub.draw_character(chara)
 
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
