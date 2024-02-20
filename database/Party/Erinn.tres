@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://css4l7jfuhb4v"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://css4l7jfuhb4v"]
 
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_gxbro"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="1_vkgex"]
@@ -7,24 +7,25 @@
 [ext_resource type="Texture2D" uid="uid://dfuq3a5bdug03" path="res://art/Renders/Erinn.png" id="3_71qsx"]
 [ext_resource type="Texture2D" uid="uid://cv3xqlnokrhfw" path="res://UI/Party/ErinnShadow.png" id="4_1tt4d"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="6_8ml7j"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="7_eppa1"]
 
 [resource]
 script = ExtResource("1_gxbro")
 FirstName = "Erinn"
+MainColor = Color(0.501961, 0.694118, 0.533333, 1)
+PartyIcon = ExtResource("2_b55w6")
 ActorClass = ""
-IsEnemy = false
-RecivedSP = 0
 codename = &"Erinn"
 ClutchDmg = false
 CantDie = false
-PartyIcon = ExtResource("2_b55w6")
-MainColor = Color(0.501961, 0.694118, 0.533333, 1)
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("1_gxbro")]([])
 SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
 BoxProfile = ExtResource("1_vkgex")
 LastName = "Levenor"
 Weapon = ""
 Controllable = false
-StatsVisible = true
 RenderArtwork = ExtResource("3_71qsx")
 RenderShadow = ExtResource("4_1tt4d")
 MaxHP = 85
@@ -35,14 +36,11 @@ Defence = 1.5
 Speed = 5.0
 Health = 85
 Aura = 90
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedBoost = 0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
 Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+StandardAttack = ExtResource("7_eppa1")
 OV = ExtResource("1_vt7ec")
 Offset = Vector2(0, 0)
 Shadow = false

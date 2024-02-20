@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://d38c2f7pbaqyj"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://d38c2f7pbaqyj"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3b0eu"]
+[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_w6glf"]
 
 [resource]
 script = ExtResource("1_3b0eu")
 name = "Jump attack"
 description = ""
+Icon = ExtResource("1_w6glf")
 ActionSequence = &"JumpAttack"
 Type = "CheapAttack"
 AuraCost = 0
@@ -19,3 +21,4 @@ Callout = false
 SucessChance = 0.9
 CritChance = 0.0
 RecoverAura = true
+DmgVarience = true

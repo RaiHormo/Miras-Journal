@@ -663,7 +663,7 @@ func move_menu():
 		#print(MenuIndex)
 		$DescPaper/Desc.text = Global.colorize(Abilities[MenuIndex].description)
 		var color: Color = Abilities[MenuIndex].WheelColor
-		if Abilities[MenuIndex].ColorSameAsActor: color = CurrentChar.MainColor
+		if Abilities[MenuIndex].ColorSameAsActor or color == Color.WHITE: color = CurrentChar.MainColor
 		$DescPaper/Title.add_theme_color_override("font_color",
 		color - Color(0.2, 0.2, 0.2, 0))
 		$DescPaper/Title.text = Abilities[MenuIndex].name

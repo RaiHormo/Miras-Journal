@@ -43,13 +43,13 @@ func _ready():
 	#global_position=Size/2
 	if SpawnPlayer:
 		var Player = preload("res://codings/Mira.tscn").instantiate()
-		SpawnPath.add_child(Player)
+		add_child(Player)
 		for i in range(1,4):
 			var follower = preload("res://codings/Follower.tscn").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
 			Followers.append(follower)
-			SpawnPath.add_child(follower)
+			add_child(follower)
 		move_child(Player, 0)
 #	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self

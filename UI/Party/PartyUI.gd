@@ -16,7 +16,7 @@ var visibly=false
 @onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 var WasPaused = false
 var MemberChoosing = false
-@onready var Partybox = $CanvasLayer
+@onready var Partybox = %Partybox
 var disabled = true
 var LevelupChain: Array[Actor] = []
 var submenu_opened := false
@@ -29,8 +29,11 @@ func _ready():
 		var page = %Pages/Page0.duplicate()
 		page.name = "Page"+str(i)
 		page.z_index = 3 - i
-		
 		%Pages.add_child(page)
+	for i in range(2, 4):
+		var box = %Partybox/Member1.duplicate()
+		box.name = "Member"+str(i)
+		Partybox.add_child(box)
 	if not Loader.InBattle:
 		shrink.emit()
 		UIvisible = true
@@ -50,17 +53,21 @@ func _process(delta):
 			t.set_parallel(true)
 			if Expanded:
 				t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
-				t.tween_property(Partybox.get_node("Member1"), "position:x", 0, 0.2)
+				for i in range(1, 4):
+					t.tween_property(Partybox.get_node("Member"+str(i)), "position:x", 0, 0.2)
 			else:
-				t.tween_property(Partybox.get_node("Leader"), "position", Vector2(0, Partybox.get_node("Leader").position.y), 0.2)
-				t.tween_property(Partybox.get_node("Member1"), "position", Vector2(-70, Partybox.get_node("Member1").position.y), 0.2)
+				t.tween_property(Partybox.get_node("Leader"), 
+				"position:x", 0, 0.2)
+				for i in range(1, 4):
+					t.tween_property(Partybox.get_node("Member"+str(i)), "position:x", -70, 0.2)
 			visibly=true
 		elif  UIvisible==false and visibly:
 			visibly=false
 			t = create_tween()
 			t.set_parallel(true)
-			t.tween_property(Partybox.get_node("Leader"), "position", Vector2(-300, Partybox.get_node("Leader").position.y), 0.2)
-			t.tween_property(Partybox.get_node("Member1"), "position", Vector2(-300, Partybox.get_node("Member1").position.y), 0.2)
+			t.tween_property(Partybox.get_node("Leader"), "position:x", -300, 0.2)
+			for i in range(1, 4):
+				t.tween_property(Partybox.get_node("Member"+str(i)), "position:x", -300, 0.2)
 			await t.finished
 			$CanvasLayer.hide()
 		if not Global.Controllable:
@@ -68,15 +75,15 @@ func _process(delta):
 
 func _check_party():
 	if Global.Party == null: return
+	if Global.Party.Leader == null: Global.Party.Leader = Global.find_member(&"Mira")
 	Global.Party = Global.Party
-	#Leader
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
-	#Member 1
-	if Global.Party.check_member(1):
-		check_member(Global.Party.Member1, Partybox.get_node("Member1"), 1)
-		Partybox.get_node("Member1").show()
-	else:
-		Partybox.get_node("Member1").hide()
+	for i in range(1, 4):
+		if Global.Party.check_member(i):
+			check_member(Global.Party.array()[i], Partybox.get_node("Member"+str(i)), i)
+			Partybox.get_node("Member"+str(i)).show()
+		else:
+			Partybox.get_node("Member"+str(i)).hide()
 
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
@@ -152,6 +159,7 @@ func _on_expand(open_ui=0):
 		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.4)
 		t.tween_property($CanvasLayer/Cursor/MemberOptions, 
 		"size:x", $CanvasLayer/Cursor/MemberOptions.size.x, 0.3).from(0)
+		t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
 		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	else:
 		$CanvasLayer/Cursor/MemberOptions.hide()
@@ -160,9 +168,9 @@ func _on_expand(open_ui=0):
 		t = create_tween()
 		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.2)
 		darken()
-
 	expand_panel(Partybox.get_node("Leader"))
-	expand_panel(Partybox.get_node("Member1"), 1)
+	for i in range(1, 4):
+		expand_panel(Partybox.get_node("Member"+str(i)), i)
 
 	#Menu
 	#if open_ui == 0:
@@ -190,7 +198,6 @@ func expand_panel(Pan:Panel, mem := 0):
 		hp_pos = Vector2(75,31)
 		au_pos = Vector2(75,37)
 		nam_pos = Vector2(82, 3)
-	t.tween_property(Pan, "scale", Vector2(1.5,1.5), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
 	t.tween_property(Pan.get_node("Health"), "size", Vector2(110,20), 0.4)
@@ -211,8 +218,8 @@ func expand_panel(Pan:Panel, mem := 0):
 	t.tween_property(Pan.get_node("Health/HpText"), "position", Vector2(115, 1), 0.4)
 	t.tween_property(Pan.get_node("Aura/AruaText"), "position", Vector2(115, 12), 0.4)
 	t.tween_property(Pan, "position:x", 0, 0.4)
-	if mem != 0:
-		t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
+	#if mem != 0:
+		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
 
 func _on_shrink():
 	t.kill()
@@ -225,18 +232,18 @@ func _on_shrink():
 	t.set_trans(Tween.TRANS_BACK)
 	#Pages
 	$CanvasLayer/Cursor.position=CursorPosition[0]
-	t.tween_property(%Pages/Page1, "position", Vector2(1300,44), 0.3)
-	t.tween_property(%Pages/Page2, "position", Vector2(1300,44), 0.3)
-	t.tween_property(%Pages/Page3, "position", Vector2(1366,44), 0.3)
-	t.tween_property(%Pages/Page0, "position", Vector2(1366,44), 0.3)
+	for i in %Pages.get_children():
+		t.tween_property(i, "position", Vector2(1300,44), 0.3)
 	t.tween_property(%Pages/Page0/Render, "position", Vector2(179,44), 0.6)
 
 	t.tween_property($CanvasLayer/Back, "position:x", -150, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
+	t.tween_property(Partybox, "scale", Vector2(1,1), 0.4)
 	darken(false)
 
 	shrink_panel(Partybox.get_node("Leader"), 0)
-	shrink_panel(Partybox.get_node("Member1"), 1)
+	for i in range(1, 4):
+		shrink_panel(Partybox.get_node("Member"+str(i)), i)
 	Expanded = false
 	await t.finished
 	if not MemberChoosing: Global.Controllable= true
@@ -264,7 +271,6 @@ func shrink_panel(Pan:Panel, mem = 0,):
 		au_pos = Vector2(89,26)
 		bar_size = Vector2(124,22)
 		nam_pos = Vector2(82, 3)
-	t.tween_property(Pan, "scale", Vector2(1,1), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
 	t.tween_property(Pan.get_node("Health"), "size", bar_size, 0.4)
@@ -283,7 +289,7 @@ func shrink_panel(Pan:Panel, mem = 0,):
 	t.tween_property(Pan.get_node("Aura/AruaText"), "modulate", Color.TRANSPARENT, 0.4)
 	if mem != 0:
 		t.tween_property(Pan, "position:x", -70, 0.4)
-		t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
+		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
 
 func handle_ui():
 	if Input.is_action_just_pressed("ui_down"):
@@ -321,7 +327,7 @@ func focus_now():
 	$CanvasLayer/Cursor/MemberOptions.size.y = 1
 	for i in range(0, focus):
 		t.tween_property(get_node("%Pages/Page"+str(i)), 
-		"position", Vector2(1300, 44), 0.3)
+		"position", Vector2(1300, 44), 0.4+i/10)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
 		"modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
@@ -338,36 +344,13 @@ func focus_now():
 	"position", Vector2(-35,143), 0.5)
 	for i in range(focus+1, 4):
 		t.tween_property(get_node("%Pages/Page"+str(i)), 
-		"position", Vector2(634, 44), 0.5)
+		"position", Vector2(634, 44), 0.3+i/10)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
 		"position", Vector2(-15, 0), 0.3)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
 		"modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
 		"position", Vector2(100,0), 0.5)
-	#return
-	#if focus == 0:
-		#t.tween_property(%Pages/Page1,"position", Vector2(634, 44), 0.5)#.from(Vector2(1200,44))
-		#t.tween_property(%Pages/Page2,"position", Vector2(634, 44), 0.4)
-		#t.tween_property(%Pages/Page3,"position", Vector2(634, 44), 0.3)
-		#t.tween_property(%Pages/Page4,"position", Vector2(634, 44), 0.2)
-		#t.tween_property(%Pages/Page1/Render,"position", Vector2(150, 130), 0.5)#.from(Vector2(-15, 198))
-		#t.tween_property(%Pages/Page2/Render,"position", Vector2(-15, 150), 0.3)
-		#t.tween_property(%Pages/Page1/Render/Shadow, "modulate", Color(1,1,1,0.5), 0.5)
-		#t.tween_property(%Pages/Page2/Render/Shadow, "modulate", Color.TRANSPARENT, 0.5)
-		#t.tween_property(%Pages/Page1/Render/Shadow,"position", Vector2(-35,143), 0.5,)#.from(Vector2(120,80))
-		#t.tween_property(%Pages/Page2/Render/Shadow,"position", Vector2(100,0), 0.5,)
-	#if focus == 1:
-		#t.tween_property(%Pages/Page1,"position", Vector2(1300, 44), 0.3)
-		#t.tween_property(%Pages/Page3,"position", Vector2(634, 44), 0.3)
-		#t.tween_property(%Pages/Page4,"position", Vector2(634, 44), 0.3)
-		#t.tween_property(%Pages/Page1/Render/Shadow, "modulate", Color.TRANSPARENT, 0.3)
-		#t.tween_property(%Pages/Page2/Render/Shadow, "modulate", Color(1,1,1, 0.5), 0.5)
-		#t.tween_property(%Pages/Page2/Render/Shadow,"position", Vector2(-35,143), 0.5)
-		#t.tween_property(%Pages/Page1/Render,"position", Vector2(-15, 150), 0.3)
-		#t.tween_property(%Pages/Page2,"position", Vector2(634, 44), 0.3)
-		#t.tween_property(%Pages/Page2/Render,"position", Vector2(280, 187), 0.5)
-		#t.tween_property(%Pages/Page1/Render/Shadow,"position", Vector2(0,0), 0.3)
 
 func battle_state():
 	if Loader.InBattle:
@@ -423,12 +406,12 @@ func only_current():
 	t = create_tween()
 	t.set_parallel(true)
 	if Global.Bt.CurrentChar == Global.Party.Leader:
-		t.tween_property($CanvasLayer/Member1, 
-		"position", Vector2(-400,$CanvasLayer/Member1.position.y), 0.2)
+		t.tween_property(%Partybox/Member1, 
+		"position", Vector2(-400,%Partybox/Member1.position.y), 0.2)
 	elif Global.Bt.CurrentChar == Global.Party.Member1:
-		t.tween_property($CanvasLayer/Member1, "position", Vector2(-70,20), 0.2)
-		t.tween_property($CanvasLayer/Leader, 
-		"position", Vector2(-400,$CanvasLayer/Leader.position.y), 0.2)
+		t.tween_property(%Partybox/Member1, "position", Vector2(-70,20), 0.2)
+		t.tween_property(%Partybox/Leader, 
+		"position", Vector2(-400,%Partybox/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
 	t = create_tween()
@@ -443,6 +426,7 @@ func check_member(mem:Actor, node:Panel, ind):
 		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
 		var shadow = make_shadow(mem.RenderShadow)
 		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = shadow
+	get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = mem.PartyPage
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
 	node.get_node("Health").max_value = mem.MaxHP
 	draw_bar(mem, node)

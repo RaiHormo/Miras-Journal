@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=89 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" path="res://UI/Party/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://UI/joystick/virtual_joystick.tscn" id="16_86i7e"]
+[ext_resource type="Texture2D" uid="uid://drtjopmyeh8ib" path="res://art/Journal/Auras/PhoenixWings.png" id="19_cxgq7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -543,7 +544,7 @@ offset_bottom = 0.199951
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nullq")
-CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 248), Vector2(385, 408), Vector2(385, 536)])
+CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(385, 426), Vector2(385, 615)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 3
@@ -561,19 +562,31 @@ offset_right = 1281.0
 offset_bottom = 799.0
 mouse_filter = 2
 
-[node name="Leader" type="Panel" parent="CanvasLayer"]
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Fade"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Partybox" type="VBoxContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 252.0
+offset_bottom = 542.0
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="Leader" type="Panel" parent="CanvasLayer/Partybox"]
 texture_filter = 2
-offset_left = -368.0
-offset_right = -147.0
-offset_bottom = 94.0
+custom_minimum_size = Vector2(230, 98)
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
-[node name="Icon" type="Sprite2D" parent="CanvasLayer/Leader"]
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Leader"]
 position = Vector2(37, 45)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
-[node name="State" type="TextureRect" parent="CanvasLayer/Leader/Icon"]
+[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Leader/Icon"]
 visible = false
 texture_filter = 1
 offset_left = -88.8889
@@ -583,7 +596,7 @@ offset_bottom = -0.77774
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
-[node name="Aura" type="ProgressBar" parent="CanvasLayer/Leader"]
+[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Leader"]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 37.0
@@ -594,7 +607,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="AruaText" type="Label" parent="CanvasLayer/Leader/Aura"]
+[node name="AruaText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
@@ -604,7 +617,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/Leader"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Leader"]
 z_index = 1
 layout_mode = 0
 offset_left = 75.0
@@ -616,7 +629,7 @@ value = 75.0
 rounded = true
 show_percentage = false
 
-[node name="HpText" type="Label" parent="CanvasLayer/Leader/Health"]
+[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Leader/Health"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 1.0
@@ -626,7 +639,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
-[node name="Name" type="Label" parent="CanvasLayer/Leader"]
+[node name="Name" type="Label" parent="CanvasLayer/Partybox/Leader"]
 layout_mode = 0
 offset_left = 82.0
 offset_top = 3.0
@@ -636,7 +649,7 @@ text = "Mira"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="CanvasLayer/Leader"]
+[node name="Level" type="Label" parent="CanvasLayer/Partybox/Leader"]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 71.3334
@@ -645,7 +658,7 @@ offset_bottom = 97.3334
 text = "S. Lv "
 label_settings = SubResource("LabelSettings_owkfl")
 
-[node name="Number" type="Label" parent="CanvasLayer/Leader/Level"]
+[node name="Number" type="Label" parent="CanvasLayer/Partybox/Leader/Level"]
 layout_mode = 0
 offset_left = 32.9492
 offset_top = -9.33336
@@ -656,7 +669,7 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Leader/Level"]
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Leader/Level"]
 layout_mode = 0
 offset_left = -58.0223
 offset_top = 1.6482
@@ -667,47 +680,45 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
 show_percentage = false
 
-[node name="Border1" type="Panel" parent="CanvasLayer/Leader"]
+[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Leader"]
 layout_mode = 0
 offset_left = -40.0
 offset_top = -25.0
 offset_right = 240.0
-offset_bottom = 105.0
+offset_bottom = 101.0
 theme = SubResource("Theme_x6d55")
 
-[node name="Border2" type="Panel" parent="CanvasLayer/Leader/Border1"]
+[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
 offset_top = 5.0
 offset_right = 276.0
-offset_bottom = 126.0
+offset_bottom = 122.0
 theme = SubResource("Theme_3xf0g")
 
-[node name="Border3" type="Panel" parent="CanvasLayer/Leader/Border1/Border2"]
+[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1/Border2"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
 offset_top = -3.0
 offset_right = 267.0
-offset_bottom = 117.0
+offset_bottom = 113.0
 theme = SubResource("Theme_6a77a")
 
-[node name="Member1" type="Panel" parent="CanvasLayer"]
+[node name="Member1" type="Panel" parent="CanvasLayer/Partybox"]
 texture_filter = 2
-offset_left = -368.0
-offset_top = 189.0
-offset_right = -140.0
-offset_bottom = 293.0
-pivot_offset = Vector2(0.137743, -0.0191193)
+custom_minimum_size = Vector2(230, 110)
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
-[node name="Icon" type="Sprite2D" parent="CanvasLayer/Member1"]
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Member1"]
 position = Vector2(37, 54.333)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
-[node name="State" type="TextureRect" parent="CanvasLayer/Member1/Icon"]
+[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Member1/Icon"]
 visible = false
 texture_filter = 1
 offset_left = -107.0
@@ -717,7 +728,7 @@ offset_bottom = -4.0
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
-[node name="Aura" type="ProgressBar" parent="CanvasLayer/Member1"]
+[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 46.6667
@@ -728,7 +739,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="AruaText" type="Label" parent="CanvasLayer/Member1/Aura"]
+[node name="AruaText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
@@ -738,7 +749,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/Member1"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Member1"]
 z_index = 1
 layout_mode = 0
 offset_left = 75.0
@@ -750,7 +761,7 @@ value = 75.0
 rounded = true
 show_percentage = false
 
-[node name="HpText" type="Label" parent="CanvasLayer/Member1/Health"]
+[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Member1/Health"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 1.0
@@ -760,7 +771,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
-[node name="Name" type="Label" parent="CanvasLayer/Member1"]
+[node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0
 offset_left = 81.0
 offset_top = 14.0
@@ -770,33 +781,33 @@ text = "Alcine"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
 
-[node name="Border1" type="Panel" parent="CanvasLayer/Member1"]
+[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0
 offset_left = -40.0
 offset_top = -7.0
 offset_right = 243.0
-offset_bottom = 117.0
+offset_bottom = 113.0
 theme = SubResource("Theme_x6d55")
 
-[node name="Border2" type="Panel" parent="CanvasLayer/Member1/Border1"]
+[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
-offset_top = 4.0
+offset_top = 5.0
 offset_right = 279.0
-offset_bottom = 120.0
+offset_bottom = 116.0
 theme = SubResource("Theme_3xf0g")
 
-[node name="Border3" type="Panel" parent="CanvasLayer/Member1/Border1/Border2"]
+[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1/Border2"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 270.0
-offset_bottom = 111.0
+offset_bottom = 106.0
 theme = SubResource("Theme_6a77a")
 
-[node name="Level" type="Label" parent="CanvasLayer/Member1"]
+[node name="Level" type="Label" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 81.3333
@@ -805,7 +816,7 @@ offset_bottom = 107.333
 text = "S. Lv "
 label_settings = SubResource("LabelSettings_owkfl")
 
-[node name="Number" type="Label" parent="CanvasLayer/Member1/Level"]
+[node name="Number" type="Label" parent="CanvasLayer/Partybox/Member1/Level"]
 layout_mode = 0
 offset_left = 32.9492
 offset_top = -9.33336
@@ -816,7 +827,7 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Member1/Level"]
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Member1/Level"]
 layout_mode = 0
 offset_left = -60.0
 offset_top = 2.66669
@@ -1163,8 +1174,8 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
 placeholder_text = "Enter a flag"
 
 [node name="PartyMenuButton" type="Button" parent="CanvasLayer"]
-offset_right = 231.0
-offset_bottom = 431.0
+offset_right = 253.0
+offset_bottom = 571.0
 focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_t386i")
@@ -1196,6 +1207,14 @@ offset_bottom = 1496.0
 rotation = -0.010472
 scale = Vector2(0.489946, 0.489946)
 texture = ExtResource("5_1ty82")
+
+[node name="AuraDoodle" type="TextureRect" parent="CanvasLayer/Pages/Page0"]
+layout_mode = 0
+offset_left = 53.8653
+offset_top = 118.951
+offset_right = 1070.87
+offset_bottom = 1433.95
+texture = ExtResource("19_cxgq7")
 
 [node name="Label" type="Label" parent="CanvasLayer/Pages/Page0"]
 layout_mode = 0
