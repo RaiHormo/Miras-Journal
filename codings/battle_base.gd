@@ -257,7 +257,7 @@ func entrance():
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
 	await anim(&"Entrance", i)
-	anim(&"Idle")
+	if i.node.animation == &"Entrance": anim(&"Idle")
 
 func _on_next_turn():
 	if Troop.size() == 0:
@@ -345,8 +345,7 @@ func _on_battle_ui_ability():
 	if CurrentChar.node == null: return
 	if $BattleUI.PrevStage == "root":
 		play_sound("Ability", CurrentChar)
-		anim("Ability")
-		await CurrentChar.node.animation_finished
+		await anim("Ability")
 	if CurrentChar.node.animation == "Ability": anim("AbilityLoop")
 
 func _on_battle_ui_root():
@@ -699,7 +698,8 @@ func anim(animation: String="Idle", chara: Actor = CurrentChar):
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
-	await chara.node.animation_finished
+	while chara.node.is_playing() and chara.node.animation == animation: 
+		await Event.wait()
 
 func pixel_perfectize(chara: Actor, xy: int = 0):
 	if int(chara.node.sprite_frames.get_frame_texture(

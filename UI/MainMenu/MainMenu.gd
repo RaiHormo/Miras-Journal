@@ -60,7 +60,7 @@ func _ready():
 	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
-	player.get_node("%Base/Shadow").z_index = -1
+	player.get_node("%Shadow").z_index = -1
 	z = player.z_index
 	player.z_index = 9
 	for i in $Rail.get_children():
@@ -168,7 +168,7 @@ func close():
 	PartyUI.UIvisible = true
 	if not duplicated: Global.Area.handle_z(z)
 	else: t.tween_property(player, "modulate", Color(0,0,0,0), 0.5)
-	player.get_node("%Base/Shadow").z_index = 0
+	player.get_node("%Shadow").z_index = 0
 	await t.finished
 	if duplicated:
 		player.free()
