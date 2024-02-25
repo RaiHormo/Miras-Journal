@@ -1,6 +1,6 @@
-res://codings/Mira.tscn
 res://art/OV/Mira/MiraOVFlame.tres
 res://art/OV/Mira/MiraOV.tres
+res://art/OV/Mira/MiraOVBag.tres
 res://art/Effects/Bubble.tres
 res://art/OV/Alcine/AlcineOV1.tres
 res://art/BT/Dummy/DummyBT.tres
@@ -20,14 +20,3 @@ res://database/Items/Materials/WhiteSlime.tres
 res://database/Abilities/Guard.tres
 res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres
 res://codings/Shaders/Multiply.gdshader
-res://rooms/TempleWoods.tscn
-res://UI/MainMenu/MainMenu.tscn
-res://codings/Autoload/PartyUI.tscn
-res://codings/Autoload/Loader.tscn
-res://codings/Battle.tscn
-res://UI/Textbox/Textbox2.tscn
-res://UI/MemberDetails/MemberDetails.tscn
-res://art/OV/Mira/MiraOVBag.tres
-res://codings/player_movement.gd
-res://UI/MainMenu/MainMenu.gd
-res://codings/battle_base.gd

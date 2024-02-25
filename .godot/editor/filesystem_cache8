@@ -1,5 +1,5 @@
 a6130acc7839fd5e49667932f3167345
-::res://::1708610999
+::res://::1708620098
 LICENSE.md::TextFile::-1::1708352906::0::1::::<><>::
 README.md::TextFile::-1::1708352906::0::1::::<><>::
 ::res://addons/::1708352906
@@ -310,10 +310,10 @@ Getup.png::CompressedTexture2D::7972214684397552186::1708352907::1708352907::1::
 MiraDash.ase::PackedDataContainer::3867109265930481669::1692711546::1708352907::1::::<><>::
 Miraov.aseprite::PackedDataContainer::1539006275991512571::1708618638::1708618644::1::::<><>::
 MiraOV.tres::SpriteFrames::8142688418472562918::1708616981::0::1::::<><>::uid://dflkgvfdlrm6y::::res://art/OV/Mira/Base.png<>uid://clrbc8epe56ef::::res://art/OV/Mira/Miraov-Sheet.png<>uid://k7al4q7ec85y::::res://art/OV/Mira/DashLeftRight.png<>uid://cp2o868d0iqig::::res://art/OV/Mira/axeupdown.png<>uid://cqg3mi1kvrgip::::res://art/OV/Mira/DashDown.png<>uid://b5fgqb4riqm5y::::res://art/OV/Mira/axe.png<>uid://o3cfbnxkskhq::::res://art/OV/Mira/DashUp.png<>uid://dku3o6fs2o58o::::res://art/OV/Mira/bagGet.png<>uid://rp8uf0rdpmbv::::res://art/OV/Mira/Deny.png<>uid://dlt2hga7mq0aw::::res://art/OV/Mira/Getup.png<>uid://cbwc1u4rx67jv::::res://art/OV/Mira/FlameActive.png<>uid://cmlhbydgt44yv::::res://art/OV/Mira/EntrancePrep.png
+MiraOVBag.tres::SpriteFrames::4780660670527815018::1708617969::0::1::::<><>::uid://dflkgvfdlrm6y::::res://art/OV/Mira/Base.png<>uid://j7kjn2qr0h8w::::res://art/OV/Mira/BaseBag.png<>uid://dku3o6fs2o58o::::res://art/OV/Mira/bagGet.png<>uid://cqg3mi1kvrgip::::res://art/OV/Mira/DashDown.png<>uid://k7al4q7ec85y::::res://art/OV/Mira/DashLeftRight.png<>uid://o3cfbnxkskhq::::res://art/OV/Mira/DashUp.png<>uid://rp8uf0rdpmbv::::res://art/OV/Mira/Deny.png<>uid://cmlhbydgt44yv::::res://art/OV/Mira/EntrancePrep.png<>uid://cbwc1u4rx67jv::::res://art/OV/Mira/FlameActive.png
 MiraOVFlame.tres::SpriteFrames::5182422484809338805::1708615520::0::1::::<><>::uid://clrbc8epe56ef::::res://art/OV/Mira/Miraov-Sheet.png<>uid://cqg3mi1kvrgip::::res://art/OV/Mira/DashDown.png<>uid://k7al4q7ec85y::::res://art/OV/Mira/DashLeftRight.png<>uid://o3cfbnxkskhq::::res://art/OV/Mira/DashUp.png<>uid://rp8uf0rdpmbv::::res://art/OV/Mira/Deny.png<>uid://cbwc1u4rx67jv::::res://art/OV/Mira/FlameActive.png<>uid://cslhxxrst7p4j::::res://art/OV/Mira/FlameWalk.png<>uid://s2cr0s33rn4w::::res://art/OV/Mira/ReachOut.png
 ReachOut.aseprite::PackedDataContainer::5444348397431653760::1708352907::1708352907::1::::<><>::
 ReachOut.png::CompressedTexture2D::1319290519526639596::1708352907::1708352907::1::::<><>::
-MiraOVBag.tres::SpriteFrames::4780660670527815018::1708617969::0::1::::<><>::uid://dflkgvfdlrm6y::::res://art/OV/Mira/Base.png<>uid://j7kjn2qr0h8w::::res://art/OV/Mira/BaseBag.png<>uid://dku3o6fs2o58o::::res://art/OV/Mira/bagGet.png<>uid://cqg3mi1kvrgip::::res://art/OV/Mira/DashDown.png<>uid://k7al4q7ec85y::::res://art/OV/Mira/DashLeftRight.png<>uid://o3cfbnxkskhq::::res://art/OV/Mira/DashUp.png<>uid://rp8uf0rdpmbv::::res://art/OV/Mira/Deny.png<>uid://cmlhbydgt44yv::::res://art/OV/Mira/EntrancePrep.png<>uid://cbwc1u4rx67jv::::res://art/OV/Mira/FlameActive.png
 unused.ase::PackedDataContainer::8323913523664255288::1708614293::1708614635::1::::<><>::
 ::res://art/OV/Objects/::1708352975
 Harold.png::CompressedTexture2D::6590531366775540801::1708352907::1708352975::1::::<><>::
@@ -337,32 +337,32 @@ Erinn.png::CompressedTexture2D::7552515344858631926::1692711546::1708352907::1::
 Mira.png::CompressedTexture2D::8284283432032522528::1692711546::1708352907::1::::<><>::
 Yaru (Large).png::CompressedTexture2D::6873580044107784126::1708352907::1708352907::1::::<><>::
 Yaru.png::CompressedTexture2D::1462538296106576136::1696091676::1696091676::1::::<><>::
-::res://art/Tilesets/::1708619617
+::res://art/Tilesets/::1708620002
 Abad.tres::TileSet::7545921850093070902::1708615520::0::1::::<><>::uid://s38ia6u3uhd1::::res://art/Tilesets/AbadTemple.png<>uid://g8dm7hq2hkoi::::res://art/Tilesets/AbadWater.png<>uid://86fa1oxhyg4u::::res://art/Tilesets/AbadGround.png<>uid://enc0u6y8cw5w::::res://art/Tilesets/AbadObj.png<>uid://lqnkjbt6fgaj::::res://art/Tilesets/Abadbuild.png
 Abadbuild.png::CompressedTexture2D::805914978088184281::1708352907::1692711546::1::::<><>::
-AbadGround.png::CompressedTexture2D::2380532523684439958::1708352907::1708352907::1::::<><>::
+AbadGround.png::CompressedTexture2D::5181194984505632281::1708352907::1708620100::1::::<><>::
 AbadObj.png::CompressedTexture2D::307759463678656074::1708352907::1708352907::1::::<><>::
 AbadTemple.png::CompressedTexture2D::1323219758546646204::1708352907::1708352907::1::::<><>::
 AbadWater.png::CompressedTexture2D::489462800541495604::1708619503::1708619624::1::::<><>::
-Abad_A2.ase::PackedDataContainer::8291218971236053535::1708352907::1708352907::1::::<><>::
-Inside_A2 (1).png::CompressedTexture2D::8438580380240621289::1692711546::1692711546::1::::<><>::
-Inside_A2.png::CompressedTexture2D::3360771351946174386::1692711546::1692711546::1::::<><>::
-Inside_A5.png::CompressedTexture2D::4610835078497931512::1692711546::1692711546::1::::<><>::
-Inside_B (1).png::CompressedTexture2D::1225900415716311513::1692711546::1692711546::1::::<><>::
-Inside_B.png::CompressedTexture2D::1967811314904865746::1692711546::1692711546::1::::<><>::
-Inside_E.png::CompressedTexture2D::4490279278371329731::1692711546::1692711546::1::::<><>::
-Outsiden.png::CompressedTexture2D::8973111621721251798::1692711546::1692711546::1::::<><>::
-Outside_A1.png::CompressedTexture2D::9201690190476356508::1692711546::1692711546::1::::<><>::
-Outside_A2.png::CompressedTexture2D::4516548428813198358::1692711546::1692711546::1::::<><>::
-Outside_A4.png::CompressedTexture2D::1347800326814162010::1692711546::1692711546::1::::<><>::
-Outside_A5.png::CompressedTexture2D::4315958322151331511::1692711546::1692711546::1::::<><>::
-Outside_A6.png::CompressedTexture2D::7491926700124932824::1692711546::1692711546::1::::<><>::
-Outside_B.png::CompressedTexture2D::1334787193040677957::1692711546::1692711546::1::::<><>::
+Abad_A2.ase::PackedDataContainer::7042276758066306833::1708352907::1708620101::1::::<><>::
+Inside_A2 (1).png::CompressedTexture2D::4244711894895971803::1692711546::1708620100::1::::<><>::
+Inside_A2.png::CompressedTexture2D::7186935543567186714::1692711546::1708620100::1::::<><>::
+Inside_A5.png::CompressedTexture2D::2011679844610985698::1692711546::1708620100::1::::<><>::
+Inside_B (1).png::CompressedTexture2D::5364679137843092229::1692711546::1708620101::1::::<><>::
+Inside_B.png::CompressedTexture2D::7292025567389644896::1692711546::1708620100::1::::<><>::
+Inside_E.png::CompressedTexture2D::1843011872269578024::1692711546::1708620100::1::::<><>::
+Outsiden.png::CompressedTexture2D::768481593091544863::1692711546::1708620100::1::::<><>::
+Outside_A1.png::CompressedTexture2D::2821230810399774283::1692711546::1708620100::1::::<><>::
+Outside_A2.png::CompressedTexture2D::5166166762568611918::1692711546::1708620100::1::::<><>::
+Outside_A4.png::CompressedTexture2D::3898071721809077769::1692711546::1708620100::1::::<><>::
+Outside_A5.png::CompressedTexture2D::4874403648728829185::1692711546::1708620100::1::::<><>::
+Outside_A6.png::CompressedTexture2D::1749411547692088899::1692711546::1708620100::1::::<><>::
+Outside_B.png::CompressedTexture2D::3615798524920418016::1692711546::1708620101::1::::<><>::
 PyrsonBuild.png::CompressedTexture2D::7931755047945758130::1708352907::1708352907::1::::<><>::
 TempleWoods.tres::TileSet::920654076450619174::1708352907::0::1::::<><>::uid://s38ia6u3uhd1::::res://art/Tilesets/AbadTemple.png<>uid://g8dm7hq2hkoi::::res://art/Tilesets/AbadWater.png<>uid://86fa1oxhyg4u::::res://art/Tilesets/AbadGround.png<>uid://enc0u6y8cw5w::::res://art/Tilesets/AbadObj.png
-Untitled.png::CompressedTexture2D::4171784174260081220::1692711547::1692711547::1::::<><>::
+Untitled.png::CompressedTexture2D::2604302874785202719::1692711547::1708620100::1::::<><>::
 water.ase::PackedDataContainer::7570070856359183257::1708352907::1708352907::1::::<><>::
-::res://codings/::1708619346
+::res://codings/::1708619629
 action_sequence.gd::GDScript::-1::1708440895::0::1::::<>Node2D<>::
 Ai.gd::GDScript::-1::1708440895::0::1::::<>Node<>::
 Battle.tscn::PackedScene::5283787617269103383::1708619345::0::1::::<><>::uid://bk3wcarpqpgmi::::res://codings/Shaders/Pixelart.tres<>res://codings/battle_base.gd<>res://codings/Classes/party_data.gd<>res://codings/Classes/battle_seq.gd<>uid://da4wno1fcym1u::::res://art/Backgrounds/Debug.png<>res://codings/action_sequence.gd<>uid://d3xamvjet470a::::res://art/BT/DarkSpawn/DarkSpawnBT.tres<>uid://c1pk3d7vu8n26::::res://art/OV/Objects/Shadow1.png<>uid://bks6fau84dtru::::res://UI/Fonts/Faktos.ttf<>uid://jt67hjoa7iye::::res://art/Effects/AtkUpLoop.png<>uid://bs01w8qv78yva::::res://art/Effects/Burned.png<>uid://c8dtn4cmhytm0::::res://art/Effects/AttackUp.png<>uid://pcjpp1kv6ikg::::res://art/Effects/FlameSpark.png<>uid://bxxa222xgq1sr::::res://art/BT/Alcine/Miss.png<>uid://bgfu6k2pj32mi::::res://art/Effects/Hit.png<>uid://bvss41ovenq00::::res://art/Effects/SoulTap.png<>res://codings/Ai.gd<>res://codings/Shaders/Unshaded.gdshader<>res://UI/Battle/battleUI.gd<>uid://bhbfk3uk3pfej::::res://UI/Party/Cursor.png<>uid://b26p56yb7cgso::::res://UI/Fonts/cyrenia-button.tres<>uid://bpv6vrrg6tboq::::res://UI/Input/A.png<>uid://bv0rq7hr5ekhr::::res://UI/Input/Y.png<>uid://dqlbyaselqjhc::::res://UI/Input/X.png<>uid://cucajxcr1a5k8::::res://UI/Input/LZ.png<>uid://cpky7bvi6uvm1::::res://UI/Battle/EscapeButton.png<>uid://cumufnoi2wx0i::::res://UI/Fonts/cyrenia-bold.ttf<>uid://bq6u87p34d13v::::res://UI/Battle/CommandBackground.png<>res://UI/Battle/Sinewave.gdshader<>uid://bplsrwsdkhe1f::::res://UI/Battle/BaseRing.png<>uid://bpdhp4otp83om::::res://UI/Battle/MiraRing1.png<>uid://bfq3utqkblsep::::res://UI/Battle/Description.png<>uid://dgygoowvwayc::::res://UI/Fonts/cyrenia-regular.ttf<>uid://bomaairqx0y6l::::res://UI/Wheel/Wheel.tscn<>uid://bqbuf3hq8oxm6::::res://art/Icons/Items.png<>uid://cj2ohe8qn3uph::::res://art/Icons/Items.tres<>uid://3r3bkkn5s1g7::::res://UI/Input/L.png<>uid://dfk4rrxrkurbc::::res://UI/Input/R.png<>uid://crttgauq3if3l::::res://UI/MainMenu/BagBackgroud.png<>uid://gceucf27j1t1::::res://art/Items/LeightweightAxe.png<>uid://b3rlipd0auqsi::::res://UI/Input/B.png<>res://UI/Battle/enemyUI.gd<>uid://cnwsdp6c2x76w::::res://art/Icons/Party/Mira.png<>uid://dkmfv7lb5ne4v::::res://art/Icons/Party/Asteria.png<>uid://buxt5eft5el2k::::res://UI/Input/-.png
@@ -375,7 +375,7 @@ GroundItem.tscn::PackedScene::16467760714988915::1708352907::0::1::::<><>::res:/
 initializer.gd::GDScript::-1::1708352907::0::1::::<>Node<>::
 Initializer.tscn::PackedScene::8476799541029625638::1708352907::0::1::::<><>::res://codings/initializer.gd
 interactable.gd::GDScript::-1::1708352907::0::1::::Interactable<>Area2D<>::
-Mira.tscn::PackedScene::1297153418849961670::1708619346::0::1::::<><>::uid://bk3wcarpqpgmi::::res://codings/Shaders/Pixelart.tres<>res://codings/player_movement.gd<>uid://doam5hhftuw4e::::res://art/OV/Mira/MiraOV.tres<>uid://cad11u5nsdi8q::::res://art/OV/Mira/MiraOVBag.tres<>uid://clrbc8epe56ef::::res://art/OV/Mira/Miraov-Sheet.png<>uid://b8aiagab31eok::::res://art/OV/Mira/flameFlame.png<>uid://c1pk3d7vu8n26::::res://art/OV/Objects/Shadow1.png<>uid://cgnsvgqdju2dh::::res://art/Effects/Bubble.tres<>res://codings/flickering_light.gd<>uid://cx1hh5a1t043t::::res://sound/SFX/Footsteps/StdrFootsteps.tscn<>res://codings/Shaders/Blur.gdshader
+Mira.tscn::PackedScene::1297153418849961670::1708619629::0::1::::<><>::uid://bk3wcarpqpgmi::::res://codings/Shaders/Pixelart.tres<>res://codings/player_movement.gd<>uid://doam5hhftuw4e::::res://art/OV/Mira/MiraOV.tres<>uid://cad11u5nsdi8q::::res://art/OV/Mira/MiraOVBag.tres<>uid://clrbc8epe56ef::::res://art/OV/Mira/Miraov-Sheet.png<>uid://b8aiagab31eok::::res://art/OV/Mira/flameFlame.png<>uid://c1pk3d7vu8n26::::res://art/OV/Objects/Shadow1.png<>uid://cgnsvgqdju2dh::::res://art/Effects/Bubble.tres<>res://codings/flickering_light.gd<>uid://cx1hh5a1t043t::::res://sound/SFX/Footsteps/StdrFootsteps.tscn<>res://codings/Shaders/Blur.gdshader
 NPC.gd::GDScript::-1::1708352907::0::1::::NPC<>CharacterBody2D<>::
 player_movement.gd::GDScript::-1::1708619098::0::1::::Mira<>NPC<>::
 settings.gd::GDScript::-1::1708352907::0::1::::Setting<>Resource<>::
@@ -422,7 +422,7 @@ shade.gd::GDScript::-1::1708352907::0::1::::<>Area2D<>::
 splash.gd::GDScript::-1::1708352907::0::1::::<>Area2D<>::
 stairs_up_down.gd::GDScript::-1::1708352907::0::1::::Stair<>Area2D<>::
 Transfer.tscn::PackedScene::4939541520475388494::1708352907::0::1::::<><>::res://codings/transfer_zone.gd<>uid://bhbfk3uk3pfej::::res://UI/Party/Cursor.png
-::res://codings/Shaders/::1708619346
+::res://codings/Shaders/::1708619688
 Actor.gdshader::Shader::-1::1708352907::0::1::::<><>::
 add.png::CompressedTexture2D::2327442135749358570::1708352907::1708352975::1::::<><>::
 Blend.gdshader::Shader::-1::1708352907::0::1::::<><>::
@@ -430,7 +430,7 @@ Blur2d.gdshader::Shader::-1::1708352907::0::1::::<><>::
 Blur.gdshader::Shader::-1::1708352907::0::1::::<><>::
 Glow.gdshader::Shader::-1::1708352907::0::1::::<><>::
 Hshadow.gdshader::Shader::-1::1708352907::0::1::::<><>::
-Multiply.gdshader::Shader::-1::1708619346::0::1::::<><>::
+Multiply.gdshader::Shader::-1::1708619688::0::1::::<><>::
 Pixelart.gdshader::Shader::-1::1708352907::0::1::::<><>::
 Pixelart.tres::ShaderMaterial::3147451069580955344::1708352907::0::1::::<><>::res://codings/Shaders/Pixelart.gdshader
 Pixelate.gdshader::Shader::-1::1708352907::0::1::::<><>::

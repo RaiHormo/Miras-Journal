@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/AbadTemple.png" id="1_ffi5p"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/AbadWater.png" id="2_7gdh7"]
-[ext_resource type="Texture2D" uid="uid://86fa1oxhyg4u" path="res://art/Tilesets/AbadGround.png" id="3_hqbka"]
+[ext_resource type="Texture2D" uid="uid://cf22r3hrvrhcb" path="res://art/Tilesets/AbadGround.png" id="3_hqbka"]
 [ext_resource type="Texture2D" uid="uid://enc0u6y8cw5w" path="res://art/Tilesets/AbadObj.png" id="4_begsd"]
 [ext_resource type="Texture2D" uid="uid://lqnkjbt6fgaj" path="res://art/Tilesets/Abadbuild.png" id="4_k3buq"]
 
