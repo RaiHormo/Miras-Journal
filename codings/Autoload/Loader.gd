@@ -294,7 +294,7 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
-	Global.Player.hide()
+	if Global.Player!= null: Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if Attacker != null: Attacker.hide()

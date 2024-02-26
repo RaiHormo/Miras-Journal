@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/Party/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_cich6"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_ujk23"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_ujk23"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="5_1ty82"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_w2g12"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_jb2qv"]

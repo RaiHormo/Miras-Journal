@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/Tutorials/textbox.gd" id="1_ho4q7"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_rgh70"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_8nnac"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_8nnac"]
 [ext_resource type="Script" path="res://UI/Textbox/dialogue_label_ext.gd" id="4_rwcjm"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="5_byelp"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="6_jj8vm"]

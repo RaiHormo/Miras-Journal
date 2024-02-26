@@ -1268,13 +1268,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vrfaw")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_lixnp")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3v5yh")
 }, {
-"duration": 2.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_7iktj")
 }, {
 "duration": 1.0,
@@ -1285,19 +1285,19 @@ animations = [{
 }],
 "loop": false,
 "name": &"PickUpLeft",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7y54u")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_soae4")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_47ve2")
 }, {
-"duration": 2.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_y0fq1")
 }, {
 "duration": 1.0,
@@ -1308,7 +1308,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"PickUpRight",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,

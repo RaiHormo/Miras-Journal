@@ -88,8 +88,8 @@ var SpeedBoost: int = 0
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
 @export var OV: SpriteFrames
-##The battle sprites for this actor. 
-##Some standard animation names include: 
+##The battle sprites for this actor.
+##Some standard animation names include:
 ##Idle, Hit, Ability, Cast, KnockOut, Entrance, Attack1, Attack2, Item, Command,
 ##AbilityLoop, ItemLoop, Victory, VictoryLoop
 @export var BT: SpriteFrames

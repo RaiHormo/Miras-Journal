@@ -365,7 +365,7 @@ size = Vector2(13, 6)
 
 [node name="Mira" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
 process_mode = 3
-z_index = 1
+z_index = 3
 z_as_relative = false
 y_sort_enabled = true
 material = ExtResource("1_srkwi")
@@ -388,7 +388,7 @@ light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_u6lnn")
-animation = &"PickUpRight"
+animation = &"PickUpLeft"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",
@@ -433,8 +433,9 @@ animation = &"WalkRight"
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
-position = Vector2(0, 6)
+position = Vector2(-18.6, -0.2)
 texture = ExtResource("10_dxclp")
+offset = Vector2(18.6, 6.2)
 
 [node name="Bubble" type="AnimatedSprite2D" parent="."]
 light_mask = 0
@@ -447,6 +448,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_o8id2")
 one_way_collision_margin = 15.4

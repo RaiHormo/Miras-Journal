@@ -160,7 +160,7 @@ func update_anim_prm() -> void:
 				set_anim(str("Walk"+Global.get_dir_name()))
 				for i in $Sprite.get_children():
 					i.speed_scale=(realvelocity.length()/70)
-		elif Global.Controllable and ("Walk" in used_sprite.animation or 
+		elif Global.Controllable and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			if move_frames != 0:
 				move_frames = 0
@@ -206,7 +206,7 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 		used_sprite = %Bag
 	elif anim in %Base.sprite_frames.get_animation_names():
 		used_sprite = %Base
-	else: 
+	else:
 		if wait: await Event.wait()
 		return
 	for i in $Sprite.get_children():
@@ -214,7 +214,7 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 		else: i.hide()
 	used_sprite.play(anim)
 	if wait:
-		while used_sprite.is_playing() and used_sprite.animation == anim: 
+		while used_sprite.is_playing() and used_sprite.animation == anim:
 			await Event.wait()
 
 func activate_flame(animate:=true) -> void:
@@ -280,7 +280,7 @@ func check_for_jumps() -> void:
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash() -> void:
-	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in 
+	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in
 	used_sprite.animation or midair or not dashing): return
 	dashing = false
 	speed = 75

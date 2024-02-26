@@ -56,7 +56,7 @@ func _process(delta):
 				for i in range(1, 4):
 					t.tween_property(Partybox.get_node("Member"+str(i)), "position:x", 0, 0.2)
 			else:
-				t.tween_property(Partybox.get_node("Leader"), 
+				t.tween_property(Partybox.get_node("Leader"),
 				"position:x", 0, 0.2)
 				for i in range(1, 4):
 					t.tween_property(Partybox.get_node("Member"+str(i)), "position:x", -70, 0.2)
@@ -88,7 +88,7 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null 
+	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null
 	and "Idle" in Global.Player.get_node("%Base").animation):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):
@@ -157,7 +157,7 @@ func _on_expand(open_ui=0):
 		t.set_trans(Tween.TRANS_BACK)
 		t.set_parallel()
 		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.4)
-		t.tween_property($CanvasLayer/Cursor/MemberOptions, 
+		t.tween_property($CanvasLayer/Cursor/MemberOptions,
 		"size:x", $CanvasLayer/Cursor/MemberOptions.size.x, 0.3).from(0)
 		t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
 		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
@@ -326,28 +326,28 @@ func focus_now():
 	else: $CanvasLayer/Cursor/MemberOptions/VBox/Talk.show()
 	$CanvasLayer/Cursor/MemberOptions.size.y = 1
 	for i in range(0, focus):
-		t.tween_property(get_node("%Pages/Page"+str(i)), 
+		t.tween_property(get_node("%Pages/Page"+str(i)),
 		"position", Vector2(1300, 44), 0.4+i/10)
-		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
 		"modulate", Color.TRANSPARENT, 0.5)
-		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"),
 		"position", Vector2(-15, 0), 0.3)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
 		"position", Vector2(100,0), 0.5)
-	t.tween_property(get_node("%Pages/Page"+str(focus)), 
+	t.tween_property(get_node("%Pages/Page"+str(focus)),
 	"position", Vector2(634, 44), 0.5)
-	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render"), 
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render"),
 	"position", Vector2(150, 130), 0.5)
-	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"), 
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"),
 	"modulate", Color(1,1,1,0.5), 0.5)
-	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"), 
+	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"),
 	"position", Vector2(-35,143), 0.5)
 	for i in range(focus+1, 4):
-		t.tween_property(get_node("%Pages/Page"+str(i)), 
+		t.tween_property(get_node("%Pages/Page"+str(i)),
 		"position", Vector2(634, 44), 0.3+i/10)
-		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"), 
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render"),
 		"position", Vector2(-15, 0), 0.3)
-		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"), 
+		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
 		"modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(get_node("%Pages/Page"+str(i)+"/Render/Shadow"),
 		"position", Vector2(100,0), 0.5)
@@ -406,11 +406,11 @@ func only_current():
 	t = create_tween()
 	t.set_parallel(true)
 	if Global.Bt.CurrentChar == Global.Party.Leader:
-		t.tween_property(%Partybox/Member1, 
+		t.tween_property(%Partybox/Member1,
 		"position", Vector2(-400,%Partybox/Member1.position.y), 0.2)
 	elif Global.Bt.CurrentChar == Global.Party.Member1:
 		t.tween_property(%Partybox/Member1, "position", Vector2(-70,20), 0.2)
-		t.tween_property(%Partybox/Leader, 
+		t.tween_property(%Partybox/Leader,
 		"position", Vector2(-400,%Partybox/Leader.position.y), 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
@@ -467,9 +467,9 @@ func make_shadow(texture: Texture2D) -> Texture2D:
 	var image = old_image.duplicate()
 	#// Gets a new image, identical to the old one.
 	#// Resizes the image, to one fifth of the original. Tweak this a lot depending on use, obviously.
-	image.resize(old_size.x / 20, old_size.y / 20) 
+	image.resize(old_size.x / 20, old_size.y / 20)
 	#// We make a new ImageTexture (similar to any other StandardTexture2D) from our image and...
-	var new_texture = ImageTexture.create_from_image(image) 
+	var new_texture = ImageTexture.create_from_image(image)
 	return new_texture #// Set it as out texture.
 
 
@@ -501,7 +501,7 @@ func choose_member():
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Back.show()
-	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x" 
+	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 	+ str(Item.get_node("ItemEffect").item.Quantity))
 	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
@@ -513,13 +513,13 @@ func choose_member():
 	$/root/MainMenu.stage = "choose_member"
 
 func _on_item_preview_pressed():
-	if (Item.get_node("ItemEffect").item.Quantity != 0 and 
+	if (Item.get_node("ItemEffect").item.Quantity != 0 and
 	Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP):
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 	else:
 		if Item.get_node("ItemEffect").item.Quantity != 0: Global.toast("HP is already maxed out")
 		Global.buzzer_sound()
-	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x" 
+	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 	+ str(Item.get_node("ItemEffect").item.Quantity))
 
 func confirm_time_passage(title: String, description: String, to_time: int):
@@ -539,7 +539,7 @@ func cmd():
 		elif $CanvasLayer/TextEdit.text != "":
 			$CanvasLayer/TextEdit.text.replace("/", "")
 			Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
-			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to " 
+			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to "
 			+ str(Event.f($CanvasLayer/TextEdit.text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true

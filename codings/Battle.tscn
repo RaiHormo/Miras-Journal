@@ -32,7 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="30_g1vxc"]
 [ext_resource type="Texture2D" uid="uid://bpdhp4otp83om" path="res://UI/Battle/MiraRing1.png" id="31_my2pa"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="32_ebvy8"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="33_jy6my"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="33_jy6my"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="34_mbmoj"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="35_7gyy2"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="36_wspte"]
