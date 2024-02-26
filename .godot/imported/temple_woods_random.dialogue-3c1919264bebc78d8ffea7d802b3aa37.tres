@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_3y6t4"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_ue5dc"]
 
 [resource]
-script = ExtResource("1_3y6t4")
+script = ExtResource("1_ue5dc")
 using_states = PackedStringArray()
 titles = {
 "a_bridge": "132",

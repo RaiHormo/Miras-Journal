@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdocri2qcief1"]
 
 [ext_resource type="Script" path="res://UI/Misc/Toast.gd" id="1_1ovav"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_foll0"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_foll0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wg3v"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)

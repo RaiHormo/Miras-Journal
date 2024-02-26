@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://codings/player_movement.gd" id="2_d6ige"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_rei3u"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="3_u6lnn"]
-[ext_resource type="Texture2D" uid="uid://clrbc8epe56ef" path="res://art/OV/Mira/Miraov-Sheet.png" id="6_6f3jb"]
+[ext_resource type="Texture2D" uid="uid://dflkgvfdlrm6y" path="res://art/OV/Mira/Base.png" id="6_6f3jb"]
 [ext_resource type="Texture2D" uid="uid://b8aiagab31eok" path="res://art/OV/Mira/flameFlame.png" id="9_2x5ew"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="10_dxclp"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_buww2"]

@@ -123,7 +123,7 @@ func new_game() -> void:
 	reset_all_members()
 	Controllable = false
 	Player.set_anim("OnFloor")
-	Player.get_node("%Base/Shadow").modulate = Color.TRANSPARENT
+	Player.get_node("%Shadow").modulate = Color.TRANSPARENT
 	Player._check_party()
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -148,7 +148,7 @@ func new_game() -> void:
 	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
 	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
 	t.tween_property(get_cam(), "zoom", Vector2(5,5), 5)
-	t.tween_property(Player.get_node("%Base/Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
+	t.tween_property(Player.get_node("%Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
 	await Player.set_anim("GetUp", true)
 	Player.set_anim("IdleUp")
 	Controllable = true

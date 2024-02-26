@@ -403,7 +403,14 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		OS.alert("Either the dev made a mistake, there's an outdated save file or you were save editing." ,"THE RESOURCE FAILED TO LOAD!")
+		OS.alert("Either the dev made a mistake, there's an outdated save file or
+you were save editing.
+\nIf you were save editing, please delete or restore the file.\n
+If you've played this game in an older version, you may have to delete the old save files.\n
+If this has nothing to do with save data, please report this error to the developer.\n
+On Windows save files are located under \"%APPDATA%\\miras-journal\"
+and on Linux under \"~/.local/share/miras-journal\"
+" ,"THE RESOURCE FAILED TO LOAD!")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!")

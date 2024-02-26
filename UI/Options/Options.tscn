@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="23_gmb0o"]
-[ext_resource type="FontFile" uid="uid://dgygoowvwayc" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
 [ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/UI/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 
@@ -287,7 +287,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_6ne1i"]
-default_font = ExtResource("17_chpua")
+default_font = ExtResource("24_41402")
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 Button/font_sizes/font_size = 32
 Button/styles/normal = null

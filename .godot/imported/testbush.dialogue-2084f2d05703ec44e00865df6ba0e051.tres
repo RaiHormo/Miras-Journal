@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="DialogueResource" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_mh7xe"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_resource.gd" id="1_e1ves"]
 
 [resource]
-script = ExtResource("1_mh7xe")
+script = ExtResource("1_e1ves")
 using_states = PackedStringArray()
 titles = {
 "add_to_party": "55",

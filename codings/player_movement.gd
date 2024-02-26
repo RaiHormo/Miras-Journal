@@ -53,7 +53,6 @@ func _ready() -> void:
 	Event.give_control()
 	Global.player_ready.emit()
 
-
 func extended_process() -> void:
 	if Global.Controllable:
 		BodyState = CONTROLLED
