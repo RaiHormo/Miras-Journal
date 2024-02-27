@@ -80,6 +80,9 @@ func pick_general_ability() -> Ability:
 	var r: int
 	var tries:= 0
 	while true:
+		if Char.has_state("KnockedOut") or Char.node == null or Char.Health == 0:
+			Bt.death(Char)
+			return null
 		tries += 1
 		if tries > 99:
 			OS.alert("The AI got stuck in an infinite loop, the dev might want to check on that")

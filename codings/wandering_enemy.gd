@@ -62,7 +62,7 @@ func _on_catch_area_body_entered(body):
 	Global.Player.winding_attack = false
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and
 	(Global.Controllable or Global.Player.dashing) and (not Global.Player.attacking)):
-		print(Global.Player.attacking)
+		#print(Global.Player.attacking)
 		await Event.take_control()
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0

@@ -698,7 +698,7 @@ func anim(animation: String="Idle", chara: Actor = CurrentChar):
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
-	while chara.node.is_playing() and chara.node.animation == animation:
+	while chara.node != null and chara.node.is_playing() and chara.node.animation == animation:
 		await Event.wait()
 
 func pixel_perfectize(chara: Actor, xy: int = 0):

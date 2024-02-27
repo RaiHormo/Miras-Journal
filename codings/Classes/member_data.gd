@@ -100,7 +100,7 @@ var SpeedBoost: int = 0
 ##A scene containing the sound effects for this actor
 @export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
 ##When true, the actor will be deleted after being knocked out
-@export var Disappear: bool
+@export var Disappear: bool = true
 ##The default amount of glow on the sprite
 @export var GlowDef: float = 0.3
 ##The amound of glow when the animations specified in GlowAnims are played
@@ -167,7 +167,7 @@ func add_state(x, turns = -1):
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
 	if turns != -1:
 		state.RemovedAfterTurns = turns
-	States.push_back(state)
+	States.append(state)
 	if node != null:
 		Global.Bt.on_state_add(state, self)
 		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
@@ -192,3 +192,10 @@ func has_state(x: String) -> bool:
 func full_heal():
 	Health = MaxHP
 	Aura = MaxAura
+
+func reset_static_info():
+	var og: Actor = load("res://database/Party/"+codename+".tres")
+	Attack = og.Attack
+	Defence = og.Defence
+	Magic = og.Magic
+	SkillPointsFor = og.SkillPointsFor

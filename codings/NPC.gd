@@ -204,7 +204,7 @@ func unshade() -> void:
 	t.tween_property($Sprite, "modulate", Color.WHITE, 0.3)
 
 func collision(tog: bool = $CollisionShape2D.disabled):
-	$CollisionShape2D.disabled = not tog
+	$CollisionShape2D.set_deferred("disabled", not tog)
 
 func attacked():
 	pass

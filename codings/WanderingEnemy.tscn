@@ -1,93 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://usn8pirw8kjc"]
+[gd_scene load_steps=25 format=3 uid="uid://usn8pirw8kjc"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle2.tres" id="3_ku8yi"]
-[ext_resource type="Texture2D" uid="uid://bvfnckapn0hdd" path="res://art/OV/Enemies/CrawlingSludgeOV.png" id="4_slugs"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="5_lwcxn"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rluqx"]
-atlas = ExtResource("4_slugs")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cck2v"]
-atlas = ExtResource("4_slugs")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kq7yx"]
-atlas = ExtResource("4_slugs")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_brei1"]
-atlas = ExtResource("4_slugs")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_hks0y"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"IdleLeft",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"IdleRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"IdleUp",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"WalkDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"WalkLeft",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"WalkRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"WalkUp",
-"speed": 5.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
 
@@ -228,15 +144,6 @@ speed = 20
 ID = "CS2"
 SpawnOnCameraInd = true
 CameraIndex = 1
-
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9DcmF3bGluZ1NsdWRnZU9WLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
-z_index = 1
-y_sort_enabled = true
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_hks0y")
-animation = &"WalkLeft"
-offset = Vector2(0.0496826, -5.866)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7bu4m")
