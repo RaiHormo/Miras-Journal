@@ -183,9 +183,8 @@ func update_anim_prm() -> void:
 func _on_pickup() -> void:
 	Global.Controllable = false
 	reset_speed()
-	if Global.get_direction() == Vector2.LEFT: set_anim("PickUpLeft")
-	else: set_anim("PickUpRight")
-	await %Base.animation_looped
+	if Global.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true)
+	else: await set_anim("PickUpRight", true)
 	Global.Controllable = true
 	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
 
@@ -201,7 +200,9 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 	if get_node_or_null("%Base") == null: return
 	if not Global.Controllable: reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
-	if Event.f(&"HasBag") and anim in %Bag.sprite_frames.get_animation_names():
+	if Event.f(&"FlameActive") and anim in %Flame.sprite_frames.get_animation_names():
+		used_sprite = %Flame
+	elif Event.f(&"HasBag") and anim in %Bag.sprite_frames.get_animation_names():
 		used_sprite = %Bag
 	elif anim in %Base.sprite_frames.get_animation_names():
 		used_sprite = %Base
@@ -210,11 +211,22 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 		return
 	for i in $Sprite.get_children():
 		if i == used_sprite: i.show()
+		elif i == %Flame and Event.f(&"FlameActive") and used_sprite != %Flame:
+			flame_out_of_the_way()
 		else: i.hide()
 	used_sprite.play(anim)
 	if wait:
 		while used_sprite.is_playing() and used_sprite.animation == anim:
 			await Event.wait()
+
+func flame_out_of_the_way():
+	if "Flame" not in %Flame.animation:
+		%Flame.show()
+		%Flame.play("FlameGo")
+		await %Flame.animation_finished
+		if "Flame" in %Flame.animation: %Flame.play("FlameFloat")
+	#elif "Stop" in anim:
+		#%Flame.play_backwards("FlameGo")
 
 func activate_flame(animate:=true) -> void:
 	Event.add_flag(&"FlameActive")
@@ -225,13 +237,11 @@ func activate_flame(animate:=true) -> void:
 		BodyState = NONE
 		await set_anim("FlameActive", true)
 		set_anim("IdleRight")
-	%Base/Flame.show()
 
 func check_flame(force:= false) -> void:
 	if not Global.Controllable and not force: return
 	if Event.check_flag(&"FlameActive"):
 		if get_node_or_null("Flame") == null: return
-		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 		if flame.energy == 0:
 			flame.flicker = true
 			if not force: activate_flame(false)
