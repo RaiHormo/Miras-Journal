@@ -5,18 +5,23 @@ var t: Tween
 var lock = false
 
 func _ready():
-	$AllEnemies.hide()
+	$AllEnemies.show()
 	$EnemyFocus.hide()
+	$AllEnemies.position.x = 1300
 
-func all_enemy_ui():
+func all_enemy_ui(from:= false):
 	lock = false
 	Troop = get_parent().Troop
+	if from:
+		var tw = create_tween()
+		tw.set_trans(Tween.TRANS_QUART)
+		tw.set_ease(Tween.EASE_OUT)
+		tw.tween_property($AllEnemies, "position:x", 1081, 0.2).from(1300)
 	if Troop.size() < $AllEnemies.get_child_count():
 		$AllEnemies.get_child($AllEnemies.get_child_count()-1).free()
 		all_enemy_ui()
 		return
 	$EnemyFocus.hide()
-	$AllEnemies.show()
 	for enemy in Troop:
 		var panel: Panel
 		if get_node_or_null("AllEnemies/Enemy" + str(Troop.find(enemy))) != null:

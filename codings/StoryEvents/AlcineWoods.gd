@@ -145,18 +145,17 @@ func skip():
 func alcine_helps():
 	$Sprite.play("IdleRight")
 	await bubble("Surprise")
-	PartyUI.only_current()
+	PartyUI.disabled = true
+	PartyUI.hide_all()
 	var hp := Global.Bt.get_actor("Petrogon").Health
-	await move_dir(Vector2.UP)
-	await move_dir(Vector2.RIGHT)
 	z_index = 9
 	Global.jump_to_global(self, Vector2(1660, -1068), 7, 0.5)
 	Loader.white_fadeout(2, 3, 0.5)
-	await Event.wait(0.5)
+	await Event.wait(0.5, false)
 	Global.Bt.end_battle()
 	hide()
 	Global.Party.add("Alcine")
-	await Event.wait(1)
+	await Event.wait(1, false)
 	await Loader.start_battle("AlcineFollow2")
 	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
 	Global.Bt.get_actor("Petrogon").Health = hp
@@ -185,3 +184,5 @@ func after_battle():
 	await Loader.detransition()
 	Event.give_control()
 	default()
+	PartyUI.disabled = false
+	PartyUI.UIvisible = true

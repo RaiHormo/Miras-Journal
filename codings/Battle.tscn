@@ -2691,11 +2691,10 @@ texture = SubResource("AtlasTexture_mtoyd")
 stretch_mode = 4
 
 [node name="AllEnemies" type="VBoxContainer" parent="EnemyUI"]
-visible = false
-offset_left = 1081.42
-offset_top = 18.3067
-offset_right = 1233.42
-offset_bottom = 103.307
+offset_left = 1081.0
+offset_top = 18.0
+offset_right = 1233.0
+offset_bottom = 103.0
 scale = Vector2(1.5, 1.5)
 theme_override_constants/separation = 19
 

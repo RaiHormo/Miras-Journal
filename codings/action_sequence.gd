@@ -276,6 +276,50 @@ func Eat():
 ################################################
 
 #region Battle events
+func FirstBattle1():
+	Global.Player.position = Vector2(1470, 400)
+	await Event.wait(2, false)
+	Bt.Troop[0].node.position.x = 50
+	Bt.focus_cam(Bt.Troop[0], 0.1, 70)
+	Bt.zoom(6)
+	Loader.battle_bars(4)
+	await Event.wait(0.5, false)
+	Loader.ungray.emit()
+	await Event.wait(0.3, false)
+	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
+	Loader.battle_bars(3)
+	Bt.get_actor("Mira").node.animation = "Entrance"
+	Bt.get_actor("Mira").node.frame = 2
+	Bt.focus_cam(Bt.Troop[0], 2, 40)
+	await Event.wait(2)
+	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
+	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
+	await Bt.move(Bt.Troop[0], Vector2(30, 0), 1, Tween.EASE_OUT)
+	await Bt.move(Bt.Troop[0], Vector2(20, 0), 1, Tween.EASE_OUT)
+	await Event.wait(0.5)
+	CurrentChar = Bt.Troop[0]
+	target = Bt.get_actor("Mira")
+	Bt.CurrentChar = Bt.Troop[0]
+	Bt.focus_cam(target, 0.5, 30)
+	Bt.anim("Attack1")
+	Loader.battle_bars(2)
+	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
+	await Bt.anim_done
+	for i in 3:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target, CurrentChar.Attack, false)
+		Bt.screen_shake(15, 7, 0.2)
+		Bt.anim("Attack2")
+		Bt.play_effect("SimpleHit", target)
+		await Event.wait(0.5)
+	Bt.anim("Ability", target)
+	Bt.move(CurrentChar, Vector2(50, 0), 0.2, Tween.EASE_OUT)
+	Bt.jump_to_target(CurrentChar, CurrentChar, Vector2(30, 0), 0.2)
+	Bt.anim("Hit")
+	await Event.wait(2)
+	Bt.anim()
+	Bt.end_turn()
+
 func AlcineWoods1():
 	if Bt.get_actor("Mira").Health == 0: return
 	Event.flag_progress("AlcineFollow4", 4)

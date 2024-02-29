@@ -307,7 +307,7 @@ func _input(event: InputEvent) -> void:
 				_on_close()
 			else: Global.toast("Hold the button down to skip")
 		elif event.is_pressed() and not event.is_action("ui_accept") and is_waiting_for_input:
-			print(event)
+			#print(event)
 			$Hints/Skip.icon = Global.get_controller().Dash
 			$Hints/Advance.icon = Global.get_controller().ConfirmIcon
 			$Hints.show()

@@ -257,7 +257,6 @@ func detransition():
 		Icon.play("Close")
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	$Can.hide()
 	$Can/Bars/Down.position = Vector2(-34, 1882)
 	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
@@ -442,7 +441,7 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 	$Can.show()
 	var fader = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
-	fader.position = Vector2(50,900)
+	fader.position = Vector2(-134,-189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = Color.BLACK
 	var tf = create_tween()

@@ -127,6 +127,7 @@ func _on_root():
 	t.set_parallel()
 	stage = &"root"
 	PrevStage = &"root"
+	PartyUI.battle_state()
 	Bt.get_node("EnemyUI").all_enemy_ui()
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
 	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
@@ -324,6 +325,7 @@ func _on_ability():
 	$"../Canvas/Back".icon = Global.get_controller().CancelIcon
 	$DescPaper/ShowWheel.icon = Global.get_controller().CommandIcon
 	CurrentChar.NextAction = "ability"
+	PartyUI.only_current()
 	t.kill()
 	$DescPaper.show()
 	t = create_tween()
@@ -400,7 +402,6 @@ func _on_command():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	Global.confirm_sound()
-	PartyUI.only_current()
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)

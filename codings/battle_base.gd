@@ -226,7 +226,6 @@ func entrance():
 	if Seq.Transition:
 		$Cam.zoom = Vector2(5,5)
 		$Cam.position = Vector2(90,10)
-		PartyUI.UIvisible = false
 		if Troop.size()<3:
 			Loader.battle_bars(3)
 		else:
@@ -235,22 +234,20 @@ func entrance():
 		t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
 		await get_tree().create_timer(0.3).timeout
-		$EnemyUI.all_enemy_ui()
+		$EnemyUI.all_enemy_ui(true)
 		if Loader.BtAdvantage == 1:
 			for i in Troop: damage(i, 1, false, 24/Troop.size())
 		await get_tree().create_timer(0.5).timeout
-	else:
+	elif Seq.EntranceSequence == "":
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
-	if Seq.EntranceSequence == "":
 		for i in PartyArray:
 			entrance_anim(i)
 	Loader.battle_bars(2)
 	await get_tree().create_timer(0.5).timeout
-	if not Seq.Transition: $EnemyUI.all_enemy_ui()
-	PartyUI.UIvisible = true
-	PartyUI.battle_state()
+	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
+	PartyUI.battle_state(true)
 	await get_tree().create_timer(0.7).timeout
 	if Seq.EntranceSequence == "": next_turn.emit()
 

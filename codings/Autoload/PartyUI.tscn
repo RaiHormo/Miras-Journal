@@ -607,7 +607,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="AruaText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura"]
+[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
@@ -739,7 +739,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="AruaText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura"]
+[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura"]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
