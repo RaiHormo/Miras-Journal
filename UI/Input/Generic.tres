@@ -27,5 +27,6 @@ R = ExtResource("7_ydkbs")
 RZ = ExtResource("8_4rye4")
 L = ExtResource("5_g8qpv")
 LZ = ExtResource("6_d3lmo")
+Menu = ExtResource("3_f2iby")
 OVAttack = ExtResource("8_4rye4")
 AltConfirm = false

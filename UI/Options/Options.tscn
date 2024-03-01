@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=76 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" path="res://UI/Options/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
@@ -20,12 +20,18 @@
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="18_y4emp"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="19_sc5mb"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="20_5ccb6"]
+[ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
+[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="22_w3i7s"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
+[ext_resource type="Texture2D" uid="uid://bjy4gyndw8qxl" path="res://UI/Input/RZ.png" id="23_bqtf5"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="23_gmb0o"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
+[ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="24_kpda3"]
+[ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="25_aibxb"]
 [ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/UI/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
+[ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="26_jguiy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_0ss3e")
@@ -659,7 +665,6 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -689,6 +694,7 @@ layout_mode = 2
 [node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
 text = "Gameplay"
 
 [node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -718,6 +724,7 @@ popup/item_2/id = 2
 [node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
 text = "Input"
 
 [node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -735,34 +742,194 @@ text = "Control scheme"
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
-item_count = 11
+item_count = 10
 selected = 0
 popup/item_0/text = "Auto"
 popup/item_0/id = 0
 popup/item_1/text = "Keyboard"
-popup/item_1/id = 7
+popup/item_1/id = 1
 popup/item_2/text = "Nintendo"
 popup/item_2/id = 2
 popup/item_3/text = "Xbox"
 popup/item_3/id = 3
 popup/item_4/text = "Xbox 360"
-popup/item_4/id = 1
+popup/item_4/id = 8
 popup/item_5/text = "DualSense"
 popup/item_5/id = 4
 popup/item_6/text = "DualShock 4"
-popup/item_6/id = 4
+popup/item_6/id = 5
 popup/item_7/text = "DualShock"
 popup/item_7/id = 6
 popup/item_8/text = "Steam Deck"
-popup/item_8/id = 5
-popup/item_9/text = "Other"
-popup/item_9/id = 1
-popup/item_10/text = "No prompts"
-popup/item_10/id = 10
+popup/item_8/id = 7
+popup/item_9/text = "No prompts"
+popup/item_9/id = 10
+
+[node name="ControlPreview" type="Control" parent="SidePanel/ScrollContainer/SettingsVbox"]
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+
+[node name="A" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 210.731
+offset_top = 104.043
+offset_right = 260.731
+offset_bottom = 154.043
+texture = ExtResource("6_d2agy")
+
+[node name="B" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 156.718
+offset_top = 154.028
+offset_right = 206.718
+offset_bottom = 204.028
+texture = ExtResource("7_xdp6q")
+
+[node name="X" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 155.745
+offset_top = 55.0281
+offset_right = 205.745
+offset_bottom = 105.028
+texture = ExtResource("23_gmb0o")
+
+[node name="Y" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 103.731
+offset_top = 107.014
+offset_right = 153.731
+offset_bottom = 157.014
+texture = ExtResource("22_xyl14")
+
+[node name="L" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 18.7451
+offset_top = 53.9766
+offset_right = 68.7451
+offset_bottom = 103.977
+texture = ExtResource("21_282ro")
+
+[node name="LZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 67.7575
+offset_top = 8.99015
+offset_right = 117.758
+offset_bottom = 58.9901
+texture = ExtResource("22_w3i7s")
+
+[node name="RZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 240.757
+offset_top = 10.0378
+offset_right = 290.757
+offset_bottom = 60.0378
+texture = ExtResource("23_bqtf5")
+
+[node name="R" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 294.746
+offset_top = 53.0527
+offset_right = 344.746
+offset_bottom = 103.053
+texture = ExtResource("24_kpda3")
+
+[node name="Start" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 290.716
+offset_top = 160.052
+offset_right = 340.716
+offset_bottom = 210.052
+texture = ExtResource("25_aibxb")
+
+[node name="Select" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 19.7159
+offset_top = 159.977
+offset_right = 69.716
+offset_bottom = 209.977
+texture = ExtResource("26_jguiy")
+
+[node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 493.761
+offset_top = -1.89249
+offset_right = 543.761
+offset_bottom = 48.1075
+texture = ExtResource("6_d2agy")
+
+[node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 556.759
+offset_top = 5.12486
+offset_right = 707.759
+offset_bottom = 47.1249
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Confirm"
+
+[node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 493.745
+offset_top = 56.1213
+offset_right = 543.745
+offset_bottom = 106.121
+texture = ExtResource("7_xdp6q")
+
+[node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 556.743
+offset_top = 63.1386
+offset_right = 707.743
+offset_bottom = 105.139
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Cancel"
+
+[node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 493.728
+offset_top = 115.121
+offset_right = 543.728
+offset_bottom = 165.121
+texture = ExtResource("23_gmb0o")
+
+[node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 556.726
+offset_top = 122.139
+offset_right = 707.726
+offset_bottom = 164.139
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Menu"
+
+[node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 165.712
+offset_top = 174.212
+offset_right = 215.712
+offset_bottom = 224.212
+texture = ExtResource("22_xyl14")
+
+[node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+layout_mode = 0
+offset_left = 556.71
+offset_top = 181.139
+offset_right = 708.71
+offset_bottom = 223.139
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Dash"
 
 [node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
 text = "Display
 "
 
@@ -780,6 +947,50 @@ text = "Fullscreen"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
 layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+alignment = 2
+
+[node name="FPS" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Framerate limit"
+
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+expand_icon = true
+item_count = 4
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "30 FPS"
+popup/item_1/id = 30
+popup/item_2/text = "60 FPS"
+popup/item_2/id = 60
+popup/item_3/text = "144 FPS"
+popup/item_3/id = 144
+
+[node name="Vsync" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "VSync"
+
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../AdjustImage")
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
@@ -878,6 +1089,7 @@ value = 1.0
 [node name="Audio" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
 text = "Audio"
 
 [node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -1025,6 +1237,34 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
 theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
+[node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
+text = "System"
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Debug tools"
+
+[node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
+theme_override_font_sizes/font_size = 32
+text = "For a regular playthrough it's recommended that
+this is kept off.
+Debug tools are used with ctrl key 
+combinations."
+
+[node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_6ne1i")
+
 [node name="GalleryPanel" type="Panel" parent="."]
 visible = false
 offset_left = 1335.0
@@ -1070,6 +1310,7 @@ text = "Credits
 "
 
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1385,6 +1626,10 @@ texture = ExtResource("26_375bk")
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="cursor"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="_fps"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="confirm"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/Vsync/CheckButton" to="." method="_vsync"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_last_setting"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_adjust_image"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_show_image_test"]
@@ -1404,6 +1649,7 @@ texture = ExtResource("26_375bk")
 [connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Voices/Slider" to="." method="_on_master_volume"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_last_setting"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode" to="." method="_debug_mode"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile/Button" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]
 [connection signal="pressed" from="SavePanel/Buttons/Overwrite" to="." method="_on_save_overwrite"]

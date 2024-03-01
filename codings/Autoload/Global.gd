@@ -93,6 +93,12 @@ func ready_window() -> void:
 
 func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
+	if ProcessFrame % 100:
+		if Settings.FPS == 0:
+			Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
+		else:
+			Engine.set_physics_ticks_per_second(Settings.FPS)
+		Engine.max_fps = Settings.FPS
 
 func options():
 	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
@@ -215,7 +221,6 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
 	LastInput=ProcessFrame
-	Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 	#print(device)
 
 func cancel() -> String:
@@ -268,11 +273,19 @@ func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.tres"):
 		print("No settings found, initializing...")
 		reset_settings()
-		await get_tree().create_timer(0.5).timeout
+		await Event.wait()
 	Settings = load("user://Settings.tres")
+	if Settings == null:
+		print("Settings file is invalid, settings will be restored to default")
+		reset_settings()
+		await Event.wait()
+		Settings = load("user://Settings.tres")
+	if Settings == null: OS.alert("Something is wrong with the settings file or user folder")
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
+	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
 func get_playtime() -> int:
 	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime

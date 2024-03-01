@@ -20,7 +20,7 @@ const dash_speed := 200
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
-var used_sprite: AnimatedSprite2D
+@onready var used_sprite: AnimatedSprite2D = %Base
 
 func _ready() -> void:
 	ID = "P"

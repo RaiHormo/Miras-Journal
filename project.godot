@@ -45,6 +45,7 @@ World="*res://codings/Autoload/WorldEnvironment.tscn"
 
 settings/crash_handler/message="Looks like the Dev fucked up. If you are seeing this, please report it to them"
 settings/crash_handler/message.editor="Looks like the Dev fucked up. If you are seeing this, please report it to them"
+settings/stdout/print_fps=true
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_private_class_variable=0
 gdscript/warnings/unused_parameter=0

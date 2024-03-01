@@ -2136,8 +2136,7 @@ vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]
 light_mask = 0
-texture_filter = 2
-material = ExtResource("1_dmrw5")
+texture_filter = 1
 layout_mode = 0
 offset_left = 10.75
 offset_top = 4.0

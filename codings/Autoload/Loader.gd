@@ -158,6 +158,7 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Gl
 		ResourceLoader.load_threaded_request(scene)
 	await transition(trans)
 	status = ResourceLoader.load_threaded_get_status(scene, progress)
+	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		await done()
 		if z >= 0: Global.Area.handle_z(z)

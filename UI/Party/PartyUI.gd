@@ -105,21 +105,22 @@ func _input(ev):
 		_on_item_preview_pressed()
 
 	##Debug shortcuts
-	if Input.is_action_just_pressed("Debug"):
-		Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
-	if Input.is_action_just_pressed("DebugT"):
-		Global.passive("testbush", "greetings")
-	if Input.is_action_just_pressed("DebugP"):
-		Global.toast("Controllable set to " + str(!Global.Controllable))
-		if Global.Controllable == true:
-			Event.take_control()
-		else: Event.give_control()
-	if Input.is_action_just_pressed("DebugI"):
-		Item.add_item("SmallPotion", "Con")
-	if Input.is_action_just_pressed("DebugA"):
-		Global.textbox("testbush", "add_to_party")
-	if Input.is_action_just_pressed("DebugFlag"):
-		cmd()
+	if Global.Settings.DebugMode:
+		if Input.is_action_just_pressed("Debug"):
+			Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+		if Input.is_action_just_pressed("DebugT"):
+			Global.passive("testbush", "greetings")
+		if Input.is_action_just_pressed("DebugP"):
+			Global.toast("Controllable set to " + str(!Global.Controllable))
+			if Global.Controllable == true:
+				Event.take_control()
+			else: Event.give_control()
+		if Input.is_action_just_pressed("DebugI"):
+			Item.add_item("SmallPotion", "Con")
+		if Input.is_action_just_pressed("DebugA"):
+			Global.textbox("testbush", "add_to_party")
+		if Input.is_action_just_pressed("DebugFlag"):
+			cmd()
 
 func darken(toggle := true):
 	t = create_tween()

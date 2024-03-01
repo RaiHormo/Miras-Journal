@@ -59,6 +59,7 @@ func _ready():
 	stage = "main"
 	loaded.emit()
 	load_save_files()
+	load_settings()
 
 func siilhouette():
 	$Silhouette.texture = Loader.Preview
@@ -75,6 +76,7 @@ func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
+	load_settings()
 #	if Input.is_action_just_pressed("ui_cancel"):
 #		_on_back_pressed()
 
@@ -144,7 +146,6 @@ func main():
 func game_settings():
 	if stage == "game_settings": return
 	if stage != "main": await loaded
-	load_settings()
 	$MainButtons/GameSettings.toggle_mode=true
 	$MainButtons/GameSettings.button_pressed=true
 	stage="game_settings"
@@ -161,6 +162,8 @@ func game_settings():
 	%SettingsVbox/ControlScheme/MenuBar.grab_focus()
 	Global.confirm_sound()
 	$SidePanel.show()
+	await t.finished
+	load_settings()
 
 func save_managment() -> void:
 	if stage == "save_managment": return
@@ -245,6 +248,29 @@ func load_settings():
 	%SettingsVbox/BCSadjust/BrtSlider.value = World.environment.adjustment_brightness
 	%SettingsVbox/BCSadjust/ConSlider.value = World.environment.adjustment_contrast
 	%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
+	%SettingsVbox/DebugMode.button_pressed = Global.Settings.DebugMode
+	%SettingsVbox/Vsync/CheckButton.button_pressed = Global.Settings.VSync
+	match Global.Settings.FPS:
+		0: %SettingsVbox/FPS/MenuBar.selected = 0
+		30: %SettingsVbox/FPS/MenuBar.selected = 1
+		60: %SettingsVbox/FPS/MenuBar.selected = 2
+		144: %SettingsVbox/FPS/MenuBar.selected = 3
+
+	%SettingsVbox/ControlPreview/A.texture = Global.get_controller().AbilityIcon
+	%SettingsVbox/ControlPreview/B.texture = Global.get_controller().AttackIcon
+	%SettingsVbox/ControlPreview/Y.texture = Global.get_controller().ItemIcon
+	%SettingsVbox/ControlPreview/X.texture = Global.get_controller().CommandIcon
+	%SettingsVbox/ControlPreview/R.texture = Global.get_controller().R
+	%SettingsVbox/ControlPreview/L.texture = Global.get_controller().L
+	%SettingsVbox/ControlPreview/LZ.texture = Global.get_controller().LZ
+	%SettingsVbox/ControlPreview/RZ.texture = Global.get_controller().RZ
+	%SettingsVbox/ControlPreview/Start.texture = Global.get_controller().Start
+	%SettingsVbox/ControlPreview/Select.texture = Global.get_controller().Select
+	%SettingsVbox/ControlPreview/ConfirmB.texture = Global.get_controller().ConfirmIcon
+	%SettingsVbox/ControlPreview/CancelB.texture = Global.get_controller().CancelIcon
+	%SettingsVbox/ControlPreview/MenuB.texture = Global.get_controller().Menu
+	%SettingsVbox/ControlPreview/DashB.texture = Global.get_controller().Dash
+	Global.save_settings()
 
 func load_save_files():
 	for i in %Files.get_children():
@@ -332,7 +358,6 @@ func _on_save_delete() -> void:
 		panel.get_node("ProgressBar").value = 0
 		panel.get_node("ProgressBar").modulate.a = 1
 
-
 func _on_save_overwrite() -> void:
 	var panel = focus.get_parent()
 	var index = focus.get_index()
@@ -412,23 +437,26 @@ func _on_control_scheme(index):
 	match Global.Settings.ControlSchemeEnum:
 		0:
 			Global.Settings.ControlSchemeAuto = true
-		7:
+		1:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Keyboard.tres")
 		2:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Nintendo.tres")
 		3:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Xbox.tres")
-		1:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Generic.tres")
 		4:
+			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStation.tres")
+		5:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStation.tres")
 		6:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStationOld.tres")
-		5:
+		7:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/SteamDeck.tres")
+		8:
+			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Generic.tres")
 		10:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/None.tres")
 	Global.save_settings()
+	load_settings()
 
 func _on_fullscreen():
 	Global.fullscreen()
@@ -473,6 +501,7 @@ func confirm():
 
 func cursor(i):
 	Global.cursor_sound()
+	load_settings()
 
 func _on_brightness(value):
 	World.environment.adjustment_brightness = max(value, 0.3)
@@ -502,7 +531,6 @@ func _hide_image_test() -> void:
 	%SettingsVbox/AdjustImage.button_pressed = false
 	_on_adjust_image(false)
 
-
 func _on_adjust_image(toggle:bool) -> void:
 	if toggle:
 		%SettingsVbox/BCSadjust.show()
@@ -510,3 +538,18 @@ func _on_adjust_image(toggle:bool) -> void:
 		await Event.wait()
 		Global.confirm_sound()
 	else: %SettingsVbox/BCSadjust.hide()
+
+func _debug_mode(toggled_on: bool) -> void:
+	Global.Settings.DebugMode = toggled_on
+	confirm()
+
+func _fps(index: int) -> void:
+	Global.Settings.FPS = %SettingsVbox/FPS/MenuBar.get_selected_id()
+	confirm()
+
+func _vsync(toggle: bool) -> void:
+	Global.Settings.VSync = toggle
+	if toggle: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	confirm()
+	load_settings()

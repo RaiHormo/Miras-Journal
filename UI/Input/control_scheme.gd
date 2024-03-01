@@ -14,6 +14,8 @@ class_name ControlScheme
 @export var RZ:Texture
 @export var L:Texture
 @export var LZ:Texture
+@export var Menu:Texture
 @export var OVAttack:Texture
 @export var AltConfirm: bool
+
 

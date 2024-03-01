@@ -277,6 +277,7 @@ func Eat():
 
 #region Battle events
 func FirstBattle1():
+	while Global.Player == null: await Event.wait()
 	Global.Player.position = Vector2(1470, 400)
 	await Event.wait(2, false)
 	Bt.Troop[0].node.position.x = 50
