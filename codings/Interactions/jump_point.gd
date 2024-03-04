@@ -15,6 +15,7 @@ func _on_entered(body: Node2D) -> void:
 			var coord: Vector2 = Global.Player.global_position
 			round(coord)
 			coord += (jump_am*24) * Global.Player.dashdir
+			Global.Player.used_sprite.frame = 0
 			await Global.jump_to(Global.Player, coord, time, height)
 			Global.Player.collision(true)
 			Global.Controllable = true

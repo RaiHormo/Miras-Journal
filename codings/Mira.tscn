@@ -611,7 +611,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"WalkRight"
+animation = &"DashLeftLoop"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",

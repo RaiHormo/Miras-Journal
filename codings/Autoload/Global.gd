@@ -357,7 +357,7 @@ func init_party(party:PartyData) -> void:
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
-			Members.push_front(file.duplicate())
+			Members.append(file.duplicate())
 	Party = PartyData.new()
 	Party.set_to(party)
 

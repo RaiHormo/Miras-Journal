@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://dhcj1318p3b4g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://dhcj1318p3b4g"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_4agl2"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_fnv26"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="2_pm52f"]
 [ext_resource type="Resource" uid="uid://di0tgolj2jhxg" path="res://database/Items/Materials/WhiteSlime.tres" id="4_n0njt"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="4_rtvyb"]
+[ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="8_pf2cg"]
 
 [resource]
 script = ExtResource("2_iy5kn")
@@ -15,13 +16,13 @@ FirstName = "Crawling sludge"
 MainColor = Color(0.560784, 1, 0.886275, 1)
 PartyIcon = ExtResource("1_u1o0b")
 ActorClass = "Attacker"
-codename = &"Actor"
+codename = &"CS"
 ClutchDmg = false
 CantDie = false
 IsEnemy = true
 DroppedItem = ExtResource("4_n0njt")
 RecivedSP = 5
-SummonedAllies = Array[ExtResource("2_iy5kn")]([])
+SummonedAllies = Array[ExtResource("2_iy5kn")]([ExtResource("8_pf2cg")])
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""

@@ -242,6 +242,7 @@ func entrance():
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
+	if Seq.EntranceSequence == "":
 		for i in PartyArray:
 			entrance_anim(i)
 	Loader.battle_bars(2)
@@ -348,7 +349,7 @@ func _on_battle_ui_ability():
 func _on_battle_ui_root():
 	$EnemyUI.all_enemy_ui()
 	stop_sound("Ability", CurrentChar)
-	anim("Idle")
+	anim()
 
 func callout(ab:Ability = CurrentAbility):
 	if not ab.Callout:
@@ -359,9 +360,6 @@ func callout(ab:Ability = CurrentAbility):
 	if callout_onscreen:
 		tc.tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.2)
 		await tc.finished
-		tc = create_tween()
-		tc.set_ease(Tween.EASE_OUT)
-		tc.set_trans(Tween.TRANS_QUINT)
 	callout_onscreen = true
 	if ab.ColorSameAsActor: ab.WheelColor = CurrentChar.MainColor
 	$Canvas/Callout.text = ab.name
@@ -497,7 +495,8 @@ x: int = calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
 			await death(target)
 			return
 	if target.has_state("Guarding"):
-		target.add_aura(dmg/2)
+		if relation == "res": target.add_aura(dmg*2)
+		else: target.add_aura(dmg)
 	else:
 		if effect and elemental:
 			if el_mod > 1:
@@ -682,7 +681,10 @@ func hp_sort(a:Actor, b:Actor):
 	else:
 		return false
 
-func anim(animation: String="Idle", chara: Actor = CurrentChar):
+func anim(animation: String="", chara: Actor = CurrentChar):
+	if animation == "":
+		if chara.DontIdle: return
+		else: animation = "Idle"
 	if animation not in chara.node.sprite_frames.get_animation_names(): return
 	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t=create_tween()

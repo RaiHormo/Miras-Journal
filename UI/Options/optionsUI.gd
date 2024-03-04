@@ -9,6 +9,7 @@ var was_paused: bool
 var cant_save:= false
 
 func _ready():
+	hide()
 	if $/root.get_node_or_null("MainMenu") != null and $/root/MainMenu.stage != "options":
 		$/root/MainMenu._on_back_button_down()
 		queue_free()
@@ -30,6 +31,7 @@ func _ready():
 		if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 		$MainButtons/SaveManagment.grab_focus()
 	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null: cant_save = true
+	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
 	Global.Controllable=false
@@ -58,8 +60,6 @@ func _ready():
 	await t.finished
 	stage = "main"
 	loaded.emit()
-	load_save_files()
-	load_settings()
 
 func siilhouette():
 	$Silhouette.texture = Loader.Preview
@@ -67,6 +67,8 @@ func siilhouette():
 	ts.set_trans(Tween.TRANS_QUART)
 	ts.set_ease(Tween.EASE_OUT)
 	ts.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
+	await ts.finished
+	load_settings()
 
 func _physics_process(delta):
 	var playtime:Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())
@@ -76,10 +78,9 @@ func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
-	load_settings()
+	if stage == "game_settings": load_settings()
 #	if Input.is_action_just_pressed("ui_cancel"):
 #		_on_back_pressed()
-
 
 func _on_back_pressed():
 	match stage:
@@ -166,6 +167,7 @@ func game_settings():
 	load_settings()
 
 func save_managment() -> void:
+	await load_save_files()
 	if stage == "save_managment": return
 	if stage != "main": await await loaded
 	$SavePanel.show()
@@ -237,6 +239,8 @@ func _on_focus_changed(control:Control):
 		$SavePanel/ScrollContainer/Files/New/NewFile/Button.disabled = true
 
 func load_settings():
+	Global.save_settings()
+	var setting = await Loader.load_res("user://Settings.tres")
 	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 	%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
 	%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume*10
@@ -256,21 +260,20 @@ func load_settings():
 		60: %SettingsVbox/FPS/MenuBar.selected = 2
 		144: %SettingsVbox/FPS/MenuBar.selected = 3
 
-	%SettingsVbox/ControlPreview/A.texture = Global.get_controller().AbilityIcon
-	%SettingsVbox/ControlPreview/B.texture = Global.get_controller().AttackIcon
-	%SettingsVbox/ControlPreview/Y.texture = Global.get_controller().ItemIcon
-	%SettingsVbox/ControlPreview/X.texture = Global.get_controller().CommandIcon
-	%SettingsVbox/ControlPreview/R.texture = Global.get_controller().R
-	%SettingsVbox/ControlPreview/L.texture = Global.get_controller().L
-	%SettingsVbox/ControlPreview/LZ.texture = Global.get_controller().LZ
-	%SettingsVbox/ControlPreview/RZ.texture = Global.get_controller().RZ
-	%SettingsVbox/ControlPreview/Start.texture = Global.get_controller().Start
-	%SettingsVbox/ControlPreview/Select.texture = Global.get_controller().Select
-	%SettingsVbox/ControlPreview/ConfirmB.texture = Global.get_controller().ConfirmIcon
-	%SettingsVbox/ControlPreview/CancelB.texture = Global.get_controller().CancelIcon
-	%SettingsVbox/ControlPreview/MenuB.texture = Global.get_controller().Menu
-	%SettingsVbox/ControlPreview/DashB.texture = Global.get_controller().Dash
-	Global.save_settings()
+	%SettingsVbox/ControlPreview/A.set_deferred("texture", Global.get_controller().AbilityIcon)
+	%SettingsVbox/ControlPreview/B.set_deferred("texture", Global.get_controller().AttackIcon)
+	%SettingsVbox/ControlPreview/Y.set_deferred("texture", Global.get_controller().ItemIcon)
+	%SettingsVbox/ControlPreview/X.set_deferred("texture", Global.get_controller().CommandIcon)
+	%SettingsVbox/ControlPreview/R.set_deferred("texture", Global.get_controller().R)
+	%SettingsVbox/ControlPreview/L.set_deferred("texture", Global.get_controller().L)
+	%SettingsVbox/ControlPreview/LZ.set_deferred("texture", Global.get_controller().LZ)
+	%SettingsVbox/ControlPreview/RZ.set_deferred("texture", Global.get_controller().RZ)
+	%SettingsVbox/ControlPreview/Start.set_deferred("texture", Global.get_controller().Start)
+	%SettingsVbox/ControlPreview/Select.set_deferred("texture", Global.get_controller().Select)
+	%SettingsVbox/ControlPreview/ConfirmB.set_deferred("texture", Global.get_controller().ConfirmIcon)
+	%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
+	%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
+	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
 
 func load_save_files():
 	for i in %Files.get_children():
@@ -464,10 +467,8 @@ func _on_fullscreen():
 	await get_tree().create_timer(0.5).timeout
 	load_settings()
 
-
 func _on_quit():
 	Global.quit()
-
 
 func _on_master_volume(value:float):
 	Global.Settings.MasterVolume = value/10
@@ -475,7 +476,7 @@ func _on_master_volume(value:float):
 		Global.Settings.MasterVolume = -80
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 	$AudioTester.bus = "Master"
-	$AudioTester.play()
+	if stage == "game_settings": $AudioTester.play()
 	Global.save_settings()
 
 func _on_EnvSFX_volume(value: float) -> void:
@@ -484,7 +485,7 @@ func _on_EnvSFX_volume(value: float) -> void:
 		Global.Settings.EnvSFXVolume = -80
 	AudioServer.set_bus_volume_db(2, Global.Settings.EnvSFXVolume)
 	$AudioTester.bus = "EnvSFX"
-	$AudioTester.play()
+	if stage == "game_settings": $AudioTester.play()
 	Global.save_settings()
 
 func _on_volume_reset():
@@ -497,11 +498,13 @@ func _on_volume_reset():
 	Global.confirm_sound()
 
 func confirm():
-	Global.confirm_sound()
+	if stage == "game_settings":
+		Global.confirm_sound()
 
 func cursor(i):
-	Global.cursor_sound()
-	load_settings()
+	if stage == "game_settings":
+		Global.cursor_sound()
+		load_settings()
 
 func _on_brightness(value):
 	World.environment.adjustment_brightness = max(value, 0.3)
@@ -553,3 +556,7 @@ func _vsync(toggle: bool) -> void:
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	confirm()
 	load_settings()
+
+func _new_game() -> void:
+	close()
+	Global.new_game()

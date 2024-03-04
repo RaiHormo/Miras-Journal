@@ -32,7 +32,7 @@ func _ready():
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
-	validate_save(load("user://Autosave.tres"))
+	validate_save("user://Autosave.tres")
 
 func save(filename:String="Autosave", showicon=true):
 	if Global.Player == null or Global.Area == null:
@@ -89,13 +89,12 @@ func load_game(filename:String="Autosave", sound:= true):
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
 	await get_tree().create_timer(1).timeout
-	var data:SaveFile = await load_res("user://"+filename+".tres")
-	if not validate_save(data):
+	if not validate_save("user://"+filename+".tres"):
 		OS.alert("Save data is corrupt")
 		OS.set_restart_on_exit(true)
 		get_tree().quit()
 		return
-
+	var data:SaveFile = await load_res("user://"+filename+".tres")
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
@@ -341,6 +340,7 @@ func end_battle():
 	battle_bars(0)
 	get_tree().paused = false
 	if Global.Player != null:
+		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		await Event.wait(0.1)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
@@ -453,10 +453,11 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 	await tf.finished
 	fader.queue_free()
 
-func validate_save(save: SaveFile) -> bool:
+func validate_save(save: String) -> bool:
 	if FileAccess.file_exists("user://Autosave.tres"):
-		if save != null and save.version == SaveVersion:
-			Preview = save.Preview
+		var file = load(save)
+		if file != null and file.version == SaveVersion:
+			Preview = file.Preview
 			return true
 		else:
 			OS.alert("This save file is corrupt or from an incompatible version and will now be deleted", "Can't read file")

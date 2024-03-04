@@ -12,6 +12,7 @@ func _ready():
 func all_enemy_ui(from:= false):
 	lock = false
 	Troop = get_parent().Troop
+	$AllEnemies.show()
 	if from:
 		var tw = create_tween()
 		tw.set_trans(Tween.TRANS_QUART)

@@ -17,6 +17,7 @@ ActionSequence = &"SoothingSpray"
 Type = "Healing"
 AuraCost = 5
 HPCost = 0
+disabled = false
 Damage = 1
 Parameter = 0.0
 Target = 3

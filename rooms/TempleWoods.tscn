@@ -952,9 +952,7 @@ shape = SubResource("RectangleShape2D_juphf")
 visible = false
 position = Vector2(-3.00019, 1.00111)
 script = ExtResource("22_i6hw2")
-jump_dirs = null
 jump_am = 2
-time = null
 height = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axe/JumpPoint4"]
@@ -980,8 +978,6 @@ position = Vector2(-3.05176e-05, -3.05176e-05)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint1"]
 position = Vector2(21.9993, -1.37897)
@@ -992,8 +988,6 @@ position = Vector2(-71.962, 168.017)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint6"]
 position = Vector2(21.9993, -1.37897)
@@ -1004,8 +998,6 @@ position = Vector2(-118.983, 76.0273)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint8"]
 position = Vector2(21.9993, -1.37897)
@@ -1016,8 +1008,6 @@ position = Vector2(48.0055, 25.9892)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint9"]
 position = Vector2(21.9993, -1.37897)
@@ -1028,8 +1018,6 @@ position = Vector2(941.985, -62.215)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 3
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint21"]
 position = Vector2(22.4994, -2.00485)
@@ -1040,8 +1028,6 @@ position = Vector2(-335.983, 74.0769)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint10"]
 position = Vector2(21.9993, -1.37897)
@@ -1052,8 +1038,6 @@ position = Vector2(-360, 1.08234)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint11"]
 position = Vector2(21.9993, -1.37897)
@@ -1064,8 +1048,6 @@ position = Vector2(-432, 2.09879)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint12"]
 position = Vector2(21.9993, -1.37897)
@@ -1076,8 +1058,6 @@ position = Vector2(647.863, -599.148)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint13"]
 position = Vector2(21.9993, -1.37897)
@@ -1089,8 +1069,6 @@ position = Vector2(910.84, -699.208)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1)])
 jump_am = 3
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint22"]
 position = Vector2(40.4991, -8.5119)
@@ -1102,8 +1080,6 @@ position = Vector2(1023.81, -839.234)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint23"]
 position = Vector2(3.05176e-05, 7.62939e-06)
@@ -1125,8 +1101,6 @@ position = Vector2(-95.9728, 121.022)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint7"]
 position = Vector2(10.4995, -1.37909)
@@ -1137,8 +1111,6 @@ position = Vector2(-25.023, -98.994)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint4"]
 position = Vector2(21.9993, -1.37897)
@@ -1148,9 +1120,7 @@ shape = SubResource("RectangleShape2D_aun7v")
 position = Vector2(-218.032, -137.95)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-time = null
-height = null
+jump_am = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint2"]
 position = Vector2(-0.000457764, -1.7525)
@@ -1160,9 +1130,7 @@ shape = SubResource("RectangleShape2D_2uc1h")
 position = Vector2(-74.0311, -135.983)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-time = null
-height = null
+jump_am = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint3"]
 position = Vector2(-2.00049, -1.99966)
@@ -1173,8 +1141,6 @@ position = Vector2(95.0325, 143.978)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint5"]
 position = Vector2(-0.000427246, -2.24963)
@@ -1185,8 +1151,6 @@ position = Vector2(889.671, -1437.2)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint14"]
 position = Vector2(-0.000427246, -2.24963)
@@ -1197,8 +1161,6 @@ position = Vector2(1030.69, -1362.24)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint19"]
 position = Vector2(0.49939, -0.500366)
@@ -1209,8 +1171,6 @@ position = Vector2(1076.68, -1380.25)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(-1, 0), Vector2(1, 0)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint18"]
 position = Vector2(-0.000427246, -2.24963)
@@ -1221,8 +1181,6 @@ position = Vector2(866.68, -1397.2)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint17"]
 position = Vector2(-0.000427246, -2.24963)
@@ -1233,8 +1191,6 @@ position = Vector2(889.671, -1437.2)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint15"]
 position = Vector2(-100.5, 0.522949)
@@ -1245,8 +1201,6 @@ position = Vector2(981.693, -1344.22)
 script = ExtResource("22_i6hw2")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1)])
 jump_am = 2
-time = null
-height = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint20"]
 position = Vector2(0.502563, -0.5)
@@ -1311,11 +1265,11 @@ shape = SubResource("RectangleShape2D_gbt1u")
 debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 
 [node name="StrangeFruit1" parent="." instance=ExtResource("26_k6j3t")]
-position = Vector2(1346.12, 508.693)
+position = Vector2(1329.12, 519.696)
 item_name = "StrangeFruit"
 
 [node name="StrangeFruit2" parent="." instance=ExtResource("26_k6j3t")]
-position = Vector2(1540.09, 393.648)
+position = Vector2(1642.09, 383.625)
 item_name = "StrangeFruit"
 
 [node name="StrangeFruit3" parent="." instance=ExtResource("26_k6j3t")]

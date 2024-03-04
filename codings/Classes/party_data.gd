@@ -39,6 +39,7 @@ func set_to(p:PartyData):
 	else: Member3 = null
 
 func set_to_strarr(p:Array[StringName]):
+	if p.is_empty(): p = [&"Mira", &"", &"", &""]
 	Leader = Global.find_member(p[0])
 	if p[1] != &"": Member1 = Global.find_member(p[1])
 	else: Member1 = null

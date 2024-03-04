@@ -365,8 +365,6 @@ func battle_state(from:= false):
 	$CanvasLayer/Cursor.hide()
 	visibly=true
 	Partybox.scale = Vector2(1.25, 1.25)
-	t = create_tween()
-	t.set_parallel(true)
 	if from: hide_all()
 	for i in range(0, 4):
 		if Global.check_member(i):
@@ -388,6 +386,7 @@ func battle_state(from:= false):
 				Partybox.get_child(i).get_node("Name").position.x = 140
 				Partybox.get_child(i).get_node("Health/HpText").position.x = 64
 				Partybox.get_child(i).get_node("Aura/ApText").position.x = 64
+			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
 			t.tween_property(Partybox.get_child(i), "position:x", 0 if i==0 else -60, 0.3)

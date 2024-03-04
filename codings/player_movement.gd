@@ -343,6 +343,7 @@ func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
 	$Camera2D.update_position = follow
 
 func attack():
+	if not Item.check_item("LightweightAxe", "Key"): return
 	if dashing: await stop_dash()
 	reset_speed()
 	speed = 40
@@ -412,6 +413,7 @@ func dramatic_attack_pause():
 		BodyState = CUSTOM
 		print(attacking)
 		if attacking:
+			print("f")
 			set_anim("Attack" + Global.get_dir_name())
 			pause_anim()
 			%Base.animation = "Attack" + Global.get_dir_name()

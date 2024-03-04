@@ -838,9 +838,10 @@ func fetch_abilities():
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
 	for i in %AbilityList.get_children():
-		if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
+		if i.get_meta("Ability").AuraCost > CurrentChar.Aura or i.get_meta("Ability").disabled:
+			if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
+				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			i.disabled = true
-			i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			%AbilityList.get_children().push_back(i)
 
 func focus_inv_default():

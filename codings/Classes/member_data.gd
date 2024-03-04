@@ -108,11 +108,13 @@ var SpeedBoost: int = 0
 ##Specify animations where GlowSpecial is used
 @export var GlowAnims: Array[String] = []
 
+
 var NextAction: String = ""
 var NextMove: Resource = null
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
+var DontIdle:= false
 
 
 func set_health(x):

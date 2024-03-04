@@ -283,18 +283,32 @@ func FirstBattle1():
 	Bt.Troop[0].node.position.x = 50
 	Bt.focus_cam(Bt.Troop[0], 0.1, 70)
 	Bt.zoom(6)
+	Loader.InBattle = true
 	Loader.battle_bars(4)
+	Global.Player.hide()
+	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
+	PartyUI.battle_state()
 	await Event.wait(0.5, false)
 	Loader.ungray.emit()
 	await Event.wait(0.3, false)
-	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
 	Loader.battle_bars(3)
 	Bt.get_actor("Mira").node.animation = "Entrance"
 	Bt.get_actor("Mira").node.frame = 2
 	Bt.focus_cam(Bt.Troop[0], 2, 40)
 	await Event.wait(2)
+	Loader.InBattle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
+	$"../BattleUI/Ability".disabled = true
+	$"../BattleUI/Command".disabled = true
+	$"../BattleUI/Item".disabled = true
+	$"../EnemyUI".all_enemy_ui()
+	$"../EnemyUI/AllEnemies".show()
+	Event.flag_progress("FirstBattle", 3)
+	Bt.get_actor("Mira").DontIdle = true
+	Bt.end_turn()
+
+func FirstBattle2():
 	await Bt.move(Bt.Troop[0], Vector2(30, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(20, 0), 1, Tween.EASE_OUT)
 	await Event.wait(0.5)
@@ -304,7 +318,7 @@ func FirstBattle1():
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Loader.battle_bars(2)
-	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
+	Bt.jump_to_target(CurrentChar, target, Vector2(30, 0), 4)
 	await Bt.anim_done
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
@@ -313,13 +327,28 @@ func FirstBattle1():
 		Bt.anim("Attack2")
 		Bt.play_effect("SimpleHit", target)
 		await Event.wait(0.5)
+	Bt.get_actor("Mira").Aura = 6
+	PartyUI._check_party()
+	Bt.get_actor("Mira").Abilities[0].disabled = true
+	Bt.get_actor("Mira").DontIdle = false
 	Bt.anim("Ability", target)
 	Bt.move(CurrentChar, Vector2(50, 0), 0.2, Tween.EASE_OUT)
 	Bt.jump_to_target(CurrentChar, CurrentChar, Vector2(30, 0), 0.2)
 	Bt.anim("Hit")
 	await Event.wait(2)
 	Bt.anim()
+	$"../BattleUI/Ability".disabled = false
+	$"../BattleUI/Attack".disabled = true
 	Bt.end_turn()
+
+func FirstBattle3():
+	Bt.get_actor("Mira").Abilities[0].disabled = false
+	Bt.get_actor("CS").NextAction = "Ability"
+	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/SoulTap.tres")
+
+func FirstBattle4():
+	$"../BattleUI/Attack".disabled = false
+	Bt.get_actor("Mira").Aura = max(7, Bt.get_actor("Mira").Aura)
 
 func AlcineWoods1():
 	if Bt.get_actor("Mira").Health == 0: return

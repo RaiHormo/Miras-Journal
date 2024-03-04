@@ -16,8 +16,12 @@ func default():
 func patrol():
 	if not homepoints.is_empty():
 		while not PinRange:
-			$Collision.set_deferred("disabled", true)
-			await go_to_global(homepoints.pick_random())
+			if Loader.InBattle:
+				hide()
+			else:
+				show()
+				$Collision.set_deferred("disabled", true)
+				await go_to_global(homepoints.pick_random())
 			await Event.wait(randf_range(0,3))
 
 func extended_process():
@@ -28,8 +32,8 @@ func extended_process():
 #	if $DirectionMarker/Finder.get_overlapping_areas().is_empty():
 #		PinRange = false
 
-
 func _on_finder_area_entered(area):
+	if Global.Player == null: return
 	Nav.target_position = Global.Player.global_position
 	if not PinRange and not Loader.chased and Nav.is_target_reachable():
 		PinRange = true
@@ -59,10 +63,10 @@ func _on_finder_area_entered(area):
 		patrol()
 
 func _on_catch_area_body_entered(body):
-	Global.Player.winding_attack = false
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and
 	(Global.Controllable or Global.Player.dashing) and (not Global.Player.attacking)):
 		#print(Global.Player.attacking)
+		Global.Player.winding_attack = false
 		await Event.take_control()
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0

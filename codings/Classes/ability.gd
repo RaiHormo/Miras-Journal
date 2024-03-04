@@ -8,6 +8,7 @@ class_name Ability
 @export_enum("CheapAttack", "BigAttack", "Defensive", "Curse", "Healing", "AtkBuff", "MagBuff", "DefBuff") var Type: String = "CheapAttack"
 @export var AuraCost: int
 @export var HPCost: int
+@export var disabled:= false
 ## 0: None, 1: Light, 2: Medium, 3: Heavy, 4: Severe
 enum D {NONE, LIGHT, MEDIUM, HEAVY, SEVERE, CUSTOM}
 @export var Damage:D = D.NONE

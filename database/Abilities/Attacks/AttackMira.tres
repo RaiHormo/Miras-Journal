@@ -17,6 +17,7 @@ ActionSequence = &"AttackMira"
 Type = "CheapAttack"
 AuraCost = 0
 HPCost = 0
+disabled = false
 Damage = 2
 Parameter = 0.0
 Target = 1

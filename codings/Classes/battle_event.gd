@@ -14,7 +14,7 @@ class_name  BattleEvent
 @export var low_hp: int = -1
 @export_group("Result")
 @export_enum("Passive dialog", "Call function", "Regular dialog", "Force move") var result = 0
-##Used as text file for dialog, function name for call function
+##Used as text file for dialog, function name for call function, move type for force move
 @export var parameter1: String = ""
 ##Used as node name for dialog
 @export var parameter2: String = ""
@@ -57,4 +57,4 @@ func run_with_await() -> void:
 		0: await Global.passive(parameter1, parameter2)
 		1: await Global.Bt.get_node("Act").call(parameter1)
 		2: await Global.textbox(parameter1, parameter2)
-		_: push_error("Battle event error: This action cannot hold the turn")
+		_: OS.alert("Battle event error: This action cannot hold the turn")

@@ -30,6 +30,8 @@ func ai() -> void:
 		match Char.NextAction:
 			"Ability":
 				choose(Char.NextMove, Char.NextTarget)
+			"Attack":
+				choose(Char.NextMove, Char.NextTarget)
 
 #Finds an ability of a certain type
 func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
@@ -67,10 +69,11 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 				Char.NextTarget = Bt.get_ally_faction(Char).pick_random()
 	elif Char.NextTarget==null:
 		Char.NextTarget = tar
-	if ab == Char.StandardAttack:
-		Char.NextAction = "Attack"
-	else:
-		Char.NextAction = "Ability"
+	if Char.NextAction == "":
+		if ab == Char.StandardAttack:
+			Char.NextAction = "Attack"
+		else:
+			Char.NextAction = "Ability"
 	Char.NextMove=ab
 	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
 	ai_chosen.emit()

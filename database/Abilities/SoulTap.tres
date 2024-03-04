@@ -17,6 +17,7 @@ ActionSequence = &"SoulTap"
 Type = "CheapAttack"
 AuraCost = 3
 HPCost = 0
+disabled = false
 Damage = 2
 Parameter = 0.0
 Target = 1

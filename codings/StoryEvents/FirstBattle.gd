@@ -3,7 +3,6 @@ extends "res://codings/transfer_zone.gd"
 func _on_entered(body):
 	if body == Global.Player and Global.Controllable:
 		if not Event.f("FirstBattle", 1):
-			await Loader.transition("R")
 			Event.flag_progress("FirstBattle", 1)
 			Loader.gray_out(1)
 			proceed()
