@@ -1,16 +1,41 @@
-[gd_scene load_steps=84 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=91 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
 [ext_resource type="Script" path="res://codings/player_movement.gd" id="2_d6ige"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_rei3u"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="3_u6lnn"]
 [ext_resource type="Texture2D" uid="uid://cslhxxrst7p4j" path="res://art/OV/Mira/FlameWalk.png" id="5_4ul0y"]
+[ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="5_xllow"]
 [ext_resource type="Texture2D" uid="uid://s2cr0s33rn4w" path="res://art/OV/Mira/ReachOut.png" id="6_q0j1b"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="10_dxclp"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_buww2"]
 [ext_resource type="Script" path="res://codings/flickering_light.gd" id="12_1md4f"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="13_av38v"]
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="14_kgs5v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4n3lf"]
+atlas = ExtResource("5_xllow")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7ma7"]
+atlas = ExtResource("5_xllow")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nymu1"]
+atlas = ExtResource("5_xllow")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrnvy"]
+atlas = ExtResource("5_xllow")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4hl3"]
+atlas = ExtResource("5_xllow")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgvnx"]
+atlas = ExtResource("5_xllow")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_meahq"]
 atlas = ExtResource("5_4ul0y")
@@ -262,6 +287,29 @@ region = Rect2(64, 96, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_spx3p"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4n3lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7ma7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nymu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrnvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4hl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgvnx")
+}],
+"loop": false,
+"name": &"FlameActive",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_meahq")
@@ -611,7 +659,7 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"DashLeftLoop"
+animation = &"45angle"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -631,8 +679,8 @@ light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_spx3p")
-animation = &"ReachOut"
-frame = 6
+animation = &"FlameActive"
+frame = 5
 frame_progress = 1.0
 
 [node name="Shadow" type="Sprite2D" parent="."]

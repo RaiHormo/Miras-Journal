@@ -88,9 +88,8 @@ func control_process():
 #					Global.Controllable = false
 					reset_speed()
 					#position = round(position)
-					set_anim("Deny"+Global.get_dir_name(Global.PlayerDir))
-					await %Base.animation_finished
-					set_anim("Idle"+Global.get_dir_name(Global.PlayerDir))
+					await set_anim("Deny"+Global.get_dir_name(Global.PlayerDir), true)
+					set_anim()
 					return
 				else:
 					dashdir = Global.get_direction(direction)
@@ -209,15 +208,19 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 	else:
 		if wait: await Event.wait()
 		return
+	hide_other_sprites()
+	#print(used_sprite.name, " ", anim)
+	used_sprite.play(anim)
+	if wait:
+		while used_sprite.is_playing() and used_sprite.animation == anim:
+			await Event.wait()
+
+func hide_other_sprites():
 	for i in $Sprite.get_children():
 		if i == used_sprite: i.show()
 		elif i == %Flame and Event.f(&"FlameActive") and used_sprite != %Flame:
 			flame_out_of_the_way()
 		else: i.hide()
-	used_sprite.play(anim)
-	if wait:
-		while used_sprite.is_playing() and used_sprite.animation == anim:
-			await Event.wait()
 
 func flame_out_of_the_way():
 	if "Flame" not in %Flame.animation:
@@ -411,13 +414,16 @@ func dramatic_attack_pause():
 	while not Loader.InBattle and not Global.Controllable:
 		Global.Controllable = false
 		BodyState = CUSTOM
-		print(attacking)
+		#print(attacking)
 		if attacking:
-			print("f")
 			set_anim("Attack" + Global.get_dir_name())
 			pause_anim()
-			%Base.animation = "Attack" + Global.get_dir_name()
-			%Base.frame = 1
+			while not Loader.InBattle:
+				used_sprite = %Base
+				hide_other_sprites()
+				%Base.animation = "Attack" + Global.get_dir_name()
+				%Base.frame = 1
+				await Event.wait()
 		else:
 			set_anim("Dash" + Global.get_dir_name() + "Hit")
 			pause_anim()

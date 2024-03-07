@@ -539,7 +539,7 @@ func in_360(nm) -> int:
 	elif n < 0: return 359 + n
 	else: return n
 
-func alcine_name() -> String:
+func alcine() -> String:
 	return find_member("Alcine").FirstName
 
 func range_360(n1, n2) -> Array:

@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://i8rst2uerw8" path="res://art/Backgrounds/AbadParallax1.png" id="6_gki33"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://codings/Interactions/Transfer.tscn" id="7_q8qii"]
 [ext_resource type="Script" path="res://codings/Interactions/splash.gd" id="8_06jo8"]
-[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="8_j3lok"]
 [ext_resource type="Script" path="res://codings/NPC.gd" id="8_spg60"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="10_bma1q"]
+[ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="10_rs8em"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_l4igp"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="12_ylbqp"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://codings/GroundItem.tscn" id="14_15y50"]
@@ -414,7 +414,7 @@ CameraIndex = 1
 
 [node name="Sprite" type="AnimatedSprite2D" parent="EntranceCutscene/Mira"]
 texture_filter = 1
-sprite_frames = ExtResource("8_j3lok")
+sprite_frames = ExtResource("10_rs8em")
 animation = &"WalkUp"
 
 [node name="Nav" type="NavigationAgent2D" parent="EntranceCutscene/Mira"]

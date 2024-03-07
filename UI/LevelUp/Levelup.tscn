@@ -1,0 +1,198 @@
+[gd_scene load_steps=3 format=3 uid="uid://dird66c51jjoc"]
+
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="1_72ntk"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_ruipd"]
+
+[node name="Levelup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line1" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = 159.0
+offset_right = 1304.0
+offset_bottom = 204.0
+color = Color(0.894118, 0.894118, 0.894118, 1)
+
+[node name="Line2" type="ColorRect" parent="Line1"]
+show_behind_parent = true
+layout_mode = 0
+offset_top = 28.0
+offset_right = 1287.0
+offset_bottom = 68.0
+rotation = -0.00256336
+color = Color(0.584314, 0.584314, 0.584314, 1)
+
+[node name="Line3" type="ColorRect" parent="Line1/Line2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = 34.0
+offset_right = 1284.0
+offset_bottom = 74.0
+rotation = -0.00256336
+color = Color(0.305882, 0.305882, 0.305882, 1)
+
+[node name="Line4" type="ColorRect" parent="Line1/Line2/Line3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -16.0
+offset_top = 27.0
+offset_right = 1297.0
+offset_bottom = 202.0
+rotation = -0.00256336
+color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="Line3" type="ColorRect" parent="Line1"]
+offset_left = 1287.0
+offset_top = 340.0
+offset_right = 2593.0
+offset_bottom = 385.0
+rotation = 3.14159
+color = Color(0.894118, 0.894118, 0.894118, 1)
+
+[node name="Line2" type="ColorRect" parent="Line1/Line3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = 28.0
+offset_right = 1287.0
+offset_bottom = 68.0
+rotation = -0.00256336
+color = Color(0.584314, 0.584314, 0.584314, 1)
+
+[node name="Line3" type="ColorRect" parent="Line1/Line3/Line2"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = 34.0
+offset_right = 1306.0
+offset_bottom = 74.0
+rotation = -0.00256336
+color = Color(0.305882, 0.305882, 0.305882, 1)
+
+[node name="NameChain" type="HBoxContainer" parent="Line1"]
+layout_mode = 0
+offset_left = -106.0
+offset_top = 104.0
+offset_right = 4025.0
+offset_bottom = 198.0
+
+[node name="Name1" type="Label" parent="Line1/NameChain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name2" type="Label" parent="Line1/NameChain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name3" type="Label" parent="Line1/NameChain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name4" type="Label" parent="Line1/NameChain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name5" type="Label" parent="Line1/NameChain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="NameChain2" type="HBoxContainer" parent="Line1"]
+layout_mode = 0
+offset_left = 1393.0
+offset_top = 244.0
+offset_right = 5524.0
+offset_bottom = 338.0
+rotation = 3.14159
+
+[node name="Name1" type="Label" parent="Line1/NameChain2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name2" type="Label" parent="Line1/NameChain2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name3" type="Label" parent="Line1/NameChain2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name4" type="Label" parent="Line1/NameChain2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="Name5" type="Label" parent="Line1/NameChain2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
+theme_override_fonts/font = ExtResource("1_72ntk")
+theme_override_font_sizes/font_size = 80
+text = "FIRSTNAME LASTNAME "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -688.0
+offset_top = -134.0
+offset_right = 667.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_ruipd")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center][img=128]res://art/Icons/Party/Kai.png[/img]Firstname Lastname joins the party![/center]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -692.0
+offset_top = -120.0
+offset_right = 663.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_72ntk")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]SKILL LEVEL UP![/center]"

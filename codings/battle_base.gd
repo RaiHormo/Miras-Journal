@@ -28,6 +28,7 @@ var callout_onscreen := false
 var lock_turn:= false
 
 func _ready():
+	Loader.battle_start.emit()
 	Global.Bt = self
 	get_tree().paused = false
 	Global.Controllable = false

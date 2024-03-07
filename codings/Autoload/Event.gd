@@ -9,6 +9,7 @@ var Day: int
 var Month: String = "November"
 var tutorial: String
 var CutsceneHandler: Node = null
+var allow_skipping:= true
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -110,15 +111,16 @@ func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
-func take_control(keep_ui := false, keep_followers := false):
+func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
 	if Global.Player == null or Global.Area == null:  return
 	if Global.Player.dashing: await Global.Player.stop_dash()
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
 	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
-	Global.Player.BodyState = NPC.IDLE
-	Global.Player.set_anim()
+	if idle:
+		Global.Player.BodyState = NPC.IDLE
+		Global.Player.set_anim()
 	if not keep_followers:
 		for i in Global.Area.Followers:
 			i.dont_follow = true

@@ -23,6 +23,8 @@ var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
 var BtAdvantage = 0
+signal battle_start
+signal battle_end
 
 
 signal ungray
@@ -325,6 +327,7 @@ func end_battle():
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		await t.finished
 	InBattle= false
+	battle_end.emit()
 	if Global.Player == null: return
 	for i in Global.Follower:
 		if i != null: i.show()

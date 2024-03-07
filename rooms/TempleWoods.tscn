@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=97 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -26,6 +26,10 @@
 [ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="24_iq5im"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://codings/GroundItem.tscn" id="26_k6j3t"]
+[ext_resource type="Script" path="res://codings/StoryEvents/AlcineNaming.gd" id="27_pc4vh"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="28_qbi5i"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="29_2u8xp"]
+[ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="30_qr20p"]
 
 [sub_resource type="Gradient" id="Gradient_pqoya"]
 interpolation_mode = 2
@@ -421,6 +425,16 @@ size = Vector2(26.0002, 79.341)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbt1u"]
 size = Vector2(28.9997, 11.0009)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp00o"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+bg_color = Color(0.890196, 0.890196, 0.890196, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [node name="TileMap" type="TileMap"]
 y_sort_enabled = true
 texture_filter = 1
@@ -547,11 +561,12 @@ position = Vector2(-50.9991, -5.49469)
 shape = SubResource("RectangleShape2D_e6qhg")
 
 [node name="Petrogon" type="AnimatedSprite2D" parent="."]
-z_index = 1
+z_index = 3
 use_parent_material = true
-position = Vector2(1731.75, -1080.39)
+position = Vector2(1731, -1080)
 sprite_frames = ExtResource("7_jtxqp")
-animation = &"Idle"
+animation = &"Fly"
+frame_progress = 0.412924
 
 [node name="Glow" type="PointLight2D" parent="Petrogon"]
 light_mask = 16
@@ -707,11 +722,11 @@ sprite_frames = SubResource("SpriteFrames_ewsox")
 animation = &"WalkLeft"
 offset = Vector2(0.0496826, -5.866)
 
-[node name="CrawlingSludge5" parent="." node_paths=PackedStringArray("Nav") instance=ExtResource("10_rx6j2")]
+[node name="CrawlingSludge5" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1257.89, -491.287)
 Battle = ExtResource("13_812cc")
 ID = "CS5"
-Nav = NodePath("Nav")
+Nav = null
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge5"]
 
@@ -1284,6 +1299,93 @@ item_name = "StrangeFruit"
 position = Vector2(1597.78, -950.365)
 item_name = "StrangeFruit"
 
+[node name="AlcineNaming" type="Control" parent="."]
+visible = false
+light_mask = 0
+z_index = 9
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1558.74
+offset_top = -1118.36
+offset_right = 1632.74
+offset_bottom = -1078.36
+script = ExtResource("27_pc4vh")
+
+[node name="ColorRect" type="ColorRect" parent="AlcineNaming"]
+layout_mode = 0
+offset_left = -100.265
+offset_top = -63.344
+offset_right = 192.735
+offset_bottom = 128.656
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Label" type="Label" parent="AlcineNaming"]
+light_mask = 0
+layout_mode = 0
+offset_left = -28.0
+offset_top = -11.0
+offset_right = 114.0
+offset_bottom = -2.0
+theme_override_fonts/font = ExtResource("28_qbi5i")
+theme_override_font_sizes/font_size = 8
+text = "What name shall I give them?"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="AlcineNaming"]
+light_mask = 0
+layout_mode = 0
+offset_left = 9.0
+offset_right = 158.0
+offset_bottom = 29.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.529412)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.270588, 0.882353, 0.811765, 1)
+theme_override_colors/caret_color = Color(0.0901961, 0.278431, 0.231373, 1)
+theme_override_colors/caret_background_color = Color(0, 0, 0, 1)
+theme_override_colors/search_result_color = Color(0, 0, 0, 1)
+theme_override_constants/caret_width = 1
+theme_override_fonts/font = ExtResource("29_2u8xp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hp00o")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hp00o")
+text = "Alcine"
+placeholder_text = "Alcine"
+context_menu_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+scroll_fit_content_height = true
+caret_blink = true
+caret_move_on_right_click = false
+caret_multiple = false
+
+[node name="Error" type="Label" parent="AlcineNaming"]
+light_mask = 0
+layout_mode = 0
+offset_left = -6.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.913725, 0.27451, 0.247059, 1)
+theme_override_fonts/font = ExtResource("28_qbi5i")
+theme_override_font_sizes/font_size = 6
+text = "Bit too long, isn't it?"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AlcineNaming"]
+light_mask = 0
+layout_mode = 0
+offset_left = -110.012
+offset_top = -50.9749
+offset_right = 3320.99
+offset_bottom = 3380.03
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("30_qr20p")
+
 [connection signal="body_entered" from="Alcine/Area2D" to="Alcine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LightUp" to="LightUp" method="_on_body_entered"]
 [connection signal="body_entered" from="Axe/JumpPoint4" to="Axe/JumpPoint4" method="_on_entered"]
@@ -1312,6 +1414,7 @@ item_name = "StrangeFruit"
 [connection signal="body_entered" from="JumpPoints/JumpPoint15" to="JumpPoints/JumpPoint15" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoints/JumpPoint20" to="JumpPoints/JumpPoint20" method="_on_entered"]
 [connection signal="area_entered" from="Vines/AreaBreak" to="Vines" method="_on_area_break_area_entered"]
+[connection signal="text_changed" from="AlcineNaming/TextEdit" to="AlcineNaming" method="_on_text_edit_text_changed"]
 
 [editable path="Axe/PickUp"]
 [editable path="Skeleton"]

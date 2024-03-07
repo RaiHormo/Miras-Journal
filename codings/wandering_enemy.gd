@@ -8,6 +8,8 @@ var homepoints: Array[Vector2]
 
 func default():
 	Nav = $Nav
+	Loader.battle_start.connect(func(): hide())
+	Loader.battle_end.connect(func(): show())
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
 			homepoints.append(i.global_position)
@@ -67,7 +69,7 @@ func _on_catch_area_body_entered(body):
 	(Global.Controllable or Global.Player.dashing) and (not Global.Player.attacking)):
 		#print(Global.Player.attacking)
 		Global.Player.winding_attack = false
-		await Event.take_control()
+		await Event.take_control(false, false, false)
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()

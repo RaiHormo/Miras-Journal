@@ -31,12 +31,14 @@ func default() -> void:
 	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
 		position = Vector2(1963, -1312)
 		hide()
+		$"../Petrogon".hide()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
 		if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
 		Global.CameraInd == 2 and not Event.f("AlcineFollow", 3)):
+			Global.Player.collision(false)
 			Global.Party.Leader.ClutchDmg = true
 			Event.CutsceneHandler = self
 			await Event.take_control()
@@ -57,8 +59,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Global.Player.set_anim("ReachOut")
 			t = create_tween()
 			t.set_parallel()
-			t.tween_property($Glow, "energy", 0.6, 2)
-			t.tween_property($Glow, "texture_scale", 4, 2)
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($Glow, "energy", 0.6, 3)
+			t.tween_property($Glow, "texture_scale", 4, 3)
 			Global.Player.get_node("Flame").flicker = false
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
@@ -76,18 +80,26 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await move_dir(Vector2(-2, 0))
 			await bubble("Ellipsis")
 			await Global.Player.bubble("Question")
-			Global.jump_to_global(self, position, 1, 0.5)
+			t = create_tween()
+			t.tween_property(self, "position:y", -10, 0.1).as_relative()
+			t.tween_property(self, "position:y", 10, 0.1).as_relative()
+			await t.finished
+			await Event.wait(1)
 			await Global.textbox("temple_woods_random", "haha")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
 			await move_dir(Vector2.UP)
 			Event.remove_flag(&"FlameActive")
+			$"../Petrogon".show()
+			$"../Petrogon".play("Fly")
+			t = create_tween()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($"../Petrogon", "position", Vector2(1731, -1080), 2).from(Vector2(1805, -1183))
 			Global.Player.bubble("Surprise")
 			Global.Player.reset_sprite()
 			await Event.wait()
 			Global.Player.set_anim("EntrancePrep")
-			$"../Petrogon".show()
-			$"../Petrogon".play("Idle")
 			Global.get_cam().position += Vector2(50, 0)
 			await move_dir(Vector2.LEFT*2)
 			await move_dir(Vector2.DOWN)
@@ -95,6 +107,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.stop()
 			$Sprite.animation = &"Scared"
 			$Sprite.frame = 0
+			await Event.wait(1)
+			$"../Petrogon".play("Idle")
 			await Global.textbox("temple_woods_random", "stay_back")
 			Loader.Attacker = Global.Area.get_node("Petrogon")
 			await Event.wait(0.1)
@@ -122,7 +136,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.passive("temple_woods_random", "a_bridge")
 			Global.Player.can_dash = true
 			Global.Player.speed = 75
-
 
 func skip():
 	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
@@ -162,8 +175,11 @@ func alcine_helps():
 
 func after_battle():
 	while Loader.InBattle: await Event.wait(0.1)
+	PartyUI._on_shrink()
 	z_index = 0
 	show()
+	Event.allow_skipping = false
+	Event.flag_progress("AlcineFollow", 4)
 	Global.Player.get_node("%Base").sprite_frames = Global.find_member("Mira").OV
 	Global.Area.Followers[0].hide()
 	position = Global.Area.Followers[0].position
@@ -186,3 +202,4 @@ func after_battle():
 	default()
 	PartyUI.disabled = false
 	PartyUI.UIvisible = true
+	Event.allow_skipping = true

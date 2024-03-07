@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=218 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" load_steps=211 format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://dflkgvfdlrm6y" path="res://art/OV/Mira/Base.png" id="1_rpd6c"]
 [ext_resource type="Texture2D" uid="uid://k7al4q7ec85y" path="res://art/OV/Mira/DashLeftRight.png" id="2_52ta8"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dku3o6fs2o58o" path="res://art/OV/Mira/bagGet.png" id="4_yxmp6"]
 [ext_resource type="Texture2D" uid="uid://rp8uf0rdpmbv" path="res://art/OV/Mira/Deny.png" id="5_50yt6"]
 [ext_resource type="Texture2D" uid="uid://dlt2hga7mq0aw" path="res://art/OV/Mira/Getup.png" id="6_2ft10"]
-[ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="6_iuohf"]
 [ext_resource type="Texture2D" uid="uid://cmlhbydgt44yv" path="res://art/OV/Mira/EntrancePrep.png" id="8_vlp71"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3enh2"]
@@ -475,30 +474,6 @@ region = Rect2(448, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_v80ts"]
 atlas = ExtResource("5_50yt6")
 region = Rect2(480, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_boq5y"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_33yj1"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_73xih"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j04xe"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_daxae"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sfsgr"]
-atlas = ExtResource("6_iuohf")
-region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gqeb8"]
 atlas = ExtResource("6_2ft10")
@@ -1374,29 +1349,6 @@ animations = [{
 "loop": false,
 "name": &"EntrancePrep",
 "speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_boq5y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_33yj1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_73xih")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j04xe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_daxae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sfsgr")
-}],
-"loop": false,
-"name": &"FlameActive",
-"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,

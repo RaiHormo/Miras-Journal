@@ -302,10 +302,11 @@ func _input(event: InputEvent) -> void:
 				hold_frames += 1
 				if hold_frames > hold_time: break
 				await Event.wait()
-			if hold_frames > hold_time:
-				Event.skip_cutscene()
-				_on_close()
-			else: Global.toast("Hold the button down to skip")
+			if Event.allow_skipping:
+				if hold_frames > hold_time:
+					Event.skip_cutscene()
+					_on_close()
+				else: Global.toast("Hold the button down to skip")
 		elif event.is_pressed() and not event.is_action("ui_accept") and is_waiting_for_input:
 			#print(event)
 			$Hints/Skip.icon = Global.get_controller().Dash

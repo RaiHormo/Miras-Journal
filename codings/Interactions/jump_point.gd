@@ -6,7 +6,8 @@ extends Area2D
 
 func _on_entered(body: Node2D) -> void:
 	if body == Global.Player and Global.Player.dashing and Global.Controllable:
-		if jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs:
+		if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs)
+		and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1)):
 			var prev_z = Global.Player.z_index
 			Global.Player.BodyState = NPC.NONE
 			Global.Player.z_index += 10

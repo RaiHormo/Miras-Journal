@@ -43,9 +43,9 @@ script = ExtResource("1_kw845")
 
 [node name="Border1" type="PanelContainer" parent="."]
 show_behind_parent = true
-offset_left = -20.0
+offset_left = -407.0
 offset_top = 628.0
-offset_right = 381.0
+offset_right = -6.0
 offset_bottom = 716.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")

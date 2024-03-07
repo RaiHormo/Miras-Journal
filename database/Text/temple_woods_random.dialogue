@@ -99,33 +99,73 @@ Mira.Neutural: We should be safe now.
 Mira.Neutural: If it wasn't for you, I'd be done for.
 Mira.Neutural: We should stick together for now, [wait=0.5]umm...
 Mira.Neutural: Wait, do you have a name?
- [next=auto]
+Mira.Neutural: [next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
 Mira.Neutural: Oh right, you can't talk.\nBut I need to call you something...
 Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alright?
 
 ~ what_about
-if find_member("Alcine").FirstName == "Alcine":
+[wait=0.1] [next=auto]
+do Area.get_node("AlcineNaming").start()
+if alcine() == "Alcine":
 	"Alcine". I think that's the best name I can think of.
-	- Use this name
-		=> use_name
-	- Let's rethink this
-elif "Mira" in find_member("Alcine").FirstName or "Levenor" in find_member("Alcine").FirstName:
-	Name them after me? That might get confusing easily, let's rethink this.
-elif str_length(find_member("Alcine").FirstName) > 12:
-	Isn't that a bit too long? Let's try something shorter.
-elif str_length(find_member("Alcine").FirstName) == 1:
-	Let's try to be a little more creative.
+elif alcine() == "Pikachu":
+	Pika pika?
+elif alcine() == "Raichu":
+	Rai?
+elif alcine() == "Watery":
+	Very straight forward.
+elif alcine() == "Mario":
+	I maybe I should name them Sonic instead.
+elif alcine() == "Sonic":
+	I'd rather just name them Mario.
+elif alcine() == "Sans":
+	(deep breath)[wait=1] SA-[wait=0.1][next]
+	Shall I use this name?
+elif alcine() == "Journal":
+	And then she said "It's journaling time!" and journaled all over them.
+elif alcine() == "Name":
+	Name?
+elif alcine() == "Gaster":
+	I don't speak hands.
+elif alcine() == "Luigi":
+	Respectable.
+elif alcine() == "Rai":
+	;3
+elif alcine() == "Iris":
+	Truly.
+elif alcine() == "Alcin":
+	Silent letters are for loosers.
+elif alcine() == "Chip":
+	That's the way it is.
+elif alcine() == "Harold":
+	not harold
+elif alcine() == "Bob":
+	The true name?
+elif alcine() == "Alcinoe":
+	A godly name.
+elif alcine() == "Alci":
+	Short and sweet.
+elif alcine() == "Alc":
+	Maybe too short?
+elif alcine() == "Al":
+	Sometimes you need the length...
+elif alcine() == "Alcaine":
+	No, too far.
 else:
-	"{{find_member("Alcine").FirstName}}". Should I go with this?
-	- Use this name
-		=> use_name
-	- Let's rethink this
-=> what_about
+	"{{alcine()}}". Should I go with this?
+- Use this name
+	do Area.get_node("AlcineNaming").hide()
+	=> use_name
+- Let's rethink this
+	=> what_about
 
 ~ use_name
-Mira: What about "{{find_member("Alcine").FirstName}}"?
+Mira.Neutural: What about "{{alcine()}}"?
+Alcine: (nod)
+do npc("P").look_to(Vector2(1, 0))
+Mira.Neutural: Alright then {{alcine()}}, let's go together from here on.
 => END
 
 ~ a_bridge

@@ -140,10 +140,15 @@ collision_mask = 513
 motion_mode = 1
 script = ExtResource("2_2fny2")
 Battle = ExtResource("3_ku8yi")
+Defeated = null
+give_up_after = null
 speed = 20
+direction = null
+Facing = null
 ID = "CS2"
 SpawnOnCameraInd = true
 CameraIndex = 1
+Footsteps = null
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7bu4m")

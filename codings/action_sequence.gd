@@ -382,8 +382,10 @@ func AlcineWoods4():
 	Bt.focus_cam(Bt.get_actor("Petrogon"), 0.5, -20)
 	Bt.zoom(6)
 	await Event.wait(1, false)
+	Bt.get_actor("Petrogon").node.flip_h = true
+	Bt.anim("Fly", Bt.get_actor("Petrogon"))
 	Global.toast("Petrogon retreats from the battle")
-	await Bt.move(Bt.get_actor("Petrogon"), Vector2(Bt.get_actor("Petrogon").node.position.x, -500), 1)
+	await Bt.move(Bt.get_actor("Petrogon"), Vector2(150, -150), 2)
 	Bt.lock_turn = true
 	Event.flag_progress("AlcineFollow", 5)
 	#Event.CutsceneHandler
