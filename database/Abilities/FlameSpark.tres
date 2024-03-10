@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("1_vs1ax")
 name = "Flame spark"
-description = "Deals light Heat damage and burns the target, with a chance of missing."
+description = "Deals weak Heat damage and burns the target, with a chance of missing."
 Icon = SubResource("AtlasTexture_gutkw")
 ActionSequence = &"FlameSpark"
 Type = "Curse"

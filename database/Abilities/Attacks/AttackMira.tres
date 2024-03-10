@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("2_kfuua")
 name = "Axe swing"
-description = "A fairly reliable standard attack that can deal heavy damage with a low chance of missing."
+description = "A fairly reliable standard attack that can deal medium damage with a low chance of missing."
 Icon = SubResource("AtlasTexture_ibuoa")
 ActionSequence = &"AttackMira"
 Type = "CheapAttack"

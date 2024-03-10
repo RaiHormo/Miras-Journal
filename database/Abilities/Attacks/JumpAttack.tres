@@ -6,12 +6,13 @@
 [resource]
 script = ExtResource("1_3b0eu")
 name = "Jump attack"
-description = ""
+description = "Deals medium damage to one target with a chance of missing."
 Icon = ExtResource("1_w6glf")
 ActionSequence = &"JumpAttack"
 Type = "CheapAttack"
 AuraCost = 0
 HPCost = 0
+disabled = false
 Damage = 2
 Parameter = 0.0
 Target = 1

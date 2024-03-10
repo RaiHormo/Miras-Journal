@@ -232,6 +232,7 @@ func expand_panel(Pan:Panel, mem := 0):
 
 func _on_shrink():
 	t.kill()
+	Partybox.show()
 	Global.check_party.emit()
 	t = create_tween()
 	t.set_parallel(true)
@@ -571,11 +572,13 @@ func cycle_states(chara: Actor, rect: TextureRect):
 
 func details():
 	if Expanded:
-		%Pages.hide()
-		$CanvasLayer/Cursor.hide()
 		Global.member_details(Global.Party.array()[focus])
 		submenu_opened = true
+		await Event.wait(0.3, false)
+		%Pages.hide()
+		$CanvasLayer/Cursor.hide()
 		$CanvasLayer/Back.hide()
+		Partybox.hide()
 
 func back():
 	if not MemberChoosing and Expanded:
@@ -585,6 +588,7 @@ func back():
 			shrink.emit()
 			Global.cancel_sound()
 		else:
+			Partybox.show()
 			$CanvasLayer/Back.show()
 			%Pages.show()
 			$CanvasLayer/Cursor.show()

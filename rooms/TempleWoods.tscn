@@ -726,7 +726,6 @@ offset = Vector2(0.0496826, -5.866)
 position = Vector2(1257.89, -491.287)
 Battle = ExtResource("13_812cc")
 ID = "CS5"
-Nav = null
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge5"]
 

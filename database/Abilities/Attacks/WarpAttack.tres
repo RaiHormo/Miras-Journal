@@ -5,11 +5,12 @@
 [resource]
 script = ExtResource("1_p6in8")
 name = "Warp attack"
-description = "The "
+description = "Deals medium damage to one target with a chance of missing."
 ActionSequence = &"WarpAttack"
 Type = "CheapAttack"
 AuraCost = 0
 HPCost = 0
+disabled = false
 Damage = 2
 Parameter = 0.0
 Target = 1
@@ -19,3 +20,4 @@ Callout = false
 SucessChance = 0.9
 CritChance = 0.2
 RecoverAura = true
+DmgVarience = true

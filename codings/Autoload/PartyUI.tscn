@@ -1205,7 +1205,7 @@ offset_top = 44.0
 offset_right = 2469.0
 offset_bottom = 1496.0
 rotation = -0.010472
-scale = Vector2(0.489946, 0.489946)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_1ty82")
 
 [node name="AuraDoodle" type="TextureRect" parent="CanvasLayer/Pages/Page0"]

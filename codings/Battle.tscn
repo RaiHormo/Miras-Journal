@@ -946,7 +946,7 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("18_toppc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbgu3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luhdo"]
 content_margin_left = 6.0
 bg_color = Color(0.768627, 0.768627, 0.768627, 1)
 border_width_left = 12
@@ -959,7 +959,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ola61"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0qjo"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -972,7 +972,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0g7o"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7fjd"]
 content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -994,12 +994,12 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
-Button/styles/disabled = SubResource("StyleBoxFlat_dbgu3")
-Button/styles/focus = SubResource("StyleBoxFlat_ola61")
-Button/styles/hover = SubResource("StyleBoxFlat_g0g7o")
-Button/styles/normal = SubResource("StyleBoxFlat_ola61")
-Button/styles/pressed = SubResource("StyleBoxFlat_ola61")
-Panel/styles/panel = SubResource("StyleBoxFlat_ola61")
+Button/styles/disabled = SubResource("StyleBoxFlat_luhdo")
+Button/styles/focus = SubResource("StyleBoxFlat_e0qjo")
+Button/styles/hover = SubResource("StyleBoxFlat_l7fjd")
+Button/styles/normal = SubResource("StyleBoxFlat_e0qjo")
+Button/styles/pressed = SubResource("StyleBoxFlat_e0qjo")
+Panel/styles/panel = SubResource("StyleBoxFlat_e0qjo")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b0ek"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1041,22 +1041,22 @@ colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
 gradient = SubResource("Gradient_8j6vo")
 
-[sub_resource type="FontVariation" id="FontVariation_ycqu1"]
+[sub_resource type="FontVariation" id="FontVariation_i0gd3"]
 base_font = ExtResource("33_jy6my")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e6n8g"]
-default_font = SubResource("FontVariation_ycqu1")
+default_font = SubResource("FontVariation_i0gd3")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
-[sub_resource type="FontVariation" id="FontVariation_dwc77"]
+[sub_resource type="FontVariation" id="FontVariation_0xfmp"]
 base_font = ExtResource("33_jy6my")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
 
 [sub_resource type="Theme" id="Theme_bug03"]
-default_font = SubResource("FontVariation_dwc77")
+default_font = SubResource("FontVariation_0xfmp")
 Label/colors/font_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
 RichTextLabel/constants/line_separation = 15
@@ -1755,7 +1755,7 @@ action = &"PartyMenu"
 [sub_resource type="Shortcut" id="Shortcut_qtf0t"]
 events = [SubResource("InputEventAction_sm70d")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mog53"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4lmp"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -1768,7 +1768,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5wxi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jad62"]
 content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -1791,17 +1791,17 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_mog53")
-Button/styles/hover = SubResource("StyleBoxFlat_f5wxi")
-Button/styles/normal = SubResource("StyleBoxFlat_mog53")
-Button/styles/pressed = SubResource("StyleBoxFlat_mog53")
-Panel/styles/panel = SubResource("StyleBoxFlat_mog53")
+Button/styles/focus = SubResource("StyleBoxFlat_h4lmp")
+Button/styles/hover = SubResource("StyleBoxFlat_jad62")
+Button/styles/normal = SubResource("StyleBoxFlat_h4lmp")
+Button/styles/pressed = SubResource("StyleBoxFlat_h4lmp")
+Panel/styles/panel = SubResource("StyleBoxFlat_h4lmp")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxtaj"]
 atlas = ExtResource("35_7gyy2")
 region = Rect2(72, 18, 18, 18)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8st6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ft4c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1815,9 +1815,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_xlg74"]
-Panel/styles/panel = SubResource("StyleBoxFlat_u8st6")
+Panel/styles/panel = SubResource("StyleBoxFlat_4ft4c")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxqvi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfi4a"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1831,9 +1831,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_qg3wj"]
-Panel/styles/panel = SubResource("StyleBoxFlat_nxqvi")
+Panel/styles/panel = SubResource("StyleBoxFlat_sfi4a")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oukki"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f07a"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1847,7 +1847,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_lh3jm"]
-Panel/styles/panel = SubResource("StyleBoxFlat_oukki")
+Panel/styles/panel = SubResource("StyleBoxFlat_6f07a")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah1ku"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
@@ -2208,7 +2208,6 @@ pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_litkr")
 
 [node name="DescPaper" type="TextureRect" parent="BattleUI"]
-visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 102.0
@@ -2287,7 +2286,6 @@ scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
-visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0

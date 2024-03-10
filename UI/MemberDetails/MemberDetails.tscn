@@ -1,9 +1,10 @@
-[gd_scene load_steps=57 format=3 uid="uid://b7kxxkiuyhc4n"]
+[gd_scene load_steps=70 format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
 [ext_resource type="Script" path="res://UI/MemberDetails/member_detailsUI.gd" id="1_uy7q8"]
 [ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="2_q4wpr"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_cwuly"]
+[ext_resource type="Texture2D" uid="uid://clccuo8erxjhw" path="res://UI/MemberDetails/brushstroke.png" id="4_1o3jg"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="4_tgr26"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="5_ffgmy"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="5_jewkm"]
@@ -270,6 +271,114 @@ atlas = ExtResource("8_32osl")
 region = Rect2(72, 18, 18, 18)
 filter_clip = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vy61h"]
+shader = ExtResource("5_jewkm")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mog53"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5wxi"]
+content_margin_left = 6.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_sbfw5"]
+default_font = ExtResource("6_61s32")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_mog53")
+Button/styles/hover = SubResource("StyleBoxFlat_f5wxi")
+Button/styles/normal = SubResource("StyleBoxFlat_mog53")
+Button/styles/pressed = SubResource("StyleBoxFlat_mog53")
+Panel/styles/panel = SubResource("StyleBoxFlat_mog53")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eob7a"]
+content_margin_left = 18.0
+content_margin_top = 6.0
+content_margin_right = 18.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vly1"]
+content_margin_left = 12.0
+content_margin_top = 24.0
+content_margin_right = 12.0
+
+[sub_resource type="Theme" id="Theme_xfsfw"]
+default_font = ExtResource("6_61s32")
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjapk"]
+content_margin_left = 56.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8j2a"]
+content_margin_left = 56.0
+content_margin_right = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_vakel"]
+default_font = ExtResource("6_61s32")
+Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
+Label/font_sizes/font_size = 28
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o18lt"]
+atlas = ExtResource("8_32osl")
+region = Rect2(0, 0, 18, 18)
+filter_clip = true
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qgu3d"]
 shader = ExtResource("5_jewkm")
 
@@ -314,11 +423,11 @@ Button/styles/hover = SubResource("StyleBoxFlat_bw783")
 Button/styles/normal = SubResource("StyleBoxFlat_3rj3v")
 Button/styles/pressed = SubResource("StyleBoxFlat_3rj3v")
 
-[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
-action = &"ui_cancel"
+[sub_resource type="InputEventAction" id="InputEventAction_noc7j"]
+action = &"ui_accept"
 
-[sub_resource type="Shortcut" id="Shortcut_1tk7r"]
-events = [SubResource("InputEventAction_p5u4y")]
+[sub_resource type="Shortcut" id="Shortcut_d52i0"]
+events = [SubResource("InputEventAction_noc7j")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mgrs3"]
 shader = ExtResource("5_jewkm")
@@ -363,6 +472,9 @@ Button/styles/focus = SubResource("StyleBoxFlat_w8uy1")
 Button/styles/hover = SubResource("StyleBoxFlat_0t6ho")
 Button/styles/normal = SubResource("StyleBoxFlat_w8uy1")
 Button/styles/pressed = SubResource("StyleBoxFlat_w8uy1")
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
 
 [sub_resource type="Shortcut" id="Shortcut_6q7i3"]
 events = [SubResource("InputEventAction_p5u4y")]
@@ -410,14 +522,6 @@ offset_right = 1281.0
 offset_bottom = 799.0
 mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="."]
-offset_left = 44.0
-offset_top = 11.0
-offset_right = 764.0
-offset_bottom = 731.0
-scale = Vector2(0.155553, 0.155553)
-texture = ExtResource("11_hoi7k")
-
 [node name="Name" type="Label" parent="."]
 offset_left = 166.0
 offset_top = 44.0
@@ -427,7 +531,23 @@ scale = Vector2(3.7379, 3.7379)
 theme_override_fonts/font = ExtResource("3_cwuly")
 text = "Firstname Lastname"
 
+[node name="Brushstroke" type="Sprite2D" parent="Name"]
+modulate = Color(1, 1, 1, 0.486275)
+show_behind_parent = true
+position = Vector2(50.494, 30.7385)
+scale = Vector2(0.173059, 0.173059)
+texture = ExtResource("4_1o3jg")
+
+[node name="Icon" type="TextureRect" parent="Name"]
+offset_left = -33.9763
+offset_top = -8.0259
+offset_right = 686.024
+offset_bottom = 711.974
+scale = Vector2(0.0461321, 0.0461321)
+texture = ExtResource("11_hoi7k")
+
 [node name="StatPanel" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -580,7 +700,6 @@ theme_override_font_sizes/font_size = 24
 text = "HP "
 
 [node name="Health" type="ProgressBar" parent="StatPanel/HPAura"]
-z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -639,7 +758,6 @@ theme_override_font_sizes/font_size = 32
 text = "Attack"
 
 [node name="Attack" type="ProgressBar" parent="StatPanel/StatBars"]
-z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -657,7 +775,6 @@ theme_override_font_sizes/font_size = 32
 text = "Defence"
 
 [node name="Defence" type="ProgressBar" parent="StatPanel/StatBars"]
-z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -675,7 +792,6 @@ theme_override_font_sizes/font_size = 32
 text = "Magic"
 
 [node name="Magic" type="ProgressBar" parent="StatPanel/StatBars"]
-z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -715,6 +831,181 @@ theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
+[node name="AbilityPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 60.0
+offset_top = 104.0
+offset_right = 100.0
+offset_bottom = 144.0
+
+[node name="AttackTitle" type="Button" parent="AbilityPanel"]
+visibility_layer = 1024
+texture_filter = 1
+material = SubResource("ShaderMaterial_vy61h")
+layout_direction = 1
+offset_left = 400.0
+offset_top = 342.0
+offset_right = 520.0
+offset_bottom = 382.0
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_sbfw5")
+theme_override_fonts/font = ExtResource("3_cwuly")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eob7a")
+text = "Attack"
+alignment = 0
+expand_icon = true
+
+[node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle"]
+show_behind_parent = true
+light_mask = 0
+offset_left = -41.0
+offset_top = 13.0
+offset_right = 298.0
+offset_bottom = 264.0
+theme = SubResource("Theme_uta00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
+
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_fmx3m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_64gcj")
+
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_fl61u")
+theme_override_styles/panel = SubResource("StyleBoxFlat_v187k")
+
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2/Border3"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AbilityPanel/AttackTitle"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 56.0
+offset_right = 280.0
+offset_bottom = 247.0
+theme_override_constants/line_separation = 12
+theme_override_fonts/normal_font = ExtResource("5_ffgmy")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
+
+[node name="Wheel" parent="AbilityPanel/AttackTitle" instance=ExtResource("4_tgr26")]
+position = Vector2(89.625, -154.625)
+scale = Vector2(0.24075, 0.24075)
+color = Color(1, 0, 0.356863, 1)
+
+[node name="Border1" type="PanelContainer" parent="AbilityPanel"]
+light_mask = 0
+layout_mode = 0
+offset_left = 1.0
+offset_top = 38.0
+offset_right = 337.0
+offset_bottom = 609.0
+theme = SubResource("Theme_uta00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
+
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/Border1"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_fmx3m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_64gcj")
+
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/Border1/Border2"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 2
+theme = SubResource("Theme_fl61u")
+theme_override_styles/panel = SubResource("StyleBoxFlat_v187k")
+
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/Border1/Border2/Border3"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
+
+[node name="Scroller" type="ScrollContainer" parent="AbilityPanel/Border1"]
+use_parent_material = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1vly1")
+
+[node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="AttackTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
+theme_override_fonts/font = ExtResource("5_ffgmy")
+theme_override_font_sizes/font_size = 24
+text = "  Weapon Attack"
+
+[node name="AbilitiesTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
+theme_override_fonts/font = ExtResource("5_ffgmy")
+theme_override_font_sizes/font_size = 24
+text = "  Abilities"
+
+[node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_xfsfw")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fjapk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fjapk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y8j2a")
+text = "Ability Name"
+alignment = 0
+expand_icon = true
+
+[node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 239.0
+offset_top = 4.0
+offset_right = 283.0
+offset_bottom = 49.0
+theme = SubResource("Theme_vakel")
+text = "5"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0"]
+light_mask = 0
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.75
+offset_top = 4.0
+offset_right = 52.75
+offset_bottom = 46.0
+texture = SubResource("AtlasTexture_o18lt")
+
 [node name="Abilities" type="Button" parent="."]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_qgu3d")
@@ -732,7 +1023,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-shortcut = SubResource("Shortcut_1tk7r")
+shortcut = SubResource("Shortcut_d52i0")
 shortcut_in_tooltip = false
 text = "Abilities"
 icon = ExtResource("7_v1cgy")
@@ -766,7 +1057,7 @@ expand_icon = true
 [node name="Line1" type="ColorRect" parent="."]
 offset_left = 750.0
 offset_top = 808.0
-offset_right = 1721.0
+offset_right = 1762.0
 offset_bottom = 853.0
 rotation = -1.02012
 color = Color(0.894118, 0.894118, 0.894118, 1)
@@ -786,7 +1077,7 @@ show_behind_parent = true
 layout_mode = 0
 offset_left = -3.0
 offset_top = 34.0
-offset_right = 978.0
+offset_right = 1019.0
 offset_bottom = 74.0
 rotation = -0.00256336
 color = Color(0.305882, 0.305882, 0.305882, 1)
@@ -799,6 +1090,26 @@ offset_top = 27.0
 offset_right = 892.0
 offset_bottom = 398.0
 rotation = -0.00256336
+color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="Line6" type="ColorRect" parent="Line1/Line2/Line3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 949.0
+offset_top = 1297.0
+offset_right = 2100.0
+offset_bottom = 1801.0
+rotation = -0.00256336
+color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[node name="Line5" type="ColorRect" parent="Line1/Line2/Line3"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 254.0
+offset_top = 381.0
+offset_right = 1113.0
+offset_bottom = 2045.0
+rotation = -0.54258
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [node name="NameChain" type="HBoxContainer" parent="Line1"]
@@ -857,4 +1168,6 @@ libraries = {
 }
 autoplay = "scrollname"
 
+[connection signal="focus_entered" from="AbilityPanel/Border1/Scroller/Ab0" to="." method="_on_ab_focus_entered"]
+[connection signal="pressed" from="Abilities" to="." method="_on_abilities_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

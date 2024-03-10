@@ -11,12 +11,13 @@ filter_clip = true
 [resource]
 script = ExtResource("2_kys88")
 name = "Arm-whip"
-description = "The user extends their liquid arm into a whip. Deals light damage to the target twice. Can miss."
+description = "The user extends their liquid arm into a whip. Deals weak damage to the target twice. Can miss."
 Icon = SubResource("AtlasTexture_f315r")
 ActionSequence = &"AttackAlcine"
 Type = "CheapAttack"
 AuraCost = 0
 HPCost = 0
+disabled = false
 Damage = 1
 Parameter = 0.0
 Target = 1

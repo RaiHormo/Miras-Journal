@@ -1,10 +1,12 @@
 extends CanvasLayer
+var stability_menu:= false
 
 func _ready():
 	hide()
 
 func draw_character(chara: Actor):
-	$Icon.texture = chara.PartyIcon
+	Global.confirm_sound()
+	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
 	$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
 	$StatPanel/LvBox/Vbox/LvBar/SPNum.text = str(chara.SkillPoints)
@@ -55,6 +57,8 @@ func draw_character(chara: Actor):
 	$StatPanel/Wheel.draw_wheel()
 	$Render.texture = chara.RenderArtwork
 
+	fetch_abilities(chara)
+
 	for i in $Line1/NameChain.get_children():
 		i.text = chara.FirstName.to_upper() + " " + chara.LastName.to_upper() + " "
 		#i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
@@ -62,7 +66,124 @@ func draw_character(chara: Actor):
 	var anim: Animation = $AnimationPlayer.get_animation("scrollname")
 	anim.track_set_key_value(0, 1, Vector2(-$Line1/NameChain/Name3.size.x, 130))
 	$StatPanel/Wheel.draw_wheel()
+
+	$Fade.hide()
+	$Name.hide()
+	$Abilities.hide()
+	$Back.hide()
+	$AbilityPanel.hide()
+	$StatPanel.hide()
+	$Back.icon = Global.get_controller().CancelIcon
+	$Abilities.icon = Global.get_controller().ConfirmIcon
+
+	swap_mode()
 	show()
+	var t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.tween_property($Render, "modulate", Color.WHITE, 1).from(Color.TRANSPARENT)
+	t.tween_property($Render, "global_position", Vector2(587, -2), 1).from(Vector2(706, 109))
+	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 1).from(Vector2(0.43/2, 0.43/2))
+	t.tween_property($Line1, "position:x", 750, 1).from(-2700)
+	await Event.wait(0.2, false)
+	$Name.show()
+	$Fade.show()
+	$Abilities.show()
+	$Back.show()
+
+func swap_mode(stability:= false):
+	Global.ui_sound("swap")
+	stability_menu = stability
+	match stability_menu:
+		false:
+			var t = create_tween()
+			t.set_parallel()
+			t.tween_property($AbilityPanel, "scale:x", 0, 0.1)
+			t.tween_property($AbilityPanel, "position:x", 300, 0.1)
+			await t.finished
+			$StatPanel.show()
+			$AbilityPanel.hide()
+			$Abilities.text = "Abilities"
+			t = create_tween()
+			t.set_parallel()
+			t.set_trans(Tween.TRANS_QUART)
+			t.set_ease(Tween.EASE_OUT)
+			t.tween_property($StatPanel, "position:x", 60, 0.1).from(300)
+			t.tween_property($StatPanel, "scale:x", 1, 0.1).from(0.1)
+		true:
+			var t = create_tween()
+			t.set_parallel()
+			t.tween_property($StatPanel, "scale:x", 0, 0.1)
+			t.tween_property($StatPanel, "position:x", 300, 0.1)
+			await t.finished
+			$StatPanel.hide()
+			$AbilityPanel.show()
+			$Abilities.text = "Stats"
+			%AbilityList.get_child(1).grab_focus()
+			t = create_tween()
+			t.set_parallel()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($AbilityPanel, "position:x", 60, 0.1).from(300)
+			t.tween_property($AbilityPanel, "scale:x", 1, 0.1).from(0.1)
+			t.tween_property($AbilityPanel/AttackTitle, "position:x", 400, 0.5).from(0)
 
 func _on_back_pressed():
+	Global.cancel_sound()
+	var t = create_tween()
+	t.tween_property(self, "offset:x", -3500, 0.2)
+	await Event.wait(0.1, false)
+	$Fade.hide()
+	$Name.hide()
+	$Abilities.hide()
+	$Back.hide()
+	$AbilityPanel.hide()
+	$StatPanel.hide()
+	await Event.wait(0.1, false)
 	queue_free()
+
+func fetch_abilities(chara: Actor):
+	var Abilities = chara.Abilities.duplicate()
+	Abilities.push_front(chara.StandardAttack)
+	for n in %AbilityList.get_children():
+		if n is Button:
+			%AbilityList.remove_child(n)
+			n.queue_free()
+	for i in Abilities:
+		var dub = %Ab0.duplicate()
+		dub.show()
+		%AbilityList.add_child(dub)
+		dub.text = i.name
+		dub.get_node("Icon").texture = i.Icon
+		if i.AuraCost != 0:
+			dub.get_child(0).text = str(i.AuraCost)
+			dub.get_child(0).show()
+		else:
+			dub.get_child(0).hide()
+		dub.name = "Item" + str(dub.get_index(true))
+		dub.set_meta("Ability", i)
+	for i in %AbilityList.get_children():
+		if not i is Button: continue
+		if i.get_meta("Ability").AuraCost > chara.Aura or i.get_meta("Ability").disabled:
+			if i.get_meta("Ability").AuraCost > chara.Aura:
+				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+			i.disabled = true
+			%AbilityList.get_children().push_back(i)
+	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
+
+func _on_abilities_pressed() -> void:
+	swap_mode(!stability_menu)
+
+func _on_ab_focus_entered() -> void:
+	if $AbilityPanel.scale == Vector2.ONE: Global.cursor_sound()
+	var ab:Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
+	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor:
+		$AbilityPanel/AttackTitle/Wheel.show()
+		$AbilityPanel/AttackTitle/Wheel.color = ab.WheelColor
+		$AbilityPanel/AttackTitle/Wheel.draw_wheel()
+	else: $AbilityPanel/AttackTitle/Wheel.hide()
+	$AbilityPanel/AttackTitle.text = ab.name
+	#$AbilityPanel/AttackTitle.icon = ab.Icon
+	$AbilityPanel/AttackTitle/RichTextLabel.text = Global.colorize(ab.description)
+

@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Line1" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = -2.0
 offset_top = 159.0
 offset_right = 1304.0
@@ -48,6 +49,7 @@ rotation = -0.00256336
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [node name="Line3" type="ColorRect" parent="Line1"]
+layout_mode = 0
 offset_left = 1287.0
 offset_top = 340.0
 offset_right = 2593.0
