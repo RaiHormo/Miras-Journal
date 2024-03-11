@@ -114,7 +114,7 @@ func AttackAlcine():
 		Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-70),0), 0.3, Tween.EASE_OUT)
 		await Event.wait(0.6)
 		Bt.screen_shake(15, 7, 0.3)
-		Bt.damage(target, CurrentChar.Magic, false, Bt.calc_num())
+		Bt.damage(target, CurrentChar.Magic, false)
 		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10),0), 0.5, Tween.EASE_OUT)
 		await CurrentChar.node.animation_finished
 	else: Bt.miss()

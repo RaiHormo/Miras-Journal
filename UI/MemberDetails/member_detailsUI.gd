@@ -82,7 +82,7 @@ func draw_character(chara: Actor):
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property($Render, "modulate", Color.WHITE, 1).from(Color.TRANSPARENT)
+	t.tween_property($Render, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
 	t.tween_property($Render, "global_position", Vector2(587, -2), 1).from(Vector2(706, 109))
 	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 1).from(Vector2(0.43/2, 0.43/2))
 	t.tween_property($Line1, "position:x", 750, 1).from(-2700)
@@ -140,6 +140,7 @@ func _on_back_pressed():
 	$Back.hide()
 	$AbilityPanel.hide()
 	$StatPanel.hide()
+	PartyUI.close_submenu()
 	await Event.wait(0.1, false)
 	queue_free()
 

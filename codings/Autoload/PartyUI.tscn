@@ -547,7 +547,7 @@ script = ExtResource("1_nullq")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(385, 426), Vector2(385, 615)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 3
+layer = 2
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1282.0
@@ -1277,6 +1277,7 @@ autostart = true
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
+[connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Details" to="." method="details"]
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]

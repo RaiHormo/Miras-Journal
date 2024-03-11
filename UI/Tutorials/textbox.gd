@@ -41,12 +41,12 @@ var dialogue_line: DialogueLine:
 			child.queue_free()
 
 		dialogue_line = next_dialogue_line
+		var char_name = tr(dialogue_line.character, "dialogue")
 
 		if dialogue_line.text == " ":
 			await hide_box()
 
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
-		var char_name = tr(dialogue_line.character, "dialogue")
 		while "." in char_name:
 			#print(char_name)
 			char_name = char_name.erase(char_name.length()-1)
@@ -160,7 +160,7 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	temporary_game_states = extra_game_states
 	is_waiting_for_input = false
 	resource = dialogue_resource
-	PartyUI.UIvisible = false
+	if not PartyUI.Expanded: PartyUI.UIvisible = false
 	#await get_tree().create_timer(0.3).timeout
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
@@ -286,7 +286,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.set_trans(Tween.TRANS_QUART)
 				t.set_ease(Tween.EASE_IN)
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
-				await Event.wait(0.05)
+				await Event.wait(0.05, false)
 		await t.finished
 		if item == null: _on_close(); return
 		next(dialogue_line.responses[item.get_index()].next_id)
@@ -377,4 +377,4 @@ func animate_responces():
 		t.set_trans(Tween.TRANS_QUAD)
 		t.tween_property(i, "position:x", i.position.x, 0.3).from(500)
 		t.tween_property(i, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
-		await Event.wait(0.1)
+		await Event.wait(0.1, false)

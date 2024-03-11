@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://dc27lvw5w68ea"
+path="res://.godot/imported/alcine_talk.dialogue-a3fc2b2d28d297159458133aa456112c.tres"
+
+[deps]
+
+source_file="res://database/Text/alcine_talk.dialogue"
+dest_files=["res://.godot/imported/alcine_talk.dialogue-a3fc2b2d28d297159458133aa456112c.tres"]
+
+[params]
+
+defaults=true

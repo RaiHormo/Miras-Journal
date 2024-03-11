@@ -413,6 +413,7 @@ events = [SubResource("InputEventAction_jeo6e")]
 
 [node name="Textbox" type="CanvasLayer"]
 process_mode = 3
+layer = 3
 script = ExtResource("1_ho4q7")
 
 [node name="Fader" type="ColorRect" parent="."]

@@ -1,0 +1,33 @@
+~ error
+Alcine: ({{alcine()}} looks at me confused)
+
+~ d10_0
+Alcine: ({{alcine()}} clings onto me)
+
+~ options
+Alcine: {{line_to_be_used}}
+- Cancel
+- Ask for healing [if not is_everyone_fully_healed()]
+	if find_ability(mem("Alcine"), "Healing", true).AuraCost < mem("Alcine").Aura:
+		Alcine: (nod)
+		- For me [if not is_mem_healed(Party.Leader)]
+			set ArbData0 = Party.Leader
+		- For {{Party.Member1.FirstName}} [if check_member(1) and Party.Member1 != mem("Alcine") and !is_mem_healed(Party.Member1)]
+			set ArbData0 = Party.Member1
+		- For {{Party.Member2.FirstName}} [if check_member(2) and Party.Member2 != mem("Alcine") and !is_mem_healed(Party.Member2)]
+			set ArbData0 = Party.Member2
+		- For {{Party.Member3.FirstName}} [if check_member(3) and Party.Member3 != mem("Alcine") and !is_mem_healed(Party.Member3)]
+			set ArbData0 = Party.Member3
+		- For yourself [if not is_mem_healed(mem("Alcine"))]
+			set ArbData0 = mem("Alcine")
+		- Nevermind
+			set ArbData0 = null
+		if ArbData0 != null:
+			set mem("Alcine").Aura -= find_ability(mem("Alcine"), "Healing").AuraCost
+			do heal_in_overworld(ArbData0, find_ability(mem("Alcine"), "Healing"))
+	else: 
+		Alcine: (shakes head)
+		It seems they're too exhaused to use healing magic.
+- Pet
+	Alcine: [[({{alcine()}} looks satisfied)|(They seem to like it)]]
+=> END

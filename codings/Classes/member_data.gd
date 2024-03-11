@@ -87,12 +87,12 @@ var SpeedBoost: int = 0
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
-@export var OV: SpriteFrames
+@export var OV: SpriteFrames = SpriteFrames.new()
 ##The battle sprites for this actor.
 ##Some standard animation names include:
 ##Idle, Hit, Ability, Cast, KnockOut, Entrance, Attack1, Attack2, Item, Command,
 ##AbilityLoop, ItemLoop, Victory, VictoryLoop
-@export var BT: SpriteFrames
+@export var BT: SpriteFrames = SpriteFrames.new()
 ##Offset for the battle sprite
 @export var Offset: Vector2 = Vector2.ZERO
 ##Whether the shadow sprite should be drawn, preferable for humanoid characters
@@ -201,3 +201,6 @@ func reset_static_info():
 	Defence = og.Defence
 	Magic = og.Magic
 	SkillPointsFor = og.SkillPointsFor
+
+func is_fully_healed() -> bool:
+	return Health >= MaxHP

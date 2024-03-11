@@ -27,6 +27,7 @@ var Lights: Array[Light2D] = []
 var Area: Room
 var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
 var Passive = preload("res://UI/Textbox/Passive.tscn")
+var ArbData0
 signal lights_loaded
 signal check_party
 signal anim_done
@@ -349,7 +350,12 @@ func reset_all_members() -> void:
 func find_member(Name: StringName) -> Actor:
 	for i in Members:
 		if i.codename == Name: return i
+	#push_error("No party member with the name "+ Name + " was found")
 	return null
+
+##Alias for find_member()
+func mem(Name: StringName) -> Actor:
+	return find_member(Name)
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
@@ -387,12 +393,13 @@ func is_in_party(n:String) -> bool:
 
 #region Textbox Managment
 
-func textbox(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
 	if balloon != null: balloon.start(text, title, extra_game_states)
+	if fade_bg: fade_txt_background()
 	await textbox_close
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
@@ -542,6 +549,18 @@ func in_360(nm) -> int:
 func alcine() -> String:
 	return find_member("Alcine").FirstName
 
+func calc_num(ab: Ability = Bt.CurrentAbility):
+	var base: int
+	match ab.Damage:
+		0: base = 0
+		1: base = 12
+		2: base = 24
+		3: base = 48
+		4: base = 96
+	if ab.DmgVarience:
+		base = int(base * randf_range(0.8, 1.2))
+	return base
+
 func range_360(n1, n2) -> Array:
 	if n2 > 359:
 		var range1 = range(n1, 359)
@@ -590,9 +609,36 @@ func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, tar
 	var r = q0.lerp(q1, ti)
 
 	target.global_position = r
+
+#Finds an ability of a certain type
+func find_abilities(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
+	#print("Chosing a ", type, " ability")
+	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
+	AblilityList.push_front(Char.StandardAttack)
+	var Choices:Array[Ability] = []
+	for i in AblilityList:
+		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
+			if ((i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health) or ignore_cost:
+				Choices.push_front(i)
+				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
+			else: print("Not enough resources")
+	return Choices
+
+func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Ability:
+	return find_abilities(Char, type, ignore_cost, targets)[0]
+
+func is_everyone_fully_healed() -> bool:
+	for i in Party.array():
+		if i == null: continue
+		if not i.is_fully_healed(): return false
+	return true
+
+func is_mem_healed(chara: Actor):
+	if chara == null: return true
+	return chara.is_fully_healed()
 #endregion
 
-#region Quick Tweens
+#region Quick Actions
 func jump_to(character:Node, position:Vector2, time:float=5, height: float =0.5) -> void:
 	var t:Tween = create_tween()
 	var start = character.position
@@ -615,5 +661,9 @@ func jump_to_global(character:Node, position:Vector2, time:float, height: float 
 	await t.finished
 	anim_done.emit()
 
+func heal_in_overworld(target:Actor, ab: Ability):
+	var amount:= int(max(calc_num(ab), target.MaxHP*((calc_num(ab)*target.Magic)*0.02)))
+	target.add_health(amount)
+	check_party.emit()
 #endregion
 

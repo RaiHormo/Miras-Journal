@@ -503,7 +503,7 @@ _data = {
 
 [node name="MemberDetails" type="CanvasLayer"]
 process_mode = 3
-layer = 11
+layer = 8
 script = ExtResource("1_uy7q8")
 
 [node name="Fade" type="ColorRect" parent="."]
@@ -539,6 +539,7 @@ scale = Vector2(0.173059, 0.173059)
 texture = ExtResource("4_1o3jg")
 
 [node name="Icon" type="TextureRect" parent="Name"]
+layout_mode = 0
 offset_left = -33.9763
 offset_top = -8.0259
 offset_right = 686.024
@@ -844,9 +845,10 @@ visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_vy61h")
 layout_direction = 1
+layout_mode = 0
 offset_left = 400.0
 offset_top = 342.0
-offset_right = 520.0
+offset_right = 515.0
 offset_bottom = 382.0
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
@@ -866,6 +868,7 @@ expand_icon = true
 [node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle"]
 show_behind_parent = true
 light_mask = 0
+layout_mode = 0
 offset_left = -41.0
 offset_top = 13.0
 offset_right = 298.0
@@ -1095,10 +1098,10 @@ color = Color(0.168627, 0.168627, 0.168627, 1)
 [node name="Line6" type="ColorRect" parent="Line1/Line2/Line3"]
 show_behind_parent = true
 layout_mode = 0
-offset_left = 949.0
+offset_left = 1066.0
 offset_top = 1297.0
-offset_right = 2100.0
-offset_bottom = 1801.0
+offset_right = 2083.0
+offset_bottom = 1809.0
 rotation = -0.00256336
 color = Color(0.168627, 0.168627, 0.168627, 1)
 

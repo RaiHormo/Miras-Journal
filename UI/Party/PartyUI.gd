@@ -20,6 +20,7 @@ var MemberChoosing = false
 var disabled = true
 var LevelupChain: Array[Actor] = []
 var submenu_opened := false
+var line_to_be_used: String
 
 func _ready():
 	$CanvasLayer.hide()
@@ -141,6 +142,7 @@ func _on_expand(open_ui=0):
 	t.kill()
 	Global.check_party.emit()
 	UIvisible = true
+	$CanvasLayer/Cursor.position=CursorPosition[0]
 	if open_ui == 0: WasPaused = false
 	else: WasPaused = get_tree().paused
 	get_tree().paused = true
@@ -241,7 +243,7 @@ func _on_shrink():
 	focus=0
 	t.set_trans(Tween.TRANS_BACK)
 	#Pages
-	$CanvasLayer/Cursor.position=CursorPosition[0]
+	#$CanvasLayer/Cursor.position=CursorPosition[0]
 	for i in %Pages.get_children():
 		t.tween_property(i, "position", Vector2(1300,44), 0.3)
 	t.tween_property(%Pages/Page0/Render, "position", Vector2(179,44), 0.6)
@@ -571,7 +573,7 @@ func cycle_states(chara: Actor, rect: TextureRect):
 	rect.texture = null
 
 func details():
-	if Expanded:
+	if Expanded and not submenu_opened:
 		Global.member_details(Global.Party.array()[focus])
 		submenu_opened = true
 		await Event.wait(0.3, false)
@@ -587,10 +589,22 @@ func back():
 			$Audio.play()
 			shrink.emit()
 			Global.cancel_sound()
-		else:
-			Partybox.show()
-			$CanvasLayer/Back.show()
-			%Pages.show()
-			$CanvasLayer/Cursor.show()
-			await Event.wait()
-			submenu_opened = false
+
+func close_submenu():
+	Partybox.show()
+	$CanvasLayer/Back.show()
+	%Pages.show()
+	$CanvasLayer/Cursor.show()
+	submenu_opened = false
+
+func talk() -> void:
+	if submenu_opened or not Expanded: return
+	var dialog: DialogueResource
+	dialog = load("res://database/Text/" + Global.Party.array()[focus].codename.to_lower()+"_talk.dialogue")
+	if dialog == null: Global.buzzer_sound(); return
+	var key = "d"+str(Event.Day)+"_"+str(Event.flag_int(Global.Party.array()[focus].codename+"Talk"))
+	if not key in dialog.get_titles(): key = "error"
+	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
+	submenu_opened = true
+	await Global.textbox(Global.Party.array()[focus].codename.to_lower()+"_talk", "options", true)
+	close_submenu()

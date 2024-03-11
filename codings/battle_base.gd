@@ -465,7 +465,7 @@ func end_turn():
 
 func damage(
 target: Actor, is_magic:= false, elemental:= false,
-x: int = calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
+x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
 	take_dmg.emit()
 	var el_mod: float = 1
 	var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
@@ -537,18 +537,6 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		Vector2(randi_range(-am,am), randi_range(-am,am)), dur).as_relative()
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
 	await t.finished
-
-func calc_num():
-	var base: int
-	match CurrentAbility.Damage:
-		0: base = 0
-		1: base = 12
-		2: base = 24
-		3: base = 48
-		4: base = 96
-	if CurrentAbility.DmgVarience:
-		base = int(base * randf_range(0.8, 1.2))
-	return base
 
 func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
 	if $Act/Effects.sprite_frames.has_animation(stri):
@@ -652,7 +640,7 @@ func death(target:Actor):
 			td.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
 			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 			await td.finished
-			if target != null:
+			if target != null and target.node != null:
 				target.node.queue_free()
 				target.node = null
 				if target.IsEnemy:
@@ -732,8 +720,8 @@ offset:Vector2 = Vector2.ZERO):
 	anim_done.emit()
 
 func heal(
-target:Actor, amount: int = int(max(calc_num(),
-target.MaxHP*((calc_num()*CurrentChar.Magic)*0.02)))):
+target:Actor, amount: int = int(max(Global.calc_num(),
+target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))):
 	target.add_health(amount)
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
