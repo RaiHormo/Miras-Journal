@@ -48,7 +48,7 @@ do jump_to(Player, Vector2(107, 345), 15)
 do Area.Followers[0].dont_follow = false
 Mira.Neutural: ...
 Mira.Neutural: Let's just rest here for a bit, I'm exhausted.
-Alcine: ({{alcine_name()}} looks tired as well)
+Alcine: ({{alcine()}} looks tired as well)
 => END
 
 ~ broken_bridge

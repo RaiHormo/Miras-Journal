@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://blb51swqx23w7"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://blb51swqx23w7"]
 
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="1_a6ph1"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="1_nai06"]
+[ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="2_ciuc2"]
 [ext_resource type="Texture2D" uid="uid://cqr2l0aaignpu" path="res://art/Icons/Enemies/Dragon.png" id="2_p85n4"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_8nbn3"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_mbwgc"]
@@ -10,19 +11,20 @@
 [resource]
 script = ExtResource("5_3pau3")
 FirstName = "Petrogon"
+MainColor = Color(1, 0.278431, 0.552941, 1)
 PartyIcon = ExtResource("2_p85n4")
 ActorClass = "Attacker"
 codename = &"Petrogon"
-ClutchDmg = false
+ClutchDmg = true
+SeqOnClutch = "FlyAway"
 CantDie = true
 IsEnemy = true
 RecivedSP = 12
-MainColor = Color(1, 0.278431, 0.552941, 1)
+SummonedAllies = Array[ExtResource("5_3pau3")]([])
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
 Controllable = false
-StatsVisible = true
 MaxHP = 200
 MaxAura = 30
 Attack = 1.4
@@ -31,14 +33,10 @@ Defence = 2.0
 Speed = 4.0
 Health = 0
 Aura = 0
-AttackMultiplier = 1.0
-DefenceMultiplier = 1.0
-MagicMultiplier = 1.0
-SpeedBoost = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_nai06")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_nai06"), ExtResource("2_ciuc2")])
 StandardAttack = ExtResource("4_mbwgc")
 BT = ExtResource("1_a6ph1")
 Offset = Vector2(0, -13)

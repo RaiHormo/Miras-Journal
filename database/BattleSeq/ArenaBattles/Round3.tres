@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://cexeojlgyu7rg"]
+
+[ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_rafmn"]
+[ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="3_0jpqq"]
+[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_ndxij"]
+
+[resource]
+script = ExtResource("4_ndxij")
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("3_0jpqq"), ExtResource("1_rafmn")])
+Transition = true
+Detransition = true
+EscPosition = Vector2(0, 0)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(0, 0)
+CanEscape = false
+DeleteAttacker = false
+EntranceSequence = ""
+VictorySequence = ""
+VictoryBanter = ""
+Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])

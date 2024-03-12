@@ -1266,7 +1266,6 @@ size_flags_horizontal = 0
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1287,6 +1286,7 @@ rotation = -0.0633063
 [node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Credits" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
@@ -1309,7 +1309,28 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Credits
 "
 
+[node name="ArenaMode" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+text = "Arena mode
+"
+
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1649,6 +1670,7 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_last_setting"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode" to="." method="_debug_mode"]
+[connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ArenaMode" to="." method="_arena_mode"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile/Button" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewGame/Button" to="." method="_new_game"]
 [connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]

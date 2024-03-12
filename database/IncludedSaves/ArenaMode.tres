@@ -1,0 +1,301 @@
+[gd_resource type="Resource" script_class="SaveFile" load_steps=50 format=3 uid="uid://b5qcq7nbnaka"]
+
+[ext_resource type="Texture2D" uid="uid://ccfqo6konaev3" path="res://art/Items/SmallPotion.png" id="1_p1gea"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_vip1j"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="2_mah4s"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="3_car2j"]
+[ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="3_t3o3b"]
+[ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="4_4jr5b"]
+[ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="5_ljupg"]
+[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="6_c4yfj"]
+[ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="7_5m5bg"]
+[ext_resource type="Texture2D" uid="uid://syhtbusm7hkg" path="res://art/Journal/Auras/SpiralRoots.png" id="8_iw2ot"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="9_1s1b3"]
+[ext_resource type="Texture2D" uid="uid://dhj86uscr784t" path="res://art/Renders/Alcine.png" id="9_ec2rq"]
+[ext_resource type="Texture2D" uid="uid://dwbnmt2k8ms6p" path="res://UI/Party/AlcineShadow.png" id="10_s8i8t"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="12_4qvp4"]
+[ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="12_q4m7a"]
+[ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="14_445et"]
+[ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="14_lctin"]
+[ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="15_atsjf"]
+[ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/OV/Erinn/ErinnOV.tres" id="15_ike6x"]
+[ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="16_prsh6"]
+[ext_resource type="Texture2D" uid="uid://dfuq3a5bdug03" path="res://art/Renders/Erinn.png" id="17_6orho"]
+[ext_resource type="Texture2D" uid="uid://cv3xqlnokrhfw" path="res://UI/Party/ErinnShadow.png" id="18_4euml"]
+[ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="19_qj56u"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="22_nhpkt"]
+[ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="23_sk6u3"]
+[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="24_5j77d"]
+[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="25_uja3s"]
+[ext_resource type="Texture2D" uid="uid://drtjopmyeh8ib" path="res://art/Journal/Auras/PhoenixWings.png" id="26_p3el2"]
+[ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="27_gd783"]
+[ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="28_yymtl"]
+[ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="30_eltif"]
+[ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="36_r8hmu"]
+[ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="42_2suj6"]
+[ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="43_e6r20"]
+[ext_resource type="Script" path="res://codings/Classes/save_class.gd" id="44_yd2ky"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
+atlas = ExtResource("1_vip1j")
+region = Rect2(126, 18, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_iwvc1"]
+script = ExtResource("3_car2j")
+name = "Drink healing item"
+description = "This is used internally for healing items in battle."
+Icon = SubResource("AtlasTexture_uyukm")
+ActionSequence = &"Drink"
+Type = "Healing"
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 5
+Parameter = 50.0
+Target = 0
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bywt"]
+atlas = ExtResource("1_vip1j")
+region = Rect2(36, 72, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_scxqo"]
+script = ExtResource("2_mah4s")
+Name = "Small Potion"
+Description = "A small bottle containing a healing potion.
+Restores 50 HP"
+Icon = SubResource("AtlasTexture_4bywt")
+Artwork = ExtResource("1_p1gea")
+Quantity = 2
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 3
+UsedInBattle = true
+OvTarget = 3
+BattleEffect = SubResource("Resource_iwvc1")
+Parameter = "50"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enqek"]
+atlas = ExtResource("1_vip1j")
+region = Rect2(108, 90, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_q7whi"]
+script = ExtResource("2_mah4s")
+Name = "Wallet"
+Description = "Contains 63 Iseferian coins and some train tickets."
+Icon = SubResource("AtlasTexture_enqek")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 0
+UsedInBattle = false
+OvTarget = 3
+Parameter = ""
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4axw"]
+atlas = ExtResource("1_vip1j")
+region = Rect2(126, 90, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_bd5yo"]
+script = ExtResource("2_mah4s")
+Name = "Folded Paper"
+Description = "A sheet of paper folded twice."
+Icon = SubResource("AtlasTexture_a4axw")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 1
+UsedInBattle = false
+OvTarget = 3
+Parameter = "folded_paper"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dacdr"]
+atlas = ExtResource("1_vip1j")
+region = Rect2(144, 90, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_wuqaw"]
+script = ExtResource("2_mah4s")
+Name = "Pen Case"
+Description = "A case with a few writting supplies."
+Icon = SubResource("AtlasTexture_dacdr")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 1
+UsedInBattle = false
+OvTarget = 3
+Parameter = "pen_case"
+
+[sub_resource type="Resource" id="Resource_nux6e"]
+script = ExtResource("12_4qvp4")
+FirstName = "Alcine"
+MainColor = Color(0.498039, 0.768627, 0.768627, 1)
+PartyIcon = ExtResource("7_5m5bg")
+ActorClass = "Support"
+codename = &"Alcine"
+ClutchDmg = false
+CantDie = true
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("12_4qvp4")]([])
+SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
+BoxProfile = ExtResource("5_ljupg")
+LastName = ""
+Weapon = "Arms?"
+Controllable = false
+RenderArtwork = ExtResource("9_ec2rq")
+RenderShadow = ExtResource("10_s8i8t")
+PartyPage = ExtResource("8_iw2ot")
+MaxHP = 80
+MaxAura = 30
+Attack = 0.4
+Magic = 1.4
+Defence = 0.8
+Speed = 4.0
+Health = 90
+Aura = 90
+SkillLevel = 1
+SkillPoints = 0
+SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
+Abilities = Array[ExtResource("3_car2j")]([ExtResource("3_t3o3b")])
+StandardAttack = ExtResource("12_q4m7a")
+OV = ExtResource("6_c4yfj")
+BT = ExtResource("4_4jr5b")
+Offset = Vector2(-3, -15)
+Shadow = false
+SoundSet = ExtResource("9_1s1b3")
+Disappear = false
+GlowDef = 0.3
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yrywn"]
+
+[sub_resource type="Resource" id="Resource_o6rgs"]
+script = ExtResource("12_4qvp4")
+FirstName = "Erinn"
+MainColor = Color(0.501961, 0.694118, 0.533333, 1)
+PartyIcon = ExtResource("16_prsh6")
+ActorClass = ""
+codename = &"Erinn"
+ClutchDmg = false
+CantDie = false
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("12_4qvp4")]([])
+SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
+BoxProfile = ExtResource("14_lctin")
+LastName = "Levenor"
+Weapon = ""
+Controllable = false
+RenderArtwork = ExtResource("17_6orho")
+RenderShadow = ExtResource("18_4euml")
+MaxHP = 85
+MaxAura = 90
+Attack = 0.5
+Magic = 1.8
+Defence = 1.5
+Speed = 5.0
+Health = 85
+Aura = 90
+SkillLevel = 1
+SkillPoints = 0
+SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
+Abilities = Array[ExtResource("3_car2j")]([])
+StandardAttack = ExtResource("19_qj56u")
+OV = ExtResource("15_ike6x")
+BT = SubResource("SpriteFrames_yrywn")
+Offset = Vector2(0, 0)
+Shadow = false
+SoundSet = ExtResource("9_1s1b3")
+Disappear = false
+GlowDef = 0.0
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_qa8pi"]
+script = ExtResource("12_4qvp4")
+FirstName = "Mira"
+MainColor = Color(0.878431, 0.682353, 0.517647, 1)
+PartyIcon = ExtResource("25_uja3s")
+ActorClass = "Attacker"
+codename = &"Mira"
+ClutchDmg = false
+CantDie = false
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("12_4qvp4")]([ExtResource("42_2suj6")])
+SecondaryColor = Color(0.886275, 0.345098, 0.192157, 1)
+BoxProfile = ExtResource("23_sk6u3")
+LastName = "Levenor"
+Weapon = "Lightweight Axe"
+Controllable = true
+RenderArtwork = ExtResource("27_gd783")
+RenderShadow = ExtResource("28_yymtl")
+PartyPage = ExtResource("26_p3el2")
+MaxHP = 100
+MaxAura = 20
+Attack = 1.6
+Magic = 1.3
+Defence = 0.6
+Speed = 8.0
+Health = 100
+Aura = 20
+SkillLevel = 1
+SkillPoints = 13
+SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
+Abilities = Array[ExtResource("3_car2j")]([ExtResource("14_445et"), ExtResource("15_atsjf")])
+StandardAttack = ExtResource("30_eltif")
+OV = ExtResource("24_5j77d")
+BT = ExtResource("22_nhpkt")
+Offset = Vector2(0, -15)
+Shadow = true
+SoundSet = ExtResource("36_r8hmu")
+Disappear = false
+GlowDef = 0.3
+GlowSpecial = 1.5
+GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
+
+[resource]
+script = ExtResource("44_yd2ky")
+Name = "Arena mode"
+Datetime = {
+"day": 12,
+"dst": false,
+"hour": 20,
+"minute": 40,
+"month": 3,
+"second": 26,
+"weekday": 2,
+"year": 2024
+}
+Party = Array[StringName]([&"Mira", &"", &"", &""])
+Room = "res://rooms/Arena.tscn"
+RoomName = "Arena"
+Position = Vector2(0, 0)
+Camera = 0
+Z = 1
+Members = Array[ExtResource("12_4qvp4")]([SubResource("Resource_nux6e"), SubResource("Resource_o6rgs"), SubResource("Resource_qa8pi")])
+Defeated = []
+StartTime = 0.0
+SavedTime = 0.0
+PlayTime = 0.0
+Preview = ExtResource("43_e6r20")
+KeyInv = Array[ExtResource("2_mah4s")]([SubResource("Resource_q7whi"), SubResource("Resource_bd5yo"), SubResource("Resource_wuqaw")])
+ConInv = Array[ExtResource("2_mah4s")]([SubResource("Resource_scxqo")])
+BtiInv = Array[ExtResource("2_mah4s")]([])
+MatInv = Array[ExtResource("2_mah4s")]([])
+Flags = Array[StringName]([])
+Day = 0
+version = 4

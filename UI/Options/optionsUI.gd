@@ -573,3 +573,9 @@ func _vsync(toggle: bool) -> void:
 func _new_game() -> void:
 	close()
 	Global.new_game()
+
+func _arena_mode() -> void:
+	await Loader.save()
+	Loader.load_game("ArenaMode", true, true)
+	close()
+

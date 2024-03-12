@@ -28,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 		moving = false
 		animate()
 		return
-	if Global.Party.check_member(member):
+	if Global.Party.check_member(member) and not Loader.InBattle:
 		show()
 		z_index = Global.Player.z_index
 		collision_layer = Global.Player.collision_layer

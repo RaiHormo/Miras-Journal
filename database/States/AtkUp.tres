@@ -12,7 +12,6 @@ filter_clip = true
 script = ExtResource("1_1vjby")
 name = "AttackUp"
 Description = "Weapon attacks deal more damage."
-RemovedAfterTurns = true
 RemovedOnBattleEnd = true
 turns = 3
 icon = SubResource("AtlasTexture_jx88a")

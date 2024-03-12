@@ -23,10 +23,9 @@ var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
 var Preview
 var BtAdvantage = 0
+var data: SaveFile
 signal battle_start
 signal battle_end
-
-
 signal ungray
 
 func _ready():
@@ -43,7 +42,7 @@ func save(filename:String="Autosave", showicon=true):
 	print("Saving to user://"+filename+".tres")
 	if showicon:
 		icon_save()
-	var data:SaveFile = SaveFile.new()
+	data = SaveFile.new()
 	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
@@ -81,22 +80,23 @@ func save(filename:String="Autosave", showicon=true):
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (data.Preview)
 
-func load_game(filename:String="Autosave", sound:= true):
+func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 	if sound: Global.ui_sound("Load")
 	if filename=="File0": filename = "Autosave"
-	if not FileAccess.file_exists("user://"+filename+".tres"): await save()
-	print("Loading user://"+filename+".tres")
+	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
+	if not FileAccess.file_exists(filepath): await save()
+	print("Loading " + filepath)
 	transition("")
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
 	await get_tree().create_timer(1).timeout
-	if not validate_save("user://"+filename+".tres"):
+	if not validate_save(filepath):
 		OS.alert("Save data is corrupt")
 		OS.set_restart_on_exit(true)
 		get_tree().quit()
 		return
-	var data:SaveFile = await load_res("user://"+filename+".tres")
+	data = await load_res(filepath)
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated
@@ -390,7 +390,7 @@ func icon_load():
 func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	if t != null:
 		t.kill()
-	$Can.layer = 2
+	$Can.layer = 1
 	$Can.show()
 	t=create_tween()
 	t.set_parallel(true)
@@ -479,12 +479,16 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 func validate_save(save: String) -> bool:
 	if FileAccess.file_exists("user://Autosave.tres"):
 		var file = load(save)
-		if file != null and file.version == SaveVersion:
-			Preview = file.Preview
-			return true
+		if file != null:
+			if file.version == SaveVersion:
+				Preview = file.Preview
+				return true
+			else:
+				OS.alert("This save file is from an incompatible version", "Can't read file")
+				return false
 		else:
-			OS.alert("This save file is corrupt or from an incompatible version and will now be deleted", "Can't read file")
-			DirAccess.remove_absolute("user://Autosave.tres")
+			OS.alert("This save file is corrupt or from an incompatible version", "Can't read file")
+			#DirAccess.remove_absolute("user://Autosave.tres")
 			return false
 	else: return false
 

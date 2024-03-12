@@ -62,7 +62,7 @@ general/states=["Global", "Loader", "World", "Event", "PartyUI", "Item"]
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [editor]
 

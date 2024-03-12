@@ -1,4 +1,4 @@
-[gd_scene load_steps=269 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=278 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="13_netd6"]
 [ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/BT/Alcine/Miss.png" id="14_371pb"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="15_81etv"]
+[ext_resource type="Texture2D" uid="uid://be0n3um15kpqc" path="res://art/Effects/needle.png" id="15_etfwn"]
 [ext_resource type="Texture2D" uid="uid://bvss41ovenq00" path="res://art/Effects/SoulTap.png" id="16_wvpnt"]
 [ext_resource type="Script" path="res://codings/Ai.gd" id="17_5kmxv"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="18_toppc"]
@@ -689,6 +690,38 @@ region = Rect2(120, 0, 24, 24)
 atlas = ExtResource("14_371pb")
 region = Rect2(144, 0, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_muutn"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(0, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmwoo"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(57, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3midx"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(114, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ua6c"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(228, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aojss"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(285, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x05pk"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(342, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sno54"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(399, 0, 57, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl00h"]
+atlas = ExtResource("15_etfwn")
+region = Rect2(456, 0, 57, 57)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxq4l"]
 atlas = ExtResource("15_81etv")
 region = Rect2(0, 0, 97, 97)
@@ -870,6 +903,38 @@ animations = [{
 }],
 "loop": false,
 "name": &"Miss",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muutn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmwoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3midx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ua6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aojss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x05pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sno54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl00h")
+}],
+"loop": false,
+"name": &"Needle",
 "speed": 12.0
 }, {
 "frames": [{
@@ -1873,10 +1938,10 @@ border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
+corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
+corner_radius_bottom_left = 32
 expand_margin_left = 12.0
 expand_margin_top = 2.0
 expand_margin_right = 12.0
@@ -1988,11 +2053,13 @@ texture_scale = 2.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="Act"]
 light_mask = 16
-z_index = 2
+z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = SubResource("SpriteFrames_e4dcq")
-animation = &"AttackUp"
+animation = &"Needle"
+frame = 8
+frame_progress = 1.0
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)

@@ -16,6 +16,8 @@ class_name Actor
 var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
 ##If true, the character cannot die unless in very low hp
 @export var ClutchDmg:= false
+##Sequence played when the above happens
+@export var SeqOnClutch:= ""
 ##If true, the character cannot die, and will always stay at low hp
 @export var CantDie:= false
 @export_group("Enemy specific")
@@ -167,8 +169,11 @@ func add_state(x, turns = -1):
 		state = x
 	else:
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
+	if has_state(state.name) and !state.is_stat_change:
+		remove_state(state.name)
+		if state.turns != -1: Global.toast(FirstName+"'s "+state.name+" state was extended.")
 	if turns != -1:
-		state.RemovedAfterTurns = turns
+		state.turns = turns
 	States.append(state)
 	if node != null:
 		Global.Bt.on_state_add(state, self)

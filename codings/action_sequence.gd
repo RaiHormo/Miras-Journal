@@ -39,7 +39,7 @@ func play(nam, tar):
 func handle_states():
 	var chara = Bt.CurrentChar
 	for state in chara.States:
-		if state.RemovedAfterTurns:
+		if state.turns > -1:
 			state.turns -= 1
 			if state.turns == 0:
 				match state.name:
@@ -198,13 +198,14 @@ func FlameSpark():
 	Bt.glow(0)
 	await get_tree().create_timer(0.3).timeout
 	Bt.play_effect("FlameSpark", target)
-	Bt.focus_cam(target, 0.3, 20)
-	t.stop()
-	await get_tree().create_timer(0.2).timeout
-	Bt.damage(target, true, true)
-	target.add_state("Burned")
-	await get_tree().create_timer(0.8).timeout
-	Bt.pop_num(target, "Burned")
+	if miss: Bt.miss()
+	else:
+		Bt.focus_cam(target, 0.3, 20)
+		await get_tree().create_timer(0.2).timeout
+		Bt.damage(target, true, true)
+		target.add_state("Burned")
+		await get_tree().create_timer(0.8).timeout
+		Bt.pop_num(target, "Burned")
 	await get_tree().create_timer(0.5).timeout
 	Bt.anim("Idle")
 	Bt.end_turn()
@@ -234,6 +235,20 @@ func SoulTap():
 	await Bt.shake_actor(target, 1)
 	Bt.screen_shake(8, 5, 0.1)
 	Bt.damage(target, true, true)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
+func Needle():
+	Bt.zoom(5)
+	Bt.focus_cam(target, 1, 0)
+	Bt.anim("Cast", CurrentChar)
+	Bt.play_effect("Needle", target, Vector2(Bt.offsetize(-15), -15), true)
+	if !miss:
+		await Event.wait(0.3)
+		Bt.screen_shake(12, 5, 0.1)
+		Bt.damage(target, true, true)
+	else: Bt.miss()
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
@@ -271,6 +286,22 @@ func Eat():
 	await Bt.anim("Cast")
 	await Event.wait(1)
 	Bt.end_turn()
+#endregion
+
+################################################
+
+#region Death sequences
+func FlyAway(chara: Actor):
+	Bt.lock_turn = true
+	Bt.focus_cam(chara, 0.5, -20)
+	Bt.zoom(6)
+	await Event.wait(1, false)
+	chara.node.flip_h = true
+	Bt.anim("Fly", chara)
+	Global.toast(chara.FirstName+" retreats from the battle")
+	await Bt.move(chara, Vector2(150, -150), 2)
+	await Event.wait(1, false)
+	Bt.death(chara)
 #endregion
 
 ################################################
@@ -356,7 +387,6 @@ func AlcineWoods1():
 	Bt.lock_turn = true
 	await Global.passive("temple_woods_random", "going_nowhere")
 	Event.CutsceneHandler.alcine_helps()
-#endregion
 
 func AlcineWoods2():
 	for i in Bt.TurnOrder:
@@ -376,20 +406,7 @@ func AlcineWoods3():
 	await Global.passive("temple_woods_random", "amazing")
 
 func AlcineWoods4():
-	if Event.f("AlcineFollow", 5): return
-	Bt.CurrentChar = Bt.get_actor("Petrogon")
-	Bt.death(Bt.get_actor("Petrogon"))
-	Bt.focus_cam(Bt.get_actor("Petrogon"), 0.5, -20)
-	Bt.zoom(6)
-	await Event.wait(1, false)
-	Bt.get_actor("Petrogon").node.flip_h = true
-	Bt.anim("Fly", Bt.get_actor("Petrogon"))
-	Global.toast("Petrogon retreats from the battle")
-	await Bt.move(Bt.get_actor("Petrogon"), Vector2(150, -150), 2)
-	Bt.lock_turn = true
-	Event.flag_progress("AlcineFollow", 5)
-	#Event.CutsceneHandler
-	await Event.wait(1, false)
-	Bt.victory()
+	#if Event.f("AlcineFollow", 5): return
 	Event.CutsceneHandler.after_battle()
+#endregion
 

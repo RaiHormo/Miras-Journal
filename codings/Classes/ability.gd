@@ -19,7 +19,7 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 
 @export var ColorSameAsActor := false
 @export_color_no_alpha var WheelColor :Color  = Color(1,1,1,1)
-@export var Callout: bool
+@export var Callout: bool = true
 
 @export_range(0,1) var SucessChance: float = 1
 @export_range(0,1) var CritChance: float = 0

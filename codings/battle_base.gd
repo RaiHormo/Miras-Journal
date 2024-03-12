@@ -237,7 +237,7 @@ func entrance():
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
 	await anim(&"Entrance", i)
-	if i.node.animation == &"Entrance": anim(&"Idle")
+	if i.node.animation == &"Entrance": anim()
 
 func _on_next_turn():
 	if Troop.size() == 0:
@@ -342,6 +342,10 @@ func callout(ab:Ability = CurrentAbility):
 	if callout_onscreen:
 		tc.tween_property($Canvas/Callout, "modulate", Color.TRANSPARENT, 0.2)
 		await tc.finished
+		tc.kill()
+		tc = create_tween()
+		tc.set_ease(Tween.EASE_OUT)
+		tc.set_trans(Tween.TRANS_QUINT)
 	callout_onscreen = true
 	if ab.ColorSameAsActor: ab.WheelColor = CurrentChar.MainColor
 	$Canvas/Callout.text = ab.name
@@ -460,9 +464,11 @@ x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false
 	var dmg = target.calc_dmg(x * el_mod, is_magic, CurrentChar)
 	if ignore_stats: dmg = x
 	target.damage(dmg, limiter)
+	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "":
+		$Act.call(target.SeqOnClutch, target)
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
-	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/4)
+	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/10)
 	if elemental:
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
@@ -519,9 +525,10 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
 	await t.finished
 
-func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO):
+func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO, flip_on_player_use:= false):
 	if $Act/Effects.sprite_frames.has_animation(stri):
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
+		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
 		$Act.add_child(ef)
 		ef.position = tar.node.position + offset
 		ef.play(stri)
@@ -824,6 +831,7 @@ func victory():
 	$Canvas/TurnOrder.hide()
 	$Canvas/Continue.show()
 	$Canvas/Continue.icon = Global.get_controller().ConfirmIcon
+	if Seq.VictoryBanter != "": await Global.textbox_close
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)

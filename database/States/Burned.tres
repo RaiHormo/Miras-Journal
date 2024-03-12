@@ -12,7 +12,6 @@ script = ExtResource("1_e3mid")
 name = "Burned"
 Description = "Takes light heat damage every turn.
 Lasts for 5 turns"
-RemovedAfterTurns = false
 RemovedOnBattleEnd = true
 turns = 5
 icon = SubResource("AtlasTexture_1w22s")

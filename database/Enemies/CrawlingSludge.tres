@@ -18,6 +18,7 @@ PartyIcon = ExtResource("1_u1o0b")
 ActorClass = "Attacker"
 codename = &"CS"
 ClutchDmg = false
+SeqOnClutch = ""
 CantDie = false
 IsEnemy = true
 DroppedItem = ExtResource("4_n0njt")

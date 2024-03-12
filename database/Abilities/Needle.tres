@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://crmjudbrr8xf"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_83bqf"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_68626"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gp2s"]
+atlas = ExtResource("1_83bqf")
+region = Rect2(18, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_68626")
+name = "Needle"
+description = "Deals weak Physical damage, with a very low chance of missing."
+Icon = SubResource("AtlasTexture_4gp2s")
+ActionSequence = &"Needle"
+Type = "CheapAttack"
+AuraCost = 2
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 1
+ColorSameAsActor = false
+WheelColor = Color(0.827451, 0.266667, 0.427451, 1)
+Callout = true
+SucessChance = 0.99
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = true

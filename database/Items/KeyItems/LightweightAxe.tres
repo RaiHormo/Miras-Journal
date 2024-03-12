@@ -20,6 +20,7 @@ Icon = SubResource("AtlasTexture_w33rk")
 Artwork = ExtResource("1_ryhrm")
 Quantity = 0
 QuantityMeansUses = false
+AmountOnAdd = 1
 Use = 0
 UsedInBattle = false
 OvTarget = 3
