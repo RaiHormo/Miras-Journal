@@ -339,9 +339,11 @@ position = Vector2(-1, 8)
 [node name="RestTree" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(106, 344)
 LabelText = "Rest"
-ActionType = "event"
+ActionType = "pass_time"
 Length = 100
-file = "pass_time"
+file = "rest_amberelm"
+title = "Rest"
+item = "Fully recovers the party's HP"
 Height = 5
 
 [node name="CollisionShape2D" parent="RestTree" index="0"]

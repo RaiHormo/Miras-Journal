@@ -931,7 +931,6 @@ scale = Vector2(0.7, 0.7)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
-visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1000,7 +999,6 @@ icon = ExtResource("14_fmwou")
 alignment = 2
 
 [node name="Future" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.743
@@ -1280,5 +1278,6 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Details" to="." method="details"]
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]
+[connection signal="pressed" from="CanvasLayer/CalendarBase/Action/UseTime" to="CanvasLayer/CalendarBase" method="use_time"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]
 [connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]

@@ -5,11 +5,11 @@ signal action()
 @export var LabelText : String = "Inspect"
 @export var ActionType: String
 @export var Length: int = 120
-@export var file: String
-@export var title: String
-@export var item: String
+@export var file: String = ""
+@export var title: String = ""
+@export var item: String = ""
 @export var hidesprite: bool = false
-@export var itemtype: String
+@export var itemtype: String = ""
 @export var Collision: CollisionShape2D = null
 @export var Height: int = 0
 var CanInteract := false
@@ -141,6 +141,8 @@ func _on_button_pressed() -> void:
 			Global.call(file)
 		"event":
 			Event.call(file)
+		"pass_time":
+			PartyUI.confirm_time_passage(title, item, 2, file)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision != null: Collision.set_deferred("disabled", true)

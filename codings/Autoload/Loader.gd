@@ -121,6 +121,7 @@ func load_game(filename:String="Autosave", sound:= true):
 	Global.Members = data.Members.duplicate()
 	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)
+	for i in Global.Members: i.reset_static_info()
 
 	await Global.area_initialized
 	Global.Player.global_position = data.Position
@@ -362,6 +363,23 @@ func icon_save():
 	#.from(Vector2(1181, 900))
 	Icon.play("Save")
 	await Icon.animation_finished
+	t=create_tween()
+	t.set_ease(Tween.EASE_IN)
+	t.set_trans(Tween.TRANS_QUART)
+	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
+	await t.finished
+	$Can.hide()
+
+func icon_load():
+	t=create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	$Can.show()
+	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
+	#.from(Vector2(1181, 900))
+	Icon.play("Load")
+	await ungray
+	Icon.play("Close")
 	t=create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)

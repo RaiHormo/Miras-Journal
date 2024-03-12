@@ -104,9 +104,6 @@ func f(flag:StringName, state = null) -> bool:
 		return f_past(flag, state)
 	return check_flag(flag)
 
-func pass_time():
-	PartyUI.confirm_time_passage("Rest", "Fully recovers the party's HP", 2)
-
 func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())

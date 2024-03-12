@@ -201,6 +201,7 @@ func reset_static_info():
 	Defence = og.Defence
 	Magic = og.Magic
 	SkillPointsFor = og.SkillPointsFor
+	SoundSet = og.SoundSet
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP

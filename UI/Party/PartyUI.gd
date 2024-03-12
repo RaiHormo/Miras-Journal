@@ -98,7 +98,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
 	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null
-	and "Idle" in Global.Player.get_node("%Base").animation):
+	and "Idle" in Global.Player.used_sprite.animation):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):
 		back()
@@ -516,8 +516,8 @@ func _on_item_preview_pressed():
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 	+ str(Item.get_node("ItemEffect").item.Quantity))
 
-func confirm_time_passage(title: String, description: String, to_time: int):
-	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
+func confirm_time_passage(title: String, description: String, to_time: int, action_id: String):
+	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time, action_id)
 
 func cmd():
 	if not $CanvasLayer/TextEdit.visible:

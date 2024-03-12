@@ -271,6 +271,7 @@ func move_root():
 			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 5, 0.3)
 
 func _root():
+	show()
 	t.kill()
 	#stage="inactive"
 	if stage != "options":
@@ -395,6 +396,8 @@ func _options():
 	t.tween_property(Cam, "offset:x", 70, 0.5)
 	$Back.hide()
 	$Confirm.hide()
+	await t.finished
+	hide()
 
 func _on_confirm_button_down():
 	if stage == "item":

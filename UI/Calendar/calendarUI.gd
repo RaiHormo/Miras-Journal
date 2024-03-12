@@ -1,19 +1,19 @@
 extends TextureRect
 @export var HideOnDays: Array[int]
+var time_pass_id: String
 
 func _ready() -> void:
 	Global.check_party.connect(_check_party)
 	hide_prompt()
 
 func _check_party():
-	if Event.Day not in HideOnDays:
-		show()
-		$Date/Day.text = str(Event.Day)
-		$Date/Month.text = Global.get_mmm(Global.get_month(Event.Day))
-	else:
-		hide()
+	if Event.Day not in HideOnDays: show()
+	else: hide()
+	$Date/Day.text = str(Event.Day)
+	$Date/Month.text = Global.get_mmm(Global.get_month(Event.Day))
 
-func confirm_time_passage(title: String, description: String, to_time: int):
+func confirm_time_passage(title: String, description: String, to_time: int, action_id: String):
+	time_pass_id = action_id
 	show()
 	Global.Controllable = false
 	get_tree().paused = true
@@ -55,3 +55,9 @@ func _on_nevermind_pressed() -> void:
 	await hide_prompt()
 	Global.Controllable = true
 	get_tree().paused = false
+
+func use_time() -> void:
+	hide_prompt()
+	await Loader.transition("")
+	if Event.has_method(time_pass_id): Event.call(time_pass_id)
+	else: OS.alert("Invalid event ID "+ time_pass_id)

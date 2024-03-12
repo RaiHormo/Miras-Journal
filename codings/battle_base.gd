@@ -62,36 +62,17 @@ func _ready():
 	$Canvas/SPGain.hide()
 	$Canvas/VictoryItems.hide()
 	if Global.Area != null: Global.Area.show()
-	if Global.check_member(1):
-		dub = $Act/Actor0.duplicate()
-		dub.name = "Actor1"
-		$Act.add_child(dub)
-		Party.Member1.node = $Act/Actor1
-		dub.sprite_frames = Party.Member1.BT
-		TurnOrder.push_front(Party.Member1)
-		PartyArray.push_back(Party.Member1)
-		dub.material = dub.material.duplicate()
-		dub.add_child(Party.Member1.SoundSet.instantiate())
-	if Global.check_member(2):
-		dub = $Act/Actor0.duplicate()
-		dub.name = "Actor2"
-		$Act.add_child(dub)
-		dub.sprite_frames = Party.Member2.BT
-		Party.Member2.node = $Act/Actor2
-		TurnOrder.push_front(Party.Member2)
-		PartyArray.push_back(Party.Member2)
-		dub.material = dub.material.duplicate()
-		dub.add_child(Party.Member2.SoundSet.instantiate())
-	if Global.check_member(3):
-		dub = $Act/Actor0.duplicate()
-		dub.name = "Actor3"
-		$Act.add_child(dub)
-		dub.sprite_frames = Party.Member3.BT
-		Party.Member3.node = $Act/Actor3
-		PartyArray.push_back(Party.Member3)
-		TurnOrder.push_front(Party.Member3)
-		dub.material = dub.material.duplicate()
-		dub.add_child(Party.Member3.SoundSet.instantiate())
+	for i in range(1, 4):
+		if Global.check_member(i):
+			dub = $Act/Actor0.duplicate()
+			dub.name = "Actor"+ str(i)
+			$Act.add_child(dub)
+			Party.array()[i].node = dub
+			dub.sprite_frames = Party.array()[i].BT
+			TurnOrder.push_front(Party.array()[i])
+			PartyArray.push_back(Party.array()[i])
+			dub.material = dub.material.duplicate()
+			dub.add_child(Party.array()[i].SoundSet.instantiate())
 	for i in Troop.size():
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)

@@ -597,6 +597,7 @@ position = Vector2(1950.6, -1731.45)
 Direction = Vector2(0, -1)
 Room = "Amberelm"
 ToCamera = 1
+Flag = &"EnteredAmberelm2"
 
 [node name="Transfer3" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(1258.84, -705.287)

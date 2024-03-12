@@ -7,6 +7,7 @@ signal loaded
 var was_controllable: bool
 var was_paused: bool
 var cant_save:= false
+var save_files_loaded:= false
 
 func _ready():
 	hide()
@@ -69,6 +70,7 @@ func siilhouette():
 	ts.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
 	await ts.finished
 	load_settings()
+	#load_save_files()
 
 func _physics_process(delta):
 	var playtime:Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())
@@ -167,9 +169,12 @@ func game_settings():
 	load_settings()
 
 func save_managment() -> void:
-	await load_save_files()
 	if stage == "save_managment": return
 	if stage != "main": await await loaded
+	if not save_files_loaded:
+		Loader.icon_load()
+		Loader.gray_out()
+	else: %Files/File0/Button.grab_focus()
 	$SavePanel.show()
 	$Confirm.hide()
 	$MainButtons/SaveManagment.toggle_mode=true
@@ -188,9 +193,12 @@ func save_managment() -> void:
 	t.tween_property($SavePanel, "position", Vector2(710, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-50, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
-	%Files/File0/Button.grab_focus()
 	Global.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
+	await t.finished
+	if not save_files_loaded:
+		await load_save_files()
+		%Files/File0/Button.grab_focus()
 
 func gallery():
 	if stage == "gallery": return
@@ -294,13 +302,18 @@ func load_save_files():
 	for j in %Files.get_children():
 		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
 	await Event.wait()
+	if not save_files_loaded:
+		Loader.ungray.emit()
+	save_files_loaded = true
+
 
 func draw_file(file: SaveFile, node: Control):
 	var panel = node.get_child(0)
-	if file == null:
+	if file == null or file.version != Loader.SaveVersion:
 		node.get_node("Info/FileName").text = "Corrupt data"
 		panel.get_node("Date/Month").text = "Please"
 		panel.get_node("Date/Day").text = "Delete"
+		panel.get_node("Location").text = "Now"
 		return
 	node.get_node("Info/FileName").text = file.Name
 	panel.get_node("Date/Day").text = str(file.Day)
