@@ -10,7 +10,7 @@ class_name Ability
 @export var HPCost: int
 @export var disabled:= false
 ## 0: None, 1: Weak, 2: Medium, 3: Heavy, 4: Severe
-enum D {NONE, WEAK, MEDIUM, HEAVY, SEVERE, CUSTOM}
+enum D {NONE, WEAK, MEDIUM, HEAVY, SEVERE, CUSTOM, WEAPON}
 @export var Damage:D = D.NONE
 @export var Parameter: float = 0
 ##0: Self, 1: One enemy, 2: AOE enemies, 3: One ally, 4 AOE allies

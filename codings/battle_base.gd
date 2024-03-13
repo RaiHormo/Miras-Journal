@@ -754,8 +754,7 @@ func reset_all():
 func victory_anim(chara:Actor):
 	$Act.process_mode = Node.PROCESS_MODE_ALWAYS
 	chara.node.get_node("State").play("None")
-	anim("Victory", chara)
-	await chara.node.animation_finished
+	await anim("Victory", chara)
 	anim("VictoryLoop", chara)
 
 func victory_count_sp():
@@ -877,18 +876,18 @@ func victory_show_items():
 		await t.finished
 
 func miss(target:Actor = CurrentTarget):
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
+	var tm = create_tween()
+	tm.set_ease(Tween.EASE_OUT)
+	tm.set_trans(Tween.TRANS_CUBIC)
 	play_effect("Miss", target)
-	t.tween_property(target.node,
+	tm.tween_property(target.node,
 	"position:x", target.node.position.x + offsetize(30), 0.3)
 	pop_num(target, "Miss")
 	await Event.wait(0.5)
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
-	t.tween_property(target.node, "position:x",
+	tm = create_tween()
+	tm.set_ease(Tween.EASE_OUT)
+	tm.set_trans(Tween.TRANS_CUBIC)
+	tm.tween_property(target.node, "position:x",
 	target.node.position.x - offsetize(30), 0.3)
 
 func _on_battle_ui_command():

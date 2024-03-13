@@ -440,7 +440,7 @@ func check_for_levelups(mem:Actor, node:Panel):
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	if mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]:
+	if mem.SkillLevel < mem.SkillPointsFor.size() and mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	else:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
@@ -452,7 +452,8 @@ func check_for_levelups(mem:Actor, node:Panel):
 		LevelupChain.append(mem)
 		mem.SkillLevel += 1
 		node.get_node("Level/Number").text = str(mem.SkillLevel)
-		node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
+		if mem.SkillLevel < mem.SkillPointsFor.size():
+			node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
 		check_for_levelups(mem, node)
 
 func make_shadow(texture: Texture2D) -> Texture2D:

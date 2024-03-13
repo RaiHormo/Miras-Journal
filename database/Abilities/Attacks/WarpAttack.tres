@@ -1,17 +1,19 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://dmm26g6xg665u"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://dmm26g6xg665u"]
 
+[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_6om2h"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_p6in8"]
 
 [resource]
 script = ExtResource("1_p6in8")
 name = "Warp attack"
-description = "Deals medium damage to one target with a chance of missing."
+description = "Deals damage to one target with a chance of missing."
+Icon = ExtResource("1_6om2h")
 ActionSequence = &"WarpAttack"
 Type = "CheapAttack"
 AuraCost = 0
 HPCost = 0
 disabled = false
-Damage = 2
+Damage = 6
 Parameter = 0.0
 Target = 1
 ColorSameAsActor = false

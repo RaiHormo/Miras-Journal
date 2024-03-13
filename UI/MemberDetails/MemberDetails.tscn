@@ -548,7 +548,6 @@ scale = Vector2(0.0461321, 0.0461321)
 texture = ExtResource("11_hoi7k")
 
 [node name="StatPanel" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -805,10 +804,10 @@ show_percentage = false
 
 [node name="Weapon" type="HBoxContainer" parent="StatPanel"]
 layout_mode = 0
-offset_left = 56.0
-offset_top = 522.0
-offset_right = 494.0
-offset_bottom = 570.0
+offset_left = 54.0
+offset_top = 501.0
+offset_right = 496.0
+offset_bottom = 549.0
 theme_override_constants/separation = 12
 
 [node name="WeaponTxt" type="Label" parent="StatPanel/Weapon"]
@@ -825,6 +824,17 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_rvp3l")
 stretch_mode = 4
 
+[node name="WeaponRating" type="Label" parent="StatPanel/Weapon/Icon"]
+offset_left = -146.0
+offset_top = 54.0
+offset_right = 77.0
+offset_bottom = 79.0
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
+theme_override_fonts/font = SubResource("FontVariation_maora")
+theme_override_font_sizes/font_size = 24
+text = "Rating: Does the job"
+
 [node name="WeaponName" type="Label" parent="StatPanel/Weapon"]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -833,6 +843,7 @@ theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
 [node name="AbilityPanel" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0

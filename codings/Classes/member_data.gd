@@ -13,7 +13,8 @@ class_name Actor
 ##Used for refrencing the character in code
 @export var codename: StringName = &"Actor"
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
-var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
+@export var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
+@export var WeaponPower: int = 24
 ##If true, the character cannot die unless in very low hp
 @export var ClutchDmg:= false
 ##Sequence played when the above happens

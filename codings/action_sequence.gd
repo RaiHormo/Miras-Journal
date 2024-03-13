@@ -201,12 +201,12 @@ func FlameSpark():
 	if miss: Bt.miss()
 	else:
 		Bt.focus_cam(target, 0.3, 20)
-		await get_tree().create_timer(0.2).timeout
+		await Event.wait(0.2)
 		Bt.damage(target, true, true)
 		target.add_state("Burned")
-		await get_tree().create_timer(0.8).timeout
+		await Event.wait(0.8)
 		Bt.pop_num(target, "Burned")
-	await get_tree().create_timer(0.5).timeout
+	await Event.wait(0.8)
 	Bt.anim("Idle")
 	Bt.end_turn()
 

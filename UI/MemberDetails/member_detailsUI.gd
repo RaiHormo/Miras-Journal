@@ -52,6 +52,7 @@ func draw_character(chara: Actor):
 	$StatPanel/StatBars/Magic.value = chara.Magic
 	$StatPanel/Weapon/WeaponName.text = chara.Weapon
 	$StatPanel/Weapon/Icon.texture = chara.StandardAttack.Icon
+	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: "+ Global.get_power_rating(chara.WeaponPower)
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()

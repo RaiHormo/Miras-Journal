@@ -346,6 +346,7 @@ func heal_party() -> void:
 func reset_all_members() -> void:
 	for i in range(-1, Members.size() - 1):
 		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
+	Party.set_to(Party)
 
 func find_member(Name: StringName) -> Actor:
 	for i in Members:
@@ -505,6 +506,8 @@ func get_mmm(month: int) -> String:
 		12: return "Dec"
 	return "???"
 
+
+
 func get_month(day: int) -> int:
 	if day>0 and day<=30: return 11
 	else: return 0
@@ -549,7 +552,7 @@ func in_360(nm) -> int:
 func alcine() -> String:
 	return find_member("Alcine").FirstName
 
-func calc_num(ab: Ability = Bt.CurrentAbility):
+func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
 	var base: int
 	match ab.Damage:
 		0: base = 0
@@ -557,9 +560,30 @@ func calc_num(ab: Ability = Bt.CurrentAbility):
 		2: base = 24
 		3: base = 48
 		4: base = 96
+		5: base = int(ab.Parameter)
+		6: base = chara.WeaponPower if chara != null else Bt.CurrentChar.WeaponPower
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
 	return base
+
+func get_power_rating(power: int) -> String:
+	if power < 6: return "Useless"
+	if power < 12: return "Very weak"
+	if power < 18: return "Weak"
+	if power < 24: return "Servicable"
+	if power < 30: return "Avrage"
+	if power < 36: return "Fine"
+	if power < 42: return "Kinda good"
+	if power < 48: return "Pretty good"
+	if power < 54: return "Sharp"
+	if power < 60: return "Pretty strong"
+	if power < 66: return "Excellent"
+	if power < 72: return "Powerful"
+	if power < 78: return "Very powerful"
+	if power < 84: return "Formidable"
+	if power < 90: return "Overpowered"
+	if power < 96: return "Godly"
+	return "Illegal"
 
 func range_360(n1, n2) -> Array:
 	if n2 > 359:
