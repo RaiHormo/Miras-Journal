@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxxa222xgq1sr"
-path="res://.godot/imported/Miss.png-2f94e861955de5948e1901039156e6f2.ctex"
+path="res://.godot/imported/Miss.png-95c9635c2ed091100c32e5eba7cc25fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/BT/Alcine/Miss.png"
-dest_files=["res://.godot/imported/Miss.png-2f94e861955de5948e1901039156e6f2.ctex"]
+source_file="res://art/Effects/Miss.png"
+dest_files=["res://.godot/imported/Miss.png-95c9635c2ed091100c32e5eba7cc25fc.ctex"]
 
 [params]
 

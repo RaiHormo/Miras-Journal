@@ -54,7 +54,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Position = Global.Player.global_position
 	data.Preview = Global.get_preview()
 	data.Camera = Global.CameraInd
-	data.Defeated = Defeated
+	data.Defeated = Defeated.duplicate()
 	data.Members = Global.Members.duplicate()
 	Global.make_array_unique(data.Members)
 	data.version = SaveVersion
@@ -99,7 +99,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 	data = await load_res(filepath)
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.SaveTime = data.PlayTime
-	Defeated = data.Defeated
+	Defeated = data.Defeated.duplicate()
 	Global.CameraInd = data.Camera
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
@@ -345,6 +345,8 @@ func end_battle():
 	Global.Controllable = false
 	battle_bars(0)
 	get_tree().paused = false
+	for i in Global.Area.Followers:
+		i.dont_follow = false
 	if Global.Player != null:
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)

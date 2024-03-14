@@ -237,7 +237,7 @@ func entrance():
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
 	await anim(&"Entrance", i)
-	if i.node.animation == &"Entrance": anim()
+	if i.node.animation == &"Entrance" or i.node.animation == &"Idle": anim("", i)
 
 func _on_next_turn():
 	if Troop.size() == 0:
@@ -295,9 +295,8 @@ func confirm_next(action_anim = true):
 				#tl.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
 				tl.parallel().tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.3)
 				callout(CurrentChar.NextMove)
-				anim("Ability")
 				var timer = get_tree().create_timer(0.5)
-				await CurrentChar.node.animation_finished
+				await anim("Ability")
 				if timer.time_left != 0: await timer.timeout
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
@@ -451,6 +450,7 @@ func end_turn():
 func damage(
 target: Actor, is_magic:= false, elemental:= false,
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
+	if target.Health == 0 or target.has_state("KnockedOut"): return
 	take_dmg.emit()
 	var el_mod: float = 1
 	var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
@@ -658,7 +658,7 @@ func hp_sort(a:Actor, b:Actor):
 	else:
 		return false
 
-func anim(animation: String="", chara: Actor = CurrentChar):
+func anim(animation: String = "", chara: Actor = CurrentChar):
 	if animation == "":
 		if chara.DontIdle: return
 		else: animation = "Idle"
@@ -866,14 +866,24 @@ func victory_show_items():
 			$Canvas/VictoryItems.add_child(dub)
 	$Canvas/VictoryItems.show()
 	for i in $Canvas/VictoryItems.get_children():
-		if i == $Canvas/VictoryItems/ItemTemp: continue
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_QUINT)
-		t.set_parallel()
-		t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-		t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
-		await t.finished
+		var count:= 1
+		if !(i == $Canvas/VictoryItems/ItemTemp or i is Label or not i.visible):
+			for j in $Canvas/VictoryItems.get_children():
+				if !(j == $Canvas/VictoryItems/ItemTemp or j is Label or j == i):
+					if i.get_node("Hbox/ItemName").text == j.get_node("Hbox/ItemName").text:
+						count += 1
+						i.get_node("Hbox/Count").text = "x"+str(count)
+						j.hide()
+		if count > 1: i.get_node("Hbox/Count").show()
+	for i in $Canvas/VictoryItems.get_children():
+		if !(i == $Canvas/VictoryItems/ItemTemp or i == null):
+			t = create_tween()
+			t.set_ease(Tween.EASE_OUT)
+			t.set_trans(Tween.TRANS_QUINT)
+			t.set_parallel()
+			t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+			t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
+			await t.finished
 
 func miss(target:Actor = CurrentTarget):
 	var tm = create_tween()

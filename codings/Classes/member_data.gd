@@ -13,7 +13,7 @@ class_name Actor
 ##Used for refrencing the character in code
 @export var codename: StringName = &"Actor"
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
-@export var Pronouns: Array[String] = ["They", "Them", "Their", "Themself"]
+@export var Pronouns: Array[String] = ["it", "it", "its", "itself"]
 @export var WeaponPower: int = 24
 ##If true, the character cannot die unless in very low hp
 @export var ClutchDmg:= false
@@ -110,6 +110,7 @@ var SpeedBoost: int = 0
 @export var GlowSpecial: float = 0.0
 ##Specify animations where GlowSpecial is used
 @export var GlowAnims: Array[String] = []
+@export var DontIdle:= false
 
 
 var NextAction: String = ""
@@ -117,7 +118,7 @@ var NextMove: Resource = null
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
-var DontIdle:= false
+
 
 
 func set_health(x):
@@ -207,6 +208,9 @@ func reset_static_info():
 	Defence = og.Defence
 	Magic = og.Magic
 	SkillPointsFor = og.SkillPointsFor
+	SoundSet = og.SoundSet
+	BT = og.BT
+	OV = og.OV
 	SoundSet = og.SoundSet
 
 func is_fully_healed() -> bool:

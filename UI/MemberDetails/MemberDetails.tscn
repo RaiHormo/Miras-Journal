@@ -825,6 +825,7 @@ texture = SubResource("AtlasTexture_rvp3l")
 stretch_mode = 4
 
 [node name="WeaponRating" type="Label" parent="StatPanel/Weapon/Icon"]
+layout_mode = 0
 offset_left = -146.0
 offset_top = 54.0
 offset_right = 77.0

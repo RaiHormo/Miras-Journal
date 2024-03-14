@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://c8dtn4cmhytm0" path="res://art/Effects/AttackUp.png" id="12_0ullp"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="13_netd6"]
-[ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/BT/Alcine/Miss.png" id="14_371pb"]
+[ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/Effects/Miss.png" id="14_h2fn0"]
 [ext_resource type="Texture2D" uid="uid://bgfu6k2pj32mi" path="res://art/Effects/Hit.png" id="15_81etv"]
 [ext_resource type="Texture2D" uid="uid://be0n3um15kpqc" path="res://art/Effects/needle.png" id="15_etfwn"]
 [ext_resource type="Texture2D" uid="uid://bvss41ovenq00" path="res://art/Effects/SoulTap.png" id="16_wvpnt"]
@@ -438,31 +438,31 @@ atlas = ExtResource("13_netd6")
 region = Rect2(456, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7pm4"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6org"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50aci"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(48, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jg6bh"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(72, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3p17"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(96, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w7mcs"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(120, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0yvx8"]
-atlas = ExtResource("14_371pb")
+atlas = ExtResource("14_h2fn0")
 region = Rect2(144, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_muutn"]
@@ -1752,15 +1752,14 @@ use_parent_material = true
 script = ExtResource("6_ik7qm")
 
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9DcmF3bGluZ1NsdWRnZS9DcmF3bGluZ1NsdWRnZS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L0JUL0NyYXdsaW5nU2x1ZGdlCm9fbmFtZXw9Q3Jhd2xpbmdTbHVkZ2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 16
 y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
 sprite_frames = ExtResource("7_uel2v")
-animation = &"Victory"
-frame = 7
+animation = &"Hit"
+frame = 4
 frame_progress = 1.0
 offset = Vector2(0.5, -15.5)
 
@@ -3157,6 +3156,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("33_jy6my")
 theme_override_font_sizes/font_size = 38
 text = "Item name"
+vertical_alignment = 1
+
+[node name="Count" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
+theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_font_sizes/font_size = 38
+text = "x2"
 vertical_alignment = 1
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
