@@ -68,6 +68,7 @@ func control_process():
 		Engine.time_scale = 1
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
+		reset_speed()
 	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
 #	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4).normalized()

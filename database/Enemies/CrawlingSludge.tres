@@ -51,3 +51,4 @@ Disappear = true
 GlowDef = 0.3
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
+DontIdle = false

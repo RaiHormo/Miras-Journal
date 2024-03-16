@@ -171,6 +171,7 @@ func bubble(anim: String, npc: String):
 #region Sequences
 func bag_seq():
 	Global.Player.BodyState = NPC.CUSTOM
+	Global.Player.direction = Vector2.ZERO
 	await Global.Player.set_anim("BagGet", true)
 	Global.Player.set_anim("IdleRight")
 	Global.item_sound()

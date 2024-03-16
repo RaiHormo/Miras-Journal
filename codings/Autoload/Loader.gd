@@ -58,7 +58,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Members = Global.Members.duplicate()
 	Global.make_array_unique(data.Members)
 	data.version = SaveVersion
-	data.Flags = Event.Flags
+	data.Flags = Event.Flags.duplicate()
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
 
@@ -103,7 +103,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 	Global.CameraInd = data.Camera
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
-	Event.Flags = data.Flags
+	Event.Flags = data.Flags.duplicate()
 	get_tree().paused = true
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")

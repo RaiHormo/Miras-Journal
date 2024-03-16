@@ -175,15 +175,15 @@ func alcine_helps():
 
 func after_battle():
 	while Loader.InBattle: await Event.wait(0.1)
-	PartyUI._on_shrink()
 	z_index = 0
-	show()
 	Event.allow_skipping = false
 	Event.flag_progress("AlcineFollow", 4)
 	Global.Player.get_node("%Base").sprite_frames = Global.find_member("Mira").OV
-	Global.Area.Followers[0].hide()
 	position = Global.Area.Followers[0].position
 	await Global.Player.go_to(Vector2(67, -45), true)
+	Global.Area.Followers[0].dont_follow = true
+	Global.Area.Followers[0].hide()
+	show()
 	await go_to(Vector2(66, -45), true)
 	await Event.wait(0.3)
 	look_to(Vector2.RIGHT)
@@ -197,9 +197,11 @@ func after_battle():
 	await Loader.transition("R")
 	hide()
 	Global.get_cam().zoom = Vector2(4, 4)
-	await Loader.detransition()
-	Event.give_control()
-	default()
 	PartyUI.disabled = false
 	PartyUI.UIvisible = true
 	Event.allow_skipping = true
+	Global.Area.Followers[0].dont_follow = false
+	Loader.detransition()
+	PartyUI._on_shrink()
+	Event.give_control()
+	default()

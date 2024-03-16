@@ -293,6 +293,7 @@ func Eat():
 #region Death sequences
 func FlyAway(chara: Actor):
 	Bt.lock_turn = true
+	print("yo")
 	Bt.focus_cam(chara, 0.5, -20)
 	Bt.zoom(6)
 	await Event.wait(1, false)
@@ -385,6 +386,7 @@ func AlcineWoods1():
 	if Bt.get_actor("Mira").Health == 0: return
 	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
+	Bt.Action = true
 	await Global.passive("temple_woods_random", "going_nowhere")
 	Event.CutsceneHandler.alcine_helps()
 

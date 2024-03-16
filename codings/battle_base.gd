@@ -450,7 +450,6 @@ func end_turn():
 func damage(
 target: Actor, is_magic:= false, elemental:= false,
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
-	if target.Health == 0 or target.has_state("KnockedOut"): return
 	take_dmg.emit()
 	var el_mod: float = 1
 	var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
@@ -465,6 +464,7 @@ x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false
 	if ignore_stats: dmg = x
 	target.damage(dmg, limiter)
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "":
+		print(2)
 		$Act.call(target.SeqOnClutch, target)
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
@@ -482,6 +482,7 @@ x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false
 		else:
 			await death(target)
 			return
+	if target.Health == 0 or target.has_state("KnockedOut"): return
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg*2)
 		else: target.add_aura(dmg)

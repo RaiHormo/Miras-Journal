@@ -140,7 +140,7 @@ elif alcine() == "Alcin":
 elif alcine() == "Chip":
 	That's the way it is.
 elif alcine() == "Harold":
-	not harold
+	har har, very funny
 elif alcine() == "Bob":
 	The true name?
 elif alcine() == "Alcinoe":
@@ -150,7 +150,7 @@ elif alcine() == "Alci":
 elif alcine() == "Alc":
 	Maybe too short?
 elif alcine() == "Al":
-	Sometimes you need the length...
+	Weird.
 elif alcine() == "Alcaine":
 	No, too far.
 else:
