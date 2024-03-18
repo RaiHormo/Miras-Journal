@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://c864y16gs0iix"]
+
+[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_c8ur2"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_h38r3"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_m0d2q"]
+
+[sub_resource type="Resource" id="Resource_as5re"]
+script = ExtResource("1_m0d2q")
+name = "Throw rock"
+description = ""
+ActionSequence = &"Throw"
+Type = "CheapAttack"
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 0.0
+Target = 0
+ColorSameAsActor = false
+WheelColor = Color(0.894118, 0.388235, 0.447059, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = true
+
+[resource]
+script = ExtResource("1_h38r3")
+Name = "Sharp Rock"
+Description = "A small rock with a sharp end.
+Deals weak Physical damage to one enemy."
+Icon = ExtResource("1_c8ur2")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 0
+UsedInBattle = true
+OvTarget = 1
+BattleEffect = SubResource("Resource_as5re")
+Parameter = ""

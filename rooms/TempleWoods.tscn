@@ -1299,6 +1299,11 @@ item_name = "StrangeFruit"
 position = Vector2(1597.78, -950.365)
 item_name = "StrangeFruit"
 
+[node name="SharpRock1" parent="." instance=ExtResource("26_k6j3t")]
+position = Vector2(588.06, 262.866)
+item_type = &"Bti"
+item_name = "SharpRock"
+
 [node name="AlcineNaming" type="Control" parent="."]
 visible = false
 light_mask = 0

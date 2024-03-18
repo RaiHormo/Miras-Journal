@@ -55,7 +55,13 @@ func handle_states():
 			"Burned":
 				chara.node.get_node("State").play("Burned")
 				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, false, false, randi_range(3, 12), false, true, true)
+				Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Color.hex(Global.ElementColor.get("Heat")))
+				await get_tree().create_timer(0.8).timeout
+			"Poisoned":
+				state.turns -= 1
+				#chara.node.get_node("State").play("Poisoned")
+				Bt.focus_cam(chara, 0.3)
+				Bt.damage(chara, true, true, abs(state.turns)*6, false, true, true, Color.hex(Global.ElementColor.get("Corruption")))
 				await get_tree().create_timer(0.8).timeout
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
@@ -73,7 +79,7 @@ func AttackMira():
 		Bt.screen_shake(15, 7, 0.2)
 		Bt.anim("Attack2")
 		Bt.play_effect("SimpleHit", target)
-		await Bt.damage(target)
+		Bt.damage(target)
 	else:
 		Bt.anim("Attack2")
 		Bt.miss()
@@ -261,6 +267,15 @@ func AttackUp3():
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
+func ToxicSplash():
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target)
+	target.add_state("Poisoned")
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################
@@ -293,7 +308,6 @@ func Eat():
 #region Death sequences
 func FlyAway(chara: Actor):
 	Bt.lock_turn = true
-	print("yo")
 	Bt.focus_cam(chara, 0.5, -20)
 	Bt.zoom(6)
 	await Event.wait(1, false)

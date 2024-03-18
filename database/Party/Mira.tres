@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
 [ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="3_8yk74"]
-[ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="3_yonnb"]
+[ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="3_ryvuc"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="6_pdf3s"]
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
@@ -49,7 +49,7 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 13
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), ExtResource("3_yonnb")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), ExtResource("3_ryvuc")])
 StandardAttack = ExtResource("6_pdf3s")
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
@@ -60,3 +60,4 @@ Disappear = false
 GlowDef = 0.3
 GlowSpecial = 1.5
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
+DontIdle = false

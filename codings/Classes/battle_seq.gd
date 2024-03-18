@@ -2,6 +2,7 @@ extends Resource
 class_name BattleSequence
 
 @export var Enemies: Array[Actor]
+@export var AdditionalItems: Array[ItemData]
 @export var BattleBack: Texture
 @export var Transition: bool = true
 @export var Detransition:bool = false

@@ -38,6 +38,7 @@ add_flag = true
 [resource]
 script = ExtResource("1_tyx4l")
 Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("3_uu4ek"), ExtResource("4_8fqca")])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 BattleBack = ExtResource("1_03qle")
 Transition = true
 Detransition = false

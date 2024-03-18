@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://b1h2pffoho6bu"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_sabjo"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_yetw6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfvd4"]
+atlas = ExtResource("1_sabjo")
+region = Rect2(36, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_yetw6")
+name = "Toxic splash"
+description = "Deals weak Corruption damage with a chanche of poisoning the target. "
+Icon = SubResource("AtlasTexture_bfvd4")
+ActionSequence = &"ToxicSplash"
+Type = "CheapAttack"
+AuraCost = 4
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 1
+ColorSameAsActor = false
+WheelColor = Color(0.764706, 0.2, 0.764706, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.3
+RecoverAura = false
+DmgVarience = true

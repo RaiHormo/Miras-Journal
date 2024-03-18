@@ -38,7 +38,7 @@ signal player_ready
 var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
 	wind = Color.hex(0x56d741ff), spiritual = Color.hex(0x52f8b5ff), cold = Color.hex(0x52f8b5ff),
-	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc34dc3ffff),
+	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc333c3ff),
 	physical = Color.hex(0xd3446dff)}
 #endregion
 
@@ -117,6 +117,8 @@ func new_game() -> void:
 	Event.add_flag("Started")
 	Event.Day = 10
 	Event.f("HasBag", false)
+	PartyUI.hide_all()
+	Event.f("DisableMenus", true)
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
 	Item.MatInv.clear()

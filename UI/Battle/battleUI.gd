@@ -809,13 +809,27 @@ func fetch_inventory():
 		else: dub.text = ""
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
+		if item.Use == ItemData.U.HEALING and Global.is_everyone_fully_healed():
+			dub.disabled = true
+	for item in Item.BtiInv:
+		var dub =  $Inventory/Item.duplicate()
+		dub.icon = item.Icon
+		dub.set_meta("ItemData", item)
+		if item.Quantity>1:
+			dub.text = str(item.Quantity)
+		else: dub.text = ""
+		$Inventory/Margin/BattleItems/Grid.add_child(dub)
+		dub.show()
 	await Event.wait()
 	if $Inventory/Margin/Consumables/Grid.get_children().is_empty():
 		$Inventory/Cbutton.disabled = true
 		$Inventory/Margin.current_tab = 0
-	if $Inventory/Margin/BattleItems/Grid.get_children().is_empty():
+	elif $Inventory/Margin/BattleItems/Grid.get_children().is_empty():
 		$Inventory/BIbutton.disabled = true
 		$Inventory/Margin.current_tab = 1
+	else:
+		$Inventory/Margin.current_tab = 0
+		_on_b_ibutton_pressed(true)
 	if $Inventory/Cbutton.disabled and $Inventory/BIbutton.disabled:
 		$Item.disabled = true
 		return
@@ -853,23 +867,22 @@ func focus_inv_default():
 		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
 
 func _on_b_ibutton_pressed(tog:bool) -> void:
-	match tog:
-		true:
-			if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
-			if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
-			$Inventory/Cbutton.button_pressed = false
-			$Inventory/Margin.current_tab = 0
-		false: $Inventory/BIbutton.set_pressed_no_signal(true)
+	if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
+	if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
+	$Inventory/Cbutton.button_pressed = false
+	$Inventory/Margin.current_tab = 0
+	$Inventory/BIbutton.set_pressed_no_signal(true)
+	$Inventory/Cbutton.set_pressed_no_signal(false)
+	$Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
 
 
 func _on_cbutton_pressed(tog:bool) -> void:
-	match tog:
-		true:
-			if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
-			if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
-			$Inventory/BIbutton.button_pressed = false
-			$Inventory/Margin.current_tab = 1
-		false: $Inventory/Cbutton.set_pressed_no_signal(true)
+	if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
+	if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
+	$Inventory/Margin.current_tab = 1
+	$Inventory/Cbutton.set_pressed_no_signal(true)
+	$Inventory/BIbutton.set_pressed_no_signal(false)
+	$Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
 
 func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return

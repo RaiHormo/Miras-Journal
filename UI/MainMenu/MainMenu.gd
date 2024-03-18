@@ -18,7 +18,7 @@ var focused_item:ItemData = null
 func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
-	if not Event.f(&"HasBag") or Item.KeyInv.is_empty():
+	if not Event.f(&"HasBag") or Item.KeyInv.is_empty() or Event.f("DisableMenus"):
 		Global.buzzer_sound()
 		queue_free()
 		get_tree().paused = false
@@ -482,10 +482,15 @@ func focus_item(node:Button):
 	var item:ItemData = node.get_meta("ItemData")
 	focused_item = item
 	$DescPaper/Title.text = item.Name
-	$DescPaper/Desc.text = item.Description
+	$DescPaper/Desc.text = Global.colorize(item.Description)
 	$DescPaper/Art.texture = item.Artwork
 	if node.get_parent().name == "KeyItems":
 		$Inventory/Margin/Scroller.scroll_vertical = 0
+	if node.get_parent().name == "BattleItems":
+		$DescPaper/Wheel.show()
+		$DescPaper/Wheel.color = item.BattleEffect.WheelColor
+		$DescPaper/Wheel.draw_wheel()
+	else: $DescPaper/Wheel.hide()
 	if item.Quantity>1:
 		if item.QuantityMeansUses:
 			$DescPaper/Amount.text = str(item.Quantity) + " uses remain"

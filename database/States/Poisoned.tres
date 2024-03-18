@@ -1,11 +1,19 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://bc3dsepudk1qc"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://bc3dsepudk1qc"]
 
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_2la5l"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_t0u0p"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vy8c"]
+atlas = ExtResource("1_t0u0p")
+region = Rect2(126, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_2la5l")
-name = ""
-Description = ""
-RemovedAfterTurns = false
-turns = 0
+name = "Poisoned"
+Description = "Takes increasingly more corruption damage each turn."
+RemovedOnBattleEnd = true
+turns = -1
+icon = SubResource("AtlasTexture_1vy8c")
+color = Color(0.764706, 0.2, 0.764706, 1)
+is_stat_change = false

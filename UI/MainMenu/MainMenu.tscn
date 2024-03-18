@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=100 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="6_emlrx"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="6_pyltt"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
@@ -851,6 +852,7 @@ offset_right = 524.0
 offset_bottom = 426.0
 rotation = 0.0511767
 theme = SubResource("Theme_bug03")
+bbcode_enabled = true
 text = "This item is very cool, almost too cool for you."
 
 [node name="Amount" type="Label" parent="DescPaper"]
@@ -903,6 +905,10 @@ offset_bottom = 927.419
 rotation = -0.0531199
 scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("6_emlrx")
+
+[node name="Wheel" parent="DescPaper" instance=ExtResource("10_tp8ni")]
+position = Vector2(360.203, -211.238)
+scale = Vector2(0.395651, 0.395651)
 
 [node name="Inventory" type="PanelContainer" parent="."]
 use_parent_material = true

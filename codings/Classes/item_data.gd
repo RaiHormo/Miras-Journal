@@ -5,7 +5,7 @@ class_name ItemData
 
 @export var Name : String = "Item Name"
 @export_multiline var Description : String = "One that does not exit"
-@export var Icon: AtlasTexture
+@export var Icon: Texture
 @export var Artwork: Texture
 @export var Quantity: int = 0
 @export var QuantityMeansUses := false

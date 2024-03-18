@@ -202,9 +202,6 @@ func position_sprites():
 		pixel_perfectize(i)
 
 func entrance():
-	t = create_tween()
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_QUART)
 	if Seq.Transition:
 		$Cam.zoom = Vector2(5,5)
 		$Cam.position = Vector2(90,10)
@@ -212,6 +209,9 @@ func entrance():
 			Loader.battle_bars(3)
 		else:
 			Loader.battle_bars(2)
+		t = create_tween()
+		t.set_ease(Tween.EASE_IN_OUT)
+		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
 		t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
@@ -221,6 +221,9 @@ func entrance():
 			for i in Troop: damage(i, 1, false, 24/Troop.size())
 		await get_tree().create_timer(0.5).timeout
 	elif Seq.EntranceSequence == "":
+		t = create_tween()
+		t.set_ease(Tween.EASE_IN_OUT)
+		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
@@ -449,10 +452,12 @@ func end_turn():
 
 func damage(
 target: Actor, is_magic:= false, elemental:= false,
-x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false):
+x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
+overwrite_color: Color = Color.WHITE):
 	take_dmg.emit()
 	var el_mod: float = 1
-	var relation = color_relation(CurrentAbility.WheelColor, target.MainColor)
+	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
+	var relation = color_relation(color, target.MainColor)
 	if elemental:
 		if relation == "wk": pop_num(target, "WEAK")
 		if relation == "op": pop_num(target, "WEAK!")
@@ -473,7 +478,7 @@ x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
 		target.add_aura(-aur_dmg)
-		pop_num(target, dmg, CurrentAbility.WheelColor)
+		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
 	check_party.emit()
 	if target.Health == 0:

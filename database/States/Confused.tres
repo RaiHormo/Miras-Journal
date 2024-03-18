@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_ne4g1"]
 
-
 [resource]
 script = ExtResource("1_ne4g1")
-name = ""
-Description = ""
-RemovedAfterTurns = false
+name = "Confused"
+Description = "Might loose control..."
+RemovedOnBattleEnd = true
 turns = 0
+color = Color(0, 0, 0, 1)
+is_stat_change = false

@@ -48,7 +48,7 @@ func _process(delta):
 		handle_ui()
 	if not Loader.InBattle:
 		if UIvisible != visibly:
-			if UIvisible:
+			if UIvisible and not Event.f("DisableMenus"):
 				show_all()
 			else: hide_all()
 		visibly = UIvisible
@@ -85,6 +85,7 @@ func hide_all(animate = true):
 func _check_party():
 	if Global.Party == null: return
 	if Global.Party.Leader == null: Global.Party.Leader = Global.find_member(&"Mira")
+	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
@@ -138,9 +139,10 @@ func darken(toggle := true):
 		if $CanvasLayer/Fade.color == Color.TRANSPARENT: $CanvasLayer/Fade.hide()
 
 func _on_expand(open_ui=0):
-	#print(open_ui)
-	t.kill()
 	Global.check_party.emit()
+	await Event.wait()
+	if disabled: Global.buzzer_sound(); return
+	t.kill()
 	UIvisible = true
 	$CanvasLayer/Cursor.position=CursorPosition[0]
 	if open_ui == 0: WasPaused = false
@@ -152,6 +154,11 @@ func _on_expand(open_ui=0):
 	#Pages
 	for page in %Pages.get_children():
 		page.rotation_degrees = randf_range(-2, 2)
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_BACK)
+	t.set_parallel()
+	t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
 	if open_ui == 0:
 		for i in range(0,4):
 			if Global.check_member(i): get_node("%Pages/Page"+str(i)).show()
@@ -163,14 +170,9 @@ func _on_expand(open_ui=0):
 		$CanvasLayer/Cursor/MemberOptions.size.y = 1
 		$CanvasLayer/Fade.show()
 		$CanvasLayer/Back.show()
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_BACK)
-		t.set_parallel()
 		t.tween_property($CanvasLayer/Back, "position:x", 20, 0.4)
 		t.tween_property($CanvasLayer/Cursor/MemberOptions,
 		"size:x", $CanvasLayer/Cursor/MemberOptions.size.x, 0.3).from(0)
-		t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
 		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	else:
 		$CanvasLayer/Cursor/MemberOptions.hide()
@@ -303,6 +305,7 @@ func shrink_panel(Pan:Panel, mem = 0,):
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
 
 func handle_ui():
+	if disabled: Expanded = true; return
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus+1):
 			focus += 1
@@ -493,11 +496,9 @@ func choose_member():
 	UIvisible = true
 	t = create_tween()
 	$CanvasLayer/Fade.show()
-	$CanvasLayer/Cursor/ItemPreview.grab_focus()
-	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Back.show()
-	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
-	+ str(Item.get_node("ItemEffect").item.Quantity))
+	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name
+	+ " x" + str(Item.get_node("ItemEffect").item.Quantity))
 	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
@@ -506,6 +507,8 @@ func choose_member():
 	await Event.wait(0.3, false)
 	MemberChoosing = true
 	$/root/MainMenu.stage = "choose_member"
+	$CanvasLayer/Cursor/ItemPreview.show()
+	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 
 func _on_item_preview_pressed():
 	if (Item.get_node("ItemEffect").item.Quantity != 0 and

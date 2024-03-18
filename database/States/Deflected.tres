@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_h1qn3"]
 
-
 [resource]
 script = ExtResource("1_h1qn3")
-name = ""
-Description = ""
-RemovedAfterTurns = false
+name = "Deflected"
+Description = "Cannot use abilities."
+RemovedOnBattleEnd = true
 turns = 0
+color = Color(0, 0, 0, 1)
+is_stat_change = false

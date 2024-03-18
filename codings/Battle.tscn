@@ -1,4 +1,4 @@
-[gd_scene load_steps=250 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=252 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -53,6 +53,7 @@ script = ExtResource("3_wsnu2")
 [sub_resource type="Resource" id="Resource_bnt1k"]
 script = ExtResource("4_e2t6x")
 Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 Transition = true
 Detransition = false
 EscPosition = Vector2(0, 0)
@@ -1054,6 +1055,18 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnxnm"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.47451)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(0.101961, 0.101961, 0.101961, 0.47451)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1v5m8"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
 corner_radius_top_left = 24
@@ -1091,6 +1104,18 @@ content_margin_top = 64.0
 content_margin_right = 12.0
 content_margin_bottom = 12.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54u86"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.529412)
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color(0.101961, 0.101961, 0.101961, 0.529412)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrwr7"]
 bg_color = Color(0.101961, 0.101961, 0.101961, 1)
@@ -2241,6 +2266,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tnxnm")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
 icon = ExtResource("36_wspte")
@@ -2293,6 +2319,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_54u86")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
 icon = ExtResource("36_wspte")

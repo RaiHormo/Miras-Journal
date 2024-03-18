@@ -12,3 +12,5 @@ func _on_entered(body):
 func _ready() -> void:
 	if not Event.f("FirstBattle", 2) and Event.f("FirstBattle1"):
 		Loader.start_battle("FirstBattle")
+		Event.f("DisableMenus", false)
+		PartyUI.disabled = false
