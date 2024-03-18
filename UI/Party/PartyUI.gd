@@ -570,7 +570,7 @@ func cycle_states(chara: Actor, rect: TextureRect):
 	var index:= 0
 	rect.show()
 	while not chara.States.is_empty():
-		rect.texture = chara.States[index].icon
+		if index < chara.States.size(): rect.texture = chara.States[index].icon
 		await $StateTimer.timeout
 		index += 1
 		if index == chara.States.size(): index = 0

@@ -172,8 +172,10 @@ func add_state(x, turns = -1):
 	else:
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
 	if has_state(state.name) and !state.is_stat_change:
-		remove_state(state.name)
+		remove_state(state)
 		if state.turns != -1: Global.toast(FirstName+"'s "+state.name+" state was extended.")
+		else: Global.toast(FirstName+" is already "+state.name)
+		return
 	if turns != -1:
 		state.turns = turns
 	States.append(state)

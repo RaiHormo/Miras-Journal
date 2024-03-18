@@ -55,13 +55,13 @@ func handle_states():
 			"Burned":
 				chara.node.get_node("State").play("Burned")
 				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Color.hex(Global.ElementColor.get("Heat")))
+				Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
 				await get_tree().create_timer(0.8).timeout
 			"Poisoned":
 				state.turns -= 1
 				#chara.node.get_node("State").play("Poisoned")
 				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, true, true, abs(state.turns)*6, false, true, true, Color.hex(Global.ElementColor.get("Corruption")))
+				Bt.damage(chara, true, true, abs(state.turns)*6, false, true, true, Global.ElementColor.get("corruption"))
 				await get_tree().create_timer(0.8).timeout
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()

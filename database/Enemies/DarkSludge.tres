@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://7mrwuvwe5lbt"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://7mrwuvwe5lbt"]
 
 [ext_resource type="SpriteFrames" uid="uid://d1xgldxgwt31e" path="res://art/BT/DarkSludge/DarkSludgeBt.tres" id="1_aaqd2"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_l4uns"]
+[ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="1_od3rd"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_pprw7"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_o0ova"]
+[ext_resource type="Resource" uid="uid://dmhsvhd1lkkue" path="res://database/Abilities/Summon.tres" id="2_wrolb"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_cony1"]
+[ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="7_dv84l"]
 
 [resource]
 script = ExtResource("2_o0ova")
@@ -20,7 +23,7 @@ SeqOnClutch = ""
 CantDie = false
 IsEnemy = true
 RecivedSP = 7
-SummonedAllies = Array[ExtResource("2_o0ova")]([])
+SummonedAllies = Array[ExtResource("2_o0ova")]([ExtResource("7_dv84l")])
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
@@ -36,7 +39,7 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_od3rd"), ExtResource("2_wrolb")])
 StandardAttack = ExtResource("4_cony1")
 BT = ExtResource("1_aaqd2")
 Offset = Vector2(3, -14)
@@ -46,3 +49,4 @@ Disappear = true
 GlowDef = 0.3
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
+DontIdle = false
