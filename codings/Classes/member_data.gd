@@ -112,13 +112,11 @@ var SpeedBoost: int = 0
 @export var GlowAnims: Array[String] = []
 @export var DontIdle:= false
 
-
 var NextAction: String = ""
 var NextMove: Resource = null
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
-
 
 
 func set_health(x):
@@ -153,14 +151,16 @@ func damage(dmg: int, limiter:= false):
 		else: hp = 0
 	Health = hp
 
-func calc_dmg(pow, is_magic: bool, E: Actor) -> int:
+func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 	var atk_stat: float
-	if is_magic:
-		print("Magic stat: ", E.Magic, " * ", E.MagicMultiplier)
-		atk_stat = E.Magic * E.MagicMultiplier
+	if E == null: atk_stat = 1
 	else:
-		atk_stat = E.Attack * E.AttackMultiplier
-		print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
+		if is_magic:
+			print("Magic stat: ", E.Magic, " * ", E.MagicMultiplier)
+			atk_stat = E.Magic * E.MagicMultiplier
+		else:
+			atk_stat = E.Attack * E.AttackMultiplier
+			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
 	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.5)"% [pow, atk_stat, Defence, DefenceMultiplier])
 	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
 
@@ -172,8 +172,15 @@ func add_state(x, turns = -1):
 	else:
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
 	if has_state(state.name) and !state.is_stat_change:
-		remove_state(state)
-		if state.turns != -1: Global.toast(FirstName+"'s "+state.name+" state was extended.")
+		if state.turns != -1:
+			get_state(state.name).turns += state.turns
+			Global.toast(FirstName+"'s "+state.name+" state was extended.")
+		elif state.name == "Poisoned":
+			get_state(state.name).turns *= 2
+			Global.toast("The Poison's effect was intensified on "+FirstName+".")
+		elif state.name == "Confused":
+			get_state(state.name).turns = -1
+			Global.toast(FirstName+"'s "+state.name+" state was extended.")
 		else: Global.toast(FirstName+" is already "+state.name)
 		return
 	if turns != -1:
@@ -190,7 +197,7 @@ func remove_state(x):
 	var state: State
 	if x is State:
 		state = x
-	else: state = await Global.get_state(x)
+	else: state = await get_state(x)
 	States.erase(state)
 	Global.Bt.remove_state_effect(state, self)
 
@@ -199,6 +206,12 @@ func has_state(x: String) -> bool:
 		if States[i-1].name == x:
 			return true
 	return false
+
+func get_state(x:String):
+	for i in States.size():
+		if States[i-1].name == x:
+			return States[i-1]
+	return null
 
 func full_heal():
 	Health = MaxHP

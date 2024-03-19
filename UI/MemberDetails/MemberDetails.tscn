@@ -206,9 +206,9 @@ font = ExtResource("5_ffgmy")
 font_size = 18
 font_color = Color(0.388235, 0.388235, 0.388235, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qabry"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rbks5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stbb5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12ea"]
 bg_color = Color(1, 1, 1, 1)
 border_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 24
@@ -218,12 +218,12 @@ corner_radius_bottom_left = 24
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_6a5ly"]
-ProgressBar/styles/background = SubResource("StyleBoxEmpty_qabry")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_stbb5")
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_rbks5")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_m12ea")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4vp4t"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6frpd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfdqx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdu3c"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
@@ -232,8 +232,8 @@ corner_radius_bottom_left = 24
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_0678k"]
-ProgressBar/styles/background = SubResource("StyleBoxEmpty_4vp4t")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_qfdqx")
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_6frpd")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_cdu3c")
 
 [sub_resource type="FontVariation" id="FontVariation_maora"]
 base_font = ExtResource("5_ffgmy")

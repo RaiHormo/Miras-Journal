@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=15 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=20 format=3 uid="uid://dfxf3fj1wgl5q"]
 
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_e1lg0"]
 [ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="1_qv4op"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_uxycv"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="3_7bqc4"]
 [ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="3_8yk74"]
-[ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="3_ryvuc"]
 [ext_resource type="Texture2D" uid="uid://bfcqx7nigfhc" path="res://UI/Party/MiraShadow.png" id="4_cdx5x"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="4_x6lx0"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="6_pdf3s"]
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
@@ -15,10 +16,62 @@
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="10_rljiu"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="14_flf11"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfvd4"]
+atlas = ExtResource("3_7bqc4")
+region = Rect2(36, 0, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_tt2gn"]
+script = ExtResource("4_x6lx0")
+name = "Toxic splash"
+description = "Deals weak Corruption damage with a chanche of poisoning the target. "
+Icon = SubResource("AtlasTexture_bfvd4")
+ActionSequence = &"ToxicSplash"
+Type = "CheapAttack"
+AuraCost = 4
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 1
+ColorSameAsActor = false
+WheelColor = Color(0.764706, 0.2, 0.764706, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 1.0
+RecoverAura = false
+DmgVarience = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58tg3"]
+atlas = ExtResource("3_7bqc4")
+region = Rect2(108, 0, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_6bvg7"]
+script = ExtResource("4_x6lx0")
+name = "Soul tap"
+description = "Deals weak Spiritual damage, with a low chance of confusing the target."
+Icon = SubResource("AtlasTexture_58tg3")
+ActionSequence = &"SoulTap"
+Type = "CheapAttack"
+AuraCost = 3
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 5
+ColorSameAsActor = false
+WheelColor = Color(0.321569, 0.972549, 0.709804, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 1.0
+RecoverAura = false
+DmgVarience = true
+
 [resource]
 script = ExtResource("1_e1lg0")
 FirstName = "Mira"
-MainColor = Color(0.878431, 0.682353, 0.517647, 1)
+MainColor = Color(0.847059, 0.607843, 0.447059, 1)
 PartyIcon = ExtResource("2_gadvr")
 ActorClass = "Attacker"
 codename = &"Mira"
@@ -49,7 +102,7 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 13
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), ExtResource("3_ryvuc")])
+Abilities = Array[ExtResource("4_x6lx0")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), SubResource("Resource_tt2gn"), SubResource("Resource_6bvg7")])
 StandardAttack = ExtResource("6_pdf3s")
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")

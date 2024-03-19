@@ -184,7 +184,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_c0w2l")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_llexj"]
 shader = ExtResource("7_jb2qv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jd4al"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2w4v"]
 content_margin_left = 0.0
 content_margin_right = 27.0
 bg_color = Color(1, 1, 1, 1)
@@ -210,10 +210,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_jd4al")
-Button/styles/hover = SubResource("StyleBoxFlat_jd4al")
-Button/styles/normal = SubResource("StyleBoxFlat_jd4al")
-Button/styles/pressed = SubResource("StyleBoxFlat_jd4al")
+Button/styles/focus = SubResource("StyleBoxFlat_e2w4v")
+Button/styles/hover = SubResource("StyleBoxFlat_e2w4v")
+Button/styles/normal = SubResource("StyleBoxFlat_e2w4v")
+Button/styles/pressed = SubResource("StyleBoxFlat_e2w4v")
 
 [sub_resource type="Shortcut" id="Shortcut_vilg5"]
 events = [null]
@@ -236,7 +236,7 @@ corner_radius_bottom_left = 24
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf75l"]
 shader = ExtResource("7_jb2qv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jraqj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tftbr"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -249,7 +249,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_is7ve"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3fdv"]
 content_margin_left = 8.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -272,10 +272,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_jraqj")
-Button/styles/hover = SubResource("StyleBoxFlat_is7ve")
-Button/styles/normal = SubResource("StyleBoxFlat_jraqj")
-Button/styles/pressed = SubResource("StyleBoxFlat_jraqj")
+Button/styles/focus = SubResource("StyleBoxFlat_tftbr")
+Button/styles/hover = SubResource("StyleBoxFlat_g3fdv")
+Button/styles/normal = SubResource("StyleBoxFlat_tftbr")
+Button/styles/pressed = SubResource("StyleBoxFlat_tftbr")
 
 [sub_resource type="InputEventAction" id="InputEventAction_wxtwq"]
 action = &"ui_accept"

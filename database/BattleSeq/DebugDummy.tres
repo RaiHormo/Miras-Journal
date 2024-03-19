@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=9 format=3 uid="uid://cpwqhga2rnw0s"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://cpwqhga2rnw0s"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="1_03qle"]
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_tyx4l"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="2_tb6xv"]
-[ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="3_uu4ek"]
-[ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="4_8fqca"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_a1d4h"]
 
 [sub_resource type="Resource" id="Resource_5vx4i"]
@@ -37,7 +35,7 @@ add_flag = true
 
 [resource]
 script = ExtResource("1_tyx4l")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_tb6xv"), ExtResource("3_uu4ek"), ExtResource("4_8fqca")])
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_tb6xv")])
 AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 BattleBack = ExtResource("1_03qle")
 Transition = true

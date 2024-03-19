@@ -320,20 +320,16 @@ func end_battle():
 		t.set_parallel()
 		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
 		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5 )
-		t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
 		for i in Global.Bt.TurnOrder:
 			t.tween_property(i.node.get_node("Glow"), "energy", 0, 0.3)
-		for i in Global.Bt.get_node("Canvas").get_children():
-			if i.name != "DottedBack":
-				t.tween_property(i, "position:x", i.position.x + 500, 0.5)
-				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.5)
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
+		hide_victory_stuff()
 		await t.finished
-	InBattle= false
+	InBattle = false
 	battle_end.emit()
 	if Global.Player == null: return
-	for i in Global.Follower:
-		if i != null: i.show()
+	for i in Global.Area.Followers:
+		if i != null and Global.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
 	if Global.Bt != null: Global.Bt.get_node("Act").hide()
@@ -388,6 +384,17 @@ func icon_load():
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 	$Can.hide()
+
+func hide_victory_stuff():
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	for i in Global.Bt.get_node("Canvas").get_children():
+		if i.name != "DottedBack":
+			t.tween_property(i, "position:x", i.position.x + 500, 0.3)
+			t.tween_property(i, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
 
 func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	if t != null:

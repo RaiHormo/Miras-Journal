@@ -59,10 +59,25 @@ func handle_states():
 				await get_tree().create_timer(0.8).timeout
 			"Poisoned":
 				state.turns -= 1
-				#chara.node.get_node("State").play("Poisoned")
+				chara.node.get_node("State").play("Poisoned")
 				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, true, true, abs(state.turns)*6, false, true, true, Global.ElementColor.get("corruption"))
+				Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
 				await get_tree().create_timer(0.8).timeout
+			"Confused":
+				var luck := randi_range(state.turns, 1)
+				print("Confusion dice roll: ", luck)
+				if luck < -1:
+					target.remove_state(state)
+					Global.toast(chara.FirstName+" snaps out of Confusion!")
+				elif luck == -1:
+					var choices: Array[Ability] = chara.Abilities.duplicate()
+					choices.append(chara.StandardAttack)
+					chara.NextMove = choices.pick_random()
+					chara.NextAction = "Ability"
+					chara.NextTarget = TurnOrder.pick_random()
+					if chara.Controllable:
+						Global.toast(chara.FirstName+" looses control in Confusion!")
+				state.turns -= 1
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
 
@@ -182,8 +197,7 @@ func Guard():
 	Bt.focus_cam(CurrentChar)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_color", Bt.CurrentChar.MainColor)
-	CurrentChar.add_state("Guarding")
-	Bt.pop_num(CurrentChar, "Guarding")
+	await CurrentChar.add_state("Guarding")
 	await Event.wait(0.5)
 	Bt.end_turn()
 
@@ -209,9 +223,8 @@ func FlameSpark():
 		Bt.focus_cam(target, 0.3, 20)
 		await Event.wait(0.2)
 		Bt.damage(target, true, true)
-		target.add_state("Burned")
 		await Event.wait(0.8)
-		Bt.pop_num(target, "Burned")
+		await target.add_state("Burned")
 	await Event.wait(0.8)
 	Bt.anim("Idle")
 	Bt.end_turn()
@@ -238,6 +251,7 @@ func SoulTap():
 	Bt.anim("Cast", CurrentChar)
 	Bt.play_effect("SoulTap", target)
 	await Event.wait(1)
+	if crit: target.add_state("Confused")
 	await Bt.shake_actor(target, 1)
 	Bt.screen_shake(8, 5, 0.1)
 	Bt.damage(target, true, true)
@@ -271,9 +285,13 @@ func AttackUp3():
 func ToxicSplash():
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
-	Bt.focus_cam(target)
-	target.add_state("Poisoned")
+	Bt.focus_cam(target, 1, 0)
+	Bt.play_effect("ToxicSplash", target)
 	await Event.wait(1)
+	Bt.damage(target, true, true)
+	Bt.screen_shake(8, 5, 0.1)
+	await Event.wait(1)
+	if crit: await target.add_state("Poisoned")
 	Bt.anim()
 	Bt.end_turn()
 #endregion

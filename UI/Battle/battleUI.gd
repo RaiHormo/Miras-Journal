@@ -45,6 +45,8 @@ func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if stage=="target":
 		$BaseRing/Ring2.rotation -= 0.002
+	if CurrentChar != null and CurrentChar.has_state("Confused"):
+		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
 
 func _on_battle_get_control():
 	if Bt.Troop.is_empty():
@@ -690,7 +692,12 @@ func _on_battle_next_turn():
 
 func _on_targeted():
 	if CurrentChar.NextMove == null: return
+	if CurrentChar.has_state("Confused"):
+		TargetFaction = TurnOrder
+		TargetIndex = randi_range(0, TurnOrder.size() -1)
+		await move_menu()
 	emit_signal("ability_returned", CurrentChar.NextMove, target )
+	close()
 
 func _on_back_pressed():
 	Global.cancel_sound()
@@ -736,11 +743,9 @@ func _on_confirm_pressed():
 			Global.confirm_sound()
 			while stage != "target": await Event.wait()
 			targeted.emit()
-			close()
 		if stage == &"target":
 			Global.confirm_sound()
 			targeted.emit()
-			close()
 		if stage == &"item":
 			if foc == null or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").Use != 0:

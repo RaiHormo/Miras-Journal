@@ -8,5 +8,5 @@ name = "Knocked Out"
 Description = "Cannot act at all."
 RemovedOnBattleEnd = true
 turns = -1
-color = Color(0, 0, 0, 1)
+color = Color(1, 1, 1, 1)
 is_stat_change = false

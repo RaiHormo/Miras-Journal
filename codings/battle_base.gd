@@ -277,11 +277,13 @@ func _on_next_turn():
 
 
 func make_move():
-	if CurrentChar.Controllable:
-		print("Control")
-		GetControl.emit()
-	else:
-		$AI.ai()
+	if CurrentChar.NextAction == "":
+		if CurrentChar.Controllable:
+			print("Control")
+			GetControl.emit()
+		else:
+			$AI.ai()
+	else: confirm_next()
 
 func _on_ai_chosen():
 	confirm_next()
@@ -381,7 +383,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	if ab.ColorSameAsActor:
 		ab.WheelColor = CurrentChar.MainColor
 	if ab.Target == 1:
-		if tar.has_state("Knocked Out"):
+		if tar != null and tar.has_state("Knocked Out"):
 			var i = -1
 			var oldtar = CurrentTarget.FirstName
 			while (CurrentTarget.FirstName == oldtar or
@@ -410,7 +412,6 @@ func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
 	else:
 		end_turn()
 		return
-
 
 ###################################################
 
@@ -465,11 +466,10 @@ overwrite_color: Color = Color.WHITE):
 		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
 	print("Attack power: ", x, " * ", el_mod)
-	var dmg = target.calc_dmg(x * el_mod, is_magic, CurrentChar)
-	if ignore_stats: dmg = x
+	var attacker = null if ignore_stats else CurrentChar
+	var dmg = target.calc_dmg(x * el_mod, is_magic, attacker)
 	target.damage(dmg, limiter)
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "":
-		print(2)
 		$Act.call(target.SeqOnClutch, target)
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
@@ -744,7 +744,10 @@ func game_over():
 	Global.game_over()
 
 func end_battle():
+	AwaitVictory = false
 	reset_all()
+	$Canvas/Continue.hide()
+	await PartyUI.preform_levelups()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
 	await Loader.end_battle()
 	queue_free()
@@ -788,14 +791,13 @@ func victory_count_sp():
 	var dub = $Canvas/SPGain.duplicate()
 	for i in PartyArray:
 		i.add_SP(totalSP)
-	Global.check_party.emit()
+	PartyUI._check_party()
 	$Canvas.add_child(dub)
-	await Event.wait()
 	t = create_tween()
 	t.set_parallel()
 	t.tween_property(dub, "scale", Vector2(1.5, 1.5), 0.3)
 	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
-	await t.finished
+	await Event.wait(1, false)
 	dub.queue_free()
 
 func victory():
@@ -1000,6 +1002,7 @@ func health_precentage(chara: Actor) -> float:
 
 func on_state_add(state: State, chara: Actor):
 	if chara.Health != 0:
+		pop_num(chara, state.name, state.color)
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding":
@@ -1012,9 +1015,11 @@ func add_state_effect(state: State, chara: Actor):
 		var dub = chara.node.get_node("State").duplicate()
 		dub.name = state.name
 		chara.node.add_child(dub)
+		dub.show()
 		dub.play(state.name)
 
 func remove_state_effect(state: State, chara: Actor):
+	if chara.node == null: return
 	if chara.node.get_node_or_null(state.name) != null:
 		chara.node.get_node(state.name).queue_free()
 

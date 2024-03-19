@@ -15,5 +15,5 @@ Lasts for 5 turns"
 RemovedOnBattleEnd = true
 turns = 5
 icon = SubResource("AtlasTexture_1w22s")
-color = Color(0, 0, 0, 1)
+color = Color(0.87451, 0.443137, 0.14902, 1)
 is_stat_change = false

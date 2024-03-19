@@ -235,7 +235,6 @@ func expand_panel(Pan:Panel, mem := 0):
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
 
 func _on_shrink():
-	t.kill()
 	Partybox.show()
 	Global.check_party.emit()
 	t = create_tween()
@@ -305,7 +304,7 @@ func shrink_panel(Pan:Panel, mem = 0,):
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
 
 func handle_ui():
-	if disabled: Expanded = true; return
+	if disabled or !UIvisible: Expanded = false; return
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus+1):
 			focus += 1
@@ -435,7 +434,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Health/HpText").text = str(mem.Health)
 	node.get_node("Aura/ApText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
-	check_for_levelups(mem, node)
+	await check_for_levelups(mem, node)
 
 func check_for_levelups(mem:Actor, node:Panel):
 	if mem.SkillPointsFor.size() - 1 == mem.SkillLevel: return
@@ -612,3 +611,14 @@ func talk() -> void:
 	submenu_opened = true
 	await Global.textbox(Global.Party.array()[focus].codename.to_lower()+"_talk", "options", true)
 	close_submenu()
+
+func preform_levelups():
+	var scene = preload("res://UI/LevelUp/Levelup.tscn").instantiate()
+	await Event.wait()
+	get_tree().root.add_child(scene)
+	for i in LevelupChain:
+		if Global.Bt != null: Loader.hide_victory_stuff()
+		scene.get_node("Levelup").levelup(i)
+		await scene.get_node("Levelup").closed
+	LevelupChain.clear()
+	scene.queue_free()
