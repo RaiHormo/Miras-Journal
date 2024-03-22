@@ -41,6 +41,7 @@ SkillPoints = 0
 SkillPointsFor = Array[int]([])
 Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_p3tw5")])
 StandardAttack = ExtResource("4_cbmb1")
+LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 BT = ExtResource("1_e5cux")
 Offset = Vector2(0, -15)
 Shadow = false

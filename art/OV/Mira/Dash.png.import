@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqg3mi1kvrgip"
-path="res://.godot/imported/DashDown.png-5fa169374a3a1611472c36571ff9eaed.ctex"
+uid="uid://bocm5is1ixbk1"
+path="res://.godot/imported/Dash.png-3b5681449143d2bab75ac95df9fdf9b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/OV/Mira/DashDown.png"
-dest_files=["res://.godot/imported/DashDown.png-5fa169374a3a1611472c36571ff9eaed.ctex"]
+source_file="res://art/OV/Mira/Dash.png"
+dest_files=["res://.godot/imported/Dash.png-3b5681449143d2bab75ac95df9fdf9b8.ctex"]
 
 [params]
 

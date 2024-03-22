@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8aiagab31eok"
-path="res://.godot/imported/flameFlame.png-de401489ec2336f422026840d43d0f18.ctex"
+uid="uid://b7ptgp73l3vtp"
+path="res://.godot/imported/DashBag.png-eb968de0985fa6a28ff782424d110b82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/OV/Mira/flameFlame.png"
-dest_files=["res://.godot/imported/flameFlame.png-de401489ec2336f422026840d43d0f18.ctex"]
+source_file="res://art/OV/Mira/DashBag.png"
+dest_files=["res://.godot/imported/DashBag.png-eb968de0985fa6a28ff782424d110b82.ctex"]
 
 [params]
 

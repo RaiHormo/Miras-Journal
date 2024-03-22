@@ -190,8 +190,6 @@ func _on_pickup() -> void:
 
 func _check_party() -> void:
 	if get_node_or_null("%Base") == null: return
-	if Event.check_flag(&"FlameActive"):
-		%Base.sprite_frames = preload("res://art/OV/Mira/MiraOVFlame.tres")
 	elif Global.Party.Leader != null:
 		%Base.sprite_frames =  Global.Party.Leader.OV
 

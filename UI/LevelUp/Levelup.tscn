@@ -525,6 +525,7 @@ visibility_layer = 1024
 material = SubResource("ShaderMaterial_gwah4")
 custom_minimum_size = Vector2(0, 33)
 layout_direction = 1
+layout_mode = 0
 offset_left = 22.0
 offset_top = 730.0
 offset_right = 166.0
