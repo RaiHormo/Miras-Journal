@@ -87,6 +87,8 @@ var SpeedBoost: int = 0
 ##The ability used when the "Attack" button is pressed. Also determines the
 ##actor's weapon icon
 @export var StandardAttack: Ability
+##The abilities that can be unlocked by leveling up, party member only
+@export var LearnableAbilities: Array[Ability]
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
@@ -198,8 +200,8 @@ func remove_state(x):
 	if x is State:
 		state = x
 	else: state = await get_state(x)
+	Global.Bt.remove_state_effect(state.name, self)
 	States.erase(state)
-	Global.Bt.remove_state_effect(state, self)
 
 func has_state(x: String) -> bool:
 	for i in States.size():
@@ -208,9 +210,9 @@ func has_state(x: String) -> bool:
 	return false
 
 func get_state(x:String):
-	for i in States.size():
-		if States[i-1].name == x:
-			return States[i-1]
+	for i in States:
+		if i.name == x:
+			return i
 	return null
 
 func full_heal():
@@ -227,6 +229,7 @@ func reset_static_info():
 	BT = og.BT
 	OV = og.OV
 	SoundSet = og.SoundSet
+	LearnableAbilities = og.LearnableAbilities
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP

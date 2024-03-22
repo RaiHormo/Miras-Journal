@@ -23,7 +23,7 @@ var tweendone := true
 var MenuIndex := 0
 var Abilities: Array[Ability]
 var PrevStage := &"root"
-var TargetFaction
+var TargetFaction: Array[Actor]
 var foc:Control
 @onready var Bt :Battle = get_parent()
 
@@ -692,12 +692,26 @@ func _on_battle_next_turn():
 
 func _on_targeted():
 	if CurrentChar.NextMove == null: return
-	if CurrentChar.has_state("Confused"):
+	stage = "inactive"
+	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
+		var proper_tar:Actor = TargetFaction[TargetIndex]
 		TargetFaction = TurnOrder
-		TargetIndex = randi_range(0, TurnOrder.size() -1)
+		TargetIndex = randi_range(0, TurnOrder.size()-1)
+		while TargetFaction[TargetIndex] == proper_tar:
+			TargetIndex = randi_range(0, TurnOrder.size()-1)
 		await move_menu()
-	emit_signal("ability_returned", CurrentChar.NextMove, target )
+		confusion_msg()
+	emit_signal("ability_returned", CurrentChar.NextMove, TargetFaction[TargetIndex])
 	close()
+
+func confusion_msg():
+	var tar: Actor = TargetFaction[TargetIndex]
+	if CurrentChar == tar:
+		Global.toast(CurrentChar.FirstName+" hits "+CurrentChar.Pronouns[3]+" in Confusion!")
+	elif tar in Bt.get_ally_faction(CurrentChar) and CurrentChar.NextMove.Target == Ability.T.ONE_ENEMY:
+		Global.toast(CurrentChar.FirstName+" hits an ally in confusion!")
+	else:
+		Global.toast(CurrentChar.FirstName+" misses "+CurrentChar.Pronouns[2]+" target in Confusion!")
 
 func _on_back_pressed():
 	Global.cancel_sound()

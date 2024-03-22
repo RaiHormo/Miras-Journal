@@ -67,9 +67,9 @@ func handle_states():
 				var luck := randi_range(state.turns, 1)
 				print("Confusion dice roll: ", luck)
 				if luck < -1:
-					target.remove_state(state)
+					target.remove_state(state.name)
 					Global.toast(chara.FirstName+" snaps out of Confusion!")
-				elif luck == -1:
+				elif luck == -1 or not chara.Controllable:
 					var choices: Array[Ability] = chara.Abilities.duplicate()
 					choices.append(chara.StandardAttack)
 					chara.NextMove = choices.pick_random()
@@ -77,6 +77,11 @@ func handle_states():
 					chara.NextTarget = TurnOrder.pick_random()
 					if chara.Controllable:
 						Global.toast(chara.FirstName+" looses control in Confusion!")
+					else:
+						if chara == chara.NextTarget and chara.NextMove.Target == Ability.T.ONE_ENEMY:
+							Global.toast(chara.FirstName+" hits "+chara.Pronouns[3]+" in Confusion!")
+						elif chara.NextTarget in Bt.get_ally_faction(chara) and chara.NextMove.Target == Ability.T.ONE_ENEMY:
+							Global.toast(chara.FirstName+" hits an ally in confusion!")
 				state.turns -= 1
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()

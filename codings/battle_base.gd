@@ -315,7 +315,7 @@ func _input(event):
 		victory()
 	if Input.is_action_pressed("Dash") and Action:
 			Engine.time_scale = 8
-	elif (not Action) or Input.is_action_just_released("Dash"):
+	elif Input.is_action_just_released("Dash"):
 		Engine.time_scale = 1
 	if AwaitVictory:
 		if Input.is_action_just_released("ui_accept"):
@@ -333,6 +333,7 @@ func _on_battle_ui_ability():
 	if CurrentChar.node.animation == "Ability": anim("AbilityLoop")
 
 func _on_battle_ui_root():
+	Engine.time_scale = 1
 	$EnemyUI.all_enemy_ui()
 	stop_sound("Ability", CurrentChar)
 	anim()
@@ -506,7 +507,7 @@ overwrite_color: Color = Color.WHITE):
 			target.node.get_node("Particle").process_material.color = target.MainColor
 			t.tween_property(target.node.material,
 			"shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
-		else: play_sound("Hit", target)
+		play_sound("Hit", target)
 		hit_animation(target)
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
@@ -672,7 +673,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t=create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor
-		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 1)
+		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 0.3)
 	elif chara.node.animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t.kill()
 		t=create_tween()
@@ -797,7 +798,7 @@ func victory_count_sp():
 	t.set_parallel()
 	t.tween_property(dub, "scale", Vector2(1.5, 1.5), 0.3)
 	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
-	await Event.wait(1, false)
+	#await Event.wait(0.3, false)
 	dub.queue_free()
 
 func victory():
@@ -1006,7 +1007,7 @@ func on_state_add(state: State, chara: Actor):
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding":
-				chara.Defence *= 2
+				chara.Defence += 1
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(
@@ -1018,10 +1019,10 @@ func add_state_effect(state: State, chara: Actor):
 		dub.show()
 		dub.play(state.name)
 
-func remove_state_effect(state: State, chara: Actor):
+func remove_state_effect(statename: String, chara: Actor):
 	if chara.node == null: return
-	if chara.node.get_node_or_null(state.name) != null:
-		chara.node.get_node(state.name).queue_free()
+	if chara.node.get_node_or_null(statename) != null:
+		chara.node.get_node(statename).queue_free()
 
 func get_actor(codename: StringName) -> Actor:
 	for i in TurnOrder:

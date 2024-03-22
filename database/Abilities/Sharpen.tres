@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("1_67y3j")
 name = "Sharpen"
-description = "Increases the attack of an ally by 1.5x for 3 turns."
+description = "Boosts the Attack of an ally by 1.5x for 3 turns."
 Icon = SubResource("AtlasTexture_7u5mo")
 ActionSequence = &"AttackUp3"
 Type = "AtkBuff"

@@ -446,12 +446,12 @@ func check_for_levelups(mem:Actor, node:Panel):
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	else:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
+		LevelupChain.append(mem)
 		await t.finished
 		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
 		t = create_tween()
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished
-		LevelupChain.append(mem)
 		mem.SkillLevel += 1
 		node.get_node("Level/Number").text = str(mem.SkillLevel)
 		if mem.SkillLevel < mem.SkillPointsFor.size():

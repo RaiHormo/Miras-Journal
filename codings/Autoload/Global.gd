@@ -39,7 +39,9 @@ var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
 	wind = Color.hex(0x56d741ff), spiritual = Color.hex(0x52f8b5ff), cold = Color.hex(0x52f8b5ff),
 	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc333c3ff),
-	physical = Color.hex(0xd3446dff)}
+	physical = Color.hex(0xd3446dff),
+
+	attack = Color.hex(0xdf3737ff), magic = Color.hex(0x5a68dfff), defence = Color.hex(0x40f178ff)}
 #endregion
 
 #region System
@@ -465,11 +467,18 @@ func match_profile(named:String) -> TextProfile:
 func colorize(str: String) -> String:
 	for i in ElementColor.keys():
 		var elname: String = i
-		elname = elname.to_pascal_case()
-		if elname in str:
-			var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
-			var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
-			str = str.replace(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
+		#str = colorize_replace(elname, str, i)
+		str = colorize_replace(elname.capitalize(), str, i)
+		str = colorize_replace(state_element_verbing(elname), str, i)
+		str = colorize_replace(state_element_verbs(elname), str, i)
+		str = colorize_replace(state_element_verb(elname), str, i)
+	return str
+
+func colorize_replace(elname, str: String, i) -> String:
+	if elname in str:
+		var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
+		var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
+		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
 	return str
 
 func get_direction(v: Vector2 = PlayerDir) -> Vector2:
@@ -567,6 +576,57 @@ func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
 	return base
+
+func state_element_verb(str: String) -> String:
+	match str:
+		"heat": return "burn"
+		"wind": return "launch"
+		"corruption": return "poison"
+		"spiritual": return "confuse"
+		"cold": return "freeze"
+		"technical": return "deflect"
+		"physical": return "bind"
+		"liquid": return "soak"
+		"heat": return "burn"
+		"natural": return "leech"
+		"defence": return "guard"
+		"attack": return "knock out"
+		"magic": return "Aura break"
+	return str
+
+func state_element_verbs(str: String) -> String:
+	match str:
+		"heat": return "burns"
+		"wind": return "launches"
+		"corruption": return "poisons"
+		"spiritual": return "confuses"
+		"cold": return "freezes"
+		"technical": return "deflects"
+		"physical": return "binds"
+		"liquid": return "soaks"
+		"heat": return "burns"
+		"natural": return "leeches"
+		"defence": return "guards"
+		"attack": return "knocks out"
+		"magic": return "breaks their Aura"
+	return str
+
+func state_element_verbing(str: String) -> String:
+	match str:
+		"heat": return "burning"
+		"wind": return "launching"
+		"corruption": return "poisoning"
+		"spiritual": return "confusing"
+		"cold": return "freezing"
+		"technical": return "deflecting"
+		"physical": return "binding"
+		"liquid": return "soaking"
+		"heat": return "burning"
+		"natural": return "leeching"
+		"defence": return "guarding"
+		"attack": return "knocking out"
+		"magic": return "breaking their Aura"
+	return str
 
 func get_power_rating(power: int) -> String:
 	if power < 6: return "Useless"
