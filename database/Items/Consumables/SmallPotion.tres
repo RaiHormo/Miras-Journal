@@ -38,9 +38,10 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_xhumv")
-Name = "Small Potion"
+Name = "Small potion"
 Description = "A small bottle containing a healing potion.
 Restores 50 HP"
+ItemType = "Con"
 Icon = SubResource("AtlasTexture_4bywt")
 Artwork = ExtResource("1_vdi2s")
 Quantity = 0

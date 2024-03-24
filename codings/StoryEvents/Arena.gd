@@ -3,7 +3,7 @@ extends Room
 func default():
 	Global.reset_all_members()
 	Global.Party.reset_party()
-	await Event.wait(0.2)
+	await Event.wait(1)
 	for i in range(1, 3):
 		await start_round(i)
 	Global.Party.add("Alcine")

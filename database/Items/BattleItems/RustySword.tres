@@ -10,9 +10,10 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_jpavj")
-Name = "Rusty Sword"
+Name = "Rusty sword"
 Description = "An old rusty sword found in an abandoned building.
 It could be used 3 times before it breaks."
+ItemType = "Bti"
 Icon = SubResource("AtlasTexture_asmxh")
 Quantity = 0
 QuantityMeansUses = true

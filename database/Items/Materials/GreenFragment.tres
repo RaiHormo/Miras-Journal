@@ -11,10 +11,13 @@ filter_clip = true
 [resource]
 script = ExtResource("1_khxi8")
 Essence = Color(0.337255, 0.843137, 0.254902, 1)
-Name = "Green Fragment"
+Name = "Green fragment"
 Description = "A small crystal that contains a pure essence of Wind."
+ItemType = "Mat"
 Icon = SubResource("AtlasTexture_n2sve")
 Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
 Use = 0
 UsedInBattle = false
 OvTarget = 3

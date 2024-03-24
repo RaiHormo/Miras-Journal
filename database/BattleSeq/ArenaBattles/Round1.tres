@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://chqmv1mv1srnu"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=5 format=3 uid="uid://chqmv1mv1srnu"]
 
+[ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_13vel"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_86k1g"]
 [ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="2_kxlt4"]
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="3_y2tb5"]
@@ -7,6 +8,7 @@
 [resource]
 script = ExtResource("3_y2tb5")
 Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_86k1g"), ExtResource("2_kxlt4")])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([ExtResource("1_13vel")])
 Transition = true
 Detransition = true
 EscPosition = Vector2(0, 0)

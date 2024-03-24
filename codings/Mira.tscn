@@ -736,7 +736,7 @@ path_max_distance = 20.0
 
 [node name="Flame" type="PointLight2D" parent="."]
 texture_filter = 2
-position = Vector2(0, 2)
+position = Vector2(-2, 2)
 color = Color(1, 0.333333, 0, 1)
 energy = 0.0
 texture = SubResource("GradientTexture2D_2e8bj")

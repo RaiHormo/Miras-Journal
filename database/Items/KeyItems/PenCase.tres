@@ -10,8 +10,9 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_vdg8l")
-Name = "Pen Case"
+Name = "Pen case"
 Description = "A case with a few writting supplies."
+ItemType = "Key"
 Icon = SubResource("AtlasTexture_dacdr")
 Quantity = 0
 QuantityMeansUses = false

@@ -828,8 +828,6 @@ func fetch_inventory():
 		else: dub.text = ""
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
-		if item.Use == ItemData.U.HEALING and Global.is_everyone_fully_healed():
-			dub.disabled = true
 	for item in Item.BtiInv:
 		var dub =  $Inventory/Item.duplicate()
 		dub.icon = item.Icon

@@ -12,6 +12,7 @@ filter_clip = true
 script = ExtResource("1_3xuxp")
 Name = "Wallet"
 Description = "Contains 63 Iseferian coins and some train tickets."
+ItemType = "Key"
 Icon = SubResource("AtlasTexture_enqek")
 Quantity = 0
 QuantityMeansUses = false

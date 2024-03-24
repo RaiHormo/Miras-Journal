@@ -26,9 +26,10 @@ DmgVarience = true
 
 [resource]
 script = ExtResource("1_h38r3")
-Name = "Sharp Rock"
+Name = "Sharp rock"
 Description = "A small rock with a sharp end.
 Deals weak Physical damage to one enemy."
+ItemType = "Bti"
 Icon = ExtResource("1_c8ur2")
 Quantity = 0
 QuantityMeansUses = false

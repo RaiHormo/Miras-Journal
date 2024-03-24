@@ -39,8 +39,10 @@ func get_animation(icon, named, pickup_anim:= true):
 	panel.hide()
 	Global.check_party.emit()
 
-func add_item(ItemName, type: StringName, animate=true):
+func add_item(ItemName, type: StringName = &"", animate=true):
 	item = get_item(ItemName, type).duplicate()
+	if type == &"": type = item.ItemType
+	print(item.Name, type)
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
@@ -71,12 +73,15 @@ func check_item(ItemName, type):
 	if item in get_inv(type): return true
 	else: return false
 
-func get_inv(type: String):
+func get_inv(type: String) -> Array[ItemData]:
 	match type:
 		&"Key": return KeyInv
 		&"Con": return ConInv
 		&"Mat": return MatInv
 		&"Bti": return BtiInv
+		_:
+			push_error("Invalid inventory "+ type)
+			return []
 
 func overwrite_inv(inv: Array, type: StringName):
 	match type:
@@ -107,6 +112,7 @@ func get_item(iteme, type:StringName = &""):
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme + ".tres")
 			ritem.filename = iteme
 	elif iteme is ItemData:
+		find_filename(iteme)
 		if iteme.filename == "Invalid filename":
 			OS.alert(iteme.filename)
 		for i in get_inv(type):
@@ -118,23 +124,21 @@ func get_item(iteme, type:StringName = &""):
 	else: OS.alert("That's not a valid item name")
 	return ritem
 
-func find_filename(iteme: ItemData, type):
-	for file in DirAccess.get_files_at("res://database/Items/" + get_folder(type)):
-		if ".tres" in file:
-			var ritem:ItemData = await Loader.load_res("res://database/Items/"+get_folder(type)+"/"+ file)
-			if ritem.Name == iteme.Name: iteme.filename = file.erase(file.length()-5, 5)
+func find_filename(iteme: ItemData, type: String = ""):
+	iteme.filename = iteme.Name.to_pascal_case()
+	#if type == "": type = find_type(iteme)
+	#for file in DirAccess.get_files_at("res://database/Items/" + get_folder(type)):
+		#if ".tres" in file:
+			#var ritem:ItemData = await Loader.load_res("res://database/Items/"+get_folder(type)+"/"+ file)
+			#if ritem.Name == iteme.Name: iteme.filename = file.erase(file.length()-5, 5)
 
 func verify_inventory():
-	for i in KeyInv:
-		if i.filename == "Invalid filename": await find_filename(i, &"Key")
-	for i in ConInv:
-		if i.filename == "Invalid filename": await find_filename(i, &"Con")
-	for i in MatInv:
-		if i.filename == "Invalid filename": await find_filename(i, &"Mat")
-	for i in BtiInv:
-		if i.filename == "Invalid filename": await find_filename(i, &"Bti")
+	for i in combined_inv():
+		if i.filename == "Invalid filename": find_filename(i)
+		if i.ItemType == "": i.ItemType = find_type(i)
 
 func find_type(iteme: ItemData) -> StringName:
+	if iteme.ItemType != "": return iteme.ItemType
 	if iteme in KeyInv:
 		return &"Key"
 	if iteme in ConInv:
@@ -144,3 +148,11 @@ func find_type(iteme: ItemData) -> StringName:
 	if iteme in BtiInv:
 		return &"Bti"
 	return &""
+
+func combined_inv() -> Array[ItemData]:
+	var rtn = KeyInv.duplicate()
+	rtn.append_array(MatInv)
+	rtn.append_array(ConInv)
+	rtn.append_array(BtiInv)
+	print(rtn)
+	return rtn

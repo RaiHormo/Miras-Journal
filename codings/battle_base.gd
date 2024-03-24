@@ -799,6 +799,7 @@ func victory_count_sp():
 	t.tween_property(dub, "scale", Vector2(1.5, 1.5), 0.3)
 	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
 	#await Event.wait(0.3, false)
+	await t.finished
 	dub.queue_free()
 
 func victory():
@@ -864,13 +865,14 @@ func victory_show_items():
 		i.modulate = Color.TRANSPARENT
 	await Event.wait()
 	$Canvas/VictoryItems/ItemTemp.hide()
+	ObtainedItems.append_array(Seq.AdditionalItems)
 	for i in ObtainedItems:
 		if i != null:
 			var dub = $Canvas/VictoryItems/ItemTemp.duplicate()
 			dub.get_node("Hbox/ItemName").text = i.Name
 			dub.get_node("Hbox/Icon").texture = i.Icon
-			await Item.find_filename(i, &"Mat")
-			Item.add_item(i, &"Mat", false)
+			await Item.find_filename(i)
+			Item.add_item(i, &"", false)
 			dub.show()
 			$Canvas/VictoryItems.add_child(dub)
 	$Canvas/VictoryItems.show()
@@ -1007,7 +1009,7 @@ func on_state_add(state: State, chara: Actor):
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding":
-				chara.Defence += 1
+				chara.DefenceMultiplier += 1
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(

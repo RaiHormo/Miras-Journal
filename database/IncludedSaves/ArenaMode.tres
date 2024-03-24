@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="SaveFile" load_steps=50 format=3 uid="uid://b5qcq7nbnaka"]
+[gd_resource type="Resource" script_class="SaveFile" load_steps=45 format=3 uid="uid://b5qcq7nbnaka"]
 
-[ext_resource type="Texture2D" uid="uid://ccfqo6konaev3" path="res://art/Items/SmallPotion.png" id="1_p1gea"]
+[ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_etmj2"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_vip1j"]
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="2_mah4s"]
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="3_car2j"]
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="3_t3o3b"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="4_4jr5b"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="5_ljupg"]
@@ -36,53 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="43_e6r20"]
 [ext_resource type="Script" path="res://codings/Classes/save_class.gd" id="44_yd2ky"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
-atlas = ExtResource("1_vip1j")
-region = Rect2(126, 18, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_iwvc1"]
-script = ExtResource("3_car2j")
-name = "Drink healing item"
-description = "This is used internally for healing items in battle."
-Icon = SubResource("AtlasTexture_uyukm")
-ActionSequence = &"Drink"
-Type = "Healing"
-AuraCost = 0
-HPCost = 0
-disabled = false
-Damage = 5
-Parameter = 50.0
-Target = 0
-ColorSameAsActor = false
-WheelColor = Color(1, 1, 1, 1)
-Callout = false
-SucessChance = 1.0
-CritChance = 0.0
-RecoverAura = false
-DmgVarience = true
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4bywt"]
-atlas = ExtResource("1_vip1j")
-region = Rect2(36, 72, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_scxqo"]
-script = ExtResource("2_mah4s")
-Name = "Small Potion"
-Description = "A small bottle containing a healing potion.
-Restores 50 HP"
-Icon = SubResource("AtlasTexture_4bywt")
-Artwork = ExtResource("1_p1gea")
-Quantity = 2
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 3
-UsedInBattle = true
-OvTarget = 3
-BattleEffect = SubResource("Resource_iwvc1")
-Parameter = "50"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_enqek"]
 atlas = ExtResource("1_vip1j")
 region = Rect2(108, 90, 18, 18)
@@ -92,6 +44,7 @@ filter_clip = true
 script = ExtResource("2_mah4s")
 Name = "Wallet"
 Description = "Contains 63 Iseferian coins and some train tickets."
+ItemType = ""
 Icon = SubResource("AtlasTexture_enqek")
 Quantity = 0
 QuantityMeansUses = false
@@ -110,6 +63,7 @@ filter_clip = true
 script = ExtResource("2_mah4s")
 Name = "Folded Paper"
 Description = "A sheet of paper folded twice."
+ItemType = ""
 Icon = SubResource("AtlasTexture_a4axw")
 Quantity = 0
 QuantityMeansUses = false
@@ -128,6 +82,7 @@ filter_clip = true
 script = ExtResource("2_mah4s")
 Name = "Pen Case"
 Description = "A case with a few writting supplies."
+ItemType = ""
 Icon = SubResource("AtlasTexture_dacdr")
 Quantity = 0
 QuantityMeansUses = false
@@ -144,7 +99,10 @@ MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 PartyIcon = ExtResource("7_5m5bg")
 ActorClass = "Support"
 codename = &"Alcine"
+Pronouns = Array[String](["it", "it", "its", "itself"])
+WeaponPower = 24
 ClutchDmg = false
+SeqOnClutch = ""
 CantDie = true
 IsEnemy = false
 RecivedSP = 0
@@ -168,8 +126,9 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[ExtResource("3_car2j")]([ExtResource("3_t3o3b")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("3_t3o3b")])
 StandardAttack = ExtResource("12_q4m7a")
+LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 OV = ExtResource("6_c4yfj")
 BT = ExtResource("4_4jr5b")
 Offset = Vector2(-3, -15)
@@ -179,6 +138,7 @@ Disappear = false
 GlowDef = 0.3
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
+DontIdle = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yrywn"]
 
@@ -189,7 +149,10 @@ MainColor = Color(0.501961, 0.694118, 0.533333, 1)
 PartyIcon = ExtResource("16_prsh6")
 ActorClass = ""
 codename = &"Erinn"
+Pronouns = Array[String](["it", "it", "its", "itself"])
+WeaponPower = 24
 ClutchDmg = false
+SeqOnClutch = ""
 CantDie = false
 IsEnemy = false
 RecivedSP = 0
@@ -212,8 +175,9 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[ExtResource("3_car2j")]([])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 StandardAttack = ExtResource("19_qj56u")
+LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 OV = ExtResource("15_ike6x")
 BT = SubResource("SpriteFrames_yrywn")
 Offset = Vector2(0, 0)
@@ -223,6 +187,7 @@ Disappear = false
 GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
+DontIdle = false
 
 [sub_resource type="Resource" id="Resource_qa8pi"]
 script = ExtResource("12_4qvp4")
@@ -231,7 +196,10 @@ MainColor = Color(0.878431, 0.682353, 0.517647, 1)
 PartyIcon = ExtResource("25_uja3s")
 ActorClass = "Attacker"
 codename = &"Mira"
+Pronouns = Array[String](["it", "it", "its", "itself"])
+WeaponPower = 24
 ClutchDmg = false
+SeqOnClutch = ""
 CantDie = false
 IsEnemy = false
 RecivedSP = 0
@@ -255,8 +223,9 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 13
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[ExtResource("3_car2j")]([ExtResource("14_445et"), ExtResource("15_atsjf")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("14_445et"), ExtResource("15_atsjf")])
 StandardAttack = ExtResource("30_eltif")
+LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 OV = ExtResource("24_5j77d")
 BT = ExtResource("22_nhpkt")
 Offset = Vector2(0, -15)
@@ -266,6 +235,7 @@ Disappear = false
 GlowDef = 0.3
 GlowSpecial = 1.5
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
+DontIdle = false
 
 [resource]
 script = ExtResource("44_yd2ky")
@@ -293,7 +263,7 @@ SavedTime = 0.0
 PlayTime = 0.0
 Preview = ExtResource("43_e6r20")
 KeyInv = Array[ExtResource("2_mah4s")]([SubResource("Resource_q7whi"), SubResource("Resource_bd5yo"), SubResource("Resource_wuqaw")])
-ConInv = Array[ExtResource("2_mah4s")]([SubResource("Resource_scxqo")])
+ConInv = Array[ExtResource("2_mah4s")]([ExtResource("1_etmj2")])
 BtiInv = Array[ExtResource("2_mah4s")]([])
 MatInv = Array[ExtResource("2_mah4s")]([])
 Flags = Array[StringName]([])

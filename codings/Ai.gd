@@ -21,6 +21,9 @@ func ai() -> void:
 		elif Bt.health_precentage(HpSortedAllies[0]) <= 40 and has_type("Healing") and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
+		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 1 and has_type("Summon"):
+			print("I can summon an ally, dice roll: ", randi_range(-1, Bt.get_ally_faction(Char).size()))
+			choose(find_ability("Summon").pick_random())
 		else:
 			#print(Bt.health_precentage(HpSortedAllies[0]))
 			print("Nothing specific to do")
@@ -49,7 +52,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 
 #Checks if they have an ability of a certain type
 func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
-	print("checking if i have a ", type)
+	#print("checking if i have a ", type)
 	if not find_ability(type, targets).is_empty():
 		print("i do")
 		return true

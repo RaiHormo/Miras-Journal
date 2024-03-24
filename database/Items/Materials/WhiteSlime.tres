@@ -10,9 +10,10 @@ region = Rect2(0, 90, 18, 18)
 [resource]
 script = ExtResource("1_aisg0")
 Essence = Color(0.560784, 1, 0.886275, 1)
-Name = "White Slime"
+Name = "White slime"
 Description = "A piece of slime from a white sludge monster. 
 Contains a Spiritual energy."
+ItemType = "Mat"
 Icon = SubResource("AtlasTexture_o2rdi")
 Quantity = 0
 QuantityMeansUses = false

@@ -44,7 +44,7 @@ func handle_states():
 			if state.turns == 0:
 				match state.name:
 					"Guarding":
-						chara. DefenceMultiplier -= 1
+						chara.DefenceMultiplier -= 1
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"AttackUp": chara.AttackMultiplier -= 0.5
 					"DefenceUp": chara.DefenceMultiplier -= 0.5
@@ -197,7 +197,6 @@ func WarpAttack():
 #region Abilities
 func Guard():
 	Bt.zoom()
-	CurrentChar.DefenceMultiplier += 1
 	Bt.anim("Idle")
 	Bt.focus_cam(CurrentChar)
 	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)

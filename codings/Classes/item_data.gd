@@ -4,7 +4,9 @@ class_name ItemData
 
 
 @export var Name : String = "Item Name"
+var filename: String = "Invalid filename"
 @export_multiline var Description : String = "One that does not exit"
+@export_enum("Key", "Con", "Mat", "Bti") var ItemType: String = ""
 @export var Icon: Texture
 @export var Artwork: Texture
 @export var Quantity: int = 0
@@ -18,5 +20,4 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES}
 @export var OvTarget: T = T.ONE_ALLY
 @export var BattleEffect: Ability
 @export var Parameter: String
-var filename: String = "Invalid filename"
 

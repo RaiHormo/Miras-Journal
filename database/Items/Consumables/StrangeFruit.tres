@@ -18,6 +18,7 @@ ActionSequence = &"Eat"
 Type = "Healing"
 AuraCost = 0
 HPCost = 0
+disabled = false
 Damage = 5
 Parameter = 30.0
 Target = 0
@@ -36,13 +37,15 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_t4t8r")
-Name = "Strange Fruit"
+Name = "Strange fruit"
 Description = "Eddible probably?
 Restores 30 HP
 "
+ItemType = "Con"
 Icon = SubResource("AtlasTexture_1sl0m")
 Quantity = 0
 QuantityMeansUses = false
+AmountOnAdd = 1
 Use = 3
 UsedInBattle = true
 OvTarget = 3
