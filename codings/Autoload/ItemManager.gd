@@ -39,21 +39,21 @@ func get_animation(icon, named, pickup_anim:= true):
 	panel.hide()
 	Global.check_party.emit()
 
-func add_item(ItemName, type: StringName = &"", animate=true):
+func add_item(ItemName, type: StringName = &"", animate:= true, player_animate:= true, quantity:= -1):
 	item = get_item(ItemName, type).duplicate()
 	if type == &"": type = item.ItemType
-	print(item.Name, type)
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
 	if not check_item(ItemName, type):
-		item.Quantity = item.AmountOnAdd
+		item.Quantity = item.AmountOnAdd if quantity == -1 else quantity
 		inv.append(item)
 	else: for i in inv:
 		if i.filename == item.filename:
 			i.Quantity += item.AmountOnAdd
 	overwrite_inv(inv, type)
-	if animate: get_animation(item.Icon, item.Name)
+	print("Added item ", item.Name, " of type ", type)
+	if animate: get_animation(item.Icon, item.Name, player_animate)
 
 func remove_item(ItemName, type: StringName = &""):
 	item = get_item(ItemName, type)
@@ -110,6 +110,7 @@ func get_item(iteme, type:StringName = &""):
 				ritem = i
 		if ritem == null:
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme + ".tres")
+			if ritem == null: OS.alert("Invalid item ", iteme)
 			ritem.filename = iteme
 	elif iteme is ItemData:
 		find_filename(iteme)
@@ -154,5 +155,15 @@ func combined_inv() -> Array[ItemData]:
 	rtn.append_array(MatInv)
 	rtn.append_array(ConInv)
 	rtn.append_array(BtiInv)
-	print(rtn)
+	#print(rtn)
 	return rtn
+
+func load_inventories(data: SaveFile):
+	KeyInv.clear()
+	MatInv.clear()
+	BtiInv.clear()
+	ConInv.clear()
+	for i in data.Inventory:
+		find_filename(i)
+		if i.Quantity == 0: i.Quantity = 1
+		add_item(i.filename, i.ItemType, false, false, i.Quantity)

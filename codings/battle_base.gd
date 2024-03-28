@@ -26,6 +26,8 @@ var totalSP: int = 0
 var ObtainedItems: Array[ItemData] = []
 var callout_onscreen := false
 var lock_turn:= false
+var no_crits:= false
+var no_misses:= false
 
 func _ready():
 	Loader.battle_start.emit()
@@ -303,6 +305,8 @@ func confirm_next(action_anim = true):
 				var timer = get_tree().create_timer(0.5)
 				await anim("Ability")
 				if timer.time_left != 0: await timer.timeout
+	if CurrentChar.NextTarget == null:
+		CurrentChar.NextTarget = random_target(CurrentAbility)
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
 func _input(event):
@@ -802,9 +806,9 @@ func victory_count_sp():
 	await t.finished
 	dub.queue_free()
 
-func victory():
+func victory(ignore_seq:= false):
 	print("Victory!")
-	if Seq.VictorySequence != "":
+	if Seq.VictorySequence != "" and not ignore_seq:
 		$Act.call(Seq.VictorySequence)
 		return
 	if Seq.VictoryBanter != "":
@@ -1030,3 +1034,12 @@ func get_actor(codename: StringName) -> Actor:
 	for i in TurnOrder:
 		if i.codename == codename: return i
 	return null
+
+func random_target(ab: Ability):
+	match ab.Target:
+			0:
+				return CurrentChar
+			1:
+				return get_oposing_faction(CurrentChar).pick_random()
+			3:
+				return get_ally_faction(CurrentChar).pick_random()

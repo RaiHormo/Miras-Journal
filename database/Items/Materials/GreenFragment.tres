@@ -5,14 +5,14 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n2sve"]
 atlas = ExtResource("1_ag23r")
-region = Rect2(126, 0, 18, 18)
+region = Rect2(126, 126, 18, 18)
 filter_clip = true
 
 [resource]
 script = ExtResource("1_khxi8")
 Essence = Color(0.337255, 0.843137, 0.254902, 1)
 Name = "Green fragment"
-Description = "A small crystal that contains a pure essence of Wind."
+Description = "A small crystal that contains a pure Wind essence ."
 ItemType = "Mat"
 Icon = SubResource("AtlasTexture_n2sve")
 Quantity = 0

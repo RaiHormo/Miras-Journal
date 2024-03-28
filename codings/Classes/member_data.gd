@@ -21,6 +21,7 @@ class_name Actor
 @export var SeqOnClutch:= ""
 ##If true, the character cannot die, and will always stay at low hp
 @export var CantDie:= false
+@export var IgnoreStates:= false
 @export_group("Enemy specific")
 ##Used to check if the character is an enemy internally
 @export var IsEnemy: bool = true

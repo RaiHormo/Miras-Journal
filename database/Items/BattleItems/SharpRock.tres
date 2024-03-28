@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://c864y16gs0iix"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://c864y16gs0iix"]
 
-[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_c8ur2"]
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_h38r3"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_m0d2q"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="2_rcejj"]
 
 [sub_resource type="Resource" id="Resource_as5re"]
 script = ExtResource("1_m0d2q")
@@ -24,13 +24,18 @@ CritChance = 0.0
 RecoverAura = false
 DmgVarience = true
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_85b45"]
+atlas = ExtResource("2_rcejj")
+region = Rect2(108, 108, 18, 18)
+filter_clip = true
+
 [resource]
 script = ExtResource("1_h38r3")
 Name = "Sharp rock"
 Description = "A small rock with a sharp end.
 Deals weak Physical damage to one enemy."
 ItemType = "Bti"
-Icon = ExtResource("1_c8ur2")
+Icon = SubResource("AtlasTexture_85b45")
 Quantity = 0
 QuantityMeansUses = false
 AmountOnAdd = 1

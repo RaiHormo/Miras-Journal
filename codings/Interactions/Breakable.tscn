@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0xlx8uwtl3tj"]
+
+[ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="1_avy7v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bd8qp"]
+size = Vector2(18, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8q2"]
+size = Vector2(20, 18)
+
+[node name="Breakable" type="StaticBody2D"]
+script = ExtResource("1_avy7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_bd8qp")
+
+[node name="AreaBreak" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaBreak"]
+position = Vector2(1.19209e-07, 2)
+shape = SubResource("RectangleShape2D_cl8q2")
+debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
+[connection signal="area_entered" from="AreaBreak" to="." method="_on_area_break_area_entered"]

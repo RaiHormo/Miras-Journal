@@ -63,13 +63,7 @@ func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
 func choose(ab:Ability, tar:Actor=null) -> void:
 	if ab == null: Bt.end_turn(); return
 	if Char.NextTarget==null and tar==null:
-		match ab.Target:
-			0:
-				Char.NextTarget = Char
-			1:
-				Char.NextTarget = Bt.get_oposing_faction(Char).pick_random()
-			3:
-				Char.NextTarget = Bt.get_ally_faction(Char).pick_random()
+		Char.NextTarget = Bt.random_target(ab)
 	elif Char.NextTarget==null:
 		Char.NextTarget = tar
 	if Char.NextAction == "":

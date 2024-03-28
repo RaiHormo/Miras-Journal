@@ -90,6 +90,3 @@ func handle_z(z := SpawnZ[Global.CameraInd]):
 			i.go_up()
 		if i.zDown == Global.Player.z_index:
 			i.go_down()
-
-func input(event: InputEvent) -> void:
-	pass # Replace with function body.

@@ -113,6 +113,7 @@ add_flag = false
 [resource]
 script = ExtResource("1_e62gl")
 Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_qsrni")])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
@@ -121,6 +122,6 @@ ScenePosition = Vector2(1470, 430)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "FirstBattle1"
-VictorySequence = ""
+VictorySequence = "FirstBattle5"
 VictoryBanter = ""
 Events = Array[ExtResource("2_68ui3")]([SubResource("Resource_6vdia"), SubResource("Resource_g722f"), SubResource("Resource_baynq"), SubResource("Resource_d4pnn")])

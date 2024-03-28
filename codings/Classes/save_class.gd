@@ -16,10 +16,7 @@ class_name SaveFile
 @export var PlayTime: float
 @export var Preview: Texture = preload("res://art/Previews/1.png")
 @export_group("Items")
-@export var KeyInv: Array[ItemData]
-@export var ConInv: Array[ItemData]
-@export var BtiInv: Array[ItemData]
-@export var MatInv: Array[ItemData]
+@export var Inventory: Array[ItemData]
 @export var Flags: Array[StringName]
 @export var Day: int
 @export var version = 3

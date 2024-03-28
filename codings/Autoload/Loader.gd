@@ -62,18 +62,22 @@ func save(filename:String="Autosave", showicon=true):
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
 
-	data.KeyInv = Item.KeyInv.duplicate()
-	for i in data.KeyInv:
-		data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
-	data.ConInv = Item.ConInv.duplicate()
-	for i in data.ConInv:
-		data.ConInv[data.ConInv.find(i)] = i.duplicate()
-	data.MatInv = Item.MatInv.duplicate()
-	for i in data.MatInv:
-		data.MatInv[data.MatInv.find(i)] = i.duplicate()
-	data.BtiInv = Item.BtiInv.duplicate()
-	for i in data.BtiInv:
-		data.BtiInv[data.BtiInv.find(i)] = i.duplicate()
+	#data.KeyInv = Item.KeyInv.duplicate()
+	#for i in data.KeyInv:
+		#data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
+	#data.ConInv = Item.ConInv.duplicate()
+	#for i in data.ConInv:
+		#data.ConInv[data.ConInv.find(i)] = i.duplicate()
+	#data.MatInv = Item.MatInv.duplicate()
+	#for i in data.MatInv:
+		#data.MatInv[data.MatInv.find(i)] = i.duplicate()
+	#data.BtiInv = Item.BtiInv.duplicate()
+	#for i in data.BtiInv:
+		#data.BtiInv[data.BtiInv.find(i)] = i.duplicate()
+	data.Inventory = Item.combined_inv()
+	for i in data.Inventory:
+		data.Inventory[data.Inventory.find(i)] = i.duplicate()
+
 	data.Room = Global.Area.scene_file_path
 	data.RoomName = Global.Area.Name
 	data.Day = Event.Day
@@ -113,10 +117,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 		if i is TileMap: i.queue_free()
 	get_tree().root.add_child((await load_res(data.Room)).instantiate())
 
-	Item.KeyInv = data.KeyInv.duplicate()
-	Item.ConInv = data.ConInv.duplicate()
-	Item.MatInv = data.MatInv.duplicate()
-	Item.BtiInv = data.BtiInv.duplicate()
+	Item.load_inventories(data)
 
 	Global.Members = data.Members.duplicate()
 	Global.make_array_unique(Global.Members)

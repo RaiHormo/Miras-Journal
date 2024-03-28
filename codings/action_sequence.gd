@@ -27,8 +27,8 @@ func play(nam, tar):
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.tween_property(self, "position", position, 0)
-	if randf_range(0,1)>Bt.CurrentAbility.SucessChance: miss = true
-	if randf_range(0,1)<Bt.CurrentAbility.CritChance: crit = true
+	if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
+	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits: crit = true
 	#t.tween_property(Cam, "position", CurrentChar.node.global_position  - Vector2(Bt.offsetize(-40),0), 0.1)
 	#swdsst.parallel().tween_property(Cam, "zoom", Vector2(5,5), 0.1)
 	if has_method(nam): call(nam)
@@ -346,6 +346,8 @@ func FlyAway(chara: Actor):
 #region Battle events
 func FirstBattle1():
 	while Global.Player == null: await Event.wait()
+	Bt.no_misses = true
+	Bt.no_crits = true
 	Global.Player.position = Vector2(1470, 400)
 	await Event.wait(2, false)
 	Bt.Troop[0].node.position.x = 50
@@ -417,6 +419,10 @@ func FirstBattle3():
 func FirstBattle4():
 	$"../BattleUI/Attack".disabled = false
 	Bt.get_actor("Mira").Aura = max(7, Bt.get_actor("Mira").Aura)
+
+func FirstBattle5():
+	Global.heal_party()
+	Bt.victory(true)
 
 func AlcineWoods1():
 	if Bt.get_actor("Mira").Health == 0: return

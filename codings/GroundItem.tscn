@@ -121,3 +121,4 @@ hidesprite = true
 add_flag = true
 hide_parent = true
 offset = 10
+needs_bag = true

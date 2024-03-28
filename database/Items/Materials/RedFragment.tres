@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MaterialItem" load_steps=4 format=3 uid="uid://ca0waq84tuaxb"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_vroew"]
+[ext_resource type="Script" path="res://codings/Classes/material_class.gd" id="2_rcepv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f11ge"]
+atlas = ExtResource("1_vroew")
+region = Rect2(18, 126, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_rcepv")
+Essence = Color(0.827451, 0.266667, 0.427451, 1)
+Name = "Red fragment"
+Description = "A small crystal that contains a pure Physical essence."
+ItemType = "Mat"
+Icon = SubResource("AtlasTexture_f11ge")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 0
+UsedInBattle = false
+OvTarget = 3
+Parameter = ""
