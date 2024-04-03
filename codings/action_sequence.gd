@@ -190,6 +190,24 @@ func WarpAttack():
 	temp.node.play_backwards("Attack1")
 	await temp.node.animation_finished
 	Bt.anim("Idle", temp)
+
+func RemoteAttack():
+	Bt.zoom()
+	Bt.focus_cam(CurrentChar, 0.5, -30)
+	Bt.anim("Attack1")
+	await Event.wait(0.6)
+	await Bt.screen_shake(7, 5, 0.2)
+	await Bt.focus_cam(target, 1, 30)
+	Bt.play_effect("RemoteHit", target)
+	await Event.wait(0.4)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.screen_shake()
+	else: Bt.miss()
+	await Event.wait(0.5)
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################
@@ -452,5 +470,8 @@ func AlcineWoods3():
 func AlcineWoods4():
 	#if Event.f("AlcineFollow", 5): return
 	Event.CutsceneHandler.after_battle()
+
+func ArenaGameOver():
+	Global.textbox("testbush", "arena_over")
 #endregion
 

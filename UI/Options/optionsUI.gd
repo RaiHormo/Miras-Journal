@@ -408,9 +408,9 @@ func _on_save_overwrite() -> void:
 	panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_load() -> void:
-	if focus == null: return
+	if focus == null or stage != "save_managment": return
 	var panel = focus.get_parent()
-	if not "File" in panel.name: return
+	if "New" in panel.name: return
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:

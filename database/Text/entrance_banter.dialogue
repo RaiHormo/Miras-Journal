@@ -1,0 +1,24 @@
+~ arena_round1
+Welcome to the Arena mode! 
+This is a non cannon thing for testing and getting feedback on the battle system.
+Here it's one battle after another! But don't worry, your party will recover 30% of their health after every round.
+You will also recive various items, so don't forget to check your bag!
+ROUND 1[wait=1] BEGIN![next=auto]
+=> END
+
+~ arena_round2
+Saving here is automatic.
+If you want to return where you were after quiting, go to Options > Save Managment and load a file called "Arena".
+ROUND 2[wait=1] BEGIN![next=auto]
+=> END
+
+~ arena_round3
+Alcine joins the party!
+You cannot directly control Alcine, but they will assist you with healing whenever needed.
+ROUND 3[wait=1] BEGIN![next=auto]
+=> END
+
+~ arena_round4
+A wild weird plant looking creature appeared!
+ROUND 4[wait=1] BEGIN![next=auto]
+=> END

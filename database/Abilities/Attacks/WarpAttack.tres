@@ -1,13 +1,18 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://dmm26g6xg665u"]
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dmm26g6xg665u"]
 
-[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_6om2h"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_p6in8"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_y4dh8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q46ei"]
+atlas = ExtResource("1_y4dh8")
+region = Rect2(144, 54, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_p6in8")
 name = "Warp attack"
-description = "Deals damage to one target with a chance of missing."
-Icon = ExtResource("1_6om2h")
+description = "Deals damage to one target with a lower chance of missing."
+Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"WarpAttack"
 Type = "CheapAttack"
 AuraCost = 0
@@ -19,7 +24,7 @@ Target = 1
 ColorSameAsActor = false
 WheelColor = Color(1, 1, 1, 1)
 Callout = false
-SucessChance = 0.9
+SucessChance = 0.95
 CritChance = 0.2
 RecoverAura = true
 DmgVarience = true

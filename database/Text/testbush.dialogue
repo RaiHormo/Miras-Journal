@@ -102,3 +102,12 @@ Note: With this prototype being so short, a titlescreen wasn't implemented...[wa
 - New game
 	do new_game()
 => END!
+
+~ arena_over
+You lost this round. Try again?
+- Retry
+	do Bt.end_battle()
+	do load_game("Arena")
+- Exit Arena mode.
+	do Bt.end_battle()
+	do load_game()

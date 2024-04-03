@@ -367,7 +367,7 @@ func icon_save():
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	$Can.hide()
+	#$Can.hide()
 
 func icon_load():
 	t=create_tween()

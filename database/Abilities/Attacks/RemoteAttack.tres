@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dfwfci7qqogji"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_2tldl"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_r434c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q46ei"]
+atlas = ExtResource("1_2tldl")
+region = Rect2(144, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_r434c")
+name = "Remote attack"
+description = "Deals damage to one target with a chance of missing. Cannot be blocked."
+Icon = SubResource("AtlasTexture_q46ei")
+ActionSequence = &"RemoteAttack"
+Type = "CheapAttack"
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 6
+Parameter = 0.0
+Target = 1
+ColorSameAsActor = true
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 0.95
+CritChance = 0.0
+RecoverAura = true
+DmgVarience = true

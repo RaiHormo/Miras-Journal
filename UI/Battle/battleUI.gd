@@ -13,7 +13,7 @@ signal ability
 signal attack
 signal command
 signal item
-signal ability_returned(ab :Ability, tar :Actor)
+signal ability_returned(ab :Ability, tar)
 signal targeted
 signal targetFoc(ind :Actor)
 var target : Actor
@@ -70,6 +70,8 @@ func _on_battle_get_control():
 	show()
 	stage = &"root"
 	PrevStage = &"root"
+	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true
+	else: $Item.disabled = false
 	$Ability.add_theme_constant_override("icon_max_width", 0)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
@@ -602,7 +604,7 @@ func get_target(faction:Array[Actor]):
 
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
 	$"../Canvas/AttackTitle".show()
-	$"../Canvas/AttackTitle/RichTextLabel".text = CurrentChar.NextMove.description
+	$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(CurrentChar.NextMove.description)
 	$"../Canvas/AttackTitle".text = CurrentChar.NextMove.name
 	$"../Canvas/AttackTitle".icon = CurrentChar.NextMove.Icon
 
@@ -631,7 +633,7 @@ func get_target(faction:Array[Actor]):
 		tr.tween_property($BaseRing/Ring2, "scale", Vector2(0.1,0.1), 0.7).as_relative()
 		await tr.finished
 
-func _on_ability_returned(ab:Ability, tar:Actor):
+func _on_ability_returned(ab:Ability, tar):
 	print("Using ", ab.name, " on ", tar.FirstName)
 	close()
 
@@ -741,6 +743,9 @@ func _on_ability_entry():
 				get_target(Bt.get_ally_faction())
 			Ability.T.SELF:
 				emit_signal("ability_returned", ab, CurrentChar)
+				close()
+			Ability.T.AOE_ALLIES:
+				emit_signal("ability_returned", ab, Bt.get_ally_faction())
 				close()
 			Ability.T.ANY:
 				PrevStage="ability"

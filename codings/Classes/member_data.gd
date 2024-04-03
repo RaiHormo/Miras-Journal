@@ -148,7 +148,7 @@ func add_SP(x):
 
 func damage(dmg: int, limiter:= false):
 	var hp = Health - dmg
-	if hp < 0:
+	if hp <= 0:
 		if limiter or CantDie or (ClutchDmg and Health > 15):
 			hp = min(Health, randf_range(1, 5))
 		else: hp = 0

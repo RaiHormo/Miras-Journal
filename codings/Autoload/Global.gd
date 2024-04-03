@@ -28,6 +28,7 @@ var Area: Room
 var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
 var Passive = preload("res://UI/Textbox/Passive.tscn")
 var ArbData0
+var textbox_open:= false
 signal lights_loaded
 signal check_party
 signal anim_done
@@ -400,12 +401,14 @@ func is_in_party(n:String) -> bool:
 
 func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
+	textbox_open = true
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
 	if balloon != null: balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
 	await textbox_close
+	textbox_open = false
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox") != null:

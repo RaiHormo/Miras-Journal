@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://cthep2w2a41bn"
+path="res://.godot/imported/entrance_banter.dialogue-53c04d76889f08f3267e5490b562ced0.tres"
+
+[deps]
+
+source_file="res://database/Text/entrance_banter.dialogue"
+dest_files=["res://.godot/imported/entrance_banter.dialogue-53c04d76889f08f3267e5490b562ced0.tres"]
+
+[params]
+
+defaults=true

@@ -1,13 +1,18 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://d38c2f7pbaqyj"]
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://d38c2f7pbaqyj"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3b0eu"]
-[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="1_w6glf"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_igawq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q46ei"]
+atlas = ExtResource("1_igawq")
+region = Rect2(144, 54, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_3b0eu")
 name = "Jump attack"
-description = "Deals damage to one target with a lower chance of missing."
-Icon = ExtResource("1_w6glf")
+description = "Deals damage to one target with a chance of missing."
+Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"JumpAttack"
 Type = "CheapAttack"
 AuraCost = 0
@@ -19,7 +24,7 @@ Target = 1
 ColorSameAsActor = true
 WheelColor = Color(1, 1, 1, 1)
 Callout = false
-SucessChance = 0.95
+SucessChance = 0.9
 CritChance = 0.0
 RecoverAura = true
 DmgVarience = true

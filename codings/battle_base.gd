@@ -20,6 +20,7 @@ var CurrentAbility: Ability
 var PartyArray: Array[Actor] = []
 var Action: bool
 var CurrentTarget: Actor
+var CurrentTargets: Array[Actor]
 var AwaitVictory = false
 var count: int
 var totalSP: int = 0
@@ -211,6 +212,14 @@ func entrance():
 			Loader.battle_bars(3)
 		else:
 			Loader.battle_bars(2)
+		if Seq.EntranceBanter != "":
+			if Seq.EntranceBanterIsPassive:
+				Global.passive("entrance_banter", Seq.EntranceBanter)
+			else:
+				Global.textbox("entrance_banter", Seq.EntranceBanter)
+				while Global.textbox_open:
+					if $Cam.position.x > -30: $Cam.position.x -= 0.03
+					await Event.wait(false)
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_QUART)
@@ -376,12 +385,16 @@ func callout(ab:Ability = CurrentAbility):
 	await tc.finished
 	callout_onscreen = false
 
-func _on_battle_ui_ability_returned(ab :Ability, tar:Actor):
+func _on_battle_ui_ability_returned(ab :Ability, tar):
 	CurrentChar.NextAction = ""
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
 	CurrentAbility = ab
-	CurrentTarget = tar
+	if tar is Array[Actor]:
+		CurrentTargets = tar
+		CurrentTarget = tar[0]
+	else:
+		CurrentTarget = tar
 	if ab == null:
 		end_turn()
 		return
@@ -614,7 +627,7 @@ func death(target:Actor):
 		await Event.wait(3, false)
 		Loader.white_fadeout(0.1, 1, 3)
 		await Event.wait(4, false)
-		Global.game_over()
+		game_over()
 	target.node.get_node("Particle").emitting = true
 	var td = create_tween()
 	target.Health = 0
@@ -707,6 +720,7 @@ func focus_cam(chara:Actor, time:float=0.5, offset=-40):
 	tc.set_trans(Tween.TRANS_QUART)
 	tc.tween_property($Cam, "position", Vector2(
 		chara.node.position.x - offsetize(offset),chara.node.position.y /2), time)
+	await tc.finished
 
 func move(
 chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT,
@@ -745,8 +759,10 @@ func escape():
 	end_battle()
 
 func game_over():
-	print("The party was wiped out")
-	Global.game_over()
+	print("Game over")
+	if Seq.DefeatSequence == "":
+		Global.game_over()
+	else: $Act.call(Seq.DefeatSequence)
 
 func end_battle():
 	AwaitVictory = false
@@ -920,7 +936,7 @@ func _on_battle_ui_command():
 
 func add_to_troop(en: Actor):
 	lock_turn = true
-	Troop.append(en)
+	Troop.append(en.duplicate())
 	dub = $Act/Actor0.duplicate()
 	dub.name = "Enemy" + str(Troop.size() -1)
 	$Act.add_child(dub)

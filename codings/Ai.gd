@@ -41,8 +41,10 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	#print("Chosing a ", type, " ability")
 	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
+	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	var Choices:Array[Ability] = []
 	for i in AblilityList:
+		if i == null: continue
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
 			if (i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health:
 				Choices.push_front(i)
