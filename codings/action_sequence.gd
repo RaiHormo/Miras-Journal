@@ -83,6 +83,21 @@ func handle_states():
 						elif chara.NextTarget in Bt.get_ally_faction(chara) and chara.NextMove.Target == Ability.T.ONE_ENEMY:
 							Global.toast(chara.FirstName+" hits an ally in confusion!")
 				state.turns -= 1
+			"Leeched":
+				Bt.play_effect("LeechGrab1", chara, Vector2.ZERO, false, true)
+				var dmg = await Bt.damage(chara, true, true, randi_range(12, 28), false, true, true, Global.ElementColor.get("natural"))
+				await $LeechGrab1.animation_finished
+				var t = create_tween()
+				t.set_ease(Tween.EASE_OUT)
+				t.set_trans(Tween.TRANS_QUART)
+				$LeechGrab1.play("LeechGrab2")
+				t.tween_property($LeechGrab1, "global_position", state.inflicter.node.global_position, 1)
+				Bt.focus_cam(state.inflicter, 1, 40)
+				await t.finished
+				Bt.heal(state.inflicter, dmg)
+				$LeechGrab1.play("LeechGrab3")
+				await $LeechGrab1.animation_finished
+				$LeechGrab1.queue_free()
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	states_handled.emit()
 
@@ -314,6 +329,17 @@ func ToxicSplash():
 	Bt.screen_shake(8, 5, 0.1)
 	await Event.wait(1)
 	if crit: await target.add_state("Poisoned")
+	Bt.anim()
+	Bt.end_turn()
+
+func LeechSeeds():
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1, 0)
+	Bt.play_effect("LeechSeeds", target)
+	await Event.wait(1)
+	await target.add_state("Leeched")
+	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()
 #endregion

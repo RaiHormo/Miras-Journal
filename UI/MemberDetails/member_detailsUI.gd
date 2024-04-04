@@ -184,6 +184,7 @@ func _on_ab_focus_entered() -> void:
 		$AbilityPanel/AttackTitle/Wheel.show()
 		$AbilityPanel/AttackTitle/Wheel.color = ab.WheelColor
 		$AbilityPanel/AttackTitle/Wheel.draw_wheel()
+		$AbilityPanel/AttackTitle/Wheel.draw_wheel()
 	else: $AbilityPanel/AttackTitle/Wheel.hide()
 	$AbilityPanel/AttackTitle.text = ab.name
 	#$AbilityPanel/AttackTitle.icon = ab.Icon

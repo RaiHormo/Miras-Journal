@@ -1,11 +1,19 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://c22qro3ss1nuy"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://c22qro3ss1nuy"]
 
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_3cc81"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_pyp2k"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yegrv"]
+atlas = ExtResource("1_pyp2k")
+region = Rect2(36, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_3cc81")
-name = ""
-Description = ""
-RemovedAfterTurns = false
-turns = 0
+name = "Leeched"
+Description = "A small amount of health is stolen every turn until the actor that inflicted this state is knocked out."
+RemovedOnBattleEnd = true
+turns = -1
+icon = SubResource("AtlasTexture_yegrv")
+color = Color(0.819608, 1, 0.235294, 1)
+is_stat_change = false

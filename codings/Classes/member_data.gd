@@ -167,7 +167,7 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.5)"% [pow, atk_stat, Defence, DefenceMultiplier])
 	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
 
-func add_state(x, turns = -1):
+func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
 	if Health == 0: return
 	var state: State
 	if x is State:
@@ -188,6 +188,7 @@ func add_state(x, turns = -1):
 		return
 	if turns != -1:
 		state.turns = turns
+	state.inflicter = inflicter
 	States.append(state)
 	if node != null:
 		Global.Bt.on_state_add(state, self)

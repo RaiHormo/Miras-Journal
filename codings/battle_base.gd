@@ -472,7 +472,7 @@ func end_turn():
 func damage(
 target: Actor, is_magic:= false, elemental:= false,
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
-overwrite_color: Color = Color.WHITE):
+overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
 	var el_mod: float = 1
 	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
@@ -504,12 +504,14 @@ overwrite_color: Color = Color.WHITE):
 			target.Health = 1
 		else:
 			await death(target)
-			return
-	if target.Health == 0 or target.has_state("KnockedOut"): return
+			return dmg
+	if target.Health == 0 or target.has_state("KnockedOut"): return dmg
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg*2)
 		else: target.add_aura(dmg)
 	else:
+		play_sound("Hit", target)
+		hit_animation(target)
 		if effect and elemental:
 			if el_mod > 1:
 				target.node.get_node("Particle").emitting = true
@@ -524,10 +526,9 @@ overwrite_color: Color = Color.WHITE):
 			target.node.get_node("Particle").process_material.color = target.MainColor
 			t.tween_property(target.node.material,
 			"shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
-		play_sound("Hit", target)
-		hit_animation(target)
-		await t.finished
+			await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
+	return dmg
 
 func hit_animation(tar):
 	anim("Hit", tar)
@@ -549,15 +550,16 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
 	await t.finished
 
-func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO, flip_on_player_use:= false):
+func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO, flip_on_player_use:= false, dont_free:= false):
 	if $Act/Effects.sprite_frames.has_animation(stri):
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
+		ef.name = stri
 		$Act.add_child(ef)
 		ef.position = tar.node.position + offset
 		ef.play(stri)
 		await ef.animation_finished
-		ef.queue_free()
+		if not dont_free: ef.queue_free()
 
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
