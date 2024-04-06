@@ -25,7 +25,7 @@ var line_to_be_used: String
 func _ready():
 	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
-	await Event.wait()
+	$CanvasLayer/Cursor.hide()
 	for i in range(1, 4):
 		var page = %Pages/Page0.duplicate()
 		page.name = "Page"+str(i)
@@ -48,7 +48,7 @@ func _process(delta):
 		handle_ui()
 	if not Loader.InBattle:
 		if UIvisible != visibly:
-			if UIvisible and not Event.f("DisableMenus"):
+			if UIvisible and not Event.f("DisableMenus") and not disabled:
 				show_all()
 			else: hide_all()
 		visibly = UIvisible

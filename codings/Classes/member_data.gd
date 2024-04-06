@@ -202,6 +202,7 @@ func remove_state(x):
 	if x is State:
 		state = x
 	else: state = await get_state(x)
+	if state == null: return
 	Global.Bt.remove_state_effect(state.name, self)
 	States.erase(state)
 

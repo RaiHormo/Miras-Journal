@@ -21,8 +21,8 @@ func ai() -> void:
 		elif Bt.health_precentage(HpSortedAllies[0]) <= 40 and has_type("Healing") and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
-		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 1 and has_type("Summon"):
-			print("I can summon an ally, dice roll: ", randi_range(-1, Bt.get_ally_faction(Char).size()))
+		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 0 and has_type("Summon"):
+			print("I can summon an ally")
 			choose(find_ability("Summon").pick_random())
 		else:
 			#print(Bt.health_precentage(HpSortedAllies[0]))

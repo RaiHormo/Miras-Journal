@@ -643,7 +643,11 @@ func move_menu():
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
-		target= TargetFaction[TargetIndex]
+		target = TargetFaction[TargetIndex]
+		if target.node == null:
+			Bt.fix_enemy_node_issues()
+			move_menu()
+			return
 		t.set_parallel()
 		t.tween_property(Cam, "position", Vector2(target.node.position.x,
 		target.node.position.y /4), 0.5)

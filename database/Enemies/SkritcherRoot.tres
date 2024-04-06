@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://b0haspr714s0g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://b0haspr714s0g"]
 
 [ext_resource type="SpriteFrames" uid="uid://desrc5r1bkfbx" path="res://art/BT/SkritcherRoot/SkritcherRootBT.tres" id="1_lsskt"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_w33vv"]
 [ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="1_wkiio"]
 [ext_resource type="Texture2D" uid="uid://dr8vij2jxgub0" path="res://art/Icons/Enemies/Plant.png" id="2_0pvgk"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_8gv1j"]
+[ext_resource type="Resource" uid="uid://dr48hmn1otdiw" path="res://database/Abilities/LeechSeeds.tres" id="2_y7wux"]
 [ext_resource type="Resource" uid="uid://dfwfci7qqogji" path="res://database/Abilities/Attacks/RemoteAttack.tres" id="5_orakj"]
 
 [resource]
@@ -38,7 +39,7 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_wkiio")])
+Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_wkiio"), ExtResource("2_y7wux")])
 StandardAttack = ExtResource("5_orakj")
 LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
 BT = ExtResource("1_lsskt")

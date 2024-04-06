@@ -548,6 +548,7 @@ CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(38
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1282.0
@@ -839,6 +840,7 @@ value = 30.0
 show_percentage = false
 
 [node name="Cursor" type="TextureRect" parent="CanvasLayer"]
+visible = false
 self_modulate = Color(0.909804, 0.909804, 0.909804, 1)
 offset_left = 385.0
 offset_top = 60.0
@@ -1271,8 +1273,6 @@ bus = &"UI"
 process_callback = 0
 autostart = true
 
-[connection signal="expand" from="." to="." method="_on_expand"]
-[connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Details" to="." method="details"]

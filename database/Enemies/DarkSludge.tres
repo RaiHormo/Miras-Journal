@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://7mrwuvwe5lbt"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://7mrwuvwe5lbt"]
 
 [ext_resource type="SpriteFrames" uid="uid://d1xgldxgwt31e" path="res://art/BT/DarkSludge/DarkSludgeBt.tres" id="1_aaqd2"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_l4uns"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="3_0322f"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_cony1"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="7_dv84l"]
+[ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="9_28irp"]
 
 [resource]
 script = ExtResource("2_o0ova")
@@ -25,7 +26,7 @@ CantDie = false
 IgnoreStates = false
 IsEnemy = true
 RecivedSP = 7
-SummonedAllies = Array[ExtResource("2_o0ova")]([ExtResource("7_dv84l")])
+SummonedAllies = Array[ExtResource("2_o0ova")]([ExtResource("7_dv84l"), ExtResource("9_28irp")])
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""

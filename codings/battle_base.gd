@@ -219,18 +219,18 @@ func entrance():
 				Global.textbox("entrance_banter", Seq.EntranceBanter)
 				while Global.textbox_open:
 					if $Cam.position.x > -30: $Cam.position.x -= 0.03
-					await Event.wait(false)
+					await Event.wait()
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
 		t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
 		t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
-		await get_tree().create_timer(0.3).timeout
+		await Event.wait(0.3, false)
 		$EnemyUI.all_enemy_ui(true)
 		if Loader.BtAdvantage == 1:
 			for i in Troop: damage(i, 1, false, 24/Troop.size())
-		await get_tree().create_timer(0.5).timeout
+		await Event.wait(0.5, false)
 	elif Seq.EntranceSequence == "":
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
@@ -242,10 +242,10 @@ func entrance():
 		for i in PartyArray:
 			entrance_anim(i)
 	Loader.battle_bars(2)
-	await get_tree().create_timer(0.5).timeout
+	await Event.wait(0.5, false)
 	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
 	PartyUI.battle_state(true)
-	await get_tree().create_timer(0.7).timeout
+	await Event.wait(0.7, false)
 	if Seq.EntranceSequence == "": next_turn.emit()
 
 func entrance_anim(i: Actor):
@@ -937,8 +937,9 @@ func _on_battle_ui_command():
 	anim("Command")
 
 func add_to_troop(en: Actor):
+	en = en.duplicate()
 	lock_turn = true
-	Troop.append(en.duplicate())
+	Troop.append(en)
 	dub = $Act/Actor0.duplicate()
 	dub.name = "Enemy" + str(Troop.size() -1)
 	$Act.add_child(dub)
@@ -951,10 +952,12 @@ func add_to_troop(en: Actor):
 	en.Health = en.MaxHP
 	en.Aura = en.MaxAura
 	dub.add_child(en.SoundSet.instantiate())
+	dub.material.set_shader_parameter("outline_enabled", false)
 	position_sprites()
 	sprite_init(en)
 	focus_cam(en, 0.3)
 	await Event.wait(1)
+	fix_enemy_node_issues()
 	position_sprites()
 	lock_turn = false
 
@@ -1061,3 +1064,11 @@ func random_target(ab: Ability):
 				return get_oposing_faction(CurrentChar).pick_random()
 			3:
 				return get_ally_faction(CurrentChar).pick_random()
+
+func fix_enemy_node_issues():
+	var i = 0
+	for j in Troop:
+		if j == null: continue
+		if $Act.get_node_or_null("Enemy"+str(i)) != null:
+			j.node = $Act.get_node_or_null("Enemy"+str(i))
+		i += 1

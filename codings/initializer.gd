@@ -7,4 +7,3 @@ func _ready() -> void:
 	else: Global.new_game()
 	PartyUI.disabled = false
 	PartyUI.visible = true
-

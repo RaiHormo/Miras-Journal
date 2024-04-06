@@ -94,7 +94,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(0.2).timeout
 	if not validate_save(filepath):
 		OS.alert("Save data is corrupt")
 		OS.set_restart_on_exit(true)
