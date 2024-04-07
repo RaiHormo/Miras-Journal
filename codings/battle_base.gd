@@ -98,6 +98,7 @@ func _ready():
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder:
 		sprite_init(i)
+		i.NextAction = ""
 	position_sprites()
 	turn_ui_init()
 	if Loader.Attacker != null: Loader.Attacker.hide()
@@ -294,7 +295,9 @@ func make_move():
 			GetControl.emit()
 		else:
 			$AI.ai()
-	else: confirm_next()
+	else:
+		print("Forced move")
+		confirm_next()
 
 func _on_ai_chosen():
 	confirm_next()
@@ -315,7 +318,7 @@ func confirm_next(action_anim = true):
 				await anim("Ability")
 				if timer.time_left != 0: await timer.timeout
 	if CurrentChar.NextTarget == null:
-		CurrentChar.NextTarget = random_target(CurrentAbility)
+		CurrentChar.NextTarget = random_target(CurrentChar.NextMove)
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
 
 func _input(event):
@@ -386,6 +389,7 @@ func callout(ab:Ability = CurrentAbility):
 	callout_onscreen = false
 
 func _on_battle_ui_ability_returned(ab :Ability, tar):
+	print("Using ", ab.name, " on ", tar.FirstName)
 	CurrentChar.NextAction = ""
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
@@ -973,9 +977,9 @@ func color_relation(attacker:Color, defender:Color) -> String:
 func relation_to_dmg_modifier(relation:String) -> float:
 	var base: float
 	var value_mod: float = remap(CurrentChar.MainColor.v, 0,1,2,1)
-	if relation == "op": base = 2 * value_mod
-	elif relation == "wk": base = 1.5 * value_mod
-	elif relation == "res": base = 0.5
+	if relation == "op": base = 1.5 * value_mod
+	elif relation == "wk": base = 1.25 * value_mod
+	elif relation == "res": base = 0.75
 	else: return 1
 	return round(base*10)/10
 
@@ -1030,7 +1034,7 @@ func health_precentage(chara: Actor) -> float:
 
 func on_state_add(state: State, chara: Actor):
 	if chara.Health != 0:
-		pop_num(chara, state.name, state.color)
+		if not state.is_stat_change: pop_num(chara, state.name, state.color)
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding":
@@ -1057,12 +1061,14 @@ func get_actor(codename: StringName) -> Actor:
 	return null
 
 func random_target(ab: Ability):
+	print("Target decided randomly")
 	match ab.Target:
-			0:
+			Ability.T.SELF:
 				return CurrentChar
-			1:
+			Ability.T.ONE_ENEMY:
 				return get_oposing_faction(CurrentChar).pick_random()
-			3:
+			Ability.T.ONE_ALLY:
+				print("a")
 				return get_ally_faction(CurrentChar).pick_random()
 
 func fix_enemy_node_issues():

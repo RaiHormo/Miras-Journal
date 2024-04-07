@@ -442,3 +442,8 @@ func pause_anim(node:Node2D = $Sprite):
 		if i is AnimatedSprite2D:
 			i.pause()
 			pause_anim(i)
+
+func flip_sprites(node: Node2D) -> void:
+	for i in node.get_children():
+		if i is Sprite2D: i.flip_h = true
+		if i.get_child_count() != 0: flip_sprites(i)

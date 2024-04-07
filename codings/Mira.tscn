@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=92 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
 [ext_resource type="Script" path="res://codings/player_movement.gd" id="2_d6ige"]
@@ -221,19 +221,23 @@ region = Rect2(32, 0, 32, 32)
 atlas = ExtResource("6_q0j1b")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g5ym8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdt3e"]
+atlas = ExtResource("6_q0j1b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e2xk"]
 atlas = ExtResource("6_q0j1b")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tcajf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0bnr"]
 atlas = ExtResource("6_q0j1b")
 region = Rect2(192, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4ha8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaibb"]
 atlas = ExtResource("6_q0j1b")
 region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5e0am"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bo08"]
 atlas = ExtResource("6_q0j1b")
 region = Rect2(256, 0, 32, 32)
 
@@ -494,20 +498,31 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1lau3")
 }, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_g5ym8")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdt3e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tcajf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m4ha8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5e0am")
+"texture": SubResource("AtlasTexture_6e2xk")
 }],
 "loop": false,
 "name": &"ReachOut",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e2xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0bnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaibb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bo08")
+}],
+"loop": false,
+"name": &"ReachOut2",
 "speed": 4.0
 }, {
 "frames": [{
@@ -634,6 +649,7 @@ texture_filter = 2
 [node name="Bag" type="AnimatedSprite2D" parent="Sprite"]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhZwpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9YmFnCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+visible = false
 light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
@@ -676,14 +692,11 @@ metadata/_aseprite_wizard_config_ = {
 [node name="Flame" type="AnimatedSprite2D" parent="Sprite"]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
-visible = false
 light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_spx3p")
-animation = &"FlameActive"
-frame = 5
-frame_progress = 1.0
+animation = &"ReachOut2"
 
 [node name="Shadow" type="Sprite2D" parent="."]
 unique_name_in_owner = true

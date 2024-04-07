@@ -1,10 +1,11 @@
-[gd_resource type="SpriteFrames" load_steps=124 format=3 uid="uid://5k4mw47d473r"]
+[gd_resource type="SpriteFrames" load_steps=139 format=3 uid="uid://5k4mw47d473r"]
 
 [ext_resource type="Texture2D" uid="uid://c8dtn4cmhytm0" path="res://art/Effects/AttackUp.png" id="1_hoxdm"]
 [ext_resource type="Texture2D" uid="uid://pcjpp1kv6ikg" path="res://art/Effects/FlameSpark.png" id="2_p3ktf"]
 [ext_resource type="Texture2D" uid="uid://ct5nw7bdwpx8p" path="res://art/Effects/LeechGrab.png" id="3_ssk4s"]
 [ext_resource type="Texture2D" uid="uid://bxxa222xgq1sr" path="res://art/Effects/Miss.png" id="4_tico2"]
 [ext_resource type="Texture2D" uid="uid://ojoi13731tjk" path="res://art/Effects/LeechSeeds.png" id="4_vxjuh"]
+[ext_resource type="Texture2D" uid="uid://dejhciq6a7i0s" path="res://art/Effects/MagicUp.png" id="5_a6ab4"]
 [ext_resource type="Texture2D" uid="uid://be0n3um15kpqc" path="res://art/Effects/needle.png" id="5_yp8i0"]
 [ext_resource type="Texture2D" uid="uid://cvdfgena8i7n5" path="res://art/Effects/Poisoned.png" id="6_twyms"]
 [ext_resource type="Texture2D" uid="uid://dmtqb4nxvtvuk" path="res://art/Effects/RemoteHit.png" id="7_iadep"]
@@ -203,6 +204,62 @@ region = Rect2(336, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_i1eea"]
 atlas = ExtResource("4_vxjuh")
 region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqhmi"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(0, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yvx3"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(116, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjunv"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(174, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y77pr"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(290, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_palmv"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(348, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yihw6"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(406, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uudmq"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(464, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icjg2"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(522, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aconm"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(580, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3ptm"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(638, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsjnu"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(696, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcqka"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(754, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxqxd"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(812, 0, 58, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rcqg"]
+atlas = ExtResource("5_a6ab4")
+region = Rect2(870, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7pm4"]
 atlas = ExtResource("4_tico2")
@@ -641,6 +698,53 @@ animations = [{
 "loop": false,
 "name": &"LeechSeeds",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqhmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yvx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjunv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y77pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_palmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yihw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uudmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icjg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aconm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3ptm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsjnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcqka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxqxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rcqg")
+}],
+"loop": false,
+"name": &"MagicUp",
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -74,7 +74,6 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 		else:
 			Char.NextAction = "Ability"
 	Char.NextMove=ab
-	print("Using ", ab.name, " on ", Char.NextTarget.FirstName)
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:

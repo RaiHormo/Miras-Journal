@@ -1273,6 +1273,8 @@ bus = &"UI"
 process_callback = 0
 autostart = true
 
+[connection signal="expand" from="." to="." method="_on_expand"]
+[connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Details" to="." method="details"]

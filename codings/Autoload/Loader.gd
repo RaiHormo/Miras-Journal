@@ -266,11 +266,12 @@ func detransition():
 	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
-	$Can.hide()
+	#$Can.hide()
 
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
-	if get_node_or_null("/root/Battle") != null: return
+	if get_node_or_null("/root/Battle") != null or InBattle: return
+	Loader.InBattle = true
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 	PartyUI.UIvisible = false

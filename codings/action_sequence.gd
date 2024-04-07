@@ -322,6 +322,15 @@ func AttackUp3():
 	Bt.anim()
 	Bt.end_turn()
 
+func MagicUp3():
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target)
+	await Bt.stat_change(&"Mag", Bt.CurrentAbility.Parameter, target, 3)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
 func ToxicSplash():
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -403,6 +412,8 @@ func FirstBattle1():
 	Bt.focus_cam(Bt.Troop[0], 0.1, 70)
 	Bt.zoom(6)
 	Loader.InBattle = true
+	Loader.get_node("Can").layer = 3
+	await Global.textbox("temple_woods_random", "first_cutscene")
 	Loader.battle_bars(4)
 	Global.Player.hide()
 	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
@@ -491,7 +502,7 @@ func AlcineWoods2():
 	Bt.get_actor("Alcine").NextMove = preload("res://database/Abilities/SoothingSpray.tres")
 	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
 	Bt.get_actor("Alcine").node.show()
-	await Event.wait(1)
+	await Event.wait(2)
 	Bt.end_turn()
 
 func AlcineWoods3():

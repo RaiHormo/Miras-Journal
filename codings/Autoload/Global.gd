@@ -520,8 +520,6 @@ func get_mmm(month: int) -> String:
 		12: return "Dec"
 	return "???"
 
-
-
 func get_month(day: int) -> int:
 	if day>0 and day<=30: return 11
 	else: return 0
@@ -558,10 +556,7 @@ func get_dir_name(d: Vector2 = PlayerDir) -> String:
 	else: return "Center"
 
 func in_360(nm) -> int:
-	var n = int(nm)
-	if n > 359: return n - 359
-	elif n < 0: return 359 + n
-	else: return n
+	return wrapi(nm, 0, 359)
 
 func alcine() -> String:
 	return find_member("Alcine").FirstName

@@ -164,8 +164,8 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 		else:
 			atk_stat = E.Attack * E.AttackMultiplier
 			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
-	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.5)"% [pow, atk_stat, Defence, DefenceMultiplier])
-	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.5)), 1))
+	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)"% [pow, atk_stat, Defence, DefenceMultiplier])
+	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.3)), 1))
 
 func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
 	if Health == 0: return

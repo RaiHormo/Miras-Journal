@@ -834,6 +834,11 @@ texture_scale = 2.0
 position = Vector2(775.117, 511.823)
 scale = Vector2(0.96, 1.21)
 script = ExtResource("9_plovl")
+Direction = Vector2(1, 0)
+Position = Vector2(1200, 461)
+Room = "TempleWoods"
+ToCamera = 1
+ToCameraIfFlag = 1
 
 [node name="Transfer2" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(1143.11, 461.739)

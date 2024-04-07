@@ -634,7 +634,6 @@ func get_target(faction:Array[Actor]):
 		await tr.finished
 
 func _on_ability_returned(ab:Ability, tar):
-	print("Using ", ab.name, " on ", tar.FirstName)
 	close()
 
 func move_menu():

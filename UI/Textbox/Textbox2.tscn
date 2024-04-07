@@ -477,7 +477,7 @@ script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"Dash"
 pause_at_characters = ".?!,"
-seconds_per_pause_step = 0.2
+seconds_per_pause_step = 0.5
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -528,7 +528,7 @@ text = "Response"
 layout_mode = 0
 offset_left = 342.0
 offset_top = 530.0
-offset_right = 401.0
+offset_right = 398.0
 offset_bottom = 570.0
 scale = Vector2(1.24951, 1.24951)
 theme_override_styles/panel = SubResource("StyleBoxFlat_cc2f1")

@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=50 format=3 uid="uid://diybsgyevylva"]
+[gd_resource type="SpriteFrames" load_steps=52 format=3 uid="uid://diybsgyevylva"]
 
 [ext_resource type="Texture2D" uid="uid://dycsbmy4t6nph" path="res://art/OV/Alcine/Alcineov-Sheet2.png" id="1_sbgir"]
+[ext_resource type="Texture2D" uid="uid://cucn8yjwga4qu" path="res://art/OV/Alcine/Scared.png" id="2_gma5m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gv2u"]
 atlas = ExtResource("1_sbgir")
@@ -145,6 +146,10 @@ region = Rect2(352, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hv76c"]
 atlas = ExtResource("1_sbgir")
 region = Rect2(384, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa3v2"]
+atlas = ExtResource("2_gma5m")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugra6"]
 atlas = ExtResource("1_sbgir")
@@ -341,6 +346,14 @@ animations = [{
 "loop": true,
 "name": &"IdleUp",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa3v2")
+}],
+"loop": true,
+"name": &"Scared",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

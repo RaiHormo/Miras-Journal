@@ -51,6 +51,7 @@ add_flag = false
 [resource]
 script = ExtResource("1_6ngvg")
 Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_uhysb")])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
@@ -59,6 +60,9 @@ ScenePosition = Vector2(1665, -1067)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
 VictorySequence = "AlcineWoods1"
 VictoryBanter = ""
+DefeatSequence = ""
 Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_eg56s"), SubResource("Resource_cbbvb"), SubResource("Resource_jw6e0")])

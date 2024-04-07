@@ -21,18 +21,22 @@ Mira.OpenMouth: Hey wait![next=2]
 
 ~ approach
 It seems scared of me...
+Maybe I should try talking to it.
 => END
 
 ~ im_not_gonna_harm_you
-Mira.Smile: Come on, it's all fine. I don't want to harm you.
+Mira.Neutural: Hey, you're not a monster are you?
+Mira.Smile: Don't worry, I mean no harm. 
 => END
 
-~ as_lost_as_you
-Mira.Neutural: I guess you're just as lost.
-Mira.OpenMouth: This forest is not safe, we should look for a way out.
+~ come_here
+Mira.Neutural: Come here!
 => END
 
 ~ haha
+Placeholder description: Mira pets the creature and they seem to like it.
+Placeholder description: Then the creature laches onto a fabric tied on Mira's bag.
+Mira.Neutural: Oh, this fabric?
 Mira.Smile: Haha, you can have that if you want!
 Mira.Smile: Here.
 => END
@@ -171,4 +175,35 @@ Mira.Neutural: Alright then {{alcine()}}, let's go together from here on.
 ~ a_bridge
 Mira.Neutural: Oh a bridge.
 Mira.Neutural: Seems like this is our way out of this forest.
+=> END
+
+~ first_cutscene
+Placeholder description: A cutscene that isn't made yet should play here.
+Placeholder description: Whenever a box like this appears, pretend you're seeing whatever is described on screen.
+Placeholder description: You see a paw walk through the grass.
+Placeholder description: The camera pans upwards to reveal a girl with an orange tunic and gray fur walking.
+Placeholder description: She stops and looks forward.
+Placeholder description: The camera cuts to a view of a forest next to a lake, and a tree in the middle.
+Placeholder description: The girl sits under the tree, leaving her bag next to her.
+Placeholder description: She opens the bag and takes a piece of paper. Then unfolds it.
+Placeholder description: Weird scribbles are on it. She turns it around and there's an empty page.
+Placeholder description: She opens a pen case in her bag and takes one pen.
+I don't even know what the date is.
+Today I woke up in the middle of this strange forest.
+I can't recall how I got here or what I'm doing here, my memory is a fog.
+Well, maybe that's not completly accurate, I can remember who I am at least.
+Mira Levenor, 19 year old Cyrenian who lives in Neortoria.
+I have to write that down in case I forget that too.
+Placeholder description: The camera pans up to the sky showing it's strange blurry color mix and lines across it.
+This place must be pretty far from my home, the sky looks very strange.
+Placeholder description: The camera cuts to the lake as Mira tries to take some water.
+Mira: (Sigh)
+Placeholder description: The water drops slowly from her arm like slime.
+Mira: This is definitely not drinkable...
+Placeholder description: The camera cuts to mira below the tree hugging her legs
+Mira: What can I even do?
+Placeholder description: As she sits there a tentacle looking thing reaches towards her.
+Mira: GAH!
+Placeholder description: Mira grabs the axe from her bag and slices the tentacle, which bursts with slime.
+Placeholder description: A monster emerges from the lake, as Mira takes a fighting stance.
 => END

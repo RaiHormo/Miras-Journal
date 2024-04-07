@@ -57,6 +57,12 @@ func on_confirm() -> void:
 	elif "erinn" in txt:
 		$Error.text = "Name them after my cousin?\n Why?"
 		$Error.show()
+	elif "enowme" in txt:
+		$Error.text = "..."
+		$Error.show()
+	elif "enowmi" in txt or "enomi" in txt:
+		$Error.text = "You think you're clever, huh?"
+		$Error.show()
 	elif "aaa" in txt:
 		$Error.text = "Seriously?"
 		$Error.show()

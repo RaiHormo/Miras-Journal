@@ -57,6 +57,7 @@ var dialogue_line: DialogueLine:
 		if Global.find_member(char_name) == null:
 			character_label.text = char_name
 		else: character_label.text = Global.find_member(char_name).FirstName
+		$Balloon/Panel.size.x = 1
 
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		if next_box == "": next_box = char_name

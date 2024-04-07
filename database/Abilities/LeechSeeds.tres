@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("1_wx06t")
 name = "Leech seeds"
-description = "Leeches one target, stealing a bit of their HP every turn."
+description = "Plants leeching seeds on one target, stealing a bit of their HP every turn."
 Icon = SubResource("AtlasTexture_8lsy7")
 ActionSequence = &"LeechSeeds"
 Type = "Curse"
