@@ -71,7 +71,6 @@ func _on_battle_get_control():
 	stage = &"root"
 	PrevStage = &"root"
 	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true
-	else: $Item.disabled = false
 	$Ability.add_theme_constant_override("icon_max_width", 0)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon

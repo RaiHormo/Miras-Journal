@@ -29,6 +29,7 @@ var callout_onscreen := false
 var lock_turn:= false
 var no_crits:= false
 var no_misses:= false
+var follow_up_next:= false
 
 func _ready():
 	Loader.battle_start.emit()
@@ -130,8 +131,10 @@ func speed_sort(a: Actor, b: Actor):
 		return false
 
 func turn_ui_init():
+	var entr = $Canvas/TurnOrderPop/Margin/List.get_child(0).duplicate()
+	for i in $Canvas/TurnOrderPop/Margin/List.get_children(): i.queue_free()
 	for i in TurnOrder:
-		var entr = $Canvas/TurnOrderPop/Margin/List.get_child(0).duplicate()
+		entr = entr.duplicate()
 		entr.get_node("Icon").texture = i.PartyIcon
 		entr.get_node("Name").text = i.FirstName
 		entr.set_meta("Actor", i)
@@ -255,15 +258,22 @@ func entrance_anim(i: Actor):
 	if i.node.animation == &"Entrance" or i.node.animation == &"Idle": anim("", i)
 
 func _on_next_turn():
-	if Troop.size() == 0:
-		victory()
-		return
+	if check_for_victory(): return
+	for i in TurnOrder:
+		if i.Aura == 0 and not i.has_state("AuraBreak"):
+			await i.add_state("AuraBreak")
+			if i != CurrentChar:
+				follow_up_next = true
 	#position_sprites()
 	Turn += 1
-	if TurnOrder.size() -1 <= TurnInd:
-		TurnInd = 0
+	if follow_up_next:
+		Global.toast("FOLLOW UP!")
+		follow_up_next = false
 	else:
-		TurnInd += 1
+		if TurnOrder.size() -1 <= TurnInd:
+			TurnInd = 0
+		else:
+			TurnInd += 1
 	CurrentChar = TurnOrder[TurnInd]
 	if CurrentChar.node == null:
 		_on_next_turn()
@@ -287,8 +297,17 @@ func _on_next_turn():
 	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
 	$Act.handle_states()
 
+func check_for_victory() -> bool:
+	var j = 0
+	for i in Troop:
+		if i.has_state("Knocked Out"): j += 1
+	if j == Troop.size() or Troop.size() == 0:
+		victory()
+		return true
+	else: return false
 
 func make_move():
+	if check_for_victory(): return
 	if CurrentChar.NextAction == "":
 		if CurrentChar.Controllable:
 			print("Control")
@@ -482,6 +501,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
 	var relation = color_relation(color, target.MainColor)
 	if elemental:
+		if target.has_state("AuraBreak"): relation = "op"
 		if relation == "wk": pop_num(target, "WEAK")
 		if relation == "op": pop_num(target, "WEAK!")
 		if relation == "res": pop_num(target, "RESIST")
@@ -491,7 +511,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 	var attacker = null if ignore_stats else CurrentChar
 	var dmg = target.calc_dmg(x * el_mod, is_magic, attacker)
 	target.damage(dmg, limiter)
-	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "":
+	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
 		$Act.call(target.SeqOnClutch, target)
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
@@ -507,16 +527,17 @@ overwrite_color: Color = Color.WHITE) -> int:
 		if target.CantDie:
 			target.Health = 1
 		else:
+			if target != CurrentChar and relation == "wk": follow_up_next = true
 			await death(target)
 			return dmg
-	if target.Health == 0 or target.has_state("KnockedOut"): return dmg
+	if target.Health == 0 or target.has_state("Knocked Out"): return dmg
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg*2)
 		else: target.add_aura(dmg)
 	else:
 		play_sound("Hit", target)
 		hit_animation(target)
-		if effect and elemental:
+		if effect and elemental and not target.has_state("AuraBreak"):
 			if el_mod > 1:
 				target.node.get_node("Particle").emitting = true
 			t = create_tween()
@@ -610,7 +631,7 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
-	if target == null or target.has_state("KnockedOut"): return
+	if target == null or target.has_state("Knocked Out"): return
 	lock_turn = true
 	target.States.clear()
 	target.node.get_node("State").play("None")
@@ -650,6 +671,7 @@ func death(target:Actor):
 	td.parallel().tween_property(
 		target.node.material, "shader_parameter/outline_color",
 		Color.TRANSPARENT, 0.5)
+	print(target.FirstName, " was defeated")
 	await td.finished
 	if target.node != null:
 		target.node.material.set_shader_parameter("outline_enabled", false)
@@ -731,11 +753,11 @@ func focus_cam(chara:Actor, time:float=0.5, offset=-40):
 func move(
 chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT,
 offset:Vector2 = Vector2.ZERO):
-	t = create_tween()
-	t.set_ease(mode)
-	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(chara.node, "position", pos + offset, time)
-	await t.finished
+	var tm = create_tween()
+	tm.set_ease(mode)
+	tm.set_trans(Tween.TRANS_QUART)
+	tm.tween_property(chara.node, "position", pos + offset, time)
+	await tm.finished
 	anim_done.emit()
 
 func heal(
@@ -957,12 +979,15 @@ func add_to_troop(en: Actor):
 	en.Aura = en.MaxAura
 	dub.add_child(en.SoundSet.instantiate())
 	dub.material.set_shader_parameter("outline_enabled", false)
+	TurnOrder.sort_custom(speed_sort)
+	TurnInd = TurnOrder.find(CurrentChar)
 	position_sprites()
 	sprite_init(en)
 	focus_cam(en, 0.3)
 	await Event.wait(1)
 	fix_enemy_node_issues()
 	position_sprites()
+	turn_ui_init()
 	lock_turn = false
 
 func color_relation(attacker:Color, defender:Color) -> String:

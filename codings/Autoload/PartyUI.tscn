@@ -1271,6 +1271,7 @@ bus = &"UI"
 
 [node name="StateTimer" type="Timer" parent="."]
 process_callback = 0
+wait_time = 12.0
 autostart = true
 
 [connection signal="expand" from="." to="." method="_on_expand"]

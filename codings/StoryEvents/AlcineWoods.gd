@@ -14,6 +14,7 @@ func default() -> void:
 		await move_dir(Vector2.UP)
 		Global.passive("temple_woods_random", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
+		Loader.save()
 		BodyState = CUSTOM
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
@@ -57,6 +58,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Event.wait(0.3)
 			Global.Player.BodyState = CUSTOM
 			Global.Player.set_anim("ReachOut")
+			Global.Player.position = round(Global.Player.position)
 			t = create_tween()
 			t.set_parallel()
 			t.set_ease(Tween.EASE_OUT)
@@ -70,10 +72,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Event.wait(0.5)
 			BodyState = CUSTOM
 			$Sprite.play("Scared")
+			position = round(position)
 			await $Sprite.animation_finished
 			await bubble("Question")
 			await Event.wait(1)
 			await Global.textbox("temple_woods_random", "im_not_gonna_harm_you")
+			round(position)
 			$Sprite.play("ScaredTurn")
 			await Event.wait(1)
 			Global.Player.get_node("%Flame").play("ReachOut2")
@@ -197,6 +201,7 @@ func after_battle():
 	t.tween_property(Global.get_cam(), "position", Global.Player.position - Vector2(18, 0), 1)
 	Event.take_control()
 	Global.Player.look_to(Vector2.LEFT)
+	Global.Player.position = Vector2(1619, -1068)
 	await Global.textbox("temple_woods_random", "got_through_that")
 	await Loader.transition("R")
 	hide()
@@ -208,4 +213,5 @@ func after_battle():
 	Loader.detransition()
 	PartyUI._on_shrink()
 	Event.give_control()
+	Event.pop_tutorial("party")
 	default()

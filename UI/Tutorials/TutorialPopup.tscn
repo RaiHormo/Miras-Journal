@@ -20,11 +20,11 @@ corner_radius_bottom_left = 24
 Panel/styles/panel = SubResource("StyleBoxFlat_v76g7")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcgxk"]
-content_margin_left = 48.0
+content_margin_left = 12.0
 content_margin_top = 18.0
-content_margin_right = 12.0
+content_margin_right = 32.0
 content_margin_bottom = 8.0
-bg_color = Color(0.921569, 0.921569, 0.921569, 1)
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_right = 18
 border_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 24
@@ -39,7 +39,21 @@ corner_radius_bottom_left = 25
 corner_detail = 1
 
 [node name="Control" type="CanvasLayer"]
+process_mode = 3
+layer = 2
 script = ExtResource("1_kw845")
+
+[node name="Fader" type="ColorRect" parent="."]
+visible = false
+show_behind_parent = true
+z_index = -39
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
 [node name="Border1" type="PanelContainer" parent="."]
 show_behind_parent = true
@@ -75,3 +89,56 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
+
+[node name="Border2" type="PanelContainer" parent="."]
+show_behind_parent = true
+offset_left = -434.0
+offset_top = 99.0
+offset_right = -134.0
+offset_bottom = 189.0
+theme = SubResource("Theme_77ie1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
+
+[node name="Text" type="RichTextLabel" parent="Border2"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 12
+theme_override_fonts/normal_font = ExtResource("3_c8w00")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="Border2"]
+layout_mode = 2
+
+[node name="Arrow" type="Panel" parent="Border2/Control"]
+layout_mode = 2
+offset_left = -25.0
+offset_top = 23.0
+offset_right = -7.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
+
+[node name="Border3" type="PanelContainer" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = 328.0
+offset_top = 294.0
+offset_right = 1011.0
+offset_bottom = 349.0
+theme = SubResource("Theme_77ie1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
+
+[node name="Text" type="RichTextLabel" parent="Border3"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 12
+theme_override_fonts/normal_font = ExtResource("3_c8w00")
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "In battles, each actor  takes turns"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2

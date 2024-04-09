@@ -835,8 +835,8 @@ position = Vector2(775.117, 511.823)
 scale = Vector2(0.96, 1.21)
 script = ExtResource("9_plovl")
 Direction = Vector2(1, 0)
-Position = Vector2(1200, 461)
-Room = "TempleWoods"
+Position = Vector2(1220, 461)
+room = "TempleWoods"
 ToCamera = 1
 ToCameraIfFlag = 1
 
@@ -845,12 +845,12 @@ position = Vector2(1143.11, 461.739)
 scale = Vector2(1.1, 1)
 Direction = Vector2(-1, 0)
 Position = Vector2(687, 506)
-Room = "TempleWoods"
+room = "TempleWoods"
 
 [node name="Transfer5" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(1950.6, -1731.45)
 Direction = Vector2(0, -1)
-Room = "Amberelm"
+room = "Amberelm"
 ToCamera = 1
 Flag = &"EnteredAmberelm2"
 
@@ -858,14 +858,14 @@ Flag = &"EnteredAmberelm2"
 position = Vector2(1258.84, -705.287)
 Direction = Vector2(0, -1)
 Position = Vector2(1272, -966)
-Room = "TempleWoods"
+room = "TempleWoods"
 ToCamera = 2
 
 [node name="Transfer4" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(1257.8, -864.287)
 Direction = Vector2(0, 1)
 Position = Vector2(1254, -640)
-Room = "TempleWoods"
+room = "TempleWoods"
 ToCamera = 1
 
 [node name="CS1Region" type="NavigationRegion2D" parent="."]

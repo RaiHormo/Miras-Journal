@@ -641,7 +641,7 @@ z_index = 4
 position = Vector2(12, 867)
 Direction = Vector2(0, 1)
 Position = Vector2(1955, -1580)
-Room = "TempleWoods"
+room = "TempleWoods"
 ToCamera = 2
 
 [node name="Splash" type="Area2D" parent="."]

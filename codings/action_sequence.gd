@@ -52,6 +52,9 @@ func handle_states():
 				chara.remove_state(state)
 				continue
 		match state.name:
+			"Aura Break":
+				if chara.Aura != 0:
+					chara.remove_state(state)
 			"Burned":
 				chara.node.get_node("State").play("Burned")
 				Bt.focus_cam(chara, 0.3)
@@ -394,8 +397,8 @@ func FlyAway(chara: Actor):
 	chara.node.flip_h = true
 	Bt.anim("Fly", chara)
 	Global.toast(chara.FirstName+" retreats from the battle")
-	await Bt.move(chara, Vector2(150, -150), 2)
-	await Event.wait(1, false)
+	Bt.move(chara, Vector2(150, -150), 2)
+	await Event.wait(2.5, false)
 	Bt.death(chara)
 #endregion
 
@@ -425,7 +428,9 @@ func FirstBattle1():
 	Bt.get_actor("Mira").node.animation = "Entrance"
 	Bt.get_actor("Mira").node.frame = 2
 	Bt.focus_cam(Bt.Troop[0], 2, 40)
-	await Event.wait(2)
+	await Event.wait(1)
+	Global.passive("temple_woods_random", "sstay_back")
+	await Event.wait(1)
 	Loader.InBattle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
@@ -465,7 +470,8 @@ func FirstBattle2():
 	Bt.move(CurrentChar, Vector2(50, 0), 0.2, Tween.EASE_OUT)
 	Bt.jump_to_target(CurrentChar, CurrentChar, Vector2(30, 0), 0.2)
 	Bt.anim("Hit")
-	await Event.wait(2)
+	Global.passive("temple_woods_random", "my_aura")
+	await Event.wait(5)
 	Bt.anim()
 	$"../BattleUI/Ability".disabled = false
 	$"../BattleUI/Attack".disabled = true
@@ -475,6 +481,8 @@ func FirstBattle3():
 	Bt.get_actor("Mira").Abilities[0].disabled = false
 	Bt.get_actor("CS").NextAction = "Ability"
 	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/SoulTap.tres")
+	Bt.lock_turn = true
+	Event.pop_tutorial("aura1")
 
 func FirstBattle4():
 	$"../BattleUI/Attack".disabled = false

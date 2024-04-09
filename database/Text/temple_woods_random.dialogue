@@ -157,6 +157,10 @@ elif alcine() == "Al":
 	Weird.
 elif alcine() == "Alcaine":
 	No, too far.
+elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":
+	Brazy.
+elif alcine() == "Creature":
+	Bit on the nose?
 else:
 	"{{alcine()}}". Should I go with this?
 - Use this name
@@ -206,4 +210,14 @@ Placeholder description: As she sits there a tentacle looking thing reaches towa
 Mira: GAH!
 Placeholder description: Mira grabs the axe from her bag and slices the tentacle, which bursts with slime.
 Placeholder description: A monster emerges from the lake, as Mira takes a fighting stance.
+=> END
+
+~ sstay_back
+Mira.Neutural: S-[wait=0.2]stay back...!
+=> END
+
+~ my_aura
+Mira.Neutural: My Aura...
+Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
+Mira.Neutural: Alright I think I've got this!
 => END

@@ -207,6 +207,7 @@ func remove_state(x):
 	States.erase(state)
 
 func has_state(x: String) -> bool:
+	x = x.capitalize()
 	for i in States.size():
 		if States[i-1].name == x:
 			return true

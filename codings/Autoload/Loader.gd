@@ -156,6 +156,7 @@ func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Gl
 	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos
+	print(camera_ind)
 	Global.CameraInd = camera_ind
 	scene = "res://rooms/" + sc + ".tscn"
 	if scene != "":

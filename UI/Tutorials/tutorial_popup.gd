@@ -4,6 +4,7 @@ func _ready():
 	if Global.device == "Touch": return
 	call(Event.tutorial)
 
+
 func pop_down():
 	var t= create_tween()
 	t.set_parallel()
@@ -35,6 +36,15 @@ func ov_attack():
 	await close()
 	queue_free()
 
+func party():
+	%Text.text = "[center]Press [img]" + (Global.get_controller().Select).resource_path + "[/img] to check on your party.[/center]"
+	await pop_down()
+	while not Input.is_action_pressed("PartyMenu"):
+		await Event.wait()
+		if Global.Controllable == false: break
+	await close()
+	queue_free()
+
 func walk():
 	if Global.device == "Keyboard":
 		%Text.text = "[center]Use the arrow keys to walk.[/center]"
@@ -43,6 +53,25 @@ func walk():
 	await Event.wait(4)
 	await close()
 	queue_free()
+
+func aura1():
+	await Event.wait(1, false)
+	#$Fader.color = Color(0,0,0,0.5)
+	Global.Bt.focus_cam(Global.Party.Leader)
+	$Border2.show()
+	$Border2.position = Vector2(290, 15)
+	$Border2/Text.text = "This is the Aura meter."
+	await await_input()
+	$Border2/Text.text = Global.colorize("It will be drained whenever a Magic Ability is used.")
+	await await_input()
+	$Border2/Text.text = Global.colorize("One way to recover it is using Mira's guard ability, which will increase her Aura meter when hit.").replace("guard", "Guard")
+	await await_input()
+	Global.Bt.lock_turn = false
+	queue_free()
+
+func await_input():
+	await Event.wait(0.5, false)
+	while not Input.is_action_pressed("ui_accept"): await Event.wait()
 
 func close():
 	var t= create_tween()

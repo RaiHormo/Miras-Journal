@@ -54,6 +54,8 @@ func _process(delta):
 		visibly = UIvisible
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
+	#else:
+		#if Global.ProcessFrame%20 == 0: _check_party()
 
 func show_all():
 	if disabled: return
@@ -564,16 +566,16 @@ func main_menu():
 		get_tree().paused = true
 		get_tree().root.add_child(MainMenu.instantiate())
 
-func cycle_states(chara: Actor, rect: TextureRect):
-	if rect.texture != null and rect.visible: return
-	var index:= 0
+func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):
+	if chara.States.is_empty(): rect.texture = null
+	elif chara.States.size() == 1: rect.texture = chara.States[0].icon
+	else:
+		var index:= wrapi($StateTimer.time_left, 0,  chara.States.size())
+		rect.texture = chara.States[index].icon
+		while chara.States.size() > 1 and reclude:
+			cycle_states(chara, rect, false)
+			await Event.wait(0.3, false)
 	rect.show()
-	while not chara.States.is_empty():
-		if index < chara.States.size(): rect.texture = chara.States[index].icon
-		await $StateTimer.timeout
-		index += 1
-		if index == chara.States.size(): index = 0
-	rect.texture = null
 
 func details():
 	if Expanded and not submenu_opened:
