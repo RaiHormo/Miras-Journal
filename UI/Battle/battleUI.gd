@@ -13,7 +13,7 @@ signal ability
 signal attack
 signal command
 signal item
-signal ability_returned(ab :Ability, tar)
+signal ability_returned(ab :Ability, tar: Actor)
 signal targeted
 signal targetFoc(ind :Actor)
 var target : Actor
@@ -743,18 +743,12 @@ func _on_ability_entry():
 				PrevStage="ability"
 				stage = &"target"
 				get_target(Bt.get_ally_faction())
-			Ability.T.SELF:
-				emit_signal("ability_returned", ab, CurrentChar)
-				close()
-			Ability.T.AOE_ALLIES:
-				emit_signal("ability_returned", ab, Bt.get_ally_faction())
-				close()
 			Ability.T.ANY:
 				PrevStage="ability"
 				stage = &"target"
 				get_target(Bt.TurnOrder)
 			_:
-				emit_signal("ability_returned", ab)
+				emit_signal("ability_returned", ab, CurrentChar)
 				close()
 
 func _on_confirm_pressed():

@@ -16,6 +16,8 @@ enum D {NONE, WEAK, MEDIUM, HEAVY, SEVERE, CUSTOM, WEAPON}
 ##0: Self, 1: One enemy, 2: AOE enemies, 3: One ally, 4 AOE allies
 enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 @export var Target: T = T.SELF
+@export var AOE_Stagger: float = 0
+@export var AOE_AdditionalSeq:= true
 
 @export var ColorSameAsActor := false
 @export_color_no_alpha var WheelColor :Color  = Color(1,1,1,1)
@@ -26,3 +28,7 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 
 @export var RecoverAura: bool = false
 @export var DmgVarience: bool = false
+
+func is_aoe() -> bool:
+	if Target == T.AOE_ALLIES or Target == T.AOE_ENEMIES: return true
+	else: return false

@@ -654,9 +654,7 @@ light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_u6lnn")
-animation = &"DenyUp"
-frame = 3
-frame_progress = 1.0
+animation = &"PickUpRight"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",
@@ -671,12 +669,11 @@ metadata/_aseprite_wizard_config_ = {
 [node name="Base" type="AnimatedSprite2D" parent="Sprite"]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
-visible = false
 light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"DashDownHit"
+animation = &"45angle"
 autoplay = "IdleDown"
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
@@ -692,6 +689,7 @@ metadata/_aseprite_wizard_config_ = {
 [node name="Flame" type="AnimatedSprite2D" parent="Sprite"]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+visible = false
 light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)

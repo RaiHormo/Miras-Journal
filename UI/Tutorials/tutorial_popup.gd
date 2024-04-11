@@ -10,7 +10,7 @@ func pop_down():
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property($Border1, "position", Vector2(-33, 622), 0.3).from(Vector2(-200, 622))
+	t.tween_property($Border1, "position", Vector2(0, 622), 0.3).from(Vector2(-200, 622))
 	t.tween_property($Border1, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	await t.finished
 
@@ -21,7 +21,7 @@ func dash():
 		await Event.wait()
 	await Event.wait(3)
 	await close()
-	%Text.text = "[center]Dashing allows you to jump through obstacles with enough momentum.[/center]"
+	%Text.text = "[center]By dashing you jump through obstacles.[/center]"
 	await pop_down()
 	await Event.wait(6)
 	await close()

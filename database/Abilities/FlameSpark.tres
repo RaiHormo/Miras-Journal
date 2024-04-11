@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gutkw"]
 atlas = ExtResource("1_ugs2e")
-region = Rect2(0, 0, 18, 18)
+region = Rect2(108, 36, 18, 18)
 filter_clip = true
 
 [resource]
@@ -20,7 +20,9 @@ HPCost = 0
 disabled = false
 Damage = 1
 Parameter = 0.0
-Target = 1
+Target = 2
+AOE_Stagger = 0.5
+AOE_AdditionalSeq = false
 ColorSameAsActor = false
 WheelColor = Color(0.909804, 0.482353, 0.2, 1)
 Callout = true

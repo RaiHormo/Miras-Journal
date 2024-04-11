@@ -221,3 +221,21 @@ Mira.Neutural: My Aura...
 Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
 Mira.Neutural: Alright I think I've got this!
 => END
+
+~ what_this
+Mira.Neutural: There might be more of these monster up ahead, I should be careful...
+do get_node("/root/Battle/Act/Actor0").hide()
+set Global.Player.position = get_node("/root/Battle/Act/Actor0").global_position
+do Global.Player.show()
+Mira.Neutural: Hm, what's that?
+do Global.Player.move_dir(Vector2(2, 0), true, false)
+do Event.wait(0.1)
+set Global.Player.BodyState = NPC.CUSTOM
+#do Global.Player.set_anim("PickUpRight", true, true)
+do Item.add_item("WhiteSlime", "Mat")
+do Event.wait(1)
+Mira.Neutural: This slime seems to contain some essence.
+do Global.Player.set_anim("IdleRight")
+set get_node("/root/Battle/Act/Actor0").global_position = Global.Player.position
+Mira.Neutural: I feel like it might prove useful.
+=> END

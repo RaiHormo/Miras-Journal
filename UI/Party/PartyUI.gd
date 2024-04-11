@@ -422,8 +422,8 @@ func check_member(mem:Actor, node:Panel, ind):
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
 	if get_node("%Pages/Page"+str(ind)+"/Render").texture != mem.RenderArtwork:
 		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
-		var shadow = make_shadow(mem.RenderShadow)
-		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = shadow
+		#var shadow = make_shadow()
+		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = mem.RenderShadow
 	get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = mem.PartyPage
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
 	node.get_node("Health").max_value = mem.MaxHP
@@ -525,6 +525,8 @@ func confirm_time_passage(title: String, description: String, to_time: int, acti
 	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time, action_id)
 
 func cmd():
+	Event.f("DisableMenus", false)
+	PartyUI.disabled = false
 	if not $CanvasLayer/TextEdit.visible:
 		print(Event.Flags)
 		$CanvasLayer/TextEdit.show()

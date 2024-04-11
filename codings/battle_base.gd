@@ -30,6 +30,7 @@ var lock_turn:= false
 var no_crits:= false
 var no_misses:= false
 var follow_up_next:= false
+var aoe_returns:= 0
 
 func _ready():
 	Loader.battle_start.emit()
@@ -407,17 +408,13 @@ func callout(ab:Ability = CurrentAbility):
 	await tc.finished
 	callout_onscreen = false
 
-func _on_battle_ui_ability_returned(ab :Ability, tar):
+func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	print("Using ", ab.name, " on ", tar.FirstName)
 	CurrentChar.NextAction = ""
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
 	CurrentAbility = ab
-	if tar is Array[Actor]:
-		CurrentTargets = tar
-		CurrentTarget = tar[0]
-	else:
-		CurrentTarget = tar
+	CurrentTarget = tar
 	if ab == null:
 		end_turn()
 		return
@@ -445,6 +442,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar):
 			$BattleUI.emit_signal("targetFoc", CurrentChar)
 	if CurrentChar.IsEnemy:
 		$BattleUI.emit_signal("targetFoc", CurrentChar)
+	elif ab.Target == 2: $EnemyUI.all_enemy_ui()
 	if ab.ActionSequence != &"":
 		CurrentChar.add_aura(-CurrentAbility.AuraCost)
 		if CurrentAbility.Callout and CurrentChar.Controllable:
@@ -477,8 +475,12 @@ func return_cur(target:Actor = CurrentChar):
 	tc.tween_property(target.node, "position", initial, 0.2)
 	await tc.finished
 
-func end_turn():
+func end_turn(confirm_aoe:= false):
 	Global.check_party.emit()
+	if CurrentAbility.is_aoe() and not confirm_aoe:
+		aoe_returns += 1
+		return
+	aoe_returns = 0
 	if Seq.check_events():
 		await Seq.call_events()
 	Seq.reset_events()
@@ -588,8 +590,8 @@ func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO, flip_on_player_
 
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
-	if CurrentAbility != null and CurrentAbility.Target == 0:
-		return 0
+	#if CurrentAbility != null and CurrentAbility.Target == 0:
+		#return 0
 	if target.IsEnemy:
 		return -num
 	else:
@@ -702,6 +704,12 @@ func get_oposing_faction(act: Actor = CurrentChar):
 	if act.IsEnemy: return PartyArray
 	else: return Troop
 
+func get_target_faction() -> Array[Actor]:
+	match CurrentAbility.Target:
+		Ability.T.AOE_ALLIES: return get_ally_faction()
+		Ability.T.AOE_ENEMIES: return get_oposing_faction()
+		_: return [CurrentTarget]
+
 func hp_sort(a:Actor, b:Actor):
 	if a.Health==0:
 		return false
@@ -741,13 +749,13 @@ func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
 	t=create_tween()
 	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
 
-func focus_cam(chara:Actor, time:float=0.5, offset=-40):
+func focus_cam(chara:Actor, time:float=0.5, offset=30):
 	if chara.node == null: return
 	var tc = create_tween()
 	tc.set_ease(Tween.EASE_IN_OUT)
 	tc.set_trans(Tween.TRANS_QUART)
 	tc.tween_property($Cam, "position", Vector2(
-		chara.node.position.x - offsetize(offset),chara.node.position.y /2), time)
+		chara.node.position.x + offsetize(offset, chara),chara.node.position.y /2), time)
 	await tc.finished
 
 func move(
