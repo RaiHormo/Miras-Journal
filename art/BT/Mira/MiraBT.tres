@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=131 format=3 uid="uid://betyaul8nc6fe"]
+[gd_resource type="SpriteFrames" load_steps=130 format=3 uid="uid://betyaul8nc6fe"]
 
 [ext_resource type="Texture2D" uid="uid://dwmfsk8kaksvw" path="res://art/BT/Mira/Ability.png" id="1_olfb7"]
 [ext_resource type="Texture2D" uid="uid://c6jhbwfqv5kjs" path="res://art/BT/Mira/Attack.png" id="2_3x432"]
@@ -228,17 +228,13 @@ region = Rect2(228, 0, 57, 57)
 atlas = ExtResource("3_ywd34")
 region = Rect2(285, 0, 57, 57)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bhwfl"]
-atlas = ExtResource("3_ywd34")
-region = Rect2(456, 0, 57, 57)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps46u"]
+atlas = ExtResource("2_gym3n")
+region = Rect2(285, 0, 57, 57)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u1yxd"]
-atlas = ExtResource("3_ywd34")
-region = Rect2(399, 0, 57, 57)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fdqam"]
-atlas = ExtResource("3_ywd34")
-region = Rect2(342, 0, 57, 57)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcaun"]
+atlas = ExtResource("2_gym3n")
+region = Rect2(171, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iw03d"]
 atlas = ExtResource("4_j4f16")
@@ -696,14 +692,11 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qpfwr")
 }, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_bhwfl")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps46u")
 }, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_u1yxd")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_fdqam")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcaun")
 }],
 "loop": false,
 "name": &"Entrance",
