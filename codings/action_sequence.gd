@@ -12,6 +12,7 @@ var Turn: int
 var miss
 var crit
 signal states_handled
+signal additional_done
 
 func play(nam, tar):
 	TurnOrder = get_parent().TurnOrder
@@ -35,6 +36,7 @@ func play_aoe(nam):
 	if Bt.CurrentAbility.AOE_AdditionalSeq:
 		roll_rng(CurrentChar)
 		call(nam, CurrentChar)
+		await additional_done
 	for i in Bt.get_target_faction():
 		roll_rng(i)
 		call(nam, i)
@@ -74,6 +76,7 @@ func handle_states():
 			"Burned":
 				chara.node.get_node("State").play("Burned")
 				Bt.focus_cam(chara, 0.3)
+				Bt.play_sound("BurnWoosh", chara)
 				Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
 				await get_tree().create_timer(0.8).timeout
 			"Poisoned":
@@ -305,7 +308,7 @@ func Summon(target: Actor):
 	Bt.end_turn()
 
 func SoulTap(target: Actor):
-	Bt.zoom(5)
+	Bt.zoom(6)
 	Bt.focus_cam(target, 1)
 	Bt.anim("Cast", CurrentChar)
 	Bt.play_effect("SoulTap", target)
@@ -375,17 +378,35 @@ func LeechSeeds(target: Actor):
 	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()
+
+func HeatWave(target: Actor):
+	if target == CurrentChar:
+		Bt.focus_cam(CurrentChar)
+		Bt.zoom(6, 0.3)
+		Bt.anim("Cast")
+		await Event.wait(1)
+		Bt.play_effect("HeatWave", Vector2(50, 0))
+		Bt.play_sound("WindShort")
+		Bt.move_cam(Vector2(40, 0), 1)
+		Bt.zoom(5, 1)
+		await Event.wait(1)
+		additional_done.emit()
+		await Event.wait(1)
+		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Burned").is_empty():
+			Global.toast("Nothing happened.")
+			await Event.wait(1)
+		Bt.anim()
+	else:
+		if target.has_state("Burned"):
+			await Bt.shake_actor(target)
+			Bt.screen_shake(5)
+			Bt.play_sound("BurnWoosh", target)
+			Bt.damage(target, true, true)
+		elif crit:
+			target.add_state("Burned")
+	Bt.end_turn()
 #endregion
 
-#func HeatWave(target: Actor):
-	#for target in Bt.get_target_faction():
-		#roll_rng(target)
-		#if target.has_state("Burned"):
-			#Bt.damage(target)
-		#elif crit:
-			#target.add_state("Burned")
-		#await Event.wait(0.5)
-	#Bt.end_turn()
 ################################################
 
 #region Items
@@ -520,6 +541,7 @@ func FirstBattle5():
 	$"../EnemyUI".hide()
 	get_tree().paused = false
 	Loader.InBattle = false
+	Bt.get_actor("Mira").DontIdle = false
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)
 	Bt.victory_anim(Global.Party.Leader)

@@ -1869,9 +1869,7 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"MagicUp"
-frame = 13
-frame_progress = 1.0
+animation = &"HeatWave"
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -2851,6 +2849,11 @@ theme = SubResource("Theme_t73mt")
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fkhdn")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Stream0" type="AudioStreamPlayer2D" parent="Audio"]
+bus = &"BtSFX"
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 layer = 3

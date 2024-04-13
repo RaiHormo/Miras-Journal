@@ -474,6 +474,7 @@ func colorize(str: String) -> String:
 		str = colorize_replace(elname.capitalize(), str, i)
 		str = colorize_replace(state_element_verbing(elname), str, i)
 		str = colorize_replace(state_element_verbs(elname), str, i)
+		str = colorize_replace(state_element_verbed(elname), str, i)
 		str = colorize_replace(state_element_verb(elname), str, i)
 	return str
 
@@ -564,13 +565,13 @@ func alcine() -> String:
 func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
 	var base: int
 	match ab.Damage:
-		0: base = 0
-		1: base = 12
-		2: base = 24
-		3: base = 48
-		4: base = 96
-		5: base = int(ab.Parameter)
-		6: base = chara.WeaponPower if chara != null else Bt.CurrentChar.WeaponPower
+		Ability.D.NONE: base = 0
+		Ability.D.WEAK: base = 12
+		Ability.D.MEDIUM: base = 24
+		Ability.D.HEAVY: base = 48
+		Ability.D.SEVERE: base = 96
+		Ability.D.CUSTOM: base = int(ab.Parameter)
+		Ability.D.WEAPON: base = chara.WeaponPower if chara != null else Bt.CurrentChar.WeaponPower
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
 	return base
@@ -607,6 +608,23 @@ func state_element_verbs(str: String) -> String:
 		"defence": return "guards"
 		"attack": return "knocks out"
 		"magic": return "breaks their Aura"
+	return str
+
+func state_element_verbed(str: String) -> String:
+	match str:
+		"heat": return "burned"
+		"wind": return "launched"
+		"corruption": return "poisoned"
+		"spiritual": return "confused"
+		"cold": return "freezed"
+		"technical": return "deflected"
+		"physical": return "binded"
+		"liquid": return "soaked"
+		"heat": return "burned"
+		"natural": return "leeched"
+		"defence": return "guarded"
+		"attack": return "knocked out"
+		"magic": return "Aura broken"
 	return str
 
 func state_element_verbing(str: String) -> String:

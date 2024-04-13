@@ -360,7 +360,6 @@ func _input(event):
 		print(relation_to_dmg_modifier(color_relation(CurrentChar.MainColor,
 		$BattleUI.target.MainColor)))
 
-
 func _on_battle_ui_ability():
 	if CurrentChar.node == null: return
 	if $BattleUI.PrevStage == "root":
@@ -495,7 +494,7 @@ func end_turn(confirm_aoe:= false):
 	next_turn.emit()
 
 func damage(
-target: Actor, is_magic:= false, elemental:= false,
+target: Actor, is_magic:= CurrentAbility.Damage != Ability.D.WEAPON, elemental:= false,
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
 overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
@@ -536,10 +535,10 @@ overwrite_color: Color = Color.WHITE) -> int:
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg*2)
 		else: target.add_aura(dmg)
-	else:
+	elif effect:
 		play_sound("Hit", target)
 		hit_animation(target)
-		if effect and elemental and not target.has_state("AuraBreak"):
+		if elemental and not target.has_state("AuraBreak"):
 			if el_mod > 1:
 				target.node.get_node("Particle").emitting = true
 			t = create_tween()
@@ -577,13 +576,14 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
 	await t.finished
 
-func play_effect(stri: String, tar:Actor, offset = Vector2.ZERO, flip_on_player_use:= false, dont_free:= false):
+func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= false, dont_free:= false):
 	if $Act/Effects.sprite_frames.has_animation(stri):
+		if tar is Actor: tar = tar.node.position
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
 		ef.name = stri
 		$Act.add_child(ef)
-		ef.position = tar.node.position + offset
+		ef.position = tar + offset
 		ef.play(stri)
 		await ef.animation_finished
 		if not dont_free: ef.queue_free()
@@ -624,9 +624,19 @@ func pop_num(target:Actor, text, color: Color = Color.WHITE):
 		if number!=null:
 			number.queue_free()
 
-func play_sound(SoundName: String, act: Actor):
-	if act.node.get_node("SFX").has_node(SoundName):
-		act.node.get_node("SFX").get_node(SoundName).play()
+func play_sound(SoundName: String, act: Actor = null, volume: float = 0):
+	var player
+	if act != null and act.node.get_node("SFX").has_node(SoundName):
+		player = act.node.get_node("SFX").get_node(SoundName)
+	else:
+		player = $Audio/Stream0.duplicate()
+		$Audio.add_child(player)
+		player.stream = await Loader.load_res("res://sound/SFX/Battle/"+SoundName+".ogg")
+		if act != null: player.global_position = act.node.global_position
+	player.play()
+	player.volume_db = volume
+	await player.finished
+	if player.get_parent() == $Audio: player.queue_free()
 
 func stop_sound(SoundName: String, act: Actor):
 	if act.node.get_node("SFX").has_node(SoundName):
@@ -751,16 +761,17 @@ func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
 
 func focus_cam(chara:Actor, time:float=0.5, offset=30):
 	if chara.node == null: return
+	await move_cam(Vector2(chara.node.position.x + offsetize(offset, chara), chara.node.position.y /2), time)
+
+func move_cam(pos: Vector2, time:float=0.5):
 	var tc = create_tween()
 	tc.set_ease(Tween.EASE_IN_OUT)
 	tc.set_trans(Tween.TRANS_QUART)
-	tc.tween_property($Cam, "position", Vector2(
-		chara.node.position.x + offsetize(offset, chara),chara.node.position.y /2), time)
+	tc.tween_property($Cam, "position", pos, time)
 	await tc.finished
 
-func move(
-chara:Actor, pos:Vector2, time:float, mode:Tween.EaseType = Tween.EASE_IN_OUT,
-offset:Vector2 = Vector2.ZERO):
+func move(chara:Actor, pos:Vector2, time:float,
+mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 	var tm = create_tween()
 	tm.set_ease(mode)
 	tm.set_trans(Tween.TRANS_QUART)
@@ -1023,10 +1034,11 @@ func relation_to_aura_dmg(relation:String, dmg: int) -> int:
 	else: return 0
 
 func zoom(am:float = 5, time = 0.5, ease := Tween.EASE_IN_OUT):
-	t = create_tween()
-	t.set_ease(ease)
-	t.tween_property($Cam, "zoom", Vector2(am,am), time)
-	await t.finished
+	var tc = create_tween()
+	tc.set_ease(ease)
+	tc.set_trans(Tween.TRANS_QUART)
+	tc.tween_property($Cam, "zoom", Vector2(am,am), time)
+	await tc.finished
 
 func _on_battle_ui_item() -> void:
 	await anim("Bag")
@@ -1111,3 +1123,10 @@ func fix_enemy_node_issues():
 		if $Act.get_node_or_null("Enemy"+str(i)) != null:
 			j.node = $Act.get_node_or_null("Enemy"+str(i))
 		i += 1
+
+func filter_actors_by_state(input: Array[Actor], state: String) -> Array[Actor]:
+	var rtn: Array[Actor] = []
+	for i in input:
+		if i.has_state(state):
+			rtn.append(i)
+	return rtn

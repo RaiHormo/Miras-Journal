@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("1_xawne")
 name = "Inner focus"
-description = "Boosts one's Magic by 1.5x for 3 turns."
+description = "Doubles the user's Magic by for 3 turns."
 Icon = SubResource("AtlasTexture_0u6t4")
 ActionSequence = &"MagicUp3"
 Type = "MagBuff"
@@ -21,6 +21,8 @@ disabled = false
 Damage = 0
 Parameter = 1.0
 Target = 0
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
 ColorSameAsActor = false
 WheelColor = Color(0.352941, 0.407843, 0.87451, 1)
 Callout = true

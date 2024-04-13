@@ -30,7 +30,9 @@ func _ready() -> void:
 	$Pack.hide()
 
 func _process(delta: float) -> void:
-	if Loader.InBattle: return
+	if Loader.InBattle:
+		pack.hide()
+		return
 	if Event.check_flag(hide_on_flag):
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()

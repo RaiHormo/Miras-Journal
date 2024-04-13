@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://df68pmn61dgr1"
+path="res://.godot/imported/HeatWave.aseprite-084565083ff189221d33847014e1270a.res"
+
+[deps]
+
+source_file="res://art/Effects/HeatWave.aseprite"
+dest_files=["res://.godot/imported/HeatWave.aseprite-084565083ff189221d33847014e1270a.res"]
+
+[params]
+

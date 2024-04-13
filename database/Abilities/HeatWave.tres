@@ -11,20 +11,23 @@ filter_clip = true
 [resource]
 script = ExtResource("2_pelke")
 name = "Heat wave"
-description = "Deals weak Heat damage to all burned enemies. Chance of burning non-burned enemies."
+description = "Medium Heat damage to all burned enemies. 
+Low chance of burning others."
 Icon = SubResource("AtlasTexture_p5ac4")
 ActionSequence = &"HeatWave"
 Type = "BigAttack"
-AuraCost = 5
+AuraCost = 8
 HPCost = 0
 disabled = false
-Damage = 1
+Damage = 2
 Parameter = 0.0
 Target = 2
+AOE_Stagger = 0.1
+AOE_AdditionalSeq = true
 ColorSameAsActor = false
 WheelColor = Color(0.909804, 0.482353, 0.2, 1)
 Callout = true
 SucessChance = 1.0
 CritChance = 0.2
 RecoverAura = false
-DmgVarience = true
+DmgVarience = false
