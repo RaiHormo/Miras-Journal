@@ -91,6 +91,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false):
 	if not FileAccess.file_exists(filepath): await save()
 	print("Loading " + filepath)
 	transition("")
+	if Global.Bt != null: Global.Bt.free()
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -143,7 +144,7 @@ func load_res(path:String):
 	load_failed = false
 	loaded_resource = path
 	ResourceLoader.load_threaded_request(path)
-	loading_thread=true
+	loading_thread = true
 	await thread_loaded
 	if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)

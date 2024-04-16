@@ -334,7 +334,7 @@ format = 2
 layer_0/name = "Obj3"
 layer_0/y_sort_enabled = true
 layer_0/z_index = 7
-layer_0/tile_data = PackedInt32Array(1048571, 720898, 5, 1114107, 720898, 5, 1179643, 720898, 5, 1048572, 720898, 5, 1114108, 720898, 5, 1179644, 720898, 5, 1048573, 720898, 5, 1114109, 720898, 5, 1179645, 720898, 5, 1048574, 655362, 268435461, 1114110, 655362, 268435461, 1179646, 655362, 268435461, 1048590, 262147, 3, 983047, 524291, 3, 917507, 3, 5, 720910, 655362, 268435461, 720909, 655362, 5, 655373, 655362, 5, 589837, 655362, 5, 524301, 655362, 5, 458765, 655362, 5, 655374, 655362, 268435461, 589838, 655362, 268435461, 524302, 655362, 268435461, 458766, 655362, 268435461, 393229, 655362, 4, 327693, 655362, 3, 262157, 720898, 3, 196621, 720898, 3, 393230, 655362, 268435460, 327694, 655362, 268435459, 262158, 655362, 268435459, 196622, 655362, 268435459, 262156, 720898, 4, 262155, 720898, 4, 262154, 720898, 4, 262153, 720898, 4, 262152, 720898, 4, 262151, 720898, 4, 196620, 720898, 3, 196619, 720898, 3, 196618, 720898, 3, 196617, 720898, 3, 196616, 720898, 3, 196615, 720898, 3, 196614, 720898, 3, 262150, 720898, 4, 262149, 655362, 4, 196613, 655362, 3, 589834, 655363, 7, 786446, 983043, 12, 196604, 917504, 4, 196605, 917504, 1, 196606, 917504, 1, 196607, 917504, 1, 131072, 983040, 1, 524289, 851968, 1, 524290, 917504, 1, 524291, 917504, 1, 524292, 983040, 1, 131077, 851968, 1, 131078, 917504, 1, 131079, 917504, 1, 131080, 917504, 1, 131081, 917504, 1, 131082, 917504, 1, 131083, 917504, 1, 131084, 917504, 1, 131085, 917504, 1, 131086, 983040, 1, 262140, 786432, 1, 327676, 786432, 1, 393212, 786432, 1, 458748, 786432, 1, 524284, 786432, 1, 589820, 786432, 1, 655356, 786432, 1, 720892, 786432, 1, 786428, 786432, 1, 851964, 786432, 1, 917500, 851968, 4, 196603, 851968, 1)
+layer_0/tile_data = PackedInt32Array(1048571, 720898, 5, 1114107, 720898, 5, 1179643, 720898, 5, 1048572, 720898, 5, 1114108, 720898, 5, 1179644, 720898, 5, 1048573, 720898, 5, 1114109, 720898, 5, 1179645, 720898, 5, 1048574, 655362, 268435461, 1114110, 655362, 268435461, 1179646, 655362, 268435461, 1048590, 262147, 3, 983047, 524291, 3, 917507, 3, 5, 720910, 655362, 268435461, 720909, 655362, 5, 655373, 655362, 5, 589837, 655362, 5, 524301, 655362, 5, 458765, 655362, 5, 655374, 655362, 268435461, 589838, 655362, 268435461, 524302, 655362, 268435461, 458766, 655362, 268435461, 393229, 655362, 4, 327693, 655362, 3, 262157, 720898, 3, 196621, 720898, 3, 393230, 655362, 268435460, 327694, 655362, 268435459, 262158, 655362, 268435459, 196622, 655362, 268435459, 262156, 720898, 4, 262155, 720898, 4, 262154, 720898, 4, 262153, 720898, 4, 262152, 720898, 4, 262151, 720898, 4, 196620, 720898, 3, 196619, 720898, 3, 196618, 720898, 3, 196617, 720898, 3, 196616, 720898, 3, 196615, 720898, 3, 196614, 720898, 3, 262150, 720898, 4, 262149, 655362, 4, 196613, 655362, 3, 589834, 655363, 7, 786446, 983043, 12, 196604, 917504, 4, 196605, 917504, 1, 196606, 917504, 1, 196607, 917504, 1, 131072, 983040, 1, 524289, 851968, 1, 524290, 917504, 1, 524291, 917504, 1, 524292, 983040, 1, 131077, 851968, 1, 131078, 917504, 1, 131079, 917504, 1, 131080, 917504, 1, 131081, 917504, 1, 131082, 917504, 1, 131083, 917504, 1, 131084, 917504, 1, 131085, 917504, 1, 131086, 983040, 1, 262140, 786432, 1, 327676, 786432, 1, 393212, 786432, 1, 458748, 786432, 1, 524284, 786432, 1, 589820, 786432, 1, 655356, 786432, 1, 720892, 786432, 1, 786428, 786432, 1, 851964, 786432, 1, 917500, 851968, 4, 196603, 851968, 1, 983036, 720896, 2, 983038, 851968, 3, 262145, 393220, 9)
 layer_1/name = "Env3"
 layer_1/z_index = 6
 layer_1/tile_data = PackedInt32Array(983050, 589827, 0, 655365, 589827, 0, 720895, 1048579, 0, 655370, 327683, 14)
@@ -590,6 +590,13 @@ Height = 5
 [node name="CollisionShape2D" parent="Sign" index="0"]
 position = Vector2(-1, 8)
 
+[node name="Gap" parent="." instance=ExtResource("5_3ycob")]
+position = Vector2(37, 99)
+ActionType = "text"
+file = "amberelm_txt"
+title = "day10_gap"
+Height = 5
+
 [node name="RestTree" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(106, 344)
 LabelText = "Rest"
@@ -656,6 +663,66 @@ text = "Amberelm"
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_piqdh")
 
+[node name="RestAmberelm" type="Node2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(66, 360)
+
+[node name="Mira" type="CharacterBody2D" parent="RestAmberelm"]
+z_index = 5
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("8_spg60")
+ID = "MiraCut"
+CameraIndex = 1
+
+[node name="Sprite" type="AnimatedSprite2D" parent="RestAmberelm/Mira"]
+texture_filter = 1
+position = Vector2(13, -8)
+sprite_frames = ExtResource("10_rs8em")
+animation = &"SitDown"
+
+[node name="Nav" type="NavigationAgent2D" parent="RestAmberelm/Mira"]
+
+[node name="Bubble" type="AnimatedSprite2D" parent="RestAmberelm/Mira"]
+light_mask = 0
+material = ExtResource("10_bma1q")
+position = Vector2(-1.40667e-05, -30)
+sprite_frames = ExtResource("11_l4igp")
+animation = &"Surprise"
+frame = 14
+frame_progress = 1.0
+
+[node name="Alcine" type="CharacterBody2D" parent="RestAmberelm"]
+z_index = 3
+position = Vector2(34, -13)
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("8_spg60")
+ID = "AlcineCut"
+CameraIndex = 1
+
+[node name="Sprite" type="AnimatedSprite2D" parent="RestAmberelm/Alcine"]
+z_index = 4
+texture_filter = 1
+position = Vector2(-1, -1)
+sprite_frames = ExtResource("12_ylbqp")
+animation = &"IdleDown"
+
+[node name="Nav" type="NavigationAgent2D" parent="RestAmberelm/Alcine"]
+
+[node name="Bubble" type="AnimatedSprite2D" parent="RestAmberelm/Alcine"]
+light_mask = 0
+z_index = 3
+material = ExtResource("10_bma1q")
+position = Vector2(-1.00001, -16)
+sprite_frames = ExtResource("11_l4igp")
+animation = &"Excited"
+frame = 12
+frame_progress = 1.0
+
 [node name="EntranceCutscene" type="Node2D" parent="."]
 
 [node name="Mira" type="CharacterBody2D" parent="EntranceCutscene"]
@@ -686,7 +753,7 @@ frame_progress = 1.0
 
 [node name="Alcine" type="CharacterBody2D" parent="EntranceCutscene"]
 z_index = 3
-position = Vector2(299, 1359)
+position = Vector2(299, 1354)
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
@@ -734,6 +801,13 @@ y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xmikp")
 animation = &"IdleWind"
+
+[node name="SharpRock2" parent="." instance=ExtResource("14_15y50")]
+z_index = 6
+z_as_relative = false
+position = Vector2(-57, 327)
+item_type = &"Bti"
+item_name = "SharpRock"
 
 [connection signal="area_entered" from="Stairs1" to="Stairs1" method="_on_body_entered"]
 [connection signal="area_exited" from="Stairs1" to="Stairs1" method="_on_body_exited"]

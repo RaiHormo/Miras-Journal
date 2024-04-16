@@ -261,7 +261,7 @@ func entrance_anim(i: Actor):
 func _on_next_turn():
 	if check_for_victory(): return
 	for i in TurnOrder:
-		if i.Aura == 0 and not i.has_state("AuraBreak"):
+		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("KnockedOut"):
 			await i.add_state("AuraBreak")
 			if i != CurrentChar:
 				follow_up_next = true
@@ -498,6 +498,9 @@ target: Actor, is_magic:= CurrentAbility.Damage != Ability.D.WEAPON, elemental:=
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
 overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
+	if target.has_state_that_protects():
+		pop_num(target, "BLOCKED")
+		return 0
 	var el_mod: float = 1
 	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
 	var relation = color_relation(color, target.MainColor)
@@ -554,6 +557,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 			"shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 			await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
+	target.DamageRecivedThisTurn += dmg
 	return dmg
 
 func hit_animation(tar):
@@ -643,10 +647,9 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
-	if target == null or target.has_state("Knocked Out"): return
+	if target == null or target.has_state("KnockedOut"): return
 	lock_turn = true
-	target.States.clear()
-	target.node.get_node("State").play("None")
+	clear_states(target)
 	target.add_state("KnockedOut")
 	target.set_aura(0)
 	if target.IsEnemy:
@@ -654,16 +657,16 @@ func death(target:Actor):
 		if target.DroppedItem != null: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
 	if target.codename == &"Mira":
-		await Event.wait()
+		await Event.wait(0.2)
 		get_tree().paused = true
 		CurrentChar.node.pause()
 		target.node.pause()
-		await screen_shake(30, 10)
-		await Event.wait(1, false)
+		await screen_shake(20, 10, 0.2)
+		await Event.wait(0.7, false)
 		CurrentChar.node.play()
 		target.node.play()
 		get_tree().paused = false
-		await Event.wait(3, false)
+		await Event.wait(1, false)
 		Loader.white_fadeout(0.1, 1, 3)
 		await Event.wait(4, false)
 		game_over()
@@ -706,13 +709,19 @@ func slowmo(timescale = 0.5, time= 1):
 	await Event.wait(time * timescale)
 	Engine.time_scale = 1
 
-func get_ally_faction(act: Actor = CurrentChar):
-	if act.IsEnemy: return Troop
-	else: return PartyArray
+func get_ally_faction(act: Actor = CurrentChar) -> Array[Actor]:
+	var rtn: Array[Actor]
+	if act.IsEnemy: rtn = Troop
+	else: rtn = PartyArray
+	rtn = filter_dead(rtn)
+	return rtn
 
-func get_oposing_faction(act: Actor = CurrentChar):
-	if act.IsEnemy: return PartyArray
-	else: return Troop
+func get_oposing_faction(act: Actor = CurrentChar) -> Array[Actor]:
+	var rtn: Array[Actor]
+	if act.IsEnemy: rtn = PartyArray
+	else: rtn = Troop
+	rtn = filter_dead(rtn)
+	return rtn
 
 func get_target_faction() -> Array[Actor]:
 	match CurrentAbility.Target:
@@ -830,7 +839,7 @@ func reset_all():
 
 func victory_anim(chara:Actor):
 	$Act.process_mode = Node.PROCESS_MODE_ALWAYS
-	chara.node.get_node("State").play("None")
+	clear_states(chara)
 	await anim("Victory", chara)
 	anim("VictoryLoop", chara)
 
@@ -1084,6 +1093,11 @@ func on_state_add(state: State, chara: Actor):
 		match state.name:
 			"Guarding":
 				chara.DefenceMultiplier += 1
+				chara.node.material.set_shader_parameter("outline_enabled", true)
+				chara.node.material.set_shader_parameter("outline_color", chara.MainColor)
+			"Protected":
+				chara.node.material.set_shader_parameter("outline_enabled", true)
+				chara.node.material.set_shader_parameter("outline_color", Color.WHITE)
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(
@@ -1130,3 +1144,13 @@ func filter_actors_by_state(input: Array[Actor], state: String) -> Array[Actor]:
 		if i.has_state(state):
 			rtn.append(i)
 	return rtn
+
+func filter_dead(arr: Array[Actor]) -> Array[Actor]:
+	var warr = arr.duplicate()
+	for i in arr:
+		if i.has_state("KnockedOut"): warr.erase(i)
+	return warr
+
+func clear_states(target: Actor):
+	for i in target.States:
+		target.remove_state(i)

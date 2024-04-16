@@ -113,8 +113,7 @@ text = "Retry"
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme = SubResource("Theme_8enlg")
-text = "Load
-"
+text = "Options"
 
 [node name="Quit" type="Button" parent="Options"]
 custom_minimum_size = Vector2(0, 64)

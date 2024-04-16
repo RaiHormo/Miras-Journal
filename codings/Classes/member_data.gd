@@ -15,13 +15,7 @@ class_name Actor
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
 @export var Pronouns: Array[String] = ["it", "it", "its", "itself"]
 @export var WeaponPower: int = 24
-##If true, the character cannot die unless in very low hp
-@export var ClutchDmg:= false
-##Sequence played when the above happens
-@export var SeqOnClutch:= ""
-##If true, the character cannot die, and will always stay at low hp
-@export var CantDie:= false
-@export var IgnoreStates:= false
+
 @export_group("Enemy specific")
 ##Used to check if the character is an enemy internally
 @export var IsEnemy: bool = true
@@ -113,13 +107,24 @@ var SpeedBoost: int = 0
 @export var GlowSpecial: float = 0.0
 ##Specify animations where GlowSpecial is used
 @export var GlowAnims: Array[String] = []
+
+@export_group("Additional parameters")
 @export var DontIdle:= false
+##If true, the character cannot die unless in very low hp
+@export var ClutchDmg:= false
+##Sequence played when the above happens
+@export var SeqOnClutch:= ""
+##If true, the character cannot die, and will always stay at low hp
+@export var CantDie:= false
+@export var IgnoreStates:= false
+@export var CantDodge:= false
 
 var NextAction: String = ""
 var NextMove: Resource = null
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
+var DamageRecivedThisTurn: int = 0
 
 
 func set_health(x):
@@ -237,3 +242,8 @@ func reset_static_info():
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
+
+func has_state_that_protects() -> bool:
+	for i in States:
+		if i.protects: return true
+	return false

@@ -165,7 +165,7 @@ func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector
 		await look_to(look_dir)
 
 func set_anim(anim: String):
-	pass
+	$Sprite.play(anim)
 
 func stop_going() -> void:
 	stopping = true

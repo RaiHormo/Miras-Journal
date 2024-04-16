@@ -15,6 +15,7 @@ description = "Deals weak Spiritual damage, with a low chance of confusing the t
 Icon = SubResource("AtlasTexture_58tg3")
 ActionSequence = &"SoulTap"
 Type = "CheapAttack"
+InflictsState = "Confused"
 AuraCost = 3
 HPCost = 0
 disabled = false

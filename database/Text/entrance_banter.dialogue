@@ -20,5 +20,11 @@ ROUND 3[wait=1] BEGIN![next=auto]
 
 ~ arena_round4
 A wild weird plant looking creature appeared!
+Defeat it before it steals all your health.
 ROUND 4[wait=1] BEGIN![next=auto]
+=> END
+
+~ arena_round5
+Stay away from sharp objects!
+ROUND 5[wait=1] BEGIN![next=auto]
 => END

@@ -18,12 +18,14 @@ func ai() -> void:
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif Bt.health_precentage(HpSortedAllies[0]) <= 40 and has_type("Healing") and HpSortedAllies[0].Health != 0:
+		elif (Bt.health_precentage(HpSortedAllies[0]) <= 40 or (Bt.health_precentage(HpSortedAllies[0]) <= 75 and randi_range(0, 2) == 1)) and has_type("Healing") and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
 		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 0 and has_type("Summon"):
 			print("I can summon an ally")
 			choose(find_ability("Summon").pick_random())
+		elif check_for_curses():
+			print("Can use a curse")
 		else:
 			#print(Bt.health_precentage(HpSortedAllies[0]))
 			print("Nothing specific to do")
@@ -56,10 +58,8 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
 	#print("checking if i have a ", type)
 	if not find_ability(type, targets).is_empty():
-		print("i do")
 		return true
 	else:
-		print("i do not")
 		return false
 
 func choose(ab:Ability, tar:Actor=null) -> void:
@@ -77,7 +77,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 3
+	const n = 2
 	var r: int
 	var tries:= 0
 	while true:
@@ -89,7 +89,7 @@ func pick_general_ability() -> Ability:
 			OS.alert("The AI got stuck in an infinite loop, the dev might want to check on that")
 			return Char.StandardAttack
 		var atk_chance = 0
-		if Char.ActorClass == "Attacker": atk_chance = -n
+		if Char.ActorClass == "Attacker": atk_chance = -1
 		r = randi_range(atk_chance, n)
 		match r:
 			1:
@@ -101,9 +101,6 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if has_type("Curse"):
-					return find_ability("Curse").pick_random()
-			3:
 				if Char.Health < Char.MaxHP * 0.7 and has_type("Defensive"):
 					return find_ability("Defensive").pick_random()
 			_:
@@ -125,3 +122,16 @@ func get_class_in_faction(type: String, faction: Array[Actor]) -> Array[Actor]:
 		if i.ActorClass == type:
 			rtn.append(i)
 	return rtn
+
+func check_for_curses() -> bool:
+	for i in find_ability("Curse"):
+		if i.InflictsState == "": OS.alert(i.name + "is missing an InflictedState parameter")
+		var inflicted = Bt.filter_actors_by_state(Bt.get_oposing_faction(), i.InflictsState)
+		if randi_range(0, inflicted.size()) == 0:
+			if inflicted.size() < Bt.get_oposing_faction().size():
+				for j in range(0, Bt.get_oposing_faction().size()*2):
+					var tar = Bt.get_oposing_faction().pick_random()
+					if not tar.has_state(i.InflictsState):
+						choose(i, tar)
+						return true
+	return false

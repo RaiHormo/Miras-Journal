@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=78 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" path="res://UI/Options/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
@@ -409,6 +409,19 @@ expand_margin_left = 12.0
 expand_margin_top = 8.0
 expand_margin_right = 12.0
 expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f335g"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vm5us"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cttb0"]
 
@@ -1329,6 +1342,32 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Arena mode
 "
 
+[node name="Credits" type="ScrollContainer" parent="GalleryPanel"]
+clip_contents = false
+layout_mode = 0
+offset_left = 478.812
+offset_top = 80.3207
+offset_right = 926.812
+offset_bottom = 786.321
+rotation = -0.0633063
+theme_override_styles/panel = SubResource("StyleBoxFlat_f335g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("24_41402")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
+text = "Created by Iris Hormoviti (aka RaiDev_)
+This prototype build was made completly solo.
+
+Created using the Godot engine.
+
+Nathan Hoad's Dialogue Manager plugin was used."
+fit_content = true
+
 [node name="SavePanel" type="Panel" parent="."]
 visible = false
 offset_left = 1335.0
@@ -1670,6 +1709,8 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_last_setting"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode" to="." method="_debug_mode"]
+[connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Credits" to="." method="gallery"]
+[connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/Credits" to="." method="_on_credits"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ArenaMode" to="." method="_arena_mode"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile/Button" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewGame/Button" to="." method="_new_game"]

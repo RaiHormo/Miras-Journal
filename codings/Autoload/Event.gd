@@ -183,4 +183,27 @@ func bag_seq():
 func axe_seq():
 	Item.add_item("LightweightAxe", &"Key")
 	pop_tutorial("ov_attack")
+
+func rest_amberelm():
+	take_control()
+	await Loader.save()
+	Loader.detransition()
+	var cut = Global.Area.get_node("RestAmberelm")
+	cut.show()
+	get_tree().paused = false
+	cut.get_node("Mira").BodyState = NPC.NONE
+	cut.get_node("Alcine").BodyState = NPC.NONE
+	cut.get_node("Mira").set_anim("SitDown")
+	cut.get_node("Alcine").set_anim("IdleDown")
+	Global.Player.hide()
+	Global.Player.camera_follow(false)
+	Global.get_cam().zoom = Vector2(6,6)
+	Global.get_cam().position = Vector2(85,360)
+	await Event.wait(1)
+	await Global.textbox("amberelm_txt", "rest_amberelm")
+	await Loader.transition("")
+	await Event.wait(1)
+	await Loader.load_game()
+	await Global.textbox("testbush", "demo_end")
+	give_control()
 #endregion

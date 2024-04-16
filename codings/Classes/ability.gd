@@ -6,6 +6,7 @@ class_name Ability
 @export var Icon: Texture
 @export var ActionSequence : StringName = &""
 @export_enum("CheapAttack", "BigAttack", "Defensive", "Curse", "Healing", "AtkBuff", "MagBuff", "DefBuff", "Summon") var Type: String = "CheapAttack"
+@export var InflictsState: String = ""
 @export var AuraCost: int
 @export var HPCost: int
 @export var disabled:= false

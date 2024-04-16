@@ -876,7 +876,12 @@ navigation_layers = 2
 [node name="CrawlingSludge1" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1365.05, 222.688)
 Battle = ExtResource("11_1cjwu")
+Defeated = false
+give_up_after = 3
+direction = Vector2(0, 0)
+Facing = Vector2(0, 0)
 ID = "CS1"
+Footsteps = true
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge1"]
 
@@ -915,6 +920,11 @@ offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge4" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1638.08, 368.626)
+Defeated = false
+give_up_after = 3
+direction = Vector2(0, 0)
+Facing = Vector2(0, 0)
+Footsteps = true
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge4"]
 
@@ -945,7 +955,12 @@ offset = Vector2(0.0496826, -5.866)
 [node name="CrawlingSludge3" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1189, -338)
 Battle = ExtResource("13_812cc")
+Defeated = false
+give_up_after = 3
+direction = Vector2(0, 0)
+Facing = Vector2(0, 0)
 ID = "CS3"
+Footsteps = true
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge3"]
 
@@ -981,7 +996,12 @@ offset = Vector2(0.0496826, -5.866)
 [node name="CrawlingSludge5" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1257.89, -491.287)
 Battle = ExtResource("13_812cc")
+Defeated = false
+give_up_after = 3
+direction = Vector2(0, 0)
+Facing = Vector2(0, 0)
 ID = "CS5"
+Footsteps = true
 
 [node name="HomePoints" type="Node2D" parent="CrawlingSludge5"]
 

@@ -49,7 +49,8 @@ func play_aoe(nam):
 func roll_rng(tar: Actor):
 	miss = false
 	crit = false
-	if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
+	if not tar.CantDodge:
+		if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
 	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits: crit = true
 
 ################################################
@@ -63,6 +64,8 @@ func handle_states():
 				match state.name:
 					"Guarding":
 						chara.DefenceMultiplier -= 1
+						chara.node.material.set_shader_parameter("outline_enabled", false)
+					"Protected":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"AttackUp": chara.AttackMultiplier -= 0.5
 					"DefenceUp": chara.DefenceMultiplier -= 0.5
@@ -109,7 +112,9 @@ func handle_states():
 				if state.inflicter in TurnOrder:
 					Bt.play_effect("LeechGrab1", chara, Vector2.ZERO, false, true)
 					Bt.focus_cam(chara, 0.3)
-					var dmg = await Bt.damage(chara, true, true, randi_range(5, 28), false, true, true, Global.ElementColor.get("natural"))
+					if chara.DamageRecivedThisTurn == 0:
+						Bt.damage(chara, true, true, 4, false, true, true, Global.ElementColor.get("natural"))
+					var dmg = chara.DamageRecivedThisTurn
 					await $LeechGrab1.animation_finished
 					var t = create_tween()
 					t.set_ease(Tween.EASE_OUT)
@@ -124,6 +129,7 @@ func handle_states():
 					$LeechGrab1.queue_free()
 				else: chara.remove_state(state)
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
+	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
 
 #region Attacks
@@ -248,6 +254,24 @@ func RemoteAttack(target: Actor):
 	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()
+
+func CloseupAttack(target: Actor):
+	Bt.zoom()
+	Bt.focus_cam(target)
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
+	await Bt.anim("Attack1")
+	Bt.anim("Attack2")
+	await Event.wait(0.3)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.play_effect("SimpleHit", target)
+		Bt.screen_shake(18)
+	else: Bt.miss()
+	await Event.wait(0.5)
+	Bt.return_cur()
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################
@@ -257,8 +281,6 @@ func Guard(target: Actor):
 	Bt.zoom()
 	Bt.anim("Idle")
 	Bt.focus_cam(CurrentChar)
-	Bt.CurrentChar.node.material.set_shader_parameter("outline_enabled", true)
-	Bt.CurrentChar.node.material.set_shader_parameter("outline_color", Bt.CurrentChar.MainColor)
 	await CurrentChar.add_state("Guarding")
 	await Event.wait(0.5)
 	Bt.end_turn()
@@ -405,12 +427,19 @@ func HeatWave(target: Actor):
 		elif crit:
 			target.add_state("Burned")
 	Bt.end_turn()
+
+func ProtectiveField(target: Actor):
+	Bt.anim("Cast")
+	Bt.focus_cam(target)
+	await target.add_state("Protected")
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################
 
 #region Items
-func Drink():
+func Drink(target: Actor):
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
 	print(Bt.CurrentAbility.Type)
@@ -421,7 +450,7 @@ func Drink():
 	Bt.anim()
 	Bt.end_turn()
 
-func Eat():
+func Eat(target: Actor):
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
 	print(Bt.CurrentAbility.Type)

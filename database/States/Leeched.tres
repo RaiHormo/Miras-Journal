@@ -11,9 +11,10 @@ filter_clip = true
 [resource]
 script = ExtResource("1_3cc81")
 name = "Leeched"
-Description = "A small amount of health is stolen every turn until the actor that inflicted this state is knocked out."
+Description = "Damaging this actor will heal whoever inflicted this state."
 RemovedOnBattleEnd = true
 turns = -1
 icon = SubResource("AtlasTexture_yegrv")
 color = Color(0.819608, 1, 0.235294, 1)
+protects = false
 is_stat_change = false

@@ -104,10 +104,19 @@ Note: With this prototype being so short, a titlescreen wasn't implemented...[wa
 => END!
 
 ~ arena_over
+do fade_txt_background(1)
 You lost this round. Try again?
 - Retry
-	do Bt.end_battle()
 	do load_game("Arena")
 - Exit Arena mode.
+	do load_game()
 	do Bt.end_battle()
 	do load_game()
+=> END!
+
+~ demo_end
+System: This is where this prototype ends.
+System: However, there is one more thing you can do.
+System: You can go to Options > Gallery in the menu and select Arena mode.
+System: (You've been sent back before resting, there's nothing else to do here.)
+=> END

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://b6f6kbhpdgv87"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_is10t"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_sl2ki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdpbt"]
+atlas = ExtResource("1_is10t")
+region = Rect2(144, 108, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("1_sl2ki")
+name = "Protective field"
+description = "Protect an ally."
+Icon = SubResource("AtlasTexture_mdpbt")
+ActionSequence = &"ProtectiveField"
+Type = "Defensive"
+AuraCost = 3
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 0.0
+Target = 3
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false

@@ -673,6 +673,7 @@ target_desired_distance = 1.0
 path_postprocessing = 1
 
 [node name="Harold" type="Sprite2D" parent="."]
+z_index = 1
 y_sort_enabled = true
 material = ExtResource("1_gxc4q")
 position = Vector2(-39, -72)

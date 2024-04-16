@@ -35,7 +35,7 @@ func _ready():
 	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
-	Global.Controllable=false
+	Global.Controllable = false
 	was_paused = get_tree().paused
 	get_tree().paused = true
 	$Silhouette.position = Vector2(-1000, -39)
@@ -96,6 +96,10 @@ func _on_back_pressed():
 			main()
 
 func close():
+	if Global.Area == null:
+		Global.buzzer_sound()
+		Global.toast("There is no going back.")
+		return
 	if Global.Player != null:
 		if $/root.get_node_or_null("MainMenu") != null:
 			$/root.get_node("MainMenu")._on_back_button_down()
@@ -288,17 +292,21 @@ func load_save_files():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
 	draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	for i in DirAccess.get_files_at("user://"):
-		if ".tres" in i and not "Autosave" in i and await Loader.load_res("user://"+i) is SaveFile:
-			var newpanel:PanelContainer = null
-			for j in %Files.get_children():
-				if j.name in i:
-					newpanel = j
-					j.set_meta(&"Unprocessed", false)
-			if newpanel == null:
-				newpanel = %Files/File0.duplicate()
-				newpanel.name = i.replace(".tres", "")
-				%Files.add_child(newpanel)
-			draw_file(await Loader.load_res("user://" + i), newpanel)
+		if ".tres" in i and not "Autosave" in i:
+			print("fetching user://"+i)
+			var data = await Loader.load_res("user://"+i)
+			print("Sucessful")
+			if data is SaveFile:
+				var newpanel:PanelContainer = null
+				for j in %Files.get_children():
+					if j.name in i:
+						newpanel = j
+						j.set_meta(&"Unprocessed", false)
+				if newpanel == null:
+					newpanel = %Files/File0.duplicate()
+					newpanel.name = i.replace(".tres", "")
+					%Files.add_child(newpanel)
+				draw_file(data, newpanel)
 	for j in %Files.get_children():
 		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
 	await Event.wait()
@@ -579,3 +587,12 @@ func _arena_mode() -> void:
 	Loader.load_game("ArenaMode", true, true)
 	close()
 
+func _on_credits() -> void:
+	Global.confirm_sound()
+	$GalleryPanel/Credits/RichTextLabel.grab_focus()
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	t.tween_property($GalleryPanel,"position:x", 330, 0.3)
+	t.tween_property($MainButtons/Gallery, "position:x", 74, 0.3)

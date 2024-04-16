@@ -16,4 +16,5 @@ RemovedOnBattleEnd = true
 turns = -1
 icon = SubResource("AtlasTexture_1vy8c")
 color = Color(0.764706, 0.2, 0.764706, 1)
+protects = false
 is_stat_change = false
