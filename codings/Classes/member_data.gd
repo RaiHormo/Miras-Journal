@@ -70,7 +70,7 @@ var MagicMultiplier: float = 1
 var SpeedBoost: int = 0
 
 @export_subgroup("Skill points")
-@export var SkillLevel: int
+@export var SkillLevel: int = 1
 @export var SkillPoints: int
 ##The skill points required to reach the next skill level. The 2nd item of the array for example
 ##is the skill points required to reach skill level 3.

@@ -8,7 +8,6 @@ signal expand(i)
 signal shrink
 var held = false
 var focus : int = 0
-#t : Tween
 var UIvisible = false
 var Tempvis = true
 var visibly=false

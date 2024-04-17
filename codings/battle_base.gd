@@ -531,8 +531,8 @@ overwrite_color: Color = Color.WHITE) -> int:
 		if target.CantDie:
 			target.Health = 1
 		else:
-			if target != CurrentChar and relation == "wk": follow_up_next = true
 			await death(target)
+			if target != CurrentChar and relation == "wk": follow_up_next = true
 			return dmg
 	if target.Health == 0 or target.has_state("Knocked Out"): return dmg
 	if target.has_state("Guarding"):
@@ -651,6 +651,7 @@ func death(target:Actor):
 	lock_turn = true
 	clear_states(target)
 	target.add_state("KnockedOut")
+	if CurrentChar != target: CurrentChar.add_aura(target.Aura)
 	target.set_aura(0)
 	if target.IsEnemy:
 		totalSP += target.RecivedSP

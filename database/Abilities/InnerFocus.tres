@@ -15,6 +15,7 @@ description = "Doubles the user's Magic by for 3 turns."
 Icon = SubResource("AtlasTexture_0u6t4")
 ActionSequence = &"MagicUp3"
 Type = "MagBuff"
+InflictsState = ""
 AuraCost = 3
 HPCost = 0
 disabled = false

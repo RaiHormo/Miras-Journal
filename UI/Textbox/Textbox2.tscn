@@ -477,7 +477,6 @@ script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"Dash"
 pause_at_characters = ".?!,"
-seconds_per_pause_step = 0.5
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0

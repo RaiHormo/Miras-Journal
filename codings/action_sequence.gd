@@ -518,12 +518,12 @@ func FirstBattle1():
 	Bt.get_actor("Mira").DontIdle = true
 	Bt.end_turn()
 
-func FirstBattle2():
+func FirstBattle2(target: Actor):
 	await Bt.move(Bt.Troop[0], Vector2(30, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(20, 0), 1, Tween.EASE_OUT)
 	await Event.wait(0.5)
 	CurrentChar = Bt.Troop[0]
-	var target = Bt.get_actor("Mira")
+	target = Bt.get_actor("Mira")
 	Bt.CurrentChar = Bt.Troop[0]
 	Bt.focus_cam(target, 0.5, 20)
 	Bt.zoom(6)

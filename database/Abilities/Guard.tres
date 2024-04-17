@@ -15,6 +15,7 @@ description = "The user protects themself for a turn. If hit while the guard is 
 Icon = SubResource("AtlasTexture_my8qp")
 ActionSequence = &"Guard"
 Type = "Defensive"
+InflictsState = ""
 AuraCost = 0
 HPCost = 0
 disabled = false

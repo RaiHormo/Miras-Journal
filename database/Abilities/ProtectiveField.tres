@@ -15,6 +15,7 @@ description = "Protect an ally."
 Icon = SubResource("AtlasTexture_mdpbt")
 ActionSequence = &"ProtectiveField"
 Type = "Defensive"
+InflictsState = ""
 AuraCost = 3
 HPCost = 0
 disabled = false

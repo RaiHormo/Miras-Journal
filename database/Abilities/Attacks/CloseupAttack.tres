@@ -15,6 +15,7 @@ description = "Deals damage to one target with a low chance of missing."
 Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"CloseupAttack"
 Type = "CheapAttack"
+InflictsState = ""
 AuraCost = 0
 HPCost = 0
 disabled = false

@@ -191,6 +191,7 @@ func rest_amberelm():
 	var cut = Global.Area.get_node("RestAmberelm")
 	cut.show()
 	get_tree().paused = false
+	Global.Area.Followers[0].hide()
 	cut.get_node("Mira").BodyState = NPC.NONE
 	cut.get_node("Alcine").BodyState = NPC.NONE
 	cut.get_node("Mira").set_anim("SitDown")

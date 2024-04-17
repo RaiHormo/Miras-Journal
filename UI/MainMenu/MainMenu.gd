@@ -486,7 +486,7 @@ func focus_item(node:Button):
 	$DescPaper/Art.texture = item.Artwork
 	if node.get_parent().name == "KeyItems":
 		$Inventory/Margin/Scroller.scroll_vertical = 0
-	if node.get_parent().name == "BattleItems":
+	if node.get_parent().name == "BattleItems" and item.BattleEffect != null and item.BattleEffect.WheelColor != Color.WHITE:
 		$DescPaper/Wheel.show()
 		$DescPaper/Wheel.color = item.BattleEffect.WheelColor
 		$DescPaper/Wheel.draw_wheel()

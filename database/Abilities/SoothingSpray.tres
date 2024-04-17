@@ -15,6 +15,7 @@ description = "Heals a small amount of HP to one ally."
 Icon = SubResource("AtlasTexture_7so8r")
 ActionSequence = &"SoothingSpray"
 Type = "Healing"
+InflictsState = ""
 AuraCost = 5
 HPCost = 0
 disabled = false
