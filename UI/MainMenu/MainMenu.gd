@@ -57,6 +57,7 @@ func _ready():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
+	t.tween_property($Ring, "scale", Vector2.ONE, 0.6).from(Vector2(1.5, 1.5))
 	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
 	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
 	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
@@ -162,6 +163,7 @@ func close():
 	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
+	t.tween_property($Ring, "scale", Vector2(1.5, 1.5), 0.6)
 	if Fader != null: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
@@ -304,6 +306,8 @@ func _root():
 	t.tween_property($DottedBack, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
+	t.tween_property($Ring, "position", Vector2(-162, -388), 0.8)
+	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
 	PartyUI.darken(false)
 	await t.finished
 	if stage == "options": stage="root"
@@ -358,6 +362,7 @@ func _item():
 	t.tween_property($Inventory, "position", Vector2(241, 123), 0.3).from(Vector2(803, 446))
 	t.tween_property(Cam, "offset:x", 100, 0.6)
 	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
+	t.tween_property($Ring, "position", Vector2(-500 ,0), 0.6).as_relative()
 	if not Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
 		focus_item($Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0))
@@ -393,6 +398,7 @@ func _options():
 	t.tween_property($Rail, "modulate", Color.TRANSPARENT, 0.5)
 	t.tween_property($Rail, "position:x", -300, 0.5).as_relative()
 	t.tween_property($Base, "position:x", -300, 0.5).as_relative()
+	t.tween_property($Ring, "scale", Vector2(1.5, 1.5), 3)
 	t.tween_property(Cam, "offset:x", 70, 0.5)
 	$Back.hide()
 	$Confirm.hide()

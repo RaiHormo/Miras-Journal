@@ -19,7 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://cdpurwd06c4md" path="res://sound/SFX/Footsteps/Stone5.ogg" id="17_g2kto"]
 [ext_resource type="AudioStream" uid="uid://oqivmhxuya7s" path="res://sound/SFX/Footsteps/Stone6.ogg" id="18_t7eph"]
 
-[node name="StdrFootsteps" type="Node"]
+[node name="StdrFootsteps" type="Node2D"]
 
 [node name="Grass1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_cdbom")

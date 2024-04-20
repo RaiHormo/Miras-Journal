@@ -11,17 +11,16 @@ var PlayerDir := Vector2.DOWN
 var PlayerPos: Vector2
 var device: String = "Keyboard"
 var ProcessFrame := 0
-var LastInput=0
+var LastInput:= 0
 var AltConfirm: bool
-var StartTime := 0.0
-var PlayTime := 0.0
-var SaveTime := 0.0
-var Player := Mira.new()
+var StartTime:= 0.0
+var PlayTime:= 0.0
+var SaveTime:= 0.0
+var Player:= Mira.new()
 var Follower: Array[CharacterBody2D] = [null, null, null, null]
-var Settings:Setting
+var Settings: Setting
 var Bt: Battle = null
-var CameraInd := 0
-var Tilemap: TileMap
+var CameraInd:= 0
 var Members: Array[Actor]
 var Lights: Array[Light2D] = []
 var Area: Room
@@ -55,7 +54,7 @@ func _ready() -> void:
 	init_party(Party)
 	#ready_window()
 	init_settings()
-	if Tilemap != null: await nodes_of_type(Tilemap, "Light2D", Lights)
+	if Area != null: await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	Input.start_joy_vibration(0, 1, 1)
@@ -118,7 +117,6 @@ func new_game() -> void:
 	init_party(Party)
 	Event.Flags.clear()
 	Event.add_flag("Started")
-	Event.Day = 10
 	Event.f("HasBag", false)
 	PartyUI.hide_all()
 	Event.f("DisableMenus", true)
@@ -128,6 +126,7 @@ func new_game() -> void:
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)
 	Item.add_item("Wallet", &"Key", false)
+	Loader.Defeated.clear()
 	Party.reset_party()
 	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none")
@@ -147,23 +146,24 @@ func new_game() -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	t.tween_property(Tilemap.get_node("GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
-	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
-	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
-	Tilemap.get_node("GetUp").show()
-	await Tilemap.get_node("GetUp").pressed
+	t.tween_property(Area.get_node("GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
+	t.tween_property(Area.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
+	t.tween_property(Area.get_node("GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
+	Area.get_node("GetUp").show()
+	await Area.get_node("GetUp").pressed
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	PartyUI.disabled = true
-	t.tween_property(Tilemap.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
-	t.tween_property(Tilemap.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(Area.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
+	t.tween_property(Area.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
 	t.tween_property(get_cam(), "zoom", Vector2(5,5), 5)
 	t.tween_property(Player.get_node("%Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
 	await Player.set_anim("GetUp", true)
 	Player.set_anim("IdleUp")
 	Controllable = true
+	Event.Day = 10
 	Event.pop_tutorial("walk")
 	Loader.save()
 
@@ -537,10 +537,10 @@ func get_dir_letter(d: Vector2 = PlayerDir) -> String:
 	else: return "C"
 
 func tilemapize(pos: Vector2) -> void:
-	return Tilemap.local_to_map(pos)
+	return Area.local_to_map(pos)
 
 func globalize(coords :Vector2i) -> Vector2:
-	return Tilemap.map_to_local(coords)
+	return Area.map_to_local(coords)
 
 func get_state(stat: StringName) -> State:
 	return await Loader.load_res("res://database/States/" + stat + ".tres")

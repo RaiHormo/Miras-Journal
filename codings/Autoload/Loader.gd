@@ -62,18 +62,6 @@ func save(filename:String="Autosave", showicon=true):
 	for i in data.Members:
 		data.Members[data.Members.find(i)] = i.duplicate()
 
-	#data.KeyInv = Item.KeyInv.duplicate()
-	#for i in data.KeyInv:
-		#data.KeyInv[data.KeyInv.find(i)] = i.duplicate()
-	#data.ConInv = Item.ConInv.duplicate()
-	#for i in data.ConInv:
-		#data.ConInv[data.ConInv.find(i)] = i.duplicate()
-	#data.MatInv = Item.MatInv.duplicate()
-	#for i in data.MatInv:
-		#data.MatInv[data.MatInv.find(i)] = i.duplicate()
-	#data.BtiInv = Item.BtiInv.duplicate()
-	#for i in data.BtiInv:
-		#data.BtiInv[data.BtiInv.find(i)] = i.duplicate()
 	data.Inventory = Item.combined_inv()
 	for i in data.Inventory:
 		data.Inventory[data.Inventory.find(i)] = i.duplicate()
@@ -150,7 +138,7 @@ func load_res(path:String):
 	return ResourceLoader.load_threaded_get(path)
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
-	travel_to(sc, Global.Tilemap.map_to_local(pos), camera_ind, z, trans)
+	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans

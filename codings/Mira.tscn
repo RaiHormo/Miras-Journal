@@ -760,7 +760,6 @@ amount = 0.08
 [node name="StdrFootsteps" parent="." instance=ExtResource("13_av38v")]
 
 [node name="Ear" type="AudioListener2D" parent="."]
-current = true
 
 [node name="Camera2D" type="RemoteTransform2D" parent="."]
 update_rotation = false

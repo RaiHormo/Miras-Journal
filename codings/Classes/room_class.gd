@@ -53,7 +53,7 @@ func _ready():
 		move_child(Player, 0)
 #	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self
-	Global.Tilemap = self
+	Global.Area = self
 	await Global.player_ready
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)

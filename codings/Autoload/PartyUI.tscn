@@ -548,7 +548,6 @@ CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(38
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="Fade" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1282.0
@@ -840,7 +839,6 @@ value = 30.0
 show_percentage = false
 
 [node name="Cursor" type="TextureRect" parent="CanvasLayer"]
-visible = false
 self_modulate = Color(0.909804, 0.909804, 0.909804, 1)
 offset_left = 385.0
 offset_top = 60.0
@@ -850,7 +848,6 @@ scale = Vector2(0.404152, 0.404152)
 texture = ExtResource("6_w2g12")
 
 [node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor"]
-visible = false
 visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_llexj")

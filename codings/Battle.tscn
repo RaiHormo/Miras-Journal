@@ -664,12 +664,12 @@ shader_parameter/sine_freq = 20.0
 shader_parameter/sine_amp = 0.03
 shader_parameter/sine_phase = 0.3
 
-[sub_resource type="Gradient" id="Gradient_8j6vo"]
+[sub_resource type="Gradient" id="Gradient_pbqtd"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_litkr"]
-gradient = SubResource("Gradient_8j6vo")
+gradient = SubResource("Gradient_pbqtd")
 
 [sub_resource type="FontVariation" id="FontVariation_i0gd3"]
 base_font = ExtResource("33_jy6my")
@@ -2630,6 +2630,8 @@ theme = SubResource("Theme_t73mt")
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fkhdn")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
 
 [node name="Audio" type="Node" parent="."]
 

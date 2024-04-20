@@ -14,13 +14,13 @@ func default() -> void:
 		await move_dir(Vector2.UP)
 		Global.passive("temple_woods_random", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
-		Loader.save()
 		BodyState = CUSTOM
 		$Sprite.stop()
 		$Sprite.animation = &"Scared"
 		$Sprite.frame = 0
 		Event.flag_progress("AlcineFollow", 2)
 		Global.Player.can_dash = true
+		Loader.save()
 	elif (Global.CameraInd == 2 and Event.f("AlcineFollow", 2)
 	and not Event.f("AlcineFollow", 3)):
 		$"../Petrogon".hide()

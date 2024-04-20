@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=104 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
@@ -14,6 +14,22 @@
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
+[ext_resource type="Shader" path="res://UI/Battle/Sinewave.gdshader" id="15_nebe1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gki4e"]
+shader = ExtResource("15_nebe1")
+shader_parameter/circle_size = 0.925
+shader_parameter/circle_thickness = 0.2
+shader_parameter/sine_freq = 20.0
+shader_parameter/sine_amp = 0.02
+shader_parameter/sine_phase = 0.05
+
+[sub_resource type="Gradient" id="Gradient_8j6vo"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6e4y7"]
+gradient = SubResource("Gradient_8j6vo")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
 atlas = ExtResource("2_55wks")
@@ -722,6 +738,23 @@ events = [SubResource("InputEventAction_p5u4y")]
 [node name="MainMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_5tx7f")
+
+[node name="Ring" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_gki4e")
+offset_left = -162.0
+offset_top = -388.0
+offset_right = 1450.0
+offset_bottom = 1224.0
+pivot_offset = Vector2(806, 806)
+texture = SubResource("GradientTexture1D_6e4y7")
+
+[node name="ColorRect" type="ColorRect" parent="Ring"]
+layout_mode = 0
+offset_left = 1601.0
+offset_top = 389.0
+offset_right = 2332.0
+offset_bottom = 1203.0
+color = Color(0, 0, 0, 1)
 
 [node name="DottedBack" type="TextureRect" parent="."]
 show_behind_parent = true

@@ -59,7 +59,7 @@ func _physics_process(delta) -> void:
 		return
 	extended_process()
 	if self.get_path() in Loader.Defeated: queue_free()
-	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
+	if Global.Area != null: coords = Global.Area.local_to_map(global_position)
 	match BodyState:
 		MOVE, CHASE:
 			velocity = direction * speed
@@ -116,13 +116,14 @@ func check_terrain(terrain:String, layer:=1) -> bool:
 	return false
 
 func get_terrain() -> String:
-	for i in Global.Area.get_layers_count() -1:
-		if get_tile(i) != null and get_tile(i).get_custom_data("TerrainType") != "":
-			return get_tile(i).get_custom_data("TerrainType")
+	for i in range(1, Global.Area.get_layers_count() +1):
+		var j = Global.Area.get_layers_count() -i
+		if get_tile(j) != null and get_tile(j).get_custom_data("TerrainType") != "":
+			return get_tile(j).get_custom_data("TerrainType")
 	return "Generic"
 
 func get_tile(layer:int):
-	return Global.Tilemap.get_cell_tile_data(layer, Global.Tilemap.local_to_map(global_position))
+	return Global.Area.get_cell_tile_data(layer, Global.Area.local_to_map(global_position))
 
 func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
 	await go_to(coords+(dir), exact, autostop)
@@ -136,26 +137,26 @@ func look_to(dir:Vector2):
 	await Event.wait()
 
 func go_to_global(pos:Vector2,  exact=true, autostop = true, look_to: Vector2 = Vector2.ZERO) -> void:
-	await go_to(Global.Tilemap.local_to_map(pos), exact, autostop, look_to)
+	await go_to(Global.Area.local_to_map(pos), exact, autostop, look_to)
 
 func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: await Event.take_control()
 	#await stop_going()
-	Nav.set_target_position(Global.Tilemap.map_to_local(pos))
+	Nav.set_target_position(Global.Area.map_to_local(pos))
 	BodyState = MOVE
 	#print("Target: ", Vector2(pos))
-	while (not Nav.is_target_reached() and (not Global.Tilemap.local_to_map(global_position) == Vector2i(pos))) and BodyState == MOVE:
+	while (not Nav.is_target_reached() and (not Global.Area.local_to_map(global_position) == Vector2i(pos))) and BodyState == MOVE:
 		await Event.wait()
 		direction = to_local(Nav.get_next_path_position()).normalized()
-		#print(not Global.Tilemap.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
+		#print(not Global.Area.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
 		if Nav == null or ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping:
 			BodyState= IDLE
 			return
-	if Global.Tilemap.map_to_local(pos) != global_position and Global.Tilemap.local_to_map(global_position) == Vector2i(pos) and exact:
+	if Global.Area.map_to_local(pos) != global_position and Global.Area.local_to_map(global_position) == Vector2i(pos) and exact:
 		#print("finished")
 		var t = create_tween()
-		t.tween_property(self, "global_position", Global.Tilemap.map_to_local(pos), Nav.distance_to_target()/speed)
+		t.tween_property(self, "global_position", Global.Area.map_to_local(pos), Nav.distance_to_target()/speed)
 		await t.finished
 	BodyState= IDLE
 	position = Vector2i(position)
@@ -179,7 +180,7 @@ func defeat() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("DebugR"):
-		go_to(Global.Tilemap.local_to_map(get_global_mouse_position()))
+		go_to(Global.Area.local_to_map(get_global_mouse_position()))
 		#Event.move_dir(Vector2.LEFT*5)
 
 func set_direction_to(pos:Vector2i) -> void:

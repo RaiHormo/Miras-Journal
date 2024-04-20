@@ -628,7 +628,8 @@ func pop_num(target:Actor, text, color: Color = Color.WHITE):
 		if number!=null:
 			number.queue_free()
 
-func play_sound(SoundName: String, act: Actor = null, volume: float = 0):
+func play_sound(SoundName: String, act: Actor = null, volume: float = 1):
+	$AudioListener2D.make_current()
 	var player
 	if act != null and act.node.get_node("SFX").has_node(SoundName):
 		player = act.node.get_node("SFX").get_node(SoundName)

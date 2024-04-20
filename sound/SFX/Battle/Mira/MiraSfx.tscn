@@ -19,8 +19,8 @@ stream = ExtResource("3_dp8qr")
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_p65ng")
-volume_db = -3.328
+volume_db = -3.0
 
 [node name="Entrance" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_oqoq6")
-volume_db = -7.32
+volume_db = -5.0

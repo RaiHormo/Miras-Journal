@@ -1360,7 +1360,7 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("24_41402")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
-text = "Created by Iris Hormoviti (aka RaiDev_)
+text = "Created by Irida Hormoviti (aka RaiDev_)
 This prototype build was made completly solo.
 
 Created using the Godot engine.
@@ -1369,7 +1369,6 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0

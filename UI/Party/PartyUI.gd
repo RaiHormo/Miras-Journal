@@ -53,8 +53,6 @@ func _process(delta):
 		visibly = UIvisible
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
-	#else:
-		#if Global.ProcessFrame%20 == 0: _check_party()
 
 func show_all():
 	if disabled: return
@@ -104,8 +102,8 @@ func _input(ev):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):
 		back()
-	if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
-		_on_item_preview_pressed()
+	#if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
+		#_on_item_preview_pressed()
 
 	##Debug shortcuts
 	if Global.Settings.DebugMode:
@@ -499,6 +497,7 @@ func choose_member():
 	$CanvasLayer/Back.show()
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name
 	+ " x" + str(Item.get_node("ItemEffect").item.Quantity))
+	$CanvasLayer/Cursor/ItemPreview.icon = Item.get_node("ItemEffect").item.Icon
 	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)

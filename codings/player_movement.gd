@@ -2,8 +2,8 @@ extends NPC
 class_name Mira
 ##The script that handles's Mira's movment
 
-##The parent of the parent node should always be a Global.Tilemap
-#@onready var Global.Tilemap:TileMap = Global.Tilemap
+##The parent of the parent node should always be a Global.Area
+#@onready var Global.Area:TileMap = Global.Area
 ##Whether the dash is active
 var dashing := false
 var winding_attack := false
@@ -28,12 +28,11 @@ func _ready() -> void:
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	await Event.wait()
-	if Global.Tilemap == null:
+	if Global.Area == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
 		queue_free()
 		return
-	#Global.check_party.connect(_check_party)
 	Loader.InBattle = false
 	Global.Player = self
 	Global.Follower[0] = self
@@ -69,9 +68,8 @@ func control_process():
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
 		reset_speed()
-	if Global.Tilemap != null: coords = Global.Tilemap.local_to_map(global_position)
-#	if Global.device == "Keyboard" or is_zero_approx(Input.get_joy_axis(-1,JOY_AXIS_LEFT_X)):
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4).normalized()
+	if Global.Area != null: coords = Global.Area.local_to_map(global_position)
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.2)
 	if abs(direction.x) < 0.1: direction.y += direction.x; direction.x = 0
 	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
 	undashable = false
@@ -80,15 +78,12 @@ func control_process():
 			undashable = true
 	if Global.Controllable:
 		if "Dash" in %Base.animation and not dashing:
-			#print(1)
 			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(
 			direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
 			if not dashing:
 				if undashable:
-#					Global.Controllable = false
 					reset_speed()
-					#position = round(position)
 					await set_anim("Deny"+Global.get_dir_name(Global.PlayerDir), true)
 					set_anim()
 					return
@@ -122,7 +117,7 @@ func control_process():
 		if dashing:
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
-			velocity = direction * speed
+			velocity = (direction.normalized()) * speed
 		if realvelocity.x == 0: position.x = roundf(position.x)
 		if realvelocity.y == 0: position.y = roundf(position.y)
 		var old_position = global_position
@@ -131,19 +126,17 @@ func control_process():
 			realvelocity = get_real_velocity()
 		else:
 			realvelocity = (global_position - old_position)/ get_physics_process_delta_time()
-			#position = round(position)
+		if Input.is_action_just_pressed("OVAttack"):
+			attack()
+
+	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("DebugF"):
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
-		#check_for_jumps()
 		if Input.is_action_just_pressed("DebugD"):
-			#print(Global.Tilemap)
-			#print(Global.Tilemap.local_to_map(global_position))
-			for i in Global.Tilemap.get_layers_count():
-				if Global.Tilemap.get_cell_tile_data(i, coords) != null:
-					check_terrain(Global.Tilemap.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
-		if Input.is_action_just_pressed("OVAttack"):
-			attack()
+			for i in Global.Area.get_layers_count():
+				if Global.Area.get_cell_tile_data(i, coords) != null:
+					check_terrain(Global.Area.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
 
 func update_anim_prm() -> void:
 	if get_node_or_null("%Base") == null: return
@@ -163,10 +156,8 @@ func update_anim_prm() -> void:
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			if move_frames != 0:
 				move_frames = 0
-				#if direction==Vector2.ZERO: position = Vector2i(position)
 			set_anim(str("Idle"+Global.get_dir_name()))
 		if direction.length()>realvelocity.length() and dashing:
-					#print(4)
 					stop_dash()
 	else:
 		if get_real_velocity().length() > 30:
@@ -270,8 +261,8 @@ func bag_anim() -> void:
 ##If the player dashes into a gap she will jump
 func check_for_jumps() -> void:
 	if dashing and check_terrain("Gap"):
-		if Global.get_direction(Global.Tilemap.get_cell_tile_data(
-			1, Global.Tilemap.local_to_map(global_position
+		if Global.get_direction(Global.Area.get_cell_tile_data(
+			1, Global.Area.local_to_map(global_position
 			)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
 			reset_speed()
 			set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
@@ -279,10 +270,10 @@ func check_for_jumps() -> void:
 			Global.Controllable = false
 			$CollisionShape2D.disabled = true
 			z_index+=2
-			var jump = Global.Tilemap.get_cell_tile_data(
-				1, Global.Tilemap.local_to_map(global_position)).get_custom_data("JumpDistance")
+			var jump = Global.Area.get_cell_tile_data(
+				1, Global.Area.local_to_map(global_position)).get_custom_data("JumpDistance")
 			#print(jump, "  ", coords)
-			Global.jump_to_global(self, Global.Tilemap.map_to_local(coords) + jump*24, 5, 0.5)
+			Global.jump_to_global(self, Global.Area.map_to_local(coords) + jump*24, 5, 0.5)
 			await Global.anim_done
 			Global.Controllable = true
 			z_index-=2
@@ -298,10 +289,10 @@ func stop_dash() -> void:
 	#print(realvelocity)
 	reset_speed()
 	var slide = true
-	for i in Global.Tilemap.get_layers_count():
-		if ((Global.Tilemap.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Tilemap.get_cell_tile_data(
+	for i in Global.Area.get_layers_count():
+		if ((Global.Area.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Area.get_cell_tile_data(
 			i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
-			Global.Tilemap.get_cell_tile_data(i, coords)!= null and Global.Tilemap.get_cell_tile_data(
+			Global.Area.get_cell_tile_data(i, coords)!= null and Global.Area.get_cell_tile_data(
 			i, coords).get_collision_polygons_count(0)>0):
 			slide = false
 	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 20:
@@ -447,3 +438,18 @@ func flip_sprites(node: Node2D) -> void:
 	for i in node.get_children():
 		if i is Sprite2D: i.flip_h = true
 		if i.get_child_count() != 0: flip_sprites(i)
+
+#func _input(event: InputEvent) -> void:
+	#if Input.is_key_pressed(KEY_W):
+		#set_anim("IdleUp")
+		#direction = Vector2.UP
+	#if Input.is_key_pressed(KEY_D):
+		#set_anim("IdleRight")
+		#direction = Vector2.RIGHT
+	#if Input.is_key_pressed(KEY_A):
+		#set_anim("IdleLeft")
+		#direction = Vector2.LEFT
+	#if Input.is_key_pressed(KEY_S):
+		#set_anim("IdleDown")
+		#direction = Vector2.DOWN
+

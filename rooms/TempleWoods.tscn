@@ -1489,7 +1489,7 @@ shape = SubResource("RectangleShape2D_st386")
 [node name="JumpPoint20" type="Area2D" parent="JumpPoints"]
 position = Vector2(981.693, -1344.22)
 script = ExtResource("22_i6hw2")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1)])
+jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
 jump_am = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoints/JumpPoint20"]
