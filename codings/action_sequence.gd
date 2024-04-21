@@ -538,10 +538,10 @@ func FirstBattle2(target: Actor):
 		Bt.anim("Attack2")
 		Bt.play_effect("SimpleHit", target)
 		await Event.wait(0.5)
-	Bt.get_actor("Mira").Aura = 6
+	target.Aura = 6
 	PartyUI._check_party()
-	Bt.get_actor("Mira").Abilities[0].disabled = true
-	Bt.get_actor("Mira").DontIdle = false
+	target.Abilities[0].disabled = true
+	target.DontIdle = false
 	Bt.anim("Ability", target)
 	Bt.move(CurrentChar, Vector2(50, 0), 0.2, Tween.EASE_OUT)
 	Bt.jump_to_target(CurrentChar, CurrentChar, Vector2(30, 0), 0.2)
@@ -551,18 +551,27 @@ func FirstBattle2(target: Actor):
 	Bt.anim()
 	$"../BattleUI/Ability".disabled = false
 	$"../BattleUI/Attack".disabled = true
+	CurrentChar.IgnoreStates = true
 	Bt.end_turn()
+
+func FirstBattle22():
+	Bt.lock_turn = true
+	Event.pop_tutorial("aura1")
+	Bt.get_actor("CS").NextAction = "Ability"
+	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/InnerFocus.tres")
 
 func FirstBattle3():
 	Bt.get_actor("Mira").Abilities[0].disabled = false
 	Bt.get_actor("CS").NextAction = "Ability"
 	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/SoulTap.tres")
 	Bt.lock_turn = true
-	Event.pop_tutorial("aura1")
+	Event.pop_tutorial("aura2")
 
 func FirstBattle4():
 	$"../BattleUI/Attack".disabled = false
 	Bt.get_actor("Mira").Aura = max(7, Bt.get_actor("Mira").Aura)
+	Bt.lock_turn = true
+	Event.pop_tutorial("aura3")
 
 func FirstBattle5():
 	Bt.focus_cam(Global.Party.Leader)

@@ -72,21 +72,20 @@ func save(filename:String="Autosave", showicon=true):
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (data.Preview)
 
-func load_game(filename:String="Autosave", sound:= true, predefined:= false):
+func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true):
 	if sound: Global.ui_sound("Load")
 	if filename=="File0": filename = "Autosave"
 	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
 	if not FileAccess.file_exists(filepath): await save()
 	print("Loading " + filepath)
-	transition("")
 	if Global.Bt != null: Global.Bt.free()
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
-	#await get_tree().create_timer(0.2).timeout
+	if close_first: await transition("")
+	else: transition("")
 	if not validate_save(filepath):
 		OS.alert("Save data is corrupt")
-		OS.set_restart_on_exit(true)
 		get_tree().quit()
 		return
 	data = await load_res(filepath)
@@ -183,12 +182,12 @@ func transition(dir=Global.get_dir_letter()):
 	t.set_parallel(false)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
-	$Can.show()
-	$Can.layer = 9
-	$Can/Bars.modulate = Color.WHITE
 	direc = dir
 	if Icon.is_playing():
 		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+	$Can.show()
+	$Can.layer = 9
+	$Can/Bars.modulate = Color.WHITE
 	if dir == "U":
 		t.parallel()
 		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3).from(Vector2(-235,786))

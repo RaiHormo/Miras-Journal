@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=13 format=3 uid="uid://b5xnwqgw051bd"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=10 format=3 uid="uid://b5xnwqgw051bd"]
 
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_e62gl"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_qsrni"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_68ui3"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_kk4y6"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="4_5ofvx"]
 
 [sub_resource type="Resource" id="Resource_kgu6i"]
 script = ExtResource("2_kk4y6")
@@ -12,12 +11,15 @@ name = "JumpSucc"
 description = ""
 ActionSequence = &"FirstBattle2"
 Type = "CheapAttack"
+InflictsState = ""
 AuraCost = 0
 HPCost = 0
 disabled = false
 Damage = 0
 Parameter = 0.0
 Target = 0
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
 ColorSameAsActor = false
 WheelColor = Color(1, 1, 1, 1)
 Callout = false
@@ -41,44 +43,17 @@ resource = SubResource("Resource_kgu6i")
 hold_turn = false
 add_flag = false
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rm0qg"]
-atlas = ExtResource("4_5ofvx")
-region = Rect2(162, 18, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_1jalu"]
-script = ExtResource("2_kk4y6")
-name = "Summon"
-description = "Chance to summon a new ally into battle"
-Icon = SubResource("AtlasTexture_rm0qg")
-ActionSequence = &"Summon"
-Type = "Curse"
-AuraCost = 5
-HPCost = 0
-disabled = false
-Damage = 0
-Parameter = 0.0
-Target = 0
-ColorSameAsActor = false
-WheelColor = Color(1, 1, 1, 1)
-Callout = true
-SucessChance = 1.0
-CritChance = 0.0
-RecoverAura = false
-DmgVarience = true
-
 [sub_resource type="Resource" id="Resource_g722f"]
 script = ExtResource("2_68ui3")
 repeatable = false
 flag = &""
 flag_should_be = false
 after_turn = 3
-actor = &"CS"
+actor = &""
 low_hp = -1
-result = 3
-parameter1 = "Ability"
+result = 1
+parameter1 = "FirstBattle22"
 parameter2 = ""
-resource = SubResource("Resource_1jalu")
 hold_turn = false
 add_flag = false
 
@@ -101,7 +76,7 @@ script = ExtResource("2_68ui3")
 repeatable = false
 flag = &""
 flag_should_be = false
-after_turn = 7
+after_turn = 6
 actor = &""
 low_hp = -1
 result = 1

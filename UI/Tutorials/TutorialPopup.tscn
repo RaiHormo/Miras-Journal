@@ -103,10 +103,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
 [node name="Border2" type="PanelContainer" parent="."]
 show_behind_parent = true
-offset_left = -434.0
-offset_top = 99.0
-offset_right = -134.0
-offset_bottom = 189.0
+offset_left = 612.0
+offset_top = 201.0
+offset_right = 912.0
+offset_bottom = 291.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
 

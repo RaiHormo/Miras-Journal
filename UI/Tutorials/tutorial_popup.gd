@@ -3,7 +3,7 @@ extends CanvasLayer
 func _ready():
 	if Global.device == "Touch": return
 	call(Event.tutorial)
-
+	$Border2.hide()
 
 func pop_down():
 	var t= create_tween()
@@ -39,6 +39,16 @@ func ov_attack():
 func party():
 	%Text.text = "[center]Press [img]" + (Global.get_controller().Select).resource_path + "[/img] to check on your party.[/center]"
 	await pop_down()
+	await Event.wait(2)
+	while not Input.is_action_pressed("MainMenu"):
+		await Event.wait()
+		if Global.Controllable == false: break
+	await close()
+	queue_free()
+
+func bag():
+	%Text.text = "[center]Press [img]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
+	await pop_down()
 	while not Input.is_action_pressed("PartyMenu"):
 		await Event.wait()
 		if Global.Controllable == false: break
@@ -55,23 +65,56 @@ func walk():
 	queue_free()
 
 func aura1():
-	await Event.wait(1, false)
-	#$Fader.color = Color(0,0,0,0.5)
-	Global.Bt.focus_cam(Global.Party.Leader)
+	await Event.wait(0.5, false)
 	$Border2.show()
 	$Border2.position = Vector2(290, 15)
-	$Border2/Text.text = "This is the Aura meter."
+	$Border2/Text.text = Global.colorize("This is the Aura meter.")
 	await await_input()
-	$Border2/Text.text = Global.colorize("It will be drained whenever a Magic Ability is used.")
+	$Border2/Text.text = Global.colorize("It represents how much power Mira currently has.")
 	await await_input()
-	$Border2/Text.text = Global.colorize("One way to recover it is using Mira's guard ability, which will increase her Aura meter when hit.").replace("guard", "Guard")
+	$Border2/Text.text = Global.colorize("The Aura meter will be drained whenever a Magic Ability is used.")
 	await await_input()
 	Global.Bt.lock_turn = false
 	queue_free()
 
+func aura2():
+	await Event.wait(1, false)
+	Global.Bt.focus_cam(Global.Party.Leader)
+	$Border2.show()
+	$Border2/Control/Arrow.hide()
+	$Border2.position = Vector2(612, 201)
+	$Border2/Text.text = "Looks like the enemy is preparing to attack again."
+	await await_input()
+	$Border2/Control/Arrow.show()
+	$Border2.position = Vector2(290, 15)
+	$Border2/Text.text = "Mira's Aura meter is also pretty low right now."
+	await await_input()
+	$Border2/Control/Arrow.hide()
+	$Border2.position = Vector2(104, 279)
+	$Border2/Text.text = Global.colorize("Using her guard ability, Mira will take less damage, while powering up her Aura when hit.").replace("guard", "Guard")
+	await await_input()
+	Global.Bt.lock_turn = false
+	queue_free()
+
+func aura3():
+	await Event.wait(1, false)
+	Global.Bt.focus_cam(Global.Party.Leader)
+	$Border2.show()
+	$Border2/Control/Arrow.hide()
+	$Border2/Control/Arrow.hide()
+	$Border2.position = Vector2(104, 279)
+	$Border2/Text.text = "Using weapon attacks will also power up the Aura slightly."
+	await await_input()
+	$Border2/Text.text = "So go on and finish off this enemy!"
+	await await_input()
+	Global.Bt.lock_turn = false
+	queue_free()
+
+
 func await_input():
 	await Event.wait(0.5, false)
 	while not Input.is_action_pressed("ui_accept"): await Event.wait()
+	Global.confirm_sound()
 
 func close():
 	var t= create_tween()

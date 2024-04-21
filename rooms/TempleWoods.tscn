@@ -362,7 +362,7 @@ size = Vector2(16, 15.9982)
 size = Vector2(51.9996, 45.5053)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gy6qp"]
-size = Vector2(173.012, 55.0009)
+size = Vector2(251.023, 41.9917)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aun7v"]
 size = Vector2(25.0001, 82.0008)
@@ -1254,9 +1254,24 @@ position = Vector2(117.057, 250.973)
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("23_5qp58")
+flag = "DashTutorial0"
+tutorial = "dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialDash"]
 position = Vector2(0.488701, 23.4993)
+shape = SubResource("RectangleShape2D_gy6qp")
+debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
+
+[node name="TutorialBag" type="Area2D" parent="."]
+position = Vector2(1407.08, 347.679)
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("23_5qp58")
+flag = "TutorialBag"
+tutorial = "bag"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialBag"]
+position = Vector2(29.0056, 24.9934)
 shape = SubResource("RectangleShape2D_gy6qp")
 debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
 
@@ -1709,6 +1724,7 @@ animation = &"IdleCorruption"
 [connection signal="body_entered" from="LightUp" to="LightUp" method="_on_body_entered"]
 [connection signal="body_entered" from="Axe/JumpPoint4" to="Axe/JumpPoint4" method="_on_entered"]
 [connection signal="body_entered" from="TutorialDash" to="TutorialDash" method="_on_body_entered"]
+[connection signal="body_entered" from="TutorialBag" to="TutorialBag" method="_on_body_entered"]
 [connection signal="body_entered" from="JumpPoints/JumpPoint1" to="JumpPoints/JumpPoint1" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoints/JumpPoint6" to="JumpPoints/JumpPoint6" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoints/JumpPoint8" to="JumpPoints/JumpPoint8" method="_on_entered"]

@@ -23,90 +23,90 @@
 
 [node name="Grass1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_cdbom")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Grass2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_uh3ip")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Grass3" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_1ll51")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Grass4" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ksnuk")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Grass5" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_hhv58")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Grass6" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c18qe")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_c42fb")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_lp3w6")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt3" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_aun25")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt4" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_5bl7h")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt5" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_g5u7u")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Dirt6" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_0pgum")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_r3uje")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_4hayo")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone3" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_21jaa")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone4" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_nllom")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone5" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("17_g2kto")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"
 
 [node name="Stone6" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("18_t7eph")
-volume_db = -4.0
+volume_db = -5.0
 bus = &"EnvSFX"

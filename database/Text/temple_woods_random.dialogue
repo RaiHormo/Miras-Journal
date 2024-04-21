@@ -219,8 +219,8 @@ Mira.Neutural: S-[wait=0.2]stay back...!
 
 ~ my_aura
 Mira.Neutural: My Aura...
-Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
-Mira.Neutural: Alright I think I've got this!
+#Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
+Mira.Neutural: That's right, I can use [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] with this![next=3]
 => END
 
 ~ what_this
@@ -235,7 +235,7 @@ set Global.Player.BodyState = NPC.CUSTOM
 #do Global.Player.set_anim("PickUpRight", true, true)
 do Item.add_item("WhiteSlime", "Mat")
 do Event.wait(1)
-Mira.Neutural: This slime seems to contain some essence.
+Mira.Neutural: This slime seems to contain some of that monster's essence.
 do Global.Player.set_anim("IdleRight")
 set get_node("/root/Battle/Act/Actor0").global_position = Global.Player.position
 Mira.Neutural: I feel like it might prove useful.

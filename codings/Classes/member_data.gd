@@ -179,6 +179,11 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
 		state = x
 	else:
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
+	print(FirstName + " recived state "+ state.name)
+	if not state.is_stat_change and state.name != "Guarding":
+		if IgnoreStates:
+			print("But had the IgnoreStates poperty")
+			return
 	if has_state(state.name) and !state.is_stat_change:
 		if state.turns != -1:
 			get_state(state.name).turns += state.turns
@@ -199,8 +204,6 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
 		Global.Bt.on_state_add(state, self)
 		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
 			await Global.Bt.play_effect(state.name, self)
-		#if node.get_node("State").sprite_frames.has_animation(state.name):
-			#node.get_node("State").play(state.name)
 
 func remove_state(x):
 	var state: State

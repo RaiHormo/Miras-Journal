@@ -274,7 +274,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Close",
-"speed": 30.0
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -757,6 +757,7 @@ offset_bottom = 1203.0
 color = Color(0, 0, 0, 1)
 
 [node name="DottedBack" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.0313726)
 show_behind_parent = true
 light_mask = 0
 offset_left = 322.0
