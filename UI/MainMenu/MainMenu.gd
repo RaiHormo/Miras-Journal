@@ -1,5 +1,5 @@
 extends CanvasLayer
-var stage
+var stage = "root"
 var rootIndex =1
 var t: Tween
 var prevRootIndex =1
@@ -163,7 +163,7 @@ func close():
 	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
-	t.tween_property($Ring, "scale", Vector2(1.5, 1.5), 0.3)
+	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
 	if Fader != null: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
@@ -275,9 +275,8 @@ func move_root():
 func _root():
 	show()
 	t.kill()
-	#stage="inactive"
-	if stage != "options":
-		stage="root"
+	if stage != "root":
+		stage="inactive-root"
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	$Confirm.show()
@@ -310,7 +309,7 @@ func _root():
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
 	PartyUI.darken(false)
 	await t.finished
-	if stage == "options": stage="root"
+	stage="root"
 
 func _journal():
 	if stage == "inactive": return
@@ -382,7 +381,7 @@ func _quest():
 
 
 func _options():
-	if stage == "inactive": return
+	if stage != "root": return
 	if rootIndex!=3:
 		rootIndex = 3
 		move_root()
@@ -413,10 +412,9 @@ func _on_confirm_button_down():
 			Global.confirm_sound()
 
 func _on_back_button_down():
-	#print(stage)
-	Global.cancel_sound()
+	if stage != "inactive": Global.cancel_sound()
 	match stage:
-		"root":
+		"root", "inactive-root":
 			close()
 		"item":
 			_root()

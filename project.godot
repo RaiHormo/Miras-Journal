@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="Mira's Journal - Prototype"
-config/description="Made by Rai"
+config/description="A prototype JRPG game
+Created by Rai"
+config/version="0.01"
 run/main_scene="res://codings/Initializer.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"

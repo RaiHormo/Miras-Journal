@@ -326,7 +326,7 @@ func end_battle():
 	if Global.Bt != null: Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
-	if Attacker!=null and BattleResult!= 1: Attacker.show()
+	if Attacker!=null and BattleResult != 1: Attacker.show()
 	if Seq.DeleteAttacker and BattleResult == 1 and Attacker!=null:
 		Attacker.defeat()
 	Global.Controllable = false
@@ -337,7 +337,6 @@ func end_battle():
 	if Global.Player != null:
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
-		await Event.wait(0.1)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	PartyUI.UIvisible=true
 	Global.Controllable = true

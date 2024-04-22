@@ -54,3 +54,4 @@ ClutchDmg = false
 SeqOnClutch = ""
 CantDie = false
 IgnoreStates = false
+CantDodge = false

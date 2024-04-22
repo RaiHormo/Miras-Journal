@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://dv24x1ivfytn7"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://c81ribbmkkgh8"]
 
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="2_5xbdp"]
 [ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="2_ib8cl"]
@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("3_q0sql")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_ib8cl"), ExtResource("2_ib8cl"), ExtResource("2_5xbdp")])
+Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_5xbdp"), ExtResource("2_ib8cl"), ExtResource("2_ib8cl")])
+AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 Transition = true
 Detransition = false
 EscPosition = Vector2(68, 9)
@@ -15,6 +16,9 @@ ScenePosition = Vector2(1600, 225)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
 VictorySequence = ""
 VictoryBanter = ""
+DefeatSequence = ""
 Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=3 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=129 format=3 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="11_1cjwu"]
 [ext_resource type="Resource" uid="uid://c2cqusickawh0" path="res://database/BattleSeq/SludgeBattle3.tres" id="13_812cc"]
 [ext_resource type="Texture2D" uid="uid://bvfnckapn0hdd" path="res://art/OV/Enemies/CrawlingSludgeOV.png" id="13_q27vv"]
+[ext_resource type="Resource" uid="uid://c81ribbmkkgh8" path="res://database/BattleSeq/SludgeBattle2.tres" id="14_hs8tf"]
 [ext_resource type="Shader" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
 [ext_resource type="Script" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
 [ext_resource type="Script" path="res://codings/Interactions/light_up.gd" id="16_0acit"]
@@ -920,6 +921,7 @@ offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge4" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1638.08, 368.626)
+Battle = ExtResource("14_hs8tf")
 Defeated = false
 give_up_after = 3
 direction = Vector2(0, 0)
@@ -995,7 +997,6 @@ offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge5" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1257.89, -491.287)
-Battle = ExtResource("13_812cc")
 Defeated = false
 give_up_after = 3
 direction = Vector2(0, 0)

@@ -149,6 +149,13 @@ func main():
 		i.z_index = 0
 		i.toggle_mode=false
 	$Confirm.show()
+	Loader.ungray.emit()
+	await t.finished
+	if stage == "main":
+		$SavePanel.hide()
+		$SidePanel.hide()
+		$GalleryPanel.hide()
+		$MainButtons.get_child(mainIndex).grab_focus()
 
 func game_settings():
 	if stage == "game_settings": return
@@ -229,7 +236,7 @@ func gallery():
 func _on_focus_changed(control:Control):
 	Global.cursor_sound()
 	focus = control
-	if stage=="main":
+	if stage=="main" and control.get_parent() == $MainButtons:
 		mainIndex = focus.get_index()
 	if stage=="save_managment":
 		if control.get_parent().get_parent().name == "New":
@@ -419,6 +426,9 @@ func _on_save_load() -> void:
 	if focus == null or stage != "save_managment": return
 	var panel = focus.get_parent()
 	if "New" in panel.name: return
+	if not panel is PanelContainer:
+		$SavePanel/ScrollContainer/Files/File0.grab_focus()
+		return
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:

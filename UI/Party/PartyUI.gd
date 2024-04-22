@@ -525,6 +525,7 @@ func confirm_time_passage(title: String, description: String, to_time: int, acti
 func cmd():
 	Event.f("DisableMenus", false)
 	PartyUI.disabled = false
+	show_all()
 	if not $CanvasLayer/TextEdit.visible:
 		print(Event.Flags)
 		$CanvasLayer/TextEdit.show()
@@ -532,7 +533,10 @@ func cmd():
 		$CanvasLayer/TextEdit.grab_focus()
 		Global.Controllable = false
 	else:
-		if "/day " in $CanvasLayer/TextEdit.text:
+		if "/clear" in $CanvasLayer/TextEdit.text:
+			Event.Flags.clear()
+			Loader.Defeated.clear()
+		elif "/day " in $CanvasLayer/TextEdit.text:
 			$CanvasLayer/TextEdit.text.replace("/day ", "")
 			Event.Day = int($CanvasLayer/TextEdit.text)
 		elif $CanvasLayer/TextEdit.text != "":

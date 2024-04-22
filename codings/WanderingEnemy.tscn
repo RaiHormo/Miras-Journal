@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
-[ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle2.tres" id="3_ku8yi"]
+[ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="3_ku8yi"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="5_lwcxn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]

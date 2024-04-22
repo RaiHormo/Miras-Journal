@@ -15,6 +15,7 @@ description = "Chance to summon a new ally into battle"
 Icon = SubResource("AtlasTexture_rm0qg")
 ActionSequence = &"Summon"
 Type = "Summon"
+InflictsState = ""
 AuraCost = 5
 HPCost = 0
 disabled = false
