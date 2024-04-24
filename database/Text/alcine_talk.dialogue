@@ -1,15 +1,15 @@
 ~ error
-Alcine: ({{alcine()}} looks at me confused)
+Alcine.Upset: /*{{alcine()}} looks at me confused*/
 
 ~ d10_0
-Alcine: ({{alcine()}} clings onto me)
+Alcine.Upset: /*{{alcine()}} seems scared*/
 
 ~ options
-Alcine: {{line_to_be_used}}
+{{nametag_to_be_used}}: {{line_to_be_used}}
 - Cancel
 - Ask for healing [if not is_everyone_fully_healed()]
 	if find_ability(mem("Alcine"), "Healing", true).AuraCost < mem("Alcine").Aura:
-		Alcine: (nod)
+		Alcine.Neutural: /*nod*/
 		- For me [if not is_mem_healed(Party.Leader)]
 			set ArbData0 = Party.Leader
 		- For {{Party.Member1.FirstName}} [if check_member(1) and Party.Member1 != mem("Alcine") and !is_mem_healed(Party.Member1)]
@@ -26,8 +26,8 @@ Alcine: {{line_to_be_used}}
 			set mem("Alcine").Aura -= find_ability(mem("Alcine"), "Healing").AuraCost
 			do heal_in_overworld(ArbData0, find_ability(mem("Alcine"), "Healing"))
 	else: 
-		Alcine: (shakes head)
+		Alcine.Tired: /*shakes head*/
 		It seems they're too exhaused to use healing magic.
 - Pet
-	Alcine: [[({{alcine()}} looks satisfied)|(They seem to like it)]]
+	Alcine.Happy: [[/*{{alcine()}} seems to be feeling better*/|/*They seem to like it*/]]
 => END

@@ -28,3 +28,8 @@ ROUND 4[wait=1] BEGIN![next=auto]
 Stay away from sharp objects!
 ROUND 5[wait=1] BEGIN![next=auto]
 => END
+
+~ arena_round6
+Battle items can be pretty useful, keep that in mind.
+ROUND 6[wait=1] BEGIN![next=auto]
+=> END

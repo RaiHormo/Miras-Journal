@@ -700,9 +700,9 @@ animation = &"ReachOut2"
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
-position = Vector2(-18.6, -0.2)
+position = Vector2(0, -4)
 texture = ExtResource("10_dxclp")
-offset = Vector2(18.6, 6.2)
+offset = Vector2(-0.4, 9.2)
 
 [node name="Bubble" type="AnimatedSprite2D" parent="."]
 light_mask = 0

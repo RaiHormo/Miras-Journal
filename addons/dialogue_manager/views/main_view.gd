@@ -41,11 +41,14 @@ enum TranslationSource {
 @onready var build_error_dialog: AcceptDialog = $BuildErrorDialog
 @onready var close_confirmation_dialog: ConfirmationDialog = $CloseConfirmationDialog
 @onready var updated_dialog: AcceptDialog = $UpdatedDialog
+@onready var find_in_files_dialog: AcceptDialog = $FindInFilesDialog
+@onready var find_in_files: Control = $FindInFilesDialog/FindInFiles
 
 # Toolbar
 @onready var new_button: Button = %NewButton
 @onready var open_button: MenuButton = %OpenButton
 @onready var save_all_button: Button = %SaveAllButton
+@onready var find_in_files_button: Button = %FindInFilesButton
 @onready var test_button: Button = %TestButton
 @onready var search_button: Button = %SearchButton
 @onready var insert_button: MenuButton = %InsertButton
@@ -151,28 +154,45 @@ func _ready() -> void:
 	editor_settings.settings_changed.connect(_on_editor_settings_changed)
 	_on_editor_settings_changed()
 
+	# Reopen any files that were open when Godot was closed
+	if editor_settings.get_setting("text_editor/behavior/files/restore_scripts_on_load"):
+		var reopen_files: Array = DialogueSettings.get_user_value("reopen_files", [])
+		for reopen_file in reopen_files:
+			open_file(reopen_file)
+
+		self.current_file_path = DialogueSettings.get_user_value("most_recent_reopen_file", "")
+
 	save_all_button.disabled = true
 
-	close_confirmation_dialog.ok_button_text = DialogueConstants.translate("confirm_close.save")
-	close_confirmation_dialog.add_button(DialogueConstants.translate("confirm_close.discard"), true, "discard")
+	close_confirmation_dialog.ok_button_text = DialogueConstants.translate(&"confirm_close.save")
+	close_confirmation_dialog.add_button(DialogueConstants.translate(&"confirm_close.discard"), true, "discard")
 
 	settings_view.editor_plugin = editor_plugin
 
-	errors_dialog.dialog_text = DialogueConstants.translate("errors_in_script")
+	errors_dialog.dialog_text = DialogueConstants.translate(&"errors_in_script")
+
+
+func _exit_tree() -> void:
+	DialogueSettings.set_user_value("reopen_files", open_buffers.keys())
+	DialogueSettings.set_user_value("most_recent_reopen_file", self.current_file_path)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible: return
 
 	if event is InputEventKey and event.is_pressed():
-		match event.as_text():
-			"Ctrl+Alt+S", "Command+Alt+S":
-				get_viewport().set_input_as_handled()
-				save_file(current_file_path)
-			"Ctrl+W", "Command+W":
+		var shortcut: String = Engine.get_meta("DialogueManagerPlugin").get_editor_shortcut(event)
+		match shortcut:
+			"close_file":
 				get_viewport().set_input_as_handled()
 				close_file(current_file_path)
-			"Ctrl+F5", "Command+F5":
+			"save":
+				get_viewport().set_input_as_handled()
+				save_file(current_file_path)
+			"find_in_files":
+				get_viewport().set_input_as_handled()
+				_on_find_in_files_button_pressed()
+			"run_test_scene":
 				get_viewport().set_input_as_handled()
 				_on_test_button_pressed()
 
@@ -199,7 +219,7 @@ func load_from_version_refresh(just_refreshed: Dictionary) -> void:
 	else:
 		editor_plugin.get_editor_interface().set_main_screen_editor("Dialogue")
 
-	updated_dialog.dialog_text = DialogueConstants.translate("update.success").format({ version = update_button.get_version() })
+	updated_dialog.dialog_text = DialogueConstants.translate(&"update.success").format({ version = update_button.get_version() })
 	updated_dialog.popup_centered()
 
 
@@ -311,7 +331,7 @@ func close_file(file: String) -> void:
 	if buffer.text == buffer.pristine_text:
 		remove_file_from_open_buffers(file)
 	else:
-		close_confirmation_dialog.dialog_text = DialogueConstants.translate("confirm_close").format({ path = file.get_file() })
+		close_confirmation_dialog.dialog_text = DialogueConstants.translate(&"confirm_close").format({ path = file.get_file() })
 		close_confirmation_dialog.popup_centered()
 
 
@@ -341,6 +361,9 @@ func apply_theme() -> void:
 			current_line_color = editor_settings.get_setting("text_editor/theme/highlighting/current_line_color"),
 			error_line_color = editor_settings.get_setting("text_editor/theme/highlighting/mark_color"),
 
+			critical_color = editor_settings.get_setting("text_editor/theme/highlighting/comment_markers/critical_color"),
+			notice_color = editor_settings.get_setting("text_editor/theme/highlighting/comment_markers/notice_color"),
+
 			titles_color = editor_settings.get_setting("text_editor/theme/highlighting/control_flow_keyword_color"),
 			text_color = editor_settings.get_setting("text_editor/theme/highlighting/text_color"),
 			conditions_color = editor_settings.get_setting("text_editor/theme/highlighting/keyword_color"),
@@ -356,73 +379,78 @@ func apply_theme() -> void:
 		}
 
 		new_button.icon = get_theme_icon("New", "EditorIcons")
-		new_button.tooltip_text = DialogueConstants.translate("start_a_new_file")
+		new_button.tooltip_text = DialogueConstants.translate(&"start_a_new_file")
 
 		open_button.icon = get_theme_icon("Load", "EditorIcons")
-		open_button.tooltip_text = DialogueConstants.translate("open_a_file")
+		open_button.tooltip_text = DialogueConstants.translate(&"open_a_file")
 
 		save_all_button.icon = get_theme_icon("Save", "EditorIcons")
-		save_all_button.tooltip_text = DialogueConstants.translate("start_all_files")
+		save_all_button.tooltip_text = DialogueConstants.translate(&"start_all_files")
+
+		find_in_files_button.icon = get_theme_icon("ViewportZoom", "EditorIcons")
+		find_in_files_button.tooltip_text = DialogueConstants.translate(&"find_in_files")
 
 		test_button.icon = get_theme_icon("PlayScene", "EditorIcons")
-		test_button.tooltip_text = DialogueConstants.translate("test_dialogue")
+		test_button.tooltip_text = DialogueConstants.translate(&"test_dialogue")
 
 		search_button.icon = get_theme_icon("Search", "EditorIcons")
-		search_button.tooltip_text = DialogueConstants.translate("search_for_text")
+		search_button.tooltip_text = DialogueConstants.translate(&"search_for_text")
 
 		insert_button.icon = get_theme_icon("RichTextEffect", "EditorIcons")
-		insert_button.text = DialogueConstants.translate("insert")
+		insert_button.text = DialogueConstants.translate(&"insert")
 
 		translations_button.icon = get_theme_icon("Translation", "EditorIcons")
-		translations_button.text = DialogueConstants.translate("translations")
+		translations_button.text = DialogueConstants.translate(&"translations")
 
 		settings_button.icon = get_theme_icon("Tools", "EditorIcons")
-		settings_button.tooltip_text = DialogueConstants.translate("settings")
+		settings_button.tooltip_text = DialogueConstants.translate(&"settings")
 
 		support_button.icon = get_theme_icon("Heart", "EditorIcons")
-		support_button.tooltip_text = DialogueConstants.translate("show_support")
+		support_button.text = DialogueConstants.translate(&"sponsor")
+		support_button.tooltip_text = DialogueConstants.translate(&"show_support")
 
 		docs_button.icon = get_theme_icon("Help", "EditorIcons")
-		docs_button.text = DialogueConstants.translate("docs")
+		docs_button.text = DialogueConstants.translate(&"docs")
 
 		update_button.apply_theme()
 
 		# Set up the effect menu
 		var popup: PopupMenu = insert_button.get_popup()
 		popup.clear()
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.wave_bbcode"), 0)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.shake_bbcode"), 1)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.wave_bbcode"), 0)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.shake_bbcode"), 1)
 		popup.add_separator()
-		popup.add_icon_item(get_theme_icon("Time", "EditorIcons"), DialogueConstants.translate("insert.typing_pause"), 3)
-		popup.add_icon_item(get_theme_icon("ViewportSpeed", "EditorIcons"), DialogueConstants.translate("insert.typing_speed_change"), 4)
-		popup.add_icon_item(get_theme_icon("DebugNext", "EditorIcons"), DialogueConstants.translate("insert.auto_advance"), 5)
-		popup.add_separator(DialogueConstants.translate("insert.templates"))
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.title"), 6)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.dialogue"), 7)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.response"), 8)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.random_lines"), 9)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.random_text"), 10)
-		popup.add_separator(DialogueConstants.translate("insert.actions"))
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.jump"), 11)
-		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate("insert.end_dialogue"), 12)
+		popup.add_icon_item(get_theme_icon("Time", "EditorIcons"), DialogueConstants.translate(&"insert.typing_pause"), 3)
+		popup.add_icon_item(get_theme_icon("ViewportSpeed", "EditorIcons"), DialogueConstants.translate(&"insert.typing_speed_change"), 4)
+		popup.add_icon_item(get_theme_icon("DebugNext", "EditorIcons"), DialogueConstants.translate(&"insert.auto_advance"), 5)
+		popup.add_separator(DialogueConstants.translate(&"insert.templates"))
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.title"), 6)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.dialogue"), 7)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.response"), 8)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.random_lines"), 9)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.random_text"), 10)
+		popup.add_separator(DialogueConstants.translate(&"insert.actions"))
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.jump"), 11)
+		popup.add_icon_item(get_theme_icon("RichTextEffect", "EditorIcons"), DialogueConstants.translate(&"insert.end_dialogue"), 12)
 
 		# Set up the translations menu
 		popup = translations_button.get_popup()
 		popup.clear()
-		popup.add_icon_item(get_theme_icon("Translation", "EditorIcons"), DialogueConstants.translate("generate_line_ids"), TRANSLATIONS_GENERATE_LINE_IDS)
+		popup.add_icon_item(get_theme_icon("Translation", "EditorIcons"), DialogueConstants.translate(&"generate_line_ids"), TRANSLATIONS_GENERATE_LINE_IDS)
 		popup.add_separator()
-		popup.add_icon_item(get_theme_icon("FileList", "EditorIcons"), DialogueConstants.translate("save_characters_to_csv"), TRANSLATIONS_SAVE_CHARACTERS_TO_CSV)
-		popup.add_icon_item(get_theme_icon("FileList", "EditorIcons"), DialogueConstants.translate("save_to_csv"), TRANSLATIONS_SAVE_TO_CSV)
-		popup.add_icon_item(get_theme_icon("AssetLib", "EditorIcons"), DialogueConstants.translate("import_from_csv"), TRANSLATIONS_IMPORT_FROM_CSV)
+		popup.add_icon_item(get_theme_icon("FileList", "EditorIcons"), DialogueConstants.translate(&"save_characters_to_csv"), TRANSLATIONS_SAVE_CHARACTERS_TO_CSV)
+		popup.add_icon_item(get_theme_icon("FileList", "EditorIcons"), DialogueConstants.translate(&"save_to_csv"), TRANSLATIONS_SAVE_TO_CSV)
+		popup.add_icon_item(get_theme_icon("AssetLib", "EditorIcons"), DialogueConstants.translate(&"import_from_csv"), TRANSLATIONS_IMPORT_FROM_CSV)
 
 		# Dialog sizes
 		new_dialog.min_size = Vector2(600, 500) * scale
 		save_dialog.min_size = Vector2(600, 500) * scale
 		open_dialog.min_size = Vector2(600, 500) * scale
 		export_dialog.min_size = Vector2(600, 500) * scale
-		export_dialog.min_size = Vector2(600, 500) * scale
+		import_dialog.min_size = Vector2(600, 500) * scale
 		settings_dialog.min_size = Vector2(1000, 600) * scale
 		settings_dialog.max_size = Vector2(1000, 600) * scale
+		find_in_files_dialog.min_size = Vector2(800, 600) * scale
 
 
 ### Helpers
@@ -432,12 +460,12 @@ func apply_theme() -> void:
 func build_open_menu() -> void:
 	var menu = open_button.get_popup()
 	menu.clear()
-	menu.add_icon_item(get_theme_icon("Load", "EditorIcons"), DialogueConstants.translate("open.open"), OPEN_OPEN)
+	menu.add_icon_item(get_theme_icon("Load", "EditorIcons"), DialogueConstants.translate(&"open.open"), OPEN_OPEN)
 	menu.add_separator()
 
 	var recent_files = DialogueSettings.get_recent_files()
 	if recent_files.size() == 0:
-		menu.add_item(DialogueConstants.translate("open.no_recent_files"))
+		menu.add_item(DialogueConstants.translate(&"open.no_recent_files"))
 		menu.set_item_disabled(2, true)
 	else:
 		for path in recent_files:
@@ -445,7 +473,7 @@ func build_open_menu() -> void:
 				menu.add_icon_item(get_theme_icon("File", "EditorIcons"), path)
 
 	menu.add_separator()
-	menu.add_item(DialogueConstants.translate("open.clear_recent_files"), OPEN_CLEAR)
+	menu.add_item(DialogueConstants.translate(&"open.clear_recent_files"), OPEN_CLEAR)
 	if menu.id_pressed.is_connected(_on_open_menu_id_pressed):
 		menu.id_pressed.disconnect(_on_open_menu_id_pressed)
 	menu.id_pressed.connect(_on_open_menu_id_pressed)
@@ -472,7 +500,7 @@ func parse() -> void:
 
 
 func show_build_error_dialog() -> void:
-	build_error_dialog.dialog_text = DialogueConstants.translate("errors_with_build")
+	build_error_dialog.dialog_text = DialogueConstants.translate(&"errors_with_build")
 	build_error_dialog.popup_centered()
 
 
@@ -604,6 +632,7 @@ func export_translations_to_csv(path: String) -> void:
 			notes_column = headings.size()
 			headings.append("_notes")
 		file.store_csv_line(headings)
+		column_count = headings.size()
 
 	# Write our translations to file
 	var known_keys: PackedStringArray = []
@@ -906,6 +935,11 @@ func _on_save_all_button_pressed() -> void:
 	save_files()
 
 
+func _on_find_in_files_button_pressed() -> void:
+	find_in_files_dialog.popup_centered()
+	find_in_files.prepare()
+
+
 func _on_code_edit_text_changed() -> void:
 	title_list.titles = code_edit.get_titles()
 
@@ -1011,14 +1045,16 @@ func _on_files_list_file_middle_clicked(path: String):
 func _on_files_popup_menu_about_to_popup() -> void:
 	files_popup_menu.clear()
 
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.save"), ITEM_SAVE, KEY_MASK_CTRL | KEY_MASK_ALT | KEY_S)
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.save_as"), ITEM_SAVE_AS)
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.close"), ITEM_CLOSE, KEY_MASK_CTRL | KEY_W)
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.close_all"), ITEM_CLOSE_ALL)
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.close_other_files"), ITEM_CLOSE_OTHERS)
+	var shortcuts: Dictionary = Engine.get_meta("DialogueManagerPlugin").get_editor_shortcuts()
+
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.save"), ITEM_SAVE, OS.find_keycode_from_string(shortcuts.get("save")[0].as_text_keycode()))
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.save_as"), ITEM_SAVE_AS)
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.close"), ITEM_CLOSE, OS.find_keycode_from_string(shortcuts.get("close_file")[0].as_text_keycode()))
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.close_all"), ITEM_CLOSE_ALL)
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.close_other_files"), ITEM_CLOSE_OTHERS)
 	files_popup_menu.add_separator()
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.copy_file_path"), ITEM_COPY_PATH)
-	files_popup_menu.add_item(DialogueConstants.translate("buffer.show_in_filesystem"), ITEM_SHOW_IN_FILESYSTEM)
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.copy_file_path"), ITEM_COPY_PATH)
+	files_popup_menu.add_item(DialogueConstants.translate(&"buffer.show_in_filesystem"), ITEM_SHOW_IN_FILESYSTEM)
 
 
 func _on_files_popup_menu_id_pressed(id: int) -> void:
@@ -1060,3 +1096,8 @@ func _on_close_confirmation_dialog_custom_action(action: StringName) -> void:
 	if action == "discard":
 		remove_file_from_open_buffers(current_file_path)
 	close_confirmation_dialog.hide()
+
+
+func _on_find_in_files_result_selected(path: String, cursor: Vector2, length: int) -> void:
+	open_file(path)
+	code_edit.select(cursor.y, cursor.x, cursor.y, cursor.x + length)

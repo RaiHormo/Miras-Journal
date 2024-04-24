@@ -309,7 +309,8 @@ func _root():
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
 	PartyUI.darken(false)
 	await t.finished
-	stage="root"
+	if stage == "inactive-root":
+		stage="root"
 
 func _journal():
 	if stage == "inactive": return

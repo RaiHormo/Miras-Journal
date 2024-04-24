@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://jbqc6bbxg02s"]
+[gd_scene load_steps=63 format=3 uid="uid://jbqc6bbxg02s"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
@@ -14,6 +14,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_l4igp"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="12_ylbqp"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://codings/GroundItem.tscn" id="14_15y50"]
+[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="14_vsd2t"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://codings/Interactions/Breakable.tscn" id="15_frp5k"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="16_3yfuf"]
 
@@ -751,7 +752,15 @@ animation = &"Surprise"
 frame = 14
 frame_progress = 1.0
 
+[node name="Shadow" type="Sprite2D" parent="EntranceCutscene/Mira"]
+unique_name_in_owner = true
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(7.62939e-06, 9.99995)
+texture = ExtResource("14_vsd2t")
+
 [node name="Alcine" type="CharacterBody2D" parent="EntranceCutscene"]
+visible = false
 z_index = 3
 position = Vector2(299, 1354)
 collision_layer = 0
@@ -781,6 +790,7 @@ frame_progress = 1.0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="EntranceCutscene"]
 z_index = 4
+position = Vector2(-1, 0)
 navigation_polygon = SubResource("NavigationPolygon_bcoy4")
 
 [node name="RustySword1" parent="." instance=ExtResource("14_15y50")]

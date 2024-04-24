@@ -96,6 +96,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
 	Event.Flags = data.Flags.duplicate()
+	Event.Day = data.Day
 	get_tree().paused = true
 	if data == null:
 		OS.alert("This save file doen't exist", "WHERE FILE")

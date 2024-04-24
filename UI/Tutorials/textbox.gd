@@ -59,6 +59,9 @@ var dialogue_line: DialogueLine:
 		else: character_label.text = Global.find_member(char_name).FirstName
 		$Balloon/Panel.size.x = 1
 
+		dialogue_line.text = dialogue_line.text.replace("/*", "[color=Gray]*")
+		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
+
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		if next_box == "": next_box = char_name
 		mem = await Global.match_profile(next_box)
@@ -337,7 +340,9 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
 	if Global.HasPortrait:
-		$Balloon/Arrow.show()
+		if not dialogue_line.text.begins_with("[color=Gray]*"):
+			$Balloon/Arrow.show()
+		else: $Balloon/Arrow.hide()
 		var pan = $Balloon/Arrow.get_theme_stylebox("panel")
 		pan.bg_color = mem.Bord1
 		$Portrait.texture = Global.PortraitIMG

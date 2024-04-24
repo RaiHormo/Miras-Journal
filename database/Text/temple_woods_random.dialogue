@@ -95,7 +95,7 @@ Mira.Neutural: Hey, I think we might have to run away!
 ~ amazing
 Mira.Neutural: Woah, you can use healing magic!?
 Mira.Neutural: We might have a chance like this!
-Alcine: (happy noises)
+Alcine.Happy: /*happy noises*/
 => END
 
 ~ got_through_that
@@ -106,7 +106,7 @@ Mira.Neutural: Wait, do you have a name?
 Mira.Neutural: [next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
-Mira.Neutural: Oh right, you can't talk.\nBut I need to call you something...
+Mira.Neutural: Right, you can't talk.\nBut I need to call you something...
 Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alright?
 
 ~ what_about

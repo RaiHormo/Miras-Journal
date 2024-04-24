@@ -5,8 +5,8 @@ namespace DialogueManagerRuntime
 {
   public partial class ExampleBalloon : CanvasLayer
   {
-    const string NEXT_ACTION = "ui_accept";
-    const string SKIP_ACTION = "ui_cancel";
+    [Export] public string NextAction = "ui_accept";
+    [Export] public string SkipAction = "ui_cancel";
 
 
     Control balloon;
@@ -55,7 +55,7 @@ namespace DialogueManagerRuntime
         if ((bool)dialogueLabel.Get("is_typing"))
         {
           bool mouseWasClicked = @event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed();
-          bool skipButtonWasPressed = @event.IsActionPressed(SKIP_ACTION);
+          bool skipButtonWasPressed = @event.IsActionPressed(SkipAction);
           if (mouseWasClicked || skipButtonWasPressed)
           {
             GetViewport().SetInputAsHandled();
@@ -73,30 +73,28 @@ namespace DialogueManagerRuntime
         {
           Next(dialogueLine.NextId);
         }
-        else if (@event.IsActionPressed(NEXT_ACTION) && GetViewport().GuiGetFocusOwner() == balloon)
+        else if (@event.IsActionPressed(NextAction) && GetViewport().GuiGetFocusOwner() == balloon)
         {
           Next(dialogueLine.NextId);
         }
       };
 
+      if (string.IsNullOrEmpty((string)responsesMenu.Get("next_action")))
+      {
+        responsesMenu.Set("next_action", NextAction);
+      }
       responsesMenu.Connect("response_selected", Callable.From((DialogueResponse response) =>
       {
         Next(response.NextId);
       }));
 
-      DialogueManager.Mutated += (mutation) =>
-      {
-        isWaitingForInput = false;
-        willHideBalloon = true;
-        GetTree().CreateTimer(0.1f).Timeout += () =>
-        {
-          if (willHideBalloon)
-          {
-            willHideBalloon = false;
-            balloon.Hide();
-          }
-        };
-      };
+      DialogueManager.Mutated += OnMutated;
+    }
+
+
+    public override void _ExitTree()
+    {
+      DialogueManager.Mutated -= OnMutated;
     }
 
 
@@ -177,6 +175,27 @@ namespace DialogueManagerRuntime
         balloon.FocusMode = Control.FocusModeEnum.All;
         balloon.GrabFocus();
       }
+    }
+
+
+    #endregion
+
+
+    #region signals
+
+
+    private void OnMutated(Dictionary _mutation)
+    {
+      isWaitingForInput = false;
+      willHideBalloon = true;
+      GetTree().CreateTimer(0.1f).Timeout += () =>
+      {
+        if (willHideBalloon)
+        {
+          willHideBalloon = false;
+          balloon.Hide();
+        }
+      };
     }
 
 

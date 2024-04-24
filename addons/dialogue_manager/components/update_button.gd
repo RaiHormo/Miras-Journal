@@ -2,6 +2,7 @@
 extends Button
 
 const DialogueConstants = preload("../constants.gd")
+const DialogueSettings = preload("../settings.gd")
 
 const REMOTE_RELEASES_URL = "https://api.github.com/repos/nathanhoad/godot_dialogue_manager/releases"
 
@@ -55,7 +56,8 @@ func apply_theme() -> void:
 
 
 func check_for_update() -> void:
-	http_request.request(REMOTE_RELEASES_URL)
+	if DialogueSettings.get_user_value("check_for_updates", true):
+		http_request.request(REMOTE_RELEASES_URL)
 
 
 ### Signals
@@ -77,7 +79,7 @@ func _on_http_request_request_completed(result: int, response_code: int, headers
 	)
 	if versions.size() > 0:
 		download_update_panel.next_version_release = versions[0]
-		text = DialogueConstants.translate("update.available").format({ version = versions[0].tag_name.substr(1) })
+		text = DialogueConstants.translate(&"update.available").format({ version = versions[0].tag_name.substr(1) })
 		show()
 
 
@@ -99,19 +101,19 @@ func _on_download_dialog_close_requested() -> void:
 func _on_download_update_panel_updated(updated_to_version: String) -> void:
 	download_dialog.hide()
 
-	needs_reload_dialog.dialog_text = DialogueConstants.translate("update.needs_reload")
-	needs_reload_dialog.ok_button_text = DialogueConstants.translate("update.reload_ok_button")
-	needs_reload_dialog.cancel_button_text = DialogueConstants.translate("update.reload_cancel_button")
+	needs_reload_dialog.dialog_text = DialogueConstants.translate(&"update.needs_reload")
+	needs_reload_dialog.ok_button_text = DialogueConstants.translate(&"update.reload_ok_button")
+	needs_reload_dialog.cancel_button_text = DialogueConstants.translate(&"update.reload_cancel_button")
 	needs_reload_dialog.popup_centered()
 
 	needs_reload = true
-	text = DialogueConstants.translate("update.reload_project")
+	text = DialogueConstants.translate(&"update.reload_project")
 	apply_theme()
 
 
 func _on_download_update_panel_failed() -> void:
 	download_dialog.hide()
-	update_failed_dialog.dialog_text = DialogueConstants.translate("update.failed")
+	update_failed_dialog.dialog_text = DialogueConstants.translate(&"update.failed")
 	update_failed_dialog.popup_centered()
 
 

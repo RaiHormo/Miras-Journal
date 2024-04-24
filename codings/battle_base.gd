@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name Battle
 @export var Party: PartyData
 @export var Seq: BattleSequence= Loader.Seq

@@ -1536,18 +1536,11 @@ expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
-[node name="Battle" type="Control"]
+[node name="Battle" type="Node2D"]
 process_mode = 3
 z_index = 5
 z_as_relative = false
 texture_filter = 2
-material = ExtResource("1_dmrw5")
-layout_mode = 3
-anchors_preset = 0
-offset_left = 210.0
-offset_top = 150.0
-offset_right = 1490.0
-offset_bottom = 950.0
 script = ExtResource("2_xgmkj")
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
@@ -1663,7 +1656,7 @@ script = ExtResource("17_5kmxv")
 z_index = 10
 z_as_relative = false
 material = SubResource("ShaderMaterial_nmg3k")
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -20,6 +20,7 @@ var disabled = true
 var LevelupChain: Array[Actor] = []
 var submenu_opened := false
 var line_to_be_used: String
+var nametag_to_be_used: String
 
 func _ready():
 	$CanvasLayer.hide()
@@ -614,6 +615,7 @@ func talk() -> void:
 	var key = "d"+str(Event.Day)+"_"+str(Event.flag_int(Global.Party.array()[focus].codename+"Talk"))
 	if not key in dialog.get_titles(): key = "error"
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
+	nametag_to_be_used = (await dialog.get_next_dialogue_line(key)).character
 	submenu_opened = true
 	await Global.textbox(Global.Party.array()[focus].codename.to_lower()+"_talk", "options", true)
 	close_submenu()

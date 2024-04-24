@@ -30,6 +30,9 @@ msgstr "Clear recent files"
 msgid "save_all_files"
 msgstr "Save all files"
 
+msgid "find_in_files"
+msgstr "Find in files..."
+
 msgid "test_dialogue"
 msgstr "Test dialogue"
 
@@ -44,6 +47,9 @@ msgstr "Translations"
 
 msgid "settings"
 msgstr "Settings"
+
+msgid "sponsor"
+msgstr "Sponsor"
 
 msgid "show_support"
 msgstr "Support Dialogue Manager"
@@ -210,8 +216,26 @@ msgstr "Include character names in translation exports"
 msgid "settings.include_notes_in_translations"
 msgstr "Include notes (## comments) in translation exports"
 
+msgid "settings.check_for_updates"
+msgstr "Check for updates"
+
 msgid "n_of_n"
 msgstr "{index} of {total}"
+
+msgid "search.find"
+msgstr "Find:"
+
+msgid "search.find_all"
+msgstr "Find all..."
+
+msgid "search.placeholder"
+msgstr "Text to search for"
+
+msgid "search.replace_placeholder"
+msgstr "Text to replace it with"
+
+msgid "search.replace_selected"
+msgstr "Replace selected"
 
 msgid "search.previous"
 msgstr "Previous"
@@ -413,15 +437,6 @@ msgstr "You have {count} errors in your dialogue text. See Output for details."
 
 msgid "runtime.invalid_expression"
 msgstr "\"{expression}\" is not a valid expression: {error}"
-
-msgid "runtime.unsupported_array_method"
-msgstr "Calling \"{method_name}\" on an array isn't supported."
-
-msgid "runtime.unsupported_dictionary_method"
-msgstr "Calling \"{method_name}\" on a dictionary isn't supported."
-
-msgid "runtime.unsupported_quaternion_method"
-msgstr "Calling \"{method_name}\" on a quaternion isn't supported."
 
 msgid "runtime.array_index_out_of_bounds"
 msgstr "Index {index} out of bounds of array \"{array}\"."
