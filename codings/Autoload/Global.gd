@@ -202,6 +202,7 @@ func get_controller() -> ControlScheme:
 		return preload("res://UI/Input/Generic.tres")
 
 func _input(event: InputEvent) -> void:
+	#print(Input.get_joy_name(event.device))
 	if LastInput==ProcessFrame: return
 	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
 	if event is InputEventMouseMotion:
@@ -273,7 +274,8 @@ func get_preview() -> Texture:
 	return preload("res://art/Previews/1.png")
 
 func reset_settings() -> void:
-	ResourceSaver.save(Setting.new(), "user://Settings.tres")
+	Settings = Setting.new()
+	ResourceSaver.save(Settings, "user://Settings.tres")
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.tres"):

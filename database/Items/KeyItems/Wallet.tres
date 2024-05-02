@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://r736fdcx3r12"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://r736fdcx3r12"]
 
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_3xuxp"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_dwavf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enqek"]
-atlas = ExtResource("1_dwavf")
 region = Rect2(108, 90, 18, 18)
 filter_clip = true
 

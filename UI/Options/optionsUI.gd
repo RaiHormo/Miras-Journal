@@ -390,6 +390,7 @@ func _on_save_delete() -> void:
 		panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_overwrite() -> void:
+	if focus == null: return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
