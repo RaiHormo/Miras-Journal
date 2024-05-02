@@ -358,6 +358,7 @@ func hold_down():
 	t2.tween_property($SavePanel/Toast, "modulate:a", 0, 1)
 
 func _on_save_delete() -> void:
+	if not focus is Panel: return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
@@ -390,6 +391,7 @@ func _on_save_delete() -> void:
 		panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_overwrite() -> void:
+	if not focus is Panel: return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
@@ -423,7 +425,7 @@ func _on_save_overwrite() -> void:
 	panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_load() -> void:
-	if focus == null or stage != "save_managment": return
+	if not focus is Panel or stage != "save_managment": return
 	var panel = focus.get_parent()
 	if "New" in panel.name: return
 	if not panel is PanelContainer:

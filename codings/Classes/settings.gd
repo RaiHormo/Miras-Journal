@@ -12,7 +12,7 @@ class_name Setting
 @export var FPS: int = 0
 @export var VSync: bool = true
 @export_category("Audio")
-@export var MasterVolume: float = 0
+@export var MasterVolume: float = -8
 @export var MusicVolume: float = 0
 @export var EnvSFXVolume: float = 0
 @export var BtSFXVolume: float = 0

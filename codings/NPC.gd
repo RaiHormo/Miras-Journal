@@ -97,6 +97,8 @@ func update_anim_prm() -> void:
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 	if "Idle" in sprite.animation: LastStepFrame = -1
 	if get_node_or_null("StdrFootsteps") == null: return
+	if "Start" in sprite.animation:
+		$StdrFootsteps.get_node(get_terrain() + str(randi_range(1,3))).play()
 	if (("Walk" in sprite.animation and (
 		sprite.frame == 0 or sprite.frame == 2)) or (
 			"Dash" in sprite.animation and (

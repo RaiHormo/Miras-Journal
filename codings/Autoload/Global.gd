@@ -273,7 +273,8 @@ func get_preview() -> Texture:
 	return preload("res://art/Previews/1.png")
 
 func reset_settings() -> void:
-	ResourceSaver.save(Setting.new(), "user://Settings.tres")
+	Settings = Setting.new()
+	ResourceSaver.save(Settings, "user://Settings.tres")
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.tres"):
@@ -290,6 +291,11 @@ func init_settings() -> void:
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
+	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
+	AudioServer.set_bus_volume_db(2, Settings.EnvSFXVolume)
+	AudioServer.set_bus_volume_db(3, Settings.BtSFXVolume)
+	AudioServer.set_bus_volume_db(4, Settings.UIVolume)
+	AudioServer.set_bus_volume_db(4, Settings.VoicesVolume)
 	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
