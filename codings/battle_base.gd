@@ -66,7 +66,7 @@ func _ready():
 	$Canvas/Callout.modulate = Color.TRANSPARENT
 	$Canvas/SPGain.hide()
 	$Canvas/VictoryItems.hide()
-	if Global.Area != null: Global.Area.show()
+	if Global.Area: Global.Area.show()
 	for i in range(1, 4):
 		if Global.check_member(i):
 			dub = $Act/Actor0.duplicate()
@@ -103,7 +103,7 @@ func _ready():
 		i.NextAction = ""
 	position_sprites()
 	turn_ui_init()
-	if Loader.Attacker != null: Loader.Attacker.hide()
+	if Loader.Attacker: Loader.Attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
 	TurnOrder.sort_custom(speed_sort)
 	for i in TurnOrder:
@@ -420,7 +420,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	if ab.ColorSameAsActor:
 		ab.WheelColor = CurrentChar.MainColor
 	if ab.Target == 1:
-		if tar != null and tar.has_state("Knocked Out"):
+		if tar and tar.has_state("Knocked Out"):
 			var i = -1
 			var oldtar = CurrentTarget.FirstName
 			while (CurrentTarget.FirstName == oldtar or
@@ -489,7 +489,7 @@ func end_turn(confirm_aoe:= false):
 	while lock_turn:
 		await Event.wait()
 	await get_tree().create_timer(0.3).timeout
-	if CurrentChar.node != null:
+	if CurrentChar.node:
 		CurrentChar.node.z_index = 0
 	next_turn.emit()
 
@@ -594,7 +594,7 @@ func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= 
 
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
-	#if CurrentAbility != null and CurrentAbility.Target == 0:
+	#if CurrentAbility and CurrentAbility.Target == 0:
 		#return 0
 	if target.IsEnemy:
 		return -num
@@ -625,19 +625,20 @@ func pop_num(target:Actor, text, color: Color = Color.WHITE):
 			Vector2(offsetize(14*off)*
 			randf_range(0.8,1.2), -6*randf_range(0.8,1.2)), 2).as_relative()
 		await tn.finished
-		if number!=null:
+		if number:
 			number.queue_free()
 
 func play_sound(SoundName: String, act: Actor = null, volume: float = 1):
 	$AudioListener2D.make_current()
 	var player
-	if act != null and act.node.get_node("SFX").has_node(SoundName):
+	if act and act.node.get_node("SFX").has_node(SoundName):
 		player = act.node.get_node("SFX").get_node(SoundName)
 	else:
 		player = $Audio/Stream0.duplicate()
 		$Audio.add_child(player)
+		if not FileAccess.file_exists("res://sound/SFX/Battle/"+SoundName+".ogg"): return
 		player.stream = await Loader.load_res("res://sound/SFX/Battle/"+SoundName+".ogg")
-		if act != null: player.global_position = act.node.global_position
+		if act: player.global_position = act.node.global_position
 	player.play()
 	player.volume_db = volume
 	await player.finished
@@ -656,7 +657,7 @@ func death(target:Actor):
 	target.set_aura(0)
 	if target.IsEnemy:
 		totalSP += target.RecivedSP
-		if target.DroppedItem != null: ObtainedItems.append(target.DroppedItem)
+		if target.DroppedItem: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
 	if target.codename == &"Mira":
 		await Event.wait(0.2)
@@ -690,14 +691,14 @@ func death(target:Actor):
 		Color.TRANSPARENT, 0.5)
 	print(target.FirstName, " was defeated")
 	await td.finished
-	if target.node != null:
+	if target.node:
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
 			td = create_tween()
 			td.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
 			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 			await td.finished
-			if target != null and target.node != null:
+			if target and target.node:
 				target.node.queue_free()
 				target.node = null
 				if target.IsEnemy:
@@ -755,7 +756,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
-	while chara.node != null and chara.node.is_playing() and chara.node.animation == animation:
+	while chara.node and chara.node.is_playing() and chara.node.animation == animation:
 		await Event.wait()
 
 func pixel_perfectize(chara: Actor, xy: int = 0):
@@ -925,7 +926,7 @@ func victory(ignore_seq:= false):
 	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
-	if Global.Player != null:
+	if Global.Player:
 		Global.Player.global_position = $Act/Actor0.global_position
 		if Party.check_member(1):
 			Global.Area.get_node("Follower1"
@@ -945,7 +946,7 @@ func victory_show_items():
 	$Canvas/VictoryItems/ItemTemp.hide()
 	ObtainedItems.append_array(Seq.AdditionalItems)
 	for i in ObtainedItems:
-		if i != null:
+		if i:
 			var dub = $Canvas/VictoryItems/ItemTemp.duplicate()
 			dub.get_node("Hbox/ItemName").text = i.Name
 			dub.get_node("Hbox/Icon").texture = i.Icon
@@ -1113,7 +1114,7 @@ func add_state_effect(state: State, chara: Actor):
 
 func remove_state_effect(statename: String, chara: Actor):
 	if chara.node == null: return
-	if chara.node.get_node_or_null(statename) != null:
+	if chara.node.get_node_or_null(statename):
 		chara.node.get_node(statename).queue_free()
 
 func get_actor(codename: StringName) -> Actor:
@@ -1136,7 +1137,7 @@ func fix_enemy_node_issues():
 	var i = 0
 	for j in Troop:
 		if j == null: continue
-		if $Act.get_node_or_null("Enemy"+str(i)) != null:
+		if $Act.get_node_or_null("Enemy"+str(i)):
 			j.node = $Act.get_node_or_null("Enemy"+str(i))
 		i += 1
 

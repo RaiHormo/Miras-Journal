@@ -36,7 +36,7 @@ func _ready():
 	validate_save("user://Autosave.tres")
 
 func save(filename:String="Autosave", showicon=true):
-	if Global.Player == null or Global.Area == null:
+	if !Global.Player or !Global.Area:
 		OS.alert("Cannot save right now")
 		return
 	print("Saving to user://"+filename+".tres")
@@ -47,7 +47,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.StartTime
-	data.Z = (Global.Player.z_index if get_node_or_null("/root/MainMenu") == null
+	data.Z = (Global.Player.z_index if !get_node("/root/MainMenu")
 		else $"/root/MainMenu".z)
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
@@ -78,7 +78,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
 	if not FileAccess.file_exists(filepath): await save()
 	print("Loading " + filepath)
-	if Global.Bt != null: Global.Bt.free()
+	if Global.Bt: Global.Bt.free()
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -98,12 +98,12 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Event.Flags = data.Flags.duplicate()
 	Event.Day = data.Day
 	get_tree().paused = true
-	if data == null:
+	if !data:
 		OS.alert("This save file doen't exist", "WHERE FILE")
-	if data.Room == null:
+	if !data.Room:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	for i in $/root.get_children():
-		if i is TileMap: i.queue_free()
+	for i in get_tree().root.get_children():
+		if i is Room: i.queue_free()
 	get_tree().root.add_child((await load_res(data.Room)).instantiate())
 
 	Item.load_inventories(data)
@@ -119,9 +119,9 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	PartyUI._check_party()
 	Global.Area.handle_z(data.Z)
 	await Item.verify_inventory()
-	if $/root.get_node_or_null("MainMenu") != null:
+	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
-	if $/root.get_node_or_null("Options") != null:
+	if $/root.get_node_or_null("Options"):
 		$/root.get_node("Options").queue_free()
 	PartyUI.shrink.emit()
 	await detransition()
@@ -177,7 +177,7 @@ func _process(delta):
 func transition(dir=Global.get_dir_letter()):
 	if dir == "none": return
 	Global.Controllable = false
-	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
+	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	t.kill()
 	t=create_tween()
 	t.set_parallel(false)
@@ -211,7 +211,7 @@ func transition(dir=Global.get_dir_letter()):
 
 func done():
 	chased = false
-	if Global.Area != null: Global.Area.queue_free()
+	if Global.Area: Global.Area.queue_free()
 	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
 	$/root.add_child(ResourceLoader.load_threaded_get(scene).instantiate())
 	await get_tree().create_timer(0.1).timeout
@@ -221,7 +221,7 @@ func done():
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
-	if Global.Player != null: Global.Player.look_to(Global.get_direction())
+	if Global.Player: Global.Player.look_to(Global.get_direction())
 	Event.give_control()
 	await detransition()
 
@@ -260,13 +260,14 @@ func detransition():
 
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
-	if get_node_or_null("/root/Battle") != null or InBattle: return
+	if get_node_or_null("/root/Battle") or InBattle: return
 	Loader.InBattle = true
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 	PartyUI.UIvisible = false
 	BtAdvantage = advantage
 	#Engine.time_scale = 0.1
+	PartyUI.hide_all()
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
@@ -279,7 +280,7 @@ func start_battle(stg, advantage := 0):
 		return
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
-		if Attacker != null:
+		if Attacker:
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)
@@ -290,12 +291,12 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
-	if Global.Player!= null: Global.Player.hide()
+	if Global.Player: Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
-	if Attacker != null: Attacker.hide()
+	if Attacker: Attacker.hide()
 	for i in Global.Follower:
-		if i != null: i.hide()
+		if i: i.hide()
 	#InBattle = true
 
 func end_battle():
@@ -304,7 +305,7 @@ func end_battle():
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
-		if Global.Bt != null: Global.Bt.queue_free()
+		if Global.Bt: Global.Bt.queue_free()
 	else:
 		t=create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -319,28 +320,29 @@ func end_battle():
 		await t.finished
 	InBattle = false
 	battle_end.emit()
-	if Global.Player == null: return
+	if !Global.Player: return
 	for i in Global.Area.Followers:
-		if i != null and Global.check_member(i.member): i.show()
+		if i and Global.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
-	if Global.Bt != null: Global.Bt.get_node("Act").hide()
+	if Global.Bt: Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
-	if Attacker!=null and BattleResult != 1: Attacker.show()
-	if Seq.DeleteAttacker and BattleResult == 1 and Attacker!=null:
+	if Attacker and BattleResult != 1: Attacker.show()
+	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:
 		Attacker.defeat()
 	Global.Controllable = false
 	battle_bars(0)
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
-	if Global.Player != null:
+	if Global.Player:
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	PartyUI.UIvisible=true
 	Global.Controllable = true
+	PartyUI._on_shrink()
 	#Global.get_cam().position_smoothing_enabled = true
 
 func icon_save():
@@ -388,7 +390,7 @@ func hide_victory_stuff():
 	t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
 
 func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
-	if t != null:
+	if t:
 		t.kill()
 	$Can.layer = 1
 	$Can.show()
@@ -479,7 +481,7 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 func validate_save(save: String) -> bool:
 	if FileAccess.file_exists("user://Autosave.tres"):
 		var file = load(save)
-		if file != null:
+		if file:
 			if file.version == SaveVersion:
 				Preview = file.Preview
 				return true
@@ -493,7 +495,7 @@ func validate_save(save: String) -> bool:
 	else: return false
 
 func flash_attacker():
-	if Attacker == null: return
+	if !Attacker: return
 	t = create_tween()
 	t.tween_property(Attacker.get_node("Flash"), "energy", 10, 0.1)
 	t.tween_property(Attacker.get_node("Flash"), "energy", 0, 1)

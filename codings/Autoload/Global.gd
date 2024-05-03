@@ -54,18 +54,18 @@ func _ready() -> void:
 	init_party(Party)
 	#ready_window()
 	init_settings()
-	if Area != null: await nodes_of_type(Area, "Light2D", Lights)
+	if Area: await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	Input.start_joy_vibration(0, 1, 1)
 
 func quit() -> void:
-	if Loader.InBattle or not Global.Controllable or Player == null or Area == null: get_tree().quit()
+	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
 	Loader.icon_save()
 	await Loader.transition("")
-	if get_node_or_null("/root/Options") != null:
+	if get_node_or_null("/root/Options"):
 		await get_node("/root/Options").close()
-	if Player.get_node_or_null("MainMenu") != null:
+	if Player.get_node_or_null("MainMenu"):
 		await Player.get_node("MainMenu").close()
 	await Loader.save()
 	get_tree().quit()
@@ -113,7 +113,7 @@ func member_details(chara: Actor):
 	dub.draw_character(chara)
 
 func new_game() -> void:
-	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox"._on_close()
+	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	init_party(Party)
 	Event.Flags.clear()
 	Event.add_flag("Started")
@@ -168,9 +168,9 @@ func new_game() -> void:
 	Loader.save()
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
-	if node == null: return
+	if !node: return
 	if node.is_class(className):
-		if node != null and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
+		if node and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
 	for child in node.get_children():
 		await nodes_of_type(child, className, result)
 
@@ -179,7 +179,7 @@ func nodes_of_type(node: Node, className : String, result : Array) -> void:
 #region Controller
 
 func get_controller() -> ControlScheme:
-	if Settings == null: return preload("res://UI/Input/Keyboard.tres")
+	if !Settings: return preload("res://UI/Input/Keyboard.tres")
 	if not Settings.ControlSchemeAuto:
 		return Settings.ControlSchemeOverride
 	if device == "Keyboard":
@@ -248,7 +248,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #region Settings
 
 func fullscreen() -> void:
-	if Settings == null: await init_settings()
+	if !Settings: await init_settings()
 	if get_window().mode != 3:
 			get_window().mode = Window.MODE_FULLSCREEN
 			await get_tree().create_timer(0.1).timeout
@@ -282,12 +282,12 @@ func init_settings() -> void:
 		reset_settings()
 		await Event.wait()
 	Settings = load("user://Settings.tres")
-	if Settings == null:
+	if !Settings:
 		print("Settings file is invalid, settings will be restored to default")
 		reset_settings()
 		await Event.wait()
 		Settings = load("user://Settings.tres")
-	if Settings == null: OS.alert("Something is wrong with the settings file or user folder")
+	if !Settings: OS.alert("Something is wrong with the settings file or user folder")
 	if Settings.Fullscreen:
 		fullscreen()
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
@@ -371,7 +371,7 @@ func mem(Name: StringName) -> Actor:
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
-	if party == null: party = PartyData.new()
+	if !party: party = PartyData.new()
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
@@ -406,18 +406,18 @@ func is_in_party(n:String) -> bool:
 #region Textbox Managment
 
 func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
-	if get_node_or_null("/root/Textbox") != null: $"/root/Textbox".free(); await Event.wait()
+	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
 	textbox_open = true
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
-	if balloon != null: balloon.start(text, title, extra_game_states)
+	if balloon: balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
 	await textbox_close
 	textbox_open = false
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	if get_node_or_null("/root/Textbox") != null:
+	if get_node_or_null("/root/Textbox"):
 		$"/root/Textbox"._on_close()
 		await textbox_close
 		await Event.wait(0.1)
@@ -444,23 +444,23 @@ func next_box(profile:String) -> void:
 	$/root.get_node("Textbox").next_box = profile
 
 func toast(string: String) -> void:
-	if get_node_or_null("/root/Toast") != null:
+	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
 		await Event.wait()
 	var tost = preload("res://UI/Misc/Toast.tscn").instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
-	if tost != null:
+	if tost:
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
 func location_name(string: String) -> void:
-	if get_node_or_null("/root/LocationName") != null:
+	if get_node_or_null("/root/LocationName"):
 		$/root/LocationName.free()
 		await Event.wait()
 	var tost = preload("res://UI/Misc/LocationName.tscn").instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
-	if tost != null:
+	if tost:
 		tost.get_node("Label").text = string
 
 #Match profile
@@ -504,7 +504,7 @@ func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 			return Vector2.UP
 
 func get_cam() -> Camera2D:
-	if Area == null: return Camera2D.new()
+	if !Area: return Camera2D.new()
 	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
 
@@ -577,7 +577,7 @@ func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
 		Ability.D.HEAVY: base = 48
 		Ability.D.SEVERE: base = 96
 		Ability.D.CUSTOM: base = int(ab.Parameter)
-		Ability.D.WEAPON: base = chara.WeaponPower if chara != null else Bt.CurrentChar.WeaponPower
+		Ability.D.WEAPON: base = chara.WeaponPower if chara else Bt.CurrentChar.WeaponPower
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
 	return base
@@ -737,12 +737,12 @@ func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Abilit
 
 func is_everyone_fully_healed() -> bool:
 	for i in Party.array():
-		if i == null: continue
+		if !i: continue
 		if not i.is_fully_healed(): return false
 	return true
 
 func is_mem_healed(chara: Actor):
-	if chara == null: return true
+	if !chara: return true
 	return chara.is_fully_healed()
 #endregion
 

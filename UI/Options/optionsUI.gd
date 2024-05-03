@@ -11,11 +11,11 @@ var save_files_loaded:= false
 
 func _ready():
 	hide()
-	if $/root.get_node_or_null("MainMenu") != null and $/root/MainMenu.stage != "options":
+	if $/root.get_node_or_null("MainMenu") and $/root/MainMenu.stage != "options":
 		$/root/MainMenu._on_back_button_down()
 		queue_free()
 		return
-	if $/root.get_node_or_null("Options") != null and $/root/Options != self:
+	if $/root.get_node_or_null("Options") and $/root/Options != self:
 		$/root/Options._on_back_pressed()
 		queue_free()
 		return
@@ -100,8 +100,8 @@ func close():
 		Global.buzzer_sound()
 		Global.toast("There is no going back.")
 		return
-	if Global.Player != null:
-		if $/root.get_node_or_null("MainMenu") != null:
+	if Global.Player:
+		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
 			get_tree().paused = was_paused

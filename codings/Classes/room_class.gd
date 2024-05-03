@@ -1,4 +1,4 @@
-extends TileMap
+extends Node2D
 class_name Room
 
 @export var Name: String = "???"
@@ -19,6 +19,7 @@ var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()
 var Followers: Array[Follower] = []
+var Layers: Array[TileMapLayer]
 
 func _ready():
 	material = preload("res://codings/Shaders/Pixelart.tres")
@@ -29,6 +30,9 @@ func _ready():
 	Cam.position_smoothing_enabled = true
 	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
+	for i in get_children():
+		if i is TileMapLayer:
+			Layers.append(i)
 	if AutoLimits:
 		Cam.limit_left = bounds[LEFT]
 		Cam.limit_right = bounds[RIGHT]
@@ -39,17 +43,17 @@ func _ready():
 		Cam.limit_right = (CameraLimits[Global.CameraInd])[RIGHT]
 		Cam.limit_top = (CameraLimits[Global.CameraInd])[TOP]
 		Cam.limit_bottom = (CameraLimits[Global.CameraInd])[BOTTOM]
-	calculate_bounds()
+	#calculate_bounds()
 	#global_position=Size/2
 	if SpawnPlayer:
 		var Player = preload("res://codings/Mira.tscn").instantiate()
-		add_child(Player)
+		SpawnPath.add_child(Player)
 		for i in range(1,4):
 			var follower = preload("res://codings/Follower.tscn").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
 			Followers.append(follower)
-			add_child(follower)
+			SpawnPath.add_child(follower)
 		move_child(Player, 0)
 #	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self
@@ -67,18 +71,18 @@ func _ready():
 func default():
 	pass
 
-func calculate_bounds():
-	for pos in get_used_cells(0):
-		if pos.x < bounds[LEFT]:
-			bounds[LEFT] = int(pos.x) - 1
-		elif pos.x > bounds[RIGHT]:
-			bounds[RIGHT] = int(pos.x) + 1
-		if pos.y < bounds[TOP]:
-			bounds[TOP] = int(pos.y) - 1
-		elif pos.y > bounds[BOTTOM]:
-			bounds[BOTTOM] = int(pos.y) + 1
-	bounds *= 24
-	Size = Vector2(abs(bounds[LEFT])+bounds[RIGHT], abs(bounds[TOP])+bounds[BOTTOM])
+#func calculate_bounds():
+	#for pos in get_used_cells(0):
+		#if pos.x < bounds[LEFT]:
+			#bounds[LEFT] = int(pos.x) - 1
+		#elif pos.x > bounds[RIGHT]:
+			#bounds[RIGHT] = int(pos.x) + 1
+		#if pos.y < bounds[TOP]:
+			#bounds[TOP] = int(pos.y) - 1
+		#elif pos.y > bounds[BOTTOM]:
+			#bounds[BOTTOM] = int(pos.y) + 1
+	#bounds *= 24
+	#Size = Vector2(abs(bounds[LEFT])+bounds[RIGHT], abs(bounds[TOP])+bounds[BOTTOM])
 
 func handle_z(z := SpawnZ[Global.CameraInd]):
 	Global.Player.z_index = z
@@ -90,3 +94,9 @@ func handle_z(z := SpawnZ[Global.CameraInd]):
 			i.go_up()
 		if i.zDown == Global.Player.z_index:
 			i.go_down()
+
+func map_to_local(vec: Vector2i) -> Vector2:
+	return Layers[0].map_to_local(vec)
+
+func local_to_map(vec: Vector2) -> Vector2i:
+	return Layers[0].local_to_map(vec)

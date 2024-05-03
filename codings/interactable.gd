@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		else: queue_free()
 	if pack == null:
 		pack = $Pack.duplicate()
-	if Global.Player != null and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
+	if Global.Player and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
 		if not pack.visible:
@@ -63,7 +63,7 @@ func _process(delta: float) -> void:
 			t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 			await get_tree().create_timer(0.1).timeout
 			CanInteract = true
-	elif button != null:
+	elif button:
 		#Disappear
 		if button.visible:
 			t = create_tween()
@@ -147,6 +147,6 @@ func _on_button_pressed() -> void:
 			PartyUI.confirm_time_passage(title, item, 2, file)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
-		if Collision != null: Collision.set_deferred("disabled", true)
+		if Collision: Collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()

@@ -138,7 +138,7 @@ func close():
 	$Base.play("Close")
 	stage = "inactive"
 	get_tree().paused = false
-	if t != null: t.kill()
+	if t: t.kill()
 	t=create_tween()
 	Global.Area.get_node("Mira").set_anim()
 	t.set_ease(Tween.EASE_OUT)
@@ -164,7 +164,7 @@ func close():
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
-	if Fader != null: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
+	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	t.tween_property(Cam, "position", CamPrev.position, 0.3)
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
@@ -178,7 +178,7 @@ func close():
 	Event.give_control()
 	Global.Player.set_anim()
 	Global.get_cam().enabled = true
-	if Fader != null: Fader.hide()
+	if Fader: Fader.hide()
 	queue_free()
 
 func move_root():
@@ -435,7 +435,7 @@ func _on_back_button_down():
 			#print(Item.item.Name)
 			for i in $Inventory/Margin/Scroller/Vbox/Consumables.get_children():
 				if i.get_meta("ItemData") == focused_item: i.grab_focus()
-			if get_viewport().gui_get_focus_owner() == null and $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0) != null:
+			if get_viewport().gui_get_focus_owner() == null and $Inventory/Margin/Scroller/Vbox/Consumables.get_child(0):
 				$Inventory/Margin/Scroller/Vbox/Consumables.get_child(0).grab_focus()
 			elif get_viewport().gui_get_focus_owner() == null: $Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
 			PartyUI.UIvisible = false
@@ -491,7 +491,7 @@ func focus_item(node:Button):
 	$DescPaper/Art.texture = item.Artwork
 	if node.get_parent().name == "KeyItems":
 		$Inventory/Margin/Scroller.scroll_vertical = 0
-	if node.get_parent().name == "BattleItems" and item.BattleEffect != null and item.BattleEffect.WheelColor != Color.WHITE:
+	if node.get_parent().name == "BattleItems" and item.BattleEffect and item.BattleEffect.WheelColor != Color.WHITE:
 		$DescPaper/Wheel.show()
 		$DescPaper/Wheel.color = item.BattleEffect.WheelColor
 		$DescPaper/Wheel.draw_wheel()

@@ -25,7 +25,7 @@ func all_enemy_ui(from:= false):
 	$EnemyFocus.hide()
 	for enemy in Troop:
 		var panel: Panel
-		if get_node_or_null("AllEnemies/Enemy" + str(Troop.find(enemy))) != null:
+		if get_node_or_null("AllEnemies/Enemy" + str(Troop.find(enemy))):
 			panel = get_node("AllEnemies/Enemy" + str(Troop.find(enemy)))
 		else:
 			panel = $AllEnemies/Enemy0.duplicate()
@@ -63,7 +63,7 @@ func _on_battle_ui_target_foc(cur: Actor):
 func _check_party():
 	PartyUI._check_party()
 	Troop = get_parent().Troop
-	if t != null: t.stop()
+	if t: t.stop()
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
@@ -108,7 +108,7 @@ func check_panel(chara: Actor, panel: Panel):
 	panel.get_node("Name").text = chara.FirstName
 	t.tween_property(panel.get_node("Health"), "value", chara.Health, 0.3)
 	panel.get_node("Health").max_value = chara.MaxHP
-	if panel.get_node_or_null("Aura") != null:
+	if panel.get_node_or_null("Aura"):
 		t.tween_property(panel.get_node("Aura"), "value", chara.Aura, 0.3)
 		panel.get_node("Aura").max_value = chara.MaxAura
 
@@ -133,7 +133,7 @@ func make_box(en:Actor, node:Panel):
 	var hbox = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = en.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
-	if node.get_node_or_null("Aura") != null:
+	if node.get_node_or_null("Aura"):
 		var abox = node.get_node("Aura").get_theme_stylebox("fill")
 		if en.SecondaryColor == Color.BLACK:
 			en.SecondaryColor = en.MainColor

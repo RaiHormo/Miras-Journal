@@ -17,7 +17,7 @@ func _ready():
 ##Character is added to the list of NPCS
 func add_char(b:NPC):
 	for i in List:
-		if i==null:
+		if ! i:
 			#List.remove_at
 			continue
 		if i.ID == b.ID:
@@ -28,7 +28,7 @@ func add_char(b:NPC):
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
 	for i in List:
-		if i==null:
+		if !i:
 			#List.erase(i)
 			continue
 		if i.ID == ID:
@@ -109,8 +109,11 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
-	if Global.Player == null or Global.Area == null:  return
-	if Global.Player.dashing: await Global.Player.stop_dash()
+	if !Global.Player or !Global.Area: return
+	Global.Controllable = false
+	if Global.Player.dashing:
+		await Global.Player.stop_dash()
+		Global.Player.dashing = false
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
 	PartyUI.UIvisible = keep_ui
@@ -152,13 +155,13 @@ func f_past(str: String, has_passed:= 9) -> bool:
 	else: return false
 
 func skip_cutscene():
-	if CutsceneHandler != null and CutsceneHandler.has_method(&"skip"):
+	if CutsceneHandler and CutsceneHandler.has_method(&"skip"):
 		await Loader.transition("")
 		CutsceneHandler.skip()
 		await Event.wait()
 		var dub = CutsceneHandler.duplicate()
 		CutsceneHandler.free()
-		if Global.Area != null: Global.Area.add_child(dub)
+		if Global.Area: Global.Area.add_child(dub)
 		await Event.wait()
 		dub.skip()
 		Loader.detransition()

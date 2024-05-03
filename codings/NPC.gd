@@ -59,7 +59,7 @@ func _physics_process(delta) -> void:
 		return
 	extended_process()
 	if self.get_path() in Loader.Defeated: queue_free()
-	if Global.Area != null: coords = Global.Area.local_to_map(global_position)
+	if Global.Area: coords = Global.Area.local_to_map(global_position)
 	match BodyState:
 		MOVE, CHASE:
 			velocity = direction * speed
@@ -76,7 +76,7 @@ func _physics_process(delta) -> void:
 			move_and_slide()
 		NONE: return
 	if direction != Vector2.ZERO:
-		if get_node_or_null("DirectionMarker") != null:
+		if get_node_or_null("DirectionMarker"):
 			$DirectionMarker.global_position=global_position +direction*10
 			$DirectionMarker.rotation = direction.angle()
 		Facing = Global.get_direction(direction)
@@ -96,7 +96,7 @@ func update_anim_prm() -> void:
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 	if "Idle" in sprite.animation: LastStepFrame = -1
-	if get_node_or_null("StdrFootsteps") == null: return
+	if not get_node_or_null("StdrFootsteps"): return
 	if "Start" in sprite.animation:
 		$StdrFootsteps.get_node(get_terrain() + str(randi_range(1,3))).play()
 	if (("Walk" in sprite.animation and (
@@ -107,25 +107,27 @@ func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 		var rand
 		if sprite.frame == 0: rand = str(randi_range(1,3))
 		else: rand = str(randi_range(4,6))
-		if $StdrFootsteps.get_node_or_null(get_terrain() + str(rand)) == null: return
+		if !$StdrFootsteps.get_node(get_terrain() + str(rand)): return
 		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
 
 
 func check_terrain(terrain:String, layer:=1) -> bool:
-	if get_tile(layer) != null:
+	if get_tile(layer):
 		if get_tile(layer).get_custom_data("TerrainType") == terrain:
 			return true
 	return false
 
 func get_terrain() -> String:
-	for i in range(1, Global.Area.get_layers_count() +1):
-		var j = Global.Area.get_layers_count() -i
-		if get_tile(j) != null and get_tile(j).get_custom_data("TerrainType") != "":
+	var layers: Array[TileMapLayer] = Global.Area.Layers.duplicate()
+	layers.reverse()
+	for i in layers:
+		var j = layers.find(i)
+		if get_tile(j) and get_tile(j).get_custom_data("TerrainType") != "":
 			return get_tile(j).get_custom_data("TerrainType")
 	return "Generic"
 
 func get_tile(layer:int):
-	return Global.Area.get_cell_tile_data(layer, Global.Area.local_to_map(global_position))
+	return Global.Area.Layers[layer].get_cell_tile_data(Global.Area.local_to_map(global_position))
 
 func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
 	await go_to(coords+(dir), exact, autostop)

@@ -185,8 +185,6 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_c0w2l")
 shader = ExtResource("7_jb2qv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2w4v"]
-content_margin_left = 0.0
-content_margin_right = 27.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
 border_width_top = 5
@@ -197,10 +195,10 @@ corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
-expand_margin_left = 6.0
-expand_margin_right = 6.0
+expand_margin_left = 2.0
+expand_margin_right = 2.0
 
-[sub_resource type="Theme" id="Theme_jibpk"]
+[sub_resource type="Theme" id="Theme_uwpxh"]
 default_font = ExtResource("8_wqv20")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -221,6 +219,7 @@ events = [null]
 [sub_resource type="AtlasTexture" id="AtlasTexture_wk61q"]
 atlas = ExtResource("9_r3lax")
 region = Rect2(18, 72, 18, 18)
+filter_clip = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4g4i"]
 content_margin_left = 8.0
@@ -518,15 +517,15 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t386i"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlcri"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvj12"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t386i"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_8yp3f"]
 action = &"PartyMenu"
@@ -853,14 +852,14 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_llexj")
 layout_direction = 1
 layout_mode = 0
-offset_left = 165.779
-offset_top = 27.2175
-offset_right = 253.779
-offset_bottom = 60.2175
+offset_left = 166.0
+offset_top = 27.0
+offset_right = 271.0
+offset_bottom = 63.0
 scale = Vector2(4, 4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
-theme = SubResource("Theme_jibpk")
+theme = SubResource("Theme_uwpxh")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -868,9 +867,9 @@ theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_vilg5")
 text = "Item x3"
 icon = SubResource("AtlasTexture_wk61q")
-expand_icon = true
 
 [node name="MemberOptions" type="PanelContainer" parent="CanvasLayer/Cursor"]
+visible = false
 layout_mode = 0
 offset_left = 32.1661
 offset_top = -47.012
@@ -930,6 +929,7 @@ scale = Vector2(0.7, 0.7)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -990,8 +990,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("14_fmwou")
@@ -1017,8 +1017,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("14_fmwou")
@@ -1175,11 +1175,11 @@ offset_right = 253.0
 offset_bottom = 571.0
 focus_mode = 0
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t386i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_38op6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rj6wa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jlcri")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_gvj12")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rj6wa")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_38op6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t386i")
 shortcut = SubResource("Shortcut_dk2bs")
 shortcut_feedback = false
 shortcut_in_tooltip = false

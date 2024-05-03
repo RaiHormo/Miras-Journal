@@ -45,7 +45,7 @@ func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if stage=="target":
 		$BaseRing/Ring2.rotation -= 0.002
-	if CurrentChar != null and CurrentChar.has_state("Confused"):
+	if CurrentChar and CurrentChar.has_state("Confused"):
 		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
 
 func _on_battle_get_control():
@@ -119,7 +119,7 @@ func _on_battle_get_control():
 	root.emit()
 
 func _on_root():
-	if foc!=null:
+	if foc:
 		foc.hide()
 		foc.show()
 	t.kill()
@@ -545,7 +545,7 @@ func _on_command_pressed():
 
 func get_target(faction:Array[Actor]):
 	if Bt.Action: return
-	if foc!=null:
+	if foc:
 		foc.hide()
 		foc.show()
 	if Troop.is_empty():

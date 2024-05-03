@@ -83,8 +83,8 @@ func hide_all(animate = true):
 			Partybox.get_child(i).position.x = -300
 
 func _check_party():
-	if Global.Party == null: return
-	if Global.Party.Leader == null: Global.Party.Leader = Global.find_member(&"Mira")
+	if not Global.Party: return
+	if not Global.Party.Leader: Global.Party.Leader = Global.find_member(&"Mira")
 	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
@@ -98,7 +98,7 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base") != null
+	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base")
 	and "Idle" in Global.Player.used_sprite.animation):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):
@@ -490,7 +490,7 @@ func draw_bar(mem:Actor, node: Panel):
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 func choose_member():
-	if Item.get_node("ItemEffect").item == null: return
+	if not Item.get_node("ItemEffect").item: return
 	_on_expand(1)
 	UIvisible = true
 	t = create_tween()
@@ -611,7 +611,7 @@ func talk() -> void:
 	if submenu_opened or not Expanded: return
 	var dialog: DialogueResource
 	dialog = load("res://database/Text/" + Global.Party.array()[focus].codename.to_lower()+"_talk.dialogue")
-	if dialog == null: Global.buzzer_sound(); return
+	if not dialog: Global.buzzer_sound(); return
 	var key = "d"+str(Event.Day)+"_"+str(Event.flag_int(Global.Party.array()[focus].codename+"Talk"))
 	if not key in dialog.get_titles(): key = "error"
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
@@ -625,7 +625,7 @@ func preform_levelups():
 	await Event.wait()
 	get_tree().root.add_child(scene)
 	for i in LevelupChain:
-		if Global.Bt != null: Loader.hide_victory_stuff()
+		if Global.Bt: Loader.hide_victory_stuff()
 		scene.get_node("Levelup").levelup(i)
 		await scene.get_node("Levelup").closed
 	LevelupChain.clear()

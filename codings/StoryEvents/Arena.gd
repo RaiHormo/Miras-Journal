@@ -15,7 +15,7 @@ func default():
 func start_round(i: int):
 	if Event.f("ArenaRound", i): return
 	for j in Global.Party.array():
-		if j != null:
+		if j:
 			j.add_health(int(j.MaxHP/3))
 			j.add_aura(int(j.MaxAura/3))
 	$Round.text = "ROUND "+ str(i)

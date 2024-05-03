@@ -35,7 +35,7 @@ func extended_process():
 #		PinRange = false
 
 func _on_finder_area_entered(area):
-	if Global.Player == null: return
+	if !Global.Player: return
 	Nav.target_position = Global.Player.global_position
 	if not PinRange and not Loader.chased and Nav.is_target_reachable():
 		PinRange = true

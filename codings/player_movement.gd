@@ -68,7 +68,7 @@ func control_process():
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
 		reset_speed()
-	if Global.Area != null: coords = Global.Area.local_to_map(global_position)
+	if Global.Area: coords = Global.Area.local_to_map(global_position)
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.2)
 	if abs(direction.x) < 0.1: direction.y += direction.x; direction.x = 0
 	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
@@ -134,8 +134,8 @@ func control_process():
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
 		if Input.is_action_just_pressed("DebugD"):
-			for i in Global.Area.get_layers_count():
-				if Global.Area.get_cell_tile_data(i, coords) != null:
+			for i in Global.Area.Layers.size():
+				if Global.Area.Layers[i].get_cell_tile_data(coords):
 					check_terrain(Global.Area.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
 
 func update_anim_prm() -> void:
@@ -181,7 +181,7 @@ func _on_pickup() -> void:
 
 func _check_party() -> void:
 	if get_node_or_null("%Base") == null: return
-	elif Global.Party.Leader != null:
+	elif Global.Party.Leader:
 		%Base.sprite_frames =  Global.Party.Leader.OV
 
 ##Sets the animation for all sprite layers
@@ -243,7 +243,7 @@ func check_flame(force:= false) -> void:
 				await Event.wait()
 			flame.energy = 1.5
 			flame.flicker = true
-	elif get_node_or_null("Flame") != null and flame.energy != 0:
+	elif get_node_or_null("Flame") and flame.energy != 0:
 		reset_sprite()
 		flame.flicker = false
 		flame.energy = 0
@@ -259,26 +259,25 @@ func bag_anim() -> void:
 	set_anim("BagIdle")
 
 ##If the player dashes into a gap she will jump
-func check_for_jumps() -> void:
-	if dashing and check_terrain("Gap"):
-		if Global.get_direction(Global.Area.get_cell_tile_data(
-			1, Global.Area.local_to_map(global_position
-			)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
-			reset_speed()
-			set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
-			midair = true
-			Global.Controllable = false
-			$CollisionShape2D.disabled = true
-			z_index+=2
-			var jump = Global.Area.get_cell_tile_data(
-				1, Global.Area.local_to_map(global_position)).get_custom_data("JumpDistance")
-			#print(jump, "  ", coords)
-			Global.jump_to_global(self, Global.Area.map_to_local(coords) + jump*24, 5, 0.5)
-			await Global.anim_done
-			Global.Controllable = true
-			z_index-=2
-			$CollisionShape2D.disabled = false
-			midair=false
+#func check_for_jumps() -> void:
+	#if dashing and check_terrain("Gap"):
+		#if Global.get_direction(Global.Area.Layers[1].get_cell_tile_data(Global.Area.local_to_map(global_position
+			#)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
+			#reset_speed()
+			#set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
+			#midair = true
+			#Global.Controllable = false
+			#$CollisionShape2D.disabled = true
+			#z_index+=2
+			#var jump = Global.Area.get_cell_tile_data(
+				#1, Global.Area.local_to_map(global_position)).get_custom_data("JumpDistance")
+			##print(jump, "  ", coords)
+			#Global.jump_to_global(self, Global.Area.map_to_local(coords) + jump*24, 5, 0.5)
+			#await Global.anim_done
+			#Global.Controllable = true
+			#z_index-=2
+			#$CollisionShape2D.disabled = false
+			#midair=false
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash() -> void:
@@ -289,11 +288,9 @@ func stop_dash() -> void:
 	#print(realvelocity)
 	reset_speed()
 	var slide = true
-	for i in Global.Area.get_layers_count():
-		if ((Global.Area.get_cell_tile_data(i, coords+dashdir*2)!= null and Global.Area.get_cell_tile_data(
-			i, coords+dashdir*2).get_collision_polygons_count(0)>0) or
-			Global.Area.get_cell_tile_data(i, coords)!= null and Global.Area.get_cell_tile_data(
-			i, coords).get_collision_polygons_count(0)>0):
+	for i in Global.Area.Layers.size():
+		if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
+			Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
 			slide = false
 	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 20:
 		await bump()
