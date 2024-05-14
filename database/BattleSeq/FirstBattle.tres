@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=10 format=3 uid="uid://b5xnwqgw051bd"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=12 format=3 uid="uid://b5xnwqgw051bd"]
 
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_e62gl"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_qsrni"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_tus72"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_44rbb"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_68ui3"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_kk4y6"]
 
@@ -87,13 +89,13 @@ add_flag = false
 
 [resource]
 script = ExtResource("1_e62gl")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_qsrni")])
-AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
+Enemies = Array[ExtResource("2_44rbb")]([ExtResource("1_qsrni")])
+AdditionalItems = Array[ExtResource("1_tus72")]([])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(1470, 430)
+ScenePosition = Vector2(1470, 420)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "FirstBattle1"

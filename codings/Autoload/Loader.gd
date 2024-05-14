@@ -47,7 +47,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.StartTime
-	data.Z = (Global.Player.z_index if !get_node("/root/MainMenu")
+	data.Z = (Global.Player.z_index if !get_tree().root.get_node_or_null("MainMenu")
 		else $"/root/MainMenu".z)
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()

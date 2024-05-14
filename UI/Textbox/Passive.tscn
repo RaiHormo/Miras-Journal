@@ -101,6 +101,7 @@ theme_override_font_sizes/normal_font_size = 32
 text = "Dialogue"
 script = ExtResource("3_2bhme")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
+skip_pause_at_abbreviations = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 
 [node name="Border1" type="Panel" parent="Balloon/Panel2"]
 layout_mode = 0

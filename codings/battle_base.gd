@@ -766,7 +766,7 @@ func pixel_perfectize(chara: Actor, xy: int = 0):
 	else: chara.node.offset[xy] = chara.Offset[xy] + 0.5
 	if xy == 0: pixel_perfectize(chara, 1)
 
-func glow(amount:float = 1, time = 1, chara:Actor = CurrentChar):
+func glow(amount: float = 1, time: float = 1, chara:Actor = CurrentChar):
 	t.kill()
 	t=create_tween()
 	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)

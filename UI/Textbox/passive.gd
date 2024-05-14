@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-#a
 @onready var balloon: ColorRect = $Balloon
 @onready var character_label: Label = null
 @onready var dialogue_label := $Balloon/Panel2/DialogueLabel
@@ -112,8 +111,8 @@ var dialogue_line: DialogueLine:
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
-			var time = dialogue_line.text.length() * 0.05 + 0.5
-			await get_tree().create_timer(time).timeout
+			var time = dialogue_line.text.length() * 0.05 + 1
+			await get_tree().create_timer(max(time, 2)).timeout
 			next(dialogue_line.next_id)
 	get:
 		return dialogue_line

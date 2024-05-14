@@ -64,6 +64,15 @@ func walk():
 	await close()
 	queue_free()
 
+func ability():
+	await Event.wait(1, false)
+	Global.Bt.focus_cam(Global.Party.Leader)
+	$Border2.show()
+	$Border2/Control/Arrow.hide()
+	$Border2.position = Vector2(612, 201)
+	$Border2/Text.text = "Press [img]"
+	queue_free()
+
 func aura1():
 	await Event.wait(0.5, false)
 	$Border2.show()
@@ -72,7 +81,7 @@ func aura1():
 	await await_input()
 	$Border2/Text.text = Global.colorize("It represents how much power Mira currently has.")
 	await await_input()
-	$Border2/Text.text = Global.colorize("The Aura meter will be drained whenever a Magic Ability is used.")
+	$Border2/Text.text = Global.colorize("The Aura meter will be drained whenever a magic Ability is used.")
 	await await_input()
 	Global.Bt.lock_turn = false
 	queue_free()

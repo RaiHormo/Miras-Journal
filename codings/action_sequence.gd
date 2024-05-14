@@ -481,7 +481,7 @@ func FlyAway(chara: Actor):
 
 #region Battle events
 func FirstBattle1():
-	while Global.Player == null: await Event.wait()
+	while !Global.Player: await Event.wait()
 	Bt.no_misses = true
 	Bt.no_crits = true
 	Global.Player.position = Vector2(1470, 400)
@@ -489,6 +489,7 @@ func FirstBattle1():
 	Bt.Troop[0].node.position.x = 50
 	Bt.focus_cam(Bt.Troop[0], 0.1, 70)
 	Bt.zoom(6)
+	Bt.Action = true
 	Loader.InBattle = true
 	Loader.get_node("Can").layer = 3
 	await Global.textbox("temple_woods_random", "first_cutscene")
@@ -523,35 +524,48 @@ func FirstBattle2(target: Actor):
 	await Bt.move(Bt.Troop[0], Vector2(20, 0), 1, Tween.EASE_OUT)
 	await Event.wait(0.5)
 	CurrentChar = Bt.Troop[0]
-	target = Bt.get_actor("Mira")
+	target = Bt.Party.Leader
 	Bt.CurrentChar = Bt.Troop[0]
-	Bt.focus_cam(target, 0.5, 20)
-	Bt.zoom(6)
+	Bt.focus_cam(target, 0.5, 0)
+	Bt.zoom(6, 3)
 	Bt.anim("Attack1")
 	Loader.battle_bars(2)
 	Bt.jump_to_target(CurrentChar, target, Vector2(30, 0), 4)
 	await Bt.anim_done
+	Bt.screen_shake(10)
+	Bt.anim("FirstBattle", Bt.Party.Leader)
+	CurrentChar.node.hide()
+	Bt.play_sound("Attack2", CurrentChar)
+	Bt.damage(target, CurrentChar.Attack, false, 12, false)
+	Global.passive("temple_woods_random", "gahh")
+	await Event.wait(2)
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target, CurrentChar.Attack, false)
-		Bt.screen_shake(15, 7, 0.2)
-		Bt.anim("Attack2")
-		Bt.play_effect("SimpleHit", target)
+		Bt.damage(target, CurrentChar.Attack, false, randi_range(1,5), false)
 		await Event.wait(0.5)
+	await Event.wait(1.8)
 	target.Aura = 6
 	PartyUI._check_party()
+	Bt.glow(1.5, 0.5, Bt.Party.Leader)
+	Bt.zoom(7, 1)
+	await Event.wait(4)
+	Bt.glow(1, 2, Bt.Party.Leader)
+	Global.passive("temple_woods_random", "my_aura")
+	await Event.wait(6)
+	Bt.zoom(5, 3)
+	Bt.focus_cam(target, 3)
+	Bt.anim()
+	CurrentChar.node.position.x = 60
+	CurrentChar.node.show()
+	Bt.move(CurrentChar, Vector2(40, CurrentChar.node.position.y), 0.5)
+	await target.node.animation_finished
 	target.Abilities[0].disabled = true
 	target.DontIdle = false
-	Bt.anim("Ability", target)
-	Bt.move(CurrentChar, Vector2(50, 0), 0.2, Tween.EASE_OUT)
-	Bt.jump_to_target(CurrentChar, CurrentChar, Vector2(30, 0), 0.2)
-	Bt.anim("Hit")
-	Global.passive("temple_woods_random", "my_aura")
-	await Event.wait(5)
-	Bt.anim()
+	Bt.anim("", target)
 	$"../BattleUI/Ability".disabled = false
 	$"../BattleUI/Attack".disabled = true
 	CurrentChar.IgnoreStates = true
+	await Event.wait(2)
 	Bt.end_turn()
 
 func FirstBattle22():

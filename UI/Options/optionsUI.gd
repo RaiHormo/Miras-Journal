@@ -20,7 +20,7 @@ func _ready():
 		queue_free()
 		return
 	if Loader.InBattle:
-		if ($/root.get_node_or_null("Battle/BattleUI") == null or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active):
+		if !$/root.get_node_or_null("Battle/BattleUI" or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active):
 			queue_free()
 			return
 		$/root/Battle/BattleUI.active = false
@@ -31,7 +31,7 @@ func _ready():
 	else:
 		if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 		$MainButtons/SaveManagment.grab_focus()
-	if not Global.Controllable and $/root.get_node_or_null("MainMenu") == null: cant_save = true
+	if not Global.Controllable and !$/root.get_node_or_null("MainMenu"): cant_save = true
 	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
@@ -96,7 +96,7 @@ func _on_back_pressed():
 			main()
 
 func close():
-	if Global.Area == null:
+	if !Global.Area:
 		Global.buzzer_sound()
 		Global.toast("There is no going back.")
 		return
@@ -309,7 +309,7 @@ func load_save_files():
 					if j.name in i:
 						newpanel = j
 						j.set_meta(&"Unprocessed", false)
-				if newpanel == null:
+				if !newpanel:
 					newpanel = %Files/File0.duplicate()
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
@@ -358,7 +358,7 @@ func hold_down():
 	t2.tween_property($SavePanel/Toast, "modulate:a", 0, 1)
 
 func _on_save_delete() -> void:
-	if not focus is Panel: return
+	if stage != "save_managment": return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
@@ -391,7 +391,7 @@ func _on_save_delete() -> void:
 		panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_overwrite() -> void:
-	if not focus is Panel: return
+	if stage != "save_managment": return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
@@ -425,7 +425,7 @@ func _on_save_overwrite() -> void:
 	panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_load() -> void:
-	if not focus is Panel or stage != "save_managment": return
+	if stage != "save_managment": return
 	var panel = focus.get_parent()
 	if "New" in panel.name: return
 	if not panel is PanelContainer:

@@ -344,12 +344,12 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_p3xl4")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_1vv8p")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_1vv8p")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y0m"]
 content_margin_left = 24.0
 content_margin_top = 6.0
 content_margin_right = 24.0
 content_margin_bottom = 6.0
-bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -366,27 +366,16 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y0m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
 content_margin_left = 24.0
 content_margin_top = 6.0
 content_margin_right = 24.0
 content_margin_bottom = 6.0
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
-bg_color = Color(0.898039, 0.898039, 0.898039, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 12.0
-expand_margin_top = 8.0
-expand_margin_right = 12.0
-expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
 bg_color = Color(1, 1, 1, 1)
@@ -400,6 +389,17 @@ expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 12.0
+expand_margin_top = 8.0
+expand_margin_right = 12.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
 bg_color = Color(0.898039, 0.898039, 0.898039, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -725,10 +725,9 @@ text = "Auto-hide HUD"
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
-item_count = 3
 selected = 0
+item_count = 3
 popup/item_0/text = "On idle"
-popup/item_0/id = 0
 popup/item_1/text = "When moving"
 popup/item_1/id = 1
 popup/item_2/text = "Never"
@@ -755,10 +754,9 @@ text = "Control scheme"
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
-item_count = 10
 selected = 0
+item_count = 10
 popup/item_0/text = "Auto"
-popup/item_0/id = 0
 popup/item_1/text = "Keyboard"
 popup/item_1/id = 1
 popup/item_2/text = "Nintendo"
@@ -978,10 +976,9 @@ text = "Framerate limit"
 layout_mode = 2
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
-item_count = 4
 selected = 0
+item_count = 4
 popup/item_0/text = "None"
-popup/item_0/id = 0
 popup/item_1/text = "30 FPS"
 popup/item_1/id = 30
 popup/item_2/text = "60 FPS"
@@ -1031,14 +1028,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
-theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
 toggle_mode = true
 text = "Adjust Image"
 icon = ExtResource("9_mioka")
@@ -1240,14 +1237,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
-theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
 text = "Reset Volume"
 
 [node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -1307,18 +1304,18 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
+theme_override_constants/h_separation = 12
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Credits
 "
 
@@ -1327,18 +1324,18 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
+theme_override_constants/h_separation = 12
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Arena mode
 "
 
@@ -1407,16 +1404,16 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 show_behind_parent = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_constants/h_separation = 12
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Save to new file"
 
 [node name="NewGame" type="PanelContainer" parent="SavePanel/ScrollContainer/Files/New"]
@@ -1429,15 +1426,15 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 show_behind_parent = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_constants/h_separation = 12
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "New game"
 
 [node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files"]
@@ -1572,10 +1569,10 @@ show_percentage = false
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/File0"]
 show_behind_parent = true
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 
 [node name="Buttons" type="HBoxContainer" parent="SavePanel"]
 custom_minimum_size = Vector2(300, 0)
@@ -1596,8 +1593,8 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
+theme_override_constants/h_separation = 12
 theme_override_font_sizes/font_size = 24
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d0taf")
 toggle_mode = true
@@ -1614,8 +1611,8 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
+theme_override_constants/h_separation = 12
 theme_override_font_sizes/font_size = 24
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d0taf")
 toggle_mode = true
@@ -1632,8 +1629,8 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
-theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
+theme_override_constants/h_separation = 12
 theme_override_font_sizes/font_size = 24
 theme_override_styles/pressed = SubResource("StyleBoxFlat_d0taf")
 toggle_mode = true

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dpk55l6sqvaok"
+path="res://.godot/imported/FirstBattle.ase-a59da0252917c763ba4d5397bb3e0c32.res"
+
+[deps]
+
+source_file="res://art/BT/Mira/FirstBattle.ase"
+dest_files=["res://.godot/imported/FirstBattle.ase-a59da0252917c763ba4d5397bb3e0c32.res"]
+
+[params]
+

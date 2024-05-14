@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="5_441cr"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
 [ext_resource type="Script" path="res://codings/action_sequence.gd" id="6_ik7qm"]
-[ext_resource type="SpriteFrames" uid="uid://chr1a5jyqf65k" path="res://art/BT/IronHook/IronHookBT.tres" id="7_78nqk"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="10_rbofb"]
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
 [ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
@@ -1535,8 +1535,9 @@ expand_margin_bottom = 2.0
 
 [node name="Battle" type="Node2D"]
 process_mode = 3
-z_index = 5
+z_index = 3
 z_as_relative = false
+y_sort_enabled = true
 texture_filter = 2
 script = ExtResource("2_xgmkj")
 Party = SubResource("Resource_y6axd")
@@ -1552,6 +1553,7 @@ texture = ExtResource("5_441cr")
 [node name="Act" type="Node2D" parent="."]
 process_mode = 1
 visibility_layer = 16
+y_sort_enabled = true
 use_parent_material = true
 script = ExtResource("6_ik7qm")
 
@@ -1562,9 +1564,9 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("7_78nqk")
-animation = &"Hit"
-frame = 1
+sprite_frames = ExtResource("10_rbofb")
+animation = &"FirstBattle"
+frame = 62
 frame_progress = 1.0
 offset = Vector2(0.5, -15.5)
 

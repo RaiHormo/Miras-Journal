@@ -20,25 +20,31 @@ Mira.OpenMouth: Hey wait![next=2]
 => END
 
 ~ approach
-It seems scared of me...
+It seems scared...
 Maybe I should try talking to it.
 => END
 
-~ im_not_gonna_harm_you
-Mira.Neutural: Hey, you're not a monster are you?
+~ you_ok
+Mira.Neutural: Hey little one, are you ok?
+=> END
+
+~ no_harm
 Mira.Smile: Don't worry, I mean no harm. 
 => END
 
-~ come_here
-Mira.Neutural: Come here!
-=> END
-
 ~ haha
-Placeholder description: Mira pets the creature and they seem to like it.
-Placeholder description: Then the creature laches onto a fabric tied on Mira's bag.
-Mira.Neutural: Oh, this fabric?
-Mira.Smile: Haha, you can have that if you want!
-Mira.Smile: Here.
+do portrait("AlcineUpset")
+do next_box("Alcine")
+...!
+The creature tightly hugs me.
+Their body seems to be made of liquid... is this some sort of spirit?
+Mira.Neutural: What are you so scared about?
+Mira.Smile: Everything will be ok!
+do portrait("AlcineHappy")
+do next_box("Alcine")
+/*Whimm*/
+Mira.Smile: Here, you can have this.
+I take a green fabric from my bag, and tie it around their neck.
 => END
 
 ~ good_on_you
@@ -46,7 +52,8 @@ Mira.Smile: Looks good on you!
 => END
 
 ~ stay_back
-Mira.OpenMouth: You stay behind me,\nI'll deal with it!
+Mira.Neutural: Is this what scared you?
+Mira.Neutural: Stay behind me,\nI'll deal with it!
 => END!
 
 ~ skeleton
@@ -217,10 +224,15 @@ Placeholder description: A monster emerges from the lake, as Mira takes a fighti
 Mira.Neutural: S-[wait=0.2]stay back...!
 => END
 
+~ gahh
+Mira.Neutural: GAHH![wait=1] GET OFF ME!
+=> END
+
 ~ my_aura
 Mira.Neutural: My Aura...
 #Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
-Mira.Neutural: That's right, I can use [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] with this![next=3]
+Mira.Neutural: That's right, I can use my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
+Mira.Neutural: Ok, I think I can do it.
 => END
 
 ~ what_this
