@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://f5ynh18bpdf4" path="res://sound/SFX/Battle/Mira/Scream.ogg" id="4_p65ng"]
 [ext_resource type="AudioStream" uid="uid://cgi1pgg42mkmr" path="res://sound/SFX/Battle/Mira/Entrance.ogg" id="5_oqoq6"]
 
-[node name="SFX" type="Node"]
+[node name="SFX" type="Node2D"]
 
 [node name="Ability" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_a550i")

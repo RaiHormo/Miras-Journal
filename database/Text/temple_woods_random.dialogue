@@ -35,7 +35,7 @@ Mira.Smile: Don't worry, I mean no harm.
 ~ haha
 do portrait("AlcineUpset")
 do next_box("Alcine")
-...!
+...
 The creature tightly hugs me.
 Their body seems to be made of liquid... is this some sort of spirit?
 Mira.Neutural: What are you so scared about?
@@ -118,7 +118,7 @@ Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alri
 
 ~ what_about
 [wait=0.1] [next=auto]
-do Area.get_node("AlcineNaming").start()
+do Global.Area.get_node("AlcineNaming").start()
 if alcine() == "Alcine":
 	"Alcine". I think that's the best name I can think of.
 elif alcine() == "Pikachu":
@@ -178,7 +178,7 @@ else:
 
 ~ use_name
 Mira.Neutural: What about "{{alcine()}}"?
-Alcine: (nod)
+Alcine.Neutral: /*nod*/
 do npc("P").look_to(Vector2(1, 0))
 Mira.Neutural: Alright then {{alcine()}}, let's go together from here on.
 => END
@@ -236,19 +236,19 @@ Mira.Neutural: Ok, I think I can do it.
 => END
 
 ~ what_this
-Mira.Neutural: There might be more of these monster up ahead, I should be careful...
+There might be more of these monster up ahead, I should be careful...
 do get_node("/root/Battle/Act/Actor0").hide()
 set Global.Player.position = get_node("/root/Battle/Act/Actor0").global_position
 do Global.Player.show()
-Mira.Neutural: Hm, what's that?
+Hm, what's that?
 do Global.Player.move_dir(Vector2(2, 0), true, false)
 do Event.wait(0.1)
 set Global.Player.BodyState = NPC.CUSTOM
 #do Global.Player.set_anim("PickUpRight", true, true)
 do Item.add_item("WhiteSlime", "Mat")
 do Event.wait(1)
-Mira.Neutural: This slime seems to contain some of that monster's essence.
+This slime seems to contain some of that monster's essence.
 do Global.Player.set_anim("IdleRight")
 set get_node("/root/Battle/Act/Actor0").global_position = Global.Player.position
-Mira.Neutural: I feel like it might prove useful.
+I feel like it might prove useful.
 => END

@@ -786,7 +786,6 @@ position = Vector2(7.62939e-06, 9.99995)
 texture = ExtResource("14_vsd2t")
 
 [node name="Alcine" type="CharacterBody2D" parent="EntranceCutscene"]
-visible = false
 z_index = 3
 position = Vector2(299, 1354)
 collision_layer = 0

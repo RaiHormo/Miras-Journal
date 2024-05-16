@@ -59,6 +59,8 @@ var dialogue_line: DialogueLine:
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
+		dialogue_line.text = dialogue_line.text.replace("/*", "[color=Gray]*")
+		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
 
 		dialogue_label.modulate.a = 0
 		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1

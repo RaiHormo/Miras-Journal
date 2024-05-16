@@ -20,7 +20,7 @@ func _ready():
 		queue_free()
 		return
 	if Loader.InBattle:
-		if !$/root.get_node_or_null("Battle/BattleUI" or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active):
+		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active:
 			queue_free()
 			return
 		$/root/Battle/BattleUI.active = false

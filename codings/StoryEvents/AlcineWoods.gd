@@ -135,7 +135,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("temple_woods_random", "was_that_a")
 			await Event.give_control()
 			Event.flag_progress("AlcineFollow", 1)
-		elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
+		elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
 			await Event.take_control()
 			Event.give_control()
 			Global.Player.can_dash = false
@@ -143,6 +143,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.passive("temple_woods_random", "a_bridge")
 			Global.Player.can_dash = true
 			Global.Player.speed = 75
+			Event.flag_progress("AlcineFollow", 5)
+
 
 func skip():
 	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
@@ -176,12 +178,14 @@ func alcine_helps():
 	hide()
 	Global.Party.add("Alcine")
 	await Event.wait(1, false)
+	Global.Party.Member1.FirstName = "Spirit"
 	await Loader.start_battle("AlcineFollow2")
 	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
 	Global.Bt.get_actor("Petrogon").Health = hp
 
 func after_battle():
 	while Loader.InBattle: await Event.wait(0.1)
+	Global.Party.Member1.FirstName = "Alcine"
 	z_index = 0
 	Event.allow_skipping = false
 	Event.flag_progress("AlcineFollow", 4)
@@ -214,3 +218,4 @@ func after_battle():
 	Event.give_control()
 	Event.pop_tutorial("party")
 	default()
+	Loader.save()

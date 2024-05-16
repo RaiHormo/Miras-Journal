@@ -69,8 +69,9 @@ func ability():
 	Global.Bt.focus_cam(Global.Party.Leader)
 	$Border2.show()
 	$Border2/Control/Arrow.hide()
-	$Border2.position = Vector2(612, 201)
-	$Border2/Text.text = "Press [img]"
+	$Border2.position = Vector2(50, 201)
+	$Border2/Text.text = "During Mira's turn, press [img]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to call her Aura.\n\nThen scroll and select the Flame Spark ability."
+	await await_input("BtAbility")
 	queue_free()
 
 func aura1():
@@ -120,9 +121,9 @@ func aura3():
 	queue_free()
 
 
-func await_input():
+func await_input(input:= "ui_accept"):
 	await Event.wait(0.5, false)
-	while not Input.is_action_pressed("ui_accept"): await Event.wait()
+	while not Input.is_action_pressed(input): await Event.wait()
 	Global.confirm_sound()
 
 func close():

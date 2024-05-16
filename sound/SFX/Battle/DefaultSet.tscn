@@ -3,7 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://0bbq3igj0pmf" path="res://sound/SFX/Battle/Crunch.ogg" id="1_fthnd"]
 [ext_resource type="AudioStream" uid="uid://se4msb05n030" path="res://sound/SFX/Battle/Punch.ogg" id="2_1f7ad"]
 
-[node name="SFX" type="Node"]
+[node name="SFX" type="Node2D"]
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_fthnd")

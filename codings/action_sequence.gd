@@ -553,7 +553,7 @@ func FirstBattle2(target: Actor):
 	Global.passive("temple_woods_random", "my_aura")
 	await Event.wait(6)
 	Bt.zoom(5, 3)
-	Bt.focus_cam(target, 3)
+	Bt.move_cam(Vector2(-15,0), 3)
 	Bt.anim()
 	CurrentChar.node.position.x = 60
 	CurrentChar.node.show()
@@ -566,6 +566,7 @@ func FirstBattle2(target: Actor):
 	$"../BattleUI/Attack".disabled = true
 	CurrentChar.IgnoreStates = true
 	await Event.wait(2)
+	Event.pop_tutorial("ability")
 	Bt.end_turn()
 
 func FirstBattle22():
@@ -597,7 +598,7 @@ func FirstBattle5():
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)
 	Bt.victory_anim(Global.Party.Leader)
-	await Global.passive("temple_woods_random", "what_this")
+	await Global.textbox("temple_woods_random", "what_this")
 	Global.heal_party()
 	Bt.ObtainedItems.clear()
 	Bt.victory(true)
