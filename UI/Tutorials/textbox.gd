@@ -9,6 +9,7 @@ extends CanvasLayer
 var mem: TextProfile
 var next_box: String = ""
 var currun = false
+var picture: Texture2D = null
 @onready var t :Tween
 const hold_time = 30
 
@@ -74,6 +75,8 @@ var dialogue_line: DialogueLine:
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
+		$PictureFrame/Picture.texture = picture
+
 		var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
 		glow_bord.draw_center = true
 		glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
@@ -122,9 +125,7 @@ var dialogue_line: DialogueLine:
 
 		dialogue_label.modulate.a = 1
 		await get_tree().create_timer(0.2).timeout
-		#if not dialogue_line.text.is_empty():
-		var prof = await Global.match_profile(char_name)
-		dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
+		dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
 		await dialogue_label.finished_typing
 
 		# Wait for input

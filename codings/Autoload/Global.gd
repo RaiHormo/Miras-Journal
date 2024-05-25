@@ -443,6 +443,12 @@ func fade_txt_background(alpha := 0.8):
 func next_box(profile:String) -> void:
 	$/root.get_node("Textbox").next_box = profile
 
+func picture(img: String):
+	$/root/Textbox.picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
+
+func picture_clear(pic: String):
+	$/root/Textbox.picture = null
+
 func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()

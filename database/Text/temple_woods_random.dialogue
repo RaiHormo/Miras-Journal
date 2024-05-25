@@ -21,28 +21,32 @@ Mira.OpenMouth: Hey wait![next=2]
 
 ~ approach
 It seems scared...
-Maybe I should try talking to it.
+Maybe I should try approaching it.
 => END
 
 ~ you_ok
-Mira.Neutural: Hey little one, are you ok?
+Mira.Neutural: Hey.
 => END
 
 ~ no_harm
 Mira.Smile: Don't worry, I mean no harm. 
+Mira.Smile: You just seem scared, and...
 => END
 
 ~ haha
 do portrait("AlcineUpset")
 do next_box("Alcine")
-...
+Shewww
 The creature tightly hugs me.
-Their body seems to be made of liquid... is this some sort of spirit?
+Their body feels like it's made of liquid...
 Mira.Neutural: What are you so scared about?
+do npc("Alcine").move_dir(Vector2(1,0))
+do npc("Alcine").look_to(Vector2(-1,0))
 Mira.Smile: Everything will be ok!
 do portrait("AlcineHappy")
 do next_box("Alcine")
-/*Whimm*/
+Whimm
+do Global.Player.get_node("%Flame").play("ReachOut2")
 Mira.Smile: Here, you can have this.
 I take a green fabric from my bag, and tie it around their neck.
 => END
@@ -91,7 +95,7 @@ From the shape, these seem more like human legs, but it's hard to tell.
 
 ~ not_going_well
 Mira.Neutural: Ow, this hurts...
-Mira.Neutural: Do I have anything that could heal me?
+Mira.Neutural: Is there anything I can do?
 => END
 
 ~ going_nowhere
@@ -178,7 +182,7 @@ else:
 
 ~ use_name
 Mira.Neutural: What about "{{alcine()}}"?
-Alcine.Neutral: /*nod*/
+Alcine.Neutural: /*nod*/
 do npc("P").look_to(Vector2(1, 0))
 Mira.Neutural: Alright then {{alcine()}}, let's go together from here on.
 => END

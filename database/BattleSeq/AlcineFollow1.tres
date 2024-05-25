@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://c3jgxjdaf6cqb"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=10 format=3 uid="uid://c3jgxjdaf6cqb"]
 
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_6ngvg"]
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_uhysb"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_ylk11"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_xsh2d"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_yeq0t"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="3_bbvgb"]
 
@@ -10,9 +12,9 @@ script = ExtResource("2_yeq0t")
 repeatable = false
 flag = &"AlcineFollow4"
 flag_should_be = true
-after_turn = 12
+after_turn = 10
 actor = &"Mira"
-low_hp = 40
+low_hp = 60
 result = 1
 parameter1 = "AlcineWoods1"
 parameter2 = ""
@@ -50,8 +52,8 @@ add_flag = false
 
 [resource]
 script = ExtResource("1_6ngvg")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_uhysb")])
-AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
+Enemies = Array[ExtResource("2_xsh2d")]([ExtResource("1_uhysb")])
+AdditionalItems = Array[ExtResource("1_ylk11")]([])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)

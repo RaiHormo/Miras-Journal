@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://blb51swqx23w7"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://blb51swqx23w7"]
 
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_0esqg"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="1_a6ph1"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="1_nai06"]
 [ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="2_ciuc2"]
@@ -26,7 +27,7 @@ Weapon = ""
 Controllable = false
 MaxHP = 173
 MaxAura = 30
-Attack = 1.3
+Attack = 1.2
 Magic = 0.8
 Defence = 2.0
 Speed = 4.0
@@ -35,9 +36,9 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_nai06"), ExtResource("2_ciuc2")])
+Abilities = Array[ExtResource("1_0esqg")]([ExtResource("1_nai06"), ExtResource("2_ciuc2")])
 StandardAttack = ExtResource("4_mbwgc")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_0esqg")]([])
 BT = ExtResource("1_a6ph1")
 Offset = Vector2(0, -13)
 Shadow = true

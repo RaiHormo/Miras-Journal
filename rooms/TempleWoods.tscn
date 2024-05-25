@@ -41,14 +41,16 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(29.1496, 654.993, 204.1
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.256303, 0.483193, 1)
+colors = PackedColorArray(0.66, 0.66, 0.66, 1, 0.27, 0.27, 0.27, 1, 0.0876659, 0.0876659, 0.0876659, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_pd21j"]
 gradient = SubResource("Gradient_s6doo")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.852941, 0.894118)
+fill_to = Vector2(0.84188, 0.863248)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6qhg"]
 size = Vector2(206, 79.0111)
@@ -760,14 +762,16 @@ y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, 6.10352e-05)
 sprite_frames = ExtResource("4_d61pe")
-animation = &"IdleRight"
+animation = &"Hug"
+frame = 1
+frame_progress = 1.0
 offset = Vector2(0.0496826, -5.866)
 
 [node name="Glow" type="PointLight2D" parent="Alcine"]
 color = Color(0.498039, 0.768627, 0.768627, 1)
 energy = 0.3
 texture = SubResource("GradientTexture2D_pd21j")
-texture_scale = 1.5
+texture_scale = 2.0
 
 [node name="Nav" type="NavigationAgent2D" parent="Alcine"]
 

@@ -655,6 +655,16 @@ Height = 5
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_l4d8k")
 
+[node name="Parallax2D" type="Parallax2D" parent="."]
+visible = false
+repeat_size = Vector2(215, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+texture_filter = 1
+position = Vector2(107, 95)
+texture = ExtResource("6_gki33")
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]

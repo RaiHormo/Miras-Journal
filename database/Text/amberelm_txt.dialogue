@@ -69,6 +69,7 @@ But I'm quite tired right now, let's rest first.
 => END
 
 ~ rest_amberelm
+Placeholder description: Mira is writing something on a paper.
 Mira.Neutural: Hm? Something up {{alcine()}}?
 Mira.Neutural: I'm just keeping track where we've been so far.
 Mira.Neutural: We don't want to get even more lost, right?
@@ -77,4 +78,13 @@ Mira.Neutural: Must be nice being a spirit, I'm starving here.
 Placeholder description: Mira takes a nap.
 Alcine.Neutural: ...
 Placeholder description: {{alcine()}} picks up the paper.
+=> END
+
+~ wake_amberelm
+Placeholder description: Mira gets up from sleep.
+Placeholder description: {{alcine()}} who was resting on Mira also gets up.
+Mira.Neutural: Mmm... Good morning {{alcine()}}.
+Alcine.Tired: Meuummm...
+Placeholder description: Mira picks up the paper from yesterday.
+do npc("MiraCut").bubble("Surprise")
 => END

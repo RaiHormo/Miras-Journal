@@ -9,10 +9,12 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 	Mira.Smile: Yeah, sure i can say a bunch of stuff.
 	Mira.Smile: I just like the sound of my voice, beep boop.
 	Mira.Smile: So how's your day bush?\nAnything going on?
-	[wait=3] [next=auto]
-	Mira.Smile: ...
+	[wait=1] [next=auto]
 	Mira.Smile: Yeah I thought so.
 	Mira.Smile: The purpose of this dialog is to test text sounds and dialog skipping.
+	do picture("Placeholder")
+	Mira.Smile: Look at this cool texture
+	do picture_clear()
 	Mira.Smile: I can hold shift to skip all of it.
 	Also here are some thought sounds.
 	Ok I think that's enough.

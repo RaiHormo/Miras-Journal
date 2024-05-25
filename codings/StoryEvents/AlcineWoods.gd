@@ -63,8 +63,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t.set_parallel()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property($Glow, "energy", 0.6, 3)
-			t.tween_property($Glow, "texture_scale", 4, 3)
+			t.tween_property($Glow, "energy", 0.6, 2)
+			t.tween_property($Glow, "texture_scale", 3, 2)
 			Global.Player.get_node("Flame").flicker = false
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
@@ -80,10 +80,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			round(position)
 			await Global.textbox("temple_woods_random", "no_harm")
 			$Sprite.play("ScaredTurn")
-			await Event.wait(1)
-			Global.Player.get_node("%Flame").play("ReachOut2")
+			await Event.wait(0.5)
 			await move_dir(Vector2(-2, 0))
+			t = create_tween()
+			t.tween_property(self, "position", Vector2(-24, 5), 0.1).as_relative()
+			BodyState = CUSTOM
+			$Sprite.play("Hug")
 			Global.Player.bubble("Surprise")
+			await Event.wait(1.5)
 			await Global.textbox("temple_woods_random", "haha")
 			t = create_tween()
 			t.tween_property(self, "position:y", -10, 0.1).as_relative()

@@ -7,9 +7,12 @@ var List: Array[NPC]
 var Flags: Array[StringName]
 var Day: int
 var Month: String = "November"
+var TimeOfDay:= MORNING
 var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
+
+enum {MORNING = 0, MIDDAY = 1, AFTERNOON = 2, EVENING = 3, NIGHT = 4}
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -207,7 +210,11 @@ func rest_amberelm():
 	await Global.textbox("amberelm_txt", "rest_amberelm")
 	await Loader.transition("")
 	await Event.wait(1)
-	await Loader.load_game()
-	await Global.textbox("testbush", "demo_end")
-	give_control()
+	TimeOfDay = AFTERNOON
+	#await Loader.load_game()
+	#await Global.textbox("testbush", "demo_end")
+	#give_control()
+	Global.heal_party()
+	await Loader.detransition()
+	await Global.textbox("amberelm_txt", "wake_amberelm")
 #endregion

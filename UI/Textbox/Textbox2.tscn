@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dro6xc73x3rl4"]
+[gd_scene load_steps=47 format=3 uid="uid://dro6xc73x3rl4"]
 
 [ext_resource type="Script" path="res://UI/Tutorials/textbox.gd" id="1_ho4q7"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_rgh70"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="6_jj8vm"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="7_lr0dp"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="8_owatg"]
+[ext_resource type="Texture2D" uid="uid://c30r3sp321gye" path="res://UI/Textbox/PictureFrame.png" id="9_t302t"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="9_taoyv"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="10_rchcl"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="11_n3uiu"]
@@ -556,7 +557,6 @@ theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="."]
-visible = false
 offset_left = -55.0
 offset_top = 389.0
 offset_right = 1945.0
@@ -575,6 +575,23 @@ offset_right = 9466.0
 offset_bottom = 9746.0
 scale = Vector2(0.205429, 0.205429)
 texture = ExtResource("8_owatg")
+
+[node name="PictureFrame" type="TextureRect" parent="."]
+clip_children = 1
+offset_left = 829.0
+offset_top = 98.0
+offset_right = 2926.0
+offset_bottom = 2195.0
+scale = Vector2(0.205429, 0.205429)
+texture = ExtResource("9_t302t")
+
+[node name="Picture" type="TextureRect" parent="PictureFrame"]
+offset_left = 43.8107
+offset_top = 19.4714
+offset_right = 10043.8
+offset_bottom = 10019.5
+scale = Vector2(0.205429, 0.205429)
+stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

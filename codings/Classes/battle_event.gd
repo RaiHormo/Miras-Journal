@@ -28,7 +28,7 @@ var ran_this_turn := false
 
 func check() -> bool:
 	if ran_this_turn: return false
-	if Global.Bt == null: return false
+	if !Global.Bt: return false
 	if Event.check_flag(flag) != flag_should_be: return false
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
@@ -39,7 +39,7 @@ func check() -> bool:
 func run() -> void:
 	if ran_this_turn: return
 	else: ran_this_turn = true
-	if Global.Bt == null: return
+	if !Global.Bt: return
 	print("Running event ", resource_name)
 	if hold_turn: await run_with_await()
 	else:
