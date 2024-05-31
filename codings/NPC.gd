@@ -95,6 +95,7 @@ func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds($Sprite)
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
+	if "Generic" in get_terrain(): return
 	if "Idle" in sprite.animation: LastStepFrame = -1
 	if not get_node_or_null("StdrFootsteps"): return
 	if "Start" in sprite.animation:
@@ -130,7 +131,7 @@ func get_tile(layer:int):
 	return Global.Area.Layers[layer].get_cell_tile_data(Global.Area.local_to_map(global_position))
 
 func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
-	await go_to(coords+(dir), exact, autostop)
+	await go_to_global(position + dir*24, exact, autostop)
 
 func look_to(dir:Vector2):
 	BodyState = MOVE

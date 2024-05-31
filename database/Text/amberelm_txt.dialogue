@@ -64,11 +64,16 @@ This bridge is broken. \nWe should find another way to get there.
 => END
 
 ~ day10_gap
-Wonder if I get to the other side using these wires.
-But I'm quite tired right now, let's rest first.
+if f("RestAmberelm"):
+	These wires seem tough.
+	I should be able to get to the other side with enough speed.
+else:
+	Wonder if I get to the other side using these wires.
+	But I'm quite tired right now, let's rest first.
 => END
 
 ~ rest_amberelm
+Placeholder description: This is an unfinished cutscene. Boxes like this will describe what should be on screen.
 Placeholder description: Mira is writing something on a paper.
 Mira.Neutural: Hm? Something up {{alcine()}}?
 Mira.Neutural: I'm just keeping track where we've been so far.
@@ -83,8 +88,35 @@ Placeholder description: {{alcine()}} picks up the paper.
 ~ wake_amberelm
 Placeholder description: Mira gets up from sleep.
 Placeholder description: {{alcine()}} who was resting on Mira also gets up.
-Mira.Neutural: Mmm... Good morning {{alcine()}}.
+Mira.Neutural: Mmm... Good morning {{alcine()}}. Or is it afternoon?
 Alcine.Tired: Meuummm...
 Placeholder description: Mira picks up the paper from yesterday.
 do npc("MiraCut").bubble("Surprise")
+Mira.Neutural: Huh? Is that me?
+Alcine.Happy: Bloop!
+Mira.Smile: You drew this? That's so cute!
+I guess there is one way we can communicate.
+{{alcine()}} seems a lot smarter than I thought. Maybe I should ask some more important questions.
+Mira.Neutural: So... I was curious. \nBefore that monster found you, how did you end up here?
+Mira.Neutural: Do you remember anything?
+Alcine.Neutural: /*Thinking noises*/
+Placeholder description: {{alcine()}} starts drawing.
+Placeholder description: {{alcine()}} gives the drawing to Mira.
+Let's see...
+Mira.Neutural: Wha- Im being attacked in this?
+Alcine.Neutural: /*Nod*/
+Mira.Neutural: So you've seen me before.
+Mira.Neutural: Weird, I don't remember something like that at all...
+Mira.Neutural: So you were imprisoned in some kind of... castle?
+Mira.Neutural: Then ended up in that forest? \nDid you escape the castle?
+Alcine.Neutural: /*Head shake*/
+Mira.Neutural: Hmm... Do you know how you went from the castle to here? \nAt all?
+Alcine.Neutural: /*Head shake*/
+Mira.Neutural: Figures.
+Mira.Neutural: Well we should probably explore this place a little more before it's too dark.
+Mira.Smile: Let's keep on the lookout for any castles around, okay?
+=> END
+
+~ kick_bridge
+No reason to go back there.
 => END

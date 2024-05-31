@@ -1,8 +1,9 @@
 extends Area2D
 @export var jump_dirs: Array[Vector2]
-@export var jump_am := 1
-@export var time := 5
-@export var height := 0.5
+@export var jump_am:= 1
+@export var time:= 5
+@export var height:= 0.5
+@export var DoubleJumpDir: Vector2
 
 func _on_entered(body: Node2D) -> void:
 	if body == Global.Player and Global.Player.dashing and Global.Controllable:
@@ -21,3 +22,7 @@ func _on_entered(body: Node2D) -> void:
 			Global.Player.collision(true)
 			Global.Controllable = true
 			Global.Player.z_index = prev_z
+			if DoubleJumpDir == Global.PlayerDir and not Input.is_action_pressed("Dash"):
+				Global.Party.Leader.damage(randi_range(20, 40), true)
+				Global.Player.position.x = global_position.x + jump_am * 24 * -Global.get_direction().x
+				Global.check_party.emit()

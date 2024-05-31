@@ -7,12 +7,12 @@ var List: Array[NPC]
 var Flags: Array[StringName]
 var Day: int
 var Month: String = "November"
-var TimeOfDay:= MORNING
+var TimeOfDay:= TOD.DARKHOUR
 var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
 
-enum {MORNING = 0, MIDDAY = 1, AFTERNOON = 2, EVENING = 3, NIGHT = 4}
+enum TOD {DARKHOUR = -1, MORNING = 0, MIDDAY = 1, AFTERNOON = 2, EVENING = 3, NIGHT = 4}
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -114,20 +114,23 @@ func pop_tutorial(id: String):
 func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
 	if !Global.Player or !Global.Area: return
 	Global.Controllable = false
+	await wait()
 	if Global.Player.dashing:
 		await Global.Player.stop_dash()
 		Global.Player.dashing = false
 	Global.Player.winding_attack = false
-	Global.Player.direction = Vector2.ZERO
-	PartyUI.UIvisible = keep_ui
-	Global.Controllable = false
 	if idle:
 		Global.Player.BodyState = NPC.IDLE
+		Global.Player.direction = Vector2.ZERO
 		Global.Player.set_anim()
+
+	PartyUI.UIvisible = keep_ui
+	Global.Controllable = false
 	if not keep_followers:
 		for i in Global.Area.Followers:
 			i.dont_follow = true
 	await wait()
+
 
 func give_control():
 	if Global.Player == null:  return
@@ -190,9 +193,20 @@ func axe_seq():
 	Item.add_item("LightweightAxe", &"Key")
 	pop_tutorial("ov_attack")
 
+func TWflame():
+	await Event.take_control()
+	Global.Player.set_anim("IdleRight")
+	await Global.textbox("temple_woods_random", "getting_dark")
+	await Global.Player.activate_flame()
+	await Event.wait(0.5)
+	await Global.textbox("temple_woods_random", "that_should_do_it")
+	Event.give_control()
+	Event.add_flag("TWflame")
+
 func rest_amberelm():
 	take_control()
 	await Loader.save()
+	Global.check_party.emit()
 	Loader.detransition()
 	var cut = Global.Area.get_node("RestAmberelm")
 	cut.show()
@@ -207,14 +221,20 @@ func rest_amberelm():
 	Global.get_cam().zoom = Vector2(6,6)
 	Global.get_cam().position = Vector2(85,360)
 	await Event.wait(1)
-	await Global.textbox("amberelm_txt", "rest_amberelm")
+	await Global.textbox("amberelm_txt", "rest_amberelm", true)
 	await Loader.transition("")
 	await Event.wait(1)
-	TimeOfDay = AFTERNOON
-	#await Loader.load_game()
-	#await Global.textbox("testbush", "demo_end")
-	#give_control()
+	Global.heal_party()
+	Event.TimeOfDay = TOD.AFTERNOON
 	Global.heal_party()
 	await Loader.detransition()
-	await Global.textbox("amberelm_txt", "wake_amberelm")
+	await Global.textbox("amberelm_txt", "wake_amberelm", true)
+	await Loader.transition("R")
+	Global.get_cam().zoom = Vector2(4,4)
+	cut.hide()
+	Global.Player.show()
+	Loader.detransition()
+	give_control()
+	f("RestAmberelm", true)
+	Loader.save()
 #endregion

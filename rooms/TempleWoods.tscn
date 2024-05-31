@@ -16,7 +16,7 @@
 [ext_resource type="Resource" uid="uid://c81ribbmkkgh8" path="res://database/BattleSeq/SludgeBattle2.tres" id="14_hs8tf"]
 [ext_resource type="Shader" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
 [ext_resource type="Script" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
-[ext_resource type="Script" path="res://codings/Interactions/light_up.gd" id="16_0acit"]
+[ext_resource type="Script" path="res://codings/Interactions/event_tripwire.gd" id="16_0acit"]
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="19_vwt3b"]
@@ -1164,6 +1164,8 @@ texture_scale = 4.94
 [node name="LightUp" type="Area2D" parent="."]
 position = Vector2(1538.99, -56.3515)
 script = ExtResource("16_0acit")
+EventName = "TWflame"
+Flag = "TWflame"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightUp"]
 position = Vector2(-35.729, -11.1821)

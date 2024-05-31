@@ -58,8 +58,8 @@ func extended_process() -> void:
 		check_flame()
 	else:
 		first_frame = true
-	if midair:
-		pass
+		if BodyState == CONTROLLED:
+			BodyState = CUSTOM
 	if direction != Vector2.ZERO: Global.PlayerDir = direction
 
 func control_process():
@@ -307,7 +307,7 @@ func stop_dash() -> void:
 				velocity = dashdir * speed
 				speed = max(0, speed - 2)
 				await Event.wait()
-		Global.Controllable=true
+		Global.Controllable = true
 		BodyState = CONTROLLED
 		speed = 75
 		velocity = Vector2.ZERO

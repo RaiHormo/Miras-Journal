@@ -586,6 +586,7 @@ scale = Vector2(0.205429, 0.205429)
 texture = ExtResource("9_t302t")
 
 [node name="Picture" type="TextureRect" parent="PictureFrame"]
+layout_mode = 0
 offset_left = 43.8107
 offset_top = 19.4714
 offset_right = 10043.8

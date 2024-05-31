@@ -9,10 +9,13 @@ func _ready() -> void:
 func _check_party():
 	if Event.Day not in HideOnDays: show()
 	else: hide()
+	$Container/TimeOfDay.text = to_tod_text(Event.TimeOfDay)
+	$Container/TimeOfDay.icon = to_tod_icon(Event.TimeOfDay)
 	$Date/Day.text = str(Event.Day)
 	$Date/Month.text = Global.get_mmm(Global.get_month(Event.Day))
 
-func confirm_time_passage(title: String, description: String, to_time: int, action_id: String):
+func confirm_time_passage(title: String, description: String, to_time: Event.TOD, action_id: String):
+	Global.check_party.emit()
 	time_pass_id = action_id
 	show()
 	Global.Controllable = false
@@ -33,17 +36,19 @@ func confirm_time_passage(title: String, description: String, to_time: int, acti
 	$Arrow.show()
 	$Action/Nevermind.grab_focus()
 
-func to_tod_text(x: int) -> String:
+func to_tod_text(x: Event.TOD) -> String:
 	match x:
-		0: return "Morning"
-		1: return "Mid-day"
-		2: return "Afternoon"
-		3: return "Evening"
-		4: return "Night"
+		Event.TOD.MORNING: return "Morning"
+		Event.TOD.MIDDAY: return "Mid-day"
+		Event.TOD.AFTERNOON: return "Afternoon"
+		Event.TOD.EVENING: return "Evening"
+		Event.TOD.NIGHT: return "Night"
 	return "Dark hour"
 
-func to_tod_icon(x: int) -> Texture:
-	return load("res://UI/Calendar/" + to_tod_text(x) + ".png")
+func to_tod_icon(x: Event.TOD) -> Texture:
+	if FileAccess.file_exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
+		return load("res://UI/Calendar/" + to_tod_text(x) + ".png")
+	else: return null
 
 func hide_prompt() -> void:
 	$Action.hide()
