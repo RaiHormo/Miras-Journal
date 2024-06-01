@@ -567,19 +567,6 @@ spacing_space = 1
 [sub_resource type="Theme" id="Theme_wjifp"]
 default_font = SubResource("FontVariation_ochjv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbc32"]
-content_margin_left = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vv140"]
 content_margin_left = 8.0
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -591,6 +578,19 @@ border_color = Color(0.160784, 0.160784, 0.160784, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 26
 corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbc32"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eyg6"]
@@ -643,13 +643,13 @@ variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -45
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kybai"]
-bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh3bb"]
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 9
 border_width_top = 9
 border_width_right = 9
 border_width_bottom = 9
-border_color = Color(0.101961, 0.101961, 0.101961, 1)
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
@@ -667,13 +667,13 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh3bb"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kybai"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
 border_width_left = 9
 border_width_top = 9
 border_width_right = 9
 border_width_bottom = 9
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0.101961, 0.101961, 0.101961, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
@@ -921,10 +921,10 @@ theme = SubResource("Theme_wjifp")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_lbc32")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vv140")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vv140")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lbc32")
-theme_override_styles/focus = SubResource("StyleBoxFlat_vv140")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lbc32")
 text = "Show Wheel"
 icon = ExtResource("5_ilv5n")
 text_overrun_behavior = 1
@@ -1051,10 +1051,10 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 14
 theme_override_fonts/font = SubResource("FontVariation_160jv")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_kybai")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mh3bb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rrbso")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mh3bb")
-theme_override_styles/focus = SubResource("StyleBoxFlat_mh3bb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kybai")
 text = "3"
 icon = ExtResource("4_hhf13")
 alignment = 2

@@ -93,6 +93,10 @@ folder_colors={
 
 import/blender/enabled=false
 
+[global_group]
+
+TileMap=""
+
 [input]
 
 ui_accept={
@@ -392,4 +396,5 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
 viewport/hdr_2d=true
+2d/snap/snap_2d_transforms_to_pixel=true
 environment/stretch/scale_mode="fractional"

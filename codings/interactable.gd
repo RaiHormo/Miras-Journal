@@ -26,7 +26,6 @@ var t:Tween
 @export var proper_face:= Vector2.ZERO
 @export var needs_bag:= false
 
-
 func _ready() -> void:
 	$Pack.hide()
 

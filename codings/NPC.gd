@@ -43,8 +43,6 @@ func _ready() -> void:
 	default()
 
 func default() -> void:
-#	while true:
-#		await move_dir(Vector2(randf_range(-3,3), randf_range(-3,3)))
 	pass
 
 func extended_process() -> void:
@@ -67,8 +65,9 @@ func _physics_process(delta) -> void:
 		IDLE:
 			direction = Vector2.ZERO
 			velocity = direction
+			if is_on_wall():
+				position += get_wall_normal()
 			move_and_slide()
-			round(position)
 		CONTROLLED:
 			control_process()
 		CUSTOM:
@@ -83,9 +82,8 @@ func _physics_process(delta) -> void:
 	update_anim_prm()
 
 func update_anim_prm() -> void:
-	#print(round(get_real_velocity().length()))
-	if BodyState == CUSTOM:return
-	if get_real_velocity().length() >5:
+	if BodyState == CUSTOM: return
+	if get_real_velocity().length() > 5:
 		#BodyState = MOVE
 		$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
 	else:
@@ -111,7 +109,6 @@ func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 		if !$StdrFootsteps.get_node(get_terrain() + str(rand)): return
 		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
 
-
 func check_terrain(terrain:String, layer:=1) -> bool:
 	if get_tile(layer):
 		if get_tile(layer).get_custom_data("TerrainType") == terrain:
@@ -130,8 +127,9 @@ func get_terrain() -> String:
 func get_tile(layer:int):
 	return Global.Area.Layers[layer].get_cell_tile_data(Global.Area.local_to_map(global_position))
 
-func move_dir(dir:Vector2, exact=true, autostop = true) -> void:
-	await go_to_global(position + dir*24, exact, autostop)
+func move_dir(dir: Vector2, use_coords = true, autostop = true) -> void:
+	if use_coords: await go_to(coords + dir, use_coords, autostop)
+	else: await go_to(position + dir, use_coords, autostop)
 
 func look_to(dir:Vector2):
 	BodyState = MOVE
@@ -141,10 +139,7 @@ func look_to(dir:Vector2):
 	BodyState = IDLE
 	await Event.wait()
 
-func go_to_global(pos:Vector2,  exact=true, autostop = true, look_to: Vector2 = Vector2.ZERO) -> void:
-	await go_to(Global.Area.local_to_map(pos), exact, autostop, look_to)
-
-func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
+func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: await Event.take_control()
 	#await stop_going()
@@ -170,12 +165,32 @@ func go_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector
 	if look_dir != Vector2.ZERO:
 		await look_to(look_dir)
 
+##Move towards a specific position until arriving.
+##if use_coords is true it will use TileMap coordinates instead of a global position.
+##If autostop is true, it will stop when hitting a wall.
+##look_dir is the direction the NPC will face after reaching the destination.
+##accuracy detarmines how close to the destination the NPC should get.
+func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 5) -> void:
+	if self is Mira and Global.Controllable: return
+	print("goin")
+	await stop_going()
+	BodyState = MOVE
+	if use_coords: pos = Global.Area.map_to_local(pos)
+	while round(global_position / accuracy) != round(pos / accuracy):
+		direction = to_local(pos).normalized()
+		await Event.wait()
+		if (autostop and is_on_wall()) or stopping: break
+	direction = Vector2.ZERO
+	BodyState = IDLE
+	if look_dir != Vector2.ZERO: look_to(look_dir)
+	await Event.wait()
+
 func set_anim(anim: String):
 	$Sprite.play(anim)
 
 func stop_going() -> void:
 	stopping = true
-	BodyState= IDLE
+	BodyState = IDLE
 	await Event.wait()
 	stopping = false
 
@@ -185,13 +200,7 @@ func defeat() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("DebugR"):
-		go_to(Global.Area.local_to_map(get_global_mouse_position()))
-		#Event.move_dir(Vector2.LEFT*5)
-
-func set_direction_to(pos:Vector2i) -> void:
-	var prev = Nav.target_position
-	Nav.set_target_position(Global.globalize(pos))
-	direction = to_local(Nav.get_next_path_position()).normalized()
+		go_to(get_global_mouse_position(), false)
 
 func wall_in_front() -> bool:
 	if is_on_wall() and Global.get_direction(get_wall_normal()) == Global.get_direction(): return true

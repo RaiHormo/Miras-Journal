@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://by71lcwjxjrhj"
+path="res://.godot/imported/Crate.aseprite-dfc44156ad07f38e8ea61a7e211b2ba1.res"
+
+[deps]
+
+source_file="res://art/OV/Objects/Crate.aseprite"
+dest_files=["res://.godot/imported/Crate.aseprite-dfc44156ad07f38e8ea61a7e211b2ba1.res"]
+
+[params]
+

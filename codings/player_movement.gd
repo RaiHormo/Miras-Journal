@@ -258,27 +258,6 @@ func bag_anim() -> void:
 	await set_anim("BagOpen", true)
 	set_anim("BagIdle")
 
-##If the player dashes into a gap she will jump
-#func check_for_jumps() -> void:
-	#if dashing and check_terrain("Gap"):
-		#if Global.get_direction(Global.Area.Layers[1].get_cell_tile_data(Global.Area.local_to_map(global_position
-			#)).get_custom_data("JumpDistance")) == Global.get_direction(realvelocity):
-			#reset_speed()
-			#set_anim("Dash"+Global.get_dir_name(direction)+"Loop")
-			#midair = true
-			#Global.Controllable = false
-			#$CollisionShape2D.disabled = true
-			#z_index+=2
-			#var jump = Global.Area.get_cell_tile_data(
-				#1, Global.Area.local_to_map(global_position)).get_custom_data("JumpDistance")
-			##print(jump, "  ", coords)
-			#Global.jump_to_global(self, Global.Area.map_to_local(coords) + jump*24, 5, 0.5)
-			#await Global.anim_done
-			#Global.Controllable = true
-			#z_index-=2
-			#$CollisionShape2D.disabled = false
-			#midair=false
-
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash() -> void:
 	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in

@@ -753,7 +753,7 @@ func is_mem_healed(chara: Actor):
 #endregion
 
 #region Quick Actions
-func jump_to(character:Node, position:Vector2, time:float=5, height: float =0.5) -> void:
+func jump_to(character: Node, position: Vector2, time: float = 5, height: float = 0.5) -> void:
 	var t:Tween = create_tween()
 	var start = character.position
 	var jump_distance : float = start.distance_to(position)
@@ -764,7 +764,7 @@ func jump_to(character:Node, position:Vector2, time:float=5, height: float =0.5)
 	await t.finished
 	anim_done.emit()
 
-func jump_to_global(character:Node, position:Vector2, time:float, height: float =0.1) -> void:
+func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1) -> void:
 	var t:Tween = create_tween()
 	var start = character.global_position
 	var jump_distance : float = start.distance_to(position)

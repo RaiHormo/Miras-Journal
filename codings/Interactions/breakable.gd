@@ -21,3 +21,4 @@ func set_break():
 	$Sprite.play(broken_anim)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AreaBreak.queue_free()
+	z_index -= 1
