@@ -449,4 +449,3 @@ func flip_sprites(node: Node2D) -> void:
 	#if Input.is_key_pressed(KEY_S):
 		#set_anim("IdleDown")
 		#direction = Vector2.DOWN
-

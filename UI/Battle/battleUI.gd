@@ -921,4 +921,3 @@ func focus_item(node:Button):
 	else:
 		$"../Canvas/Confirm".show()
 		$"../Canvas/Confirm".text = "Use"
-

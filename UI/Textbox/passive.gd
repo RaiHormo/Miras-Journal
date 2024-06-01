@@ -197,4 +197,3 @@ func draw_portrait():
 			#t.tween_property(Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
 		Portrait.hide()
-

@@ -635,4 +635,3 @@ func AlcineWoods4():
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
 #endregion
-

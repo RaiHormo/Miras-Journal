@@ -780,4 +780,3 @@ func heal_in_overworld(target:Actor, ab: Ability):
 	target.add_health(amount)
 	check_party.emit()
 #endregion
-
