@@ -37,7 +37,7 @@ func extended_process():
 		stopping = true
 		if tmr.time_left != 0:
 			$Collision.set_deferred("disabled", false)
-			print(to_local(Nav.get_next_path_position()).normalized())
+			#print(to_local(Nav.get_next_path_position()).normalized())
 			BodyState = CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)

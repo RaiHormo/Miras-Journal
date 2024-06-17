@@ -172,7 +172,6 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 ##accuracy detarmines how close to the destination the NPC should get.
 func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 5) -> void:
 	if self is Mira and Global.Controllable: return
-	print("goin")
 	await stop_going()
 	BodyState = MOVE
 	if use_coords: pos = Global.Area.map_to_local(pos)

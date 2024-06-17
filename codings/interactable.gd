@@ -125,7 +125,7 @@ func _on_button_pressed() -> void:
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
-		await Global.Player.go_to_global(proper_pos, true, true, proper_face)
+		await Global.Player.go_to(proper_pos, false, true, proper_face)
 	action.emit()
 	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
 	match ActionType:

@@ -1,15 +1,12 @@
-[gd_resource type="SpriteFrames" load_steps=61 format=3 uid="uid://uukatv1k8px0"]
+[gd_resource type="SpriteFrames" load_steps=60 format=3 uid="uid://uukatv1k8px0"]
 
 [ext_resource type="Texture2D" uid="uid://dtalpyyu7e806" path="res://art/OV/Alcine/Alcineov-Sheet.png" id="1_71pwc"]
-[ext_resource type="Texture2D" uid="uid://ui48ske0q4t5" path="res://art/OV/Alcine/Hug.png" id="1_svh4j"]
 [ext_resource type="Texture2D" uid="uid://cucn8yjwga4qu" path="res://art/OV/Alcine/Scared.png" id="2_if2yx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne8xr"]
-atlas = ExtResource("1_svh4j")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhetw"]
-atlas = ExtResource("1_svh4j")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tfhvn"]
