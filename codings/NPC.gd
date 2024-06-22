@@ -76,10 +76,15 @@ func _physics_process(delta) -> void:
 		NONE: return
 	if direction != Vector2.ZERO:
 		if get_node_or_null("DirectionMarker"):
-			$DirectionMarker.global_position=global_position +direction*10
-			$DirectionMarker.rotation = direction.angle()
+			set_dir_marker(direction)
 		Facing = Global.get_direction(direction)
 	update_anim_prm()
+
+func set_dir_marker(vec: Vector2 = direction):
+	vec = vec.normalized()
+	$DirectionMarker.global_position=global_position + vec * 10
+	$DirectionMarker.rotation = direction.angle()
+	
 
 func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return

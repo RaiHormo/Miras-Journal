@@ -17,6 +17,11 @@ func default():
 	patrol()
 
 func patrol():
+	stopping = false
+	Loader.chased = false
+	PinRange = false
+	if not Loader.InBattle: Loader.battle_bars(0)
+	speed = 20
 	if not homepoints.is_empty():
 		while not PinRange:
 			if Loader.InBattle:
@@ -25,7 +30,10 @@ func patrol():
 				show()
 				$Collision.set_deferred("disabled", true)
 				await go_to(homepoints.pick_random(), false)
-			await Event.wait(randf_range(0,3))
+			var tmr = get_tree().create_timer(randf_range(0,3))
+			while tmr.time_left != 0: 
+				if stopping: return
+				await Event.wait()
 
 func extended_process():
 	if self.get_path in Loader.Defeated:
@@ -33,38 +41,44 @@ func extended_process():
 		$CatchArea/CollisionShape2D.set_deferred("disabled", true)
 		return
 	if PinRange and tmr:
-		Nav.target_position = Global.Player.position
 		stopping = true
 		if tmr.time_left != 0:
 			$Collision.set_deferred("disabled", false)
 			#print(to_local(Nav.get_next_path_position()).normalized())
 			BodyState = CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
+				speed = 40
 				Nav.set_target_position(Global.Player.position)
-				if  tmr.time_left < 2:
+				if  tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.set_time_left(2)
-			direction = to_local(Nav.get_next_path_position()).normalized()
+			else: 
+				speed = 30
+			if Global.get_direction(to_local(Nav.get_next_path_position())) != -Global.get_direction(direction):
+				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
-			Loader.chased = false
-			PinRange = false
-			if not Loader.InBattle: Loader.battle_bars(0)
-			speed = 20
 			patrol()
 
-func _on_finder_area_entered(area):
-	if !Global.Player: return
-	if not PinRange and not Loader.chased:
-		PinRange = true
-		await stop_going()
+func _on_finder_body_entered(body):
+	if body == Global.Player and not PinRange and not Loader.chased:
+		stopping = true
 		Loader.chase_mode()
 		speed = 40
 		Loader.battle_bars(1)
 		BodyState = IDLE
+		set_dir_marker(to_local(Global.Player.global_position))
 		$Bubble.play("Surprise")
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
-		await $Bubble.animation_finished
+		await Event.wait(0.8)
+		look_to(Global.get_direction(to_local(Global.Player.global_position)))
+		Nav.set_target_position(Global.Player.position)
+		set_dir_marker(to_local(Global.Player.global_position))
+		await Event.wait()
+		#if not Global.Player in $DirectionMarker/Finder.get_overlapping_bodies() or not Nav.is_target_reachable():
+			#$Bubble.play("Ellipsis")
+			#patrol()
 		BodyState = MOVE
 		tmr = get_tree().create_timer(give_up_after)
+		PinRange = true
 
 func _on_catch_area_body_entered(body):
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and

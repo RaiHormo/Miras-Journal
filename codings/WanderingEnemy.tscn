@@ -1,9 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://usn8pirw8kjc"]
+[gd_scene load_steps=10 format=3 uid="uid://usn8pirw8kjc"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="3_ku8yi"]
-[ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="5_lwcxn"]
+[ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="4_iawkj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
 
@@ -13,115 +13,6 @@ height = 86.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5d30"]
 radius = 15.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7nct"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gor2t"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cdgxs"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xn0qu"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o7yhn"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uuhpb"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tflpd"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7dbh2"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_itun8"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c75ej"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gnvrj"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tbln1"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o1dpm"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_udqyj"]
-atlas = ExtResource("5_lwcxn")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_h4u17"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7nct")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gor2t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cdgxs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xn0qu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o7yhn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uuhpb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tflpd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7dbh2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_itun8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c75ej")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gnvrj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tbln1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o1dpm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_udqyj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7nct")
-}],
-"loop": false,
-"name": &"Surprise",
-"speed": 20.0
-}]
 
 [sub_resource type="Gradient" id="Gradient_4pn5g"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -140,15 +31,10 @@ collision_mask = 513
 motion_mode = 1
 script = ExtResource("2_2fny2")
 Battle = ExtResource("3_ku8yi")
-Defeated = null
-give_up_after = null
 speed = 20
-direction = null
-Facing = null
 ID = "CS2"
 SpawnOnCameraInd = true
 CameraIndex = 1
-Footsteps = null
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7bu4m")
@@ -156,8 +42,8 @@ shape = SubResource("CircleShape2D_7bu4m")
 [node name="DirectionMarker" type="Marker2D" parent="."]
 
 [node name="Finder" type="Area2D" parent="DirectionMarker"]
-collision_layer = 0
-collision_mask = 256
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DirectionMarker/Finder"]
 position = Vector2(39.0013, 0.990601)
@@ -181,10 +67,8 @@ light_mask = 0
 z_index = 3
 material = ExtResource("1_blols")
 position = Vector2(-0.00183105, -13.0005)
-sprite_frames = SubResource("SpriteFrames_h4u17")
-animation = &"Surprise"
-frame = 14
-frame_progress = 1.0
+sprite_frames = ExtResource("4_iawkj")
+animation = &"Ellipsis"
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
 target_desired_distance = 1.0
@@ -196,6 +80,6 @@ scale = Vector2(2.70313, 2.70313)
 energy = 0.0
 texture = SubResource("GradientTexture2D_v3lgp")
 
-[connection signal="area_entered" from="DirectionMarker/Finder" to="." method="_on_finder_area_entered"]
+[connection signal="body_entered" from="DirectionMarker/Finder" to="." method="_on_finder_body_entered"]
 [connection signal="area_entered" from="CatchArea" to="." method="_on_catch_area_area_entered"]
 [connection signal="body_entered" from="CatchArea" to="." method="_on_catch_area_body_entered"]

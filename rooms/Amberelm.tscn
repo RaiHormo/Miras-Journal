@@ -423,9 +423,9 @@ animations = [{
 }]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5agys"]
-vertices = PackedVector2Array(556.961, 399.922, 476.18, 405.07, 501.438, 329.297, 524, 327.047, 649.797, 334.289, 626.047, 417.859, 562.172, 245.75, 636.422, 238.844, 524, 268.648)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 5, 0), PackedInt32Array(6, 7, 4, 3, 8)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(494, 320, 462, 416, 556, 410, 633, 430, 660, 335, 645, 228, 559, 236, 514, 263, 514, 318)])
+vertices = PackedVector2Array(556.727, 399.93, 472, 405.344, 472, 328, 524, 328, 650.023, 333.852, 568.609, 237.031, 652.711, 238.789, 524, 253.031, 633.211, 416.133)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4, 3, 7), PackedInt32Array(4, 8, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(462, 318, 462, 416, 556, 410, 641, 428, 660, 335, 663, 229, 567, 227, 514, 246, 514, 318)])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rluqx"]
 atlas = ExtResource("24_ee40o")
@@ -1139,14 +1139,11 @@ navigation_layers = 2
 [node name="IronHook1" parent="." instance=ExtResource("22_wfemh")]
 z_index = 2
 position = Vector2(564, 343)
+collision_layer = 512
+collision_mask = 512
 Battle = ExtResource("23_gf563")
-Defeated = false
-give_up_after = 3
-direction = Vector2(0, 0)
-Facing = Vector2(0, 0)
 ID = "IH1"
 CameraIndex = 0
-Footsteps = true
 
 [node name="HomePoints" type="Node2D" parent="IronHook1"]
 
