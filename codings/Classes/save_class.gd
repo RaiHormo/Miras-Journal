@@ -4,7 +4,7 @@ class_name SaveFile
 @export var Name: String="Autosave"
 @export var Datetime: Dictionary
 @export var Party: Array[StringName] = [&"Mira", &"", &"", &""]
-@export var Room: String
+@export var RoomPath: String
 @export var RoomName: String = "???"
 @export var Position:Vector2
 @export var Camera: int = 0

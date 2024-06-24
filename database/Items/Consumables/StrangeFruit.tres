@@ -16,6 +16,7 @@ description = "This is used internally for healing items in battle."
 Icon = SubResource("AtlasTexture_uyukm")
 ActionSequence = &"Eat"
 Type = "Healing"
+InflictsState = ""
 AuraCost = 0
 HPCost = 0
 disabled = false

@@ -95,9 +95,11 @@ func check_flag(flag: StringName):
 
 func add_flag(flag: StringName):
 	if flag not in Flags: Flags.append(flag)
+	print("Added flag \"", flag, "\"")
 
 func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
+	print("Removed flag \"", flag, "\"")
 
 func f(flag:StringName, state = null) -> bool:
 	if state is bool:

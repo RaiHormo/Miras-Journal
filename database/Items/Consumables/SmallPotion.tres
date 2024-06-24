@@ -17,6 +17,7 @@ description = "This is used internally for healing items in battle."
 Icon = SubResource("AtlasTexture_uyukm")
 ActionSequence = &"Drink"
 Type = "Healing"
+InflictsState = ""
 AuraCost = 0
 HPCost = 0
 disabled = false

@@ -1137,8 +1137,8 @@ navigation_polygon = SubResource("NavigationPolygon_5agys")
 navigation_layers = 2
 
 [node name="IronHook1" parent="." instance=ExtResource("22_wfemh")]
-z_index = 2
-position = Vector2(564, 343)
+z_index = 5
+position = Vector2(564, 336)
 collision_layer = 512
 collision_mask = 512
 Battle = ExtResource("23_gf563")

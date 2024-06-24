@@ -7,13 +7,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7t5g"]
-radius = 34.0005
-height = 86.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_o5d30"]
-radius = 15.0
-
 [sub_resource type="Gradient" id="Gradient_4pn5g"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
@@ -22,6 +15,12 @@ gradient = SubResource("Gradient_4pn5g")
 fill = 1
 fill_from = Vector2(0.491453, 0.504274)
 fill_to = Vector2(0.141026, 0.884615)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_288op"]
+points = PackedVector2Array(10, 50, -10, 50, -40, 10, -30, -60, 0, -80, 30, -60, 40, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5d30"]
+radius = 15.0
 
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -39,6 +38,12 @@ CameraIndex = 1
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7bu4m")
 
+[node name="Flash" type="PointLight2D" parent="."]
+position = Vector2(0, 3.8147e-06)
+scale = Vector2(2.70313, 2.70313)
+energy = 0.0
+texture = SubResource("GradientTexture2D_v3lgp")
+
 [node name="DirectionMarker" type="Marker2D" parent="."]
 
 [node name="Finder" type="Area2D" parent="DirectionMarker"]
@@ -48,7 +53,7 @@ collision_mask = 15
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DirectionMarker/Finder"]
 position = Vector2(39.0013, 0.990601)
 rotation = 1.57007
-shape = SubResource("CapsuleShape2D_s7t5g")
+shape = SubResource("ConvexPolygonShape2D_288op")
 debug_color = Color(0.721569, 0.415686, 0.635294, 0.419608)
 
 [node name="CatchArea" type="Area2D" parent="."]
@@ -66,19 +71,13 @@ process_mode = 3
 light_mask = 0
 z_index = 3
 material = ExtResource("1_blols")
-position = Vector2(-0.00183105, -13.0005)
+position = Vector2(0, -22)
 sprite_frames = ExtResource("4_iawkj")
 animation = &"Ellipsis"
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
 target_desired_distance = 1.0
 navigation_layers = 2
-
-[node name="Flash" type="PointLight2D" parent="."]
-position = Vector2(0, 3.8147e-06)
-scale = Vector2(2.70313, 2.70313)
-energy = 0.0
-texture = SubResource("GradientTexture2D_v3lgp")
 
 [connection signal="body_entered" from="DirectionMarker/Finder" to="." method="_on_finder_body_entered"]
 [connection signal="area_entered" from="CatchArea" to="." method="_on_catch_area_area_entered"]

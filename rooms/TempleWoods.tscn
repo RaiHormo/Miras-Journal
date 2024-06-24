@@ -1591,6 +1591,14 @@ item_name = "StrangeFruit"
 position = Vector2(1597.78, -950.365)
 item_name = "StrangeFruit"
 
+[node name="LifeLave1" parent="." instance=ExtResource("26_k6j3t")]
+position = Vector2(1615.95, -214.369)
+item_name = "LifeLave"
+
+[node name="LifeLave2" parent="." instance=ExtResource("26_k6j3t")]
+position = Vector2(1429.94, -277.327)
+item_name = "LifeLave"
+
 [node name="SharpRock1" parent="." instance=ExtResource("26_k6j3t")]
 position = Vector2(588.06, 262.866)
 item_type = &"Bti"

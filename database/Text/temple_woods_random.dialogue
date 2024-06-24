@@ -3,7 +3,7 @@
 => END
 
 ~ that_should_do_it
-That should do it.
+This should help.
 => END
 
 ~ was_that_a
@@ -64,7 +64,7 @@ Mira.Neutural: Stay behind me,\nI'll deal with it!
 if not f("LookedAtSkeleton"):
 	do f("LookedAtSkeleton", true)
 	...There's no mistaking it, that's a skeleton.
-	From the skull shape it seems human, but I don't want to look at it more than I have to.
+	From the skull shape it seems human, I think.	
 else: 
 	...Let's just move on.
 => END!
@@ -88,9 +88,15 @@ else:
 => END
 
 ~ statue_legs
-Looks like a statue.
-Or, to be more precise, the legs of a statue.
-From the shape, these seem more like human legs, but it's hard to tell.
+if not f("LookedAtStatue"):
+	do f("LookedAtStatue", true)
+	Looks like a statue.
+	Or, to be more precise, the legs of a statue.
+else:
+	do f("LookedAtStatue", false)
+	I can't tell the species of whoever this satue depicted.
+	But it's probably not Cyrenian or Eyvi judging from the shape.
+
 => END
 
 ~ not_going_well

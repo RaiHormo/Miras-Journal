@@ -66,7 +66,7 @@ func save(filename:String="Autosave", showicon=true):
 	for i in data.Inventory:
 		data.Inventory[data.Inventory.find(i)] = i.duplicate()
 
-	data.Room = Global.Area.scene_file_path
+	data.RoomPath = Global.Area.scene_file_path
 	data.RoomName = Global.Area.Name
 	data.Day = Event.Day
 	ResourceSaver.save(data, "user://"+filename+".tres")
@@ -96,21 +96,24 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
 	Event.Flags = data.Flags.duplicate()
+	print("Flags loaded: ", Event.Flags)
 	Event.Day = data.Day
+	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
 	if !data:
 		OS.alert("This save file doen't exist", "WHERE FILE")
-	if !data.Room:
+	if !data.RoomPath:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
 	for i in get_tree().root.get_children():
 		if i is Room: i.queue_free()
-	get_tree().root.add_child((await load_res(data.Room)).instantiate())
+	get_tree().root.add_child((await load_res(data.RoomPath)).instantiate())
 
 	Item.load_inventories(data)
 
 	Global.Members = data.Members.duplicate()
 	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)
+	print("Current party: ", data.Party)
 	for i in Global.Members: i.reset_static_info()
 
 	await Global.area_initialized
@@ -118,6 +121,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Global.Controllable = true
 	PartyUI._check_party()
 	Global.Area.handle_z(data.Z)
+	print("Loading room ", data.RoomName, " in camera ID ", data.Camera, " and Z index ", data.Z)
 	await Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
@@ -127,6 +131,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	await detransition()
 	Global.Controllable = true
 	get_tree().paused = false
+	print("File loaded!\n-------------------------")
 
 func load_res(path:String):
 	load_failed = false
@@ -142,6 +147,7 @@ func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, tr
 
 func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans
+	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos

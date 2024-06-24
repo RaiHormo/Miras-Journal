@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://33rre1l0klod"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_lne2v"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_v4m21"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="3_t2vp7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
+atlas = ExtResource("1_lne2v")
+region = Rect2(126, 18, 18, 18)
+filter_clip = true
+
+[sub_resource type="Resource" id="Resource_y1gkf"]
+script = ExtResource("2_v4m21")
+name = "Item cure "
+description = "This is used internally for curing items in battle."
+Icon = SubResource("AtlasTexture_uyukm")
+ActionSequence = &"ItemCure"
+Type = "Healing"
+InflictsState = "Poison"
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 5
+Parameter = 10.0
+Target = 0
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mmxx"]
+atlas = ExtResource("1_lne2v")
+region = Rect2(144, 72, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("3_t2vp7")
+Name = "Life lave"
+Description = "Cures Poison and restores 10 HP."
+ItemType = "Con"
+Icon = SubResource("AtlasTexture_1mmxx")
+Quantity = 0
+QuantityMeansUses = false
+AmountOnAdd = 1
+Use = 3
+UsedInBattle = true
+OvTarget = 3
+BattleEffect = SubResource("Resource_y1gkf")
+Parameter = "10"
