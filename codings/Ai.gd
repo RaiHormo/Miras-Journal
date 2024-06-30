@@ -101,7 +101,7 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if Char.Health < Char.MaxHP * 0.7 and has_type("Defensive"):
+				if Char.Health < Char.MaxHP * 0.7 and Char.BattleLog.back().ability.Type != "Defensive" and has_type("Defensive"):
 					return find_ability("Defensive").pick_random()
 			_:
 				if has_type("CheapAttack"):

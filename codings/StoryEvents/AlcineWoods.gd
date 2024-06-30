@@ -12,7 +12,7 @@ func default() -> void:
 		await Event.wait(0.2)
 		Global.Player.can_dash = false
 		await move_dir(Vector2.UP)
-		Global.passive("temple_woods_random", "hey_wait")
+		Global.passive("story_events", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
 		BodyState = CUSTOM
 		$Sprite.stop()
@@ -33,6 +33,7 @@ func default() -> void:
 		position = Vector2(1963, -1312)
 		hide()
 		$"../Petrogon".hide()
+		#Global.passive()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -53,7 +54,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.frame = 0
 			await t.finished
 			Event.wait(0.5)
-			await Global.textbox("temple_woods_random", "approach")
+			await Global.textbox("story_events", "approach")
 			await Global.Player.go_to(Vector2(67, -45))
 			await Event.wait(0.3)
 			Global.Player.BodyState = CUSTOM
@@ -69,7 +70,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
 			Event.f("FlameActive", false)
-			await Global.textbox("temple_woods_random", "you_ok")
+			await Global.textbox("story_events", "you_ok")
 			await Event.wait(0.5)
 			BodyState = CUSTOM
 			$Sprite.play("Scared")
@@ -78,7 +79,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			#await bubble("Question")
 			await Event.wait(1)
 			round(position)
-			await Global.textbox("temple_woods_random", "no_harm")
+			await Global.textbox("story_events", "no_harm")
 			$Sprite.play("ScaredTurn")
 			await Event.wait(0.5)
 			await move_dir(Vector2(-2, 0))
@@ -88,7 +89,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.play("Hug")
 			Global.Player.bubble("Surprise")
 			await Event.wait(1.5)
-			await Global.textbox("temple_woods_random", "haha")
+			await Global.textbox("story_events", "haha")
 			t = create_tween()
 			t.tween_property(self, "position:y", -10, 0.1).as_relative()
 			t.tween_property(self, "position:y", 10, 0.1).as_relative()
@@ -96,7 +97,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.sprite_frames = preload("res://art/OV/Alcine/AlcineOV2.tres")
 			await Event.wait(1)
 			Global.Player.set_anim("IdleRight")
-			await Global.textbox("temple_woods_random", "good_on_you")
+			await Global.textbox("story_events", "good_on_you")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
 			await move_dir(Vector2.UP)
@@ -120,9 +121,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.frame = 0
 			await Event.wait(1)
 			$"../Petrogon".play("Idle")
-			await Global.textbox("temple_woods_random", "stay_back")
+			await Global.textbox("story_events", "stay_back")
 			Loader.Attacker = Global.Area.get_node("Petrogon")
 			await Event.wait(0.1)
+			Global.Party.Leader.add_health(30)
 			Event.flag_progress("AlcineFollow", 3)
 			Loader.start_battle("AlcineFollow1")
 		elif Global.CameraInd == 1 and not Event.f("AlcineFollow", 1):
@@ -136,7 +138,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Bubble.play("Surprise")
 			await $Bubble.animation_finished
 			await move_dir(Vector2.UP*5)
-			await Global.textbox("temple_woods_random", "was_that_a")
+			await Global.textbox("story_events", "was_that_a")
 			await Event.give_control()
 			Event.flag_progress("AlcineFollow", 1)
 		elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
@@ -144,7 +146,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Event.give_control()
 			Global.Player.can_dash = false
 			Global.Player.speed = 50
-			await Global.passive("temple_woods_random", "a_bridge")
+			await Global.passive("story_events", "a_bridge")
 			Global.Player.can_dash = true
 			Global.Player.speed = 75
 			Event.flag_progress("AlcineFollow", 5)
@@ -209,7 +211,7 @@ func after_battle():
 	Event.take_control()
 	Global.Player.look_to(Vector2.LEFT)
 	Global.Player.position = Vector2(1619, -1068)
-	await Global.textbox("temple_woods_random", "got_through_that")
+	await Global.textbox("story_events", "got_through_that")
 	await Loader.transition("R")
 	hide()
 	Global.get_cam().zoom = Vector2(4, 4)

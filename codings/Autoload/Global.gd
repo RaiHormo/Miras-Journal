@@ -57,7 +57,7 @@ func _ready() -> void:
 	if Area: await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
-	Input.start_joy_vibration(0, 1, 1)
+	Input.start_joy_vibration(0, 1, 0, 0.1)
 
 func quit() -> void:
 	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
@@ -87,12 +87,6 @@ func ready_window() -> void:
 	if not OS.get_name() == "Linux":
 		await Event.wait(0.5)
 		return
-	#for i in 180:
-		#await Event.wait()
-		#get_window().grab_focus()
-	#while LastInput == 0:
-		#await Event.wait()
-		#get_window().grab_focus()
 
 func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
@@ -308,7 +302,6 @@ func save_settings() -> void:
 #endregion
 
 #region UI Sounds
-
 func cursor_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
 	Audio.play()
@@ -327,7 +320,6 @@ func item_sound() -> void:
 func ui_sound(string:String) -> void:
 	Audio.stream = await Loader.load_res("res://sound/SFX/UI/"+string+".ogg")
 	Audio.play()
-
 #endregion
 
 #region Party Checks

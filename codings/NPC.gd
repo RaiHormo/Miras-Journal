@@ -112,6 +112,7 @@ func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 		if sprite.frame == 0: rand = str(randi_range(1,3))
 		else: rand = str(randi_range(4,6))
 		if !$StdrFootsteps.get_node(get_terrain() + str(rand)): return
+		#print(get_terrain())
 		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
 
 func check_terrain(terrain:String, layer:=1) -> bool:
@@ -123,8 +124,9 @@ func check_terrain(terrain:String, layer:=1) -> bool:
 func get_terrain() -> String:
 	var layers: Array[TileMapLayer] = Global.Area.Layers.duplicate()
 	layers.reverse()
+	var j = layers.size() -1
 	for i in layers:
-		var j = layers.find(i)
+		j -= 1
 		if get_tile(j) and get_tile(j).get_custom_data("TerrainType") != "":
 			return get_tile(j).get_custom_data("TerrainType")
 	return "Generic"
@@ -200,6 +202,7 @@ func stop_going() -> void:
 
 func defeat() -> void:
 	Loader.Defeated.append(ID)
+	Loader.save()
 	queue_free()
 
 func _input(event: InputEvent) -> void:

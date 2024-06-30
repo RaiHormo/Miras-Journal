@@ -101,6 +101,7 @@ func _ready():
 	for i in TurnOrder:
 		sprite_init(i)
 		i.NextAction = ""
+		i.BattleLog.clear()
 	position_sprites()
 	turn_ui_init()
 	if Loader.Attacker: Loader.Attacker.hide()
@@ -409,6 +410,12 @@ func callout(ab:Ability = CurrentAbility):
 
 func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	print("Using ", ab.name, " on ", tar.FirstName)
+	for i in CurrentChar.BattleLog: if i.turn == Turn:
+		print("Double turn detected, aborting")
+		return
+	var log_entry = Actor.log_entry.new()
+	log_entry.ability = ab; log_entry.target = tar; log_entry.turn = Turn
+	CurrentChar.BattleLog.append(log_entry)
 	CurrentChar.NextAction = ""
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
@@ -514,6 +521,8 @@ overwrite_color: Color = Color.WHITE) -> int:
 	print("Attack power: ", x, " * ", el_mod)
 	var attacker = null if ignore_stats else CurrentChar
 	var dmg = target.calc_dmg(x * el_mod, is_magic, attacker)
+	if target.Controllable:
+		Input.start_joy_vibration(0, remap(dmg, 0, target.MaxHP, 0.3, 1), remap(dmg, 0, target.MaxHP, 0, 0.5), 0.2)
 	target.damage(dmg, limiter)
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
 		$Act.call(target.SeqOnClutch, target)

@@ -261,7 +261,7 @@ func CloseupAttack(target: Actor):
 	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
 	await Bt.anim("Attack1")
 	Bt.anim("Attack2")
-	await Event.wait(0.3)
+	await Event.wait(0.2)
 	if not miss:
 		Bt.play_sound("Attack2", CurrentChar)
 		Bt.damage(target)
@@ -380,7 +380,7 @@ func ToxicSplash(target: Actor):
 	Bt.zoom(6)
 	Bt.focus_cam(target, 1)
 	Bt.play_effect("ToxicSplash", target)
-	await Event.wait(1)
+	await Event.wait(0.8)
 	Bt.damage(target, true, true)
 	Bt.screen_shake(8, 5, 0.1)
 	await Event.wait(1)
@@ -459,6 +459,18 @@ func Eat(target: Actor):
 	await Bt.anim("Cast")
 	await Event.wait(1)
 	Bt.end_turn()
+
+func ItemCure(target: Actor):
+	Bt.focus_cam(CurrentChar, 0.3)
+	Bt.zoom(5.5)
+	print(Bt.CurrentAbility.Type)
+	if Bt.CurrentAbility.Type == "Healing":
+		Bt.heal(CurrentChar, int(Bt.CurrentAbility.Parameter))
+	CurrentChar.remove_state(Bt.CurrentAbility.InflictsState)
+	await Bt.anim("Cast")
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################
@@ -492,7 +504,7 @@ func FirstBattle1():
 	Bt.Action = true
 	Loader.InBattle = true
 	Loader.get_node("Can").layer = 3
-	await Global.textbox("temple_woods_random", "first_cutscene")
+	await Global.textbox("story_events", "first_cutscene")
 	Loader.battle_bars(4)
 	Global.Player.hide()
 	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
@@ -505,7 +517,7 @@ func FirstBattle1():
 	Bt.get_actor("Mira").node.frame = 2
 	Bt.focus_cam(Bt.Troop[0], 2, 40)
 	await Event.wait(1)
-	Global.passive("temple_woods_random", "sstay_back")
+	Global.passive("story_events", "sstay_back")
 	await Event.wait(1)
 	Loader.InBattle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
@@ -537,7 +549,7 @@ func FirstBattle2(target: Actor):
 	CurrentChar.node.hide()
 	Bt.play_sound("Attack2", CurrentChar)
 	Bt.damage(target, CurrentChar.Attack, false, 12, false)
-	Global.passive("temple_woods_random", "gahh")
+	Global.passive("story_events", "gahh")
 	await Event.wait(2)
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
@@ -550,7 +562,7 @@ func FirstBattle2(target: Actor):
 	Bt.zoom(7, 1)
 	await Event.wait(4)
 	Bt.glow(1, 2, Bt.Party.Leader)
-	Global.passive("temple_woods_random", "my_aura")
+	Global.passive("story_events", "my_aura")
 	await Event.wait(6)
 	Bt.zoom(5, 3)
 	Bt.move_cam(Vector2(-15,0), 3)
@@ -598,7 +610,7 @@ func FirstBattle5():
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)
 	Bt.victory_anim(Global.Party.Leader)
-	await Global.textbox("temple_woods_random", "what_this")
+	await Global.textbox("story_events", "what_this")
 	Global.heal_party()
 	Bt.ObtainedItems.clear()
 	Bt.victory(true)
@@ -608,7 +620,7 @@ func AlcineWoods1():
 	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
 	Bt.Action = true
-	await Global.passive("temple_woods_random", "going_nowhere")
+	await Global.passive("story_events", "going_nowhere")
 	Event.CutsceneHandler.alcine_helps()
 
 func AlcineWoods2():
@@ -626,7 +638,7 @@ func AlcineWoods2():
 
 func AlcineWoods3():
 	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
-	await Global.passive("temple_woods_random", "amazing")
+	await Global.passive("story_events", "amazing")
 
 func AlcineWoods4():
 	#if Event.f("AlcineFollow", 5): return

@@ -126,6 +126,11 @@ var node: AnimatedSprite2D
 var States: Array[State]
 var DamageRecivedThisTurn: int = 0
 
+class log_entry:
+	var turn: int
+	var ability: Ability
+	var target: Actor
+var BattleLog: Array[log_entry]
 
 func set_health(x):
 	Health = x
@@ -211,6 +216,7 @@ func remove_state(x):
 		state = x
 	else: state = await get_state(x)
 	if state == null: return
+	print(FirstName,"'s ", state.name, " state was removed")
 	Global.Bt.remove_state_effect(state.name, self)
 	States.erase(state)
 

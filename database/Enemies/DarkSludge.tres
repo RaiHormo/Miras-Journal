@@ -2,11 +2,11 @@
 
 [ext_resource type="SpriteFrames" uid="uid://d1xgldxgwt31e" path="res://art/BT/DarkSludge/DarkSludgeBt.tres" id="1_aaqd2"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_l4uns"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_llot4"]
 [ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="1_od3rd"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_pprw7"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_o0ova"]
 [ext_resource type="Resource" uid="uid://dmhsvhd1lkkue" path="res://database/Abilities/Summon.tres" id="2_wrolb"]
-[ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="3_0322f"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_cony1"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="7_dv84l"]
 [ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="9_28irp"]
@@ -38,9 +38,9 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_od3rd"), ExtResource("2_wrolb"), ExtResource("3_0322f")])
+Abilities = Array[ExtResource("1_llot4")]([ExtResource("1_od3rd"), ExtResource("2_wrolb")])
 StandardAttack = ExtResource("4_cony1")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_llot4")]([])
 BT = ExtResource("1_aaqd2")
 Offset = Vector2(3, -14)
 Shadow = false

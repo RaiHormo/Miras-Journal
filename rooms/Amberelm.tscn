@@ -807,7 +807,7 @@ position = Vector2(347, 391)
 LabelText = "Read"
 ActionType = "text"
 Length = 100
-file = "amberelm_txt"
+file = "interactions"
 title = "amberelm_sign"
 Height = 5
 
@@ -817,7 +817,7 @@ position = Vector2(-1, 8)
 [node name="Gap" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(37, 99)
 ActionType = "text"
-file = "amberelm_txt"
+file = "interactions"
 title = "day10_gap"
 Height = 5
 
@@ -839,14 +839,14 @@ position = Vector2(-1, 13)
 [node name="InspectBridge" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(376, 344)
 ActionType = "text"
-file = "amberelm_txt"
+file = "interactions"
 title = "broken_bridge"
 Height = 5
 
 [node name="InspectBackround" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(69, 206)
 ActionType = "text"
-file = "amberelm_txt"
+file = "interactions"
 title = "the_sky"
 Height = 5
 
@@ -1052,7 +1052,7 @@ item_name = "SharpRock"
 position = Vector2(33, 746)
 collision_mask = 15
 script = ExtResource("19_5avo1")
-TextFile = "amberelm_txt"
+TextFile = "interactions"
 TextNode = "kick_bridge"
 Flag = "RestAmberelm"
 FlagShouldBe = true

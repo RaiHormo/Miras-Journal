@@ -14,7 +14,7 @@ func default():
 		Event.npc("AlcineCut").look_to(Vector2.RIGHT)
 		await Event.wait(0.3)
 		Event.npc("AlcineCut").speed = 75
-		await Global.textbox("amberelm_txt", "morning")
+		await Global.textbox("story_events", "morning")
 		Event.npc("MiraCut").speed = 75
 		Event.npc("MiraCut").move_dir(Vector2.UP*5)
 		Event.npc("AlcineCut").chain_moves([Vector2.RIGHT, Vector2.UP*5])

@@ -20,10 +20,9 @@ func _on_body_entered(body: Node2D) -> void:
 			Event.take_control(false, true)
 			await Event.wait(1)
 			Loader.ungray.emit()
-			await Global.textbox("amberelm_txt", "what_happened_here")
+			await Global.textbox("story_events", "what_happened_here")
 			await Loader.transition("R")
 			Global.Player.position = Vector2(150, 345)
 			Loader.detransition()
 			Event.give_control()
 			Global.Player.set_anim("IdleRight")
-

@@ -732,6 +732,7 @@ func _on_focus_changed(control:Control):
 
 func _on_ability_entry():
 	if active:
+		active = false
 		Global.confirm_sound()
 		var ab:Ability = %AbilityList.get_child(MenuIndex).get_meta("Ability")
 		match ab.Target:
