@@ -421,6 +421,8 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	CurrentChar.NextTarget = null
 	CurrentAbility = ab
 	CurrentTarget = tar
+	if ab.remove_item_on_use != null:
+		Item.remove_item(ab.remove_item_on_use)
 	if ab == null:
 		end_turn()
 		return

@@ -80,3 +80,8 @@ else:
 	Mira.Neutural: It's definitely far from my home...
 	do Event.f("TheSkyAmberelm", true)
 => END
+
+~ wrong_way
+ Mira.Neutural: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
+=> END
+

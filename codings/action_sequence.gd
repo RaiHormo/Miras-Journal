@@ -471,6 +471,15 @@ func ItemCure(target: Actor):
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
+func ItemThrow(target: Actor):
+	Bt.focus_cam(target)
+	Bt.zoom(5.5)
+	Bt.play_effect("Hit", target)
+	Bt.screen_shake()
+	Bt.damage(target, false, true, Global.calc_num(), true, false, true)
+	await Event.wait(1)
+	Bt.end_turn()
 #endregion
 
 ################################################

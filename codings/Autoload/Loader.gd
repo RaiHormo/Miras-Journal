@@ -24,6 +24,7 @@ var Defeated:Array
 var Preview
 var BtAdvantage = 0
 var data: SaveFile
+var SaveFiles: Array[SaveFile]
 signal battle_start
 signal battle_end
 signal ungray
@@ -34,6 +35,7 @@ func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	validate_save("user://Autosave.tres")
+	
 
 func save(filename:String="Autosave", showicon=true):
 	if !Global.Player or !Global.Area:
@@ -133,19 +135,22 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	get_tree().paused = false
 	print("File loaded!\n-------------------------")
 
-func load_res(path:String):
+func load_res(path: String) -> Resource:
 	load_failed = false
 	loaded_resource = path
+	var frame := Global.ProcessFrame
 	ResourceLoader.load_threaded_request(path)
 	loading_thread = true
 	await thread_loaded
+	if Global.ProcessFrame - frame > 1:
+		print("Loaded resource ", path, " in ", Global.ProcessFrame - frame, " frames")
 	if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z := -1, trans=Global.get_dir_letter()):
+func travel_to(sc, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
@@ -471,6 +476,7 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1)
 
 func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 	$Can.show()
+	$Can.layer = 9
 	var fader = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
 	fader.position = Vector2(-134,-189)

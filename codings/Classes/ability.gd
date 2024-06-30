@@ -30,6 +30,8 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 @export var RecoverAura: bool = false
 @export var DmgVarience: bool = false
 
+var remove_item_on_use: ItemData = null
+
 func is_aoe() -> bool:
 	if Target == T.AOE_ALLIES or Target == T.AOE_ENEMIES: return true
 	else: return false

@@ -300,9 +300,7 @@ func load_save_files():
 	draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	for i in DirAccess.get_files_at("user://"):
 		if ".tres" in i and not "Autosave" in i:
-			print("fetching user://"+i)
 			var data = await Loader.load_res("user://"+i)
-			print("Sucessful")
 			if data is SaveFile:
 				var newpanel:PanelContainer = null
 				for j in %Files.get_children():

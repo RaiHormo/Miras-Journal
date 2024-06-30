@@ -62,6 +62,7 @@ func remove_item(ItemName, type: StringName = &""):
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
 	item.Quantity -= 1
+	print("Item ", item.Name, " removed")
 	if item.Quantity <= 0:
 		item.Quantity = 0
 		inv.erase(item)

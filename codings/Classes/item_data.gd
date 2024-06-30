@@ -20,4 +20,3 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES}
 @export var OvTarget: T = T.ONE_ALLY
 @export var BattleEffect: Ability
 @export var Parameter: String
-
