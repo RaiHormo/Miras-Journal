@@ -134,13 +134,13 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
 	await wait()
 
 
-func give_control():
+func give_control(camera_follow:= true):
 	if Global.Player == null:  return
 	Global.Player.direction = Vector2.ZERO
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
-	Global.Player.camera_follow(true)
+	if camera_follow: Global.Player.camera_follow(true)
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false

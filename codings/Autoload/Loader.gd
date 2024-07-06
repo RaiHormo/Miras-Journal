@@ -35,7 +35,6 @@ func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	validate_save("user://Autosave.tres")
-	
 
 func save(filename:String="Autosave", showicon=true):
 	if !Global.Player or !Global.Area:
@@ -69,6 +68,7 @@ func save(filename:String="Autosave", showicon=true):
 		data.Inventory[data.Inventory.find(i)] = i.duplicate()
 
 	data.RoomPath = Global.Area.scene_file_path
+	if Global.Area.CurSubRoom != null: data.RoomPath += ";" + Global.Area.CurSubRoom.name
 	data.RoomName = Global.Area.Name
 	data.Day = Event.Day
 	ResourceSaver.save(data, "user://"+filename+".tres")
@@ -108,7 +108,8 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
 	for i in get_tree().root.get_children():
 		if i is Room: i.queue_free()
-	get_tree().root.add_child((await load_res(data.RoomPath)).instantiate())
+	var sc_split = data.RoomPath.split(";")
+	get_tree().root.add_child((await load_res(sc_split[0])).instantiate())
 
 	Item.load_inventories(data)
 
@@ -119,6 +120,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	for i in Global.Members: i.reset_static_info()
 
 	await Global.area_initialized
+	if sc_split.size() > 1: Global.Area.go_to_subroom(sc_split[1])
 	Global.Player.global_position = data.Position
 	Global.Controllable = true
 	PartyUI._check_party()
@@ -150,7 +152,7 @@ func load_res(path: String) -> Resource:
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter()):
+func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter()):
 	direc = trans
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
@@ -158,6 +160,8 @@ func travel_to(sc, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=
 	traveled_pos = pos
 	print(camera_ind)
 	Global.CameraInd = camera_ind
+	var sc_split = sc.split(";")
+	sc = sc_split[0]
 	scene = "res://rooms/" + sc + ".tscn"
 	if scene != "":
 		ResourceLoader.load_threaded_request(scene)
@@ -165,7 +169,7 @@ func travel_to(sc, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=
 	status = ResourceLoader.load_threaded_get_status(scene, progress)
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		await done()
+		await done(sc_split)
 		if z >= 0: Global.Area.handle_z(z)
 	else:
 		Icon.play("Load")
@@ -220,7 +224,7 @@ func transition(dir=Global.get_dir_letter()):
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
 	await t.finished
 
-func done():
+func done(sc_split: Array[String] = []):
 	chased = false
 	if Global.Area: Global.Area.queue_free()
 	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
@@ -233,7 +237,8 @@ func done():
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
 	if Global.Player: Global.Player.look_to(Global.get_direction())
-	Event.give_control()
+	if sc_split.size() > 1: await Global.Area.go_to_subroom(sc_split[1])
+	Event.give_control(false)
 	await detransition()
 
 func detransition():

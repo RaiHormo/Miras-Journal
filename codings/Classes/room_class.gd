@@ -41,8 +41,6 @@ func _ready():
 		Cam.limit_right = (CameraLimits[Global.CameraInd])[RIGHT]
 		Cam.limit_top = (CameraLimits[Global.CameraInd])[TOP]
 		Cam.limit_bottom = (CameraLimits[Global.CameraInd])[BOTTOM]
-	#calculate_bounds()
-	#global_position=Size/2
 	if SpawnPlayer:
 		var Player = preload("res://codings/Mira.tscn").instantiate()
 		SpawnPath.add_child(Player)
@@ -53,7 +51,6 @@ func _ready():
 			Followers.append(follower)
 			SpawnPath.add_child(follower)
 		move_child(Player, 0)
-#	View.zoom(CameraZooms[Global.CameraInd])
 	Global.Area = self
 	Global.Area = self
 	await Global.player_ready
@@ -66,8 +63,15 @@ func _ready():
 	Global.area_initialized.emit()
 	default()
 
-func setup_params():
-	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+func setup_params(tween_zoom = false):
+	var zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+	if tween_zoom:
+		var t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUART)
+		t.tween_property(Cam, "zoom", zoom, 0.3)
+	else:
+		Cam.zoom = zoom
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
 	Cam.position_smoothing_speed = 10
@@ -97,13 +101,21 @@ func fade():
 	var t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
 	await t.finished
-	for i in Layers: i.hide()
+	for i in Layers: 
+		i.collision_enabled = false
+		i.hide()
 
 func unfade():
 	var t = create_tween()
-	for i in Layers: i.show()
+	for i in Layers: 
+		i.collision_enabled = true
+		i.show()
 	t.tween_property($SubRoomBg, "modulate", Color.TRANSPARENT, 0.3)
 
 func _physics_process(delta: float) -> void:
 	if get_node_or_null("SubRoomBg") and CurSubRoom != null:
 		$SubRoomBg.position = Cam.position
+ 
+func go_to_subroom(subroom: String):
+	for i in get_children(): if i.name == subroom and i is SubRoom:
+			await i.transition()
