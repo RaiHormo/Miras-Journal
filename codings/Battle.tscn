@@ -1976,6 +1976,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
+[node name="Node" type="Node" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+
 [node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller"]
 unique_name_in_owner = true
 visible = false

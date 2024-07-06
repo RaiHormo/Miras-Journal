@@ -262,7 +262,7 @@ func entrance_anim(i: Actor):
 func _on_next_turn():
 	if check_for_victory(): return
 	for i in TurnOrder:
-		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("KnockedOut"):
+		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("KnockedOut") and i.Health != 0:
 			await i.add_state("AuraBreak")
 			if i != CurrentChar:
 				follow_up_next = true
@@ -1162,7 +1162,7 @@ func filter_actors_by_state(input: Array[Actor], state: String) -> Array[Actor]:
 func filter_dead(arr: Array[Actor]) -> Array[Actor]:
 	var warr = arr.duplicate()
 	for i in arr:
-		if i.has_state("KnockedOut"): warr.erase(i)
+		if i.has_state("KnockedOut") or i.Health == 0: warr.erase(i)
 	return warr
 
 func clear_states(target: Actor):

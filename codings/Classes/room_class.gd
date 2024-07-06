@@ -20,16 +20,14 @@ var Size:Vector2
 var Cam = Camera2D.new()
 var Followers: Array[Follower] = []
 var Layers: Array[TileMapLayer]
+var CurSubRoom: SubRoom = null
 
 func _ready():
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
-	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
-	Cam.limit_smoothed = true
-	Cam.position_smoothing_enabled = true
-	Cam.position_smoothing_speed = 10
-	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
+	setup_params()
+	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
 	for i in get_children():
 		if i is TileMapLayer:
 			Layers.append(i)
@@ -68,21 +66,15 @@ func _ready():
 	Global.area_initialized.emit()
 	default()
 
+func setup_params():
+	Cam.zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+	Cam.limit_smoothed = true
+	Cam.position_smoothing_enabled = true
+	Cam.position_smoothing_speed = 10
+	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
+
 func default():
 	pass
-
-#func calculate_bounds():
-	#for pos in get_used_cells(0):
-		#if pos.x < bounds[LEFT]:
-			#bounds[LEFT] = int(pos.x) - 1
-		#elif pos.x > bounds[RIGHT]:
-			#bounds[RIGHT] = int(pos.x) + 1
-		#if pos.y < bounds[TOP]:
-			#bounds[TOP] = int(pos.y) - 1
-		#elif pos.y > bounds[BOTTOM]:
-			#bounds[BOTTOM] = int(pos.y) + 1
-	#bounds *= 24
-	#Size = Vector2(abs(bounds[LEFT])+bounds[RIGHT], abs(bounds[TOP])+bounds[BOTTOM])
 
 func handle_z(z := SpawnZ[Global.CameraInd]):
 	Global.Player.z_index = z
@@ -100,3 +92,18 @@ func map_to_local(vec: Vector2i) -> Vector2:
 
 func local_to_map(vec: Vector2) -> Vector2i:
 	return Layers[0].local_to_map(vec)
+
+func fade():
+	var t = create_tween()
+	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
+	await t.finished
+	for i in Layers: i.hide()
+
+func unfade():
+	var t = create_tween()
+	for i in Layers: i.show()
+	t.tween_property($SubRoomBg, "modulate", Color.TRANSPARENT, 0.3)
+
+func _physics_process(delta: float) -> void:
+	if get_node_or_null("SubRoomBg") and CurSubRoom != null:
+		$SubRoomBg.position = Cam.position

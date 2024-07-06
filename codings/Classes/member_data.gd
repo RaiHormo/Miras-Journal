@@ -130,7 +130,7 @@ class log_entry:
 	var turn: int
 	var ability: Ability
 	var target: Actor
-var BattleLog: Array[log_entry]
+var BattleLog: Array[Object]
 
 func set_health(x):
 	Health = x
