@@ -199,6 +199,8 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
+				if Input.is_action_just_pressed("LeftTrigger") and Bt.Seq.CanEscape:
+					_on_escape()
 			&"item":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
@@ -543,7 +545,6 @@ func _on_item_pressed():
 	item.emit()
 func _on_command_pressed():
 	if stage == &"root": command.emit()
-	if stage == &"command" and Bt.Seq.CanEscape: _on_escape()
 
 func get_target(faction:Array[Actor]):
 	if Bt.Action: return

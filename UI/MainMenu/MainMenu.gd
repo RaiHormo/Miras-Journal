@@ -14,6 +14,7 @@ var KeyInv :Array[ItemData]
 var player: Mira
 var duplicated := false
 var focused_item:ItemData = null
+var cam_follow: bool
 
 func _ready():
 	hide()
@@ -24,12 +25,14 @@ func _ready():
 		get_tree().paused = false
 		Global.Controllable = true
 		return
+	cam_follow = Global.Player.get_node("Camera2D").update_position
 	await Event.take_control(true)
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
 		Global.Player.bag_anim()
 		player = Global.Player.duplicate()
 		Global.Area.add_child(player)
+		player.is_clone = true
 		await Event.wait()
 		player.remove_light()
 		player.collision_layer = 0
@@ -165,7 +168,7 @@ func close():
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
 	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
-	t.tween_property(Cam, "position", CamPrev.position, 0.3)
+	Cam.position = CamPrev.position
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	PartyUI.UIvisible = true
 	if not duplicated: Global.Area.handle_z(z)
@@ -175,7 +178,7 @@ func close():
 	if duplicated:
 		player.free()
 		Global.Player = Global.Area.get_child(0)
-	Event.give_control()
+	Event.give_control(cam_follow)
 	Global.Player.set_anim()
 	Global.get_cam().enabled = true
 	if Fader: Fader.hide()

@@ -21,6 +21,7 @@ var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
 @onready var used_sprite: AnimatedSprite2D = %Base
+var is_clone: bool = false
 
 func _ready() -> void:
 	ID = "P"
@@ -34,14 +35,15 @@ func _ready() -> void:
 		queue_free()
 		return
 	Loader.InBattle = false
-	Global.Player = self
-	Global.Follower[0] = self
-	var cam :Camera2D = Global.get_cam()
-	if cam !=null:
-		for i in Global.Area.get_children():
-			if "Camera" in i.name: i.enabled = false
-		$Camera2D.remote_path = cam.get_path()
-		cam.enabled = true
+	if not is_clone:
+		Global.Player = self
+		Global.Follower[0] = self
+		var cam: Camera2D = Global.get_cam()
+		if cam != null:
+			for i in Global.Area.get_children():
+				if "Camera" in i.name: i.enabled = false
+			$Camera2D.remote_path = cam.get_path()
+			cam.enabled = true
 	set_anim("Idle"+str(Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
@@ -49,7 +51,7 @@ func _ready() -> void:
 		PartyUI.UIvisible = true
 		for i in Global.Area.Followers:
 			i.dont_follow = false
-	Event.give_control()
+	Event.give_control(false)
 	Global.player_ready.emit()
 
 func extended_process() -> void:
@@ -308,7 +310,7 @@ func bump() -> void:
 	if used_sprite.is_playing(): await used_sprite.animation_finished
 	Global.Controllable=true
 
-func camera_follow(follow := Global.toggle($Camera2D.update_position)) -> void:
+func camera_follow(follow = !$Camera2D.update_position) -> void:
 	$Camera2D.update_position = follow
 
 func attack():
