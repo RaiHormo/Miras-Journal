@@ -80,7 +80,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
 	if not FileAccess.file_exists(filepath): await save()
 	print("Loading " + filepath)
-	if Global.Bt: Global.Bt.free()
+	if is_instance_valid(Global.Bt): Global.Bt.free()
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -236,7 +236,7 @@ func done(sc_split: Array[String] = []):
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
-	if Global.Player: Global.Player.look_to(Global.get_direction())
+	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
 	if sc_split.size() > 1: await Global.Area.go_to_subroom(sc_split[1])
 	Event.give_control(false)
 	await detransition()
@@ -296,7 +296,7 @@ func start_battle(stg, advantage := 0):
 		return
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
-		if Attacker:
+		if is_instance_valid(Attacker):
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)
@@ -307,10 +307,10 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
-	if Global.Player: Global.Player.hide()
+	if is_instance_valid(Global.Player): Global.Player.hide()
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
-	if Attacker: Attacker.hide()
+	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Follower:
 		if i: i.hide()
 	#InBattle = true
@@ -321,7 +321,7 @@ func end_battle():
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
-		if Global.Bt: Global.Bt.queue_free()
+		if is_instance_valid(Global.Bt): Global.Bt.queue_free()
 	else:
 		t=create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -336,15 +336,15 @@ func end_battle():
 		await t.finished
 	InBattle = false
 	battle_end.emit()
-	if !Global.Player: return
+	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:
 		if i and Global.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
-	if Global.Bt: Global.Bt.get_node("Act").hide()
+	if is_instance_valid(Global.Bt): Global.Bt.get_node("Act").hide()
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
-	if Attacker and BattleResult != 1: Attacker.show()
+	if is_instance_valid(Attacker) and BattleResult != 1: Attacker.show()
 	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:
 		Attacker.defeat()
 	Global.Controllable = false
@@ -352,7 +352,7 @@ func end_battle():
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
-	if Global.Player:
+	if is_instance_valid(Global.Player):
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
@@ -406,7 +406,7 @@ func hide_victory_stuff():
 	t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
 
 func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
-	if t:
+	if is_instance_valid(t):
 		t.kill()
 	$Can.layer = 1
 	$Can.show()
@@ -498,7 +498,7 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
 func validate_save(save: String) -> bool:
 	if FileAccess.file_exists("user://Autosave.tres"):
 		var file = load(save)
-		if file:
+		if is_instance_valid(file):
 			if file.version == SaveVersion:
 				Preview = file.Preview
 				return true
@@ -512,7 +512,7 @@ func validate_save(save: String) -> bool:
 	else: return false
 
 func flash_attacker():
-	if !Attacker: return
+	if not is_instance_valid(Attacker): return
 	t = create_tween()
 	t.tween_property(Attacker.get_node("Flash"), "energy", 10, 0.1)
 	t.tween_property(Attacker.get_node("Flash"), "energy", 0, 1)

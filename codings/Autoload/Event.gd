@@ -20,7 +20,7 @@ func _ready():
 ##Character is added to the list of NPCS
 func add_char(b:NPC):
 	for i in List:
-		if ! i:
+		if !is_instance_valid(i):
 			#List.remove_at
 			continue
 		if i.ID == b.ID:
@@ -31,7 +31,7 @@ func add_char(b:NPC):
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
 	for i in List:
-		if !i:
+		if !is_instance_valid(i):
 			#List.erase(i)
 			continue
 		if i.ID == ID:
@@ -163,13 +163,13 @@ func f_past(str: String, has_passed:= 9) -> bool:
 	else: return false
 
 func skip_cutscene():
-	if CutsceneHandler and CutsceneHandler.has_method(&"skip"):
+	if is_instance_valid(CutsceneHandler) and CutsceneHandler.has_method(&"skip"):
 		await Loader.transition("")
 		CutsceneHandler.skip()
 		await Event.wait()
 		var dub = CutsceneHandler.duplicate()
 		CutsceneHandler.free()
-		if Global.Area: Global.Area.add_child(dub)
+		if is_instance_valid(Global.Area): Global.Area.add_child(dub)
 		await Event.wait()
 		dub.skip()
 		Loader.detransition()

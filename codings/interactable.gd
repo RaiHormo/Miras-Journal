@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		else: queue_free()
 	if pack == null:
 		pack = $Pack.duplicate()
-	if Global.Player and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
+	if is_instance_valid(Global.Player) and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
 		CheckInput()
 		#Appear
 		if not pack.visible:

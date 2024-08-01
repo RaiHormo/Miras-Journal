@@ -937,7 +937,7 @@ func victory(ignore_seq:= false):
 	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
-	if Global.Player:
+	if is_instance_valid(Global.Player):
 		Global.Player.global_position = $Act/Actor0.global_position
 		if Party.check_member(1):
 			Global.Area.get_node("Follower1"

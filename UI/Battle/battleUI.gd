@@ -238,7 +238,7 @@ func _input(event: InputEvent) -> void:
 					move_menu()
 
 func _on_root():
-	if foc:
+	if is_instance_valid(foc):
 		foc.hide()
 		foc.show()
 	t.kill()
@@ -548,7 +548,7 @@ func _on_command_pressed():
 
 func get_target(faction:Array[Actor]):
 	if Bt.Action: return
-	if foc:
+	if is_instance_valid(foc):
 		foc.hide()
 		foc.show()
 	if Troop.is_empty():

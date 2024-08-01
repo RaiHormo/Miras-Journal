@@ -54,7 +54,7 @@ func _ready() -> void:
 	init_party(Party)
 	#ready_window()
 	init_settings()
-	if Area: await nodes_of_type(Area, "Light2D", Lights)
+	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	Input.start_joy_vibration(0, 1, 0, 0.1)
@@ -363,7 +363,7 @@ func mem(Name: StringName) -> Actor:
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
-	if !party: party = PartyData.new()
+	if !is_instance_valid(party): party = PartyData.new()
 	for i in DirAccess.get_files_at("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
@@ -403,7 +403,7 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
-	if balloon: balloon.start(text, title, extra_game_states)
+	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
 	await textbox_close
 	textbox_open = false
@@ -448,7 +448,7 @@ func toast(string: String) -> void:
 	var tost = preload("res://UI/Misc/Toast.tscn").instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
-	if tost:
+	if is_instance_valid(tost):
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
 func location_name(string: String) -> void:
@@ -458,7 +458,7 @@ func location_name(string: String) -> void:
 	var tost = preload("res://UI/Misc/LocationName.tscn").instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
-	if tost:
+	if is_instance_valid(tost):
 		tost.get_node("Label").text = string
 
 #Match profile
@@ -502,7 +502,7 @@ func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 			return Vector2.UP
 
 func get_cam() -> Camera2D:
-	if !Area: return Camera2D.new()
+	if !is_instance_valid(Area): return Camera2D.new()
 	return Area.Cam
 	#return Area.get_node("Camera"+str(CameraInd))
 
@@ -735,12 +735,12 @@ func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Abilit
 
 func is_everyone_fully_healed() -> bool:
 	for i in Party.array():
-		if !i: continue
+		if !is_instance_valid(i): continue
 		if not i.is_fully_healed(): return false
 	return true
 
 func is_mem_healed(chara: Actor):
-	if !chara: return true
+	if !is_instance_valid(chara): return true
 	return chara.is_fully_healed()
 #endregion
 

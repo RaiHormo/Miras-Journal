@@ -594,10 +594,10 @@ position = Vector2(223, 517)
 collision_layer = 256
 collision_mask = 256
 script = ExtResource("3_s8jlk")
-LayersUp = 4
-LayersDown = 8
-zUp = 4
-zDown = 7
+LayersUp = 8
+LayersDown = 4
+zUp = 7
+zDown = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs1"]
 position = Vector2(-1.76965, 0)

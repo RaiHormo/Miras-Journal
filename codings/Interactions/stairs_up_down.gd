@@ -8,8 +8,9 @@ class_name Stair
 @export var Swap := false
 
 func _on_body_entered(body: Node2D) -> void:
-	#print(body)
+	print(body.name)
 	if body.name == "Finder":
+		print(body)
 		var dir : Vector2 = to_local(Global.Player.global_position)
 		dir.x = 0
 		dir = Global.get_direction(dir)
