@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="SaveFile" load_steps=45 format=3 uid="uid://b5qcq7nbnaka"]
+[gd_resource type="Resource" script_class="SaveFile" load_steps=38 format=3 uid="uid://b5qcq7nbnaka"]
 
-[ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_etmj2"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_vip1j"]
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="2_mah4s"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="3_biyoq"]
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="3_t3o3b"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="4_4jr5b"]
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="5_ljupg"]
@@ -35,63 +34,6 @@
 [ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="43_e6r20"]
 [ext_resource type="Script" path="res://codings/Classes/save_class.gd" id="44_yd2ky"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_enqek"]
-atlas = ExtResource("1_vip1j")
-region = Rect2(108, 90, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_q7whi"]
-script = ExtResource("2_mah4s")
-Name = "Wallet"
-Description = "Contains 63 Iseferian coins and some train tickets."
-ItemType = ""
-Icon = SubResource("AtlasTexture_enqek")
-Quantity = 0
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 0
-UsedInBattle = false
-OvTarget = 3
-Parameter = ""
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a4axw"]
-atlas = ExtResource("1_vip1j")
-region = Rect2(126, 90, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_bd5yo"]
-script = ExtResource("2_mah4s")
-Name = "Folded Paper"
-Description = "A sheet of paper folded twice."
-ItemType = ""
-Icon = SubResource("AtlasTexture_a4axw")
-Quantity = 0
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 1
-UsedInBattle = false
-OvTarget = 3
-Parameter = "folded_paper"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dacdr"]
-atlas = ExtResource("1_vip1j")
-region = Rect2(144, 90, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_wuqaw"]
-script = ExtResource("2_mah4s")
-Name = "Pen Case"
-Description = "A case with a few writting supplies."
-ItemType = ""
-Icon = SubResource("AtlasTexture_dacdr")
-Quantity = 0
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 1
-UsedInBattle = false
-OvTarget = 3
-Parameter = "pen_case"
-
 [sub_resource type="Resource" id="Resource_nux6e"]
 script = ExtResource("12_4qvp4")
 FirstName = "Alcine"
@@ -101,9 +43,6 @@ ActorClass = "Support"
 codename = &"Alcine"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 24
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = true
 IsEnemy = false
 RecivedSP = 0
 SummonedAllies = Array[ExtResource("12_4qvp4")]([])
@@ -126,9 +65,9 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("3_t3o3b")])
+Abilities = Array[ExtResource("3_biyoq")]([ExtResource("3_t3o3b")])
 StandardAttack = ExtResource("12_q4m7a")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("3_biyoq")]([])
 OV = ExtResource("6_c4yfj")
 BT = ExtResource("4_4jr5b")
 Offset = Vector2(-3, -15)
@@ -139,6 +78,11 @@ GlowDef = 0.3
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
 DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = true
+IgnoreStates = false
+CantDodge = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yrywn"]
 
@@ -151,9 +95,6 @@ ActorClass = ""
 codename = &"Erinn"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 24
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
 IsEnemy = false
 RecivedSP = 0
 SummonedAllies = Array[ExtResource("12_4qvp4")]([])
@@ -175,9 +116,9 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+Abilities = Array[ExtResource("3_biyoq")]([])
 StandardAttack = ExtResource("19_qj56u")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("3_biyoq")]([])
 OV = ExtResource("15_ike6x")
 BT = SubResource("SpriteFrames_yrywn")
 Offset = Vector2(0, 0)
@@ -188,6 +129,11 @@ GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
 DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false
 
 [sub_resource type="Resource" id="Resource_qa8pi"]
 script = ExtResource("12_4qvp4")
@@ -198,9 +144,6 @@ ActorClass = "Attacker"
 codename = &"Mira"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 24
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
 IsEnemy = false
 RecivedSP = 0
 SummonedAllies = Array[ExtResource("12_4qvp4")]([ExtResource("42_2suj6")])
@@ -223,9 +166,9 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 13
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("14_445et"), ExtResource("15_atsjf")])
+Abilities = Array[ExtResource("3_biyoq")]([ExtResource("14_445et"), ExtResource("15_atsjf")])
 StandardAttack = ExtResource("30_eltif")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("3_biyoq")]([])
 OV = ExtResource("24_5j77d")
 BT = ExtResource("22_nhpkt")
 Offset = Vector2(0, -15)
@@ -236,6 +179,11 @@ GlowDef = 0.3
 GlowSpecial = 1.5
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
 DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false
 
 [resource]
 script = ExtResource("44_yd2ky")
@@ -251,7 +199,7 @@ Datetime = {
 "year": 2024
 }
 Party = Array[StringName]([&"Mira", &"", &"", &""])
-Room = "res://rooms/Arena.tscn"
+RoomPath = "res://rooms/Arena.tscn"
 RoomName = "Arena"
 Position = Vector2(0, 0)
 Camera = 0
@@ -262,10 +210,7 @@ StartTime = 0.0
 SavedTime = 0.0
 PlayTime = 0.0
 Preview = ExtResource("43_e6r20")
-KeyInv = Array[ExtResource("2_mah4s")]([SubResource("Resource_q7whi"), SubResource("Resource_bd5yo"), SubResource("Resource_wuqaw")])
-ConInv = Array[ExtResource("2_mah4s")]([ExtResource("1_etmj2")])
-BtiInv = Array[ExtResource("2_mah4s")]([])
-MatInv = Array[ExtResource("2_mah4s")]([])
+Inventory = Array[ExtResource("2_mah4s")]([])
 Flags = Array[StringName]([])
 Day = 0
 version = 4

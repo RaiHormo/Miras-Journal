@@ -636,7 +636,7 @@ func pop_num(target:Actor, text, color: Color = Color.WHITE):
 			Vector2(offsetize(14*off)*
 			randf_range(0.8,1.2), -6*randf_range(0.8,1.2)), 2).as_relative()
 		await tn.finished
-		if number:
+		if is_instance_valid(number):
 			number.queue_free()
 
 func play_sound(SoundName: String, act: Actor = null, volume: float = 1):

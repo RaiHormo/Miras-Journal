@@ -37,6 +37,8 @@ class_name Actor
 @export var Weapon: String
 ##Whether the actor is controlled by the player or the AI
 @export var Controllable: bool = false
+@export_range(1, 9999, 1, "suffix:HP") var HpOnSLvUp: int = 25
+@export_range(1, 9999, 1, "suffix:AP") var ApOnSLvUP: int = 10
 
 @export_subgroup("Party menu")
 ##Artwork shown in the party menu

@@ -7,7 +7,7 @@ class_name ItemData
 var filename: String = "Invalid filename"
 @export_multiline var Description : String = "One that does not exit"
 @export_enum("Key", "Con", "Mat", "Bti") var ItemType: String = ""
-@export var Icon: Texture
+@export var Icon: Texture = preload("res://art/Icons/Items.tres")
 @export var Artwork: Texture
 @export var Quantity: int = 0
 @export var QuantityMeansUses := false

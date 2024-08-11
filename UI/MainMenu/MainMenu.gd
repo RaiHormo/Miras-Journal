@@ -181,7 +181,7 @@ func close():
 	Event.give_control(cam_follow)
 	Global.Player.set_anim()
 	Global.get_cam().enabled = true
-	if Fader: Fader.hide()
+	if is_instance_valid(Fader): Fader.hide()
 	queue_free()
 
 func move_root():

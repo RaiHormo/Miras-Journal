@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://r736fdcx3r12"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://r736fdcx3r12"]
 
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_3xuxp"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_slxnq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_enqek"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1yeb"]
+atlas = ExtResource("1_slxnq")
 region = Rect2(108, 90, 18, 18)
 filter_clip = true
 
@@ -11,7 +13,7 @@ script = ExtResource("1_3xuxp")
 Name = "Wallet"
 Description = "Contains 63$ and some train tickets."
 ItemType = "Key"
-Icon = SubResource("AtlasTexture_enqek")
+Icon = SubResource("AtlasTexture_n1yeb")
 Quantity = 0
 QuantityMeansUses = false
 AmountOnAdd = 1

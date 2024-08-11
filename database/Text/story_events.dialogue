@@ -45,7 +45,6 @@ Mira.Neutural: GAHH![wait=1] GET OFF ME!
 
 ~ my_aura
 Mira.Neutural: My Aura...
-#Mira.Neutural: That's right, my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] should be strong against its [outline_size=12][outline_color=#21654e][color=#52f8b5]cyan aura[/color][/outline_color][/outline_size]![next=4]
 Mira.Neutural: That's right, I can use my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
 Mira.Neutural: Ok, I think I can do it.
 => END

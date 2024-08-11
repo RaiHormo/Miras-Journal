@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=16 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=17 format=3 uid="uid://dfxf3fj1wgl5q"]
 
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_446mq"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_e1lg0"]
 [ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="1_qv4op"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_uxycv"]
@@ -33,6 +34,8 @@ BoxProfile = ExtResource("6_u8hid")
 LastName = "Levenor"
 Weapon = "Lightweight Axe"
 Controllable = true
+HpOnSLVUP = 25
+ApOnSLVUP = 10
 RenderArtwork = ExtResource("3_8yk74")
 RenderShadow = ExtResource("4_cdx5x")
 PartyPage = ExtResource("10_3mr8x")
@@ -47,9 +50,9 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([0, 30, 42, 61, 96, 125, 140, 172, 201, 227, 250])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
+Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
 StandardAttack = ExtResource("6_pdf3s")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("3_g7gj5"), ExtResource("5_k38ct")])
+LearnableAbilities = Array[ExtResource("1_446mq")]([ExtResource("3_g7gj5"), ExtResource("5_k38ct")])
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
 Offset = Vector2(0, -15)
