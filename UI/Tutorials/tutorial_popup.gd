@@ -21,7 +21,7 @@ func dash():
 		await Event.wait()
 	await Event.wait(3)
 	await close()
-	%Text.text = "[center]By dashing you jump through obstacles.[/center]"
+	%Text.text = "[center]Jump over obstacles by dashing through them.[/center]"
 	await pop_down()
 	await Event.wait(6)
 	await close()

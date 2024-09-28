@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8q4jskbbhvnn"]
+[gd_scene load_steps=15 format=3 uid="uid://c8q4jskbbhvnn"]
 
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="1_5iww0"]
 [ext_resource type="Script" path="res://codings/interactable.gd" id="2_i1g6s"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_q7t2c"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_u0163"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_c13r1"]
+[ext_resource type="Texture2D" uid="uid://2fmvau8v5cr0" path="res://UI/MenuTextures/dots.png" id="6_4g83d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]
 shader = ExtResource("1_5iww0")
@@ -50,19 +51,6 @@ Button/styles/focus = SubResource("StyleBoxFlat_5iklx")
 Button/styles/hover = SubResource("StyleBoxFlat_5iklx")
 Button/styles/pressed = SubResource("StyleBoxFlat_jh1f3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwch7"]
-content_margin_left = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovhbv"]
 content_margin_left = 8.0
 bg_color = Color(0.909804, 0.909804, 0.909804, 1)
@@ -71,6 +59,19 @@ border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
 border_color = Color(0.909804, 0.909804, 0.909804, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwch7"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -89,35 +90,26 @@ position = Vector2(-3.8147e-06, -3.8147e-06)
 shape = SubResource("CircleShape2D_7h34c")
 debug_color = Color(0.745098, 0.337255, 0.803922, 0.419608)
 
-[node name="Pack" type="Control" parent="."]
+[node name="Pack" type="CanvasGroup" parent="."]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = -15.0
-offset_top = -17.0
-offset_right = 11.0
-offset_bottom = 7.00003
 scale = Vector2(0.4, 0.4)
-pivot_offset = Vector2(15.5692, 17.792)
 
 [node name="Arrow" type="TextureRect" parent="Pack"]
 light_mask = 0
 use_parent_material = true
-layout_mode = 0
-offset_left = 6.6462
+offset_left = -8.3538
 offset_top = -4.188
-offset_right = 57.6462
+offset_right = 42.6462
 offset_bottom = 87.812
 rotation = -1.57186
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_q7t2c")
 
 [node name="Cnt" type="BoxContainer" parent="Pack"]
-layout_mode = 0
-offset_left = -166.0
-offset_top = -44.0
-offset_right = 196.0
-offset_bottom = -12.0
+offset_left = -180.0
+offset_top = -45.0
+offset_right = 182.0
+offset_bottom = -13.0
 alignment = 1
 
 [node name="Button" type="Button" parent="Pack/Cnt"]
@@ -129,19 +121,30 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_iavdl")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_pwch7")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_ovhbv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ovhbv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_pwch7")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ovhbv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pwch7")
 text = "Inspect"
 icon = ExtResource("5_c13r1")
 text_overrun_behavior = 1
 clip_text = true
 expand_icon = true
+
+[node name="Dots" type="TextureRect" parent="Pack/Cnt/Button"]
+self_modulate = Color(1, 1, 1, 0)
+light_mask = 0
+layout_mode = 0
+offset_left = 6.64619
+offset_top = -0.187996
+offset_right = 70.6462
+offset_bottom = 63.812
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_4g83d")
 
 [connection signal="pressed" from="Pack/Cnt/Button" to="." method="_on_button_pressed"]

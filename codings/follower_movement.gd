@@ -4,7 +4,7 @@ class_name Follower
 var speed = 60
 var direction : Vector2
 var oposite : Vector2
-var realvelocity: Vector2
+var RealVelocity: Vector2
 var moving: bool
 
 @export var member : int
@@ -45,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 			if nav_agent.is_target_reachable():
 				move_and_slide()
 			velocity = speed * direction
-			speed = max(30, Global.Player.realvelocity.length())
+			speed = max(30, Global.Player.RealVelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
 			else:
@@ -55,14 +55,14 @@ func _physics_process(_delta: float) -> void:
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite
-			realvelocity = Global.Player.direction
+			RealVelocity = Global.Player.direction
 			move_and_slide()
-		#if realvelocity == Vector2.ZERO:
+		#if RealVelocity == Vector2.ZERO:
 			#position = round(position)
 		#print((global_position-oldposition).length())
 		if (global_position-oldposition).length() > 0.3:
 			moving =true
-			realvelocity=global_position-oldposition
+			RealVelocity=global_position-oldposition
 		else:
 			moving =false
 
@@ -80,10 +80,10 @@ func animate():
 	if not Global.check_member(member): return
 	if $AnimatedSprite2D.sprite_frames != member_info().OV:
 		$AnimatedSprite2D.sprite_frames = member_info().OV
-	if realvelocity.x == realvelocity.y:
+	if RealVelocity.x == RealVelocity.y:
 		pass
 	elif not moving:
-		var dir = Global.get_direction(realvelocity)
+		var dir = Global.get_direction(RealVelocity)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("IdleRight")
 		elif dir == Vector2.LEFT:
@@ -93,7 +93,7 @@ func animate():
 		elif dir == Vector2.DOWN:
 			$AnimatedSprite2D.play("IdleDown")
 	else:
-		var dir = Global.get_direction(realvelocity)
+		var dir = Global.get_direction(RealVelocity)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("WalkRight")
 		elif dir == Vector2.LEFT:

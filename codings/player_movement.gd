@@ -7,7 +7,6 @@ class_name Mira
 ##Whether the dash is active
 var dashing := false
 var winding_attack := false
-var realvelocity : Vector2 = Vector2.ZERO
 ##When the player is supposed to be in a midair perspective
 var midair := false
 ##true is there is a wall in front of the player
@@ -120,14 +119,11 @@ func control_process():
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
 			velocity = (direction.normalized()) * speed
-		if realvelocity.x == 0: position.x = roundf(position.x)
-		if realvelocity.y == 0: position.y = roundf(position.y)
+		if RealVelocity.x == 0: position.x = roundf(position.x)
+		if RealVelocity.y == 0: position.y = roundf(position.y)
 		var old_position = global_position
 		if direction.length()>0.1:
 			move_and_slide()
-			realvelocity = get_real_velocity()
-		else:
-			realvelocity = (global_position - old_position)/ get_physics_process_delta_time()
 		if Input.is_action_just_pressed("OVAttack"):
 			attack()
 
@@ -145,7 +141,7 @@ func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds(used_sprite)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
-		if abs(realvelocity.length())>10 and Global.Controllable:
+		if abs(RealVelocity.length())>1 and Global.Controllable:
 			move_frames+=1
 			if dashing:
 				reset_speed()
@@ -153,22 +149,22 @@ func update_anim_prm() -> void:
 			else:
 				set_anim(str("Walk"+Global.get_dir_name()))
 				for i in $Sprite.get_children():
-					i.speed_scale=(realvelocity.length()/70)
+					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 		elif Global.Controllable and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			if move_frames != 0:
 				move_frames = 0
 			set_anim(str("Idle"+Global.get_dir_name()))
-		if direction.length()>realvelocity.length() and dashing:
+		if direction.length()>RealVelocity.length() and dashing:
 					stop_dash()
 	else:
-		if get_real_velocity().length() > 30:
+		if RealVelocity.length() > 1:
 			if dashing:
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 			else:
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 		else:
-			if realvelocity == Vector2.ZERO:
+			if RealVelocity == Vector2.ZERO:
 				position = round(position)
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 
@@ -266,7 +262,7 @@ func stop_dash() -> void:
 	used_sprite.animation or midair or not dashing): return
 	dashing = false
 	speed = 75
-	#print(realvelocity)
+	#print(RealVelocity)
 	reset_speed()
 	var slide = true
 	for i in Global.Area.Layers.size():

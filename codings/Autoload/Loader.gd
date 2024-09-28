@@ -312,7 +312,7 @@ func start_battle(stg, advantage := 0):
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Follower:
-		if i: i.hide()
+		if is_instance_valid(i): i.hide()
 	#InBattle = true
 
 func end_battle():
@@ -440,7 +440,6 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	$Can/Bars/Right.global_position = Vector2(1394,-177)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	#if x == 0: $Can.hide()
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:

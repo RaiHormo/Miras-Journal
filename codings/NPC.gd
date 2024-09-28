@@ -14,8 +14,9 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
 ##3: Controlled, excludive to [Mira]
-var BodyState := IDLE
-var RealVelocity := Vector2.ZERO
+var BodyState:= IDLE
+var RealVelocity:= Vector2.ZERO
+var PrevPosition:= Vector2.ZERO
 ##Coordinates on the [TileMap]
 var coords:Vector2 = Vector2.ZERO
 ##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
@@ -24,11 +25,11 @@ var DefaultPos := Vector2.ZERO
 @export var Nav:NavigationAgent2D
 @export var SpawnOnCameraInd := false
 @export var CameraIndex: int
-var stopping:=false
-@export var Footsteps := true
-var LastStepFrame := -1
+var stopping:= false
+@export var Footsteps:= true
+var LastStepFrame:= -1
 ##How many frames the character has been moving
-var move_frames := 0
+var move_frames:= 0
 @export var Shadow: Node2D
 
 func _ready() -> void:
@@ -58,21 +59,20 @@ func _physics_process(delta) -> void:
 	extended_process()
 	if self.get_path() in Loader.Defeated: queue_free()
 	if Global.Area: coords = Global.Area.local_to_map(global_position)
+	RealVelocity = (PrevPosition - position) / get_physics_process_delta_time()
+	PrevPosition = position
 	match BodyState:
 		MOVE, CHASE:
 			velocity = direction * speed
-			move_and_slide()
+			move_and_collide(velocity*delta)
 		IDLE:
 			direction = Vector2.ZERO
-			velocity = direction
-			if is_on_wall():
-				position += get_wall_normal()
-			move_and_slide()
+			move_and_collide(direction)
 		CONTROLLED:
 			control_process()
 		CUSTOM:
 			velocity = direction * speed
-			move_and_slide()
+			move_and_collide(velocity*delta)
 		NONE: return
 	if direction != Vector2.ZERO:
 		if get_node_or_null("DirectionMarker"):
@@ -88,13 +88,15 @@ func set_dir_marker(vec: Vector2 = direction):
 
 func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return
-	if get_real_velocity().length() > 5:
+	if RealVelocity.length() > 1:
 		#BodyState = MOVE
-		$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
+		if str("Walk"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
+			$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
 	else:
 		#BodyState = IDLE
 		position = round(position)
-		$Sprite.play(str("Idle"+Global.get_dir_name(Facing)))
+		if str("Idle"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
+			$Sprite.play(str("Idle"+Global.get_dir_name(Facing)))
 	if Footsteps: handle_step_sounds($Sprite)
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
