@@ -119,8 +119,9 @@ func control_process():
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
 			velocity = (direction.normalized()) * speed
-		if RealVelocity.x == 0: position.x = roundf(position.x)
-		if RealVelocity.y == 0: position.y = roundf(position.y)
+		if move_frames > 5:
+			if RealVelocity.x == 0: position.x = roundf(position.x)
+			if RealVelocity.y == 0: position.y = roundf(position.y)
 		var old_position = global_position
 		if direction.length()>0.1:
 			move_and_slide()
