@@ -28,7 +28,7 @@ signal finished_typing()
 ## Automatically have a brief pause when these characters are encountered.
 @export var pause_at_characters: String = ".?!"
 
-## Don't auto pause if the charcter after the pause is one of these.
+## Don't auto pause if the character after the pause is one of these.
 @export var skip_pause_at_character_if_followed_by: String = ")\""
 
 ## Don't auto pause after these abbreviations (only if "." is in `pause_at_characters`).[br]
@@ -36,8 +36,10 @@ signal finished_typing()
 ## Does not support multi-period abbreviations (ex. "p.m.")
 @export var skip_pause_at_abbreviations: PackedStringArray = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 
-## The amount of time to pause when exposing a character present in pause_at_characters.
+## The amount of time to pause when exposing a character present in `pause_at_characters`.
 @export var seconds_per_pause_step: float = 0.3
+
+var _already_mutated_indices: PackedInt32Array = []
 
 
 ## The current line of dialogue.
@@ -98,6 +100,7 @@ func type_out() -> void:
 	_waiting_seconds = 0
 	_last_wait_index = -1
 	_last_mutation_index = -1
+	_already_mutated_indices.clear()
 
 	self.is_typing = true
 
@@ -182,7 +185,8 @@ func _mutate_inline_mutations(index: int) -> void:
 		# inline mutations are an array of arrays in the form of [character index, resolvable function]
 		if inline_mutation[0] > index:
 			return
-		if inline_mutation[0] == index:
+		if inline_mutation[0] == index and not _already_mutated_indices.has(index):
+			_already_mutated_indices.append(index)
 			_is_awaiting_mutation = true
 			# The DialogueManager can't be referenced directly here so we need to get it by its path
 			await Engine.get_singleton("DialogueManager").mutate(inline_mutation[1], dialogue_line.extra_game_states, true)
@@ -206,7 +210,7 @@ func _should_auto_pause() -> bool:
 	# Ignore "." if it's between two numbers
 	if visible_characters > 3 and parsed_text[visible_characters - 1] == ".":
 		var possible_number: String = parsed_text.substr(visible_characters - 2, 3)
-		if str(float(possible_number)) == possible_number:
+		if str(float(possible_number)).pad_decimals(1) == possible_number:
 			return false
 
 	# Ignore "." if it's used in an abbreviation

@@ -47,6 +47,10 @@ func _ready() -> void:
 	filter_edit.placeholder_text = DialogueConstants.translate(&"files_list.filter")
 
 
+func focus_filter() -> void:
+	filter_edit.grab_focus()
+
+
 func select_file(file: String) -> void:
 	list.deselect_all()
 	for i in range(0, list.get_item_count()):
@@ -122,18 +126,16 @@ func _on_filter_edit_text_changed(new_text: String) -> void:
 
 
 func _on_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
-	if mouse_button_index == MOUSE_BUTTON_LEFT:
-		var item_text = list.get_item_text(index).replace(MODIFIED_SUFFIX, "")
-		var file = file_map.find_key(item_text)
+	var item_text = list.get_item_text(index).replace(MODIFIED_SUFFIX, "")
+	var file = file_map.find_key(item_text)
+
+	if mouse_button_index == MOUSE_BUTTON_LEFT or mouse_button_index == MOUSE_BUTTON_RIGHT:
 		select_file(file)
 		file_selected.emit(file)
-
-	if mouse_button_index == MOUSE_BUTTON_RIGHT:
-		file_popup_menu_requested.emit(at_position)
+		if mouse_button_index == MOUSE_BUTTON_RIGHT:
+			file_popup_menu_requested.emit(at_position)
 
 	if mouse_button_index == MOUSE_BUTTON_MIDDLE:
-		var item_text = list.get_item_text(index).replace(MODIFIED_SUFFIX, "")
-		var file = file_map.find_key(item_text)
 		file_middle_clicked.emit(file)
 
 

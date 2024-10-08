@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7c6n1k4856fo"
-path="res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.ctex"
+path.s3tc="res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.s3tc.ctex"
+path.etc2="res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Input/S.png"
-dest_files=["res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.ctex"]
+dest_files=["res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.s3tc.ctex", "res://.godot/imported/S.png-9fbcfcd04b1d96d284d7c257fedea128.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

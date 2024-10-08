@@ -250,6 +250,10 @@ func reset_static_info():
 	OV = og.OV
 	SoundSet = og.SoundSet
 	LearnableAbilities = og.LearnableAbilities
+	RenderArtwork = og.RenderArtwork
+	RenderShadow = og.RenderShadow
+	PartyPage = og.PartyPage
+	PartyIcon = og.PartyIcon
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP

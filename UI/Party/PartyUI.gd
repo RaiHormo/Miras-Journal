@@ -352,7 +352,7 @@ func focus_now():
 	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render"),
 	"position", Vector2(150, 130), 0.5)
 	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"),
-	"modulate", Color(1,1,1,0.5), 0.5)
+	"modulate", Color(1,1,1,0.8), 0.5)
 	t.tween_property(get_node("%Pages/Page"+str(focus)+"/Render/Shadow"),
 	"position", Vector2(-35,143), 0.5)
 	for i in range(focus+1, 4):
@@ -418,9 +418,8 @@ func check_member(mem:Actor, node:Panel, ind):
 	var character_label = mem.FirstName
 	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", mem.MainColor)
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
-	if get_node("%Pages/Page"+str(ind)+"/Render").texture != mem.RenderArtwork:
+	if get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture != mem.RenderShadow:
 		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
-		#var shadow = make_shadow()
 		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = mem.RenderShadow
 	get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = mem.PartyPage
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)

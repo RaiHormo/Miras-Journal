@@ -2,6 +2,7 @@ class_name BaseDialogueTestScene extends Node2D
 
 
 const DialogueSettings = preload("./settings.gd")
+const DialogueResource = preload("./dialogue_resource.gd")
 
 
 @onready var title: String = DialogueSettings.get_user_value("run_title")
@@ -14,7 +15,7 @@ func _ready():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 	# Normally you can just call DialogueManager directly but doing so before the plugin has been
-	# enabled in settings will throw a compiler error here so I'm using get_singleton instead.
+	# enabled in settings will throw a compiler error here so I'm using `get_singleton` instead.
 	var dialogue_manager = Engine.get_singleton("DialogueManager")
 	dialogue_manager.dialogue_ended.connect(_on_dialogue_ended)
 	dialogue_manager.show_dialogue_balloon(resource, title)

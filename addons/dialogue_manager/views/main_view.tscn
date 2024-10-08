@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbuf1q3xsse3q"]
+[gd_scene load_steps=16 format=3 uid="uid://cbuf1q3xsse3q"]
 
 [ext_resource type="Script" path="res://addons/dialogue_manager/views/main_view.gd" id="1_h6qfq"]
 [ext_resource type="PackedScene" uid="uid://civ6shmka5e8u" path="res://addons/dialogue_manager/components/code_edit.tscn" id="2_f73fm"]
@@ -11,19 +11,31 @@
 [ext_resource type="PackedScene" uid="uid://cpg4lg1r3ff6m" path="res://addons/dialogue_manager/views/settings_view.tscn" id="9_8bf36"]
 [ext_resource type="PackedScene" uid="uid://0n7hwviyyly4" path="res://addons/dialogue_manager/components/find_in_files.tscn" id="10_yold3"]
 
-[sub_resource type="Image" id="Image_xvtti"]
+[sub_resource type="Image" id="Image_w5tip"]
 data = {
-"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 131, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 131, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 131, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 128, 128, 4, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 231, 255, 93, 93, 55, 255, 97, 97, 58, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 93, 93, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 97, 97, 42, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 98, 98, 47, 255, 97, 97, 42, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 93, 93, 233, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 94, 94, 46, 255, 93, 93, 236, 255, 93, 93, 233, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 93, 93, 252, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 93, 93, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
 "height": 16,
 "mipmaps": false,
 "width": 16
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_fguub"]
-image = SubResource("Image_xvtti")
+[sub_resource type="ImageTexture" id="ImageTexture_wmrmd"]
+image = SubResource("Image_w5tip")
 
-[sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_dvnxt"]
+[sub_resource type="Image" id="Image_ki84n"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 93, 93, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_r0npg"]
+image = SubResource("Image_ki84n")
+
+[sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_4re8k"]
 script = ExtResource("7_necsa")
 
 [node name="MainView" type="Control"]
@@ -56,7 +68,6 @@ metadata/_edit_layout_mode = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-dragger_visibility = 1
 
 [node name="SidePanel" type="VBoxContainer" parent="Margin/Content"]
 custom_minimum_size = Vector2(150, 0)
@@ -76,6 +87,33 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Open a file"
+item_count = 9
+popup/item_0/text = "Open..."
+popup/item_0/icon = SubResource("ImageTexture_wmrmd")
+popup/item_0/id = 100
+popup/item_1/text = ""
+popup/item_1/id = -1
+popup/item_1/separator = true
+popup/item_2/text = "res://blah.dialogue"
+popup/item_2/icon = SubResource("ImageTexture_wmrmd")
+popup/item_2/id = 2
+popup/item_3/text = "res://examples/dialogue.dialogue"
+popup/item_3/icon = SubResource("ImageTexture_wmrmd")
+popup/item_3/id = 3
+popup/item_4/text = "res://examples/dialogue_with_input.dialogue"
+popup/item_4/icon = SubResource("ImageTexture_wmrmd")
+popup/item_4/id = 4
+popup/item_5/text = "res://examples/dialogue_for_point_n_click.dialogue"
+popup/item_5/icon = SubResource("ImageTexture_wmrmd")
+popup/item_5/id = 5
+popup/item_6/text = "res://examples/dialogue_for_visual_novel.dialogue"
+popup/item_6/icon = SubResource("ImageTexture_wmrmd")
+popup/item_6/id = 6
+popup/item_7/text = ""
+popup/item_7/id = -1
+popup/item_7/separator = true
+popup/item_8/text = "Clear recent files"
+popup/item_8/id = 101
 
 [node name="SaveAllButton" type="Button" parent="Margin/Content/SidePanel/Toolbar"]
 unique_name_in_owner = true
@@ -86,6 +124,7 @@ flat = true
 [node name="FindInFilesButton" type="Button" parent="Margin/Content/SidePanel/Toolbar"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Find in files..."
 flat = true
 
 [node name="Bookmarks" type="VSplitContainer" parent="Margin/Content/SidePanel"]
@@ -94,7 +133,6 @@ size_flags_vertical = 3
 
 [node name="FilesList" parent="Margin/Content/SidePanel/Bookmarks" instance=ExtResource("2_npj2k")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -103,7 +141,6 @@ unique_name_in_owner = true
 
 [node name="TitleList" parent="Margin/Content/SidePanel/Bookmarks" instance=ExtResource("2_onb4i")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="CodePanel" type="VBoxContainer" parent="Margin/Content"]
@@ -117,33 +154,74 @@ layout_mode = 2
 [node name="InsertButton" type="MenuButton" parent="Margin/Content/CodePanel/Toolbar"]
 unique_name_in_owner = true
 layout_mode = 2
-disabled = true
 text = "Insert"
+item_count = 15
+popup/item_0/text = "Wave BBCode"
+popup/item_0/icon = SubResource("ImageTexture_r0npg")
+popup/item_0/id = 0
+popup/item_1/text = "Shake BBCode"
+popup/item_1/icon = SubResource("ImageTexture_r0npg")
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/id = -1
+popup/item_2/separator = true
+popup/item_3/text = "Typing pause"
+popup/item_3/icon = SubResource("ImageTexture_r0npg")
+popup/item_3/id = 3
+popup/item_4/text = "Typing speed change"
+popup/item_4/icon = SubResource("ImageTexture_r0npg")
+popup/item_4/id = 4
+popup/item_5/text = "Auto advance"
+popup/item_5/icon = SubResource("ImageTexture_r0npg")
+popup/item_5/id = 5
+popup/item_6/text = "Templates"
+popup/item_6/id = -1
+popup/item_6/separator = true
+popup/item_7/text = "Title"
+popup/item_7/icon = SubResource("ImageTexture_r0npg")
+popup/item_7/id = 6
+popup/item_8/text = "Dialogue"
+popup/item_8/icon = SubResource("ImageTexture_r0npg")
+popup/item_8/id = 7
+popup/item_9/text = "Response"
+popup/item_9/icon = SubResource("ImageTexture_r0npg")
+popup/item_9/id = 8
+popup/item_10/text = "Random lines"
+popup/item_10/icon = SubResource("ImageTexture_r0npg")
+popup/item_10/id = 9
+popup/item_11/text = "Random text"
+popup/item_11/icon = SubResource("ImageTexture_r0npg")
+popup/item_11/id = 10
+popup/item_12/text = "Actions"
+popup/item_12/id = -1
+popup/item_12/separator = true
+popup/item_13/text = "Jump to title"
+popup/item_13/icon = SubResource("ImageTexture_r0npg")
+popup/item_13/id = 11
+popup/item_14/text = "End dialogue"
+popup/item_14/icon = SubResource("ImageTexture_r0npg")
+popup/item_14/id = 12
 
 [node name="TranslationsButton" type="MenuButton" parent="Margin/Content/CodePanel/Toolbar"]
 unique_name_in_owner = true
 layout_mode = 2
-disabled = true
 text = "Translations"
-item_count = 6
+item_count = 5
 popup/item_0/text = "Generate line IDs"
-popup/item_0/icon = SubResource("ImageTexture_fguub")
-popup/item_0/id = 0
+popup/item_0/icon = SubResource("ImageTexture_r0npg")
+popup/item_0/id = 100
 popup/item_1/text = ""
 popup/item_1/id = -1
 popup/item_1/separator = true
-popup/item_2/text = "Save to CSV..."
-popup/item_2/icon = SubResource("ImageTexture_fguub")
-popup/item_2/id = 2
-popup/item_3/text = "Import changes from CSV..."
-popup/item_3/icon = SubResource("ImageTexture_fguub")
-popup/item_3/id = 3
-popup/item_4/text = ""
-popup/item_4/id = -1
-popup/item_4/separator = true
-popup/item_5/text = "Save to PO..."
-popup/item_5/icon = SubResource("ImageTexture_fguub")
-popup/item_5/id = 5
+popup/item_2/text = "Save character names to CSV..."
+popup/item_2/icon = SubResource("ImageTexture_r0npg")
+popup/item_2/id = 201
+popup/item_3/text = "Save lines to CSV..."
+popup/item_3/icon = SubResource("ImageTexture_r0npg")
+popup/item_3/id = 202
+popup/item_4/text = "Import line changes from CSV..."
+popup/item_4/icon = SubResource("ImageTexture_r0npg")
+popup/item_4/id = 203
 
 [node name="Separator" type="VSeparator" parent="Margin/Content/CodePanel/Toolbar"]
 layout_mode = 2
@@ -152,7 +230,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Search for text"
-disabled = true
 toggle_mode = true
 flat = true
 
@@ -160,7 +237,6 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Test dialogue"
-disabled = true
 flat = true
 
 [node name="Separator3" type="VSeparator" parent="Margin/Content/CodePanel/Toolbar"]
@@ -179,6 +255,8 @@ size_flags_horizontal = 3
 [node name="SupportButton" type="Button" parent="Margin/Content/CodePanel/Toolbar"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Support Dialogue Manager"
+text = "Sponsor"
 flat = true
 
 [node name="Separator4" type="VSeparator" parent="Margin/Content/CodePanel/Toolbar"]
@@ -194,7 +272,7 @@ flat = true
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 2
-text = "v2.19.0"
+text = "v2.41.3"
 vertical_alignment = 1
 
 [node name="UpdateButton" parent="Margin/Content/CodePanel/Toolbar" instance=ExtResource("2_ph3vs")]
@@ -207,47 +285,63 @@ layout_mode = 2
 
 [node name="CodeEdit" parent="Margin/Content/CodePanel" instance=ExtResource("2_f73fm")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/background_color = Color(0.156863, 0.164706, 0.211765, 1)
+theme_override_colors/font_color = Color(0.972549, 0.972549, 0.94902, 1)
 theme_override_colors/bookmark_color = Color(1, 0.333333, 0.333333, 1)
-text = ""
-syntax_highlighter = SubResource("SyntaxHighlighter_dvnxt")
+theme_override_colors/current_line_color = Color(0.266667, 0.278431, 0.352941, 0.243137)
+theme_override_font_sizes/font_size = 21
+text = "~ this_is_a_node_title
+
+Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
+Nathan: Here are some choices.
+- First one
+	Nathan: You picked the first one.
+- Second one
+	Nathan: You picked the second one.
+- Start again => this_is_a_node_title
+- End the conversation => END
+Nathan: For more information see the online documentation.
+
+=> END"
+scroll_smooth = true
+syntax_highlighter = SubResource("SyntaxHighlighter_4re8k")
 
 [node name="ErrorsPanel" parent="Margin/Content/CodePanel" instance=ExtResource("7_5cvl4")]
 unique_name_in_owner = true
 layout_mode = 2
 
 [node name="NewDialog" type="FileDialog" parent="."]
-size = Vector2i(600, 500)
-min_size = Vector2i(600, 500)
+size = Vector2i(900, 750)
+min_size = Vector2i(900, 750)
 dialog_hide_on_ok = true
 filters = PackedStringArray("*.dialogue ; Dialogue")
 
 [node name="SaveDialog" type="FileDialog" parent="."]
-size = Vector2i(600, 500)
-min_size = Vector2i(600, 500)
+size = Vector2i(900, 750)
+min_size = Vector2i(900, 750)
 dialog_hide_on_ok = true
 filters = PackedStringArray("*.dialogue ; Dialogue")
 
 [node name="OpenDialog" type="FileDialog" parent="."]
 title = "Open a File"
-size = Vector2i(600, 500)
-min_size = Vector2i(600, 500)
+size = Vector2i(900, 750)
+min_size = Vector2i(900, 750)
 ok_button_text = "Open"
 dialog_hide_on_ok = true
 file_mode = 0
 filters = PackedStringArray("*.dialogue ; Dialogue")
 
 [node name="ExportDialog" type="FileDialog" parent="."]
-size = Vector2i(600, 500)
-min_size = Vector2i(600, 500)
+size = Vector2i(900, 750)
+min_size = Vector2i(900, 750)
 
 [node name="ImportDialog" type="FileDialog" parent="."]
 title = "Open a File"
-size = Vector2i(600, 500)
-min_size = Vector2i(600, 500)
+size = Vector2i(900, 750)
+min_size = Vector2i(900, 750)
 ok_button_text = "Open"
 file_mode = 0
 filters = PackedStringArray("*.csv ; Translation CSV")
@@ -258,9 +352,10 @@ dialog_text = "You have errors in your script. Fix them and then try again."
 
 [node name="SettingsDialog" type="AcceptDialog" parent="."]
 title = "Settings"
-size = Vector2i(834, 600)
+size = Vector2i(1500, 900)
 unresizable = true
-min_size = Vector2i(600, 600)
+min_size = Vector2i(1500, 900)
+max_size = Vector2i(1500, 900)
 ok_button_text = "Done"
 
 [node name="SettingsView" parent="SettingsDialog" instance=ExtResource("9_8bf36")]
@@ -268,6 +363,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -49.0
+current_tab = 0
 
 [node name="BuildErrorDialog" type="AcceptDialog" parent="."]
 title = "Errors"
@@ -284,7 +380,8 @@ dialog_text = "You're now up to date!"
 
 [node name="FindInFilesDialog" type="AcceptDialog" parent="."]
 title = "Find in files"
-size = Vector2i(416, 457)
+size = Vector2i(1200, 900)
+min_size = Vector2i(1200, 900)
 ok_button_text = "Done"
 
 [node name="FindInFiles" parent="FindInFilesDialog" node_paths=PackedStringArray("main_view", "code_edit") instance=ExtResource("10_yold3")]

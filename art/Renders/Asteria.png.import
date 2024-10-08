@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://daok3tmqcs2kf"
-path="res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.ctex"
+path.s3tc="res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.s3tc.ctex"
+path.etc2="res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Renders/Asteria.png"
-dest_files=["res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.ctex"]
+dest_files=["res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.s3tc.ctex", "res://.godot/imported/Asteria.png-2b198d9a7d466e5ad6410200d1a3de4a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.6
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://deu3cbj3b2c2h"
-path="res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.ctex"
+path.s3tc="res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.s3tc.ctex"
+path.etc2="res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Calendar/Mid-day.png"
-dest_files=["res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.ctex"]
+dest_files=["res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.s3tc.ctex", "res://.godot/imported/Mid-day.png-90deae9f38bd0fe90042811409db866f.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

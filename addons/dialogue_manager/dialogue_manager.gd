@@ -68,8 +68,8 @@ var get_current_scene: Callable = func():
 var _has_loaded_autoloads: bool = false
 var _autoloads: Dictionary = {}
 
-
 var _node_properties: Array = []
+var _method_info_cache: Dictionary = {}
 
 
 func _ready() -> void:
@@ -367,9 +367,11 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 
 	# Check for weighted random lines
 	if data.has(&"siblings"):
-		var target_weight: float = randf_range(0, data.siblings.reduce(func(total, sibling): return total + sibling.weight, 0))
+		# Only count siblings that pass their condition (if they have one)
+		var successful_siblings: Array = data.siblings.filter(func(sibling): return not sibling.has("condition") or await check_condition(sibling, extra_game_states))
+		var target_weight: float = randf_range(0, successful_siblings.reduce(func(total, sibling): return total + sibling.weight, 0))
 		var cummulative_weight: float = 0
-		for sibling in data.siblings:
+		for sibling in successful_siblings:
 			if target_weight < cummulative_weight + sibling.weight:
 				data = resource.lines.get(sibling.id)
 				break
@@ -386,7 +388,7 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 
 	# Evaluate jumps
 	elif data.type == DialogueConstants.TYPE_GOTO:
-		if data.is_snippet:
+		if data.is_snippet and not id_trail.begins_with("|" + data.next_id_after):
 			id_trail = "|" + data.next_id_after + id_trail
 		return await get_line(resource, data.next_id + id_trail, extra_game_states)
 
@@ -414,6 +416,10 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 		# If the response line is marked as a title then make sure to emit the passed_title signal.
 		if line.next_id in resource.titles.values():
 			passed_title.emit(resource.titles.find_key(line.next_id))
+
+		# If the responses come from a snippet then we need to come back here afterwards
+		if next_line.type == DialogueConstants.TYPE_GOTO and next_line.is_snippet and not id_trail.begins_with("|" + next_line.next_id_after):
+			id_trail = "|" + next_line.next_id_after + id_trail
 
 		# If the next line is a title then check where it points to see if that is a set of responses.
 		if next_line.type == DialogueConstants.TYPE_GOTO and resource.lines.has(next_line.next_id):
@@ -560,7 +566,7 @@ func get_game_states(extra_game_states: Array) -> Array:
 # Check if a condition is met
 func check_condition(data: Dictionary, extra_game_states: Array) -> bool:
 	if data.get(&"condition", null) == null: return true
-	if data.condition.size() == 0: return true
+	if data.condition.is_empty(): return true
 
 	return await resolve(data.condition.expression.duplicate(true), extra_game_states)
 
@@ -660,7 +666,7 @@ func get_state_value(property: String, extra_game_states: Array):
 			if class_data.get(&"class") == property:
 				return load(class_data.path).new()
 
-	show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found").format({ property = property, states = str(get_game_states(extra_game_states)) }))
+	show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found").format({ property = property, states = _get_state_shortcut_names(extra_game_states) }))
 
 
 # Set a value on the current scene or game state
@@ -675,9 +681,16 @@ func set_state_value(property: String, value, extra_game_states: Array) -> void:
 			return
 
 	if property.to_snake_case() != property:
-		show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found_missing_export").format({ property = property, states = str(get_game_states(extra_game_states)) }))
+		show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found_missing_export").format({ property = property, states = _get_state_shortcut_names(extra_game_states) }))
 	else:
-		show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found").format({ property = property, states = str(get_game_states(extra_game_states)) }))
+		show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.property_not_found").format({ property = property, states = _get_state_shortcut_names(extra_game_states) }))
+
+
+# Get the list of state shortcut names
+func _get_state_shortcut_names(extra_game_states: Array) -> String:
+	var states = get_game_states(extra_game_states)
+	states.erase(_autoloads)
+	return ", ".join(states.map(func(s): return "\"%s\"" % (s.name if "name" in s else s)))
 
 
 # Collapse any expressions
@@ -793,7 +806,7 @@ func resolve(tokens: Array, extra_game_states: Array):
 
 				show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.method_not_found").format({
 					method = args[0] if function_name in ["call", "call_deferred"] else function_name,
-					states = str(get_game_states(extra_game_states))
+					states = _get_state_shortcut_names(extra_game_states)
 				}), not found)
 
 		elif token.type == DialogueConstants.TOKEN_DICTIONARY_REFERENCE:
@@ -1207,7 +1220,19 @@ func resolve_signal(args: Array, extra_game_states: Array):
 			return
 
 	# The signal hasn't been found anywhere
-	show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.signal_not_found").format({ signal_name = args[0], states = str(get_game_states(extra_game_states)) }))
+	show_error_for_missing_state_value(DialogueConstants.translate(&"runtime.signal_not_found").format({ signal_name = args[0], states = _get_state_shortcut_names(extra_game_states) }))
+
+
+func get_method_info_for(thing, method: String) -> Dictionary:
+	# Use the thing instance id as a key for the caching dictionary.
+	var thing_instance_id: int = thing.get_instance_id()
+	if not _method_info_cache.has(thing_instance_id):
+		var methods: Dictionary = {}
+		for m in thing.get_method_list():
+			methods[m.name] = m
+		_method_info_cache[thing_instance_id] = methods
+
+	return _method_info_cache.get(thing_instance_id, {}).get(method)
 
 
 func resolve_thing_method(thing, method: String, args: Array):
@@ -1218,7 +1243,7 @@ func resolve_thing_method(thing, method: String, args: Array):
 
 	if thing.has_method(method):
 		# Try to convert any literals to the right type
-		var method_info: Dictionary = thing.get_method_list().filter(func(m): return method == m.name)[0]
+		var method_info: Dictionary = get_method_info_for(thing, method)
 		var method_args: Array = method_info.args
 		if method_info.flags & METHOD_FLAG_VARARG == 0 and method_args.size() < args.size():
 			assert(false, DialogueConstants.translate(&"runtime.expected_n_got_n_args").format({ expected = method_args.size(), method = method, received = args.size()}))

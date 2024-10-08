@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bm30ge6p4ucyx"
-path="res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.ctex"
+path.s3tc="res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.s3tc.ctex"
+path.etc2="res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MainMenu/MenuBase.png"
-dest_files=["res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.ctex"]
+dest_files=["res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.s3tc.ctex", "res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
-compress/hdr_compression=1
+compress/hdr_compression=2
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

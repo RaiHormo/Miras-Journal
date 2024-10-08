@@ -31,6 +31,7 @@ var animating:= false
 func _ready() -> void:
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
+	await Global.area_initialized
 	do_position()
 	disappear()
 
@@ -97,6 +98,7 @@ func CheckInput() -> void:
 		_on_button_pressed()
 
 func do_position():
+	
 	var dir = Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:

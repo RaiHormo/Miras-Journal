@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ns6v3dam7731"
-path="res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.ctex"
+path.s3tc="res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.s3tc.ctex"
+path.etc2="res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Battle/MiraRing2.png"
-dest_files=["res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.ctex"]
+dest_files=["res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.s3tc.ctex", "res://.godot/imported/MiraRing2.png-9bf1a3c04d389ffd07a33dc724349aae.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

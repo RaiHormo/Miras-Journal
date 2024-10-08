@@ -1,15 +1,11 @@
-extends CanvasLayer
+class_name DialogueManagerExampleBalloon extends CanvasLayer
+## A basic dialogue balloon for use with Dialogue Manager.
 
 ## The action to use for advancing the dialogue
 @export var next_action: StringName = &"ui_accept"
 
 ## The action to use to skip typing the dialogue
 @export var skip_action: StringName = &"ui_cancel"
-
-@onready var balloon: Control = %Balloon
-@onready var character_label: RichTextLabel = %CharacterLabel
-@onready var dialogue_label: DialogueLabel = %DialogueLabel
-@onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -22,6 +18,8 @@ var is_waiting_for_input: bool = false
 
 ## See if we are running a long mutation and should hide the balloon
 var will_hide_balloon: bool = false
+
+var _locale: String = TranslationServer.get_locale()
 
 ## The current line
 var dialogue_line: DialogueLine:
@@ -74,6 +72,18 @@ var dialogue_line: DialogueLine:
 	get:
 		return dialogue_line
 
+## The base balloon anchor
+@onready var balloon: Control = %Balloon
+
+## The label showing the name of the currently speaking character
+@onready var character_label: RichTextLabel = %CharacterLabel
+
+## The label showing the currently spoken dialogue
+@onready var dialogue_label: DialogueLabel = %DialogueLabel
+
+## The menu of responses
+@onready var responses_menu: DialogueResponsesMenu = %ResponsesMenu
+
 
 func _ready() -> void:
 	balloon.hide()
@@ -90,8 +100,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 func _notification(what: int) -> void:
-	# Detect a change of locale and update the current dialogue line to show the new language
-	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(dialogue_label):
+	## Detect a change of locale and update the current dialogue line to show the new language
+	if what == NOTIFICATION_TRANSLATION_CHANGED and _locale != TranslationServer.get_locale() and is_instance_valid(dialogue_label):
+		_locale = TranslationServer.get_locale()
 		var visible_ratio = dialogue_label.visible_ratio
 		self.dialogue_line = await resource.get_next_dialogue_line(dialogue_line.id)
 		if visible_ratio < 1:

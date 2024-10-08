@@ -99,6 +99,7 @@ TileMap=""
 [importer_defaults]
 
 texture={
+"compress/channel_pack": 1,
 "detect_3d/compress_to": 2
 }
 

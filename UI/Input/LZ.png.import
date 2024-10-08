@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cucajxcr1a5k8"
-path="res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.ctex"
+path.s3tc="res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.s3tc.ctex"
+path.etc2="res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Input/LZ.png"
-dest_files=["res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.ctex"]
+dest_files=["res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.s3tc.ctex", "res://.godot/imported/LZ.png-db6453b51c8a2836c5a4d7f2c5b4ac52.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

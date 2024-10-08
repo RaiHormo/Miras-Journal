@@ -3,24 +3,26 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqa765cmwj2am"
-path="res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.ctex"
+path.s3tc="res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.s3tc.ctex"
+path.etc2="res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Renders/Mira.png"
-dest_files=["res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.ctex"]
+dest_files=["res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.s3tc.ctex", "res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.6
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

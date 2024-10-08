@@ -187,6 +187,8 @@ elif alcine() == "Al":
 	Weird.
 elif alcine() == "Alcaine":
 	No, too far.
+elif alcine() == "Alkaline":
+	It's pronounced "Alk-ah-leen".
 elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":
 	Brazy.
 elif alcine() == "Creature":

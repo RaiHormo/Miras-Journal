@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxo3r3qn5quv3"
-path="res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.ctex"
+path.s3tc="res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.s3tc.ctex"
+path.etc2="res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/toggle_off.png"
-dest_files=["res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.ctex"]
+dest_files=["res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.s3tc.ctex", "res://.godot/imported/toggle_off.png-906882bcdc4bdace03ff4ec3399fdf1b.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
