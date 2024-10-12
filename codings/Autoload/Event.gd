@@ -12,7 +12,7 @@ var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
 
-enum TOD {DARKHOUR = -1, MORNING = 0, MIDDAY = 1, AFTERNOON = 2, EVENING = 3, NIGHT = 4}
+enum TOD {DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5}
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -176,6 +176,25 @@ func skip_cutscene():
 
 func bubble(anim: String, npc: String):
 	npc(npc).bubble(anim)
+
+func progress_by_time(amount: int):
+	Day = get_day_progress_from_now(amount)
+	TimeOfDay = get_time_progress_from_now(amount)
+	Global.check_party.emit()
+
+func get_time_progress_from_now(amount: int):
+	var toad = TimeOfDay as int
+	toad += amount
+	toad = wrapi(toad, 1, 6)
+	return toad as TOD
+
+func get_day_progress_from_now(amount: int):
+	var toad = TimeOfDay as int
+	print(toad)
+	toad += amount
+	if toad > 5:
+		return Day + 1
+	else: return Day
 ##########################################################
 
 #region Sequences
@@ -240,4 +259,10 @@ func rest_amberelm():
 	give_control()
 	f("RestAmberelm", true)
 	Loader.save()
+
+func waste_time():
+	await take_control()
+	progress_by_time(1)
+	Loader.detransition()
+	give_control()
 #endregion

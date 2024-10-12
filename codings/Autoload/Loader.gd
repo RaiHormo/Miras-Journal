@@ -71,6 +71,7 @@ func save(filename:String="Autosave", showicon=true):
 	if Global.Area.CurSubRoom != null: data.RoomPath += ";" + Global.Area.CurSubRoom.name
 	data.RoomName = Global.Area.Name
 	data.Day = Event.Day
+	data.TimeOfDay = Event.TimeOfDay
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (data.Preview)
 
@@ -100,6 +101,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Event.Flags = data.Flags.duplicate()
 	print("Flags loaded: ", Event.Flags)
 	Event.Day = data.Day
+	Event.TimeOfDay = data.TimeOfDay as Event.TOD
 	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
 	if !data:

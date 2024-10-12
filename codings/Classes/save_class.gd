@@ -19,4 +19,5 @@ class_name SaveFile
 @export var Inventory: Array[ItemData]
 @export var Flags: Array[StringName]
 @export var Day: int
+@export var TimeOfDay: int
 @export var version = 3

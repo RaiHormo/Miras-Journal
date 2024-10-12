@@ -39,7 +39,7 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 func to_tod_text(x: Event.TOD) -> String:
 	match x:
 		Event.TOD.MORNING: return "Morning"
-		Event.TOD.MIDDAY: return "Mid-day"
+		Event.TOD.DAYTIME: return "Daytime"
 		Event.TOD.AFTERNOON: return "Afternoon"
 		Event.TOD.EVENING: return "Evening"
 		Event.TOD.NIGHT: return "Night"

@@ -944,13 +944,16 @@ visible = false
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_dxoxl")
 
-[node name="Bush" parent="Daze" instance=ExtResource("6_pmuyc")]
+[node name="TalkPrompt" parent="Daze" instance=ExtResource("6_pmuyc")]
 position = Vector2(1.14441e-05, 8)
 LabelText = "Talk"
-ActionType = "text"
+ActionType = "pass_time"
 Length = 90
-file = "testbush"
-title = "bush"
+file = "waste_time"
+title = "Waste a bit of time"
+item = "Do nothing for a few hours."
+to_time = -1
+to_time_relative = 1
 Height = 16
 bubble_always = true
 

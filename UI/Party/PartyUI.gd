@@ -539,6 +539,9 @@ func cmd():
 		elif "/day " in $CanvasLayer/TextEdit.text:
 			$CanvasLayer/TextEdit.text.replace("/day ", "")
 			Event.Day = int($CanvasLayer/TextEdit.text)
+		elif "/time " in $CanvasLayer/TextEdit.text:
+			$CanvasLayer/TextEdit.text.replace("/time ", "")
+			Event.TimeOfDay = $CanvasLayer/TextEdit.text as Event.TOD
 		elif $CanvasLayer/TextEdit.text != "":
 			$CanvasLayer/TextEdit.text.replace("/", "")
 			Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
