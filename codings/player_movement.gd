@@ -15,7 +15,7 @@ var undashable := false
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
 @export var can_dash = true
-const dash_speed := 200
+const dash_speed := 220
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
@@ -24,7 +24,7 @@ var is_clone: bool = false
 
 func _ready() -> void:
 	ID = "P"
-	speed = 75
+	speed = 90
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	await Event.wait()
@@ -70,7 +70,7 @@ func control_process():
 		first_frame = false
 		reset_speed()
 	if Global.Area: coords = Global.Area.local_to_map(global_position)
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.2)
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.1)
 	if abs(direction.x) < 0.1: direction.y += direction.x; direction.x = 0
 	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
 	undashable = false
@@ -113,12 +113,10 @@ func control_process():
 		if direction != Vector2.ZERO:
 			Global.PlayerDir = direction
 			Global.PlayerPos = global_position
-		if direction != Vector2.ZERO:
-			$DirectionMarker.global_position = global_position + direction*10
 		if dashing:
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
-			velocity = (direction.normalized()) * speed
+			velocity = direction * speed
 		if move_frames > 5:
 			if RealVelocity.x == 0: position.x = roundf(position.x)
 			if RealVelocity.y == 0: position.y = roundf(position.y)
@@ -148,14 +146,14 @@ func update_anim_prm() -> void:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
-				set_anim(str("Walk"+Global.get_dir_name()))
+				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 		elif Global.Controllable and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			if move_frames != 0:
 				move_frames = 0
-			set_anim(str("Idle"+Global.get_dir_name()))
+			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 		if direction.length()>RealVelocity.length() and dashing:
 					stop_dash()
 	else:

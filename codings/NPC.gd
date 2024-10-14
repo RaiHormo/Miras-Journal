@@ -5,7 +5,7 @@ class_name NPC
 enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 
 ##Speed of movment
-@export var speed = 75
+@export var speed = 80
 ##Used to control the direction of the next movment
 @export var direction : Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
@@ -74,17 +74,16 @@ func _physics_process(delta) -> void:
 			velocity = direction * speed
 			move_and_collide(velocity*delta)
 		NONE: return
-	if direction != Vector2.ZERO:
+	if direction.length() > 0.2:
 		if get_node_or_null("DirectionMarker"):
 			set_dir_marker(direction)
-		Facing = Global.get_direction(direction)
+		if direction.length() > 0.05: Facing = Global.get_direction(direction)
 	update_anim_prm()
 
 func set_dir_marker(vec: Vector2 = direction):
 	vec = vec.normalized()
 	$DirectionMarker.global_position=global_position + vec * 10
 	$DirectionMarker.rotation = direction.angle()
-	
 
 func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return

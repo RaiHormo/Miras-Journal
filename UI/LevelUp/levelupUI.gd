@@ -173,7 +173,7 @@ func _confirm():
 			t.tween_property($ChooseUpgrade/NewAb, "position:x", 400, 0.3)
 			t.tween_property($ChooseUpgrade/NewAb, "modulate", Color.TRANSPARENT, 0.3)
 			await t.finished
-			working_chara.MaxHP += 10
+			working_chara.MaxHP += working_chara.HpOnSLvUp
 			working_chara.Health = working_chara.MaxHP
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
@@ -192,7 +192,7 @@ func _confirm():
 			t.tween_property($ChooseUpgrade/NewAb, "position:x", 400, 0.3)
 			t.tween_property($ChooseUpgrade/NewAb, "modulate", Color.TRANSPARENT, 0.3)
 			await t.finished
-			working_chara.MaxAura += 5
+			working_chara.MaxAura += working_chara.ApOnSLvUP
 			working_chara.Aura = working_chara.MaxAura
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)

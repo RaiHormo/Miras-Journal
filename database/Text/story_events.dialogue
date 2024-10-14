@@ -196,7 +196,7 @@ elif alcine() == "Creature":
 else:
 	"{{alcine()}}". Should I go with this?
 - Use this name
-	do Area.get_node("AlcineNaming").hide()
+	do get_node("/Area/AlcineNaming").hide()
 	=> use_name
 - Let's rethink this
 	=> what_about
@@ -249,7 +249,6 @@ do npc("P").BodyState = NPC.CUSTOM
 do npc("P").set_anim("SitRight")
 do npc("P").collision(false)
 do jump_to(Player, Vector2(107, 345), 15)
-do Area.Followers[0].dont_follow = false
 Mira.Neutural: ...
 Mira.Neutural: Let's just rest here for a bit, I'm exhausted.
 Alcine.Tired: /*{{alcine()}} looks tired as well*/
