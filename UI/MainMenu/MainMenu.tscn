@@ -726,7 +726,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
 [sub_resource type="InputEventAction" id="InputEventAction_hjoav"]
 action = &"ui_accept"
 
-[sub_resource type="Shortcut" id="Shortcut_i1tbq"]
+[sub_resource type="Shortcut" id="Shortcut_jo2x0"]
 events = [SubResource("InputEventAction_hjoav")]
 
 [sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
@@ -1078,7 +1078,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-shortcut = SubResource("Shortcut_i1tbq")
+shortcut = SubResource("Shortcut_jo2x0")
 shortcut_in_tooltip = false
 text = "Confirm"
 icon = ExtResource("5_biinq")

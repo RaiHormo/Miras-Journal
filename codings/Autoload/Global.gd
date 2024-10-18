@@ -34,6 +34,7 @@ signal anim_done
 signal area_initialized
 signal textbox_close
 signal player_ready
+signal controller_changed
 
 var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
@@ -197,6 +198,7 @@ func get_controller() -> ControlScheme:
 
 func _input(event: InputEvent) -> void:
 	if LastInput==ProcessFrame: return
+	var prev_dev = device
 	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -220,6 +222,7 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
 			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
+	if prev_dev != device: controller_changed.emit()
 	LastInput=ProcessFrame
 	#print(device)
 

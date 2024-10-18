@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=25 format=4 uid="uid://bd1tjlb5qs82v"]
 
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="5_xdx5l"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="6_dtjwe"]
 [ext_resource type="Script" path="res://codings/Interactions/open_door.gd" id="7_akxl2"]
+[ext_resource type="Script" path="res://codings/Interactions/horizontal_subdoor.gd" id="8_3nvdu"]
 [ext_resource type="Script" path="res://codings/flickering_light.gd" id="8_uh3bf"]
 
 [sub_resource type="Gradient" id="Gradient_2oe0j"]
@@ -19,7 +20,7 @@ width = 500
 height = 500
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6we5s"]
-size = Vector2(20, 19)
+size = Vector2(6, 19)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("4_e3kpk")
@@ -309,7 +310,6 @@ position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="TownHall" type="Node2D" parent="."]
-visible = false
 z_index = 2
 texture_filter = 1
 position = Vector2(-24, 0)
@@ -324,6 +324,15 @@ tile_set = SubResource("TileSet_dw7lm")
 [node name="Wall" type="TileMapLayer" parent="TownHall"]
 tile_map_data = PackedByteArray("AAAQAAIAAQAAAAcAAAAQAAMAAQABAAcAAAAQAAQAAQABAAcAAAAQAAUAAQABAAcAAAAQAAYAAQABAAcAAAAQAAcAAQABAAcAAAAQAAgAAQACAAcAAAAWAAgAAQACAAcAABAWAAcAAQABAAcAABAWAAQAAQACAAcAABAWAAMAAQABAAcAABAWAAIAAQAAAAcAABAWAAYAAQAAAAcAABARAAgAAQADAAIAAAATAAgAAQADAAIAAAAUAAgAAQADAAIAAAAVAAgAAQADAAIAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
+
+[node name="BedroomDoor" type="Area2D" parent="TownHall" node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+position = Vector2(550, 131)
+script = ExtResource("8_3nvdu")
+LeftSubarea = NodePath("..")
+RightSubarea = NodePath("../../TownHall-Bedroom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TownHall/BedroomDoor"]
+shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="TownHall-Bedroom" type="Node2D" parent="."]
 z_index = 2
@@ -363,13 +372,32 @@ tile_set = SubResource("TileSet_dw7lm")
 tile_map_data = PackedByteArray("AAALABcAAQABAAYAABALABYAAQABAAYAABALABUAAQABAAYAABALABQAAQABAAYAABALABMAAQABAAYAABALABEAAQABAAYAABALABAAAQADAAIAAAAMABAAAQADAAIAAAANABAAAQADAAIAAAAOABAAAQADAAIAAAAPABAAAQADAAIAAAAPABcAAQABAAYAAAAPABYAAQABAAYAAAAPABUAAQABAAYAAAAPABIAAQABAAYAAAAPABEAAwADAAEAAAAPABMAAQABAAYAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 
+[node name="RoomDoor" type="Area2D" parent="HomeBuilding-Lobby" node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+position = Vector2(264, 444)
+script = ExtResource("8_3nvdu")
+LeftSubarea = NodePath("../../HomeBuilding-MyRoom")
+RightSubarea = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding-Lobby/RoomDoor"]
+shape = SubResource("RectangleShape2D_6we5s")
+
+[node name="KirchenDoor" type="Area2D" parent="HomeBuilding-Lobby" node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+position = Vector2(384, 492)
+script = ExtResource("8_3nvdu")
+LeftSubarea = NodePath("..")
+RightSubarea = NodePath("../../HomeBuilding-Kitchen")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding-Lobby/KirchenDoor"]
+shape = SubResource("RectangleShape2D_6we5s")
+
 [node name="HomeBuilding-MyRoom" type="Node2D" parent="."]
-visible = false
 z_index = 2
 texture_filter = 1
 script = ExtResource("3_aq7mb")
 Title = "My room"
-cam_pos = Vector2(466, 131)
+cam_pos = Vector2(195, 456)
+cam_zoom = 5.0
+is_sub_sub_room = true
 
 [node name="Floor" type="TileMapLayer" parent="HomeBuilding-MyRoom"]
 tile_map_data = PackedByteArray("AAAFABUAAQACAAIAAAAGABUAAQACAAIAAAAHABUAAQACAAIAAAAIABUAAQACAAIAAAAJABUAAQACAAIAAAAKABUAAQACAAIAAAAKABEAAQACAAIAAAAJABEAAQACAAIAAAAIABEAAQACAAIAAAAHABEAAQACAAIAAAAGABEAAQACAAIAAAAFABEAAQACAAIAAAAFABQAAQACAAIAAAAGABQAAQACAAIAAAAHABQAAQACAAIAAAAIABQAAQACAAIAAAAJABQAAQACAAIAAAAKABQAAQACAAIAAAAKABIAAQACAAIAAAAJABIAAQACAAIAAAAIABIAAQACAAIAAAAHABIAAQACAAIAAAAGABIAAQACAAIAAAAFABIAAQACAAIAAAAFABMAAQACAAIAAAAGABMAAQACAAIAAAAHABMAAQACAAIAAAAIABMAAQACAAIAAAAJABMAAQACAAIAAAAKABMAAQACAAIAAAA=")
@@ -385,7 +413,8 @@ z_index = 2
 texture_filter = 1
 script = ExtResource("3_aq7mb")
 Title = "Kichen"
-cam_pos = Vector2(466, 131)
+cam_pos = Vector2(458, 480)
+is_sub_sub_room = true
 
 [node name="Floor" type="TileMapLayer" parent="HomeBuilding-Kitchen"]
 tile_map_data = PackedByteArray("AAAQABQAAQACAAIAAAAQABMAAQACAAIAAAAQABIAAQACAAIAAAAQABEAAQACAAIAAAARABEAAQACAAIAAAASABEAAQACAAIAAAATABEAAQACAAIAAAAUABEAAQACAAIAAAAVABEAAQACAAIAAAAVABIAAQACAAIAAAAVABMAAQACAAIAAAAVABQAAQACAAIAAAASABUAAQACAAIAAAARABUAAQACAAIAAAAQABUAAQACAAIAAAASABQAAQACAAIAAAARABQAAQACAAIAAAATABQAAQACAAIAAAAUABQAAQACAAIAAAAUABMAAQACAAIAAAAUABIAAQACAAIAAAATABIAAQACAAIAAAASABIAAQACAAIAAAARABIAAQACAAIAAAARABMAAQACAAIAAAASABMAAQACAAIAAAATABMAAQACAAIAAAAQABYAAQACAAIAAAARABYAAQACAAIAAAASABYAAQACAAIAAAAQABcAAQACAAIAAAARABcAAQACAAIAAAASABcAAQACAAIAAAA=")
@@ -449,5 +478,11 @@ amount = 0.01
 
 [connection signal="body_entered" from="TownHallDoor" to="TownHallDoor" method="_on_body_entered"]
 [connection signal="body_exited" from="TownHallDoor" to="TownHallDoor" method="_on_body_exited"]
+[connection signal="body_entered" from="TownHall/BedroomDoor" to="TownHall/BedroomDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="TownHall/BedroomDoor" to="TownHall/BedroomDoor" method="_on_body_exited"]
 [connection signal="body_entered" from="HomeBuildingDoor" to="HomeBuildingDoor" method="_on_body_entered"]
 [connection signal="body_exited" from="HomeBuildingDoor" to="HomeBuildingDoor" method="_on_body_exited"]
+[connection signal="body_entered" from="HomeBuilding-Lobby/RoomDoor" to="HomeBuilding-Lobby/RoomDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="HomeBuilding-Lobby/RoomDoor" to="HomeBuilding-Lobby/RoomDoor" method="_on_body_exited"]
+[connection signal="body_entered" from="HomeBuilding-Lobby/KirchenDoor" to="HomeBuilding-Lobby/KirchenDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="HomeBuilding-Lobby/KirchenDoor" to="HomeBuilding-Lobby/KirchenDoor" method="_on_body_exited"]

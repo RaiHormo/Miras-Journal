@@ -1,6 +1,152 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds1hwdmholrjy"]
+[gd_scene load_steps=18 format=3 uid="uid://ds1hwdmholrjy"]
 
 [ext_resource type="Script" path="res://codings/initializer.gd" id="1_tesvr"]
+[ext_resource type="Texture2D" uid="uid://cvnuw1n43hcfj" path="res://art/Branding/splash.png" id="2_s81ns"]
+[ext_resource type="Texture2D" uid="uid://n36jl1cn0820" path="res://art/Branding/logo_solid.png" id="4_ryp1b"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="5_li13k"]
+[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="5_ljri5"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_hsai6"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="7_811l6"]
+[ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="8_clvoy"]
+[ext_resource type="Texture2D" uid="uid://br72701mwobte" path="res://art/Branding/PrototypeTitle.png" id="9_8unpa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nvmut"]
+shader = ExtResource("5_ljri5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhyn7"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi51m"]
+content_margin_left = 8.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_t61ta"]
+default_font = ExtResource("6_hsai6")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 0
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_xhyn7")
+Button/styles/hover = SubResource("StyleBoxFlat_xi51m")
+Button/styles/normal = SubResource("StyleBoxFlat_xhyn7")
+Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
+
+[sub_resource type="InputEventAction" id="InputEventAction_2em40"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_ts7k6"]
+events = [SubResource("InputEventAction_2em40")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"Options"
+
+[sub_resource type="Shortcut" id="Shortcut_wu61f"]
+events = [SubResource("InputEventAction_p5u4y")]
 
 [node name="Initializer" type="Node"]
+process_mode = 3
 script = ExtResource("1_tesvr")
+
+[node name="Splash" type="TextureRect" parent="."]
+offset_right = 2560.0
+offset_bottom = 1600.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_s81ns")
+
+[node name="TitleScreen" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PrototypeTitle" type="Sprite2D" parent="TitleScreen"]
+position = Vector2(406, 472)
+scale = Vector2(0.634497, 0.634497)
+texture = ExtResource("9_8unpa")
+
+[node name="Logo" type="TextureRect" parent="TitleScreen"]
+offset_left = 632.0
+offset_top = 50.0
+offset_right = 3033.0
+offset_bottom = 1566.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_ryp1b")
+
+[node name="Label" type="Label" parent="TitleScreen"]
+offset_left = 760.0
+offset_top = 697.0
+offset_right = 1166.0
+offset_bottom = 730.0
+theme_override_fonts/font = ExtResource("5_li13k")
+theme_override_font_sizes/font_size = 32
+text = "Private prototype by RaiDev"
+
+[node name="Continue" type="Button" parent="TitleScreen"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nvmut")
+layout_direction = 1
+offset_left = 861.701
+offset_top = 481.93
+offset_right = 995.701
+offset_bottom = 514.93
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_t61ta")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_ts7k6")
+shortcut_in_tooltip = false
+text = "Continue"
+icon = ExtResource("7_811l6")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Options" type="Button" parent="TitleScreen"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nvmut")
+layout_direction = 1
+offset_left = 862.701
+offset_top = 550.93
+offset_right = 996.701
+offset_bottom = 583.93
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_t61ta")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_wu61f")
+shortcut_in_tooltip = false
+text = "Options"
+icon = ExtResource("8_clvoy")
+expand_icon = true
+
+[connection signal="pressed" from="TitleScreen/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="TitleScreen/Options" to="." method="_on_options_pressed"]

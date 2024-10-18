@@ -65,6 +65,7 @@ func show_all():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
+	t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
 	for i in range(1, 4):
 		t.tween_property(Partybox.get_child(i), "position:x", -70, 0.2).set_delay(0.05)
 
@@ -78,6 +79,7 @@ func hide_all(animate = true):
 		t.set_parallel()
 		for i in range(0, 4):
 			t.tween_property(Partybox.get_child(i), "position:x", -300, 0.3)
+		t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	else:
 		for i in range(0, 4):
 			Partybox.get_child(i).position.x = -300
@@ -159,6 +161,7 @@ func _on_expand(open_ui=0):
 	t.set_trans(Tween.TRANS_BACK)
 	t.set_parallel()
 	t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
+	t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	if open_ui == 0:
 		for i in range(0,4):
 			if Global.check_member(i): get_node("%Pages/Page"+str(i)).show()
@@ -251,6 +254,8 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/Back, "position:x", -150, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0,0,0,0), 0.4)
 	t.tween_property(Partybox, "scale", Vector2(1,1), 0.4)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
 	darken(false)
 	if !UIvisible or disabled: hide_all(); return
 	shrink_panel(Partybox.get_node("Leader"), 0)

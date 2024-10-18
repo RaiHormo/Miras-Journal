@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dehm4esf8smnk" path="res://UI/Input/L2.png" id="6_221lp"]
 [ext_resource type="Texture2D" uid="uid://be0brags5xkbs" path="res://UI/Input/R1.png" id="7_emygh"]
 [ext_resource type="Texture2D" uid="uid://bywniuow67bb" path="res://UI/Input/R2.png" id="8_ci2sn"]
-[ext_resource type="Texture2D" uid="uid://ce4tcrj5w1oat" path="res://UI/Input/⏴.png" id="9_jghai"]
-[ext_resource type="Texture2D" uid="uid://dy7snpx046t4b" path="res://UI/Input/⏵.png" id="10_mnbqi"]
+[ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="9_i58lr"]
+[ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="10_5he4q"]
 [ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="11_1k5wf"]
 
 [resource]
@@ -20,8 +20,8 @@ AbilityIcon = ExtResource("1_8snr2")
 AttackIcon = ExtResource("2_sgeot")
 ItemIcon = ExtResource("4_y7c5o")
 CommandIcon = ExtResource("3_au7th")
-Start = ExtResource("10_mnbqi")
-Select = ExtResource("9_jghai")
+Start = ExtResource("10_5he4q")
+Select = ExtResource("9_i58lr")
 Dash = ExtResource("4_y7c5o")
 R = ExtResource("7_emygh")
 RZ = ExtResource("8_ci2sn")

@@ -75,7 +75,7 @@ func save(filename:String="Autosave", showicon=true):
 	ResourceSaver.save(data, "user://"+filename+".tres")
 	Preview = (data.Preview)
 
-func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true):
+func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true, transition_after_done = true):
 	if sound: Global.ui_sound("Load")
 	if filename=="File0": filename = "Autosave"
 	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
@@ -134,9 +134,11 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	if $/root.get_node_or_null("Options"):
 		$/root.get_node("Options").queue_free()
 	PartyUI.shrink.emit()
-	await detransition()
-	Global.Controllable = true
-	get_tree().paused = false
+	if transition_after_done:
+		await detransition()
+		Global.Controllable = true
+		get_tree().paused = false
+	else: dismiss_load_icon()
 	print("File loaded!\n-------------------------")
 
 func load_res(path: String) -> Resource:
@@ -266,9 +268,7 @@ func detransition():
 		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.4).from(Vector2(-156,-126))
 		t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.4).from(Vector2(-200,-204))
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.4).from(Vector2(-200,-177))
-	if Icon.is_playing():
-		Icon.play("Close")
-	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
+	dismiss_load_icon()
 	await t.finished
 	$Can/Bars/Down.position = Vector2(-34, 1882)
 	$Can/Bars/Up.position = Vector2(0,0)
@@ -276,6 +276,12 @@ func detransition():
 	Global.ready_window()
 	#$Can.hide()
 
+func dismiss_load_icon():
+	if Icon.is_playing():
+		Icon.play("Close")
+	t = create_tween()
+	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
+	
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
 	if get_node_or_null("/root/Battle") or InBattle: return

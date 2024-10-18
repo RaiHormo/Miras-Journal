@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://4hdf3nnmcvcg"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=13 format=3 uid="uid://4hdf3nnmcvcg"]
 
 [ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_0bv3a"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="1_h2acv"]
@@ -6,10 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="3_ljdvx"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="4_wq41y"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="5_mdrei"]
-[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="6_dyxr4"]
+[ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="6_vydf2"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="7_awwx8"]
 [ext_resource type="Texture2D" uid="uid://bjy4gyndw8qxl" path="res://UI/Input/RZ.png" id="8_wa61j"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="9_nawbh"]
+[ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="9_oouoi"]
 [ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="10_j45lx"]
 
 [resource]
@@ -24,9 +25,9 @@ Start = ExtResource("10_j45lx")
 Select = ExtResource("9_nawbh")
 Dash = ExtResource("4_wq41y")
 R = ExtResource("7_awwx8")
-RZ = ExtResource("8_wa61j")
+RZ = ExtResource("9_oouoi")
 L = ExtResource("5_mdrei")
-LZ = ExtResource("6_dyxr4")
+LZ = ExtResource("6_vydf2")
 Menu = ExtResource("3_ljdvx")
 OVAttack = ExtResource("8_wa61j")
 AltConfirm = true

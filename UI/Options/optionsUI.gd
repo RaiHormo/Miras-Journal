@@ -478,7 +478,7 @@ func _on_control_scheme(index):
 		3:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Xbox.tres")
 		4:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStation.tres")
+			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Generic.tres")
 		5:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStation.tres")
 		6:
@@ -486,8 +486,6 @@ func _on_control_scheme(index):
 		7:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/SteamDeck.tres")
 		8:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Generic.tres")
-		10:
 			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/None.tres")
 	Global.save_settings()
 	load_settings()
