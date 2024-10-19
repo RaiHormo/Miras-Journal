@@ -228,13 +228,13 @@ fill = 2
 fill_from = Vector2(0.504274, 0.525641)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_3bxch"]
+[sub_resource type="Gradient" id="Gradient_5nhgl"]
 interpolation_mode = 2
 interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
-gradient = SubResource("Gradient_3bxch")
+gradient = SubResource("Gradient_5nhgl")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.538462, 0.461538)

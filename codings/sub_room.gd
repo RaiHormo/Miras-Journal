@@ -6,12 +6,15 @@ class_name SubRoom
 @export var cam_pos: Vector2
 @export var cam_zoom: float = 4
 @export var cant_dash_inside = true
-@export var is_sub_sub_room = false
+var Layers: Array[TileMapLayer]
 
 func _ready() -> void:
 	modulate = Color.TRANSPARENT
 	hide()
-	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false
+	for i in get_children(): 
+		if i is TileMapLayer: 
+			Layers.append(i)
+			i.collision_enabled = false
 
 func transition():
 	Global.Area.CurSubRoom = self
@@ -27,9 +30,12 @@ func transition():
 		Global.get_cam().position  = cam_pos
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), 0.3)
+	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), 0.2)
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = true
 	await t.finished
+	for i in Layers:
+		i.material = preload("res://codings/Shaders/Pixelart.tres")
+		i.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 
 func detransition():
 	Global.Area.CurSubRoom = null
@@ -48,7 +54,10 @@ func detransition():
 
 func fade_out():
 	var t = create_tween()
-	t.tween_property(self, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property(self, "modulate", Color.TRANSPARENT, 0.2)
+	for i in Layers:
+		i.material = null
+		i.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	await t.finished
-	if is_sub_sub_room: hide()
+	hide()
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false

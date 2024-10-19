@@ -26,7 +26,7 @@ func default():
 		await Event.take_control(false, true)
 		await Global.Player.move_dir(Vector2.UP * 2)
 		Event.flag_progress("EnteredAmberelm", 2)
-		Event.give_control()
+		Event.give_control(true)
 		Loader.save()
 
 func skip():

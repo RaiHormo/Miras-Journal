@@ -29,9 +29,8 @@ func _ready():
 		$MainButtons/SaveManagment.disabled = true
 		$MainButtons/GameSettings.grab_focus()
 	else:
-		if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 		$MainButtons/SaveManagment.grab_focus()
-	if not Global.Controllable and !$/root.get_node_or_null("MainMenu"): cant_save = true
+	if not Global.Controllable and !$/root.get_node_or_null("MainMenu") or not ResourceLoader.exists("user://Autosave.tres"): cant_save = true
 	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
@@ -95,7 +94,10 @@ func _on_back_pressed():
 		"gallery":
 			main()
 
-func close():
+func close(force = false):
+	if force:
+		queue_free()
+		return
 	if !Global.Area:
 		Global.buzzer_sound()
 		Global.toast("There is no going back.")
@@ -104,8 +106,6 @@ func close():
 		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
-			get_tree().paused = was_paused
-			Global.Controllable = was_controllable
 			Global.cancel_sound()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -122,6 +122,8 @@ func close():
 	for button in $MainButtons.get_children():
 		t.tween_property(button, "position:x", 700, 0.3).as_relative()
 	await t.finished
+	get_tree().paused = was_paused
+	Global.Controllable = was_controllable
 	queue_free()
 
 func main():
@@ -185,7 +187,10 @@ func save_managment() -> void:
 	if not save_files_loaded:
 		Loader.icon_load()
 		Loader.gray_out()
-	else: %Files/File0/Button.grab_focus()
+	else: 
+		if %Files/File0.visible:
+			%Files/File0/Button.grab_focus()
+		else: %Files/New/NewGame/Button.grab_focus()
 	$SavePanel.show()
 	$Confirm.hide()
 	$MainButtons/SaveManagment.toggle_mode=true
@@ -209,7 +214,9 @@ func save_managment() -> void:
 	await t.finished
 	if not save_files_loaded:
 		await load_save_files()
-		%Files/File0/Button.grab_focus()
+		if %Files/File0.visible:
+			%Files/File0/Button.grab_focus()
+		else: %Files/New/NewGame/Button.grab_focus()
 
 func gallery():
 	if stage == "gallery": return
@@ -297,7 +304,11 @@ func load_settings():
 func load_save_files():
 	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
-	draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
+	if ResourceLoader.exists("user://Autosave.tres"):
+		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
+	else: 
+		%Files/File0.hide()
+		Global.toast("There is nothing saved, you can start a new game.")
 	for i in DirAccess.get_files_at("user://"):
 		if ".tres" in i and not "Autosave" in i:
 			var data = await Loader.load_res("user://"+i)
@@ -587,7 +598,7 @@ func _vsync(toggle: bool) -> void:
 	load_settings()
 
 func _new_game() -> void:
-	close()
+	close(true)
 	Global.new_game()
 
 func _arena_mode() -> void:

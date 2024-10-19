@@ -21,6 +21,7 @@ var LevelupChain: Array[Actor] = []
 var submenu_opened := false
 var line_to_be_used: String
 var nametag_to_be_used: String
+var was_controllable = false
 
 func _ready():
 	$CanvasLayer.hide()
@@ -125,6 +126,9 @@ func _input(ev):
 			Global.textbox("testbush", "add_to_party")
 		if Input.is_action_just_pressed("DebugFlag"):
 			cmd()
+		if Input.is_action_just_pressed("Debug0"):
+			if Engine.time_scale == 0.1: Engine.time_scale = 1
+			else: Engine.time_scale = 0.1
 
 func darken(toggle := true):
 	t = create_tween()
@@ -149,6 +153,7 @@ func _on_expand(open_ui=0):
 	$CanvasLayer/Cursor.position=CursorPosition[0]
 	if open_ui == 0: WasPaused = false
 	else: WasPaused = get_tree().paused
+	was_controllable = Global.Controllable
 	get_tree().paused = true
 	Global.Controllable=false
 	$CanvasLayer/Cursor/ItemPreview.hide()
@@ -263,7 +268,6 @@ func _on_shrink():
 		shrink_panel(Partybox.get_node("Member"+str(i)), i)
 	Expanded = false
 	await t.finished
-	if not MemberChoosing: Global.Controllable= true
 	MemberChoosing = false
 	$CanvasLayer/Back.hide()
 	%Pages.hide()
@@ -602,6 +606,7 @@ func details():
 func back():
 	if not MemberChoosing and Expanded:
 		if not submenu_opened:
+			Global.Controllable= was_controllable
 			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 			$Audio.play()
 			shrink.emit()

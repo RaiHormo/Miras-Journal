@@ -50,7 +50,7 @@ func _ready() -> void:
 		PartyUI.UIvisible = true
 		for i in Global.Area.Followers:
 			i.dont_follow = false
-	Event.give_control(false)
+	#Event.give_control(false)
 	Global.player_ready.emit()
 
 func extended_process() -> void:
@@ -65,7 +65,7 @@ func extended_process() -> void:
 
 func control_process():
 	if first_frame:
-		Engine.time_scale = 1
+		if Engine.time_scale > 1: Engine.time_scale = 1
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
 		reset_speed()

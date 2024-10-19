@@ -104,7 +104,7 @@ func _ready():
 		i.BattleLog.clear()
 	position_sprites()
 	turn_ui_init()
-	if Loader.Attacker: Loader.Attacker.hide()
+	if is_instance_valid(Loader.Attacker): Loader.Attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
 	TurnOrder.sort_custom(speed_sort)
 	for i in TurnOrder:

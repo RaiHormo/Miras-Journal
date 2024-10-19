@@ -124,7 +124,6 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	await Global.area_initialized
 	if sc_split.size() > 1: Global.Area.go_to_subroom(sc_split[1])
 	Global.Player.global_position = data.Position
-	Global.Controllable = true
 	PartyUI._check_party()
 	Global.Area.handle_z(data.Z)
 	print("Loading room ", data.RoomName, " in camera ID ", data.Camera, " and Z index ", data.Z)
@@ -136,9 +135,10 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	PartyUI.shrink.emit()
 	if transition_after_done:
 		await detransition()
-		Global.Controllable = true
-		get_tree().paused = false
-	else: dismiss_load_icon()
+		Event.give_control()
+	else: 
+		await Event.take_control()
+		dismiss_load_icon()
 	print("File loaded!\n-------------------------")
 
 func load_res(path: String) -> Resource:
