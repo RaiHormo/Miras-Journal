@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxghrxdajokgh"]
 
-[ext_resource type="Script" path="res://UI/Misc/location_name.gd" id="1_gl338"]
+[ext_resource type="Script" path="res://codings/UIScripts/location_name.gd" id="1_gl338"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="1_uejks"]
 
 [node name="LocationName" type="CanvasLayer"]

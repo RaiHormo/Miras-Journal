@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bmpwjae3tgvdx"]
 
-[ext_resource type="Script" path="res://UI/Textbox/passive.gd" id="1_jjmcy"]
+[ext_resource type="Script" path="res://codings/UIScripts/passive.gd" id="1_jjmcy"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_adpgd"]
-[ext_resource type="Script" path="res://UI/Textbox/dialogue_label_ext.gd" id="3_2bhme"]
+[ext_resource type="Script" path="res://codings/UIScripts/dialogue_label_ext.gd" id="3_2bhme"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_irkq5"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_wi4tr"]
 

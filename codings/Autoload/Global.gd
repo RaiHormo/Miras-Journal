@@ -107,6 +107,9 @@ func member_details(chara: Actor):
 	await Event.wait()
 	dub.draw_character(chara)
 
+func next_day_ui():
+	get_tree().root.add_child(preload("res://UI/Misc/DayChangeUi.tscn").instantiate())
+
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	init_party(Party)
@@ -239,7 +242,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		Loader.save()
 	if Input.is_action_just_pressed("SaveManagment"):
 		Loader.load_game()
-
+	if Input.is_action_just_pressed("SaveDir"):
+		OS.shell_open(OS.get_user_data_dir())
 #endregion
 
 #region Settings

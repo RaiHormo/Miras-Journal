@@ -11,6 +11,8 @@ var TimeOfDay:= TOD.DARKHOUR
 var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
+signal time_changed
+signal next_day
 
 enum TOD {DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5}
 
@@ -90,6 +92,12 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	await t.finished
 
 func check_flag(flag: StringName):
+	if "day:" in flag:
+		if int(flag.replace("day:", "")) == Day: return true 
+		else: return false
+	if "time:" in flag:
+		if int(flag.replace("time:", "")) == TimeOfDay: return true 
+		else: return false
 	if flag in Flags: return true
 	else: return false
 
@@ -195,6 +203,12 @@ func get_day_progress_from_now(amount: int):
 	if toad > 5:
 		return Day + 1
 	else: return Day
+
+func set_time(tod: TOD):
+	if tod < TimeOfDay:
+		Global.next_day_ui()
+	TimeOfDay = tod
+	time_changed.emit()
 ##########################################################
 
 #region Sequences
@@ -224,6 +238,17 @@ func TWflame():
 	await Global.textbox("interactions", "that_should_do_it")
 	Event.give_control()
 	Event.add_flag("TWflame")
+
+func sleep_home():
+	if TimeOfDay == TOD.MORNING:
+		await Loader.detransition()
+		await Global.textbox("interactions", "just_woke_up")
+		give_control()
+		return
+	await Event.take_control()
+	set_time(TOD.MORNING)
+	await next_day
+	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(178, 482), 0, 2, "")
 
 func rest_amberelm():
 	take_control()

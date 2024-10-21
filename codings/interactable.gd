@@ -159,10 +159,12 @@ func _on_button_pressed() -> void:
 		"global":
 			Global.call(file)
 		"event":
+			Global.confirm_sound()
 			Event.call(file)
 		"pass_time":
 			PartyUI.confirm_time_passage(title, item, 
 			to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative), file)
+			Global.confirm_sound()
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)

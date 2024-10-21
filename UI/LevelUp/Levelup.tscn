@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://dird66c51jjoc"]
 
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="1_72ntk"]
-[ext_resource type="Script" path="res://UI/LevelUp/levelupUI.gd" id="1_xo3yi"]
+[ext_resource type="Script" path="res://codings/UIScripts/levelupUI.gd" id="1_xo3yi"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_ruipd"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_bn54i"]
 [ext_resource type="Texture2D" uid="uid://bdeeqfuxdyxk3" path="res://UI/LevelUp/QuestionMark.png" id="5_6262g"]

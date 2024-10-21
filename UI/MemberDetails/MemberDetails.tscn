@@ -1,7 +1,7 @@
 [gd_scene load_steps=70 format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
-[ext_resource type="Script" path="res://UI/MemberDetails/member_detailsUI.gd" id="1_uy7q8"]
+[ext_resource type="Script" path="res://codings/UIScripts/member_detailsUI.gd" id="1_uy7q8"]
 [ext_resource type="Texture2D" uid="uid://dqa765cmwj2am" path="res://art/Renders/Mira.png" id="2_q4wpr"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_cwuly"]
 [ext_resource type="Texture2D" uid="uid://clccuo8erxjhw" path="res://UI/MemberDetails/brushstroke.png" id="4_1o3jg"]

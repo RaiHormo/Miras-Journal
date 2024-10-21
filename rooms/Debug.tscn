@@ -776,16 +776,17 @@ file = "testbush"
 title = "bush"
 Height = 4
 
-[node name="Rest" parent="." instance=ExtResource("6_pmuyc")]
+[node name="Sleep" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(276, 63)
-LabelText = "Rest"
+LabelText = "Sleep"
 ActionType = "pass_time"
-Length = 90
+Length = 100
 file = "sleep_home"
 title = "Sleep"
 item = "Sleep until next the morning. Fully recovers the party's health."
 to_time = 1
 Height = 6
+hide_on_flag = &"time:1"
 
 [node name="FastTravel" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(11.5979, -54.0878)

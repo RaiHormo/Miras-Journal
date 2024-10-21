@@ -25,6 +25,14 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 
 ~ travel
 Where to go?
+- Pyrson
+	Part?
+	- Start
+		do travel_to("Pyrson")
+	- My room
+		do travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(178, 482))
+	- Town hall
+		do travel_to("Pyrson;TownHall", Vector2(443, 179))
 - Temple Woods
 	Part?
 	- Start
@@ -43,12 +51,6 @@ Where to go?
 		do travel_to("Amberelm", Vector2(155, 347), 0, 7)
 	- Entrance
 		do travel_to("Amberelm", Vector2(0, 0), 1)
-- Pyrson
-	Part?
-	- Start
-		do travel_to("Pyrson")
-	- Town hall
-		do travel_to("Pyrson;TownHall", Vector2(443, 179))
 => END
 
 ~ greetings

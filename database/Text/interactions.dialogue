@@ -85,3 +85,5 @@ else:
  Mira.Neutural: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
 => END
 
+~ just_woke_up
+I just woke up. Don't feel like spending all day in bed.

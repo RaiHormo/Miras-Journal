@@ -117,5 +117,7 @@ func _physics_process(delta: float) -> void:
 		$SubRoomBg.position = Cam.position
  
 func go_to_subroom(subroom: String):
+	print(1)
 	for i in get_children(): if i.name == subroom and i is SubRoom:
-			await i.transition()
+		print(2)
+		await i.transition()

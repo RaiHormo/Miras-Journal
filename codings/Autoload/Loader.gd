@@ -2,7 +2,7 @@ extends Control
 
 const SaveVersion = 4
 
-@export var scene:String
+@export var scene: Array[String] = []
 var status
 var progress = []
 var loading = false
@@ -162,26 +162,25 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	if t.is_running(): await t.finished
 	Event.List.clear()
 	traveled_pos = pos
-	print(camera_ind)
 	Global.CameraInd = camera_ind
-	var sc_split = sc.split(";")
-	sc = sc_split[0]
-	scene = "res://rooms/" + sc + ".tscn"
-	if scene != "":
-		ResourceLoader.load_threaded_request(scene)
+	scene.assign((sc.split(";").duplicate()))
+	sc = scene[0]
+	scene[0] = "res://rooms/" + sc + ".tscn"
+	if scene[0] != "":
+		ResourceLoader.load_threaded_request(scene[0])
 	await transition(trans)
-	status = ResourceLoader.load_threaded_get_status(scene, progress)
+	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		await done(sc_split)
+		await done()
 		if z >= 0: Global.Area.handle_z(z)
 	else:
 		Icon.play("Load")
 		loading = true
 
 func _process(delta):
-	if loading == true:
-		status = ResourceLoader.load_threaded_get_status(scene, progress)
+	if loading == true and !scene.is_empty():
+		status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 		error_handle(status)
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
 			loading = false
@@ -228,11 +227,10 @@ func transition(dir=Global.get_dir_letter()):
 		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
 	await t.finished
 
-func done(sc_split: Array[String] = []):
+func done():
 	chased = false
 	if Global.Area: Global.Area.queue_free()
-	#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(scene))
-	$/root.add_child(ResourceLoader.load_threaded_get(scene).instantiate())
+	$/root.add_child(ResourceLoader.load_threaded_get(scene[0]).instantiate())
 	await get_tree().create_timer(0.1).timeout
 	Global.Lights.clear()
 	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
@@ -241,7 +239,8 @@ func done(sc_split: Array[String] = []):
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
 	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
-	if sc_split.size() > 1: await Global.Area.go_to_subroom(sc_split[1])
+	if scene.size() > 1: 
+		await Global.Area.go_to_subroom(scene[1])
 	Event.give_control(false)
 	await detransition()
 
@@ -451,19 +450,16 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		OS.alert("Either the dev made a mistake, there's an outdated save file or
-you were save editing.
-\nIf you were save editing, please delete or restore the file.\n
+		OS.alert("Some resource just failed to load. \nEither the dev made a mistake or there's a corrupt/outdated save file.
+\n
 If you've played this game in an older version, you may have to delete the old save files.\n
-If this has nothing to do with save data, please report this error to the developer.\n
-On Windows save files are located under \"%APPDATA%\\miras-journal\"
-and on Linux under \"~/.local/share/miras-journal\"
+If this has nothing to do with save data, please report this error to the developer, and include logs.\n
+To find the directory where save files and logs are located, launch the game and press F1.
 " ,"THE RESOURCE FAILED TO LOAD!")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!")
 		load_failed = true
-
 
 func chase_mode():
 	CamZoom = Global.get_cam().zoom

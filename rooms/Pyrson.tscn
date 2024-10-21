@@ -249,7 +249,7 @@ texture_region_size = Vector2i(24, 24)
 2:10/0 = 0
 2:10/0/texture_origin = Vector2i(0, -23)
 2:10/0/y_sort_origin = 24
-2:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 60, 12, 60, 12, 24, -4, 24)
+2:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 60, 12, 60, 12, 20, -4, 20)
 3:11/size_in_atlas = Vector2i(3, 2)
 3:11/0 = 0
 3:11/0/texture_origin = Vector2i(-23, -12)
@@ -464,7 +464,6 @@ script = ExtResource("10_4xvqm")
 Light = false
 
 [node name="HomeBuilding-MyRoom" type="Node2D" parent="."]
-visible = false
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
@@ -480,7 +479,7 @@ tile_set = SubResource("TileSet_dw7lm")
 [node name="Wall" type="TileMapLayer" parent="HomeBuilding-MyRoom"]
 y_sort_enabled = true
 position = Vector2(0, 1)
-tile_map_data = PackedByteArray("AAALABMAAQAAAAcAAAALABgAAQACAAEAAAAMABgAAQACAAEAAAANABgAAQACAAEAAAAPABgAAQACAAEAAAAEABAAAQABAAYAAAAEABEAAQABAAYAAAAEABIAAQABAAYAAAAEABMAAQABAAYAAAAEABQAAQACAAYAAAAFABAAAwADAAsAAAAEAA8AAQAAAAcAABAFAA8AAwAFAAoAAAAFABMAAwAAAAsAAAAFABUAAQACAAEAAAAGABMAAwABAAsAAAAGABUAAQACAAEAAAAHABUAAQACAAEAAAAIABUAAQACAAEAAAAJABUAAQACAAEAAAAKABIAAwACAAoAAAALABAAAQABAAYAABALAA8AAQAAAAcAAAALABQAAQACAAYAABAKABQAAQACAAEAAAALABEAAQACAAYAABAGABEAAwAGAAwAAAAKABEAAwAEAAoAAAAJABAAAwAGAAsAAAA=")
+tile_map_data = PackedByteArray("AAALABMAAQAAAAcAAAALABgAAQACAAEAAAAMABgAAQACAAEAAAANABgAAQACAAEAAAAPABgAAQACAAEAAAAEABAAAQABAAYAAAAEABEAAQABAAYAAAAEABIAAQABAAYAAAAEABMAAQABAAYAAAAEABQAAQACAAYAAAAFABAAAwADAAsAAAAEAA8AAQAAAAcAABAFAA8AAwAFAAoAAAAFABMAAwAAAAsAAAAFABUAAQACAAEAAAAGABMAAwABAAsAAAAGABUAAQACAAEAAAAHABUAAQACAAEAAAAIABUAAQACAAEAAAAJABUAAQACAAEAAAAKABIAAwACAAoAAAALABAAAQABAAYAABALAA8AAQAAAAcAAAALABQAAQACAAYAABALABEAAQACAAYAABAGABEAAwAGAAwAAAAKABEAAwAEAAoAAAAJABAAAwAGAAsAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 
 [node name="WindowLight" type="PointLight2D" parent="HomeBuilding-MyRoom"]
@@ -510,7 +509,19 @@ shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_52siy")
 script = ExtResource("10_4xvqm")
-flag = "LampInMirasRoomz"
+flag = "LampInMirasRoom"
+
+[node name="Sleep" parent="HomeBuilding-MyRoom" instance=ExtResource("9_w0u03")]
+position = Vector2(156, 481)
+LabelText = "Sleep"
+ActionType = "pass_time"
+Length = 100
+file = "sleep_home"
+title = "Sleep"
+item = "Sleep until next the morning. Fully recovers the party's health."
+to_time = 1
+Height = 6
+hide_on_flag = &"time:1"
 
 [node name="HomeBuilding-Kitchen" type="Node2D" parent="."]
 z_index = 2

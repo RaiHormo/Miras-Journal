@@ -1,6 +1,6 @@
 [gd_scene load_steps=104 format=3 uid="uid://taraixnnnyo7"]
 
-[ext_resource type="Script" path="res://UI/MainMenu/MainMenu.gd" id="1_5tx7f"]
+[ext_resource type="Script" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="2_w0qna"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="3_2t42f"]

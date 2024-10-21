@@ -57,12 +57,17 @@ func hide_prompt() -> void:
 	await PartyUI.darken(false)
 
 func _on_nevermind_pressed() -> void:
+	Global.cancel_sound()
 	await hide_prompt()
 	Global.Controllable = true
 	get_tree().paused = false
 
 func use_time() -> void:
+	Global.confirm_sound()
 	hide_prompt()
 	await Loader.transition("")
 	if Event.has_method(time_pass_id): Event.call(time_pass_id)
 	else: OS.alert("Invalid event ID "+ time_pass_id)
+
+func _cursor() -> void:
+	Global.cursor_sound()
