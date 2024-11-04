@@ -354,7 +354,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_7jen5")
 Button/styles/pressed = SubResource("StyleBoxFlat_7jen5")
 Panel/styles/panel = SubResource("StyleBoxFlat_pu2pc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nu4k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x3ya"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -368,9 +368,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_jjjvx"]
-Panel/styles/panel = SubResource("StyleBoxFlat_8nu4k")
+Panel/styles/panel = SubResource("StyleBoxFlat_8x3ya")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yo7cv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma5a1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -384,9 +384,9 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_bumyi"]
-Panel/styles/panel = SubResource("StyleBoxFlat_yo7cv")
+Panel/styles/panel = SubResource("StyleBoxFlat_ma5a1")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tos5t"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eknbj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -400,7 +400,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_h8rhe"]
-Panel/styles/panel = SubResource("StyleBoxFlat_tos5t")
+Panel/styles/panel = SubResource("StyleBoxFlat_eknbj")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ffbd"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)

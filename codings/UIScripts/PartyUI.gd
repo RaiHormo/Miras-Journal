@@ -545,6 +545,8 @@ func cmd():
 		if "/clear" in $CanvasLayer/TextEdit.text:
 			Event.Flags.clear()
 			Loader.Defeated.clear()
+		if "/cam" in $CanvasLayer/TextEdit.text:
+			Global.Player.camera_follow()
 		elif "/day " in $CanvasLayer/TextEdit.text:
 			$CanvasLayer/TextEdit.text.replace("/day ", "")
 			Event.Day = int($CanvasLayer/TextEdit.text)

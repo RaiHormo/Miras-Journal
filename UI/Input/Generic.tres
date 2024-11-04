@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="3_f2iby"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="4_epy5y"]
 [ext_resource type="Texture2D" uid="uid://jr3txv7bapdx" path="res://UI/Input/LB.png" id="5_g8qpv"]
-[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="6_d3lmo"]
+[ext_resource type="Texture2D" uid="uid://cgfv0fvhp3jdv" path="res://UI/Input/LT.png" id="6_yndug"]
 [ext_resource type="Texture2D" uid="uid://cryk2wxndq0t0" path="res://UI/Input/RB.png" id="7_ydkbs"]
 [ext_resource type="Texture2D" uid="uid://c5jexglyr0fg0" path="res://UI/Input/RT.png" id="8_4rye4"]
 [ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="9_hqi6v"]
@@ -26,7 +26,7 @@ Dash = ExtResource("4_epy5y")
 R = ExtResource("7_ydkbs")
 RZ = ExtResource("8_4rye4")
 L = ExtResource("5_g8qpv")
-LZ = ExtResource("6_d3lmo")
+LZ = ExtResource("6_yndug")
 Menu = ExtResource("3_f2iby")
 OVAttack = ExtResource("8_4rye4")
 AltConfirm = false

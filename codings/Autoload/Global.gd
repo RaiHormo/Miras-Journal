@@ -110,6 +110,9 @@ func member_details(chara: Actor):
 func next_day_ui():
 	get_tree().root.add_child(preload("res://UI/Misc/DayChangeUi.tscn").instantiate())
 
+func vainet_map(cur: String):
+	get_tree().root.add_child(preload("res://UI/Map/VainetMap.tscn").instantiate())
+
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	init_party(Party)

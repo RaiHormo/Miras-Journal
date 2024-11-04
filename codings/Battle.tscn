@@ -1035,7 +1035,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui641"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l8l2"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1048,7 +1048,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn54k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ss6i1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1062,8 +1062,8 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_8i68l"]
-Panel/styles/panel = SubResource("StyleBoxFlat_ui641")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_hn54k")
+Panel/styles/panel = SubResource("StyleBoxFlat_3l8l2")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ss6i1")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kisea"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1078,7 +1078,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvlw5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmr4o"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1091,7 +1091,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b51m8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m87hr"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -1109,8 +1109,8 @@ expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
 [sub_resource type="Theme" id="Theme_gjtdb"]
-Panel/styles/panel = SubResource("StyleBoxFlat_mvlw5")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_b51m8")
+Panel/styles/panel = SubResource("StyleBoxFlat_jmr4o")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_m87hr")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg5jp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1129,7 +1129,7 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5klk4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xo2q"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1142,7 +1142,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vltne"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjtxj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -1160,8 +1160,8 @@ expand_margin_right = 10.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="Theme" id="Theme_pg44w"]
-Panel/styles/panel = SubResource("StyleBoxFlat_5klk4")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_vltne")
+Panel/styles/panel = SubResource("StyleBoxFlat_8xo2q")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_vjtxj")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvanb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1928,7 +1928,6 @@ scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
-visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0

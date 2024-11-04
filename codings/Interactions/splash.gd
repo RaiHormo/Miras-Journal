@@ -3,7 +3,7 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
-		if text == "Amberelm" and not Event.f("EnteredAmberelm", 3):
+		if text == "Amberelm" and not Event.f("EnteredAmberelm3"):
 			Event.take_control()
 			Global.Player.camera_follow(false)
 			var t = create_tween()
@@ -13,9 +13,9 @@ func _on_body_entered(body: Node2D) -> void:
 			Global.location_name(text)
 			await Event.wait(5)
 			Loader.gray_out(1, 1)
-			Event.flag_progress("EnteredAmberelm", 3)
+			Event.f("EnteredAmberelm3", true)
 			await Event.wait(2)
-			Event.give_control()
+			Event.give_control(true)
 			Global.Player.position = Vector2(222, 429)
 			Event.take_control(false, true)
 			await Event.wait(1)
@@ -24,5 +24,5 @@ func _on_body_entered(body: Node2D) -> void:
 			await Loader.transition("R")
 			Global.Player.position = Vector2(150, 345)
 			Loader.detransition()
-			Event.give_control()
+			Event.give_control(true)
 			Global.Player.set_anim("IdleRight")

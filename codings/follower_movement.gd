@@ -40,16 +40,18 @@ func _physics_process(_delta: float) -> void:
 		if nav_agent.distance_to_target() > 150:
 				global_position = Global.Player.global_position
 		if round(nav_agent.distance_to_target()) > distance:
-			$CollisionShape2D.disabled = false
-			direction = to_local(nav_agent.get_next_path_position()).normalized()
+			#$CollisionShape2D.disabled = false
 			if nav_agent.is_target_reachable():
-				move_and_slide()
+				direction = to_local(nav_agent.get_next_path_position()).normalized()
+				$CollisionShape2D.disabled = false
+			else: 
+				direction = to_local(Global.Player.global_position).normalized()
+				$CollisionShape2D.disabled = true
+			move_and_slide()
 			velocity = speed * direction
 			speed = max(30, Global.Player.RealVelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
-			else:
-				$CollisionShape2D.disabled = false
 		elif nav_agent.distance_to_target() < 20 and Global.Controllable:
 			add_collision_exception_with(Global.Player)
 			animate()
@@ -65,9 +67,7 @@ func _physics_process(_delta: float) -> void:
 			RealVelocity=global_position-oldposition
 		else:
 			moving =false
-
 		makepath()
-
 	else:
 		hide()
 		$CollisionShape2D.disabled = true
