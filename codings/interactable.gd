@@ -35,6 +35,17 @@ func _ready() -> void:
 	await Global.area_initialized
 	do_position()
 	disappear()
+	if ActionType == "vainet": vain_check()
+
+func vain_check():
+	if Event.f(get_parent().name):
+		get_parent().get_node("Particle").emitting = false
+		LabelText = "Enter"
+		get_parent().get_node("Sprite").show()
+	else:
+		get_parent().get_node("Particle").emitting = true
+		LabelText = "Open"
+		get_parent().get_node("Sprite").hide()
 
 func _process(delta: float) -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
@@ -165,6 +176,16 @@ func _on_button_pressed() -> void:
 			PartyUI.confirm_time_passage(title, item, 
 			to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative), file)
 			Global.confirm_sound()
+		"vainet":
+			if Event.f(get_parent().name):
+				Global.vainet_map(get_parent().name.replace("VP", ""))
+			else:
+				Event.f(get_parent().name, true)
+				vain_check()
+				disappear()
+				await Event.wait(0.3)
+				CanInteract = false
+				appear()
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)

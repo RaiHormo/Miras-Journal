@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://brwxiq17qyyeb"]
+
+[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="1_sli5j"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4p5qo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wv1qn"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_6c25y"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fq0ps"]
+gradient = SubResource("Gradient_6c25y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_esk01"]
+lifetime_randomness = 0.63
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.0
+inherit_velocity_ratio = 0.047
+spread = 78.75
+angular_velocity_min = -212.06
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, -90, 0)
+linear_accel_min = -15.69
+linear_accel_max = -2.23517e-06
+radial_accel_min = -15.69
+radial_accel_max = -2.23517e-06
+scale_min = 0.2
+scale_max = 0.5
+scale_over_velocity_max = 19.61
+color_ramp = SubResource("GradientTexture1D_fq0ps")
+
+[sub_resource type="Gradient" id="Gradient_0sdct"]
+colors = PackedColorArray(0.381919, 0.0594875, 0.519217, 1, 0.73, 0.2044, 0.2044, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ku46n"]
+gradient = SubResource("Gradient_0sdct")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.519658, 0.497436)
+fill_to = Vector2(0.752137, 0.230769)
+
+[node name="VPPlains" type="Area2D"]
+position = Vector2(438, -46)
+
+[node name="Interactable" parent="." instance=ExtResource("1_sli5j")]
+LabelText = "Enter"
+ActionType = "vainet"
+Length = 110
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+scale = Vector2(11, 10)
+texture = SubResource("PlaceholderTexture2D_4p5qo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wv1qn")
+
+[node name="Particle" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_esk01")
+texture = SubResource("GradientTexture2D_ku46n")
+explosiveness = 0.12
+randomness = 0.19
