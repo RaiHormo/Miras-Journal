@@ -189,4 +189,3 @@ func _on_ab_focus_entered() -> void:
 	$AbilityPanel/AttackTitle.text = ab.name
 	#$AbilityPanel/AttackTitle.icon = ab.Icon
 	$AbilityPanel/AttackTitle/RichTextLabel.text = Global.colorize(ab.description)
-

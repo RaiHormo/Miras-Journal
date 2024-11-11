@@ -21,6 +21,9 @@ msgstr "Open a file"
 msgid "open.open"
 msgstr "Open..."
 
+msgid "open.quick_open"
+msgstr "Quick open..."
+
 msgid "open.no_recent_files"
 msgstr "No recent files"
 
@@ -293,9 +296,6 @@ msgstr "Titles cannot be empty."
 
 msgid "errors.duplicate_title"
 msgstr "There is already a title with that name."
-
-msgid "errors.nested_title"
-msgstr "Titles cannot be indented."
 
 msgid "errors.invalid_title_string"
 msgstr "Titles can only contain alphanumeric characters and numbers."

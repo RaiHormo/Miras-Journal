@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://codings/follower_movement.gd" id="1_kihhu"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_ppxuy"]
-[ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/OV/Alcine/AlcineOV1.tres" id="3_k7uag"]
+[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="3_ocaa3"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_qao14"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvt3h"]
@@ -19,7 +19,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.852941, 0.894118)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Follower" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(1, -5)
@@ -28,7 +28,7 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_kihhu")
-distance = 25
+distance = 30
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 25.0
@@ -42,21 +42,21 @@ wait_time = 0.1
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(-1, 6)
 rotation = 1.56364
 shape = SubResource("CapsuleShape2D_xvt3h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_ppxuy")
-sprite_frames = ExtResource("3_k7uag")
+position = Vector2(-1, 5)
+sprite_frames = ExtResource("3_ocaa3")
 animation = &"WalkUp"
-frame = 2
-frame_progress = 0.616196
+offset = Vector2(0, -9)
 
 [node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
 show_behind_parent = true
 use_parent_material = true
-position = Vector2(0, 8)
+position = Vector2(0, -6)
 texture = ExtResource("4_qao14")
 
 [node name="Glow" type="PointLight2D" parent="."]

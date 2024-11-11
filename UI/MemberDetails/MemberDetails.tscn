@@ -248,8 +248,8 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 corner_detail = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq2a2"]
-bg_color = Color(0.25098, 0.941176, 0.466667, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ammfk"]
+bg_color = Color(0.4, 0.462745, 0.992157, 1)
 border_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
@@ -257,8 +257,8 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 corner_detail = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ammfk"]
-bg_color = Color(0.4, 0.462745, 0.992157, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq2a2"]
+bg_color = Color(0.25098, 0.941176, 0.466667, 1)
 border_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
@@ -345,16 +345,6 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjapk"]
-content_margin_left = 56.0
-content_margin_right = 5.0
-bg_color = Color(1, 1, 1, 0)
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8j2a"]
 content_margin_left = 56.0
 content_margin_right = 10.0
@@ -363,6 +353,16 @@ border_width_left = 12
 border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjapk"]
+content_margin_left = 56.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 0)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
@@ -700,9 +700,10 @@ theme_override_font_sizes/font_size = 24
 text = "HP "
 
 [node name="Health" type="ProgressBar" parent="StatPanel/HPAura"]
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme = SubResource("Theme_6a5ly")
 value = 100.0
 rounded = true
@@ -732,9 +733,10 @@ text = "AP
 "
 
 [node name="Aura" type="ProgressBar" parent="StatPanel/HPAura"]
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme = SubResource("Theme_0678k")
 value = 47.0
 rounded = true
@@ -764,24 +766,8 @@ size_flags_vertical = 3
 theme = SubResource("Theme_6a5ly")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x8e35")
 max_value = 2.0
+step = 0.1
 value = 1.8
-show_percentage = false
-
-[node name="DefText" type="Label" parent="StatPanel/StatBars"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_fonts/font = SubResource("FontVariation_maora")
-theme_override_font_sizes/font_size = 32
-text = "Defence"
-
-[node name="Defence" type="ProgressBar" parent="StatPanel/StatBars"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource("Theme_6a5ly")
-theme_override_styles/fill = SubResource("StyleBoxFlat_bq2a2")
-max_value = 2.0
-value = 0.8
 show_percentage = false
 
 [node name="MagText" type="Label" parent="StatPanel/StatBars"]
@@ -798,8 +784,26 @@ size_flags_vertical = 3
 theme = SubResource("Theme_6a5ly")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ammfk")
 max_value = 2.0
-value = 1.0
-rounded = true
+step = 0.1
+value = 1.1
+show_percentage = false
+
+[node name="DefText" type="Label" parent="StatPanel/StatBars"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = SubResource("FontVariation_maora")
+theme_override_font_sizes/font_size = 32
+text = "Defence"
+
+[node name="Defence" type="ProgressBar" parent="StatPanel/StatBars"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_6a5ly")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bq2a2")
+max_value = 2.0
+step = 0.1
+value = 0.8
 show_percentage = false
 
 [node name="Weapon" type="HBoxContainer" parent="StatPanel"]
@@ -868,11 +872,11 @@ focus_mode = 0
 theme = SubResource("Theme_sbfw5")
 theme_override_fonts/font = ExtResource("3_cwuly")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eob7a")
 theme_override_styles/hover = SubResource("StyleBoxFlat_eob7a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_eob7a")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_eob7a")
-theme_override_styles/focus = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_eob7a")
 text = "Attack"
 alignment = 0
 expand_icon = true
@@ -990,11 +994,11 @@ theme = SubResource("Theme_xfsfw")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_fjapk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fjapk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_y8j2a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_y8j2a")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_fjapk")
-theme_override_styles/focus = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fjapk")
 text = "Ability Name"
 alignment = 0
 expand_icon = true
@@ -1034,9 +1038,9 @@ pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_03e00")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_d52i0")
 shortcut_in_tooltip = false
@@ -1058,9 +1062,9 @@ pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_48usk")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_6q7i3")
 shortcut_in_tooltip = false

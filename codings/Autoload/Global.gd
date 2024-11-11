@@ -360,6 +360,7 @@ func heal_party() -> void:
 		i.full_heal()
 
 func reset_all_members() -> void:
+	init_party(Party)
 	for i in range(-1, Members.size() - 1):
 		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
 	Party.set_to(Party)

@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://cwah0an2o3u15"]
+
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_7s2jl"]
+[ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
+[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
+[ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
+[ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="4_iesjw"]
+[ext_resource type="Texture2D" uid="uid://dq5adft1l2ps6" path="res://art/Renders/Daze.png" id="5_vfc7p"]
+[ext_resource type="Texture2D" uid="uid://cpa524u27e733" path="res://UI/Party/DazeShadow.png" id="6_kpp4a"]
+[ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
+
+[sub_resource type="Resource" id="Resource_v2ahk"]
+script = ExtResource("3_vnjlu")
+Bord1 = Color(0.835294, 0.839216, 0.392157, 1)
+Bord2 = Color(0.514254, 0.547661, 0.317093, 1)
+Bord3 = Color(0.227689, 0.244008, 0.144401, 1)
+AudioFrequency = 0
+PitchVariance = 0.0
+
+[resource]
+script = ExtResource("3_g8t8l")
+FirstName = "Daze"
+MainColor = Color(0.834158, 0.839916, 0.393666, 1)
+PartyIcon = ExtResource("4_ddwib")
+ActorClass = "Tank"
+codename = &"Daze"
+Pronouns = Array[String](["he", "him", "his", "himself"])
+WeaponPower = 48
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("3_g8t8l")]([])
+SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
+BoxProfile = SubResource("Resource_v2ahk")
+LastName = ""
+Weapon = "Gold-trimmed Katana"
+Controllable = false
+HpOnSLvUp = 30
+ApOnSLvUP = 8
+RenderArtwork = ExtResource("5_vfc7p")
+RenderShadow = ExtResource("6_kpp4a")
+MaxHP = 220
+MaxAura = 70
+Attack = 0.7
+Magic = 1.3
+Defence = 1.7
+Speed = 3.0
+Health = 220
+Aura = 70
+SkillLevel = 18
+SkillPoints = 21
+SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 80, 70, 72])
+Abilities = Array[ExtResource("1_3ecv6")]([])
+StandardAttack = ExtResource("9_l2o8n")
+LearnableAbilities = Array[ExtResource("1_3ecv6")]([])
+OV = ExtResource("4_iesjw")
+BT = ExtResource("2_awx47")
+Offset = Vector2(0, 0)
+Shadow = true
+ShadowOffset = 2
+SoundSet = ExtResource("2_7s2jl")
+Disappear = true
+GlowDef = 0.3
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false

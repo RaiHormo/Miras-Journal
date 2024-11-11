@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://d3fmjjobglnvn"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_5qxi8"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_ddb6i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnv5i"]
+atlas = ExtResource("1_5qxi8")
+region = Rect2(36, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_ddb6i")
+name = "Scarf slice"
+description = "The part that hurts is the magic surrounding it. Hits 3 times, each can miss or be critical."
+Icon = SubResource("AtlasTexture_lnv5i")
+ActionSequence = &"AttackAsteria"
+Type = "CheapAttack"
+InflictsState = ""
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 6
+Parameter = 0.0
+Target = 1
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = true
+WheelColor = Color(0.878431, 0.45098, 0.854902, 1)
+Callout = false
+SucessChance = 0.8
+CritChance = 0.2
+RecoverAura = true
+DmgVarience = true

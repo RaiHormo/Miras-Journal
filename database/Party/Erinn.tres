@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://css4l7jfuhb4v"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://css4l7jfuhb4v"]
 
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_gxbro"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_knk13"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="1_vkgex"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/OV/Erinn/ErinnOV.tres" id="1_vt7ec"]
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
@@ -18,10 +19,6 @@ ActorClass = ""
 codename = &"Erinn"
 Pronouns = Array[String](["he", "him", "his", "himself"])
 WeaponPower = 24
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
 IsEnemy = false
 RecivedSP = 0
 SummonedAllies = Array[ExtResource("1_gxbro")]([])
@@ -30,6 +27,8 @@ BoxProfile = ExtResource("1_vkgex")
 LastName = "Levenor"
 Weapon = ""
 Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
 RenderArtwork = ExtResource("3_71qsx")
 RenderShadow = ExtResource("4_1tt4d")
 MaxHP = 85
@@ -43,15 +42,21 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+Abilities = Array[ExtResource("1_knk13")]([])
 StandardAttack = ExtResource("7_eppa1")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_knk13")]([])
 OV = ExtResource("1_vt7ec")
 Offset = Vector2(0, 0)
-Shadow = false
+Shadow = true
+ShadowOffset = 4
 SoundSet = ExtResource("6_8ml7j")
 Disappear = false
 GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
 DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false

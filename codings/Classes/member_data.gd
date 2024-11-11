@@ -100,6 +100,7 @@ var SpeedBoost: int = 0
 ##Whether the shadow sprite should be drawn, preferable for humanoid characters
 @export var Shadow: bool = false
 ##A scene containing the sound effects for this actor
+@export var ShadowOffset: int = 0
 @export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true

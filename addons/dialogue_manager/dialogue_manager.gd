@@ -60,9 +60,9 @@ var translation_source: TranslationSource = TranslationSource.Guess
 
 ## Used to resolve the current scene. Override if your game manages the current scene itself.
 var get_current_scene: Callable = func():
-	var current_scene: Node = get_tree().current_scene
+	var current_scene: Node = Engine.get_main_loop().current_scene
 	if current_scene == null:
-		current_scene = get_tree().root.get_child(get_tree().root.get_child_count() - 1)
+		current_scene = Engine.get_main_loop().root.get_child(Engine.get_main_loop().root.get_child_count() - 1)
 	return current_scene
 
 var _has_loaded_autoloads: bool = false
@@ -100,7 +100,7 @@ func get_next_dialogue_line(resource: DialogueResource, key: String = "", extra_
 
 	# Inject any "using" states into the game_states
 	for state_name in resource.using_states:
-		var autoload = get_tree().root.get_node_or_null(state_name)
+		var autoload = Engine.get_main_loop().root.get_node_or_null(state_name)
 		if autoload == null:
 			printerr(DialogueConstants.translate(&"runtime.unknown_autoload").format({ autoload = state_name }))
 		else:
@@ -309,9 +309,13 @@ func _get_dotnet_dialogue_manager() -> Node:
 	return load(get_script().resource_path.get_base_dir() + "/DialogueManager.cs").new()
 
 
+func _bridge_get_new_instance() -> Node:
+	return new()
+
+
 func _bridge_get_next_dialogue_line(resource: DialogueResource, key: String, extra_game_states: Array = []) -> void:
 	# dotnet needs at least one await tick of the signal gets called too quickly
-	await get_tree().process_frame
+	await Engine.get_main_loop().process_frame
 
 	var line = await get_next_dialogue_line(resource, key, extra_game_states)
 	bridge_get_next_dialogue_line_completed.emit(line)
@@ -422,7 +426,7 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 			id_trail = "|" + next_line.next_id_after + id_trail
 
 		# If the next line is a title then check where it points to see if that is a set of responses.
-		if next_line.type == DialogueConstants.TYPE_GOTO and resource.lines.has(next_line.next_id):
+		while [DialogueConstants.TYPE_TITLE, DialogueConstants.TYPE_GOTO].has(next_line.type) and resource.lines.has(next_line.next_id):
 			next_line = resource.lines.get(next_line.next_id)
 
 		if next_line != null and next_line.type == DialogueConstants.TYPE_RESPONSE:
@@ -541,17 +545,17 @@ func get_game_states(extra_game_states: Array) -> Array:
 	if not _has_loaded_autoloads:
 		_has_loaded_autoloads = true
 		# Add any autoloads to a generic state so we can refer to them by name
-		for child in get_tree().root.get_children():
+		for child in Engine.get_main_loop().root.get_children():
 			# Ignore the dialogue manager
 			if child.name == &"DialogueManager": continue
 			# Ignore the current main scene
-			if get_tree().current_scene and child.name == get_tree().current_scene.name: continue
+			if Engine.get_main_loop().current_scene and child.name == Engine.get_main_loop().current_scene.name: continue
 			# Add the node to our known autoloads
 			_autoloads[child.name] = child
 		game_states = [_autoloads]
 		# Add any other state shortcuts from settings
 		for node_name in DialogueSettings.get_setting(&"states", []):
-			var state: Node = get_node_or_null("/root/" + node_name)
+			var state: Node = Engine.get_main_loop().root.get_node_or_null(node_name)
 			if state:
 				game_states.append(state)
 
@@ -581,12 +585,12 @@ func mutate(mutation: Dictionary, extra_game_states: Array, is_inline_mutation: 
 		match expression[0].function:
 			&"wait":
 				mutated.emit(mutation)
-				await get_tree().create_timer(float(args[0])).timeout
+				await Engine.get_main_loop().create_timer(float(args[0])).timeout
 				return
 
 			&"debug":
 				prints("Debug:", args)
-				await get_tree().process_frame
+				await Engine.get_main_loop().process_frame
 
 	# Or pass through to the resolver
 	else:
@@ -600,7 +604,7 @@ func mutate(mutation: Dictionary, extra_game_states: Array, is_inline_mutation: 
 			resolve(mutation.expression.duplicate(true), extra_game_states)
 
 	# Wait one frame to give the dialogue handler a chance to yield
-	await get_tree().process_frame
+	await Engine.get_main_loop().process_frame
 
 
 func mutation_contains_assignment(mutation: Array) -> bool:
@@ -1247,7 +1251,7 @@ func resolve_thing_method(thing, method: String, args: Array):
 		var method_args: Array = method_info.args
 		if method_info.flags & METHOD_FLAG_VARARG == 0 and method_args.size() < args.size():
 			assert(false, DialogueConstants.translate(&"runtime.expected_n_got_n_args").format({ expected = method_args.size(), method = method, received = args.size()}))
-		for i in range(0, args.size()):
+		for i in range(0, min(method_args.size(), args.size())):
 			var m: Dictionary = method_args[i]
 			var to_type:int = typeof(args[i])
 			if m.type == TYPE_ARRAY:

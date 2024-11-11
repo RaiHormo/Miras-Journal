@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://5bc8qntxd2og"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_1iu1u"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_jb243"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kbea"]
+atlas = ExtResource("1_1iu1u")
+region = Rect2(18, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_jb243")
+name = "Sword slash"
+description = "A regular old sword swing. It's a hit or miss."
+Icon = SubResource("AtlasTexture_2kbea")
+ActionSequence = &"AttackDaze"
+Type = "CheapAttack"
+InflictsState = ""
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 6
+Parameter = 0.0
+Target = 1
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = true
+WheelColor = Color(0.835294, 0.839216, 0.392157, 1)
+Callout = false
+SucessChance = 0.92
+CritChance = 0.35
+RecoverAura = true
+DmgVarience = true

@@ -74,6 +74,7 @@ func overwrite_member(num:int, actor:Actor):
 func add(member: String):
 	overwrite_member(Global.number_of_party_members(), Global.find_member(member))
 	Global.check_party.emit()
+	print(member, " joins the party at position ", Global.find_member(member))
 
 func array() -> Array[Actor]:
 	return [Leader, Member1, Member2, Member3]

@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="10_rbofb"]
+[ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="10_pv6wp"]
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
 [ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
@@ -1556,10 +1556,8 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("10_rbofb")
-animation = &"FirstBattle"
-frame = 62
-frame_progress = 1.0
+sprite_frames = ExtResource("10_pv6wp")
+animation = &"Idle"
 offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]

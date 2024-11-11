@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://c7dagc4gevvwu"]
+
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
+[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="2_1fttk"]
+[ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_p1xdm"]
+[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_460rb"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_s4tb4"]
+[ext_resource type="Texture2D" uid="uid://daok3tmqcs2kf" path="res://art/Renders/Asteria.png" id="3_xi50h"]
+[ext_resource type="Texture2D" uid="uid://cs6iy5fy4wk68" path="res://UI/Party/AsteriaShadow.png" id="5_6is5u"]
+[ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
+
+[sub_resource type="Resource" id="Resource_wjadk"]
+script = ExtResource("2_1fttk")
+Bord1 = Color(0.560784, 0.258824, 0.266667, 1)
+Bord2 = Color(0.34, 0.2108, 0.219413, 1)
+Bord3 = Color(0.221895, 0.176534, 0.208414, 1)
+AudioFrequency = 0
+PitchVariance = 0.0
+
+[resource]
+script = ExtResource("3_s4tb4")
+FirstName = "Asteria"
+MainColor = Color(0.56, 0.2576, 0.26768, 1)
+PartyIcon = ExtResource("2_jl2mg")
+ActorClass = "Mage"
+codename = &"Asteria"
+Pronouns = Array[String](["she", "her", "her", "herself"])
+WeaponPower = 24
+IsEnemy = false
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("3_s4tb4")]([])
+SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
+BoxProfile = SubResource("Resource_wjadk")
+LastName = "Versea"
+Weapon = "Possessed Scarf"
+Controllable = false
+HpOnSLvUp = 22
+ApOnSLvUP = 20
+RenderArtwork = ExtResource("3_xi50h")
+RenderShadow = ExtResource("5_6is5u")
+MaxHP = 160
+MaxAura = 90
+Attack = 1.2
+Magic = 1.6
+Defence = 0.5
+Speed = 5.0
+Health = 160
+Aura = 90
+SkillLevel = 7
+SkillPoints = 16
+SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 49, 38, 42, 40])
+Abilities = Array[ExtResource("1_wfdm5")]([])
+StandardAttack = ExtResource("7_75i7m")
+LearnableAbilities = Array[ExtResource("1_wfdm5")]([])
+OV = ExtResource("3_460rb")
+Offset = Vector2(0, 0)
+Shadow = true
+ShadowOffset = 0
+SoundSet = ExtResource("2_p1xdm")
+Disappear = true
+GlowDef = 0.3
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false

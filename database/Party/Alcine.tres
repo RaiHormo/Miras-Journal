@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://5dk5u2y85kai"]
 
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_l356q"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_o1wey"]
 [ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_2vyew"]
 [ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="2_3o6lq"]
@@ -20,7 +21,7 @@ PartyIcon = ExtResource("1_by5ga")
 ActorClass = "Support"
 codename = &"Alcine"
 Pronouns = Array[String](["they", "them", "their", "themself"])
-WeaponPower = 12
+WeaponPower = 14
 IsEnemy = false
 RecivedSP = 0
 SummonedAllies = Array[ExtResource("1_o1wey")]([])
@@ -29,13 +30,15 @@ BoxProfile = ExtResource("4_roarn")
 LastName = ""
 Weapon = "Arms?"
 Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
 RenderArtwork = ExtResource("7_infcy")
 RenderShadow = ExtResource("8_yatxu")
 PartyPage = ExtResource("6_ge3df")
 MaxHP = 80
 MaxAura = 30
 Attack = 0.4
-Magic = 1.4
+Magic = 1.6
 Defence = 0.8
 Speed = 4.0
 Health = 90
@@ -43,13 +46,14 @@ Aura = 90
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([1, 40, 63, 79, 86, 97, 110, 138, 153, 170])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("2_2vyew")])
+Abilities = Array[ExtResource("1_l356q")]([ExtResource("2_2vyew")])
 StandardAttack = ExtResource("2_3o6lq")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_l356q")]([])
 OV = ExtResource("1_3dlsp")
 BT = ExtResource("1_8ee1b")
 Offset = Vector2(-3, -15)
-Shadow = false
+Shadow = true
+ShadowOffset = 1
 SoundSet = ExtResource("6_bqqs6")
 Disappear = false
 GlowDef = 0.3

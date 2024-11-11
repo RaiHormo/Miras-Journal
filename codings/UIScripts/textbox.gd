@@ -277,7 +277,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
 		Global.confirm_sound()
-	elif event.is_action_pressed(Global.confirm()) and item in get_responses():
+	elif event.is_action_pressed("DialogNext") and item in get_responses():
 		Global.confirm_sound()
 		t = create_tween()
 		t.set_parallel()
@@ -312,7 +312,7 @@ func _input(event: InputEvent) -> void:
 					Event.skip_cutscene()
 					_on_close()
 				else: Global.toast("Hold the button down to skip")
-		elif event.is_pressed() and not event.is_action("ui_accept") and is_waiting_for_input:
+		elif event.is_pressed() and not event.is_action("DialogNext") and is_waiting_for_input:
 			#print(event)
 			$Hints/Skip.icon = Global.get_controller().Dash
 			$Hints/Advance.icon = Global.get_controller().ConfirmIcon
@@ -335,7 +335,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		next(dialogue_line.next_id)
-	elif (event.is_action_pressed(Global.confirm())) and get_viewport().gui_get_focus_owner() == balloon:
+	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 func draw_portrait() -> void:

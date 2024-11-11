@@ -44,12 +44,15 @@ func _ready():
 	if SpawnPlayer:
 		var Player = preload("res://codings/Mira.tscn").instantiate()
 		SpawnPath.add_child(Player)
+		var dist = 30
 		for i in range(1,4):
 			var follower = preload("res://codings/Follower.tscn").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
+			follower.distance = dist
 			Followers.append(follower)
 			SpawnPath.add_child(follower)
+			dist += 25
 		move_child(Player, 0)
 	Global.Area = self
 	Global.Area = self

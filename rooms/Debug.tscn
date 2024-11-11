@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=70 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://codings/Interactions/Breakable.tscn" id="14_bhjcf"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="15_o1gjb"]
 [ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
-[ext_resource type="Texture2D" uid="uid://dtee0q3ripskh" path="res://art/OV/Daze/DazeOV.pngBase.png" id="17_svvnn"]
+[ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
 [ext_resource type="Texture2D" uid="uid://bqnw5nbcqpq4l" path="res://art/OV/Asteria/AsteriaOV.pngLayer 1.png" id="19_ws2j7"]
 
@@ -515,169 +515,6 @@ size = Vector2(21, 68)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hnwxw"]
 size = Vector2(68.0005, 23)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_84cri"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(0, 0, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_px7cs"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(32, 0, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l11or"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(96, 72, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hf667"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(0, 108, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_msrym"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(64, 0, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uujt3"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(96, 0, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f8ugm"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(0, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_72gid"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(32, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0urkf"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(64, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5by44"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(96, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7qebp"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(0, 72, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgj2y"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(32, 72, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g8hl2"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(64, 72, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u88p4"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(32, 108, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fmw1c"]
-atlas = ExtResource("17_svvnn")
-region = Rect2(64, 108, 32, 36)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5oqvy"]
-animations = [{
-"frames": [{
-"duration": 12.0,
-"texture": SubResource("AtlasTexture_84cri")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_px7cs")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l11or")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l11or")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l11or")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l11or")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l11or")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hf667")
-}],
-"loop": true,
-"name": &"IdleLeft",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_msrym")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_msrym")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_msrym")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_msrym")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_msrym")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uujt3")
-}],
-"loop": true,
-"name": &"IdleRight",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f8ugm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_72gid")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0urkf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5by44")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7qebp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bgj2y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g8hl2")
-}],
-"loop": true,
-"name": &"IdleUp",
-"speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u88p4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84cri")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fmw1c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84cri")
-}],
-"loop": true,
-"name": &"WalkDown",
-"speed": 4.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
 
@@ -938,10 +775,10 @@ motion_mode = 1
 script = ExtResource("10_yq8yv")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Daze"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9QmFzZQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvRGF6ZS8Kb19uYW1lfD1EYXplT1YucG5nCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0RhemUvCm9fbmFtZXw9RGF6ZU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_5oqvy")
-animation = &"IdleDown"
+sprite_frames = ExtResource("17_en1a7")
+animation = &"WalkUp"
 
 [node name="Shadow" type="Sprite2D" parent="Daze"]
 unique_name_in_owner = true

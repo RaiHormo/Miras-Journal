@@ -66,6 +66,10 @@ What to do?
 		do Party.add("Mira")
 	- Alcine
 		do Party.add("Alcine")
+	- Daze
+		do Party.add("Daze")
+	- Asteria
+		do Party.add("Asteria")
 	- Erinn
 		do Party.add("Erinn")
 - Clear party

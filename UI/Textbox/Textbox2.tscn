@@ -476,7 +476,7 @@ theme_override_font_sizes/normal_font_size = 39
 text = "The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
 script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
-skip_action = &"Dash"
+skip_action = &"DialogNext"
 pause_at_characters = ".?!,"
 skip_pause_at_abbreviations = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 

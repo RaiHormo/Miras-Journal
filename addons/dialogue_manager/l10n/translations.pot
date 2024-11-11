@@ -14,6 +14,9 @@ msgstr ""
 msgid "open.open"
 msgstr ""
 
+msgid "open.quick_open"
+msgstr ""
+
 msgid "open.no_recent_files"
 msgstr ""
 
@@ -282,9 +285,6 @@ msgid "errors.empty_title"
 msgstr ""
 
 msgid "errors.duplicate_title"
-msgstr ""
-
-msgid "errors.nested_title"
 msgstr ""
 
 msgid "errors.invalid_title_string"

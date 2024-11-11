@@ -52,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 			speed = max(30, Global.Player.RealVelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
-		elif nav_agent.distance_to_target() < 20 and Global.Controllable:
+		elif nav_agent.distance_to_target() < 18 and Global.Controllable:
 			add_collision_exception_with(Global.Player)
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
@@ -80,6 +80,12 @@ func animate():
 	if not Global.check_member(member): return
 	if $AnimatedSprite2D.sprite_frames != member_info().OV:
 		$AnimatedSprite2D.sprite_frames = member_info().OV
+	if $AnimatedSprite2D.animation != "default":
+		if member_info().Shadow:
+			$AnimatedSprite2D/Shadow.position.y = $AnimatedSprite2D.sprite_frames.get_frame_texture($AnimatedSprite2D.animation, 0).get_size().y - 32 - member_info().ShadowOffset
+			print($AnimatedSprite2D/Shadow.position.y)
+			$AnimatedSprite2D/Shadow.show()
+		else: $AnimatedSprite2D/Shadow.hide()
 	if RealVelocity.x == RealVelocity.y:
 		pass
 	elif not moving:
