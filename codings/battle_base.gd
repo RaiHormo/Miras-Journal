@@ -103,10 +103,10 @@ func _ready():
 		i.NextAction = ""
 		i.BattleLog.clear()
 	position_sprites()
-	turn_ui_init()
 	if is_instance_valid(Loader.Attacker): Loader.Attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
 	TurnOrder.sort_custom(speed_sort)
+	turn_ui_init()
 	for i in TurnOrder:
 		print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	await entrance()
@@ -165,13 +165,13 @@ func position_sprites():
 			$Act/Actor2.show()
 			$Act/Actor2.position = Vector2(-45,55)
 		4:
-			$Act/Actor0.position = Vector2(-45,-35)
+			$Act/Actor0.position = Vector2(-20,-40)
 			$Act/Actor1.show()
-			$Act/Actor1.position = Vector2(-45,0)
+			$Act/Actor1.position = Vector2(-45,-15)
 			$Act/Actor2.show()
-			$Act/Actor2.position = Vector2(-45,35)
+			$Act/Actor2.position = Vector2(-20,15)
 			$Act/Actor3.show()
-			$Act/Actor3.position = Vector2(-45,70)
+			$Act/Actor3.position = Vector2(-45,40)
 
 	match Troop.size():
 		1:
@@ -251,6 +251,7 @@ func entrance():
 	await Event.wait(0.5, false)
 	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
 	PartyUI.battle_state(true)
+	PartyUI.save_box_positions()
 	await Event.wait(0.7, false)
 	if Seq.EntranceSequence == "": next_turn.emit()
 

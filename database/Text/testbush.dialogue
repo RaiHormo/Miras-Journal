@@ -51,6 +51,9 @@ Where to go?
 		do travel_to("Amberelm", Vector2(155, 347), 0, 7)
 	- Entrance
 		do travel_to("Amberelm", Vector2(0, 0), 1)
+- Shard Gardens
+	- Start
+		do travel_to("ShardGardens")
 => END
 
 ~ greetings

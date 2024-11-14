@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqnw5nbcqpq4l"
-path="res://.godot/imported/AsteriaOV.pngLayer 1.png-8626449cad91d7bb5ebafcd4ed2b2481.ctex"
+uid="uid://81tshj45pio3"
+path="res://.godot/imported/SoulsLike.png-54b973a7065250289c43b8104e277a43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/OV/Asteria/AsteriaOV.pngLayer 1.png"
-dest_files=["res://.godot/imported/AsteriaOV.pngLayer 1.png-8626449cad91d7bb5ebafcd4ed2b2481.ctex"]
+source_file="res://art/Journal/Auras/SoulsLike.png"
+dest_files=["res://.godot/imported/SoulsLike.png-54b973a7065250289c43b8104e277a43.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=2

@@ -5,6 +5,8 @@ var PinRange = false
 var lock = false
 var homepoints: Array[Vector2]
 @export var give_up_after := 3
+@export var patrol_speed = 20
+@export var chase_speed = 40
 var tmr: SceneTreeTimer
 
 func default():
@@ -21,7 +23,6 @@ func patrol():
 	Loader.chased = false
 	PinRange = false
 	if not Loader.InBattle: Loader.battle_bars(0)
-	speed = 20
 	if not homepoints.is_empty():
 		while not PinRange:
 			if Loader.InBattle:
@@ -29,7 +30,8 @@ func patrol():
 			else:
 				show()
 				$Collision.set_deferred("disabled", true)
-				await go_to(homepoints.pick_random(), false)
+				speed = patrol_speed
+				await go_to(homepoints.pick_random(), false, false, Vector2.ZERO, 20)
 			var tmr = get_tree().create_timer(randf_range(0,3))
 			while tmr.time_left != 0: 
 				if stopping: return
@@ -47,12 +49,9 @@ func extended_process():
 			#print(to_local(Nav.get_next_path_position()).normalized())
 			BodyState = CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
-				speed = 40
 				Nav.set_target_position(Global.Player.position)
 				if  tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.set_time_left(2)
-			else: 
-				speed = 30
 			if Global.get_direction(to_local(Nav.get_next_path_position())) != -Global.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
@@ -62,7 +61,6 @@ func _on_finder_body_entered(body):
 	if body == Global.Player and not PinRange and not Loader.chased:
 		stopping = true
 		Loader.chase_mode()
-		speed = 40
 		Loader.battle_bars(1)
 		BodyState = IDLE
 		set_dir_marker(to_local(Global.Player.global_position))
@@ -71,6 +69,7 @@ func _on_finder_body_entered(body):
 		await Event.wait(0.8)
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
 		Nav.set_target_position(Global.Player.position)
+		speed = chase_speed
 		set_dir_marker(to_local(Global.Player.global_position))
 		await Event.wait()
 		#if not Global.Player in $DirectionMarker/Finder.get_overlapping_bodies() or not Nav.is_target_reachable():

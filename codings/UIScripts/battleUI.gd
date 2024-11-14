@@ -104,7 +104,7 @@ func _on_battle_get_control():
 	t.tween_property($Item, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property($Command, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
 	t.tween_property(self, "rotation_degrees", -720, 0.5).from(360)
-	t.tween_property(self, "scale", Vector2(1.1,1.1), 0.5).from(Vector2(0.25,0.25))
+	t.tween_property(self, "scale", Vector2(1,1), 0.5).from(Vector2(0.25,0.25))
 	$BaseRing.scale= Vector2(0.25,0.25)
 	$BaseRing/Ring2.scale = Vector2(1,1)
 #	$Ability.size = Vector2(33, 33)
@@ -282,7 +282,7 @@ func _on_root():
 	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2(0,0), 0.3)
-	t.tween_property(self, "scale", Vector2(1.1,1.1), 0.3)
+	t.tween_property(self, "scale", Vector2(1,1), 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.5)
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
@@ -627,6 +627,7 @@ func get_target(faction:Array[Actor]):
 	target.node.position.y /4), 0.5)
 	emit_signal('targetFoc', faction[TargetIndex])
 	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
+	PartyUI.show_all()
 	await t.finished
 	stage = &"target"
 	while stage == &"target":

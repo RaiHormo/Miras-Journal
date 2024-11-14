@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=68 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
-[ext_resource type="Texture2D" uid="uid://bqnw5nbcqpq4l" path="res://art/OV/Asteria/AsteriaOV.pngLayer 1.png" id="19_ws2j7"]
+[ext_resource type="SpriteFrames" uid="uid://cg23ydi7trxev" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("2_6ip0u")
@@ -518,21 +518,6 @@ size = Vector2(68.0005, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_di2w0"]
-atlas = ExtResource("19_ws2j7")
-region = Rect2(0, 0, 32, 36)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1xwcf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_di2w0")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 10.0
-}]
-
 [node name="Area" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
@@ -813,10 +798,10 @@ motion_mode = 1
 script = ExtResource("10_yq8yv")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Asteria"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0FzdGVyaWEvCm9fbmFtZXw9QXN0ZXJpYU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvQXN0ZXJpYS8Kb19uYW1lfD1Bc3RlcmlhT1YyLnBuZwpvbmx5X3Zpc2libGV8PXRydWUKb19leF9wfD0K"
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_1xwcf")
-animation = &"IdleDown"
+sprite_frames = ExtResource("19_tuy8d")
+animation = &"IdleUp"
 
 [node name="Shadow" type="Sprite2D" parent="Asteria"]
 show_behind_parent = true

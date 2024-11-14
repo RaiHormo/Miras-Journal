@@ -67,6 +67,7 @@ func _physics_process(delta) -> void:
 			move_and_collide(velocity*delta)
 		IDLE:
 			direction = Vector2.ZERO
+			position = round(position)
 			move_and_collide(direction)
 		CONTROLLED:
 			control_process()
@@ -87,13 +88,12 @@ func set_dir_marker(vec: Vector2 = direction):
 
 func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return
-	if RealVelocity.length() > 1:
+	if RealVelocity.length() > 0.3:
 		#BodyState = MOVE
 		if str("Walk"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
 			$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
 	else:
 		#BodyState = IDLE
-		position = round(position)
 		if str("Idle"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
 			$Sprite.play(str("Idle"+Global.get_dir_name(Facing)))
 	if Footsteps: handle_step_sounds($Sprite)

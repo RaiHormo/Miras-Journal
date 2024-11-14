@@ -83,7 +83,7 @@ func animate():
 	if $AnimatedSprite2D.animation != "default":
 		if member_info().Shadow:
 			$AnimatedSprite2D/Shadow.position.y = $AnimatedSprite2D.sprite_frames.get_frame_texture($AnimatedSprite2D.animation, 0).get_size().y - 32 - member_info().ShadowOffset
-			print($AnimatedSprite2D/Shadow.position.y)
+			#print($AnimatedSprite2D/Shadow.position.y)
 			$AnimatedSprite2D/Shadow.show()
 		else: $AnimatedSprite2D/Shadow.hide()
 	if RealVelocity.x == RealVelocity.y:

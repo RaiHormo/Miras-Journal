@@ -46,6 +46,7 @@ LearnableAbilities = Array[ExtResource("1_llot4")]([])
 BT = ExtResource("1_aaqd2")
 Offset = Vector2(3, -14)
 Shadow = false
+ShadowOffset = 0
 SoundSet = ExtResource("1_pprw7")
 Disappear = true
 GlowDef = 0.3

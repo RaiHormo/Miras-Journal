@@ -1,14 +1,31 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://c7dagc4gevvwu"]
+[gd_resource type="Resource" script_class="Actor" load_steps=15 format=3 uid="uid://c7dagc4gevvwu"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
 [ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="2_1fttk"]
+[ext_resource type="Texture2D" uid="uid://x3lb1nluygfp" path="res://art/BT/Asteria/AsteriaBt.png" id="2_5j7pm"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_p1xdm"]
-[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_460rb"]
+[ext_resource type="SpriteFrames" uid="uid://d1jyiatu8a2uo" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_rxi2h"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_s4tb4"]
 [ext_resource type="Texture2D" uid="uid://daok3tmqcs2kf" path="res://art/Renders/Asteria.png" id="3_xi50h"]
+[ext_resource type="Texture2D" uid="uid://81tshj45pio3" path="res://art/Journal/Auras/SoulsLike.png" id="5_0j8vf"]
 [ext_resource type="Texture2D" uid="uid://cs6iy5fy4wk68" path="res://UI/Party/AsteriaShadow.png" id="5_6is5u"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_murgj"]
+atlas = ExtResource("2_5j7pm")
+region = Rect2(0, 0, 116, 58)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c0dvx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_murgj")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="Resource" id="Resource_wjadk"]
 script = ExtResource("2_1fttk")
@@ -34,17 +51,18 @@ SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
 BoxProfile = SubResource("Resource_wjadk")
 LastName = "Versea"
 Weapon = "Possessed Scarf"
-Controllable = false
+Controllable = true
 HpOnSLvUp = 22
 ApOnSLvUP = 20
 RenderArtwork = ExtResource("3_xi50h")
 RenderShadow = ExtResource("5_6is5u")
+PartyPage = ExtResource("5_0j8vf")
 MaxHP = 160
 MaxAura = 90
 Attack = 1.2
 Magic = 1.6
 Defence = 0.5
-Speed = 5.0
+Speed = 4.0
 Health = 160
 Aura = 90
 SkillLevel = 7
@@ -53,10 +71,11 @@ SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 49, 38, 42, 40])
 Abilities = Array[ExtResource("1_wfdm5")]([])
 StandardAttack = ExtResource("7_75i7m")
 LearnableAbilities = Array[ExtResource("1_wfdm5")]([])
-OV = ExtResource("3_460rb")
-Offset = Vector2(0, 0)
+OV = ExtResource("3_rxi2h")
+BT = SubResource("SpriteFrames_c0dvx")
+Offset = Vector2(4, -15)
 Shadow = true
-ShadowOffset = 0
+ShadowOffset = 2
 SoundSet = ExtResource("2_p1xdm")
 Disappear = true
 GlowDef = 0.3

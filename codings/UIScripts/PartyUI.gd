@@ -22,6 +22,7 @@ var submenu_opened := false
 var line_to_be_used: String
 var nametag_to_be_used: String
 var was_controllable = false
+var def_pos_partybox:Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
 
 func _ready():
 	$CanvasLayer.hide()
@@ -60,15 +61,18 @@ func show_all():
 	if disabled: return
 	UIvisible = true
 	visibly = true
+	#Partybox.queue_sort()
 	$CanvasLayer.show()
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
-	t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
-	for i in range(1, 4):
-		t.tween_property(Partybox.get_child(i), "position:x", -70, 0.2).set_delay(0.05)
+	if not Loader.InBattle: t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+	for i in range(0, 4):
+		if i != 0: t.tween_property(Partybox.get_child(i), "position:x", -70, 0.2).set_delay(0.05)
+		if Loader.InBattle and def_pos_partybox[i] != Vector2.ONE:
+			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
 func hide_all(animate = true):
 	UIvisible = false
@@ -239,6 +243,8 @@ func expand_panel(Pan:Panel, mem := 0):
 	t.tween_property(Pan.get_node("Health/HpText"), "position", Vector2(115, 1), 0.4)
 	t.tween_property(Pan.get_node("Aura/ApText"), "position", Vector2(115, 12), 0.4)
 	t.tween_property(Pan, "position:x", 0, 0.4)
+	await t.finished
+	Partybox.queue_sort()
 	#if mem != 0:
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
 
@@ -403,8 +409,15 @@ func battle_state(from:= false):
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
+			t.set_parallel()
 			t.tween_property(Partybox.get_child(i), "position:x", 0 if i==0 else -60, 0.3)
 		else: Partybox.get_child(i).hide()
+	for i in range(0, 4):
+		if def_pos_partybox[i] != Vector2.ONE:
+			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
+
+func save_box_positions():
+	for i in range(1, 4): def_pos_partybox[i] = Partybox.get_child(i).position
 
 func _on_battle_ui_root():
 	battle_state()
@@ -415,6 +428,8 @@ func only_current():
 	for i in range(0, 4):
 		if Global.Party.array()[i] == Global.Bt.CurrentChar:
 			t.tween_property(Partybox.get_child(i), "position:x", 0 if i == 0 else -70, 0.2)
+			if Global.Bt.CurrentChar != Global.Party.Leader:
+				t.tween_property(Partybox.get_child(i), "position:y", 20, 0.2)
 		else:
 			t.tween_property(Partybox.get_child(i), "position:x", -400, 0.2)
 
