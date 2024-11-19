@@ -434,7 +434,7 @@ func _on_save_overwrite() -> void:
 	panel.get_node("ProgressBar").modulate.a = 1
 
 func _on_save_load() -> void:
-	if stage != "save_managment": return
+	if stage != "save_managment" or not is_instance_valid(focus): return
 	var panel = focus.get_parent()
 	if "New" in panel.name: return
 	if not panel is PanelContainer:

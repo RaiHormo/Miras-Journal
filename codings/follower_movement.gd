@@ -22,7 +22,7 @@ func _ready():
 	move_and_slide()
 
 func _physics_process(_delta: float) -> void:
-	if Global.Player==null: return
+	if not is_instance_valid(Global.Player): return
 	if dont_follow:
 		direction = Vector2.ZERO
 		moving = false
@@ -37,9 +37,9 @@ func _physics_process(_delta: float) -> void:
 		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased:
 			$CollisionShape2D.disabled = true
-		if nav_agent.distance_to_target() > 150:
+		if to_local(Global.Player.position).length() > 150:
 				global_position = Global.Player.global_position
-		if round(nav_agent.distance_to_target()) > distance:
+		if to_local(Global.Player.position).length() > distance:
 			#$CollisionShape2D.disabled = false
 			if nav_agent.is_target_reachable():
 				direction = to_local(nav_agent.get_next_path_position()).normalized()
@@ -52,16 +52,13 @@ func _physics_process(_delta: float) -> void:
 			speed = max(30, Global.Player.RealVelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
-		elif nav_agent.distance_to_target() < 18 and Global.Controllable:
+		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
 			add_collision_exception_with(Global.Player)
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite
 			RealVelocity = Global.Player.direction
 			move_and_slide()
-		#if RealVelocity == Vector2.ZERO:
-			#position = round(position)
-		#print((global_position-oldposition).length())
 		if (global_position-oldposition).length() > 0.3:
 			moving =true
 			RealVelocity=global_position-oldposition
@@ -90,6 +87,7 @@ func animate():
 		pass
 	elif not moving:
 		var dir = Global.get_direction(RealVelocity)
+		position = round(position)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("IdleRight")
 		elif dir == Vector2.LEFT:

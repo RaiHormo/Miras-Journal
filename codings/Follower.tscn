@@ -22,7 +22,6 @@ fill_to = Vector2(0.852941, 0.894118)
 [node name="Follower" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(1, -5)
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
@@ -42,13 +41,13 @@ wait_time = 0.1
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 6)
+position = Vector2(1.19209e-07, -1.43051e-06)
 rotation = 1.56364
 shape = SubResource("CapsuleShape2D_xvt3h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 material = ExtResource("2_ppxuy")
-position = Vector2(-1, 5)
 sprite_frames = ExtResource("3_ocaa3")
 animation = &"WalkUp"
 offset = Vector2(0, -9)
@@ -56,7 +55,7 @@ offset = Vector2(0, -9)
 [node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
 show_behind_parent = true
 use_parent_material = true
-position = Vector2(0, -6)
+position = Vector2(0, -1)
 texture = ExtResource("4_qao14")
 
 [node name="Glow" type="PointLight2D" parent="."]

@@ -268,7 +268,7 @@ func stop_dash() -> void:
 		if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 20:
+	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 10:
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")

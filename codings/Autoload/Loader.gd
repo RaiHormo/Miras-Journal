@@ -291,6 +291,7 @@ func start_battle(stg, advantage := 0):
 	BtAdvantage = advantage
 	#Engine.time_scale = 0.1
 	PartyUI.hide_all()
+	Global.Player.camera_follow(false)
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
@@ -319,11 +320,12 @@ func start_battle(stg, advantage := 0):
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Follower:
-		if is_instance_valid(i): i.hide()
+		if is_instance_valid(i): 
+			i.hide()
+			i.global_position = Global.Player.position
 	#InBattle = true
 
 func end_battle():
-	Global.get_cam().zoom = CamZoom
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
 		Loader.battle_bars(4)
@@ -334,39 +336,39 @@ func end_battle():
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_parallel()
-		t.tween_property(Global.Bt.get_node("Cam"), "global_position", Global.get_cam().global_position, 0.5)
-		t.tween_property(Global.Bt.get_node("Cam"), "zoom", CamZoom, 0.5 )
+		#Engine.time_scale = 0.1
+		Global.Area.setup_params(true)
 		for i in Global.Bt.TurnOrder:
 			t.tween_property(i.node.get_node("Glow"), "energy", 0, 0.3)
+		Global.Bt.get_node("Background").material = null
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		hide_victory_stuff()
-		await t.finished
 	InBattle = false
 	battle_end.emit()
+	
 	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:
 		if i and Global.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
 	if is_instance_valid(Global.Bt): Global.Bt.get_node("Act").hide()
+	
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
+	
 	if is_instance_valid(Attacker) and BattleResult != 1: Attacker.show()
 	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:
 		Attacker.defeat()
+	
 	Global.Controllable = false
 	battle_bars(0)
-	get_tree().paused = false
-	for i in Global.Area.Followers:
-		i.dont_follow = false
 	if is_instance_valid(Global.Player):
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	PartyUI.UIvisible=true
-	Global.Controllable = true
+	Event.give_control(true)
 	PartyUI._on_shrink()
-	#Global.get_cam().position_smoothing_enabled = true
 
 func icon_save():
 	t=create_tween()
@@ -423,7 +425,7 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	t.set_trans(Tween.TRANS_QUART)
 	match x:
 		0:
-			t.tween_property(Global.get_cam(), "zoom", CamZoom, 1)
+			#t.tween_property(Global.get_cam(), "zoom", CamZoom, 1)
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), time)
 		1:
@@ -439,7 +441,7 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-850), time)
 			#t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.7), time*2)
 		4:
-			t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), time)
+			#t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), time)
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
 			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)

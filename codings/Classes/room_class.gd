@@ -59,6 +59,8 @@ func _ready():
 	await Global.player_ready
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)
+		for i in Followers:
+			i.position = Global.Player.position - Vector2(i.distance, 0)
 		handle_z()
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers
@@ -67,6 +69,10 @@ func _ready():
 	default()
 
 func setup_params(tween_zoom = false):
+	Cam.limit_smoothed = true
+	Cam.position_smoothing_enabled = true
+	Cam.position_smoothing_speed = 10
+	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	var zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
 	if tween_zoom:
 		var t = create_tween()
@@ -75,10 +81,6 @@ func setup_params(tween_zoom = false):
 		t.tween_property(Cam, "zoom", zoom, 0.3)
 	else:
 		Cam.zoom = zoom
-	Cam.limit_smoothed = true
-	Cam.position_smoothing_enabled = true
-	Cam.position_smoothing_speed = 10
-	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func default():
 	pass

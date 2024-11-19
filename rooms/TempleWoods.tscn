@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=4 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=124 format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -11,8 +11,8 @@
 [ext_resource type="Script" path="res://codings/StoryEvents/FirstBattle.gd" id="9_plovl"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://codings/WanderingEnemy.tscn" id="10_rx6j2"]
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="11_1cjwu"]
+[ext_resource type="SpriteFrames" uid="uid://b055ruwx6wcb8" path="res://art/OV/Enemies/GenericEnemy.tres" id="12_1q04t"]
 [ext_resource type="Resource" uid="uid://c2cqusickawh0" path="res://database/BattleSeq/SludgeBattle3.tres" id="13_812cc"]
-[ext_resource type="Texture2D" uid="uid://bvfnckapn0hdd" path="res://art/OV/Enemies/CrawlingSludgeOV.png" id="13_q27vv"]
 [ext_resource type="Resource" uid="uid://c81ribbmkkgh8" path="res://database/BattleSeq/SludgeBattle2.tres" id="14_hs8tf"]
 [ext_resource type="Shader" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
 [ext_resource type="Script" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
@@ -74,89 +74,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1383.03, 148.684, 1432.
 source_geometry_mode = 1
 source_geometry_group_name = &"TileMap"
 agent_radius = 5.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rluqx"]
-atlas = ExtResource("13_q27vv")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cck2v"]
-atlas = ExtResource("13_q27vv")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kq7yx"]
-atlas = ExtResource("13_q27vv")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_brei1"]
-atlas = ExtResource("13_q27vv")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ewsox"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"IdleLeft",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"IdleRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"IdleUp",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"WalkDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"WalkLeft",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"WalkRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"WalkUp",
-"speed": 5.0
-}]
 
 [sub_resource type="Gradient" id="Gradient_pqoya"]
 interpolation_mode = 2
@@ -872,8 +789,8 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_ewsox")
-animation = &"WalkLeft"
+sprite_frames = ExtResource("12_1q04t")
+animation = &"IdleUp"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge4" parent="." instance=ExtResource("10_rx6j2")]
@@ -902,8 +819,8 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.999999, 0.998776)
-sprite_frames = SubResource("SpriteFrames_ewsox")
-animation = &"WalkLeft"
+sprite_frames = ExtResource("12_1q04t")
+animation = &"IdleUp"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge3" parent="." instance=ExtResource("10_rx6j2")]
@@ -938,8 +855,8 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_ewsox")
-animation = &"WalkLeft"
+sprite_frames = ExtResource("12_1q04t")
+animation = &"IdleUp"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="CrawlingSludge5" parent="." instance=ExtResource("10_rx6j2")]
@@ -964,8 +881,8 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_ewsox")
-animation = &"WalkLeft"
+sprite_frames = ExtResource("12_1q04t")
+animation = &"WalkUp"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="Lights" type="Node2D" parent="."]

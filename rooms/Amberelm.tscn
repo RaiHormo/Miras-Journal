@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=4 uid="uid://jbqc6bbxg02s"]
+[gd_scene load_steps=86 format=4 uid="uid://jbqc6bbxg02s"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://exhrdcludfxg" path="res://art/OV/Objects/Crate.png" id="21_02kmm"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://codings/WanderingEnemy.tscn" id="22_wfemh"]
 [ext_resource type="Resource" uid="uid://dc4puru00jtto" path="res://database/BattleSeq/IronHook1.tres" id="23_gf563"]
-[ext_resource type="Texture2D" uid="uid://bvfnckapn0hdd" path="res://art/OV/Enemies/CrawlingSludgeOV.png" id="24_ee40o"]
+[ext_resource type="SpriteFrames" uid="uid://b055ruwx6wcb8" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://codings/Interactions/Ladder.tscn" id="25_vddgi"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2g78a"]
@@ -426,89 +426,6 @@ animations = [{
 vertices = PackedVector2Array(556.727, 399.93, 472, 405.344, 472, 328, 524, 328, 650.023, 333.852, 568.609, 237.031, 652.711, 238.789, 524, 253.031, 633.211, 416.133)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4, 3, 7), PackedInt32Array(4, 8, 0)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(462, 318, 462, 416, 556, 410, 641, 428, 660, 335, 663, 229, 567, 227, 514, 246, 514, 318)])
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rluqx"]
-atlas = ExtResource("24_ee40o")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cck2v"]
-atlas = ExtResource("24_ee40o")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kq7yx"]
-atlas = ExtResource("24_ee40o")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_brei1"]
-atlas = ExtResource("24_ee40o")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ewsox"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"IdleLeft",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"IdleRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"IdleUp",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rluqx")
-}],
-"loop": true,
-"name": &"WalkDown",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cck2v")
-}],
-"loop": true,
-"name": &"WalkLeft",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq7yx")
-}],
-"loop": true,
-"name": &"WalkRight",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_brei1")
-}],
-"loop": true,
-"name": &"WalkUp",
-"speed": 5.0
-}]
 
 [node name="Amberelm" type="Node2D"]
 y_sort_enabled = true
@@ -1180,8 +1097,9 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_ewsox")
-animation = &"WalkLeft"
+sprite_frames = ExtResource("24_2ksw5")
+animation = &"IdleDown"
+autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="Ladder1" parent="." instance=ExtResource("25_vddgi")]

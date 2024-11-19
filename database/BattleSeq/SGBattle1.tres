@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://chrk1phkqh7ah"]
+
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_w03q0"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_sjw21"]
+[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="3_35n3r"]
+[ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="3_tja4k"]
+[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_rw702"]
+
+[resource]
+script = ExtResource("4_rw702")
+Enemies = Array[ExtResource("2_sjw21")]([ExtResource("3_tja4k")])
+AdditionalItems = Array[ExtResource("1_w03q0")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2(28, 15)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(648, 504)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("3_35n3r")]([])

@@ -96,7 +96,7 @@ func _ready():
 			if not i.IsEnemy: i.SpeedBoost += 5
 	elif Loader.BtAdvantage == 2:
 		for i in TurnOrder:
-			if i.IsEnemy: i.SpeedBoost += 5
+			if i.IsEnemy: i.SpeedBoost += 10
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder:
 		sprite_init(i)
@@ -938,18 +938,14 @@ func victory(ignore_seq:= false):
 	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
+	await t.finished
 	if is_instance_valid(Global.Player):
 		Global.Player.global_position = $Act/Actor0.global_position
-		if Party.check_member(1):
-			Global.Area.get_node("Follower1"
-			).global_position = $Act/Actor1.global_position
-		if Party.check_member(2):
-			Global.Area.get_node("Follower3"
-			).global_position = $Act/Actor2.global_position
-		if Party.check_member(3):
-			Global.Area.get_node("Follower3"
-			).global_position = $Act/Actor3.global_position
-		Global.get_cam().global_position = Global.Player.global_position
+		for i in range(1, 4):
+			if Party.check_member(i):
+				Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
+		Global.get_cam().position = $Cam.global_position
+		Global.get_cam().zoom = $Cam.zoom
 
 func victory_show_items():
 	for i in $Canvas/VictoryItems.get_children():
