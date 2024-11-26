@@ -11,8 +11,8 @@
 [ext_resource type="Script" path="res://codings/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
+[ext_resource type="SpriteFrames" uid="uid://854ynmcdfk2k" path="res://art/BT/BurstParasite/BurstParasiteBT.tres" id="10_3kclu"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
-[ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="10_pv6wp"]
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
 [ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
@@ -1550,14 +1550,14 @@ use_parent_material = true
 script = ExtResource("6_ik7qm")
 
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9Jcm9uSG9vay9Jcm9uSG9vay5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L0JUL0lyb25Ib29rCm9fbmFtZXw9SXJvbkhvb2sKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9CdXJzdFBhcmFzaXRlL0J1cnN0UGFyYXNpdGVCVC5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9ZmFsc2UKb19mb2xkZXJ8PXJlczovL2FydC9CVC9CdXJzdFBhcmFzaXRlLwpvX25hbWV8PUJ1cnN0UGFyYXNpdGVCVApvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 light_mask = 16
 y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("10_pv6wp")
-animation = &"Idle"
+sprite_frames = ExtResource("10_3kclu")
+animation = &"KnockOut"
 offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]

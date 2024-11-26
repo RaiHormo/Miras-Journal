@@ -495,6 +495,7 @@ func _on_item() -> void:
 
 func close():
 	active=false
+	while stage == "pre_target": await Event.wait()
 	stage = &"inactive"
 	t.kill()
 	t = create_tween()
@@ -517,7 +518,7 @@ func close():
 
 	t.tween_property($BaseRing, "scale", Vector2(0.01,0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2.ZERO, 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.4)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.01,0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", +600, 0.3).as_relative()
 	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
@@ -529,8 +530,8 @@ func close():
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.5)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
 	PartyUI.battle_state()
 	await t.finished
@@ -629,6 +630,7 @@ func get_target(faction:Array[Actor]):
 	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 	PartyUI.show_all()
 	await t.finished
+	if stage == &"inactive": return
 	stage = &"target"
 	while stage == &"target":
 		tr = create_tween()
@@ -703,7 +705,7 @@ func _on_battle_next_turn():
 
 func _on_targeted():
 	if CurrentChar.NextMove == null: return
-	stage = "inactive"
+	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
 		var proper_tar:Actor = TargetFaction[TargetIndex]
 		TargetFaction = TurnOrder
@@ -764,7 +766,7 @@ func _on_confirm_pressed():
 		if stage == &"pre_target":
 			active = false
 			Global.confirm_sound()
-			while stage != "target": await Event.wait()
+			#while stage != "target": await Event.wait()
 			targeted.emit()
 		if stage == &"target":
 			Global.confirm_sound()

@@ -707,9 +707,9 @@ func death(target:Actor):
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
 			td = create_tween()
-			td.tween_property(target.node, "modulate", Color.TRANSPARENT, 0.5)
 			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
-			await td.finished
+			if target.node.is_playing():
+				await target.node.animation_finished
 			if target and target.node:
 				target.node.queue_free()
 				target.node = null
@@ -984,19 +984,12 @@ func victory_show_items():
 			await t.finished
 
 func miss(target:Actor = CurrentTarget):
-	var tm = create_tween()
-	tm.set_ease(Tween.EASE_OUT)
-	tm.set_trans(Tween.TRANS_CUBIC)
 	play_effect("Miss", target)
-	tm.tween_property(target.node,
-	"position:x", target.node.position.x + offsetize(30), 0.3)
+	var prev = target.node.position
+	move(target, Vector2(target.node.position.x + offsetize(30), target.node.position.y), 0.3, Tween.EASE_OUT)
 	pop_num(target, "Miss")
 	await Event.wait(0.5)
-	tm = create_tween()
-	tm.set_ease(Tween.EASE_OUT)
-	tm.set_trans(Tween.TRANS_CUBIC)
-	tm.tween_property(target.node, "position:x",
-	target.node.position.x - offsetize(30), 0.3)
+	await move(target, prev, 0.3)
 
 func _on_battle_ui_command():
 	anim("Command")
@@ -1133,7 +1126,7 @@ func get_actor(codename: StringName) -> Actor:
 func random_target(ab: Ability):
 	print("Target decided randomly")
 	match ab.Target:
-			Ability.T.SELF:
+			Ability.T.SELF, Ability.T.AOE_ENEMIES, Ability.T.AOE_ALLIES:
 				return CurrentChar
 			Ability.T.ONE_ENEMY:
 				return get_oposing_faction(CurrentChar).pick_random()

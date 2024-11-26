@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://codings/follower_movement.gd" id="1_kihhu"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_ppxuy"]
-[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="3_ocaa3"]
+[ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_vmt3u"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_qao14"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvt3h"]
@@ -21,7 +21,6 @@ fill_to = Vector2(0.852941, 0.894118)
 
 [node name="Follower" type="CharacterBody2D"]
 z_index = 1
-y_sort_enabled = true
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
@@ -46,10 +45,11 @@ rotation = 1.56364
 shape = SubResource("CapsuleShape2D_xvt3h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9PVi9Bc3RlcmlhLwpvX25hbWV8PUFzdGVyaWFPVjEKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
+texture_filter = 1
 material = ExtResource("2_ppxuy")
-sprite_frames = ExtResource("3_ocaa3")
-animation = &"WalkUp"
+sprite_frames = ExtResource("3_vmt3u")
+animation = &"IdleLeft"
 offset = Vector2(0, -9)
 
 [node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]

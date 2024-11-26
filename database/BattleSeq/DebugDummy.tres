@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_djiyi"]
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_tyx4l"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="2_tb6xv"]
-[ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="3_3dw4d"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_56w6l"]
+[ext_resource type="Resource" uid="uid://dndjx0ile1qpr" path="res://database/Enemies/BurstParasite.tres" id="5_2q274"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_a1d4h"]
 
 [sub_resource type="Resource" id="Resource_5vx4i"]
@@ -38,7 +38,7 @@ add_flag = true
 
 [resource]
 script = ExtResource("1_tyx4l")
-Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv"), ExtResource("3_3dw4d")])
+Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv"), ExtResource("5_2q274")])
 AdditionalItems = Array[ExtResource("1_djiyi")]([])
 BattleBack = ExtResource("1_03qle")
 Transition = true

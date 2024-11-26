@@ -18,7 +18,7 @@
 [ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
-[ext_resource type="SpriteFrames" uid="uid://cg23ydi7trxev" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
+[ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("2_6ip0u")

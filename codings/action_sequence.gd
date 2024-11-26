@@ -272,6 +272,28 @@ func CloseupAttack(target: Actor):
 	Bt.return_cur()
 	Bt.anim()
 	Bt.end_turn()
+
+func AOEAttack(target: Actor):
+	if target == CurrentChar:
+		Bt.focus_cam(CurrentChar)
+		Bt.anim("Attack1")
+		Bt.move(CurrentChar, Vector2(Bt.offsetize(-20), 0), 0.5, Tween.EASE_OUT)
+		await Event.wait(0.5)
+		Bt.move_cam(Vector2(Bt.offsetize(20), 0), 1)
+		Bt.zoom(4.5, 1)
+		await Bt.anim("Attack2")
+		additional_done.emit()
+		await Event.wait(1)
+		Bt.return_cur()
+		Bt.anim()
+	else:
+		if miss: Bt.miss(target)
+		else:
+			Bt.play_sound("Attack2", CurrentChar)
+			Bt.damage(target)
+			Bt.play_effect("SimpleHit", target)
+			Bt.screen_shake(18)
+	Bt.end_turn()
 #endregion
 
 ################################################
