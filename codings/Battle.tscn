@@ -1,4 +1,4 @@
-[gd_scene load_steps=224 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=227 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -33,7 +33,6 @@
 [ext_resource type="Texture2D" uid="uid://bq6u87p34d13v" path="res://UI/Battle/CommandBackground.png" id="28_g8rtm"]
 [ext_resource type="Shader" path="res://UI/Battle/Sinewave.gdshader" id="29_7ycgm"]
 [ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="30_g1vxc"]
-[ext_resource type="Texture2D" uid="uid://bpdhp4otp83om" path="res://UI/Battle/MiraRing1.png" id="31_my2pa"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="32_ebvy8"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="33_jy6my"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="34_mbmoj"]
@@ -652,6 +651,13 @@ shader_parameter/circle_thickness = 0.016
 shader_parameter/sine_freq = 0.0
 shader_parameter/sine_amp = 0.03
 shader_parameter/sine_phase = 0.0
+
+[sub_resource type="Gradient" id="Gradient_pa1vt"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.243137, 0.203922, 0.172549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b4gte"]
+gradient = SubResource("Gradient_pa1vt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3xpp0"]
 shader = ExtResource("29_7ycgm")
@@ -1386,6 +1392,12 @@ action = &"ui_accept"
 [sub_resource type="Shortcut" id="Shortcut_o1kt8"]
 events = [SubResource("InputEventAction_oi6bj")]
 
+[sub_resource type="InputEventAction" id="InputEventAction_iu7xp"]
+action = &"BtItem"
+
+[sub_resource type="Shortcut" id="Shortcut_rsmsp"]
+events = [SubResource("InputEventAction_iu7xp")]
+
 [sub_resource type="FontVariation" id="FontVariation_sc4xk"]
 base_font = ExtResource("27_7ghwb")
 variation_embolden = 0.3
@@ -1632,7 +1644,7 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"HeatWave"
+animation = &"AttackUp"
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -1834,10 +1846,10 @@ texture = ExtResource("30_g1vxc")
 [node name="Ring1" type="TextureRect" parent="BattleUI/BaseRing"]
 material = SubResource("ShaderMaterial_65pvt")
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 400.0
 pivot_offset = Vector2(200, 200)
-texture = ExtResource("31_my2pa")
+texture = SubResource("GradientTexture1D_b4gte")
 
 [node name="Ring2" type="TextureRect" parent="BattleUI/BaseRing"]
 material = SubResource("ShaderMaterial_3xpp0")
@@ -2011,7 +2023,6 @@ offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
 [node name="Inventory" type="Panel" parent="BattleUI"]
-visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -2696,6 +2707,29 @@ icon = ExtResource("41_70b84")
 text_overrun_behavior = 1
 expand_icon = true
 
+[node name="Give" type="Button" parent="Canvas"]
+visible = false
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nmg3k")
+layout_direction = 1
+offset_left = 371.0
+offset_top = 742.0
+offset_right = 488.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_rsmsp")
+text = "Give"
+icon = ExtResource("23_8x6w2")
+text_overrun_behavior = 1
+expand_icon = true
+
 [node name="TurnOrderPop" type="Panel" parent="Canvas"]
 visible = false
 use_parent_material = true
@@ -3009,4 +3043,5 @@ vertical_alignment = 1
 [connection signal="pressed" from="BattleUI/Command" to="BattleUI" method="_on_command_pressed"]
 [connection signal="pressed" from="Canvas/Confirm" to="BattleUI" method="_on_confirm_pressed"]
 [connection signal="pressed" from="Canvas/Back" to="BattleUI" method="_on_back_pressed"]
+[connection signal="pressed" from="Canvas/Give" to="BattleUI" method="_on_give_pressed"]
 [connection signal="pressed" from="Canvas/TurnOrder" to="BattleUI" method="turn_order"]

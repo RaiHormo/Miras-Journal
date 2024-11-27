@@ -10,7 +10,7 @@ region = Rect2(0, 90, 18, 18)
 [resource]
 script = ExtResource("1_aisg0")
 Essence = Color(0.560784, 1, 0.886275, 1)
-Name = "White slime"
+Name = "White Slime"
 Description = "A piece of slime from a white sludge monster. 
 Contains a Spiritual energy."
 ItemType = "Mat"

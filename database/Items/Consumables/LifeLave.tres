@@ -40,7 +40,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("3_t2vp7")
-Name = "Life lave"
+Name = "Life Lave"
 Description = "Cures Poison and restores 10 HP."
 ItemType = "Con"
 Icon = SubResource("AtlasTexture_1mmxx")

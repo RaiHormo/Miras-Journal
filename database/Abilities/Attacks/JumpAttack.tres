@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_3b0eu")
-name = "Jump attack"
+name = "Jump Attack"
 description = "Deals damage to one target with a chance of missing."
 Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"JumpAttack"

@@ -1,12 +1,22 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://bpnyp57rpx77e"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://bpnyp57rpx77e"]
 
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_63mrt"]
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_h1qn3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_740n8"]
+atlas = ExtResource("1_63mrt")
+region = Rect2(0, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_h1qn3")
 name = "Deflected"
-Description = "Cannot use abilities."
+Description = "Cannot use magic abilities."
 RemovedOnBattleEnd = true
-turns = 0
+turns = -1
+icon = SubResource("AtlasTexture_740n8")
 color = Color(0, 0, 0, 1)
+protects = false
+weak_mult = 1.0
+dmg_mult = 1.0
 is_stat_change = false

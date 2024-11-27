@@ -63,7 +63,6 @@ func handle_states():
 			if state.turns == 0:
 				match state.name:
 					"Guarding":
-						chara.DefenceMultiplier -= 1
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"Protected":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
@@ -149,6 +148,9 @@ func AttackMira(target: Actor):
 	else:
 		Bt.anim("Attack2")
 		Bt.miss()
+	if crit:
+		Bt.damage(target, CurrentChar.Attack, true)
+		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	Bt.anim("Idle")
@@ -185,14 +187,75 @@ func AttackAlcine(target: Actor):
 		Bt.move(target, target.node.position + Vector2(Bt.offsetize(-10),0), 0.3, Tween.EASE_OUT)
 		Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-70),0), 0.3, Tween.EASE_OUT)
 		await Event.wait(0.6)
-		Bt.screen_shake(15, 7, 0.3)
-		Bt.damage(target, CurrentChar.Magic, false)
+		if crit:
+			Bt.damage(target, CurrentChar.Magic, true)
+			Bt.screen_shake(15, 7, 0.3)
+			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+		else: 
+			Bt.damage(target, CurrentChar.Attack, false)
+			Bt.screen_shake(10, 7, 0.3)
 		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10),0), 0.5, Tween.EASE_OUT)
 		await CurrentChar.node.animation_finished
 	else: Bt.miss()
 	Bt.anim("Idle")
 	await Event.wait(0.3)
 	Bt.return_cur()
+	Bt.end_turn()
+
+func AttackDaze(target: Actor):
+	Bt.zoom(5)
+	Bt.focus_cam(target, 0.5, 30)
+	Bt.anim("Attack1")
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-30), 0), 0.3)
+	await Bt.anim_done
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target, CurrentChar.Attack, false)
+		Bt.screen_shake(5, 7, 0.2)
+		Bt.shake_actor()
+		Bt.anim("Attack2")
+		Bt.play_effect("SimpleHit", target)
+		if crit:
+			await Event.wait(0.3)
+			Bt.anim("Attack3")
+			Bt.play_effect("SimpleHit", target)
+			Bt.screen_shake(10, 7, 0.2)
+			Bt.damage(target, CurrentChar.Attack, true)
+			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+	else: Bt.miss()
+	await Event.wait(0.4)
+	Bt.return_cur()
+	Bt.anim("Idle")
+	Bt.end_turn()
+
+func AttackAsteria(target: Actor):
+	Bt.zoom()
+	Bt.focus_cam(CurrentChar, 0.5, 30)
+	Bt.anim("Attack1")
+	await Bt.focus_cam(target, 1, 30)
+	Bt.play_effect("RemoteHit", target)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.screen_shake()
+	else: Bt.miss()
+	await Event.wait(0.3)
+	roll_rng(target)
+	Bt.play_effect("RemoteHit", target)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.screen_shake()
+	else: Bt.miss()
+	await Event.wait(0.5)
+	Bt.play_effect("RemoteHit", target)
+	if crit:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target, CurrentChar.Attack, true)
+		Bt.screen_shake()
+		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+	await Event.wait(0.5)
+	Bt.anim()
 	Bt.end_turn()
 
 func StickAttack(target: Actor):

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://cdwcbsh8dnrli"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://cdwcbsh8dnrli"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_1fcvt"]
 [ext_resource type="Resource" uid="uid://b6f6kbhpdgv87" path="res://database/Abilities/ProtectiveField.tres" id="1_5d3ws"]
 [ext_resource type="SpriteFrames" uid="uid://chr1a5jyqf65k" path="res://art/BT/IronHook/IronHookBT.tres" id="1_myl67"]
+[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_sf34e"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="2_fq2qt"]
 [ext_resource type="Texture2D" uid="uid://64lecqcynv4b" path="res://art/Icons/Enemies/Mechanical.png" id="2_ix1hr"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_jf3ey"]
@@ -10,7 +11,7 @@
 
 [resource]
 script = ExtResource("2_jf3ey")
-FirstName = "Iron hook"
+FirstName = "Iron Hook"
 MainColor = Color(0.482353, 0.431373, 0.556863, 1)
 PartyIcon = ExtResource("2_ix1hr")
 ActorClass = "Attacker"
@@ -24,6 +25,8 @@ SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
 Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
 MaxHP = 74
 MaxAura = 31
 Attack = 1.0
@@ -35,12 +38,13 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([ExtResource("1_5d3ws"), ExtResource("2_fq2qt")])
+Abilities = Array[ExtResource("1_sf34e")]([ExtResource("1_5d3ws"), ExtResource("2_fq2qt")])
 StandardAttack = ExtResource("4_tcrsf")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_sf34e")]([])
 BT = ExtResource("1_myl67")
 Offset = Vector2(0, -2)
 Shadow = false
+ShadowOffset = 0
 SoundSet = ExtResource("1_1fcvt")
 Disappear = true
 GlowDef = 0.3
@@ -51,3 +55,4 @@ ClutchDmg = false
 SeqOnClutch = ""
 CantDie = false
 IgnoreStates = false
+CantDodge = false

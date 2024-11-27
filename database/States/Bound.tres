@@ -1,11 +1,20 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://l6fkb8fprk4o"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://l6fkb8fprk4o"]
 
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_f06vu"]
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_kandm"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvbpe"]
+atlas = ExtResource("1_f06vu")
+region = Rect2(144, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_kandm")
-name = ""
-Description = ""
-RemovedAfterTurns = false
-turns = 0
+name = "Bound"
+Description = "Cannot preform weapon based attacks or escape."
+RemovedOnBattleEnd = true
+turns = -1
+icon = SubResource("AtlasTexture_hvbpe")
+color = Color(0, 0, 0, 1)
+protects = false
+is_stat_change = false

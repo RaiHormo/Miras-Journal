@@ -230,8 +230,8 @@ func entrance():
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
-		t.parallel().tween_property($Cam, "position", Vector2(90,10), 0.5)
-		t.tween_property($Cam, "position", Vector2(-50,10), 0.5).set_delay(0.5)
+		t.parallel().tween_property($Cam, "position", Vector2(90,0), 0.5)
+		t.tween_property($Cam, "position", Vector2(-50,0), 0.5).set_delay(0.5)
 		await Event.wait(0.3, false)
 		$EnemyUI.all_enemy_ui(true)
 		if Loader.BtAdvantage == 1:
@@ -241,7 +241,7 @@ func entrance():
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property($Cam, "position", Vector2(-50,10), 0.5)
+		t.tween_property($Cam, "position", Vector2(-50,0), 0.5)
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
 	if Seq.EntranceSequence == "":
@@ -508,9 +508,6 @@ target: Actor, is_magic:= CurrentAbility.Damage != Ability.D.WEAPON, elemental:=
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
 overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
-	if target.has_state_that_protects():
-		pop_num(target, "BLOCKED")
-		return 0
 	var el_mod: float = 1
 	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
 	var relation = color_relation(color, target.MainColor)
@@ -524,6 +521,13 @@ overwrite_color: Color = Color.WHITE) -> int:
 	print("Attack power: ", x, " * ", el_mod)
 	var attacker = null if ignore_stats else CurrentChar
 	var dmg = target.calc_dmg(x * el_mod, is_magic, attacker)
+	for i in target.States:
+		dmg *= i.dmg_mult
+		if relation == "wk": dmg *= i.weak_mult
+	dmg = round(dmg)
+	if dmg == 0:
+		pop_num(target, "BLOCKED")
+		return 0
 	if target.Controllable:
 		Input.start_joy_vibration(0, remap(dmg, 0, target.MaxHP, 0.3, 1), remap(dmg, 0, target.MaxHP, 0, 0.5), 0.2)
 	target.damage(dmg, limiter)
@@ -593,7 +597,7 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 	await t.finished
 
 func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= false, dont_free:= false):
-	if $Act/Effects.sprite_frames.has_animation(stri):
+	if $Act/Effects.sprite_frames.has_animation(stri) and is_instance_valid(tar) and is_instance_valid(tar.node):
 		if tar is Actor: tar = tar.node.position
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
@@ -924,7 +928,7 @@ func victory(ignore_seq:= false):
 	Vector2(700, 50), 2).from(Vector2(1200, 50))
 	t.tween_property($Canvas/Callout, "modulate",
 	Color.WHITE, 2).from(Color.TRANSPARENT)
-	t.tween_property($Cam, "position", Vector2(-20,10), 1)
+	t.tween_property($Cam, "position", Vector2(-20,0), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
 	if totalSP != 0: await victory_count_sp()
 	if not ObtainedItems.is_empty(): await victory_show_items()
@@ -1096,7 +1100,6 @@ func on_state_add(state: State, chara: Actor):
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding":
-				chara.DefenceMultiplier += 1
 				chara.node.material.set_shader_parameter("outline_enabled", true)
 				chara.node.material.set_shader_parameter("outline_color", chara.MainColor)
 			"Protected":

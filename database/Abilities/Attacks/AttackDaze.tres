@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("2_jb243")
-name = "Sword slash"
+name = "Sword Slash"
 description = "A regular old sword swing. It's a hit or miss."
 Icon = SubResource("AtlasTexture_2kbea")
 ActionSequence = &"AttackDaze"

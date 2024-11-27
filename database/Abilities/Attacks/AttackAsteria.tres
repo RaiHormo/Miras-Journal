@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("2_ddb6i")
-name = "Scarf slice"
+name = "Scarf Slice"
 description = "The part that hurts is the magic surrounding it. Hits 3 times, each can miss or be critical."
 Icon = SubResource("AtlasTexture_lnv5i")
 ActionSequence = &"AttackAsteria"
@@ -24,7 +24,7 @@ Parameter = 0.0
 Target = 1
 AOE_Stagger = 0.0
 AOE_AdditionalSeq = true
-ColorSameAsActor = true
+ColorSameAsActor = false
 WheelColor = Color(0.878431, 0.45098, 0.854902, 1)
 Callout = false
 SucessChance = 0.8

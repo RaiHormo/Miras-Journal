@@ -4,16 +4,19 @@
 
 [resource]
 script = ExtResource("1_d45jw")
-name = "Active support"
+name = "Active Support"
 description = "Doubles the Magic of other allies for the next turn."
 ActionSequence = &"ActiveSupport"
 Type = "MagBuff"
+InflictsState = ""
 AuraCost = 5
 HPCost = 0
 disabled = false
 Damage = 0
 Parameter = 1.0
 Target = 4
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
 ColorSameAsActor = false
 WheelColor = Color(0.352941, 0.407843, 0.87451, 1)
 Callout = true

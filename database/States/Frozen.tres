@@ -1,11 +1,21 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://d05eisax2ikpg"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://d05eisax2ikpg"]
 
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_am8fo"]
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_wpwwi"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir784"]
+atlas = ExtResource("1_am8fo")
+region = Rect2(162, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_wpwwi")
-name = ""
-Description = ""
-RemovedAfterTurns = false
-turns = 0
+name = "Frozen"
+Description = "Cannot move until hit again.
+"
+RemovedOnBattleEnd = true
+turns = -1
+icon = SubResource("AtlasTexture_ir784")
+color = Color(0, 0, 0, 1)
+protects = false
+is_stat_change = false

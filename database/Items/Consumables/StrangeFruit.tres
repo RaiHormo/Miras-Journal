@@ -40,7 +40,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_t4t8r")
-Name = "Strange fruit"
+Name = "Strange Fruit"
 Description = "Eddible probably?
 Restores 30 HP
 "

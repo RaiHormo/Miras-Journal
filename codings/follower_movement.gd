@@ -8,14 +8,13 @@ var RealVelocity: Vector2
 var moving: bool
 
 @export var member : int
-@export var distance : int
+@export var distance : int = 30
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false
 
 func _ready():
 	Global.Follower[member] = self
 	await Event.wait()
-	distance = 20*member
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
 	velocity = oposite

@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_r8td2")
-name = "AOE attack"
+name = "AOE Attack"
 description = "Weapon damage to all enemies. Chance to miss for each one."
 Icon = SubResource("AtlasTexture_hfqm4")
 ActionSequence = &"AOEAttack"

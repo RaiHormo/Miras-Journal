@@ -34,7 +34,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_h38r3")
-Name = "Sharp rock"
+Name = "Sharp Rock"
 Description = "A small rock with a sharp end.
 Deals weak Physical damage to one enemy."
 ItemType = "Bti"

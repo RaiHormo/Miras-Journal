@@ -41,7 +41,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("1_xhumv")
-Name = "Small potion"
+Name = "Small Potion"
 Description = "A small bottle containing a healing potion.
 Restores 50 HP"
 ItemType = "Con"

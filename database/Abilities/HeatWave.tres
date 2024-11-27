@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("2_pelke")
-name = "Heat wave"
+name = "Heat Wave"
 description = "Medium Heat damage to all burned enemies. 
 Low chance of burning others."
 Icon = SubResource("AtlasTexture_p5ac4")

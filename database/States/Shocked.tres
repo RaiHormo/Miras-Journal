@@ -1,11 +1,21 @@
-[gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://d1yept33qk7oe"]
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://d1yept33qk7oe"]
 
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_aiior"]
 [ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_alhvr"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wibv"]
+atlas = ExtResource("1_aiior")
+region = Rect2(72, 36, 18, 18)
+filter_clip = true
 
 [resource]
 script = ExtResource("1_alhvr")
-name = ""
-Description = ""
-RemovedAfterTurns = false
-turns = 0
+name = "Shocked"
+Description = "Can't act for the next turn. 
+Doubled damage from weak hits."
+RemovedOnBattleEnd = true
+turns = 1
+icon = SubResource("AtlasTexture_6wibv")
+color = Color(0, 0, 0, 1)
+protects = false
+is_stat_change = false

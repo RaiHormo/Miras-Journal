@@ -258,8 +258,3 @@ func reset_static_info():
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
-
-func has_state_that_protects() -> bool:
-	for i in States:
-		if i.protects: return true
-	return false

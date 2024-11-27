@@ -10,11 +10,14 @@ region = Rect2(108, 36, 18, 18)
 [resource]
 script = ExtResource("1_e3mid")
 name = "Burned"
-Description = "Takes light heat damage every turn.
+Description = "Takes light heat damage every turn. 
+Increased damage from weak hits.
 Lasts for 5 turns"
 RemovedOnBattleEnd = true
 turns = 5
 icon = SubResource("AtlasTexture_1w22s")
 color = Color(0.87451, 0.443137, 0.14902, 1)
 protects = false
+weak_mult = 1.5
+dmg_mult = 1.0
 is_stat_change = false

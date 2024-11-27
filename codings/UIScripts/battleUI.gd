@@ -87,10 +87,12 @@ func _on_battle_get_control():
 	CurrentChar = Bt.CurrentChar
 	Party = Bt.Party
 	position = CurrentChar.node.position
-	if CurrentChar.FirstName == "Mira":
-		$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
+	#if CurrentChar.FirstName == "Mira":
+		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
+	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
+	$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
 	fetch_abilities()
 	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
@@ -295,6 +297,7 @@ func _on_root():
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,742), 0.4)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.5)
 	tweendone = false
 	active = true
 	$Attack.show()
@@ -441,12 +444,18 @@ func _on_command():
 
 
 func _on_item() -> void:
-	stage = &"item"
+	stage = &"inactive"
 	PrevStage = &"root"
 	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true; return
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
+	Bt.get_node("Canvas/Give").show()
+	Bt.get_node("Canvas/Give").text = "Give"
+	Bt.get_node("Canvas/Give").icon = Global.get_controller().ItemIcon
+	Bt.get_node("Canvas/Confirm").show()
+	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
+	Bt.get_node("Canvas/Confirm").text = "Use"
 	$Inventory/Cbutton.icon = Global.get_controller().R
 	$Inventory/BIbutton.icon = Global.get_controller().L
 	$Inventory.show()
@@ -465,9 +474,9 @@ func _on_item() -> void:
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
-	t.tween_property($"../Canvas/Confirm", "position",
-	Vector2(195,742), 0.4).from(Vector2(195,850))
+	t.tween_property($"../Canvas/Confirm", "position",Vector2(195,742), 0.4).from(Vector2(195,850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
+	t.tween_property($"../Canvas/Give", "position", Vector2(371,742), 0.5).from(Vector2(371,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.3).from(Color.WHITE)
 	t.tween_property($Inventory, "scale", Vector2(0.21, 0.21), 0.3).from(Vector2(0.1, 0.1))
@@ -492,6 +501,8 @@ func _on_item() -> void:
 	match $Inventory/Margin.current_tab:
 		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
 		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
+	await t.finished
+	stage = &"item"
 
 func close():
 	active=false
@@ -533,6 +544,7 @@ func close():
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
 	PartyUI.battle_state()
 	await t.finished
 	hide()
@@ -547,7 +559,7 @@ func _on_item_pressed():
 func _on_command_pressed():
 	if stage == &"root": command.emit()
 
-func get_target(faction:Array[Actor]):
+func get_target(faction:Array[Actor], wait = false, ab = CurrentChar.NextMove):
 	if Bt.Action: return
 	if is_instance_valid(foc):
 		foc.hide()
@@ -565,13 +577,16 @@ func get_target(faction:Array[Actor]):
 	Bt.get_node("Canvas/Back").text = "Cancel"
 	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
-	$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
-	if (CurrentChar.NextAction == "ability" and CurrentChar.NextMove.WheelColor.s > 0
-	and CurrentChar.NextMove.Damage != 0):
+	$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
+	if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
+	and ab.Damage != 0):
 		$"../Canvas/AttackTitle/Wheel".show()
-		$"../Canvas/AttackTitle/Wheel".show_atk_color(CurrentChar.NextMove.WheelColor)
+		$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
 	else:
 		$"../Canvas/AttackTitle/Wheel".hide()
+	$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(ab.description)
+	$"../Canvas/AttackTitle".text = ab.name
+	$"../Canvas/AttackTitle".icon = ab.Icon
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
@@ -607,12 +622,10 @@ func get_target(faction:Array[Actor]):
 	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
-
+	
+	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
 	$"../Canvas/AttackTitle".show()
-	$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(CurrentChar.NextMove.description)
-	$"../Canvas/AttackTitle".text = CurrentChar.NextMove.name
-	$"../Canvas/AttackTitle".icon = CurrentChar.NextMove.Icon
 
 	if LastTarget == null or not LastTarget in faction:
 		LastTarget = faction[0]
@@ -632,6 +645,9 @@ func get_target(faction:Array[Actor]):
 	await t.finished
 	if stage == &"inactive": return
 	stage = &"target"
+	if wait: 
+		await targeted
+		return TargetFaction[TargetIndex]
 	while stage == &"target":
 		tr = create_tween()
 		tr.set_ease(Tween.EASE_IN_OUT)
@@ -928,3 +944,30 @@ func focus_item(node:Button):
 	else:
 		$"../Canvas/Confirm".show()
 		$"../Canvas/Confirm".text = "Use"
+
+func _on_give_pressed() -> void:
+	if stage == "item":
+		Global.confirm_sound()
+		var item_dat: ItemData = foc.get_meta("ItemData")
+		item_dat.BattleEffect.name = item_dat.Name
+		item_dat.BattleEffect.description = item_dat.Description
+		item_dat.BattleEffect.Icon = item_dat.Icon
+		PrevStage = &"item"
+		var target: Actor = await get_target(Bt.get_ally_faction(), true, item_dat.BattleEffect)
+		if target == CurrentChar: 
+			Item.remove_item(item_dat)
+			CurrentChar.NextAction = "Item"
+			CurrentChar.NextMove = item_dat.BattleEffect
+			targeted.emit()
+			return
+		if target != null:
+			close()
+			if target.NextAction == "":
+				target.NextAction = "Item"
+				target.NextMove = item_dat.BattleEffect
+				Item.remove_item(item_dat)
+				Global.toast(target.FirstName+" will use the "+item_dat.Name+" on "+target.Pronouns[2]+" turn.")
+			else:
+				Global.toast(target.FirstName+" is busy.")
+			await Event.wait(1)
+			_on_battle_get_control()

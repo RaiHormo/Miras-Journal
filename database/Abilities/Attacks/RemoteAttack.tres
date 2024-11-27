@@ -10,7 +10,7 @@ filter_clip = true
 
 [resource]
 script = ExtResource("2_r434c")
-name = "Remote attack"
+name = "Remote Attack"
 description = "Deals damage to one target with a chance of missing. Cannot be blocked."
 Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"RemoteAttack"

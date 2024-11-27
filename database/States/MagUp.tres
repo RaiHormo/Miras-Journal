@@ -16,4 +16,5 @@ RemovedOnBattleEnd = true
 turns = 3
 icon = SubResource("AtlasTexture_ghm4a")
 color = Color(0.352941, 0.407843, 0.87451, 1)
+protects = false
 is_stat_change = true
