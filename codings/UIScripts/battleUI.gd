@@ -92,7 +92,7 @@ func _on_battle_get_control():
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
-	$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
+	if CurrentChar.BoxProfile != null: $BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
 	fetch_abilities()
 	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
@@ -444,8 +444,8 @@ func _on_command():
 
 
 func _on_item() -> void:
-	stage = &"inactive"
 	PrevStage = &"root"
+	stage = &"inactive"
 	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true; return
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
@@ -559,7 +559,7 @@ func _on_item_pressed():
 func _on_command_pressed():
 	if stage == &"root": command.emit()
 
-func get_target(faction:Array[Actor], wait = false, ab = CurrentChar.NextMove):
+func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	if Bt.Action: return
 	if is_instance_valid(foc):
 		foc.hide()
@@ -645,9 +645,6 @@ func get_target(faction:Array[Actor], wait = false, ab = CurrentChar.NextMove):
 	await t.finished
 	if stage == &"inactive": return
 	stage = &"target"
-	if wait: 
-		await targeted
-		return TargetFaction[TargetIndex]
 	while stage == &"target":
 		tr = create_tween()
 		tr.set_ease(Tween.EASE_IN_OUT)
@@ -720,6 +717,7 @@ func _on_battle_next_turn():
 		active = false
 
 func _on_targeted():
+	PrevStage = "targeted"
 	if CurrentChar.NextMove == null: return
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
@@ -948,26 +946,32 @@ func focus_item(node:Button):
 func _on_give_pressed() -> void:
 	if stage == "item":
 		Global.confirm_sound()
+		CurrentChar.NextMove = null
 		var item_dat: ItemData = foc.get_meta("ItemData")
 		item_dat.BattleEffect.name = item_dat.Name
 		item_dat.BattleEffect.description = item_dat.Description
 		item_dat.BattleEffect.Icon = item_dat.Icon
 		PrevStage = &"item"
-		var target: Actor = await get_target(Bt.get_ally_faction(), true, item_dat.BattleEffect)
-		if target == CurrentChar: 
-			Item.remove_item(item_dat)
-			CurrentChar.NextAction = "Item"
-			CurrentChar.NextMove = item_dat.BattleEffect
-			targeted.emit()
-			return
-		if target != null:
-			close()
-			if target.NextAction == "":
-				target.NextAction = "Item"
-				target.NextMove = item_dat.BattleEffect
+		get_target(Bt.get_ally_faction(), item_dat.BattleEffect)
+		while stage == "pre_target" or stage == "target" and not PrevStage == "targeted":
+			await Event.wait()
+		if PrevStage == "root": return
+		if PrevStage == "targeted":
+			var target: Actor = TargetFaction[TargetIndex]
+			if target == CurrentChar: 
 				Item.remove_item(item_dat)
-				Global.toast(target.FirstName+" will use the "+item_dat.Name+" on "+target.Pronouns[2]+" turn.")
-			else:
-				Global.toast(target.FirstName+" is busy.")
-			await Event.wait(1)
-			_on_battle_get_control()
+				CurrentChar.NextAction = "Item"
+				CurrentChar.NextMove = item_dat.BattleEffect
+				targeted.emit()
+				return
+			if target != null:
+				close()
+				if target.NextAction == "":
+					target.NextAction = "Item"
+					target.NextMove = item_dat.BattleEffect
+					Item.remove_item(item_dat)
+					Global.toast(target.FirstName+" will use the "+item_dat.Name+" on "+target.Pronouns[2]+" turn.")
+				else:
+					Global.toast(target.FirstName+" is busy.")
+				await Event.wait(1)
+				_on_battle_get_control()
