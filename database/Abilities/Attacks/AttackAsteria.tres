@@ -15,6 +15,7 @@ description = "The part that hurts is the magic surrounding it. Hits 3 times, ea
 Icon = SubResource("AtlasTexture_lnv5i")
 ActionSequence = &"AttackAsteria"
 Type = "CheapAttack"
+Group = ""
 InflictsState = ""
 AuraCost = 0
 HPCost = 0

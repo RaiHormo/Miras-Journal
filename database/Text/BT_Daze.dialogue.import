@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://dkysiq802atj"
+path="res://.godot/imported/BT_Daze.dialogue-c29799919ee61a1b2327374690358481.tres"
+
+[deps]
+
+source_file="res://database/Text/BT_Daze.dialogue"
+dest_files=["res://.godot/imported/BT_Daze.dialogue-c29799919ee61a1b2327374690358481.tres"]
+
+[params]
+
+defaults=true

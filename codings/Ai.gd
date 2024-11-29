@@ -45,6 +45,11 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	AblilityList.push_front(Char.StandardAttack)
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	var Choices:Array[Ability] = []
+	if Char.NextTarget != null: 
+		if Char.NextTarget.IsEnemy == Char.IsEnemy:
+			targets = Ability.T.ONE_ALLY
+		else:
+			targets = Ability.T.ONE_ENEMY 
 	for i in AblilityList:
 		if i == null: continue
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
@@ -86,7 +91,7 @@ func pick_general_ability() -> Ability:
 			return null
 		tries += 1
 		if tries > 99:
-			OS.alert("The AI got stuck in an infinite loop, the dev might want to check on that")
+			push_error("The AI got stuck in an infinite loop, the dev might want to check on that")
 			return Char.StandardAttack
 		var atk_chance = 0
 		if Char.ActorClass == "Attacker": atk_chance = -1

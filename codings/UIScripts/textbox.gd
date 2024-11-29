@@ -252,7 +252,7 @@ func hide_box():
 	t.set_trans(Tween.TRANS_CUBIC)
 	if $Portrait.visible:
 		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
-		t.tween_property($Portrait, "position", Vector2(-100, 389), 0.2)
+		t.tween_property($Portrait, "position:x", -100, 0.2)
 	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property($Fader, "color", Color(0,0,0,0), 0.5)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
@@ -355,8 +355,9 @@ func draw_portrait() -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUINT)
+			t.tween_property($Balloon, "position:x", 110, 0.5)
 			t.tween_property($Portrait, "modulate", Color(1,1,1,1), 0.8).from(Color(0,0,0,0))
-			t.tween_property($Portrait, "position", Vector2(-55, 389), 0.8).from(Vector2(-200, 389))
+			t.tween_property($Portrait, "position:x", -55, 0.8).from(-200)
 			t.tween_property($Portrait/Shadow, "position", Vector2(-131, 150), 1).from(Vector2(0, 0))
 	else:
 		$Balloon/Arrow.hide()
@@ -365,9 +366,10 @@ func draw_portrait() -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUAD)
+			t.tween_property($Balloon, "position:x", 0, 0.5)
 			t.tween_property($Portrait/Shadow, "position", Vector2(0, 0), 0.2)
 			t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.3)
-			t.tween_property($Portrait, "position", Vector2(-200, 389), 0.3)
+			t.tween_property($Portrait, "position:x", -200, 0.3)
 			await t.finished
 		$Portrait.hide()
 

@@ -807,9 +807,9 @@ mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 	await tm.finished
 	anim_done.emit()
 
-func heal(
-target:Actor, amount: int = int(max(Global.calc_num(),
-target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))):
+#int(max(Global.calc_num(), target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))
+func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
+	if CurrentAbility.DmgVarience: amount * randf_range(1, 1.5)
 	target.add_health(amount)
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
@@ -1105,6 +1105,8 @@ func on_state_add(state: State, chara: Actor):
 			"Protected":
 				chara.node.material.set_shader_parameter("outline_enabled", true)
 				chara.node.material.set_shader_parameter("outline_color", Color.WHITE)
+			"Aggro":
+				chara.NextTarget = state.inflicter
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(

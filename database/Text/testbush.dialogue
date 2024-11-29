@@ -9,7 +9,7 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 	Mira.Smile: Yeah, sure i can say a bunch of stuff.
 	Mira.Smile: I just like the sound of my voice, beep boop.
 	Mira.Smile: So how's your day bush?\nAnything going on?
-	[wait=1] [next=auto]
+	[wait=0.5] [next=auto]
 	Mira.Smile: Yeah I thought so.
 	Mira.Smile: The purpose of this dialog is to test text sounds and dialog skipping.
 	do picture("Placeholder")
@@ -18,8 +18,10 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 	Mira.Smile: I can hold shift to skip all of it.
 	Also here are some thought sounds.
 	Ok I think that's enough.
-	
-	
+- Party talk
+	Daze.Neutural: This is certainly is a bush.
+	Asteria.Neutural: This is a bush, right?
+	Alcine.Neutural: Mhm...
 - End
 => END
 
@@ -81,6 +83,8 @@ What to do?
 	do heal_party()
 - Give Mira lots of HP
 	do Party.Leader.Health = 9999
+- Unlock all abilities
+	do unlock_all_abilities()
 - Reset all members
 	do reset_all_members()
 do give_control()

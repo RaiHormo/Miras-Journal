@@ -407,6 +407,10 @@ func is_in_party(n:String) -> bool:
 	else:
 		return false
 
+func unlock_all_abilities():
+	for mem in Members:
+		for ab in mem.LearnableAbilities:
+			mem.Abilities.append(ab)
 #endregion
 
 #region Textbox Managment

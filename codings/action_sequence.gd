@@ -32,17 +32,25 @@ func play(nam, tar):
 		roll_rng(tar)
 		call(nam, tar)
 
+## To make an AOE action sequence there needs to be a conditional for if the target is the CurrentChar.
+## After the current char does their stuff, the additional_done signal needs to be emmited for the rest of the targets to act
 func play_aoe(nam):
 	if Bt.CurrentAbility.AOE_AdditionalSeq:
+		print("AOE additional sequence")
 		roll_rng(CurrentChar)
 		call(nam, CurrentChar)
 		await additional_done
-	for i in Bt.get_target_faction():
+	var fact =  Bt.get_target_faction().duplicate()
+	var required_returns = fact.size()
+	if Bt.CurrentAbility.AOE_AdditionalSeq: required_returns += 1
+	if CurrentChar in fact: 
+		fact.erase(CurrentChar)
+		required_returns -= 1
+	for i in fact:
 		roll_rng(i)
 		call(nam, i)
+		print("AOE sequence on ", i.FirstName)
 		await Event.wait(Bt.CurrentAbility.AOE_Stagger)
-	var required_returns = Bt.get_target_faction().size()
-	if Bt.CurrentAbility.AOE_AdditionalSeq: required_returns += 1
 	while Bt.aoe_returns != required_returns: await Event.wait()
 	Bt.end_turn(true)
 
@@ -127,6 +135,10 @@ func handle_states():
 					await $LeechGrab1.animation_finished
 					$LeechGrab1.queue_free()
 				else: chara.remove_state(state)
+			"Aggro":
+				if state.inflicter not in TurnOrder or state.inflicter.has_state("KnockedOut"):
+					chara.remove_state(state)
+					chara.NextTarget = null
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
@@ -379,6 +391,18 @@ func SoothingSpray(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func SoothingRain(target: Actor):
+	if target == CurrentChar:
+		Bt.zoom(4)
+		Bt.move_cam(Vector2(-30, 0))
+		await Bt.anim("Cast")
+		additional_done.emit()
+	Bt.heal(target)
+	if crit:
+		Bt.stat_change("Mag", 0.5, target)
+	Bt.anim()
+	Bt.end_turn()
+
 func FlameSpark(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3, 20)
@@ -517,6 +541,17 @@ func ProtectiveField(target: Actor):
 	Bt.anim("Cast")
 	Bt.focus_cam(target)
 	await target.add_state("Protected")
+	Bt.anim()
+	Bt.end_turn()
+
+func Attention(target: Actor):
+	Bt.zoom()
+	Bt.focus_cam(CurrentChar)
+	Global.passive("BT_Daze", "attention")
+	await Event.wait(1)
+	Bt.focus_cam(target)
+	target.add_state("Aggro")
+	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()
 #endregion

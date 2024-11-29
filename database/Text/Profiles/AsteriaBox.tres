@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TextProfile" load_steps=2 format=3 uid="uid://b28b6eda2u4a"]
+
+[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="1_uetgw"]
+
+[resource]
+script = ExtResource("1_uetgw")
+Bord1 = Color(0.560784, 0.258824, 0.266667, 1)
+Bord2 = Color(0.34, 0.2108, 0.219413, 1)
+Bord3 = Color(0.221895, 0.176534, 0.208414, 1)
+AudioFrequency = 0
+PitchVariance = 0.0

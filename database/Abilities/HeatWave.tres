@@ -16,6 +16,7 @@ Low chance of burning others."
 Icon = SubResource("AtlasTexture_p5ac4")
 ActionSequence = &"HeatWave"
 Type = "BigAttack"
+Group = ""
 InflictsState = ""
 AuraCost = 8
 HPCost = 0

@@ -15,6 +15,7 @@ description = "A fairly reliable attack that deals damage with a low chance of m
 Icon = SubResource("AtlasTexture_ibuoa")
 ActionSequence = &"AttackMira"
 Type = "CheapAttack"
+Group = ""
 InflictsState = ""
 AuraCost = 0
 HPCost = 0

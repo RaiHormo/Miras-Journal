@@ -424,6 +424,7 @@ color = Color(0, 0, 0, 0)
 
 [node name="Balloon" type="ColorRect" parent="."]
 pivot_offset = Vector2(635, 735)
+size_flags_horizontal = 4
 color = Color(0, 0, 0, 1)
 
 [node name="Glow" type="Panel" parent="Balloon"]
@@ -510,10 +511,10 @@ theme = SubResource("Theme_wbt4v")
 
 [node name="Responses" type="VBoxContainer" parent="Balloon"]
 layout_mode = 2
-offset_left = 832.0
-offset_top = 30.0
-offset_right = 1244.0
-offset_bottom = 492.0
+offset_left = 735.0
+offset_top = 36.0
+offset_right = 1147.0
+offset_bottom = 498.0
 pivot_offset = Vector2(409, 118)
 theme_override_constants/separation = 36
 alignment = 2
@@ -557,11 +558,12 @@ theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="."]
-offset_left = -55.0
-offset_top = 389.0
-offset_right = 1945.0
-offset_bottom = 2389.0
-scale = Vector2(0.205429, 0.205429)
+visible = false
+offset_left = -31.0
+offset_top = 340.0
+offset_right = 2052.0
+offset_bottom = 2423.0
+scale = Vector2(0.22, 0.22)
 texture = ExtResource("8_owatg")
 
 [node name="Shadow" type="TextureRect" parent="Portrait"]
@@ -573,7 +575,7 @@ offset_left = -131.0
 offset_top = 150.0
 offset_right = 9466.0
 offset_bottom = 9746.0
-scale = Vector2(0.205429, 0.205429)
+scale = Vector2(0.22, 0.22)
 texture = ExtResource("8_owatg")
 
 [node name="PictureFrame" type="TextureRect" parent="."]
@@ -605,10 +607,10 @@ autoplay = "Glow"
 [node name="Hints" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1188.0
-offset_top = 751.0
-offset_right = 1228.0
-offset_bottom = 791.0
+offset_left = 1183.0
+offset_top = 96.0
+offset_right = 1223.0
+offset_bottom = 136.0
 
 [node name="Skip" type="Button" parent="Hints"]
 visibility_layer = 1024

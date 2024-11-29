@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=10 format=3 uid="uid://cpwqhga2rnw0s"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=11 format=3 uid="uid://cpwqhga2rnw0s"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="1_03qle"]
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_djiyi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_56w6l"]
 [ext_resource type="Resource" uid="uid://dndjx0ile1qpr" path="res://database/Enemies/BurstParasite.tres" id="5_2q274"]
 [ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_a1d4h"]
+[ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="6_14ib4"]
 
 [sub_resource type="Resource" id="Resource_5vx4i"]
 script = ExtResource("5_a1d4h")
@@ -38,7 +39,7 @@ add_flag = true
 
 [resource]
 script = ExtResource("1_tyx4l")
-Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv"), ExtResource("5_2q274")])
+Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv"), ExtResource("5_2q274"), ExtResource("6_14ib4")])
 AdditionalItems = Array[ExtResource("1_djiyi")]([])
 BattleBack = ExtResource("1_03qle")
 Transition = true

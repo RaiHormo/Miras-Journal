@@ -91,8 +91,32 @@ func _on_battle_get_control():
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
+	
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
-	if CurrentChar.BoxProfile != null: $BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
+	if CurrentChar.BoxProfile != null: 
+		var mem = CurrentChar
+		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
+		var bord1:StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
+		bord1.border_color = mem.BoxProfile.Bord1
+		$Inventory/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
+		var bord2:StyleBoxFlat = $Inventory/Border1/Border2.get_theme_stylebox("panel")
+		bord2.border_color = mem.BoxProfile.Bord2
+		$Inventory/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
+		var bord3:StyleBoxFlat = $Inventory/Border1/Border2/Border3.get_theme_stylebox("panel")
+		bord3.border_color = mem.BoxProfile.Bord3
+		$Inventory/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
+		
+		bord1 = $AbilityUI/Border2/Border1.get_theme_stylebox("panel")
+		bord1.border_color = mem.BoxProfile.Bord1
+		$AbilityUI/Border2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
+		bord2 = $AbilityUI/Border2.get_theme_stylebox("panel")
+		bord2.border_color = mem.BoxProfile.Bord2
+		$AbilityUI/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
+		bord3 = $AbilityUI.get_theme_stylebox("panel")
+		bord3.border_color = mem.BoxProfile.Bord3
+		$AbilityUI.add_theme_stylebox_override("panel", bord3.duplicate())
+		
+	
 	fetch_abilities()
 	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
@@ -197,6 +221,18 @@ func _input(event: InputEvent) -> void:
 						MenuIndex = 0
 					Global.cursor_sound()
 					move_menu()
+				var ab = foc.get_meta("Ability")
+				var abgroup = foc.get_meta("AbilityGroup")
+				if Input.is_action_just_pressed("ui_right") and active:
+					if abgroup.find(ab)+1 < abgroup.size():
+						foc.set_meta("Ability", abgroup[abgroup.find(ab)+1])
+						move_menu()
+						Global.cursor_sound()
+				if Input.is_action_just_pressed("ui_left") and active:
+					if abgroup.find(ab) != 0:
+						foc.set_meta("Ability", abgroup[abgroup.find(ab)-1])
+						move_menu()
+						Global.cursor_sound()
 			&"command":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
@@ -288,7 +324,7 @@ func _on_root():
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.5)
 	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
-	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.3)
+	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
@@ -321,6 +357,7 @@ func _on_attack():
 
 
 func _on_ability():
+	if CurrentChar.Abilities.is_empty(): return
 	active= false
 	stage = &"ability"
 	PrevStage = &"root"
@@ -342,7 +379,6 @@ func _on_ability():
 	t.set_parallel()
 	Global.confirm_sound()
 	$AbilityUI.show()
-	$Arrow.show()
 	#t.tween_property($BaseRing/Ring2, "rotation", ($BaseRing/Ring2.rotation+10), 0.3)
 	$Ability.add_theme_constant_override("icon_max_width", 1)
 	$Ability.icon = null
@@ -374,7 +410,6 @@ func _on_ability():
 	t.tween_property($Attack, "position", Vector2(-20,90), 0.3).as_relative()
 	t.tween_property($Item, "position", Vector2(-90,10), 0.3).as_relative()
 	t.tween_property($Command, "position", Vector2(-20,-60), 0.3).as_relative()
-	t.tween_property($Arrow, "modulate", Color(0.9,0.9,0.9,1), 0.3)
 	$Ability.focus_mode = 0
 	if get_node_or_null("%AbilityList/Item"+str(MenuIndex)) == null:
 		MenuIndex = 0
@@ -391,8 +426,15 @@ func _on_ability():
 		$DescPaper/Cost.hide()
 	$DescPaper/Title.text = Abilities[0].name
 	CurrentChar.NextMove = CurrentChar.Abilities[0]
+	$RankSwap.modulate = Color.TRANSPARENT
+	$RankSwap.show()
 	await t.finished
 	active = true
+	$RankSwap.global_position = foc.global_position
+	t = create_tween()
+	t.set_ease(Tween.EASE_IN_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property($RankSwap, "modulate", Color.WHITE, 0.2)
 
 
 func _on_command():
@@ -540,7 +582,7 @@ func close():
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
-	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
+	$RankSwap.hide()
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
@@ -571,6 +613,11 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	active = true
 	stage = &"pre_target"
 	TargetFaction = faction
+	if CurrentChar.NextTarget != null and CurrentChar.NextTarget in faction:
+		stage = &"inactive"
+		close()
+		emit_signal("ability_returned", ab, CurrentChar.NextTarget)
+		return
 	Bt.get_node("Canvas/Confirm").show()
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Confirm").text = "Target"
@@ -619,7 +666,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
-	t.tween_property($Arrow, "modulate", Color(0,0,0,0), 0.2)
+	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 	
@@ -679,26 +726,36 @@ func move_menu():
 	if stage == &"ability":
 		active= false
 		await get_tree().create_timer(0.001).timeout
+		$RankSwap.global_position = foc.global_position
+		var abgroup: Array = foc.get_meta("AbilityGroup")
+		var ab: Ability = foc.get_meta("Ability")
+		update_ab(foc)
+		if abgroup.find(ab) == 0:
+			$RankSwap/Left.hide()
+		else: $RankSwap/Left.show()
+		if abgroup.find(ab) == abgroup.size()-1:
+			$RankSwap/Right.hide()
+		else: $RankSwap/Right.show()
+		if not %AbilityList.get_child(MenuIndex).has_focus():
+			%AbilityList.get_child(MenuIndex).grab_focus()
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
-		if not %AbilityList.get_child(MenuIndex).has_focus():
-			%AbilityList.get_child(MenuIndex).grab_focus()
 		if MenuIndex < 6:
 			t.tween_property($AbilityUI/Margin/Scroller, "scroll_vertical", 0, 0.2)
 		if MenuIndex >= 6:
 			t.tween_property($AbilityUI/Margin/Scroller,
 			"scroll_vertical", 80 + (MenuIndex-6) *70, 0.2)
 		#print(MenuIndex)
-		$DescPaper/Desc.text = Global.colorize(Abilities[MenuIndex].description)
-		var color: Color = Abilities[MenuIndex].WheelColor
-		if Abilities[MenuIndex].ColorSameAsActor or color == Color.WHITE: color = CurrentChar.MainColor
+		$DescPaper/Desc.text = Global.colorize(ab.description)
+		var color: Color = ab.WheelColor
+		if ab.ColorSameAsActor or color == Color.WHITE: color = CurrentChar.MainColor
 		$DescPaper/Title.add_theme_color_override("font_color",
 		color - Color(0.2, 0.2, 0.2, 0))
-		$DescPaper/Title.text = Abilities[MenuIndex].name
+		$DescPaper/Title.text = ab.name
 		CurrentChar.NextMove = foc.get_meta("Ability")
-		if Abilities[MenuIndex].AuraCost != 0:
-			$DescPaper/Cost.text = str("Cost ", str(Abilities[MenuIndex].AuraCost))
+		if ab.AuraCost != 0:
+			$DescPaper/Cost.text = str("Cost ", str(ab.AuraCost))
 			$DescPaper/Cost.show()
 		else:
 			$DescPaper/Cost.hide()
@@ -719,6 +776,8 @@ func _on_battle_next_turn():
 func _on_targeted():
 	PrevStage = "targeted"
 	if CurrentChar.NextMove == null: return
+	if CurrentChar.NextTarget == null:
+		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
 		var proper_tar:Actor = TargetFaction[TargetIndex]
@@ -728,7 +787,7 @@ func _on_targeted():
 			TargetIndex = randi_range(0, TurnOrder.size()-1)
 		await move_menu()
 		confusion_msg()
-	emit_signal("ability_returned", CurrentChar.NextMove, TargetFaction[TargetIndex])
+	emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
 	close()
 
 func confusion_msg():
@@ -749,9 +808,9 @@ func _on_focus_changed(control:Control):
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
-	if stage == &"item":
-		#print(control)
-		focus_item(control)
+		if stage == &"item":
+			#print(control)
+			focus_item(control)
 
 func _on_ability_entry():
 	if active:
@@ -784,6 +843,7 @@ func _on_confirm_pressed():
 			targeted.emit()
 		if stage == &"target":
 			Global.confirm_sound()
+			CurrentChar.NextTarget = TargetFaction[TargetIndex]
 			targeted.emit()
 		if stage == &"item":
 			if foc == null or foc.get_meta("ItemData") == null: return
@@ -834,7 +894,7 @@ func _on_show_wheel_pressed():
 	t.set_parallel()
 	if $DescPaper/ShowWheel/Wheel.visible:
 		$DescPaper/ShowWheel.text = "Show wheel"
-		t.tween_property($DescPaper/ShowWheel, "position:x", 140, 0.3)
+		t.tween_property($DescPaper/ShowWheel, "position:x", 150, 0.3)
 		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.TRANSPARENT, 0.3)
 		await t.finished
 		$DescPaper/ShowWheel/Wheel.hide()
@@ -886,25 +946,32 @@ func fetch_abilities():
 	for n in %AbilityList.get_children():
 		%AbilityList.remove_child(n)
 		n.queue_free()
-	for i in Abilities:
-		var dub = %Ab0.duplicate()
-		dub.show()
-		%AbilityList.add_child(dub)
-		dub.text = i.name
-		dub.get_node("Icon").texture = i.Icon
-		if i.AuraCost != 0:
-			dub.get_child(0).text = str(i.AuraCost)
-			dub.get_child(0).show()
-		else:
-			dub.get_child(0).hide()
-		dub.name = "Item" + str(dub.get_index(true))
-		dub.set_meta("Ability", i)
+	for i in CurrentChar.groupped_abilities():
+			var dub = %Ab0.duplicate()
+			dub.show()
+			%AbilityList.add_child(dub)
+			dub.set_meta("AbilityGroup", i)
+			var ab = i[0]
+			dub.set_meta("Ability", ab)
+			update_ab(dub)
 	for i in %AbilityList.get_children():
 		if i.get_meta("Ability").AuraCost > CurrentChar.Aura or i.get_meta("Ability").disabled:
 			if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
 				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			i.disabled = true
 			%AbilityList.get_children().push_back(i)
+
+func update_ab(dub: Button):
+	var ab: Ability = dub.get_meta("Ability")
+	dub.text = ab.name
+	dub.get_node("Icon").texture = ab.Icon
+	if ab.AuraCost != 0:
+		dub.get_child(0).text = str(ab.AuraCost)
+		dub.get_child(0).show()
+	else:
+		dub.get_child(0).hide()
+	dub.name = "Item" + str(dub.get_index(true))
+	dub.set_meta("Ability", ab)
 
 func _on_b_ibutton_pressed(tog:bool) -> void:
 	if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return

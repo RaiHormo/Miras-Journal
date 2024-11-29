@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cwah0an2o3u15"]
+[gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://cwah0an2o3u15"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_7s2jl"]
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
+[ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
 [ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
@@ -17,8 +18,8 @@ script = ExtResource("3_vnjlu")
 Bord1 = Color(0.831373, 0.768627, 0.388235, 1)
 Bord2 = Color(0.514254, 0.547661, 0.317093, 1)
 Bord3 = Color(0.227689, 0.244008, 0.144401, 1)
-AudioFrequency = 0
-PitchVariance = 0.0
+AudioFrequency = 4
+PitchVariance = 1.0
 
 [resource]
 script = ExtResource("3_g8t8l")
@@ -37,13 +38,13 @@ BoxProfile = SubResource("Resource_v2ahk")
 LastName = ""
 Weapon = "Gold-trimmed Katana"
 Controllable = true
-HpOnSLvUp = 30
+HpOnSLvUp = 20
 ApOnSLvUP = 8
 RenderArtwork = ExtResource("5_vfc7p")
 RenderShadow = ExtResource("6_kpp4a")
 PartyPage = ExtResource("6_1f8qn")
-MaxHP = 200
-MaxAura = 70
+MaxHP = 180
+MaxAura = 40
 Attack = 0.7
 Magic = 1.3
 Defence = 1.7
@@ -53,7 +54,7 @@ Aura = 70
 SkillLevel = 18
 SkillPoints = 21
 SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 80, 70, 72])
-Abilities = Array[ExtResource("1_3ecv6")]([])
+Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_ps7rl")])
 StandardAttack = ExtResource("9_l2o8n")
 LearnableAbilities = Array[ExtResource("1_3ecv6")]([])
 OV = ExtResource("4_iesjw")

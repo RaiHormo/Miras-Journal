@@ -258,3 +258,17 @@ func reset_static_info():
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
+
+func groupped_abilities() -> Array[Array]:
+	var rtn: Array[Array]
+	for i in Abilities:
+		var found = false
+		if i.Group != "":
+			for j in rtn:
+				if j[0].Group == i.Group:
+					j.append(i)
+					found = true
+					break
+		if not found:
+			rtn.append([i])
+	return rtn
