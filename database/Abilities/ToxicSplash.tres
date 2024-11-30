@@ -15,6 +15,7 @@ description = "Deals weak Corruption damage, with a chance of poisoning the targ
 Icon = SubResource("AtlasTexture_jd2xk")
 ActionSequence = &"ToxicSplash"
 Type = "CheapAttack"
+Group = ""
 InflictsState = "Poisoned"
 AuraCost = 5
 HPCost = 0

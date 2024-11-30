@@ -15,6 +15,7 @@ description = "Literally noithing, passes the turn."
 Icon = SubResource("AtlasTexture_by1w8")
 ActionSequence = &""
 Type = "Defensive"
+Group = ""
 InflictsState = ""
 AuraCost = 0
 HPCost = 0

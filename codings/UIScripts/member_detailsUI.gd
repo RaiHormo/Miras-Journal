@@ -180,7 +180,7 @@ func _on_abilities_pressed() -> void:
 func _on_ab_focus_entered() -> void:
 	if $AbilityPanel.scale == Vector2.ONE: Global.cursor_sound()
 	var ab:Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
-	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor:
+	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
 		$AbilityPanel/AttackTitle/Wheel.show()
 		$AbilityPanel/AttackTitle/Wheel.color = ab.WheelColor
 		$AbilityPanel/AttackTitle/Wheel.draw_wheel()

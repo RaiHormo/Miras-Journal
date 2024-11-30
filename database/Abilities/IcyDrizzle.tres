@@ -29,6 +29,6 @@ ColorSameAsActor = false
 WheelColor = Color(0.0745098, 0.909804, 1, 1)
 Callout = true
 SucessChance = 0.8
-CritChance = 0.4
+CritChance = 0.5
 RecoverAura = false
 DmgVarience = false

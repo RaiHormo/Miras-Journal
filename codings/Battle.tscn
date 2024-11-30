@@ -811,6 +811,21 @@ corner_radius_bottom_left = 18
 corner_detail = 20
 anti_aliasing = false
 
+[sub_resource type="Animation" id="Animation_qmnym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, 3)]
+}
+
 [sub_resource type="Animation" id="Animation_fnubh"]
 resource_name = "arrows"
 length = 0.5
@@ -838,21 +853,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(2.82843, 1, 4.00001),
 "update": 0,
 "values": [Vector2(76.5, 4), Vector2(75.5, 4), Vector2(76.5, 4)]
-}
-
-[sub_resource type="Animation" id="Animation_qmnym"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Left:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-12, 3)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j7n1p"]
@@ -1708,7 +1708,9 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"AttackUp"
+animation = &"HeatWave"
+frame = 11
+frame_progress = 1.0
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -2123,6 +2125,7 @@ flip_h = true
 [node name="Bg" type="Panel" parent="BattleUI/RankSwap/Right"]
 show_behind_parent = true
 light_mask = 0
+layout_mode = 0
 offset_left = -7.8
 offset_top = -4.5
 offset_right = 12.2

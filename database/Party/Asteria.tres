@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://c7dagc4gevvwu"]
+[gd_resource type="Resource" script_class="Actor" load_steps=17 format=3 uid="uid://c7dagc4gevvwu"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
 [ext_resource type="Texture2D" uid="uid://x3lb1nluygfp" path="res://art/BT/Asteria/AsteriaBt.png" id="2_5j7pm"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_p1xdm"]
+[ext_resource type="Resource" uid="uid://cbh1if1c4xskl" path="res://database/Abilities/PhantomGuard.tres" id="2_qhfgp"]
+[ext_resource type="Resource" uid="uid://i76o7dyxd0rh" path="res://database/Abilities/Tighten.tres" id="3_5qh1h"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_rxi2h"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_s4tb4"]
 [ext_resource type="Resource" uid="uid://b28b6eda2u4a" path="res://database/Text/Profiles/AsteriaBox.tres" id="3_tcuxw"]
 [ext_resource type="Texture2D" uid="uid://daok3tmqcs2kf" path="res://art/Renders/Asteria.png" id="3_xi50h"]
+[ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
 [ext_resource type="Texture2D" uid="uid://81tshj45pio3" path="res://art/Journal/Auras/SoulsLike.png" id="5_0j8vf"]
 [ext_resource type="Texture2D" uid="uid://cs6iy5fy4wk68" path="res://UI/Party/AsteriaShadow.png" id="5_6is5u"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
@@ -60,7 +63,7 @@ Aura = 47
 SkillLevel = 7
 SkillPoints = 16
 SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 49, 38, 42, 40])
-Abilities = Array[ExtResource("1_wfdm5")]([])
+Abilities = Array[ExtResource("1_wfdm5")]([ExtResource("2_qhfgp"), ExtResource("3_5qh1h"), ExtResource("4_j7xb4")])
 StandardAttack = ExtResource("7_75i7m")
 LearnableAbilities = Array[ExtResource("1_wfdm5")]([])
 OV = ExtResource("3_rxi2h")

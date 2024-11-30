@@ -626,7 +626,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
 	if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
-	and ab.Damage != 0):
+	and ab.Damage != Ability.D.NONE):
 		$"../Canvas/AttackTitle/Wheel".show()
 		$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
 	else:
@@ -759,7 +759,7 @@ func move_menu():
 			$DescPaper/Cost.show()
 		else:
 			$DescPaper/Cost.hide()
-		if CurrentChar.NextMove.WheelColor.s > 0:
+		if CurrentChar.NextMove.WheelColor.s > 0 and CurrentChar.NextMove.Damage != Ability.D.NONE:
 			$DescPaper/ShowWheel.show()
 			$DescPaper/ShowWheel/Wheel.show_atk_color(CurrentChar.NextMove.WheelColor)
 		else:

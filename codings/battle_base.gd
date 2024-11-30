@@ -597,8 +597,13 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 	await t.finished
 
 func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= false, dont_free:= false):
-	if $Act/Effects.sprite_frames.has_animation(stri) and is_instance_valid(tar) and is_instance_valid(tar.node):
-		if tar is Actor: tar = tar.node.position
+	if $Act/Effects.sprite_frames.has_animation(stri):
+		print("Playing effect ", stri)
+		if tar is not Vector2:
+			if tar is Actor and is_instance_valid(tar) and is_instance_valid(tar.node): tar = tar.node.position
+			else:
+				push_error("The target of the effect ", stri, " was invalid") 
+				return
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
 		ef.name = stri
@@ -809,7 +814,8 @@ mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 
 #int(max(Global.calc_num(), target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))
 func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
-	if CurrentAbility.DmgVarience: amount * randf_range(1, 1.5)
+	if CurrentAbility.DmgVarience: 
+		amount = round(amount * randf_range(1, 1.5))
 	target.add_health(amount)
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
@@ -1062,6 +1068,7 @@ func _on_battle_ui_item() -> void:
 	if CurrentChar.node.animation == "Bag": anim("BagLoop")
 
 func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03):
+	if not is_instance_valid(chara.node): return
 	for i in repeat:
 		t = create_tween()
 		t.tween_property(chara.node, "position:x", amount, time).as_relative()

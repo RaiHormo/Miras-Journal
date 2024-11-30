@@ -15,6 +15,7 @@ description = "Weapon damage to all enemies. Chance to miss for each one."
 Icon = SubResource("AtlasTexture_hfqm4")
 ActionSequence = &"AOEAttack"
 Type = "CheapAttack"
+Group = ""
 InflictsState = ""
 AuraCost = 0
 HPCost = 0

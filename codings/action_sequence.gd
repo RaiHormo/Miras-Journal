@@ -422,6 +422,25 @@ func FlameSpark(target: Actor):
 	Bt.anim("Idle")
 	Bt.end_turn()
 
+func RagingFire(target: Actor):
+	Bt.zoom(5)
+	Bt.focus_cam(CurrentChar, 0.3, 20)
+	Bt.anim("FlameSpark")
+	await Event.wait(0.1)
+	Bt.glow(0)
+	await get_tree().create_timer(0.3).timeout
+	Bt.play_effect("FlameSpark", target)
+	Bt.focus_cam(target, 0.3)
+	await Event.wait(0.2)
+	Bt.screen_shake()
+	Bt.damage(target, true, true)
+	await Event.wait(0.8)
+	if crit:
+		await target.add_state("Burned")
+	await Event.wait(0.8)
+	Bt.anim("Idle")
+	Bt.end_turn()
+
 func Summon(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3, 0)
@@ -495,6 +514,25 @@ func ToxicSplash(target: Actor):
 	await Event.wait(1)
 	if crit: await target.add_state("Poisoned")
 	Bt.anim()
+	Bt.end_turn()
+
+func IcyDrizzle(target: Actor):
+	if target == CurrentChar:
+		Bt.focus_cam(CurrentChar)
+		Bt.anim("Cast")
+		await Event.wait(0.5)
+		Bt.move_cam(Vector2(Bt.offsetize(20), 0), 1)
+		Bt.zoom(4.5, 1)
+		additional_done.emit()
+		await Event.wait(1)
+		Bt.return_cur()
+		Bt.anim()
+	else:
+		if miss: Bt.miss(target)
+		else:
+			Bt.damage(target, CurrentChar.Magic, true)
+			Bt.screen_shake(5)
+			if crit: await target.add_state("Frozen")
 	Bt.end_turn()
 
 func LeechSeeds(target: Actor):
