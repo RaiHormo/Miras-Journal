@@ -1106,7 +1106,7 @@ func on_state_add(state: State, chara: Actor):
 		if not state.is_stat_change: pop_num(chara, state.name, state.color)
 		add_state_effect(state, chara)
 		match state.name:
-			"Guarding":
+			"Guarding", "AuraOverwrite":
 				chara.node.material.set_shader_parameter("outline_enabled", true)
 				chara.node.material.set_shader_parameter("outline_color", chara.MainColor)
 			"Protected":
@@ -1170,3 +1170,8 @@ func filter_dead(arr: Array[Actor]) -> Array[Actor]:
 func clear_states(target: Actor):
 	for i in target.States:
 		target.remove_state(i)
+
+func aura_overwrite(tar: Actor, color: Color, turns: int = 1):
+	tar.AuraDefault = tar.MainColor
+	tar.MainColor = color
+	tar.add_state("AuraOverwrite", turns)

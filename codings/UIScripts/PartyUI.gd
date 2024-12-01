@@ -499,13 +499,13 @@ func draw_bar(mem:Actor, node: Panel):
 	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.MainColor)
 	node.get_node("Aura/ApText").add_theme_color_override("font_color", mem.SecondaryColor)
 	var hbox:StyleBoxFlat = node.get_node("Health").get_theme_stylebox("fill")
-	hbox.bg_color = mem.MainColor
+	hbox.bg_color = mem.AuraDefault if mem.has_state("Aura Change") else mem.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
 	var abox = node.get_node("Aura").get_theme_stylebox("fill")
 	abox.bg_color = mem.SecondaryColor
 	node.get_node("Aura").add_theme_stylebox_override("fill", abox.duplicate())
 	var bord1:StyleBoxFlat = node.get_node("Border1").get_theme_stylebox("panel")
-	bord1.border_color = mem.BoxProfile.Bord1
+	bord1.border_color = mem.MainColor
 	node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
 	var bord2:StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
 	bord2.border_color = mem.BoxProfile.Bord2

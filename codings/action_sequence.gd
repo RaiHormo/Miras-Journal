@@ -65,80 +65,86 @@ func roll_rng(tar: Actor):
 
 func handle_states():
 	var chara = Bt.CurrentChar
-	for state in chara.States:
+	for state: State in chara.States:
+		print("Handling", state.name)
 		if state.turns > -1:
 			state.turns -= 1
 			if state.turns == 0:
 				match state.name:
-					"Guarding":
-						chara.node.material.set_shader_parameter("outline_enabled", false)
-					"Protected":
+					"Guarding", "Protected":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"AttackUp": chara.AttackMultiplier -= 0.5
 					"DefenceUp": chara.DefenceMultiplier -= 0.5
 					"MagicUp": chara.MagicMultiplier -= 0.5
-				chara.remove_state(state)
-				continue
-		match state.name:
-			"Aura Break":
-				if chara.Aura != 0:
-					chara.remove_state(state)
-			"Burned":
-				chara.node.get_node("State").play("Burned")
-				Bt.focus_cam(chara, 0.3)
-				Bt.play_sound("BurnWoosh", chara)
-				Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
-				await get_tree().create_timer(0.8).timeout
-			"Poisoned":
-				state.turns -= 1
-				chara.node.get_node("State").play("Poisoned")
-				Bt.focus_cam(chara, 0.3)
-				Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
-				await get_tree().create_timer(0.8).timeout
-			"Confused":
-				var luck := randi_range(state.turns, 1)
-				print("Confusion dice roll: ", luck)
-				if luck < -1:
-					chara.remove_state(state.name)
-					Global.toast(chara.FirstName+" snaps out of Confusion!")
-				elif luck == -1 or not chara.Controllable:
-					var choices: Array[Ability] = chara.Abilities.duplicate()
-					choices.append(chara.StandardAttack)
-					chara.NextMove = choices.pick_random()
-					chara.NextAction = "Ability"
-					chara.NextTarget = TurnOrder.pick_random()
-					if chara.Controllable:
-						Global.toast(chara.FirstName+" looses control in Confusion!")
-					else:
-						if chara == chara.NextTarget and chara.NextMove.Target == Ability.T.ONE_ENEMY:
-							Global.toast(chara.FirstName+" hits "+chara.Pronouns[3]+" in Confusion!")
-						elif chara.NextTarget in Bt.get_ally_faction(chara) and chara.NextMove.Target == Ability.T.ONE_ENEMY:
-							Global.toast(chara.FirstName+" hits an ally in confusion!")
-				state.turns -= 1
-			"Leeched":
-				if state.inflicter in TurnOrder:
-					Bt.play_effect("LeechGrab1", chara, Vector2.ZERO, false, true)
-					Bt.focus_cam(chara, 0.3)
-					if chara.DamageRecivedThisTurn == 0:
-						Bt.damage(chara, true, true, 4, false, true, true, Global.ElementColor.get("natural"))
-					var dmg = chara.DamageRecivedThisTurn
-					await $LeechGrab1.animation_finished
-					var t = create_tween()
-					t.set_ease(Tween.EASE_OUT)
-					t.set_trans(Tween.TRANS_QUART)
-					$LeechGrab1.play("LeechGrab2")
-					t.tween_property($LeechGrab1, "global_position", state.inflicter.node.global_position, 0.5)
-					Bt.focus_cam(state.inflicter, 0.5, 40)
-					await t.finished
-					Bt.heal(state.inflicter, dmg)
-					$LeechGrab1.play("LeechGrab3")
-					await $LeechGrab1.animation_finished
-					$LeechGrab1.queue_free()
-				else: chara.remove_state(state)
-			"Aggro":
-				if state.inflicter not in TurnOrder or state.inflicter.has_state("KnockedOut"):
-					chara.remove_state(state)
-					chara.NextTarget = null
+					"Aura Change": 
+						chara.MainColor = chara.AuraDefault
+						chara.node.material.set_shader_parameter("outline_enabled", false)
+				state.QueueRemove = true
+			else:
+				match state.name:
+					"Aura Break":
+						if chara.Aura != 0:
+							state.QueueRemove = true
+					"Burned":
+						chara.node.get_node("State").play("Burned")
+						Bt.focus_cam(chara, 0.3)
+						Bt.play_sound("BurnWoosh", chara)
+						Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
+						await get_tree().create_timer(0.8).timeout
+					"Poisoned":
+						state.turns -= 1
+						chara.node.get_node("State").play("Poisoned")
+						Bt.focus_cam(chara, 0.3)
+						Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
+						await get_tree().create_timer(0.8).timeout
+					"Confused":
+						var luck := randi_range(state.turns, 1)
+						print("Confusion dice roll: ", luck)
+						if luck < -1:
+							chara.remove_state(state.name)
+							Global.toast(chara.FirstName+" snaps out of Confusion!")
+						elif luck == -1 or not chara.Controllable:
+							var choices: Array[Ability] = chara.Abilities.duplicate()
+							choices.append(chara.StandardAttack)
+							chara.NextMove = choices.pick_random()
+							chara.NextAction = "Ability"
+							chara.NextTarget = TurnOrder.pick_random()
+							if chara.Controllable:
+								Global.toast(chara.FirstName+" looses control in Confusion!")
+							else:
+								if chara == chara.NextTarget and chara.NextMove.Target == Ability.T.ONE_ENEMY:
+									Global.toast(chara.FirstName+" hits "+chara.Pronouns[3]+" in Confusion!")
+								elif chara.NextTarget in Bt.get_ally_faction(chara) and chara.NextMove.Target == Ability.T.ONE_ENEMY:
+									Global.toast(chara.FirstName+" hits an ally in confusion!")
+						state.turns -= 1
+					"Leeched":
+						if state.inflicter in TurnOrder:
+							Bt.play_effect("LeechGrab1", chara, Vector2.ZERO, false, true)
+							Bt.focus_cam(chara, 0.3)
+							if chara.DamageRecivedThisTurn == 0:
+								Bt.damage(chara, true, true, 4, false, true, true, Global.ElementColor.get("natural"))
+							var dmg = chara.DamageRecivedThisTurn
+							await $LeechGrab1.animation_finished
+							var t = create_tween()
+							t.set_ease(Tween.EASE_OUT)
+							t.set_trans(Tween.TRANS_QUART)
+							$LeechGrab1.play("LeechGrab2")
+							t.tween_property($LeechGrab1, "global_position", state.inflicter.node.global_position, 0.5)
+							Bt.focus_cam(state.inflicter, 0.5, 40)
+							await t.finished
+							Bt.heal(state.inflicter, dmg)
+							$LeechGrab1.play("LeechGrab3")
+							await $LeechGrab1.animation_finished
+							$LeechGrab1.queue_free()
+						else: chara.remove_state(state)
+					"Aggro":
+						if state.inflicter not in TurnOrder or state.inflicter.has_state("KnockedOut"):
+							chara.remove_state(state)
+							chara.NextTarget = null
+	for i in range(chara.States.size() -1, -1, -1):
+		var state = chara.States[i]
+		if state.QueueRemove:
+			chara.remove_state(state)
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
@@ -378,6 +384,16 @@ func Guard(target: Actor):
 	Bt.zoom()
 	Bt.anim("Idle")
 	Bt.focus_cam(CurrentChar)
+	await CurrentChar.add_state("Guarding")
+	await Event.wait(0.5)
+	Bt.end_turn()
+
+func PhantomGuard(target: Actor):
+	Bt.zoom()
+	Bt.anim("Idle")
+	Bt.focus_cam(CurrentChar)
+	Bt.aura_overwrite(target, Bt.CurrentAbility.WheelColor)
+	await Event.wait(0.5)
 	await CurrentChar.add_state("Guarding")
 	await Event.wait(0.5)
 	Bt.end_turn()

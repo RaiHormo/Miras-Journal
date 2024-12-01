@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=15 format=3 uid="uid://cwah0an2o3u15"]
+[gd_resource type="Resource" script_class="Actor" load_steps=16 format=3 uid="uid://cwah0an2o3u15"]
 
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_7s2jl"]
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
 [ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
+[ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
 [ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
 [ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
@@ -55,7 +56,7 @@ Aura = 70
 SkillLevel = 18
 SkillPoints = 21
 SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 80, 70, 72])
-Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_ps7rl"), ExtResource("3_ssdks")])
+Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_y217q"), ExtResource("2_ps7rl"), ExtResource("3_ssdks")])
 StandardAttack = ExtResource("9_l2o8n")
 LearnableAbilities = Array[ExtResource("1_3ecv6")]([])
 OV = ExtResource("4_iesjw")

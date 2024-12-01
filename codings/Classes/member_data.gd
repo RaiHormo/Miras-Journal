@@ -128,6 +128,7 @@ var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
 var DamageRecivedThisTurn: int = 0
+var AuraDefault: Color = Color.WHITE
 
 class log_entry:
 	var turn: int

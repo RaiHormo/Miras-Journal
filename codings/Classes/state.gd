@@ -11,5 +11,6 @@ class_name State
 @export var weak_mult:= 1.0
 @export var dmg_mult:= 1.0
 var inflicter: Actor = null
+var QueueRemove:= false
 
 @export var is_stat_change:= false
