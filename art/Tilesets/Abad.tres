@@ -1937,6 +1937,16 @@ texture_region_size = Vector2i(24, 24)
 2:4/0/custom_data_0 = "Grass"
 2:5/0 = 0
 2:5/0/custom_data_0 = "Grass"
+16:0/animation_columns = 1
+16:0/animation_speed = 2.0
+16:0/0 = 0
+16:1/0 = 0
+17:0/0 = 0
+17:1/0 = 0
+16:2/0 = 0
+17:2/0 = 0
+17:3/0 = 0
+16:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5khia"]
 texture = ExtResource("4_k3buq")
@@ -2136,6 +2146,16 @@ texture_region_size = Vector2i(24, 24)
 15:10/0 = 0
 0:10/0 = 0
 1:10/0 = 0
+0:12/size_in_atlas = Vector2i(4, 4)
+0:12/0 = 0
+4:15/0 = 0
+5:14/0 = 0
+5:15/0 = 0
+6:15/0 = 0
+6:14/0 = 0
+4:12/size_in_atlas = Vector2i(2, 2)
+4:12/0 = 0
+4:12/0/texture_origin = Vector2i(-12, 12)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vv60i"]
 texture = ExtResource("6_0uc7g")
