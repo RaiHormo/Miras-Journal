@@ -267,6 +267,7 @@ func _on_focus_changed(control:Control):
 func load_settings():
 	Global.save_settings()
 	var setting = await Loader.load_res("user://Settings.tres")
+	%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
 	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 	%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
 	%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume*10
@@ -560,6 +561,7 @@ func _on_saturation(value):
 
 func _on_auto_hide_hud(index: int) -> void:
 	Global.Settings.AutoHideHUD = index
+	Global.confirm_sound()
 
 
 func _show_image_test() -> void:

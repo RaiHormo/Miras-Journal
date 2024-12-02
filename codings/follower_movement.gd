@@ -28,6 +28,7 @@ func _physics_process(_delta: float) -> void:
 		animate()
 		return
 	if Global.Party.check_member(member) and not Loader.InBattle:
+		add_collision_exception_with(Global.Player)
 		show()
 		z_index = Global.Player.z_index
 		collision_layer = Global.Player.collision_layer
@@ -45,14 +46,13 @@ func _physics_process(_delta: float) -> void:
 				$CollisionShape2D.disabled = false
 			else: 
 				direction = to_local(Global.Player.global_position).normalized()
-				$CollisionShape2D.disabled = true
+				$CollisionShape2D.disabled = false
 			move_and_slide()
 			velocity = speed * direction
 			speed = max(30, Global.Player.RealVelocity.length())
 			if Loader.chased:
 				$CollisionShape2D.disabled = true
 		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
-			add_collision_exception_with(Global.Player)
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 			velocity = oposite

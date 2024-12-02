@@ -57,6 +57,15 @@ func _process(delta):
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
 
+		if Global.Controllable and Global.Player.move_frames != 0:
+			if Global.Settings.AutoHideHUD == 0:
+				if $IdleTimer.time_left == 0:
+					show_all()
+				$IdleTimer.start(5)
+			if Global.Settings.AutoHideHUD == 1:
+				hide_all()
+				$IdleTimer.start(3)
+
 func show_all():
 	if disabled: return
 	UIvisible = true
@@ -68,7 +77,9 @@ func show_all():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
-	if not Loader.InBattle: t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+	if not Loader.InBattle: 
+		t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+		$IdleTimer.start(5)
 	for i in range(0, 4):
 		if i != 0: t.tween_property(Partybox.get_child(i), "position:x", -70, 0.2).set_delay(0.05)
 		if Loader.InBattle and def_pos_partybox[i] != Vector2.ONE:
@@ -277,6 +288,7 @@ func _on_shrink():
 	MemberChoosing = false
 	$CanvasLayer/Back.hide()
 	%Pages.hide()
+	$IdleTimer.start(5)
 
 func shrink_panel(Pan:Panel, mem = 0,):
 	t = create_tween()
@@ -663,3 +675,11 @@ func preform_levelups():
 		await scene.get_node("Levelup").closed
 	LevelupChain.clear()
 	scene.queue_free()
+
+
+func _on_idle_timer_timeout() -> void:
+	if Global.Controllable:
+		if Global.Settings.AutoHideHUD == 0:
+			hide_all()
+		if Global.Settings.AutoHideHUD == 1:
+			show_all()

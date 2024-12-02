@@ -1270,6 +1270,10 @@ process_callback = 0
 wait_time = 12.0
 autostart = true
 
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
@@ -1281,3 +1285,4 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/UseTime" to="CanvasLayer/CalendarBase" method="use_time"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]
 [connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
