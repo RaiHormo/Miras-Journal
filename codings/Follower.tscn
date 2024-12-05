@@ -58,7 +58,7 @@ position = Vector2(0, -1)
 texture = ExtResource("4_qao14")
 
 [node name="Glow" type="PointLight2D" parent="."]
-position = Vector2(-1, 5)
+position = Vector2(0, -6)
 color = Color(0.498039, 0.768627, 0.768627, 1)
 energy = 0.3
 texture = SubResource("GradientTexture2D_2e8bj")

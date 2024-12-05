@@ -106,6 +106,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_q7t2c")
 
 [node name="Cnt" type="BoxContainer" parent="Pack"]
+light_mask = 0
 offset_left = -180.0
 offset_top = -45.0
 offset_right = 182.0
@@ -113,6 +114,7 @@ offset_bottom = -13.0
 alignment = 1
 
 [node name="Button" type="Button" parent="Pack/Cnt"]
+light_mask = 0
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_41wqm")
 custom_minimum_size = Vector2(120, 0)

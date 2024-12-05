@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=106 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
@@ -30,6 +30,18 @@ colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6e4y7"]
 gradient = SubResource("Gradient_8j6vo")
+
+[sub_resource type="Gradient" id="Gradient_x1vp8"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0142857, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.106997, 0.0477697, 0.0259671, 0.0257019, 0.93, 0.696725, 0.6045, 0.0352941)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rqg3q"]
+gradient = SubResource("Gradient_x1vp8")
+fill = 1
+fill_from = Vector2(0.517094, 0.5)
+fill_to = Vector2(0.833333, 0.123932)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4m273"]
 atlas = ExtResource("2_55wks")
@@ -755,6 +767,16 @@ offset_top = 389.0
 offset_right = 2332.0
 offset_bottom = 1203.0
 color = Color(0, 0, 0, 1)
+
+[node name="Glow" type="TextureRect" parent="Ring"]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 0
+offset_left = 164.0
+offset_top = 194.0
+offset_right = 1428.0
+offset_bottom = 1423.0
+texture = SubResource("GradientTexture2D_rqg3q")
 
 [node name="DottedBack" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.0313726)

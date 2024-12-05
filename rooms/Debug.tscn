@@ -1,10 +1,11 @@
-[gd_scene load_steps=75 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=76 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="3_0w5t4"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="4_uui7p"]
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="5_00dms"]
+[ext_resource type="Script" path="res://codings/tod_light.gd" id="5_dcjai"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="6_pmuyc"]
 [ext_resource type="Script" path="res://codings/Interactions/lamp.gd" id="7_bbmkb"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_xyolw"]
@@ -220,15 +221,12 @@ sources/1 = SubResource("TileSetAtlasSource_u78hp")
 sources/3 = SubResource("TileSetAtlasSource_spamq")
 sources/0 = SubResource("TileSetAtlasSource_djywu")
 
-[sub_resource type="Gradient" id="Gradient_4tyhe"]
-offsets = PackedFloat32Array(0)
+[sub_resource type="Gradient" id="Gradient_gm5dt"]
+offsets = PackedFloat32Array(1)
 colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_scwbs"]
-gradient = SubResource("Gradient_4tyhe")
-fill = 2
-fill_from = Vector2(0.504274, 0.525641)
-fill_to = Vector2(1, 0.5)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5b0a5"]
+gradient = SubResource("Gradient_gm5dt")
 
 [sub_resource type="Gradient" id="Gradient_5nhgl"]
 interpolation_mode = 2
@@ -573,13 +571,15 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAD9//7/AwACAAQAAAAAAP3/AwAIAAcAAAACAP7/AwAMAAcAAAACAAEAAAAOAAQAAAALAAEAAwAIAAQAAAALAAIAAwAIAAUAAAALAAMAAwAIAAYAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 
-[node name="GloabalLight" type="PointLight2D" parent="."]
-position = Vector2(41, -112)
-scale = Vector2(9.20552, 8.5205)
+[node name="Darkness" type="PointLight2D" parent="."]
+position = Vector2(23, -4)
+scale = Vector2(2.14062, 226)
 color = Color(0.839216, 0.803922, 0.690196, 1)
 blend_mode = 1
-shadow_color = Color(0, 0, 0, 0.905882)
-texture = SubResource("GradientTexture2D_scwbs")
+texture = SubResource("GradientTexture1D_5b0a5")
+script = ExtResource("5_dcjai")
+Colors = Array[Color]([Color(0.256136, 0.910014, 1, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.256136, 0.910014, 1, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1)])
+Energy = Array[float]([0.5, 0.0, 0.3, 0.8, 1.0])
 
 [node name="Lamp" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(59.7305, -36.4454)
@@ -600,15 +600,12 @@ script = ExtResource("7_bbmkb")
 
 [node name="Lamp2" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(59.7305, -36.4454)
-LabelText = "Toggle Lamp"
-ActionType = "toggle"
-Length = 160
+script = null
 
 [node name="PointLight2D" type="PointLight2D" parent="Lamp2"]
 position = Vector2(0.269501, 0.4454)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
-energy = 1.5
 shadow_enabled = true
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
@@ -619,7 +616,7 @@ script = ExtResource("7_bbmkb")
 position = Vector2(241.269, 107.445)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
-energy = 1.5
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
@@ -878,7 +875,6 @@ shape = SubResource("RectangleShape2D_wo8dh")
 debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 
 [connection signal="action" from="Lamp" to="Lamp/PointLight2D" method="_on_interactable_action"]
-[connection signal="action" from="Lamp2" to="Lamp2/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoint2" to="JumpPoint2" method="_on_entered"]
 [connection signal="area_entered" from="BreakableVinesDB/AreaBreak" to="BreakableVinesDB" method="_on_area_break_area_entered"]

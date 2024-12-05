@@ -167,6 +167,7 @@ func close():
 	t.tween_property($Back, "position", Vector2(31,850), 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
+	t.tween_property($Ring/Glow, "modulate", Color.TRANSPARENT, 0.3)
 	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	Cam.position = CamPrev.position
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
@@ -310,6 +311,7 @@ func _root():
 	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
 	t.tween_property($Ring, "position", Vector2(-162, -388), 0.8)
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
+	t.tween_property($Ring/Glow, "modulate", Color.WHITE, 0.6).from(Color.TRANSPARENT)
 	PartyUI.darken(false)
 	await t.finished
 	if stage == "inactive-root":

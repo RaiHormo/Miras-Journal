@@ -33,6 +33,8 @@ func _physics_process(_delta: float) -> void:
 		z_index = Global.Player.z_index
 		collision_layer = Global.Player.collision_layer
 		collision_mask = Global.Player.collision_mask
+		$Glow.color = member_info().MainColor
+		$Glow.energy = member_info().GlowDef
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased:

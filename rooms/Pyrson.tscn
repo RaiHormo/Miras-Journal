@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=31 format=4 uid="uid://bd1tjlb5qs82v"]
 
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://codings/flickering_light.gd" id="8_uh3bf"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="9_w0u03"]
 [ext_resource type="Script" path="res://codings/Interactions/lamp.gd" id="10_4xvqm"]
+[ext_resource type="Script" path="res://codings/tod_light.gd" id="12_7noep"]
 
 [sub_resource type="Gradient" id="Gradient_2oe0j"]
 offsets = PackedFloat32Array(0)
@@ -548,9 +549,10 @@ tile_set = SubResource("TileSet_dw7lm")
 [node name="Darkness" type="PointLight2D" parent="."]
 position = Vector2(452, 349)
 scale = Vector2(15.1406, 10.4375)
-color = Color(0.92, 0.79028, 0.4876, 1)
+color = Color(0.9, 0.8, 0.5, 1)
 blend_mode = 1
 texture = SubResource("GradientTexture2D_bvyet")
+script = ExtResource("12_7noep")
 
 [node name="Torch1" type="PointLight2D" parent="."]
 position = Vector2(564, 266)

@@ -250,6 +250,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		Loader.load_game()
 	if Input.is_action_just_pressed("SaveDir"):
 		OS.shell_open(OS.get_user_data_dir())
+	if Input.is_action_just_pressed("Refresh"):
+		await Loader.save()
+		Loader.load_game()
 #endregion
 
 #region Settings
@@ -315,9 +318,10 @@ func save_settings() -> void:
 #endregion
 
 #region UI Sounds
-func cursor_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
-	Audio.play()
+func cursor_sound(dont_force:= false) -> void:
+	if not (dont_force and Audio.playing):
+		Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
+		Audio.play()
 func buzzer_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/UI/buzzer.ogg")
 	Audio.play()

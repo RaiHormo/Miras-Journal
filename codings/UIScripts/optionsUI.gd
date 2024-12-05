@@ -49,6 +49,7 @@ func _ready():
 	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
+	Global.confirm_sound()
 	for button in $MainButtons.get_children():
 		#button.size.x=0
 		button.z_index = 0
@@ -56,7 +57,7 @@ func _ready():
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_ease(Tween.EASE_OUT)
 		t.tween_property(button, "position:x", -700, 0.3).as_relative()
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 	await t.finished
 	stage = "main"
 	loaded.emit()
@@ -84,6 +85,7 @@ func _input(event):
 #		_on_back_pressed()
 
 func _on_back_pressed():
+	Global.cancel_sound()
 	match stage:
 		"main":
 			close()
@@ -241,7 +243,7 @@ func gallery():
 	$GalleryPanel.show()
 
 func _on_focus_changed(control:Control):
-	Global.cursor_sound()
+	Global.cursor_sound(true)
 	focus = control
 	if stage=="main" and control.get_parent() == $MainButtons:
 		mainIndex = focus.get_index()

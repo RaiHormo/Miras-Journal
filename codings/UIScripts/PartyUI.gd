@@ -144,6 +144,7 @@ func _input(ev):
 		if Input.is_action_just_pressed("Debug0"):
 			if Engine.time_scale == 0.1: Engine.time_scale = 1
 			else: Engine.time_scale = 0.1
+		Global.check_party.emit()
 
 func darken(toggle := true):
 	t = create_tween()

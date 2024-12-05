@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=11 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -6,11 +6,24 @@
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://codings/WanderingEnemy.tscn" id="4_ujeyr"]
 [ext_resource type="Resource" uid="uid://chrk1phkqh7ah" path="res://database/BattleSeq/SGBattle1.tres" id="5_20xex"]
 [ext_resource type="SpriteFrames" uid="uid://b055ruwx6wcb8" path="res://art/OV/Enemies/GenericEnemy.tres" id="6_fhj74"]
+[ext_resource type="Script" path="res://codings/tod_light.gd" id="7_4o7ma"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pimpf"]
 vertices = PackedVector2Array(735.672, 571.938, 571.172, 571, 571.18, 571, 517.156, 570.031, 471.641, 550.297, 508.57, 508.672, 534.961, 551.242, 577.492, 557.312, 732.289, 467.938, 705.609, 464.867, 538.25, 494.891, 517.43, 472.461, 516.742, 467.859, 571, 471.742, 586.57, 493.711, 639.648, 444.82, 678.773, 414.492, 707.609, 418.609, 571, 448.477)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(2, 3, 6, 7), PackedInt32Array(8, 0, 2, 7, 9), PackedInt32Array(10, 11, 12, 13, 14), PackedInt32Array(9, 7, 14, 15, 16, 17), PackedInt32Array(13, 18, 15, 14)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(561, 461, 561, 439, 636, 435, 676, 404, 718, 410, 716, 456, 742, 459, 746, 582, 571, 581, 515, 580, 455, 554, 510, 492, 541, 542, 569, 546, 575, 504, 534, 505, 508, 477, 505, 457)])
+
+[sub_resource type="Gradient" id="Gradient_06fd7"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.192857, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.540318, 0.540317, 0.540317, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tdwg2"]
+gradient = SubResource("Gradient_06fd7")
+fill = 1
+fill_from = Vector2(0.508547, 0.495726)
+fill_to = Vector2(0.897436, 0.00854701)
 
 [node name="ShardGardens" type="Node2D"]
 process_mode = 3
@@ -73,3 +86,50 @@ sprite_frames = ExtResource("6_fhj74")
 animation = &"IdleUp"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="Darkness" type="DirectionalLight2D" parent="."]
+color = Color(0.7912, 0.81872, 0.86, 1)
+blend_mode = 1
+script = ExtResource("7_4o7ma")
+Colors = Array[Color]([Color(0.7912, 0.81872, 0.86, 1), Color(0.7912, 0.81872, 0.86, 1), Color(0.256136, 0.910014, 1, 1), Color(0.7912, 0.81872, 0.86, 1), Color(0.7912, 0.81872, 0.86, 1)])
+Energy = Array[float]([0.5, 0.0, 0.3, 0.9, 1.1])
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights"]
+position = Vector2(480, 148)
+rotation = 0.151641
+scale = Vector2(2.36086, 2.18493)
+color = Color(0.19, 0.973, 1, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_tdwg2")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Lights"]
+position = Vector2(399, 195)
+rotation = 0.117273
+scale = Vector2(1.31133, 1.3228)
+color = Color(0.19, 0.973, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_tdwg2")
+
+[node name="PointLight2D3" type="PointLight2D" parent="Lights"]
+position = Vector2(250, 47.5305)
+scale = Vector2(0.654297, 1.13967)
+color = Color(0.19, 0.973, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_tdwg2")
+
+[node name="PointLight2D4" type="PointLight2D" parent="Lights"]
+position = Vector2(711, 194)
+rotation = 0.0605051
+scale = Vector2(1.07858, 1.12564)
+color = Color(0.19, 0.973, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_tdwg2")
+
+[node name="PointLight2D5" type="PointLight2D" parent="Lights"]
+position = Vector2(569, 506)
+scale = Vector2(1.36621, 1.31353)
+color = Color(0.19, 0.973, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_tdwg2")

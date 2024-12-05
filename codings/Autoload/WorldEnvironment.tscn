@@ -5,6 +5,7 @@ background_mode = 3
 glow_enabled = true
 glow_intensity = 5.8
 glow_blend_mode = 0
+glow_hdr_luminance_cap = 4.0
 adjustment_enabled = true
 
 [node name="World" type="WorldEnvironment"]
