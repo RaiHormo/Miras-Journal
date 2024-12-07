@@ -57,6 +57,7 @@ func _ready():
 	Global.Area = self
 	Global.Area = self
 	await Global.player_ready
+	Global.check_party.emit()
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)
 		for i in Followers:

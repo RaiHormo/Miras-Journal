@@ -54,13 +54,6 @@ colors = PackedColorArray(0, 0, 0, 0.392157)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_8k2oc"]
 gradient = SubResource("Gradient_frtws")
 
-[sub_resource type="Gradient" id="Gradient_auwcy"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_66tw6"]
-gradient = SubResource("Gradient_auwcy")
-
 [sub_resource type="Gradient" id="Gradient_rc7xb"]
 offsets = PackedFloat32Array(0, 0.744868, 1)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
@@ -73,6 +66,13 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_shwm3"]
 gradient = SubResource("Gradient_2ccrv")
+
+[sub_resource type="Gradient" id="Gradient_auwcy"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_66tw6"]
+gradient = SubResource("Gradient_auwcy")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4d8k"]
 size = Vector2(65, 35)
@@ -643,43 +643,6 @@ z_index = 6
 position = Vector2(-21, -33)
 polygon = PackedVector2Array(74, 374, 79, 379, 80, 392, 94, 391, 103, 393, 111, 406, 125, 406, 125, 375, 129, 317, 145, 316, 146, 390, 187, 390, 187, 351.475, 284, 351, 284, 389, 328, 389, 329, 282, 284, 282, 284, 348, 187, 349, 187, 279, 126, 279, 88, 279, 26, 280, -51, 279, -51, 319, 23, 319, 25, 373, 26, 365, 27, 332, 43, 325, 60, 317, 66, 302, 83, 298, 92, 311, 96, 323, 90, 331, 105, 332, 110, 341, 112, 359, 97, 362, 79, 363)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(541.499, 498.5)
-scale = Vector2(20.9219, 14.0469)
-color = Color(0.776471, 0.721569, 0.713726, 1)
-energy = 0.71
-blend_mode = 1
-texture = SubResource("GradientTexture2D_66tw6")
-script = ExtResource("5_b87t5")
-
-[node name="PointLight2D" type="PointLight2D" parent="PointLight2D"]
-position = Vector2(9.11568, 49.7263)
-scale = Vector2(0.804151, 0.436039)
-color = Color(0.776471, 0.721569, 0.713726, 1)
-energy = 0.71
-blend_mode = 1
-texture = SubResource("GradientTexture2D_66tw6")
-
-[node name="WaterLight3" type="PointLight2D" parent="PointLight2D/PointLight2D"]
-texture_filter = 2
-position = Vector2(-19.4301, 0.0589403)
-rotation = -3.14158
-scale = Vector2(0.101343, 65.1323)
-skew = 0.000275493
-color = Color(0.694118, 1, 1, 1)
-energy = 1.02
-texture = SubResource("GradientTexture1D_bfo0u")
-
-[node name="WaterLight4" type="PointLight2D" parent="PointLight2D/PointLight2D"]
-texture_filter = 2
-position = Vector2(22.5546, 0.215748)
-rotation = -6.28317
-scale = Vector2(0.134469, 63.4867)
-skew = 0.000275493
-color = Color(0.694118, 1, 1, 1)
-energy = 1.02
-texture = SubResource("GradientTexture1D_bfo0u")
-
 [node name="WaterLight3" type="PointLight2D" parent="."]
 texture_filter = 2
 position = Vector2(-74.8535, 803.14)
@@ -733,6 +696,43 @@ scale = Vector2(0.100654, 421.871)
 color = Color(0.694118, 1, 1, 1)
 energy = 1.5
 texture = SubResource("GradientTexture1D_shwm3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(541.499, 498.5)
+scale = Vector2(20.9219, 14.0469)
+color = Color(0.776471, 0.721569, 0.713726, 1)
+energy = 0.71
+blend_mode = 1
+texture = SubResource("GradientTexture2D_66tw6")
+script = ExtResource("5_b87t5")
+
+[node name="PointLight2D" type="PointLight2D" parent="PointLight2D"]
+position = Vector2(9.11568, 49.7263)
+scale = Vector2(0.804151, 0.436039)
+color = Color(0.776471, 0.721569, 0.713726, 1)
+energy = 0.71
+blend_mode = 1
+texture = SubResource("GradientTexture2D_66tw6")
+
+[node name="WaterLight3" type="PointLight2D" parent="PointLight2D/PointLight2D"]
+texture_filter = 2
+position = Vector2(-19.4301, 0.0589403)
+rotation = -3.14158
+scale = Vector2(0.101343, 65.1323)
+skew = 0.000275493
+color = Color(0.694118, 1, 1, 1)
+energy = 1.02
+texture = SubResource("GradientTexture1D_bfo0u")
+
+[node name="WaterLight4" type="PointLight2D" parent="PointLight2D/PointLight2D"]
+texture_filter = 2
+position = Vector2(22.5546, 0.215748)
+rotation = -6.28317
+scale = Vector2(0.134469, 63.4867)
+skew = 0.000275493
+color = Color(0.694118, 1, 1, 1)
+energy = 1.02
+texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="Sign" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(347, 391)
