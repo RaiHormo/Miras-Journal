@@ -57,7 +57,7 @@ func _process(delta):
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
 
-		if Global.Controllable and Global.Player.move_frames != 0:
+		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames != 0:
 			if Global.Settings.AutoHideHUD == 0:
 				if $IdleTimer.time_left == 0:
 					show_all()

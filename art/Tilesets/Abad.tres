@@ -2318,6 +2318,8 @@ texture_region_size = Vector2i(24, 24)
 10:14/0/terrains_peering_bit/top_left_corner = 7
 10:14/0/terrains_peering_bit/top_side = 7
 10:14/0/custom_data_0 = "Dirt"
+16:4/0 = 0
+16:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5khia"]
 texture = ExtResource("4_k3buq")
