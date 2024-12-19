@@ -79,6 +79,14 @@ texture = ExtResource("2_s81ns")
 [node name="TitleScreen" type="CanvasLayer" parent="."]
 layer = 10
 
+[node name="ColorRect" type="ColorRect" parent="TitleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+
 [node name="PrototypeTitle" type="Sprite2D" parent="TitleScreen"]
 position = Vector2(406, 472)
 scale = Vector2(0.634497, 0.634497)

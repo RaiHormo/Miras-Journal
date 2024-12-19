@@ -27,6 +27,7 @@ func _ready():
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
 	setup_params()
+	
 	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
 	for i in get_children():
 		if i is TileMapLayer:

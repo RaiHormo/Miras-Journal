@@ -11,6 +11,7 @@ var tmr: SceneTreeTimer
 
 func default():
 	Nav = $Nav
+	if ID == "": ID = name
 	Loader.battle_start.connect(func(): hide())
 	Loader.battle_end.connect(func(): show())
 	if get_node_or_null("HomePoints") != null:

@@ -154,7 +154,6 @@ func _on_button_pressed() -> void:
 		await Event.take_control()
 		Global.Player.collision(false)
 		await Global.Player.go_to(proper_pos, false, true, proper_face)
-	action.emit()
 	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
 	match ActionType:
 		"toggle":
@@ -191,3 +190,4 @@ func _on_button_pressed() -> void:
 		if Collision: Collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
+	action.emit()

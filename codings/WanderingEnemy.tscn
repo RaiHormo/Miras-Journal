@@ -31,7 +31,6 @@ motion_mode = 1
 script = ExtResource("2_2fny2")
 Battle = ExtResource("3_ku8yi")
 speed = 20
-ID = "CS2"
 SpawnOnCameraInd = true
 CameraIndex = 1
 

@@ -96,11 +96,11 @@ func control_process():
 					BodyState = CUSTOM
 					direction = dashdir
 					reset_speed()
-					set_anim("Dash"+Global.get_dir_name(direction)+"Start")
-					while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
-						velocity = dashdir * speed
-						if is_on_wall(): Global.Controllable=true; set_anim("Idle"+Global.get_dir_name()); return
-						await Event.wait()
+					#set_anim("Dash"+Global.get_dir_name(direction)+"Start")
+					#while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
+						#velocity = dashdir * speed
+						#if is_on_wall(): Global.Controllable=true; set_anim("Idle"+Global.get_dir_name()); return
+						#await Event.wait()
 					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
 					if BodyState == CUSTOM:
 						Global.Controllable=true
@@ -130,10 +130,6 @@ func control_process():
 		if Input.is_action_just_pressed("DebugF"):
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
-		if Input.is_action_just_pressed("DebugD"):
-			for i in Global.Area.Layers.size():
-				if Global.Area.Layers[i].get_cell_tile_data(coords):
-					check_terrain(Global.Area.get_cell_tile_data(i, coords).get_custom_data("TerrainType"))
 
 func update_anim_prm() -> void:
 	if get_node_or_null("%Base") == null: return
@@ -268,7 +264,7 @@ func stop_dash() -> void:
 		if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 10:
+	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 5:
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
