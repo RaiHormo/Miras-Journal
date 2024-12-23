@@ -87,6 +87,7 @@ func set_dir_marker(vec: Vector2 = direction):
 	$DirectionMarker.rotation = direction.angle()
 
 func update_anim_prm() -> void:
+	if $Sprite.sprite_frames == null: return
 	if BodyState == CUSTOM: return
 	if RealVelocity.length() > 0.3:
 		#BodyState = MOVE

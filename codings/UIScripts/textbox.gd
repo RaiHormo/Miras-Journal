@@ -303,15 +303,16 @@ func _input(event: InputEvent) -> void:
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)
 			t.tween_property($Hints, "position:x", 1400, 0.5)
-			while Input.is_action_pressed("Dash"):
-				hold_frames += 1
-				if hold_frames > hold_time: break
-				await Event.wait()
-			if Event.allow_skipping:
-				if hold_frames > hold_time:
-					Event.skip_cutscene()
-					_on_close()
-				else: Global.toast("Hold the button down to skip")
+			if Input.is_action_just_pressed("Dash"):
+				while Input.is_action_pressed("Dash"):
+					hold_frames += 1
+					if hold_frames > hold_time: break
+					await Event.wait()
+				if Event.allow_skipping:
+					if hold_frames > hold_time:
+						Event.skip_cutscene()
+						_on_close()
+					else: Global.toast("Hold the button down to skip")
 		elif event.is_pressed() and not event.is_action("DialogNext") and is_waiting_for_input:
 			#print(event)
 			$Hints/Skip.icon = Global.get_controller().Dash

@@ -640,11 +640,12 @@ func details():
 func back():
 	if not MemberChoosing and Expanded:
 		if not submenu_opened:
-			Global.Controllable= was_controllable
 			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
 			$Audio.play()
 			shrink.emit()
 			Global.cancel_sound()
+			await Event.wait(0.1)
+			Global.Controllable= was_controllable
 
 func close_submenu():
 	Partybox.show()

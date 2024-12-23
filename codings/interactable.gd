@@ -51,7 +51,7 @@ func _process(delta: float) -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	if Event.check_flag(hide_on_flag):
+	if Event.check_flag(hide_on_flag) and hidesprite:
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
 	if Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
@@ -185,6 +185,15 @@ func _on_button_pressed() -> void:
 				await Event.wait(0.3)
 				CanInteract = false
 				appear()
+		"focus_cam":
+			Event.take_control()
+			Global.Player.camera_follow(false)
+			Global.get_cam().position = Vector2(file.to_int(), title.to_int())
+			await Event.wait(1)
+			if add_flag: Event.f(hide_on_flag, true)
+			Global.check_party.emit()
+			await Event.wait(3)
+			Event.give_control(true)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)

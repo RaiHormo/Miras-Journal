@@ -4,6 +4,7 @@ extends StaticBody2D
 @export var broken_anim: String = "break"
 @export var given_item: String = ""
 @export var item_type: StringName = &"Mat"
+@export var decrease_z:= true
 
 func _ready() -> void:
 	$Sprite.play(default_anim)
@@ -21,4 +22,4 @@ func set_break():
 	$Sprite.play(broken_anim)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AreaBreak.queue_free()
-	z_index -= 1
+	if decrease_z: z_index -= 1

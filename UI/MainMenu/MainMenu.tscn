@@ -753,19 +753,19 @@ script = ExtResource("1_5tx7f")
 
 [node name="Ring" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_gki4e")
-offset_left = -162.0
-offset_top = -388.0
-offset_right = 1450.0
-offset_bottom = 1224.0
+offset_left = -186.0
+offset_top = -394.0
+offset_right = 1463.0
+offset_bottom = 1255.0
 pivot_offset = Vector2(806, 806)
 texture = SubResource("GradientTexture1D_6e4y7")
 
 [node name="ColorRect" type="ColorRect" parent="Ring"]
 layout_mode = 0
 offset_left = 1601.0
-offset_top = 389.0
+offset_top = 383.0
 offset_right = 2332.0
-offset_bottom = 1203.0
+offset_bottom = 1212.0
 color = Color(0, 0, 0, 1)
 
 [node name="Glow" type="TextureRect" parent="Ring"]

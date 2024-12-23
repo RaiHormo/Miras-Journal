@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://exhrdcludfxg" path="res://art/OV/Objects/Crate.png" id="21_02kmm"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://codings/WanderingEnemy.tscn" id="22_wfemh"]
 [ext_resource type="Resource" uid="uid://dc4puru00jtto" path="res://database/BattleSeq/IronHook1.tres" id="23_gf563"]
-[ext_resource type="SpriteFrames" uid="uid://b055ruwx6wcb8" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
+[ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://codings/Interactions/Ladder.tscn" id="25_vddgi"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2g78a"]

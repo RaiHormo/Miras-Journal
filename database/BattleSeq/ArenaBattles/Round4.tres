@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://dhl3e7rl6r456"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://dhl3e7rl6r456"]
 
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_1e1g1"]
 [ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_ni1bv"]
 [ext_resource type="Resource" uid="uid://b0haspr714s0g" path="res://database/Enemies/SkritcherRoot.tres" id="1_utiv4"]
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="3_6tqej"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_rxj6m"]
+[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_b2fvs"]
 
 [resource]
 script = ExtResource("3_6tqej")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_utiv4")])
-AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([ExtResource("1_ni1bv")])
+Enemies = Array[ExtResource("3_rxj6m")]([ExtResource("1_utiv4")])
+AdditionalItems = Array[ExtResource("1_1e1g1")]([ExtResource("1_ni1bv")])
 Transition = true
 Detransition = true
 EscPosition = Vector2(0, 0)
@@ -21,4 +24,4 @@ EntranceBanterIsPassive = false
 VictorySequence = ""
 VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])
+Events = Array[ExtResource("5_b2fvs")]([])

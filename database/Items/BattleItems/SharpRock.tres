@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://c864y16gs0iix"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://c864y16gs0iix"]
 
 [ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_h38r3"]
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_kbhn2"]
 [ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_m0d2q"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="2_rcejj"]
 
@@ -8,8 +9,10 @@
 script = ExtResource("1_m0d2q")
 name = "Throw"
 description = ""
+Icon = ExtResource("1_kbhn2")
 ActionSequence = &"ItemThrow"
 Type = "BigAttack"
+Group = ""
 InflictsState = ""
 AuraCost = 0
 HPCost = 0
@@ -21,7 +24,7 @@ AOE_Stagger = 0.0
 AOE_AdditionalSeq = true
 ColorSameAsActor = false
 WheelColor = Color(0.894118, 0.388235, 0.447059, 1)
-Callout = true
+Callout = false
 SucessChance = 1.0
 CritChance = 0.0
 RecoverAura = false

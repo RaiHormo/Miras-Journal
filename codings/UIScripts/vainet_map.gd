@@ -7,6 +7,10 @@ var inited:= false
 func _ready() -> void:
 	await Event.take_control()
 	get_viewport().gui_focus_changed.connect(focus_change)
+	Global.get_cam().limit_bottom = 999999
+	Global.get_cam().limit_right = 999999
+	Global.get_cam().limit_left = -999999
+	Global.get_cam().limit_top = -999999
 	for i in $Container/Scroller/LocationList.get_children(): 
 		if i is Button: i.pressed.connect(location_selected)
 		if not Event.f("VP"+i.name):
@@ -24,16 +28,16 @@ func focus_place(place: String):
 		here = place
 		Global.Player.camera_follow(false)
 		Global.get_cam().position_smoothing_enabled = false
-		Global.get_cam().position = $Map.get_node(here).global_position
-		$Container.position.x = 1300
+		position = Global.get_cam().global_position - (size/2)
+		$Container.global_position.x = 1300
 		var t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUINT)
 		t.set_parallel()
 		show()
-		t.tween_property(self, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
+		t.tween_property(self, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
 		t.tween_property(Global.get_cam(), "zoom", Vector2.ONE, 0.5)
-		t.tween_property(Global.get_cam(), "position", size/2, 0.5)
+		t.tween_property(Global.get_cam(), "position", position + (size/2), 0.5)
 		t.tween_property($Container, "position:x", 898, 0.3).set_delay(0.3)
 		inited = true
 	else: Global.cursor_sound()
@@ -41,11 +45,11 @@ func focus_place(place: String):
 	foc.show()
 	foc.grab_focus()
 	if $Map.get_node_or_null(place) != null and place != here:
-		$Marker.position = $Map.get_node(place).global_position
+		$Marker.global_position = $Map.get_node(place).global_position
 		$Marker.show()
 	else: $Marker.hide()
 	if $Map.get_node_or_null(here) != null:
-		$Here.position = $Map.get_node(here).global_position
+		$Here.global_position = $Map.get_node(here).global_position
 	for i in $Container/Scroller/LocationList.get_children(): 
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
@@ -74,7 +78,7 @@ func location_selected():
 	await Global.area_initialized
 	var VP = Global.Area.get_node_or_null("VP"+foc.name)
 	if VP == null: OS.alert("No such vain point exists"); return
-	Global.Player.position = VP.position + Vector2(0, 24)
+	Global.Player.global_position = VP.global_position + Vector2(0, 24)
 	queue_free()
 
 func _input(event: InputEvent) -> void:

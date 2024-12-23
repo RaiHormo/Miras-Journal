@@ -12,6 +12,7 @@ var tmr: SceneTreeTimer
 func default():
 	Nav = $Nav
 	if ID == "": ID = name
+	if ID in Loader.Defeated: queue_free()
 	Loader.battle_start.connect(func(): hide())
 	Loader.battle_end.connect(func(): show())
 	if get_node_or_null("HomePoints") != null:
@@ -60,16 +61,17 @@ func extended_process():
 
 func _on_finder_body_entered(body):
 	if body == Global.Player and not PinRange and not Loader.chased:
+		Nav.set_target_position(Global.Player.position)
+		if not Nav.is_target_reachable(): return
 		stopping = true
 		Loader.chase_mode()
 		Loader.battle_bars(1)
-		BodyState = IDLE
 		set_dir_marker(to_local(Global.Player.global_position))
+		BodyState = IDLE
 		$Bubble.play("Surprise")
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
-		Nav.set_target_position(Global.Player.position)
 		speed = chase_speed
 		set_dir_marker(to_local(Global.Player.global_position))
 		await Event.wait()

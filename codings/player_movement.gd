@@ -21,6 +21,7 @@ var first_frame := true
 var attacking := false
 @onready var used_sprite: AnimatedSprite2D = %Base
 var is_clone: bool = false
+var can_jump:= false
 
 func _ready() -> void:
 	ID = "P"
@@ -76,7 +77,10 @@ func control_process():
 	undashable = false
 	if is_on_wall():
 		if round(get_wall_normal())*-1 == Global.get_direction(direction):
-			undashable = true
+			if can_jump and Input.is_action_pressed("Dash"):
+				position -= direction *6
+			else:
+				undashable = true
 	if Global.Controllable:
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
@@ -104,8 +108,7 @@ func control_process():
 					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
 					if BodyState == CUSTOM:
 						Global.Controllable=true
-			elif Global.get_direction(direction) != dashdir or not can_dash:
-				#print(2)
+			elif Global.get_direction(direction) != dashdir:
 				stop_dash()
 		elif dashing:
 			#print(3)
@@ -136,7 +139,7 @@ func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds(used_sprite)
 	if BodyState == CUSTOM: return
 	if BodyState == CONTROLLED:
-		if abs(RealVelocity.length())>1 and Global.Controllable:
+		if (abs(RealVelocity.length())>1 and Global.Controllable):
 			move_frames+=1
 			if dashing:
 				reset_speed()
@@ -150,7 +153,7 @@ func update_anim_prm() -> void:
 			if move_frames != 0:
 				move_frames = 0
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
-		if direction.length()>RealVelocity.length() and dashing:
+		if direction.length()>RealVelocity.length() and dashing and not can_jump:
 					stop_dash()
 	else:
 		if RealVelocity.length() > 1:

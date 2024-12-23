@@ -9,7 +9,7 @@ func default():
 		await start_round(i)
 	Global.Party.add("Alcine")
 	$Bg.texture = preload("res://art/Backgrounds/ArenaBg/TempleRoadBg.png")
-	for i in range(3, 6):
+	for i in range(3, 7):
 		await start_round(i)
 
 func start_round(i: int):

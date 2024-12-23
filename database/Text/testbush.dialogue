@@ -83,6 +83,12 @@ What to do?
 	do Party.reset_party()
 - Full heal
 	do heal_party()
+- Standard full party
+	do heal_party()
+	do Party.reset_party()
+	do Party.add("Alcine")
+	do Party.add("Asteria")
+	do Party.add("Daze")
 - Give Mira lots of HP
 	do Party.Leader.Health = 9999
 - Unlock all abilities

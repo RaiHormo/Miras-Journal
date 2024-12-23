@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://glmp52igdcja"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://glmp52igdcja"]
 
-[ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="1_b5hla"]
 [ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="1_m52kl"]
+[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_omvxn"]
+[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_3abtk"]
 [ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="2_j8m4f"]
+[ext_resource type="Resource" uid="uid://dndjx0ile1qpr" path="res://database/Enemies/BurstParasite.tres" id="4_cenm4"]
+[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_am73w"]
 
 [resource]
 script = ExtResource("2_j8m4f")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_m52kl"), ExtResource("1_b5hla")])
-AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
+Enemies = Array[ExtResource("2_3abtk")]([ExtResource("1_m52kl"), ExtResource("4_cenm4")])
+AdditionalItems = Array[ExtResource("1_omvxn")]([])
 Transition = true
 Detransition = true
 EscPosition = Vector2(0, 0)
@@ -21,4 +24,4 @@ EntranceBanterIsPassive = false
 VictorySequence = ""
 VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])
+Events = Array[ExtResource("5_am73w")]([])

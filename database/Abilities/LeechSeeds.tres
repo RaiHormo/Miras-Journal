@@ -15,6 +15,7 @@ description = "Plants leeching seeds on one target, stealing HP from whatever da
 Icon = SubResource("AtlasTexture_8lsy7")
 ActionSequence = &"LeechSeeds"
 Type = "Curse"
+Group = ""
 InflictsState = "Leeched"
 AuraCost = 6
 HPCost = 0

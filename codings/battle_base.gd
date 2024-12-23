@@ -892,7 +892,7 @@ func victory_count_sp():
 		await Event.wait()
 	var dub = $Canvas/SPGain.duplicate()
 	for i in PartyArray:
-		i.add_SP(totalSP)
+		i.add_SP(totalSP/Global.number_of_party_members())
 	PartyUI._check_party()
 	$Canvas.add_child(dub)
 	t = create_tween()
@@ -936,6 +936,7 @@ func victory(ignore_seq:= false):
 	Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,0), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
+	ObtainedItems.append_array(Seq.AdditionalItems)
 	if totalSP != 0: await victory_count_sp()
 	if not ObtainedItems.is_empty(): await victory_show_items()
 	$Canvas/TurnOrder.hide()
@@ -962,7 +963,6 @@ func victory_show_items():
 		i.modulate = Color.TRANSPARENT
 	await Event.wait()
 	$Canvas/VictoryItems/ItemTemp.hide()
-	ObtainedItems.append_array(Seq.AdditionalItems)
 	for i in ObtainedItems:
 		if i:
 			var dub = $Canvas/VictoryItems/ItemTemp.duplicate()

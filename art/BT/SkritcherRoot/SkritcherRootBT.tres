@@ -216,7 +216,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tvvu8")
 }],
-"loop": true,
+"loop": false,
 "name": &"KnockOut",
 "speed": 7.0
 }]

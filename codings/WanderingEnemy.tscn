@@ -50,6 +50,7 @@ collision_layer = 15
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DirectionMarker/Finder"]
+visible = false
 position = Vector2(39.0013, 0.990601)
 rotation = 1.57007
 shape = SubResource("ConvexPolygonShape2D_288op")

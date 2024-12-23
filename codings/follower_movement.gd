@@ -52,8 +52,6 @@ func _physics_process(_delta: float) -> void:
 			move_and_slide()
 			velocity = speed * direction
 			speed = max(30, Global.Player.RealVelocity.length())
-			if Loader.chased:
-				$CollisionShape2D.disabled = true
 		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150

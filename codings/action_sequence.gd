@@ -66,7 +66,7 @@ func roll_rng(tar: Actor):
 func handle_states():
 	var chara = Bt.CurrentChar
 	for state: State in chara.States:
-		print("Handling", state.name)
+		print("Handling ", state.name)
 		if state.turns > -1:
 			state.turns -= 1
 			if state.turns == 0:
@@ -92,7 +92,7 @@ func handle_states():
 						Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
 						await get_tree().create_timer(0.8).timeout
 					"Poisoned":
-						state.turns -= 1
+						state.turns += 2
 						chara.node.get_node("State").play("Poisoned")
 						Bt.focus_cam(chara, 0.3)
 						Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
@@ -196,8 +196,8 @@ func AttackAlcine(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
-	await Event.wait(0.4)
-	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57),0), 0.5, Tween.EASE_OUT)
+	await Event.wait(0.2)
+	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57),0), 0.4, Tween.EASE_OUT)
 	if not miss:
 		Bt.damage(target)
 		Bt.screen_shake(8, 5, 0.1)
@@ -421,7 +421,7 @@ func SoothingRain(target: Actor):
 
 func FlameSpark(target: Actor):
 	Bt.zoom(5)
-	Bt.focus_cam(CurrentChar, 0.3, 20)
+	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.anim("FlameSpark")
 	await Event.wait(0.1)
 	Bt.glow(0)
@@ -647,12 +647,16 @@ func ItemCure(target: Actor):
 	Bt.end_turn()
 
 func ItemThrow(target: Actor):
-	Bt.focus_cam(target)
 	Bt.zoom(5.5)
+	Bt.focus_cam(CurrentChar, 0.2)
+	Bt.anim("Cast")
+	await Event.wait(0.3)
+	Bt.focus_cam(target)
 	Bt.play_effect("Hit", target)
 	Bt.screen_shake()
 	Bt.damage(target, false, true, Global.calc_num(), true, false, true)
 	await Event.wait(1)
+	Bt.anim()
 	Bt.end_turn()
 #endregion
 

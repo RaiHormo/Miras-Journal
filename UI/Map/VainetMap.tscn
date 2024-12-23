@@ -211,6 +211,7 @@ corner_radius_bottom_left = 26
 
 [node name="VainetMap" type="Control"]
 light_mask = 0
+z_index = 10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -264,6 +265,16 @@ offset_left = 508.0
 offset_top = 292.0
 offset_right = 556.0
 offset_bottom = 340.0
+pivot_offset = Vector2(23, 24)
+texture = ExtResource("2_u17cs")
+
+[node name="Underground" type="TextureRect" parent="Map"]
+light_mask = 0
+layout_mode = 0
+offset_left = 480.0
+offset_top = 313.0
+offset_right = 528.0
+offset_bottom = 361.0
 pivot_offset = Vector2(23, 24)
 texture = ExtResource("2_u17cs")
 
@@ -370,6 +381,29 @@ alignment = 0
 expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 0
+
+[node name="Underground" type="Button" parent="Container/Scroller/LocationList"]
+light_mask = 0
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_mgbs5")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+text = "Underground"
+icon = ExtResource("5_mub7m")
+alignment = 0
+expand_icon = true
+metadata/Room = "ShardGardens"
+metadata/CamID = 1
 
 [node name="Ruins" type="Label" parent="Container/Scroller/LocationList"]
 light_mask = 0

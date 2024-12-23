@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3j5nk7gptuwo"
-path="res://.godot/imported/GenericEnemy..png-173c211ea0e4089f383a759cb66d1313.ctex"
+uid="uid://jnhnt5kow0bq"
+path="res://.godot/imported/BreakableWallHSG.png-ecedc55992b96cee0fc31e0ede173155.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/OV/Enemies/GenericEnemy..png"
-dest_files=["res://.godot/imported/GenericEnemy..png-173c211ea0e4089f383a759cb66d1313.ctex"]
+source_file="res://art/OV/Objects/BreakableWallHSG.png"
+dest_files=["res://.godot/imported/BreakableWallHSG.png-ecedc55992b96cee0fc31e0ede173155.ctex"]
 
 [params]
 
