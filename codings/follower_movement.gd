@@ -11,6 +11,7 @@ var moving: bool
 @export var distance : int = 30
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false
+@export var offset := 0
 
 func _ready():
 	Global.Follower[member] = self
@@ -29,6 +30,8 @@ func _physics_process(_delta: float) -> void:
 		return
 	if Global.Party.check_member(member) and not Loader.InBattle:
 		add_collision_exception_with(Global.Player)
+		for i in Global.Area.Followers:
+			add_collision_exception_with(i)
 		show()
 		z_index = Global.Player.z_index
 		collision_layer = Global.Player.collision_layer
@@ -47,16 +50,15 @@ func _physics_process(_delta: float) -> void:
 				direction = to_local(nav_agent.get_next_path_position()).normalized()
 				$CollisionShape2D.disabled = false
 			else: 
-				direction = to_local(Global.Player.global_position).normalized()
+				direction = to_local(Global.Player.global_position + (Global.PlayerDir.rotated(PI/2)*offset)).normalized()
 				$CollisionShape2D.disabled = false
 			move_and_slide()
 			velocity = speed * direction
-			speed = max(30, Global.Player.RealVelocity.length())
+			speed = min(max(30, Global.Player.RealVelocity.length()), 180)
 		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
 			animate()
-			oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
-			velocity = oposite
-			RealVelocity = Global.Player.direction
+			oposite = (Global.get_direction() * Vector2(-1,-1))
+			velocity = oposite * 150
 			move_and_slide()
 		if (global_position-oldposition).length() > 0.3:
 			moving =true

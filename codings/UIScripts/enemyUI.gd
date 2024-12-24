@@ -64,10 +64,6 @@ func _check_party():
 	PartyUI._check_party()
 	Troop = get_parent().Troop
 	if t: t.stop()
-	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUAD)
 	for i in Troop:
 		check_panel(i, get_node_or_null("AllEnemies/Enemy" + str(Troop.find(i))))
 	$EnemyFocus/Name.text = CurEnemy.FirstName
@@ -87,6 +83,10 @@ func _check_party():
 		lock = true
 		remap($EnemyFocus/Health.value, 0, $EnemyFocus/Health.max_value, 0, CurEnemy.MaxHP)
 		remap($EnemyFocus/Aura.value, 0, $EnemyFocus/Aura.max_value, 0, CurEnemy.MaxAura)
+		t = create_tween()
+		t.set_parallel(true)
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_QUAD)
 		t.tween_property($EnemyFocus/Health, "value", CurEnemy.Health, 0.3)
 		if CurEnemy.Health == 0: t.tween_property($EnemyFocus/Aura, "value", 0, 0.3)
 		else: t.tween_property($EnemyFocus/Aura, "value", CurEnemy.Aura, 0.3)
@@ -106,6 +106,9 @@ func check_panel(chara: Actor, panel: Panel):
 	elif chara.FirstName.length() > 6: panel.get_node("Name").add_theme_font_size_override("font_size", 18)
 	else: panel.get_node("Name").add_theme_font_size_override("font_size", 20)
 	panel.get_node("Name").text = chara.FirstName
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(panel.get_node("Health"), "value", chara.Health, 0.3)
 	panel.get_node("Health").max_value = chara.MaxHP
 	if panel.get_node_or_null("Aura"):

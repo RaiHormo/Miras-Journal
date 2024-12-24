@@ -209,6 +209,10 @@ func set_time(tod: TOD):
 		Global.next_day_ui()
 	TimeOfDay = tod
 	time_changed.emit()
+
+func teleport_followers():
+	for i in Global.Area.Followers:
+		i.position = Global.Player.position
 ##########################################################
 
 #region Sequences

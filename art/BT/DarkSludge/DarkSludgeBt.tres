@@ -26,6 +26,10 @@ region = Rect2(0, 57, 57, 57)
 atlas = ExtResource("1_3evi3")
 region = Rect2(57, 57, 57, 57)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmeda"]
+atlas = ExtResource("1_3evi3")
+region = Rect2(0, 0, 57, 57)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnv50"]
 atlas = ExtResource("1_3evi3")
 region = Rect2(171, 57, 57, 57)
@@ -118,10 +122,6 @@ region = Rect2(171, 228, 57, 57)
 atlas = ExtResource("1_3evi3")
 region = Rect2(114, 57, 57, 57)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmeda"]
-atlas = ExtResource("1_3evi3")
-region = Rect2(0, 0, 57, 57)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_mp3g3"]
 atlas = ExtResource("1_3evi3")
 region = Rect2(57, 0, 57, 57)
@@ -182,6 +182,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nwest")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmeda")
 }],
 "loop": false,
 "name": &"Ability",

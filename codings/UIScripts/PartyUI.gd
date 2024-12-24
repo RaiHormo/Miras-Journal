@@ -491,6 +491,7 @@ func check_for_levelups(mem:Actor, node:Panel):
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished
 		mem.SkillLevel += 1
+		print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
 		node.get_node("Level/Number").text = str(mem.SkillLevel)
 		if mem.SkillLevel < mem.SkillPointsFor.size():
 			node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
