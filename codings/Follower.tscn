@@ -30,8 +30,6 @@ script = ExtResource("1_kihhu")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 25.0
 target_desired_distance = 25.0
-navigation_layers = 3
-debug_enabled = true
 debug_path_custom_color = Color(0.984314, 0.411765, 0.552941, 1)
 
 [node name="Timer" type="Timer" parent="."]

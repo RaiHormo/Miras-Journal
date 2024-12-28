@@ -6,6 +6,7 @@ var direction : Vector2
 var oposite : Vector2
 var RealVelocity: Vector2
 var moving: bool
+var target: Vector2
 
 @export var member : int
 @export var distance : int = 30
@@ -38,6 +39,7 @@ func _physics_process(_delta: float) -> void:
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
 		$Glow.energy = member_info().GlowDef
+		makepath()
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased:
@@ -45,13 +47,12 @@ func _physics_process(_delta: float) -> void:
 		if to_local(Global.Player.position).length() > 150:
 				global_position = Global.Player.global_position
 		if to_local(Global.Player.position).length() > distance:
-			#$CollisionShape2D.disabled = false
+			$CollisionShape2D.disabled = false
 			if nav_agent.is_target_reachable():
 				direction = to_local(nav_agent.get_next_path_position()).normalized()
-				$CollisionShape2D.disabled = false
 			else: 
-				direction = to_local(Global.Player.global_position + (Global.PlayerDir.rotated(PI/2)*offset)).normalized()
-				$CollisionShape2D.disabled = false
+				print("boobs")
+				direction = to_local(target).normalized()
 			move_and_slide()
 			velocity = speed * direction
 			speed = min(max(30, Global.Player.RealVelocity.length()), 180)
@@ -65,13 +66,15 @@ func _physics_process(_delta: float) -> void:
 			RealVelocity=global_position-oldposition
 		else:
 			moving =false
-		makepath()
 	else:
 		hide()
 		$CollisionShape2D.disabled = true
 
 func makepath() -> void:
-	nav_agent.set_target_position(Global.Player.global_position)
+	target = Global.Player.position + (Global.PlayerDir.rotated(PI/2)*offset)
+	nav_agent.set_target_position(target)
+	if not nav_agent.is_target_reachable():
+		nav_agent.set_target_position(Global.Player.position)
 
 
 func animate():
