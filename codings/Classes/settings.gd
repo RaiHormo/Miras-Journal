@@ -11,6 +11,7 @@ class_name Setting
 @export var Fullscreen = false
 @export var FPS: int = 0
 @export var VSync: bool = true
+@export var GlowEffect: bool = true
 @export_category("Audio")
 @export var MasterVolume: float = -8
 @export var MusicVolume: float = 0

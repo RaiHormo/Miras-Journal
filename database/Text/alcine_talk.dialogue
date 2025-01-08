@@ -1,5 +1,5 @@
 ~ error
-Alcine.Neutural: ...?
+Alcine.Neutural: hm?
 
 ~ d10_0
 Alcine.Upset: /*{{alcine()}} seems scared*/
@@ -23,8 +23,8 @@ Alcine.Upset: /*{{alcine()}} seems scared*/
 		- Nevermind
 			set ArbData0 = null
 		if ArbData0 != null:
-			set mem("Alcine").Aura -= find_ability(mem("Alcine"), "Healing").AuraCost
-			do heal_in_overworld(ArbData0, find_ability(mem("Alcine"), "Healing"))
+			set mem("Alcine").Aura -= find_ability(mem("Alcine"), "Healing", true).AuraCost
+			do heal_in_overworld(ArbData0, find_ability(mem("Alcine"), "Healing", true))
 	else: 
 		Alcine.Tired: /*shakes head*/
 		It seems they're too exhaused to use healing magic.

@@ -1022,7 +1022,7 @@ alignment = 2
 [node name="AdjustImage" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1684,6 +1684,7 @@ texture = ExtResource("26_375bk")
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="_fps"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="confirm"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/Vsync/CheckButton" to="." method="_vsync"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/GlowEffect/CheckButton" to="." method="_gloweffect"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_last_setting"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/AdjustImage" to="." method="_on_adjust_image"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/BrtSlider" to="." method="_show_image_test"]

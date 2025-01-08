@@ -14,10 +14,16 @@ class_name SaveFile
 @export var StartTime: float
 @export var SavedTime: float
 @export var PlayTime: float
-@export var Preview: Texture = preload("res://art/Previews/1.png")
 @export_group("Items")
 @export var Inventory: Array[ItemData]
 @export var Flags: Array[StringName]
 @export var Day: int
 @export var TimeOfDay: int
 @export var version = 3
+
+func preview() -> Texture:
+	match Party: 
+		["Mira", "Alcine"]:
+			return preload("res://art/Previews/2.png")
+		_:
+			return preload("res://art/Previews/1.png")

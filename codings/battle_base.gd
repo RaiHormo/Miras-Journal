@@ -213,6 +213,7 @@ func position_sprites():
 func entrance():
 	if Seq.Transition:
 		$Cam.zoom = Vector2(5,5)
+		$Cam.position_smoothing_enabled = false
 		$Cam.position = Vector2(90,10)
 		if Troop.size()<3:
 			Loader.battle_bars(3)
@@ -248,6 +249,7 @@ func entrance():
 		for i in PartyArray:
 			entrance_anim(i)
 	Loader.battle_bars(2)
+	$Cam.position_smoothing_enabled = true
 	await Event.wait(0.5, false)
 	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
 	PartyUI.battle_state(true)
@@ -410,6 +412,7 @@ func callout(ab:Ability = CurrentAbility):
 	callout_onscreen = false
 
 func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
+	if not is_instance_valid(tar): return
 	print("Using ", ab.name, " on ", tar.FirstName)
 	for i in CurrentChar.BattleLog: if i.turn == Turn:
 		print("Double turn detected, aborting")
@@ -797,11 +800,9 @@ func focus_cam(chara:Actor, time:float=0.5, offset=30):
 	await move_cam(Vector2(chara.node.position.x + offsetize(offset, chara), chara.node.position.y /2), time)
 
 func move_cam(pos: Vector2, time:float=0.5):
-	var tc = create_tween()
-	tc.set_ease(Tween.EASE_IN_OUT)
-	tc.set_trans(Tween.TRANS_QUART)
-	tc.tween_property($Cam, "position", pos, time)
-	await tc.finished
+	$Cam.position_smoothing_speed = ($Cam.position - pos).length() * time
+	$Cam.position = pos
+	await Event.wait(time)
 
 func move(chara:Actor, pos:Vector2, time:float,
 mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
@@ -955,7 +956,9 @@ func victory(ignore_seq:= false):
 		for i in range(1, 4):
 			if Party.check_member(i):
 				Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
-		Global.get_cam().position = $Cam.global_position
+		Global.get_cam().position_smoothing_enabled = false
+		Global.get_cam().global_position = $Cam.global_position
+		$Cam.enabled = false
 		Global.get_cam().zoom = $Cam.zoom
 
 func victory_show_items():

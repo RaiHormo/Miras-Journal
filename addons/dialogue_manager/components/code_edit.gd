@@ -230,8 +230,8 @@ func get_titles() -> PackedStringArray:
 	var titles = PackedStringArray([])
 	var lines = text.split("\n")
 	for line in lines:
-		if line.begins_with("~ "):
-			titles.append(line.substr(2).strip_edges())
+		if line.strip_edges().begins_with("~ "):
+			titles.append(line.strip_edges().substr(2))
 	return titles
 
 
@@ -383,6 +383,7 @@ func delete_current_line() -> void:
 func move_line(offset: int) -> void:
 	offset = clamp(offset, -1, 1)
 
+	var starting_scroll := scroll_vertical
 	var cursor = get_cursor()
 	var reselect: bool = false
 	var from: int = cursor.y
@@ -413,6 +414,7 @@ func move_line(offset: int) -> void:
 		select(from, 0, to, get_line_width(to))
 
 	text_changed.emit()
+	scroll_vertical = starting_scroll + offset
 
 
 ### Signals

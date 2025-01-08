@@ -259,6 +259,7 @@ func _on_focus_changed(control:Control):
 			if control.get_parent().name == "File0":
 				$SavePanel/Buttons/Overwrite.disabled = true
 				$SavePanel/Buttons/Delete.disabled = true
+				$Silhouette.texture = Loader.Preview
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
 				$SavePanel/Buttons/Delete.disabled = false
@@ -283,6 +284,7 @@ func load_settings():
 	%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
 	%SettingsVbox/DebugMode.button_pressed = Global.Settings.DebugMode
 	%SettingsVbox/Vsync/CheckButton.button_pressed = Global.Settings.VSync
+	%SettingsVbox/GlowEffect/CheckButton.button_pressed = Global.Settings.GlowEffect
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -312,10 +314,12 @@ func load_save_files():
 	else: 
 		%Files/File0.hide()
 		Global.toast("There is nothing saved, you can start a new game.")
+	Loader.SaveFiles.clear()
 	for i in DirAccess.get_files_at("user://"):
 		if ".tres" in i and not "Autosave" in i:
 			var data = await Loader.load_res("user://"+i)
 			if data is SaveFile:
+				Loader.SaveFiles.append(data)
 				var newpanel:PanelContainer = null
 				for j in %Files.get_children():
 					if j.name in i:
@@ -596,8 +600,13 @@ func _fps(index: int) -> void:
 
 func _vsync(toggle: bool) -> void:
 	Global.Settings.VSync = toggle
-	if toggle: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	Global.apply_settings()
+	confirm()
+	load_settings()
+
+func _gloweffect(toggle: bool) -> void:
+	Global.Settings.GlowEffect = toggle
+	Global.apply_settings()
 	confirm()
 	load_settings()
 

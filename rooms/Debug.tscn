@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=79 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="20_3hgx6"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="21_pty4k"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://codings/Interactions/Ladder.tscn" id="23_5somt"]
+[ext_resource type="Script" path="res://codings/Interactions/event_tripwire.gd" id="24_dr2v5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("2_6ip0u")
@@ -552,6 +553,9 @@ size = Vector2(26.0002, 79.341)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wo8dh"]
 size = Vector2(28.9997, 11.0009)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lghs2"]
+size = Vector2(73, 39.0001)
+
 [node name="Area" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
@@ -878,7 +882,23 @@ debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 [node name="Ladder1" parent="." instance=ExtResource("23_5somt")]
 position = Vector2(136, -30)
 
+[node name="Kick" type="Area2D" parent="."]
+position = Vector2(-191, 60)
+collision_mask = 15
+script = ExtResource("24_dr2v5")
+TextFile = "interactions"
+TextNode = "kick_debug"
+Flag = "HasBag"
+TakeControl = true
+ReturnControl = true
+KickDirection = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kick"]
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_lghs2")
+
 [connection signal="action" from="Lamp" to="Lamp/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoint2" to="JumpPoint2" method="_on_entered"]
 [connection signal="area_entered" from="BreakableVinesDB/AreaBreak" to="BreakableVinesDB" method="_on_area_break_area_entered"]
+[connection signal="body_entered" from="Kick" to="Kick" method="_on_body_entered"]

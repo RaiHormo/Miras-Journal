@@ -1715,6 +1715,8 @@ frame_progress = 1.0
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 100.0
 
 [node name="AI" type="Node" parent="."]
 script = ExtResource("17_5kmxv")

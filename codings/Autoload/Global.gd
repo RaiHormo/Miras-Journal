@@ -275,13 +275,6 @@ func fullscreen() -> void:
 		Settings.Fullscreen = false
 	save_settings()
 
-func get_preview() -> Texture:
-	if Party.Leader.codename == "Mira" and not Party.check_member(1):
-		return preload("res://art/Previews/1.png")
-	if Party.Leader.codename == "Mira" and Party.Member1.codename == "Alcine":
-		return preload("res://art/Previews/2.png")
-	return preload("res://art/Previews/1.png")
-
 func reset_settings() -> void:
 	Settings = Setting.new()
 	ResourceSaver.save(Settings, "user://Settings.tres")
@@ -298,8 +291,14 @@ func init_settings() -> void:
 		await Event.wait()
 		Settings = load("user://Settings.tres")
 	if !Settings: OS.alert("Something is wrong with the settings file or user folder")
+	apply_settings()
+
+func apply_settings():
 	if Settings.Fullscreen:
 		fullscreen()
+	if Settings.GlowEffect:
+		World.environment.glow_enabled = true
+	else: World.environment.glow_enabled = false
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
 	AudioServer.set_bus_volume_db(2, Settings.EnvSFXVolume)

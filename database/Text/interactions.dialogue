@@ -14,7 +14,7 @@ Mira.Neutural: I can't dash and hold this flame at the same time.[next=4]
 if not f("LookedAtSkeleton"):
 	do f("LookedAtSkeleton", true)
 	...There's no mistaking it, that's a skeleton.
-	From the skull shape it seems human, I think.	
+	From the skull shape it seems human, I think.
 else: 
 	...Let's just move on.
 => END!
@@ -87,3 +87,20 @@ else:
 
 ~ just_woke_up
 I just woke up. Don't feel like spending all day in bed.
+=> END
+
+~ kick_bridge
+No reason to go back there.
+=> END
+
+~ kick_debug
+I will not pass without a bag.
+=> END
+
+~ kick_sgplains
+if f("VPPlains"):
+	Asteria.Neutural: You wanna return to the village Mira?
+	Asteria.Neutural: That's the long way back, we should use the vains instead.
+else:
+	Daze.Neutural: Levenor, this way!
+=> END

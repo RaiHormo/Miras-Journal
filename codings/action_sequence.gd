@@ -300,7 +300,7 @@ func WarpAttack(target: Actor):
 	CurrentChar.node.get_node("Shadow").hide()
 	await Bt.anim("Attack1")
 	CurrentChar.node.position = Vector2(target.node.position.x + Bt.offsetize(-30), target.node.position.y)
-	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-5), 0), 0.8)
 	Bt.anim("Attack2")
 	await Event.wait(0.2)
 	if not miss:
@@ -560,6 +560,19 @@ func LeechSeeds(target: Actor):
 	if miss: Bt.miss()
 	else:
 		await target.add_state("Leeched")
+	await Event.wait(0.5)
+	Bt.anim()
+	Bt.end_turn()
+
+func Tighten(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	#Bt.play_effect("Tighten", target)
+	await Event.wait(1)
+	if miss: Bt.miss()
+	else:
+		await target.add_state("Bound")
 	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()

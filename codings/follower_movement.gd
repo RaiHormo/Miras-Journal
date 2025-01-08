@@ -10,7 +10,7 @@ var target: Vector2
 
 @export var member : int
 @export var distance : int = 30
-@onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false
 @export var offset := 0
 
@@ -39,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
 		$Glow.energy = member_info().GlowDef
-		makepath()
+		if Global.Controllable: makepath()
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased:

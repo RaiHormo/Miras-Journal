@@ -53,7 +53,6 @@ func save(filename:String="Autosave", showicon=true):
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
-	data.Preview = Global.get_preview()
 	data.Camera = Global.CameraInd
 	data.Defeated = Defeated.duplicate()
 	data.Members = Global.Members.duplicate()
@@ -73,7 +72,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Day = Event.Day
 	data.TimeOfDay = Event.TimeOfDay
 	ResourceSaver.save(data, "user://"+filename+".tres")
-	Preview = (data.Preview)
+	Preview = (data.preview())
 
 func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true, transition_after_done = true):
 	if sound: Global.ui_sound("Load")
@@ -115,7 +114,15 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 
 	Item.load_inventories(data)
 
-	Global.Members = data.Members.duplicate()
+	var temp_members = data.Members.duplicate()
+	if temp_members < Global.Members:
+		Global.toast("WARNING: This save file was created in an older version.")
+		for j in Global.Members:
+			var exists = false
+			for i in temp_members:
+				if i.codename == j.codename: exists = true
+			if not exists: temp_members.append(j)
+	Global.Members = temp_members
 	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)
 	print("Current party: ", data.Party)
@@ -505,7 +512,7 @@ func validate_save(save: String) -> bool:
 		var file = load(save)
 		if is_instance_valid(file):
 			if file.version == SaveVersion:
-				Preview = file.Preview
+				Preview = file.preview()
 				return true
 			else:
 				OS.alert("This save file is from an incompatible version", "Can't read file")

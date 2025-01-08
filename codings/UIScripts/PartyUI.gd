@@ -213,6 +213,7 @@ func _on_expand(open_ui=0):
 	#if open_ui == 0:
 	await t.finished
 	Expanded = true
+	Global.check_party.emit()
 	if open_ui != 2: $CanvasLayer/Cursor.show()
 	if open_ui == 0:
 		focus_now()
@@ -284,6 +285,8 @@ func _on_shrink():
 	shrink_panel(Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
 		shrink_panel(Partybox.get_node("Member"+str(i)), i)
+	for i in %Pages.get_children():
+		i.get_node("Render").texture = null
 	Expanded = false
 	await t.finished
 	MemberChoosing = false
@@ -457,7 +460,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	txt_color.v = min(txt_color.v, 0.75)
 	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", txt_color)
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
-	if get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture != mem.RenderShadow:
+	if Expanded:
 		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
 		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = mem.RenderShadow
 	get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = mem.PartyPage
