@@ -21,6 +21,7 @@ var Cam = Camera2D.new()
 var Followers: Array[Follower] = []
 var Layers: Array[TileMapLayer]
 var CurSubRoom: SubRoom = null
+@export var FlameInInd: Array[int]
 
 func _ready():
 	material = preload("res://codings/Shaders/Pixelart.tres")
@@ -71,6 +72,9 @@ func _ready():
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers
 	await Event.wait()
+	if Global.CameraInd in FlameInInd:
+		if is_instance_valid(Global.Player):
+			if not Event.f("FlameActive"): Global.Player.activate_flame()
 	Global.area_initialized.emit()
 	default()
 

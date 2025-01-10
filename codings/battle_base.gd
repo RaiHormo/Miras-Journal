@@ -952,10 +952,11 @@ func victory(ignore_seq:= false):
 	AwaitVictory = true
 	await t.finished
 	if is_instance_valid(Global.Player):
-		Global.Player.global_position = $Act/Actor0.global_position
-		for i in range(1, 4):
-			if Party.check_member(i):
-				Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
+		if Seq.BattleBack == null:
+			Global.Player.global_position = $Act/Actor0.global_position
+			for i in range(1, 4):
+				if Party.check_member(i):
+					Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
 		Global.get_cam().position_smoothing_enabled = false
 		Global.get_cam().global_position = $Cam.global_position
 		$Cam.enabled = false

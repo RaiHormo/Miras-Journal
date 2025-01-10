@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr3hn08s615pf"]
+
+[ext_resource type="Script" path="res://codings/NPC.gd" id="1_dnwjs"]
+[ext_resource type="Texture2D" uid="uid://d1tcv45k4skug" path="res://art/Icons/Editor/npc.png" id="2_n2ikt"]
+[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_a0g5d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
+radius = 7.0
+
+[node name="NPC" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(0, 70)
+motion_mode = 1
+script = ExtResource("1_dnwjs")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.014881, 1.99995)
+shape = SubResource("CircleShape2D_vnvbs")
+debug_color = Color(0, 0.6, 0.7, 0.084)
+
+[node name="Nav" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+
+[node name="Icon" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 10
+position = Vector2(0, -4)
+scale = Vector2(0.223264, 0.223264)
+texture = ExtResource("2_n2ikt")
+script = ExtResource("3_a0g5d")

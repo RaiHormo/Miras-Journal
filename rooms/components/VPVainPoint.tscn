@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://brwxiq17qyyeb"]
+[gd_scene load_steps=11 format=3 uid="uid://brwxiq17qyyeb"]
 
-[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="1_sli5j"]
+[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="1_sli5j"]
+[ext_resource type="Texture2D" uid="uid://cuodplc4cg1gg" path="res://art/Icons/Editor/vp.png" id="2_focdk"]
+[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_7tadi"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4p5qo"]
 
@@ -43,7 +45,7 @@ fill = 1
 fill_from = Vector2(0.519658, 0.497436)
 fill_to = Vector2(0.752137, 0.230769)
 
-[node name="VPPlains" type="Area2D"]
+[node name="VPVainPoint" type="Area2D"]
 position = Vector2(438, -46)
 
 [node name="Interactable" parent="." instance=ExtResource("1_sli5j")]
@@ -65,3 +67,11 @@ process_material = SubResource("ParticleProcessMaterial_esk01")
 texture = SubResource("GradientTexture2D_ku46n")
 explosiveness = 0.12
 randomness = 0.19
+
+[node name="Icon" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 10
+position = Vector2(1.04904e-05, -9.53674e-07)
+scale = Vector2(0.269226, 0.269226)
+texture = ExtResource("2_focdk")
+script = ExtResource("3_7tadi")

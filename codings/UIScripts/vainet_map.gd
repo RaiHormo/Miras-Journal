@@ -68,6 +68,7 @@ func location_selected():
 	if not inited: return
 	inited = false
 	Global.confirm_sound()
+	Event.remove_flag("FlameActive")
 	var map_point = $Map.get_node_or_null(str(foc.name))
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
 	var t = create_tween()

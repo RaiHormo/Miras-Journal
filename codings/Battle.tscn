@@ -1612,11 +1612,18 @@ Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
 curve = SubResource("Curve_wrfky")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 light_mask = 16
 z_index = -1
 material = ExtResource("1_dmrw5")
+offset_left = -210.0
+offset_top = -149.0
+offset_right = 210.0
+offset_bottom = 151.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("5_441cr")
+expand_mode = 1
 
 [node name="Act" type="Node2D" parent="."]
 process_mode = 1

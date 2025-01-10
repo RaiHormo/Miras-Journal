@@ -65,6 +65,8 @@ general/wrap_lines=true
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
+window/size/initial_position_type=2
+window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 
 [editor]

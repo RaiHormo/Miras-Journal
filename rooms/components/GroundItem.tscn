@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://h8hsgjo5gg6"]
+[gd_scene load_steps=19 format=3 uid="uid://h8hsgjo5gg6"]
 
 [ext_resource type="Script" path="res://codings/Interactions/ground_item.gd" id="1_65lo7"]
 [ext_resource type="Texture2D" uid="uid://cu1p6ew3p2s5f" path="res://art/OV/Objects/Sparkles.png" id="2_1gsdw"]
-[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://codings/Interactions/Interactable.tscn" id="3_uqxwf"]
+[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="3_uqxwf"]
+[ext_resource type="Texture2D" uid="uid://pjq76djkwyo6" path="res://art/Icons/Editor/item.png" id="4_8ehb8"]
+[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="5_sru6s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yxfjx"]
 atlas = ExtResource("2_1gsdw")
@@ -104,6 +106,7 @@ animations = [{
 
 [node name="GroundItem" type="Node2D"]
 script = ExtResource("1_65lo7")
+metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL0l0ZW1TcGFya2xlLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PVNwYXJrbGVzCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
@@ -122,3 +125,11 @@ add_flag = true
 hide_parent = true
 offset = 10
 needs_bag = true
+
+[node name="Icon" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 10
+position = Vector2(-1, -1.19209e-07)
+scale = Vector2(0.285, 0.264273)
+texture = ExtResource("4_8ehb8")
+script = ExtResource("5_sru6s")

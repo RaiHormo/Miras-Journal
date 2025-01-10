@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene load_steps=94 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
 [ext_resource type="Script" path="res://codings/player_movement.gd" id="2_d6ige"]
@@ -15,15 +15,26 @@
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.456522, 0.757246, 0.995098)
-colors = PackedColorArray(1, 1, 1, 1, 0.3, 0.3, 0.3, 1, 0.15, 0.15, 0.15, 1, 0, 0, 0, 1)
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.557915, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.173742, 0.173742, 0.173742, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2e8bj"]
 gradient = SubResource("Gradient_s6doo")
-use_hdr = true
 fill = 1
 fill_from = Vector2(0.504274, 0.487179)
-fill_to = Vector2(0.811966, 0.850427)
+fill_to = Vector2(0.884615, 0.944444)
+
+[sub_resource type="Gradient" id="Gradient_mydrh"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_84k7l"]
+gradient = SubResource("Gradient_mydrh")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.852941, 0.894118)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4n3lf"]
 atlas = ExtResource("5_xllow")
@@ -653,6 +664,13 @@ texture_scale = 3.0
 script = ExtResource("12_1md4f")
 around_scale = 3.5
 amount = 0.08
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(0, -6)
+color = Color(0.847059, 0.607843, 0.447059, 1)
+energy = 0.1
+texture = SubResource("GradientTexture2D_84k7l")
+texture_scale = 1.5
 
 [node name="Sprite" type="CanvasGroup" parent="."]
 light_mask = 3
