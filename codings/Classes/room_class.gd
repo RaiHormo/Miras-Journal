@@ -95,7 +95,8 @@ func setup_params(tween_zoom = false):
 func default():
 	pass
 
-func handle_z(z := SpawnZ[Global.CameraInd]):
+func handle_z(z := -1):
+	if z == -1: z = SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
 	Global.Player.z_index = z
 	for i in get_children():
 		if i is Stair and i not in Stairs:

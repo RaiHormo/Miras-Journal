@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://vgsferl0deam"]
+
+[ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="1_60q8a"]
+[ext_resource type="Texture2D" uid="uid://dtw2ihtvn34ge" path="res://art/Icons/Editor/jump.png" id="2_a6ca7"]
+[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_n84ch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ht2m"]
+size = Vector2(24, 66)
+
+[node name="JumpPoint2" type="Area2D"]
+position = Vector2(61, 36)
+script = ExtResource("1_60q8a")
+jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
+jump_am = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_2ht2m")
+debug_color = Color(0.752941, 0.458824, 0, 0.419608)
+
+[node name="Icon" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 10
+position = Vector2(-0.999999, 1.43051e-06)
+scale = Vector2(0.31, 0.31)
+texture = ExtResource("2_a6ca7")
+script = ExtResource("3_n84ch")
+
+[connection signal="body_entered" from="." to="." method="_on_entered"]

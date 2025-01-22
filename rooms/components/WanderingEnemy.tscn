@@ -22,7 +22,7 @@ points = PackedVector2Array(10, 50, -10, 50, -40, 10, -30, -60, 0, -80, 30, -60,
 [sub_resource type="CircleShape2D" id="CircleShape2D_o5d30"]
 radius = 15.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="EnemyDefault1" type="CharacterBody2D"]
 y_sort_enabled = true
 material = ExtResource("1_blols")
 collision_layer = 513

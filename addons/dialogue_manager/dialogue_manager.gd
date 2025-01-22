@@ -142,6 +142,10 @@ func get_resolved_line_data(data: Dictionary, extra_game_states: Array = []) -> 
 	for replacement in data.text_replacements:
 		var value = await resolve(replacement.expression.duplicate(true), extra_game_states)
 		var index: int = text.find(replacement.value_in_text)
+		if index == -1:
+			# The replacement wasn't found but maybe the regular quotes have been replaced
+			# by special quotes while translating.
+			index = text.replace("“", "\"").replace("”", "\"").find(replacement.value_in_text)
 		if index > -1:
 			text = text.substr(0, index) + str(value) + text.substr(index + replacement.value_in_text.length())
 
@@ -285,7 +289,7 @@ func show_dialogue_balloon_scene(balloon_scene, resource: DialogueResource, titl
 		balloon_scene = balloon_scene.instantiate()
 
 	var balloon: Node = balloon_scene
-	get_current_scene.call().add_child(balloon)
+	get_current_scene.call().add_child.call_deferred(balloon)
 	if balloon.has_method(&"start"):
 		balloon.start(resource, title, extra_game_states)
 	elif balloon.has_method(&"Start"):

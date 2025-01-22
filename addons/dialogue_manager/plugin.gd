@@ -51,6 +51,22 @@ func _enter_tree() -> void:
 
 		add_tool_menu_item("Create copy of dialogue example balloon...", _copy_dialogue_balloon)
 
+		# Make sure the current balloon has a UID unique from the example balloon's
+		var balloon_path: String = DialogueSettings.get_setting("balloon_path", "")
+		if balloon_path != "" and FileAccess.file_exists(balloon_path):
+			var is_small_window: bool = ProjectSettings.get_setting("display/window/size/viewport_width") < 400
+			var example_balloon_file_name: String = "small_example_balloon.tscn" if is_small_window else "example_balloon.tscn"
+			var example_balloon_path: String = get_plugin_path() + "/example_balloon/" + example_balloon_file_name
+			var example_balloon_uid: String = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(example_balloon_path))
+			var balloon_uid: String = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(balloon_path))
+			if example_balloon_uid == balloon_uid:
+				var new_balloon_uid: String = ResourceUID.id_to_text(ResourceUID.create_id())
+				var contents: String = FileAccess.get_file_as_string(balloon_path)
+				contents = contents.replace(example_balloon_uid, new_balloon_uid)
+				var balloon_file: FileAccess = FileAccess.open(balloon_path, FileAccess.WRITE)
+				balloon_file.store_string(contents)
+				balloon_file.close()
+
 		# Prevent the project from showing as unsaved even though it was only just opened
 		if DialogueSettings.get_setting("try_suppressing_startup_unsaved_indicator", false) \
 			and Engine.get_physics_frames() == 0 \
@@ -140,6 +156,8 @@ func _build() -> bool:
 	if DialogueSettings.get_user_value("is_running_test_scene", true): return true
 
 	if dialogue_cache != null:
+		dialogue_cache.reimport_files()
+		
 		var files_with_errors = dialogue_cache.get_files_with_errors()
 		if files_with_errors.size() > 0:
 			for dialogue_file in files_with_errors:
@@ -322,10 +340,15 @@ func _copy_dialogue_balloon() -> void:
 		# Copy the balloon scene file and change the script reference
 		var is_small_window: bool = ProjectSettings.get_setting("display/window/size/viewport_width") < 400
 		var example_balloon_file_name: String = "small_example_balloon.tscn" if is_small_window else "example_balloon.tscn"
+		var example_balloon_path: String = plugin_path + "/example_balloon/" + example_balloon_file_name
 		var example_balloon_script_file_name: String = "ExampleBalloon.cs" if is_dotnet else "example_balloon.gd"
-		var file: FileAccess = FileAccess.open(plugin_path + "/example_balloon/" + example_balloon_file_name, FileAccess.READ)
-		var file_contents: String = file.get_as_text().replace(plugin_path + "/example_balloon/example_balloon.gd", balloon_script_path)
-		file = FileAccess.open(balloon_path, FileAccess.WRITE)
+		var file_contents: String = FileAccess.get_file_as_string(example_balloon_path).replace(plugin_path + "/example_balloon/example_balloon.gd", balloon_script_path)
+		# Give the balloon a unique UID
+		var example_balloon_uid: String = ResourceUID.id_to_text(ResourceLoader.get_resource_uid(example_balloon_path))
+		var new_balloon_uid: String = ResourceUID.id_to_text(ResourceUID.create_id())
+		file_contents = file_contents.replace(example_balloon_uid, new_balloon_uid)
+		# Save the new balloon
+		var file: FileAccess = FileAccess.open(balloon_path, FileAccess.WRITE)
 		file.store_string(file_contents)
 		file.close()
 
