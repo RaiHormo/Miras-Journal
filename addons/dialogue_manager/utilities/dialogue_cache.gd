@@ -1,9 +1,4 @@
-extends Node
-
-
-const DialogueConstants = preload("../constants.gd")
-const DialogueSettings = preload("../settings.gd")
-const DialogueManagerParseResult = preload("./parse_result.gd")
+class_name DMCache extends Node
 
 
 signal file_content_changed(path: String, new_content: String)
@@ -45,27 +40,23 @@ func reimport_files(and_files: PackedStringArray = []) -> void:
 	
 	if _files_marked_for_reimport.is_empty(): return
 
-	var file_system: EditorFileSystem = Engine.get_meta("DialogueManagerPlugin") \
-		.get_editor_interface() \
-		.get_resource_filesystem()
-
-	file_system.reimport_files(_files_marked_for_reimport)
+	EditorInterface.get_resource_filesystem().reimport_files(_files_marked_for_reimport)
 
 
 ## Add a dialogue file to the cache.
-func add_file(path: String, parse_results: DialogueManagerParseResult = null) -> void:
+func add_file(path: String, compile_result: DMCompilerResult = null) -> void:
 	_cache[path] = {
 		path = path,
 		dependencies = [],
 		errors = []
 	}
 
-	if parse_results != null:
-		_cache[path].dependencies = Array(parse_results.imported_paths).filter(func(d): return d != path)
-		_cache[path].parsed_at = Time.get_ticks_msec()
+	if compile_result != null:
+		_cache[path].dependencies = Array(compile_result.imported_paths).filter(func(d): return d != path)
+		_cache[path].compiled_at = Time.get_ticks_msec()
 
 	# If this is a fresh cache entry, check for dependencies
-	if parse_results == null and not _update_dependency_paths.has(path):
+	if compile_result == null and not _update_dependency_paths.has(path):
 		queue_updating_dependencies(path)
 
 
@@ -126,7 +117,7 @@ func get_files_with_dependency(imported_path: String) -> Array:
 ## Get any paths that are dependent on a given path
 func get_dependent_paths_for_reimport(on_path: String) -> PackedStringArray:
 	return get_files_with_dependency(on_path) \
-		.filter(func(d): return Time.get_ticks_msec() - d.get("parsed_at", 0) > 3000) \
+		.filter(func(d): return Time.get_ticks_msec() - d.get("compiled_at", 0) > 3000) \
 		.map(func(d): return d.path)
 
 
@@ -157,7 +148,7 @@ func _get_dialogue_files_in_filesystem(path: String = "res://") -> PackedStringA
 	return files
 
 
-### Signals
+#region Signals
 
 
 func _on_update_dependency_timeout() -> void:
@@ -174,3 +165,6 @@ func _on_update_dependency_timeout() -> void:
 			dependencies.append(found.strings[found.names.path])
 		_cache[path].dependencies = dependencies
 	_update_dependency_paths.clear()
+
+
+#endregion

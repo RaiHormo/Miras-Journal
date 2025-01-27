@@ -26,7 +26,7 @@ var Lights: Array[Light2D] = []
 var Area: Room
 var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
 var Passive = preload("res://UI/Textbox/Passive.tscn")
-var ArbData0
+var ArbData0 = null
 var textbox_open:= false
 signal lights_loaded
 signal check_party
@@ -459,7 +459,7 @@ func next_box(profile:String) -> void:
 func picture(img: String):
 	$/root/Textbox.picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
 
-func picture_clear(pic: String):
+func picture_clear():
 	$/root/Textbox.picture = null
 
 func toast(string: String) -> void:
@@ -788,6 +788,7 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	anim_done.emit()
 
 func heal_in_overworld(target:Actor, ab: Ability):
+	print(ArbData0, " healed")
 	var amount:= int(max(calc_num(ab), target.MaxHP*((calc_num(ab)*target.Magic)*0.02)))
 	target.add_health(amount)
 	check_party.emit()

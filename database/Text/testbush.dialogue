@@ -8,7 +8,7 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 - Talk a lot
 	Mira.Smile: Yeah, sure i can say a bunch of stuff.
 	Mira.Smile: I just like the sound of my voice, beep boop.
-	Mira.Smile: So how's your day bush?\nAnything going on?
+	Mira.Smile: So how's your day bush? [p]Anything going on?
 	[wait=0.5] [next=auto]
 	Mira.Smile: Yeah I thought so.
 	Mira.Smile: The purpose of this dialog is to test text sounds and dialog skipping.
@@ -115,7 +115,7 @@ Debug battle begin!
 => END!
 
 ~ prototype_message
-Note: This is an early prototype build.\nIt is very short and a lot of things such as music are missing.
+Note: This is an early prototype build.[p]It is very short and a lot of things such as music are missing.
 Note: Please provide feedback to the developer after testing.
 - Continue
 - Developer info

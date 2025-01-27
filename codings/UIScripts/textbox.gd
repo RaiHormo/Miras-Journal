@@ -217,9 +217,9 @@ func configure_menu() -> void:
 func get_responses() -> Array:
 	var items: Array = []
 	for child in responses_menu.get_children():
-		if "Disallowed" in child.name: continue
-		items.append(child)
-
+		if not "Disallowed" in child.name: 
+			items.append(child)
+	
 	return items
 
 
@@ -380,6 +380,9 @@ func _on_button_focus_entered() -> void:
 func animate_responces():
 	await dialogue_label.finished_typing
 	Engine.time_scale = 1
+	for i in responses_menu.get_children():
+		if "Disallowed" in i.name: 
+			i.hide()
 	for i in responses_menu.get_children():
 		t = create_tween()
 		t.set_parallel(true)

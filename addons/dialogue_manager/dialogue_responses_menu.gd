@@ -14,6 +14,9 @@ signal response_selected(response)
 ## The action for accepting a response (is possibly overridden by parent dialogue balloon).
 @export var next_action: StringName = &""
 
+## Hide any responses where [code]is_allowed[/code] is false
+@export var hide_failed_responses: bool = false
+
 ## The list of dialogue responses.
 var responses: Array = []:
 	get:
@@ -31,6 +34,8 @@ var responses: Array = []:
 		# Add new items
 		if responses.size() > 0:
 			for response in responses:
+				if hide_failed_responses and not response.is_allowed: continue
+
 				var item: Control
 				if is_instance_valid(response_template):
 					item = response_template.duplicate(DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS)
@@ -39,7 +44,7 @@ var responses: Array = []:
 					item = Button.new()
 				item.name = "Response%d" % get_child_count()
 				if not response.is_allowed:
-					item.name = String(item.name) + "Disallowed"
+					item.name = item.name + &"Disallowed"
 					item.disabled = true
 
 				# If the item has a response property then use that
@@ -59,7 +64,9 @@ var responses: Array = []:
 func _ready() -> void:
 	visibility_changed.connect(func():
 		if visible and get_menu_items().size() > 0:
-			get_menu_items()[0].grab_focus()
+			var first_item: Control = get_menu_items()[0]
+			if first_item.is_inside_tree():
+				first_item.grab_focus()
 	)
 
 	if is_instance_valid(response_template):
@@ -75,11 +82,6 @@ func get_menu_items() -> Array:
 		items.append(child)
 
 	return items
-
-
-## [b]DEPRECATED[/b]. Do not use.
-func set_responses(next_responses: Array) -> void:
-	self.responses = next_responses
 
 
 #region Internal
@@ -130,11 +132,11 @@ func _on_response_mouse_entered(item: Control) -> void:
 func _on_response_gui_input(event: InputEvent, item: Control, response) -> void:
 	if "Disallowed" in item.name: return
 
-	get_viewport().set_input_as_handled()
-
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+		get_viewport().set_input_as_handled()
 		response_selected.emit(response)
 	elif event.is_action_pressed(&"ui_accept" if next_action.is_empty() else next_action) and item in get_menu_items():
+		get_viewport().set_input_as_handled()
 		response_selected.emit(response)
 
 

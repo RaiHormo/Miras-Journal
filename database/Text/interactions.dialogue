@@ -55,7 +55,7 @@ It's a broken sign with Cyrenian writing on it
 => END
 
 ~ broken_bridge
-This bridge is broken. \nWe should find another way to get there.
+This bridge is broken. [p]We should find another way to get there.
 => END
 
 ~ day10_gap

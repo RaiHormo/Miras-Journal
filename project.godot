@@ -58,8 +58,8 @@ gdscript/warnings/integer_division=0
 
 [dialogue_manager]
 
-general/states=["Global", "Loader", "World", "Event", "PartyUI", "Item"]
-general/wrap_lines=true
+runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item"]
+editor/wrap_long_lines=true
 
 [display]
 
