@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=110 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="2_55wks"]
@@ -14,6 +14,8 @@
 [ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
+[ext_resource type="Script" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="12_i58j1"]
+[ext_resource type="Script" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="13_fdgwg"]
 [ext_resource type="Shader" path="res://UI/Battle/Sinewave.gdshader" id="15_nebe1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gki4e"]
@@ -649,6 +651,18 @@ expand_margin_top = 27.0
 expand_margin_right = 34.0
 expand_margin_bottom = 27.0
 
+[sub_resource type="Resource" id="Resource_ys3is"]
+script = ExtResource("13_fdgwg")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 8.0
+
+[sub_resource type="Resource" id="Resource_ctgdr"]
+script = ExtResource("13_fdgwg")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 12.0
+
 [sub_resource type="FontVariation" id="FontVariation_160jv"]
 base_font = ExtResource("4_pkqpv")
 variation_embolden = 0.3
@@ -998,6 +1012,9 @@ use_parent_material = true
 clip_contents = false
 layout_mode = 2
 follow_focus = true
+script = ExtResource("12_i58j1")
+wheel_scroll_damper = SubResource("Resource_ys3is")
+dragging_scroll_damper = SubResource("Resource_ctgdr")
 
 [node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller"]
 layout_mode = 2
@@ -1005,6 +1022,7 @@ theme_override_constants/separation = 10
 
 [node name="KeyLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
@@ -1019,6 +1037,7 @@ columns = 5
 
 [node name="ConLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
@@ -1034,6 +1053,7 @@ columns = 5
 
 [node name="MatLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
@@ -1049,6 +1069,7 @@ columns = 5
 
 [node name="BtiLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
 theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28

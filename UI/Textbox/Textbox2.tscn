@@ -420,6 +420,7 @@ script = ExtResource("1_ho4q7")
 [node name="Fader" type="ColorRect" parent="."]
 offset_right = 1284.0
 offset_bottom = 803.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Balloon" type="ColorRect" parent="."]
@@ -523,6 +524,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
 theme = SubResource("Theme_kq38n")
 text = "Response"
 
@@ -585,6 +587,7 @@ offset_top = 98.0
 offset_right = 2926.0
 offset_bottom = 2195.0
 scale = Vector2(0.205429, 0.205429)
+mouse_filter = 2
 texture = ExtResource("9_t302t")
 
 [node name="Picture" type="TextureRect" parent="PictureFrame"]
@@ -594,6 +597,7 @@ offset_top = 19.4714
 offset_right = 10043.8
 offset_bottom = 10019.5
 scale = Vector2(0.205429, 0.205429)
+mouse_filter = 2
 stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -155,10 +155,6 @@ func _ready() -> void:
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
 
-func _unhandled_input(_event: InputEvent) -> void:
-	# Only the balloon is allowed to handle input while it's showing
-	get_viewport().set_input_as_handled()
-
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
 	Global.Controllable = false
@@ -297,6 +293,12 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:
+	if not is_waiting_for_input: return
+	if dialogue_line.responses.size() > 0: return
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
+		next(dialogue_line.next_id)
+	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
+		next(dialogue_line.next_id)
 	if event is InputEventKey or event is InputEventJoypadButton:
 		if Input.is_action_just_pressed("Dash"):
 			var hold_frames := 1
@@ -328,16 +330,12 @@ func _input(event: InputEvent) -> void:
 			await t.finished
 			$Hints.hide()
 
-func _on_balloon_gui_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		next(dialogue_line.next_id)
-	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
-		next(dialogue_line.next_id)
 
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout

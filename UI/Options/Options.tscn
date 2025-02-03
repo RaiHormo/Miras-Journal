@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=83 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
@@ -18,8 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="18_y4emp"]
+[ext_resource type="Script" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="19_sc5mb"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="20_5ccb6"]
+[ext_resource type="Script" path="res://addons/addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
+[ext_resource type="Script" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
 [ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="22_w3i7s"]
@@ -278,9 +281,9 @@ corner_detail = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3xl4"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+expand_margin_left = 6.0
+expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vv8p"]
 bg_color = Color(0.807843, 0.505882, 0.482353, 1)
@@ -343,6 +346,17 @@ VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_p3xl4")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_p3xl4")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_1vv8p")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_1vv8p")
+
+[sub_resource type="Resource" id="Resource_x8tqq"]
+script = ExtResource("20_l60hk")
+friction = 5.0
+minimum_velocity = 0.1
+rebound_strength = 10.0
+
+[sub_resource type="Resource" id="Resource_rkvv0"]
+script = ExtResource("20_5gqn4")
+friction = 5.0
+rebound_strength = 12.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y0m"]
 content_margin_left = 24.0
@@ -694,6 +708,12 @@ offset_bottom = 855.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
+script = ExtResource("19_e5lo7")
+wheel_scroll_damper = SubResource("Resource_x8tqq")
+dragging_scroll_damper = SubResource("Resource_rkvv0")
+drag_with_touch = false
+follow_focus_margin = 50
+allow_horizontal_scroll = false
 
 [node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
 unique_name_in_owner = true
@@ -705,6 +725,7 @@ layout_mode = 2
 
 [node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 text = "Gameplay"
@@ -716,12 +737,14 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Auto-hide HUD"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
 selected = 0
@@ -734,6 +757,7 @@ popup/item_2/id = 2
 
 [node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 text = "Input"
@@ -745,12 +769,14 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Control scheme"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
 selected = 0
@@ -776,6 +802,7 @@ popup/item_8/id = 8
 [node name="ControlPreview" type="Control" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(0, 225)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="A" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -872,6 +899,7 @@ offset_top = 5.12486
 offset_right = 707.759
 offset_bottom = 47.1249
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Confirm"
@@ -891,6 +919,7 @@ offset_top = 63.1386
 offset_right = 707.743
 offset_bottom = 105.139
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Cancel"
@@ -910,6 +939,7 @@ offset_top = 122.139
 offset_right = 707.726
 offset_bottom = 164.139
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Menu"
@@ -930,12 +960,14 @@ offset_top = 181.139
 offset_right = 708.71
 offset_bottom = 223.139
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Dash"
 
 [node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 text = "Display
@@ -949,12 +981,14 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fullscreen"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
@@ -965,12 +999,14 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Framerate limit"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 expand_icon = true
 selected = 0
@@ -991,6 +1027,7 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "VSync"
@@ -998,6 +1035,7 @@ text = "VSync"
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../AdjustImage")
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
@@ -1009,6 +1047,7 @@ theme_override_constants/separation = 64
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Glow effect"
@@ -1016,6 +1055,7 @@ text = "Glow effect"
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../AdjustImage")
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
@@ -1023,6 +1063,7 @@ alignment = 2
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 8
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1047,6 +1088,7 @@ columns = 2
 [node name="BrtLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Brightness"
@@ -1055,14 +1097,17 @@ text = "Brightness"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
+scrollable = false
 
 [node name="ConLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Contrast
@@ -1072,14 +1117,17 @@ text = "Contrast
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
+scrollable = false
 
 [node name="SatLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Saturation"
@@ -1088,13 +1136,16 @@ text = "Saturation"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 max_value = 2.0
 step = 0.1
 value = 1.0
+scrollable = false
 
 [node name="Audio" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 text = "Audio"
@@ -1107,6 +1158,7 @@ theme_override_constants/separation = 170
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Master"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
@@ -1116,10 +1168,12 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1129,6 +1183,7 @@ theme_override_constants/separation = 170
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Music"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Music"
@@ -1138,10 +1193,12 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="EnvSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1150,6 +1207,7 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Enviroment SFX"
@@ -1159,10 +1217,12 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1171,6 +1231,7 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Battle SFX"
@@ -1180,10 +1241,12 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1193,6 +1256,7 @@ theme_override_constants/separation = 170
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UI"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "UI"
@@ -1202,10 +1266,12 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1214,6 +1280,7 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Voices"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text sounds"
@@ -1223,15 +1290,18 @@ custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 min_value = -300.0
 max_value = 60.0
 step = 10.0
+scrollable = false
 
 [node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1246,6 +1316,7 @@ text = "Reset Volume"
 
 [node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 text = "System"
@@ -1253,12 +1324,14 @@ text = "System"
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Debug tools"
 
 [node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
 theme_override_font_sizes/font_size = 32
@@ -1270,6 +1343,7 @@ combinations."
 [node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
@@ -1364,7 +1438,6 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1378,11 +1451,14 @@ clip_contents = false
 layout_mode = 0
 offset_left = 27.0
 offset_top = 98.0
-offset_right = 571.0
+offset_right = 574.0
 offset_bottom = 768.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
+script = ExtResource("19_e5lo7")
+wheel_scroll_damper = SubResource("Resource_x8tqq")
+dragging_scroll_damper = SubResource("Resource_rkvv0")
 
 [node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer"]
 unique_name_in_owner = true
@@ -1397,11 +1473,13 @@ theme_override_constants/separation = 42
 [node name="NewFile" type="PanelContainer" parent="SavePanel/ScrollContainer/Files/New"]
 custom_minimum_size = Vector2(280, 75)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/New/NewFile"]
 show_behind_parent = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1419,11 +1497,13 @@ text = "Save to new file"
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/New/NewGame"]
 show_behind_parent = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1439,6 +1519,7 @@ text = "New game"
 [node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files"]
 custom_minimum_size = Vector2(515, 150)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 metadata/Unprocessed = false
 
@@ -1448,6 +1529,7 @@ columns = 2
 
 [node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Loading..."
 
@@ -1460,6 +1542,7 @@ alignment = 2
 [node name="Month" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Please"
 horizontal_alignment = 2
@@ -1467,6 +1550,7 @@ horizontal_alignment = 2
 [node name="Day" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
 text = "Wait"
 horizontal_alignment = 2
@@ -1513,6 +1597,7 @@ custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 6
+mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Just a bit"
 horizontal_alignment = 2
@@ -1522,6 +1607,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_vertical = 6
+mouse_filter = 1
 theme_override_font_sizes/font_size = 24
 vertical_alignment = 2
 
@@ -1532,6 +1618,7 @@ offset_top = -0.503929
 offset_right = 317.015
 offset_bottom = 54.4961
 size_flags_vertical = 6
+mouse_filter = 1
 theme_override_font_sizes/font_size = 24
 text = "Saved: 06 Dec 2023 12:30
 Started: 10 Jan 2005"
@@ -1544,6 +1631,7 @@ alignment = 2
 
 [node name="Playtime" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Time"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 32
@@ -1561,6 +1649,7 @@ expand_mode = 1
 [node name="ProgressBar" type="ProgressBar" parent="SavePanel/ScrollContainer/Files/File0"]
 layout_mode = 2
 size_flags_vertical = 1
+mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxEmpty_t5hkq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5f7o0")
 show_percentage = false
@@ -1568,6 +1657,7 @@ show_percentage = false
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/File0"]
 show_behind_parent = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")

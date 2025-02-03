@@ -976,7 +976,7 @@ animation = &"IdleWind"
 [node name="SharpRock2" parent="." instance=ExtResource("14_15y50")]
 z_index = 6
 z_as_relative = false
-position = Vector2(-57, 327)
+position = Vector2(-40, 328)
 item_type = &"Bti"
 item_name = "SharpRock"
 

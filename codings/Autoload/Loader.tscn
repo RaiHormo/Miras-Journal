@@ -231,6 +231,7 @@ animations = [{
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_5wiw1")
 
 [node name="Can" type="CanvasLayer" parent="."]
@@ -246,6 +247,7 @@ offset_top = 1882.0
 offset_right = 1691.0
 offset_bottom = 2882.0
 rotation = 0.0641833
+mouse_filter = 2
 color = Color(0.054902, 0.054902, 0.054902, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -254,6 +256,7 @@ light_mask = 16
 offset_right = 1725.0
 offset_bottom = 1000.0
 rotation = 0.0641833
+mouse_filter = 2
 color = Color(0.054902, 0.054902, 0.054902, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -264,6 +267,7 @@ offset_top = 919.0
 offset_right = 3320.0
 offset_bottom = 1919.0
 rotation = 0.112435
+mouse_filter = 2
 color = Color(0.054902, 0.054902, 0.054902, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -274,6 +278,7 @@ offset_top = 892.0
 offset_right = 206.0
 offset_bottom = 1892.0
 rotation = 0.112435
+mouse_filter = 2
 color = Color(0.054902, 0.054902, 0.054902, 1)
 metadata/_edit_use_anchors_ = true
 
