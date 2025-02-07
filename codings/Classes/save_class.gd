@@ -22,7 +22,7 @@ class_name SaveFile
 @export var version = 3
 
 func preview() -> Texture:
-	match Party: 
+	match Party:
 		["Mira", "Alcine"]:
 			return preload("res://art/Previews/2.png")
 		_:

@@ -28,7 +28,7 @@ func _ready():
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(Cam)
 	setup_params()
-	
+
 	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
 	for i in get_children():
 		if i is TileMapLayer:
@@ -117,13 +117,13 @@ func fade():
 	var t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
 	await t.finished
-	for i in Layers: 
+	for i in Layers:
 		i.collision_enabled = false
 		i.hide()
 
 func unfade():
 	var t = create_tween()
-	for i in Layers: 
+	for i in Layers:
 		i.collision_enabled = true
 		i.show()
 	t.tween_property($SubRoomBg, "modulate", Color.TRANSPARENT, 0.3)
@@ -131,7 +131,7 @@ func unfade():
 func _physics_process(delta: float) -> void:
 	if get_node_or_null("SubRoomBg") and CurSubRoom != null:
 		$SubRoomBg.position = Cam.position
- 
+
 func go_to_subroom(subroom: String):
 	print(1)
 	for i in get_children(): if i.name == subroom and i is SubRoom:

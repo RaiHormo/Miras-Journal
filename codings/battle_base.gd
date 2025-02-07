@@ -523,10 +523,10 @@ overwrite_color: Color = Color.WHITE) -> int:
 		el_mod = relation_to_dmg_modifier(relation)
 	print("Attack power: ", x, " * ", el_mod)
 	var attacker = null if ignore_stats else CurrentChar
-	var dmg = target.calc_dmg(x * el_mod, is_magic, attacker)
+	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
 	for i in target.States:
-		dmg *= i.dmg_mult
-		if relation == "wk": dmg *= i.weak_mult
+		dmg =  int(dmg * i.dmg_mult)
+		if relation == "wk": dmg = int(dmg * i.weak_mult)
 	dmg = round(dmg)
 	if dmg == 0:
 		pop_num(target, "BLOCKED")
@@ -605,7 +605,7 @@ func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= 
 		if tar is not Vector2:
 			if tar is Actor and is_instance_valid(tar) and is_instance_valid(tar.node): tar = tar.node.position
 			else:
-				push_error("The target of the effect ", stri, " was invalid") 
+				push_error("The target of the effect ", stri, " was invalid")
 				return
 		var ef:AnimatedSprite2D = $Act/Effects.duplicate()
 		if flip_on_player_use and !CurrentChar.IsEnemy: ef.flip_h = true
@@ -815,7 +815,7 @@ mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 
 #int(max(Global.calc_num(), target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))
 func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
-	if CurrentAbility.DmgVarience: 
+	if CurrentAbility.DmgVarience:
 		amount = round(amount * randf_range(1, 1.5))
 	target.add_health(amount)
 	$BattleUI.targetFoc.emit(target)

@@ -189,7 +189,7 @@ func save_managment() -> void:
 	if not save_files_loaded:
 		Loader.icon_load()
 		Loader.gray_out()
-	else: 
+	else:
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame/Button.grab_focus()
@@ -311,7 +311,7 @@ func load_save_files():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
-	else: 
+	else:
 		%Files/File0.hide()
 		Global.toast("There is nothing saved, you can start a new game.")
 	Loader.SaveFiles.clear()

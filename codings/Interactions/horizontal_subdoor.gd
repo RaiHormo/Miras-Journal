@@ -18,4 +18,3 @@ func _on_body_entered(body: Node2D) -> void:
 				RightSubarea.fade_out()
 				await Global.Player.go_to(Vector2(global_position.x -12, Global.Player.position.y), false, true, Vector2.LEFT, 4)
 				Event.give_control(false)
-				

@@ -1,14 +1,14 @@
 [gd_scene load_steps=83 format=3 uid="uid://bh82q5qur5ppl"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
+[ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
-[ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
+[ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
 [ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="3_07vaa"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
-[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
 [ext_resource type="Texture2D" uid="uid://dcnd802jcwswl" path="res://UI/MenuTextures/down.png" id="9_mioka"]
 [ext_resource type="Texture2D" uid="uid://d2cju0uv5rmjr" path="res://UI/MenuTextures/radio_enabled.png" id="9_xvg8c"]
 [ext_resource type="Texture2D" uid="uid://daasx8kvi6kbq" path="res://UI/MenuTextures/toggle_on.png" id="9_yynoc"]
@@ -18,16 +18,16 @@
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="18_y4emp"]
-[ext_resource type="Script" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
+[ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="19_sc5mb"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="20_5ccb6"]
-[ext_resource type="Script" path="res://addons/addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
-[ext_resource type="Script" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
+[ext_resource type="Script" uid="uid://be84dm3o4vc4s" path="res://addons/addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
+[ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
-[ext_resource type="Texture2D" uid="uid://cucajxcr1a5k8" path="res://UI/Input/LZ.png" id="22_w3i7s"]
+[ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="22_w3i7s"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
-[ext_resource type="Texture2D" uid="uid://bjy4gyndw8qxl" path="res://UI/Input/RZ.png" id="23_bqtf5"]
+[ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="23_bqtf5"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="23_gmb0o"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="24_kpda3"]
@@ -750,6 +750,7 @@ expand_icon = true
 selected = 0
 item_count = 3
 popup/item_0/text = "On idle"
+popup/item_0/id = 0
 popup/item_1/text = "When moving"
 popup/item_1/id = 1
 popup/item_2/text = "Never"
@@ -782,6 +783,7 @@ expand_icon = true
 selected = 0
 item_count = 9
 popup/item_0/text = "Auto"
+popup/item_0/id = 0
 popup/item_1/text = "Keyboard"
 popup/item_1/id = 1
 popup/item_2/text = "Nintendo"
@@ -1012,6 +1014,7 @@ expand_icon = true
 selected = 0
 item_count = 4
 popup/item_0/text = "None"
+popup/item_0/id = 0
 popup/item_1/text = "30 FPS"
 popup/item_1/id = 30
 popup/item_2/text = "60 FPS"
@@ -1067,9 +1070,9 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
@@ -1305,9 +1308,9 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
@@ -1376,9 +1379,9 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
@@ -1396,9 +1399,9 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
@@ -1481,9 +1484,9 @@ show_behind_parent = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
@@ -1505,9 +1508,9 @@ show_behind_parent = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")

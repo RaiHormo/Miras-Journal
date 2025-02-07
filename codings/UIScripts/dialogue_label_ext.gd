@@ -1,3 +1,4 @@
+@tool
 extends DialogueLabel
 var soundfreq
 var varience

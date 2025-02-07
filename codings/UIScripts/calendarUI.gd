@@ -17,6 +17,7 @@ func _check_party():
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD, action_id: String):
 	Global.check_party.emit()
 	time_pass_id = action_id
+	Event.f("DisableMenus", false)
 	show()
 	Global.Controllable = false
 	get_tree().paused = true

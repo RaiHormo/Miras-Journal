@@ -50,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 			$CollisionShape2D.disabled = false
 			if nav_agent.is_target_reachable():
 				direction = to_local(nav_agent.get_next_path_position()).normalized()
-			else: 
+			else:
 				direction = to_local(target).normalized()
 			move_and_slide()
 			velocity = speed * direction

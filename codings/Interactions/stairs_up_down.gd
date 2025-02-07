@@ -13,10 +13,10 @@ class_name Stair
 	#body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body: Node2D) -> void:
-	print(body.name)
+	print(body.get_class())
 	if body is NPC:
 		var dir : Vector2 = to_local(body.global_position)
-		if left_right_mode: dir.y = 0 
+		if left_right_mode: dir.y = 0
 		else: dir.x = 0
 		dir = Global.get_direction(dir)
 		if Swap: dir *= -1

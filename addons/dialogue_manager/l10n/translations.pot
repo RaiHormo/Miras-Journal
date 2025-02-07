@@ -305,6 +305,12 @@ msgstr ""
 msgid "errors.when_must_belong_to_match"
 msgstr ""
 
+msgid "errors.concurrent_line_without_origin"
+msgstr ""
+
+msgid "errors.goto_not_allowed_on_concurrect_lines"
+msgstr ""
+
 msgid "errors.unknown"
 msgstr ""
 
@@ -399,4 +405,10 @@ msgid "runtime.unsupported_array_type"
 msgstr ""
 
 msgid "runtime.dialogue_balloon_missing_start_method"
+msgstr ""
+
+msgid "runtime.top_level_states_share_name"
+msgstr ""
+
+msgid "translation_plugin.character_name"
 msgstr ""

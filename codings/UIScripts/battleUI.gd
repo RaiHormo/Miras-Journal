@@ -91,9 +91,9 @@ func _on_battle_get_control():
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
-	
+
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
-	if CurrentChar.BoxProfile != null: 
+	if CurrentChar.BoxProfile != null:
 		var mem = CurrentChar
 		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
 		var bord1:StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
@@ -105,7 +105,7 @@ func _on_battle_get_control():
 		var bord3:StyleBoxFlat = $Inventory/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.BoxProfile.Bord3
 		$Inventory/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		
+
 		bord1 = $AbilityUI/Border2/Border1.get_theme_stylebox("panel")
 		bord1.border_color = mem.BoxProfile.Bord1
 		$AbilityUI/Border2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
@@ -115,8 +115,8 @@ func _on_battle_get_control():
 		bord3 = $AbilityUI.get_theme_stylebox("panel")
 		bord3.border_color = mem.BoxProfile.Bord3
 		$AbilityUI.add_theme_stylebox_override("panel", bord3.duplicate())
-		
-	
+
+
 	fetch_abilities()
 	fetch_inventory()
 	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
@@ -344,7 +344,7 @@ func _on_root():
 	$DescPaper.hide()
 	$CommandMenu.hide()
 	$Inventory.hide()
-	
+
 func _on_attack():
 	Global.confirm_sound()
 	stage="attack"
@@ -539,7 +539,7 @@ func _on_item() -> void:
 	$Command.hide()
 	$Attack.hide()
 	PartyUI.only_current()
-	
+
 	match $Inventory/Margin.current_tab:
 		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
 		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
@@ -669,7 +669,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
-	
+
 	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
 	$"../Canvas/AttackTitle".show()
@@ -1025,7 +1025,7 @@ func _on_give_pressed() -> void:
 		if PrevStage == "root": return
 		if PrevStage == "targeted":
 			var target: Actor = TargetFaction[TargetIndex]
-			if target == CurrentChar: 
+			if target == CurrentChar:
 				Item.remove_item(item_dat)
 				CurrentChar.NextAction = "Item"
 				CurrentChar.NextMove = item_dat.BattleEffect

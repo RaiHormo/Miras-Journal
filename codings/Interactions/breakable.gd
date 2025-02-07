@@ -7,6 +7,7 @@ extends StaticBody2D
 @export var decrease_z:= true
 
 func _ready() -> void:
+	if get_node_or_null("Sprite") == null: return
 	$Sprite.play(default_anim)
 	if Event.f(name): set_break()
 

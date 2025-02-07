@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0xlx8uwtl3tj"]
 
-[ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="1_avy7v"]
+[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="1_avy7v"]
 [ext_resource type="Texture2D" uid="uid://bii5famys2rlf" path="res://art/Icons/Editor/breakable.png" id="2_sacr6"]
-[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_8gdfr"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_8gdfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bd8qp"]
 size = Vector2(18, 16)
@@ -28,6 +28,8 @@ debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 
 [node name="Icon" type="Sprite2D" parent="."]
 light_mask = 0
+z_index = 10
+z_as_relative = false
 position = Vector2(-1.19209e-07, 2)
 scale = Vector2(0.271667, 0.271667)
 texture = ExtResource("2_sacr6")

@@ -4,28 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="3_0w5t4"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="4_uui7p"]
-[ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="5_00dms"]
-[ext_resource type="Script" path="res://codings/tod_light.gd" id="5_dcjai"]
+[ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="5_00dms"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="5_dcjai"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="6_pmuyc"]
-[ext_resource type="Script" path="res://codings/Interactions/lamp.gd" id="7_bbmkb"]
+[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Interactions/lamp.gd" id="7_bbmkb"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_xyolw"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_adhpg"]
-[ext_resource type="Script" path="res://codings/NPC.gd" id="10_yq8yv"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="10_yq8yv"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/OV/Erinn/ErinnOV.tres" id="11_78rf1"]
 [ext_resource type="PackedScene" uid="uid://cr3hn08s615pf" path="res://rooms/components/NPC.tscn" id="12_toobe"]
 [ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Objects/Harold.png" id="12_xx0e1"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="13_b8v1n"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="14_bhjcf"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="15_o1gjb"]
-[ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
+[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
 [ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
-[ext_resource type="Script" path="res://codings/Interactions/breakable.gd" id="20_3hgx6"]
+[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="20_3hgx6"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="20_8b40e"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="21_pty4k"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="23_5somt"]
-[ext_resource type="Script" path="res://codings/Interactions/event_tripwire.gd" id="24_dr2v5"]
+[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="24_dr2v5"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="25_osbeo"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="26_ucpyn"]
 [ext_resource type="Texture2D" uid="uid://n36jl1cn0820" path="res://art/Branding/logo_solid.png" id="27_lruy7"]
@@ -202,7 +202,7 @@ texture_region_size = Vector2i(24, 24)
 2:4/size_in_atlas = Vector2i(2, 3)
 2:4/0 = 0
 2:4/0/y_sort_origin = 15
-2:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_lb215")
+2:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lb215")
 2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 20, 24, 19.5, 24, 30, -24, 30)
 9:8/size_in_atlas = Vector2i(1, 2)
 9:8/0 = 0
@@ -212,7 +212,7 @@ texture_region_size = Vector2i(24, 24)
 8:7/size_in_atlas = Vector2i(1, 2)
 8:7/0 = 0
 8:7/0/y_sort_origin = 5
-8:7/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
+8:7/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
 8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 12, 6, 12, 17, -12, 17)
 
 [sub_resource type="TileSet" id="TileSet_dw7lm"]
@@ -234,32 +234,6 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4ag50"]
 gradient = SubResource("Gradient_nl85b")
-
-[sub_resource type="Gradient" id="Gradient_5nhgl"]
-interpolation_mode = 2
-interpolation_color_space = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
-gradient = SubResource("Gradient_5nhgl")
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.538462, 0.461538)
-fill_to = Vector2(0.115385, 0.867521)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
-atlas = ExtResource("8_xyolw")
-region = Rect2(0, 18, 18, 18)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
-size = Vector2(16, 12.5)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_c61np"]
-vertices = PackedVector2Array(-118.852, -93.9609, 116.898, -93.0312, 84.3828, -61, 35.6172, -61, 115.391, 61.2031, 82.6406, -14, -21.4922, -34, 37.3594, -14, -23.4922, 6, -99.5078, -34, -116.141, 91.9609, -97.5078, 6, 124.883, 91, 205, 59.8516, 274.891, 85.3672, 274.102, 14.6562, 205, 12.3281)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(0, 3, 6, 9), PackedInt32Array(10, 0, 9, 11), PackedInt32Array(12, 10, 11, 8), PackedInt32Array(12, 8, 7, 5, 4), PackedInt32Array(12, 4, 13, 14), PackedInt32Array(15, 14, 13, 16)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-129, -104, 127, -103, 125.49, 51.0436, 195, 50, 195, 2, 284, 5, 285, 95, 125, 101, -126, 102), PackedVector2Array(46, 23, 74, 23, 74, 50, 47, 50), PackedVector2Array(-50, 9, -33, 9, -33, 29, -51, 30), PackedVector2Array(-82, 46, -59, 47, -56, 80, -86, 79), PackedVector2Array(-88, -4, -33, -4, -32, -24, -89, -24), PackedVector2Array(47, -24, 73, -24, 74, -51, 46, -51), PackedVector2Array(-7, -66, 28, -65, 28, -37, -5, -38)])
-source_geometry_mode = 1
-source_geometry_group_name = &"physics"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_616dy"]
 atlas = ExtResource("15_o1gjb")
@@ -513,11 +487,11 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3whwc"]
-size = Vector2(21, 68)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo8dh"]
+size = Vector2(28.9997, 11.0009)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
-size = Vector2(12.5, 14)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmjyx"]
+size = Vector2(26.0002, 79.341)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84w4r"]
 atlas = ExtResource("21_pty4k")
@@ -546,14 +520,40 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmjyx"]
-size = Vector2(26.0002, 79.341)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
+atlas = ExtResource("8_xyolw")
+region = Rect2(0, 18, 18, 18)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo8dh"]
-size = Vector2(28.9997, 11.0009)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
+size = Vector2(16, 12.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lghs2"]
 size = Vector2(73, 39.0001)
+
+[sub_resource type="Gradient" id="Gradient_5nhgl"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk2xs"]
+gradient = SubResource("Gradient_5nhgl")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.538462, 0.461538)
+fill_to = Vector2(0.115385, 0.867521)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3whwc"]
+size = Vector2(21, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
+size = Vector2(12.5, 14)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c61np"]
+vertices = PackedVector2Array(-118.852, -93.9609, 116.898, -93.0312, 84.3828, -61, 35.6172, -61, 115.391, 61.2031, 82.6406, -14, -21.4922, -34, 37.3594, -14, -23.4922, 6, -99.5078, -34, -116.141, 91.9609, -97.5078, 6, 124.883, 91, 205, 59.8516, 274.891, 85.3672, 274.102, 14.6562, 205, 12.3281)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(0, 3, 6, 9), PackedInt32Array(10, 0, 9, 11), PackedInt32Array(12, 10, 11, 8), PackedInt32Array(12, 8, 7, 5, 4), PackedInt32Array(12, 4, 13, 14), PackedInt32Array(15, 14, 13, 16)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-129, -104, 127, -103, 125.49, 51.0436, 195, 50, 195, 2, 284, 5, 285, 95, 125, 101, -126, 102), PackedVector2Array(46, 23, 74, 23, 74, 50, 47, 50), PackedVector2Array(-50, 9, -33, 9, -33, 29, -51, 30), PackedVector2Array(-82, 46, -59, 47, -56, 80, -86, 79), PackedVector2Array(-88, -4, -33, -4, -32, -24, -89, -24), PackedVector2Array(47, -24, 73, -24, 74, -51, 46, -51), PackedVector2Array(-7, -66, 28, -65, 28, -37, -5, -38)])
+source_geometry_mode = 1
+source_geometry_group_name = &"physics"
 
 [node name="Area" type="Node2D"]
 y_sort_enabled = true
@@ -580,116 +580,6 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Fast travel"
-
-[node name="Label2" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = 49.0
-offset_top = 27.0
-offset_right = 136.0
-offset_bottom = 43.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Dialog"
-
-[node name="Label3" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = 201.0
-offset_top = 6.0
-offset_right = 288.0
-offset_bottom = 25.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Time pass
-"
-
-[node name="Label18" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = 234.0
-offset_top = 17.0
-offset_right = 321.0
-offset_bottom = 36.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Journal event"
-
-[node name="Label4" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -4.0
-offset_top = 49.0
-offset_right = 11.0
-offset_bottom = 68.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "NPC"
-
-[node name="Label5" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -29.0
-offset_top = -44.0
-offset_right = -3.0
-offset_bottom = -25.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Battle"
-
-[node name="Label6" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -66.0
-offset_top = -87.0
-offset_right = -7.0
-offset_bottom = -68.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Chapter select"
-
-[node name="Label7" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -80.0
-offset_top = -30.0
-offset_right = -21.0
-offset_bottom = -11.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Y sorting"
-
-[node name="Label8" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -63.0
-offset_top = 14.0
-offset_right = -4.0
-offset_bottom = 33.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Event item"
-
-[node name="Label9" type="Label" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -83.0
-offset_top = 51.0
-offset_right = -24.0
-offset_bottom = 70.0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("26_ucpyn")
-theme_override_font_sizes/font_size = 8
-text = "Consumable 
-item"
 
 [node name="Label10" type="Label" parent="Labels"]
 light_mask = 0
@@ -790,6 +680,18 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Day change"
 
+[node name="Label18" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = 234.0
+offset_top = 17.0
+offset_right = 321.0
+offset_bottom = 36.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Journal event"
+
 [node name="Label19" type="Label" parent="Labels"]
 light_mask = 0
 layout_mode = 0
@@ -802,6 +704,104 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Debug room"
 
+[node name="Label2" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = 49.0
+offset_top = 27.0
+offset_right = 136.0
+offset_bottom = 43.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Dialog"
+
+[node name="Label3" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = 201.0
+offset_top = 6.0
+offset_right = 288.0
+offset_bottom = 25.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Time pass
+"
+
+[node name="Label4" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -4.0
+offset_top = 49.0
+offset_right = 11.0
+offset_bottom = 68.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "NPC"
+
+[node name="Label5" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -29.0
+offset_top = -44.0
+offset_right = -3.0
+offset_bottom = -25.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Battle"
+
+[node name="Label6" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -66.0
+offset_top = -87.0
+offset_right = -7.0
+offset_bottom = -68.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Chapter select"
+
+[node name="Label7" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -80.0
+offset_top = -30.0
+offset_right = -21.0
+offset_bottom = -11.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Y sorting"
+
+[node name="Label8" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -63.0
+offset_top = 14.0
+offset_right = -4.0
+offset_bottom = 33.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Event item"
+
+[node name="Label9" type="Label" parent="Labels"]
+light_mask = 0
+layout_mode = 0
+offset_left = -83.0
+offset_top = 51.0
+offset_right = -24.0
+offset_bottom = 70.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("26_ucpyn")
+theme_override_font_sizes/font_size = 8
+text = "Consumable 
+item"
+
 [node name="TextureRect" type="TextureRect" parent="Labels"]
 light_mask = 0
 layout_mode = 0
@@ -812,14 +812,14 @@ offset_bottom = 1212.0
 scale = Vector2(0.0503076, 0.0503076)
 texture = ExtResource("27_lruy7")
 
-[node name="Floor" type="TileMapLayer" parent="."]
+[node name="1-Floor" type="TileMapLayer" parent="."]
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAQAHAAIAAAD//wAAAQAHAAIAAAD//wEAAQAHAAIAAAAAAAEAAQAHAAIAAAABAAEAAQAHAAIAAAACAAEAAQAHAAIAAAADAAEAAQAHAAIAAAAEAAMAAQAHAAIAAAADAAMAAQAHAAIAAAACAAMAAQAHAAIAAAABAAMAAQAHAAIAAAAAAAMAAQAHAAIAAAD//wMAAQAHAAIAAAD+/wMAAQAHAAIAAAD9/wMAAQAHAAIAAAD8/wMAAQAHAAIAAAD7/wMAAQAHAAIAAAD7/wIAAQAHAAIAAAD7/wEAAQAHAAIAAAD7/wAAAQAHAAIAAAD7////AQAHAAIAAAD7//7/AQAHAAIAAAD7//3/AQAHAAIAAAD8//3/AQAHAAIAAAD9//3/AQAHAAIAAAD+//3/AQAHAAIAAAD///3/AQAHAAIAAAAAAP3/AQAHAAIAAAABAP3/AQAHAAIAAAACAP3/AQAHAAIAAAADAP3/AQAHAAIAAAAEAP3/AQAHAAIAAAAEAAIAAQAHAAIAAAADAAIAAQAHAAIAAAD9/wIAAQAHAAIAAAD8/wIAAQAHAAIAAAD+/wIAAQAHAAIAAAD//wIAAQAHAAIAAAAAAAIAAQAHAAIAAAABAAIAAQAHAAIAAAACAAIAAQAHAAIAAAAEAAEAAQAHAAIAAAD+/wEAAQAHAAIAAAD9/wEAAQAHAAIAAAD8/wEAAQAHAAIAAAD9/wAAAQAHAAIAAAD8/wAAAQAHAAIAAAD+/wAAAQAHAAIAAAABAAAAAQAHAAIAAAABAP//AQAHAAIAAAACAP//AQAHAAIAAAADAP//AQAHAAIAAAAEAAAAAQAHAAIAAAADAAAAAQAHAAIAAAACAAAAAQAHAAIAAAAEAP//AQAHAAIAAAAEAP7/AQAHAAIAAAADAP7/AQAHAAIAAAACAP7/AQAHAAIAAAABAP7/AQAHAAIAAAAAAP7/AQAHAAIAAAD///7/AQAHAAIAAAD+//7/AQAHAAIAAAD9//7/AQAHAAIAAAD8//7/AQAHAAIAAAD8////AQAHAAIAAAD9////AQAHAAIAAAD+////AQAHAAIAAAD/////AQAHAAIAAAAAAP//AQAHAAIAAAD7//z/AQAHAAIAAAD8//z/AQAHAAIAAAD9//z/AQAHAAIAAAD+//z/AQAHAAIAAAD///z/AQAHAAIAAAAAAPz/AQAHAAIAAAABAPz/AQAHAAIAAAACAPz/AQAHAAIAAAADAPz/AQAHAAIAAAAEAPz/AQAHAAIAAAD7/wQAAQACAAEAAAD8/wQAAQACAAEAAAD9/wQAAQACAAEAAAD+/wQAAQACAAEAAAD//wQAAQACAAEAAAAAAAQAAQACAAEAAAABAAQAAQACAAEAAAACAAQAAQACAAEAAAADAAQAAQACAAEAAAAEAAQAAQACAAEAAAAFAAQAAQACAAEAAAAFAAMAAQAHAAIAAAAFAAIAAQAHAAIAAAAFAAEAAQACAAEAAAAFAAAAAQACAAEAAAAFAP//AQAHAAIAAAAFAP7/AQAHAAIAAAAFAP3/AQACAAEAAAAFAPz/AQACAAEAAAD6//v/AQACAAEAAAD7//v/AQACAAEAAAD8//v/AQACAAEAAAD9//v/AQACAAEAAAD+//v/AQACAAEAAAD///v/AQACAAEAAAAAAPv/AQACAAEAAAABAPv/AQACAAEAAAACAPv/AQACAAEAAAADAPv/AQACAAEAAAAEAPv/AQACAAEAAAAFAPv/AQACAAEAAAD6//z/AQACAAEAAAD6//3/AQACAAEAAAD6//7/AQACAAEAAAD6////AQACAAEAAAD6/wAAAQACAAEAAAD6/wEAAQAHAAIAAAD6/wIAAQAHAAIAAAD6/wMAAQAHAAIAAAD6/wQAAQACAAEAAAAGAAIAAQAHAAIAAAAHAAIAAQAHAAIAAAAIAAIAAQAAAAIAAAAJAAIAAQAAAAIAAAAHAAMAAQAHAAIAAAAGAAMAAQAHAAIAAAAIAAMAAQAAAAIAAAAJAAMAAQAAAAIAAAAKAAMAAQAAAAIAAAAKAAIAAQAAAAIAAAAKAAEAAQAAAAIAAAAKAAAAAQAAAAIAAAALAAMAAQAAAAIAAAALAAIAAQAAAAIAAAALAAEAAQAAAAIAAAALAAAAAQAAAAIAAAAJAAAAAQAAAAIAAAAJAAEAAQAAAAIAAAAIAAEAAQAAAAIAAAAIAAAAAQAAAAIAAAAGAAEAAQACAAEAAAAHAAEAAQACAAEAAAAHAAAAAQACAAEAAAAHAP//AQACAAEAAAAIAP//AQACAAEAAAAJAP//AQACAAEAAAAKAP//AQACAAEAAAALAP//AQACAAEAAAAMAP//AQACAAEAAAAMAAAAAQACAAEAAAAMAAEAAQACAAEAAAAMAAIAAQACAAEAAAAMAAMAAQACAAEAAAAMAAQAAQACAAEAAAALAAQAAQACAAEAAAAKAAQAAQACAAEAAAAJAAQAAQACAAEAAAAIAAQAAQACAAEAAAAHAAQAAQACAAEAAAAGAAQAAQACAAEAAAD5/wEAAQAHAAIAAAD5/wIAAQAHAAIAAAD5/wMAAQAHAAIAAAD4/wMAAQAHAAIAAAD4/wIAAQAHAAIAAAD4/wEAAQAHAAIAAAD3/wEAAQAHAAIAAAD3/wIAAQAHAAIAAAD3/wMAAQAHAAIAAAD2/wMAAQAHAAIAAAD2/wIAAQAHAAIAAAD2/wEAAQAHAAIAAAAGAP7/AQAHAAIAAAAGAP//AQAHAAIAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 metadata/_edit_group_ = true
 
-[node name="Obj" type="TileMapLayer" parent="."]
+[node name="2-Obj" type="TileMapLayer" parent="."]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 2
@@ -828,7 +828,7 @@ tile_map_data = PackedByteArray("AAD9//7/AwACAAQAAAAAAP3/AwAIAAcAAAACAP7/AwAMAAc
 tile_set = SubResource("TileSet_dw7lm")
 metadata/_edit_group_ = true
 
-[node name="Darkness" type="PointLight2D" parent="."]
+[node name="LightDarkness" type="PointLight2D" parent="."]
 position = Vector2(31, -9)
 scale = Vector2(9.34375, 3.91797)
 color = Color(0.839216, 0.803922, 0.690196, 1)
@@ -839,83 +839,62 @@ Colors = Array[Color]([Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0
 Energy = Array[float]([0.8, 0.3, 0.9, 1.0, 1.2])
 metadata/_edit_group_ = true
 
-[node name="Lamp" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(59.7305, -36.4454)
-LabelText = "Toggle Lamp"
-ActionType = "toggle"
-Length = 160
+[node name="BreakableGreebOre0" parent="." instance=ExtResource("14_bhjcf")]
+position = Vector2(-94, 29)
+default_anim = "IdleWind"
+given_item = "GreenFragment"
+metadata/_edit_group_ = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Lamp"]
-position = Vector2(0.269501, 0.4454)
-scale = Vector2(4.18577, 3.73135)
-color = Color(1, 0.317647, 0, 1)
-energy = 1.5
-shadow_enabled = true
-shadow_filter_smooth = 11.0
-shadow_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_tk2xs")
-script = ExtResource("7_bbmkb")
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0"]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_dba5s")
+animation = &"IdleWind"
 
-[node name="Lamp2" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(59.7305, -36.4454)
-script = null
+[node name="BreakableVinesDB" type="StaticBody2D" parent="."]
+position = Vector2(-117, 52)
+script = ExtResource("20_3hgx6")
+metadata/_edit_group_ = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Lamp2"]
-position = Vector2(0.269501, 0.4454)
-scale = Vector2(4.18577, 3.73135)
-color = Color(1, 0.317647, 0, 1)
-shadow_enabled = true
-shadow_filter_smooth = 11.0
-shadow_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_tk2xs")
-script = ExtResource("7_bbmkb")
+[node name="AreaBreak" type="Area2D" parent="BreakableVinesDB"]
+collision_layer = 512
+collision_mask = 512
 
-[node name="PointLight2D2" type="PointLight2D" parent="Lamp2"]
-position = Vector2(241.269, 107.445)
-scale = Vector2(4.18577, 3.73135)
-color = Color(1, 0.317647, 0, 1)
-energy = 0.5
-shadow_enabled = true
-shadow_filter_smooth = 11.0
-shadow_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_tk2xs")
-script = ExtResource("7_bbmkb")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB/AreaBreak"]
+position = Vector2(1.61475, 5.84274)
+shape = SubResource("RectangleShape2D_wo8dh")
+debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 
-[node name="Bush" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(60.2736, 36.5526)
-ActionType = "text"
-file = "testbush"
-title = "bush"
-Height = 4
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB"]
+use_parent_material = true
+position = Vector2(6.10352e-05, 6.17029)
+shape = SubResource("RectangleShape2D_kmjyx")
 
-[node name="Sleep" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(276, 63)
-LabelText = "Sleep"
-ActionType = "pass_time"
-Length = 100
-file = "sleep_home"
-title = "Sleep"
-item = "Sleep until next the morning. Fully recovers the party's health."
-to_time = 1
-Height = 6
-hide_on_flag = &"time:1"
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVinesDB"]
+y_sort_enabled = true
+texture_filter = 1
+use_parent_material = true
+position = Vector2(4.57764e-05, 5.72205e-06)
+sprite_frames = SubResource("SpriteFrames_tk5ci")
+animation = &"break"
+autoplay = "default"
 
-[node name="FastTravel" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(11.5979, -54.0878)
-LabelText = "Fast Travel"
-ActionType = "text"
-Length = 150
-file = "testbush"
-title = "travel"
-Height = 16
-
-[node name="Axe" type="Sprite2D" parent="."]
+[node name="EvAxe" type="Sprite2D" parent="."]
 use_parent_material = true
 position = Vector2(-42, 19)
 texture = SubResource("AtlasTexture_gtdj1")
 metadata/_edit_group_ = true
 
-[node name="PickUp" parent="Axe" instance=ExtResource("6_pmuyc")]
+[node name="Body" type="StaticBody2D" parent="EvAxe"]
+
+[node name="Collision" type="CollisionShape2D" parent="EvAxe/Body"]
+z_index = 1
+position = Vector2(0.00749207, 0.51857)
+shape = SubResource("RectangleShape2D_72f6p")
+
+[node name="PickUp" parent="EvAxe" instance=ExtResource("6_pmuyc")]
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -927,14 +906,7 @@ hidesprite = true
 itemtype = "Key"
 hide_parent = true
 
-[node name="Body" type="StaticBody2D" parent="Axe"]
-
-[node name="Collision" type="CollisionShape2D" parent="Axe/Body"]
-z_index = 1
-position = Vector2(0.00749207, 0.51857)
-shape = SubResource("RectangleShape2D_72f6p")
-
-[node name="Dummy" type="Sprite2D" parent="."]
+[node name="EvDummy" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
@@ -943,7 +915,14 @@ texture = ExtResource("9_adhpg")
 offset = Vector2(2.05523, -14.1279)
 metadata/_edit_group_ = true
 
-[node name="Fight" parent="Dummy" instance=ExtResource("6_pmuyc")]
+[node name="Body" type="StaticBody2D" parent="EvDummy"]
+
+[node name="Collision" type="CollisionShape2D" parent="EvDummy/Body"]
+z_index = 1
+position = Vector2(-1.3261, 2.8676)
+shape = SubResource("RectangleShape2D_72f6p")
+
+[node name="Fight" parent="EvDummy" instance=ExtResource("6_pmuyc")]
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
 ActionType = "battle"
@@ -951,28 +930,7 @@ Length = 100
 file = "DebugDummy"
 Height = 16
 
-[node name="Body" type="StaticBody2D" parent="Dummy"]
-
-[node name="Collision" type="CollisionShape2D" parent="Dummy/Body"]
-z_index = 1
-position = Vector2(-1.3261, 2.8676)
-shape = SubResource("RectangleShape2D_72f6p")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
-navigation_polygon = SubResource("NavigationPolygon_c61np")
-metadata/_edit_group_ = true
-
-[node name="NPC" parent="." instance=ExtResource("12_toobe")]
-
-[node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
-use_parent_material = true
-position = Vector2(0.0552656, 0.0200653)
-sprite_frames = ExtResource("11_78rf1")
-animation = &"IdleDown"
-offset = Vector2(-0.0924684, -5.01993)
-
-[node name="Harold" type="Sprite2D" parent="."]
+[node name="EvHarold" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 material = ExtResource("1_gxc4q")
@@ -980,7 +938,15 @@ position = Vector2(-39, -72)
 texture = ExtResource("12_xx0e1")
 metadata/_edit_group_ = true
 
-[node name="NewGame" parent="Harold" instance=ExtResource("6_pmuyc")]
+[node name="Body2" type="StaticBody2D" parent="EvHarold"]
+position = Vector2(0, 8)
+
+[node name="Collision" type="CollisionShape2D" parent="EvHarold/Body2"]
+z_index = 1
+position = Vector2(0, 2.25)
+shape = SubResource("RectangleShape2D_72f6p")
+
+[node name="NewGame" parent="EvHarold" instance=ExtResource("6_pmuyc")]
 position = Vector2(0, 8)
 LabelText = "Exit debug mode"
 ActionType = "global"
@@ -988,31 +954,95 @@ Length = 200
 file = "normal_mode"
 Height = 16
 
-[node name="Body2" type="StaticBody2D" parent="Harold"]
-position = Vector2(0, 8)
+[node name="EvKick" type="Area2D" parent="."]
+position = Vector2(-191, 60)
+collision_mask = 15
+script = ExtResource("24_dr2v5")
+TextFile = "interactions"
+TextNode = "kick_debug"
+Flag = "HasBag"
+TakeControl = true
+ReturnControl = true
+KickDirection = Vector2(1, 0)
+metadata/_edit_group_ = true
 
-[node name="Collision" type="CollisionShape2D" parent="Harold/Body2"]
-z_index = 1
-position = Vector2(0, 2.25)
-shape = SubResource("RectangleShape2D_72f6p")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EvKick"]
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_lghs2")
 
-[node name="DebugPotion" parent="." instance=ExtResource("13_b8v1n")]
+[node name="InteractBush" parent="." instance=ExtResource("6_pmuyc")]
+position = Vector2(60.2736, 36.5526)
+ActionType = "text"
+file = "testbush"
+title = "bush"
+Height = 4
+
+[node name="InteractBush2" parent="." instance=ExtResource("6_pmuyc")]
+position = Vector2(276, 63)
+LabelText = "Sleep"
+ActionType = "pass_time"
+Length = 100
+file = "sleep_home"
+title = "Sleep"
+item = "Sleep until next the morning. Fully recovers the party's health."
+to_time = 1
+Height = 6
+hide_on_flag = &"time:1"
+
+[node name="InteractBush3" parent="." instance=ExtResource("6_pmuyc")]
+position = Vector2(11.5979, -54.0878)
+LabelText = "Fast Travel"
+ActionType = "text"
+Length = 150
+file = "testbush"
+title = "travel"
+Height = 16
+
+[node name="InteractLamp2" parent="." instance=ExtResource("6_pmuyc")]
+position = Vector2(59.7305, -36.4454)
+script = null
+
+[node name="PointLight2D" type="PointLight2D" parent="InteractLamp2"]
+position = Vector2(0.269501, 0.4454)
+scale = Vector2(4.18577, 3.73135)
+color = Color(1, 0.317647, 0, 1)
+shadow_enabled = true
+shadow_filter_smooth = 11.0
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_tk2xs")
+script = ExtResource("7_bbmkb")
+
+[node name="PointLight2D2" type="PointLight2D" parent="InteractLamp2"]
+position = Vector2(241.269, 107.445)
+scale = Vector2(4.18577, 3.73135)
+color = Color(1, 0.317647, 0, 1)
+energy = 0.5
+shadow_enabled = true
+shadow_filter_smooth = 11.0
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_tk2xs")
+script = ExtResource("7_bbmkb")
+
+[node name="ItemDebugPotion" parent="." instance=ExtResource("13_b8v1n")]
 position = Vector2(-61, 59)
 item_name = "SmallPotion"
 
-[node name="GreebOre0" parent="." instance=ExtResource("14_bhjcf")]
-position = Vector2(-94, 29)
-default_anim = "IdleWind"
-given_item = "GreenFragment"
-metadata/_edit_group_ = true
+[node name="IteractLamp" parent="." instance=ExtResource("6_pmuyc")]
+position = Vector2(59.7305, -36.4454)
+LabelText = "Toggle Lamp"
+ActionType = "toggle"
+Length = 160
 
-[node name="Sprite" type="AnimatedSprite2D" parent="GreebOre0"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
-z_index = 1
-y_sort_enabled = true
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_dba5s")
-animation = &"IdleWind"
+[node name="PointLight2D" type="PointLight2D" parent="IteractLamp"]
+position = Vector2(0.269501, 0.4454)
+scale = Vector2(4.18577, 3.73135)
+color = Color(1, 0.317647, 0, 1)
+energy = 1.5
+shadow_enabled = true
+shadow_filter_smooth = 11.0
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_tk2xs")
+script = ExtResource("7_bbmkb")
 
 [node name="JumpPoint1" type="Area2D" parent="."]
 position = Vector2(61, 36)
@@ -1028,20 +1058,57 @@ debug_color = Color(0.752941, 0.458824, 0, 0.419608)
 
 [node name="JumpPoint2" parent="." instance=ExtResource("20_8b40e")]
 
-[node name="Daze" type="CharacterBody2D" parent="."]
+[node name="Ladder1" parent="." instance=ExtResource("23_5somt")]
+position = Vector2(136, -30)
+metadata/_edit_group_ = true
+
+[node name="NPC" parent="." instance=ExtResource("12_toobe")]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
+use_parent_material = true
+position = Vector2(0.0552656, 0.0200653)
+sprite_frames = ExtResource("11_78rf1")
+animation = &"IdleDown"
+offset = Vector2(-0.0924684, -5.01993)
+
+[node name="NPCAsteria" type="CharacterBody2D" parent="."]
+z_index = 1
+position = Vector2(251, 22)
+motion_mode = 1
+script = ExtResource("10_yq8yv")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCAsteria"]
+visible = false
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_dxoxl")
+
+[node name="Shadow" type="Sprite2D" parent="NPCAsteria"]
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(0, 2)
+texture = ExtResource("18_wmbgr")
+offset = Vector2(-0.4, 9.2)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NPCAsteria"]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvQXN0ZXJpYS8Kb19uYW1lfD1Bc3RlcmlhT1YyLnBuZwpvbmx5X3Zpc2libGV8PXRydWUKb19leF9wfD0K"
+texture_filter = 1
+sprite_frames = ExtResource("19_tuy8d")
+animation = &"IdleUp"
+
+[node name="NPCDaze" type="CharacterBody2D" parent="."]
 z_index = 1
 position = Vector2(221, 22)
 motion_mode = 1
 script = ExtResource("10_yq8yv")
 metadata/_edit_group_ = true
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Daze"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0RhemUvCm9fbmFtZXw9RGF6ZU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
-texture_filter = 1
-sprite_frames = ExtResource("17_en1a7")
-animation = &"WalkUp"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCDaze"]
+visible = false
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_dxoxl")
 
-[node name="Shadow" type="Sprite2D" parent="Daze"]
+[node name="Shadow" type="Sprite2D" parent="NPCDaze"]
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
@@ -1049,12 +1116,13 @@ position = Vector2(0, 2)
 texture = ExtResource("18_wmbgr")
 offset = Vector2(-0.4, 9.2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Daze"]
-visible = false
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_dxoxl")
+[node name="Sprite" type="AnimatedSprite2D" parent="NPCDaze"]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0RhemUvCm9fbmFtZXw9RGF6ZU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+texture_filter = 1
+sprite_frames = ExtResource("17_en1a7")
+animation = &"WalkUp"
 
-[node name="TalkPrompt" parent="Daze" instance=ExtResource("6_pmuyc")]
+[node name="TalkPrompt" parent="NPCDaze" instance=ExtResource("6_pmuyc")]
 position = Vector2(1.14441e-05, 8)
 LabelText = "Talk"
 ActionType = "pass_time"
@@ -1067,87 +1135,19 @@ to_time_relative = 1
 Height = 16
 bubble_always = true
 
-[node name="Asteria" type="CharacterBody2D" parent="."]
-z_index = 1
-position = Vector2(251, 22)
-motion_mode = 1
-script = ExtResource("10_yq8yv")
-metadata/_edit_group_ = true
-
-[node name="Sprite" type="AnimatedSprite2D" parent="Asteria"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvQXN0ZXJpYS8Kb19uYW1lfD1Bc3RlcmlhT1YyLnBuZwpvbmx5X3Zpc2libGV8PXRydWUKb19leF9wfD0K"
-texture_filter = 1
-sprite_frames = ExtResource("19_tuy8d")
-animation = &"IdleUp"
-
-[node name="Shadow" type="Sprite2D" parent="Asteria"]
-show_behind_parent = true
-texture_filter = 1
-position = Vector2(0, 2)
-texture = ExtResource("18_wmbgr")
-offset = Vector2(-0.4, 9.2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Asteria"]
+[node name="RegionNav" type="NavigationRegion2D" parent="."]
 visible = false
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_dxoxl")
-
-[node name="BreakableVinesDB" type="StaticBody2D" parent="."]
-position = Vector2(-117, 52)
-script = ExtResource("20_3hgx6")
+navigation_polygon = SubResource("NavigationPolygon_c61np")
 metadata/_edit_group_ = true
 
-[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVinesDB"]
-y_sort_enabled = true
-texture_filter = 1
-use_parent_material = true
-position = Vector2(4.57764e-05, 5.72205e-06)
-sprite_frames = SubResource("SpriteFrames_tk5ci")
-animation = &"break"
-autoplay = "default"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB"]
-use_parent_material = true
-position = Vector2(6.10352e-05, 6.17029)
-shape = SubResource("RectangleShape2D_kmjyx")
-
-[node name="AreaBreak" type="Area2D" parent="BreakableVinesDB"]
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB/AreaBreak"]
-position = Vector2(1.61475, 5.84274)
-shape = SubResource("RectangleShape2D_wo8dh")
-debug_color = Color(0.980392, 0, 0.388235, 0.419608)
-
-[node name="Ladder1" parent="." instance=ExtResource("23_5somt")]
-position = Vector2(136, -30)
-metadata/_edit_group_ = true
-
-[node name="Kick" type="Area2D" parent="."]
-position = Vector2(-191, 60)
-collision_mask = 15
-script = ExtResource("24_dr2v5")
-TextFile = "interactions"
-TextNode = "kick_debug"
-Flag = "HasBag"
-TakeControl = true
-ReturnControl = true
-KickDirection = Vector2(1, 0)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Kick"]
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_lghs2")
-
-[node name="s" parent="." instance=ExtResource("25_osbeo")]
+[node name="Transfer" parent="." instance=ExtResource("25_osbeo")]
 position = Vector2(-270, 58)
 scale = Vector2(1.1, 1)
 Direction = Vector2(-1, 0)
 room = "Debug"
 metadata/_edit_group_ = true
 
-[connection signal="action" from="Lamp" to="Lamp/PointLight2D" method="_on_interactable_action"]
-[connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
 [connection signal="area_entered" from="BreakableVinesDB/AreaBreak" to="BreakableVinesDB" method="_on_area_break_area_entered"]
-[connection signal="body_entered" from="Kick" to="Kick" method="_on_body_entered"]
+[connection signal="body_entered" from="EvKick" to="EvKick" method="_on_body_entered"]
+[connection signal="action" from="IteractLamp" to="IteractLamp/PointLight2D" method="_on_interactable_action"]
+[connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]

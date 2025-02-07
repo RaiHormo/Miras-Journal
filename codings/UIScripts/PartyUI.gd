@@ -77,7 +77,7 @@ func show_all():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
-	if not Loader.InBattle: 
+	if not Loader.InBattle:
 		t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
 		$IdleTimer.start(5)
 	for i in range(0, 4):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://usn8pirw8kjc"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
-[ext_resource type="Script" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
+[ext_resource type="Script" uid="uid://5yrkrnrtwy6e" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="3_ku8yi"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="4_iawkj"]
 

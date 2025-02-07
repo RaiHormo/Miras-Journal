@@ -85,6 +85,9 @@ func inject_imported_files(text: String, path: String) -> PackedStringArray:
 		var line = raw_lines[id]
 		if is_import_line(line):
 			var import_data: Dictionary = extract_import_path_and_name(line)
+
+			if not import_data.has("path"): continue
+
 			var import_hash: int = import_data.path.hash()
 			if import_data.size() > 0:
 				# Keep track of titles so we can add imported ones later
@@ -265,7 +268,7 @@ func build_line_tree(raw_lines: PackedStringArray) -> DMTreeLine:
 			parent_chain.resize(tree_line.indent + 1)
 
 		# Add any titles to the list of known titles
-		elif tree_line.type == DMConstants.TYPE_TITLE:
+		if tree_line.type == DMConstants.TYPE_TITLE:
 			var title: String = tree_line.text.substr(2)
 			if title == "":
 				add_error(i, 2, DMConstants.ERR_EMPTY_TITLE)
@@ -403,10 +406,18 @@ func parse_goto_line(tree_line: DMTreeLine, line: DMCompiledLine, siblings: Arra
 func parse_condition_line(tree_line: DMTreeLine, line: DMCompiledLine, siblings: Array[DMTreeLine], sibling_index: int, parent: DMCompiledLine) -> Error:
 	# Work out the next IDs before parsing the condition line itself so that the last
 	# child can inherit from the chain.
-	line.next_sibling_id = get_next_matching_sibling_id(siblings, sibling_index, parent, func(s: DMTreeLine):
-		# The next conditional that isn't starting a new conditional group
-		return s.type == DMConstants.TYPE_CONDITION and not s.text.begins_with("if ")
-	)
+
+	# Find the next conditional sibling that is part of this grouping (if there is one).
+	for next_sibling: DMTreeLine in siblings.slice(sibling_index + 1):
+		if not next_sibling.type in [DMConstants.TYPE_UNKNOWN, DMConstants.TYPE_CONDITION]:
+			break
+		elif next_sibling.type == DMConstants.TYPE_CONDITION:
+			if next_sibling.text.begins_with("el"):
+				line.next_sibling_id = next_sibling.id
+				break
+			else:
+				break
+
 	line.next_id_after = get_next_matching_sibling_id(siblings, sibling_index, parent, func(s: DMTreeLine):
 		# The next line that isn't a conditional or is a new "if"
 		return s.type != DMConstants.TYPE_CONDITION or s.text.begins_with("if ")
@@ -545,6 +556,12 @@ func parse_response_line(tree_line: DMTreeLine, line: DMCompiledLine, siblings: 
 	# Remove the "- "
 	tree_line.text = tree_line.text.substr(2)
 
+	# Extract the static line ID
+	var static_line_id: String = extract_static_line_id(tree_line.text)
+	if static_line_id:
+		tree_line.text = tree_line.text.replace("[ID:%s]" % [static_line_id], "")
+		line.translation_key = static_line_id
+
 	# Handle conditional responses and remove them from the prompt text.
 	if " [if " in tree_line.text:
 		var condition = extract_condition(tree_line.text, true, tree_line.indent)
@@ -559,14 +576,14 @@ func parse_response_line(tree_line: DMTreeLine, line: DMCompiledLine, siblings: 
 	for i in range(sibling_index - 1, 0, -1):
 		if siblings[i].type == DMConstants.TYPE_RESPONSE:
 			original_response = siblings[i]
-		else:
+		elif siblings[i].type != DMConstants.TYPE_UNKNOWN:
 			break
 
 	# If it's the original response then set up an original line.
 	if original_response == tree_line:
 		line.next_id_after = get_next_matching_sibling_id(siblings, sibling_index, parent, (func(s: DMTreeLine):
 			# The next line that isn't a response.
-			return s.type != DMConstants.TYPE_RESPONSE
+			return not s.type in [DMConstants.TYPE_RESPONSE, DMConstants.TYPE_UNKNOWN]
 		), true)
 		line.responses = [line.id]
 		# If this line has children then the next ID is the first child.
@@ -673,12 +690,38 @@ func parse_dialogue_line(tree_line: DMTreeLine, line: DMCompiledLine, siblings: 
 		else:
 			result = add_error(child.line_number, child.indent, DMConstants.ERR_INVALID_INDENTATION)
 
+	# Extract the static line ID
+	var static_line_id: String = extract_static_line_id(tree_line.text)
+	if static_line_id:
+		tree_line.text = tree_line.text.replace("[ID:%s]" % [static_line_id], "")
+		line.translation_key = static_line_id
+
+	# Check for simultaneous lines
+	if tree_line.text.begins_with("| "):
+		# Jumps are only allowed on the origin line.
+		if " =>" in tree_line.text:
+			result = add_error(tree_line.line_number, tree_line.indent, DMConstants.ERR_GOTO_NOT_ALLOWED_ON_CONCURRECT_LINES)
+		# Check for a valid previous line.
+		tree_line.text = tree_line.text.substr(2)
+		var previous_sibling: DMTreeLine = siblings[sibling_index - 1]
+		if previous_sibling.type != DMConstants.TYPE_DIALOGUE:
+			result = add_error(tree_line.line_number, tree_line.indent, DMConstants.ERR_CONCURRENT_LINE_WITHOUT_ORIGIN)
+		else:
+			# Because the previous line's concurrent_lines array is the same as
+			# any line before that this doesn't need to check any higher up.
+			var previous_line: DMCompiledLine = lines[previous_sibling.id]
+			previous_line.concurrent_lines.append(line.id)
+			line.concurrent_lines = previous_line.concurrent_lines
+
 	parse_character_and_dialogue(tree_line, line, siblings, sibling_index, parent)
 
 	# If the line isn't part of a weighted random group then make it point to the next
 	# available sibling.
 	if line.next_id == DMConstants.ID_NULL and line.siblings.size() == 0:
-		line.next_id = get_next_matching_sibling_id(siblings, sibling_index, parent, _first)
+		line.next_id = get_next_matching_sibling_id(siblings, sibling_index, parent, func(s: DMTreeLine):
+			# Ignore concurrent lines.
+			return not s.text.begins_with("| ")
+		)
 
 	return result
 
@@ -691,12 +734,6 @@ func parse_character_and_dialogue(tree_line: DMTreeLine, line: DMCompiledLine, s
 
 	# Attach any doc comments.
 	line.notes = tree_line.notes
-
-	# Extract the static line ID
-	var static_line_id: String = extract_static_line_id(text)
-	if static_line_id:
-		text = text.replace("[ID:%s]" % [static_line_id], "")
-		line.translation_key = static_line_id
 
 	# Extract tags.
 	var tag_data: DMResolvedTagData = DMResolvedTagData.new(text)
@@ -761,18 +798,20 @@ func parse_character_and_dialogue(tree_line: DMTreeLine, line: DMCompiledLine, s
 			result = add_error(tree_line.line_number, replacement.index, replacement.error)
 
 	# Replace any newlines.
-	line.text = text.replace("\\n", "\n").strip_edges()
+	text = text.replace("\\n", "\n").strip_edges()
 
 	# If there was no manual translation key then just use the text itself
 	if line.translation_key == "":
 		line.translation_key = text
 
+	line.text = text
+
 	# IDs can't be duplicated for text that doesn't match.
-	if static_line_id != "":
-		if _known_translation_keys.has(static_line_id) and _known_translation_keys.get(static_line_id) != line.text:
+	if line.translation_key != "":
+		if _known_translation_keys.has(line.translation_key) and _known_translation_keys.get(line.translation_key) != line.text:
 			result = add_error(tree_line.line_number, tree_line.indent, DMConstants.ERR_DUPLICATE_ID)
 		else:
-			_known_translation_keys[static_line_id] = line.text
+			_known_translation_keys[line.translation_key] = line.text
 	# Show an error if missing translations is enabled
 	elif DMSettings.get_setting(DMSettings.MISSING_TRANSLATIONS_ARE_ERRORS, false):
 		result = add_error(tree_line.line_number, tree_line.indent, DMConstants.ERR_MISSING_ID)

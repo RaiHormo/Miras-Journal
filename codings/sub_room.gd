@@ -11,8 +11,8 @@ var Layers: Array[TileMapLayer]
 func _ready() -> void:
 	modulate = Color.TRANSPARENT
 	hide()
-	for i in get_children(): 
-		if i is TileMapLayer: 
+	for i in get_children():
+		if i is TileMapLayer:
 			Layers.append(i)
 			i.collision_enabled = false
 
@@ -47,7 +47,7 @@ func detransition():
 	hide()
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false
 	Global.Player.z_index = Global.Area.z_index
-	if Global.Area.CurSubRoom == self: 
+	if Global.Area.CurSubRoom == self:
 		Event.take_control(true, true)
 		await transition()
 		Event.give_control(false)

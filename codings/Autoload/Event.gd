@@ -93,10 +93,10 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 
 func check_flag(flag: StringName):
 	if "day:" in flag:
-		if int(flag.replace("day:", "")) == Day: return true 
+		if int(flag.replace("day:", "")) == Day: return true
 		else: return false
 	if "time:" in flag:
-		if int(flag.replace("time:", "")) == TimeOfDay: return true 
+		if int(flag.replace("time:", "")) == TimeOfDay: return true
 		else: return false
 	if flag in Flags: return true
 	else: return false
@@ -168,7 +168,7 @@ func f_past(str: String, has_passed:= 9) -> bool:
 	if flag_int(str) >= has_passed:
 		return true
 	else: return false
-
+#FIXME
 func skip_cutscene():
 	if is_instance_valid(CutsceneHandler) and CutsceneHandler.has_method(&"skip"):
 		await Loader.transition("")
@@ -259,7 +259,7 @@ func rest_amberelm():
 	await Loader.save()
 	Global.check_party.emit()
 	Loader.detransition()
-	var cut = Global.Area.get_node("RestAmberelm")
+	var cut = Global.Area.get_node("EvRestAmberelm")
 	cut.show()
 	get_tree().paused = false
 	Global.Area.Followers[0].hide()
@@ -286,7 +286,7 @@ func rest_amberelm():
 	Global.Player.show()
 	Loader.detransition()
 	give_control()
-	f("RestAmberelm", true)
+	f("EvRestAmberelm", true)
 	Loader.save()
 
 func waste_time():

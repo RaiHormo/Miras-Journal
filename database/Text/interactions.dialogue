@@ -79,6 +79,7 @@ else:
 	Mira.Neutural: Looks like we're near the sea, but it fades into those strange lines.
 	Mira.Neutural: It's definitely far from my home...
 	do Event.f("TheSkyAmberelm", true)
+do Global.Player.camera_follow(true)
 => END
 
 ~ wrong_way

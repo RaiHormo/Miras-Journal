@@ -43,7 +43,7 @@ func play_aoe(nam):
 	var fact =  Bt.get_target_faction().duplicate()
 	var required_returns = fact.size()
 	if Bt.CurrentAbility.AOE_AdditionalSeq: required_returns += 1
-	if CurrentChar in fact: 
+	if CurrentChar in fact:
 		fact.erase(CurrentChar)
 		required_returns -= 1
 	for i in fact:
@@ -76,7 +76,7 @@ func handle_states():
 					"AttackUp": chara.AttackMultiplier -= 0.5
 					"DefenceUp": chara.DefenceMultiplier -= 0.5
 					"MagicUp": chara.MagicMultiplier -= 0.5
-					"Aura Change": 
+					"Aura Change":
 						chara.MainColor = chara.AuraDefault
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 				state.QueueRemove = true
@@ -209,7 +209,7 @@ func AttackAlcine(target: Actor):
 			Bt.damage(target, CurrentChar.Magic, true)
 			Bt.screen_shake(15, 7, 0.3)
 			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
-		else: 
+		else:
 			Bt.damage(target, CurrentChar.Attack, false)
 			Bt.screen_shake(10, 7, 0.3)
 		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10),0), 0.5, Tween.EASE_OUT)

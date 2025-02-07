@@ -20,6 +20,8 @@ var text_replacements: Array[Dictionary] = []
 var responses: PackedStringArray = []
 ## Any randomise or case siblings for this line.
 var siblings: Array[Dictionary] = []
+## Any lines said simultaneously.
+var concurrent_lines: PackedStringArray = []
 ## Any tags on this line.
 var tags: PackedStringArray = []
 ## The condition or mutation expression for this line.
@@ -82,7 +84,8 @@ func to_data() -> Dictionary:
 	match type:
 		DMConstants.TYPE_CONDITION:
 			d.condition = expression
-			d.next_sibling_id = next_sibling_id
+			if not next_sibling_id.is_empty():
+				d.next_sibling_id = next_sibling_id
 			d.next_id_after = next_id_after
 
 		DMConstants.TYPE_WHILE:
@@ -145,6 +148,8 @@ func to_data() -> Dictionary:
 				d.notes = notes
 			if not siblings.is_empty():
 				d.siblings = siblings
+			if not concurrent_lines.is_empty():
+				d.concurrent_lines = concurrent_lines
 
 	return d
 

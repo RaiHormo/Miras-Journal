@@ -1,15 +1,15 @@
 [gd_scene load_steps=47 format=3 uid="uid://dro6xc73x3rl4"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/textbox.gd" id="1_ho4q7"]
+[ext_resource type="Script" uid="uid://hlalmsu7y4nk" path="res://codings/UIScripts/textbox.gd" id="1_ho4q7"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_rgh70"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_8nnac"]
-[ext_resource type="Script" path="res://codings/UIScripts/dialogue_label_ext.gd" id="4_rwcjm"]
+[ext_resource type="Script" uid="uid://bqfs1nucd5qo" path="res://codings/UIScripts/dialogue_label_ext.gd" id="4_rwcjm"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="5_byelp"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="6_jj8vm"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="7_lr0dp"]
 [ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="8_owatg"]
 [ext_resource type="Texture2D" uid="uid://c30r3sp321gye" path="res://UI/Textbox/PictureFrame.png" id="9_t302t"]
-[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="9_taoyv"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="9_taoyv"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="10_rchcl"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="11_n3uiu"]
 
@@ -297,7 +297,7 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbycd"]
 _data = {
-"Glow": SubResource("Animation_ogxme")
+&"Glow": SubResource("Animation_ogxme")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ymvef"]
@@ -480,7 +480,6 @@ script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"DialogNext"
 pause_at_characters = ".?!,"
-skip_pause_at_abbreviations = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -602,7 +601,7 @@ stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_tbycd")
+&"": SubResource("AnimationLibrary_tbycd")
 }
 autoplay = "Glow"
 

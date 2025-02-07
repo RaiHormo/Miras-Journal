@@ -56,10 +56,10 @@ func _process(delta: float) -> void:
 		else: queue_free()
 	if Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
 		CheckInput()
-		if not CanInteract: 
+		if not CanInteract:
 			await appear()
 			CanInteract = true
-	elif CanInteract: 
+	elif CanInteract:
 		await disappear()
 		CanInteract = false
 
@@ -110,7 +110,7 @@ func CheckInput() -> void:
 		_on_button_pressed()
 
 func do_position():
-	
+
 	var dir = Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
@@ -172,7 +172,7 @@ func _on_button_pressed() -> void:
 			Global.confirm_sound()
 			Event.call(file)
 		"pass_time":
-			PartyUI.confirm_time_passage(title, item, 
+			PartyUI.confirm_time_passage(title, item,
 			to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative), file)
 			Global.confirm_sound()
 		"vainet":

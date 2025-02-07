@@ -143,7 +143,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	if transition_after_done:
 		await detransition()
 		Event.give_control()
-	else: 
+	else:
 		await Event.take_control()
 		dismiss_load_icon()
 	print("File loaded!\n-------------------------")
@@ -246,7 +246,7 @@ func done():
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
 	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
-	if scene.size() > 1: 
+	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
 	Event.give_control(false)
 	await detransition()
@@ -287,7 +287,7 @@ func dismiss_load_icon():
 		Icon.play("Close")
 	t = create_tween()
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
-	
+
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
 	if get_node_or_null("/root/Battle") or InBattle: return
@@ -327,7 +327,7 @@ func start_battle(stg, advantage := 0):
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Follower:
-		if is_instance_valid(i): 
+		if is_instance_valid(i) and is_instance_valid(Global.Player):
 			i.hide()
 			i.global_position = Global.Player.position
 	#InBattle = true
@@ -352,21 +352,21 @@ func end_battle():
 		hide_victory_stuff()
 	InBattle = false
 	battle_end.emit()
-	
+
 	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:
 		if i and Global.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
 	if is_instance_valid(Global.Bt): Global.Bt.get_node("Act").hide()
-	
+
 	if BattleResult == 2:
 		Global.Player.position = Global.globalize(Seq.EscPosition)
-	
+
 	if is_instance_valid(Attacker) and BattleResult != 1: Attacker.show()
 	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:
 		Attacker.defeat()
-	
+
 	Global.Controllable = false
 	battle_bars(0)
 	if is_instance_valid(Global.Player):

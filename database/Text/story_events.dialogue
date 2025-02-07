@@ -1,10 +1,10 @@
 ~ was_that_a
-It... ran away?[wait=0.4]\nWas that another monster?
+It ran away?[wait=0.4] Was that another monster?
 Maybe I should follow it.
 => END
 
 ~ first_cutscene
-Placeholder description: A cutscene that isn't made yet should play here.
+Placeholder description: A cutscenre that isn't made yet should play here.
 => END
 Placeholder description: Whenever a box like this appears, pretend you're seeing whatever is described on screen.
 Placeholder description: You see a paw walk through the grass.
@@ -109,7 +109,7 @@ Mira.Smile: Looks good on you!
 
 ~ stay_back
 Mira.Neutural: Is this what scared you?
-Mira.Neutural: Stay behind me,\nI'll deal with it!
+Mira.Neutural: Stay behind me, I'll deal with it!
 => END!
 
 ~ not_going_well
@@ -136,7 +136,7 @@ Mira.Neutural: Wait, do you have a name?
 Mira.Neutural: [next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
-Mira.Neutural: Right, you can't talk.\nBut I need to call you something...
+Mira.Neutural: Right, you can't talk. But I need to call you something...
 Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alright?
 
 ~ what_about
@@ -214,7 +214,7 @@ Mira.Neutural: Seems like this is our way out of this forest.
 => END
 
 ~ morning
-Mira.Neutural: The sky is getting brighter. \nSeems like it's early morning.
+Mira.Neutural: The sky is getting brighter. [p]Seems like it's early morning.
 [wait=0.3] [next=auto]
 do npc("MiraCut").look_to(Vector2(0, -1))
 [wait=0.1] [next=auto]
@@ -278,8 +278,8 @@ Mira.Neutural: Huh? Is that me?
 Alcine.Happy: Bloop!
 Mira.Smile: You drew this? That's so cute!
 I guess there is one way we can communicate.
-{{alcine()}} seems a lot smarter than I thought. Maybe I should ask some more important questions.
-Mira.Neutural: So... I was curious. \nBefore that monster found you, how did you end up here?
+Maybe I could get important information from {{alcine()}} this way.
+Mira.Neutural: So... I was curious. [p]Before that creature attacked you, how did you end up there?
 Mira.Neutural: Do you remember anything?
 Alcine.Neutural: /*Thinking noises*/
 Placeholder description: {{alcine()}} starts drawing.
@@ -289,10 +289,9 @@ Mira.Neutural: Wha- Im being attacked in this?
 Alcine.Neutural: /*Nod*/
 Mira.Neutural: So you've seen me before.
 Mira.Neutural: Weird, I don't remember something like that at all...
-Mira.Neutural: So you were imprisoned in some kind of... castle?
-Mira.Neutural: Then ended up in that forest? \nDid you escape the castle?
+Mira.Neutural: Then ended up in that forest? [p]Did you escape the castle?
 Alcine.Neutural: /*Head shake*/
-Mira.Neutural: Hmm... Do you know how you went from the castle to here? \nAt all?
+Mira.Neutural: Hmm... Do you know how you went from the castle to here? [p]At all?
 Alcine.Neutural: /*Head shake*/
 Mira.Neutural: Figures.
 Mira.Neutural: Well we should probably explore this place a little more before it's too dark.

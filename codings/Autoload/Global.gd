@@ -114,7 +114,7 @@ func vainet_map(cur: String):
 	var Map = preload("res://UI/Map/VainetMap.tscn").instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
-	
+
 
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
@@ -259,11 +259,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func fullscreen() -> void:
 	if !Settings: await init_settings()
+	if get_window().is_embedded():
+		toast("Can't fullscreen while the window is embeded")
+		return
 	if get_window().mode != 3:
-			get_window().mode = Window.MODE_FULLSCREEN
-			await get_tree().create_timer(0.1).timeout
-			get_window().grab_focus()
-			Settings.Fullscreen = true
+		get_window().mode = Window.MODE_FULLSCREEN
+		await get_tree().create_timer(0.1).timeout
+		get_window().grab_focus()
+		Settings.Fullscreen = true
 	else:
 		get_window().mode = Window.MODE_WINDOWED
 		if OS.get_name() == "Linux":

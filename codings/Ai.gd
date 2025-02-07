@@ -45,11 +45,11 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	AblilityList.push_front(Char.StandardAttack)
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	var Choices:Array[Ability] = []
-	if Char.NextTarget != null: 
+	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:
 			targets = Ability.T.ONE_ALLY
 		else:
-			targets = Ability.T.ONE_ENEMY 
+			targets = Ability.T.ONE_ENEMY
 	for i in AblilityList:
 		if i == null: continue
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):

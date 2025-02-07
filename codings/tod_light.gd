@@ -9,7 +9,7 @@ const defmoon = Color(0.9, 0.8, 0.5)
 	defsun, defsun, defsun, defmoon, defmoon
 ]
 @export var Energy: Array[float] = [
-	0.5, 0, 0.2, 0.8, 1 
+	0.5, 0, 0.2, 0.8, 1
 	]
 
 func _ready() -> void:

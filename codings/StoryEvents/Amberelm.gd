@@ -21,7 +21,7 @@ func default():
 		Event.npc("AlcineCut").chain_moves([Vector2.RIGHT, Vector2.UP*5])
 		await Event.wait(0.8)
 		Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, "U")
-	if Global.CameraInd == 0:
+	if Global.CameraInd == 0 and not Event.f("EnteredAmberelm", 2):
 		await Event.wait(0.3)
 		await Event.take_control(false, true)
 		await Global.Player.move_dir(Vector2.UP * 2)

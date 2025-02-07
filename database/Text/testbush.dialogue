@@ -54,6 +54,7 @@ Where to go?
 	- Entrance
 		do travel_to("Amberelm", Vector2(0, 0), 1)
 - Shard Gardens
+	Part?
 	- Start
 		do travel_to("ShardGardens")
 	- Underground 1

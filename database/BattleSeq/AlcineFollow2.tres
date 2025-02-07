@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://dm1nvrvosexxj"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://dm1nvrvosexxj"]
 
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Petrogon.tres" id="1_ianey"]
-[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_xpmoy"]
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_7uopt"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_isrps"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="2_aalrw"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="2_xpmoy"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_7uopt"]
 
 [sub_resource type="Resource" id="Resource_7bvd2"]
 script = ExtResource("2_xpmoy")
@@ -34,7 +36,8 @@ add_flag = false
 
 [resource]
 script = ExtResource("4_7uopt")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_ianey")])
+Enemies = Array[ExtResource("2_aalrw")]([ExtResource("1_ianey")])
+AdditionalItems = Array[ExtResource("1_isrps")]([])
 Transition = false
 Detransition = false
 EscPosition = Vector2(0, 0)
@@ -43,6 +46,9 @@ ScenePosition = Vector2(1665, -1067)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "AlcineWoods2"
+EntranceBanter = ""
+EntranceBanterIsPassive = true
 VictorySequence = ""
 VictoryBanter = "it_flew_away"
+DefeatSequence = ""
 Events = Array[ExtResource("2_xpmoy")]([SubResource("Resource_7bvd2"), SubResource("Resource_q672f")])

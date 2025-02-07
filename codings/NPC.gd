@@ -33,6 +33,7 @@ var move_frames:= 0
 @export var Shadow: Node2D
 
 func _ready() -> void:
+	if Engine.is_editor_hint(): return
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
 	if ID in Loader.Defeated: queue_free()
 	#motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -54,6 +55,7 @@ func control_process() -> void:
 	BodyState=IDLE
 
 func _physics_process(delta) -> void:
+	if Engine.is_editor_hint(): return
 	if get_tree().paused or Loader.InBattle:
 		return
 	extended_process()

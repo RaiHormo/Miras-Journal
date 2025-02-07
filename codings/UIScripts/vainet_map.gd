@@ -11,14 +11,14 @@ func _ready() -> void:
 	Global.get_cam().limit_right = 999999
 	Global.get_cam().limit_left = -999999
 	Global.get_cam().limit_top = -999999
-	for i in $Container/Scroller/LocationList.get_children(): 
+	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button: i.pressed.connect(location_selected)
 		if not Event.f("VP"+i.name):
 			if i is Button: i.hide()
 	$Container/Scroller/LocationList/Gate.show()
 	var label: Label
 	for i in $Container/Scroller/LocationList.get_children():
-		if i is Label: 
+		if i is Label:
 			label = i
 			i.hide()
 		if i is Button and i.visible: label.show()
@@ -50,18 +50,18 @@ func focus_place(place: String):
 	else: $Marker.hide()
 	if $Map.get_node_or_null(here) != null:
 		$Here.global_position = $Map.get_node(here).global_position
-	for i in $Container/Scroller/LocationList.get_children(): 
+	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
 func focus_change(node: Control):
 	if not inited: return
 	foc = node
-	for i in $Container/Scroller/LocationList.get_children(): 
+	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button: i.icon = preload("res://UI/MenuTextures/dot.png")
 	if node.get_parent() == $Container/Scroller/LocationList:
 		focus_place(node.name)
 		node.icon = preload("res://UI/Map/marker.png")
-	for i in $Container/Scroller/LocationList.get_children(): 
+	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
 func location_selected():
@@ -85,4 +85,3 @@ func location_selected():
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		focus_place(here)
-		

@@ -1,20 +1,20 @@
-[gd_scene load_steps=35 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=34 format=4 uid="uid://bd1tjlb5qs82v"]
 
-[ext_resource type="Script" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
+[ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
-[ext_resource type="Script" path="res://codings/sub_room.gd" id="3_aq7mb"]
+[ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/sub_room.gd" id="3_aq7mb"]
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVainPoint.tscn" id="3_pivbf"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="4_e3kpk"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="5_xdx5l"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="6_dtjwe"]
-[ext_resource type="Script" path="res://codings/Interactions/open_door.gd" id="7_akxl2"]
-[ext_resource type="Script" path="res://codings/Interactions/horizontal_subdoor.gd" id="8_3nvdu"]
-[ext_resource type="Script" path="res://codings/flickering_light.gd" id="8_uh3bf"]
+[ext_resource type="Script" uid="uid://cocwxyol67r1a" path="res://codings/Interactions/open_door.gd" id="7_akxl2"]
+[ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="8_3nvdu"]
+[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="8_uh3bf"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="9_w0u03"]
-[ext_resource type="Script" path="res://codings/Interactions/lamp.gd" id="10_4xvqm"]
-[ext_resource type="Script" path="res://codings/tod_light.gd" id="12_7noep"]
-[ext_resource type="Script" path="res://codings/Interactions/stairs_up_down.gd" id="14_jxnit"]
-[ext_resource type="Script" path="res://codings/Interactions/slope.gd" id="15_3swys"]
+[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Interactions/lamp.gd" id="10_4xvqm"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="12_7noep"]
+[ext_resource type="PackedScene" uid="uid://dp3b7p474e3t7" path="res://rooms/components/StairsH.tscn" id="14_y8h7v"]
+[ext_resource type="Script" uid="uid://bk204ee71jvcx" path="res://codings/Interactions/slope.gd" id="15_3swys"]
 
 [sub_resource type="Gradient" id="Gradient_2oe0j"]
 offsets = PackedFloat32Array(0)
@@ -229,7 +229,7 @@ texture_region_size = Vector2i(24, 24)
 2:4/size_in_atlas = Vector2i(2, 3)
 2:4/0 = 0
 2:4/0/y_sort_origin = 15
-2:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_lb215")
+2:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lb215")
 2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 20, 24, 19.5, 24, 30, -24, 30)
 9:8/size_in_atlas = Vector2i(1, 2)
 9:8/0 = 0
@@ -239,7 +239,7 @@ texture_region_size = Vector2i(24, 24)
 8:7/size_in_atlas = Vector2i(1, 2)
 8:7/0 = 0
 8:7/0/y_sort_origin = 5
-8:7/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
+8:7/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
 8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 12, 6, 12, 17, -12, 17)
 0:11/size_in_atlas = Vector2i(1, 2)
 0:11/0 = 0
@@ -320,9 +320,6 @@ gradient = SubResource("Gradient_desij")
 fill = 1
 fill_from = Vector2(0.495726, 0.517949)
 fill_to = Vector2(0.505983, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bojbw"]
-size = Vector2(6, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66y4c"]
 size = Vector2(97.5528, 20)
@@ -613,22 +610,8 @@ flicker = true
 around_scale = 1.0
 amount = 0.01
 
-[node name="Stairs1" type="Area2D" parent="."]
-z_index = 4
+[node name="Stairs1" parent="." instance=ExtResource("14_y8h7v")]
 position = Vector2(367, 884)
-collision_layer = 15
-collision_mask = 15
-script = ExtResource("14_jxnit")
-LayersUp = 4
-LayersDown = 3
-zUp = 3
-Swap = true
-left_right_mode = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs1"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_bojbw")
-debug_color = Color(0.487905, 0.433999, 1, 0.42)
 
 [node name="Slope" type="Area2D" parent="."]
 position = Vector2(367, 885)
@@ -653,5 +636,3 @@ shape = SubResource("RectangleShape2D_66y4c")
 [connection signal="body_exited" from="HomeBuilding-Lobby/KirchenDoor" to="HomeBuilding-Lobby/KirchenDoor" method="_on_body_exited"]
 [connection signal="action" from="HomeBuilding-Lobby/Lamp3" to="HomeBuilding-Lobby/Lamp3/PointLight2D" method="_on_interactable_action"]
 [connection signal="action" from="HomeBuilding-MyRoom/Lamp2" to="HomeBuilding-MyRoom/Lamp2/PointLight2D" method="_on_interactable_action"]
-[connection signal="body_entered" from="Stairs1" to="Stairs1" method="_on_body_entered"]
-[connection signal="body_exited" from="Stairs1" to="Stairs1" method="_on_body_exited"]

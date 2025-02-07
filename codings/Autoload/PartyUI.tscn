@@ -1,12 +1,12 @@
 [gd_scene load_steps=89 format=3 uid="uid://dh64f5bodshv7"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
-[ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
+[ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
+[ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_cich6"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_ujk23"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="5_1ty82"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_w2g12"]
-[ext_resource type="Shader" path="res://codings/Shaders/Unshaded.gdshader" id="7_jb2qv"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_jb2qv"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="8_wqv20"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="9_r3lax"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_ihe7c"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://5205kcxrxgw4" path="res://UI/Calendar/Base.png" id="11_4pd7b"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="11_k5mql"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="12_2fkxq"]
-[ext_resource type="Script" path="res://codings/UIScripts/calendarUI.gd" id="12_wtwla"]
+[ext_resource type="Script" uid="uid://cu8vq74axypex" path="res://codings/UIScripts/calendarUI.gd" id="12_wtwla"]
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://UI/joystick/virtual_joystick.tscn" id="16_86i7e"]
@@ -861,8 +861,8 @@ pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 theme = SubResource("Theme_uwpxh")
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_vilg5")
 text = "Item x3"
@@ -892,8 +892,8 @@ size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_uaes6")
 shortcut_in_tooltip = false
@@ -912,8 +912,8 @@ size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_pbvwb")
 shortcut_in_tooltip = false
@@ -940,7 +940,6 @@ scale = Vector2(0.260146, 0.260146)
 pivot_offset = Vector2(1542.39, 0)
 texture = ExtResource("11_4pd7b")
 script = ExtResource("12_wtwla")
-HideOnDays = Array[int]([0, 10])
 
 [node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
 layout_mode = 0
@@ -1146,8 +1145,8 @@ size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_xaphv")
 shortcut_in_tooltip = false

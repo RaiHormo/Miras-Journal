@@ -315,6 +315,12 @@ msgstr "Only one else case is allowed per match."
 msgid "errors.when_must_belong_to_match"
 msgstr "When statements can only appear as children of match statements."
 
+msgid "errors.concurrent_line_without_origin"
+msgstr "Concurrent lines need an origin line that doesn't start with \"| \"."
+
+msgid "errors.goto_not_allowed_on_concurrect_lines"
+msgstr "Goto references are not allowed on concurrent dialogue lines."
+
 msgid "errors.unknown"
 msgstr "Unknown syntax."
 
@@ -410,3 +416,9 @@ msgstr "Array[{type}] isn't supported in mutations. Use Array as a type instead.
 
 msgid "runtime.dialogue_balloon_missing_start_method"
 msgstr "Your dialogue balloon is missing a \"start\" or \"Start\" method."
+
+msgid "runtime.top_level_states_share_name"
+msgstr "Multiple top-level states ({states}) share method/property/signal name \"{key}\". Only the first occurance is accessible to dialogue."
+
+msgid "translation_plugin.character_name"
+msgstr "Character name"

@@ -1,6 +1,6 @@
 # Scene Tree Sorter - Godot Addon
 
-Scene Tree Sorter is an addon for Godot 4 that automatically sorts the current scene tree.  
+Scene Tree Sorter is an addon for Godot 4 that automatically sorts the current scene tree.
 
 It sorts by type, then by name, but does not sort container type nodes, as tree position matters.
 

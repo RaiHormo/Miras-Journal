@@ -1,13 +1,58 @@
+@tool
 extends NPC
-var PinRange = false
-@export var Battle: BattleSequence
+
+@export_tool_button("Add Homepoints and Sprites", "Add") var add_node_button: Callable = add_nodes
+@export_tool_button("Apply positions", "CheckBox") var set_positions_button: Callable = set_positions
+@export var BattleSeq: BattleSequence
 @export var Defeated = false
-var lock = false
-var homepoints: Array[Vector2]
 @export var give_up_after := 3
 @export var patrol_speed = 20
 @export var chase_speed = 40
 var tmr: SceneTreeTimer
+var lock = false
+var homepoints: Array[Vector2]
+var PinRange = false
+
+func add_nodes():
+	if get_node_or_null("HomePoints") == null:
+		var homepoints = Node2D.new()
+		homepoints.name = "HomePoints"
+		add_child(homepoints)
+		homepoints.owner = $".."
+		var marker = Marker2D.new()
+		marker.name = "1"
+		homepoints.add_child(marker)
+		marker.owner = $".."
+	if get_node_or_null("Sprite") == null:
+		var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+		sprite.name = "Sprite"
+		sprite.sprite_frames = preload("res://art/OV/Enemies/GenericEnemy.tres")
+		add_child(sprite)
+		sprite.owner = $".."
+	var esc_marker: Marker2D =  get_node_or_null("EscapePosition")
+	if esc_marker == null:
+		esc_marker = Marker2D.new()
+		esc_marker.name = "EscapePosition"
+		add_child(esc_marker)
+		esc_marker.owner = $".."
+	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
+	if scn_marker == null:
+		scn_marker = Marker2D.new()
+		scn_marker.name = "ScenePosition"
+		add_child(scn_marker)
+		scn_marker.owner = $".."
+	if BattleSeq != null:
+		esc_marker.global_position = BattleSeq.EscPosition*24
+		scn_marker.global_position = BattleSeq.ScenePosition
+		scn_marker.gizmo_extents = 100
+
+func set_positions():
+	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
+	if scn_marker != null and BattleSeq != null:
+		BattleSeq.ScenePosition = scn_marker.global_position
+	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
+	if esc_marker != null and BattleSeq != null:
+		BattleSeq.EscPosition = Vector2i(esc_marker.global_position/24)
 
 func default():
 	Nav = $Nav
@@ -35,7 +80,7 @@ func patrol():
 				speed = patrol_speed
 				await go_to(homepoints.pick_random(), false, false, Vector2.ZERO, 20)
 			var tmr = get_tree().create_timer(randf_range(0,3))
-			while tmr.time_left != 0: 
+			while tmr.time_left != 0:
 				if stopping: return
 				await Event.wait()
 
@@ -95,7 +140,7 @@ func _on_catch_area_body_entered(body):
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
 	Global.Player.dramatic_attack_pause()
-	await Loader.start_battle(Battle, advatage)
+	await Loader.start_battle(BattleSeq, advatage)
 	global_position = DefaultPos
 
 func attacked():
