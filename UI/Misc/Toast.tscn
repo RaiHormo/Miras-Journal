@@ -1,10 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdocri2qcief1"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/Toast.gd" id="1_1ovav"]
+[ext_resource type="Script" uid="uid://cvcje8hoc6ofh" path="res://codings/UIScripts/Toast.gd" id="1_1ovav"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_foll0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wg3v"]
+content_margin_left = 8.0
+content_margin_top = 12.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.101961, 0.101961, 0.101961, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
@@ -21,12 +30,14 @@ script = ExtResource("1_1ovav")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
 offset_left = 2.0
-offset_top = 706.0
+offset_top = 634.0
 offset_right = 1277.0
-offset_bottom = 746.0
+offset_bottom = 674.0
+pivot_offset = Vector2(637, 20)
 alignment = 1
 
 [node name="Toast" type="PanelContainer" parent="BoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0wg3v")
 

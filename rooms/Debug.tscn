@@ -1,9 +1,9 @@
 [gd_scene load_steps=82 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
-[ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="2_6ip0u"]
-[ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="3_0w5t4"]
-[ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="4_uui7p"]
+[ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_6ip0u"]
+[ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="3_0w5t4"]
+[ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="4_uui7p"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="5_00dms"]
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="5_dcjai"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="6_pmuyc"]

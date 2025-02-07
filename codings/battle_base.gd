@@ -800,7 +800,10 @@ func focus_cam(chara:Actor, time:float=0.5, offset=30):
 	await move_cam(Vector2(chara.node.position.x + offsetize(offset, chara), chara.node.position.y /2), time)
 
 func move_cam(pos: Vector2, time:float=0.5):
-	$Cam.position_smoothing_speed = ($Cam.position - pos).length() * time
+	if Input.is_action_pressed("Dash"):
+		$Cam.position_smoothing_enabled = false
+	else:
+		$Cam.position_smoothing_enabled = true
 	$Cam.position = pos
 	await Event.wait(time)
 

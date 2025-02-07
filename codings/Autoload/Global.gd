@@ -259,8 +259,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func fullscreen() -> void:
 	if !Settings: await init_settings()
-	if get_window().is_embedded():
+	if Engine.is_embedded_in_editor():
 		toast("Can't fullscreen while the window is embeded")
+		Settings.Fullscreen = false
 		return
 	if get_window().mode != 3:
 		get_window().mode = Window.MODE_FULLSCREEN

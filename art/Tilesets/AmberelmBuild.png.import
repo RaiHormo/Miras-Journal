@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvsiw3sgcpt4l"
-path="res://.godot/imported/Outside_A4.png-c13bbaccf6245f7a51a94b9d918327d1.ctex"
+uid="uid://lqnkjbt6fgaj"
+path="res://.godot/imported/AmberelmBuild.png-a26350b24723f5553b69b3450f2c0f45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Outside_A4.png"
-dest_files=["res://.godot/imported/Outside_A4.png-c13bbaccf6245f7a51a94b9d918327d1.ctex"]
+source_file="res://art/Tilesets/AmberelmBuild.png"
+dest_files=["res://.godot/imported/AmberelmBuild.png-a26350b24723f5553b69b3450f2c0f45.ctex"]
 
 [params]
 

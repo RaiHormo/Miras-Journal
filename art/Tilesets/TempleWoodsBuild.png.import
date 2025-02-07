@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cioxqm0h56qcj"
-path="res://.godot/imported/Inside_B (1).png-c0dc82ef076191d965d4eb724c8cefe4.ctex"
+uid="uid://s38ia6u3uhd1"
+path="res://.godot/imported/TempleWoodsBuild.png-2ce5ac211b449b2fd7b93c079364e4f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Inside_B (1).png"
-dest_files=["res://.godot/imported/Inside_B (1).png-c0dc82ef076191d965d4eb724c8cefe4.ctex"]
+source_file="res://art/Tilesets/TempleWoodsBuild.png"
+dest_files=["res://.godot/imported/TempleWoodsBuild.png-2ce5ac211b449b2fd7b93c079364e4f2.ctex"]
 
 [params]
 

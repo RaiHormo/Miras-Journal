@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfusanvrsjbhu"
-path="res://.godot/imported/Outside_A2.png-d7abd977a988659d50d87b6db8ec4def.ctex"
+uid="uid://3wqcqslduu4i"
+path="res://.godot/imported/InsideWall.png-7cbb7a2453e701295c5882825479d431.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Outside_A2.png"
-dest_files=["res://.godot/imported/Outside_A2.png-d7abd977a988659d50d87b6db8ec4def.ctex"]
+source_file="res://art/Tilesets/InsideWall.png"
+dest_files=["res://.godot/imported/InsideWall.png-7cbb7a2453e701295c5882825479d431.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://jbqc6bbxg02s"]
+[gd_scene load_steps=84 format=4 uid="uid://jbqc6bbxg02s"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" uid="uid://60yfp1fdveef" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="20_lxyok"]
 [ext_resource type="Texture2D" uid="uid://exhrdcludfxg" path="res://art/OV/Objects/Crate.png" id="21_02kmm"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="22_wfemh"]
-[ext_resource type="Resource" uid="uid://dc4puru00jtto" path="res://database/BattleSeq/IronHook1.tres" id="23_gf563"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
 [ext_resource type="PackedScene" uid="uid://ch2j5pngca4u" path="res://rooms/components/StairsV.tscn" id="24_i77sn"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="25_vddgi"]
@@ -736,7 +735,6 @@ z_index = 5
 position = Vector2(564, 336)
 collision_layer = 512
 collision_mask = 512
-Battle = ExtResource("23_gf563")
 ID = "IH1"
 CameraIndex = 0
 

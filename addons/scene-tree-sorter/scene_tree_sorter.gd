@@ -57,7 +57,7 @@ func _sort_children(parent: Node):
 func _priority_sort(a: Node, b: Node) -> bool:
 	if a is TileMapLayer and not b is TileMapLayer:
 		return true
-	elif "Light" in a.name and b is not TileMapLayer: return true
+	elif "Light" in a.name or "Cover" in a.name and b is not TileMapLayer: return true
 	else: return a.name.to_lower() < b.name.to_lower()
 
 

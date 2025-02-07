@@ -57,7 +57,7 @@ Enemies = Array[ExtResource("4_iwqwt")]([])
 AdditionalItems = Array[ExtResource("3_a2upk")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2(0, 0)
+EscPosition = Vector2i(0, 0)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)
 CanEscape = true
@@ -1723,7 +1723,7 @@ frame_progress = 1.0
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 100.0
+position_smoothing_speed = 20.0
 
 [node name="AI" type="Node" parent="."]
 script = ExtResource("17_5kmxv")
@@ -2937,14 +2937,12 @@ text = "Asteria"
 [node name="TurnOrder" type="Button" parent="Canvas"]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
-layout_direction = 1
-offset_left = -214.0
+offset_left = -236.0
 offset_top = 732.0
-offset_right = -72.0
+offset_right = -74.0
 offset_bottom = 765.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
@@ -2952,7 +2950,6 @@ action_mode = 0
 shortcut = SubResource("Shortcut_qtf0t")
 text = "Turn Order"
 icon = ExtResource("45_lj4u5")
-text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Continue" type="Button" parent="Canvas"]

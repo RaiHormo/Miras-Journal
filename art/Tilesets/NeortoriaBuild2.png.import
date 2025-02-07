@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db5kuiwbucmq7"
-path="res://.godot/imported/Inside_B.png-b1731038afcba4692da33ad2e28f2652.ctex"
+uid="uid://k7i1rf5kglbb"
+path="res://.godot/imported/NeortoriaBuild2.png-041305843fc5fd941e9ab0735b424b52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Inside_B.png"
-dest_files=["res://.godot/imported/Inside_B.png-b1731038afcba4692da33ad2e28f2652.ctex"]
+source_file="res://art/Tilesets/NeortoriaBuild2.png"
+dest_files=["res://.godot/imported/NeortoriaBuild2.png-041305843fc5fd941e9ab0735b424b52.ctex"]
 
 [params]
 

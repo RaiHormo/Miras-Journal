@@ -1,15 +1,16 @@
 [gd_resource type="TileSet" load_steps=17 format=3 uid="uid://dfrkh3lthh51c"]
 
-[ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/AbadTemple.png" id="1_ffi5p"]
+[ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/TempleWoodsBuild.png" id="1_xt10d"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/AbadWater.png" id="2_7gdh7"]
 [ext_resource type="Texture2D" uid="uid://cf22r3hrvrhcb" path="res://art/Tilesets/AbadGround.png" id="3_hqbka"]
+[ext_resource type="Texture2D" uid="uid://lqnkjbt6fgaj" path="res://art/Tilesets/AmberelmBuild.png" id="4_8dla1"]
 [ext_resource type="Texture2D" uid="uid://enc0u6y8cw5w" path="res://art/Tilesets/AbadObj.png" id="4_begsd"]
-[ext_resource type="Texture2D" uid="uid://lqnkjbt6fgaj" path="res://art/Tilesets/Abadbuild.png" id="4_k3buq"]
 [ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="6_0uc7g"]
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="7_eea3d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5671e"]
-texture = ExtResource("1_ffi5p")
+resource_name = "Temple"
+texture = ExtResource("1_xt10d")
 texture_region_size = Vector2i(24, 24)
 0:0/size_in_atlas = Vector2i(3, 4)
 0:0/0 = 0
@@ -2347,7 +2348,6 @@ texture_region_size = Vector2i(24, 24)
 2:18/0/y_sort_origin = -4
 2:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 2:17/0 = 0
-2:17/0/z_index = 1
 2:17/0/y_sort_origin = 10
 2:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 4, 12, 4, 12, 12, -12, 12)
 5:17/0 = 0
@@ -2411,7 +2411,6 @@ texture_region_size = Vector2i(24, 24)
 7:18/0 = 0
 7:18/0/z_index = 1
 7:17/0 = 0
-7:17/0/z_index = 1
 7:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 7:16/0 = 0
 7:16/0/z_index = 1
@@ -2432,10 +2431,13 @@ texture_region_size = Vector2i(24, 24)
 10:19/0/z_index = 1
 10:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 12, -8, -12, -4, -12, -4, 12)
 12:15/0 = 0
+12:15/0/y_sort_origin = -15
 12:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 4, -4.86136, 12, 12, 12, 12, 16, -16, 16, -16, -12)
 13:15/0 = 0
+13:15/0/y_sort_origin = -15
 13:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, 12, 12, 12, 16, -12, 16)
 14:15/0 = 0
+14:15/0/y_sort_origin = -15
 14:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -12, -12, -12, -12, 12, -16, 12)
 4:16/0 = 0
 4:16/0/y_sort_origin = 10
@@ -2445,6 +2447,7 @@ texture_region_size = Vector2i(24, 24)
 6:17/0/y_sort_origin = 10
 6:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -12, 8, 4, 12, 4, 12, 12, -12, 12, -12, -12)
 12:16/0 = 0
+12:16/0/y_sort_origin = -15
 17:8/0 = 0
 2:16/0 = 0
 5:19/0 = 0
@@ -2455,7 +2458,7 @@ texture_region_size = Vector2i(24, 24)
 8:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5khia"]
-texture = ExtResource("4_k3buq")
+texture = ExtResource("4_8dla1")
 texture_region_size = Vector2i(24, 24)
 0:0/size_in_atlas = Vector2i(4, 5)
 0:0/0 = 0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brrrw5qrvy0ga"
-path="res://.godot/imported/Outside_B.png-a06865122701d3f62bcb94006a6e95b4.ctex"
+uid="uid://cbpgylvec6ea0"
+path="res://.godot/imported/Unused6.png-9498edc18884a8319077c3a1ff88953a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Tilesets/Outside_B.png"
-dest_files=["res://.godot/imported/Outside_B.png-a06865122701d3f62bcb94006a6e95b4.ctex"]
+source_file="res://art/Tilesets/Unused6.png"
+dest_files=["res://.godot/imported/Unused6.png-9498edc18884a8319077c3a1ff88953a.ctex"]
 
 [params]
 

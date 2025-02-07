@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://b4o1pysvvd273"]
 
-[ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/Outside_B.png" id="1_ih71b"]
-[ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/Inside_A5.png" id="2_ss358"]
-[ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/Inside_B.png" id="3_8ocig"]
-[ext_resource type="Script" path="res://codings/StoryEvents/Arena.gd" id="4_gfx0h"]
+[ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="1_ih71b"]
+[ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="2_ss358"]
+[ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="3_8ocig"]
+[ext_resource type="Script" uid="uid://dmuk3gwi7i2p5" path="res://codings/StoryEvents/Arena.gd" id="4_gfx0h"]
 [ext_resource type="Texture2D" uid="uid://df63egmwm4ryq" path="res://art/Backgrounds/ArenaBg/TempleWoodsBg.png" id="5_px3yq"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="6_2vo8j"]
 
