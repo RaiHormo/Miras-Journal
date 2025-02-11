@@ -1,16 +1,19 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=4 format=3 uid="uid://dv24x1ivfytn7"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://dv24x1ivfytn7"]
 
 [ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="1_hxhgp"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_jt2de"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="2_fujfa"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="2_rfvsl"]
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="3_y4cbm"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="3_y4cbm"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_q870w"]
 
 [resource]
 script = ExtResource("3_y4cbm")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("1_hxhgp"), ExtResource("2_rfvsl")])
-AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
+Enemies = Array[ExtResource("2_fujfa")]([ExtResource("1_hxhgp"), ExtResource("2_rfvsl")])
+AdditionalItems = Array[ExtResource("1_jt2de")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2(58, -15)
+EscPosition = Vector2i(58, -17)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(1200, -338)
 CanEscape = true
@@ -21,4 +24,4 @@ EntranceBanterIsPassive = true
 VictorySequence = ""
 VictoryBanter = ""
 DefeatSequence = ""
-Events = Array[Resource("res://codings/Classes/battle_event.gd")]([])
+Events = Array[ExtResource("5_q870w")]([])

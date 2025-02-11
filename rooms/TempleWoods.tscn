@@ -1105,6 +1105,13 @@ sprite_frames = ExtResource("12_1q04t")
 animation = &"IdleUp"
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemyCrawlingSludge3"]
+position = Vector2(-115.08, -142.626)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemyCrawlingSludge3"]
+position = Vector2(-29.08, -140.626)
+gizmo_extents = 100.0
+
 [node name="EnemyCrawlingSludge4" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1257.89, -491.287)
 BattleSeq = ExtResource("21_e7y1u")
@@ -1131,6 +1138,13 @@ texture_filter = 1
 sprite_frames = ExtResource("12_1q04t")
 animation = &"WalkUp"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemyCrawlingSludge4"]
+position = Vector2(142.11, 72.287)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemyCrawlingSludge4"]
+position = Vector2(-57.89, 153.287)
+gizmo_extents = 100.0
 
 [node name="EvAlcine" type="CharacterBody2D" parent="."]
 position = Vector2(1257.85, -652.287)
