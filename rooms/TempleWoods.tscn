@@ -1602,6 +1602,7 @@ use_edge_connections = false
 navigation_layers = 2
 
 [node name="RegionNav" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_bhcd2")
 
 [node name="Transfer" parent="." instance=ExtResource("8_grqbv")]

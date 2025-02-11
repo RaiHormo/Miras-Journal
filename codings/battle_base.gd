@@ -274,6 +274,7 @@ func _on_next_turn():
 	if follow_up_next:
 		Global.toast("FOLLOW UP!")
 		follow_up_next = false
+		TurnInd = TurnOrder.find(CurrentChar)
 	else:
 		if TurnOrder.size() -1 <= TurnInd:
 			TurnInd = 0
@@ -297,7 +298,9 @@ func _on_next_turn():
 				end_turn()
 				return
 		else:
-			end_turn()
+			print("Character is knocked out, skip turn")
+			lock_turn = false
+			end_turn(true)
 			return
 	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
 	$Act.handle_states()
@@ -683,7 +686,7 @@ func death(target:Actor):
 		totalSP += target.RecivedSP
 		if target.DroppedItem: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
-	if target.codename == &"Mira":
+	if target == Party.Leader:
 		await Event.wait(0.2)
 		get_tree().paused = true
 		CurrentChar.node.pause()
@@ -698,24 +701,25 @@ func death(target:Actor):
 		await Event.wait(4, false)
 		game_over()
 	target.node.get_node("Particle").emitting = true
-	var td = create_tween()
 	target.Health = 0
-	td.set_ease(Tween.EASE_IN)
-	td.set_trans(Tween.TRANS_QUART)
 	target.node.material.set_shader_parameter("outline_enabled", true)
 	target.node.material.set_shader_parameter("outline_color", target.MainColor)
 	target.node.get_node("Particle"
 	).process_material.gravity = Vector3(offsetize(120), 0, 0)
 	target.node.get_node("Particle"
 	).process_material.color = target.MainColor
-	td.parallel().tween_property(
+	var td = create_tween()
+	td.set_ease(Tween.EASE_IN)
+	td.set_trans(Tween.TRANS_QUART)
+	td.set_parallel()
+	td.tween_property(
 		target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
-	td.parallel().tween_property(
+	td.tween_property(
 		target.node.material, "shader_parameter/outline_color",
 		Color.TRANSPARENT, 0.5)
 	print(target.FirstName, " was defeated")
 	await td.finished
-	if target.node:
+	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
 			td = create_tween()
@@ -780,6 +784,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
+	print("Animation: ", animation)
 	while chara.node and chara.node.is_playing() and chara.node.animation == animation:
 		await Event.wait()
 

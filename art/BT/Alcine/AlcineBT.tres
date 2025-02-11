@@ -662,7 +662,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dqdv5")
 }],
-"loop": true,
+"loop": false,
 "name": &"KnockOut",
 "speed": 5.0
 }, {

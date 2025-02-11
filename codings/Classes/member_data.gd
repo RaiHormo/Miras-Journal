@@ -182,7 +182,6 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.3)), 1))
 
 func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
-	if Health == 0: return
 	var state: State
 	if x is State:
 		state = x

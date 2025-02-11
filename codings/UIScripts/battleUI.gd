@@ -776,7 +776,7 @@ func _on_battle_next_turn():
 func _on_targeted():
 	PrevStage = "targeted"
 	if CurrentChar.NextMove == null: return
-	if CurrentChar.NextTarget == null:
+	if CurrentChar.NextTarget == null or CurrentChar.NextTarget not in TargetFaction:
 		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:

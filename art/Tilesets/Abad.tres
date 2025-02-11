@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://dfrkh3lthh51c"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://dfrkh3lthh51c"]
 
 [ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/TempleWoodsBuild.png" id="1_xt10d"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/AbadWater.png" id="2_7gdh7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://lqnkjbt6fgaj" path="res://art/Tilesets/AmberelmBuild.png" id="4_8dla1"]
 [ext_resource type="Texture2D" uid="uid://enc0u6y8cw5w" path="res://art/Tilesets/AbadObj.png" id="4_begsd"]
 [ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="6_0uc7g"]
+[ext_resource type="Texture2D" uid="uid://bu735drdpamy3" path="res://art/Tilesets/PrysonGround.png" id="6_8dla1"]
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="7_eea3d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5671e"]
@@ -2684,6 +2685,24 @@ texture_region_size = Vector2i(24, 24)
 7:12/0/y_sort_origin = 12
 7:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 24, 4, 24, 4, 8, -8, 8, -8, 20)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_baio5"]
+texture = ExtResource("6_8dla1")
+texture_region_size = Vector2i(24, 24)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+4:0/0 = 0
+3:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+2:3/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vv60i"]
 texture = ExtResource("6_0uc7g")
 texture_region_size = Vector2i(24, 24)
@@ -2751,6 +2770,10 @@ texture_region_size = Vector2i(24, 24)
 14:19/0/physics_layer_2/polygon_0/points = PackedVector2Array(-12, -8, 12, -8, 12, -12, -12, -12)
 14:20/0 = 0
 14:20/0/physics_layer_2/polygon_0/points = PackedVector2Array(-12, -8, 8, -8, 8, 12, 12, 12, 12, -12, -12, -12)
+0:25/size_in_atlas = Vector2i(17, 10)
+0:25/0 = 0
+0:25/0/texture_origin = Vector2i(24, 107)
+0:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-84, 12, -12, 12, -12, -16, 12, -16, 12, 12, 108, 12, 108, -36, 180, -36, 180, -184, -228, -184, -228, -60, -84, -60)
 
 [resource]
 tile_size = Vector2i(24, 24)
@@ -2792,3 +2815,4 @@ sources/0 = SubResource("TileSetAtlasSource_5671e")
 sources/3 = SubResource("TileSetAtlasSource_5khia")
 sources/6 = SubResource("TileSetAtlasSource_vv60i")
 sources/7 = SubResource("TileSetAtlasSource_1dkap")
+sources/5 = SubResource("TileSetAtlasSource_baio5")
