@@ -1,4 +1,4 @@
-[gd_scene load_steps=231 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=230 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -30,7 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://cpky7bvi6uvm1" path="res://UI/Battle/EscapeButton.png" id="26_samhe"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="27_7ghwb"]
 [ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="27_edmvp"]
-[ext_resource type="Texture2D" uid="uid://bq6u87p34d13v" path="res://UI/Battle/CommandBackground.png" id="28_g8rtm"]
 [ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="29_7ycgm"]
 [ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="30_g1vxc"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="32_ebvy8"]
@@ -1572,17 +1571,16 @@ Panel/styles/panel = SubResource("StyleBoxFlat_6f07a")
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jrc"]
-content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
 border_width_top = 5
-border_width_right = 13
+border_width_right = 12
 border_width_bottom = 5
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gdq3"]
 content_margin_left = 6.0
@@ -1603,6 +1601,7 @@ expand_margin_bottom = 2.0
 
 [node name="Battle" type="Node2D"]
 process_mode = 3
+physics_interpolation_mode = 2
 z_index = 3
 z_as_relative = false
 y_sort_enabled = true
@@ -1687,7 +1686,7 @@ lifetime = 1.5
 one_shot = true
 speed_scale = 3.0
 explosiveness = 0.89
-fixed_fps = 60
+fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_ht7eu")
 
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
@@ -1729,7 +1728,6 @@ position_smoothing_speed = 20.0
 script = ExtResource("17_5kmxv")
 
 [node name="BattleUI" type="Control" parent="."]
-visible = false
 z_index = 10
 z_as_relative = false
 material = SubResource("ShaderMaterial_nmg3k")
@@ -1877,17 +1875,14 @@ theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("21_bxskg")
 text = "Escape"
 
-[node name="CmdBack" type="TextureRect" parent="BattleUI/CommandMenu"]
+[node name="CmdBack" type="Polygon2D" parent="BattleUI/CommandMenu"]
 light_mask = 0
-layout_mode = 0
-offset_left = -884.0
-offset_top = -768.0
-offset_right = 818.0
-offset_bottom = 732.0
+position = Vector2(-78.0864, 107.356)
 rotation = 0.20944
 scale = Vector2(0.155, 0.155)
-pivot_offset = Vector2(805.518, 875.041)
-texture = ExtResource("28_g8rtm")
+color = Color(0.113725, 0.113725, 0.113725, 1)
+offset = Vector2(78.0864, -107.356)
+polygon = PackedVector2Array(811.811, -766.054, 811.127, 286.293, 768.113, 396.206, 710.82, 491.257, 662.912, 554.43, 612.265, 608.802, 558.88, 654.374, 502.756, 691.146, 545.186, 610.373, 570.016, 535.077, 592.691, 421.842, 609.305, 320.145, 611.057, 232.727, 604.008, 148.047, 585.421, 57.3053, 560.772, -21.8971, 527.323, -98.3607, 476.273, -169.347, 402.145, -252.456, 313.156, -321.287, 209.305, -375.841, 81.7913, -413.378, 0.43412, -426.669, -86.9846, -428.42, -162.864, -424.111, -250.867, -396.723, -344.931, -357.797, -442.318, -298.53, -495.704, -252.958, -561.212, -184.308, -623.982, -106.858, -657.028, -57.9627, -681.274, -11.8066, -674.891, -766.697)
 
 [node name="BaseRing" type="TextureRect" parent="BattleUI"]
 light_mask = 0
@@ -1927,6 +1922,7 @@ pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_litkr")
 
 [node name="DescPaper" type="TextureRect" parent="BattleUI"]
+visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 102.0
@@ -2005,6 +2001,7 @@ scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
+visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0
@@ -2149,6 +2146,7 @@ libraries = {
 autoplay = "arrows"
 
 [node name="Inventory" type="Panel" parent="BattleUI"]
+visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -3050,7 +3048,7 @@ clip_contents = true
 offset_left = 953.0
 offset_top = 308.0
 offset_right = 1213.0
-offset_bottom = 366.0
+offset_bottom = 385.0
 scale = Vector2(1.2, 1.2)
 pivot_offset = Vector2(130.984, 30.2405)
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0jrc")

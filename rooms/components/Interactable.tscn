@@ -79,6 +79,7 @@ corner_radius_bottom_left = 26
 
 [node name="Interactable" type="Area2D"]
 process_mode = 3
+physics_interpolation_mode = 2
 z_index = 9
 material = SubResource("ShaderMaterial_rbnbg")
 collision_layer = 256
@@ -150,4 +151,6 @@ offset_bottom = 63.812
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_j8kpq")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="pressed" from="Pack/Cnt/Button" to="." method="_on_button_pressed"]

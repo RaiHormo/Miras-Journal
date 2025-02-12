@@ -26,6 +26,8 @@ var CurSubRoom: SubRoom = null
 func _ready():
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	Cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	Cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
 	add_child(Cam)
 	setup_params()
 

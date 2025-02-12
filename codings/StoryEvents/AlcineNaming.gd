@@ -8,6 +8,7 @@ func _ready() -> void:
 func start():
 	PartyUI.Expanded = false
 	show()
+	$TextureRect.texture = await Global.find_member("Alcine").RenderArtwork()
 	$Error.hide()
 	$TextEdit.grab_focus()
 	$TextEdit.set_caret_column(10)

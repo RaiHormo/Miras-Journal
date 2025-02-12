@@ -92,10 +92,10 @@ func ready_window() -> void:
 func _physics_process(delta: float) -> void:
 	ProcessFrame+=1
 	if ProcessFrame % 100:
-		if Settings.FPS == 0:
-			Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
-		else:
-			Engine.set_physics_ticks_per_second(Settings.FPS)
+		#if Settings.FPS == 0:
+			#Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
+		#else:
+			#Engine.set_physics_ticks_per_second(Settings.FPS)
 		Engine.max_fps = Settings.FPS
 
 func options():

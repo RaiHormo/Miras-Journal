@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bmpwjae3tgvdx"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/passive.gd" id="1_jjmcy"]
+[ext_resource type="Script" uid="uid://dhy3yoqxs5k4s" path="res://codings/UIScripts/passive.gd" id="1_jjmcy"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_adpgd"]
-[ext_resource type="Script" path="res://codings/UIScripts/dialogue_label_ext.gd" id="3_2bhme"]
+[ext_resource type="Script" uid="uid://bqfs1nucd5qo" path="res://codings/UIScripts/dialogue_label_ext.gd" id="3_2bhme"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_irkq5"]
-[ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="4_wi4tr"]
+[ext_resource type="Texture2D" uid="uid://drchu12836h35" path="res://art/Portraits/MiraSmile_low.png" id="5_ldxqq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyggq"]
 bg_color = Color(0.160784, 0.160784, 0.160784, 1)
@@ -101,7 +101,6 @@ theme_override_font_sizes/normal_font_size = 32
 text = "Dialogue"
 script = ExtResource("3_2bhme")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
-skip_pause_at_abbreviations = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 
 [node name="Border1" type="Panel" parent="Balloon/Panel2"]
 layout_mode = 0
@@ -150,7 +149,7 @@ offset_top = 156.0
 offset_right = 1812.0
 offset_bottom = 2156.0
 scale = Vector2(0.5461, 0.5461)
-texture = ExtResource("4_wi4tr")
+texture = ExtResource("5_ldxqq")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

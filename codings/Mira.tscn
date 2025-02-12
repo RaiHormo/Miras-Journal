@@ -1,7 +1,7 @@
 [gd_scene load_steps=94 format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
-[ext_resource type="Script" path="res://codings/player_movement.gd" id="2_d6ige"]
+[ext_resource type="Script" uid="uid://d0udqc2dg3nk0" path="res://codings/player_movement.gd" id="2_d6ige"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_rei3u"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="3_u6lnn"]
 [ext_resource type="Texture2D" uid="uid://cslhxxrst7p4j" path="res://art/OV/Mira/FlameWalk.png" id="5_4ul0y"]
@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://s2cr0s33rn4w" path="res://art/OV/Mira/ReachOut.png" id="6_q0j1b"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="10_dxclp"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_buww2"]
-[ext_resource type="Script" path="res://codings/flickering_light.gd" id="12_1md4f"]
+[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="12_1md4f"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="13_av38v"]
-[ext_resource type="Shader" path="res://codings/Shaders/Blur.gdshader" id="14_kgs5v"]
+[ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="14_kgs5v"]
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]
 interpolation_mode = 2
@@ -32,6 +32,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_84k7l"]
 gradient = SubResource("Gradient_mydrh")
+width = 32
+height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.852941, 0.894118)
@@ -666,7 +668,7 @@ around_scale = 3.5
 amount = 0.08
 
 [node name="Glow" type="PointLight2D" parent="."]
-position = Vector2(0, -6)
+scale = Vector2(1.96875, 1.96875)
 color = Color(0.847059, 0.607843, 0.447059, 1)
 energy = 0.1
 texture = SubResource("GradientTexture2D_84k7l")

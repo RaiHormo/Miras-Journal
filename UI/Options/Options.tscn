@@ -1,10 +1,9 @@
-[gd_scene load_steps=83 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=82 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
-[ext_resource type="Texture2D" uid="uid://bayvseumubypt" path="res://UI/Options/Background.png" id="2_0dq2m"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
-[ext_resource type="Texture2D" uid="uid://biw03e0co048s" path="res://art/Previews/1.png" id="3_07vaa"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
+[ext_resource type="Texture2D" uid="uid://dc3pmph6cr1u8" path="res://art/Previews/1_low.png" id="3_p6787"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
@@ -512,14 +511,25 @@ offset_top = -39.0
 offset_right = 1500.0
 offset_bottom = 1361.0
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_07vaa")
+texture = ExtResource("3_p6787")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 560.0
 offset_right = 1660.0
 offset_bottom = 2402.0
 scale = Vector2(0.654824, 0.599552)
-texture = ExtResource("2_0dq2m")
+
+[node name="2" type="Polygon2D" parent="Background"]
+color = Color(0.156863, 0.160784, 0.156863, 1)
+polygon = PackedVector2Array(600.161, 0, 1099.53, 0, 1099.53, 1334.33, 1085.79, 1432.74, 1061.35, 1519.47, 936.129, 1772.99, 820.068, 1954.79, 545.185, 2273.36, 691.789, 1402.71)
+
+[node name="1" type="Polygon2D" parent="Background"]
+position = Vector2(468.828, 181.802)
+scale = Vector2(405.189, 369.109)
+color = Color(0.705882, 0.709804, 0.705882, 1)
+polygon = PackedVector2Array(-0.765092, -0.498645, -0.403275, 0.25305, -0.146988, 0.867602, 0.0452271, 1.42341, 0.24498, 2.15093, 0.384431, 3.02147, 0.414582, 3.58179, 0.410813, 4.04429, 0.335435, 4.69047, 0.180908, 5.69815, 0.354279, 5.1785, 0.538957, 4.49616, 0.6671, 3.80479, 0.734941, 3.27, 0.799013, 2.44758, 0.810319, 1.55897, 0.757555, 0.884094, 0.625642, 0.185269, 0.429658, -0.494127)
 
 [node name="MainButtons" type="Node" parent="."]
 

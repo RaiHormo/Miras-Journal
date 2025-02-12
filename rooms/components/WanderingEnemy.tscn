@@ -76,6 +76,8 @@ animation = &"Ellipsis"
 [node name="Nav" type="NavigationAgent2D" parent="."]
 target_desired_distance = 1.0
 navigation_layers = 2
+simplify_path = true
+simplify_epsilon = 12.0
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 visible = false

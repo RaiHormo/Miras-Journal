@@ -36,6 +36,7 @@ func _ready() -> void:
 	do_position()
 	disappear()
 	if ActionType == "vainet": vain_check()
+	Global.check_party.connect(check)
 
 func vain_check():
 	if Event.f(get_parent().name):
@@ -47,21 +48,17 @@ func vain_check():
 		LabelText = "Open"
 		get_parent().get_node("Sprite").hide()
 
-func _process(delta: float) -> void:
+func check() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
 	if Event.check_flag(hide_on_flag) and hidesprite:
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
-	if Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and Global.Controllable:
-		CheckInput()
-		if not CanInteract:
-			await appear()
-			CanInteract = true
-	elif CanInteract:
-		await disappear()
-		CanInteract = false
+	if not Global.Controllable and CanInteract:
+		disappear()
+	elif Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract:
+		appear()
 
 func appear():
 	if not CanInteract and not animating:
@@ -105,12 +102,15 @@ func disappear():
 			pack.hide()
 		animating = false
 
-func CheckInput() -> void:
-	if Input.is_action_just_pressed("ui_accept") and CanInteract:
-		_on_button_pressed()
+func _input(event: InputEvent) -> void:
+	if Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
+		if Input.is_action_just_pressed("ui_accept") and CanInteract:
+			_on_button_pressed()
 
 func do_position():
-
+	if Loader.InBattle or not is_instance_valid(Global.Player):
+		pack.hide()
+		return
 	var dir = Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
@@ -200,3 +200,20 @@ func _on_button_pressed() -> void:
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
 	action.emit()
+
+func _on_area_entered(area: Area2D) -> void:
+	if Loader.InBattle or not is_instance_valid(Global.Player):
+		pack.hide()
+		return
+	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
+		if not CanInteract:
+			await appear()
+			CanInteract = true
+
+func _on_area_exited(area: Area2D) -> void:
+	if Loader.InBattle or not is_instance_valid(Global.Player):
+		pack.hide()
+		return
+	if CanInteract:
+		await disappear()
+		CanInteract = false

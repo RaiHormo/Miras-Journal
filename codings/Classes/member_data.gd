@@ -35,18 +35,11 @@ class_name Actor
 @export var LastName: String = ""
 ##Used in the details menu, purely cosmetic
 @export var Weapon: String
+@export var PartyPageName: String = ""
 ##Whether the actor is controlled by the player or the AI
 @export var Controllable: bool = false
 @export_range(1, 9999, 1, "suffix:HP") var HpOnSLvUp: int = 25
 @export_range(1, 9999, 1, "suffix:AP") var ApOnSLvUP: int = 10
-
-@export_subgroup("Party menu")
-##Artwork shown in the party menu
-@export var RenderArtwork: Texture
-##A shadow for the above artwork
-@export var RenderShadow: Texture
-##Doodles shown in the party menu
-@export var PartyPage: Texture
 
 @export_category("Stats")
 @export_range(1, 9999, 1, "suffix:HP") var MaxHP: int = 99
@@ -251,10 +244,7 @@ func reset_static_info():
 	OV = og.OV
 	SoundSet = og.SoundSet
 	LearnableAbilities = og.LearnableAbilities
-	RenderArtwork = og.RenderArtwork
-	RenderShadow = og.RenderShadow
-	PartyPage = og.PartyPage
-	PartyIcon = og.PartyIcon
+	PartyPageName = og.PartyPageName
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
@@ -272,3 +262,15 @@ func groupped_abilities() -> Array[Array]:
 		if not found:
 			rtn.append([i])
 	return rtn
+
+##Artwork shown in the party menu
+func RenderArtwork() -> Texture:
+	return await Loader.load_res("res://art/Renders/"+codename+".png")
+
+##A shadow for the above artwork
+func RenderShadow() -> Texture:
+	return await Loader.load_res("res://UI/Party/"+codename+"Shadow.png")
+
+##Doodles shown in the party menu
+func PartyPage() -> Texture:
+	return await Loader.load_res("res://art/Journal/Auras/"+PartyPageName+".png")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=80 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_6ip0u"]
@@ -28,7 +28,6 @@
 [ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="24_dr2v5"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="25_osbeo"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="26_ucpyn"]
-[ext_resource type="Texture2D" uid="uid://n36jl1cn0820" path="res://art/Branding/logo_solid.png" id="27_lruy7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("2_6ip0u")
@@ -121,9 +120,6 @@ texture_region_size = Vector2i(24, 24)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lb215"]
 polygon = PackedVector2Array(-23.3345, -16.617, 24.0416, -17.3241, 24.7487, 30.052, -22.6274, 31.1127)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p6jmr"]
-polygon = PackedVector2Array(-11.5, -14.5, 12.5, -14.5, 12, 0, -12, 0)
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_spamq"]
 texture = ExtResource("4_uui7p")
 texture_region_size = Vector2i(24, 24)
@@ -212,7 +208,6 @@ texture_region_size = Vector2i(24, 24)
 8:7/size_in_atlas = Vector2i(1, 2)
 8:7/0 = 0
 8:7/0/y_sort_origin = 5
-8:7/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
 8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 12, 6, 12, 17, -12, 17)
 
 [sub_resource type="TileSet" id="TileSet_dw7lm"]
@@ -234,6 +229,8 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4ag50"]
 gradient = SubResource("Gradient_nl85b")
+width = 1
+height = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_616dy"]
 atlas = ExtResource("15_o1gjb")
@@ -539,7 +536,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_5nhgl")
 use_hdr = true
 fill = 1
-fill_from = Vector2(0.538462, 0.461538)
+fill_from = Vector2(0.504274, 0.491453)
 fill_to = Vector2(0.115385, 0.867521)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3whwc"]
@@ -802,16 +799,6 @@ theme_override_font_sizes/font_size = 8
 text = "Consumable 
 item"
 
-[node name="TextureRect" type="TextureRect" parent="Labels"]
-light_mask = 0
-layout_mode = 0
-offset_left = -223.0
-offset_top = -39.0
-offset_right = 1758.0
-offset_bottom = 1212.0
-scale = Vector2(0.0503076, 0.0503076)
-texture = ExtResource("27_lruy7")
-
 [node name="1-Floor" type="TileMapLayer" parent="."]
 z_index = -1
 use_parent_material = true
@@ -829,8 +816,8 @@ tile_set = SubResource("TileSet_dw7lm")
 metadata/_edit_group_ = true
 
 [node name="LightDarkness" type="PointLight2D" parent="."]
-position = Vector2(31, -9)
-scale = Vector2(9.34375, 3.91797)
+position = Vector2(-2.00005, -1)
+scale = Vector2(604, 230)
 color = Color(0.839216, 0.803922, 0.690196, 1)
 blend_mode = 1
 texture = SubResource("GradientTexture2D_4ag50")
@@ -1043,6 +1030,7 @@ shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("7_bbmkb")
+Light = false
 
 [node name="JumpPoint1" type="Area2D" parent="."]
 position = Vector2(61, 36)

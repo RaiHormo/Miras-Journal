@@ -66,7 +66,6 @@ editor/wrap_long_lines=true
 window/size/viewport_width=1280
 window/size/viewport_height=800
 window/size/initial_position_type=2
-window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 
 [editor]
@@ -101,12 +100,28 @@ TileMap=""
 [gui]
 
 common/snap_controls_to_pixels=false
+fonts/dynamic_fonts/use_oversampling=false
 
 [importer_defaults]
 
 texture={
 "compress/channel_pack": 1,
-"detect_3d/compress_to": 2
+"compress/hdr_compression": 1,
+"compress/high_quality": false,
+"compress/lossy_quality": 0.7,
+"compress/mode": 2,
+"compress/normal_map": 0,
+"detect_3d/compress_to": 2,
+"mipmaps/generate": false,
+"mipmaps/limit": -1,
+"process/fix_alpha_border": true,
+"process/hdr_as_srgb": false,
+"process/hdr_clamp_exposure": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"process/size_limit": 0,
+"roughness/mode": 0,
+"roughness/src_normal": ""
 }
 
 [input]
@@ -409,6 +424,10 @@ Refresh={
 ]
 }
 
+[input_devices]
+
+pointing/android/enable_pan_and_scale_gestures=true
+
 [internationalization]
 
 rendering/root_node_layout_direction=1
@@ -425,17 +444,31 @@ locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.di
 
 [navigation]
 
+2d/default_cell_size=24.0
 3d/merge_rasterizer_cell_scale=0.001
 
 [physics]
 
 2d/run_on_separate_thread=true
+common/physics_ticks_per_second=15
+common/physics_jitter_fix=0.0
+3d/physics_engine="Dummy"
+2d/default_gravity=0.0
+common/physics_interpolation=true
 
 [rendering]
 
+occlusion_culling/bvh_build_quality=0
+rendering_device/pipeline_cache/enable=false
+rendering_device/d3d12/max_resource_descriptors_per_frame=1024
 textures/vram_compression/import_etc2_astc=true
+textures/vram_compression/cache_gpu_compressor=false
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
+2d/batching/uniform_set_cache_size=256
+textures/default_filters/anisotropic_filtering_level=0
+textures/decals/filter=1
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
+lightmapping/bake_quality/medium_quality_probe_ray_count=1
 viewport/hdr_2d=true
 environment/stretch/scale_mode="fractional"

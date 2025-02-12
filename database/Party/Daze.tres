@@ -1,18 +1,15 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=16 format=3 uid="uid://cwah0an2o3u15"]
+[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cwah0an2o3u15"]
 
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_7s2jl"]
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
 [ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
-[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="4_iesjw"]
-[ext_resource type="Texture2D" uid="uid://dq5adft1l2ps6" path="res://art/Renders/Daze.png" id="5_vfc7p"]
-[ext_resource type="Texture2D" uid="uid://dnpwv61v5vdap" path="res://art/Journal/Auras/BranchWave.png" id="6_1f8qn"]
-[ext_resource type="Texture2D" uid="uid://cpa524u27e733" path="res://UI/Party/DazeShadow.png" id="6_kpp4a"]
 [ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
 
 [sub_resource type="Resource" id="Resource_v2ahk"]
@@ -39,12 +36,10 @@ SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
 BoxProfile = SubResource("Resource_v2ahk")
 LastName = ""
 Weapon = "Gold-trimmed Katana"
+PartyPageName = "BranchWaves"
 Controllable = false
 HpOnSLvUp = 20
 ApOnSLvUP = 8
-RenderArtwork = ExtResource("5_vfc7p")
-RenderShadow = ExtResource("6_kpp4a")
-PartyPage = ExtResource("6_1f8qn")
 MaxHP = 180
 MaxAura = 40
 Attack = 0.7

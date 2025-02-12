@@ -140,6 +140,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
 		for i in Global.Area.Followers:
 			i.dont_follow = true
 	await wait()
+	Global.check_party.emit()
 
 func give_control(camera_follow:= false):
 	if Global.Player == null:  return
@@ -151,6 +152,7 @@ func give_control(camera_follow:= false):
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
+	Global.check_party.emit()
 
 func flag_int(str: String, max_num:= 9) -> int:
 	for i in range(0, max_num):

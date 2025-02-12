@@ -56,7 +56,7 @@ func draw_character(chara: Actor):
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
-	$Render.texture = chara.RenderArtwork
+	$Render.texture = await chara.RenderArtwork()
 
 	fetch_abilities(chara)
 

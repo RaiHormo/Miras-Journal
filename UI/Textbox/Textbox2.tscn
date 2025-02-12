@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="5_byelp"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="6_jj8vm"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="7_lr0dp"]
-[ext_resource type="Texture2D" uid="uid://m2xojhetr0ki" path="res://art/Portraits/MiraSmile.png" id="8_owatg"]
+[ext_resource type="Texture2D" uid="uid://drchu12836h35" path="res://art/Portraits/MiraSmile_low.png" id="8_7ao67"]
 [ext_resource type="Texture2D" uid="uid://c30r3sp321gye" path="res://UI/Textbox/PictureFrame.png" id="9_t302t"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="9_taoyv"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="10_rchcl"]
@@ -559,13 +559,12 @@ theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="."]
-visible = false
 offset_left = -31.0
 offset_top = 340.0
 offset_right = 2052.0
 offset_bottom = 2423.0
 scale = Vector2(0.22, 0.22)
-texture = ExtResource("8_owatg")
+texture = ExtResource("8_7ao67")
 
 [node name="Shadow" type="TextureRect" parent="Portrait"]
 modulate = Color(0, 0, 0, 0.513726)
@@ -577,7 +576,7 @@ offset_top = 150.0
 offset_right = 9466.0
 offset_bottom = 9746.0
 scale = Vector2(0.22, 0.22)
-texture = ExtResource("8_owatg")
+texture = ExtResource("8_7ao67")
 
 [node name="PictureFrame" type="TextureRect" parent="."]
 clip_children = 1

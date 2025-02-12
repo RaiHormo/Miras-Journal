@@ -763,6 +763,7 @@ events = [SubResource("InputEventAction_p5u4y")]
 
 [node name="MainMenu" type="CanvasLayer"]
 process_mode = 3
+physics_interpolation_mode = 2
 script = ExtResource("1_5tx7f")
 
 [node name="Ring" type="TextureRect" parent="."]
@@ -807,7 +808,9 @@ texture = ExtResource("2_w0qna")
 position = Vector2(643, 421)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5gyu0")
-animation = &"Close"
+animation = &"Open"
+frame = 8
+frame_progress = 1.0
 
 [node name="Rail" type="Path2D" parent="."]
 position = Vector2(458, 235)
@@ -888,6 +891,7 @@ clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="DescPaper" type="TextureRect" parent="."]
+visible = false
 use_parent_material = true
 offset_left = 737.0
 offset_top = 238.0
@@ -979,6 +983,7 @@ position = Vector2(360.203, -211.238)
 scale = Vector2(0.395651, 0.395651)
 
 [node name="Inventory" type="PanelContainer" parent="."]
+visible = false
 use_parent_material = true
 offset_left = 241.0
 offset_top = 96.0

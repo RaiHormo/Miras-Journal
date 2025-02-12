@@ -460,10 +460,6 @@ func check_member(mem:Actor, node:Panel, ind):
 	txt_color.v = min(txt_color.v, 0.75)
 	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", txt_color)
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
-	if Expanded:
-		get_node("%Pages/Page"+str(ind)+"/Render").texture = mem.RenderArtwork
-		get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = mem.RenderShadow
-	get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = mem.PartyPage
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
 	node.get_node("Health").max_value = mem.MaxHP
 	draw_bar(mem, node)
@@ -475,6 +471,13 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Health/HpText").text = str(mem.Health)
 	node.get_node("Aura/ApText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
+	if Expanded:
+		if get_node("%Pages/Page"+str(ind)+"/Render").texture == null:
+			get_node("%Pages/Page"+str(ind)+"/Render").texture = await mem.RenderArtwork()
+		if get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture == null:
+			get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = await mem.RenderShadow()
+		if get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture == null:
+			get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = await mem.PartyPage()
 	await check_for_levelups(mem, node)
 
 func check_for_levelups(mem:Actor, node:Panel):

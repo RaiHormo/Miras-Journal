@@ -26,6 +26,7 @@ SummonedAllies = Array[ExtResource("2_o0ova")]([ExtResource("7_dv84l"), ExtResou
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
+PartyPageName = ""
 Controllable = false
 HpOnSLvUp = 25
 ApOnSLvUP = 10

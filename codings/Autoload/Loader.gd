@@ -25,6 +25,7 @@ var Preview
 var BtAdvantage = 0
 var data: SaveFile
 var SaveFiles: Array[SaveFile]
+var LowTextures:= true
 signal battle_start
 signal battle_end
 signal ungray
@@ -150,14 +151,19 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 
 func load_res(path: String) -> Resource:
 	load_failed = false
-	loaded_resource = path
 	var frame := Global.ProcessFrame
-	ResourceLoader.load_threaded_request(path)
+	if LowTextures:
+		if FileAccess.file_exists(path.replace(".png", "_low.png")):
+			path = path.replace(".png", "_low.png")
+	loaded_resource = path
+	if FileAccess.file_exists(path):
+		ResourceLoader.load_threaded_request(path)
+	else: push_error("Resource "+ path+ " not found")
 	loading_thread = true
 	await thread_loaded
 	if Global.ProcessFrame - frame > 1:
 		print("Loaded resource ", path, " in ", Global.ProcessFrame - frame, " frames")
-	if load_failed: return null
+	#if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
@@ -351,6 +357,7 @@ func end_battle():
 		t.tween_property(Global.Bt.get_node("Background"), "modulate", Color.TRANSPARENT, 0.5)
 		hide_victory_stuff()
 	InBattle = false
+	Global.get_cam().position_smoothing_enabled = true
 	battle_end.emit()
 
 	if not is_instance_valid(Global.Player): return
@@ -467,7 +474,7 @@ To find the directory where save files and logs are located, launch the game and
 " ,"THE RESOURCE FAILED TO LOAD!")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
-		OS.alert("THE RESOURCE DOESN'T EXIST YOU IDIOT!")
+		OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
 		load_failed = true
 
 func chase_mode():

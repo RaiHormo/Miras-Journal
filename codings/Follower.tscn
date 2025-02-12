@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://da22xhcxygcjl"]
 
-[ext_resource type="Script" path="res://codings/follower_movement.gd" id="1_kihhu"]
+[ext_resource type="Script" uid="uid://plp0a8d856yh" path="res://codings/follower_movement.gd" id="1_kihhu"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_ppxuy"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_vmt3u"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_qao14"]
@@ -30,6 +30,8 @@ script = ExtResource("1_kihhu")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 25.0
 target_desired_distance = 25.0
+simplify_path = true
+simplify_epsilon = 12.0
 debug_path_custom_color = Color(0.984314, 0.411765, 0.552941, 1)
 
 [node name="Timer" type="Timer" parent="."]

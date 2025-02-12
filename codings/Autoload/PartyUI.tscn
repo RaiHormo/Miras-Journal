@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=88 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -18,7 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://UI/joystick/virtual_joystick.tscn" id="16_86i7e"]
-[ext_resource type="Texture2D" uid="uid://drtjopmyeh8ib" path="res://art/Journal/Auras/PhoenixWings.png" id="19_cxgq7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
 shader = ExtResource("2_v7eva")
@@ -1209,7 +1208,6 @@ offset_left = 53.8653
 offset_top = 118.951
 offset_right = 1070.87
 offset_bottom = 1433.95
-texture = ExtResource("19_cxgq7")
 
 [node name="Label" type="Label" parent="CanvasLayer/Pages/Page0"]
 layout_mode = 0

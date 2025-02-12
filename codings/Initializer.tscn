@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3cdediw7jna7" path="res://codings/initializer.gd" id="1_tesvr"]
 [ext_resource type="Texture2D" uid="uid://cvnuw1n43hcfj" path="res://art/Branding/splash.png" id="2_s81ns"]
-[ext_resource type="Texture2D" uid="uid://n36jl1cn0820" path="res://art/Branding/logo_solid.png" id="4_ryp1b"]
+[ext_resource type="Texture2D" uid="uid://byelv1407kucs" path="res://art/Branding/logo_solid_low.png" id="4_ee01i"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="5_li13k"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="5_ljri5"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_hsai6"]
@@ -98,7 +98,7 @@ offset_top = 50.0
 offset_right = 3033.0
 offset_bottom = 1566.0
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_ryp1b")
+texture = ExtResource("4_ee01i")
 
 [node name="Label" type="Label" parent="TitleScreen"]
 offset_left = 760.0
