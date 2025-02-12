@@ -7,7 +7,7 @@ extends Area2D
 @export var ToCameraIfFlag: int = 0
 
 func _on_entered(body):
-	if body == Global.Player and Global.Controllable:
+	if body == Global.Player:
 		proceed()
 
 func proceed() -> void:

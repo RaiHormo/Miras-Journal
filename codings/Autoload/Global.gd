@@ -59,6 +59,7 @@ func _ready() -> void:
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	Input.start_joy_vibration(0, 1, 0, 0.1)
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 
 func quit() -> void:
 	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
@@ -168,6 +169,7 @@ func new_game() -> void:
 	Player.set_anim("IdleUp")
 	Controllable = true
 	Event.Day = 10
+	Event.TimeOfDay = Event.TOD.NIGHT
 	Event.pop_tutorial("walk")
 	Loader.save()
 
@@ -769,16 +771,8 @@ func is_mem_healed(chara: Actor):
 #endregion
 
 #region Quick Actions
-func jump_to(character: Node, position: Vector2, time: float = 5, height: float = 0.5) -> void:
-	var t:Tween = create_tween()
-	var start = character.position
-	var jump_distance : float = start.distance_to(position)
-	var jump_height : float = jump_distance * height #will need tweaking
-	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
-	await t.finished
-	anim_done.emit()
+func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
+	await jump_to_global(character, Area.to_global(position), time, height)
 
 func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1) -> void:
 	var t:Tween = create_tween()

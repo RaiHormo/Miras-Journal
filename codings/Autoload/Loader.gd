@@ -153,10 +153,10 @@ func load_res(path: String) -> Resource:
 	load_failed = false
 	var frame := Global.ProcessFrame
 	if LowTextures:
-		if FileAccess.file_exists(path.replace(".png", "_low.png")):
+		if ResourceLoader.exists(path.replace(".png", "_low.png")):
 			path = path.replace(".png", "_low.png")
 	loaded_resource = path
-	if FileAccess.file_exists(path):
+	if ResourceLoader.exists(path):
 		ResourceLoader.load_threaded_request(path)
 	else: push_error("Resource "+ path+ " not found")
 	loading_thread = true

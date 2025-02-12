@@ -450,7 +450,7 @@ locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.di
 [physics]
 
 2d/run_on_separate_thread=true
-common/physics_ticks_per_second=15
+common/physics_ticks_per_second=30
 common/physics_jitter_fix=0.0
 3d/physics_engine="Dummy"
 2d/default_gravity=0.0
@@ -459,14 +459,11 @@ common/physics_interpolation=true
 [rendering]
 
 occlusion_culling/bvh_build_quality=0
-rendering_device/pipeline_cache/enable=false
-rendering_device/d3d12/max_resource_descriptors_per_frame=1024
-textures/vram_compression/import_etc2_astc=true
+rendering_device/d3d12/max_resource_descriptors_per_frame=2048
 textures/vram_compression/cache_gpu_compressor=false
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
+lights_and_shadows/directional_shadow/size=2048
 2d/batching/uniform_set_cache_size=256
 textures/default_filters/anisotropic_filtering_level=0
-textures/decals/filter=1
 environment/glow/upscale_mode=0
 environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
 lightmapping/bake_quality/medium_quality_probe_ray_count=1

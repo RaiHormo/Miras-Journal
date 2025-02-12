@@ -115,7 +115,8 @@ func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 		var rand
 		if sprite.frame == 0: rand = str(randi_range(1,3))
 		else: rand = str(randi_range(4,6))
-		if !$StdrFootsteps.get_node(get_terrain() + str(rand)): return
+		if $StdrFootsteps.get_node_or_null(get_terrain() + str(rand)) == null:
+			return
 		#print(get_terrain())
 		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
 

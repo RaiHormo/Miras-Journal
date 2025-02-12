@@ -211,9 +211,6 @@ func _on_area_entered(area: Area2D) -> void:
 			CanInteract = true
 
 func _on_area_exited(area: Area2D) -> void:
-	if Loader.InBattle or not is_instance_valid(Global.Player):
-		pack.hide()
-		return
-	if CanInteract:
+	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
 		await disappear()
 		CanInteract = false
