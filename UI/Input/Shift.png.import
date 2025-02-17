@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bix8y5mi8nwtc"
 path.s3tc="res://.godot/imported/Shift.png-9404afd7039832d53e67ba2e8f10d01c.s3tc.ctex"
-path.etc2="res://.godot/imported/Shift.png-9404afd7039832d53e67ba2e8f10d01c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Input/Shift.png"
-dest_files=["res://.godot/imported/Shift.png-9404afd7039832d53e67ba2e8f10d01c.s3tc.ctex", "res://.godot/imported/Shift.png-9404afd7039832d53e67ba2e8f10d01c.etc2.ctex"]
+dest_files=["res://.godot/imported/Shift.png-9404afd7039832d53e67ba2e8f10d01c.s3tc.ctex"]
 
 [params]
 

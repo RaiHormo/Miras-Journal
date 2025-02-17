@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6e2vcb7sglq0"
 path.s3tc="res://.godot/imported/Alcine_low.png-823eba2fd5d19f0995d337ef5338b838.s3tc.ctex"
-path.etc2="res://.godot/imported/Alcine_low.png-823eba2fd5d19f0995d337ef5338b838.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Renders/Alcine_low.png"
-dest_files=["res://.godot/imported/Alcine_low.png-823eba2fd5d19f0995d337ef5338b838.s3tc.ctex", "res://.godot/imported/Alcine_low.png-823eba2fd5d19f0995d337ef5338b838.etc2.ctex"]
+dest_files=["res://.godot/imported/Alcine_low.png-823eba2fd5d19f0995d337ef5338b838.s3tc.ctex"]
 
 [params]
 

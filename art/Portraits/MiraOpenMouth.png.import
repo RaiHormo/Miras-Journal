@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgcw3h0xlu5ms"
 path.s3tc="res://.godot/imported/MiraOpenMouth.png-61f67cb087e5ecc48585a551731a41c5.s3tc.ctex"
-path.etc2="res://.godot/imported/MiraOpenMouth.png-61f67cb087e5ecc48585a551731a41c5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Portraits/MiraOpenMouth.png"
-dest_files=["res://.godot/imported/MiraOpenMouth.png-61f67cb087e5ecc48585a551731a41c5.s3tc.ctex", "res://.godot/imported/MiraOpenMouth.png-61f67cb087e5ecc48585a551731a41c5.etc2.ctex"]
+dest_files=["res://.godot/imported/MiraOpenMouth.png-61f67cb087e5ecc48585a551731a41c5.s3tc.ctex"]
 
 [params]
 

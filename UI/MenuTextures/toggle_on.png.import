@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://daasx8kvi6kbq"
 path.s3tc="res://.godot/imported/toggle_on.png-1a45677da64f0cec80cbcb221d6ca061.s3tc.ctex"
-path.etc2="res://.godot/imported/toggle_on.png-1a45677da64f0cec80cbcb221d6ca061.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/toggle_on.png"
-dest_files=["res://.godot/imported/toggle_on.png-1a45677da64f0cec80cbcb221d6ca061.s3tc.ctex", "res://.godot/imported/toggle_on.png-1a45677da64f0cec80cbcb221d6ca061.etc2.ctex"]
+dest_files=["res://.godot/imported/toggle_on.png-1a45677da64f0cec80cbcb221d6ca061.s3tc.ctex"]
 
 [params]
 

@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://n36jl1cn0820"
 path.s3tc="res://.godot/imported/logo_solid.png-902a4d5f2761803085c314493c16db6b.s3tc.ctex"
-path.etc2="res://.godot/imported/logo_solid.png-902a4d5f2761803085c314493c16db6b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Branding/logo_solid.png"
-dest_files=["res://.godot/imported/logo_solid.png-902a4d5f2761803085c314493c16db6b.s3tc.ctex", "res://.godot/imported/logo_solid.png-902a4d5f2761803085c314493c16db6b.etc2.ctex"]
+dest_files=["res://.godot/imported/logo_solid.png-902a4d5f2761803085c314493c16db6b.s3tc.ctex"]
 
 [params]
 

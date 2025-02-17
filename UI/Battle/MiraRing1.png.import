@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpdhp4otp83om"
 path.s3tc="res://.godot/imported/MiraRing1.png-00df312f0c217fbc1387c2104235a27b.s3tc.ctex"
-path.etc2="res://.godot/imported/MiraRing1.png-00df312f0c217fbc1387c2104235a27b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Battle/MiraRing1.png"
-dest_files=["res://.godot/imported/MiraRing1.png-00df312f0c217fbc1387c2104235a27b.s3tc.ctex", "res://.godot/imported/MiraRing1.png-00df312f0c217fbc1387c2104235a27b.etc2.ctex"]
+dest_files=["res://.godot/imported/MiraRing1.png-00df312f0c217fbc1387c2104235a27b.s3tc.ctex"]
 
 [params]
 

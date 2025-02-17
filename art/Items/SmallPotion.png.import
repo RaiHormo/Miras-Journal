@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccfqo6konaev3"
 path.s3tc="res://.godot/imported/SmallPotion.png-5300e10ed409ee595423f40b2d4a4ab2.s3tc.ctex"
-path.etc2="res://.godot/imported/SmallPotion.png-5300e10ed409ee595423f40b2d4a4ab2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Items/SmallPotion.png"
-dest_files=["res://.godot/imported/SmallPotion.png-5300e10ed409ee595423f40b2d4a4ab2.s3tc.ctex", "res://.godot/imported/SmallPotion.png-5300e10ed409ee595423f40b2d4a4ab2.etc2.ctex"]
+dest_files=["res://.godot/imported/SmallPotion.png-5300e10ed409ee595423f40b2d4a4ab2.s3tc.ctex"]
 
 [params]
 

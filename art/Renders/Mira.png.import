@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqa765cmwj2am"
 path.s3tc="res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.s3tc.ctex"
-path.etc2="res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Renders/Mira.png"
-dest_files=["res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.s3tc.ctex", "res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.etc2.ctex"]
+dest_files=["res://.godot/imported/Mira.png-e849f09a8fe86fd4eab4143d46c0403b.s3tc.ctex"]
 
 [params]
 

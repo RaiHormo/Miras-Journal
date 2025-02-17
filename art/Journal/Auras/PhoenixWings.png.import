@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://drtjopmyeh8ib"
 path.s3tc="res://.godot/imported/PhoenixWings.png-7cdbb81995d39ecdb61e59811aa6c9ec.s3tc.ctex"
-path.etc2="res://.godot/imported/PhoenixWings.png-7cdbb81995d39ecdb61e59811aa6c9ec.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Journal/Auras/PhoenixWings.png"
-dest_files=["res://.godot/imported/PhoenixWings.png-7cdbb81995d39ecdb61e59811aa6c9ec.s3tc.ctex", "res://.godot/imported/PhoenixWings.png-7cdbb81995d39ecdb61e59811aa6c9ec.etc2.ctex"]
+dest_files=["res://.godot/imported/PhoenixWings.png-7cdbb81995d39ecdb61e59811aa6c9ec.s3tc.ctex"]
 
 [params]
 

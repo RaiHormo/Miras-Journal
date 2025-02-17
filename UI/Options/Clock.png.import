@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://2re3wu05q55a"
 path.s3tc="res://.godot/imported/Clock.png-05b34bf051ad6c6780219f9637600af4.s3tc.ctex"
-path.etc2="res://.godot/imported/Clock.png-05b34bf051ad6c6780219f9637600af4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Options/Clock.png"
-dest_files=["res://.godot/imported/Clock.png-05b34bf051ad6c6780219f9637600af4.s3tc.ctex", "res://.godot/imported/Clock.png-05b34bf051ad6c6780219f9637600af4.etc2.ctex"]
+dest_files=["res://.godot/imported/Clock.png-05b34bf051ad6c6780219f9637600af4.s3tc.ctex"]
 
 [params]
 

@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmvya68gkqnwr"
 path.s3tc="res://.godot/imported/Daze.png-4aeac31420823f7e7f7fbc9bf6be1c1d.s3tc.ctex"
-path.etc2="res://.godot/imported/Daze.png-4aeac31420823f7e7f7fbc9bf6be1c1d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Party/Daze.png"
-dest_files=["res://.godot/imported/Daze.png-4aeac31420823f7e7f7fbc9bf6be1c1d.s3tc.ctex", "res://.godot/imported/Daze.png-4aeac31420823f7e7f7fbc9bf6be1c1d.etc2.ctex"]
+dest_files=["res://.godot/imported/Daze.png-4aeac31420823f7e7f7fbc9bf6be1c1d.s3tc.ctex"]
 
 [params]
 

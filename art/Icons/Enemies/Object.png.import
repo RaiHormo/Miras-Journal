@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://budghnw4lgtg4"
 path.s3tc="res://.godot/imported/Object.png-43e89d6ff084f94064bcb3cb51942f8c.s3tc.ctex"
-path.etc2="res://.godot/imported/Object.png-43e89d6ff084f94064bcb3cb51942f8c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Object.png"
-dest_files=["res://.godot/imported/Object.png-43e89d6ff084f94064bcb3cb51942f8c.s3tc.ctex", "res://.godot/imported/Object.png-43e89d6ff084f94064bcb3cb51942f8c.etc2.ctex"]
+dest_files=["res://.godot/imported/Object.png-43e89d6ff084f94064bcb3cb51942f8c.s3tc.ctex"]
 
 [params]
 

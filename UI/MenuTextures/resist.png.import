@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://px7lif53i3a"
 path.s3tc="res://.godot/imported/resist.png-8d5225fd7df3044fc8f34908b3d079a2.s3tc.ctex"
-path.etc2="res://.godot/imported/resist.png-8d5225fd7df3044fc8f34908b3d079a2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/resist.png"
-dest_files=["res://.godot/imported/resist.png-8d5225fd7df3044fc8f34908b3d079a2.s3tc.ctex", "res://.godot/imported/resist.png-8d5225fd7df3044fc8f34908b3d079a2.etc2.ctex"]
+dest_files=["res://.godot/imported/resist.png-8d5225fd7df3044fc8f34908b3d079a2.s3tc.ctex"]
 
 [params]
 

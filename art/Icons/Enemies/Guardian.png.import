@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3lg7n83ygaen"
 path.s3tc="res://.godot/imported/Guardian.png-38c08220928b14f55a159fc6a3cf6213.s3tc.ctex"
-path.etc2="res://.godot/imported/Guardian.png-38c08220928b14f55a159fc6a3cf6213.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Guardian.png"
-dest_files=["res://.godot/imported/Guardian.png-38c08220928b14f55a159fc6a3cf6213.s3tc.ctex", "res://.godot/imported/Guardian.png-38c08220928b14f55a159fc6a3cf6213.etc2.ctex"]
+dest_files=["res://.godot/imported/Guardian.png-38c08220928b14f55a159fc6a3cf6213.s3tc.ctex"]
 
 [params]
 

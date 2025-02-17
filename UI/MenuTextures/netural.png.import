@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpuhucpv12na5"
 path.s3tc="res://.godot/imported/netural.png-5a1f8ccc1e01a20ac20eddfc39bc8968.s3tc.ctex"
-path.etc2="res://.godot/imported/netural.png-5a1f8ccc1e01a20ac20eddfc39bc8968.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/netural.png"
-dest_files=["res://.godot/imported/netural.png-5a1f8ccc1e01a20ac20eddfc39bc8968.s3tc.ctex", "res://.godot/imported/netural.png-5a1f8ccc1e01a20ac20eddfc39bc8968.etc2.ctex"]
+dest_files=["res://.godot/imported/netural.png-5a1f8ccc1e01a20ac20eddfc39bc8968.s3tc.ctex"]
 
 [params]
 

@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdhubvc22s2m3"
 path.s3tc="res://.godot/imported/AlcineTired_low.png-fcec723e9fe58348d87583c7c9fc2d09.s3tc.ctex"
-path.etc2="res://.godot/imported/AlcineTired_low.png-fcec723e9fe58348d87583c7c9fc2d09.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Portraits/AlcineTired_low.png"
-dest_files=["res://.godot/imported/AlcineTired_low.png-fcec723e9fe58348d87583c7c9fc2d09.s3tc.ctex", "res://.godot/imported/AlcineTired_low.png-fcec723e9fe58348d87583c7c9fc2d09.etc2.ctex"]
+dest_files=["res://.godot/imported/AlcineTired_low.png-fcec723e9fe58348d87583c7c9fc2d09.s3tc.ctex"]
 
 [params]
 

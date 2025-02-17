@@ -4,16 +4,15 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbm8n24gg6gk8"
 path.s3tc="res://.godot/imported/Yaru.png-10161e21e8aefaa2082a09fe2db71d01.s3tc.ctex"
-path.etc2="res://.godot/imported/Yaru.png-10161e21e8aefaa2082a09fe2db71d01.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Party/Yaru.png"
-dest_files=["res://.godot/imported/Yaru.png-10161e21e8aefaa2082a09fe2db71d01.s3tc.ctex", "res://.godot/imported/Yaru.png-10161e21e8aefaa2082a09fe2db71d01.etc2.ctex"]
+dest_files=["res://.godot/imported/Yaru.png-10161e21e8aefaa2082a09fe2db71d01.s3tc.ctex"]
 
 [params]
 
