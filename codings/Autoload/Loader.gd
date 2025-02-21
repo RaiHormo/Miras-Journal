@@ -297,6 +297,16 @@ func dismiss_load_icon():
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
 	if get_node_or_null("/root/Battle") or InBattle: return
+	if stg is String:
+		Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
+	elif stg is BattleSequence:
+		Seq = stg
+	else:
+		Global.toast("The battle sequence isn't set here, you probably should fix this.")
+		await Event.wait(0.3)
+		Event.give_control()
+		PartyUI.show_all()
+		return
 	Loader.InBattle = true
 	BattleResult = 0
 	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
@@ -308,13 +318,6 @@ func start_battle(stg, advantage := 0):
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
-	if stg is String:
-		Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
-	elif stg is BattleSequence:
-		Seq = stg
-	else:
-		OS.alert("THIS IS NOT A VALID BATTLE SEQUENCE", "YOU IDIOT")
-		return
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
 		if is_instance_valid(Attacker):

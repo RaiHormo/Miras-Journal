@@ -2,6 +2,7 @@ extends Area2D
 class_name JumpPoint
 @export var jump_dirs: Array[Vector2]
 @export var jump_am:= 1
+@export var jump_am_v:= 0
 @export var time:= 5
 @export var height:= 0.5
 @export var DoubleJumpDir: Vector2
@@ -14,9 +15,9 @@ func _physics_process(delta: float) -> void:
 	if busy: return
 	for body in get_overlapping_bodies():
 		if body == Global.Player:
-			Global.Player.can_jump = true
+			Global.Player.can_jump = true if Global.get_direction() in jump_dirs else false
 			if Global.Player.dashing and Global.Controllable:
-				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1)):
+				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):
 					busy = true
 					var prev_z = Global.Player.z_index
 					Global.Player.BodyState = NPC.NONE
@@ -25,7 +26,7 @@ func _physics_process(delta: float) -> void:
 					Global.Player.collision(false)
 					var coord: Vector2 = Global.Player.global_position
 					round(coord)
-					coord += (jump_am*24) * Global.Player.dashdir
+					coord += (jump_am*24) * Global.Player.dashdir + Vector2(0, jump_am_v*24)
 					Global.Player.set_anim("Dash"+Global.get_dir_name(Global.Player.dashdir)+"Loop")
 					Global.Player.used_sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)
