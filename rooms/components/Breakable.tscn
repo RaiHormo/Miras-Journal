@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_8gdfr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bd8qp"]
-size = Vector2(13, 43)
+size = Vector2(18, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8q2"]
 size = Vector2(20, 18)
@@ -16,6 +16,7 @@ script = ExtResource("1_avy7v")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_bd8qp")
+debug_color = Color(0.91, 0.5096, 0.52962, 0.239216)
 
 [node name="AreaBreak" type="Area2D" parent="."]
 collision_layer = 512

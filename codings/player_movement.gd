@@ -37,7 +37,6 @@ func _ready() -> void:
 	Loader.InBattle = false
 	if not is_clone:
 		Global.Player = self
-		Global.Follower[0] = self
 		var cam: Camera2D = Global.get_cam()
 		if cam != null:
 			for i in Global.Area.get_children():
@@ -296,13 +295,15 @@ func reset_speed() -> void:
 	for i in $Sprite.get_children():
 		i.speed_scale=1
 
-func bump() -> void:
+func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	direction = Vector2.ZERO
-	Global.jump_to_global(self, global_position - dashdir*15, 15, 0.5)
+	if dir == Vector2.ZERO: dir = dashdir
+	Global.jump_to_global(self, global_position - dir*15, 15, 0.5)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
-	Global.Controllable=false
+	var mem = Global.Controllable
+	Global.Controllable = false
 	if used_sprite.is_playing(): await used_sprite.animation_finished
-	Global.Controllable=true
+	Global.Controllable = mem
 
 func camera_follow(follow = !$Camera2D.update_position) -> void:
 	$Camera2D.update_position = follow

@@ -3,7 +3,7 @@ class_name Interactable
 
 signal action()
 @export var LabelText : String = "Inspect"
-@export var ActionType: String
+@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "vainet", "focus_cam") var ActionType: String
 @export var Length: int = 120
 @export var file: String = ""
 @export var title: String = ""
@@ -57,8 +57,10 @@ func check() -> void:
 		else: queue_free()
 	if not Global.Controllable and CanInteract:
 		disappear()
-	elif Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract:
+		CanInteract = false
+	elif Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract:
 		appear()
+		CanInteract = true
 
 func appear():
 	if not CanInteract and not animating:
@@ -202,7 +204,7 @@ func _on_button_pressed() -> void:
 	action.emit()
 
 func _on_area_entered(area: Area2D) -> void:
-	if Loader.InBattle or not is_instance_valid(Global.Player):
+	if Loader.InBattle or not Global.Controllable or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):

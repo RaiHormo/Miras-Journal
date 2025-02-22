@@ -2,13 +2,20 @@
 extends Node
 var Controllable : bool = true
 var Audio := AudioStreamPlayer.new()
-var Sprite := Sprite2D.new()
 var Party: PartyData
-var HasPortrait := false
+var Members: Array[Actor]
+var Bt: Battle = null
 var PortraitIMG: Texture
-var PortraitRedraw := true
+var Player: Mira
 var PlayerDir := Vector2.DOWN
 var PlayerPos: Vector2
+var Area: Room
+var Camera: Camera2D:
+	get:
+		return get_cam()
+var CameraInd:= 0
+var Settings: Setting
+var Lights: Array[Light2D] = []
 var device: String = "Keyboard"
 var ProcessFrame := 0
 var LastInput:= 0
@@ -16,18 +23,12 @@ var AltConfirm: bool
 var StartTime:= 0.0
 var PlayTime:= 0.0
 var SaveTime:= 0.0
-var Player:= Mira.new()
-var Follower: Array[CharacterBody2D] = [null, null, null, null]
-var Settings: Setting
-var Bt: Battle = null
-var CameraInd:= 0
-var Members: Array[Actor]
-var Lights: Array[Light2D] = []
-var Area: Room
 var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
 var Passive = preload("res://UI/Textbox/Passive.tscn")
-var ArbData0 = null
+var HasPortrait := false
 var textbox_open:= false
+var PortraitRedraw := true
+var ArbData0 = null
 signal lights_loaded
 signal check_party
 signal anim_done
@@ -49,7 +50,6 @@ var ElementColor: Dictionary = {
 func _ready() -> void:
 	StartTime=Time.get_unix_time_from_system()
 	add_child(Audio)
-	add_child(Sprite)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
@@ -59,7 +59,8 @@ func _ready() -> void:
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	Input.start_joy_vibration(0, 1, 0, 0.1)
-	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+
 
 func quit() -> void:
 	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
@@ -350,7 +351,6 @@ func get_party() -> PartyData:
 
 func check_member(n:int) -> bool:
 	return Party.check_member(n)
-	#Sprite.texture = preload("res://art/Placeholder.png")
 
 func get_member_name(n:int) -> String:
 	if Party.check_member(0) and n==0:
@@ -531,7 +531,6 @@ func get_direction(v: Vector2 = PlayerDir) -> Vector2:
 func get_cam() -> Camera2D:
 	if !is_instance_valid(Area): return Camera2D.new()
 	return Area.Cam
-	#return Area.get_node("Camera"+str(CameraInd))
 
 func str_length(str: String):
 	return str.length()
@@ -557,15 +556,30 @@ func get_month(day: int) -> int:
 	else: return 0
 
 func get_dir_letter(d: Vector2 = PlayerDir) -> String:
-	if get_direction(d) == Vector2.RIGHT:
-		return "R"
-	elif get_direction(d) == Vector2.LEFT:
-		return "L"
-	elif get_direction(d) == Vector2.UP:
-		return "U"
-	elif get_direction(d) == Vector2.DOWN:
-		return "D"
-	else: return "C"
+	match  get_direction(d):
+		Vector2.RIGHT:
+			return "R"
+		Vector2.LEFT:
+			return "L"
+		Vector2.UP:
+			return "U"
+		Vector2.DOWN:
+			return "D"
+		_: return "C"
+
+func get_dir_from_letter(d: String) -> Vector2:
+	match d:
+		"R", "Right":
+			return Vector2.RIGHT
+		"L", "Left":
+			return Vector2.LEFT
+		"U", "Up":
+			return Vector2.UP
+		"D", "Down":
+			return Vector2.DOWN
+		_:
+			return Vector2.ZERO
+
 
 func tilemapize(pos: Vector2) -> void:
 	return Area.local_to_map(pos)
@@ -790,4 +804,17 @@ func heal_in_overworld(target:Actor, ab: Ability):
 	var amount:= int(max(calc_num(ab), target.MaxHP*((calc_num(ab)*target.Magic)*0.02)))
 	target.add_health(amount)
 	check_party.emit()
+
+func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	var dur = ShakeDuration/times
+	var am  = amount
+	for i in range(0, times):
+		am = am - (amount/times)
+		t.tween_property(Camera, "offset",
+		Vector2(randi_range(-am,am), randi_range(-am,am)), dur).as_relative()
+		t.tween_property(Camera, "offset", Vector2.ZERO, dur)
+	await t.finished
 #endregion

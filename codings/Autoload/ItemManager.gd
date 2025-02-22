@@ -40,10 +40,14 @@ func get_animation(icon, named, pickup_anim:= true):
 	Global.check_party.emit()
 
 func add_item(ItemName, type: StringName = &"", animate:= true, player_animate:= true, quantity:= -1):
+	if ItemName == "":
+		Global.toast("You got absolutely nothing!!!")
+		return
 	item = get_item(ItemName, type).duplicate()
 	if type == &"": type = item.ItemType
 	if item == null:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+		return
 	var inv: Array[ItemData] = get_inv(type)
 	if not check_item(ItemName, type):
 		item.Quantity = item.AmountOnAdd if quantity == -1 else quantity
@@ -102,7 +106,7 @@ func use(iteme:ItemData):
 	item = iteme
 	$ItemEffect.use(iteme)
 
-func get_item(iteme, type:StringName = &""):
+func get_item(iteme, type:StringName = &"") -> ItemData:
 	var ritem = null
 	if type == &"": type = find_type(iteme)
 	if iteme is String:
@@ -111,7 +115,9 @@ func get_item(iteme, type:StringName = &""):
 				ritem = i
 		if ritem == null:
 			ritem = load("res://database/Items/" + get_folder(type) + "/"+ iteme + ".tres")
-			if ritem == null: OS.alert("Invalid item ", iteme)
+			if ritem == null:
+				OS.alert("Invalid item ", iteme)
+				return null
 			ritem.filename = iteme
 	elif iteme is ItemData:
 		find_filename(iteme)

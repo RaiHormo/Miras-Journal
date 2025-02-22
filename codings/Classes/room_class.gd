@@ -18,7 +18,7 @@ enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()
-var Followers: Array[Follower] = []
+var Followers: Array[CharacterBody2D] = []
 var Layers: Array[TileMapLayer]
 var CurSubRoom: SubRoom = null
 @export var FlameInInd: Array[int]
@@ -28,6 +28,7 @@ func _ready():
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	Cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	Cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
+	Cam.position_smoothing_speed = 6
 	add_child(Cam)
 	setup_params()
 

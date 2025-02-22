@@ -133,7 +133,7 @@ Mira.Neutural: We should be safe now.
 Mira.Neutural: If it wasn't for you, I'd be done for.
 Mira.Neutural: We should stick together for now, [wait=0.5]umm...
 Mira.Neutural: Wait, do you have a name?
-Mira.Neutural: [next]
+Mira.Neutural: (hide)[next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
 Mira.Neutural: Right, you can't talk. But I need to call you something...
@@ -275,7 +275,7 @@ Alcine.Tired: Meuummm...
 Placeholder description: Mira picks up the paper from yesterday.
 do npc("MiraCut").bubble("Surprise")
 Mira.Neutural: Huh? Is that me?
-Alcine.Happy: Bloop!
+Alcine.Happy: Mloop!
 Mira.Smile: You drew this? That's so cute!
 I guess there is one way we can communicate.
 Maybe I could get important information from {{alcine()}} this way.
@@ -300,4 +300,56 @@ Mira.Smile: Let's keep on the lookout for any castles around, okay?
 
 ~ kick_bridge
 No reason to go back there.
+=> END
+
+~ cast_lines_sg
+do npc("P").look_to("U")
+do Player.camera_follow(false)
+set Camera.position = Vector2(-158, -18)
+do wait(1)
+Mira.Neutural: Look, there are a lot of cast lines scattered around here.
+Mira.Neutural: Is this some sort of spell?
+Asteria.Neutural: This place is a magical organism. This might be just another part of it.
+Mira.Neutural: The entire cave is an organism..?
+Daze.Neutural: I suspect it's more than just this cave.
+Daze.Neutural: The monsters everywhere, they must be a defense mechanism.
+Asteria.Neutural: Right, I don't think we're wanted here...
+Alcine.Upset: ...
+Alcine seems to be bothered by something.
+=> END
+
+~ blocked_cast_lines
+if not f("EvSwitchCastLines2"):
+	Alcine.Neutural: Shaooo!
+	Daze.Neutural: These lines gather towards the center.
+	Asteria.Neutural: Doesn't this look like the thing that broke the crystals last time?
+	- Try touching
+		(hide)
+		do Player.camera_follow(false)
+		do Player.collision(false)
+		do Player.go_to(Vector2(-25, -17),true, false)
+		do! white_fadeout(0.5, 0, 0, 0.5)
+		do! screen_shake()
+		set Player.BodyState = NPC.CUSTOM
+		do Player.bump(Vector2(0, -2))
+		do wait(0.5)
+		Asteria.Neutural: Mira! You okay?
+		Mira.Neutural: Ow.
+		Mira.Neutural: I think there is a protective spell on these.
+	- Back off
+		Mira.Neutural: Everyone, be careful!
+		Mira.Neutural: It looks like there is some sort of protective spell, don't touch that.
+	Daze.Neutural: What could we do about this? Does anyone know how to dispell? 
+	Mira.Neutural: Wild cast patterns like this are hard to decipher.
+	Asteria.Neutural: ...
+	Asteria.Neutural: Maybe someone back at the village would know how.
+	Mira.Neutural: You mean we should return?
+	Daze.Neutural: I think we could all use some rest, no?
+	do Player.camera_follow(true)
+	Asteria.Neutural: There was a Vain nearby, let's head there. 
+	do add_flag("EvSwitchCastLines2")
+else:
+	Asteria.Neutural: Mira! We can't make any progress here unless we despell this.
+	Mira.Neutural: I know, I know.
+	Asteria.Neutural: Then use the Vain to return to the village already!
 => END

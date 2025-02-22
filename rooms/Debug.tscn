@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=79 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_6ip0u"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="13_b8v1n"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="14_bhjcf"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="15_o1gjb"]
+[ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="16_35d7e"]
 [ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
@@ -25,7 +26,6 @@
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="20_8b40e"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="21_pty4k"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="23_5somt"]
-[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="24_dr2v5"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="25_osbeo"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="26_ucpyn"]
 
@@ -524,9 +524,6 @@ region = Rect2(0, 18, 18, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72f6p"]
 size = Vector2(16, 12.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lghs2"]
-size = Vector2(73, 39.0001)
-
 [sub_resource type="Gradient" id="Gradient_5nhgl"]
 interpolation_mode = 2
 interpolation_color_space = 2
@@ -941,21 +938,12 @@ Length = 200
 file = "normal_mode"
 Height = 16
 
-[node name="EvKick" type="Area2D" parent="."]
+[node name="EvKick" parent="." instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)
-collision_mask = 15
-script = ExtResource("24_dr2v5")
 TextFile = "interactions"
-TextNode = "kick_debug"
+TextNode = "debug_kick"
 Flag = "HasBag"
-TakeControl = true
-ReturnControl = true
 KickDirection = Vector2(1, 0)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvKick"]
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_lghs2")
 
 [node name="InteractBush" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(60.2736, 36.5526)
@@ -985,22 +973,8 @@ file = "testbush"
 title = "travel"
 Height = 16
 
-[node name="InteractLamp2" parent="." instance=ExtResource("6_pmuyc")]
-position = Vector2(59.7305, -36.4454)
-script = null
-
-[node name="PointLight2D" type="PointLight2D" parent="InteractLamp2"]
-position = Vector2(0.269501, 0.4454)
-scale = Vector2(4.18577, 3.73135)
-color = Color(1, 0.317647, 0, 1)
-shadow_enabled = true
-shadow_filter_smooth = 11.0
-shadow_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_tk2xs")
-script = ExtResource("7_bbmkb")
-
-[node name="PointLight2D2" type="PointLight2D" parent="InteractLamp2"]
-position = Vector2(241.269, 107.445)
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(301, 70.9996)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
 energy = 0.5
@@ -1136,6 +1110,5 @@ room = "Debug"
 metadata/_edit_group_ = true
 
 [connection signal="area_entered" from="BreakableVinesDB/AreaBreak" to="BreakableVinesDB" method="_on_area_break_area_entered"]
-[connection signal="body_entered" from="EvKick" to="EvKick" method="_on_body_entered"]
 [connection signal="action" from="IteractLamp" to="IteractLamp/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]

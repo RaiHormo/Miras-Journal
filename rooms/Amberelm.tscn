@@ -837,8 +837,6 @@ TextFile = "interactions"
 TextNode = "kick_bridge"
 Flag = "RestAmberelm"
 FlagShouldBe = true
-TakeControl = true
-ReturnControl = true
 KickDirection = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EvKick"]

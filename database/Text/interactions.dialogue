@@ -105,3 +105,12 @@ if f("VPPlains"):
 else:
 	Daze.Neutural: Levenor, this way!
 => END
+
+~ blocked_path_sg1
+Mira.Neutural: This way seems to be blocked by some weird crystals.
+Asteria.Neutural: There should be a way to get past them, let's look around
+=> END
+
+~ blocked_path_sg2
+Daze.Neutural: Another blocked path...
+=> END

@@ -44,8 +44,12 @@ var dialogue_line: DialogueLine:
 		dialogue_line = next_dialogue_line
 		var char_name = tr(dialogue_line.character, "dialogue")
 
-		if dialogue_line.text == " ":
+		if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
 			await hide_box()
+			next(dialogue_line.next_id)
+			char_name = ""
+			return
+
 
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		while "." in char_name:
@@ -254,6 +258,10 @@ func hide_box():
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
 	balloon.hide()
+	Global.portrait_clear()
+	$Portrait.texture = null
+	Global.PortraitRedraw = true
+	character_label.text = " "
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false

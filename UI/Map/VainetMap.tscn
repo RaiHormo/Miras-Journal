@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://b31w3e1tiwp0y"]
 
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_0ev4o"]
-[ext_resource type="Script" path="res://codings/UIScripts/vainet_map.gd" id="1_osakl"]
+[ext_resource type="Script" uid="uid://b4ww3rphxb7qi" path="res://codings/UIScripts/vainet_map.gd" id="1_osakl"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="2_l6jq8"]
 [ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="2_u17cs"]
 [ext_resource type="Texture2D" uid="uid://d15lsfxr4aggu" path="res://UI/MenuTextures/dot.png" id="5_mub7m"]
@@ -278,6 +278,16 @@ offset_bottom = 361.0
 pivot_offset = Vector2(23, 24)
 texture = ExtResource("2_u17cs")
 
+[node name="Deep Underground" type="TextureRect" parent="Map"]
+light_mask = 0
+layout_mode = 0
+offset_left = 480.0
+offset_top = 313.0
+offset_right = 528.0
+offset_bottom = 361.0
+pivot_offset = Vector2(23, 24)
+texture = ExtResource("2_u17cs")
+
 [node name="Container" type="PanelContainer" parent="."]
 light_mask = 0
 layout_mode = 0
@@ -399,6 +409,29 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Underground"
+icon = ExtResource("5_mub7m")
+alignment = 0
+expand_icon = true
+metadata/Room = "ShardGardens"
+metadata/CamID = 1
+
+[node name="Deep Underground" type="Button" parent="Container/Scroller/LocationList"]
+light_mask = 0
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_mgbs5")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+text = "Deep Underground"
 icon = ExtResource("5_mub7m")
 alignment = 0
 expand_icon = true

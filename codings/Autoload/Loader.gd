@@ -254,8 +254,8 @@ func done():
 	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
-	Event.give_control(false)
 	await detransition()
+	Event.give_control(false)
 
 func detransition():
 	if direc == "none": return
@@ -484,7 +484,7 @@ func chase_mode():
 	CamZoom = Global.get_cam().zoom
 	chased = true
 
-func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1):
+func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1, opacity: float = 1):
 	$Can.show()
 	var fader:ColorRect = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
@@ -492,7 +492,7 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = Color.WHITE
 	var tf = create_tween()
-	tf.tween_property(fader, "modulate", Color.WHITE, in_time)
+	tf.tween_property(fader, "modulate", Color(1,1,1,opacity), in_time)
 	await tf.finished
 	await Event.wait(wait_time, false)
 	$Can.show()

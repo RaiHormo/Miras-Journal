@@ -415,10 +415,7 @@ func create_resource_from_text(text: String) -> Resource:
 ## Show the example balloon
 func show_example_dialogue_balloon(resource: DialogueResource, title: String = "", extra_game_states: Array = []) -> CanvasLayer:
 	var balloon: Node = load(_get_example_balloon_path()).instantiate()
-	get_current_scene.call().add_child(balloon)
-	balloon.start(resource, title, extra_game_states)
-	dialogue_started.emit(resource)
-
+	_start_balloon.call_deferred(balloon, resource, title, extra_game_states)
 	return balloon
 
 
@@ -438,7 +435,14 @@ func show_dialogue_balloon_scene(balloon_scene, resource: DialogueResource, titl
 		balloon_scene = balloon_scene.instantiate()
 
 	var balloon: Node = balloon_scene
-	get_current_scene.call().add_child.call_deferred(balloon)
+	_start_balloon.call_deferred(balloon, resource, title, extra_game_states)
+	return balloon
+
+
+# Call "start" on the given balloon.
+func _start_balloon(balloon: Node, resource: DialogueResource, title: String, extra_game_states: Array) -> void:
+	get_current_scene.call().add_child(balloon)
+
 	if balloon.has_method(&"start"):
 		balloon.start(resource, title, extra_game_states)
 	elif balloon.has_method(&"Start"):
@@ -447,7 +451,6 @@ func show_dialogue_balloon_scene(balloon_scene, resource: DialogueResource, titl
 		assert(false, DMConstants.translate(&"runtime.dialogue_balloon_missing_start_method"))
 
 	dialogue_started.emit(resource)
-	return balloon
 
 
 # Get the path to the example balloon
@@ -680,7 +683,7 @@ func _mutate(mutation: Dictionary, extra_game_states: Array, is_inline_mutation:
 		var args: Array = await _resolve_each(expression[0].value, extra_game_states)
 		match expression[0].function:
 			&"wait", &"Wait":
-				mutated.emit(mutation)
+				mutated.emit(mutation.merged({ is_inline = is_inline_mutation }))
 				await Engine.get_main_loop().create_timer(float(args[0])).timeout
 				return
 
@@ -691,7 +694,7 @@ func _mutate(mutation: Dictionary, extra_game_states: Array, is_inline_mutation:
 	# Or pass through to the resolver
 	else:
 		if not _mutation_contains_assignment(mutation.expression) and not is_inline_mutation:
-			mutated.emit(mutation)
+			mutated.emit(mutation.merged({ is_inline = is_inline_mutation }))
 
 		if mutation.get("is_blocking", true):
 			await _resolve(mutation.expression.duplicate(true), extra_game_states)
@@ -709,14 +712,6 @@ func _mutation_contains_assignment(mutation: Array) -> bool:
 		if token.type == DMConstants.TOKEN_ASSIGNMENT:
 			return true
 	return false
-
-
-# Resolve an array of expressions.
-func _resolve_each(array: Array, extra_game_states: Array) -> Array:
-	var results: Array = []
-	for item in array:
-		results.append(await _resolve(item.duplicate(true), extra_game_states))
-	return results
 
 
 # Replace an array of line IDs with their response prompts
@@ -841,8 +836,20 @@ func _get_state_shortcut_names(extra_game_states: Array) -> String:
 	return ", ".join(states.map(func(s): return "\"%s\"" % (s.name if "name" in s else s)))
 
 
+# Resolve an array of expressions.
+func _resolve_each(array: Array, extra_game_states: Array) -> Array:
+	var results: Array = []
+	for item in array:
+		if not item[0].type in [DMConstants.TOKEN_BRACE_CLOSE, DMConstants.TOKEN_BRACKET_CLOSE, DMConstants.TOKEN_PARENS_CLOSE]:
+			results.append(await _resolve(item.duplicate(true), extra_game_states))
+	return results
+
+
 # Collapse any expressions
 func _resolve(tokens: Array, extra_game_states: Array):
+	var i: int = 0
+	var limit: int = 0
+
 	# Handle groups first
 	for token in tokens:
 		if token.type == DMConstants.TOKEN_GROUP:
@@ -850,8 +857,8 @@ func _resolve(tokens: Array, extra_game_states: Array):
 			token.value = await _resolve(token.value, extra_game_states)
 
 	# Then variables/methods
-	var i: int = 0
-	var limit: int = 0
+	i = 0
+	limit = 0
 	while i < tokens.size() and limit < 1000:
 		limit += 1
 		var token: Dictionary = tokens[i]
@@ -1355,16 +1362,23 @@ func _thing_has_property(thing: Object, property: String) -> bool:
 	return false
 
 
-func _get_method_info_for(thing, method: String) -> Dictionary:
+func _get_method_info_for(thing: Variant, method: String, args: Array) -> Dictionary:
 	# Use the thing instance id as a key for the caching dictionary.
 	var thing_instance_id: int = thing.get_instance_id()
 	if not _method_info_cache.has(thing_instance_id):
 		var methods: Dictionary = {}
 		for m in thing.get_method_list():
-			methods[m.name] = m
+			methods["%s:%d" % [m.name, m.args.size()]] = m
+			if not methods.has(m.name):
+				methods[m.name] = m
 		_method_info_cache[thing_instance_id] = methods
 
-	return _method_info_cache.get(thing_instance_id, {}).get(method)
+	var methods: Dictionary = _method_info_cache.get(thing_instance_id, {})
+	var method_key: String = "%s:%d" % [method, args.size()]
+	if methods.has(method_key):
+		return methods.get(method_key)
+	else:
+		return methods.get(method)
 
 
 func _resolve_thing_method(thing, method: String, args: Array):
@@ -1375,7 +1389,7 @@ func _resolve_thing_method(thing, method: String, args: Array):
 
 	if thing.has_method(method):
 		# Try to convert any literals to the right type
-		var method_info: Dictionary = _get_method_info_for(thing, method)
+		var method_info: Dictionary = _get_method_info_for(thing, method, args)
 		var method_args: Array = method_info.args
 		if method_info.flags & METHOD_FLAG_VARARG == 0 and method_args.size() < args.size():
 			assert(false, DMConstants.translate(&"runtime.expected_n_got_n_args").format({ expected = method_args.size(), method = method, received = args.size()}))
