@@ -25,7 +25,6 @@ var Preview
 var BtAdvantage = 0
 var data: SaveFile
 var SaveFiles: Array[SaveFile]
-var LowTextures:= true
 signal battle_start
 signal battle_end
 signal ungray
@@ -152,7 +151,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 func load_res(path: String) -> Resource:
 	load_failed = false
 	var frame := Global.ProcessFrame
-	if LowTextures:
+	if not Global.Settings.HighResTextures:
 		if ResourceLoader.exists(path.replace(".png", "_low.png")):
 			path = path.replace(".png", "_low.png")
 	loaded_resource = path
@@ -335,7 +334,7 @@ func start_battle(stg, advantage := 0):
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()
-	for i in Global.Follower:
+	for i in Global.Area.Followers:
 		if is_instance_valid(i) and is_instance_valid(Global.Player):
 			i.hide()
 			i.global_position = Global.Player.position

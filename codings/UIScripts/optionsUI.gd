@@ -285,6 +285,7 @@ func load_settings():
 	%SettingsVbox/DebugMode.button_pressed = Global.Settings.DebugMode
 	%SettingsVbox/Vsync/CheckButton.button_pressed = Global.Settings.VSync
 	%SettingsVbox/GlowEffect/CheckButton.button_pressed = Global.Settings.GlowEffect
+	%SettingsVbox/HighResTextures/CheckButton.button_pressed = Global.Settings.HighResTextures
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -305,6 +306,7 @@ func load_settings():
 	%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
 	%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
 	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
+
 
 func load_save_files():
 	for i in %Files.get_children():
@@ -628,3 +630,10 @@ func _on_credits() -> void:
 	t.set_parallel()
 	t.tween_property($GalleryPanel,"position:x", 330, 0.3)
 	t.tween_property($MainButtons/Gallery, "position:x", 74, 0.3)
+
+
+func _on_highres_textures(toggle: bool) -> void:
+	Global.Settings.HighResTextures = toggle
+	Global.apply_settings()
+	confirm()
+	load_settings()

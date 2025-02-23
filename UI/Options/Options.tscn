@@ -771,7 +771,8 @@ layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
-text = "Input"
+text = "
+Input"
 
 [node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -982,8 +983,8 @@ layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
-text = "Display
-"
+text = "
+Display"
 
 [node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1003,6 +1004,34 @@ layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
+
+[node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "High resoultion textures"
+
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+alignment = 2
+
+[node name="HighResText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
+theme_override_font_sizes/font_size = 32
+text = "Useful beyond 1080p resolution.
+Uses more memory."
 
 [node name="FPS" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1161,7 +1190,8 @@ layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
-text = "Audio"
+text = "
+Audio"
 
 [node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1332,7 +1362,8 @@ layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
-text = "System"
+text = "
+System"
 
 [node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1451,6 +1482,7 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1783,6 +1815,7 @@ texture = ExtResource("26_375bk")
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/HighResTextures/CheckButton" to="." method="_on_highres_textures"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="_fps"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="confirm"]

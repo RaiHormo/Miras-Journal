@@ -8,7 +8,8 @@ class_name Setting
 @export var ControlSchemeEnum: int = 0
 @export var ControlSchemeOverride:ControlScheme = null
 @export_category("Display")
-@export var Fullscreen = false
+@export var Fullscreen:= false
+@export var HighResTextures:= false
 @export var FPS: int = 0
 @export var VSync: bool = true
 @export var GlowEffect: bool = true

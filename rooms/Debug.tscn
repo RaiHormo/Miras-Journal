@@ -229,8 +229,9 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4ag50"]
 gradient = SubResource("Gradient_nl85b")
-width = 1
-height = 1
+width = 32
+height = 32
+fill_to = Vector2(1, 0.773504)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_616dy"]
 atlas = ExtResource("15_o1gjb")
@@ -816,6 +817,7 @@ metadata/_edit_group_ = true
 position = Vector2(-2.00005, -1)
 scale = Vector2(604, 230)
 color = Color(0.839216, 0.803922, 0.690196, 1)
+energy = 0.8
 blend_mode = 1
 texture = SubResource("GradientTexture2D_4ag50")
 script = ExtResource("5_dcjai")

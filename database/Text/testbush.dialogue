@@ -1,6 +1,10 @@
 ~ bush
 
 Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
+- Party talk
+	Daze.Neutural: This is certainly is a bush.
+	Asteria.Neutural: This is a bush, right?
+	Alcine.Neutural: Mhm...
 - Scream
 	Mira.OpenMouth: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	if is_in_party("Erinn"):
@@ -18,10 +22,6 @@ Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
 	Mira.Smile: I can hold shift to skip all of it.
 	Also here are some thought sounds.
 	Ok I think that's enough.
-- Party talk
-	Daze.Neutural: This is certainly is a bush.
-	Asteria.Neutural: This is a bush, right?
-	Alcine.Neutural: Mhm...
 - End
 => END
 

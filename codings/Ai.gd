@@ -18,13 +18,15 @@ func ai() -> void:
 			choose(Char.StandardAttack)
 		#Checks if they can take out the enemy
 		#Checks if anyone needs healing
-		elif (Bt.health_precentage(HpSortedAllies[0]) <= 40 or (Bt.health_precentage(HpSortedAllies[0]) <= 75 and randi_range(0, 2) == 1)) and has_type("Healing") and HpSortedAllies[0].Health != 0:
+		elif (Bt.health_precentage(HpSortedAllies[0]) <= 40 or (Bt.health_precentage(HpSortedAllies[0]) <= 75 and randi_range(0, 1) == 1)) and has_type("Healing") and HpSortedAllies[0].Health != 0:
 			print(HpSortedAllies[0].FirstName, " needs healing")
 			choose(find_ability("Healing").pick_random(), HpSortedAllies[0])
 		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 0 and has_type("Summon"):
 			print("I can summon an ally")
 			choose(find_ability("Summon").pick_random())
-		elif check_for_curses():
+		elif check_for_finishers():
+			print("I can finish off")
+		elif has_type("Curse") and randi_range(0, 1) == 1 and (Char.BattleLog.is_empty() or Char.BattleLog.back().ability.Type != "Curse") and check_for_curses():
 			print("Can use a curse")
 		else:
 			#print(Bt.health_precentage(HpSortedAllies[0]))
@@ -106,7 +108,9 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if Char.Health < Char.MaxHP * 0.7 and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive") and has_type("Defensive"):
+				if (Char.Health < Char.MaxHP * 0.7 and
+				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
+				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive") and has_type("Defensive")):
 					return find_ability("Defensive").pick_random()
 			_:
 				if has_type("CheapAttack"):
@@ -139,4 +143,12 @@ func check_for_curses() -> bool:
 					if not tar.has_state(i.InflictsState):
 						choose(i, tar)
 						return true
+	return false
+
+
+func check_for_finishers():
+	for i in Bt.get_oposing_faction():
+		if i.Health <= Char.WeaponPower * Char.Attack * Char.AttackMultiplier:
+			choose(Char.StandardAttack, i)
+			return true
 	return false

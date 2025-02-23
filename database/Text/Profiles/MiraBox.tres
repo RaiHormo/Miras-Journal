@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TextProfile" load_steps=3 format=3 uid="uid://cnpmp4umxxgic"]
 
-[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="1_3dtyf"]
-[ext_resource type="AudioStream" uid="uid://bwaags6jxi3bi" path="res://sound/SFX/Battle/Mira/Voice.ogg" id="1_r8pyh"]
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="1_3dtyf"]
+[ext_resource type="AudioStream" uid="uid://bwaags6jxi3bi" path="res://sound/SFX/Text/Mira/Voice.ogg" id="1_r8pyh"]
 
 [resource]
 script = ExtResource("1_3dtyf")
