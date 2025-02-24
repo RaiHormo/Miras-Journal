@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://ufsrsyrcchaj"]
 
-[ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_ne4g1"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_ne4g1"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_oqm4i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fx7au"]
@@ -16,5 +16,6 @@ RemovedOnBattleEnd = true
 turns = -1
 icon = SubResource("AtlasTexture_fx7au")
 color = Color(0.321569, 0.972549, 0.709804, 1)
-protects = false
+weak_mult = 1.0
+dmg_mult = 1.0
 is_stat_change = false

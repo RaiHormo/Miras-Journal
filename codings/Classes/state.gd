@@ -12,5 +12,6 @@ class_name State
 @export var dmg_mult:= 1.0
 var inflicter: Actor = null
 var QueueRemove:= false
+var filename:= ""
 
 @export var is_stat_change:= false

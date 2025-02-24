@@ -57,7 +57,7 @@ func play_aoe(nam):
 func roll_rng(tar: Actor):
 	miss = false
 	crit = false
-	if not tar.CantDodge:
+	if not tar.CantDodge or tar.has_state("Bound") or tar.has_state("Soaked"):
 		if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
 	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits: crit = true
 
@@ -70,19 +70,19 @@ func handle_states():
 		if state.turns > -1:
 			state.turns -= 1
 			if state.turns == 0:
-				match state.name:
+				match state.filename:
 					"Guarding", "Protected":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"AttackUp": chara.AttackMultiplier -= 0.5
 					"DefenceUp": chara.DefenceMultiplier -= 0.5
 					"MagicUp": chara.MagicMultiplier -= 0.5
-					"Aura Change":
+					"AuraOverwrite":
 						chara.MainColor = chara.AuraDefault
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 				state.QueueRemove = true
 			else:
-				match state.name:
-					"Aura Break":
+				match state.filename:
+					"AuraBreak":
 						if chara.Aura != 0:
 							state.QueueRemove = true
 					"Burned":

@@ -943,7 +943,7 @@ Height = 16
 [node name="EvKick" parent="." instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)
 TextFile = "interactions"
-TextNode = "debug_kick"
+TextNode = "kick_debug"
 Flag = "HasBag"
 KickDirection = Vector2(1, 0)
 

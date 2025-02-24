@@ -174,29 +174,32 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)"% [pow, atk_stat, Defence, DefenceMultiplier])
 	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.3)), 1))
 
-func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
+func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar) -> State:
 	var state: State
 	if x is State:
 		state = x
+		state.filename = state.resource_name.replace(".tres", "")
 	else:
 		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
+		state.filename = x
 	print(FirstName + " recived state "+ state.name)
 	if not state.is_stat_change and state.name != "Guarding":
 		if IgnoreStates:
 			print("But had the IgnoreStates poperty")
-			return
+			return null
 	if has_state(state.name) and !state.is_stat_change:
+		var prev_state = get_state(state.name)
 		if state.turns != -1:
-			get_state(state.name).turns += state.turns
+			prev_state.turns += state.turns
 			Global.toast(FirstName+"'s "+state.name+" state was extended.")
 		elif state.name == "Poisoned":
-			get_state(state.name).turns *= 2
+			prev_state.turns *= 2
 			Global.toast("The Poison's effect was intensified on "+FirstName+".")
 		elif state.name == "Confused":
-			get_state(state.name).turns = -1
+			prev_state.turns = -1
 			Global.toast(FirstName+"'s "+state.name+" state was extended.")
 		else: Global.toast(FirstName+" is already "+state.name)
-		return
+		return prev_state
 	if turns != -1:
 		state.turns = turns
 	state.inflicter = inflicter
@@ -205,27 +208,28 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar):
 		Global.Bt.on_state_add(state, self)
 		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
 			await Global.Bt.play_effect(state.name, self)
+	return state
 
 func remove_state(x):
 	var state: State
 	if x is State:
 		state = x
-	else: state = await get_state(x)
+	else: state = get_state(x)
 	if state == null: return
 	print(FirstName,"'s ", state.name, " state was removed")
 	Global.Bt.remove_state_effect(state.name, self)
 	States.erase(state)
 
 func has_state(x: String) -> bool:
-	x = x.capitalize()
-	for i in States.size():
-		if States[i-1].name == x:
+	#x = x.capitalize()
+	for i in States:
+		if i.filename == x or i.name == x:
 			return true
 	return false
 
-func get_state(x:String):
+func get_state(x:String) -> State:
 	for i in States:
-		if i.name == x:
+		if i.filename == x or i.name == x:
 			return i
 	return null
 

@@ -1268,7 +1268,7 @@ wait_time = 12.0
 autostart = true
 
 [node name="IdleTimer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 12.0
 one_shot = true
 
 [connection signal="expand" from="." to="." method="_on_expand"]

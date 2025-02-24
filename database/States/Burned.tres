@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://d1jfe8f716lcn"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_cibpr"]
-[ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_e3mid"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_e3mid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1w22s"]
 atlas = ExtResource("1_cibpr")
@@ -17,7 +17,6 @@ RemovedOnBattleEnd = true
 turns = 5
 icon = SubResource("AtlasTexture_1w22s")
 color = Color(0.87451, 0.443137, 0.14902, 1)
-protects = false
 weak_mult = 1.5
 dmg_mult = 1.0
 is_stat_change = false

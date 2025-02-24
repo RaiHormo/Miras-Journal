@@ -70,7 +70,8 @@ func _on_battle_get_control():
 	show()
 	stage = &"root"
 	PrevStage = &"root"
-	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true
+
+
 	$Ability.add_theme_constant_override("icon_max_width", 0)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
@@ -91,6 +92,9 @@ func _on_battle_get_control():
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
+
+	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
+	$Attack.disabled = CurrentChar.has_state("Bound")
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
 	if CurrentChar.BoxProfile != null:
@@ -393,7 +397,7 @@ func _on_ability():
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property($AbilityUI, "modulate", Color(1,1,1,1), 0.1)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
-	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(100,0), 0.3)
+	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(80,0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
 	t.set_ease(Tween.EASE_OUT)
 	t.tween_property($AbilityUI, "size", Vector2(300,444), 0.3)
@@ -785,19 +789,11 @@ func _on_targeted():
 		TargetIndex = randi_range(0, TurnOrder.size()-1)
 		while TargetFaction[TargetIndex] == proper_tar:
 			TargetIndex = randi_range(0, TurnOrder.size()-1)
+		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 		await move_menu()
-		confusion_msg()
+		Bt.confusion_msg()
 	emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
 	close()
-
-func confusion_msg():
-	var tar: Actor = TargetFaction[TargetIndex]
-	if CurrentChar == tar:
-		Global.toast(CurrentChar.FirstName+" hits "+CurrentChar.Pronouns[3]+" in Confusion!")
-	elif tar in Bt.get_ally_faction(CurrentChar) and CurrentChar.NextMove.Target == Ability.T.ONE_ENEMY:
-		Global.toast(CurrentChar.FirstName+" hits an ally in confusion!")
-	else:
-		Global.toast(CurrentChar.FirstName+" misses "+CurrentChar.Pronouns[2]+" target in Confusion!")
 
 func _on_back_pressed():
 	Global.cancel_sound()
@@ -955,7 +951,10 @@ func fetch_abilities():
 			dub.set_meta("Ability", ab)
 			update_ab(dub)
 	for i in %AbilityList.get_children():
-		if i.get_meta("Ability").AuraCost > CurrentChar.Aura or i.get_meta("Ability").disabled:
+		if (
+			i.get_meta("Ability").AuraCost > CurrentChar.Aura or i.get_meta("Ability").disabled or
+			(CurrentChar.has_state("Bound") and i.get_meta("Ability").Damage == Ability.D.WEAPON)
+		):
 			if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
 				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			i.disabled = true

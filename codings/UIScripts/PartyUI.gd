@@ -516,10 +516,10 @@ func make_shadow(texture: Texture2D) -> Texture2D:
 
 
 func draw_bar(mem:Actor, node: Panel):
-	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.MainColor)
+	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.AuraDefault if mem.has_state("AuraOverwrite") else mem.MainColor )
 	node.get_node("Aura/ApText").add_theme_color_override("font_color", mem.SecondaryColor)
 	var hbox:StyleBoxFlat = node.get_node("Health").get_theme_stylebox("fill")
-	hbox.bg_color = mem.AuraDefault if mem.has_state("Aura Change") else mem.MainColor
+	hbox.bg_color = mem.AuraDefault if mem.has_state("AuraOverwrite") else mem.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
 	var abox = node.get_node("Aura").get_theme_stylebox("fill")
 	abox.bg_color = mem.SecondaryColor
@@ -685,10 +685,13 @@ func preform_levelups():
 	LevelupChain.clear()
 	scene.queue_free()
 
-
 func _on_idle_timer_timeout() -> void:
 	if Global.Controllable:
 		if Global.Settings.AutoHideHUD == 0:
 			hide_all()
 		if Global.Settings.AutoHideHUD == 1:
 			show_all()
+
+func hit_partybox(x: int, am: int, rep: int):
+	print(am, " ",rep)
+	Global.node_shake(%Partybox.get_child(x), am, rep)

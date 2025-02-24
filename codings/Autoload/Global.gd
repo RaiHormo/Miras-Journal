@@ -817,4 +817,19 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 		Vector2(randi_range(-am,am), randi_range(-am,am)), dur).as_relative()
 		t.tween_property(Camera, "offset", Vector2.ZERO, dur)
 	await t.finished
+
+func node_shake(node: Node, amount:= 10, repeat:= randi_range(4,8), time = 0.04):
+	if not is_instance_valid(node): return
+	ArbData0 = amount
+	var tw = create_tween()
+	tw.set_ease(Tween.EASE_OUT)
+	tw.set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(self, "ArbData0", 0, (repeat*time)*4)
+	for i in repeat:
+		amount = ArbData0
+		var t = create_tween()
+		t.tween_property(node, "position:x", amount, time).as_relative()
+		t.tween_property(node, "position:x", -amount*2, time*2).as_relative()
+		t.tween_property(node, "position:x", amount, time).as_relative()
+		await t.finished
 #endregion

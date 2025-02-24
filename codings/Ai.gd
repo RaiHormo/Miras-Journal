@@ -54,7 +54,8 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 			targets = Ability.T.ONE_ENEMY
 	for i in AblilityList:
 		if i == null: continue
-		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
+		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)) and not (
+		Char.has_state("Bound") and i.Damage == Ability.D.WEAPON):
 			if (i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health:
 				Choices.push_front(i)
 				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
@@ -81,6 +82,9 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 		else:
 			Char.NextAction = "Ability"
 	Char.NextMove=ab
+	if Char.has_state("Confused") and (ab.Target == Ability.T.ONE_ENEMY or ab.Target == Ability.T.ONE_ALLY or ab.Target == Ability.T.ANY):
+		Char.NextTarget = Bt.TurnOrder.pick_random()
+		Bt.confusion_msg()
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
@@ -144,7 +148,6 @@ func check_for_curses() -> bool:
 						choose(i, tar)
 						return true
 	return false
-
 
 func check_for_finishers():
 	for i in Bt.get_oposing_faction():

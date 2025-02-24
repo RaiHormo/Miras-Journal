@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="State" load_steps=2 format=3 uid="uid://bx4nyp37i8aar"]
 
-[ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_uh23e"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_uh23e"]
 
 [resource]
 script = ExtResource("1_uh23e")
@@ -9,4 +9,6 @@ Description = "Cannot act at all."
 RemovedOnBattleEnd = true
 turns = -1
 color = Color(1, 1, 1, 1)
+weak_mult = 1.0
+dmg_mult = 1.0
 is_stat_change = false

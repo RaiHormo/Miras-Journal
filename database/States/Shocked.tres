@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://d1yept33qk7oe"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_aiior"]
-[ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_alhvr"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_alhvr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wibv"]
 atlas = ExtResource("1_aiior")
@@ -16,6 +16,7 @@ Doubled damage from weak hits."
 RemovedOnBattleEnd = true
 turns = 1
 icon = SubResource("AtlasTexture_6wibv")
-color = Color(0, 0, 0, 1)
-protects = false
+color = Color(0.988235, 0.866667, 0.258824, 1)
+weak_mult = 2.0
+dmg_mult = 1.0
 is_stat_change = false

@@ -211,6 +211,7 @@ func position_sprites():
 		pixel_perfectize(i)
 
 func entrance():
+	Action = true
 	if Seq.Transition:
 		$Cam.zoom = Vector2(5,5)
 		$Cam.position_smoothing_enabled = false
@@ -428,6 +429,12 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	CurrentChar.NextTarget = null
 	CurrentAbility = ab
 	CurrentTarget = tar
+	if CurrentChar.has_state("Bound") and CurrentAbility.Damage == Ability.D.WEAPON:
+		CurrentAbility = preload("res://database/Abilities/Attacks/Nothing.tres")
+		Global.toast(CurrentChar.FirstName + " is Bound and can't do anything.")
+		await shake_actor(CurrentChar)
+		end_turn()
+		return
 	if ab.remove_item_on_use != null:
 		Item.remove_item(ab.remove_item_on_use)
 	if ab == null:
@@ -548,6 +555,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		target.add_aura(-aur_dmg)
 		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
+	if not target.IsEnemy: PartyUI.hit_partybox(Party.array().find(target), int(dmg/2), int(dmg*100/target.MaxHP*100)/300)
 	check_party.emit()
 	if target.Health == 0:
 		if target.CantDie:
@@ -1115,7 +1123,6 @@ func health_precentage(chara: Actor) -> float:
 
 func on_state_add(state: State, chara: Actor):
 	if chara.Health != 0:
-		if not state.is_stat_change: pop_num(chara, state.name, state.color)
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding", "AuraOverwrite":
@@ -1126,6 +1133,8 @@ func on_state_add(state: State, chara: Actor):
 				chara.node.material.set_shader_parameter("outline_color", Color.WHITE)
 			"Aggro":
 				chara.NextTarget = state.inflicter
+		await Event.wait()
+		if not state.is_stat_change: pop_num(chara, state.name, state.color)
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(
@@ -1186,4 +1195,14 @@ func clear_states(target: Actor):
 func aura_overwrite(tar: Actor, color: Color, turns: int = 1):
 	tar.AuraDefault = tar.MainColor
 	tar.MainColor = color
-	tar.add_state("AuraOverwrite", turns)
+	var state = await tar.add_state("AuraOverwrite", turns)
+	if state != null: state.color = color
+
+func confusion_msg():
+	var tar: Actor = CurrentChar.NextTarget
+	if CurrentChar == tar:
+		Global.toast(CurrentChar.FirstName+" hits "+CurrentChar.Pronouns[3]+" in Confusion!")
+	elif tar in get_ally_faction(CurrentChar) and CurrentChar.NextMove.Target == Ability.T.ONE_ENEMY:
+		Global.toast(CurrentChar.FirstName+" hits an ally in confusion!")
+	elif CurrentChar.Controllable:
+		Global.toast(CurrentChar.FirstName+" misses "+CurrentChar.Pronouns[2]+" target in Confusion!")

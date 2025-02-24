@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://gvwhcbg3w8d2"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_1x8xl"]
-[ext_resource type="Script" path="res://codings/Classes/state.gd" id="1_ckxre"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_ckxre"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mhm1o"]
 atlas = ExtResource("1_1x8xl")
@@ -15,8 +15,7 @@ Description = "Can't act next turn. Double damage from any attack, quadruple dam
 RemovedOnBattleEnd = true
 turns = 1
 icon = SubResource("AtlasTexture_mhm1o")
-color = Color(0, 0, 0, 1)
-protects = false
-weak_mult = 1.0
+color = Color(0.333333, 0.839216, 0.254902, 1)
+weak_mult = 4.0
 dmg_mult = 1.0
 is_stat_change = false

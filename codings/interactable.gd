@@ -82,6 +82,9 @@ func appear():
 		t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 		await get_tree().create_timer(0.1).timeout
 		animating = false
+		if not (Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()):
+			disappear()
+			CanInteract = false
 
 func disappear():
 	if not animating:
@@ -105,7 +108,7 @@ func disappear():
 		animating = false
 
 func _input(event: InputEvent) -> void:
-	if Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
+	if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
 		if Input.is_action_just_pressed("ui_accept") and CanInteract:
 			_on_button_pressed()
 
