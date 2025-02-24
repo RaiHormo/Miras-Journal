@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://cbh1if1c4xskl" path="res://database/Abilities/PhantomGuard.tres" id="2_qhfgp"]
 [ext_resource type="Resource" uid="uid://i76o7dyxd0rh" path="res://database/Abilities/Tighten.tres" id="3_5qh1h"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_rxi2h"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="3_s4tb4"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_s4tb4"]
 [ext_resource type="Resource" uid="uid://b28b6eda2u4a" path="res://database/Text/Profiles/AsteriaBox.tres" id="3_tcuxw"]
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]

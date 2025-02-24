@@ -254,11 +254,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("SaveDir"):
 		OS.shell_open(OS.get_user_data_dir())
 	if Input.is_action_just_pressed("Refresh"):
-		await Loader.save()
-		Loader.load_game()
+		refresh()
 #endregion
 
 #region Settings
+
+func refresh():
+	await Loader.save()
+	Loader.load_game()
 
 func fullscreen() -> void:
 	if !Settings: await init_settings()

@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_q0sql")
-Enemies = Array[Resource("res://codings/Classes/member_data.gd")]([ExtResource("2_5xbdp"), ExtResource("2_ib8cl"), ExtResource("2_ib8cl")])
+Enemies = Array[Resource("res://codings/Classes/actor_class.gd")]([ExtResource("2_5xbdp"), ExtResource("2_ib8cl"), ExtResource("2_ib8cl")])
 AdditionalItems = Array[Resource("res://codings/Classes/item_data.gd")]([])
 Transition = true
 Detransition = false

@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_4agl2"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_fnv26"]
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_keytb"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_keytb"]
 [ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_iy5kn"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_iy5kn"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="2_pm52f"]
 [ext_resource type="Resource" uid="uid://du1gofmain0gg" path="res://database/Abilities/InnerFocus.tres" id="3_xe4iy"]
 [ext_resource type="Resource" uid="uid://di0tgolj2jhxg" path="res://database/Items/Materials/WhiteSlime.tres" id="4_n0njt"]

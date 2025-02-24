@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_cicos"]
 [ext_resource type="Texture2D" uid="uid://dr8vij2jxgub0" path="res://art/Icons/Enemies/Plant.png" id="2_ej5b0"]
 [ext_resource type="SpriteFrames" uid="uid://854ynmcdfk2k" path="res://art/BT/BurstParasite/BurstParasiteBT.tres" id="2_nr4d3"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="3_c3tjn"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_c3tjn"]
 [ext_resource type="Resource" uid="uid://bhnd7jyfc0grt" path="res://database/Abilities/Attacks/AOEAttack.tres" id="5_ox88c"]
 
 [resource]

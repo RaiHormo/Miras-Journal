@@ -15,7 +15,7 @@ var undashable := false
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
 @export var can_dash = true
-const dash_speed := 220
+const dash_speed := 240
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
@@ -25,7 +25,6 @@ var can_jump:= false
 
 func _ready() -> void:
 	ID = "P"
-	speed = 90
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	await Event.wait()

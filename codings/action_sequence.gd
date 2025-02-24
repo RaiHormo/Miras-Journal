@@ -699,7 +699,7 @@ func FirstBattle1():
 	Global.Player.position = Vector2(1470, 400)
 	await Event.wait(2, false)
 	Bt.Troop[0].node.position.x = 50
-	Bt.focus_cam(Bt.Troop[0], 0.1, 70)
+	Bt.focus_cam(Bt.Troop[0], 0.1, 0)
 	Bt.zoom(6)
 	Bt.Action = true
 	Loader.InBattle = true
@@ -715,7 +715,7 @@ func FirstBattle1():
 	Loader.battle_bars(3)
 	Bt.get_actor("Mira").node.animation = "Entrance"
 	Bt.get_actor("Mira").node.frame = 2
-	Bt.focus_cam(Bt.Troop[0], 2, 40)
+	Bt.focus_cam(Bt.get_actor("Mira"), 3, 40)
 	await Event.wait(1)
 	Global.passive("story_events", "sstay_back")
 	await Event.wait(1)

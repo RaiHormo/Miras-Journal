@@ -94,7 +94,8 @@ func _on_battle_get_control():
 	Abilities = CurrentChar.Abilities
 
 	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
-	$Attack.disabled = CurrentChar.has_state("Bound")
+	if CurrentChar.has_state("Bound"):
+		$Attack.disabled = true
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
 	if CurrentChar.BoxProfile != null:

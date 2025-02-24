@@ -37,7 +37,7 @@ gradient = SubResource("Gradient_8j6vo")
 interpolation_mode = 2
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.0142857, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.106997, 0.0477697, 0.0259671, 0.0257019, 0.93, 0.696725, 0.6045, 0.0352941)
+colors = PackedColorArray(0, 0, 0, 0, 0.106997, 0.0477697, 0.0259671, 0.0257019, 0.93, 0.696725, 0.6045, 0.0823529)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rqg3q"]
 gradient = SubResource("Gradient_x1vp8")
@@ -786,11 +786,12 @@ color = Color(0, 0, 0, 1)
 [node name="Glow" type="TextureRect" parent="Ring"]
 show_behind_parent = true
 light_mask = 0
+texture_filter = 2
 layout_mode = 0
-offset_left = 164.0
+offset_left = 175.0
 offset_top = 194.0
-offset_right = 1428.0
-offset_bottom = 1423.0
+offset_right = 1469.0
+offset_bottom = 1450.0
 texture = SubResource("GradientTexture2D_rqg3q")
 
 [node name="DottedBack" type="TextureRect" parent="."]

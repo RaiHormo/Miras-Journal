@@ -15,6 +15,9 @@ func _physics_process(delta: float) -> void:
 	if busy: return
 	for body in get_overlapping_bodies():
 		if body == Global.Player:
+			if jump_dirs.is_empty():
+				Global.toast("No jump dirs here, fix this!")
+				return
 			Global.Player.can_jump = true if Global.get_direction() in jump_dirs else false
 			if Global.Player.dashing and Global.Controllable:
 				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):

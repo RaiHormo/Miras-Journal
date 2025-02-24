@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://cehkmec4xgr1i"]
 
 [ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="1_0wjhy"]
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_02teb"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_dgk6x"]
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="2_kuhcl"]
-[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="4_6fysc"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_02teb"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_dgk6x"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="2_kuhcl"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="4_6fysc"]
 
 [resource]
 script = ExtResource("2_kuhcl")

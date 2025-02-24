@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://cvpd5khlr1gda"]
 
 [ext_resource type="Resource" uid="uid://dxj2fsd3j1mvp" path="res://database/Items/Consumables/StrangeFruit.tres" id="1_1071f"]
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_p3gc1"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_p3gc1"]
 [ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="2_utsek"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_q4pic"]
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="4_43po6"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_q4pic"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_43po6"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="4_idxag"]
-[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="6_mafn6"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="6_mafn6"]
 
 [resource]
 script = ExtResource("4_43po6")

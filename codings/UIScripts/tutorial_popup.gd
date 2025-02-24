@@ -70,7 +70,7 @@ func ability():
 	$Border2.show()
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(50, 201)
-	$Border2/Text.text = "During Mira's turn, press [img]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to call her Aura.\n\nThen scroll and select the Flame Spark ability."
+	$Border2/Text.text = "Press [img]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
 	await await_input("BtAbility")
 	queue_free()
 

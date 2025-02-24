@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://cwp57sgr8rbwo"]
 
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="1_xk7u8"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_xk7u8"]
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="2_g2uxp"]
 [ext_resource type="SpriteFrames" uid="uid://b2x5q6v6p786q" path="res://art/BT/Dummy/DummyBT.tres" id="2_ioagn"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_nn5al"]

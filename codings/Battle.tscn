@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="3_a2upk"]
 [ext_resource type="Script" uid="uid://du01545mv070f" path="res://codings/Classes/party_data.gd" id="3_wsnu2"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_e2t6x"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="4_iwqwt"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_iwqwt"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="5_441cr"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://codings/action_sequence.gd" id="6_ik7qm"]
@@ -565,6 +565,8 @@ animations = [{
 }]
 
 [sub_resource type="Gradient" id="Gradient_tvi8h"]
+interpolation_mode = 2
+interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tbe80"]
@@ -572,7 +574,7 @@ gradient = SubResource("Gradient_tvi8h")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.852941, 0.894118)
+fill_to = Vector2(0.867521, 0.948718)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("18_toppc")

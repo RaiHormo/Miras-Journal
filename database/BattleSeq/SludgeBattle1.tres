@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_b6742"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_ic4gk"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="1_njn2m"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="2_5a76a"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_5a76a"]
 [ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="2_g31pj"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_58njh"]
 

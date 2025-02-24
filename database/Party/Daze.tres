@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
 [ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/member_data.gd" id="3_g8t8l"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_g8t8l"]
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]

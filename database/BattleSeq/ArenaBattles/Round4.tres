@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://dhl3e7rl6r456"]
 
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_1e1g1"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_1e1g1"]
 [ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_ni1bv"]
 [ext_resource type="Resource" uid="uid://b0haspr714s0g" path="res://database/Enemies/SkritcherRoot.tres" id="1_utiv4"]
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="3_6tqej"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="3_rxj6m"]
-[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="5_b2fvs"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="3_6tqej"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_rxj6m"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_b2fvs"]
 
 [resource]
 script = ExtResource("3_6tqej")

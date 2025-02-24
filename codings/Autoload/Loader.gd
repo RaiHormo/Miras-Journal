@@ -308,12 +308,10 @@ func start_battle(stg, advantage := 0):
 		return
 	Loader.InBattle = true
 	BattleResult = 0
-	Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 	PartyUI.UIvisible = false
 	BtAdvantage = advantage
 	#Engine.time_scale = 0.1
 	PartyUI.hide_all()
-	Global.Player.camera_follow(false)
 	Global.Controllable = false
 	print("Battle start!")
 	get_tree().paused = true
@@ -330,7 +328,10 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
-	if is_instance_valid(Global.Player): Global.Player.hide()
+	if is_instance_valid(Global.Player):
+		Global.Player.hide()
+		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
+		Global.Player.camera_follow(false)
 	Global.get_cam().position_smoothing_enabled = false
 	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()

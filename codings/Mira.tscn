@@ -653,6 +653,7 @@ collision_layer = 3
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("2_d6ige")
+speed = 100
 Nav = NodePath("Nav")
 
 [node name="Flame" type="PointLight2D" parent="."]

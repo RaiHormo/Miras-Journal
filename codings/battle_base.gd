@@ -817,7 +817,14 @@ func move_cam(pos: Vector2, time:float=0.5):
 		$Cam.position_smoothing_enabled = false
 	else:
 		$Cam.position_smoothing_enabled = true
-	$Cam.position = pos
+	if time > 0.5:
+		var t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_CUBIC)
+		t.tween_property($Cam, "position", pos, time)
+	else:
+		$Cam.position = pos
+
 	await Event.wait(time)
 
 func move(chara:Actor, pos:Vector2, time:float,

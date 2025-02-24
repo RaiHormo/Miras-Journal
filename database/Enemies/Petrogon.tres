@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://blb51swqx23w7"]
 
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="1_0esqg"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_0esqg"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="1_a6ph1"]
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="1_nai06"]
 [ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="2_ciuc2"]
 [ext_resource type="Texture2D" uid="uid://cqr2l0aaignpu" path="res://art/Icons/Enemies/Dragon.png" id="2_p85n4"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_8nbn3"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_mbwgc"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="5_3pau3"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="5_3pau3"]
 
 [resource]
 script = ExtResource("5_3pau3")

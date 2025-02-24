@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="BattleSequence" load_steps=12 format=3 uid="uid://b5xnwqgw051bd"]
 
-[ext_resource type="Script" path="res://codings/Classes/battle_seq.gd" id="1_e62gl"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="1_e62gl"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_qsrni"]
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_tus72"]
-[ext_resource type="Script" path="res://codings/Classes/member_data.gd" id="2_44rbb"]
-[ext_resource type="Script" path="res://codings/Classes/battle_event.gd" id="2_68ui3"]
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_kk4y6"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_tus72"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_44rbb"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="2_68ui3"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_kk4y6"]
 
 [sub_resource type="Resource" id="Resource_kgu6i"]
 script = ExtResource("2_kk4y6")
