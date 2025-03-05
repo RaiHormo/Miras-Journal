@@ -9,7 +9,6 @@ func _ready() -> void:
 	Global.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
 		game_exists = true
-		await Loader.load_game("Autosave", false, false, false, false)
 		Event.take_control()
 	else:
 		game_exists = false
@@ -22,6 +21,7 @@ func _ready() -> void:
 func _on_continue_pressed() -> void:
 	dismiss_title()
 	if game_exists:
+		await Loader.load_game("Autosave")
 		Event.give_control(false)
 		get_tree().paused = false
 	else:
@@ -32,10 +32,9 @@ func _on_options_pressed() -> void:
 	dismiss_title()
 
 func dismiss_title():
-	Global.confirm_sound()
 	$Splash.hide()
 	$TitleScreen.hide()
-	Loader.detransition()
+	#Loader.detransition()
 	queue_free()
 
 func glyph_update():

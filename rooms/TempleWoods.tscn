@@ -1395,12 +1395,15 @@ scale = Vector2(1.1, 1.8)
 
 [node name="JumpPoint4" parent="." instance=ExtResource("36_va2q4")]
 position = Vector2(517, 396)
+jump_am = 2
 
 [node name="JumpPoint8" parent="." instance=ExtResource("36_va2q4")]
 position = Vector2(493, 299)
+jump_am = 2
 
 [node name="JumpPoint5" parent="." instance=ExtResource("36_va2q4")]
 position = Vector2(1499, -55)
+jump_am = 2
 
 [node name="JumpPoint6" parent="." instance=ExtResource("35_2q7ov")]
 position = Vector2(1574, -995)

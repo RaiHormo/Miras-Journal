@@ -701,6 +701,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1482,11 +1483,10 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
-offset_left = 1335.0
-offset_top = -62.0
+offset_left = 1320.0
+offset_top = -63.0
 offset_right = 2352.0
-offset_bottom = 812.0
+offset_bottom = 811.0
 rotation = 0.057901
 pivot_offset = Vector2(-0.00598145, 62.8742)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
@@ -1494,10 +1494,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 [node name="ScrollContainer" type="ScrollContainer" parent="SavePanel"]
 clip_contents = false
 layout_mode = 0
-offset_left = 27.0
-offset_top = 98.0
-offset_right = 574.0
-offset_bottom = 768.0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 589.0
+offset_bottom = 770.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
@@ -1524,7 +1524,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/New/NewFile"]
 show_behind_parent = true
 layout_mode = 2
-mouse_filter = 1
+focus_neighbor_right = NodePath("../../NewGame")
+focus_previous = NodePath("../../NewGame")
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1548,6 +1549,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 [node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/New/NewGame"]
 show_behind_parent = true
 layout_mode = 2
+focus_neighbor_left = NodePath("../../NewFile")
 mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1651,17 +1653,6 @@ autowrap_mode = 2
 [node name="SavedDate" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-size_flags_vertical = 6
-mouse_filter = 1
-theme_override_font_sizes/font_size = 24
-vertical_alignment = 2
-
-[node name="Text" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/SavedDate"]
-layout_mode = 2
-offset_left = 0.0148149
-offset_top = -0.503929
-offset_right = 317.015
-offset_bottom = 54.4961
 size_flags_vertical = 6
 mouse_filter = 1
 theme_override_font_sizes/font_size = 24

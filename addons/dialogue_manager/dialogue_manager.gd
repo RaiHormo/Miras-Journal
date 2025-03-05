@@ -31,6 +31,9 @@ signal dialogue_ended(resource: DialogueResource)
 ## Used internally.
 signal bridge_get_next_dialogue_line_completed(line: DialogueLine)
 
+## Used internally
+signal bridge_dialogue_started(resource: DialogueResource)
+
 ## Used inernally
 signal bridge_mutated()
 
@@ -451,6 +454,7 @@ func _start_balloon(balloon: Node, resource: DialogueResource, title: String, ex
 		assert(false, DMConstants.translate(&"runtime.dialogue_balloon_missing_start_method"))
 
 	dialogue_started.emit(resource)
+	bridge_dialogue_started.emit(resource)
 
 
 # Get the path to the example balloon
@@ -1342,7 +1346,7 @@ func _thing_has_method(thing, method: String, args: Array) -> bool:
 
 	if method.to_snake_case() != method and DMSettings.check_for_dotnet_solution():
 		# If we get this far then the method might be a C# method with a Task return type
-		return _get_dotnet_dialogue_manager().ThingHasMethod(thing, method)
+		return _get_dotnet_dialogue_manager().ThingHasMethod(thing, method, args)
 
 	return false
 

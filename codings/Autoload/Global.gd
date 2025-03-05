@@ -21,6 +21,7 @@ var ProcessFrame := 0
 var LastInput:= 0
 var AltConfirm: bool
 var StartTime:= 0.0
+var FirstStartTime:= 0.0
 var PlayTime:= 0.0
 var SaveTime:= 0.0
 var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
@@ -121,6 +122,7 @@ func vainet_map(cur: String):
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	init_party(Party)
+	FirstStartTime = Time.get_unix_time_from_system()
 	Event.Flags.clear()
 	Event.add_flag("Started")
 	Event.f("HasBag", false)
@@ -430,6 +432,8 @@ func unlock_all_abilities():
 func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
 	textbox_open = true
+	for i in get_tree().root.get_children():
+		if i is Textbox: i.queue_free()
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)

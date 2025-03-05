@@ -116,7 +116,7 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if (Input.is_action_just_pressed("Options") and Global.Player.get_node_or_null("%Base")
+	if (Input.is_action_just_pressed("Options") and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
 	and "Idle" in Global.Player.used_sprite.animation):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://w4h535f4bdj8"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_yny17"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_2k873"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k873"]
+atlas = ExtResource("1_yny17")
+region = Rect2(126, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_2k873")
+name = "Crystal Heal"
+description = "Heals an ally and destroys the user."
+Icon = SubResource("AtlasTexture_2k873")
+ActionSequence = &"CrystalHeal"
+Type = "CheapAttack"
+Group = ""
+InflictsState = ""
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 0.0
+Target = 0
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = false
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

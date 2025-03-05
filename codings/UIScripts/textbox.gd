@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+class_name Textbox
 
 @onready var balloon: ColorRect = $Balloon
 @onready var character_label: Label = $Balloon/Panel/CharacterLabel

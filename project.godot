@@ -39,9 +39,9 @@ Global="*res://codings/Autoload/Global.gd"
 PartyUI="*res://codings/Autoload/PartyUI.tscn"
 Loader="*res://codings/Autoload/Loader.tscn"
 Event="*res://codings/Autoload/Event.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [debug]
 

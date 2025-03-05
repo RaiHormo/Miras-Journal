@@ -47,7 +47,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
-	data.StartTime = Global.StartTime
+	data.StartTime = Global.FirstStartTime
 	data.Z = (Global.Player.z_index if !get_tree().root.get_node_or_null("MainMenu")
 		else $"/root/MainMenu".z)
 	data.SavedTime = Time.get_unix_time_from_system()
@@ -92,6 +92,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		return
 	data = await load_res(filepath)
 	Global.StartTime = Time.get_unix_time_from_system()
+	Global.FirstStartTime = data.StartTime
 	Global.SaveTime = data.PlayTime
 	Defeated = data.Defeated.duplicate()
 	Global.CameraInd = data.Camera

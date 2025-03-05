@@ -208,7 +208,7 @@ func save_managment() -> void:
 	$MainButtons/SaveManagment.z_index = 1
 	t.tween_property($MainButtons/SaveManagment, "position", Vector2(50, 52), 0.5)
 	t.tween_property($Timer, "position:x", -300, 0.5)
-	t.tween_property($SavePanel, "position", Vector2(710, -62), 0.5)
+	t.tween_property($SavePanel, "position", Vector2(690, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-50, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
 	Global.confirm_sound()
@@ -364,7 +364,7 @@ func draw_file(file: SaveFile, node: Control):
 	panel.get_node("Location").text = file.RoomName
 	var savedtime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.SavedTime))
 	var starttime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.StartTime))
-	panel.get_node("SavedDate/Text").text = "Saved: %02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Global.get_mmm(savedtime.month),
+	panel.get_node("SavedDate").text = "Saved: %02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Global.get_mmm(savedtime.month),
 	savedtime.year, savedtime.hour, savedtime.minute, starttime.day, Global.get_mmm(starttime.month), starttime.year]
 
 func hold_down():

@@ -375,6 +375,26 @@ func AOEAttack(target: Actor):
 			Bt.play_effect("SimpleHit", target)
 			Bt.screen_shake(18)
 	Bt.end_turn()
+
+func CrystalHeal(target: Actor):
+	var hp_sorted_allies: Array[Actor] = Bt.get_ally_faction(CurrentChar).duplicate()
+	hp_sorted_allies.sort_custom(Bt.hp_sort)
+	hp_sorted_allies.erase(CurrentChar)
+	target = hp_sorted_allies[-1]
+	if target.Health != target.MaxHP:
+		Bt.focus_cam(CurrentChar)
+		Bt.anim("Attack1")
+		await Event.wait(0.5)
+		Bt.focus_cam(target)
+		Bt.move(CurrentChar, target.node.position, 0.5)
+		Bt.anim("Attack2")
+		await Event.wait(0.5)
+		Bt.focus_cam(CurrentChar)
+		await Bt.heal(target, CurrentChar.WeaponPower)
+		await Event.wait(0.5)
+		Bt.death(CurrentChar)
+		CurrentChar.node.hide()
+	Bt.end_turn()
 #endregion
 
 ################################################
