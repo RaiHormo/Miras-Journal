@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=115 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -14,9 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="9_lj3n1"]
 [ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="13_rxedw"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="14_ybpd3"]
+[ext_resource type="Texture2D" uid="uid://df63egmwm4ryq" path="res://art/Backgrounds/ArenaBg/TempleWoodsBg.png" id="15_a3r2p"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="15_rqges"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="16_6vjw5"]
+[ext_resource type="Resource" uid="uid://djr2vkawr2evu" path="res://database/Enemies/PirceParasite.tres" id="16_a3r2p"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="17_a3r2p"]
+[ext_resource type="Resource" uid="uid://btpc8qptcieh" path="res://database/Enemies/Crystal.tres" id="17_lmpvr"]
 [ext_resource type="Texture2D" uid="uid://lcsggx56ic6l" path="res://art/OV/Objects/BreakableWallVSG.png" id="20_1b4jj"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="20_pu5uh"]
 [ext_resource type="Texture2D" uid="uid://jnhnt5kow0bq" path="res://art/OV/Objects/BreakableWallHSG.png" id="21_63qd7"]
@@ -52,13 +55,16 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_o2m10")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hnfc"]
-size = Vector2(115, 87)
+size = Vector2(206, 87)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybpd3"]
+size = Vector2(108, 87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nk1vc"]
 size = Vector2(79.5, 87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qw3gk"]
-size = Vector2(76, 210)
+size = Vector2(89, 201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ubql"]
 size = Vector2(38.75, 33)
@@ -491,13 +497,14 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_lmpvr"]
 script = ExtResource("17_a3r2p")
-Enemies = Array[ExtResource("15_rqges")]([null])
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("16_a3r2p"), ExtResource("17_lmpvr")])
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+BattleBack = ExtResource("15_a3r2p")
 Transition = true
 Detransition = false
-EscPosition = Vector2i(0, 0)
+EscPosition = Vector2i(-13, 26)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
+ScenePosition = Vector2(-446, 578)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -707,7 +714,6 @@ tile_map_data = PackedByteArray("AAAUAAUABAAAAAwAAAATABgABgAAAAAAAAAUABgABgAAAAA
 tile_set = ExtResource("2_jg387")
 
 [node name="Cover1" type="Area2D" parent="."]
-visible = false
 z_index = 1
 use_parent_material = true
 script = ExtResource("3_bw084")
@@ -722,13 +728,13 @@ tile_set = ExtResource("2_jg387")
 collision_enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cover1"]
-position = Vector2(-161.375, 511.625)
+position = Vector2(-159, 511.625)
 shape = SubResource("RectangleShape2D_4hnfc")
 debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Cover1"]
-position = Vector2(-229, -166)
-shape = SubResource("RectangleShape2D_4hnfc")
+position = Vector2(-227, -166)
+shape = SubResource("RectangleShape2D_ybpd3")
 debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Cover1"]
@@ -737,7 +743,7 @@ shape = SubResource("RectangleShape2D_nk1vc")
 debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Cover1"]
-position = Vector2(-536, 559)
+position = Vector2(-529.5, 574.5)
 shape = SubResource("RectangleShape2D_qw3gk")
 debug_color = Color(0.691822, 0.439815, 0.617756, 0.42)
 
@@ -1093,6 +1099,13 @@ animation = &"IdleDown"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG4"]
+position = Vector2(110, 77)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG4"]
+position = Vector2(-1, 18)
+gizmo_extents = 100.0
+
 [node name="EnemySG5" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-484, 344)
 chase_speed = 90
@@ -1119,6 +1132,11 @@ sprite_frames = ExtResource("6_fhj74")
 animation = &"IdleUp"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemySG5"]
+position = Vector2(149, 293)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG5"]
 
 [node name="EnemySG6" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-275, 429)

@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqomrd5w84m3e"
-path="res://.godot/imported/Minimize.png-5a4d8cd430cf1d6bd1e44dd7c68381c9.ctex"
+uid="uid://cdo4jqfb8nnbf"
+path.s3tc="res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://addons/gd_profiler/textures/Minimize.png"
-dest_files=["res://.godot/imported/Minimize.png-5a4d8cd430cf1d6bd1e44dd7c68381c9.ctex"]
+source_file="res://art/OV/Maple/IdleDown.png"
+dest_files=["res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

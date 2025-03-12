@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://1upbi6h40tst"]
+
+[ext_resource type="Texture2D" uid="uid://cqjkdrlka0tb1" path="res://addons/mouse_coordinates/svg/local.svg" id="1_lmegq"]
+[ext_resource type="Texture2D" uid="uid://02fufkncwhae" path="res://addons/mouse_coordinates/svg/local_filled.svg" id="2_b6s6f"]
+
+[node name="Container" type="CenterContainer"]
+
+[node name="Local" type="TextureButton" parent="."]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_lmegq")
+texture_pressed = ExtResource("2_b6s6f")

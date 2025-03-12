@@ -14,8 +14,8 @@
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
-[ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="12_i58j1"]
-[ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="13_fdgwg"]
+[ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="12_i58j1"]
+[ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="13_fdgwg"]
 [ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="15_nebe1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gki4e"]
@@ -830,6 +830,7 @@ offset_bottom = 30.0
 pivot_offset = Vector2(30, 30)
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
+disabled = true
 text = "Journal"
 text_overrun_behavior = 1
 clip_text = true
@@ -867,6 +868,7 @@ offset_bottom = 30.0
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
+disabled = true
 text = "Quest"
 text_overrun_behavior = 1
 clip_text = true

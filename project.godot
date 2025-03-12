@@ -38,10 +38,10 @@ buses/default_bus_layout="res://sound/bus.tres"
 Global="*res://codings/Autoload/Global.gd"
 PartyUI="*res://codings/Autoload/PartyUI.tscn"
 Loader="*res://codings/Autoload/Loader.tscn"
-Event="*res://codings/Autoload/Event.gd"
 Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Event="*res://codings/Autoload/Event.tscn"
 
 [debug]
 
@@ -75,7 +75,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/addons/SmoothScroll/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/scene-tree-sorter/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/mouse_coordinates/plugin.cfg", "res://addons/scene-tree-sorter/plugin.cfg")
 
 [file_customization]
 

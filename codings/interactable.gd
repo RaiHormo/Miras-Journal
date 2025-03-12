@@ -175,7 +175,7 @@ func _on_button_pressed() -> void:
 			Global.call(file)
 		"event":
 			Global.confirm_sound()
-			Event.call(file)
+			Event.sequence(file)
 		"pass_time":
 			PartyUI.confirm_time_passage(title, item,
 			to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative), file)

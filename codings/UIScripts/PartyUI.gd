@@ -12,7 +12,6 @@ var UIvisible = false
 var Tempvis = true
 var visibly=false
 @onready var t :Tween
-@onready var MainMenu = preload("res://UI/MainMenu/MainMenu.tscn")
 var WasPaused = false
 var MemberChoosing = false
 @onready var Partybox = %Partybox
@@ -128,6 +127,7 @@ func _input(ev):
 	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("Debug"):
 			Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+			Event.remove_flag("FlameActive")
 		if Input.is_action_just_pressed("DebugT"):
 			Global.passive("testbush", "greetings")
 		if Input.is_action_just_pressed("DebugP"):
@@ -621,7 +621,7 @@ func main_menu():
 	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
 		Global.Controllable=false
 		get_tree().paused = true
-		get_tree().root.add_child(MainMenu.instantiate())
+		get_tree().root.add_child((await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")).instantiate())
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):
 	if chara.States.is_empty(): rect.texture = null
@@ -675,7 +675,7 @@ func talk() -> void:
 	close_submenu()
 
 func preform_levelups():
-	var scene = preload("res://UI/LevelUp/Levelup.tscn").instantiate()
+	var scene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn")).instantiate()
 	await Event.wait()
 	get_tree().root.add_child(scene)
 	for i in LevelupChain:

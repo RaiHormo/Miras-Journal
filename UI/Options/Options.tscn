@@ -17,11 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="18_y4emp"]
-[ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
+[ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="19_sc5mb"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="20_5ccb6"]
-[ext_resource type="Script" uid="uid://be84dm3o4vc4s" path="res://addons/addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
-[ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
+[ext_resource type="Script" uid="uid://be84dm3o4vc4s" path="res://addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
+[ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
 [ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="22_w3i7s"]
@@ -1526,6 +1526,7 @@ show_behind_parent = true
 layout_mode = 2
 focus_neighbor_right = NodePath("../../NewGame")
 focus_previous = NodePath("../../NewGame")
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)

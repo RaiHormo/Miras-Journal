@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cr3hn08s615pf"]
 
-[ext_resource type="Script" path="res://codings/NPC.gd" id="1_dnwjs"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="1_dnwjs"]
 [ext_resource type="Texture2D" uid="uid://d1tcv45k4skug" path="res://art/Icons/Editor/npc.png" id="2_n2ikt"]
-[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_a0g5d"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_a0g5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
 radius = 7.0
@@ -27,7 +27,7 @@ path_postprocessing = 1
 [node name="Icon" type="Sprite2D" parent="."]
 light_mask = 0
 z_index = 10
-position = Vector2(0, -4)
+position = Vector2(0, 7)
 scale = Vector2(0.223264, 0.223264)
 texture = ExtResource("2_n2ikt")
 script = ExtResource("3_a0g5d")

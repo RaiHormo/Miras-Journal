@@ -13,6 +13,8 @@ var CutsceneHandler: Node = null
 var allow_skipping:= true
 signal time_changed
 signal next_day
+@onready var seq: Node = $Sequences
+
 
 enum TOD {DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5}
 
@@ -215,85 +217,33 @@ func set_time(tod: TOD):
 func teleport_followers():
 	for i in Global.Area.Followers:
 		i.position = Global.Player.position
-##########################################################
 
-#region Sequences
-func bag_seq():
-	Global.Player.BodyState = NPC.CUSTOM
-	Global.Player.direction = Vector2.ZERO
-	await Global.Player.set_anim("BagGet", true)
-	Global.Player.set_anim("IdleRight")
-	Global.item_sound()
-	var bag_ico = preload("res://art/Icons/Items.tres")
-	bag_ico.region = Rect2(90, 90, 18, 18)
-	Item.get_animation(bag_ico, "Flimsy bag", false)
-	f(&"HasBag", true)
-	give_control()
-	Global.Player._check_party()
+func sequence(title: String):
+	if seq.has_method(title):
+		seq.call(title)
+	else:
+		Global.toast(title + " is not a valid event")
 
-func axe_seq():
-	Item.add_item("LightweightAxe", &"Key")
-	pop_tutorial("ov_attack")
-
-func TWflame():
-	await Event.take_control()
-	Global.Player.set_anim("IdleRight")
-	await Global.textbox("interactions", "getting_dark")
-	await Global.Player.activate_flame()
-	await Event.wait(0.5)
-	await Global.textbox("interactions", "that_should_do_it")
-	Event.give_control()
-	Event.add_flag("TWflame")
-
-func sleep_home():
-	if TimeOfDay == TOD.MORNING:
-		await Loader.detransition()
-		await Global.textbox("interactions", "just_woke_up")
-		give_control()
-		return
-	await Event.take_control()
-	set_time(TOD.MORNING)
-	await next_day
-	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(178, 482), 0, 2, "")
-
-func rest_amberelm():
-	take_control()
-	await Loader.save()
-	Global.check_party.emit()
-	Loader.detransition()
-	var cut = Global.Area.get_node("EvRestAmberelm")
-	cut.show()
-	get_tree().paused = false
-	Global.Area.Followers[0].hide()
-	cut.get_node("Mira").BodyState = NPC.NONE
-	cut.get_node("Alcine").BodyState = NPC.NONE
-	cut.get_node("Mira").set_anim("SitDown")
-	cut.get_node("Alcine").set_anim("IdleDown")
-	Global.Player.hide()
-	Global.Player.camera_follow(false)
-	Global.get_cam().zoom = Vector2(6,6)
-	Global.get_cam().position = Vector2(85,360)
-	await Event.wait(1)
-	await Global.textbox("story_events", "rest_amberelm", true)
-	await Loader.transition("")
-	await Event.wait(1)
-	Global.heal_party()
-	Event.TimeOfDay = TOD.AFTERNOON
-	Global.heal_party()
-	await Loader.detransition()
-	await Global.textbox("story_events", "wake_amberelm", true)
-	await Loader.transition("R")
-	Global.get_cam().zoom = Vector2(4,4)
-	cut.hide()
-	Global.Player.show()
-	Loader.detransition()
-	give_control()
-	f("EvRestAmberelm", true)
-	Loader.save()
-
-func waste_time():
-	await take_control()
-	progress_by_time(1)
-	Loader.detransition()
-	give_control()
-#endregion
+func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
+	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
+	var nam = id.split(":", false)
+	match nam.size():
+		1:
+			nam.append(nam[0] + "OV")
+		2:
+			pass
+		0, _:
+			push_error("Invalid spawn id: " + id)
+			return null
+	var sprite_node:= AnimatedSprite2D.new()
+	chara.add_child(sprite_node)
+	sprite_node.name = "Sprite"
+	sprite_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
+	if sprite == null: return null
+	sprite_node.sprite_frames = sprite
+	Global.Area.add_child(chara)
+	chara.name = nam[0]
+	chara.position = pos
+	chara.look_to(Global.get_dir_from_letter(dir))
+	return chara

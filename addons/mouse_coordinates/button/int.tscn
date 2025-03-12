@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dndcp8a35cle1"]
+
+[ext_resource type="Texture2D" uid="uid://cympjwhlx7i8p" path="res://addons/mouse_coordinates/svg/scissors.svg" id="1_pegfv"]
+[ext_resource type="Texture2D" uid="uid://ccrde1r0luyh6" path="res://addons/mouse_coordinates/svg/scissors_filled.svg" id="2_yten0"]
+
+[node name="Container" type="CenterContainer"]
+offset_right = 50.0
+offset_bottom = 31.0
+
+[node name="Int" type="TextureButton" parent="."]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_pegfv")
+texture_pressed = ExtResource("2_yten0")

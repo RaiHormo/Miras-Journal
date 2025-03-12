@@ -24,8 +24,6 @@ var StartTime:= 0.0
 var FirstStartTime:= 0.0
 var PlayTime:= 0.0
 var SaveTime:= 0.0
-var Textbox2 = preload("res://UI/Textbox/Textbox2.tscn")
-var Passive = preload("res://UI/Textbox/Passive.tscn")
 var HasPortrait := false
 var textbox_open:= false
 var PortraitRedraw := true
@@ -79,7 +77,7 @@ func normal_mode():
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
 func game_over():
-	$"/root".add_child(preload("res://UI/GameOver/GameOver.tscn").instantiate())
+	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -102,19 +100,19 @@ func _physics_process(delta: float) -> void:
 		Engine.max_fps = Settings.FPS
 
 func options():
-	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+	get_tree().root.add_child((await Loader.load_res("res://UI/Options/Options.tscn")).instantiate())
 
 func member_details(chara: Actor):
-	var dub = preload("res://UI/MemberDetails/MemberDetails.tscn").instantiate()
+	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
 	get_tree().root.add_child(dub)
 	await Event.wait()
 	dub.draw_character(chara)
 
 func next_day_ui():
-	get_tree().root.add_child(preload("res://UI/Misc/DayChangeUi.tscn").instantiate())
+	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
 
 func vainet_map(cur: String):
-	var Map = preload("res://UI/Map/VainetMap.tscn").instantiate()
+	var Map = (await Loader.load_res("res://UI/Map/VainetMap.tscn")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 
@@ -434,6 +432,7 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	textbox_open = true
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
+	var Textbox2 = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	var balloon: Node = Textbox2.instantiate()
 	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
@@ -449,6 +448,7 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 		await Event.wait(0.1)
 		passive(file, title, extra_game_states)
 		return
+	var Passive = await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
@@ -479,7 +479,7 @@ func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
 		await Event.wait()
-	var tost = preload("res://UI/Misc/Toast.tscn").instantiate()
+	var tost = (await Loader.load_res("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
@@ -489,7 +489,7 @@ func location_name(string: String) -> void:
 	if get_node_or_null("/root/LocationName"):
 		$/root/LocationName.free()
 		await Event.wait()
-	var tost = preload("res://UI/Misc/LocationName.tscn").instantiate()
+	var tost = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):

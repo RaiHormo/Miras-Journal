@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   t="1724046602659"
+   class="icon"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   p-id="53183"
+   width="16"
+   height="16"
+   id="svg1"
+   sodipodi:docname="power.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="54.5625"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-width="2048"
+     inkscape:window-height="1124"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M640.563 54c17.496 0 31.713 14.042 31.995 31.47l0.005 0.53-0.001 74.625h138.75c14.775 0 27.607 10.11 31.092 24.428l0.103 0.436 42.687 186.593a32 32 0 0 1-1.809 19.806L733.98 738.42a32 32 0 0 1-29.385 19.331H544.5v149.249H822v-125.13c0-17.497 14.042-31.713 31.47-31.996l0.53-0.004c17.496 0 31.713 14.042 31.996 31.47l0.004 0.53V939c0 17.496-14.042 31.713-31.47 31.996L854 971H512.5c-17.496 0-31.713-14.042-31.996-31.47l-0.004-0.53V757.75H320.406a32 32 0 0 1-29.208-18.928l-0.177-0.403-149.406-346.53a32 32 0 0 1-1.81-19.807l42.688-186.593c3.329-14.548 16.27-24.864 31.195-24.864h138.749V86c0-17.673 14.327-32 32-32 17.497 0 31.714 14.042 31.996 31.47l0.005 0.53-0.001 74.625h192.125V86c0-17.673 14.327-32 32-32z m145.243 170.625H239.193l-34.666 151.531 136.93 317.594h342.085l136.93-317.594-34.666-151.531z m-145.244 191.9c17.674 0 32 14.327 32 32 0 17.496-14.041 31.713-31.47 31.996l-0.53 0.004H384.438c-17.673 0-32-14.327-32-32 0-17.496 14.042-31.713 31.471-31.996l0.53-0.004h256.125z"
+     p-id="53184"
+     id="path1"
+     style="fill:#ffffff" />
+</svg>

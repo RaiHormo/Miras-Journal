@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://uet6axlmqkcy"]
+
+[ext_resource type="Script" uid="uid://dqo5wfmmgj61a" path="res://codings/Autoload/Event.gd" id="1_jv5no"]
+[ext_resource type="Script" uid="uid://cqb2so8cb56w3" path="res://codings/event_sequence.gd" id="2_v3y5i"]
+
+[node name="Event" type="Node"]
+script = ExtResource("1_jv5no")
+
+[node name="Sequences" type="Node" parent="."]
+script = ExtResource("2_v3y5i")

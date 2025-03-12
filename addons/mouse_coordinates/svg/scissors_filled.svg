@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   t="1724046532482"
+   class="icon"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   p-id="52424"
+   width="16"
+   height="16"
+   id="svg1"
+   sodipodi:docname="scissors_filled.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="54.5625"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-width="2048"
+     inkscape:window-height="1124"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M854 75c53.02 0 96 42.98 96 96v683c0 53.02-42.98 96-96 96H171c-53.02 0-96-42.98-96-96V171c0-53.02 42.98-96 96-96zM341.763 224.395c-64.82 0-117.368 52.547-117.368 117.368 0 64.82 52.547 117.369 117.368 117.369 18.114 0 35.27-4.104 50.588-11.432 17.935 41.037 17.935 88.563 0.002 129.601-15.32-7.33-32.476-11.433-50.59-11.433-64.82 0-117.368 52.548-117.368 117.369 0 64.82 52.547 117.368 117.368 117.368 64.82 0 117.369-52.547 117.369-117.368 0-22.57-6.372-43.654-17.413-61.548 10.546-18.994 18.121-39.261 22.726-60.082l286.41 190.94 0.443 0.29c14.658 9.432 34.228 5.392 43.933-9.166l0.29-0.442c9.433-14.659 5.393-34.228-9.165-43.934L506.162 512.5l280.194-186.794 0.438-0.298c14.345-9.903 18.142-29.52 8.437-44.078-9.803-14.705-29.671-18.679-44.376-8.876l-286.41 190.94c-4.605-20.821-12.18-41.088-22.724-60.085 11.04-17.891 17.41-38.974 17.41-61.545 0-64.82-52.547-117.368-117.368-117.368z m0 405.473c29.475 0 53.369 23.894 53.369 53.369 0 29.474-23.894 53.368-53.369 53.368-29.474 0-53.368-23.894-53.368-53.368 0-29.475 23.894-53.369 53.368-53.369z m0-341.473c29.475 0 53.369 23.894 53.369 53.368 0 29.475-23.894 53.369-53.369 53.369-29.474 0-53.368-23.894-53.368-53.369 0-29.474 23.894-53.368 53.368-53.368z"
+     p-id="52425"
+     id="path1"
+     style="fill:#ffffff" />
+</svg>

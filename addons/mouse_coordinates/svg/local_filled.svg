@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   t="1724046565305"
+   class="icon"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   p-id="52728"
+   width="16"
+   height="16"
+   id="svg1"
+   sodipodi:docname="local_filled.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="54.5625"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-width="2048"
+     inkscape:window-height="1124"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M512 54c194.402 0 352 157.536 352 351.875 0 70.143-18.691 141.765-53.11 214.017-28.685 60.214-67.546 119.345-114.038 176.663-35.956 44.33-74.412 85.077-112.885 121.398l-2.442 2.299-2.42 2.267-2.4 2.235-2.377 2.203-2.355 2.17-2.332 2.138-2.308 2.105-2.286 2.072-2.26 2.04-2.237 2.005-2.212 1.973-2.186 1.939-2.161 1.905-2.135 1.872-2.108 1.837-2.08 1.804-2.42 2.083-2.669 2.28-2.52 2.135-2.371 1.99-1.678 1.394-1.549 1.278-2.023 1.65-0.82 0.654c-11.663 9.054-28.04 8.958-39.603-0.29l-1.777-1.44-1.842-1.516-2.084-1.73-2.37-1.99-2.521-2.135-2.67-2.28-2.418-2.083-2.081-1.804-2.108-1.837-2.135-1.872-2.16-1.905-2.187-1.94-2.212-1.972-2.236-2.006-2.261-2.039-2.286-2.072-2.308-2.105-2.332-2.137-2.355-2.17-2.377-2.204-2.4-2.235-2.42-2.267-2.442-2.3c-38.473-36.32-76.929-77.067-112.885-121.397-46.492-57.318-85.353-116.449-114.037-176.663C178.69 547.64 160 476.018 160 405.875 160 211.536 317.598 54 512 54z m0 191.925c-88.363 0-160 71.61-160 159.95 0 88.34 71.637 159.95 160 159.95s160-71.61 160-159.95c0-88.34-71.637-159.95-160-159.95z"
+     p-id="52729"
+     id="path1"
+     style="fill:#ffffff" />
+</svg>

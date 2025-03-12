@@ -2,26 +2,25 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm30ge6p4ucyx"
-path.s3tc="res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.s3tc.ctex"
+uid="uid://b3ondos8rk7hd"
+path="res://.godot/imported/power.svg-a41737f28bb95225e51c3414b9573758.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/MainMenu/MenuBase.png"
-dest_files=["res://.godot/imported/MenuBase.png-a20370d43119280986a470ec3f0f9526.s3tc.ctex"]
+source_file="res://addons/mouse_coordinates/svg/power.svg"
+dest_files=["res://.godot/imported/power.svg-a41737f28bb95225e51c3414b9573758.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
-compress/hdr_compression=2
+compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=1
+compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -33,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

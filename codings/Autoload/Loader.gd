@@ -334,7 +334,7 @@ func start_battle(stg, advantage := 0):
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 		Global.Player.camera_follow(false)
 	Global.get_cam().position_smoothing_enabled = false
-	get_tree().get_root().add_child(preload("res://codings/Battle.tscn").instantiate())
+	get_tree().get_root().add_child((await load_res("res://codings/Battle.tscn")).instantiate())
 	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Area.Followers:
 		if is_instance_valid(i) and is_instance_valid(Global.Player):
