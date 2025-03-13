@@ -82,6 +82,11 @@ func waste_time():
 #############################################################
 
 func sl_maple_1():
-	await Event.take_control()
-	await Loader.travel_to("Pyrson", Vector2(362, 778))
-	var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(362, 778))
+	await Loader.travel_to("Pyrson", Vector2(362, 778), 0 , -1, "wait")
+	Event.no_player()
+	Event.zoom(5)
+	var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), "R")
+	var maple: NPC = await Event.spawn("Maple", Vector2(350, 778), "L")
+	Loader.detransition("")
+	await Event.wait(1)
+	Global.textbox("sl_maple", "rank1_1")

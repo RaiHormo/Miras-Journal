@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://b5bm3ehwu12r2"
+path="res://.godot/imported/sl_maple.dialogue-dfaaf39640f4a2d8fcb81cce19e4a58c.tres"
+
+[deps]
+
+source_file="res://database/Text/sl_maple.dialogue"
+dest_files=["res://.godot/imported/sl_maple.dialogue-dfaaf39640f4a2d8fcb81cce19e4a58c.tres"]
+
+[params]
+
+defaults=true

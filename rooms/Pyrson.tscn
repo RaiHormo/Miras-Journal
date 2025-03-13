@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=36 format=4 uid="uid://bd1tjlb5qs82v"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dp3b7p474e3t7" path="res://rooms/components/StairsH.tscn" id="14_y8h7v"]
 [ext_resource type="Script" uid="uid://bk204ee71jvcx" path="res://codings/Interactions/slope.gd" id="15_3swys"]
 [ext_resource type="PackedScene" uid="uid://cr3hn08s615pf" path="res://rooms/components/NPC.tscn" id="16_s1pqb"]
-[ext_resource type="Texture2D" uid="uid://cdo4jqfb8nnbf" path="res://art/OV/Maple/IdleDown.png" id="17_585ds"]
+[ext_resource type="SpriteFrames" uid="uid://dhrbelc32bn2p" path="res://art/OV/Maple/MapleOV.tres" id="17_585ds"]
 
 [sub_resource type="Gradient" id="Gradient_i7xjy"]
 offsets = PackedFloat32Array(1)
@@ -326,161 +326,6 @@ gradient = SubResource("Gradient_2oe0j")
 width = 500
 height = 500
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_26sn0"]
-atlas = ExtResource("17_585ds")
-region = Rect2(0, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lkhnc"]
-atlas = ExtResource("17_585ds")
-region = Rect2(44, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjbvj"]
-atlas = ExtResource("17_585ds")
-region = Rect2(88, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xmoor"]
-atlas = ExtResource("17_585ds")
-region = Rect2(132, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_essy2"]
-atlas = ExtResource("17_585ds")
-region = Rect2(176, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xruee"]
-atlas = ExtResource("17_585ds")
-region = Rect2(220, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p415d"]
-atlas = ExtResource("17_585ds")
-region = Rect2(264, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ejpht"]
-atlas = ExtResource("17_585ds")
-region = Rect2(308, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_taf6h"]
-atlas = ExtResource("17_585ds")
-region = Rect2(352, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4lmea"]
-atlas = ExtResource("17_585ds")
-region = Rect2(396, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_prfhr"]
-atlas = ExtResource("17_585ds")
-region = Rect2(440, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u5udm"]
-atlas = ExtResource("17_585ds")
-region = Rect2(484, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vxpye"]
-atlas = ExtResource("17_585ds")
-region = Rect2(528, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vm6kc"]
-atlas = ExtResource("17_585ds")
-region = Rect2(572, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b46i6"]
-atlas = ExtResource("17_585ds")
-region = Rect2(616, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u6p7b"]
-atlas = ExtResource("17_585ds")
-region = Rect2(660, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ak30l"]
-atlas = ExtResource("17_585ds")
-region = Rect2(704, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nlfpl"]
-atlas = ExtResource("17_585ds")
-region = Rect2(748, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ig8e"]
-atlas = ExtResource("17_585ds")
-region = Rect2(792, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ygg4"]
-atlas = ExtResource("17_585ds")
-region = Rect2(836, 0, 44, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1bc5"]
-atlas = ExtResource("17_585ds")
-region = Rect2(880, 0, 44, 36)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s1pqb"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_26sn0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lkhnc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjbvj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xmoor")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_essy2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xruee")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p415d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ejpht")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_taf6h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4lmea")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_prfhr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u5udm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vxpye")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vm6kc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b46i6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u6p7b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ak30l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nlfpl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2ig8e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ygg4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n1bc5")
-}],
-"loop": true,
-"name": &"IdleDown",
-"speed": 3.0
-}]
-
 [node name="Pyrson" type="Node2D" node_paths=PackedStringArray("SpawnPath")]
 y_sort_enabled = true
 texture_filter = 1
@@ -515,7 +360,6 @@ tile_map_data = PackedByteArray("AAATACIABwAOABMAAAATACMABwANABMAAAATACQABwAOABM
 tile_set = ExtResource("2_3r7g5")
 
 [node name="LightDarkness" type="PointLight2D" parent="."]
-visible = false
 position = Vector2(392.75, 862.5)
 scale = Vector2(16.9922, 28.4531)
 color = Color(0.9, 0.8, 0.5, 1)
@@ -786,26 +630,26 @@ position = Vector2(79, 127)
 
 [node name="NPC" parent="." instance=ExtResource("16_s1pqb")]
 z_index = 3
-position = Vector2(704, 563)
+position = Vector2(523, 833)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
-texture_filter = 1
-position = Vector2(1, -8)
-sprite_frames = SubResource("SpriteFrames_s1pqb")
+use_parent_material = true
+position = Vector2(-1, 2)
+sprite_frames = ExtResource("17_585ds")
 animation = &"IdleDown"
 autoplay = "IdleDown"
 frame_progress = 0.137967
+offset = Vector2(1, -11)
 
 [node name="TalkPrompt" parent="NPC" instance=ExtResource("9_w0u03")]
-position = Vector2(1.14441e-05, 8)
+position = Vector2(1.14441e-05, 1)
 LabelText = "Talk"
-ActionType = "event"
+ActionType = "text"
 Length = 90
-file = "sl_maple_1"
-title = "Waste a bit of time"
-item = "Do nothing for a few hours."
+file = "sl_maple"
+title = "prepare"
 to_time = -1
-to_time_relative = 1
+to_time_relative = 2
 Height = 16
 bubble_always = true
 

@@ -18,6 +18,7 @@ signal action()
 @onready var button:Button
 @onready var arrow:TextureRect
 @onready var pack := $Pack
+@export var return_control:= true
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
 @export var hide_parent: bool = false
@@ -160,13 +161,14 @@ func _on_button_pressed() -> void:
 		Global.Player.collision(false)
 		await Global.Player.go_to(proper_pos, false, true, proper_face)
 	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
+	if not (to_time == 0 and to_time_relative == 0):
+		Event.ToTime = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
 	match ActionType:
 		"toggle":
 			Global.confirm_sound()
 		"text":
 			await Event.take_control()
 			await Global.textbox(file, title)
-			Event.give_control()
 		"item":
 			Item.add_item(item, itemtype)
 		"battle":
@@ -177,9 +179,9 @@ func _on_button_pressed() -> void:
 			Global.confirm_sound()
 			Event.sequence(file)
 		"pass_time":
-			PartyUI.confirm_time_passage(title, item,
-			to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative), file)
-			Global.confirm_sound()
+			if await PartyUI.confirm_time_passage(title, item):
+				Global.confirm_sound()
+				Event.sequence(file)
 		"vainet":
 			if Event.f(get_parent().name):
 				Global.vainet_map(get_parent().name.replace("VP", ""))
@@ -198,7 +200,8 @@ func _on_button_pressed() -> void:
 			if add_flag: Event.f(hide_on_flag, true)
 			Global.check_party.emit()
 			await Event.wait(3)
-			Event.give_control(true)
+	if return_control:
+		Event.give_control(true)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)

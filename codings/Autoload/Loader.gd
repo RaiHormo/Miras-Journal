@@ -35,6 +35,7 @@ func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	validate_save("user://Autosave.tres")
+	restore_bars()
 
 func save(filename:String="Autosave", showicon=true):
 	if !Global.Player or !Global.Area:
@@ -173,6 +174,7 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	direc = trans
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
+	PartyUI.hide_all()
 	Event.List.clear()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
@@ -181,6 +183,7 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	scene[0] = "res://rooms/" + sc + ".tscn"
 	if scene[0] != "":
 		ResourceLoader.load_threaded_request(scene[0])
+
 	await transition(trans)
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
@@ -209,36 +212,47 @@ func transition(dir=Global.get_dir_letter()):
 	if dir == "none": return
 	Global.Controllable = false
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
-	t.kill()
-	t=create_tween()
-	t.set_parallel(false)
-	t.set_ease(Tween.EASE_IN)
-	t.set_trans(Tween.TRANS_QUART)
 	direc = dir
-	if Icon.is_playing():
-		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	$Can.show()
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
-	if dir == "U":
-		t.parallel()
-		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3).from(Vector2(-235,786))
-	elif dir == "D":
-		t.parallel()
-		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
-	elif dir == "R":
-		t.parallel()
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(0,-204), 0.3).from(Vector2(-1720,-204))
-	elif dir == "L":
-		t.parallel()
-		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
-	else:
-		t.set_parallel(true)
-		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3).from(Vector2(-235,786))
-		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-126), 0.3).from(Vector2(-156,-1096))
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-204), 0.3).from(Vector2(-1720,-204))
-		t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-177), 0.3).from(Vector2(1394,-177))
-	await t.finished
+	t.kill()
+	if not is_in_transition():
+		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
+		if Icon.is_playing():
+			t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+		match dir:
+			"U":
+				t.tween_property($Can/Bars/Down, "global_position", Vector2(-200,-200), 0.3)
+			"D":
+				t.tween_property($Can/Bars/Up, "global_position", Vector2(-200,-200), 0.3)
+			"R":
+				t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-200), 0.3)
+			"L":
+				t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-200), 0.3)
+			_:
+				t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3)
+				t.tween_property($Can/Bars/Up, "global_position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Left, "global_position", Vector2(-150,-200), 0.3)
+				t.tween_property($Can/Bars/Right, "global_position", Vector2(-250,-200), 0.3)
+		await t.finished
+	else: pass
+	restore_bars()
+	match dir:
+		"U":
+			$Can/Bars/Up.global_position = Vector2(-200,-200)
+		"D":
+			$Can/Bars/Down.global_position = Vector2(-200,-200)
+		"R":
+			$Can/Bars/Right.global_position = Vector2(-200,-200)
+		"L":
+			$Can/Bars/Left.global_position = Vector2(-200,-200)
+		_:
+			$Can/Bars/Up.global_position = Vector2(-200,-200)
+			$Can/Bars/Down.global_position = Vector2(-200,-200)
+			$Can/Bars/Right.global_position = Vector2(-150,-200)
+			$Can/Bars/Left.global_position = Vector2(-250,-200)
+	await Event.wait()
 
 func done():
 	chased = false
@@ -254,39 +268,42 @@ func done():
 	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
-	await detransition()
+	if direc != "wait": await detransition()
 	Event.give_control(false)
 
-func detransition():
-	if direc == "none": return
+func detransition(dir = "direc"):
+	if dir == "none": return
 	Global.get_cam().position_smoothing_enabled = false
 	t.kill()
-	t=create_tween()
-	t.set_parallel(false)
+	t = create_tween()
+	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can/Bars.self_modulate = Color.WHITE
-	if direc == "U":
-		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-1096), 0.3)
-	elif direc == "D":
-		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,786), 0.3)
-	elif direc == "R":
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(2000,-204), 0.3)
-	elif direc == "L":
-		t.tween_property($Can/Bars/Right, "global_position", Vector2(-2000,-177), 0.3)
-	else:
-		t.set_parallel(true)
-		t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.4).from(Vector2(-235,-126))
-		t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.4).from(Vector2(-156,-126))
-		t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.4).from(Vector2(-200,-204))
-		t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.4).from(Vector2(-200,-177))
+	t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.4)#.from(Vector2(-235,-126))
+	t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.4)#.from(Vector2(-156,-126))
+	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.4)#.from(Vector2(-200,-204))
+	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.4)#.from(Vector2(-200,-177))
 	dismiss_load_icon()
 	await t.finished
 	$Can/Bars/Down.position = Vector2(-34, 1882)
 	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
-	#$Can.hide()
+
+func restore_bars():
+	$Can/Bars/Down.global_position = Vector2(-235,786)
+	$Can/Bars/Up.global_position = Vector2(-156,-1096)
+	$Can/Bars/Left.global_position = Vector2(-1720,-204)
+	$Can/Bars/Right.global_position = Vector2(1394,-177)
+
+func is_in_transition():
+	return not (
+		$Can/Bars/Down.global_position == Vector2(-235,786) and
+		$Can/Bars/Up.global_position == Vector2(-156,-1096) and
+		$Can/Bars/Left.global_position == Vector2(-1720,-204) and
+		$Can/Bars/Right.global_position == Vector2(1394,-177)
+	)
 
 func dismiss_load_icon():
 	if Icon.is_playing():
@@ -329,12 +346,13 @@ func start_battle(stg, advantage := 0):
 			await t.finished
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
+	var battle = (await load_res("res://codings/Battle.tscn")).instantiate()
 	if is_instance_valid(Global.Player):
 		Global.Player.hide()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 		Global.Player.camera_follow(false)
 	Global.get_cam().position_smoothing_enabled = false
-	get_tree().get_root().add_child((await load_res("res://codings/Battle.tscn")).instantiate())
+	get_tree().get_root().add_child(battle)
 	if is_instance_valid(Attacker): Attacker.hide()
 	for i in Global.Area.Followers:
 		if is_instance_valid(i) and is_instance_valid(Global.Player):
@@ -539,3 +557,29 @@ func flash_attacker():
 	t = create_tween()
 	t.tween_property(Attacker.get_node("Flash"), "energy", 10, 0.1)
 	t.tween_property(Attacker.get_node("Flash"), "energy", 0, 1)
+
+func flip_time(from: Event.TOD, to: Event.TOD):
+	var tod = $Can/TimeOfDay
+	tod.modulate = Color.TRANSPARENT
+	tod.scale = Vector2(0.6, 0.6)
+	tod.text = Global.to_tod_text(from)
+	tod.icon = Global.to_tod_icon(from)
+	tod.show()
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
+	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
+	t.tween_property(tod, "modulate", Color.WHITE, 0.3)
+	await t.finished
+	await Event.wait(0.3)
+	t = create_tween()
+	t.tween_property(tod, "scale:x", 0, 0.1)
+	await t.finished
+	tod.text = Global.to_tod_text(to)
+	tod.icon = Global.to_tod_icon(to)
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	t.tween_property(tod, "scale:x", 1, 0.3)
+	await Event.wait(0.6)
+	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_parallel()
+	t.tween_property(tod, "scale", Vector2(0.6, 0.6), 0.3)
+	t.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)
+	await t.finished
+	tod.hide()

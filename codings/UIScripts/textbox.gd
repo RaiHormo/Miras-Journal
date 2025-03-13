@@ -323,7 +323,12 @@ func _input(event: InputEvent) -> void:
 						Event.skip_cutscene()
 						_on_close()
 					else: Global.toast("Hold the button down to skip")
-		elif event.is_pressed() and not event.is_action("DialogNext") and is_waiting_for_input:
+		elif event.is_pressed() and not event.is_action("DialogNext") and not (
+			event.is_action(&"ui_left") or
+			event.is_action(&"ui_right") or
+			event.is_action(&"ui_up") or
+			event.is_action(&"ui_down")
+		) and is_waiting_for_input:
 			#print(event)
 			$Hints/Skip.icon = Global.get_controller().Dash
 			$Hints/Advance.icon = Global.get_controller().ConfirmIcon

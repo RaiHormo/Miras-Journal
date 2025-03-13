@@ -11,6 +11,7 @@ var TimeOfDay:= TOD.DARKHOUR
 var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
+var ToTime:= TOD.DARKHOUR
 signal time_changed
 signal next_day
 @onready var seq: Node = $Sequences
@@ -124,9 +125,9 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
-	if !Global.Player or !Global.Area: return
 	Global.Controllable = false
 	await wait()
+	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return
 	if Global.Player.dashing:
 		await Global.Player.stop_dash()
 		Global.Player.dashing = false
@@ -222,7 +223,7 @@ func sequence(title: String):
 	if seq.has_method(title):
 		seq.call(title)
 	else:
-		Global.toast(title + " is not a valid event")
+		OS.alert(title + " is not a valid event")
 
 func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
@@ -238,7 +239,7 @@ func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
 	var sprite_node:= AnimatedSprite2D.new()
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
-	sprite_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sprite_node.use_parent_material = true
 	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 	if sprite == null: return null
 	sprite_node.sprite_frames = sprite
@@ -247,3 +248,17 @@ func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
 	chara.position = pos
 	chara.look_to(Global.get_dir_from_letter(dir))
 	return chara
+
+func no_player():
+	Global.Controllable = false
+	if is_instance_valid(Global.Player):
+		Global.Player.queue_free()
+	PartyUI.hide_all()
+
+func time_transition():
+	await Loader.transition()
+	await Loader.flip_time(TimeOfDay, ToTime)
+	set_time(ToTime)
+
+func zoom(val: float):
+	Global.Camera.zoom = Vector2(val, val)

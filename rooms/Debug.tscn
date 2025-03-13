@@ -954,7 +954,7 @@ file = "testbush"
 title = "bush"
 Height = 4
 
-[node name="InteractBush2" parent="." instance=ExtResource("6_pmuyc")]
+[node name="InteractRest" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(276, 63)
 LabelText = "Sleep"
 ActionType = "pass_time"
@@ -966,7 +966,7 @@ to_time = 1
 Height = 6
 hide_on_flag = &"time:1"
 
-[node name="InteractBush3" parent="." instance=ExtResource("6_pmuyc")]
+[node name="InteractFastTravel" parent="." instance=ExtResource("6_pmuyc")]
 position = Vector2(11.5979, -54.0878)
 LabelText = "Fast Travel"
 ActionType = "text"
@@ -976,7 +976,7 @@ title = "travel"
 Height = 16
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
-position = Vector2(301, 70.9996)
+position = Vector2(293, 75)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
 energy = 0.5

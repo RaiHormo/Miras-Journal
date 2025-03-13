@@ -565,8 +565,8 @@ func _on_item_preview_pressed():
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 	+ str(Item.get_node("ItemEffect").item.Quantity))
 
-func confirm_time_passage(title: String, description: String, to_time: Event.TOD, action_id: String):
-	$CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time, action_id)
+func confirm_time_passage(title: String, description: String, to_time: Event.TOD = Event.ToTime) -> bool:
+	return await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
 
 func cmd():
 	Event.f("DisableMenus", false)

@@ -5,7 +5,7 @@ func _ready() -> void:
 	$Splash.show()
 	$TitleScreen.hide()
 	glyph_update()
-	PartyUI.disabled = true
+	Event.Flags.append("DisableMenus")
 	Global.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
 		game_exists = true

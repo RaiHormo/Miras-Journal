@@ -1,7 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://ykcn5dmyux3m"]
+[gd_scene load_steps=36 format=3 uid="uid://ykcn5dmyux3m"]
 
 [ext_resource type="Script" uid="uid://bkudobr2el52k" path="res://codings/Autoload/Loader.gd" id="1_5wiw1"]
 [ext_resource type="Texture2D" uid="uid://d3lf2kvyggym1" path="res://art/Icons/LoadingIcon.png" id="2_qfelw"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_aa01v"]
+[ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="4_gk7ox"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_46nq6"]
 atlas = ExtResource("2_qfelw")
@@ -227,6 +229,22 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxw0p"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+expand_margin_left = 12.0
+expand_margin_right = 8.0
+
 [node name="Loader" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -240,21 +258,21 @@ layer = 9
 [node name="Bars" type="CanvasGroup" parent="Can"]
 position = Vector2(-201, -1096)
 
+[node name="Up" type="ColorRect" parent="Can/Bars"]
+light_mask = 16
+offset_right = 1725.0
+offset_bottom = 1000.0
+rotation = 0.0641833
+mouse_filter = 2
+color = Color(0.054902, 0.054902, 0.054902, 1)
+metadata/_edit_use_anchors_ = true
+
 [node name="Down" type="ColorRect" parent="Can/Bars"]
 light_mask = 16
 offset_left = -34.0
 offset_top = 1882.0
 offset_right = 1691.0
 offset_bottom = 2882.0
-rotation = 0.0641833
-mouse_filter = 2
-color = Color(0.054902, 0.054902, 0.054902, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="Up" type="ColorRect" parent="Can/Bars"]
-light_mask = 16
-offset_right = 1725.0
-offset_bottom = 1000.0
 rotation = 0.0641833
 mouse_filter = 2
 color = Color(0.054902, 0.054902, 0.054902, 1)
@@ -302,3 +320,23 @@ metadata/_aseprite_wizard_config_ = {
 "player": "Anim",
 "source": "res://art/Icons/LoadingIcon.ase"
 }
+
+[node name="TimeOfDay" type="Button" parent="Can"]
+visible = false
+offset_left = 494.0
+offset_top = 361.0
+offset_right = 785.0
+offset_bottom = 438.0
+pivot_offset = Vector2(150, 31)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/icon_max_width = 64
+theme_override_fonts/font = ExtResource("3_aa01v")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_vxw0p")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vxw0p")
+button_mask = 0
+text = "Morning"
+icon = ExtResource("4_gk7ox")
+alignment = 2

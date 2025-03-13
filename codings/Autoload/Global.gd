@@ -7,7 +7,11 @@ var Members: Array[Actor]
 var Bt: Battle = null
 var PortraitIMG: Texture
 var Player: Mira
-var PlayerDir := Vector2.DOWN
+var PlayerDir: Vector2:
+	get:
+		if is_instance_valid(Player):
+			return Player.Facing
+		else: return Vector2.RIGHT
 var PlayerPos: Vector2
 var Area: Room
 var Camera: Camera2D:
@@ -713,6 +717,20 @@ func get_power_rating(power: int) -> String:
 	if power < 90: return "Overpowered"
 	if power < 96: return "Godly"
 	return "Illegal"
+
+func to_tod_text(x: Event.TOD) -> String:
+	match x:
+		Event.TOD.MORNING: return "Morning"
+		Event.TOD.DAYTIME: return "Daytime"
+		Event.TOD.AFTERNOON: return "Afternoon"
+		Event.TOD.EVENING: return "Evening"
+		Event.TOD.NIGHT: return "Night"
+	return "Dark hour"
+
+func to_tod_icon(x: Event.TOD) -> Texture:
+	if FileAccess.file_exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
+		return load("res://UI/Calendar/" + to_tod_text(x) + ".png")
+	else: return null
 
 func range_360(n1, n2) -> Array:
 	if n2 > 359:

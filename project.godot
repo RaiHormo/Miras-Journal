@@ -431,7 +431,7 @@ pointing/android/enable_pan_and_scale_gestures=true
 [internationalization]
 
 rendering/root_node_layout_direction=1
-locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.dialogue", "res://database/Text/item_inspect.dialogue", "res://database/Text/victory_banter.dialogue", "res://database/Text/alcine_talk.dialogue", "res://database/Text/entrance_banter.dialogue", "res://database/Text/story_events.dialogue", "res://database/Text/interactions.dialogue", "res://database/Text/BT_Daze.dialogue")
+locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.dialogue", "res://database/Text/item_inspect.dialogue", "res://database/Text/victory_banter.dialogue", "res://database/Text/alcine_talk.dialogue", "res://database/Text/entrance_banter.dialogue", "res://database/Text/story_events.dialogue", "res://database/Text/interactions.dialogue", "res://database/Text/BT_Daze.dialogue", "res://database/Text/sl_maple.dialogue")
 
 [layer_names]
 
