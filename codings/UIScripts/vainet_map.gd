@@ -6,13 +6,14 @@ var inited:= false
 
 func _ready() -> void:
 	await Event.take_control()
+	await Loader.save()
 	get_viewport().gui_focus_changed.connect(focus_change)
 	Global.get_cam().limit_bottom = 999999
 	Global.get_cam().limit_right = 999999
 	Global.get_cam().limit_left = -999999
 	Global.get_cam().limit_top = -999999
 	for i in $Container/Scroller/LocationList.get_children():
-		if i is Button: i.pressed.connect(location_selected)
+		#if i is Button: i.pressed.connect(location_selected)
 		if not Event.f("VP"+i.name):
 			if i is Button: i.hide()
 	$Container/Scroller/LocationList/Gate.show()
@@ -67,6 +68,25 @@ func focus_change(node: Control):
 func location_selected():
 	if not inited: return
 	inited = false
+
+	var progress_time = false
+	var prev_foc = foc
+	if foc.get_meta("IsDungeon", true) != Global.Area.IsDungeon:
+		var message: String
+		if Global.Area.IsDungeon:
+			message = "Exit the dungeon and rest at home."
+		else:
+			message = "Head into a dungeon. Time will pass when returning."
+		if not await PartyUI.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(1)):
+			inited = true
+			foc =  prev_foc
+			PartyUI.hide_all()
+			focus_place(here)
+			return
+		elif Global.Area.IsDungeon:
+			Event.ToTime = Event.get_time_progress_from_now(1)
+			progress_time = true
+	foc =  prev_foc
 	Global.confirm_sound()
 	Event.remove_flag("FlameActive")
 	var map_point = $Map.get_node_or_null(str(foc.name))
@@ -75,13 +95,18 @@ func location_selected():
 	t.set_parallel()
 	t.tween_property(Global.get_cam(), "zoom", Vector2(4, 4), 0.3)
 	t.tween_property(Global.get_cam(), "position", map_point.global_position, 0.3)
+	await Loader.transition("")
+	if progress_time:
+		await Event.time_transition()
 	Loader.travel_to(foc.get_meta("Room"), Vector2.ZERO, foc.get_meta("CamID"), -1, "")
 	await Global.area_initialized
 	var VP = Global.Area.get_node_or_null("VP"+foc.name)
 	if VP == null: OS.alert("No such vain point exists"); return
 	Global.Player.global_position = VP.global_position + Vector2(0, 24)
-	queue_free()
+	free()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		focus_place(here)
+	if Input.is_action_just_pressed(&"ui_accept") and foc != null:
+		location_selected()

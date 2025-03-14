@@ -2,6 +2,7 @@ extends Node2D
 class_name Room
 
 @export var Name: String = "???"
+@export var IsDungeon:= true
 @export var SpawnPlayer = true
 @export var SpawnPath: Node = self
 ##In tilemap coords

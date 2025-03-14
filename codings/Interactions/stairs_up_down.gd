@@ -15,25 +15,31 @@ class_name Stair
 func _on_body_entered(body: Node2D) -> void:
 	print(body.get_class())
 	if body is NPC:
-		var dir : Vector2 = to_local(body.global_position)
-		if left_right_mode: dir.y = 0
-		else: dir.x = 0
+		var dir : Vector2 = to_local(body.position)
+		go(dir)
+
+func go(dir: Vector2):
+	if Swap: dir *= -1
+	if left_right_mode:
+		dir.y = 0
 		dir = Global.get_direction(dir)
-		if Swap: dir *= -1
-		print(body.name, " entered staircase ", name, " going ", dir)
-		if left_right_mode:
-			if dir == Vector2.RIGHT:
-				go_up()
-			elif dir == Vector2.LEFT:
-				go_down()
-		else:
-			if dir == Vector2.UP:
-				go_up()
-			elif dir == Vector2.DOWN:
-				go_down()
+		if dir == Vector2.RIGHT:
+			go_up()
+		elif dir == Vector2.LEFT:
+			go_down()
+	else:
+		dir.x = 0
+		dir = Global.get_direction(dir)
+		if dir == Vector2.UP:
+			go_up()
+		elif dir == Vector2.DOWN:
+			go_down()
+	print("entered staircase ", name, " going ", dir)
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Finder": _on_body_entered(body)
+	if body is NPC:
+		var dir : Vector2 = to_local(body.position)
+		go(dir*-1)
 
 func go_up():
 	Global.Player.collision_layer = LayersUp

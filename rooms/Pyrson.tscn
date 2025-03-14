@@ -331,6 +331,7 @@ y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_hfis3")
 Name = "Pyrson"
+IsDungeon = false
 SpawnPath = NodePath(".")
 SpawnPos = Vector2(3, 9)
 SpawnZ = Array[int]([0])
@@ -563,7 +564,7 @@ rotation = -0.471887
 shape = SubResource("RectangleShape2D_66y4c")
 
 [node name="Stairs1" parent="." instance=ExtResource("14_y8h7v")]
-position = Vector2(367, 884)
+position = Vector2(370, 885)
 
 [node name="SubRoomBg" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)

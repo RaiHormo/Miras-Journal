@@ -381,8 +381,8 @@ func _on_save_delete() -> void:
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
-		panel.get_node("ProgressBar").value += 2
-		await Event.wait()
+		panel.get_node("ProgressBar").value += 1
+		await Event.wait(0.01, false)
 	$SavePanel/Buttons/Delete.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Global.confirm_sound()
@@ -414,8 +414,8 @@ func _on_save_overwrite() -> void:
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
-		panel.get_node("ProgressBar").value += 4
-		await Event.wait()
+		panel.get_node("ProgressBar").value += 2
+		await Event.wait(0.01, false)
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	$SavePanel/Buttons/Overwrite.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
@@ -452,8 +452,8 @@ func _on_save_load() -> void:
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
-		panel.get_node("ProgressBar").value += 6
-		await Event.wait()
+		panel.get_node("ProgressBar").value += 5
+		await Event.wait(0.01, false)
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	if panel.get_node("ProgressBar").value == 100:
 		await Loader.load_game(panel.name)
@@ -637,3 +637,8 @@ func _on_highres_textures(toggle: bool) -> void:
 	Global.apply_settings()
 	confirm()
 	load_settings()
+
+
+func _on_website() -> void:
+	OS.shell_open("https://raidev.eu")
+	Global.toast("\"raidev.eu\" was opened in your web browser.")

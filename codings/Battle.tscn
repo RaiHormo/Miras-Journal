@@ -2036,6 +2036,8 @@ theme_override_constants/margin_bottom = 14
 [node name="Scroller" type="ScrollContainer" parent="BattleUI/AbilityUI/Margin"]
 use_parent_material = true
 layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="AbilityList" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller"]
 unique_name_in_owner = true
@@ -2053,6 +2055,7 @@ texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 1
 theme = SubResource("Theme_t7ro7")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 32
@@ -2064,6 +2067,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
 text = "Ability Name"
 alignment = 0
+autowrap_mode = 2
 expand_icon = true
 
 [node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]

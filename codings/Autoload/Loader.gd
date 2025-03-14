@@ -10,7 +10,7 @@ var loading_thread = false
 var load_failed = false
 @export var direc : String
 @onready var t: Tween
-var Seq: BattleSequence = preload("res://database/BattleSeq/DebugDummy.tres")
+var Seq: BattleSequence
 var InBattle = false
 signal thread_loaded
 var loaded_resource
@@ -29,13 +29,21 @@ signal battle_start
 signal battle_end
 signal ungray
 
+var BAR_DOWN_POS: Vector2
+var BAR_UP_POS: Vector2
+var BAR_LEFT_POS: Vector2
+var BAR_RIGHT_POS: Vector2
+
 func _ready():
 	$Can.hide()
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	validate_save("user://Autosave.tres")
-	restore_bars()
+	BAR_DOWN_POS = $Can/Bars/Down.position
+	BAR_UP_POS = $Can/Bars/Up.position
+	BAR_LEFT_POS = $Can/Bars/Left.position
+	BAR_RIGHT_POS = $Can/Bars/Right.position
 
 func save(filename:String="Autosave", showicon=true):
 	if !Global.Player or !Global.Area:
@@ -85,8 +93,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
-	if close_first: await transition("")
-	else: transition("")
+	await transition("")
 	if not validate_save(filepath):
 		OS.alert("Save data is corrupt")
 		get_tree().quit()
@@ -210,6 +217,7 @@ func _process(delta):
 
 func transition(dir=Global.get_dir_letter()):
 	if dir == "none": return
+	#Engine.time_scale = 0.1
 	Global.Controllable = false
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	direc = dir
@@ -223,35 +231,38 @@ func transition(dir=Global.get_dir_letter()):
 			t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 		match dir:
 			"U":
-				t.tween_property($Can/Bars/Down, "global_position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
 			"D":
-				t.tween_property($Can/Bars/Up, "global_position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
 			"R":
-				t.tween_property($Can/Bars/Left, "global_position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
 			"L":
-				t.tween_property($Can/Bars/Right, "global_position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
 			_:
-				t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,-126), 0.3)
-				t.tween_property($Can/Bars/Up, "global_position", Vector2(-200,-200), 0.3)
-				t.tween_property($Can/Bars/Left, "global_position", Vector2(-150,-200), 0.3)
-				t.tween_property($Can/Bars/Right, "global_position", Vector2(-250,-200), 0.3)
+				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
+				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
 		await t.finished
 	else: pass
-	restore_bars()
 	match dir:
 		"U":
-			$Can/Bars/Up.global_position = Vector2(-200,-200)
+			$Can/Bars/Up.position = Vector2(-200,-200)
+			$Can/Bars/Down.position = BAR_DOWN_POS
 		"D":
-			$Can/Bars/Down.global_position = Vector2(-200,-200)
+			$Can/Bars/Down.position = Vector2(-200,-200)
+			$Can/Bars/Up.position = BAR_UP_POS
 		"R":
-			$Can/Bars/Right.global_position = Vector2(-200,-200)
+			$Can/Bars/Right.position = Vector2(-200,-200)
+			$Can/Bars/Left.position = BAR_LEFT_POS
 		"L":
-			$Can/Bars/Left.global_position = Vector2(-200,-200)
+			$Can/Bars/Left.position = Vector2(-200,-200)
+			$Can/Bars/Right.position = BAR_RIGHT_POS
 		_:
-			$Can/Bars/Up.global_position = Vector2(-200,-200)
-			$Can/Bars/Down.global_position = Vector2(-200,-200)
-			$Can/Bars/Right.global_position = Vector2(-150,-200)
-			$Can/Bars/Left.global_position = Vector2(-250,-200)
+			$Can/Bars/Up.position = Vector2(-200,-200)
+			$Can/Bars/Down.position = Vector2(-200,-200)
+			$Can/Bars/Right.position = Vector2(-200,-200)
+			$Can/Bars/Left.position = Vector2(-200,-200)
 	await Event.wait()
 
 func done():
@@ -273,36 +284,35 @@ func done():
 
 func detransition(dir = "direc"):
 	if dir == "none": return
+	#Engine.time_scale = 0.1
 	Global.get_cam().position_smoothing_enabled = false
 	t.kill()
 	t = create_tween()
-	t.set_parallel(true)
+	t.set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can/Bars.self_modulate = Color.WHITE
-	t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), 0.4)#.from(Vector2(-235,-126))
-	t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), 0.4)#.from(Vector2(-156,-126))
-	t.tween_property($Can/Bars/Left, "global_position", Vector2(-1720,-204), 0.4)#.from(Vector2(-200,-204))
-	t.tween_property($Can/Bars/Right, "global_position", Vector2(1394,-177), 0.4)#.from(Vector2(-200,-177))
+	t.tween_property($Can/Bars/Down, "position", BAR_DOWN_POS, 0.4)#.from(Vector2(-235,-126))
+	t.tween_property($Can/Bars/Up, "position", BAR_UP_POS, 0.4)#.from(Vector2(-156,-126))
+	t.tween_property($Can/Bars/Left, "position", BAR_LEFT_POS, 0.4)#.from(Vector2(-200,-204))
+	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)#.from(Vector2(-200,-177))
 	dismiss_load_icon()
 	await t.finished
-	$Can/Bars/Down.position = Vector2(-34, 1882)
-	$Can/Bars/Up.position = Vector2(0,0)
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
 
-func restore_bars():
-	$Can/Bars/Down.global_position = Vector2(-235,786)
-	$Can/Bars/Up.global_position = Vector2(-156,-1096)
-	$Can/Bars/Left.global_position = Vector2(-1720,-204)
-	$Can/Bars/Right.global_position = Vector2(1394,-177)
+func restore_bars(dir: String = ""):
+	$Can/Bars/Down.global_position = BAR_DOWN_POS
+	$Can/Bars/Up.global_position = BAR_UP_POS
+	$Can/Bars/Left.global_position = BAR_LEFT_POS
+	$Can/Bars/Right.global_position = BAR_RIGHT_POS
 
 func is_in_transition():
 	return not (
-		$Can/Bars/Down.global_position == Vector2(-235,786) and
-		$Can/Bars/Up.global_position == Vector2(-156,-1096) and
-		$Can/Bars/Left.global_position == Vector2(-1720,-204) and
-		$Can/Bars/Right.global_position == Vector2(1394,-177)
+		$Can/Bars/Down.global_position == BAR_DOWN_POS and
+		$Can/Bars/Up.global_position == BAR_UP_POS and
+		$Can/Bars/Left.global_position == BAR_LEFT_POS and
+		$Can/Bars/Right.global_position == BAR_RIGHT_POS
 	)
 
 func dismiss_load_icon():
@@ -481,8 +491,6 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
 			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)
-	$Can/Bars/Left.global_position = Vector2(-1720,-204)
-	$Can/Bars/Right.global_position = Vector2(1394,-177)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 
@@ -568,8 +576,9 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
 	t.tween_property(tod, "modulate", Color.WHITE, 0.3)
+	get_tree().paused = false
 	await t.finished
-	await Event.wait(0.3)
+	await Event.wait(0.3, false)
 	t = create_tween()
 	t.tween_property(tod, "scale:x", 0, 0.1)
 	await t.finished
@@ -577,7 +586,7 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	tod.icon = Global.to_tod_icon(to)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(tod, "scale:x", 1, 0.3)
-	await Event.wait(0.6)
+	await Event.wait(0.6, false)
 	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(tod, "scale", Vector2(0.6, 0.6), 0.3)
 	t.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)

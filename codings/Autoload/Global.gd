@@ -375,6 +375,14 @@ func heal_party() -> void:
 	for i in Members:
 		i.full_heal()
 
+func add_test_state(chara: Actor):
+	for i in DirAccess.get_files_at("res://database/States/"):
+		var state: String = i.replace(".tres", "")
+		var ab: Ability = load("res://database/Abilities/Debug/TestState.tres").duplicate()
+		ab.name += state
+		ab.InflictsState = state
+		chara.Abilities.append(ab)
+
 func reset_all_members() -> void:
 	init_party(Party)
 	for i in range(-1, Members.size() - 1):

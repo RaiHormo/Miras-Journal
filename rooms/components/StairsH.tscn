@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcmcg8uht6d7h" path="res://codings/Interactions/stairs_up_down.gd" id="1_pa66c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bojbw"]
-size = Vector2(6, 37)
+size = Vector2(12.5, 37)
 
 [node name="Stairs1" type="Area2D"]
 z_index = 4
@@ -17,7 +17,6 @@ Swap = true
 left_right_mode = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_bojbw")
 debug_color = Color(0.487905, 0.433999, 1, 0.42)
 

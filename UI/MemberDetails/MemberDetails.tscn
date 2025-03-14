@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b7kxxkiuyhc4n"]
+[gd_scene load_steps=68 format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
 [ext_resource type="Script" uid="uid://cwdc884x20ihl" path="res://codings/UIScripts/member_detailsUI.gd" id="1_uy7q8"]
@@ -205,7 +205,12 @@ font = ExtResource("5_ffgmy")
 font_size = 18
 font_color = Color(0.388235, 0.388235, 0.388235, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rbks5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kiwd3"]
+bg_color = Color(0.13, 0.13, 0.13, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m12ea"]
 bg_color = Color(1, 1, 1, 1)
@@ -217,10 +222,8 @@ corner_radius_bottom_left = 24
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_6a5ly"]
-ProgressBar/styles/background = SubResource("StyleBoxEmpty_rbks5")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_kiwd3")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_m12ea")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6frpd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdu3c"]
 bg_color = Color(1, 1, 1, 1)
@@ -231,7 +234,7 @@ corner_radius_bottom_left = 24
 corner_detail = 4
 
 [sub_resource type="Theme" id="Theme_0678k"]
-ProgressBar/styles/background = SubResource("StyleBoxEmpty_6frpd")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_kiwd3")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_cdu3c")
 
 [sub_resource type="FontVariation" id="FontVariation_maora"]
@@ -670,11 +673,11 @@ text = " to Level Up"
 
 [node name="HPAura" type="GridContainer" parent="StatPanel"]
 layout_mode = 0
-offset_left = 335.0
-offset_top = 226.0
-offset_right = 623.0
-offset_bottom = 314.0
-theme_override_constants/v_separation = 24
+offset_left = 336.0
+offset_top = 233.0
+offset_right = 624.0
+offset_bottom = 331.0
+theme_override_constants/v_separation = 8
 columns = 4
 
 [node name="HealthText" type="Label" parent="StatPanel/HPAura"]
@@ -728,8 +731,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
-text = "AP
-"
+text = "AP"
 
 [node name="Aura" type="ProgressBar" parent="StatPanel/HPAura"]
 custom_minimum_size = Vector2(0, 18)
@@ -763,6 +765,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_6a5ly")
+theme_override_styles/background = SubResource("StyleBoxFlat_kiwd3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x8e35")
 max_value = 2.0
 step = 0.1
@@ -781,6 +784,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_6a5ly")
+theme_override_styles/background = SubResource("StyleBoxFlat_kiwd3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ammfk")
 max_value = 2.0
 step = 0.1
@@ -799,6 +803,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_6a5ly")
+theme_override_styles/background = SubResource("StyleBoxFlat_kiwd3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bq2a2")
 max_value = 2.0
 step = 0.1
@@ -847,7 +852,6 @@ theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
 [node name="AbilityPanel" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -960,6 +964,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1vly1")
+follow_focus = true
+horizontal_scroll_mode = 3
 
 [node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller"]
 unique_name_in_owner = true
@@ -989,6 +995,7 @@ texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = SubResource("Theme_xfsfw")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 32
@@ -1000,6 +1007,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_y8j2a")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fjapk")
 text = "Ability Name"
 alignment = 0
+autowrap_mode = 2
 expand_icon = true
 
 [node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0"]
@@ -1013,6 +1021,8 @@ theme = SubResource("Theme_vakel")
 text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 1
 
 [node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0"]
 light_mask = 0

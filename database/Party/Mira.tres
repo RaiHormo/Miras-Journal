@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=18 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=15 format=3 uid="uid://dfxf3fj1wgl5q"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_446mq"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_e1lg0"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
 [ext_resource type="Resource" uid="uid://cie87kerii84o" path="res://database/Abilities/HeatWave.tres" id="3_g7gj5"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="4_enhby"]
 [ext_resource type="Resource" uid="uid://du1gofmain0gg" path="res://database/Abilities/InnerFocus.tres" id="5_k38ct"]
 [ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="6_pdf3s"]
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
@@ -15,36 +14,6 @@
 [ext_resource type="Resource" uid="uid://bc1byaoqk3s1q" path="res://database/Abilities/RagingFire.tres" id="8_27hub"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="10_rljiu"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="14_flf11"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_58tg3"]
-atlas = ExtResource("4_enhby")
-region = Rect2(108, 0, 18, 18)
-filter_clip = true
-
-[sub_resource type="Resource" id="Resource_a84rm"]
-script = ExtResource("1_446mq")
-name = "Soul Tap"
-description = "Deals weak Spiritual damage, with a tiny chance of confusing the target."
-Icon = SubResource("AtlasTexture_58tg3")
-ActionSequence = &"SoulTap"
-Type = "CheapAttack"
-Group = ""
-InflictsState = "Confused"
-AuraCost = 3
-HPCost = 0
-disabled = false
-Damage = 1
-Parameter = 0.0
-Target = 5
-AOE_Stagger = 0.0
-AOE_AdditionalSeq = true
-ColorSameAsActor = false
-WheelColor = Color(0.321569, 0.972549, 0.709804, 1)
-Callout = true
-SucessChance = 1.0
-CritChance = 1.0
-RecoverAura = false
-DmgVarience = false
 
 [resource]
 script = ExtResource("1_e1lg0")
@@ -77,7 +46,7 @@ Aura = 20
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([0, 30, 35, 40, 45, 63, 60, 75, 81, 100, 90])
-Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3"), SubResource("Resource_a84rm")])
+Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
 StandardAttack = ExtResource("6_pdf3s")
 LearnableAbilities = Array[ExtResource("1_446mq")]([ExtResource("3_g7gj5"), ExtResource("5_k38ct"), ExtResource("8_27hub")])
 OV = ExtResource("6_vwhmd")

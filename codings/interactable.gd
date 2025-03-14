@@ -167,7 +167,7 @@ func _on_button_pressed() -> void:
 		"toggle":
 			Global.confirm_sound()
 		"text":
-			await Event.take_control()
+			await Event.take_control(true)
 			await Global.textbox(file, title)
 		"item":
 			Item.add_item(item, itemtype)
@@ -200,8 +200,9 @@ func _on_button_pressed() -> void:
 			if add_flag: Event.f(hide_on_flag, true)
 			Global.check_party.emit()
 			await Event.wait(3)
+			Global.Player.camera_follow(true)
 	if return_control:
-		Event.give_control(true)
+		Event.give_control(false)
 	if hidesprite:
 		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)

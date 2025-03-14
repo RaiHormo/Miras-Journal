@@ -393,7 +393,7 @@ func _options():
 		move_root()
 	stage="options"
 	PartyUI.UIvisible=false
-	get_tree().root.add_child(preload("res://UI/Options/Options.tscn").instantiate())
+	get_tree().root.add_child((await Loader.load_res("res://UI/Options/Options.tscn")).instantiate())
 	Global.confirm_sound()
 	t=create_tween()
 	t.set_parallel()

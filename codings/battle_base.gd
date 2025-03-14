@@ -1166,13 +1166,13 @@ func get_actor(codename: StringName) -> Actor:
 func random_target(ab: Ability):
 	print("Target decided randomly")
 	match ab.Target:
-			Ability.T.SELF, Ability.T.AOE_ENEMIES, Ability.T.AOE_ALLIES:
-				return CurrentChar
-			Ability.T.ONE_ENEMY:
-				return get_oposing_faction(CurrentChar).pick_random()
-			Ability.T.ONE_ALLY:
-				print("a")
-				return get_ally_faction(CurrentChar).pick_random()
+		Ability.T.SELF, Ability.T.AOE_ENEMIES, Ability.T.AOE_ALLIES:
+			return CurrentChar
+		Ability.T.ONE_ENEMY:
+			return get_oposing_faction(CurrentChar).pick_random()
+		Ability.T.ONE_ALLY:
+			print("a")
+			return get_ally_faction(CurrentChar).pick_random()
 
 func fix_enemy_node_issues():
 	var i = 0

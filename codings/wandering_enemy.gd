@@ -69,7 +69,6 @@ func patrol():
 	stopping = false
 	Loader.chased = false
 	PinRange = false
-	if not Loader.InBattle: Loader.battle_bars(0)
 	if not homepoints.is_empty():
 		while not PinRange:
 			if Loader.InBattle:
@@ -101,6 +100,7 @@ func extended_process():
 			if Global.get_direction(to_local(Nav.get_next_path_position())) != -Global.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
+			if not Loader.InBattle: Loader.battle_bars(0)
 			patrol()
 
 func _on_finder_body_entered(body):
