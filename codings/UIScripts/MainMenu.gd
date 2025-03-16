@@ -26,10 +26,9 @@ func _ready():
 		Global.Controllable = true
 		return
 	cam_follow = Global.Player.get_node("Camera2D").update_position
-	await Event.take_control(true)
+	await Event.take_control(true, false, false)
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
-		Global.Player.bag_anim()
 		player = Global.Player.duplicate()
 		Global.Area.add_child(player)
 		player.is_clone = true
@@ -85,11 +84,9 @@ func _ready():
 	rootIndex=1
 	move_root()
 	show()
-	await Event.take_control(true)
 	get_tree().paused = true
-	player.reset_speed()
-	player.bag_anim()
-	Global.ui_sound("Menu")
+	#player.reset_speed()
+	#player.bag_anim()
 	await $Base.animation_finished
 	stage = "root"
 	t=create_tween()

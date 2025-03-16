@@ -619,8 +619,10 @@ func party_menu():
 
 func main_menu():
 	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
-		Global.Controllable=false
+		Global.Controllable = false
 		get_tree().paused = true
+		Global.Player.bag_anim()
+		Global.ui_sound("Menu")
 		get_tree().root.add_child((await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")).instantiate())
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):

@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bnwig6n21wjpt"]
+
+[ext_resource type="Texture2D" uid="uid://bmxwee3vr5s7i" path="res://art/BT/FlowParasite/FlowParasiteBT.png" id="1_vd14q"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vd14q")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}]

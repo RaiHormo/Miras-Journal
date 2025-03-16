@@ -16,6 +16,7 @@ signal item
 signal ability_returned(ab :Ability, tar: Actor)
 signal targeted
 signal targetFoc(ind :Actor)
+signal analyze
 var target : Actor
 var LastTarget : Actor
 var TargetIndex: int
@@ -25,6 +26,7 @@ var Abilities: Array[Ability]
 var PrevStage := &"root"
 var TargetFaction: Array[Actor]
 var foc:Control
+var analyzing:= false
 @onready var Bt :Battle = get_parent()
 
 func _ready():
@@ -244,7 +246,13 @@ func _input(event: InputEvent) -> void:
 					emit_signal(PrevStage)
 				if Input.is_action_just_pressed("LeftTrigger") and Bt.Seq.CanEscape:
 					_on_escape()
+				if Input.is_action_just_pressed(&"ui_accept"):
+					analyze.emit()
 			&"item":
+				if Input.is_action_just_pressed(Global.cancel()):
+					Global.cancel_sound()
+					emit_signal(PrevStage)
+			&"analyze":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
@@ -339,8 +347,11 @@ func _on_root():
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.5)
+	CurrentChar.NextMove = null
+	CurrentChar.NextTarget = null
 	tweendone = false
 	active = true
+	analyzing = false
 	$Attack.show()
 	$Item.show()
 	$Command.show()
@@ -359,7 +370,6 @@ func _on_attack():
 	CurrentChar.NextMove = CurrentChar.StandardAttack
 	get_target(Bt.get_oposing_faction())
 	#await targeted
-
 
 func _on_ability():
 	if CurrentChar.Abilities.is_empty(): return
@@ -471,18 +481,22 @@ func _on_command():
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
+	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.4,1.4), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(0.6,0.6), 0.3)
 	t.tween_property($BaseRing, "position", Vector2(-160,-200), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2(50,-20), 0.3)
-	t.tween_property($CommandMenu/CmdBack, "modulate",
-	Color.WHITE, 0.3).from(Color.TRANSPARENT)
+	t.tween_property($CommandMenu/CmdBack, "modulate",Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
+	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
+	analyzing = false
 	if Bt.Seq.CanEscape:
 		$CommandMenu/Escape.show()
 		t.tween_property($CommandMenu/Escape,
 		"rotation_degrees", 0, 0.3).from(-180)
 		$CommandMenu/Escape.icon = Global.get_controller().LZ
+		$CommandMenu/Analyze.icon = Global.get_controller().ConfirmIcon
+		$CommandMenu/Strategize.icon = Global.get_controller().ItemIcon
 		$CommandMenu.modulate = Color.WHITE
 	else: $CommandMenu/Escape.hide()
 	$CommandMenu.show()
@@ -618,7 +632,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	active = true
 	stage = &"pre_target"
 	TargetFaction = faction
-	if CurrentChar.NextTarget != null and CurrentChar.NextTarget in faction:
+	if CurrentChar.NextTarget != null and CurrentChar.NextTarget in faction and not analyzing:
 		stage = &"inactive"
 		close()
 		emit_signal("ability_returned", ab, CurrentChar.NextTarget)
@@ -629,16 +643,21 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	Bt.get_node("Canvas/Back").text = "Cancel"
 	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
-	$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
-	if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
-	and ab.Damage != Ability.D.NONE):
-		$"../Canvas/AttackTitle/Wheel".show()
-		$"../Canvas/AttackTitle/Wheel".show_atk_color(ab.WheelColor)
-	else:
-		$"../Canvas/AttackTitle/Wheel".hide()
-	$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(ab.description)
-	$"../Canvas/AttackTitle".text = ab.name
-	$"../Canvas/AttackTitle".icon = ab.Icon
+	var wheel: Wheel = $"../Canvas/AttackTitle/Wheel"
+	if ab != null:
+		wheel.show_atk_color(ab.WheelColor)
+		if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
+		and ab.Damage != Ability.D.NONE):
+			wheel.show()
+			wheel.show_atk_color(ab.WheelColor)
+		else:
+			wheel.hide()
+		$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(ab.description)
+		$"../Canvas/AttackTitle".text = ab.name
+		$"../Canvas/AttackTitle".icon = ab.Icon
+	if analyzing:
+		wheel.show()
+		wheel.show_atk_color(CurrentChar.MainColor)
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
@@ -669,6 +688,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
 	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property($CommandMenu, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	$RankSwap.hide()
@@ -726,7 +746,13 @@ func move_menu():
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', TargetFaction[TargetIndex])
-		$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
+		var wheel = $"../Canvas/AttackTitle/Wheel"
+		if analyzing:
+			wheel.show_atk_color(target.MainColor)
+			await Event.wait()
+			wheel.show_trg_color(target.MainColor)
+		else:
+			wheel.show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.2).timeout
 	if stage == &"ability":
 		active= false
@@ -779,6 +805,11 @@ func _on_battle_next_turn():
 		active = false
 
 func _on_targeted():
+	if analyzing:
+		Global.member_details(CurrentChar.NextTarget)
+		stage = "analyze"
+		PrevStage = "analyze"
+		return
 	PrevStage = "targeted"
 	if CurrentChar.NextMove == null: return
 	if CurrentChar.NextTarget == null or CurrentChar.NextTarget not in TargetFaction:
@@ -786,10 +817,10 @@ func _on_targeted():
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
 		var proper_tar:Actor = TargetFaction[TargetIndex]
-		TargetFaction = TurnOrder
-		TargetIndex = randi_range(0, TurnOrder.size()-1)
+		TargetFaction = Bt.get_any_faction()
+		TargetIndex = randi_range(0, TargetFaction.size()-1)
 		while TargetFaction[TargetIndex] == proper_tar:
-			TargetIndex = randi_range(0, TurnOrder.size()-1)
+			TargetIndex = randi_range(0, TargetFaction.size()-1)
 		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 		await move_menu()
 		Bt.confusion_msg()
@@ -826,7 +857,7 @@ func _on_ability_entry():
 			Ability.T.ANY:
 				PrevStage="ability"
 				stage = &"target"
-				get_target(Bt.TurnOrder)
+				get_target(Bt.get_any_faction())
 			_:
 				emit_signal("ability_returned", ab, CurrentChar)
 				close()
@@ -1042,3 +1073,9 @@ func _on_give_pressed() -> void:
 					Global.toast(target.FirstName+" is busy.")
 				await Event.wait(1)
 				_on_battle_get_control()
+
+func _analyze() -> void:
+	analyzing = true
+	PrevStage = &"command"
+	await Event.wait()
+	get_target(Bt.get_any_faction())

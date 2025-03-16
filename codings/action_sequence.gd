@@ -141,6 +141,12 @@ func handle_states():
 					if state.inflicter not in TurnOrder or state.inflicter.has_state("KnockedOut"):
 						chara.remove_state(state)
 						chara.NextTarget = null
+				"Zapped":
+					Bt.focus_cam(chara)
+					Global.toast(chara.FirstName+" can't move from the shock!")
+					chara.NextAction = "Attack"
+					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+					await Event.wait(1)
 	for i in range(chara.States.size() -1, -1, -1):
 		var state = chara.States[i]
 		if state.QueueRemove:
@@ -383,10 +389,11 @@ func AOEAttack(target: Actor):
 	Bt.end_turn()
 
 func CrystalHeal(target: Actor):
-	var hp_sorted_allies: Array[Actor] = Bt.get_ally_faction(CurrentChar).duplicate()
-	hp_sorted_allies.sort_custom(Bt.hp_sort)
+	var hp_sorted_allies: Array[Actor] = Bt.get_ally_faction().duplicate()
 	hp_sorted_allies.erase(CurrentChar)
-	target = hp_sorted_allies[-1]
+	hp_sorted_allies.sort_custom(Bt.hp_sort)
+	for i in hp_sorted_allies: print(i.FirstName, " - ", i.Health)
+	target = hp_sorted_allies[0]
 	if target.Health != target.MaxHP:
 		Bt.focus_cam(CurrentChar)
 		Bt.anim("Attack1")

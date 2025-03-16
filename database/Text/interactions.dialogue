@@ -114,3 +114,26 @@ Asteria.Neutural: There should be a way to get past them, let's look around
 ~ blocked_path_sg2
 Daze.Neutural: Another blocked path...
 => END
+
+~ gather_pyrson
+[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
+- Gather allies
+	do transition("L")
+	do Party.add("Alcine")
+	do Party.add("Asteria")
+	do Party.add("Daze")
+	do zoom(5)
+	do wait(0.3, false)
+	set Global.Area.Followers[1].position += Vector2(24, 0)
+	set Global.Area.Followers[0].position += Vector2(24, 24)
+	set Global.Area.Followers[2].position += Vector2(0, 24)
+	do PartyUI.hide_all()
+	do detransition()
+	Ok, let's go.
+	do Global.vainet_map("Gate")
+- Go alone
+	do Party.reset_party()
+	do Global.vainet_map("Gate")
+- Don't go
+	do give_control()
+=> END

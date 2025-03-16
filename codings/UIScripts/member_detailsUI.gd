@@ -8,11 +8,12 @@ func draw_character(chara: Actor):
 	Global.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
-	$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
-	$StatPanel/LvBox/Vbox/LvBar/SPNum.text = str(chara.SkillPoints)
-	$StatPanel/LvBox/Vbox/ExpBar.max_value = chara.SkillPointsFor[chara.SkillLevel]
-	$StatPanel/LvBox/Vbox/ExpBar.value = chara.SkillPoints
-	$StatPanel/LvBox/Vbox/ToNextLv/Number.text = str(chara.SkillPointsFor[chara.SkillLevel] - chara.SkillPoints)
+	if chara.SkillPointsFor.size() > 0:
+		$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
+		$StatPanel/LvBox/Vbox/LvBar/SPNum.text = str(chara.SkillPoints)
+		$StatPanel/LvBox/Vbox/ExpBar.max_value = chara.SkillPointsFor[chara.SkillLevel]
+		$StatPanel/LvBox/Vbox/ExpBar.value = chara.SkillPoints
+		$StatPanel/LvBox/Vbox/ToNextLv/Number.text = str(chara.SkillPointsFor[chara.SkillLevel] - chara.SkillPoints)
 	$StatPanel/HPAura/HPText.text = str(chara.MaxHP)
 	$StatPanel/HPAura/APText.text = str(chara.MaxAura)
 	$StatPanel/HPAura/Health.max_value = 300
@@ -28,24 +29,25 @@ func draw_character(chara: Actor):
 	var abox = $StatPanel/HPAura/Aura.get_theme_stylebox("fill")
 	abox.bg_color = chara.SecondaryColor
 	$StatPanel/HPAura/Aura.add_theme_stylebox_override("fill", abox.duplicate())
-	var bord1:StyleBoxFlat = $StatPanel/Border1.get_theme_stylebox("panel")
-	bord1.border_color = chara.BoxProfile.Bord1
-	$StatPanel/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-	var bord2:StyleBoxFlat = $StatPanel/Border1/Border2.get_theme_stylebox("panel")
-	bord2.border_color = chara.BoxProfile.Bord2
-	$StatPanel/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-	var bord3:StyleBoxFlat = $StatPanel/Border1/Border2/Border3.get_theme_stylebox("panel")
-	bord3.border_color = chara.BoxProfile.Bord3
-	$StatPanel/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
+	if chara.BoxProfile != null:
+		var bord1:StyleBoxFlat = $StatPanel/Border1.get_theme_stylebox("panel")
+		bord1.border_color = chara.BoxProfile.Bord1
+		$StatPanel/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
+		var bord2:StyleBoxFlat = $StatPanel/Border1/Border2.get_theme_stylebox("panel")
+		bord2.border_color = chara.BoxProfile.Bord2
+		$StatPanel/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
+		var bord3:StyleBoxFlat = $StatPanel/Border1/Border2/Border3.get_theme_stylebox("panel")
+		bord3.border_color = chara.BoxProfile.Bord3
+		$StatPanel/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
 	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_override("fill", hbox.duplicate())
 	#var xbox = hbox.duplicate()
 	#xbox.bg_color = chara.BoxProfile.Bord3
 	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_override("background", xbox)
 
-	$Line1.color = chara.BoxProfile.Bord1
-	$Line1/Line2.color = chara.BoxProfile.Bord2
-	$Line1/Line2/Line3.color = chara.BoxProfile.Bord3
+		$Line1.color = chara.BoxProfile.Bord1
+		$Line1/Line2.color = chara.BoxProfile.Bord2
+		$Line1/Line2/Line3.color = chara.BoxProfile.Bord3
 
 	$StatPanel/StatBars/Attack.value = chara.Attack
 	$StatPanel/StatBars/Defence.value = chara.Defence

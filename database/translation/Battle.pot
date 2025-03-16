@@ -1,0 +1,1651 @@
+# LANGUAGE translation for Mira's Journal - Prototype for the following files:
+# res://database/Text/testbush.dialogue
+# res://database/Text/item_inspect.dialogue
+# res://database/Text/victory_banter.dialogue
+# res://database/Text/alcine_talk.dialogue
+# res://database/Text/entrance_banter.dialogue
+# res://database/Text/story_events.dialogue
+# res://database/Text/interactions.dialogue
+# res://database/Text/BT_Daze.dialogue
+# res://database/Text/sl_maple.dialogue
+# res://codings/Battle.tscn
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mira's Journal - Prototype\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/story_events.dialogue
+#: database/Text/interactions.dialogue
+msgctxt "dialogue"
+msgid "Mira.Neutural"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/story_events.dialogue
+#: database/Text/interactions.dialogue
+#: database/Text/BT_Daze.dialogue
+msgctxt "dialogue"
+msgid "Daze.Neutural"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/story_events.dialogue
+#: database/Text/interactions.dialogue
+msgctxt "dialogue"
+msgid "Asteria.Neutural"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/alcine_talk.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Alcine.Neutural"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Mira.OpenMouth"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+msgctxt "dialogue"
+msgid "Erinn"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Mira.Smile"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+msgctxt "dialogue"
+msgid "Note"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/testbush.dialogue
+msgctxt "dialogue"
+msgid "System"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Yes, this is [[indeed|in fact]] a bush"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "This is certainly is a bush."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "This is a bush, right?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Mhm..."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Party talk"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Mira, what are you doing?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Scream"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Yeah, sure i can say a bunch of stuff."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "I just like the sound of my voice, beep boop."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "So how's your day bush? [p]Anything going on?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "[wait=0.5] [next=auto]"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Yeah I thought so."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "The purpose of this dialog is to test text sounds and dialog skipping."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Look at this cool texture"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "I can hold shift to skip all of it."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Also here are some thought sounds."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Ok I think that's enough."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Talk a lot"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "End"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Where to go?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Part?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Start"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "My room"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Town hall"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Pyrson"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Lake"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Small temple"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Road"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Temple Woods"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Upstairs"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Entrance"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Amberelm"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Underground 1"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Underground 2"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Shard Gardens"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Hello everyone! This is a passive textbox of sorts."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "I can still move while saying this."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "What to do?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "we shall"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Who to add?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+#: codings/Battle.tscn
+msgid "Mira"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/victory_banter.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Mira"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Alcine"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Daze"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+#: codings/Battle.tscn
+msgid "Asteria"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Add to party"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Clear party"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Standard full party"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Manage party"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "go on"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Unlock all abilities"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Add state testing abilities"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Abilities"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Full heal"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Give Mira lots of HP"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Reset all members"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Turn {{Global.Bt.Turn}}"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "My hp is low"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Debug battle begin!"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "This is an early prototype build.[p]It is very short and a lot of things such as music are missing."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Please provide feedback to the developer after testing."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Continue"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "This game was made by Rai. They can be found at @RaiDev_ on Twitter or @raidev on discord."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Developer info"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Oh welcome back!"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "With this prototype being so short, a titlescreen wasn't implemented...[wait=1] So use this menu as one."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "New game"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "You lost this round. Try again?"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Retry"
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "Exit Arena mode."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "This is where this prototype ends."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "However, there is one more thing you can do."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "You can go to Options > Gallery in the menu and select Arena mode."
+msgstr ""
+
+#: database/Text/testbush.dialogue
+msgid "(You've been sent back before resting, there's nothing else to do here.)"
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "I unfold the paper."
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "There are some strange symbols written on its one side."
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "I used the other side earlier to write on."
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "I look inside the case."
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "There are a few diffrent pens with a variety of ink colors."
+msgstr ""
+
+#: database/Text/item_inspect.dialogue
+msgid "There's black, orange, red, blue, yellow and purple.[wait=1] Black and orange seem to be the most used."
+msgstr ""
+
+#: database/Text/victory_banter.dialogue
+msgid ""
+"Oh it flew away...\n"
+"I guess we'll be ok."
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/alcine_talk.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Alcine.Upset"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/alcine_talk.dialogue
+msgctxt "dialogue"
+msgid "{{nametag_to_be_used}}"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/alcine_talk.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Alcine.Tired"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/alcine_talk.dialogue
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Alcine.Happy"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "hm?"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "/*{{alcine()}} seems scared*/"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "{{line_to_be_used}}"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "Cancel"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+#: database/Text/story_events.dialogue
+msgid "/*nod*/"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "For me"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "For {{Party.Member1.FirstName}}"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "For {{Party.Member2.FirstName}}"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "For {{Party.Member3.FirstName}}"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "For yourself"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "Nevermind"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "/*shakes head*/"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "It seems they're too exhaused to use healing magic."
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "Ask for healing"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "[[/*{{alcine()}} seems to be feeling better*/|/*They seem to like it*/]]"
+msgstr ""
+
+#: database/Text/alcine_talk.dialogue
+msgid "Pet"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Welcome to the Arena mode!"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "This is a non cannon thing for testing and getting feedback on the battle system."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Here it's one battle after another! But don't worry, your party will recover 30% of their health after every round."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "You will also recive various items, so don't forget to check your bag!"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 1[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Saving here is automatic."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "If you want to return where you were after quiting, go to Options > Save Managment and load a file called \"Arena\"."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 2[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Alcine joins the party!"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "You cannot directly control Alcine, but they will assist you with healing whenever needed."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 3[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "A wild weird plant looking creature appeared!"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Defeat it before it steals all your health."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 4[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Stay away from sharp objects!"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 5[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "Battle items can be pretty useful, keep that in mind."
+msgstr ""
+
+#: database/Text/entrance_banter.dialogue
+msgid "ROUND 6[wait=1] BEGIN![next=auto]"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/story_events.dialogue
+msgctxt "dialogue"
+msgid "Placeholder description"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "It ran away?[wait=0.4] Was that another monster?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Maybe I should follow it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "A cutscenre that isn't made yet should play here."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Whenever a box like this appears, pretend you're seeing whatever is described on screen."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "You see a paw walk through the grass."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The camera pans upwards to reveal a girl with an orange tunic and gray fur walking."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "She stops and looks forward."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The camera cuts to a view of a forest next to a lake, and a tree in the middle."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The girl sits under the tree, leaving her bag next to her."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "She opens the bag and takes a piece of paper. Then unfolds it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Weird scribbles are on it. She turns it around and there's an empty page."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "She opens a pen case in her bag and takes one pen."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I don't even know what the date is."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Today I woke up in the middle of this strange forest."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I can't recall how I got here or what I'm doing here, my memory is a fog."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Well, maybe that's not completly accurate, I can remember who I am at least."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira Levenor, 19 year old Cyrenian who lives in Neortoria."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I have to write that down in case I forget that too."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The camera pans up to the sky showing it's strange blurry color mix and lines across it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "This place must be pretty far from my home, the sky looks very strange."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The camera cuts to the lake as Mira tries to take some water."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "(Sigh)"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The water drops slowly from her arm like slime."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "This is definitely not drinkable..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The camera cuts to mira below the tree hugging her legs"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "What can I even do?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "As she sits there a tentacle looking thing reaches towards her."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "GAH!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira grabs the axe from her bag and slices the tentacle, which bursts with slime."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "A monster emerges from the lake, as Mira takes a fighting stance."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "S-[wait=0.2]stay back...!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "GAHH![wait=1] GET OFF ME!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "My Aura..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "That's right, I can use my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Ok, I think I can do it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "There might be more of these monster up ahead, I should be careful..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hm, what's that?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "This slime seems to contain some of that monster's essence."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I feel like it might prove useful."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hey wait![next=2]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "It seems scared..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Maybe I should try approaching it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hey."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Don't worry, I mean no harm."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "You just seem scared, and..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Shewww"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The creature tightly hugs me."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Their body feels like it's made of liquid..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "What are you so scared about?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Everything will be ok!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Whimm"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Here, you can have this."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I take a green fabric from my bag, and tie it around their neck."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Looks good on you!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Is this what scared you?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Stay behind me, I'll deal with it!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Ow, this hurts..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Is there anything I can do?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "If this goes on..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hey, I think we might have to run away!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Woah, you can use healing magic!?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "We might have a chance like this!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "/*happy noises*/"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "We should be safe now."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "If it wasn't for you, I'd be done for."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "We should stick together for now, [wait=0.5]umm..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Wait, do you have a name?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "(hide)[next]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "[wait=1] [next=auto]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Right, you can't talk. But I need to call you something..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Ok, I'll come up with a name and you tell me if you like it. Alright?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "[wait=0.1] [next=auto]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "\"Alcine\". I think that's the best name I can think of."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Pika pika?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Rai?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Very straight forward."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I maybe I should name them Sonic instead."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I'd rather just name them Mario."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "(deep breath)[wait=1] SA-[wait=0.1][next]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Shall I use this name?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "And then she said \"It's journaling time!\" and journaled all over them."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Name?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I don't speak hands."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Respectable."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid ";3"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Truly."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Silent letters are for loosers."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "That's the way it is."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "har har, very funny"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The true name?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "A godly name."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Short and sweet."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Maybe too short?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Weird."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "No, too far."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "It's pronounced \"Alk-ah-leen\"."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Brazy."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Bit on the nose?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "\"{{alcine()}}\". Should I go with this?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Use this name"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Let's rethink this"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "What about \"{{alcine()}}\"?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Alright then {{alcine()}}, let's go together from here on."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Oh a bridge."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Seems like this is our way out of this forest."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The sky is getting brighter. [p]Seems like it's early morning."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "[wait=0.3] [next=auto]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Look {{find_member(\"Alcine\").FirstName}}!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "That looks like a town, doesn't it?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Come on let's go! The people there might be able to help us!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "What... happened here?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "It's all... in ruins..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+#: database/Text/interactions.dialogue
+msgid "..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Let's just rest here for a bit, I'm exhausted."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "/*{{alcine()}} looks tired as well*/"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "This is an unfinished cutscene. Boxes like this will describe what should be on screen."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira is writing something on a paper."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hm? Something up {{alcine()}}?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I'm just keeping track where we've been so far."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "We don't want to get even more lost, right?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "(Yaaawn...)[next=3]"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Must be nice being a spirit, I'm starving here."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira takes a nap."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "{{alcine()}} picks up the paper."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira gets up from sleep."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "{{alcine()}} who was resting on Mira also gets up."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mmm... Good morning {{alcine()}}. Or is it afternoon?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Meuummm..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira picks up the paper from yesterday."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Huh? Is that me?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mloop!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "You drew this? That's so cute!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I guess there is one way we can communicate."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Maybe I could get important information from {{alcine()}} this way."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "So... I was curious. [p]Before that creature attacked you, how did you end up there?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Do you remember anything?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "/*Thinking noises*/"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "{{alcine()}} starts drawing."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "{{alcine()}} gives the drawing to Mira."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Let's see..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Wha- Im being attacked in this?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "/*Nod*/"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "So you've seen me before."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Weird, I don't remember something like that at all..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Then ended up in that forest? [p]Did you escape the castle?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "/*Head shake*/"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Hmm... Do you know how you went from the castle to here? [p]At all?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Figures."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Well we should probably explore this place a little more before it's too dark."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Let's keep on the lookout for any castles around, okay?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+#: database/Text/interactions.dialogue
+msgid "No reason to go back there."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Look, there are a lot of cast lines scattered around here."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Is this some sort of spell?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "This place is a magical organism. This might be just another part of it."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The entire cave is an organism..?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I suspect it's more than just this cave."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "The monsters everywhere, they must be a defense mechanism."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Right, I don't think we're wanted here..."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Alcine seems to be bothered by something."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Shaooo!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "These lines gather towards the center."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Doesn't this look like the thing that broke the crystals last time?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "(hide)"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira! You okay?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Ow."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I think there is a protective spell on these."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Try touching"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Everyone, be careful!"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "It looks like there is some sort of protective spell, don't touch that."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Back off"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "What could we do about this? Does anyone know how to dispell?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Wild cast patterns like this are hard to decipher."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Maybe someone back at the village would know how."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "You mean we should return?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I think we could all use some rest, no?"
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "There was a Vain nearby, let's head there."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Mira! We can't make any progress here unless we despell this."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "I know, I know."
+msgstr ""
+
+#: database/Text/story_events.dialogue
+msgid "Then use the Vain to return to the village already!"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "...It's getting a little dark."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "This should help."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I can't dash and hold this flame at the same time.[next=4]"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "...There's no mistaking it, that's a skeleton."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "From the skull shape it seems human, I think."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "...Let's just move on."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "There is a symbol engraved on the ground."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Looks like some sort of bird... with a clover head?"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I just noticed that it's not perfectly symmetrical, which makes looking at it increasingly painful."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "The pain grows."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "This place seems like an old abandoned temple, so this must be some sort of religious symbol."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I don't recall ever seeing something like it though."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Let's move on, I can't stand here looking at this all day."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Looks like a statue."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Or, to be more precise, the legs of a statue."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I can't tell the species of whoever this satue depicted."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "But it's probably not Cyrenian or Eyvi judging from the shape."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "It's a broken sign with Cyrenian writing on it"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "\"Amberelm town\""
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "This bridge is broken. [p]We should find another way to get there."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "These wires seem tough."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I should be able to get to the other side with enough speed."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Wonder if I get to the other side using these wires."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "But I'm quite tired right now, let's rest first."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "The sky here is as strange as ever."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Looks like we're near the sea, but it fades into those strange lines."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "It's definitely far from my home..."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "[[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I just woke up. Don't feel like spending all day in bed."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "I will not pass without a bag."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "You wanna return to the village Mira?"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "That's the long way back, we should use the vains instead."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Levenor, this way!"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "This way seems to be blocked by some weird crystals."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "There should be a way to get past them, let's look around"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Another blocked path..."
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Ok let's go"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Gather allies"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Go alone"
+msgstr ""
+
+#: database/Text/interactions.dialogue
+msgid "Don't go"
+msgstr ""
+
+#: database/Text/BT_Daze.dialogue
+msgid "[[Eyes on me|Over here|It's me you want|Come at me|I can take it]]!"
+msgstr ""
+
+#. TRANSLATORS: Character name
+#: database/Text/sl_maple.dialogue
+msgctxt "dialogue"
+msgid "Maple.Neutural"
+msgstr ""
+
+#: database/Text/sl_maple.dialogue
+msgid "Hello mira"
+msgstr ""
+
+#: database/Text/sl_maple.dialogue
+msgid "Let's go then"
+msgstr ""
+
+#: database/Text/sl_maple.dialogue
+msgid "Okay..."
+msgstr ""
+
+#: database/Text/sl_maple.dialogue
+msgid "Pretend a conversation is happening"
+msgstr ""
+
+#: database/Text/sl_maple.dialogue
+msgid "Ok now time moves forward"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "15"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Details"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Swap"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Strategize\n"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Escape"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Ability Name"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "This is a very long and intesting description of this ability. Using this spell the entire world will blow up.\n"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Cost 5"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Show wheel"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "5"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "3"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "BattleItems"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Consumables"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Battle items"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Item Name"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "This item is very cool, almost too cool for you."
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "52 in bag"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Show Wheel"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Ability"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Attack\n"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Item"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Command"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "70"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "White"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Confirm"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Back"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Give"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Turn Order"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Continue\n"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Attack Name"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "+"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "0"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid " Skill Points"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Obtained items:"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "Item name"
+msgstr ""
+
+#: codings/Battle.tscn
+msgid "x2"
+msgstr ""

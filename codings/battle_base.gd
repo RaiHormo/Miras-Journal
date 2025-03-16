@@ -768,13 +768,15 @@ func get_target_faction() -> Array[Actor]:
 		Ability.T.AOE_ENEMIES: return get_oposing_faction()
 		_: return [CurrentTarget]
 
+func get_any_faction() -> Array[Actor]:
+	var rtn: Array[Actor]
+	rtn.append_array(PartyArray)
+	rtn.append_array(Troop)
+	rtn = filter_dead(rtn)
+	return rtn
+
 func hp_sort(a:Actor, b:Actor):
-	if a.Health==0:
-		return false
-	if a.Health <= b.Health:
-		return true
-	else:
-		return false
+	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
 	if animation == "":
@@ -840,6 +842,7 @@ mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
 	if CurrentAbility.DmgVarience:
 		amount = round(amount * randf_range(1, 1.5))
+	amount = min(amount, target.MaxHP-target.Health)
 	target.add_health(amount)
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()

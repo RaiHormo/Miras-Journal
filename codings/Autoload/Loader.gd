@@ -219,7 +219,6 @@ func transition(dir=Global.get_dir_letter()):
 	if dir == "none": return
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
-	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
 	direc = dir
 	$Can.show()
 	$Can.layer = 9
@@ -476,7 +475,7 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), time)
 		1:
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1000), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1050), time)
 			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.5), time)
 		2:
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,600), time)

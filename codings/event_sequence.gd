@@ -79,6 +79,9 @@ func waste_time():
 	Loader.detransition()
 	Event.give_control()
 
+func gather_pyrson():
+	Global.textbox("interactions", "gather_pyrson")
+
 #############################################################
 
 func sl_maple_1():

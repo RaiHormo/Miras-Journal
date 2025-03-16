@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bomaairqx0y6l"]
 
 [ext_resource type="Texture2D" uid="uid://gj4wp4wijlgc" path="res://UI/Wheel/colorwheel.png" id="1_16cvd"]
-[ext_resource type="Script" path="res://codings/colortest.gd" id="2_tybns"]
+[ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/colortest.gd" id="2_tybns"]
 [ext_resource type="Texture2D" uid="uid://d2jxm4aa3cndr" path="res://UI/MenuTextures/weak.png" id="3_a4pka"]
 [ext_resource type="Texture2D" uid="uid://px7lif53i3a" path="res://UI/MenuTextures/resist.png" id="4_iacvs"]
 [ext_resource type="Texture2D" uid="uid://bpuhucpv12na5" path="res://UI/MenuTextures/netural.png" id="5_kkn45"]

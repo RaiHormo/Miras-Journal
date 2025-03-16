@@ -47,6 +47,8 @@ func avrage_dg(d1, d2):
 func show_atk_color(clr: Color):
 	color = clr
 	draw_wheel()
+	await Event.wait()
+	draw_wheel()
 
 func show_trg_color(clr: Color):
 	if affinity == null: return

@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=4 uid="uid://bd1tjlb5qs82v"]
 
-[ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_hfis3"]
+[ext_resource type="Script" uid="uid://c7mfou1fik1k6" path="res://codings/pyrson.gd" id="1_585ds"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
 [ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/sub_room.gd" id="3_aq7mb"]
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVainPoint.tscn" id="3_pivbf"]
@@ -326,16 +326,15 @@ gradient = SubResource("Gradient_2oe0j")
 width = 500
 height = 500
 
-[node name="Pyrson" type="Node2D" node_paths=PackedStringArray("SpawnPath")]
+[node name="Pyrson" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
-script = ExtResource("1_hfis3")
+script = ExtResource("1_585ds")
 Name = "Pyrson"
 IsDungeon = false
-SpawnPath = NodePath(".")
-SpawnPos = Vector2(3, 9)
+SpawnPos = Vector2(126, 163)
 SpawnZ = Array[int]([0])
-CameraLimits = Array[Vector4]([Vector4(0, -24, 1e+07, 1e+07)])
+CameraLimits = Array[Vector4]([Vector4(0, 0, 864, 1e+07)])
 CameraZooms = Array[float]([0.75])
 
 [node name="Ground" type="TileMapLayer" parent="."]
@@ -629,6 +628,10 @@ shape = SubResource("RectangleShape2D_6we5s")
 [node name="VPGate" parent="." instance=ExtResource("3_pivbf")]
 position = Vector2(79, 127)
 
+[node name="Interactable" parent="VPGate" index="0"]
+ActionType = "event"
+file = "gather_pyrson"
+
 [node name="NPC" parent="." instance=ExtResource("16_s1pqb")]
 z_index = 3
 position = Vector2(523, 833)
@@ -666,3 +669,5 @@ bubble_always = true
 [connection signal="body_exited" from="TownHall/BedroomDoor" to="TownHall/BedroomDoor" method="_on_body_exited"]
 [connection signal="body_entered" from="TownHallDoor" to="TownHallDoor" method="_on_body_entered"]
 [connection signal="body_exited" from="TownHallDoor" to="TownHallDoor" method="_on_body_exited"]
+
+[editable path="VPGate"]

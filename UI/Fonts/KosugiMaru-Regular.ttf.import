@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bks6fau84dtru"
-path="res://.godot/imported/Faktos.ttf-3cf9656f134556d1dad4bf20d55e3334.fontdata"
+uid="uid://b33ns0rmv0fxs"
+path="res://.godot/imported/KosugiMaru-Regular.ttf-60ab8d65276d6396ef08826d0e235320.fontdata"
 
 [deps]
 
-source_file="res://UI/Fonts/Faktos.ttf"
-dest_files=["res://.godot/imported/Faktos.ttf-3cf9656f134556d1dad4bf20d55e3334.fontdata"]
+source_file="res://UI/Fonts/KosugiMaru-Regular.ttf"
+dest_files=["res://.godot/imported/KosugiMaru-Regular.ttf-60ab8d65276d6396ef08826d0e235320.fontdata"]
 
 [params]
 
@@ -22,19 +22,14 @@ msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=[{
-"chars": [],
-"glyphs": [],
-"name": "New Configuration",
-"size": Vector2i(16, 0)
-}]
+preload=[]
 language_support={}
 script_support={}
 opentype_features={}

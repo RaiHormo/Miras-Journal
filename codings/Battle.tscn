@@ -1,4 +1,4 @@
-[gd_scene load_steps=230 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=241 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -21,6 +21,7 @@
 [ext_resource type="SpriteFrames" uid="uid://5k4mw47d473r" path="res://art/Effects/BattleEffects.tres" id="14_o6mu3"]
 [ext_resource type="Script" uid="uid://8iagu3karx4e" path="res://codings/Ai.gd" id="17_5kmxv"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="18_toppc"]
+[ext_resource type="Texture2D" uid="uid://njcmmd3a1lr3" path="res://art/Effects/Zapped.png" id="19_edmvp"]
 [ext_resource type="Script" uid="uid://b3yotcu3olkxe" path="res://codings/UIScripts/battleUI.gd" id="19_mhp3h"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="20_ei4ea"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="21_bxskg"]
@@ -370,6 +371,46 @@ region = Rect2(432, 0, 54, 54)
 atlas = ExtResource("12_psgeu")
 region = Rect2(486, 0, 54, 54)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ro04"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(0, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p7y0"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(54, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y8r5"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(108, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjkt5"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(162, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml8ja"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(216, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwtm7"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(270, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq3md"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(324, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr1i0"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(378, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ctu6"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(432, 0, 54, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neihi"]
+atlas = ExtResource("19_edmvp")
+region = Rect2(486, 0, 54, 54)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdhds"]
 animations = [{
 "frames": [{
@@ -562,6 +603,41 @@ animations = [{
 "loop": true,
 "name": &"Poisoned",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ro04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1p7y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y8r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjkt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml8ja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwtm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq3md")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr1i0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ctu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neihi")
+}],
+"loop": true,
+"name": &"Zapped",
+"speed": 6.0
 }]
 
 [sub_resource type="Gradient" id="Gradient_tvi8h"]
@@ -1692,15 +1768,13 @@ fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_ht7eu")
 
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
-visible = false
 light_mask = 16
 z_index = 1
 material = ExtResource("1_dmrw5")
-position = Vector2(0, -13)
+position = Vector2(0.5, -12.5)
 sprite_frames = SubResource("SpriteFrames_wdhds")
-animation = &"AttackUp"
+animation = &"Zapped"
 autoplay = "None"
-frame_progress = 0.122545
 
 [node name="Glow" type="PointLight2D" parent="Act/Actor0"]
 light_mask = 16
@@ -1754,29 +1828,36 @@ offset_left = 81.0
 offset_top = -68.0
 offset_right = 360.0
 offset_bottom = 234.0
-rotation = 0.0922729
 scale = Vector2(0.7, 0.7)
 
-[node name="Details" type="Button" parent="BattleUI/CommandMenu"]
-visible = false
+[node name="CmdBack" type="Polygon2D" parent="BattleUI/CommandMenu"]
+light_mask = 0
+position = Vector2(-83.8007, 105.927)
+rotation = 0.20944
+scale = Vector2(0.155, 0.155)
+color = Color(0.113725, 0.113725, 0.113725, 1)
+offset = Vector2(78.0864, -107.356)
+polygon = PackedVector2Array(811.811, -766.054, 811.127, 286.293, 768.113, 396.206, 710.82, 491.257, 662.912, 554.43, 612.265, 608.802, 558.88, 654.374, 502.756, 691.146, 545.186, 610.373, 570.016, 535.077, 592.691, 421.842, 609.305, 320.145, 611.057, 232.727, 604.008, 148.047, 585.421, 57.3053, 560.772, -21.8971, 527.323, -98.3607, 476.273, -169.347, 402.145, -252.456, 313.156, -321.287, 209.305, -375.841, 81.7913, -413.378, 0.43412, -426.669, -86.9846, -428.42, -162.864, -424.111, -250.867, -396.723, -344.931, -357.797, -442.318, -298.53, -495.704, -252.958, -561.212, -184.308, -623.982, -106.858, -657.028, -57.9627, -681.274, -11.8066, -674.891, -766.697)
+
+[node name="Analyze" type="Button" parent="BattleUI/CommandMenu"]
 visibility_layer = 1024
+z_index = 12
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
 layout_mode = 0
-offset_left = -24.8199
-offset_top = 328.685
-offset_right = 90.1801
-offset_bottom = 361.685
-rotation = -0.0903486
+offset_left = -177.287
+offset_top = 162.14
+offset_right = -62.287
+offset_bottom = 195.14
+rotation = 0.106465
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
-text = "Details"
+text = "Analyze"
 icon = ExtResource("22_wtv1c")
-text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Swap" type="Button" parent="BattleUI/CommandMenu"]
@@ -1802,26 +1883,26 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="Strategize" type="Button" parent="BattleUI/CommandMenu"]
-visible = false
 visibility_layer = 1024
+z_index = 12
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
 layout_mode = 0
-offset_left = -144.0
-offset_top = 211.0
-offset_right = -8.0
-offset_bottom = 244.0
-rotation = 0.50977
+offset_left = -197.287
+offset_top = 127.855
+offset_right = -61.287
+offset_bottom = 160.855
+rotation = 0.106465
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Strategize
 "
-icon = ExtResource("24_2n7m0")
-text_overrun_behavior = 1
+icon = ExtResource("23_8x6w2")
 expand_icon = true
 
 [node name="Escape" type="Button" parent="BattleUI/CommandMenu"]
@@ -1865,26 +1946,17 @@ texture = ExtResource("26_samhe")
 [node name="Label" type="Label" parent="BattleUI/CommandMenu/Escape"]
 light_mask = 0
 layout_mode = 0
-offset_left = 33.9212
-offset_top = 0.453796
-offset_right = 97.9212
-offset_bottom = 15.4538
+offset_left = 34.483
+offset_top = -1.52012
+offset_right = 98.483
+offset_bottom = 16.4799
 rotation = -0.24525
 scale = Vector2(0.988627, 1.08387)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("21_bxskg")
+theme_override_font_sizes/font_size = 14
 text = "Escape"
-
-[node name="CmdBack" type="Polygon2D" parent="BattleUI/CommandMenu"]
-light_mask = 0
-position = Vector2(-78.0864, 107.356)
-rotation = 0.20944
-scale = Vector2(0.155, 0.155)
-color = Color(0.113725, 0.113725, 0.113725, 1)
-offset = Vector2(78.0864, -107.356)
-polygon = PackedVector2Array(811.811, -766.054, 811.127, 286.293, 768.113, 396.206, 710.82, 491.257, 662.912, 554.43, 612.265, 608.802, 558.88, 654.374, 502.756, 691.146, 545.186, 610.373, 570.016, 535.077, 592.691, 421.842, 609.305, 320.145, 611.057, 232.727, 604.008, 148.047, 585.421, 57.3053, 560.772, -21.8971, 527.323, -98.3607, 476.273, -169.347, 402.145, -252.456, 313.156, -321.287, 209.305, -375.841, 81.7913, -413.378, 0.43412, -426.669, -86.9846, -428.42, -162.864, -424.111, -250.867, -396.723, -344.931, -357.797, -442.318, -298.53, -495.704, -252.958, -561.212, -184.308, -623.982, -106.858, -657.028, -57.9627, -681.274, -11.8066, -674.891, -766.697)
 
 [node name="BaseRing" type="TextureRect" parent="BattleUI"]
 light_mask = 0
@@ -3150,6 +3222,7 @@ vertical_alignment = 1
 [connection signal="ability" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
 [connection signal="ability_returned" from="BattleUI" to="." method="_on_battle_ui_ability_returned"]
 [connection signal="ability_returned" from="BattleUI" to="BattleUI" method="_on_ability_returned"]
+[connection signal="analyze" from="BattleUI" to="BattleUI" method="_analyze"]
 [connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
 [connection signal="command" from="BattleUI" to="." method="_on_battle_ui_command"]
 [connection signal="command" from="BattleUI" to="BattleUI" method="_on_command"]

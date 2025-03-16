@@ -2,12 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="1_sli5j"]
 [ext_resource type="Texture2D" uid="uid://cuodplc4cg1gg" path="res://art/Icons/Editor/vp.png" id="2_focdk"]
-[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_7tadi"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_7tadi"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4p5qo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wv1qn"]
 size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_0sdct"]
+colors = PackedColorArray(0.381919, 0.0594875, 0.519217, 1, 0.73, 0.2044, 0.2044, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ku46n"]
+gradient = SubResource("Gradient_0sdct")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.519658, 0.497436)
+fill_to = Vector2(0.752137, 0.230769)
 
 [sub_resource type="Gradient" id="Gradient_6c25y"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
@@ -34,17 +45,6 @@ scale_max = 0.5
 scale_over_velocity_max = 19.61
 color_ramp = SubResource("GradientTexture1D_fq0ps")
 
-[sub_resource type="Gradient" id="Gradient_0sdct"]
-colors = PackedColorArray(0.381919, 0.0594875, 0.519217, 1, 0.73, 0.2044, 0.2044, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ku46n"]
-gradient = SubResource("Gradient_0sdct")
-width = 32
-height = 32
-fill = 1
-fill_from = Vector2(0.519658, 0.497436)
-fill_to = Vector2(0.752137, 0.230769)
-
 [node name="VPVainPoint" type="Area2D"]
 position = Vector2(438, -46)
 
@@ -63,10 +63,10 @@ shape = SubResource("RectangleShape2D_wv1qn")
 
 [node name="Particle" type="GPUParticles2D" parent="."]
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_esk01")
 texture = SubResource("GradientTexture2D_ku46n")
 explosiveness = 0.12
 randomness = 0.19
+process_material = SubResource("ParticleProcessMaterial_esk01")
 
 [node name="Icon" type="Sprite2D" parent="."]
 light_mask = 0

@@ -269,7 +269,9 @@ func groupped_abilities() -> Array[Array]:
 
 ##Artwork shown in the party menu
 func RenderArtwork() -> Texture:
-	return await Loader.load_res("res://art/Renders/"+codename+".png")
+	if ResourceLoader.exists("res://art/Renders/"+codename+".png"):
+		return await Loader.load_res("res://art/Renders/"+codename+".png")
+	else: return null
 
 ##A shadow for the above artwork
 func RenderShadow() -> Texture:
