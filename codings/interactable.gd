@@ -167,7 +167,7 @@ func _on_button_pressed() -> void:
 		"toggle":
 			Global.confirm_sound()
 		"text":
-			await Event.take_control(true)
+			await Event.take_control(false)
 			await Global.textbox(file, title)
 		"item":
 			Item.add_item(item, itemtype)

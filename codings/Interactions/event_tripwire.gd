@@ -18,7 +18,7 @@ func _on_body_entered(body):
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player:
 		print("Tripwire: ", name)
 		if AddFlag: Event.add_flag(Flag)
-		if TakeControl: await Event.take_control(true, true)
+		if TakeControl: await Event.take_control(false, true)
 		if KickDirection != Vector2.ZERO:
 			kick()
 		if EventName != "": Event.call(EventName)

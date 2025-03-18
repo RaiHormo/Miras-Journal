@@ -150,6 +150,7 @@ func update_anim_prm() -> void:
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			if move_frames != 0:
 				move_frames = 0
+			reset_speed()
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 		if direction.length()>RealVelocity.length() and dashing and not can_jump:
 					stop_dash()

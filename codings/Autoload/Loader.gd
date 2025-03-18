@@ -471,8 +471,8 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	match x:
 		0:
 			#t.tween_property(Global.get_cam(), "zoom", CamZoom, 1)
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,786), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1096), time)
+			t.tween_property($Can/Bars/Down, "global_position", BAR_DOWN_POS, time)
+			t.tween_property($Can/Bars/Up, "global_position", BAR_UP_POS, time)
 		1:
 			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), time)
 			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1050), time)

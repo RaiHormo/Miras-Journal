@@ -8,10 +8,11 @@ extends NPC
 @export var give_up_after := 3
 @export var patrol_speed = 20
 @export var chase_speed = 40
-var tmr: SceneTreeTimer
+@onready var tmr: Timer = $Timer
 var lock = false
 var homepoints: Array[Vector2]
 var PinRange = false
+var CurHomepoint: Vector2 = Vector2.ZERO
 
 func add_nodes():
 	if get_node_or_null("HomePoints") == null:
@@ -63,25 +64,14 @@ func default():
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
 			homepoints.append(i.global_position)
+	for i in Global.Area.Followers:
+		add_collision_exception_with(i)
 	patrol()
 
 func patrol():
 	stopping = false
 	Loader.chased = false
 	PinRange = false
-	if not homepoints.is_empty():
-		while not PinRange:
-			if Loader.InBattle:
-				hide()
-			else:
-				show()
-				$Collision.set_deferred("disabled", true)
-				speed = patrol_speed
-				await go_to(homepoints.pick_random(), false, false, Vector2.ZERO, 20)
-			var tmr = get_tree().create_timer(randf_range(0,3))
-			while tmr.time_left != 0:
-				if stopping: return
-				await Event.wait()
 
 func extended_process():
 	if self.get_path in Loader.Defeated:
@@ -96,12 +86,31 @@ func extended_process():
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)
 				if  tmr.time_left < 2 and Nav.is_target_reachable():
-					tmr.set_time_left(2)
+					tmr.start(2)
 			if Global.get_direction(to_local(Nav.get_next_path_position())) != -Global.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
 			if not Loader.InBattle: Loader.battle_bars(0)
 			patrol()
+	else:
+		if Loader.InBattle:
+			hide()
+		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
+			if is_on_wall():
+				Global.jump_to_global(self, CurHomepoint)
+			if round(position/12) == round(CurHomepoint/12):
+				tmr.start(randf_range(0,3))
+				CurHomepoint = Vector2.ZERO
+				BodyState = IDLE
+			else:
+				show()
+				$Collision.set_deferred("disabled", true)
+				speed = patrol_speed
+				BodyState = MOVE
+				if CurHomepoint == Vector2.ZERO:
+					CurHomepoint = homepoints.pick_random()
+				direction = to_local(CurHomepoint).normalized()
+
 
 func _on_finder_body_entered(body):
 	if body == Global.Player and not PinRange and not Loader.chased:
@@ -112,6 +121,7 @@ func _on_finder_body_entered(body):
 		Loader.battle_bars(1)
 		set_dir_marker(to_local(Global.Player.global_position))
 		BodyState = IDLE
+		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
@@ -123,7 +133,7 @@ func _on_finder_body_entered(body):
 			#$Bubble.play("Ellipsis")
 			#patrol()
 		BodyState = MOVE
-		tmr = get_tree().create_timer(give_up_after)
+		tmr.start(give_up_after)
 		PinRange = true
 
 func _on_catch_area_body_entered(body):

@@ -84,6 +84,11 @@ visible = false
 position = Vector2(9.53674e-07, 9.53674e-07)
 scale = Vector2(2.475, 2.475)
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="DirectionMarker/Finder" to="." method="_on_finder_body_entered"]
 [connection signal="area_entered" from="CatchArea" to="." method="_on_catch_area_area_entered"]
 [connection signal="body_entered" from="CatchArea" to="." method="_on_catch_area_body_entered"]

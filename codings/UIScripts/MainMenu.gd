@@ -38,6 +38,7 @@ func _ready():
 		player.collision_mask = 0
 		player.get_node("%Shadow").hide()
 		player.get_node("Flame").free()
+		player.bag_anim()
 	else: player = Global.Player
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
