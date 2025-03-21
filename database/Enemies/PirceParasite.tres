@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://djr2vkawr2evu"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://djr2vkawr2evu"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_fb2dv"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_ehoc7"]
 [ext_resource type="Texture2D" uid="uid://br3ayvp6wpv2r" path="res://art/Icons/Enemies/Parasite.png" id="2_iqcmx"]
+[ext_resource type="Resource" uid="uid://j0fblfk2m2w0" path="res://database/Abilities/SmallShock.tres" id="2_m8tav"]
 [ext_resource type="Texture2D" uid="uid://cccosk0jqxesb" path="res://art/BT/PirceParasite/PirceParasiteBT.png" id="2_up2d6"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_iqcmx"]
 [ext_resource type="Resource" uid="uid://dfwfci7qqogji" path="res://database/Abilities/Attacks/RemoteAttack.tres" id="5_up2d6"]
@@ -28,7 +29,7 @@ codename = &"Actor"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 24
 IsEnemy = true
-RecivedSP = 0
+RecivedSP = 4
 SummonedAllies = Array[ExtResource("3_iqcmx")]([])
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
@@ -48,7 +49,7 @@ Aura = 0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[ExtResource("1_fb2dv")]([])
+Abilities = Array[ExtResource("1_fb2dv")]([ExtResource("2_m8tav")])
 StandardAttack = ExtResource("5_up2d6")
 LearnableAbilities = Array[ExtResource("1_fb2dv")]([])
 BT = SubResource("SpriteFrames_up2d6")

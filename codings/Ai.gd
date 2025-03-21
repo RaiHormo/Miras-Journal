@@ -26,6 +26,9 @@ func ai() -> void:
 			choose(find_ability("Summon").pick_random())
 		elif check_for_finishers():
 			print("I can finish off")
+		elif has_type("BigAttack") and (states_in_faction("", Bt.get_oposing_faction()) != null or Char.has_state("AtkUp") or Char.has_state("MagUp")):
+			print("Chance for a big attack")
+			choose(find_ability("BigAttack").pick_random(), states_in_faction("", Bt.get_oposing_faction()))
 		elif has_type("Curse") and randi_range(0, 1) == 1 and (Char.BattleLog.is_empty() or Char.BattleLog.back().ability.Type != "Curse") and check_for_curses():
 			print("Can use a curse")
 		else:
@@ -46,6 +49,8 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
+	for i: Ability in AblilityList.duplicate():
+		if i.Damage == Ability.D.WEAPON: AblilityList.erase(i)
 	var Choices:Array[Ability] = []
 	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:
@@ -81,14 +86,14 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 			Char.NextAction = "Attack"
 		else:
 			Char.NextAction = "Ability"
-	Char.NextMove=ab
+		Char.NextMove=ab
 	if Char.has_state("Confused") and (ab.Target == Ability.T.ONE_ENEMY or ab.Target == Ability.T.ONE_ALLY or ab.Target == Ability.T.ANY):
 		Char.NextTarget = Bt.TurnOrder.pick_random()
 		Bt.confusion_msg()
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 2
+	const n = 3
 	var r: int
 	var tries:= 0
 	while true:
@@ -116,6 +121,9 @@ func pick_general_ability() -> Ability:
 				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
 				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive") and has_type("Defensive")):
 					return find_ability("Defensive").pick_random()
+			3:
+				if has_type("BigAttack"):
+					return find_ability("BigAttack").pick_random()
 			_:
 				if has_type("CheapAttack"):
 					return find_ability("CheapAttack").pick_random()
@@ -148,6 +156,19 @@ func check_for_curses() -> bool:
 						choose(i, tar)
 						return true
 	return false
+
+func states_in_faction(state:String, faction: Array[Actor]) -> Actor:
+	var sorted = faction.duplicate()
+	sorted.sort_custom(func(a, b): return a.States.size() > b.States.size())
+	for i in faction:
+		if i.States.is_empty():
+			sorted.erase(i)
+		else:
+			if state != "":
+				if i.has_state(state): return i
+	if sorted.is_empty():
+		return null
+	else: return sorted[0]
 
 func check_for_finishers():
 	for i in Bt.get_oposing_faction():

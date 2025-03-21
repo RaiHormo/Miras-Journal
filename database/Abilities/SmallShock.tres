@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://j0fblfk2m2w0"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_qthqk"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_hj84y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj84y"]
+atlas = ExtResource("1_qthqk")
+region = Rect2(162, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_hj84y")
+name = "Small Shock"
+description = "Deals slight Electric damage, with a chance of zapping the target. Small chance to miss"
+Icon = SubResource("AtlasTexture_hj84y")
+ActionSequence = &"SmallShock"
+Type = "CheapAttack"
+Group = ""
+InflictsState = "Zapped"
+AuraCost = 0
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 1
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.992157, 0.87451, 0, 1)
+Callout = true
+SucessChance = 0.98
+CritChance = 0.3
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

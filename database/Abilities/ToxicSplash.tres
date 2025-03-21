@@ -11,7 +11,7 @@ filter_clip = true
 [resource]
 script = ExtResource("1_yetw6")
 name = "Toxic Splash"
-description = "Deals weak Corruption damage, with a chance of poisoning the target."
+description = "Deals slight Corruption damage, with a chance of poisoning the target."
 Icon = SubResource("AtlasTexture_jd2xk")
 ActionSequence = &"ToxicSplash"
 Type = "CheapAttack"

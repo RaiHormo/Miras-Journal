@@ -597,6 +597,45 @@ func LeechSeeds(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func SmallShock(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	#Bt.play_effect("ToxicSplash", target)
+	await Event.wait(0.8)
+	Bt.damage(target, true, true)
+	Bt.screen_shake(8, 5, 0.1)
+	await Event.wait(1)
+	if crit: await target.add_state("Zapped")
+	Bt.anim()
+	Bt.end_turn()
+
+func StaticSaber(target: Actor):
+	Bt.anim("Attack2", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-30), 0), 0.3)
+	await Event.wait(0.8)
+	Bt.damage(target, false, true)
+	Bt.screen_shake(8, 5, 0.1)
+	await Event.wait(1)
+	if crit: await target.add_state("Zapped")
+	Bt.anim()
+	Bt.return_cur()
+	Bt.end_turn()
+
+func RedShift(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	Bt.play_effect("ToxicSplash", target)
+	await Event.wait(0.8)
+	Bt.damage(target, true, true, Global.calc_num()+(Global.calc_num()*target.States.size()))
+	Bt.screen_shake(8, 5, 0.1)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
 func Tighten(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)

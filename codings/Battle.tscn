@@ -1775,6 +1775,7 @@ position = Vector2(0.5, -12.5)
 sprite_frames = SubResource("SpriteFrames_wdhds")
 animation = &"Zapped"
 autoplay = "None"
+frame_progress = 0.82923
 
 [node name="Glow" type="PointLight2D" parent="Act/Actor0"]
 light_mask = 16
