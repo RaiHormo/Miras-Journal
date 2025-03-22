@@ -546,6 +546,9 @@ overwrite_color: Color = Color.WHITE) -> int:
 	target.damage(dmg, limiter)
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
 		$Act.call(target.SeqOnClutch, target)
+	if target.has_state("Frozen"):
+		target.remove_state("Frozen")
+		Global.toast("The ice on "+ target.FirstName+ " breaks!")
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/10)
@@ -1155,6 +1158,8 @@ func add_state_effect(state: State, chara: Actor):
 		chara.node.add_child(dub)
 		dub.show()
 		dub.play(state.name)
+		if state.name == "Bound":
+			dub.z_index = 0
 
 func remove_state_effect(statename: String, chara: Actor):
 	if chara.node == null: return
@@ -1167,7 +1172,7 @@ func get_actor(codename: StringName) -> Actor:
 	return null
 
 func random_target(ab: Ability):
-	print("Target decided randomly")
+	if ab.Target != Ability.T.SELF: print("Target decided randomly")
 	match ab.Target:
 		Ability.T.SELF, Ability.T.AOE_ENEMIES, Ability.T.AOE_ALLIES:
 			return CurrentChar

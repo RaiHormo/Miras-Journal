@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name Wheel
 @export var color:Color
 var affinity:Affinity

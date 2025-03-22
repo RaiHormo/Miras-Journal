@@ -982,7 +982,11 @@ scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("6_emlrx")
 
 [node name="Wheel" parent="DescPaper" instance=ExtResource("10_tp8ni")]
-position = Vector2(360.203, -211.238)
+layout_mode = 0
+offset_left = 360.203
+offset_top = -211.238
+offset_right = 1360.2
+offset_bottom = 788.762
 scale = Vector2(0.395651, 0.395651)
 
 [node name="Inventory" type="PanelContainer" parent="."]

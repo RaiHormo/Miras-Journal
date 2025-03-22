@@ -12,11 +12,11 @@ filter_clip = true
 script = ExtResource("2_5msns")
 name = "Zapped"
 Description = "Can't act for the next turn. 
-Doubled damage from weak hits."
+More damage from weak hits."
 RemovedOnBattleEnd = true
 turns = 2
 icon = SubResource("AtlasTexture_6wibv")
 color = Color(0.988235, 0.866667, 0.258824, 1)
-weak_mult = 2.0
+weak_mult = 1.5
 dmg_mult = 1.0
 is_stat_change = false

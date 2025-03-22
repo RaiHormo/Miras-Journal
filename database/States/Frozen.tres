@@ -11,12 +11,12 @@ filter_clip = true
 [resource]
 script = ExtResource("1_wpwwi")
 name = "Frozen"
-Description = "Cannot move until hit again.
+Description = "Cannot move until hit again, or after 4 turns
 "
 RemovedOnBattleEnd = true
-turns = -1
+turns = 4
 icon = SubResource("AtlasTexture_ir784")
 color = Color(0.0745098, 0.909804, 1, 1)
 weak_mult = 1.0
-dmg_mult = 1.0
+dmg_mult = 0.8
 is_stat_change = false

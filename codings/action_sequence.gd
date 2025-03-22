@@ -146,7 +146,13 @@ func handle_states():
 					Global.toast(chara.FirstName+" can't move from the shock!")
 					chara.NextAction = "Attack"
 					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
-					await Event.wait(1)
+					await Bt.shake_actor(chara)
+				"Frozen":
+					Bt.focus_cam(chara)
+					Global.toast(chara.FirstName+" can't move from the cold!")
+					chara.NextAction = "Attack"
+					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+					await Bt.shake_actor(chara)
 	for i in range(chara.States.size() -1, -1, -1):
 		var state = chara.States[i]
 		if state.QueueRemove:
@@ -577,11 +583,19 @@ func IcyDrizzle(target: Actor):
 		Bt.return_cur()
 		Bt.anim()
 	else:
-		if miss: Bt.miss(target)
-		else:
-			Bt.damage(target, CurrentChar.Magic, true)
+		Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
+		await Event.wait(0.3)
+		if not miss:
+			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
 			Bt.screen_shake(5)
-			if crit: await target.add_state("Frozen")
+		roll_rng(target)
+		Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
+		await Event.wait(randf_range(0, 0.5))
+		if not miss: Bt.miss(target)
+		else:
+			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
+			Bt.screen_shake(5)
+		if crit: await target.add_state("Frozen")
 	Bt.end_turn()
 
 func LeechSeeds(target: Actor):
