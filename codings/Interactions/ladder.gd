@@ -4,6 +4,12 @@ var time: float = 8
 var height: float = 0.5
 var varience: float
 
+@export var enable_stairs:= false
+@export_flags_2d_physics var LayersUp := 1
+@export_flags_2d_physics var LayersDown := 1
+@export var zUp := 0
+@export var zDown := 0
+
 func _physics_process(delta: float) -> void:
 	if active:
 		if varience == 0:
@@ -20,11 +26,19 @@ func _physics_process(delta: float) -> void:
 			Global.Player.direction = Vector2.UP * varience
 		else: Global.Player.direction = Vector2.ZERO
 		if Global.Player.position.y < $Start1.global_position.y:
+			if enable_stairs:
+				Global.Player.z_index = zUp
+				Global.Player.collision_layer = LayersUp
+				Global.Player.collision_mask = LayersUp
 			active = false
 			await Global.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			Event.teleport_followers()
 		if Global.Player.position.y > $Start2.global_position.y:
+			if enable_stairs:
+				Global.Player.z_index = zDown
+				Global.Player.collision_layer = LayersDown
+				Global.Player.collision_mask = LayersDown
 			active = false
 			Global.Player.look_to(Vector2.DOWN)
 			await Global.jump_to_global(Global.Player, $End2.global_position, time, height)

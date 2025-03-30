@@ -2972,6 +2972,21 @@ texture_region_size = Vector2i(24, 24)
 20:7/0 = 0
 20:7/0/texture_origin = Vector2i(-9, 0)
 20:7/0/y_sort_origin = -11
+23:9/size_in_atlas = Vector2i(4, 6)
+23:9/0 = 0
+23:9/0/texture_origin = Vector2i(-12, 0)
+18:10/size_in_atlas = Vector2i(5, 8)
+18:10/0 = 0
+24:16/size_in_atlas = Vector2i(2, 1)
+24:16/0 = 0
+24:16/0/texture_origin = Vector2i(0, 1)
+24:16/0/y_sort_origin = 4
+24:17/size_in_atlas = Vector2i(2, 1)
+24:17/0 = 0
+24:17/0/texture_origin = Vector2i(0, 1)
+24:17/0/y_sort_origin = 4
+19:18/size_in_atlas = Vector2i(5, 10)
+19:18/0 = 0
 
 [resource]
 tile_size = Vector2i(24, 24)
