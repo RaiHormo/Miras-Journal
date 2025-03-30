@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://vgsferl0deam"]
 
-[ext_resource type="Script" path="res://codings/Interactions/jump_point.gd" id="1_60q8a"]
+[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="1_60q8a"]
 [ext_resource type="Texture2D" uid="uid://dtw2ihtvn34ge" path="res://art/Icons/Editor/jump.png" id="2_a6ca7"]
-[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="3_n84ch"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_n84ch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ht2m"]
 size = Vector2(24, 66)

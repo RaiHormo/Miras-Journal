@@ -619,9 +619,10 @@ animations = [{
 "speed": 4.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8id2"]
-custom_solver_bias = 0.146
-size = Vector2(14, 8)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ss1lh"]
+custom_solver_bias = 1.0
+radius = 5.0
+height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qv763"]
 size = Vector2(14, 17)
@@ -748,8 +749,9 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_o8id2")
+position = Vector2(0, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ss1lh")
 one_way_collision_margin = 15.4
 
 [node name="DirectionMarker" type="Marker2D" parent="."]

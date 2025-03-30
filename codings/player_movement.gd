@@ -15,7 +15,8 @@ var undashable := false
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
 @export var can_dash = true
-const dash_speed := 240
+const dash_speed := 200
+const walk_speed := 100
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
@@ -84,6 +85,12 @@ func control_process():
 			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(
 			direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
+			if dashing:
+				if dashdir.y == 0:
+					direction.y /= 1.2
+				if dashdir.x == 0:
+					direction.x /= 1.2
+				speed = min(speed * 1.005, 350)
 			if not dashing:
 				if undashable:
 					reset_speed()
@@ -94,22 +101,16 @@ func control_process():
 					dashdir = Global.get_direction(direction)
 					dashing = true
 					Global.Controllable=false
-					speed = dash_speed
 					BodyState = CUSTOM
 					direction = dashdir
 					reset_speed()
-					#set_anim("Dash"+Global.get_dir_name(direction)+"Start")
-					#while %Base.is_playing() and %Base.animation == "Dash"+Global.get_dir_name(dashdir)+"Start":
-						#velocity = dashdir * speed
-						#if is_on_wall(): Global.Controllable=true; set_anim("Idle"+Global.get_dir_name()); return
-						#await Event.wait()
-					#Global.jump_to_global(self, global_position+Global.get_direction(direction)*20, 3, 0)
 					if BodyState == CUSTOM:
 						Global.Controllable=true
-			elif Global.get_direction(direction) != dashdir:
+					if speed < dash_speed:
+						speed = dash_speed
+			elif Global.get_direction(direction.normalized()) != dashdir:
 				stop_dash()
 		elif dashing:
-			#print(3)
 			stop_dash()
 		if direction != Vector2.ZERO:
 			Global.PlayerDir = direction
@@ -143,6 +144,7 @@ func update_anim_prm() -> void:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
+				speed = walk_speed
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
@@ -258,7 +260,6 @@ func stop_dash() -> void:
 	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in
 	used_sprite.animation or midair or not dashing): return
 	dashing = false
-	speed = 75
 	#print(RealVelocity)
 	reset_speed()
 	var slide = true
@@ -266,24 +267,24 @@ func stop_dash() -> void:
 		if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
 			Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
 			slide = false
-	if (undashable and Global.get_direction()==dashdir and not check_terrain("Gap")) and move_frames > 5:
+	if (undashable and Global.get_direction() == dashdir) and move_frames > 5:
+		speed = walk_speed
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
 		if Input.is_action_pressed("Dash") and Global.get_direction(
-			direction) != dashdir and direction!=Vector2.ZERO:
+			direction) != dashdir and direction != Vector2.ZERO:
 			await get_tree().create_timer(0.1).timeout
 		else:
 			#BodyState = CUSTOM
-			speed = 75
+			speed = walk_speed
 			while used_sprite.is_playing() and used_sprite.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
 				velocity = dashdir * speed
 				speed = max(0, speed - 2)
 				await Event.wait()
 		Global.Controllable = true
 		BodyState = CONTROLLED
-		speed = 75
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO
 	move_frames = 0
@@ -362,7 +363,7 @@ func attack():
 	else:
 		attacking = false
 		set_anim()
-		speed = 75
+		speed = walk_speed
 		$Attack/CollisionShape2D.disabled = true
 		$Attack/AttackPreview/CollisionShape2D.disabled = true
 

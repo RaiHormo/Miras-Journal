@@ -911,10 +911,12 @@ shape = SubResource("RectangleShape2D_72f6p")
 [node name="Fight" parent="EvDummy" instance=ExtResource("6_pmuyc")]
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
-ActionType = "battle"
+ActionType = "text"
 Length = 100
-file = "DebugDummy"
+file = "testbush"
+title = "battle_test"
 Height = 16
+return_control = false
 
 [node name="EvHarold" type="Sprite2D" parent="."]
 z_index = 1

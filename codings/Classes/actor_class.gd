@@ -25,6 +25,7 @@ class_name Actor
 @export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 0
 ##What allies will be summoned when calling for help
 @export var SummonedAllies: Array[Actor]
+@export var CustomPosition: Vector2i = Vector2i.ZERO
 
 @export_group("Party specific")
 ##Used for the Aura gauge, purely cosmetic. If left black, the color will be automatically generated.
@@ -76,7 +77,7 @@ var SpeedBoost: int = 0
 @export var Abilities: Array[Ability]
 ##The ability used when the "Attack" button is pressed. Also determines the
 ##actor's weapon icon
-@export var StandardAttack: Ability
+@export var StandardAttack: Ability = preload("res://database/Abilities/Attacks/Nothing.tres")
 ##The abilities that can be unlocked by leveling up, party member only
 @export var LearnableAbilities: Array[Ability]
 

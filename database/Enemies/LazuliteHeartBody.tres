@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://dyqwhhom23j2x"]
+
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_j4a1g"]
+[ext_resource type="Texture2D" uid="uid://cfsrbe1qnqrxt" path="res://art/BT/LazuliteHeart/LazBt.png" id="2_3qp5y"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_tk2k6"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_3qp5y"]
+[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="3_wvs21"]
+[ext_resource type="Resource" uid="uid://gnxloqwh4cjy" path="res://database/Abilities/Attacks/Nothing.tres" id="5_wvs21"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4a1g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3qp5y")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_3qp5y")
+FirstName = "Lazulite Heart"
+MainColor = Color(1, 1, 1, 1)
+PartyIcon = ExtResource("3_wvs21")
+ActorClass = "Boss"
+codename = &"Actor"
+Pronouns = Array[String](["it", "it", "its", "itself"])
+WeaponPower = 0
+IsEnemy = true
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("3_3qp5y")]([])
+SecondaryColor = Color(0, 0, 0, 1)
+LastName = ""
+Weapon = ""
+PartyPageName = ""
+Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
+MaxHP = 300
+MaxAura = 50
+Attack = 0.0
+Magic = 1.2
+Defence = 1.6
+Speed = 3.0
+Health = 0
+Aura = 0
+SkillLevel = 1
+SkillPoints = 0
+SkillPointsFor = Array[int]([])
+Abilities = Array[ExtResource("1_j4a1g")]([])
+StandardAttack = ExtResource("5_wvs21")
+LearnableAbilities = Array[ExtResource("1_j4a1g")]([])
+BT = SubResource("SpriteFrames_j4a1g")
+Offset = Vector2(0, -58)
+Shadow = false
+ShadowOffset = 0
+SoundSet = ExtResource("2_tk2k6")
+Disappear = true
+GlowDef = 0.3
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = true
+metadata/_custom_type_script = "uid://msf7qb28ublo"

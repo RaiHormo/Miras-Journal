@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://01s5imheles6"]
+
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_stamu"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_eq6wa"]
+[ext_resource type="Texture2D" uid="uid://b173w1g38hw3g" path="res://art/BT/LazuliteHeart/LazLeftBt.png" id="2_pfxhc"]
+[ext_resource type="Resource" uid="uid://gnxloqwh4cjy" path="res://database/Abilities/Attacks/Nothing.tres" id="3_pfxhc"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_okcgo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_stamu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pfxhc")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("4_okcgo")
+FirstName = "Name"
+MainColor = Color(1, 1, 1, 1)
+ActorClass = ""
+codename = &"Actor"
+Pronouns = Array[String](["it", "it", "its", "itself"])
+WeaponPower = 24
+IsEnemy = true
+RecivedSP = 0
+SummonedAllies = Array[ExtResource("4_okcgo")]([])
+CustomPosition = Vector2i(25, 0)
+SecondaryColor = Color(0, 0, 0, 1)
+LastName = ""
+Weapon = ""
+PartyPageName = ""
+Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
+MaxHP = 99
+MaxAura = 99
+Attack = 1.0
+Magic = 1.0
+Defence = 1.0
+Speed = 5.0
+Health = 0
+Aura = 0
+SkillLevel = 1
+SkillPoints = 0
+SkillPointsFor = Array[int]([])
+Abilities = Array[ExtResource("1_stamu")]([])
+StandardAttack = ExtResource("3_pfxhc")
+LearnableAbilities = Array[ExtResource("1_stamu")]([])
+BT = SubResource("SpriteFrames_stamu")
+Offset = Vector2(0, 0)
+Shadow = false
+ShadowOffset = 0
+SoundSet = ExtResource("2_eq6wa")
+Disappear = true
+GlowDef = 0.3
+GlowSpecial = 0.0
+GlowAnims = Array[String]([])
+DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false
+metadata/_custom_type_script = "uid://msf7qb28ublo"

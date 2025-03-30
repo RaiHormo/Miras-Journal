@@ -928,7 +928,8 @@ func _on_show_wheel_pressed():
 		$DescPaper/ShowWheel/Wheel.hide()
 	else:
 		$DescPaper/ShowWheel/Wheel.show()
-		$DescPaper/ShowWheel.text = "Hide wheel"
+		$DescPaper/ShowWheel.text = "Hide"
+		$DescPaper/ShowWheel.size.x = 1
 		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		t.tween_property($DescPaper/ShowWheel, "position:x", 520, 0.3)
 

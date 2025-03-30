@@ -208,6 +208,8 @@ func position_sprites():
 				$Act/Enemy3.show()
 				$Act/Enemy3.position = Vector2(66,65)
 	for i in TurnOrder:
+		if i.CustomPosition != Vector2i.ZERO:
+			i.node.position = i.CustomPosition
 		pixel_perfectize(i)
 
 func entrance():
