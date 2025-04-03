@@ -516,6 +516,9 @@ func end_turn(confirm_aoe:= false):
 	await get_tree().create_timer(0.3).timeout
 	if CurrentChar.node:
 		CurrentChar.node.z_index = 0
+	for i in TurnOrder:
+		if i.queue_delete:
+			delete_actor(i)
 	next_turn.emit()
 
 func damage(
@@ -642,6 +645,7 @@ func offsetize(num, target=CurrentChar):
 		return num
 
 func pop_num(target:Actor, text, color: Color = Color.WHITE):
+	if is_instance_valid(target) and target.node != null:
 		var number:Label = target.node.get_node("Nums").duplicate()
 		target.node.add_child(number)
 		number.modulate = Color.TRANSPARENT
@@ -740,13 +744,17 @@ func death(target:Actor):
 			if target.node.is_playing():
 				await target.node.animation_finished
 			if target and target.node:
-				target.node.queue_free()
-				target.node = null
-				if target.IsEnemy:
-					Troop.erase(target)
-					TurnOrder.erase(target)
+				target.queue_delete = true
 	if target != Party.Leader:
 		lock_turn = false
+
+func delete_actor(target: Actor):
+	if is_instance_valid(target):
+		target.node.queue_free()
+		target.node = null
+		if target.IsEnemy:
+			Troop.erase(target)
+			TurnOrder.erase(target)
 
 func slowmo(timescale = 0.5, time= 1):
 	Engine.time_scale = 0.5
@@ -836,11 +844,12 @@ func move_cam(pos: Vector2, time:float=0.5):
 
 func move(chara:Actor, pos:Vector2, time:float,
 mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
-	var tm = create_tween()
-	tm.set_ease(mode)
-	tm.set_trans(Tween.TRANS_QUART)
-	tm.tween_property(chara.node, "position", pos + offset, time)
-	await tm.finished
+	if is_instance_valid(chara) and chara.node != null:
+		var tm = create_tween()
+		tm.set_ease(mode)
+		tm.set_trans(Tween.TRANS_QUART)
+		tm.tween_property(chara.node, "position", pos + offset, time)
+		await tm.finished
 	anim_done.emit()
 
 #int(max(Global.calc_num(), target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))

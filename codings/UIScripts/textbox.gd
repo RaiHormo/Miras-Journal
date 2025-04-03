@@ -168,6 +168,9 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	#if not PartyUI.Expanded: PartyUI.UIvisible = false
 	#await get_tree().create_timer(0.3).timeout
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
+	for i in get_tree().root.get_children():
+		if i is Textbox and i != self:
+			queue_free()
 
 
 ## Go to the next line

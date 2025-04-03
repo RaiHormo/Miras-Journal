@@ -98,6 +98,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		OS.alert("Save data is corrupt")
 		get_tree().quit()
 		return
+	chased = false
 	data = await load_res(filepath)
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.FirstStartTime = data.StartTime
@@ -156,6 +157,10 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		await Event.take_control()
 		dismiss_load_icon()
 	print("File loaded!\n-------------------------")
+	await Event.wait()
+	if chased and is_instance_valid(Attacker):
+		print("Too close to an enemy, auto escape")
+		Global.Player.position = Attacker.BattleSeq.EscPosition *24
 
 func load_res(path: String) -> Resource:
 	load_failed = false
@@ -296,7 +301,7 @@ func detransition(dir = "direc"):
 	t.tween_property($Can/Bars/Left, "position", BAR_LEFT_POS, 0.4)#.from(Vector2(-200,-204))
 	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)#.from(Vector2(-200,-177))
 	dismiss_load_icon()
-	await t.finished
+	await Event.wait(0.4)
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
 

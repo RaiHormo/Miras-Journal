@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=131 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -14,13 +14,16 @@
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="9_lj3n1"]
 [ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="13_rxedw"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="14_ybpd3"]
+[ext_resource type="Resource" uid="uid://dndjx0ile1qpr" path="res://database/Enemies/BurstParasite.tres" id="15_3lgvi"]
 [ext_resource type="Texture2D" uid="uid://df63egmwm4ryq" path="res://art/Backgrounds/ArenaBg/TempleWoodsBg.png" id="15_a3r2p"]
+[ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="15_ohs4u"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="15_rqges"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="16_6vjw5"]
 [ext_resource type="Resource" uid="uid://djr2vkawr2evu" path="res://database/Enemies/PirceParasite.tres" id="16_a3r2p"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="17_a3r2p"]
 [ext_resource type="Resource" uid="uid://btpc8qptcieh" path="res://database/Enemies/Crystal.tres" id="17_lmpvr"]
 [ext_resource type="Texture2D" uid="uid://lcsggx56ic6l" path="res://art/OV/Objects/BreakableWallVSG.png" id="20_1b4jj"]
+[ext_resource type="Resource" uid="uid://dxfkwyq3xh4d" path="res://database/Enemies/FlowParasite.tres" id="20_ohs4u"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="20_pu5uh"]
 [ext_resource type="Texture2D" uid="uid://jnhnt5kow0bq" path="res://art/OV/Objects/BreakableWallHSG.png" id="21_63qd7"]
 [ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="21_mwckp"]
@@ -508,6 +511,86 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="Resource" id="Resource_xtlyj"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_ohs4u"), ExtResource("17_lmpvr"), ExtResource("15_ohs4u")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(0, 0)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(0, 0)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_yoqct"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("16_a3r2p"), ExtResource("17_lmpvr"), ExtResource("16_a3r2p")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-18, -5)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-330, -42)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_a7h8m"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_3lgvi"), ExtResource("16_a3r2p"), ExtResource("15_3lgvi")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(0, 0)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(0, 0)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_ggbak"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("17_lmpvr"), ExtResource("20_ohs4u")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(0, 0)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(0, 0)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
 [sub_resource type="Resource" id="Resource_lmpvr"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("16_a3r2p"), ExtResource("17_lmpvr")])
@@ -518,6 +601,106 @@ Detransition = false
 EscPosition = Vector2i(-13, 26)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(-446, 578)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_ohs4u"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("16_a3r2p"), ExtResource("17_lmpvr"), ExtResource("20_ohs4u")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-13, 26)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-484, 344)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_wvntm"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_3lgvi"), ExtResource("15_3lgvi"), ExtResource("15_3lgvi")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-14, 22)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-275, 429)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_n6psl"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("15_3lgvi"), ExtResource("20_ohs4u")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-4, 13)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-174, 194)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_41yyw"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("17_lmpvr"), ExtResource("16_a3r2p"), ExtResource("17_lmpvr"), ExtResource("17_lmpvr")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-5, -10)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-418, -405)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("16_6vjw5")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_pvsn2"]
+script = ExtResource("17_a3r2p")
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("20_ohs4u"), ExtResource("15_3lgvi"), ExtResource("20_ohs4u")])
+AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+Transition = true
+Detransition = false
+EscPosition = Vector2i(-5, -10)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(-310, -264)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -1007,6 +1190,7 @@ sprite_frames = SubResource("SpriteFrames_esqi5")
 
 [node name="EnemySG1" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(637, 507)
+BattleSeq = SubResource("Resource_xtlyj")
 chase_speed = 90
 speed = 90
 CameraIndex = 0
@@ -1040,6 +1224,7 @@ position = Vector2(13, -42)
 
 [node name="EnemySG10" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-304, -44)
+BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
 ID = "SG3"
@@ -1066,8 +1251,15 @@ autoplay = "IdleDown"
 frame_progress = 0.198531
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG10"]
+position = Vector2(-133, -77)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG10"]
+position = Vector2(-26, 2)
+
 [node name="EnemySG2" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(410, 655)
+BattleSeq = SubResource("Resource_a7h8m")
 chase_speed = 90
 speed = 90
 CameraIndex = 0
@@ -1095,6 +1287,7 @@ offset = Vector2(0.0496826, -5.866)
 
 [node name="EnemySG3" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(271, 759)
+BattleSeq = SubResource("Resource_ggbak")
 chase_speed = 90
 speed = 90
 CameraIndex = 0
@@ -1150,6 +1343,7 @@ gizmo_extents = 100.0
 
 [node name="EnemySG5" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-484, 344)
+BattleSeq = SubResource("Resource_ohs4u")
 chase_speed = 90
 speed = 90
 SpawnOnCameraInd = false
@@ -1182,6 +1376,7 @@ position = Vector2(149, 293)
 
 [node name="EnemySG6" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-275, 429)
+BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
 speed = 90
 metadata/_edit_group_ = true
@@ -1206,8 +1401,15 @@ animation = &"IdleUp"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG6"]
+position = Vector2(-66, 101)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG6"]
+gizmo_extents = 100.0
+
 [node name="EnemySG7" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-161, 190)
+BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
 ID = "SG3"
@@ -1231,8 +1433,16 @@ autoplay = "IdleDown"
 frame_progress = 0.198531
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG7"]
+position = Vector2(54, 123)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG7"]
+position = Vector2(-13, 4)
+gizmo_extents = 100.0
+
 [node name="EnemySG8" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-418, -405)
+BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
 ID = "SG3"
@@ -1256,8 +1466,14 @@ autoplay = "IdleDown"
 frame_progress = 0.198531
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG8"]
+position = Vector2(290, 143)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG8"]
+
 [node name="EnemySG9" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-342, -235)
+BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
 ID = "SG3"
@@ -1283,6 +1499,12 @@ animation = &"WalkUp"
 autoplay = "IdleDown"
 frame_progress = 0.198531
 offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemySG9"]
+position = Vector2(214, -27)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG9"]
+position = Vector2(32, -29)
 
 [node name="EvKick" type="Area2D" parent="."]
 position = Vector2(61, 82)
@@ -1421,6 +1643,7 @@ position = Vector2(-3, 53)
 position = Vector2(-2, 85)
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_pimpf")
 use_edge_connections = false
 navigation_layers = 2

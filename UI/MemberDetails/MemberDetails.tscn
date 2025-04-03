@@ -587,7 +587,11 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
 
 [node name="Wheel" parent="StatPanel" instance=ExtResource("4_tgr26")]
-position = Vector2(173, 191)
+layout_mode = 0
+offset_left = -324.0
+offset_top = -310.0
+offset_right = 676.0
+offset_bottom = 690.0
 scale = Vector2(0.23775, 0.23775)
 
 [node name="LvBox" type="PanelContainer" parent="StatPanel"]
@@ -852,6 +856,7 @@ theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
 [node name="AbilityPanel" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -927,7 +932,11 @@ bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
 [node name="Wheel" parent="AbilityPanel/AttackTitle" instance=ExtResource("4_tgr26")]
-position = Vector2(89.625, -154.625)
+layout_mode = 0
+offset_left = 89.625
+offset_top = -154.625
+offset_right = 1089.62
+offset_bottom = 845.375
 scale = Vector2(0.24075, 0.24075)
 color = Color(1, 0, 0.356863, 1)
 

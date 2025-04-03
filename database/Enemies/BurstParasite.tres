@@ -19,6 +19,7 @@ WeaponPower = 19
 IsEnemy = true
 RecivedSP = 2
 SummonedAllies = Array[ExtResource("3_c3tjn")]([])
+CustomPosition = Vector2i(0, 0)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""

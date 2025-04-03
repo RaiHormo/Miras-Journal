@@ -92,6 +92,8 @@ func extended_process():
 		else:
 			if not Loader.InBattle: Loader.battle_bars(0)
 			patrol()
+			if Loader.Attacker == self:
+				Loader.Attacker = null
 	else:
 		if Loader.InBattle:
 			hide()
@@ -123,6 +125,7 @@ func _on_finder_body_entered(body):
 		BodyState = IDLE
 		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
+		Loader.Attacker = self
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
 		look_to(Global.get_direction(to_local(Global.Player.global_position)))

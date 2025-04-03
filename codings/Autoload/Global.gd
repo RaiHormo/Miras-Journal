@@ -71,7 +71,7 @@ func quit() -> void:
 	await Loader.transition("")
 	if get_node_or_null("/root/Options"):
 		await get_node("/root/Options").close()
-	if Player.get_node_or_null("MainMenu"):
+	if is_instance_valid(Player.get_node_or_null("MainMenu")):
 		await Player.get_node("MainMenu").close()
 	await Loader.save()
 	get_tree().quit()

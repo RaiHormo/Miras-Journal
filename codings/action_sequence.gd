@@ -395,11 +395,12 @@ func AOEAttack(target: Actor):
 	Bt.end_turn()
 
 func CrystalHeal(target: Actor):
-	var hp_sorted_allies: Array[Actor] = Bt.get_ally_faction().duplicate()
-	hp_sorted_allies.erase(CurrentChar)
-	hp_sorted_allies.sort_custom(Bt.hp_sort)
-	for i in hp_sorted_allies: print(i.FirstName, " - ", i.Health)
-	target = hp_sorted_allies[0]
+	if Bt.get_ally_faction().size() > 1:
+		var hp_sorted_allies: Array[Actor] = Bt.get_ally_faction().duplicate()
+		hp_sorted_allies.erase(CurrentChar)
+		hp_sorted_allies.sort_custom(Bt.hp_sort)
+		for i in hp_sorted_allies: print(i.FirstName, " - ", i.Health)
+		target = hp_sorted_allies[0]
 	if target.Health != target.MaxHP:
 		Bt.focus_cam(CurrentChar)
 		Bt.anim("Attack1")
@@ -589,13 +590,12 @@ func IcyDrizzle(target: Actor):
 			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
 			Bt.screen_shake(5)
 		roll_rng(target)
-		Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
-		await Event.wait(randf_range(0, 0.5))
-		if not miss: Bt.miss(target)
-		else:
+		if not miss:
+			Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
+			await Event.wait(randf_range(0, 0.5))
 			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
 			Bt.screen_shake(5)
-		if crit: await target.add_state("Frozen")
+			if crit: await target.add_state("Frozen")
 	Bt.end_turn()
 
 func LeechSeeds(target: Actor):
