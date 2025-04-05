@@ -260,31 +260,34 @@ func AttackDaze(target: Actor):
 
 func AttackAsteria(target: Actor):
 	Bt.zoom()
-	Bt.focus_cam(CurrentChar, 0.5, 30)
 	Bt.anim("Attack1")
-	await Bt.focus_cam(target, 1, 30)
-	Bt.play_effect("RemoteHit", target)
-	if not miss:
-		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target)
-		Bt.screen_shake()
-	else: Bt.miss()
-	await Event.wait(0.3)
-	roll_rng(target)
-	Bt.play_effect("RemoteHit", target)
+	await Bt.focus_cam(target, 0.3, 30)
+	Bt.play_effect("Scarf1", target, Vector2.ZERO, false, true)
+	await Event.wait(0.2)
 	if not miss:
 		Bt.play_sound("Attack2", CurrentChar)
 		Bt.damage(target)
 		Bt.screen_shake()
 	else: Bt.miss()
 	await Event.wait(0.5)
-	Bt.play_effect("RemoteHit", target)
+	roll_rng(target)
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.damage(target)
+		Bt.screen_shake()
+	else: Bt.miss()
+	await $Scarf1.animation_finished
 	if crit:
+		$Scarf1.play("Scarf3")
+		await Event.wait(0.6)
 		Bt.play_sound("Attack2", CurrentChar)
 		Bt.damage(target, CurrentChar.Attack*2, true)
 		Bt.screen_shake()
 		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
-	await Event.wait(0.5)
+	else:
+		$Scarf1.play("Scarf2")
+	await $Scarf1.animation_finished
+	$Scarf1.queue_free()
 	Bt.anim()
 	Bt.end_turn()
 
@@ -503,7 +506,7 @@ func Summon(target: Actor):
 	await Bt.anim("Cast")
 	if CurrentChar.SummonedAllies.is_empty(): Global.toast("But " + CurrentChar.FirstName + " has no friends.")
 	elif miss:
-		Global.toast("But nobody came.")
+		Global.toast("Nobody awnsers the call.")
 		await Event.wait(1)
 	else:
 		Loader.white_fadeout(1, 0.5, 1)
@@ -687,7 +690,7 @@ func HeatWave(target: Actor):
 		Bt.zoom(5, 1)
 		await Event.wait(1)
 		additional_done.emit()
-		await Event.wait(1)
+		await Event.wait(0.3)
 		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Burned").is_empty():
 			Global.toast("Nothing happened.")
 			await Event.wait(1)
@@ -714,10 +717,10 @@ func Humidity(target: Actor):
 		Bt.zoom(5, 1)
 		await Event.wait(1)
 		additional_done.emit()
-		await Event.wait(1)
+		await Event.wait(0.3)
 		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Soaked").is_empty():
 			Global.toast("Nothing happened.")
-			await Event.wait(1)
+		await Event.wait(1)
 		Bt.anim()
 	else:
 		if target.has_state("Soaked"):

@@ -164,6 +164,6 @@ System: (You've been sent back before resting, there's nothing else to do here.)
 ~ battle_test
 Choose battle
 - Dummy
-	do start_battle(load("res://database/BattleSeq/DebugDummy.tres"))
+	do! start_battle(load("res://database/BattleSeq/DebugDummy.tres"))
 - Lazulite Heart
-	do start_battle(load("res://database/BattleSeq/LazuliteHeartBoss.tres"))
+	do! start_battle(load("res://database/BattleSeq/LazuliteHeartBoss.tres"))

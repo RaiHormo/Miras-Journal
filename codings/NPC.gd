@@ -208,7 +208,6 @@ func stop_going() -> void:
 
 func defeat() -> void:
 	Loader.Defeated.append(ID)
-	Loader.save()
 	queue_free()
 
 func _input(event: InputEvent) -> void:

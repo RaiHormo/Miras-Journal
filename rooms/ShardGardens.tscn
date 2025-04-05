@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=132 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="21_mwckp"]
 [ext_resource type="Texture2D" uid="uid://ct33ao2bh7eoj" path="res://art/OV/Objects/SGGate.png" id="23_8huol"]
 [ext_resource type="Texture2D" uid="uid://ubrl1l3wlpgo" path="res://art/OV/Objects/CastSwitch.png" id="24_cd4rc"]
+[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="24_xtlyj"]
 [ext_resource type="Texture2D" uid="uid://d2moorxu5wbpx" path="res://art/OV/Objects/CastLines1.png" id="25_70av8"]
 [ext_resource type="Texture2D" uid="uid://cgp1bxulpb0qy" path="res://art/OV/Objects/CastLines2.png" id="26_hrf2i"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="26_yhh0x"]
@@ -656,6 +657,7 @@ metadata/_custom_type_script = "uid://blx6fs34ughqo"
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("15_3lgvi"), ExtResource("20_ohs4u")])
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
+BattleBack = ExtResource("24_xtlyj")
 Transition = true
 Detransition = false
 EscPosition = Vector2i(-4, 13)

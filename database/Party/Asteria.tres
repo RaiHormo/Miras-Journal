@@ -23,6 +23,14 @@ animations = [{
 "texture": SubResource("AtlasTexture_murgj")
 }],
 "loop": true,
+"name": &"Entrance",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_murgj")
+}],
+"loop": true,
 "name": &"Idle",
 "speed": 5.0
 }]

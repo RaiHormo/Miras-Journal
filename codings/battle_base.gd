@@ -63,7 +63,7 @@ func _ready():
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
 	$Act/Actor0/Shadow.modulate = Color.WHITE
-	$Canvas/Callout.modulate = Color.TRANSPARENT
+	$Canvas/VictoryText.modulate = Color.TRANSPARENT
 	$Canvas/SPGain.hide()
 	$Canvas/VictoryItems.hide()
 	if Global.Area: Global.Area.show()
@@ -493,7 +493,7 @@ character: Actor, tar: Actor, offset: Vector2, time: float) -> void:
 	anim_done.emit()
 
 func return_cur(target:Actor = CurrentChar):
-	var tc= create_tween()
+	var tc = create_tween()
 	tc.set_trans(Tween.TRANS_QUAD)
 	tc.set_ease(Tween.EASE_OUT)
 	tc.tween_property(target.node, "position", initial, 0.2)
@@ -598,10 +598,11 @@ overwrite_color: Color = Color.WHITE) -> int:
 	target.DamageRecivedThisTurn += dmg
 	return dmg
 
-func hit_animation(tar):
-	anim("Hit", tar)
-	await tar.node.animation_finished
-	anim("Idle", tar)
+func hit_animation(tar: Actor):
+	if tar.node.animation != "KnockedOut":
+		anim("Hit", tar)
+		await tar.node.animation_finished
+		anim("Idle", tar)
 
 func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
 	t = create_tween()
@@ -894,6 +895,10 @@ func end_battle():
 	$Canvas/Continue.hide()
 	await PartyUI.preform_levelups()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
+	for i in Global.Members:
+		if i.AuraDefault != Color.WHITE:
+			i.MainColor = i.AuraDefault
+			i.AuraDefault = Color.WHITE
 	await Loader.end_battle()
 	queue_free()
 
@@ -959,23 +964,24 @@ func victory(ignore_seq:= false):
 		victory_anim(i)
 	check_party.emit()
 	$EnemyUI.colapse_root()
+	t.kill()
 	t = create_tween()
-	$Canvas/Callout.text = "Victory"
+	$Canvas/VictoryText.text = "Victory"
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
 	$EnemyUI/EnemyFocus.hide()
 	$Canvas/TurnOrder.hide()
-	$Canvas/Callout.add_theme_color_override("font_color", Color.WHITE)
-	$Canvas/Callout.scale = Vector2(1.5,1.5)
+	$Canvas/VictoryText.add_theme_color_override("font_color", Color.WHITE)
+	$Canvas/VictoryText.scale = Vector2(1.5,1.5)
 	PartyUI._on_expand(2)
 	Loader.battle_bars(0)
 	$Canvas/DottedBack.show()
 	t.tween_property($Canvas/DottedBack, "modulate",
 	Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
-	t.tween_property($Canvas/Callout, "position",
+	t.tween_property($Canvas/VictoryText, "position",
 	Vector2(700, 50), 2).from(Vector2(1200, 50))
-	t.tween_property($Canvas/Callout, "modulate",
+	t.tween_property($Canvas/VictoryText, "modulate",
 	Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,0), 1)
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
@@ -1135,7 +1141,7 @@ chara := CurrentChar, turns: int = 3):
 	await Event.wait(1.2)
 	pop_num(chara, stat_name(stat)
 	+ " x" + str(amount+1), (await Global.get_state(stat + updown)).color)
-	print(chara.FirstName, "'s ", stat, " was multiplied by ", str(amount+1))
+	print(chara.FirstName, "'  ", stat, " was multiplied by ", str(amount+1))
 
 func stat_name(stat: StringName) -> String:
 	match stat:

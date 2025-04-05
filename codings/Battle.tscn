@@ -1817,6 +1817,7 @@ expand_mode = 1
 process_mode = 1
 visibility_layer = 16
 y_sort_enabled = true
+texture_filter = 1
 use_parent_material = true
 script = ExtResource("6_ik7qm")
 
@@ -1902,9 +1903,7 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"HeatWave"
-frame = 11
-frame_progress = 1.0
+animation = &"Scarf1"
 
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
@@ -2968,6 +2967,7 @@ scale = Vector2(0.688708, 0.8)
 texture = ExtResource("39_e8j71")
 
 [node name="Callout" type="Label" parent="Canvas"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -2979,6 +2979,21 @@ grow_vertical = 0
 theme_override_fonts/font = SubResource("FontVariation_g3phn")
 theme_override_font_sizes/font_size = 116
 text = "Ability Name"
+vertical_alignment = 1
+
+[node name="VictoryText" type="Label" parent="Canvas"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -172.0
+offset_right = 681.0
+offset_bottom = -14.0
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_g3phn")
+theme_override_font_sizes/font_size = 116
+text = "Victory"
 vertical_alignment = 1
 
 [node name="Confirm" type="Button" parent="Canvas"]

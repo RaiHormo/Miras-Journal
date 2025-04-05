@@ -26,7 +26,7 @@ func ai() -> void:
 			choose(find_ability("Summon").pick_random())
 		elif check_for_finishers() and not Char.IsEnemy:
 			print("I can finish off")
-		elif has_type("BigAttack") and (states_in_faction("", Bt.get_oposing_faction()) != null or Char.has_state("AtkUp") or Char.has_state("MagUp")):
+		elif has_type("BigAttack") and ((states_in_faction("", Bt.get_oposing_faction()) != null and Char.Aura > Char.MaxAura/2) or Char.has_state("AtkUp") or Char.has_state("MagUp")):
 			print("Chance for a big attack")
 			choose(find_ability("BigAttack").pick_random(), states_in_faction("", Bt.get_oposing_faction()))
 		elif has_type("Curse") and randi_range(0, 1) == 1 and (Char.BattleLog.is_empty() or Char.BattleLog.back().ability.Type != "Curse") and check_for_curses():
@@ -50,7 +50,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	AblilityList.push_front(Char.StandardAttack)
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	for i: Ability in AblilityList.duplicate():
-		if i.Damage == Ability.D.WEAPON: AblilityList.erase(i)
+		if i == null or i.Damage == Ability.D.WEAPON: AblilityList.erase(i)
 	var Choices:Array[Ability] = []
 	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:
@@ -93,7 +93,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 4
+	const n = 5
 	var r: int
 	var tries:= 0
 	while true:
@@ -101,7 +101,7 @@ func pick_general_ability() -> Ability:
 			Bt.death(Char)
 			return null
 		tries += 1
-		if tries > 30:
+		if tries > 50:
 			print("The AI got stuck in an infinite loop")
 			return Char.StandardAttack
 		var atk_chance = 0
@@ -117,12 +117,12 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.5) and
+				if has_type("Defensive") and ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.5) and
 				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
-				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive") and has_type("Defensive")):
+				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")):
 					return find_ability("Defensive").pick_random()
 			3:
-				if has_type("BigAttack"):
+				if has_type("BigAttack") and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "BigAttack") and Char.Aura > Char.Aura/3:
 					return find_ability("BigAttack").pick_random()
 			4:
 				if has_type("MagBuff") and has_class_in_faction("Mage", Bt.get_ally_faction()):

@@ -11,8 +11,8 @@ filter_clip = true
 [resource]
 script = ExtResource("2_lrpka")
 name = "Humidity"
-description = "Deals some Liquid damage to all soaked enemies. 
-Chance of soaking others."
+description = "Chance of soaking each enemy.
+Deals a bit Liquid damage to already soaked enemies."
 Icon = SubResource("AtlasTexture_g1hb7")
 ActionSequence = &"Humidity"
 Type = "BigAttack"
@@ -21,7 +21,7 @@ InflictsState = "Soaked"
 AuraCost = 10
 HPCost = 0
 disabled = false
-Damage = 2
+Damage = 1
 Parameter = 0.0
 Target = 2
 AOE_Stagger = 0.0
@@ -30,7 +30,7 @@ ColorSameAsActor = false
 WheelColor = Color(0.305882, 0.619608, 1, 1)
 Callout = true
 SucessChance = 1.0
-CritChance = 0.3
+CritChance = 0.4
 RecoverAura = false
 DmgVarience = false
 metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

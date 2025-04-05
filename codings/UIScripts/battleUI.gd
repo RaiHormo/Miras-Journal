@@ -755,6 +755,7 @@ func move_menu():
 			wheel.show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.2).timeout
 	if stage == &"ability":
+		if not foc.has_meta("Ability"): return
 		active= false
 		await get_tree().create_timer(0.001).timeout
 		$RankSwap.global_position = foc.global_position
