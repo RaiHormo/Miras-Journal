@@ -517,9 +517,9 @@ Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_ohs4u"), ExtResource("
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2i(0, 0)
+EscPosition = Vector2i(26, 12)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
+ScenePosition = Vector2(650, 465)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -557,9 +557,9 @@ Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_3lgvi"), ExtResource("
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2i(0, 0)
+EscPosition = Vector2i(26, 12)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
+ScenePosition = Vector2(466, 694)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -577,9 +577,9 @@ Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2i(0, 0)
+EscPosition = Vector2i(23, 37)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
+ScenePosition = Vector2(251, 765)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -1227,7 +1227,6 @@ position = Vector2(-304, -44)
 BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
-ID = "SG3"
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG10"]
@@ -1285,6 +1284,13 @@ animation = &"IdleUp"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemySG2"]
+position = Vector2(228, -362)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG2"]
+position = Vector2(56, 39)
+gizmo_extents = 100.0
+
 [node name="EnemySG3" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(271, 759)
 BattleSeq = SubResource("Resource_ggbak")
@@ -1309,6 +1315,13 @@ sprite_frames = ExtResource("6_fhj74")
 animation = &"IdleUp"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemySG3"]
+position = Vector2(295, 135)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySG3"]
+position = Vector2(-20, 6)
+gizmo_extents = 100.0
 
 [node name="EnemySG4" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-445, 560)
@@ -1384,7 +1397,7 @@ metadata/_edit_group_ = true
 [node name="HomePoints" type="Node2D" parent="EnemySG6"]
 
 [node name="0" type="Marker2D" parent="EnemySG6/HomePoints"]
-position = Vector2(-45, -22)
+position = Vector2(-23, -20)
 
 [node name="1" type="Marker2D" parent="EnemySG6/HomePoints"]
 position = Vector2(35, 7.99999)
@@ -1412,7 +1425,6 @@ position = Vector2(-161, 190)
 BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
-ID = "SG3"
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG7"]
@@ -1445,7 +1457,6 @@ position = Vector2(-418, -405)
 BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
-ID = "SG3"
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG8"]
@@ -1476,7 +1487,6 @@ position = Vector2(-342, -235)
 BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
-ID = "SG3"
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG9"]

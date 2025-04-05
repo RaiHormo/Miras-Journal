@@ -136,7 +136,10 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)
 	print("Current party: ", data.Party)
-	for i in Global.Members: i.reset_static_info()
+	for mem in Global.Members: 
+		mem.reset_static_info()
+		mem.Health = min(mem.Health, mem.MaxHP)
+		mem.Aura = min(mem.Aura, mem.MaxAura)
 
 	await Global.area_initialized
 	if sc_split.size() > 1: Global.Area.go_to_subroom(sc_split[1])

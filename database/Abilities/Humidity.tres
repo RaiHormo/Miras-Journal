@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://cfe2jjap5iytv"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_65bkw"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_lrpka"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1hb7"]
+atlas = ExtResource("1_65bkw")
+region = Rect2(72, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_lrpka")
+name = "Humidity"
+description = "Deals some Liquid damage to all soaked enemies. 
+Chance of soaking others."
+Icon = SubResource("AtlasTexture_g1hb7")
+ActionSequence = &"Humidity"
+Type = "BigAttack"
+Group = ""
+InflictsState = "Soaked"
+AuraCost = 10
+HPCost = 0
+disabled = false
+Damage = 2
+Parameter = 0.0
+Target = 2
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.305882, 0.619608, 1, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.3
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

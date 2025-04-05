@@ -795,6 +795,16 @@ func move_menu():
 			$DescPaper/ShowWheel/Wheel.show_atk_color(CurrentChar.NextMove.WheelColor)
 		else:
 			$DescPaper/ShowWheel.hide()
+		if (
+			ab.AuraCost > CurrentChar.Aura or ab.disabled or
+			(CurrentChar.has_state("Bound") and ab.Damage == Ability.D.WEAPON)
+		):
+			if ab.AuraCost > CurrentChar.Aura:
+				foc.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+			foc.disabled = true
+		else:
+			foc.disabled = false
+			foc.get_node("Label").remove_theme_color_override("font_color")
 	active= true
 	tweendone = true
 

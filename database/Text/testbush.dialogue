@@ -92,6 +92,11 @@ What to do?
 		do Party.add("Alcine")
 		do Party.add("Asteria")
 		do Party.add("Daze")
+	- Make everyone controllable
+		set Party.Leader.Controllable = true
+		set Party.Member1.Controllable = true
+		set Party.Member2.Controllable = true
+		set Party.Member3.Controllable = true
 - Abilities
 	go on
 	- Unlock all abilities

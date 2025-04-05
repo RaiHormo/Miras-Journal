@@ -493,6 +493,7 @@ func check_for_levelups(mem:Actor, node:Panel):
 		LevelupChain.append(mem)
 		await t.finished
 		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
+		mem.SkillPoints = max(mem.SkillPoints, 0)
 		t = create_tween()
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished

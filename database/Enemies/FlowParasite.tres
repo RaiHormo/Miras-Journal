@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://dxfkwyq3xh4d"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://dxfkwyq3xh4d"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_aaqm5"]
 [ext_resource type="SpriteFrames" uid="uid://bnwig6n21wjpt" path="res://art/BT/FlowParasite/FlowParasiteBT.tres" id="2_3fqbs"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_ckpjf"]
+[ext_resource type="Resource" uid="uid://dsmlea0nfgq7h" path="res://database/Abilities/FluidBlast.tres" id="2_mpd0n"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_3fqbs"]
+[ext_resource type="Resource" uid="uid://cfe2jjap5iytv" path="res://database/Abilities/Humidity.tres" id="3_mf60o"]
 [ext_resource type="Texture2D" uid="uid://br3ayvp6wpv2r" path="res://art/Icons/Enemies/Parasite.png" id="3_sinrd"]
+[ext_resource type="Resource" uid="uid://d1ri7q5c1bkev" path="res://database/Abilities/PitchIn.tres" id="4_mf60o"]
 [ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="5_sinrd"]
 
 [resource]
@@ -17,7 +20,7 @@ codename = &"Actor"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 26
 IsEnemy = true
-RecivedSP = 3
+RecivedSP = 4
 SummonedAllies = Array[ExtResource("3_3fqbs")]([])
 CustomPosition = Vector2i(0, 0)
 SecondaryColor = Color(0, 0, 0, 1)
@@ -38,7 +41,7 @@ Aura = 0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[ExtResource("1_aaqm5")]([])
+Abilities = Array[ExtResource("1_aaqm5")]([ExtResource("2_mpd0n"), ExtResource("3_mf60o"), ExtResource("4_mf60o")])
 StandardAttack = ExtResource("5_sinrd")
 LearnableAbilities = Array[ExtResource("1_aaqm5")]([])
 BT = ExtResource("2_3fqbs")

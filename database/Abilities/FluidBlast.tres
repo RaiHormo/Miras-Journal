@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://dsmlea0nfgq7h"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_gkny5"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_x5774"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5774"]
+atlas = ExtResource("1_gkny5")
+region = Rect2(72, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_x5774")
+name = "Fluid Blast"
+description = "Deals some Liquid damage to an enemy, with chance to soak the target."
+Icon = SubResource("AtlasTexture_x5774")
+ActionSequence = &"FluidBlast"
+Type = "BigAttack"
+Group = ""
+InflictsState = "Soaked"
+AuraCost = 7
+HPCost = 0
+disabled = false
+Damage = 2
+Parameter = 0.0
+Target = 1
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.305882, 0.619608, 1, 1)
+Callout = true
+SucessChance = 0.95
+CritChance = 0.3
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

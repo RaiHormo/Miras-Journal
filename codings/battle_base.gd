@@ -556,7 +556,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		Global.toast("The ice on "+ target.FirstName+ " breaks!")
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
-	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/10)
+	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/4)
 	if elemental:
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
@@ -696,8 +696,9 @@ func death(target:Actor):
 	if target == null or target.has_state("KnockedOut"): return
 	lock_turn = true
 	clear_states(target)
-	target.add_state("KnockedOut")
 	if CurrentChar != target: CurrentChar.add_aura(target.Aura)
+	if CurrentChar != target:
+		CurrentChar.add_aura(target.Aura)
 	target.set_aura(0)
 	if target.IsEnemy:
 		totalSP += target.RecivedSP
@@ -736,6 +737,7 @@ func death(target:Actor):
 		Color.TRANSPARENT, 0.5)
 	print(target.FirstName, " was defeated")
 	await td.finished
+	target.add_state("KnockedOut")
 	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
@@ -933,7 +935,7 @@ func victory_count_sp():
 		await Event.wait()
 	var dub = $Canvas/SPGain.duplicate()
 	for i in PartyArray:
-		i.add_SP(totalSP/Global.number_of_party_members())
+		i.add_SP(totalSP)
 	PartyUI._check_party()
 	$Canvas.add_child(dub)
 	t = create_tween()

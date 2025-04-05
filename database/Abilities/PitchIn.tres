@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://d1ri7q5c1bkev"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_3uwvf"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_a6wos"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6wos"]
+atlas = ExtResource("1_3uwvf")
+region = Rect2(36, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_a6wos")
+name = "Pitch In"
+description = "Boosts the Magic of an ally by 1.5x for 3 turns."
+Icon = SubResource("AtlasTexture_a6wos")
+ActionSequence = &"MagicUp3"
+Type = "MagBuff"
+Group = ""
+InflictsState = "MagUp"
+AuraCost = 3
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 0.5
+Target = 3
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.380392, 0.376471, 0.901961, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

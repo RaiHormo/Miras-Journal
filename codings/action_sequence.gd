@@ -281,7 +281,7 @@ func AttackAsteria(target: Actor):
 	Bt.play_effect("RemoteHit", target)
 	if crit:
 		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target, CurrentChar.Attack, true)
+		Bt.damage(target, CurrentChar.Attack*2, true)
 		Bt.screen_shake()
 		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	await Event.wait(0.5)
@@ -624,6 +624,18 @@ func SmallShock(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func FluidBlast(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	await Event.wait(0.8)
+	Bt.damage(target, true, true)
+	Bt.screen_shake(8, 5, 0.1)
+	await Event.wait(1)
+	if crit: await target.add_state("Soaked")
+	Bt.anim()
+	Bt.end_turn()
+
 func StaticSaber(target: Actor):
 	Bt.anim("Attack2", CurrentChar)
 	Bt.zoom(6)
@@ -688,6 +700,33 @@ func HeatWave(target: Actor):
 			Bt.damage(target, true, true)
 		elif crit:
 			target.add_state("Burned")
+	Bt.end_turn()
+
+func Humidity(target: Actor):
+	if target == CurrentChar:
+		Bt.focus_cam(CurrentChar)
+		Bt.zoom(6, 0.3)
+		Bt.anim("Cast")
+		await Event.wait(1)
+		Bt.play_effect("HeatWave", Vector2(50, 0))
+		Bt.play_sound("WindShort")
+		Bt.move_cam(Vector2(Bt.offsetize(40), 0), 1)
+		Bt.zoom(5, 1)
+		await Event.wait(1)
+		additional_done.emit()
+		await Event.wait(1)
+		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Soaked").is_empty():
+			Global.toast("Nothing happened.")
+			await Event.wait(1)
+		Bt.anim()
+	else:
+		if target.has_state("Soaked"):
+			await Bt.shake_actor(target)
+			Bt.screen_shake(5)
+			Bt.play_sound("BurnWoosh", target)
+			Bt.damage(target, true, true)
+		elif crit:
+			target.add_state("Soaked")
 	Bt.end_turn()
 
 func ProtectiveField(target: Actor):

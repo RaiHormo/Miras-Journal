@@ -14,7 +14,7 @@ name = "Soaked"
 Description = "Can't evade and is more likely to miss.
 Increased damage from weak hits."
 RemovedOnBattleEnd = true
-turns = -1
+turns = 5
 icon = SubResource("AtlasTexture_tsrog")
 color = Color(0.337255, 0.623529, 0.976471, 1)
 weak_mult = 1.5

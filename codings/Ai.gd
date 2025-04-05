@@ -24,7 +24,7 @@ func ai() -> void:
 		elif Bt.get_ally_faction(Char).size() < 3 and randi_range(-1, Bt.get_ally_faction(Char).size()) == 0 and has_type("Summon"):
 			print("I can summon an ally")
 			choose(find_ability("Summon").pick_random())
-		elif check_for_finishers():
+		elif check_for_finishers() and not Char.IsEnemy:
 			print("I can finish off")
 		elif has_type("BigAttack") and (states_in_faction("", Bt.get_oposing_faction()) != null or Char.has_state("AtkUp") or Char.has_state("MagUp")):
 			print("Chance for a big attack")
@@ -93,7 +93,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 3
+	const n = 4
 	var r: int
 	var tries:= 0
 	while true:
@@ -101,8 +101,8 @@ func pick_general_ability() -> Ability:
 			Bt.death(Char)
 			return null
 		tries += 1
-		if tries > 99:
-			push_error("The AI got stuck in an infinite loop, the dev might want to check on that")
+		if tries > 30:
+			print("The AI got stuck in an infinite loop")
 			return Char.StandardAttack
 		var atk_chance = 0
 		if Char.ActorClass == "Attacker": atk_chance = -1
@@ -117,13 +117,21 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if (Char.Health < Char.MaxHP * 0.7 and
+				if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.5) and
 				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
 				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive") and has_type("Defensive")):
 					return find_ability("Defensive").pick_random()
 			3:
 				if has_type("BigAttack"):
 					return find_ability("BigAttack").pick_random()
+			4:
+				if has_type("MagBuff") and has_class_in_faction("Mage", Bt.get_ally_faction()):
+					var tar: Actor = get_class_in_faction("Mage", Bt.get_ally_faction()).pick_random()
+					print("Found ", tar.FirstName)
+					if tar.MagicMultiplier == 1 and ((tar == Char and Char.Health > 30) or tar != Char):
+						Char.NextTarget = tar
+						return find_ability("MagBuff").pick_random()
+					print(tar.FirstName, " is a bad target")
 			_:
 				if has_type("CheapAttack"):
 					return find_ability("CheapAttack").pick_random()
