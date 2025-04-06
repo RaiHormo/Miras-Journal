@@ -19,6 +19,7 @@ signal action()
 @onready var arrow:TextureRect
 @onready var pack := $Pack
 @export var return_control:= true
+@export var show_on_flag: StringName
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
 @export var hide_parent: bool = false
@@ -53,7 +54,7 @@ func check() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	if Event.check_flag(hide_on_flag) and hidesprite:
+	if (Event.check_flag(hide_on_flag) or not Event.check_flag(show_on_flag)) and hidesprite:
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
 	if not Global.Controllable and CanInteract:

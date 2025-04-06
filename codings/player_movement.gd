@@ -25,6 +25,7 @@ var is_clone: bool = false
 var can_jump:= false
 
 func _ready() -> void:
+	collision(false)
 	ID = "P"
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)

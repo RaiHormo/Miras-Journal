@@ -32,7 +32,7 @@ func check() -> bool:
 	if Event.check_flag(flag) != flag_should_be: return false
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
-	if low_hp != -1 and actor != &"":
+	if low_hp != -1 and actor != &"" and Global.Bt.get_actor(actor) != null:
 		if Global.Bt.get_actor(actor).Health > low_hp: return false
 	return true
 

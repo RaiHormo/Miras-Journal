@@ -936,11 +936,13 @@ shape = SubResource("RectangleShape2D_72f6p")
 
 [node name="NewGame" parent="EvHarold" instance=ExtResource("6_pmuyc")]
 position = Vector2(0, 8)
-LabelText = "Exit debug mode"
-ActionType = "global"
+LabelText = "Chapter select"
+ActionType = "text"
 Length = 200
-file = "normal_mode"
+file = "testbush"
+title = "chapter_select"
 Height = 16
+return_control = false
 
 [node name="EvKick" parent="." instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)

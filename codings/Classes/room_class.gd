@@ -78,6 +78,8 @@ func _ready():
 	if Global.CameraInd in FlameInInd:
 		if is_instance_valid(Global.Player):
 			if not Event.f("FlameActive"): Global.Player.activate_flame()
+	if is_instance_valid(Global.Player):
+		Global.Player.collision(true)
 	Global.area_initialized.emit()
 	default()
 
@@ -119,9 +121,10 @@ func local_to_map(vec: Vector2) -> Vector2i:
 func fade():
 	var t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
-	await t.finished
 	for i in Layers:
 		i.collision_enabled = false
+	await t.finished
+	for i in Layers:
 		i.hide()
 
 func unfade():
@@ -146,7 +149,6 @@ func _physics_process(delta: float) -> void:
 		Global.refresh()
 
 func go_to_subroom(subroom: String):
-	print(1)
-	for i in get_children(): if i.name == subroom and i is SubRoom:
-		print(2)
-		await i.transition()
+	for i in get_children(): 
+		if is_instance_valid(i) and i.name == subroom and i is SubRoom:
+			await i.transition()

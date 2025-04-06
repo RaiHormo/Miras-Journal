@@ -41,7 +41,7 @@ func npc(ID: String) -> NPC:
 			continue
 		if i.ID == ID:
 			return i
-	return NPC.new()
+	return null
 
 ##Move an [NPC] relative to their current coords
 func move_dir(dir:Vector2=Global.get_direction(), chara:String="P"):
@@ -225,6 +225,9 @@ func sequence(title: String):
 	else:
 		OS.alert(title + " is not a valid event")
 
+func sequence_exists(title: String) -> bool:
+	return seq.has_method(title)
+
 func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var nam = id.split(":", false)
@@ -256,9 +259,17 @@ func no_player():
 	PartyUI.hide_all()
 
 func time_transition():
+	await Event.take_control()
 	await Loader.transition()
 	await Loader.flip_time(TimeOfDay, ToTime)
 	set_time(ToTime)
+	start_time_events()
 
 func zoom(val: float):
 	Global.Camera.zoom = Vector2(val, val)
+
+func start_time_events():
+	var seq = Global.get_mmm(Global.get_month(Day)).to_lower()+str(TimeOfDay)+"_"+Global.to_tod_text(TimeOfDay).to_lower()
+	print(seq)
+	if sequence_exists(seq):
+		sequence(seq)

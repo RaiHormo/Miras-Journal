@@ -536,6 +536,8 @@ overwrite_color: Color = Color.WHITE) -> int:
 		if relation == "res": pop_num(target, "RESIST")
 		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
+	if target.has_state("Guarding"):
+		el_mod = 1
 	print("Attack power: ", x, " * ", el_mod)
 	var attacker = null if ignore_stats else CurrentChar
 	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
@@ -748,6 +750,7 @@ func death(target:Actor):
 				await target.node.animation_finished
 			if target and target.node:
 				target.queue_delete = true
+				target.node.hide()
 	if target != Party.Leader:
 		lock_turn = false
 

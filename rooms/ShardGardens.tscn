@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=144 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="30_ekhkx"]
 [ext_resource type="PackedScene" uid="uid://vgsferl0deam" path="res://rooms/components/JumpPointV.tscn" id="33_iqaea"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="34_avv3b"]
+[ext_resource type="Texture2D" uid="uid://cf22r3hrvrhcb" path="res://art/Tilesets/AbadGround.png" id="39_a7h8m"]
 
 [sub_resource type="Gradient" id="Gradient_06fd7"]
 interpolation_mode = 2
@@ -793,6 +794,90 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf2i"]
 size = Vector2(101, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtlyj"]
+size = Vector2(20.75, 20.5001)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggbak"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 336, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvntm"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 408, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6psl"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 480, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7h8m"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 384, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoqct"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 456, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41yyw"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(384, 528, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvsn2"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(408, 360, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvrxi"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(408, 432, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjnw0"]
+atlas = ExtResource("39_a7h8m")
+region = Rect2(408, 504, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a7h8m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggbak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvntm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6psl")
+}],
+"loop": true,
+"name": &"1",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7h8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoqct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41yyw")
+}],
+"loop": true,
+"name": &"2",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvsn2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvrxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjnw0")
+}],
+"loop": true,
+"name": &"3",
+"speed": 2.0
+}]
 
 [node name="ShardGardens" type="Node2D"]
 process_mode = 3
@@ -1770,6 +1855,258 @@ position = Vector2(829, 658)
 [node name="ItemDefault3" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(456, 894)
 
+[node name="Shard1" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(299, 108)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard1" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard1"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.48911
+
+[node name="Shard12" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(400, 34)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard12" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard12"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.198226
+
+[node name="Shard14" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(636, 332)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard14" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard14"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.198226
+
+[node name="Shard13" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(397, 140)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard13" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard13"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.198226
+
+[node name="Shard2" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(563, 203)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard2" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard2"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard3" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(516, 35)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard3" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard3"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard4" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(708, 231)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard4" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard4"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard5" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(682, 323)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard5" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard5"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard6" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(589, 540)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard6" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard6"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard7" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(393, 544)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard7" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard7"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard8" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(518, 707)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard8" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard8"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard9" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(636, 854)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard9" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard9"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard10" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(590, 900)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard10" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard10"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
+[node name="Shard11" parent="." instance=ExtResource("26_yhh0x")]
+z_index = -1
+use_parent_material = true
+position = Vector2(663, 757)
+EventName = "hurt_1"
+TakeControl = false
+ReturnControl = false
+
+[node name="CollisionShape2D" parent="Shard11" index="0"]
+shape = SubResource("RectangleShape2D_xtlyj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard11"]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_a7h8m")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.142851
+
 [connection signal="area_entered" from="BreakableWallSG/AreaBreak" to="BreakableWallSG" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableWallSG2/AreaBreak" to="BreakableWallSG2" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableWallSG3/AreaBreak" to="BreakableWallSG3" method="_on_area_break_area_entered"]
@@ -1784,3 +2121,17 @@ position = Vector2(456, 894)
 [editable path="JumpPoint6"]
 [editable path="Ladder2"]
 [editable path="Ladder3"]
+[editable path="Shard1"]
+[editable path="Shard12"]
+[editable path="Shard14"]
+[editable path="Shard13"]
+[editable path="Shard2"]
+[editable path="Shard3"]
+[editable path="Shard4"]
+[editable path="Shard5"]
+[editable path="Shard6"]
+[editable path="Shard7"]
+[editable path="Shard8"]
+[editable path="Shard9"]
+[editable path="Shard10"]
+[editable path="Shard11"]

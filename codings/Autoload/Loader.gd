@@ -185,7 +185,7 @@ func load_res(path: String) -> Resource:
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter()):
+func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter(), controllable:= true):
 	direc = trans
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
@@ -203,7 +203,7 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		await done()
+		await done(controllable)
 		if z >= 0: Global.Area.handle_z(z)
 	else:
 		Icon.play("Load")
@@ -272,13 +272,14 @@ func transition(dir=Global.get_dir_letter()):
 			$Can/Bars/Left.position = Vector2(-200,-200)
 	await Event.wait()
 
-func done():
+func done(controllable:= true):
 	chased = false
 	if Global.Area: Global.Area.queue_free()
 	$/root.add_child(ResourceLoader.load_threaded_get(scene[0]).instantiate())
 	await get_tree().create_timer(0.1).timeout
 	Global.Lights.clear()
 	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
+	Global.get_cam().position_smoothing_enabled = false
 	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
@@ -287,7 +288,8 @@ func done():
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
 	if direc != "wait": await detransition()
-	Event.give_control(false)
+	if controllable: Event.give_control(false)
+	Global.get_cam().position_smoothing_enabled = true
 
 func detransition(dir = "direc"):
 	if dir == "none": return

@@ -30,6 +30,9 @@ func _physics_process(delta: float) -> void:
 					var coord: Vector2 = Global.Player.global_position
 					round(coord)
 					coord += (jump_am*24) * Global.Player.dashdir + Vector2(0, jump_am_v*24)
+					coord /= 24
+					coord = coord.round()
+					coord *= 24
 					Global.Player.set_anim("Dash"+Global.get_dir_name(Global.Player.dashdir)+"Loop")
 					Global.Player.used_sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)

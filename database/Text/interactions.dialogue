@@ -137,3 +137,10 @@ Daze.Neutural: Another blocked path...
 - Don't go
 	do give_control()
 => END
+
+~ shards_low_hp
+Asteria.Neutural: Mira? Are you okay?
+Mira.Neutural: Hm?
+Asteria.Neutural: You have been stepping in a lot of these shards! I can give you my sandals if you want.
+Mira.Neutural: No, I'm fine.
+Asteria.Neutural: Okay, just be careful.

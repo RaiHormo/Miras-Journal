@@ -302,6 +302,71 @@ Mira.Smile: Let's keep on the lookout for any castles around, okay?
 No reason to go back there.
 => END
 
+~ nov3_morning
+...
+I was seriously hoping it was all a long dream, but it seems this is my home for the time being...
+
+Mira.Neutural: Who is it?
+
+Mira.Neutural: ...
+Daze.Neutural: ...
+There's a tense atmosphere in the room.
+
+Daze.Neutural: How are you doing?
+Mira.Neutural: I'm... okay.
+Daze.Neutural: You don't look okay to me...
+Mira.Neutural: ...
+Mira.Neutural: How can you stay so calm!? We're both stuck here you know!
+Mira.Neutural: Am I supposed to just accept that I'll spend the rest of my life in this Donom of a place!?
+Mira.Neutural: That everything I've done has been for nothing? That I'll never see my family again?
+Daze.Neutural: I didn't...
+Mira.Neutural: Do you have nothing going on in your life?! Or are you just pretending to be calm because you need to always look cool?!
+Daze.Neutural: Levenor, listen. I didn't mean to blame you.
+Daze.Neutural: It's completely understandable for you to feel this way.
+Daze.Neutural: As for me... Let's say I've dealt with worse situations.
+Daze.Neutural: Both you and I, and everyone here, we all share a goal.
+Mira.Neutural: If it was that simple to exit the realm, this whole village wouldn't exist in the first place!
+Daze.Neutural: What if I told you I already have a lead?
+!
+Daze.Neutural: Let's talk about this later in the tavern. I'll be waiting there.
+=> END
+
+~ nov3_afternoon
+I guess it's time to leave for our "grand journey".
+Let's make sure I have everything I need before heading to the gate.
+=> END
+
+~ nov3_exit
+Alcine.Neutural: Wia!
+Asteria.Neutural: What took you so long!
+Daze.Neutural: Is everyone ready?
+- Just a minute
+	Mira.Neutural: Just a minute, I need to do something.
+	Asteria.Neutural: Alright, hurry it up!
+	do wait(0.2)
+	do give_control()
+- Let's go
+	Mira.Neutural: I'm ready, let's go!
+	Daze.Neutural: Someone's excited...
+	Asteria.Neutural: I'll lead the way, just follow me!
+	do! sequence("nov3_enterSG")
+=> END
+
+~ nov3_sg_enter
+Asteria.Neutural: Here we are. The place should be somewhere up ahead.
+Asteria.Neutural: There were lots of monsters last time I was here, so be careful!
+=> END
+
+~ very_shiny
+Mira.Neutural: Whoah, everything's so shiny!
+Asteria.Neutural: Don't go near the shiny stuff! Those tiny crystal shards hurt!
+Daze.Neutural: Levenor, don't you think you of all people should be the most careful?
+Mira.Neutural: Huh? What do you mean?
+Asteria.Neutural: You're the only one not wearing shoes, haha.
+Mira.Neutural: {{alcine()}} isn't wearing shoes either!
+Alcine.Tired: Wooom...
+=> END
+
 ~ cast_lines_sg
 do npc("P").look_to("U")
 do Player.camera_follow(false)
@@ -342,7 +407,7 @@ if not f("EvSwitchCastLines2"):
 	Daze.Neutural: What could we do about this? Does anyone know how to dispell? 
 	Mira.Neutural: Wild cast patterns like this are hard to decipher.
 	Asteria.Neutural: ...
-	Asteria.Neutural: Maybe someone back at the village would know how.
+	Asteria.Neutural: I think there's someone back at the village that would know how.
 	Mira.Neutural: You mean we should return?
 	Daze.Neutural: I think we could all use some rest, no?
 	do Player.camera_follow(true)

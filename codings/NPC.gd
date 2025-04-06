@@ -14,7 +14,9 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
 ##3: Controlled, excludive to [Mira]
+##5: Custom
 var BodyState:= IDLE
+@export var DefaultState:= 0
 var RealVelocity:= Vector2.ZERO
 var PrevPosition:= Vector2.ZERO
 ##Coordinates on the [TileMap]
@@ -34,6 +36,7 @@ var move_frames:= 0
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
+	if ID == "": ID = name
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
 	if ID in Loader.Defeated: queue_free()
 	#motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
@@ -42,6 +45,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	DefaultPos = global_position
 	Event.add_char(self)
+	BodyState = DefaultState
 	default()
 
 func default() -> void:

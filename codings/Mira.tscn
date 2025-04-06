@@ -649,7 +649,6 @@ z_as_relative = false
 y_sort_enabled = true
 material = ExtResource("1_srkwi")
 use_parent_material = true
-position = Vector2(0, -5)
 collision_layer = 3
 collision_mask = 15
 motion_mode = 1
@@ -736,7 +735,7 @@ show_behind_parent = true
 texture_filter = 1
 position = Vector2(0, -4)
 texture = ExtResource("10_dxclp")
-offset = Vector2(-0.4, 9.2)
+offset = Vector2(0, 9)
 
 [node name="Bubble" type="AnimatedSprite2D" parent="."]
 light_mask = 0

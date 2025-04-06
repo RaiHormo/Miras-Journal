@@ -21,7 +21,7 @@ func _on_body_entered(body):
 		if TakeControl: await Event.take_control(false, true)
 		if KickDirection != Vector2.ZERO:
 			kick()
-		if EventName != "": Event.call(EventName)
+		if EventName != "": Event.sequence(EventName)
 		else:
 			if Passive:
 				await Global.passive(TextFile, TextNode)

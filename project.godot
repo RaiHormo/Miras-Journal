@@ -58,6 +58,8 @@ gdscript/warnings/shadowed_variable=0
 gdscript/warnings/shadowed_variable_base_class=0
 gdscript/warnings/shadowed_global_identifier=0
 gdscript/warnings/integer_division=0
+gdscript/warnings/int_as_enum_without_cast=0
+gdscript/warnings/int_as_enum_without_match=0
 
 [dialogue_manager]
 

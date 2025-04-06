@@ -93,10 +93,10 @@ What to do?
 		do Party.add("Asteria")
 		do Party.add("Daze")
 	- Make everyone controllable
-		set Party.Leader.Controllable = true
-		set Party.Member1.Controllable = true
-		set Party.Member2.Controllable = true
-		set Party.Member3.Controllable = true
+		set find_member("Mira").Controllable = true
+		set find_member("Alcine").Controllable = true
+		set find_member("Asteria").Controllable = true
+		set find_member("Daze").Controllable = true
 - Abilities
 	go on
 	- Unlock all abilities
@@ -167,3 +167,12 @@ Choose battle
 	do! start_battle(load("res://database/BattleSeq/DebugDummy.tres"))
 - Lazulite Heart
 	do! start_battle(load("res://database/BattleSeq/LazuliteHeartBoss.tres"))
+=> END
+
+~ chapter_select
+Chapter select
+- Playtest segment
+	set Day = 3
+	set ToTime = TOD.AFTERNOON
+	do! time_transition()
+=> END

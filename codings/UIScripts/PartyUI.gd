@@ -686,6 +686,7 @@ func preform_levelups():
 		scene.get_node("Levelup").levelup(i)
 		await scene.get_node("Levelup").closed
 	LevelupChain.clear()
+	t.kill()
 	scene.queue_free()
 
 func _on_idle_timer_timeout() -> void:
