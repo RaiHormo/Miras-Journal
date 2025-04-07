@@ -1411,7 +1411,7 @@ position = Vector2(-20, 6)
 gizmo_extents = 100.0
 
 [node name="EnemySG4" parent="." instance=ExtResource("4_ujeyr")]
-position = Vector2(-445, 560)
+position = Vector2(-456, 434)
 BattleSeq = SubResource("Resource_lmpvr")
 chase_speed = 90
 speed = 90
@@ -1435,7 +1435,7 @@ autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="EscapePosition" type="Marker2D" parent="EnemySG4"]
-position = Vector2(110, 77)
+position = Vector2(122, 204)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemySG4"]
 position = Vector2(-1, 18)
@@ -1681,7 +1681,7 @@ debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
 position = Vector2(-263, 203)
 script = ExtResource("8_sf87x")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
+jump_am = 4
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint4"]

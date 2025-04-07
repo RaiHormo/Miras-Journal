@@ -200,7 +200,7 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar) -> State
 		elif state.name == "Confused":
 			prev_state.turns = -1
 			Global.toast(FirstName+"'s "+state.name+" state was extended.")
-		else: Global.toast(FirstName+" is already "+state.name)
+		#else: Global.toast(FirstName+" is already "+state.name)
 		return prev_state
 	if turns != -1:
 		state.turns = turns

@@ -304,6 +304,29 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("Dash"):
+		var hold_frames := 1
+		t = create_tween()
+		t.set_trans(Tween.TRANS_QUART)
+		t.tween_property($Hints, "position:x", 1400, 0.5)
+		if Input.is_action_just_pressed("Dash"):
+			Engine.time_scale = 10
+			while Input.is_action_pressed("Dash"):
+				hold_frames += 1
+				if hold_frames > hold_time: break
+				await Event.wait()
+				var ev:= InputEventAction.new()
+				ev.action = &"DialogNext"
+				ev.pressed = true
+				Input.parse_input_event(ev)
+			#if Event.allow_skipping:
+				#if hold_frames > hold_time:
+					#Event.skip_cutscene()
+					#_on_close()
+				#else: Global.toast("Hold the button down to skip")
+		Engine.time_scale = 1
+		return
+	
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
@@ -311,22 +334,7 @@ func _input(event: InputEvent) -> void:
 	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 	if event is InputEventKey or event is InputEventJoypadButton:
-		if Input.is_action_just_pressed("Dash"):
-			var hold_frames := 1
-			t = create_tween()
-			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property($Hints, "position:x", 1400, 0.5)
-			if Input.is_action_just_pressed("Dash"):
-				while Input.is_action_pressed("Dash"):
-					hold_frames += 1
-					if hold_frames > hold_time: break
-					await Event.wait()
-				if Event.allow_skipping:
-					if hold_frames > hold_time:
-						Event.skip_cutscene()
-						_on_close()
-					else: Global.toast("Hold the button down to skip")
-		elif event.is_pressed() and not event.is_action("DialogNext") and not (
+		if event.is_pressed() and not event.is_action("DialogNext") and not (
 			event.is_action(&"ui_left") or
 			event.is_action(&"ui_right") or
 			event.is_action(&"ui_up") or

@@ -30,6 +30,7 @@ func _on_body_entered(body):
 		if ReturnControl: Event.give_control(true)
 
 func kick():
+	print("kick!")
 	Global.Player.look_to(KickDirection)
 	while Global.Player in get_overlapping_bodies():
 		await Global.Player.move_dir(KickDirection)

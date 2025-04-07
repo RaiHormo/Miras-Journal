@@ -902,6 +902,7 @@ func end_battle():
 		if i.AuraDefault != Color.WHITE:
 			i.MainColor = i.AuraDefault
 			i.AuraDefault = Color.WHITE
+		i.Health = max(i.Health, 1)
 	await Loader.end_battle()
 	queue_free()
 

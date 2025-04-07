@@ -901,6 +901,7 @@ ActionType = "text"
 Length = 100
 file = "story_events"
 title = "nov3_exit"
+hidesprite = true
 return_control = false
 show_on_flag = &"Nov3_Afternoon"
 hide_on_flag = &"Nov3_WentToSG"

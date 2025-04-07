@@ -16,7 +16,7 @@ var WasPaused = false
 var MemberChoosing = false
 @onready var Partybox = %Partybox
 var disabled = true
-var LevelupChain: Array[Actor] = []
+var LevelupChain: Array[String] = []
 var submenu_opened := false
 var line_to_be_used: String
 var nametag_to_be_used: String
@@ -489,8 +489,8 @@ func check_for_levelups(mem:Actor, node:Panel):
 	if mem.SkillLevel < mem.SkillPointsFor.size() and mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	else:
+		if (mem.codename+str(mem.SkillLevel) in LevelupChain): return
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
-		LevelupChain.append(mem)
 		await t.finished
 		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
 		mem.SkillPoints = max(mem.SkillPoints, 0)
@@ -498,6 +498,7 @@ func check_for_levelups(mem:Actor, node:Panel):
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished
 		mem.SkillLevel += 1
+		LevelupChain.append(mem.codename+":"+str(mem.SkillLevel))
 		print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
 		node.get_node("Level/Number").text = str(mem.SkillLevel)
 		if mem.SkillLevel < mem.SkillPointsFor.size():
@@ -678,16 +679,17 @@ func talk() -> void:
 	close_submenu()
 
 func preform_levelups():
-	var scene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn")).instantiate()
-	await Event.wait()
-	get_tree().root.add_child(scene)
+	var scenepack: PackedScene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn"))
+	if Global.Bt: Loader.hide_victory_stuff()
 	for i in LevelupChain:
-		if Global.Bt: Loader.hide_victory_stuff()
-		scene.get_node("Levelup").levelup(i)
+		var mem:Actor = Global.find_member(i.split(":", false)[0])
+		var scene = scenepack.instantiate()
+		get_tree().root.add_child(scene)
+		await Event.wait()
+		scene.get_node("Levelup").levelup(mem)
 		await scene.get_node("Levelup").closed
 	LevelupChain.clear()
-	t.kill()
-	scene.queue_free()
+	show_all()
 
 func _on_idle_timer_timeout() -> void:
 	if Global.Controllable:

@@ -10,7 +10,6 @@ func _ready() -> void:
 	$ChooseUpgrade/Cursor/Cont/Button.hide()
 	hide()
 
-
 func levelup(chara: Actor):
 	working_chara = chara
 	find_learnable()
@@ -246,3 +245,5 @@ func close():
 	t.tween_property(self, "scale:y", 0, 0.3)
 	await t.finished
 	closed.emit()
+	t.kill()
+	$"..".queue_free()
