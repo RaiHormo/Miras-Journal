@@ -785,7 +785,7 @@ position = Vector2(0, 81)
 
 [node name="NPC" parent="." instance=ExtResource("16_s1pqb")]
 z_index = 3
-position = Vector2(745, 518.5)
+position = Vector2(715, 505)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
 use_parent_material = true

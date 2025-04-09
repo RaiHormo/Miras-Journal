@@ -707,7 +707,7 @@ func death(target:Actor):
 		totalSP += target.RecivedSP
 		if target.DroppedItem: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
-	if target == Party.Leader:
+	if not target.IsEnemy and filter_dead(PartyArray).size() < 1:
 		await Event.wait(0.2)
 		get_tree().paused = true
 		CurrentChar.node.pause()
@@ -721,6 +721,7 @@ func death(target:Actor):
 		Loader.white_fadeout(0.1, 1, 3)
 		await Event.wait(4, false)
 		game_over()
+		return
 	target.node.get_node("Particle").emitting = true
 	target.Health = 0
 	target.node.material.set_shader_parameter("outline_enabled", true)
@@ -739,8 +740,9 @@ func death(target:Actor):
 		target.node.material, "shader_parameter/outline_color",
 		Color.TRANSPARENT, 0.5)
 	print(target.FirstName, " was defeated")
-	await td.finished
+	await Event.wait(2)
 	target.add_state("KnockedOut")
+	lock_turn = false
 	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear:
@@ -751,8 +753,6 @@ func death(target:Actor):
 			if target and target.node:
 				target.queue_delete = true
 				target.node.hide()
-	if target != Party.Leader:
-		lock_turn = false
 
 func delete_actor(target: Actor):
 	if is_instance_valid(target):

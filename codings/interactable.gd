@@ -34,11 +34,12 @@ var animating:= false
 func _ready() -> void:
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
+	check()
 	await Global.area_initialized
+	Global.check_party.connect(check)
 	do_position()
 	disappear()
 	if ActionType == "vainet": vain_check()
-	Global.check_party.connect(check)
 
 func vain_check():
 	if Event.f(get_parent().name):

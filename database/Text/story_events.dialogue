@@ -354,14 +354,13 @@ Daze.Neutural: Is everyone ready?
 
 ~ nov3_sg_enter
 Asteria.Neutural: Here we are. The place should be somewhere up ahead.
-Asteria.Neutural: There were lots of monsters last time I was here, so be careful!
+Mira.Neutural: Whoah, everything's so shiny!
+Asteria.Neutural: Don't go near the shiny stuff! Those tiny crystal shards hurt!
 => END
 
 ~ very_shiny
-Mira.Neutural: Whoah, everything's so shiny!
-Asteria.Neutural: Don't go near the shiny stuff! Those tiny crystal shards hurt!
 Daze.Neutural: Levenor, don't you think you of all people should be the most careful?
-Mira.Neutural: Huh? What do you mean?
+Mira.Neutural: Huh?
 Asteria.Neutural: You're the only one not wearing shoes, haha.
 Mira.Neutural: {{alcine()}} isn't wearing shoes either!
 Alcine.Tired: Wooom...

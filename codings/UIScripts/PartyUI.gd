@@ -516,7 +516,6 @@ func make_shadow(texture: Texture2D) -> Texture2D:
 	var new_texture = ImageTexture.create_from_image(image)
 	return new_texture #// Set it as out texture.
 
-
 func draw_bar(mem:Actor, node: Panel):
 	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.AuraDefault if mem.has_state("AuraOverwrite") else mem.MainColor )
 	node.get_node("Aura/ApText").add_theme_color_override("font_color", mem.SecondaryColor)
