@@ -261,6 +261,7 @@ func AttackDaze(target: Actor):
 func AttackAsteria(target: Actor):
 	Bt.zoom()
 	Bt.anim("Attack1")
+	await Event.wait(0.1)
 	await Bt.focus_cam(target, 0.3, 30)
 	Bt.play_effect("Scarf1", target, Vector2.ZERO, false, true)
 	await Event.wait(0.2)

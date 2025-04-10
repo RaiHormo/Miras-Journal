@@ -45,7 +45,7 @@ func _physics_process(_delta: float) -> void:
 			$CollisionShape2D.disabled = true
 		if to_local(Global.Player.position).length() > 180:
 				global_position = Global.Player.global_position
-		if to_local(Global.Player.position).length() > (distance if Global.Player.move_frames > 1 else distance+4):
+		if to_local(Global.Player.position).length() > distance:
 			$CollisionShape2D.disabled = false
 			if nav_agent.is_target_reachable():
 				direction = to_local(nav_agent.get_next_path_position()).normalized()
@@ -53,7 +53,7 @@ func _physics_process(_delta: float) -> void:
 				direction = to_local(target).normalized()
 			move_and_slide()
 			velocity = speed * direction
-			speed = min(max(30, to_local(Global.Player.position).length() - distance)*3, 180)
+			speed = min(max(10, to_local(Global.Player.position).length() - distance)*3, Global.Player.speed)
 		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
 			animate()
 			oposite = (Global.get_direction() * Vector2(-1,-1))

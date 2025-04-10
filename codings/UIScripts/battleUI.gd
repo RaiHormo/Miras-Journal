@@ -196,12 +196,12 @@ func _input(event: InputEvent) -> void:
 						TargetIndex -= 1
 					else:
 						TargetIndex = TargetFaction.size() -1
-					Global.cursor_sound()
 					while TargetFaction[TargetIndex].has_state("Knocked Out"):
 						if TargetIndex!=0:
 							TargetIndex -= 1
 						else:
 							TargetIndex = TargetFaction.size() -1
+					Global.cursor_sound()
 					move_menu()
 			&"ability":
 				if Input.is_action_just_pressed(Global.cancel()):
@@ -731,7 +731,7 @@ func _on_ability_returned(ab:Ability, tar):
 
 func move_menu():
 	if stage == &"target" or stage == &"pre_target":
-		#active= false
+		active= false
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
@@ -753,7 +753,8 @@ func move_menu():
 			wheel.show_trg_color(target.MainColor)
 		else:
 			wheel.show_trg_color(target.MainColor)
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.1).timeout
+		active = true
 	if stage == &"ability":
 		if not foc.has_meta("Ability"): return
 		active= false

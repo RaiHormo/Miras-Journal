@@ -740,8 +740,8 @@ func death(target:Actor):
 		target.node.material, "shader_parameter/outline_color",
 		Color.TRANSPARENT, 0.5)
 	print(target.FirstName, " was defeated")
-	await Event.wait(2)
 	target.add_state("KnockedOut")
+	await Event.wait(2)
 	lock_turn = false
 	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
@@ -798,7 +798,7 @@ func hp_sort(a:Actor, b:Actor):
 	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
-	if animation == "":
+	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
 		else: animation = "Idle"
 	if animation not in chara.node.sprite_frames.get_animation_names(): return

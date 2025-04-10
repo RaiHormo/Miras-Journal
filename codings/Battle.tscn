@@ -11,8 +11,8 @@
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://codings/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
+[ext_resource type="SpriteFrames" uid="uid://b21h4m0wtw0jl" path="res://art/BT/Asteria/AsteriaBt.tres" id="10_5y8r5"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
-[ext_resource type="SpriteFrames" uid="uid://cyxmhihsxgop5" path="res://art/BT/Crystal/CrystalBT.tres" id="10_hswtq"]
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
 [ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
@@ -1828,8 +1828,8 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_cpdku")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("10_hswtq")
-animation = &"Attack1"
+sprite_frames = ExtResource("10_5y8r5")
+animation = &"Hit"
 offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
