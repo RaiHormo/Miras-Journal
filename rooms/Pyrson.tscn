@@ -919,7 +919,6 @@ polygon = PackedVector2Array(-51, -4, -90, 13, -63, 26, -2, 37, 18, 38, 31, 31.1
 [node name="Daze" type="CharacterBody2D" parent="ExitScene"]
 position = Vector2(114, 125)
 script = ExtResource("21_p415d")
-Facing = Vector2(0, 1)
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="ExitScene/Daze"]

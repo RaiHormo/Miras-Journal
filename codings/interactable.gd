@@ -55,15 +55,21 @@ func check() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	if (Event.check_flag(hide_on_flag) or not Event.check_flag(show_on_flag)) and hidesprite:
-		if hide_parent: get_parent().queue_free()
-		else: queue_free()
+	if not show_on_flag.is_empty() and not Event.check_flag(show_on_flag):
+		destroy()
+	if not hide_on_flag.is_empty() and Event.check_flag(hide_on_flag):
+		destroy()
 	if not Global.Controllable and CanInteract:
 		disappear()
 		CanInteract = false
 	elif Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract:
 		appear()
 		CanInteract = true
+
+func destroy():
+	if hidesprite:
+		if hide_parent: get_parent().queue_free()
+		else: queue_free()
 
 func appear():
 	if not CanInteract and not animating:

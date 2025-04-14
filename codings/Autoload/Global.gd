@@ -103,8 +103,13 @@ func _physics_process(delta: float) -> void:
 			#Engine.set_physics_ticks_per_second(Settings.FPS)
 		Engine.max_fps = Settings.FPS
 
-func options():
-	get_tree().root.add_child((await Loader.load_res("res://UI/Options/Options.tscn")).instantiate())
+func options(save_menu:= false):
+	var init = get_tree().root.get_node_or_null("Initializer")
+	if init != null: init.queue_free()
+	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
+	get_tree().root.add_child(opt)
+	if save_menu:
+		opt.save_managment()
 
 func member_details(chara: Actor):
 	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
@@ -119,7 +124,6 @@ func vainet_map(cur: String):
 	var Map = (await Loader.load_res("res://UI/Map/VainetMap.tscn")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
-
 
 func new_game() -> void:
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
@@ -139,10 +143,13 @@ func new_game() -> void:
 	Loader.Defeated.clear()
 	Party.reset_party()
 	Loader.white_fadeout()
-	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none")
-	await Event.wait(1)
 	reset_all_members()
-	Controllable = false
+	Event.TimeOfDay = Event.TOD.NIGHT
+	Event.Day = 0
+	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
+	await Global.area_initialized
+	await Event.take_control()
+	Player.BodyState = NPC.CUSTOM
 	Player.set_anim("OnFloor")
 	Player.get_node("%Shadow").modulate = Color.TRANSPARENT
 	Player._check_party()
@@ -150,7 +157,8 @@ func new_game() -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	PartyUI.UIvisible = false
-	t.tween_property(get_cam(), "zoom", Vector2(6,6), 10).from(Vector2(4,4))
+	t.tween_property(get_cam(), "zoom", Vector2(6,6), 6).from(Vector2(2, 2))
+	Loader.save()
 	await t.finished
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -173,10 +181,7 @@ func new_game() -> void:
 	await Player.set_anim("GetUp", true)
 	Player.set_anim("IdleUp")
 	Controllable = true
-	Event.Day = 10
-	Event.TimeOfDay = Event.TOD.NIGHT
 	Event.pop_tutorial("walk")
-	Loader.save()
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if !node: return

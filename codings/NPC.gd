@@ -9,13 +9,20 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##Used to control the direction of the next movment
 @export var direction : Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
-@export var Facing: Vector2
+@export var Facing: Vector2 = Vector2.DOWN
 ##0: Idle, Not moving[br]
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
 ##3: Controlled, excludive to [Mira]
 ##5: Custom
-var BodyState:= IDLE
+var BodyState:= IDLE:
+	set(x):
+		BodyState = x
+		print(ID+"'s body state set to ", x)
+		if BodyState == CUSTOM or BodyState == NONE and self is Mira:
+			Global.Controllable = false
+		if BodyState == MOVE:
+			pass
 @export var DefaultState:= 0
 var RealVelocity:= Vector2.ZERO
 var PrevPosition:= Vector2.ZERO
@@ -56,7 +63,7 @@ func extended_process() -> void:
 
 func control_process() -> void:
 	OS.alert("Only Mira can be set to 'Controlled'")
-	BodyState=IDLE
+	BodyState = IDLE
 
 func _physics_process(delta) -> void:
 	if Engine.is_editor_hint(): return
@@ -168,14 +175,14 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 		direction = to_local(Nav.get_next_path_position()).normalized()
 		#print(not Global.Area.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
 		if Nav == null or ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping:
-			BodyState= IDLE
+			BodyState = IDLE
 			return
 	if Global.Area.map_to_local(pos) != global_position and Global.Area.local_to_map(global_position) == Vector2i(pos) and exact:
 		#print("finished")
 		var t = create_tween()
 		t.tween_property(self, "global_position", Global.Area.map_to_local(pos), Nav.distance_to_target()/speed)
 		await t.finished
-	BodyState= IDLE
+	BodyState = IDLE
 	position = Vector2i(position)
 	direction = Vector2.ZERO
 	await Event.wait()
@@ -206,7 +213,6 @@ func set_anim(anim: String):
 
 func stop_going() -> void:
 	stopping = true
-	BodyState = IDLE
 	await Event.wait()
 	stopping = false
 

@@ -25,6 +25,7 @@ var is_clone: bool = false
 var can_jump:= false
 
 func _ready() -> void:
+	BodyState = NONE
 	collision(false)
 	ID = "P"
 	Event.add_char(self)
@@ -47,11 +48,6 @@ func _ready() -> void:
 	set_anim("Idle"+str(Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
-	if Global.Controllable:
-		PartyUI.UIvisible = true
-		for i in Global.Area.Followers:
-			i.dont_follow = false
-	#Event.give_control(false)
 	Global.player_ready.emit()
 
 func extended_process() -> void:

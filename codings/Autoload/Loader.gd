@@ -95,8 +95,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Icon.play("Load")
 	await transition("")
 	if not validate_save(filepath):
-		OS.alert("Save data is corrupt")
-		get_tree().quit()
+		Loader.detransition()
 		return
 	chased = false
 	data = await load_res(filepath)
@@ -204,10 +203,13 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		await done(controllable)
-		if z >= 0: Global.Area.handle_z(z)
 	else:
 		Icon.play("Load")
 		loading = true
+		await thread_loaded
+		if status == ResourceLoader.THREAD_LOAD_LOADED:
+			await done(controllable)
+	if z >= 0: Global.Area.handle_z(z)
 
 func _process(delta):
 	if loading == true and !scene.is_empty():
@@ -215,7 +217,7 @@ func _process(delta):
 		error_handle(status)
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
 			loading = false
-			done()
+			thread_loaded.emit()
 	if loading_thread == true:
 		status = ResourceLoader.load_threaded_get_status(loaded_resource)
 		error_handle(status)
@@ -272,7 +274,7 @@ func transition(dir=Global.get_dir_letter()):
 			$Can/Bars/Left.position = Vector2(-200,-200)
 	await Event.wait()
 
-func done(controllable:= true):
+func done(controllable:= false):
 	chased = false
 	if Global.Area: Global.Area.queue_free()
 	$/root.add_child(ResourceLoader.load_threaded_get(scene[0]).instantiate())
@@ -284,7 +286,6 @@ func done(controllable:= true):
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
-	if is_instance_valid(Global.Player): Global.Player.look_to(Global.get_direction())
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
 	if direc != "wait": await detransition()
@@ -505,12 +506,13 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		OS.alert("Some resource just failed to load. \nEither the dev made a mistake or there's a corrupt/outdated save file.
+		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
+		push_error("Some resource just failed to load. \nEither the dev made a mistake or there's a corrupt/outdated save file.
 \n
 If you've played this game in an older version, you may have to delete the old save files.\n
 If this has nothing to do with save data, please report this error to the developer, and include logs.\n
 To find the directory where save files and logs are located, launch the game and press F1.
-" ,"THE RESOURCE FAILED TO LOAD!")
+")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
@@ -562,10 +564,11 @@ func validate_save(save: String) -> bool:
 				return true
 			else:
 				OS.alert("This save file is from an incompatible version", "Can't read file")
+				Global.options(true)
 				return false
 		else:
 			OS.alert("This save file is corrupt or from an incompatible version", "Can't read file")
-			#DirAccess.remove_absolute("user://Autosave.tres")
+			Global.options(true)
 			return false
 	else: return false
 

@@ -100,16 +100,16 @@ func close(force = false):
 	if force:
 		queue_free()
 		return
-	if !Global.Area:
+	if !is_instance_valid(Global.Area):
 		Global.buzzer_sound()
 		Global.toast("There is no going back.")
 		return
-	if Global.Player:
+	if is_instance_valid(Global.Player):
 		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
 			Global.cancel_sound()
-	t=create_tween()
+	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_IN)
 	t.set_parallel()
@@ -258,7 +258,7 @@ func _on_focus_changed(control:Control):
 			$SavePanel/Buttons/Load.disabled = false
 			if control.get_parent().name == "File0":
 				$SavePanel/Buttons/Overwrite.disabled = true
-				$SavePanel/Buttons/Delete.disabled = true
+				$SavePanel/Buttons/Delete.disabled = false
 				$Silhouette.texture = Loader.Preview
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
@@ -310,7 +310,7 @@ func load_settings():
 
 func load_save_files():
 	for i in %Files.get_children():
-		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
+		if i.name != "New": i.set_meta(&"Unprocessed", true)
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	else:
@@ -352,6 +352,9 @@ func draw_file(file: SaveFile, node: Control):
 	panel.get_node("Date/Day").text = str(file.Day)
 	if file.Day <= 30 and file.Day > 0:
 		panel.get_node("Date/Month").text = "November"
+	elif file.Day == 0:
+		panel.get_node("Date/Month").text = "Date"
+		panel.get_node("Date/Day").text = "Unknown"
 	else:
 		panel.get_node("Date/Month").text = "Beyond"
 		panel.get_node("Date/Day").text = "Time"
@@ -386,8 +389,14 @@ func _on_save_delete() -> void:
 	$SavePanel/Buttons/Delete.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Global.confirm_sound()
-		print("Deleting user://"+panel.name+".tres")
-		DirAccess.remove_absolute("user://"+panel.name+".tres")
+		if panel.name == "File0": 
+			print("Deleting user://Autosave.tres")
+			DirAccess.remove_absolute("user://"+panel.name+".tres")
+			Loader.save()
+			panel.set_meta(&"Unprocessed", true)
+		else:
+			print("Deleting user://"+panel.name+".tres")
+			DirAccess.remove_absolute("user://"+panel.name+".tres")
 		var t2= create_tween()
 		t2.tween_property(panel, "modulate:a", 0, 0.5)
 		await t2.finished
@@ -613,6 +622,7 @@ func _gloweffect(toggle: bool) -> void:
 	load_settings()
 
 func _new_game() -> void:
+	was_controllable = false
 	close(true)
 	Global.new_game()
 

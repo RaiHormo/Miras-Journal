@@ -124,7 +124,7 @@ func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
-func take_control(keep_ui:= false, keep_followers:= false, idle:= true):
+func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 	Global.Controllable = false
 	await wait()
 	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return

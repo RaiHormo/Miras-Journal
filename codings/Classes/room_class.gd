@@ -80,8 +80,12 @@ func _ready():
 			if not Event.f("FlameActive"): Global.Player.activate_flame()
 	if is_instance_valid(Global.Player):
 		Global.Player.collision(true)
+	await default()
+	if Global.Controllable:
+		PartyUI.UIvisible = true
+		for i in Global.Area.Followers:
+			i.dont_follow = false
 	Global.area_initialized.emit()
-	default()
 
 func setup_params(tween_zoom = false):
 	Cam.limit_smoothed = true

@@ -15,11 +15,11 @@ var target: Vector2
 @export var offset := 0
 
 func _ready():
+	hide()
 	await Event.wait()
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
 	velocity = oposite
-	move_and_slide()
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(Global.Player): return

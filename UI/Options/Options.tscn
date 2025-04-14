@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=78 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -16,14 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
-[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="18_y4emp"]
 [ext_resource type="Script" uid="uid://deu6hmqfb1g2a" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="19_e5lo7"]
-[ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="19_sc5mb"]
-[ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="20_5ccb6"]
 [ext_resource type="Script" uid="uid://be84dm3o4vc4s" path="res://addons/SmoothScroll/scroll_damper/cubic_scroll_damper.gd" id="20_5gqn4"]
 [ext_resource type="Script" uid="uid://bfvdfyfy11o2j" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="20_l60hk"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
-[ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="21_av40y"]
 [ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="22_w3i7s"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
 [ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="23_bqtf5"]
@@ -1501,7 +1497,6 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -1632,7 +1627,6 @@ custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("18_y4emp")
 expand_mode = 1
 
 [node name="Icon1" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
@@ -1640,7 +1634,6 @@ custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("19_sc5mb")
 expand_mode = 1
 
 [node name="Icon2" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
@@ -1648,7 +1641,6 @@ custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("20_5ccb6")
 expand_mode = 1
 
 [node name="Icon3" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
@@ -1656,7 +1648,6 @@ custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("21_av40y")
 expand_mode = 1
 
 [node name="Location" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
