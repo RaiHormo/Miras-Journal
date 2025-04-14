@@ -17,8 +17,9 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##5: Custom
 var BodyState:= IDLE:
 	set(x):
+		if x != BodyState:
+			print(ID+"'s body state set to ", x)
 		BodyState = x
-		print(ID+"'s body state set to ", x)
 		if BodyState == CUSTOM or BodyState == NONE and self is Mira:
 			Global.Controllable = false
 		if BodyState == MOVE:

@@ -310,7 +310,7 @@ func load_settings():
 
 func load_save_files():
 	for i in %Files.get_children():
-		if i.name != "New": i.set_meta(&"Unprocessed", true)
+		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	else:
