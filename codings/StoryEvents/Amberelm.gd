@@ -7,14 +7,16 @@ func default():
 		Event.npc("MiraCut").speed = 50
 		Event.npc("AlcineCut").speed = 50
 		Event.npc("AlcineCut").go_to(Vector2(12, 50))
-		await Event.npc("MiraCut").go_to(Vector2(12, 49))
+		await Event.npc("MiraCut").go_to(Vector2(12, 49), true, false)
 		await Event.wait(0.2)
+		await Event.take_control(true, true)
 		Event.npc("MiraCut").look_to(Vector2.RIGHT)
 		await Event.wait(0.2)
 		Event.npc("AlcineCut").look_to(Vector2.RIGHT)
 		await Event.wait(0.3)
 		Event.npc("AlcineCut").speed = 75
 		await Event.take_control(true, true)
+		Event.TimeOfDay = Event.TOD.MORNING
 		await Global.textbox("story_events", "morning")
 		Event.npc("MiraCut").speed = 75
 		Event.npc("MiraCut").move_dir(Vector2.UP*5)

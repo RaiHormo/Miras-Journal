@@ -78,3 +78,7 @@ func add(member: String):
 
 func array() -> Array[Actor]:
 	return [Leader, Member1, Member2, Member3]
+
+func member_name(x: int) -> String:
+	if check_member(x): return get_member(x).FirstName
+	return "Nobody"

@@ -9,7 +9,7 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##Used to control the direction of the next movment
 @export var direction : Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
-@export var Facing: Vector2 = Vector2.DOWN
+@export var Facing: Vector2 = Vector2.ZERO
 ##0: Idle, Not moving[br]
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
@@ -17,11 +17,9 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##5: Custom
 var BodyState:= IDLE:
 	set(x):
-		if x != BodyState:
-			print(ID+"'s body state set to ", x)
+		#if x != BodyState:
+			#print(ID+"'s body state set to ", x)
 		BodyState = x
-		if BodyState == CUSTOM or BodyState == NONE and self is Mira:
-			Global.Controllable = false
 		if BodyState == MOVE:
 			pass
 @export var DefaultState:= 0
@@ -103,6 +101,7 @@ func set_dir_marker(vec: Vector2 = direction):
 func update_anim_prm() -> void:
 	if $Sprite.sprite_frames == null: return
 	if BodyState == CUSTOM: return
+	if Facing == Vector2.ZERO: return
 	if RealVelocity.length() > 0.3:
 		#BodyState = MOVE
 		if str("Walk"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
@@ -199,7 +198,7 @@ func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = 
 	if self is Mira and Global.Controllable: return
 	await stop_going()
 	BodyState = MOVE
-	if use_coords: pos = Global.Area.map_to_local(pos)
+	if use_coords: pos = pos * 24
 	while round(global_position / accuracy) != round(pos / accuracy):
 		direction = to_local(pos).normalized()
 		await Event.wait()

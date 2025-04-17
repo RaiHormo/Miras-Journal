@@ -183,7 +183,7 @@ fill_to = Vector2(0.867521, 0.149573)
 [sub_resource type="Gradient" id="Gradient_pqoya"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.432836, 1)
-colors = PackedColorArray(0.678431, 0.756863, 0.537255, 0.847059, 0.99, 0.88902, 0.4851, 1)
+colors = PackedColorArray(0.68286, 0.76, 0.5396, 0.227451, 0.99, 0.88902, 0.4851, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_52yds"]
 gradient = SubResource("Gradient_pqoya")
@@ -552,7 +552,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-9.97737, 3.0743, -8.05
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_px8hq"]
-size = Vector2(127.549, 136.455)
+size = Vector2(185.211, 136.455)
 
 [sub_resource type="Gradient" id="Gradient_yb76s"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -611,10 +611,10 @@ script = ExtResource("27_pc4vh")
 
 [node name="ColorRect" type="ColorRect" parent="AlcineNaming"]
 layout_mode = 0
-offset_left = -100.265
-offset_top = -63.344
-offset_right = 192.735
-offset_bottom = 128.656
+offset_left = -147.0
+offset_top = -80.0
+offset_right = 225.0
+offset_bottom = 152.0
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Error" type="Label" parent="AlcineNaming"]
@@ -715,6 +715,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="EditorLight" type="DirectionalLight2D" parent="."]
+visible = false
 editor_only = true
 color = Color(1, 1, 1, 0.466667)
 
@@ -748,20 +749,18 @@ texture = SubResource("GradientTexture2D_2eofr")
 [node name="WaterLight" type="PointLight2D" parent="Lights"]
 modulate = Color(100, 100, 100, 1)
 texture_filter = 2
-position = Vector2(1555.07, 307.644)
+position = Vector2(1586, 307)
 rotation = -0.287151
-scale = Vector2(5.99027, 2.54542)
+scale = Vector2(7.1883, 4.23361)
 color = Color(0.596078, 1, 1, 1)
-energy = 2.48
 texture = SubResource("GradientTexture2D_scve0")
 
 [node name="WaterLight2" type="PointLight2D" parent="Lights/WaterLight"]
 texture_filter = 2
-position = Vector2(-21.1027, 76.6893)
+position = Vector2(-20.5943, 39.1779)
 rotation = 2.44299
-scale = Vector2(0.936808, 1.63823)
+scale = Vector2(1.71041, 1.63823)
 color = Color(0.694118, 1, 1, 1)
-energy = 3.94
 texture = SubResource("GradientTexture2D_mj0rc")
 
 [node name="PointLight2D3" type="PointLight2D" parent="Lights"]
@@ -769,6 +768,7 @@ texture_filter = 2
 position = Vector2(1729.71, -1333.82)
 scale = Vector2(4.69349, 3.17524)
 color = Color(1, 0.960784, 0.67451, 1)
+energy = 0.7
 blend_mode = 1
 texture = SubResource("GradientTexture2D_w47yv")
 texture_scale = 4.94
@@ -778,7 +778,7 @@ height = 100.0
 position = Vector2(1399.94, -85.5288)
 scale = Vector2(2.91322, 4.65746)
 color = Color(0.796078, 0.745098, 0.858824, 0.964706)
-energy = 1.55
+energy = 1.1
 blend_mode = 1
 texture = SubResource("GradientTexture2D_52yds")
 texture_scale = 4.94
@@ -973,7 +973,6 @@ texture_scale = 4.94
 [node name="EnemyCrawlingSludge1" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1365.05, 222.688)
 BattleSeq = ExtResource("11_1cjwu")
-Facing = Vector2(0, 0)
 ID = "CS1"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1"]
@@ -1017,7 +1016,6 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge2" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
-Facing = Vector2(0, 0)
 ID = "CS3"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2"]
@@ -1051,11 +1049,16 @@ sprite_frames = ExtResource("12_1q04t")
 animation = &"IdleUp"
 offset = Vector2(0.0496826, -5.866)
 
+[node name="EscapePosition" type="Marker2D" parent="EnemyCrawlingSludge2"]
+position = Vector2(228, -65)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemyCrawlingSludge2"]
+position = Vector2(6, -18)
+gizmo_extents = 100.0
+
 [node name="EnemyCrawlingSludge3" parent="." instance=ExtResource("10_rx6j2")]
-visible = false
 position = Vector2(1638.08, 368.626)
 BattleSeq = ExtResource("13_812cc")
-Facing = Vector2(0, 0)
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3"]
 
@@ -1093,7 +1096,6 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge4" parent="." instance=ExtResource("10_rx6j2")]
 position = Vector2(1257.89, -491.287)
 BattleSeq = ExtResource("21_e7y1u")
-Facing = Vector2(0, 0)
 ID = "CS5"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4"]
@@ -1231,7 +1233,7 @@ EventName = "TWflame"
 Flag = "TWflame"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EvFlameActive"]
-position = Vector2(-35.729, -11.1821)
+position = Vector2(-24.5789, 15.4054)
 rotation = 1.1737
 shape = SubResource("RectangleShape2D_px8hq")
 
@@ -1322,11 +1324,15 @@ item_type = &"Bti"
 item_name = "SharpRock"
 
 [node name="ItemStrangeFruit1" parent="." instance=ExtResource("26_k6j3t")]
-position = Vector2(1329.12, 519.696)
+position = Vector2(1332, 515)
+item_name = "StrangeFruit"
+
+[node name="ItemStrangeFruit6" parent="." instance=ExtResource("26_k6j3t")]
+position = Vector2(1185, -210)
 item_name = "StrangeFruit"
 
 [node name="ItemStrangeFruit2" parent="." instance=ExtResource("26_k6j3t")]
-position = Vector2(1642.09, 383.625)
+position = Vector2(1640, 370)
 item_name = "StrangeFruit"
 
 [node name="ItemStrangeFruit3" parent="." instance=ExtResource("26_k6j3t")]

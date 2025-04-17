@@ -120,7 +120,6 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		if i is Room: i.queue_free()
 	var sc_split = data.RoomPath.split(";")
 	get_tree().root.add_child((await load_res(sc_split[0])).instantiate())
-
 	Item.load_inventories(data)
 
 	var temp_members = data.Members.duplicate()
@@ -276,6 +275,7 @@ func transition(dir=Global.get_dir_letter()):
 
 func done(controllable:= false):
 	chased = false
+	var look_dir = Global.get_direction()
 	if Global.Area: Global.Area.queue_free()
 	$/root.add_child(ResourceLoader.load_threaded_get(scene[0]).instantiate())
 	await get_tree().create_timer(0.1).timeout
@@ -286,6 +286,8 @@ func done(controllable:= false):
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
 	get_tree().paused = false
+	if controllable: 
+		await Global.Player.look_to(look_dir)
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
 	if direc != "wait": await detransition()
@@ -307,7 +309,7 @@ func detransition(dir = "direc"):
 	t.tween_property($Can/Bars/Left, "position", BAR_LEFT_POS, 0.4)#.from(Vector2(-200,-204))
 	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)#.from(Vector2(-200,-177))
 	dismiss_load_icon()
-	await Event.wait(0.4)
+	await Event.wait(0.4, false)
 	Global.get_cam().position_smoothing_enabled = true
 	Global.ready_window()
 

@@ -45,14 +45,14 @@ func on_confirm() -> void:
 	elif check_for_symbols():
 		$Error.text = "Why would I include symbols in a name?"
 		$Error.show()
-	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt:
+	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt:
 		$Error.text = "No."
 		$Error.show()
 	elif "mira" in txt or "levenor" in txt:
 		$Error.text = "That's a little egotistical..."
 		$Error.show()
 	elif ("daze" == txt or "asteria" == txt or "versea" == txt or
-	"feni" == txt or "kai" == txt or "maple" == txt):
+	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt):
 		$Error.text = "I feel like i shouldn't choose that name."
 		$Error.show()
 	elif "erinn" in txt:
@@ -61,11 +61,11 @@ func on_confirm() -> void:
 	elif "enowme" in txt:
 		$Error.text = "..."
 		$Error.show()
-	elif "enowmi" in txt or "enomi" in txt:
+	elif "enowmi" in txt or "enomi" in txt or "eknowme" in txt or "enowm" in txt:
 		$Error.text = "You think you're clever, huh?"
 		$Error.show()
 	elif "aaa" in txt:
-		$Error.text = "Seriously?"
+		$Error.text = "Seriously? I think i can do better than this."
 		$Error.show()
 	else:
 		Global.find_member("Alcine").FirstName = txt.capitalize()

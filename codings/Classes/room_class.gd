@@ -141,16 +141,16 @@ func unfade():
 func _physics_process(delta: float) -> void:
 	if get_node_or_null("SubRoomBg") and CurSubRoom != null:
 		$SubRoomBg.position = Cam.position
-	if is_instance_valid(Global.Player) and Global.Controllable and (
-		Global.Player.position.x < CameraLimits[Global.CameraInd].x -64 or
-		Global.Player.position.x > CameraLimits[Global.CameraInd].z +64 or
-		Global.Player.position.y < CameraLimits[Global.CameraInd].y -64 or
-		Global.Player.position.y > CameraLimits[Global.CameraInd].w +64
-	):
-		Global.toast("What are you doing there?")
-		Global.CameraInd = 0
-		Global.Player.position = map_to_local(SpawnPos)
-		Global.refresh()
+	#if is_instance_valid(Global.Player) and Global.Controllable and (
+		#Global.Player.position.x < CameraLimits[Global.CameraInd].x -64 or
+		#Global.Player.position.x > CameraLimits[Global.CameraInd].z +64 or
+		#Global.Player.position.y < CameraLimits[Global.CameraInd].y -64 or
+		#Global.Player.position.y > CameraLimits[Global.CameraInd].w +64
+	#):
+		#Global.toast("What are you doing there?")
+		#Global.CameraInd = 0
+		#Global.Player.position = map_to_local(SpawnPos)
+		#Global.refresh()
 
 func go_to_subroom(subroom: String):
 	for i in get_children(): 

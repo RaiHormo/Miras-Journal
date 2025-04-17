@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://ccfqo6konaev3" path="res://art/Items/SmallPotion.png" id="1_vdi2s"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_xbfcq"]
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_xhumv"]
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="3_y38if"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_xhumv"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="3_y38if"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
 atlas = ExtResource("1_xbfcq")
@@ -44,7 +44,7 @@ filter_clip = true
 script = ExtResource("1_xhumv")
 Name = "Small Potion"
 Description = "A small bottle containing a healing potion.
-Restores 50 HP"
+Restores 70 HP"
 ItemType = "Con"
 Icon = SubResource("AtlasTexture_4bywt")
 Artwork = ExtResource("1_vdi2s")
@@ -55,4 +55,4 @@ Use = 3
 UsedInBattle = true
 OvTarget = 3
 BattleEffect = SubResource("Resource_iwvc1")
-Parameter = "50"
+Parameter = "70"

@@ -6,7 +6,7 @@ func default() -> void:
 		$Sprite.play("IdleRight")
 		show()
 	if Global.CameraInd == 2 and not Event.f("AlcineFollow", 2):
-		$"../Petrogon".hide()
+		$"../EvPetrogon".hide()
 		Event.flag_progress("AlcineFollow", 1)
 		Event.warp_to(Vector2(55, -44), "Alcine")
 		await Event.wait(0.2)
@@ -23,7 +23,7 @@ func default() -> void:
 		Loader.save()
 	elif (Global.CameraInd == 2 and Event.f("AlcineFollow", 2)
 	and not Event.f("AlcineFollow", 3)):
-		$"../Petrogon".hide()
+		$"../EvPetrogon".hide()
 		Event.warp_to(Vector2(55+15, -45), "Alcine")
 		BodyState = CUSTOM
 		$Sprite.stop()
@@ -32,7 +32,7 @@ func default() -> void:
 	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
 		position = Vector2(1963, -1312)
 		hide()
-		$"../Petrogon".hide()
+		$"../EvPetrogon".hide()
 		#Global.passive()
 
 
@@ -102,12 +102,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await bubble("Surprise")
 			await move_dir(Vector2.UP)
 			Event.remove_flag(&"FlameActive")
-			$"../Petrogon".show()
-			$"../Petrogon".play("Fly")
+			$"../EvPetrogon".show()
+			$"../EvPetrogon".play("Fly")
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property($"../Petrogon", "position", Vector2(1731, -1080), 2).from(Vector2(1805, -1183))
+			t.tween_property($"../EvPetrogon", "position", Vector2(1731, -1080), 2).from(Vector2(1805, -1183))
 			Global.Player.bubble("Surprise")
 			Global.Player.reset_sprite()
 			await Event.wait()
@@ -120,9 +120,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.animation = &"Scared"
 			$Sprite.frame = 0
 			await Event.wait(1)
-			$"../Petrogon".play("Idle")
+			$"../EvPetrogon".play("Idle")
 			await Global.textbox("story_events", "stay_back")
-			Loader.Attacker = Global.Area.get_node("Petrogon")
+			Loader.Attacker = Global.Area.get_node("EvPetrogon")
 			await Event.wait(0.1)
 			Global.Party.Leader.add_health(30)
 			Event.flag_progress("AlcineFollow", 3)
@@ -156,8 +156,8 @@ func skip():
 	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
 	Global.CameraInd == 2 and not Event.f("AlcineFollow4")):
 		Event.flag_progress("AlcineFollow", 3)
-		$"../Petrogon".hide()
-		$"../Petrogon".play("Idle")
+		$"../EvPetrogon".hide()
+		$"../EvPetrogon".play("Idle")
 		BodyState = CUSTOM
 		Global.Player.BodyState = CUSTOM
 		Global.Player.set_anim("EntrancePrep")

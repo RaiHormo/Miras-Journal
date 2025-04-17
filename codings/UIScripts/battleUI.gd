@@ -621,6 +621,8 @@ func _on_command_pressed():
 	if stage == &"root": command.emit()
 
 func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
+	if faction.is_empty(): 
+		return
 	if Bt.Action: return
 	if is_instance_valid(foc):
 		foc.hide()
@@ -698,7 +700,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
 	$"../Canvas/AttackTitle".show()
-
+	
 	if LastTarget == null or not LastTarget in faction:
 		LastTarget = faction[0]
 		TargetIndex = 0

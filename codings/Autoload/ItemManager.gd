@@ -40,7 +40,7 @@ func get_animation(icon, named, pickup_anim:= true):
 	Global.check_party.emit()
 
 func add_item(ItemName, type: StringName = &"", animate:= true, player_animate:= true, quantity:= -1):
-	if ItemName == "":
+	if ItemName is String and ItemName == "":
 		Global.toast("You got absolutely nothing!!!")
 		return
 	item = get_item(ItemName, type).duplicate()

@@ -1,6 +1,8 @@
 #region Variables
 extends Node
-var Controllable : bool = true
+var Controllable : bool = true:
+	set(x):
+		Controllable = x
 var Audio := AudioStreamPlayer.new()
 var Party: PartyData
 var Members: Array[Actor]
@@ -140,6 +142,8 @@ func new_game() -> void:
 	Item.add_item("Wallet", &"Key", false)
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)
+	Item.add_item("SmallPotion", &"Con", false)
+	Item.add_item("SmallPotion", &"Con", false)
 	Loader.Defeated.clear()
 	Party.reset_party()
 	Loader.white_fadeout()
@@ -541,6 +545,7 @@ func colorize_replace(elname, str: String, i) -> String:
 	return str
 
 func get_direction(v: Vector2 = PlayerDir) -> Vector2:
+	#if v == Vector2.ZERO: return Vector2.ZERO
 	if abs(v.x) > abs(v.y):
 		if v.x >0:
 			return Vector2.RIGHT

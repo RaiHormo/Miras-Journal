@@ -25,7 +25,6 @@ var is_clone: bool = false
 var can_jump:= false
 
 func _ready() -> void:
-	BodyState = NONE
 	collision(false)
 	ID = "P"
 	Event.add_char(self)
@@ -58,7 +57,6 @@ func extended_process() -> void:
 		first_frame = true
 		if BodyState == CONTROLLED:
 			BodyState = CUSTOM
-	if direction != Vector2.ZERO: Global.PlayerDir = direction
 
 func control_process():
 	if first_frame:
@@ -134,6 +132,7 @@ func update_anim_prm() -> void:
 	if get_node_or_null("%Base") == null: return
 	if Footsteps: handle_step_sounds(used_sprite)
 	if BodyState == CUSTOM: return
+	if Facing == Vector2.ZERO: return
 	if BodyState == CONTROLLED:
 		if (abs(RealVelocity.length())>1 and Global.Controllable):
 			move_frames+=1
@@ -141,7 +140,7 @@ func update_anim_prm() -> void:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
 			else:
-				speed = walk_speed
+				speed = min(walk_speed, speed)
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)

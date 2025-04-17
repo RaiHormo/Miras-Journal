@@ -41,6 +41,7 @@ func npc(ID: String) -> NPC:
 			continue
 		if i.ID == ID:
 			return i
+	
 	return null
 
 ##Move an [NPC] relative to their current coords
@@ -132,9 +133,9 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 		await Global.Player.stop_dash()
 		Global.Player.dashing = false
 	Global.Player.winding_attack = false
+	Global.Player.direction = Vector2.ZERO
 	if idle:
 		Global.Player.BodyState = NPC.IDLE
-		Global.Player.direction = Vector2.ZERO
 		Global.Player.set_anim()
 
 	PartyUI.UIvisible = keep_ui

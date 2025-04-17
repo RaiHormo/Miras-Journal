@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://33rre1l0klod"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_lne2v"]
-[ext_resource type="Script" path="res://codings/Classes/ability.gd" id="2_v4m21"]
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="3_t2vp7"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_v4m21"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="3_t2vp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyukm"]
 atlas = ExtResource("1_lne2v")
@@ -16,6 +16,7 @@ description = "This is used internally for curing items in battle."
 Icon = SubResource("AtlasTexture_uyukm")
 ActionSequence = &"ItemCure"
 Type = "Healing"
+Group = ""
 InflictsState = "Poisoned"
 AuraCost = 0
 HPCost = 0
@@ -41,7 +42,7 @@ filter_clip = true
 [resource]
 script = ExtResource("3_t2vp7")
 Name = "Life Lave"
-Description = "Cures Poison and restores 10 HP."
+Description = "Cures Poison and restores 30 HP."
 ItemType = "Con"
 Icon = SubResource("AtlasTexture_1mmxx")
 Quantity = 0
@@ -51,4 +52,4 @@ Use = 3
 UsedInBattle = true
 OvTarget = 3
 BattleEffect = SubResource("Resource_y1gkf")
-Parameter = "10"
+Parameter = "30"

@@ -119,7 +119,6 @@ Mira.Neutural: Is there anything I can do?
 
 ~ going_nowhere
 Mira.Neutural: If this goes on...
-Mira.Neutural: Hey, I think we might have to run away!
 => END
 
 ~ amazing
@@ -165,10 +164,22 @@ elif alcine() == "Gaster":
 	I don't speak hands.
 elif alcine() == "Luigi":
 	Respectable.
-elif alcine() == "Rai":
-	;3
+elif alcine() == "Rai" or alcine() == "Raidev":
+	SECRET DEVELOPER MODE ACTIVATED! Or something...
 elif alcine() == "Iris":
 	Truly.
+elif alcine() == "Petrogon":
+	That's quite ironic.
+elif alcine() == "Godot":
+	The very fabric of this world.
+elif alcine() == "Kirby":
+	Poyo!
+elif alcine() == "Dog":
+	Uhhhh, sure...
+elif alcine() == "Cat" or alcine() == "Kitty":
+	Is that really fitting?
+elif alcine() == "Rat":
+	Squeak!
 elif alcine() == "Alcin":
 	Silent letters are for loosers.
 elif alcine() == "Chip":
@@ -196,7 +207,7 @@ elif alcine() == "Creature":
 else:
 	"{{alcine()}}". Should I go with this?
 - Use this name
-	do get_node("/Area/AlcineNaming").hide()
+	do Area.get_node("AlcineNaming").hide()
 	=> use_name
 - Let's rethink this
 	=> what_about

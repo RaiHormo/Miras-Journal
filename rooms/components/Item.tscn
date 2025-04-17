@@ -110,6 +110,7 @@ metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL0l0ZW1TcGFya2xlLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PVNwYXJrbGVzCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+light_mask = 0
 texture_filter = 1
 position = Vector2(0.6875, 12.9102)
 sprite_frames = SubResource("SpriteFrames_t6ikl")

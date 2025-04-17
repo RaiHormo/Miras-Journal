@@ -963,6 +963,7 @@ func AlcineWoods2():
 	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
 	Bt.get_actor("Alcine").node.show()
 	await Event.wait(2)
+	PartyUI.hide_all()
 	Bt.end_turn()
 
 func AlcineWoods3():
