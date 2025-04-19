@@ -4,7 +4,8 @@ extends Area2D
 @export var room: String
 @export var ToCamera: int = 0
 @export var Flag: StringName = &""
-@export var ToCameraIfFlag: int = 0
+@export var FlagShouldBe: bool = false
+@export var ToCameraIfFlag: int = -1
 
 func _on_entered(body):
 	if body == Global.Player:
@@ -14,8 +15,10 @@ func proceed() -> void:
 	await Event.take_control()
 	Global.Player.collision(false)
 	Global.Player.move_dir(Direction*5)
-	if Flag != &"" and Event.f(Flag):
-		await Loader.travel_to(room, Position, ToCameraIfFlag)
+	if Flag != &"" and (Event.f(Flag) != FlagShouldBe):
+		if ToCameraIfFlag > -1:
+			await Loader.travel_to(room, Position, ToCameraIfFlag)
+		else: return
 	else:
 		print(name, " to ", room, " with camera index ", ToCamera)
 		await Loader.travel_to(room, Position, ToCamera)

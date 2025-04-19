@@ -183,8 +183,10 @@ func load_res(path: String) -> Resource:
 func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans=Global.get_dir_letter(), controllable:= true):
+func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Global.get_dir_letter(), controllable:= true):
 	direc = trans
+	##Pass Z < -1 for a shortcut to controllable
+	if z < -1: controllable = false
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
 	PartyUI.hide_all()

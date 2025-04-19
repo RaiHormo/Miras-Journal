@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=4 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=117 format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="31_svxf2"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="32_o2d87"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="35_2q7ov"]
+[ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="36_2q7ov"]
 [ext_resource type="PackedScene" uid="uid://vgsferl0deam" path="res://rooms/components/JumpPointV.tscn" id="36_va2q4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp00o"]
@@ -1389,11 +1390,11 @@ room = "TempleWoods"
 ToCamera = 1
 
 [node name="Transfer5" parent="." instance=ExtResource("8_grqbv")]
-position = Vector2(1950.6, -1731.45)
+position = Vector2(1953, -1766)
 Direction = Vector2(0, -1)
 room = "Amberelm"
-ToCamera = 1
 Flag = &"EnteredAmberelm2"
+FlagShouldBe = true
 
 [node name="JumpPoint2" parent="." instance=ExtResource("35_2q7ov")]
 position = Vector2(276, 261)
@@ -1420,6 +1421,14 @@ position = Vector2(1574, -995)
 
 [node name="JumpPoint7" parent="." instance=ExtResource("36_va2q4")]
 position = Vector2(1525, -968)
+
+[node name="EnteredAmberelm2" parent="." instance=ExtResource("36_2q7ov")]
+z_index = 1
+position = Vector2(1956, -1761)
+scale = Vector2(1.68, 1)
+EventName = "enter_amberelm"
+ReturnControl = false
+KickDirection = Vector2(0, -2)
 
 [connection signal="text_changed" from="AlcineNaming/TextEdit" to="AlcineNaming" method="_on_text_edit_text_changed"]
 [connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]
