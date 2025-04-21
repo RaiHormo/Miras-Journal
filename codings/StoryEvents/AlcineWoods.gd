@@ -100,7 +100,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("story_events", "good_on_you")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
-			await move_dir(Vector2.UP)
+			await go_to(Vector2(1630, -1081), false)
 			Event.remove_flag(&"FlameActive")
 			$"../EvPetrogon".show()
 			$"../EvPetrogon".play("Fly")
@@ -113,8 +113,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Event.wait()
 			Global.Player.set_anim("EntrancePrep")
 			Global.get_cam().position += Vector2(50, 0)
-			await move_dir(Vector2.LEFT*2)
-			await move_dir(Vector2.DOWN)
+			await go_to(Vector2(1607, -1081), false)
+			await go_to(Vector2(1607, -1100), false)
 			BodyState = CUSTOM
 			$Sprite.stop()
 			$Sprite.animation = &"Scared"
@@ -175,7 +175,7 @@ func alcine_helps():
 	await bubble("Surprise")
 	PartyUI.disabled = true
 	PartyUI.hide_all()
-	var hp := Global.Bt.get_actor("Petrogon").Health
+	var hp: int = max(Global.Bt.get_actor("Petrogon").Health, 5)
 	z_index = 9
 	Global.jump_to_global(self, Vector2(1660, -1068), 7, 0.5)
 	Loader.white_fadeout(2, 3, 0.5)

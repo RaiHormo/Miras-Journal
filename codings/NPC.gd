@@ -17,8 +17,8 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##5: Custom
 var BodyState:= IDLE:
 	set(x):
-		#if x != BodyState:
-			#print(ID+"'s body state set to ", x)
+		if x != BodyState:
+			print(ID+"'s body state set to ", x)
 		BodyState = x
 		if BodyState == MOVE:
 			pass
@@ -42,16 +42,16 @@ var move_frames:= 0
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
+	#BodyState = DefaultState
 	if ID == "": ID = name
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
 	if ID in Loader.Defeated: queue_free()
-	#motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	Event.add_char(self)
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	await Event.wait()
 	if Nav == null: Nav = get_node_or_null("Nav")
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	DefaultPos = global_position
-	Event.add_char(self)
-	BodyState = DefaultState
 	default()
 
 func default() -> void:
@@ -161,7 +161,6 @@ func look_to(dir):
 	direction = dir
 	await Event.wait()
 	BodyState = IDLE
-	await Event.wait()
 
 func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
@@ -200,6 +199,7 @@ func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = 
 	BodyState = MOVE
 	if use_coords: pos = pos * 24
 	while round(global_position / accuracy) != round(pos / accuracy):
+		BodyState = MOVE
 		direction = to_local(pos).normalized()
 		await Event.wait()
 		if (autostop and is_on_wall()) or stopping: break

@@ -770,7 +770,9 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("8_spg60")
-ID = "AlcineCut"
+speed = 50
+DefaultState = 1
+SpawnOnCameraInd = true
 CameraIndex = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/AlcineCut"]
@@ -796,7 +798,9 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("8_spg60")
-ID = "MiraCut"
+speed = 50
+DefaultState = 1
+SpawnOnCameraInd = true
 CameraIndex = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/MiraCut"]
@@ -880,7 +884,7 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("8_spg60")
-ID = "MiraCut"
+ID = "MiraCut2"
 CameraIndex = 1
 
 [node name="Nav" type="NavigationAgent2D" parent="EvRestAmberelm/Mira"]
@@ -1067,6 +1071,7 @@ navigation_polygon = SubResource("NavigationPolygon_i77sn")
 
 [node name="Stairs1" parent="." instance=ExtResource("24_i77sn")]
 position = Vector2(223, 522)
+Swap = true
 
 [node name="Stairs2" parent="." instance=ExtResource("24_i77sn")]
 position = Vector2(829, 411)

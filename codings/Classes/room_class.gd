@@ -80,7 +80,7 @@ func _ready():
 			if not Event.f("FlameActive"): Global.Player.activate_flame()
 	if is_instance_valid(Global.Player):
 		Global.Player.collision(true)
-	await default()
+	default()
 	if Global.Controllable:
 		PartyUI.UIvisible = true
 		for i in Global.Area.Followers:

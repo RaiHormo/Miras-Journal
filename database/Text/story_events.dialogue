@@ -44,8 +44,8 @@ Mira.Neutural: GAHH![wait=1] GET OFF ME!
 => END
 
 ~ my_aura
-Mira.Neutural: My Aura...
-Mira.Neutural: That's right, I can use my [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
+Mira.Neutural: These wings...
+Mira.Neutural: I can use [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
 Mira.Neutural: Ok, I think I can do it.
 => END
 

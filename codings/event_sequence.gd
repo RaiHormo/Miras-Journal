@@ -40,25 +40,24 @@ func sleep_home():
 
 func enter_amberelm():
 	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, "U", false)
-	await Global.area_initialized
-	await Event.take_control(true, true)
-	Event.npc("MiraCut").speed = 50
-	Event.npc("AlcineCut").speed = 50
-	Event.npc("AlcineCut").go_to(Vector2(12, 50))
-	await Event.npc("MiraCut").go_to(Vector2(12, 49), true, false)
+	var mira: NPC = Global.Area.get_node("EvEntranceCutscene/MiraCut")
+	var alcine: NPC = Global.Area.get_node("EvEntranceCutscene/AlcineCut")
+	mira.speed = 50
+	alcine.speed = 50
+	get_tree().paused = false
+	alcine.go_to(Vector2(12, 50), true, false)
+	await mira.go_to(Vector2(12, 49), true, false)
 	await Event.wait(0.2)
-	await Event.take_control(true, true)
-	Event.npc("MiraCut").look_to(Vector2.RIGHT)
+	mira.look_to(Vector2.RIGHT)
 	await Event.wait(0.2)
-	Event.npc("AlcineCut").look_to(Vector2.RIGHT)
+	alcine.look_to(Vector2.RIGHT)
 	await Event.wait(0.3)
-	Event.npc("AlcineCut").speed = 75
-	await Event.take_control(true, true)
+	alcine.speed = 75
 	Event.TimeOfDay = Event.TOD.MORNING
 	await Global.textbox("story_events", "morning")
-	Event.npc("MiraCut").speed = 75
-	Event.npc("MiraCut").move_dir(Vector2.UP*5)
-	Event.npc("AlcineCut").chain_moves([Vector2.RIGHT, Vector2.UP*5])
+	mira.speed = 75
+	mira.move_dir(Vector2.UP*5)
+	alcine.chain_moves([Vector2.RIGHT, Vector2.UP*5])
 	await Event.wait(0.8)
 	Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, "U")
 
@@ -70,7 +69,7 @@ func rest_amberelm():
 	var cut = Global.Area.get_node("EvRestAmberelm")
 	cut.show()
 	get_tree().paused = false
-	Global.Area.Followers[0].hide()
+	Global.Area.Followers[0].hide() 
 	cut.get_node("Mira").BodyState = NPC.NONE
 	cut.get_node("Alcine").BodyState = NPC.NONE
 	cut.get_node("Mira").set_anim("SitDown")

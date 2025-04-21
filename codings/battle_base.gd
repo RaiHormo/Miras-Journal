@@ -745,7 +745,7 @@ func death(target:Actor):
 	lock_turn = false
 	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
-		if target.Disappear:
+		if target.Disappear and not target.CantDie:
 			td = create_tween()
 			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 			if target.node.is_playing():

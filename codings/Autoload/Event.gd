@@ -41,7 +41,6 @@ func npc(ID: String) -> NPC:
 			continue
 		if i.ID == ID:
 			return i
-	
 	return null
 
 ##Move an [NPC] relative to their current coords
