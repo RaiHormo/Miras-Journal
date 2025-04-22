@@ -284,7 +284,7 @@ Placeholder description: {{alcine()}} who was resting on Mira also gets up.
 Mira.Neutural: Mmm... Good morning {{alcine()}}. Or is it afternoon?
 Alcine.Tired: Meuummm...
 Placeholder description: Mira picks up the paper from yesterday.
-do npc("MiraCut").bubble("Surprise")
+do npc("MiraCut2").bubble("Surprise")
 Mira.Neutural: Huh? Is that me?
 Alcine.Happy: Mloop!
 Mira.Smile: You drew this? That's so cute!
