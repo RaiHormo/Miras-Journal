@@ -784,6 +784,7 @@ position = Vector2(0, 50)
 position = Vector2(0, 81)
 
 [node name="NPC" parent="." instance=ExtResource("16_s1pqb")]
+visible = false
 z_index = 3
 position = Vector2(715, 505)
 

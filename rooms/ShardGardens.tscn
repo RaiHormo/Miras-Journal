@@ -1628,9 +1628,11 @@ shape = SubResource("RectangleShape2D_thjc7")
 
 [node name="GroundItem" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-255, -160)
+item_name = "SmallPotion"
 
 [node name="ItemDefault1" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-261, -51)
+item_name = "SmallPotion"
 
 [node name="ItemSG1" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-517, 616)
@@ -1638,10 +1640,11 @@ item_name = "StrangeFruit"
 
 [node name="ItemSG2" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-419, -257)
+item_name = "SmallPotion"
 
 [node name="ItemSG3" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-187, 489)
-item_name = "StrangeFruit"
+item_name = "SmallPotion"
 
 [node name="ItemSG4" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-282, 441)
@@ -1649,7 +1652,7 @@ item_name = "StrangeFruit"
 
 [node name="ItemSG6" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(-91, 512)
-item_name = "StrangeFruit"
+item_name = "SmallPotion"
 
 [node name="JumpPoint1" type="Area2D" parent="."]
 position = Vector2(-96, 388)
@@ -2120,6 +2123,13 @@ sprite_frames = SubResource("SpriteFrames_a7h8m")
 animation = &"1"
 autoplay = "1"
 frame_progress = 0.142851
+
+[node name="Label" type="Label" parent="."]
+offset_left = -364.0
+offset_top = -1163.0
+offset_right = -116.0
+offset_bottom = -1140.0
+text = "This is the last part i've made lol"
 
 [connection signal="area_entered" from="BreakableWallSG/AreaBreak" to="BreakableWallSG" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableWallSG2/AreaBreak" to="BreakableWallSG2" method="_on_area_break_area_entered"]

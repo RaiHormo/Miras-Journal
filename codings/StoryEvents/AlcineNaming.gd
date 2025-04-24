@@ -48,18 +48,24 @@ func on_confirm() -> void:
 	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt:
 		$Error.text = "No."
 		$Error.show()
-	elif "mira" in txt or "levenor" in txt:
+	elif "mira" == txt or "levenor" == txt:
 		$Error.text = "That's a little egotistical..."
 		$Error.show()
 	elif ("daze" == txt or "asteria" == txt or "versea" == txt or
-	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt):
+	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt or "noreen" == txt):
 		$Error.text = "I feel like i shouldn't choose that name."
 		$Error.show()
-	elif "erinn" in txt:
+	elif "erinn" == txt:
 		$Error.text = "Name them after my cousin?\n Why?"
+		$Error.show()
+	elif "brent" == txt:
+		$Error.text = "What does he have to do with this?!"
 		$Error.show()
 	elif "enowme" in txt:
 		$Error.text = "..."
+		$Error.show()
+	elif "spirit" == txt:
+		$Error.text = "That was just placeholder..."
 		$Error.show()
 	elif "enowmi" in txt or "enomi" in txt or "eknowme" in txt or "enowm" in txt:
 		$Error.text = "You think you're clever, huh?"

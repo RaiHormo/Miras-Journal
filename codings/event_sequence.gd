@@ -87,14 +87,17 @@ func rest_amberelm():
 	Global.heal_party()
 	await Loader.detransition()
 	await Global.textbox("story_events", "wake_amberelm", true)
-	await Loader.transition("R")
-	Global.get_cam().zoom = Vector2(4,4)
-	cut.hide()
-	Global.Player.show()
-	Loader.detransition()
-	Event.give_control()
-	Event.f("EvRestAmberelm", true)
-	Loader.save()
+	Event.Day = 3
+	Event.ToTime = Event.TOD.AFTERNOON
+	Event.time_transition()
+	#await Loader.transition("R")
+	#Global.get_cam().zoom = Vector2(4,4)
+	#cut.hide()
+	#Global.Player.show()
+	#Loader.detransition()
+	#Event.give_control()
+	#Event.f("EvRestAmberelm", true)
+	#Loader.save()
 
 func waste_time():
 	await Event.take_control()
@@ -132,7 +135,7 @@ func nov3_afternoon():
 	await Event.wait(2)
 	await Global.textbox("story_events", "nov3_afternoon", false)
 	Event.add_flag("Nov3_Afternoon")
-	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 424))
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.Facing = Vector2.RIGHT
 
 func nov3_enterSG():
