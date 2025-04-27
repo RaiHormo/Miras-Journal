@@ -32,6 +32,7 @@ func _ready():
 		page.name = "Page"+str(i)
 		page.z_index = 3 - i
 		%Pages.add_child(page)
+	%Partybox/Member1.show()
 	for i in range(2, 4):
 		var box = %Partybox/Member1.duplicate()
 		box.name = "Member"+str(i)
@@ -144,7 +145,7 @@ func _input(ev):
 		if Input.is_action_just_pressed("Debug0"):
 			if Engine.time_scale == 0.1: Engine.time_scale = 1
 			else: Engine.time_scale = 0.1
-		Global.check_party.emit()
+		#Global.check_party.emit()
 
 func darken(toggle := true):
 	t = create_tween()
@@ -433,7 +434,10 @@ func battle_state(from:= false):
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
 func save_box_positions():
-	for i in range(1, 4): def_pos_partybox[i] = Partybox.get_child(i).position
+	for i in range(0, 4): 
+		var box = Partybox.get_child(i)
+		if i == 0 or box.position.y > 100:
+			def_pos_partybox[i] = box.position
 
 func _on_battle_ui_root():
 	battle_state()
@@ -455,6 +459,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
+	if visibly and not Expanded: node.position.y = def_pos_partybox[ind].y
 	var character_label = mem.FirstName
 	var txt_color = mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
@@ -701,3 +706,9 @@ func _on_idle_timer_timeout() -> void:
 func hit_partybox(x: int, am: int, rep: int):
 	print(am, " ",rep)
 	Global.node_shake(%Partybox.get_child(x), am, rep)
+
+func _on_partybox_sort_children() -> void:
+	if not Expanded:
+		for i in range(1, 4):
+			Partybox.get_child(i).position.x = -70
+		save_box_positions()

@@ -142,7 +142,7 @@ func handle_states():
 						chara.remove_state(state)
 						chara.NextTarget = null
 				"Zapped":
-					if randi_range(0,4) > 1:
+					if randi_range(0,6) > 1:
 						Bt.focus_cam(chara)
 						Global.toast(chara.FirstName+" can't move from the shock!")
 						chara.NextAction = "Attack"
@@ -964,7 +964,7 @@ func AlcineWoods2():
 	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
 	Bt.get_actor("Alcine").node.show()
 	await Event.wait(2)
-	PartyUI.hide_all()
+	PartyUI.battle_state(true)
 	Bt.end_turn()
 
 func AlcineWoods3():

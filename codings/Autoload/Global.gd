@@ -135,6 +135,7 @@ func new_game() -> void:
 	Event.f("HasBag", false)
 	PartyUI.hide_all()
 	Event.f("DisableMenus", true)
+	Event.f("HideDate", true)
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
 	Item.MatInv.clear()

@@ -54,6 +54,7 @@ func enter_amberelm():
 	await Event.wait(0.3)
 	alcine.speed = 75
 	Event.TimeOfDay = Event.TOD.MORNING
+	Event.Day = 1
 	await Global.textbox("story_events", "morning")
 	mira.speed = 75
 	mira.move_dir(Vector2.UP*5)

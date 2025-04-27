@@ -8,8 +8,8 @@ func _ready() -> void:
 	hide_prompt()
 
 func _check_party():
-	if Event.Day not in HideOnDays: show()
-	else: hide()
+	if Event.f("HideDate") and not $Action.visible: hide()
+	else: show()
 	$Container/TimeOfDay.text = Global.to_tod_text(Event.TimeOfDay)
 	$Container/TimeOfDay.icon = Global.to_tod_icon(Event.TimeOfDay)
 	$Date/Day.text = str(Event.Day)

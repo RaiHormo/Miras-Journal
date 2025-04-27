@@ -5,6 +5,7 @@ Maybe I should follow it.
 
 ~ first_cutscene
 Placeholder description: A cutscenre that isn't made yet should play here.
+Placeholder description: Basically, a monsters comes out of the lake and attacks mira.
 => END
 Placeholder description: Whenever a box like this appears, pretend you're seeing whatever is described on screen.
 Placeholder description: You see a paw walk through the grass.
@@ -49,7 +50,7 @@ Mira.Neutural: That's it! I can use [outline_size=12][outline_color=#6c3e18][col
 => END
 
 ~ what_this
-There might be more of these monster up ahead, I should be careful...
+Phew, that was scary...
 do get_node("/root/Battle/Act/Actor0").hide()
 set Global.Player.position = get_node("/root/Battle/Act/Actor0").global_position
 do Global.Player.show()
@@ -195,6 +196,8 @@ elif alcine() == "Alc":
 	Maybe too short?
 elif alcine() == "Al":
 	Weird.
+elif alcine() == "Steve":
+	They... will be Steve.
 elif alcine() == "Alcaine":
 	No, too far.
 elif alcine() == "Alkaline":

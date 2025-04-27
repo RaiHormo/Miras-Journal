@@ -50,7 +50,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	AblilityList.append(Char.StandardAttack)
 	for i: Ability in AblilityList.duplicate():
-		if i == null or i.Damage == Ability.D.WEAPON: AblilityList.erase(i)
+		if i == null: AblilityList.erase(i)
 	var Choices:Array[Ability] = []
 	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:
@@ -62,7 +62,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)) and not (
 		Char.has_state("Bound") and i.Damage == Ability.D.WEAPON):
 			if (i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health:
-				Choices.push_front(i)
+				Choices.append(i)
 				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
 			else: print("Not enough resources")
 	return Choices

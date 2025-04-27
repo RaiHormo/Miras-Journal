@@ -67,8 +67,12 @@ func check() -> void:
 		CanInteract = true
 
 func destroy():
-	if hide_parent: get_parent().hide()
-	else: hide()
+	if hide_parent: 
+		get_parent().hide()
+		get_parent().scale = Vector2.ZERO
+	else: 
+		hide()
+		scale = Vector2.ZERO
 
 func appear():
 	if not CanInteract and not animating:
