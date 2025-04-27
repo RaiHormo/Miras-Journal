@@ -1908,7 +1908,6 @@ animation = &"Scarf1"
 [node name="Cam" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 limit_smoothed = true
-position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
 [node name="AI" type="Node" parent="."]

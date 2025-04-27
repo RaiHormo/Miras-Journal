@@ -142,11 +142,12 @@ func handle_states():
 						chara.remove_state(state)
 						chara.NextTarget = null
 				"Zapped":
-					Bt.focus_cam(chara)
-					Global.toast(chara.FirstName+" can't move from the shock!")
-					chara.NextAction = "Attack"
-					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
-					await Bt.shake_actor(chara)
+					if randi_range(0,4) > 1:
+						Bt.focus_cam(chara)
+						Global.toast(chara.FirstName+" can't move from the shock!")
+						chara.NextAction = "Attack"
+						chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+						await Bt.shake_actor(chara)
 				"Frozen":
 					Bt.focus_cam(chara)
 					Global.toast(chara.FirstName+" can't move from the cold!")

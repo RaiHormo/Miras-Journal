@@ -1447,7 +1447,7 @@ position = Vector2(-1, 18)
 gizmo_extents = 100.0
 
 [node name="EnemySG5" parent="." instance=ExtResource("4_ujeyr")]
-position = Vector2(-484, 344)
+position = Vector2(-378, -783)
 BattleSeq = SubResource("Resource_ohs4u")
 chase_speed = 90
 speed = 90
@@ -1476,7 +1476,7 @@ autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="EscapePosition" type="Marker2D" parent="EnemySG5"]
-position = Vector2(149, 293)
+position = Vector2(156, 85)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemySG5"]
 
@@ -1868,9 +1868,11 @@ jump_am = 2
 
 [node name="ItemDefault2" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(829, 658)
+item_name = "SmallPotion"
 
 [node name="ItemDefault3" parent="." instance=ExtResource("7_kvb7h")]
 position = Vector2(456, 894)
+item_name = "LifeLave"
 
 [node name="Shard1" parent="." instance=ExtResource("26_yhh0x")]
 z_index = -1

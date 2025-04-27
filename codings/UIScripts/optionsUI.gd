@@ -519,11 +519,12 @@ func _on_control_scheme(index):
 	Global.save_settings()
 	load_settings()
 
-func _on_fullscreen():
-	Global.fullscreen()
-	Global.confirm_sound()
-	await get_tree().create_timer(0.5).timeout
-	load_settings()
+func _on_fullscreen(tog: bool):
+	if tog != Global.Settings.Fullscreen:
+		Global.fullscreen(tog)
+		Global.confirm_sound()
+		await get_tree().create_timer(0.5).timeout
+		load_settings()
 
 func _on_quit():
 	Global.quit()

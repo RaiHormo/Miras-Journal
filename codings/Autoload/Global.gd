@@ -58,7 +58,6 @@ func _ready() -> void:
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
-	#ready_window()
 	init_settings()
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
@@ -142,8 +141,7 @@ func new_game() -> void:
 	Item.add_item("Wallet", &"Key", false)
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)
-	Item.add_item("SmallPotion", &"Con", false)
-	Item.add_item("SmallPotion", &"Con", false)
+	#Item.add_item("SmallPotion", &"Con", false)
 	Loader.Defeated.clear()
 	Party.reset_party()
 	Loader.white_fadeout()
@@ -276,18 +274,19 @@ func refresh():
 	await Loader.save()
 	Loader.load_game()
 
-func fullscreen() -> void:
+func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	if !Settings: await init_settings()
 	if Engine.is_embedded_in_editor():
 		toast("Can't fullscreen while the window is embeded")
 		Settings.Fullscreen = false
 		return
-	if get_window().mode != 3:
+	if tog:
+		Settings.Fullscreen = true
 		get_window().mode = Window.MODE_FULLSCREEN
 		await get_tree().create_timer(0.1).timeout
 		get_window().grab_focus()
-		Settings.Fullscreen = true
 	else:
+		Settings.Fullscreen = false
 		get_window().mode = Window.MODE_WINDOWED
 		if OS.get_name() == "Linux":
 			get_window().size = Vector2i(1280,800)
@@ -295,7 +294,6 @@ func fullscreen() -> void:
 			get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
 			await get_tree().create_timer(0.15).timeout
 			get_window().grab_focus()
-		Settings.Fullscreen = false
 	save_settings()
 
 func reset_settings() -> void:
@@ -318,7 +316,7 @@ func init_settings() -> void:
 
 func apply_settings():
 	if Settings.Fullscreen:
-		fullscreen()
+		fullscreen(true)
 	if Settings.GlowEffect:
 		World.environment.glow_enabled = true
 	else: World.environment.glow_enabled = false

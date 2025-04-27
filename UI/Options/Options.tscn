@@ -1816,7 +1816,7 @@ texture = ExtResource("26_375bk")
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
-[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/HighResTextures/CheckButton" to="." method="_on_highres_textures"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="_fps"]

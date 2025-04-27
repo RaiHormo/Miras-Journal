@@ -145,7 +145,6 @@ func nov3_enterSG():
 	Global.Party.add("Alcine")
 	Global.Party.add("Asteria")
 	Global.Party.add("Daze")
-	await Global.area_initialized
 	Global.Player.camera_follow(false)
 	Global.Camera.position = Vector2(663, 241)
 	var t = create_tween().set_ease(Tween.EASE_IN_OUT)

@@ -179,6 +179,7 @@ func _check_party() -> void:
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrite_bodystate = false) -> void:
+	#print(anim)
 	if get_node_or_null("%Base") == null: return
 	if not Global.Controllable: reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
@@ -196,7 +197,7 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 	used_sprite.play(anim)
 	if wait:
 		while used_sprite.is_playing() and used_sprite.animation == anim:
-			await Event.wait()
+			await get_tree().physics_frame
 
 func hide_other_sprites():
 	for i in $Sprite.get_children():

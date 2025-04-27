@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://dhcj1318p3b4g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dhcj1318p3b4g"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_4agl2"]
-[ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_fnv26"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_keytb"]
 [ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
@@ -44,7 +43,7 @@ Aura = 0
 SkillLevel = 0
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[ExtResource("1_keytb")]([ExtResource("1_fnv26"), ExtResource("2_pm52f"), ExtResource("3_xe4iy")])
+Abilities = Array[ExtResource("1_keytb")]([ExtResource("2_pm52f"), ExtResource("3_xe4iy")])
 StandardAttack = ExtResource("4_rtvyb")
 LearnableAbilities = Array[ExtResource("1_keytb")]([])
 BT = ExtResource("1_nfmau")

@@ -67,9 +67,8 @@ func check() -> void:
 		CanInteract = true
 
 func destroy():
-	if hidesprite:
-		if hide_parent: get_parent().queue_free()
-		else: queue_free()
+	if hide_parent: get_parent().hide()
+	else: hide()
 
 func appear():
 	if not CanInteract and not animating:
@@ -193,6 +192,7 @@ func _on_button_pressed() -> void:
 		"vainet":
 			if Event.f(get_parent().name):
 				Global.vainet_map(get_parent().name.replace("VP", ""))
+				Loader.save()
 			else:
 				Event.f(get_parent().name, true)
 				vain_check()
@@ -207,7 +207,7 @@ func _on_button_pressed() -> void:
 			await Event.wait(1)
 			if add_flag: Event.f(hide_on_flag, true)
 			Global.check_party.emit()
-			await Event.wait(3)
+			await Event.wait(3, false)
 			Global.Player.camera_follow(true)
 	if return_control:
 		Event.give_control(false)

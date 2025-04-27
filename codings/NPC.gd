@@ -17,8 +17,8 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##5: Custom
 var BodyState:= IDLE:
 	set(x):
-		if x != BodyState:
-			print(ID+"'s body state set to ", x)
+		#if x != BodyState:
+			#print(ID+"'s body state set to ", x)
 		BodyState = x
 		if BodyState == MOVE:
 			pass

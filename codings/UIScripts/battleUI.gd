@@ -490,15 +490,16 @@ func _on_command():
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	analyzing = false
-	if Bt.Seq.CanEscape:
-		$CommandMenu/Escape.show()
-		t.tween_property($CommandMenu/Escape,
-		"rotation_degrees", 0, 0.3).from(-180)
-		$CommandMenu/Escape.icon = Global.get_controller().LZ
-		$CommandMenu/Analyze.icon = Global.get_controller().ConfirmIcon
-		$CommandMenu/Strategize.icon = Global.get_controller().ItemIcon
-		$CommandMenu.modulate = Color.WHITE
-	else: $CommandMenu/Escape.hide()
+	$CommandMenu/Escape.show()
+	t.tween_property($CommandMenu/Escape,
+	"rotation_degrees", 0, 0.3).from(-180)
+	$CommandMenu/Escape.icon = Global.get_controller().LZ
+	$CommandMenu/Analyze.icon = Global.get_controller().ConfirmIcon
+	$CommandMenu/Strategize.icon = Global.get_controller().ItemIcon
+	$CommandMenu.modulate = Color.WHITE
+	if not Bt.Seq.CanEscape:
+		$CommandMenu/Escape.modulate = Color(1,1,1,0.6)
+	else: $CommandMenu/Escape.modulate = Color(1,1,1,1)
 	$CommandMenu.show()
 	await Event.wait()
 	stage = &"command"
@@ -759,6 +760,7 @@ func move_menu():
 		active = true
 	if stage == &"ability":
 		if not foc.has_meta("Ability"): return
+		if not foc.has_meta("AbilityGroup"): return
 		active= false
 		await get_tree().create_timer(0.001).timeout
 		$RankSwap.global_position = foc.global_position

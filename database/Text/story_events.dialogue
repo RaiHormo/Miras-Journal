@@ -91,7 +91,7 @@ Shewww
 The creature tightly hugs me.
 Their body feels like it's made of liquid...
 Mira.Neutural: What are you so scared about?
-do npc("Alcine").move_dir(Vector2(1,0))
+do npc("Alcine").move_dir(Vector2(2,0))
 do npc("Alcine").look_to(Vector2(-1,0))
 Mira.Smile: Everything will be ok!
 do portrait("AlcineHappy")
@@ -429,6 +429,7 @@ if not f("EvSwitchCastLines2"):
 	do Player.camera_follow(true)
 	Asteria.Neutural: There was a Vain nearby, let's head there. 
 	do add_flag("EvSwitchCastLines2")
+	Placeholder description: This is the last part available rn
 else:
 	Asteria.Neutural: Mira! We can't make any progress here unless we despell this.
 	Mira.Neutural: I know, I know.

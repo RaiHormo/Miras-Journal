@@ -1221,6 +1221,7 @@ LabelText = "Pick up"
 ActionType = "event"
 file = "bag_seq"
 hidesprite = true
+return_control = false
 hide_on_flag = &"HasBag"
 add_flag = true
 hide_parent = true
@@ -1320,7 +1321,7 @@ position = Vector2(1429.94, -277.327)
 item_name = "LifeLave"
 
 [node name="ItemSharpRock1" parent="." instance=ExtResource("26_k6j3t")]
-position = Vector2(588.06, 262.866)
+position = Vector2(1234, 268)
 item_type = &"Bti"
 item_name = "SharpRock"
 

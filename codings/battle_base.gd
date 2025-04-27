@@ -214,9 +214,9 @@ func position_sprites():
 
 func entrance():
 	Action = true
+	$Cam.position_smoothing_enabled = false
 	if Seq.Transition:
 		$Cam.zoom = Vector2(5,5)
-		$Cam.position_smoothing_enabled = false
 		$Cam.position = Vector2(90,10)
 		if Troop.size()<3:
 			Loader.battle_bars(3)
@@ -252,7 +252,6 @@ func entrance():
 		for i in PartyArray:
 			entrance_anim(i)
 	Loader.battle_bars(2)
-	$Cam.position_smoothing_enabled = true
 	await Event.wait(0.5, false)
 	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
 	PartyUI.battle_state(true)
@@ -361,6 +360,7 @@ func _input(event):
 		victory()
 	if Input.is_action_pressed("Dash") and Action:
 			Engine.time_scale = 8
+			$Cam.position_smoothing_enabled = false
 	elif Input.is_action_just_released("Dash"):
 		Engine.time_scale = 1
 	if AwaitVictory:
@@ -558,7 +558,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		Global.toast("The ice on "+ target.FirstName+ " breaks!")
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
-	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/4)
+	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
 	if elemental:
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
@@ -748,9 +748,9 @@ func death(target:Actor):
 		if target.Disappear and not target.CantDie:
 			td = create_tween()
 			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
-			if target.node.is_playing():
-				await target.node.animation_finished
-			if target and target.node:
+			while target.node.is_playing() and target.node.animation == "KnockOut":
+				await Event.wait()
+			if is_instance_valid(target) and is_instance_valid(target.node):
 				target.queue_delete = true
 				target.node.hide()
 

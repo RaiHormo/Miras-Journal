@@ -619,12 +619,13 @@ func party_menu():
 			Global.confirm_sound()
 
 func main_menu():
-	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing:
+	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
 		Global.Controllable = false
 		get_tree().paused = true
 		Global.Player.bag_anim()
 		Global.ui_sound("Menu")
 		get_tree().root.add_child((await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")).instantiate())
+	elif Global.Controllable: Global.buzzer_sound()
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):
 	if chara.States.is_empty(): rect.texture = null

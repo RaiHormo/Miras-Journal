@@ -47,8 +47,8 @@ func ai() -> void:
 func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
 	#print("Chosing a ", type, " ability")
 	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
-	AblilityList.push_front(Char.StandardAttack)
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
+	AblilityList.append(Char.StandardAttack)
 	for i: Ability in AblilityList.duplicate():
 		if i == null or i.Damage == Ability.D.WEAPON: AblilityList.erase(i)
 	var Choices:Array[Ability] = []
