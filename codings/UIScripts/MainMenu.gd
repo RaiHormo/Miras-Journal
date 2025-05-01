@@ -88,8 +88,8 @@ func _ready():
 	get_tree().paused = true
 	#player.reset_speed()
 	#player.bag_anim()
-	await $Base.animation_finished
 	stage = "root"
+	await $Base.animation_finished
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -108,7 +108,8 @@ func _input(event):
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
 				if rootIndex == 0:
-					Global.buzzer_sound()
+					#Global.buzzer_sound()
+					pass
 				else:
 					Global.cursor_sound()
 					prevRootIndex = rootIndex
@@ -116,7 +117,8 @@ func _input(event):
 					move_root()
 			elif Input.is_action_just_pressed("ui_down"):
 				if rootIndex == 3:
-					Global.buzzer_sound()
+					pass
+					#Global.buzzer_sound()
 				else:
 					Global.cursor_sound()
 					prevRootIndex = rootIndex
@@ -282,6 +284,7 @@ func _root():
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	$Confirm.show()
+	$Back.show()
 	PartyUI.UIvisible = true
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -317,10 +320,39 @@ func _root():
 
 func _journal():
 	if stage == "inactive": return
-	if rootIndex!=3:
+	if rootIndex != 0:
 		rootIndex = 0
 		move_root()
-	pass
+	stage="journal"
+	Global.confirm_sound()
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
+	$Rail/JournalFollow/JournalButton.toggle_mode = true
+	$Rail/JournalFollow/JournalButton.set_pressed_no_signal(true)
+	$Rail/JournalFollow.z_index = 1
+	t.tween_property($Rail/JournalFollow, "progress", 587, 0.3)
+	t.tween_property($Rail/JournalFollow, "rotation_degrees", 0, 0.3)
+	t.tween_property($DottedBack, "modulate", Color(0.67, 0.67, 0.62, 0.2), 0.4)
+	t.tween_property($Rail/ItemFollow, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property($Rail/ItemFollow/ItemButton, "size:x", 64, 0.5)
+	t.tween_property($Rail/JournalFollow/JournalButton, "position", Vector2(-610, -100), 0.6)
+	t.tween_property($Rail/QuestFollow/QuestButton, "size:x", 64, 0.5)
+	t.tween_property($Rail/QuestFollow/QuestButton, "position:x", -30, 0.5)
+	t.tween_property($Rail/OptionsFollow/OptionsButton, "size:x", 64, 0.5)
+	t.tween_property($Rail/OptionsFollow/OptionsButton, "position:x", -30, 0.5)
+	t.tween_property($Rail/JournalFollow, "progress", 587, 0.3)
+	t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
+	t.tween_property($Rail/QuestFollow, "progress", 587, 0.3)
+	t.tween_property($Rail/OptionsFollow, "progress", 587, 0.3)
+	t.tween_property(Cam, "offset:x", 100, 0.6)
+	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
+	t.tween_property($Ring, "position", Vector2(-500 ,0), 0.6).as_relative()
+	var journalui: CanvasLayer = (await Loader.load_res("res://UI/Journal/JournalUI.tscn")).instantiate()
+	$Confirm.hide()
+	$Back.hide()
+	get_tree().root.add_child(journalui)
+	PartyUI.hide_all()
 
 func _item():
 	if stage == "inactive": return
@@ -346,7 +378,7 @@ func _item():
 	t.tween_property($DescPaper, "scale", Vector2(0.7,0.7), 0.4)
 	t.tween_property($DescPaper, "modulate", Color.WHITE, 0.4)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.1)
-	t.tween_property($DottedBack, "modulate", Color(0.67, 0.67, 0.62, 0.1), 0.4)
+	t.tween_property($DottedBack, "modulate", Color(0.67, 0.67, 0.62, 0.2), 0.4)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -422,6 +454,9 @@ func _on_back_button_down():
 			close()
 		"item":
 			_root()
+		"journal":
+			_root()
+			get_tree().root.get_node("JournalUI").queue_free()
 		"options":
 			if get_tree().root.get_node_or_null("Options") == null or get_tree().root.get_node("Options").stage == "main":
 				stage = "root"

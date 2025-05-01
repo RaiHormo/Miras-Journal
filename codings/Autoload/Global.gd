@@ -610,7 +610,7 @@ func get_dir_from_letter(d: String) -> Vector2:
 			return Vector2.ZERO
 
 
-func tilemapize(pos: Vector2) -> void:
+func tilemapize(pos: Vector2) -> Vector2:
 	return Area.local_to_map(pos)
 
 func globalize(coords :Vector2i) -> Vector2:

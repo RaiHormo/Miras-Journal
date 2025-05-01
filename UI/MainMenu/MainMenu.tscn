@@ -795,12 +795,12 @@ offset_bottom = 1450.0
 texture = SubResource("GradientTexture2D_rqg3q")
 
 [node name="DottedBack" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.0313726)
+modulate = Color(1, 1, 1, 0.2)
 show_behind_parent = true
 light_mask = 0
 offset_left = 322.0
 offset_top = -8.0
-offset_right = 1525.0
+offset_right = 1718.0
 offset_bottom = 1016.0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_w0qna")
@@ -830,7 +830,6 @@ offset_bottom = 30.0
 pivot_offset = Vector2(30, 30)
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
-disabled = true
 text = "Journal"
 text_overrun_behavior = 1
 clip_text = true

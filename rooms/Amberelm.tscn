@@ -497,7 +497,6 @@ position = Vector2(330.758, 61.0007)
 rotation = 1.57081
 scale = Vector2(0.100654, 421.871)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.5
 texture = SubResource("GradientTexture1D_shwm3")
 
 [node name="WaterLight7" type="PointLight2D" parent="."]
@@ -506,7 +505,6 @@ position = Vector2(-47.9037, 60.6597)
 rotation = 1.57081
 scale = Vector2(0.100654, 143.626)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.5
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="WaterLight6" type="PointLight2D" parent="."]
@@ -524,7 +522,7 @@ position = Vector2(504.287, 500.539)
 rotation = -3.14159
 scale = Vector2(1.67161, 904.554)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.5
+energy = 0.7
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="WaterLight4" type="PointLight2D" parent="."]
@@ -533,7 +531,6 @@ position = Vector2(304.543, 795.568)
 rotation = -1.57079
 scale = Vector2(1.14848, 481.634)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.5
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="WaterLight3" type="PointLight2D" parent="."]
@@ -856,7 +853,7 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("8_spg60")
-ID = "AlcineCut"
+ID = "AlcineCut2"
 CameraIndex = 1
 
 [node name="Nav" type="NavigationAgent2D" parent="EvRestAmberelm/Alcine"]

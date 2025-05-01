@@ -161,6 +161,7 @@ func look_to(dir):
 	direction = dir
 	await Event.wait()
 	BodyState = IDLE
+	Facing = dir
 
 func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
@@ -197,7 +198,7 @@ func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = 
 	if self is Mira and Global.Controllable: return
 	await stop_going()
 	BodyState = MOVE
-	if use_coords: pos = pos * 24
+	if use_coords: pos = Global.globalize(pos)
 	while round(global_position / accuracy) != round(pos / accuracy):
 		BodyState = MOVE
 		direction = to_local(pos).normalized()

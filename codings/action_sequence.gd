@@ -86,14 +86,14 @@ func handle_states():
 					if chara.Aura != 0:
 						state.QueueRemove = true
 				"Burned":
-					chara.node.get_node("State").play("Burned")
+					#chara.node.get_node("State").play("Burned")
 					Bt.focus_cam(chara, 0.3)
 					Bt.play_sound("BurnWoosh", chara)
 					Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
 					await get_tree().create_timer(0.8).timeout
 				"Poisoned":
 					state.turns += 2
-					chara.node.get_node("State").play("Poisoned")
+					#chara.node.get_node("State").play("Poisoned")
 					Bt.focus_cam(chara, 0.3)
 					Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
 					await get_tree().create_timer(0.8).timeout

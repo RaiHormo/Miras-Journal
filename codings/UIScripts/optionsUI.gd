@@ -389,11 +389,14 @@ func _on_save_delete() -> void:
 	$SavePanel/Buttons/Delete.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Global.confirm_sound()
-		if panel.name == "File0": 
-			print("Deleting user://Autosave.tres")
-			DirAccess.remove_absolute("user://"+panel.name+".tres")
-			Loader.save()
-			panel.set_meta(&"Unprocessed", true)
+		if panel.name == "File0":
+			if cant_save:
+				Global.toast("Press F1 to delete the file manually.")
+			else:
+				print("Deleting user://Autosave.tres")
+				DirAccess.remove_absolute("user://Autosave.tres")
+				Loader.save()
+				panel.set_meta(&"Unprocessed", true)
 		else:
 			print("Deleting user://"+panel.name+".tres")
 			DirAccess.remove_absolute("user://"+panel.name+".tres")

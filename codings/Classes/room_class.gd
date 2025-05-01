@@ -92,7 +92,9 @@ func setup_params(tween_zoom = false):
 	Cam.position_smoothing_enabled = true
 	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
-	var zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+	var zoom = Vector2(4, 4)
+	if Global.CameraInd < CameraZooms.size():
+		zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
 	if tween_zoom:
 		var t = create_tween()
 		t.set_ease(Tween.EASE_OUT)

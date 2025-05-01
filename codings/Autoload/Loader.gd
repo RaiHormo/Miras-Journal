@@ -130,6 +130,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 			for i in temp_members:
 				if i.codename == j.codename: exists = true
 			if not exists: temp_members.append(j)
+	PartyUI.LevelupChain.clear()
 	Global.Members = temp_members
 	Global.make_array_unique(Global.Members)
 	Global.Party.set_to_strarr(data.Party)

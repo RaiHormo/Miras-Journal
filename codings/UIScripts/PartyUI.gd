@@ -43,6 +43,7 @@ func _ready():
 		shrink.emit()
 	Global.check_party.connect(_check_party)
 	Global.check_party.emit()
+	hide_all()
 
 func _process(delta):
 	if disabled: UIvisible = false
@@ -491,10 +492,9 @@ func check_for_levelups(mem:Actor, node:Panel):
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	if mem.SkillLevel < mem.SkillPointsFor.size() and mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]:
+	if (mem.SkillLevel < mem.SkillPointsFor.size() and mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]) or mem.codename in LevelupChain:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	else:
-		if (mem.codename+str(mem.SkillLevel) in LevelupChain): return
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
 		await t.finished
 		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
@@ -503,7 +503,7 @@ func check_for_levelups(mem:Actor, node:Panel):
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished
 		mem.SkillLevel += 1
-		LevelupChain.append(mem.codename+":"+str(mem.SkillLevel))
+		LevelupChain.append(mem.codename)
 		print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
 		node.get_node("Level/Number").text = str(mem.SkillLevel)
 		if mem.SkillLevel < mem.SkillPointsFor.size():
@@ -607,7 +607,7 @@ func cmd():
 		Global.Controllable = true
 
 func party_menu():
-	if Loader.InBattle == false and not Global.Player.dashing and not MemberChoosing and Global.Controllable:
+	if Loader.InBattle == false and is_instance_valid(Global.Player) and not Global.Player.dashing and not MemberChoosing and Global.Controllable:
 		if disabled:
 			Global.buzzer_sound()
 			return

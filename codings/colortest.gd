@@ -62,6 +62,7 @@ func show_trg_color(clr: Color):
 	$ColorIndicator.add_theme_stylebox_override("panel", IndicatorPanel)
 	relation_ico = null
 	await t.finished
+	IndicatorPanel.bg_color = tar_aff.color
 	if tar_aff.hue in affinity.oposing_range: relation_ico = $DoubleWeakIcon
 	elif tar_aff.hue in affinity.weak_range: relation_ico = $WeakIcon
 	elif tar_aff.hue in affinity.resist_range: relation_ico = $ResistIcon

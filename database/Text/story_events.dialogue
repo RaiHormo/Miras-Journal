@@ -234,7 +234,7 @@ do npc("MiraCut").look_to(Vector2(0, -1))
 do npc("MiraCut").bubble("Surprise")
 [wait=0.1] [next=auto]
 do npc("AlcineCut").look_to(Vector2(0, -1))
-Mira.Neutural: Look {{find_member("Alcine").FirstName}}!
+Mira.Neutural: Look {{alcine()}}!
 [wait=0.1] [next=auto]
 do npc("AlcineCut").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
 Mira.Neutural: That looks like a town, doesn't it?
