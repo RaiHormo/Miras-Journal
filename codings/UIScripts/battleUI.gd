@@ -344,9 +344,9 @@ func _on_root():
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
 	Bt.get_node("Canvas/TurnOrder").show()
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,742), 0.4)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.4)
-	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.5)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 850, 0.3)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position:y", 850, 0.4)
+	t.tween_property(Bt.get_node("Canvas/Give"), "position:y", 850, 0.5)
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
 	tweendone = false
@@ -401,8 +401,8 @@ func _on_ability():
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
 	t.tween_property($"../Canvas/Confirm", "position",
-	Vector2(195,742), 0.4).from(Vector2(195,850))
-	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
+	Vector2(31,742), 0.4).from(Vector2(31,850))
+	t.tween_property($"../Canvas/Back", "position", Vector2(210,742), 0.3).from(Vector2(210,850))
 	t.tween_property($Ability, "size", Vector2(115,33), 0.3)
 	t.tween_property($Ability, "modulate", Color.WHITE, 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
@@ -470,7 +470,7 @@ func _on_command():
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position",
-	Vector2(31,742), 0.3).from(Vector2(31,850))
+	Vector2(31, 742), 0.3).from(Vector2(31, 850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
@@ -536,9 +536,9 @@ func _on_item() -> void:
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
-	t.tween_property($"../Canvas/Confirm", "position",Vector2(195,742), 0.4).from(Vector2(195,850))
-	t.tween_property($"../Canvas/Back", "position", Vector2(31,742), 0.3).from(Vector2(31,850))
-	t.tween_property($"../Canvas/Give", "position", Vector2(371,742), 0.5).from(Vector2(371,850))
+	t.tween_property($"../Canvas/Confirm", "position:y",742, 0.3).from(850)
+	t.tween_property($"../Canvas/Back", "position", Vector2(210, 742), 0.4).from(Vector2(210, 850))
+	t.tween_property($"../Canvas/Give", "position", Vector2(380,742), 0.5).from(Vector2(380,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.3).from(Color.WHITE)
 	t.tween_property($Inventory, "scale", Vector2(0.21, 0.21), 0.3).from(Vector2(0.1, 0.1))
@@ -604,13 +604,12 @@ func close():
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 	$RankSwap.hide()
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position", Vector2(195,850), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Back"), "position", Vector2(31,850), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 850, 0.3)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position:y", 850, 0.4)
+	t.tween_property(Bt.get_node("Canvas/Give"), "position:y", 850, 0.5)
 	PartyUI.battle_state()
 	await t.finished
 	hide()
-
 
 func _on_ability_pressed():
 	if stage == &"root": ability.emit()
@@ -676,10 +675,10 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
 #	t.tween_property(self, "rotation_degrees", 360, 0.2)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position",
-	Vector2(195,742), 0.3).from(Vector2(195,850))
-	t.tween_property(Bt.get_node("Canvas/Back"), "position",
-	Vector2(31,742), 0.4).from(Vector2(31,850))
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y",
+	742, 0.3)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position:y",
+	742, 0.4)
 
 	t.tween_property(self, "scale", Vector2(0.7,0.7), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(0.2,0.2), 0.3)

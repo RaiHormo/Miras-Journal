@@ -3,6 +3,8 @@ extends CanvasLayer
 var stage: String
 
 func _ready() -> void:
+	$Close.icon = Global.get_controller().CancelIcon
+	$Select.icon = Global.get_controller().ConfirmIcon
 	root()
 
 func root():
@@ -14,7 +16,7 @@ func root():
 	$List.hide()
 	$RootMenu/Diary.grab_focus()
 	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
-	t.tween_property($Close, "position:x", 31, 0.3)
+	t.tween_property($Close, "position:x", 200, 0.3)
 	t.tween_property($Journal, "position", Vector2(600, 0), 1).from(Vector2(600, 2000))
 	t.tween_property($RootMenu, "modulate", Color.WHITE, 0.6).from(Color.TRANSPARENT)
 	t.tween_property($RootMenu, "position:x", 254, 0.6).from(400)

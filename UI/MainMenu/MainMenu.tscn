@@ -708,7 +708,20 @@ corner_radius_bottom_left = 24
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xe1ew"]
 shader = ExtResource("7_fk5rv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhyn7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvgpy"]
+content_margin_left = 8.0
+bg_color = Color(0.894, 0.894, 0.894, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qf4k"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -721,33 +734,21 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi51m"]
-content_margin_left = 8.0
-bg_color = Color(0.894118, 0.894118, 0.894118, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_right = 26
-corner_radius_bottom_left = 26
-
 [sub_resource type="Theme" id="Theme_4kcni"]
 default_font = ExtResource("11_ogd2p")
 Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.389, 0.389, 0.389, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 0
-Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_xhyn7")
-Button/styles/hover = SubResource("StyleBoxFlat_xi51m")
-Button/styles/normal = SubResource("StyleBoxFlat_xhyn7")
-Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
+Button/styles/disabled = SubResource("StyleBoxFlat_hvgpy")
+Button/styles/focus = SubResource("StyleBoxFlat_4qf4k")
+Button/styles/hover = SubResource("StyleBoxFlat_hvgpy")
+Button/styles/normal = SubResource("StyleBoxFlat_4qf4k")
+Button/styles/pressed = SubResource("StyleBoxFlat_4qf4k")
 
 [sub_resource type="InputEventAction" id="InputEventAction_hjoav"]
 action = &"ui_accept"
@@ -1117,9 +1118,9 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1
-offset_left = 195.0
+offset_left = 31.0
 offset_top = 741.0
-offset_right = 312.0
+offset_right = 148.0
 offset_bottom = 774.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
@@ -1142,9 +1143,9 @@ visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1
 offset_left = 31.0
-offset_top = 742.0
+offset_top = 741.0
 offset_right = 140.0
-offset_bottom = 775.0
+offset_bottom = 774.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0

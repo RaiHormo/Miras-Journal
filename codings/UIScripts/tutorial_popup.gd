@@ -4,6 +4,7 @@ func _ready():
 	if Global.device == "Touch": return
 	call(Event.tutorial)
 	$Border2.hide()
+	$Border2/Control/Next.icon = Global.get_controller().ConfirmIcon
 
 func pop_down():
 	var t= create_tween()
@@ -48,6 +49,7 @@ func party():
 
 func bag():
 	%Text.text = "[center]Press [img]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
+	Loader.save()
 	await pop_down()
 	while not Input.is_action_pressed("PartyMenu"):
 		await Event.wait()
@@ -70,6 +72,7 @@ func ability():
 	$Border2.show()
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(50, 201)
+	$Border2/Control/Next.hide()
 	$Border2/Text.text = "Press [img]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
 	await await_input("BtAbility")
 	queue_free()
@@ -120,8 +123,7 @@ func aura3():
 	Global.Bt.lock_turn = false
 	queue_free()
 
-
-func await_input(input:= "ui_accept"):
+func await_input(input:= "DialogNext"):
 	await Event.wait(0.5, false)
 	while not Input.is_action_pressed(input): await Event.wait()
 	Global.confirm_sound()

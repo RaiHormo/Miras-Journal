@@ -739,15 +739,15 @@ func death(target:Actor):
 	td.tween_property(
 		target.node.material, "shader_parameter/outline_color",
 		Color.TRANSPARENT, 0.5)
+	if target.Disappear:
+		td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 	print(target.FirstName, " was defeated")
 	target.add_state("KnockedOut")
-	await Event.wait(2)
+	await Event.wait(1)
 	lock_turn = false
 	if is_instance_valid(target.node):
 		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear and not target.CantDie:
-			td = create_tween()
-			td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 			while target.node.is_playing() and target.node.animation == "KnockOut":
 				await Event.wait()
 			if is_instance_valid(target) and is_instance_valid(target.node):

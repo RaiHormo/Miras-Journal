@@ -92,10 +92,10 @@ func handle_states():
 					Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
 					await get_tree().create_timer(0.8).timeout
 				"Poisoned":
-					state.turns += 2
+					state.turns += 1
 					#chara.node.get_node("State").play("Poisoned")
 					Bt.focus_cam(chara, 0.3)
-					Bt.damage(chara, true, true, abs(state.turns)*2, false, true, true, Global.ElementColor.get("corruption"))
+					Bt.damage(chara, true, true, abs(state.turns), false, true, true, Global.ElementColor.get("corruption"))
 					await get_tree().create_timer(0.8).timeout
 				"Confused":
 					var luck := randi_range(state.turns, 1)

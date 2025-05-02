@@ -62,8 +62,8 @@ func _ready():
 	t.set_parallel()
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6).from(Vector2(1.5, 1.5))
 	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
-	t.tween_property($Confirm, "position", Vector2(195,742), 0.3).from(Vector2(195,850))
-	t.tween_property($Back, "position", Vector2(31,742), 0.4).from(Vector2(31,850))
+	t.tween_property($Confirm, "position", Vector2(31,742), 0.3).from(Vector2(31,850))
+	t.tween_property($Back, "position", Vector2(210,742), 0.4).from(Vector2(210,850))
 	player.get_node("%Shadow").z_index = -1
 	z = player.z_index
 	player.z_index = 9
@@ -163,8 +163,8 @@ func close():
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "size:x", 64, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "position:x", -30, 0.3)
 	t.tween_property(player, "global_position", prevPos, 0.5)
-	t.tween_property($Confirm, "position", Vector2(195,850), 0.4)
-	t.tween_property($Back, "position", Vector2(31,850), 0.3)
+	t.tween_property($Confirm, "position:y", 850, 0.4)
+	t.tween_property($Back, "position:y", 850, 0.3)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
 	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
 	t.tween_property($Ring/Glow, "modulate", Color.TRANSPARENT, 0.3)
@@ -286,6 +286,7 @@ func _root():
 	$Confirm.show()
 	$Back.show()
 	PartyUI.UIvisible = true
+	$Confirm.disabled = false
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -543,10 +544,10 @@ func focus_item(node:Button):
 	else:
 		$DescPaper/Amount.hide()
 	if item.Use == 0:
-		$Confirm.hide()
+		$Confirm.disabled = true
 	elif item.Use == ItemData.U.INSPECT:
-		$Confirm.show()
+		$Confirm.disabled = false
 		$Confirm.text = "Inspect"
 	else:
-		$Confirm.show()
+		$Confirm.disabled = false
 		$Confirm.text = "Use"

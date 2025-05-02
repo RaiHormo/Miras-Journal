@@ -13,10 +13,10 @@ Mira.Neutural: I can't dash and hold this flame at the same time.[next=4]
 ~ skeleton
 if not f("LookedAtSkeleton"):
 	do f("LookedAtSkeleton", true)
-	...There's no mistaking it, that's a skeleton.
+	It seems to be... a skeleton. Creepy.
 	From the skull shape it seems human, I think.
 else: 
-	...Let's just move on.
+	I don't want to think about it...
 => END!
 
 ~ symbol

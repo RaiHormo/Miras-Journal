@@ -26,6 +26,7 @@ func TWflame():
 	await Global.textbox("interactions", "that_should_do_it")
 	Event.give_control()
 	Event.add_flag("TWflame")
+	Loader.save()
 
 func sleep_home():
 	if Event.TimeOfDay == Event.TOD.MORNING:

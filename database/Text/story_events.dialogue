@@ -41,7 +41,7 @@ Mira.Neutural: S-[wait=0.2]stay back...!
 => END
 
 ~ gahh
-Mira.Neutural: GAHH![wait=1] GET OFF ME!
+Mira.Neutural: GAHH![wait=1] Get of me!
 => END
 
 ~ my_aura
@@ -200,6 +200,8 @@ elif alcine() == "Steve":
 	They... will be Steve.
 elif alcine() == "Alcaine":
 	No, too far.
+elif alcine() == "Alcines" or alcine() == "Alcinez":
+	Many of them.
 elif alcine() == "Alkaline":
 	It's pronounced "Alk-ah-leen".
 elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":

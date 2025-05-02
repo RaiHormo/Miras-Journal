@@ -11,7 +11,7 @@ var next_box: String = ""
 var currun = false
 var picture: Texture2D = null
 @onready var t :Tween
-const hold_time = 30
+const hold_time = 10
 
 
 ## The dialogue resource
@@ -310,20 +310,18 @@ func _input(event: InputEvent) -> void:
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
 		if Input.is_action_just_pressed("Dash"):
-			Engine.time_scale = 10
 			while Input.is_action_pressed("Dash"):
 				hold_frames += 1
-				if hold_frames > hold_time: break
 				await Event.wait()
-				var ev:= InputEventAction.new()
-				ev.action = &"DialogNext"
-				ev.pressed = true
-				Input.parse_input_event(ev)
+				if hold_frames > hold_time:
+					Engine.time_scale = 4
+					var ev:= InputEventAction.new()
+					ev.action = &"DialogNext"
+					ev.pressed = true
+					Input.parse_input_event(ev)
 			#if Event.allow_skipping:
-				#if hold_frames > hold_time:
-					#Event.skip_cutscene()
-					#_on_close()
-				#else: Global.toast("Hold the button down to skip")
+			#
+			#else: Global.toast("Hold the button down to skip")
 		Engine.time_scale = 1
 		return
 	
@@ -406,6 +404,7 @@ func animate_responces():
 		if "Disallowed" in i.name:
 			i.hide()
 	for i in responses_menu.get_children():
+		if i == null: continue
 		t = create_tween()
 		t.set_parallel(true)
 		t.set_ease(Tween.EASE_OUT)

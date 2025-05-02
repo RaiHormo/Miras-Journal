@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dp06lj85ovb8f"]
+[gd_scene load_steps=17 format=3 uid="uid://dp06lj85ovb8f"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/tutorial_popup.gd" id="1_kw845"]
+[ext_resource type="Script" uid="uid://uxyko46qedi" path="res://codings/UIScripts/tutorial_popup.gd" id="1_kw845"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="3_5etnr"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_c8w00"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_yev0x"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_vdwkq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76g7"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -48,6 +51,57 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wx1q2"]
+shader = ExtResource("3_5etnr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi51m"]
+content_margin_left = 8.0
+bg_color = Color(0.894, 0.894, 0.894, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhyn7"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_q87ds"]
+default_font = ExtResource("4_yev0x")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.389, 0.389, 0.389, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 0
+Button/styles/disabled = SubResource("StyleBoxFlat_xi51m")
+Button/styles/focus = SubResource("StyleBoxFlat_xhyn7")
+Button/styles/hover = SubResource("StyleBoxFlat_xi51m")
+Button/styles/normal = SubResource("StyleBoxFlat_xhyn7")
+Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_7hrdc"]
+events = [SubResource("InputEventAction_p5u4y")]
 
 [node name="Control" type="CanvasLayer"]
 process_mode = 3
@@ -102,7 +156,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
 [node name="Border2" type="PanelContainer" parent="."]
-visible = false
 show_behind_parent = true
 offset_left = 612.0
 offset_top = 201.0
@@ -132,6 +185,30 @@ offset_top = 23.0
 offset_right = -7.0
 offset_bottom = 54.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
+
+[node name="Next" type="Button" parent="Border2/Control"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_wx1q2")
+layout_direction = 1
+offset_left = 266.0
+offset_top = 7.99999
+offset_right = 354.0
+offset_bottom = 41.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_q87ds")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_7hrdc")
+shortcut_in_tooltip = false
+text = "Next"
+icon = ExtResource("5_vdwkq")
+text_overrun_behavior = 1
+expand_icon = true
 
 [node name="Border3" type="PanelContainer" parent="."]
 visible = false
