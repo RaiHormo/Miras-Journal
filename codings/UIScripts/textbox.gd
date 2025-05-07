@@ -128,7 +128,7 @@ var dialogue_line: DialogueLine:
 		will_hide_balloon = false
 
 		dialogue_label.modulate.a = 1
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.1).timeout
 		dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
 		await dialogue_label.finished_typing
 
@@ -155,6 +155,14 @@ func _ready() -> void:
 	$Hints.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
+	
+	match Global.Settings.TextSpeed:
+		1:
+			dialogue_label.seconds_per_step = 0.01
+			dialogue_label.seconds_per_pause_step = 0.1
+		2:
+			dialogue_label.seconds_per_step = 0.001
+			dialogue_label.seconds_per_pause_step = 0.05
 
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)

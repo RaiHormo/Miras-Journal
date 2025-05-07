@@ -710,7 +710,6 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -774,6 +773,32 @@ popup/item_0/id = 0
 popup/item_1/text = "When moving"
 popup/item_1/id = 1
 popup/item_2/text = "Never"
+popup/item_2/id = 2
+
+[node name="TextSpeed" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Text speed"
+
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+expand_icon = true
+selected = 0
+item_count = 3
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Quick"
+popup/item_1/id = 1
+popup/item_2/text = "Instant"
 popup/item_2/id = 2
 
 [node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -1401,6 +1426,7 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1511,6 +1537,7 @@ Nathan Hoad's Dialogue Manager plugin was used."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -1826,6 +1853,9 @@ texture = ExtResource("26_375bk")
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="_on_auto_hide_hud"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="confirm"]
+[connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/TextSpeed/MenuBar" to="." method="cursor"]
+[connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/TextSpeed/MenuBar" to="." method="_on_text_speed"]
+[connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/TextSpeed/MenuBar" to="." method="confirm"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/Input" to="." method="_on_first_setting"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]

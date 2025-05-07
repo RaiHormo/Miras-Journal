@@ -3,6 +3,7 @@ class_name Setting
 
 @export_category("Gameplay")
 @export var AutoHideHUD: int = 0
+@export var TextSpeed: int = 0
 @export_category("Input")
 @export var ControlSchemeAuto: bool = true
 @export var ControlSchemeEnum: int = 0

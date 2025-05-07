@@ -37,7 +37,7 @@ signal finished_typing()
 @export var skip_pause_at_abbreviations: PackedStringArray = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
 
 ## The amount of time to pause when exposing a character present in `pause_at_characters`.
-@export var seconds_per_pause_step: float = 0.5
+@export var seconds_per_pause_step: float = 0.3
 
 var _already_mutated_indices: PackedInt32Array = []
 

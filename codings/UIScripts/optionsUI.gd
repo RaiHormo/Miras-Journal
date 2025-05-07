@@ -97,7 +97,6 @@ func _on_back_pressed():
 			main()
 
 func close(force = false):
-	stage="closing"
 	if force:
 		queue_free()
 		return
@@ -105,6 +104,7 @@ func close(force = false):
 		Global.buzzer_sound()
 		Global.toast("There is no going back.")
 		return
+	stage="closing"
 	if is_instance_valid(Global.Player):
 		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
@@ -287,6 +287,7 @@ func load_settings():
 	%SettingsVbox/Vsync/CheckButton.button_pressed = Global.Settings.VSync
 	%SettingsVbox/GlowEffect/CheckButton.button_pressed = Global.Settings.GlowEffect
 	%SettingsVbox/HighResTextures/CheckButton.button_pressed = Global.Settings.HighResTextures
+	%SettingsVbox/TextSpeed/MenuBar.selected = Global.Settings.TextSpeed
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -585,6 +586,9 @@ func _on_auto_hide_hud(index: int) -> void:
 	Global.Settings.AutoHideHUD = index
 	Global.confirm_sound()
 
+func _on_text_speed(index: int) -> void:
+	Global.Settings.TextSpeed = index
+	Global.confirm_sound()
 
 func _show_image_test() -> void:
 	#$ImageTester.show()

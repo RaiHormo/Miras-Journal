@@ -481,7 +481,6 @@ AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"DialogNext"
 pause_at_characters = ".?!,"
 skip_pause_at_character_if_followed_by = ")\".?"
-seconds_per_pause_step = 0.3
 
 [node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
 layout_mode = 0
