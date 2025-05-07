@@ -68,8 +68,8 @@ func siilhouette():
 	ts.set_trans(Tween.TRANS_QUART)
 	ts.set_ease(Tween.EASE_OUT)
 	ts.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
-	await ts.finished
 	load_settings()
+	await ts.finished
 	#load_save_files()
 
 func _physics_process(delta):
@@ -270,7 +270,6 @@ func _on_focus_changed(control:Control):
 
 func load_settings():
 	Global.save_settings()
-	var setting = await Loader.load_res("user://Settings.tres")
 	%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
 	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 	%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
@@ -308,6 +307,7 @@ func load_settings():
 	%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
 	%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
 	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
+	var setting = await Loader.load_res("user://Settings.tres")
 
 
 func load_save_files():
