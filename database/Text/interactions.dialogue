@@ -7,7 +7,7 @@ This should help.
 => END
 
 ~ cant_dash_on_flame
-Mira.Neutural: I can't dash and hold this flame at the same time.[next=4]
+Mira.Neutral: I can't dash and hold this flame at the same time.[next=4]
 => END
 
 ~ skeleton
@@ -73,17 +73,17 @@ do Global.Player.look_to(Vector2(0, -1))
 set Global.get_cam().position -= Vector2(0, 24)
 do Event.wait(0.5)
 if Event.f("TheSkyAmberelm"):
-	Mira.Neutural: ...
+	Mira.Neutral: ...
 else:
-	Mira.Neutural: The sky here is as strange as ever.
-	Mira.Neutural: Looks like we're near the sea, but it fades into those strange lines.
-	Mira.Neutural: It's definitely far from my home...
+	Mira.Neutral: The sky here is as strange as ever.
+	Mira.Neutral: Looks like we're near the sea, but it fades into those strange lines.
+	Mira.Neutral: It's definitely far from my home...
 	do Event.f("TheSkyAmberelm", true)
 do Global.Player.camera_follow(true)
 => END
 
 ~ wrong_way
- Mira.Neutural: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
+ Mira.Neutral: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
 => END
 
 ~ just_woke_up
@@ -100,19 +100,19 @@ I will not pass without a bag.
 
 ~ kick_sgplains
 if f("VPPlains"):
-	Asteria.Neutural: You wanna return to the village Mira?
-	Asteria.Neutural: That's the long way back, we should use the vains instead.
+	Asteria.Neutral: You wanna return to the village Mira?
+	Asteria.Neutral: That's the long way back, we should use the vains instead.
 else:
-	Daze.Neutural: Levenor, this way!
+	Daze.Neutral: Levenor, this way!
 => END
 
 ~ blocked_path_sg1
-Mira.Neutural: This way seems to be blocked by some weird crystals.
-Asteria.Neutural: There should be a way to get past them, let's look around
+Mira.Neutral: This way seems to be blocked by some weird crystals.
+Asteria.Neutral: There should be a way to get past them, let's look around.
 => END
 
 ~ blocked_path_sg2
-Daze.Neutural: Another blocked path...
+Daze.Neutral: Another blocked path...
 => END
 
 ~ gather_pyrson
@@ -139,8 +139,8 @@ Daze.Neutural: Another blocked path...
 => END
 
 ~ shards_low_hp
-Asteria.Neutural: Mira? Are you okay?
-Mira.Neutural: Hm?
-Asteria.Neutural: You have been stepping in a lot of these shards! I can give you my sandals if you want.
-Mira.Neutural: No, I'm fine.
-Asteria.Neutural: Okay, just be careful.
+Asteria.Neutral: Mira? Are you okay?
+Mira.Neutral: Hm?
+Asteria.Neutral: You have been stepping in a lot of these shards! I can give you my sandals if you want.
+Mira.Neutral: No, I'm fine.
+Asteria.Neutral: Okay, just be careful.

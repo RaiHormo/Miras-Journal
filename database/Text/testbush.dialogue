@@ -1,10 +1,10 @@
 ~ bush
 
-Mira.Neutural: Yes, this is [[indeed|in fact]] a bush
+Mira.Neutral: Yes, this is [[indeed|in fact]] a bush
 - Party talk
-	Daze.Neutural: This is certainly is a bush.
-	Asteria.Neutural: This is a bush, right?
-	Alcine.Neutural: Mhm...
+	Daze.Neutral: This is certainly is a bush.
+	Asteria.Neutral: This is a bush, right?
+	Alcine.Neutral: Mhm...
 - Scream
 	Mira.OpenMouth: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	if is_in_party("Erinn"):
@@ -64,7 +64,7 @@ Where to go?
 => END
 
 ~ greetings
-Mira.Neutural: Hello everyone! This is a passive textbox of sorts.
+Mira.Neutral: Hello everyone! This is a passive textbox of sorts.
 Mira.OpenMouth: I can still move while saying this.
 => END
 
@@ -118,7 +118,7 @@ Turn {{Global.Bt.Turn}}
 => END!
 
 ~ mira_hp_low
-Mira.Neutural: My hp is low
+Mira.Neutral: My hp is low
 => END!
 
 ~ debug_battle_begin

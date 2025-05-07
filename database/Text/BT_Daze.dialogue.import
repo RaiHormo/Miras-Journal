@@ -1,6 +1,7 @@
 [remap]
 
-importer="dialogue_manager_compiler_14"
+importer="dialogue_manager"
+importer_version=15
 type="Resource"
 uid="uid://dkysiq802atj"
 path="res://.godot/imported/BT_Daze.dialogue-c29799919ee61a1b2327374690358481.tres"

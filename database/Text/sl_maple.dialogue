@@ -1,10 +1,10 @@
 ~ prepare
-Maple.Neutural: Hello mira
+Maple.Neutral: Hello mira
 if confirm_time_passage("Talk to Maple" ,"I can get to know Maple a bit better. This might also allow me make better force orbs."):
-	Maple.Neutural: Let's go then
+	Maple.Neutral: Let's go then
 	do! sequence("sl_maple_1")
 else:
-	Maple.Neutural: Okay...
+	Maple.Neutral: Okay...
 => END
 
 ~ rank1_1

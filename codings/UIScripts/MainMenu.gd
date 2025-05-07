@@ -457,9 +457,10 @@ func _on_back_button_down():
 			_root()
 		"journal":
 			_root()
-			get_tree().root.get_node("JournalUI").queue_free()
+			if get_tree().root.get_node_or_null("JournalUI") != null:
+				get_tree().root.get_node("JournalUI").queue_free()
 		"options":
-			if get_tree().root.get_node_or_null("Options") == null or get_tree().root.get_node("Options").stage == "main":
+			if get_tree().root.get_node_or_null("Options") == null or get_tree().root.get_node("Options").stage == "closing":
 				stage = "root"
 				_root()
 				await get_tree().create_timer(0.5).timeout

@@ -1,5 +1,5 @@
 ~ error
-Alcine.Neutural: hm?
+Alcine.Neutral: hm?
 
 ~ d0_0
 Alcine.Upset: /*{{alcine()}} seems scared*/
@@ -9,7 +9,7 @@ Alcine.Upset: /*{{alcine()}} seems scared*/
 - Cancel
 - Ask for healing [if not is_everyone_fully_healed()]
 	if find_ability(mem("Alcine"), "Healing", true).AuraCost < mem("Alcine").Aura:
-		Alcine.Neutural: /*nod*/
+		Alcine.Neutral: /*nod*/
 		- For me [if not is_mem_healed(Party.Leader)]
 			set ArbData0 = Global.Party.Leader
 		- For {{Party.member_name(1)}} [if check_member(1) and Party.Member1 != mem("Alcine") and !is_mem_healed(Party.Member1)]

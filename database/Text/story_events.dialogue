@@ -37,16 +37,16 @@ Placeholder description: A monster emerges from the lake, as Mira takes a fighti
 => END
 
 ~ sstay_back
-Mira.Neutural: S-[wait=0.2]stay back...!
+Mira.Neutral: S-[wait=0.2]stay back...!
 => END
 
 ~ gahh
-Mira.Neutural: GAHH![wait=1] Get of me!
+Mira.Neutral: GAHH![wait=1] Get of me!
 => END
 
 ~ my_aura
-Mira.Neutural: These wings... This is my Aura.
-Mira.Neutural: That's it! I can use [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
+Mira.Neutral: These wings... This is my Aura.
+Mira.Neutral: That's it! I can use [outline_size=12][outline_color=#6c3e18][color=#ff6b50]Heat magic[/color][/outline_color][/outline_size] against it![next=5]
 => END
 
 ~ what_this
@@ -77,7 +77,7 @@ Maybe I should try approaching it.
 => END
 
 ~ you_ok
-Mira.Neutural: Hey.
+Mira.Neutral: Hey.
 => END
 
 ~ no_harm
@@ -91,7 +91,7 @@ do next_box("Alcine")
 Shewww
 The creature tightly hugs me.
 Their body feels like it's made of liquid...
-Mira.Neutural: What are you so scared about?
+Mira.Neutral: What are you so scared about?
 do npc("Alcine").move_dir(Vector2(2,0))
 do npc("Alcine").look_to(Vector2(-1,0))
 Mira.Smile: Everything will be ok!
@@ -108,35 +108,35 @@ Mira.Smile: Looks good on you!
 => END
 
 ~ stay_back
-Mira.Neutural: Is this what scared you?
-Mira.Neutural: Stay behind me, I'll deal with it!
+Mira.Neutral: Is this what scared you?
+Mira.Neutral: Stay behind me, I'll deal with it!
 => END!
 
 ~ not_going_well
-Mira.Neutural: Ow, this hurts...
-Mira.Neutural: Is there anything I can do?
+Mira.Neutral: Ow, this hurts...
+Mira.Neutral: Is there anything I can do?
 => END
 
 ~ going_nowhere
-Mira.Neutural: If this goes on...
+Mira.Neutral: If this goes on...
 => END
 
 ~ amazing
-Mira.Neutural: Woah, you can use healing magic!?
-Mira.Neutural: We might have a chance like this!
+Mira.Neutral: Woah, you can use healing magic!?
+Mira.Neutral: We might have a chance like this!
 Alcine.Happy: /*happy noises*/
 => END
 
 ~ got_through_that
-Mira.Neutural: We should be safe now.
-Mira.Neutural: If it wasn't for you, I'd be done for.
-Mira.Neutural: We should stick together for now, [wait=0.5]umm...
-Mira.Neutural: Wait, do you have a name?
-Mira.Neutural: (hide)[next]
+Mira.Neutral: We should be safe now.
+Mira.Neutral: If it wasn't for you, I'd be done for.
+Mira.Neutral: We should stick together for now, [wait=0.5]umm...
+Mira.Neutral: Wait, do you have a name?
+Mira.Neutral: (hide)[next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
-Mira.Neutural: Right, you can't talk. But I need to call you something...
-Mira.Neutural: Ok, I'll come up with a name and you tell me if you like it. Alright?
+Mira.Neutral: Right, you can't talk. But I need to call you something...
+Mira.Neutral: Ok, I'll come up with a name and you tell me if you like it. Alright?
 
 ~ what_about
 [wait=0.1] [next=auto]
@@ -217,36 +217,36 @@ else:
 	=> what_about
 
 ~ use_name
-Mira.Neutural: What about "{{alcine()}}"?
-Alcine.Neutural: /*nod*/
+Mira.Neutral: What about "{{alcine()}}"?
+Alcine.Neutral: /*nod*/
 do npc("P").look_to(Vector2(1, 0))
-Mira.Neutural: Alright then {{alcine()}}, let's go together from here on.
+Mira.Neutral: Alright then {{alcine()}}, let's go together from here on.
 => END
 
 ~ a_bridge
-Mira.Neutural: Oh a bridge.
-Mira.Neutural: Seems like this is our way out of this forest.
+Mira.Neutral: Oh a bridge.
+Mira.Neutral: Seems like this is our way out of this forest.
 => END
 
 ~ morning
-Mira.Neutural: The sky is getting brighter. [p]Seems like it's early morning.
+Mira.Neutral: The sky is getting brighter. [p]Seems like it's early morning.
 [wait=0.3] [next=auto]
 do npc("MiraCut").look_to(Vector2(0, -1))
 [wait=0.1] [next=auto]
 do npc("MiraCut").bubble("Surprise")
 [wait=0.1] [next=auto]
 do npc("AlcineCut").look_to(Vector2(0, -1))
-Mira.Neutural: Look {{alcine()}}!
+Mira.Neutral: Look {{alcine()}}!
 [wait=0.1] [next=auto]
 do npc("AlcineCut").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
-Mira.Neutural: That looks like a town, doesn't it?
+Mira.Neutral: That looks like a town, doesn't it?
 [wait=0.1] [next=auto]
 do npc("AlcineCut").bubble("Excited")
-Mira.Neutural: Come on let's go! The people there might be able to help us!
+Mira.Neutral: Come on let's go! The people there might be able to help us!
 => END
 
 ~ what_happened_here
-Mira.Neutural: What... happened here?
+Mira.Neutral: What... happened here?
 [wait=0.1] [next=auto]
 do npc("P").go_to(Vector2(6, 15))
 do npc("P").look_to(Vector2(1, 0))
@@ -254,7 +254,7 @@ do npc("P").look_to(Vector2(1, 0))
 do npc("P").look_to(Vector2(-1, 0))
 [wait=0.1] [next=auto]
 do npc("P").look_to(Vector2(0, -1))
-Mira.Neutural: It's all... in ruins...
+Mira.Neutral: It's all... in ruins...
 do take_control()
 [wait=0.1] [next=auto]
 do npc("P").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
@@ -264,21 +264,21 @@ do npc("P").BodyState = NPC.CUSTOM
 do npc("P").set_anim("SitRight")
 do npc("P").collision(false)
 do jump_to(Player, Vector2(107, 345), 15)
-Mira.Neutural: ...
-Mira.Neutural: Let's just rest here for a bit, I'm exhausted.
+Mira.Neutral: ...
+Mira.Neutral: Let's just rest here for a bit, I'm exhausted.
 Alcine.Tired: /*{{alcine()}} looks tired as well*/
 => END
 
 ~ rest_amberelm
 Placeholder description: This is an unfinished cutscene. Boxes like this will describe what should be on screen.
 Placeholder description: Mira is writing something on a paper.
-Mira.Neutural: Hm? Something up {{alcine()}}?
-Mira.Neutural: I'm just keeping track where we've been so far.
-Mira.Neutural: We don't want to get even more lost, right?
-Mira.Neutural: (Yaaawn...)[next=2]
-Mira.Neutural: Must be nice being a spirit, I'm starving here.
+Mira.Neutral: Hm? Something up {{alcine()}}?
+Mira.Neutral: I'm just keeping track where we've been so far.
+Mira.Neutral: We don't want to get even more lost, right?
+Mira.Neutral: (Yaaawn...)[next=2]
+Mira.Neutral: Must be nice being a spirit, I'm starving here.
 Placeholder description: Mira takes a nap.
-Alcine.Neutural: ...
+Alcine.Neutral: ...
 Placeholder description: {{alcine()}} picks up the paper.
 => END
 
@@ -287,31 +287,31 @@ Placeholder description: Now you will be taken to an unrelated part of the game 
 => END
 Placeholder description: Mira gets up from sleep.
 Placeholder description: {{alcine()}} who was resting on Mira also gets up.
-Mira.Neutural: Mmm... Good morning {{alcine()}}. Or is it afternoon?
+Mira.Neutral: Mmm... Good morning {{alcine()}}. Or is it afternoon?
 Alcine.Tired: Meuummm...
 Placeholder description: Mira picks up the paper from yesterday.
 do npc("MiraCut2").bubble("Surprise")
-Mira.Neutural: Huh? Is that me?
+Mira.Neutral: Huh? Is that me?
 Alcine.Happy: Mloop!
 Mira.Smile: You drew this? That's so cute!
 I guess there is one way we can communicate.
 Maybe I could get important information from {{alcine()}} this way.
-Mira.Neutural: So... I was curious. [p]Before that creature attacked you, how did you end up there?
-Mira.Neutural: Do you remember anything?
-Alcine.Neutural: /*Thinking noises*/
+Mira.Neutral: So... I was curious. [p]Before that creature attacked you, how did you end up there?
+Mira.Neutral: Do you remember anything?
+Alcine.Neutral: /*Thinking noises*/
 Placeholder description: {{alcine()}} starts drawing.
 Placeholder description: {{alcine()}} gives the drawing to Mira.
 Let's see...
-Mira.Neutural: Wha- Im being attacked in this?
-Alcine.Neutural: /*Nod*/
-Mira.Neutural: So you've seen me before.
-Mira.Neutural: Weird, I don't remember something like that at all...
-Mira.Neutural: Then ended up in that forest? [p]Did you escape the castle?
-Alcine.Neutural: /*Head shake*/
-Mira.Neutural: Hmm... Do you know how you went from the castle to here? [p]At all?
-Alcine.Neutural: /*Head shake*/
-Mira.Neutural: Figures.
-Mira.Neutural: Well we should probably explore this place a little more before it's too dark.
+Mira.Neutral: Wha- Im being attacked in this?
+Alcine.Neutral: /*Nod*/
+Mira.Neutral: So you've seen me before.
+Mira.Neutral: Weird, I don't remember something like that at all...
+Mira.Neutral: Then ended up in that forest? [p]Did you escape the castle?
+Alcine.Neutral: /*Head shake*/
+Mira.Neutral: Hmm... Do you know how you went from the castle to here? [p]At all?
+Alcine.Neutral: /*Head shake*/
+Mira.Neutral: Figures.
+Mira.Neutral: Well we should probably explore this place a little more before it's too dark.
 Mira.Smile: Let's keep on the lookout for any castles around, okay?
 => END
 
@@ -323,29 +323,29 @@ No reason to go back there.
 ...
 I was seriously hoping it was all a long dream, but it seems this is my home for the time being...
 
-Mira.Neutural: Who is it?
+Mira.Neutral: Who is it?
 
-Mira.Neutural: ...
-Daze.Neutural: ...
+Mira.Neutral: ...
+Daze.Neutral: ...
 There's a tense atmosphere in the room.
 
-Daze.Neutural: How are you doing?
-Mira.Neutural: I'm... okay.
-Daze.Neutural: You don't look okay to me...
-Mira.Neutural: ...
-Mira.Neutural: How can you stay so calm!? We're both stuck here you know!
-Mira.Neutural: Am I supposed to just accept that I'll spend the rest of my life in this Donom of a place!?
-Mira.Neutural: That everything I've done has been for nothing? That I'll never see my family again?
-Daze.Neutural: I didn't...
-Mira.Neutural: Do you have nothing going on in your life?! Or are you just pretending to be calm because you need to always look cool?!
-Daze.Neutural: Levenor, listen. I didn't mean to blame you.
-Daze.Neutural: It's completely understandable for you to feel this way.
-Daze.Neutural: As for me... Let's say I've dealt with worse situations.
-Daze.Neutural: Both you and I, and everyone here, we all share a goal.
-Mira.Neutural: If it was that simple to exit the realm, this whole village wouldn't exist in the first place!
-Daze.Neutural: What if I told you I already have a lead?
+Daze.Neutral: How are you doing?
+Mira.Neutral: I'm... okay.
+Daze.Neutral: You don't look okay to me...
+Mira.Neutral: ...
+Mira.Neutral: How can you stay so calm!? We're both stuck here you know!
+Mira.Neutral: Am I supposed to just accept that I'll spend the rest of my life in this Donom of a place!?
+Mira.Neutral: That everything I've done has been for nothing? That I'll never see my family again?
+Daze.Neutral: I didn't...
+Mira.Neutral: Do you have nothing going on in your life?! Or are you just pretending to be calm because you need to always look cool?!
+Daze.Neutral: Levenor, listen. I didn't mean to blame you.
+Daze.Neutral: It's completely understandable for you to feel this way.
+Daze.Neutral: As for me... Let's say I've dealt with worse situations.
+Daze.Neutral: Both you and I, and everyone here, we all share a goal.
+Mira.Neutral: If it was that simple to exit the realm, this whole village wouldn't exist in the first place!
+Daze.Neutral: What if I told you I already have a lead?
 !
-Daze.Neutural: Let's talk about this later in the tavern. I'll be waiting there.
+Daze.Neutral: Let's talk about this later in the tavern. I'll be waiting there.
 => END
 
 ~ nov3_afternoon
@@ -359,32 +359,32 @@ I guess it's time to leave now, the others should be waiting up at the gate.
 => END
 
 ~ nov3_exit
-Alcine.Neutural: Wia!
-Asteria.Neutural: What took you so long!
-Daze.Neutural: Is everyone ready?
+Alcine.Neutral: Wia!
+Asteria.Neutral: What took you so long!
+Daze.Neutral: Is everyone ready?
 - Just a minute
-	Mira.Neutural: Just a minute, I need to do something.
-	Asteria.Neutural: Alright, hurry it up!
+	Mira.Neutral: Just a minute, I need to do something.
+	Asteria.Neutral: Alright, hurry it up!
 	do wait(0.2)
 	do give_control()
 - Let's go
-	Mira.Neutural: I'm ready, let's go!
-	Daze.Neutural: Someone's excited...
-	Asteria.Neutural: I'll lead the way, just follow me!
+	Mira.Neutral: I'm ready, let's go!
+	Daze.Neutral: Someone's excited...
+	Asteria.Neutral: I'll lead the way, just follow me!
 	do! sequence("nov3_enterSG")
 => END
 
 ~ nov3_sg_enter
-Asteria.Neutural: Here we are. The place should be somewhere up ahead.
-Mira.Neutural: Whoah, everything's so shiny!
-Asteria.Neutural: Don't go near the shiny stuff! Those tiny crystal shards hurt!
+Asteria.Neutral: Here we are. The place should be somewhere up ahead.
+Mira.Neutral: Whoah, everything's so shiny!
+Asteria.Neutral: Don't go near the shiny stuff! Those tiny crystal shards hurt!
 => END
 
 ~ very_shiny
-Daze.Neutural: Levenor, don't you think you of all people should be the most careful?
-Mira.Neutural: Huh?
-Asteria.Neutural: You're the only one not wearing shoes, haha.
-Mira.Neutural: {{alcine()}} isn't wearing shoes either!
+Daze.Neutral: Levenor, don't you think you of all people should be the most careful?
+Mira.Neutral: Huh?
+Asteria.Neutral: You're the only one not wearing shoes, haha.
+Mira.Neutral: {{alcine()}} isn't wearing shoes either!
 Alcine.Tired: Wooom...
 => END
 
@@ -393,22 +393,22 @@ do npc("P").look_to("U")
 do Player.camera_follow(false)
 set Camera.position = Vector2(-158, -18)
 do wait(1)
-Mira.Neutural: Look, there are a lot of cast lines scattered around here.
-Mira.Neutural: Is this some sort of spell?
-Asteria.Neutural: This place is a magical organism. This might be just another part of it.
-Mira.Neutural: The entire cave is an organism..?
-Daze.Neutural: I suspect it's more than just this cave.
-Daze.Neutural: The monsters everywhere, they must be a defense mechanism.
-Asteria.Neutural: Right, I don't think we're wanted here...
+Mira.Neutral: Look, there are a lot of cast lines scattered around here.
+Mira.Neutral: Is this some sort of spell?
+Asteria.Neutral: This place is a magical organism. This might be just another part of it.
+Mira.Neutral: The entire cave is an organism..?
+Daze.Neutral: I suspect it's more than just this cave.
+Daze.Neutral: The monsters everywhere, they must be a defense mechanism.
+Asteria.Neutral: Right, I don't think we're wanted here...
 Alcine.Upset: ...
 Alcine seems to be bothered by something.
 => END
 
 ~ blocked_cast_lines
 if not f("EvSwitchCastLines2"):
-	Alcine.Neutural: Shaooo!
-	Daze.Neutural: These lines gather towards the center.
-	Asteria.Neutural: Doesn't this look like the thing that broke the crystals last time?
+	Alcine.Neutral: Shaooo!
+	Daze.Neutral: These lines gather towards the center.
+	Asteria.Neutral: Doesn't this look like the thing that broke the crystals last time?
 	- Try touching
 		(hide)
 		do Player.camera_follow(false)
@@ -419,24 +419,24 @@ if not f("EvSwitchCastLines2"):
 		set Player.BodyState = NPC.CUSTOM
 		do Player.bump(Vector2(0, -2))
 		do wait(0.5)
-		Asteria.Neutural: Mira! You okay?
-		Mira.Neutural: Ow.
-		Mira.Neutural: I think there is a protective spell on these.
+		Asteria.Neutral: Mira! You okay?
+		Mira.Neutral: Ow.
+		Mira.Neutral: I think there is a protective spell on these.
 	- Back off
-		Mira.Neutural: Everyone, be careful!
-		Mira.Neutural: It looks like there is some sort of protective spell, don't touch that.
-	Daze.Neutural: What could we do about this? Does anyone know how to dispell? 
-	Mira.Neutural: Wild cast patterns like this are hard to decipher.
-	Asteria.Neutural: ...
-	Asteria.Neutural: I think there's someone back at the village that would know how.
-	Mira.Neutural: You mean we should return?
-	Daze.Neutural: I think we could all use some rest, no?
+		Mira.Neutral: Everyone, be careful!
+		Mira.Neutral: It looks like there is some sort of protective spell, don't touch that.
+	Daze.Neutral: What could we do about this? Does anyone know how to dispell? 
+	Mira.Neutral: Wild cast patterns like this are hard to decipher.
+	Asteria.Neutral: ...
+	Asteria.Neutral: I think there's someone back at the village that would know how.
+	Mira.Neutral: You mean we should return?
+	Daze.Neutral: I think we could all use some rest, no?
 	do Player.camera_follow(true)
-	Asteria.Neutural: There was a Vain nearby, let's head there. 
+	Asteria.Neutral: There was a Vain nearby, let's head there. 
 	do add_flag("EvSwitchCastLines2")
 	Placeholder description: This is the last part available rn
 else:
-	Asteria.Neutural: Mira! We can't make any progress here unless we despell this.
-	Mira.Neutural: I know, I know.
-	Asteria.Neutural: Then use the Vain to return to the village already!
+	Asteria.Neutral: Mira! We can't make any progress here unless we despell this.
+	Mira.Neutral: I know, I know.
+	Asteria.Neutral: Then use the Vain to return to the village already!
 => END

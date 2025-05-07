@@ -561,7 +561,7 @@ Transition = true
 Detransition = false
 EscPosition = Vector2i(26, 12)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(466, 694)
+ScenePosition = Vector2(846, 1337)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -1378,7 +1378,7 @@ offset = Vector2(0.0496826, -5.866)
 position = Vector2(228, -362)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemySG2"]
-position = Vector2(56, 39)
+position = Vector2(436, 682)
 gizmo_extents = 100.0
 
 [node name="EnemySG3" parent="." instance=ExtResource("4_ujeyr")]

@@ -97,6 +97,7 @@ func _on_back_pressed():
 			main()
 
 func close(force = false):
+	stage="closing"
 	if force:
 		queue_free()
 		return
@@ -208,7 +209,7 @@ func save_managment() -> void:
 	$MainButtons/SaveManagment.z_index = 1
 	t.tween_property($MainButtons/SaveManagment, "position", Vector2(50, 52), 0.5)
 	t.tween_property($Timer, "position:x", -300, 0.5)
-	t.tween_property($SavePanel, "position", Vector2(690, -62), 0.5)
+	t.tween_property($SavePanel, "position", Vector2(684, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-50, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
 	Global.confirm_sound()

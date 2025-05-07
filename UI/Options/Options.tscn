@@ -1464,6 +1464,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Website"
 
 [node name="ArenaMode" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+visible = false
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -1521,9 +1522,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 [node name="ScrollContainer" type="ScrollContainer" parent="SavePanel"]
 clip_contents = false
 layout_mode = 0
-offset_left = 20.0
+offset_left = 18.0
 offset_top = 100.0
-offset_right = 589.0
+offset_right = 603.0
 offset_bottom = 770.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")

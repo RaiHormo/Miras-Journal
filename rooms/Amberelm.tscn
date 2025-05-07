@@ -513,7 +513,6 @@ position = Vector2(71.8858, 151.839)
 rotation = 1.57081
 scale = Vector2(0.947062, 95.9261)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.5
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="WaterLight5" type="PointLight2D" parent="."]

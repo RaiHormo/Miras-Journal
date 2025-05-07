@@ -1,6 +1,7 @@
 [remap]
 
-importer="dialogue_manager_compiler_14"
+importer="dialogue_manager"
+importer_version=15
 type="Resource"
 uid="uid://dc27lvw5w68ea"
 path="res://.godot/imported/alcine_talk.dialogue-a3fc2b2d28d297159458133aa456112c.tres"

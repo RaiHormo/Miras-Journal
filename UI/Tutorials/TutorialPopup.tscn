@@ -190,6 +190,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_wx1q2")
 layout_direction = 1
+layout_mode = 0
 offset_left = 266.0
 offset_top = 7.99999
 offset_right = 354.0
