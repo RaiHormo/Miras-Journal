@@ -1332,6 +1332,10 @@ item_name = "StrangeFruit"
 position = Vector2(1185, -210)
 item_name = "StrangeFruit"
 
+[node name="ItemStrangeFruit7" parent="." instance=ExtResource("26_k6j3t")]
+position = Vector2(1447, -600)
+item_name = "StrangeFruit"
+
 [node name="ItemStrangeFruit2" parent="." instance=ExtResource("26_k6j3t")]
 position = Vector2(1640, 370)
 item_name = "StrangeFruit"

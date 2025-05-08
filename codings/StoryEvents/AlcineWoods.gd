@@ -215,6 +215,7 @@ func after_battle():
 	PartyUI.disabled = false
 	PartyUI.UIvisible = true
 	Event.allow_skipping = true
+	Event.add_flag("FlameActive")
 	Global.Area.Followers[0].dont_follow = false
 	Loader.detransition()
 	PartyUI._on_shrink()

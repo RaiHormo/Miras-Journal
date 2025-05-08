@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdo4jqfb8nnbf"
-path.s3tc="res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.s3tc.ctex"
+path="res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://art/OV/Maple/IdleDown.png"
-dest_files=["res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.s3tc.ctex"]
+dest_files=["res://.godot/imported/IdleDown.png-061ca9a342edf73f4a214515b9eb262e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

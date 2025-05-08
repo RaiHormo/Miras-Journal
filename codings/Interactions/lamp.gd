@@ -14,7 +14,7 @@ func _on_interactable_action():
 func update():
 	var t = create_tween()
 	if Light:
-		t.tween_property(self, "energy", 1.5, 0.5)
+		t.tween_property(self, "energy", 1, 0.5)
 		Light = true
 	else:
 		t.tween_property(self, "energy", 0, 0.1)

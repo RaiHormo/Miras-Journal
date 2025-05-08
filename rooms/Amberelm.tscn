@@ -530,6 +530,7 @@ position = Vector2(304.543, 795.568)
 rotation = -1.57079
 scale = Vector2(1.14848, 481.634)
 color = Color(0.694118, 1, 1, 1)
+energy = 0.5
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="WaterLight3" type="PointLight2D" parent="."]
@@ -538,7 +539,6 @@ position = Vector2(-74.8535, 803.14)
 rotation = -1.57079
 scale = Vector2(1.21508, 74.9247)
 color = Color(0.694118, 1, 1, 1)
-energy = 1.02
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
@@ -593,13 +593,15 @@ position = Vector2(107, 95)
 texture = ExtResource("6_gki33")
 
 [node name="BreakableGreebOre0" parent="." instance=ExtResource("15_frp5k")]
+z_index = 4
 position = Vector2(227, 673)
+collision_layer = 7
+collision_mask = 7
 default_anim = "IdleWind"
 given_item = "GreenFragment"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0"]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
-z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xmikp")

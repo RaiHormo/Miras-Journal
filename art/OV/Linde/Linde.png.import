@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vnwe6gtk3qeb"
-path.s3tc="res://.godot/imported/Linde.png-0666b37613bac76bd990e5ab960a98d8.s3tc.ctex"
+path="res://.godot/imported/Linde.png-0666b37613bac76bd990e5ab960a98d8.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://art/OV/Linde/Linde.png"
-dest_files=["res://.godot/imported/Linde.png-0666b37613bac76bd990e5ab960a98d8.s3tc.ctex"]
+dest_files=["res://.godot/imported/Linde.png-0666b37613bac76bd990e5ab960a98d8.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,11 +1,11 @@
 extends Room
 
 func default():
+	Event.remove_flag("FlameActive")
 	if Global.CameraInd == 0 and not Event.f("EnteredAmberelm", 2):
 		await Event.wait(0.3)
 		await Event.take_control(false, true)
 		await Global.Player.move_dir(Vector2.UP * 2)
-		Event.remove_flag("FlameActive")
 		Event.f("EnteredAmberelm2", true)
 		Event.give_control(true)
 		Loader.save()

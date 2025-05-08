@@ -889,7 +889,7 @@ func _on_confirm_pressed():
 			CurrentChar.NextTarget = TargetFaction[TargetIndex]
 			targeted.emit()
 		if stage == &"item":
-			if foc == null or foc.get_meta("ItemData") == null: return
+			if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").UsedInBattle:
 				var item: ItemData = foc.get_meta("ItemData")
 				CurrentChar.NextTarget = CurrentChar
