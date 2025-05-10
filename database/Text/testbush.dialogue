@@ -61,6 +61,8 @@ Where to go?
 		do travel_to("ShardGardens", Vector2(-150, 622), 1)
 	- Underground 2
 		do travel_to("ShardGardens", Vector2(-130, -100), 1)
+	- Lakeside
+		do travel_to("ShardGardens", Vector2(-223, -697), 2)
 => END
 
 ~ greetings

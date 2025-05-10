@@ -621,8 +621,7 @@ focus_next = NodePath("../Quit")
 focus_previous = NodePath("../Tutorials")
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
-text = "Gallery
-"
+text = "Extras"
 metadata/_edit_use_anchors_ = true
 
 [node name="Quit" type="Button" parent="MainButtons"]
@@ -1254,6 +1253,7 @@ step = 10.0
 scrollable = false
 
 [node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
@@ -1303,6 +1303,7 @@ step = 10.0
 scrollable = false
 
 [node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -1327,6 +1328,7 @@ step = 10.0
 scrollable = false
 
 [node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
@@ -1352,6 +1354,7 @@ step = 10.0
 scrollable = false
 
 [node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -1426,7 +1429,6 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1529,11 +1531,18 @@ theme_override_fonts/normal_font = ExtResource("24_41402")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
 text = "Created by Iris Hormoviti (RaiDev)
+All rights reserved
+
 This prototype build was made completly solo.
 
 Created using the Godot engine.
 
-Nathan Hoad's Dialogue Manager plugin was used."
+Plugins used:
+- Dialogue Manager by Nathan Hoad
+- SmoothScroll by SpyrexDE
+- Aseprite Wizard by Vinicius Gerevini
+- MouseCoordinates (Forked) by CrayonApe
+- Scene Tree Sorter (Forked) by phinix-dev"
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]

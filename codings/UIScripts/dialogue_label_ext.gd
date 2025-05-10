@@ -10,11 +10,12 @@ func type_out_with_sound(sound, freq, vari) -> void:
 	soundfreq = freq
 	varience = vari
 	count = soundfreq-1
-	match Global.Settings.TextSpeed:
-		1: soundfreq *= 2
-		2: 
-			soundfreq *= 10
-			sound(randf_range(0, 12))
+	if get_parent().get_parent().get_parent().name != "Passive":
+		match Global.Settings.TextSpeed:
+			1: soundfreq *= 2
+			2: 
+				soundfreq *= 10
+				sound(randf_range(0, 12))
 	type_out()
 
 func _on_spoke(letter: String, letter_index: int, speed: float) -> void:

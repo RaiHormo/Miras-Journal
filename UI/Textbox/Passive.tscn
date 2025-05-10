@@ -67,7 +67,7 @@ border_width_left = 50
 border_width_bottom = 50
 corner_radius_bottom_left = 74
 
-[node name="Textbox" type="CanvasLayer"]
+[node name="Passive" type="CanvasLayer"]
 process_mode = 3
 layer = 10
 script = ExtResource("1_jjmcy")

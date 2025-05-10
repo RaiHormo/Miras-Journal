@@ -75,10 +75,11 @@ func _ready():
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers
 	await Event.wait()
-	if Global.CameraInd in FlameInInd:
-		if is_instance_valid(Global.Player):
-			if not Event.f("FlameActive"): Global.Player.activate_flame()
 	if is_instance_valid(Global.Player):
+		if Global.CameraInd in FlameInInd:
+			if not Event.f("FlameActive"): Global.Player.activate_flame()
+		if -Global.CameraInd in FlameInInd:
+			Event.remove_flag("FlameActive")
 		Global.Player.collision(true)
 	default()
 	if Global.Controllable:
