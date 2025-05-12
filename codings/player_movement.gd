@@ -23,6 +23,7 @@ var attacking := false
 @onready var used_sprite: AnimatedSprite2D = %Base
 var is_clone: bool = false
 var can_jump:= false
+var cant_bump:= false
 
 func _ready() -> void:
 	collision(false)
@@ -151,7 +152,7 @@ func update_anim_prm() -> void:
 			reset_speed()
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
 		if direction.length()>RealVelocity.length() and dashing and not can_jump:
-					stop_dash()
+			stop_dash()
 	else:
 		if RealVelocity.length() > 1:
 			if dashing:
@@ -294,6 +295,7 @@ func reset_speed() -> void:
 		i.speed_scale=1
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
+	if cant_bump: return
 	direction = Vector2.ZERO
 	if dir == Vector2.ZERO: dir = dashdir
 	Global.jump_to_global(self, global_position - dir*15, 15, 0.5)
@@ -347,11 +349,11 @@ func attack():
 		if (i is NPC or i is Follower) and not i is Mira:
 			hits = false
 	#print("pt2: " + str(hits))
-	var audio = preload("res://sound/SFX/Etc/Swing.ogg")
+	var audio = preload("res://sound/SFX/Swing.ogg")
 	var anim = "Attack" + Global.get_dir_name()
 	if hits:
 		anim = "Attack" + Global.get_dir_name() + "Hit"
-		audio = preload("res://sound/SFX/Etc/AxeBlock.ogg")
+		audio = preload("res://sound/SFX/AxeBlock.ogg")
 	$Audio.stream = audio
 	$Audio.play()
 	await set_anim(anim, true)

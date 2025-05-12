@@ -344,7 +344,7 @@ func handle_ui():
 			Global.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
-				$Audio.stream = preload("res://sound/SFX/UI/page.ogg")
+				$Audio.stream = preload("res://sound/SFX/page.ogg")
 			$Audio.play()
 		else:
 			Global.buzzer_sound()
@@ -354,7 +354,7 @@ func handle_ui():
 			Global.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
-				$Audio.stream = preload("res://sound/SFX/UI/Page2.ogg")
+				$Audio.stream = preload("res://sound/SFX/page2.ogg")
 			$Audio.play()
 		else:
 			Global.buzzer_sound()
@@ -613,13 +613,13 @@ func party_menu():
 			return
 		if Expanded == true:
 			Tempvis=true
-			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
+			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
 			$Audio.play()
 			shrink.emit()
 			Global.cancel_sound()
 		elif Global.Controllable:
 			expand.emit()
-			$Audio.stream = preload("res://sound/SFX/UI/expand.ogg")
+			$Audio.stream = preload("res://sound/SFX/expand.ogg")
 			$Audio.play()
 			Global.confirm_sound()
 
@@ -656,7 +656,7 @@ func details():
 func back():
 	if not MemberChoosing and Expanded:
 		if not submenu_opened:
-			$Audio.stream = preload("res://sound/SFX/UI/shrink.ogg")
+			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
 			$Audio.play()
 			shrink.emit()
 			Global.cancel_sound()

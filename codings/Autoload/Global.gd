@@ -341,22 +341,22 @@ func save_settings() -> void:
 #region UI Sounds
 func cursor_sound(dont_force:= false) -> void:
 	if not (dont_force and Audio.playing):
-		Audio.stream = preload("res://sound/SFX/UI/cursor.wav")
+		Audio.stream = preload("res://sound/SFX/cursor.wav")
 		Audio.play()
 func buzzer_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/UI/buzzer.ogg")
+	Audio.stream = preload("res://sound/SFX/buzzer.ogg")
 	Audio.play()
 func confirm_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/UI/confirm.ogg")
+	Audio.stream = preload("res://sound/SFX/confirm.ogg")
 	Audio.play()
 func cancel_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/UI/Quit.ogg")
+	Audio.stream = preload("res://sound/SFX/Quit.ogg")
 	Audio.play()
 func item_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/UI/item.ogg")
+	Audio.stream = preload("res://sound/SFX/item.ogg")
 	Audio.play()
 func ui_sound(string:String) -> void:
-	Audio.stream = await Loader.load_res("res://sound/SFX/UI/"+string+".ogg")
+	Audio.stream = await Loader.load_res("res://sound/SFX/"+string+".ogg")
 	Audio.play()
 #endregion
 

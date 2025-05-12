@@ -26,5 +26,3 @@ position = Vector2(-0.999999, 1.43051e-06)
 scale = Vector2(0.31, 0.31)
 texture = ExtResource("2_trcwe")
 script = ExtResource("3_4a6f6")
-
-[connection signal="body_entered" from="." to="." method="_on_entered"]

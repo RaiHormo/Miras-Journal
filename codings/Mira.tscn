@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="10_dxclp"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_buww2"]
 [ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="12_1md4f"]
-[ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/SFX/Footsteps/StdrFootsteps.tscn" id="13_av38v"]
+[ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/Sets/FootstepsSoundSet.tscn" id="13_av38v"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="14_kgs5v"]
 
 [sub_resource type="Gradient" id="Gradient_s6doo"]

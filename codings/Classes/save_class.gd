@@ -9,17 +9,17 @@ class_name SaveFile
 @export var Position:Vector2
 @export var Camera: int = 0
 @export var Z: int = 1
-@export var Members: Array[Actor]
+@export var Members: Array[Dictionary]
 @export var Defeated: Array
 @export var StartTime: float
 @export var SavedTime: float
 @export var PlayTime: float
 @export_group("Items")
-@export var Inventory: Array[ItemData]
+@export var Inventory: Array[String]
 @export var Flags: Array[StringName]
 @export var Day: int
 @export var TimeOfDay: int
-@export var version = 3
+@export var version = 0
 
 func preview() -> Texture:
 	match Party:

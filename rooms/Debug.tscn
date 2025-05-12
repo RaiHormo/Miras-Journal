@@ -1015,7 +1015,7 @@ script = ExtResource("7_bbmkb")
 position = Vector2(61, 36)
 script = ExtResource("16_e25m3")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 3
+jump_am = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1"]
@@ -1024,6 +1024,7 @@ shape = SubResource("RectangleShape2D_3whwc")
 debug_color = Color(0.752941, 0.458824, 0, 0.419608)
 
 [node name="JumpPoint2" parent="." instance=ExtResource("20_8b40e")]
+jump_am = 2
 
 [node name="Ladder1" parent="." instance=ExtResource("23_5somt")]
 position = Vector2(136, -30)

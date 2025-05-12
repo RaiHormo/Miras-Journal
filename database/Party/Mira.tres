@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
 [ext_resource type="Resource" uid="uid://bc1byaoqk3s1q" path="res://database/Abilities/RagingFire.tres" id="8_27hub"]
-[ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/SFX/Battle/Mira/MiraSfx.tscn" id="10_rljiu"]
+[ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/Sets/MiraSoundSet.tscn" id="10_rljiu"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="14_flf11"]
 
 [resource]

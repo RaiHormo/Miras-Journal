@@ -95,7 +95,7 @@ var SpeedBoost: int = 0
 @export var Shadow: bool = false
 ##A scene containing the sound effects for this actor
 @export var ShadowOffset: int = 0
-@export var SoundSet: PackedScene = preload("res://sound/SFX/Battle/DefaultSet.tscn")
+@export var SoundSet: PackedScene = preload("res://sound/Sets/DefaultSoundSet.tscn")
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true
 ##The default amount of glow on the sprite
@@ -239,6 +239,41 @@ func full_heal():
 	Health = MaxHP
 	Aura = MaxAura
 
+func save_to_dict() -> Dictionary:
+	var dict: Dictionary = {
+		"codename": codename,
+		"FirstName": FirstName,
+		"LastName": LastName,
+		"WeaponPower": WeaponPower,
+		"Weapon": Weapon,
+		"Controllable": Controllable,
+		"MaxHP": MaxHP,
+		"MaxAura": MaxAura,
+		"Health": Health,
+		"Aura": Aura,
+		"SkillLevel": SkillLevel,
+		"SkillPoints": SkillPoints,
+		"AbilitiesList": get_ability_list(),
+		"ClutchDmg": ClutchDmg,
+		"CantDie": CantDie,
+		"CantDodge": CantDodge,
+		"IgnoreStates": IgnoreStates,
+	}
+	return dict
+
+func load_from_dict(dict: Dictionary):
+	for prop in get_property_list(): 
+		var key = prop.get("name")
+		if dict.has(key):
+			set(key, dict.get(key))
+	if dict.has("AbilitiesList"):
+		Abilities.clear()
+		for i in dict.get("AbilitiesList"):
+			if i != "":
+				var ab: Ability = await Loader.load_res("res://database/Abilities/"+ i+".tres")
+				if ab not in Abilities: Abilities.append(ab)
+	print("Loaded ", codename)
+
 func reset_static_info():
 	var og: Actor = load("res://database/Party/"+codename+".tres")
 	Attack = og.Attack
@@ -251,6 +286,14 @@ func reset_static_info():
 	SoundSet = og.SoundSet
 	LearnableAbilities = og.LearnableAbilities
 	PartyPageName = og.PartyPageName
+
+func get_ability_list() -> Array[String]:
+		var ab_list: Array[String]
+		for i in Abilities:
+			var ab_name = i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
+			if not ab_name.is_empty():
+				ab_list.append(ab_name)
+		return ab_list
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP

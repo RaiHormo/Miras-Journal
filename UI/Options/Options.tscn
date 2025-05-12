@@ -27,7 +27,7 @@
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="24_kpda3"]
 [ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="25_aibxb"]
-[ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/UI/cursor.wav" id="25_u17hy"]
+[ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="26_jguiy"]
 

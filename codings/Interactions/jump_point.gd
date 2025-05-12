@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 			if Global.Player.dashing and Global.Controllable:
 				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):
 					busy = true
+					#Global.Player.cant_bump = true
 					var prev_z = Global.Player.z_index
 					Global.Player.BodyState = NPC.NONE
 					Global.Player.z_index += 10
@@ -39,9 +40,10 @@ func _physics_process(delta: float) -> void:
 					Global.Player.collision(true)
 					Global.Controllable = true
 					Global.Player.z_index = prev_z
+					Global.Player.move_frames = 0
 					print("jump!")
 					for i in Global.Area.Followers:
-						i.position = Global.Player.position
+						i.player_jumped = true
 					if DoubleJumpDir == Global.PlayerDir and not Input.is_action_pressed("Dash"):
 						await Loader.transition()
 						Global.Party.Leader.damage(randi_range(5, 25), true)

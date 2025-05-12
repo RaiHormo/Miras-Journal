@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_aaqm5"]
 [ext_resource type="SpriteFrames" uid="uid://bnwig6n21wjpt" path="res://art/BT/FlowParasite/FlowParasiteBT.tres" id="2_3fqbs"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_ckpjf"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_ckpjf"]
 [ext_resource type="Resource" uid="uid://dsmlea0nfgq7h" path="res://database/Abilities/FluidBlast.tres" id="2_mpd0n"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_3fqbs"]
 [ext_resource type="Resource" uid="uid://cfe2jjap5iytv" path="res://database/Abilities/Humidity.tres" id="3_mf60o"]
@@ -31,7 +31,7 @@ Controllable = false
 HpOnSLvUp = 25
 ApOnSLvUP = 10
 MaxHP = 73
-MaxAura = 39
+MaxAura = 20
 Attack = 0.4
 Magic = 1.4
 Defence = 0.7

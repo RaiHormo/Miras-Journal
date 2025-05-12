@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="1_nai06"]
 [ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="2_ciuc2"]
 [ext_resource type="Texture2D" uid="uid://cqr2l0aaignpu" path="res://art/Icons/Enemies/Dragon.png" id="2_p85n4"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="3_8nbn3"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="3_8nbn3"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="4_mbwgc"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="5_3pau3"]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://of5cf81xb3dd"]
 
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="1_6rebp"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_6rebp"]
 [ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="1_e5cux"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_f06dm"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="1_p3tw5"]

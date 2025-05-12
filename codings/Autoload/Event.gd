@@ -217,7 +217,7 @@ func set_time(tod: TOD):
 
 func teleport_followers():
 	for i in Global.Area.Followers:
-		i.position = Global.Player.position
+		i.jump_to_player()
 
 func sequence(title: String):
 	if seq.has_method(title):

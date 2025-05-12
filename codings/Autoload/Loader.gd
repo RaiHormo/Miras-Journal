@@ -1,6 +1,6 @@
 extends Control
 
-const SaveVersion = 4
+const SaveVersion = 5
 
 @export var scene: Array[String] = []
 var status
@@ -64,16 +64,17 @@ func save(filename:String="Autosave", showicon=true):
 	data.Position = Global.Player.global_position
 	data.Camera = Global.CameraInd
 	data.Defeated = Defeated.duplicate()
-	data.Members = Global.Members.duplicate()
-	Global.make_array_unique(data.Members)
+	for mem in Global.Members:
+		data.Members.append(mem.save_to_dict())
+	#data.Members = Global.Members.duplicate()
+	#Global.make_array_unique(data.Members)
 	data.version = SaveVersion
 	data.Flags = Event.Flags.duplicate()
-	for i in data.Members:
-		data.Members[data.Members.find(i)] = i.duplicate()
-
-	data.Inventory = Item.combined_inv()
-	for i in data.Inventory:
-		data.Inventory[data.Inventory.find(i)] = i.duplicate()
+	#for i in data.Members:
+		#data.Members[data.Members.find(i)] = i.duplicate()
+	data.Inventory = Item.save_to_strings()
+	#for i in data.Inventory:
+		#data.Inventory[data.Inventory.find(i)] = i.duplicate()
 
 	data.RoomPath = Global.Area.scene_file_path
 	if Global.Area.CurSubRoom != null: data.RoomPath += ";" + Global.Area.CurSubRoom.name
@@ -112,17 +113,12 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Event.TimeOfDay = data.TimeOfDay as Event.TOD
 	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
-	if !data:
-		OS.alert("This save file doen't exist", "WHERE FILE")
-	if !data.RoomPath:
-		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	for i in get_tree().root.get_children():
-		if i is Room: i.queue_free()
-	var sc_split = data.RoomPath.split(";")
-	get_tree().root.add_child((await load_res(sc_split[0])).instantiate())
-	Item.load_inventories(data)
-
-	var temp_members = data.Members.duplicate()
+	
+	var temp_members: Array[Actor]
+	for mem_dict in data.Members:
+		var mem: Actor = (await Loader.load_res("res://database/Party/"+mem_dict.get("codename")+".tres")).duplicate()
+		await mem.load_from_dict(mem_dict)
+		temp_members.append(mem)
 	if temp_members < Global.Members:
 		Global.toast("WARNING: This save file was created in an older version.")
 		for j in Global.Members:
@@ -132,13 +128,23 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 			if not exists: temp_members.append(j)
 	PartyUI.LevelupChain.clear()
 	Global.Members = temp_members
-	Global.make_array_unique(Global.Members)
-	Global.Party.set_to_strarr(data.Party)
+	
 	print("Current party: ", data.Party)
+	Global.Party.set_to_strarr(data.Party)
 	for mem in Global.Members: 
 		mem.reset_static_info()
 		mem.Health = min(mem.Health, mem.MaxHP)
 		mem.Aura = min(mem.Aura, mem.MaxAura)
+	
+	if !data:
+		OS.alert("This save file doen't exist", "WHERE FILE")
+	if !data.RoomPath:
+		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
+	for i in get_tree().root.get_children():
+		if i is Room: i.queue_free()
+	var sc_split = data.RoomPath.split(";")
+	get_tree().root.add_child((await load_res(sc_split[0])).instantiate())
+	Item.load_inventory(data.Inventory)
 
 	await Global.area_initialized
 	if sc_split.size() > 1: Global.Area.go_to_subroom(sc_split[1])
@@ -152,6 +158,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	if $/root.get_node_or_null("Options"):
 		$/root.get_node("Options").queue_free()
 	PartyUI.shrink.emit()
+	await Global.Player.look_to(Vector2.DOWN)
 	if transition_after_done:
 		await detransition()
 		Event.give_control()
@@ -288,6 +295,8 @@ func done(controllable:= false):
 	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.global_position = traveled_pos
+	for i in Global.Area.Followers:
+		i.position = traveled_pos
 	get_tree().paused = false
 	if controllable: 
 		await Global.Player.look_to(look_dir)

@@ -69,8 +69,6 @@ func _ready():
 	Global.check_party.emit()
 	if SpawnPlayer:
 		Global.Player.global_position = map_to_local(SpawnPos)
-		for i in Followers:
-			i.position = Global.Player.position - Vector2(i.distance, 0)
 		handle_z()
 		Global.Player.collision_layer = SpawnLayers
 		Global.Player.collision_mask = SpawnLayers

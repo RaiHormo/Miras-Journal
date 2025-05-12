@@ -165,12 +165,18 @@ func combined_inv() -> Array[ItemData]:
 	#print(rtn)
 	return rtn
 
-func load_inventories(data: SaveFile):
+func save_to_strings() -> Array[String]:
+	var rtn: Array[String]
+	for item in combined_inv():
+		for i in item.Quantity:
+			rtn.append(item.filename+":"+find_type(item))
+	return rtn
+
+func load_inventory(data: Array[String]):
 	KeyInv.clear()
 	MatInv.clear()
 	BtiInv.clear()
 	ConInv.clear()
-	for i in data.Inventory:
-		find_filename(i)
-		if i.Quantity == 0: i.Quantity = 1
-		add_item(i.filename, i.ItemType, false, false, i.Quantity)
+	for i in data:
+		var item = i.split(":", false)
+		add_item(item[0], item[1], false, false)

@@ -7,11 +7,14 @@ var oposite : Vector2
 var RealVelocity: Vector2
 var moving: bool
 var target: Vector2
+var player_jumped:= false
 
 @export var member : int
 @export var distance : int = 30
 @onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
-@export var dont_follow := false
+@export var dont_follow := false:
+	set(x):
+		dont_follow = x
 @export var offset := 0
 
 func _ready():
@@ -43,22 +46,29 @@ func _physics_process(_delta: float) -> void:
 		#print(nav_agent.distance_to_target()," ", distance)
 		if Loader.chased:
 			$CollisionShape2D.disabled = true
-		if to_local(Global.Player.position).length() > 180:
-				global_position = Global.Player.global_position
-		if to_local(Global.Player.position).length() > distance:
-			$CollisionShape2D.disabled = false
-			if nav_agent.is_target_reachable():
-				direction = to_local(nav_agent.get_next_path_position()).normalized()
-			else:
-				direction = to_local(target).normalized()
-			move_and_slide()
-			velocity = speed * direction
-			speed = min(max(10, to_local(Global.Player.position).length() - distance)*3, Global.Player.speed)
-		elif to_local(Global.Player.position).length() < 18 and Global.Controllable:
-			animate()
-			oposite = (Global.get_direction() * Vector2(-1,-1))
-			velocity = oposite * 150
-			move_and_slide()
+		if player_jumped:
+			if to_local(Global.Player.position).length() > distance+80:
+				jump_to_player()
+				player_jumped = false
+			elif to_local(Global.Player.position).length() < distance:
+				player_jumped = false
+		else:
+			if to_local(Global.Player.position).length() > 180:
+				jump_to_player()
+			if to_local(Global.Player.position).length() > distance:
+				$CollisionShape2D.disabled = false
+				if nav_agent.is_target_reachable():
+					direction = to_local(nav_agent.get_next_path_position()).normalized()
+				else:
+					direction = to_local(target).normalized()
+				move_and_slide()
+				velocity = speed * direction
+				speed = min(max(10, to_local(Global.Player.position).length() - distance)*3, Global.Player.speed)
+			elif to_local(Global.Player.position).length() < 12 and Global.Controllable:
+				animate()
+				oposite = (Global.get_direction() * Vector2(-1,-1))
+				velocity = oposite * 150
+				move_and_slide()
 		if (global_position-oldposition).length() > 0.3:
 			moving =true
 			RealVelocity=global_position-oldposition
@@ -109,6 +119,16 @@ func animate():
 		elif dir == Vector2.DOWN:
 			$AnimatedSprite2D.play("WalkDown")
 
+func jump_to_player(speed = 2):
+	if not is_instance_valid(Global.Player): return
+	if Global.Player.dashing: return
+	var prev_pos = position
+	var new_pos = Global.Player.position
+	#new_pos.x += offset
+	#if member == 3: new_pos.y -= 24
+	#if speed > 0:
+		#await Global.jump_to_global(self, new_pos, speed, 0.3)
+	position = new_pos
 
 func _on_timer_timeout():
 	if Global.Party.check_member(member):

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cwah0an2o3u15"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/SFX/Battle/DefaultSet.tscn" id="2_7s2jl"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_7s2jl"]
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
 [ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
