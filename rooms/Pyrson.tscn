@@ -627,7 +627,6 @@ Length = 160
 position = Vector2(2.38419e-07, -3.8147e-06)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
-energy = 0.0
 shadow_enabled = true
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
@@ -645,7 +644,6 @@ RightSubarea = NodePath("..")
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="HomeBuilding-MyRoom" type="Node2D" parent="."]
-visible = false
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
@@ -659,11 +657,10 @@ cam_zoom = 5.0
 position = Vector2(157, 377)
 scale = Vector2(2.72353, 3.145)
 color = Color(0.621159, 0.893992, 1, 1)
-energy = 0.5
+energy = 0.3
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_52siy")
-script = ExtResource("10_4xvqm")
 
 [node name="Floor" type="TileMapLayer" parent="HomeBuilding-MyRoom"]
 tile_map_data = PackedByteArray("AAAFABAAAQADAAEAAAAFABEAAQACAAIAAAAFABIAAQACAAIAAAAFABMAAQACAAIAAAAFABQAAQACAAIAAAAGABAAAQADAAEAAAAGABEAAQACAAIAAAAGABIAAQACAAIAAAAGABMAAQACAAIAAAAGABQAAQACAAIAAAAHABAAAQADAAEAAAAHABEAAQACAAIAAAAHABIAAQACAAIAAAAHABMAAQACAAIAAAAHABQAAQACAAIAAAAIABAAAQADAAEAAAAIABEAAQACAAIAAAAIABIAAQACAAIAAAAIABMAAQACAAIAAAAIABQAAQACAAIAAAAJABAAAQADAAEAAAAJABEAAQACAAIAAAAJABIAAQACAAIAAAAJABMAAQACAAIAAAAJABQAAQACAAIAAAAKABAAAQADAAEAAAAKABEAAQACAAIAAAAKABIAAQACAAIAAAAKABMAAQACAAIAAAAKABQAAQACAAIAAAAFAA8AAQADAAAAAAAGAA8AAQADAAAAAAAHAA8AAQADAAAAAAAIAA8AAQADAAAAAAAJAA8AAQADAAAAAAAKAA8AAQADAAAAAAA=")
@@ -690,6 +687,7 @@ shape = SubResource("CircleShape2D_xjbvj")
 position = Vector2(5, -3.8147e-06)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
+energy = 0.5
 shadow_enabled = true
 shadow_filter_smooth = 11.0
 shadow_item_cull_mask = 3
@@ -737,6 +735,7 @@ shape = SubResource("RectangleShape2D_6we5s")
 position = Vector2(519, 620)
 jump_am = 1
 time = 7
+RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint2" index="0"]
 position = Vector2(-86.5, 0.5)
@@ -746,6 +745,7 @@ shape = SubResource("RectangleShape2D_xjbvj")
 position = Vector2(520, 760)
 jump_am = 1
 time = 7
+RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint3" index="0"]
 position = Vector2(-88.5, 0.5)
@@ -755,6 +755,7 @@ shape = SubResource("RectangleShape2D_xjbvj")
 position = Vector2(335, 697)
 jump_am = 1
 time = 7
+RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint4" index="0"]
 position = Vector2(0, -7)
@@ -764,6 +765,7 @@ shape = SubResource("RectangleShape2D_lkhnc")
 position = Vector2(532, 696)
 jump_am = 1
 time = 7
+RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint5" index="0"]
 position = Vector2(0, -7)
@@ -818,10 +820,12 @@ to_time = -1
 to_time_relative = 2
 Height = 16
 bubble_always = true
+event_condition = "sl_maple"
+hide_parent = true
 
 [node name="Linde" parent="." instance=ExtResource("16_s1pqb")]
 z_index = 0
-position = Vector2(193, 760)
+position = Vector2(409, 575)
 
 [node name="TalkPrompt" parent="Linde" instance=ExtResource("9_w0u03")]
 position = Vector2(-1, -3)
@@ -834,6 +838,8 @@ to_time = -1
 to_time_relative = 2
 Height = 16
 bubble_always = true
+event_condition = "sl_linde"
+hide_parent = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Linde"]
 position = Vector2(-1, 0)

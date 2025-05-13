@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://euqb6itg1uck"
+path="res://.godot/imported/sl_linde.dialogue-88c5d05da8628cbef6332c1b3cd4455c.tres"
+
+[deps]
+
+source_file="res://database/Text/sl_linde.dialogue"
+dest_files=["res://.godot/imported/sl_linde.dialogue-88c5d05da8628cbef6332c1b3cd4455c.tres"]
+
+[params]
+
+defaults=true

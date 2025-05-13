@@ -1,0 +1,5 @@
+~ prepare
+Linde: You know dispel now, I don't have dialog for this
+do add_flag("sl_linde_1")
+do Party.Leader.Abilities.append(load("res://database/Abilities/Dispel.tres"))
+=> END

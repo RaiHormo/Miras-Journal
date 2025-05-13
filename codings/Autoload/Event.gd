@@ -273,3 +273,12 @@ func start_time_events():
 	print(seq)
 	if sequence_exists(seq):
 		sequence(seq)
+
+func condition(con: String):
+	if $Conditions.has_method(con):
+		var res = $Conditions.call(con)
+		#print("Condition "+ con+" ", res)
+		return res
+	else: 
+		push_error(con + " condition is not valid"); 
+		return 0

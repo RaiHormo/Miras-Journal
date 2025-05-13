@@ -502,13 +502,16 @@ func check_for_levelups(mem:Actor, node:Panel):
 		t = create_tween()
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
 		await t.finished
-		mem.SkillLevel += 1
-		LevelupChain.append(mem.codename)
-		print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
-		node.get_node("Level/Number").text = str(mem.SkillLevel)
-		if mem.SkillLevel < mem.SkillPointsFor.size():
-			node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
-		check_for_levelups(mem, node)
+		if not mem.codename in LevelupChain:
+			mem.SkillLevel += 1
+			LevelupChain.append(mem.codename)
+			print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
+			node.get_node("Level/Number").text = str(mem.SkillLevel)
+			if mem.SkillLevel < mem.SkillPointsFor.size():
+				node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
+			check_for_levelups(mem, node)
+		else: 
+			push_error("Levelup bug occured")
 
 func make_shadow(texture: Texture2D) -> Texture2D:
 	var old_image := texture.get_image() #// Gets the image from the old texture.
@@ -625,11 +628,12 @@ func party_menu():
 
 func main_menu():
 	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
+		Global.ui_sound("Menu")
+		Global.Player.bag_anim()
 		Global.Controllable = false
 		get_tree().paused = true
-		Global.Player.bag_anim()
-		Global.ui_sound("Menu")
-		get_tree().root.add_child((await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")).instantiate())
+		var menu = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
+		get_tree().root.add_child(menu.instantiate())
 	elif Global.Controllable: Global.buzzer_sound()
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):

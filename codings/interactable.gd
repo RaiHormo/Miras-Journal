@@ -19,6 +19,7 @@ signal action()
 @onready var arrow:TextureRect
 @onready var pack := $Pack
 @export var return_control:= true
+@export var event_condition:= ""
 @export var show_on_flag: StringName
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
@@ -55,6 +56,8 @@ func check() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
+	if event_condition != "" and Event.condition(event_condition) == 0 :
+		destroy()
 	if not show_on_flag.is_empty() and not Event.check_flag(show_on_flag):
 		destroy()
 	if not hide_on_flag.is_empty() and Event.check_flag(hide_on_flag):

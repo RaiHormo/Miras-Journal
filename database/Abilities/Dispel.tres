@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://b17ykdoflr2v3"]
+
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_c12uv"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_h54ts"]
+
+[resource]
+script = ExtResource("2_h54ts")
+name = "Dispel"
+description = "Remove one random state from any target."
+Icon = ExtResource("1_c12uv")
+ActionSequence = &"Dispel"
+Type = "CheapAttack"
+Group = "Linde"
+InflictsState = "Dispel"
+AuraCost = 10
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 0.0
+Target = 5
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(1, 1, 1, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

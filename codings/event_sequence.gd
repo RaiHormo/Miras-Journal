@@ -91,6 +91,7 @@ func rest_amberelm():
 	await Global.textbox("story_events", "wake_amberelm", true)
 	Event.Day = 3
 	Event.ToTime = Event.TOD.AFTERNOON
+	Event.remove_flag("HideDate")
 	Event.time_transition()
 	#await Loader.transition("R")
 	#Global.get_cam().zoom = Vector2(4,4)

@@ -20,6 +20,7 @@ class_name SaveFile
 @export var Day: int
 @export var TimeOfDay: int
 @export var version = 0
+@export var checksum: String
 
 func preview() -> Texture:
 	match Party:

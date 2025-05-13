@@ -6,6 +6,7 @@ class_name JumpPoint
 @export var time:= 5
 @export var height:= 0.5
 @export var DoubleJumpDir: Vector2
+@export var RelativePositions: bool = false
 var busy: bool = false
 
 func _ready() -> void:
@@ -28,7 +29,11 @@ func _physics_process(delta: float) -> void:
 					Global.Player.z_index += 10
 					Global.Controllable = false
 					Global.Player.collision(false)
-					var coord: Vector2 = position - Global.Player.dashdir*24
+					var coord: Vector2
+					if RelativePositions:
+						coord = Global.Player.position + Global.Player.dashdir*24
+					else:
+						coord = position - Global.Player.dashdir*24
 					round(coord)
 					coord += (jump_am*24) * Global.Player.dashdir + Vector2(0, jump_am_v*24)
 					#coord /= 24

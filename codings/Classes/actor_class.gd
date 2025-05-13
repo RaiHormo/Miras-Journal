@@ -272,7 +272,6 @@ func load_from_dict(dict: Dictionary):
 			if i != "":
 				var ab: Ability = await Loader.load_res("res://database/Abilities/"+ i+".tres")
 				if ab not in Abilities: Abilities.append(ab)
-	print("Loaded ", codename)
 
 func reset_static_info():
 	var og: Actor = load("res://database/Party/"+codename+".tres")

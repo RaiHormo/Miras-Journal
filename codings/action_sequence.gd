@@ -751,6 +751,20 @@ func Attention(target: Actor):
 	await Event.wait(0.5)
 	Bt.anim()
 	Bt.end_turn()
+
+func Dispel(target: Actor):
+	Bt.zoom()
+	Bt.anim("Cast")
+	await Bt.focus_cam(target)
+	if target.States.is_empty():
+		Global.toast(target.FirstName + " has no states to dispel.")
+	else:
+		var state: State = target.States.pick_random()
+		Global.toast(target.FirstName + "'s "+ state.name +" state was dispelled!")
+		target.remove_state(state)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
 #endregion
 
 ################################################

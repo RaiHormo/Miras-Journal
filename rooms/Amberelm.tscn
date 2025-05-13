@@ -940,6 +940,9 @@ Height = 5
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_l4d8k")
 
+[node name="Pack" parent="InteractBackround" index="1"]
+visible = true
+
 [node name="InteractBackround2" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(376, 344)
 ActionType = "text"

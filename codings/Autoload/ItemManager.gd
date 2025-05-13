@@ -49,12 +49,13 @@ func add_item(ItemName, type: StringName = &"", animate:= true, player_animate:=
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 		return
 	var inv: Array[ItemData] = get_inv(type)
+	var amount = item.AmountOnAdd if quantity == -1 else quantity 
 	if not check_item(ItemName, type):
-		item.Quantity = item.AmountOnAdd if quantity == -1 else quantity
+		item.Quantity = amount
 		inv.append(item)
 	else: for i in inv:
 		if i.filename == item.filename:
-			i.Quantity += item.AmountOnAdd
+			i.Quantity += amount
 	overwrite_inv(inv, type)
 	print("Added item ", item.Name, " of type ", type)
 	if animate: get_animation(item.Icon, item.Name, player_animate)
@@ -168,7 +169,7 @@ func combined_inv() -> Array[ItemData]:
 func save_to_strings() -> Array[String]:
 	var rtn: Array[String]
 	for item in combined_inv():
-		for i in item.Quantity:
+		for i in abs(item.Quantity):
 			rtn.append(item.filename+":"+find_type(item))
 	return rtn
 
@@ -179,4 +180,4 @@ func load_inventory(data: Array[String]):
 	ConInv.clear()
 	for i in data:
 		var item = i.split(":", false)
-		add_item(item[0], item[1], false, false)
+		add_item(item[0], item[1], false, false, 1)
