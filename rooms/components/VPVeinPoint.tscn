@@ -50,7 +50,7 @@ position = Vector2(438, -46)
 
 [node name="Interactable" parent="." instance=ExtResource("1_sli5j")]
 LabelText = "Enter"
-ActionType = "vainet"
+ActionType = "veinet"
 Length = 110
 
 [node name="Sprite" type="Sprite2D" parent="."]

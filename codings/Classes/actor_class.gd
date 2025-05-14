@@ -324,3 +324,8 @@ func RenderShadow() -> Texture:
 ##Doodles shown in the party menu
 func PartyPage() -> Texture:
 	return await Loader.load_res("res://art/Journal/Auras/"+PartyPageName+".png")
+
+func has_ability(ab: String):
+	for i in Abilities:
+		if i.name == ab: return true
+	return false

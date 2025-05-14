@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
 [ext_resource type="Script" uid="uid://cvp04cgsljoib" path="res://codings/Interactions/path_hider.gd" id="3_bw084"]
-[ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVainPoint.tscn" id="3_r8nk5"]
+[ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="3_r8nk5"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="4_ujeyr"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="6_fhj74"]
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="7_4o7ma"]
@@ -614,15 +614,15 @@ DefeatSequence = ""
 Events = Array[ExtResource("16_6vjw5")]([])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
-[sub_resource type="Resource" id="Resource_ohs4u"]
+[sub_resource type="Resource" id="Resource_qvrxi"]
 script = ExtResource("17_a3r2p")
-Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("16_a3r2p"), ExtResource("17_lmpvr"), ExtResource("20_ohs4u")])
+Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("16_a3r2p"), ExtResource("15_3lgvi")])
 AdditionalItems = Array[ExtResource("14_ybpd3")]([])
 Transition = true
 Detransition = false
-EscPosition = Vector2i(-13, 26)
+EscPosition = Vector2i(-9, -29)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(-484, 344)
+ScenePosition = Vector2(-349, -778)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -1461,11 +1461,11 @@ gizmo_extents = 100.0
 
 [node name="EnemySG5" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-378, -783)
-BattleSeq = SubResource("Resource_ohs4u")
+BattleSeq = SubResource("Resource_qvrxi")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-SpawnOnCameraInd = false
+CameraIndex = 2
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG5"]
@@ -1492,6 +1492,7 @@ offset = Vector2(0.0496826, -5.866)
 position = Vector2(156, 85)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemySG5"]
+position = Vector2(29, 5)
 
 [node name="EnemySG6" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(-275, 429)
@@ -1856,6 +1857,7 @@ position = Vector2(-3, 53)
 position = Vector2(-2, 85)
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_pimpf")
 use_edge_connections = false
 navigation_layers = 2

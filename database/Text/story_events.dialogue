@@ -389,7 +389,7 @@ Alcine.Tired: Wooom...
 => END
 
 ~ cast_lines_sg
-do npc("P").look_to("U")
+do Player.look_to("U")
 do Player.camera_follow(false)
 set Camera.position = Vector2(-158, -18)
 do wait(1)
@@ -406,7 +406,7 @@ Alcine seems to be bothered by something.
 
 ~ blocked_cast_lines
 if not f("EvSwitchCastLines2"):
-	Alcine.Neutral: Shaooo!
+	Alcine.Neutral: Waooo!
 	Daze.Neutral: These lines gather towards the center.
 	Asteria.Neutral: Doesn't this look like the thing that broke the crystals last time?
 	- Try touching
@@ -434,9 +434,13 @@ if not f("EvSwitchCastLines2"):
 	do Player.camera_follow(true)
 	Asteria.Neutral: There was a Vain nearby, let's head there. 
 	do add_flag("EvSwitchCastLines2")
-	Placeholder description: This is the last part available rn
+	Placeholder description: This is the last part of the game developed right now
 else:
-	Asteria.Neutral: Mira! We can't make any progress here unless we despell this.
-	Mira.Neutral: I know, I know.
-	Asteria.Neutral: Then use the Vain to return to the village already!
+	if Party.Leader.has_ability("Dispel"):
+		Placeholder description: The gate is unlocked, there's no dialog for this yet.
+		do add_flag("SGDoor2")
+	else:
+		Asteria.Neutral: Mira! We can't make any progress here unless we despell this.
+		Mira.Neutral: I know, I know.
+		Asteria.Neutral: Then use the Vain to return to the village already!
 => END

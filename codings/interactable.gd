@@ -3,7 +3,7 @@ class_name Interactable
 
 signal action()
 @export var LabelText : String = "Inspect"
-@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "vainet", "focus_cam") var ActionType: String
+@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "veinet", "focus_cam") var ActionType: String
 @export var Length: int = 120
 @export var file: String = ""
 @export var title: String = ""
@@ -196,9 +196,9 @@ func _on_button_pressed() -> void:
 			if await PartyUI.confirm_time_passage(title, item):
 				Global.confirm_sound()
 				Event.sequence(file)
-		"vainet":
+		"veinet":
 			if Event.f(get_parent().name):
-				Global.vainet_map(get_parent().name.replace("VP", ""))
+				Global.veinet_map(get_parent().name.replace("VP", ""))
 				Loader.save()
 			else:
 				Event.f(get_parent().name, true)

@@ -23,8 +23,10 @@ func _ready() -> void:
 			label = i
 			i.hide()
 		if i is Button and i.visible: label.show()
+	await Event.wait(0.3, false)
+	if foc is Button: foc.grab_focus()
 
-func focus_place(place: String):
+func focus_place(place: String = here):
 	if not inited:
 		here = place
 		Global.Player.camera_follow(false)

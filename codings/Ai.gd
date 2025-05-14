@@ -159,8 +159,9 @@ func check_for_curses() -> bool:
 		if randi_range(0, inflicted.size()) == 0:
 			if inflicted.size() < Bt.get_oposing_faction().size():
 				for j in range(0, Bt.get_oposing_faction().size()*2):
-					var tar = Bt.get_oposing_faction().pick_random()
-					if not tar.has_state(i.InflictsState):
+					var tar: Actor = Bt.get_oposing_faction().pick_random()
+					if (not tar.has_state(i.InflictsState) 
+					and (not i.InflictsState == "Aggro" or tar.StandardAttack.Target == Ability.T.ONE_ENEMY)):
 						choose(i, tar)
 						return true
 	return false

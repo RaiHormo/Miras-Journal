@@ -15,7 +15,7 @@ config/name_localized={
 "ja": "ミーラの日記"
 }
 config/description="A prototype JRPG game
-Created by Rai"
+Created by RaiDev"
 config/version="0.01"
 run/main_scene="res://codings/Initializer.tscn"
 config/use_custom_user_dir=true

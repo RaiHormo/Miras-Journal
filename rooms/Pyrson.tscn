@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c7mfou1fik1k6" path="res://codings/pyrson.gd" id="1_585ds"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
 [ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/sub_room.gd" id="3_aq7mb"]
-[ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVainPoint.tscn" id="3_pivbf"]
+[ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="3_pivbf"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="4_e3kpk"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="5_xdx5l"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="6_dtjwe"]
@@ -374,7 +374,6 @@ CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1176)])
 CameraZooms = Array[float]([0.75])
 
 [node name="Lights" type="Node2D" parent="."]
-visible = false
 
 [node name="LightTorch9" type="PointLight2D" parent="Lights"]
 position = Vector2(443, 554)

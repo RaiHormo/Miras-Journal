@@ -121,8 +121,8 @@ func member_details(chara: Actor):
 func next_day_ui():
 	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
 
-func vainet_map(cur: String):
-	var Map = (await Loader.load_res("res://UI/Map/VainetMap.tscn")).instantiate()
+func veinet_map(cur: String):
+	var Map = (await Loader.load_res("res://UI/Map/VeinetMap.tscn")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 

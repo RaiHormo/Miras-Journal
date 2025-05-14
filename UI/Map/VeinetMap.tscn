@@ -1,12 +1,12 @@
 [gd_scene load_steps=26 format=3 uid="uid://b31w3e1tiwp0y"]
 
-[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_0ev4o"]
-[ext_resource type="Script" uid="uid://b4ww3rphxb7qi" path="res://codings/UIScripts/vainet_map.gd" id="1_osakl"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="2_l6jq8"]
-[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="2_u17cs"]
-[ext_resource type="Texture2D" uid="uid://d15lsfxr4aggu" path="res://UI/MenuTextures/dot.png" id="5_mub7m"]
-[ext_resource type="Texture2D" uid="uid://d5kj5axtk35d" path="res://UI/Map/marker.png" id="5_u18ux"]
-[ext_resource type="Texture2D" uid="uid://dt8567ufrie3p" path="res://UI/Map/we are here.png" id="6_h0aj4"]
+[ext_resource type="Script" uid="uid://b4ww3rphxb7qi" path="res://codings/UIScripts/veinet_map.gd" id="1_8kw10"]
+[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="2_ynyg8"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_3o4ps"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_rkbbg"]
+[ext_resource type="Texture2D" uid="uid://d15lsfxr4aggu" path="res://UI/MenuTextures/dot.png" id="5_5boh2"]
+[ext_resource type="Texture2D" uid="uid://d5kj5axtk35d" path="res://UI/Map/marker.png" id="6_m545d"]
+[ext_resource type="Texture2D" uid="uid://dt8567ufrie3p" path="res://UI/Map/we are here.png" id="7_ilyqy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vbuu"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
@@ -163,7 +163,7 @@ content_margin_right = 32.0
 content_margin_bottom = 24.0
 
 [sub_resource type="Theme" id="Theme_mgbs5"]
-default_font = ExtResource("2_l6jq8")
+default_font = ExtResource("4_rkbbg")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -209,7 +209,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[node name="VainetMap" type="Control"]
+[node name="VeinetMap" type="Control"]
 process_mode = 3
 light_mask = 0
 z_index = 10
@@ -219,7 +219,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_osakl")
+script = ExtResource("1_8kw10")
 
 [node name="BG" type="ColorRect" parent="."]
 light_mask = 0
@@ -247,7 +247,7 @@ offset_top = 471.0
 offset_right = 174.0
 offset_bottom = 519.0
 pivot_offset = Vector2(22, 25)
-texture = ExtResource("2_u17cs")
+texture = ExtResource("2_ynyg8")
 
 [node name="Gate" type="TextureRect" parent="Map"]
 light_mask = 0
@@ -257,7 +257,7 @@ offset_top = 293.0
 offset_right = 399.0
 offset_bottom = 341.0
 pivot_offset = Vector2(24, 22)
-texture = ExtResource("2_u17cs")
+texture = ExtResource("2_ynyg8")
 
 [node name="Plains" type="TextureRect" parent="Map"]
 light_mask = 0
@@ -267,7 +267,7 @@ offset_top = 292.0
 offset_right = 556.0
 offset_bottom = 340.0
 pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_u17cs")
+texture = ExtResource("2_ynyg8")
 
 [node name="Underground" type="TextureRect" parent="Map"]
 light_mask = 0
@@ -277,7 +277,7 @@ offset_top = 313.0
 offset_right = 528.0
 offset_bottom = 361.0
 pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_u17cs")
+texture = ExtResource("2_ynyg8")
 
 [node name="Deep Underground" type="TextureRect" parent="Map"]
 light_mask = 0
@@ -287,7 +287,17 @@ offset_top = 313.0
 offset_right = 528.0
 offset_bottom = 361.0
 pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_u17cs")
+texture = ExtResource("2_ynyg8")
+
+[node name="Lakeside" type="TextureRect" parent="Map"]
+light_mask = 0
+layout_mode = 0
+offset_left = 480.0
+offset_top = 313.0
+offset_right = 528.0
+offset_bottom = 361.0
+pivot_offset = Vector2(23, 24)
+texture = ExtResource("2_ynyg8")
 
 [node name="Container" type="PanelContainer" parent="."]
 light_mask = 0
@@ -335,7 +345,7 @@ theme_override_constants/separation = 12
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("1_0ev4o")
+theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Pyrson"
 
@@ -356,7 +366,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Gate"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "Pyrson"
@@ -367,7 +377,7 @@ metadata/IsDungeon = false
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("1_0ev4o")
+theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Shard gardens"
 
@@ -388,7 +398,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Plains"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "ShardGardens"
@@ -411,7 +421,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Underground"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "ShardGardens"
@@ -434,17 +444,40 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Deep Underground"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 1
 
+[node name="Lakeside" type="Button" parent="Container/Scroller/LocationList"]
+light_mask = 0
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_mgbs5")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+text = "Lakeside"
+icon = ExtResource("5_5boh2")
+alignment = 0
+expand_icon = true
+metadata/Room = "ShardGardens"
+metadata/CamID = 2
+
 [node name="Ruins" type="Label" parent="Container/Scroller/LocationList"]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("1_0ev4o")
+theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Ruins
 "
@@ -466,7 +499,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Temple woods"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "TempleWoods"
@@ -490,7 +523,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Amberelm
 "
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 
@@ -511,18 +544,18 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
 text = "Bunker"
-icon = ExtResource("5_mub7m")
+icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 
 [node name="Marker" type="Sprite2D" parent="."]
 light_mask = 0
 position = Vector2(577, 390)
-texture = ExtResource("5_u18ux")
+texture = ExtResource("6_m545d")
 offset = Vector2(6, -47)
 
 [node name="Here" type="Sprite2D" parent="."]
 light_mask = 0
 position = Vector2(412, 395)
-texture = ExtResource("6_h0aj4")
+texture = ExtResource("7_ilyqy")
 offset = Vector2(-1, 40)

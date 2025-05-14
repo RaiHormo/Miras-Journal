@@ -507,7 +507,7 @@ func _on_command():
 
 func _on_item() -> void:
 	PrevStage = &"root"
-	stage = &"inactive"
+	stage = &"pre_item"
 	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true; return
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
@@ -536,7 +536,7 @@ func _on_item() -> void:
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
-	t.tween_property($"../Canvas/Confirm", "position:y",742, 0.3).from(850)
+	t.tween_property($"../Canvas/Confirm", "position", Vector2(30, 742), 0.3).from(Vector2(30, 850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(210, 742), 0.4).from(Vector2(210, 850))
 	t.tween_property($"../Canvas/Give", "position", Vector2(380,742), 0.5).from(Vector2(380,850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
@@ -660,6 +660,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	if analyzing:
 		wheel.show()
 		wheel.show_atk_color(CurrentChar.MainColor)
+		move_menu()
 	t.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
@@ -753,6 +754,9 @@ func move_menu():
 			wheel.show_atk_color(target.MainColor)
 			await Event.wait()
 			wheel.show_trg_color(target.MainColor)
+			$"../Canvas/AttackTitle/RichTextLabel".text = "HP: %d		AP: %d\nAttack: %.1f \nDefence: %.1f \nMagic: %.1f " % [target.MaxHP, target.MaxAura, target.Attack, target.Defence, target.Magic]
+			$"../Canvas/AttackTitle".icon = target.PartyIcon
+			$"../Canvas/AttackTitle".text = target.FirstName
 		else:
 			wheel.show_trg_color(target.MainColor)
 		await get_tree().create_timer(0.1).timeout
@@ -851,8 +855,8 @@ func _on_focus_changed(control:Control):
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
-		if stage == &"item":
-			#print(control)
+		if stage == &"item" or &"pre_item":
+			if stage == &"item": Global.cursor_sound()
 			focus_item(control)
 
 func _on_ability_entry():

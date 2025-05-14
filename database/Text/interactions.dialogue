@@ -124,16 +124,16 @@ Daze.Neutral: Another blocked path...
 	do Party.add("Daze")
 	do zoom(5)
 	do wait(0.3, false)
-	set Global.Area.Followers[1].position += Vector2(24, 0)
-	set Global.Area.Followers[0].position += Vector2(24, 24)
-	set Global.Area.Followers[2].position += Vector2(0, 24)
+	set Global.Area.Followers[1].position = Global.Player.position + Vector2(24, 0)
+	set Global.Area.Followers[0].position = Global.Player.position + Vector2(24, 24)
+	set Global.Area.Followers[2].position = Global.Player.position + Vector2(0, 24)
 	do PartyUI.hide_all()
 	do detransition()
 	Ok, let's go.
-	do Global.vainet_map("Gate")
+	do Global.veinet_map("Gate")
 - Go alone
 	do Party.reset_party()
-	do Global.vainet_map("Gate")
+	do Global.veinet_map("Gate")
 - Don't go
 	do give_control()
 => END
