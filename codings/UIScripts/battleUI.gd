@@ -1025,8 +1025,9 @@ func update_ab(dub: Button):
 	dub.set_meta("Ability", ab)
 
 func _on_b_ibutton_pressed(tog:bool) -> void:
-	if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
-	if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
+	if "item" in stage:
+		if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
+		if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
 	$Inventory/Cbutton.button_pressed = false
 	$Inventory/Margin.current_tab = 0
 	$Inventory/BIbutton.set_pressed_no_signal(true)
@@ -1034,8 +1035,9 @@ func _on_b_ibutton_pressed(tog:bool) -> void:
 	$Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
 
 func _on_cbutton_pressed(tog:bool) -> void:
-	if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
-	if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
+	if "item" in stage:
+		if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
+		if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
 	$Inventory/Margin.current_tab = 1
 	$Inventory/Cbutton.set_pressed_no_signal(true)
 	$Inventory/BIbutton.set_pressed_no_signal(false)

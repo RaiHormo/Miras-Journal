@@ -248,6 +248,9 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
 	if prev_dev != device: controller_changed.emit()
 	LastInput=ProcessFrame
+	var is_fullscreen = get_window().mode == Window.MODE_FULLSCREEN
+	if is_fullscreen != Settings.Fullscreen:
+		fullscreen(is_fullscreen)
 	#print(device)
 
 func cancel() -> String:
@@ -289,12 +292,12 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	else:
 		Settings.Fullscreen = false
 		get_window().mode = Window.MODE_WINDOWED
-		if OS.get_name() == "Linux":
-			get_window().size = Vector2i(1280,800)
-			await get_tree().create_timer(0.03).timeout
-			get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
-			await get_tree().create_timer(0.15).timeout
-			get_window().grab_focus()
+		#if OS.get_name() == "Linux":
+			#get_window().size = Vector2i(1280,800)
+			#await get_tree().create_timer(0.03).timeout
+			#get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
+	await get_tree().create_timer(0.15).timeout
+	get_window().grab_focus()
 	save_settings()
 
 func reset_settings() -> void:
