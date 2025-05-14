@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3r3bkkn5s1g7"
-path.s3tc="res://.godot/imported/L.png-286bbab6947c9b925488b6a2281f2f2d.s3tc.ctex"
+path="res://.godot/imported/L.png-286bbab6947c9b925488b6a2281f2f2d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://UI/Input/L.png"
-dest_files=["res://.godot/imported/L.png-286bbab6947c9b925488b6a2281f2f2d.s3tc.ctex"]
+dest_files=["res://.godot/imported/L.png-286bbab6947c9b925488b6a2281f2f2d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=1
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -26,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

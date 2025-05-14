@@ -11,9 +11,6 @@ config_version=5
 [application]
 
 config/name="Mira's Journal - Prototype"
-config/name_localized={
-"ja": "ミーラの日記"
-}
 config/description="A prototype JRPG game
 Created by RaiDev"
 config/version="0.0.2"

@@ -200,7 +200,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Pages" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 333.0
@@ -240,18 +239,9 @@ offset_top = 47.7778
 offset_right = 424.778
 offset_bottom = 644.778
 bbcode_enabled = true
-text = "dfgsdfg
-dsfgfd
-gf
-fd
-sdf
-df
-fgds
-ds
-ss
-s
-dfdsg
-"
+text = "This journal menu is unfinished.
+
+Maybe check it out another time :)"
 fit_content = true
 
 [node name="TextR" type="RichTextLabel" parent="Pages"]
@@ -261,18 +251,7 @@ offset_top = 53.3333
 offset_right = 969.222
 offset_bottom = 650.333
 bbcode_enabled = true
-text = "dfgsdfg
-dsfgfd
-gf
-fd
-sdf
-df
-fgds
-ds
-ss
-s
-dfdsg
-"
+text = "Yes, the mechanic in the title of the game is not actually implemented yet, go figure."
 fit_content = true
 
 [node name="RootMenu" type="VBoxContainer" parent="."]
