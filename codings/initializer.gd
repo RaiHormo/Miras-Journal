@@ -15,6 +15,7 @@ func _ready() -> void:
 		$TitleScreen/Continue.text = "New game"
 		Loader.transition("")
 	$TitleScreen.show()
+	$TitleScreen/Label.text += ProjectSettings.get_setting("application/config/version")
 	PartyUI.disabled = false
 	PartyUI.visible = true
 

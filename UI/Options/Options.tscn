@@ -1,9 +1,10 @@
-[gd_scene load_steps=79 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=80 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
 [ext_resource type="Texture2D" uid="uid://dc3pmph6cr1u8" path="res://art/Previews/1_low.png" id="3_p6787"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="4_nqfss"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
@@ -539,6 +540,18 @@ position = Vector2(468.828, 181.802)
 scale = Vector2(405.189, 369.109)
 color = Color(0.705882, 0.709804, 0.705882, 1)
 polygon = PackedVector2Array(-0.765092, -0.498645, -0.403275, 0.25305, -0.146988, 0.867602, 0.0452271, 1.42341, 0.24498, 2.15093, 0.384431, 3.02147, 0.414582, 3.58179, 0.410813, 4.04429, 0.335435, 4.69047, 0.180908, 5.69815, 0.354279, 5.1785, 0.538957, 4.49616, 0.6671, 3.80479, 0.734941, 3.27, 0.799013, 2.44758, 0.810319, 1.55897, 0.757555, 0.884094, 0.625642, 0.185269, 0.429658, -0.494127)
+
+[node name="Version" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 822.0
+offset_top = 1263.0
+offset_right = 1071.0
+offset_bottom = 1312.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.2)
+theme_override_fonts/font = ExtResource("4_nqfss")
+theme_override_font_sizes/font_size = 48
+text = "v"
+horizontal_alignment = 2
 
 [node name="MainButtons" type="Node" parent="."]
 

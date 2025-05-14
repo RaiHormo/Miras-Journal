@@ -107,7 +107,9 @@ offset_right = 1166.0
 offset_bottom = 730.0
 theme_override_fonts/font = ExtResource("5_li13k")
 theme_override_font_sizes/font_size = 32
-text = "Private prototype by RaiDev"
+text = "Prototype by RaiDev
+v"
+horizontal_alignment = 1
 
 [node name="Continue" type="Button" parent="TitleScreen"]
 visibility_layer = 1024

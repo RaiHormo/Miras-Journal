@@ -40,6 +40,7 @@ func _ready():
 	$Silhouette.position = Vector2(-1000, -39)
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
+	$Background/Version.text += ProjectSettings.get_setting("application/config/version")
 	siilhouette()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
