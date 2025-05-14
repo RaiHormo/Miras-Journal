@@ -16,7 +16,7 @@ config/name_localized={
 }
 config/description="A prototype JRPG game
 Created by RaiDev"
-config/version="0.02"
+config/version="0.0.2"
 run/main_scene="res://codings/Initializer.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"
