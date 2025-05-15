@@ -597,7 +597,7 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	tod.modulate = Color.TRANSPARENT
 	tod.scale = Vector2(0.6, 0.6)
 	tod.text = Global.to_tod_text(from)
-	tod.icon = Global.to_tod_icon(from)
+	tod.icon = await  Global.to_tod_icon(from)
 	tod.show()
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
@@ -609,7 +609,7 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	t.tween_property(tod, "scale:x", 0, 0.1)
 	await t.finished
 	tod.text = Global.to_tod_text(to)
-	tod.icon = Global.to_tod_icon(to)
+	tod.icon = await Global.to_tod_icon(to)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(tod, "scale:x", 1, 0.3)
 	await Event.wait(0.6, false)

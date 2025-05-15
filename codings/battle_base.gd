@@ -683,7 +683,7 @@ func play_sound(SoundName: String, act: Actor = null, volume: float = 1):
 	else:
 		player = $Audio/Stream0.duplicate()
 		$Audio.add_child(player)
-		if not FileAccess.file_exists("res://sound/SFX/Battle/"+SoundName+".ogg"): return
+		if not ResourceLoader.exists("res://sound/SFX/Battle/"+SoundName+".ogg"): return
 		player.stream = await Loader.load_res("res://sound/SFX/Battle/"+SoundName+".ogg")
 		if act: player.global_position = act.node.global_position
 	player.play()

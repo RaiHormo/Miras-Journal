@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h6tetp6g78up"
-path.s3tc="res://.godot/imported/Afternoon.png-759ae3c30097f758578030341433ddba.s3tc.ctex"
+path="res://.godot/imported/Afternoon.png-759ae3c30097f758578030341433ddba.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://UI/Calendar/Afternoon.png"
-dest_files=["res://.godot/imported/Afternoon.png-759ae3c30097f758578030341433ddba.s3tc.ctex"]
+dest_files=["res://.godot/imported/Afternoon.png-759ae3c30097f758578030341433ddba.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=1
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -26,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

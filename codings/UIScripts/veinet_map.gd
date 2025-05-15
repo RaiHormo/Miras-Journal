@@ -105,7 +105,7 @@ func location_selected():
 	var VP = Global.Area.get_node_or_null("VP"+foc.name)
 	if VP == null: OS.alert("No such vain point exists"); return
 	Global.Player.global_position = VP.global_position + Vector2(0, 24)
-	free()
+	queue_free()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):

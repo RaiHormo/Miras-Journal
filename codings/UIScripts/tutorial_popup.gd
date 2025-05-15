@@ -67,7 +67,7 @@ func walk():
 	queue_free()
 
 func ability():
-	await Event.wait(1, false)
+	await Event.wait(0.1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
 	$Border2.show()
 	$Border2/Control/Arrow.hide()
@@ -124,7 +124,7 @@ func aura3():
 	queue_free()
 
 func await_input(input:= "DialogNext"):
-	await Event.wait(0.5, false)
+	while Input.is_action_pressed(input): await Event.wait()
 	while not Input.is_action_pressed(input): await Event.wait()
 	Global.confirm_sound()
 

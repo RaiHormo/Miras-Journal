@@ -11,9 +11,9 @@ func _check_party():
 	if Event.f("HideDate") and not $Action.visible: hide()
 	else: show()
 	$Container/TimeOfDay.text = Global.to_tod_text(Event.TimeOfDay)
-	$Container/TimeOfDay.icon = Global.to_tod_icon(Event.TimeOfDay)
 	$Date/Day.text = str(Event.Day)
 	$Date/Month.text = Global.get_mmm(Global.get_month(Event.Day))
+	$Container/TimeOfDay.icon = await Global.to_tod_icon(Event.TimeOfDay)
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
 	Global.check_party.emit()
@@ -32,7 +32,7 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	$Action/RichTextLabel.text = description
 	$Action.text = title
 	$Future/TimeOfDay.text = Global.to_tod_text(to_time)
-	$Future/TimeOfDay.icon = Global.to_tod_icon(to_time)
+	$Future/TimeOfDay.icon = await Global.to_tod_icon(to_time)
 	$Action.show()
 	$Future.show()
 	$Arrow.show()

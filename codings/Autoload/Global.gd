@@ -749,8 +749,8 @@ func to_tod_text(x: Event.TOD) -> String:
 	return "Dark hour"
 
 func to_tod_icon(x: Event.TOD) -> Texture:
-	if FileAccess.file_exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
-		return load("res://UI/Calendar/" + to_tod_text(x) + ".png")
+	if ResourceLoader.exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
+		return await Loader.load_res("res://UI/Calendar/" + to_tod_text(x) + ".png")
 	else: return null
 
 func range_360(n1, n2) -> Array:
