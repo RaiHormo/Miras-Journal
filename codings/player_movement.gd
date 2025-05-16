@@ -254,33 +254,34 @@ func bag_anim() -> void:
 	set_anim("BagIdle")
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
-func stop_dash() -> void:
+func stop_dash(slide = true) -> void:
 	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in
 	used_sprite.animation or midair or not dashing): return
 	dashing = false
 	#print(RealVelocity)
 	reset_speed()
-	var slide = true
-	for i in Global.Area.Layers.size():
-		if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
-			Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
-			slide = false
+	#for i in Global.Area.Layers.size():
+		#if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
+			#Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
+			#slide = false
 	if (undashable and Global.get_direction() == dashdir) and move_frames > 5:
 		speed = walk_speed
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
 		Global.Controllable=false
-		if Input.is_action_pressed("Dash") and Global.get_direction(
-			direction) != dashdir and direction != Vector2.ZERO:
+		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction != Vector2.ZERO and not Global.get_direction(direction, true) == -dashdir:
 			await get_tree().create_timer(0.1).timeout
 		else:
-			#BodyState = CUSTOM
 			speed = walk_speed
-			while used_sprite.is_playing() and used_sprite.animation == "Dash"+Global.get_dir_name(dashdir)+"Stop":
-				velocity = dashdir * speed
-				speed = max(0, speed - 2)
-				await Event.wait()
+			if slide:
+				while used_sprite.is_playing() and "Stop" in used_sprite.animation:
+					if direction == Vector2.ZERO: 
+						direction = dashdir * 0.3
+						speed = max(0, speed - 2)
+					velocity = dashdir * speed
+					speed = max(0, speed - 2)
+					await Event.wait()
 		Global.Controllable = true
 		BodyState = CONTROLLED
 		velocity = Vector2.ZERO

@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://ccm0r6n0e8q8e"]
 
-[ext_resource type="Script" path="res://codings/transfer_zone.gd" id="1_6swgh"]
+[ext_resource type="Script" uid="uid://cdd13as58x5on" path="res://codings/transfer_zone.gd" id="1_6swgh"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="2_as2d5"]
 [ext_resource type="Texture2D" uid="uid://bnv6qqf87t008" path="res://art/Icons/Editor/transfer.png" id="3_2ktml"]
-[ext_resource type="Script" path="res://codings/Interactions/editor_only.gd" id="4_f1rhf"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="4_f1rhf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr85b"]
 size = Vector2(92.4443, 84.0007)
@@ -23,6 +23,7 @@ shape = SubResource("RectangleShape2D_vr85b")
 debug_color = Color(0.294118, 0.611765, 0.427451, 0.419608)
 
 [node name="Preview" type="Area2D" parent="."]
+visible = false
 z_as_relative = false
 collision_layer = 15
 collision_mask = 15
@@ -52,5 +53,6 @@ texture = ExtResource("3_2ktml")
 script = ExtResource("4_f1rhf")
 
 [connection signal="body_entered" from="." to="." method="_on_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="body_entered" from="Preview" to="." method="_on_preview_entered"]
 [connection signal="body_exited" from="Preview" to="." method="_on_preview_exited"]

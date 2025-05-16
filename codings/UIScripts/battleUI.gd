@@ -166,6 +166,8 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("BtAbility") and not $Ability.disabled:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					ability.emit()
+				if Input.is_action_just_pressed("Options"):
+					Global.options()
 			&"target":
 	#			if Input.is_action_just_pressed(Global.confirm()):
 	#				_on_confirm_pressed()

@@ -105,9 +105,11 @@ func _physics_process(delta: float) -> void:
 		Engine.max_fps = Settings.FPS
 
 func options(save_menu:= false):
+	var control = Controllable
 	var init = get_tree().root.get_node_or_null("Initializer")
 	if init != null: init.queue_free()
 	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
+	Controllable = control
 	get_tree().root.add_child(opt)
 	if save_menu:
 		opt.save_managment()
@@ -451,7 +453,7 @@ func unlock_all_abilities():
 #region Textbox Managment
 
 func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
-	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
+	textbox_kill()
 	textbox_open = true
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
@@ -463,6 +465,9 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	if fade_bg: fade_txt_background()
 	await textbox_close
 	textbox_open = false
+
+func textbox_kill():
+	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Textbox"):
@@ -546,8 +551,8 @@ func colorize_replace(elname, str: String, i) -> String:
 		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
 	return str
 
-func get_direction(v: Vector2 = PlayerDir) -> Vector2:
-	#if v == Vector2.ZERO: return Vector2.ZERO
+func get_direction(v: Vector2 = PlayerDir, allow_zero = false) -> Vector2:
+	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
 	if abs(v.x) > abs(v.y):
 		if v.x >0:
 			return Vector2.RIGHT

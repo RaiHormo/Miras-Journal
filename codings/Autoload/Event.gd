@@ -129,7 +129,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 	await wait()
 	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return
 	if Global.Player.dashing:
-		await Global.Player.stop_dash()
+		await Global.Player.stop_dash(false)
 		Global.Player.dashing = false
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO

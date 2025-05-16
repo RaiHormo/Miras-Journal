@@ -117,7 +117,7 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	if (Input.is_action_just_pressed("Options") and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
+	elif (Input.is_action_just_pressed("Options") and Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
 	and "Idle" in Global.Player.used_sprite.animation):
 		Global.options()
 	if Input.is_action_just_pressed(Global.cancel()):
@@ -633,7 +633,12 @@ func main_menu():
 		Global.Controllable = false
 		get_tree().paused = true
 		var menu = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
-		get_tree().root.add_child(menu.instantiate())
+		if get_tree().root.get_node_or_null("Options") == null:
+			get_tree().root.add_child(menu.instantiate())
+		else: 
+			get_tree().root.get_node_or_null("Options").free()
+			Event.give_control()
+			Global.options()
 	elif Global.Controllable: Global.buzzer_sound()
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):

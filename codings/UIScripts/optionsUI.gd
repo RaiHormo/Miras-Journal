@@ -31,6 +31,7 @@ func _ready():
 	else:
 		$MainButtons/SaveManagment.grab_focus()
 	if not Global.Controllable and !$/root.get_node_or_null("MainMenu") or not ResourceLoader.exists("user://Autosave.tres"): cant_save = true
+	Loader.detransition("")
 	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable

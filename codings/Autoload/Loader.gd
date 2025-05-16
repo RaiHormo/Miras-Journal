@@ -98,6 +98,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	if not validate_save(filepath):
 		Loader.detransition()
 		return
+	Global.textbox_kill()
 	chased = false
 	data = await load_res(filepath)
 	Global.StartTime = Time.get_unix_time_from_system()
