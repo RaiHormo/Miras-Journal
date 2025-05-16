@@ -110,16 +110,16 @@ func waste_time():
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1
-	Global.cursor_sound()
+	Global.ui_sound("Crunch")
 	PartyUI.hit_partybox(0, 4, 3)
 	if Global.Party.Leader.Health < 10:
-		if not Event.f("ShardsLowHP"):
-			Event.take_control()
+		if not Event.f("ShardsLowHP") and Global.Party.has_member("Asteria"):
+			Event.take_control(false, true, true)
 			Event.add_flag("ShardsLowHP")
 			await Global.textbox("interactions", "shards_low_hp")
 			Event.give_control()
-		Global.Party.Leader.Health = 10
-	#Global.check_party.emit()
+		Global.Party.Leader.Health += 1
+	Global.check_party.emit()
 
 func gather_pyrson():
 	Global.textbox("interactions", "gather_pyrson")

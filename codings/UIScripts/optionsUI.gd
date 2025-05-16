@@ -261,7 +261,7 @@ func _on_focus_changed(control:Control):
 			$SavePanel/Buttons/Load.disabled = false
 			if control.get_parent().name == "File0":
 				$SavePanel/Buttons/Overwrite.disabled = true
-				$SavePanel/Buttons/Delete.disabled = false
+				$SavePanel/Buttons/Delete.disabled = true
 				$Silhouette.texture = Loader.Preview
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
@@ -432,6 +432,7 @@ func _on_save_overwrite() -> void:
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 2
 		await Event.wait(0.01, false)
+		if not is_instance_valid(panel): return
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	$SavePanel/Buttons/Overwrite.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
@@ -472,6 +473,7 @@ func _on_save_load() -> void:
 		await Event.wait(0.01, false)
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	if panel.get_node("ProgressBar").value == 100:
+		if not FileAccess.file_exists("user://"+panel.name+".tres"): return
 		await Loader.load_game(panel.name)
 	else:
 		Global.buzzer_sound()
@@ -492,7 +494,16 @@ func _new_file() -> void:
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
 	Loader.icon_save()
-	await Loader.save("File"+str(%Files.get_child_count()-1), false)
+	var i = 0
+	while %Files.get_child_count() > i:
+		i += 1
+		var found = false
+		for file in %Files.get_children():
+			if file.name == "File"+str(i): 
+				found = true
+		if not found:
+			break
+	await Loader.save("File"+str(i), false)
 	await load_save_files()
 	if Loader.get_node("Can/Icon").is_playing():
 		await Loader.get_node("Can/Icon").animation_finished

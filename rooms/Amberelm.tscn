@@ -1044,6 +1044,11 @@ position = Vector2(-15, -11)
 
 [node name="Ladder2" parent="." instance=ExtResource("25_vddgi")]
 position = Vector2(828, 352)
+enable_stairs = true
+LayersUp = 8
+LayersDown = 4
+zUp = 7
+zDown = 4
 
 [node name="BottomInteractable" parent="Ladder2" index="0"]
 position = Vector2(-1, 91)
@@ -1073,9 +1078,6 @@ navigation_polygon = SubResource("NavigationPolygon_i77sn")
 [node name="Stairs1" parent="." instance=ExtResource("24_i77sn")]
 position = Vector2(223, 522)
 Swap = true
-
-[node name="Stairs2" parent="." instance=ExtResource("24_i77sn")]
-position = Vector2(829, 411)
 
 [node name="Transfer5" parent="." instance=ExtResource("7_q8qii")]
 z_index = 4

@@ -156,6 +156,7 @@ func give_control(camera_follow:= false):
 	for i in Global.Area.Followers:
 		i.dont_follow = false
 	Global.check_party.emit()
+	Global.Area.setup_params(true)
 
 func flag_int(str: String, max_num:= 9) -> int:
 	for i in range(0, max_num):

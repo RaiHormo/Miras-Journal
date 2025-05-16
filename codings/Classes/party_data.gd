@@ -82,3 +82,8 @@ func array() -> Array[Actor]:
 func member_name(x: int) -> String:
 	if check_member(x): return get_member(x).FirstName
 	return "Nobody"
+
+func has_member(mem: String):
+	for i in array():
+		if i != null and i.codename == mem: return true
+	return false
