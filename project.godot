@@ -47,6 +47,8 @@ Event="*res://codings/Autoload/Event.tscn"
 
 settings/crash_handler/message="Looks like the Dev fucked up. If you are seeing this, please report it to them"
 settings/crash_handler/message.editor="Looks like the Dev fucked up. If you are seeing this, please report it to them"
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/mj.log"
 file_logging/max_log_files=12
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_private_class_variable=0
