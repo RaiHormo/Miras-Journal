@@ -21,6 +21,8 @@ func default() -> void:
 		Event.flag_progress("AlcineFollow", 2)
 		Global.Player.can_dash = true
 		Loader.save()
+		if Global.Player in $Area2D.get_overlapping_bodies():
+			_on_area_2d_body_entered(Global.Player)
 	elif (Global.CameraInd == 2 and Event.f("AlcineFollow", 2)
 	and not Event.f("AlcineFollow", 3)):
 		$"../EvPetrogon".hide()
@@ -37,7 +39,7 @@ func default() -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body == Global.Player:
+	if body == Global.Player and self != Event.CutsceneHandler:
 		if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
 		Global.CameraInd == 2 and not Event.f("AlcineFollow", 3)):
 			Global.Player.collision(false)
@@ -45,7 +47,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Event.CutsceneHandler = self
 			await Event.take_control()
 			Global.Player.set_anim("IdleRight")
-			Global.Player.camera_follow()
+			Global.Player.camera_follow(false)
 			var t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
@@ -93,7 +95,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t = create_tween()
 			t.tween_property(self, "position:y", -10, 0.1).as_relative()
 			t.tween_property(self, "position:y", 10, 0.1).as_relative()
-			await t.finished
 			$Sprite.sprite_frames = preload("res://art/OV/Alcine/AlcineOV2.tres")
 			await Event.wait(1)
 			Global.Player.set_anim("IdleRight")
@@ -190,7 +191,9 @@ func alcine_helps():
 	Global.Bt.get_actor("Petrogon").Health = hp
 
 func after_battle():
+	Event.take_control()
 	while Loader.InBattle: await Event.wait(0.1)
+	Event.take_control()
 	Global.Party.Member1.FirstName = "Alcine"
 	z_index = 0
 	Event.allow_skipping = false

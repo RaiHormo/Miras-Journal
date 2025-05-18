@@ -588,7 +588,6 @@ tile_map_data = PackedByteArray("AAASABUAAQABAAYAAAASABYAAQABAAYAAAASABcAAQABAAY
 tile_set = SubResource("TileSet_dw7lm")
 
 [node name="HomeBuilding-Lobby" type="Node2D" parent="."]
-visible = false
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
@@ -617,7 +616,7 @@ RightSubarea = NodePath("../../HomeBuilding-Kitchen")
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="Lamp3" parent="HomeBuilding-Lobby" instance=ExtResource("9_w0u03")]
-position = Vector2(304, 413)
+position = Vector2(298, 412)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
 Length = 160

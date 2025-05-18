@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://jbqc6bbxg02s"]
+[gd_scene load_steps=83 format=4 uid="uid://jbqc6bbxg02s"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" uid="uid://60yfp1fdveef" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="5_b87t5"]
 [ext_resource type="Texture2D" uid="uid://i8rst2uerw8" path="res://art/Backgrounds/AbadParallax1.png" id="6_gki33"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="7_q8qii"]
-[ext_resource type="Script" uid="uid://dat81r8e7vmmc" path="res://codings/Interactions/splash.gd" id="8_06jo8"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="8_spg60"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="10_bma1q"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="10_rs8em"]
@@ -922,8 +921,13 @@ z_index = 3
 position = Vector2(223, 421)
 collision_layer = 255
 collision_mask = 255
-script = ExtResource("8_06jo8")
-text = "Amberelm"
+script = ExtResource("19_5avo1")
+EventName = "enter_amberelm_2"
+Flag = "EnteredAmberelm3"
+FlagIsName = false
+AddFlag = true
+ReturnControl = false
+metadata/_custom_type_script = "uid://b2qf7ggvy4inm"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EvSplash"]
 position = Vector2(1, 0)

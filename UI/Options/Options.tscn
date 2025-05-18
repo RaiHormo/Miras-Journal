@@ -572,7 +572,7 @@ focus_neighbor_bottom = NodePath("../GameSettings")
 focus_next = NodePath("../GameSettings")
 focus_previous = NodePath("../Quit")
 theme = SubResource("Theme_o6i8h")
-text = "Save Managment"
+text = "Save Management"
 metadata/_edit_use_anchors_ = true
 
 [node name="GameSettings" type="Button" parent="MainButtons"]
@@ -722,6 +722,7 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1442,6 +1443,7 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
