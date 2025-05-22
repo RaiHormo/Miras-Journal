@@ -95,6 +95,8 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
 	await transition("")
+	if get_tree().root.has_node("Initializer"):
+		get_tree().root.get_node("Initializer").queue_free()
 	if not validate_save(filepath):
 		Loader.detransition()
 		return

@@ -2,7 +2,6 @@ extends Node
 var game_exists = false
 
 func _ready() -> void:
-	$Splash.show()
 	$TitleScreen.hide()
 	glyph_update()
 	Event.Flags.append("DisableMenus")
@@ -15,11 +14,14 @@ func _ready() -> void:
 		$TitleScreen/Continue.text = "New game"
 		Loader.transition("")
 	$TitleScreen.show()
+	var t = create_tween()
+	t.tween_property($TitleScreen/Splash, "modulate", Color.TRANSPARENT, 0.3).from(Color.WHITE).set_delay(0.1)
 	$TitleScreen/Label.text += ProjectSettings.get_setting("application/config/version")
 	PartyUI.disabled = false
 	PartyUI.visible = true
 
 func _on_continue_pressed() -> void:
+	if get_tree().root.has_node("Options"): return
 	dismiss_title()
 	if game_exists:
 		await Loader.load_game("Autosave")
@@ -29,11 +31,11 @@ func _on_continue_pressed() -> void:
 		Global.new_game()
 
 func _on_options_pressed() -> void:
+	if get_tree().root.has_node("Options"): return
 	Global.options()
-	dismiss_title()
+	#dismiss_title()
 
 func dismiss_title():
-	$Splash.hide()
 	$TitleScreen.hide()
 	#Loader.detransition()
 	queue_free()

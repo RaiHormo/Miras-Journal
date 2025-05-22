@@ -106,13 +106,17 @@ func _physics_process(delta: float) -> void:
 
 func options(save_menu:= false):
 	var control = Controllable
-	var init = get_tree().root.get_node_or_null("Initializer")
-	if init != null: init.queue_free()
+	#var init = get_tree().root.get_node_or_null("Initializer")
+	#if init != null: init.queue_free()
 	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
 	Controllable = control
 	get_tree().root.add_child(opt)
 	if save_menu:
 		opt.save_managment()
+
+func title_screen():
+	var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
+	get_tree().root.add_child(init)
 
 func member_details(chara: Actor):
 	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()

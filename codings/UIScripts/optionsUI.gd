@@ -102,10 +102,6 @@ func close(force = false):
 	if force:
 		queue_free()
 		return
-	if !is_instance_valid(Global.Area):
-		Global.buzzer_sound()
-		Global.toast("There is no going back.")
-		return
 	stage="closing"
 	if is_instance_valid(Global.Player):
 		if $/root.get_node_or_null("MainMenu"):
@@ -129,6 +125,9 @@ func close(force = false):
 	await t.finished
 	get_tree().paused = was_paused
 	Global.Controllable = was_controllable
+	if !is_instance_valid(Global.Area):
+		if not get_tree().root.has_node("Initializer"):
+			Global.title_screen()
 	queue_free()
 
 func main():
@@ -463,6 +462,8 @@ func _on_save_load() -> void:
 	if stage != "save_managment" or not is_instance_valid(focus): return
 	var panel = focus.get_parent()
 	if "New" in panel.name: return
+	var filename = panel.name
+	if panel.name == "File0": filename = "Autosave"
 	if not panel is PanelContainer:
 		$SavePanel/ScrollContainer/Files/File0.grab_focus()
 		return
@@ -473,8 +474,8 @@ func _on_save_load() -> void:
 		await Event.wait(0.01, false)
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 	if panel.get_node("ProgressBar").value == 100:
-		if not FileAccess.file_exists("user://"+panel.name+".tres"): return
-		await Loader.load_game(panel.name)
+		if not FileAccess.file_exists("user://"+filename+".tres"): return
+		await Loader.load_game(filename)
 	else:
 		Global.buzzer_sound()
 		hold_down()

@@ -70,14 +70,7 @@ events = [SubResource("InputEventAction_p5u4y")]
 process_mode = 3
 script = ExtResource("1_tesvr")
 
-[node name="Splash" type="TextureRect" parent="."]
-offset_right = 2560.0
-offset_bottom = 1600.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_s81ns")
-
 [node name="TitleScreen" type="CanvasLayer" parent="."]
-layer = 10
 
 [node name="ColorRect" type="ColorRect" parent="TitleScreen"]
 anchors_preset = 15
@@ -157,6 +150,12 @@ shortcut_in_tooltip = false
 text = "Options"
 icon = ExtResource("8_clvoy")
 expand_icon = true
+
+[node name="Splash" type="TextureRect" parent="TitleScreen"]
+offset_right = 2560.0
+offset_bottom = 1600.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_s81ns")
 
 [connection signal="pressed" from="TitleScreen/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="TitleScreen/Options" to="." method="_on_options_pressed"]
