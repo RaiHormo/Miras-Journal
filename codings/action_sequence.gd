@@ -986,7 +986,7 @@ func AlcineWoods3():
 	await Global.passive("story_events", "amazing")
 
 func AlcineWoods4():
-	#if Event.f("AlcineFollow", 5): return
+	get_tree().paused = false
 	Event.CutsceneHandler.after_battle()
 
 func ArenaGameOver():

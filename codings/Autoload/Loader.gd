@@ -437,8 +437,9 @@ func end_battle():
 		Global.Player.show()
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
-	PartyUI.UIvisible=true
-	Event.give_control(true)
+	if Seq.ReturnControl:
+		PartyUI.UIvisible=true
+		Event.give_control(true)
 	PartyUI._on_shrink()
 
 func icon_save():

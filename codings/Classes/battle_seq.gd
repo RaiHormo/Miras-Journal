@@ -6,6 +6,7 @@ class_name BattleSequence
 @export var BattleBack: Texture
 @export var Transition: bool = true
 @export var Detransition:bool = false
+@export var ReturnControl: bool = true
 @export var EscPosition: Vector2i
 @export var PositionSameAsPlayer:= false
 @export var ScenePosition: Vector2 = Vector2.ZERO

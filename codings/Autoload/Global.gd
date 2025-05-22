@@ -62,7 +62,7 @@ func _ready() -> void:
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
-	Input.start_joy_vibration(0, 1, 0, 0.1)
+	#Input.start_joy_vibration(0, 1, 0, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
 

@@ -109,22 +109,27 @@ func rest_amberelm():
 	await Loader.transition("")
 	await Event.wait(1)
 	Global.heal_party()
-	Event.TimeOfDay = Event.TOD.AFTERNOON
+	Event.ToTime = Event.TOD.DAYTIME
+	await Event.time_transition()
 	Global.heal_party()
 	await Loader.detransition()
 	await Global.textbox("story_events", "wake_amberelm", true)
+	await Loader.transition("R")
+	Global.get_cam().zoom = Vector2(4,4)
+	cut.hide()
+	Global.Player.show()
+	Loader.detransition()
+	Event.give_control(true)
+	Event.f("EvRestAmberelm", true)
+	Global.check_party.emit()
+	Loader.save()
+
+func jump_playtest():
+	await Global.textbox("testbush", "jump_playtest")
 	Event.Day = 3
 	Event.ToTime = Event.TOD.AFTERNOON
 	Event.remove_flag("HideDate")
 	Event.time_transition()
-	#await Loader.transition("R")
-	#Global.get_cam().zoom = Vector2(4,4)
-	#cut.hide()
-	#Global.Player.show()
-	#Loader.detransition()
-	#Event.give_control()
-	#Event.f("EvRestAmberelm", true)
-	#Loader.save()
 
 func waste_time():
 	await Event.take_control()

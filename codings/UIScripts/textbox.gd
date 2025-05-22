@@ -32,7 +32,7 @@ var dialogue_line: DialogueLine:
 		is_waiting_for_input = false
 		$Balloon/Panel2/InputIndicator.hide()
 
-		if not next_dialogue_line:
+		if not is_instance_valid(next_dialogue_line):
 			_on_close()
 			return
 
@@ -49,7 +49,6 @@ var dialogue_line: DialogueLine:
 			next(dialogue_line.next_id)
 			char_name = ""
 			return
-
 
 		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		while "." in char_name:
@@ -308,7 +307,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
 				await Event.wait(0.05, false)
 		await t.finished
-		if item == null: _on_close(); return
+		if item == null: return
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:

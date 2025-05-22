@@ -534,6 +534,7 @@ events = [SubResource("InputEventAction_8yp3f")]
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
+texture_filter = 2
 layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.001
@@ -567,6 +568,7 @@ offset_bottom = 8.0
 
 [node name="Partybox" type="VBoxContainer" parent="CanvasLayer"]
 unique_name_in_owner = true
+texture_filter = 2
 offset_right = 252.0
 offset_bottom = 542.0
 size_flags_vertical = 3
@@ -929,6 +931,7 @@ scale = Vector2(0.7, 0.7)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

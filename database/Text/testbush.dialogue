@@ -173,8 +173,21 @@ Choose battle
 
 ~ chapter_select
 Chapter select
-- Playtest segment
+- Petrogon fight
+	do Event.Flags.clear()
+	set Day = 0
+	set ToTime = TOD.NIGHT
+	do Event.add_flag("HasBag")
+	do Event.add_flag("FlameActive")
+	do travel_to("TempleWoods", Vector2(1272, -966), 2)
+- Going to shard gardens
 	set Day = 3
 	set ToTime = TOD.AFTERNOON
 	do! time_transition()
+=> END
+
+~ jump_playtest
+This is the end of this segment.
+You will now jump to a part a bit further in the game, and you have met two other party members.
+It's still pretty unfinished tho.
 => END

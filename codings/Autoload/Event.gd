@@ -125,6 +125,7 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
+	print("Taking control")
 	Global.Controllable = false
 	await wait()
 	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return
@@ -147,6 +148,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 
 func give_control(camera_follow:= false):
 	if Global.Player == null:  return
+	print("Giving control")
 	Global.Player.direction = Vector2.ZERO
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true

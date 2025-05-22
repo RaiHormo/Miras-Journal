@@ -92,8 +92,10 @@ func setup_params(tween_zoom = false):
 	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	var zoom = Vector2(4, 4)
-	if Global.CameraInd < CameraZooms.size():
+	if Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
 		zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+	elif CurSubRoom is SubRoom:
+		zoom = Vector2(CurSubRoom.cam_zoom, CurSubRoom.cam_zoom)
 	if tween_zoom:
 		var t = create_tween()
 		t.set_ease(Tween.EASE_OUT)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=4 uid="uid://jbqc6bbxg02s"]
+[gd_scene load_steps=88 format=4 uid="uid://dyfupfl7rjxav"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" uid="uid://60yfp1fdveef" path="res://codings/StoryEvents/Amberelm.gd" id="2_b4yfc"]
@@ -8,11 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://i8rst2uerw8" path="res://art/Backgrounds/AbadParallax1.png" id="6_gki33"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="7_q8qii"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="8_spg60"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="10_45tma"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="10_bma1q"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="10_rs8em"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="11_djhcr"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_l4igp"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="12_ylbqp"]
+[ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="12_ylfhl"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="13_0o4df"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="14_15y50"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="14_fac0c"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="14_vsd2t"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="15_frp5k"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="16_3yfuf"]
@@ -23,6 +28,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
 [ext_resource type="PackedScene" uid="uid://ch2j5pngca4u" path="res://rooms/components/StairsV.tscn" id="24_i77sn"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="25_vddgi"]
+[ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="30_djhcr"]
 
 [sub_resource type="Gradient" id="Gradient_2ccrv"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -381,6 +387,27 @@ colors = PackedColorArray(0, 0, 0, 0.392157)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_8k2oc"]
 gradient = SubResource("Gradient_frtws")
 
+[sub_resource type="Resource" id="Resource_dejne"]
+script = ExtResource("14_fac0c")
+Enemies = Array[ExtResource("11_djhcr")]([ExtResource("12_ylfhl"), ExtResource("12_ylfhl")])
+AdditionalItems = Array[ExtResource("10_45tma")]([])
+Transition = true
+Detransition = false
+ReturnControl = true
+EscPosition = Vector2i(19, 8)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(587, 361)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("13_0o4df")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bcoy4"]
 vertices = PackedVector2Array(326, 962, 326, 1357, 272, 1356, 276, 961)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -396,17 +423,11 @@ size = Vector2(78, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4d8k"]
 size = Vector2(65, 35)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cem6g"]
-size = Vector2(118, 19)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yiv6"]
-size = Vector2(96.9998, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s71jc"]
+size = Vector2(150, 39.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4a3if"]
-size = Vector2(69, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8xvy"]
-size = Vector2(71.5, 20)
+size = Vector2(134.5, 30)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5agys"]
 vertices = PackedVector2Array(556.727, 399.93, 472, 405.344, 472, 328, 524, 328, 650.023, 333.852, 568.609, 237.031, 652.711, 238.789, 524, 253.031, 633.211, 416.133)
@@ -541,8 +562,8 @@ color = Color(0.694118, 1, 1, 1)
 texture = SubResource("GradientTexture1D_bfo0u")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(541.499, 498.5)
-scale = Vector2(20.9219, 14.0469)
+position = Vector2(543, 497.5)
+scale = Vector2(20.875, 14.0781)
 color = Color(0.776471, 0.721569, 0.713726, 1)
 energy = 0.71
 blend_mode = 1
@@ -732,6 +753,7 @@ z_index = 5
 position = Vector2(564, 336)
 collision_layer = 512
 collision_mask = 512
+BattleSeq = SubResource("Resource_dejne")
 ID = "IH1"
 CameraIndex = 0
 
@@ -757,6 +779,12 @@ sprite_frames = ExtResource("24_2ksw5")
 animation = &"IdleDown"
 autoplay = "IdleDown"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemyIronHook1"]
+position = Vector2(-86, -140)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemyIronHook1"]
+position = Vector2(23, 25)
 
 [node name="EvEntranceCutscene" type="Node2D" parent="."]
 
@@ -832,7 +860,8 @@ collision_mask = 15
 script = ExtResource("19_5avo1")
 TextFile = "interactions"
 TextNode = "kick_bridge"
-Flag = "RestAmberelm"
+Flag = "EvRestAmberelm"
+FlagIsName = false
 FlagShouldBe = true
 KickDirection = Vector2(0, -1)
 
@@ -911,7 +940,7 @@ title = "Rest"
 item = "Fully recovers the party's HP"
 to_time = 2
 Height = 5
-hide_on_flag = &"RestAmberelm"
+hide_on_flag = &"EvRestAmberelm"
 
 [node name="CollisionShape2D" parent="EvRestTree" index="0"]
 position = Vector2(-1, 13)
@@ -988,58 +1017,29 @@ Height = 5
 
 [node name="JumpPoint1" type="Area2D" parent="."]
 z_index = 7
-position = Vector2(24, 103)
+position = Vector2(75, 85)
 collision_mask = 15
 script = ExtResource("20_lxyok")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-height = 0.1
-DoubleJumpDir = Vector2(1, 0)
+jump_am = 4
+height = -0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1"]
-position = Vector2(26.9998, 3.5)
-shape = SubResource("RectangleShape2D_cem6g")
-
-[node name="JumpPoint2" type="Area2D" parent="."]
-z_index = 7
-position = Vector2(106, 100)
-collision_mask = 15
-script = ExtResource("20_lxyok")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-height = 0.2
-DoubleJumpDir = Vector2(-1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint2"]
-position = Vector2(5, 6)
-shape = SubResource("RectangleShape2D_3yiv6")
+position = Vector2(0, 10.25)
+shape = SubResource("RectangleShape2D_s71jc")
 
 [node name="JumpPoint3" type="Area2D" parent="."]
 z_index = 7
-position = Vector2(389, 154)
+position = Vector2(415, 134)
 collision_mask = 15
 script = ExtResource("20_lxyok")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-height = 0.1
-DoubleJumpDir = Vector2(1, 0)
+jump_am = 4
+height = -0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint3"]
-position = Vector2(-13, -1)
+position = Vector2(-1, 16)
 shape = SubResource("RectangleShape2D_4a3if")
-
-[node name="JumpPoint4" type="Area2D" parent="."]
-z_index = 7
-position = Vector2(433, 154)
-collision_mask = 15
-script = ExtResource("20_lxyok")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-height = 0.2
-DoubleJumpDir = Vector2(-1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint4"]
-shape = SubResource("RectangleShape2D_d8xvy")
 
 [node name="Ladder1" parent="." instance=ExtResource("25_vddgi")]
 
@@ -1101,6 +1101,20 @@ texture_filter = 1
 position = Vector2(107, 95)
 texture = ExtResource("6_gki33")
 
+[node name="EvRestFirst" parent="." instance=ExtResource("30_djhcr")]
+z_index = 6
+position = Vector2(-4, 226)
+TextFile = "interactions"
+TextNode = "amberelm_rest_first"
+Flag = "EvRestAmberelm"
+FlagIsName = false
+KickDirection = Vector2(0, 1)
+
+[node name="EvTripwire0" parent="." instance=ExtResource("30_djhcr")]
+position = Vector2(912, 470)
+EventName = "jump_playtest"
+ReturnControl = false
+
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]
 [connection signal="body_entered" from="EffectUnderthouse" to="EffectUnderthouse" method="_on_body_entered"]
@@ -1110,9 +1124,7 @@ texture = ExtResource("6_gki33")
 [connection signal="body_entered" from="EvKick" to="EvKick" method="_on_body_entered"]
 [connection signal="body_entered" from="EvSplash" to="EvSplash" method="_on_body_entered"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint2" to="JumpPoint2" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoint3" to="JumpPoint3" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint4" to="JumpPoint4" method="_on_entered"]
 
 [editable path="EvRestTree"]
 [editable path="InteractBackround"]

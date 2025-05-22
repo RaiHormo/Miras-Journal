@@ -5,7 +5,6 @@ class_name JumpPoint
 @export var jump_am_v:= 0
 @export var time:= 5
 @export var height:= 0.5
-@export var DoubleJumpDir: Vector2
 @export var RelativePositions: bool = false
 var busy: bool = false
 
@@ -24,6 +23,8 @@ func _physics_process(delta: float) -> void:
 				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):
 					busy = true
 					#Global.Player.cant_bump = true
+					var t = create_tween()
+					t.tween_property(Global.Player.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.1)
 					var prev_z = Global.Player.z_index
 					Global.Player.BodyState = NPC.NONE
 					Global.Player.z_index += 10
@@ -46,16 +47,11 @@ func _physics_process(delta: float) -> void:
 					Global.Controllable = true
 					Global.Player.z_index = prev_z
 					Global.Player.move_frames = 0
+					t = create_tween()
+					t.tween_property(Global.Player.get_node("Shadow"), "modulate", Color.WHITE, 0.2)
 					print("jump!")
 					for i in Global.Area.Followers:
 						i.player_jumped = true
-					if DoubleJumpDir == Global.PlayerDir and not Input.is_action_pressed("Dash"):
-						await Loader.transition()
-						Global.Party.Leader.damage(randi_range(5, 25), true)
-						Global.Player.position.x = global_position.x + jump_am * 12 * -Global.get_direction().x
-						Global.check_party.emit()
-						await Loader.detransition()
-						Event.give_control()
 					busy = false
 
 

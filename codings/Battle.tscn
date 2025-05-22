@@ -60,6 +60,7 @@ Enemies = Array[ExtResource("4_iwqwt")]([])
 AdditionalItems = Array[ExtResource("3_a2upk")]([])
 Transition = true
 Detransition = false
+ReturnControl = true
 EscPosition = Vector2i(0, 0)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)

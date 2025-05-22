@@ -58,14 +58,15 @@ It's a broken sign with Cyrenian writing on it
 This bridge is broken. [p]We should find another way to get there.
 => END
 
-~ day10_gap
-if f("RestAmberelm"):
-	These wires seem tough.
-	I should be able to get to the other side with enough speed.
-else:
-	Wonder if I get to the other side using these wires.
-	But I'm quite tired right now, let's rest first.
+~ amberelm_rest_first
+My legs hurt... Let's rest under that tree before going further.
 => END
+
+~ day10_gap
+These wires seem sturdy.
+I should be able to get to the other side with enough speed.
+=> END
+
 
 ~ the_sky
 do Global.Player.camera_follow(false)
