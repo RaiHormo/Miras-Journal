@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_mc7vq"]
 
 [resource]
+resource_local_to_scene = true
 atlas = ExtResource("1_mc7vq")
 region = Rect2(162, 54, 18, 18)
 filter_clip = true

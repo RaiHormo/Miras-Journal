@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://dssdstvmfydt3"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://01s5imheles6"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_a8rpr"]
-[ext_resource type="Texture2D" uid="uid://bgymx534malg2" path="res://art/BT/LazuliteHeart/LazRightBt.png" id="2_n2qf8"]
+[ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="2_elb8i"]
+[ext_resource type="Texture2D" uid="uid://b173w1g38hw3g" path="res://art/BT/LazuliteHeart/LazLeftBt.png" id="2_n2qf8"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_o7yw6"]
-[ext_resource type="Resource" uid="uid://gnxloqwh4cjy" path="res://database/Abilities/Attacks/Nothing.tres" id="3_n2qf8"]
+[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="3_7ifqy"]
+[ext_resource type="Resource" uid="uid://bhnd7jyfc0grt" path="res://database/Abilities/Attacks/AOEAttack.tres" id="3_mpd6k"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_7ifqy"]
+[ext_resource type="Resource" uid="uid://i76o7dyxd0rh" path="res://database/Abilities/Tighten.tres" id="4_mpd6k"]
+[ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="5_n2qf8"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_a8rpr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_stamu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -19,16 +23,17 @@ animations = [{
 
 [resource]
 script = ExtResource("4_7ifqy")
-FirstName = "Name"
-MainColor = Color(1, 1, 1, 1)
+FirstName = "Right Arm"
+MainColor = Color(0.943278, 0.879228, 0.469971, 1)
+PartyIcon = ExtResource("3_7ifqy")
 ActorClass = ""
-codename = &"Actor"
+codename = &"LHRight"
 Pronouns = Array[String](["it", "it", "its", "itself"])
-WeaponPower = 24
+WeaponPower = 30
 IsEnemy = true
-RecivedSP = 0
+RecivedSP = 5
 SummonedAllies = Array[ExtResource("4_7ifqy")]([])
-CustomPosition = Vector2(0, 0)
+CustomPosition = Vector2i(22, 0)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
@@ -37,20 +42,20 @@ Controllable = false
 HpOnSLvUp = 25
 ApOnSLvUP = 10
 MaxHP = 99
-MaxAura = 99
-Attack = 1.0
-Magic = 1.0
-Defence = 1.0
-Speed = 5.0
+MaxAura = 35
+Attack = 1.7
+Magic = 0.8
+Defence = 0.5
+Speed = 3.0
 Health = 0
 Aura = 0
 SkillLevel = 1
 SkillPoints = 0
 SkillPointsFor = Array[int]([])
-Abilities = Array[ExtResource("1_a8rpr")]([])
-StandardAttack = ExtResource("3_n2qf8")
+Abilities = Array[ExtResource("1_a8rpr")]([ExtResource("2_elb8i"), ExtResource("3_mpd6k"), ExtResource("4_mpd6k")])
+StandardAttack = ExtResource("5_n2qf8")
 LearnableAbilities = Array[ExtResource("1_a8rpr")]([])
-BT = SubResource("SpriteFrames_a8rpr")
+BT = SubResource("SpriteFrames_stamu")
 Offset = Vector2(0, 0)
 Shadow = false
 ShadowOffset = 0

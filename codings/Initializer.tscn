@@ -152,6 +152,7 @@ icon = ExtResource("8_clvoy")
 expand_icon = true
 
 [node name="Splash" type="TextureRect" parent="TitleScreen"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -36,3 +36,6 @@ var remove_item_on_use: ItemData = null
 func is_aoe() -> bool:
 	if Target == T.AOE_ALLIES or Target == T.AOE_ENEMIES: return true
 	else: return false
+
+static func nothing() -> Ability:
+	return preload("res://database/Abilities/Attacks/Nothing.tres")

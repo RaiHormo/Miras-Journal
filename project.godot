@@ -15,11 +15,13 @@ config/description="A prototype JRPG game
 Created by RaiDev"
 config/version="0.0.5"
 run/main_scene="res://codings/Initializer.tscn"
+run/enable_alt_space_menu=true
 config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.4", "Mobile")
+boot_splash/bg_color=Color(0.054902, 0.054902, 0.054902, 1)
 boot_splash/image="res://art/Branding/splash.png"
 config/icon="res://art/Branding/icon.png"
 

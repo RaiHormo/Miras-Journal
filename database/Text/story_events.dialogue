@@ -453,3 +453,21 @@ else:
 		Mira.Neutral: I know, I know.
 		Asteria.Neutral: Then use the Vain to return to the village already!
 => END
+
+~ lazulite_heart_intro
+Asteria.Neutral: It's one of them..!
+Daze.Neutral: A Guardian...
+Asteria.Neutral: Hey! Why are you using Mira's thing!?
+Mira.Neutral: Heck yeah!
+do Bt.pop_num(Global.Party.Leader, "1")
+Mira.Neutral: Ow.
+Mira.Neutral: A little help here?
+=> END
+
+~ lazulite_heart_1
+do Bt.move(Global.Party.Leader, Vector2(-20,-40), 0.3)
+do! Bt.focus_cam(Global.Party.Leader)
+Mira.Neutral: Thanks {{alcine()}}!
+do! Bt.entrance_anim(Global.Party.Leader)
+set Bt.no_misses = false
+=> END

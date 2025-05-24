@@ -10,7 +10,7 @@ class_name Battle
 signal GetControl
 @onready var t = Tween
 var dub
-var initial
+var initial: Vector2
 @export var curve:Curve
 signal next_turn
 signal check_party
@@ -39,6 +39,7 @@ func _ready():
 	Global.Controllable = false
 	$Cam.make_current()
 	Loader.InBattle = true
+	Action = true
 	TurnInd= -1
 	Turn = 0
 	CurrentChar = Global.Party.Leader
@@ -267,7 +268,7 @@ func entrance_anim(i: Actor):
 func _on_next_turn():
 	if check_for_victory(): return
 	for i in TurnOrder:
-		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("KnockedOut") and i.Health != 0:
+		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("UnbreakingAura") and not i.has_state("KnockedOut") and i.Health != 0:
 			await i.add_state("AuraBreak")
 			if i != CurrentChar:
 				follow_up_next = true
@@ -526,6 +527,7 @@ target: Actor, is_magic:= CurrentAbility.Damage != Ability.D.WEAPON, elemental:=
 x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
 overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
+	if CurrentAbility == null: CurrentAbility = Ability.nothing()
 	var el_mod: float = 1
 	var color = (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
 	var relation = color_relation(color, target.MainColor)
@@ -559,7 +561,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
-	if elemental:
+	if elemental and not target.has_state("UnbreakingAura"):
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
 		target.add_aura(-aur_dmg)
@@ -1157,7 +1159,7 @@ func stat_name(stat: StringName) -> String:
 func health_precentage(chara: Actor) -> float:
 	return (float(chara.Health)/float(chara.MaxHP)*100)
 
-func on_state_add(state: State, chara: Actor):
+func on_state_add(state: State, chara: Actor, effect = true):
 	if chara.Health != 0:
 		add_state_effect(state, chara)
 		match state.name:
@@ -1170,7 +1172,7 @@ func on_state_add(state: State, chara: Actor):
 			"Aggro":
 				chara.NextTarget = state.inflicter
 		await Event.wait()
-		if not state.is_stat_change: pop_num(chara, state.name, state.color)
+		if not state.is_stat_change and effect: pop_num(chara, state.name, state.color)
 
 func add_state_effect(state: State, chara: Actor):
 	if chara.node.get_node_or_null(

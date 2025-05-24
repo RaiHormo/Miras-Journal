@@ -445,10 +445,9 @@ func PhantomGuard(target: Actor):
 
 func SoothingSpray(target: Actor):
 	Bt.zoom(5)
-	Bt.anim("Cast")
 	Bt.focus_cam(target, 1)
 	Bt.heal(target)
-	await CurrentChar.node.animation_finished
+	await Bt.anim("Cast")
 	Bt.anim()
 	Bt.end_turn()
 
@@ -991,4 +990,27 @@ func AlcineWoods4():
 
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
+
+func LazuliteHeartBoss1():
+	var mira = Global.Party.Leader
+	Bt.initial = mira.node.position
+	CurrentChar = mira
+	Bt.anim("Idle", Global.Party.Member1)
+	Bt.anim("Idle", Global.Party.Member2)
+	Bt.anim("Idle", Global.Party.Member3)
+	Bt.zoom(6)
+	Bt.focus_cam(Bt.get_actor("LHBody"))
+	await Bt.get_actor("LHBody").add_state("UnbreakingAura", -1, mira, false)
+	mira.node.position = Bt.get_actor("LHRight").node.position
+	Loader.battle_bars(2)
+	await Global.passive("story_events", "lazulite_heart_intro")
+	#Bt.return_cur(mira)
+	mira.NextAction = "Attack"
+	mira.NextMove = Ability.nothing()
+	var alcine = Bt.get_actor("Alcine")
+	alcine.NextAction = "Attack"
+	alcine.NextMove = Bt.get_actor("Alcine").StandardAttack
+	alcine.NextTarget = Bt.get_actor("LHRight")
+	Bt.no_misses = true
+	Bt.end_turn()
 #endregion
