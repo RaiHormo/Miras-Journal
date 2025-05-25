@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=52 format=4 uid="uid://bd1tjlb5qs82v"]
 
 [ext_resource type="Script" uid="uid://c7mfou1fik1k6" path="res://codings/pyrson.gd" id="1_585ds"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="19_lkhnc"]
 [ext_resource type="SpriteFrames" uid="uid://cb76smqxxpbjr" path="res://art/OV/Linde/LindeOV.tres" id="20_taf6h"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="20_xjbvj"]
+[ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="21_4lmea"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="21_p415d"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="22_ejpht"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="23_taf6h"]
@@ -810,10 +811,9 @@ offset = Vector2(1, -11)
 [node name="TalkPrompt" parent="Maple" instance=ExtResource("9_w0u03")]
 position = Vector2(1.14441e-05, 1)
 LabelText = "Talk"
-ActionType = "text"
+ActionType = "social_link"
 Length = 90
 file = "sl_maple"
-title = "prepare"
 to_time = -1
 to_time_relative = 2
 Height = 16
@@ -828,10 +828,9 @@ position = Vector2(409, 575)
 [node name="TalkPrompt" parent="Linde" instance=ExtResource("9_w0u03")]
 position = Vector2(-1, -3)
 LabelText = "Talk"
-ActionType = "text"
+ActionType = "social_link"
 Length = 90
 file = "sl_linde"
-title = "prepare"
 to_time = -1
 to_time_relative = 2
 Height = 16
@@ -847,6 +846,35 @@ shape = SubResource("RectangleShape2D_taf6h")
 use_parent_material = true
 position = Vector2(0, 1)
 sprite_frames = ExtResource("20_taf6h")
+animation = &"IdleDown"
+autoplay = "IdleDown"
+offset = Vector2(0, -10)
+
+[node name="Asteria" parent="." instance=ExtResource("16_s1pqb")]
+z_index = 0
+position = Vector2(404, 221)
+
+[node name="TalkPrompt" parent="Asteria" instance=ExtResource("9_w0u03")]
+position = Vector2(-1, -3)
+LabelText = "Talk"
+ActionType = "social_link"
+Length = 90
+file = "sl_asteria"
+to_time = -1
+to_time_relative = 2
+Height = 16
+bubble_always = true
+event_condition = "sl_asteria"
+hide_parent = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Asteria"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_taf6h")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Asteria"]
+use_parent_material = true
+position = Vector2(0, 1)
+sprite_frames = ExtResource("21_4lmea")
 animation = &"IdleDown"
 autoplay = "IdleDown"
 offset = Vector2(0, -10)

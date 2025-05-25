@@ -757,7 +757,7 @@ func death(target:Actor):
 				target.node.hide()
 
 func delete_actor(target: Actor):
-	if is_instance_valid(target):
+	if is_instance_valid(target) and is_instance_valid(target.node):
 		target.node.queue_free()
 		target.node = null
 		if target.IsEnemy:

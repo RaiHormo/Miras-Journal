@@ -1,4 +1,8 @@
 ~ prepare
+do Global.textbox("rank"+str(Event.condition("sl_maple"))+"_prepare")
+=> END
+
+~ rank1_prepare
 Maple.Neutral: Hello mira
 if confirm_time_passage("Talk to Maple" ,"I can get to know Maple a bit better. This might also allow me make better force orbs."):
 	Maple.Neutral: Let's go then

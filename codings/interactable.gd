@@ -3,7 +3,7 @@ class_name Interactable
 
 signal action()
 @export var LabelText : String = "Inspect"
-@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "veinet", "focus_cam") var ActionType: String
+@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "veinet", "focus_cam", "social_link") var ActionType: String
 @export var Length: int = 120
 @export var file: String = ""
 @export var title: String = ""
@@ -216,6 +216,10 @@ func _on_button_pressed() -> void:
 			Global.check_party.emit()
 			await Event.wait(3, false)
 			Global.Player.camera_follow(true)
+		"social_link":
+			await Event.take_control(false)
+			var rank = Event.condition(file)
+			await Global.textbox(file, "rank"+rank+"_prepare")
 	if return_control:
 		Event.give_control(false)
 	if hidesprite:

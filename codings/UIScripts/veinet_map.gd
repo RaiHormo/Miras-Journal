@@ -86,7 +86,7 @@ func location_selected():
 			focus_place(here)
 			return
 		elif Global.Area.IsDungeon:
-			Event.ToTime = Event.get_time_progress_from_now(1)
+			Event.ToTime = Event.get_time_progress_from_now(2)
 			progress_time = true
 	foc =  prev_foc
 	Global.confirm_sound()
