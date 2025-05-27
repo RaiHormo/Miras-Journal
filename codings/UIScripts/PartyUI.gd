@@ -214,6 +214,7 @@ func _on_expand(open_ui=0):
 	#Menu
 	#if open_ui == 0:
 	await t.finished
+	Global.Controllable = false
 	Expanded = true
 	Global.check_party.emit()
 	if open_ui != 2: $CanvasLayer/Cursor.show()
@@ -627,7 +628,7 @@ func party_menu():
 			Global.confirm_sound()
 
 func main_menu():
-	if not Loader.InBattle and Global.Controllable and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
+	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
 		Global.ui_sound("Menu")
 		Global.Player.bag_anim()
 		Global.Controllable = false
@@ -671,6 +672,8 @@ func back():
 			Global.cancel_sound()
 			await Event.wait(0.1)
 			Global.Controllable= was_controllable
+			if get_tree().root.has_node("MainMenu"):
+				get_tree().root.get_node("MainMenu").stage = "root"
 
 func close_submenu():
 	Partybox.show()

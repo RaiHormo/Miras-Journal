@@ -164,6 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(1290, 800)
+mouse_filter = 2
 texture = ExtResource("2_s81ns")
 
 [connection signal="pressed" from="TitleScreen/Continue" to="." method="_on_continue_pressed"]

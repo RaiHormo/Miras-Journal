@@ -121,7 +121,7 @@ func control_process():
 		var old_position = global_position
 		if direction.length()>0.1:
 			move_and_slide()
-		if Input.is_action_just_pressed("OVAttack"):
+		if Input.is_action_just_pressed("OVAttack") and Global.Controllable:
 			attack()
 
 	if Global.Settings.DebugMode:

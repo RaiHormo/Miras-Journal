@@ -16,7 +16,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_km2id"]
 shader = ExtResource("1_gsbq0")
-shader_parameter/lod = 2.0
+shader_parameter/lod = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux7hg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -515,7 +515,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.827451)
+color = Color(0, 0, 0, 0.196078)
 
 [node name="Blur" type="ColorRect" parent="Fade"]
 material = SubResource("ShaderMaterial_km2id")

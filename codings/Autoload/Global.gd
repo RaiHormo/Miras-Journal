@@ -119,6 +119,7 @@ func title_screen():
 	get_tree().root.add_child(init)
 
 func member_details(chara: Actor):
+	if chara == null: return
 	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
 	get_tree().root.add_child(dub)
 	await Event.wait()
