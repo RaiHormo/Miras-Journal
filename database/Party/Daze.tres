@@ -23,7 +23,7 @@ PitchVariance = 1.0
 [resource]
 script = ExtResource("3_g8t8l")
 FirstName = "Daze"
-MainColor = Color(0.831373, 0.768627, 0.388235, 1)
+MainColor = Color(0.801293, 0.777858, 0.43949, 1)
 PartyIcon = ExtResource("4_ddwib")
 ActorClass = "Tank"
 codename = &"Daze"

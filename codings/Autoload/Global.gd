@@ -253,7 +253,9 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
 			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
-	if prev_dev != device: controller_changed.emit()
+	if prev_dev != device: 
+		controller_changed.emit()
+		toast("Swapped to "+ device)
 	LastInput=ProcessFrame
 	var is_fullscreen = get_window().mode == Window.MODE_FULLSCREEN
 	if is_fullscreen != Settings.Fullscreen:
