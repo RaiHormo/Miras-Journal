@@ -41,6 +41,9 @@ signal area_initialized
 signal textbox_close
 signal player_ready
 signal controller_changed
+const AppID = 480
+var UsingSteam:= false
+var SteamInputDevice
 
 var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
@@ -59,12 +62,15 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
+	init_steam()
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	#Input.start_joy_vibration(0, 1, 0, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
+func _init():
+	OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "0x28de/0x11ff")
 
 func quit() -> void:
 	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
@@ -81,6 +87,22 @@ func normal_mode():
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
+func init_steam():
+	OS.set_environment("SteamAppId", str(AppID))
+	OS.set_environment("SteamGameId", str(AppID))
+	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
+	print("Did Steam initialize?: %s " % initialize_response)
+	#Steam.inputInit()
+	#Steam.enableDeviceCallbacks()
+	#SteamInput.init()
+	if initialize_response.get("status") == 0:
+		print("Running with Steam")
+		UsingSteam = true
+		if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
+			Settings.ControlSchemeEnum = 7
+			Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
+		print(Steam.getFriendPersonaName(Steam.getSteamID()))
+
 func game_over():
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
 
@@ -95,7 +117,7 @@ func ready_window() -> void:
 		await Event.wait(0.5)
 		return
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	ProcessFrame+=1
 	if ProcessFrame % 100:
 		#if Settings.FPS == 0:
@@ -103,6 +125,9 @@ func _physics_process(delta: float) -> void:
 		#else:
 			#Engine.set_physics_ticks_per_second(Settings.FPS)
 		Engine.max_fps = Settings.FPS
+	if UsingSteam: 
+		Steam.run_callbacks()
+		Steam.runFrame()
 
 func options(save_menu:= false):
 	var control = Controllable
@@ -253,6 +278,9 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
 			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
 			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
+	#if "Steam" in device:
+		#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "28de:11ff")
+		#var steam_controllers = Steam.getConnectedControllers()
 	if prev_dev != device: 
 		controller_changed.emit()
 		toast("Swapped to "+ device)
@@ -286,6 +314,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func refresh():
 	await Loader.save()
 	Loader.load_game()
+	print(Input.should_ignore_device(0x28de, 0x11ff))
 
 func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	if !Settings: await init_settings()
@@ -514,6 +543,7 @@ func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
 		await Event.wait()
+	print("Toast: "+ string)
 	var tost = (await Loader.load_res("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()

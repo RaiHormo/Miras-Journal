@@ -44,6 +44,7 @@ Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
+SteamInput="*res://codings/Autoload/SteamInput.gd"
 
 [debug]
 
@@ -459,3 +460,8 @@ common/physics_interpolation=true
 
 textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
+
+[steam]
+
+initialization/app_id=480
+initialization/embed_callbacks=true

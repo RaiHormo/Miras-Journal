@@ -50,6 +50,10 @@ func _ready() -> void:
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	Global.player_ready.emit()
 
+#func _process(delta: float) -> void:
+	#Steam.run_callbacks()
+	#Steam.runFrame()
+
 func extended_process() -> void:
 	if Global.Controllable:
 		BodyState = CONTROLLED

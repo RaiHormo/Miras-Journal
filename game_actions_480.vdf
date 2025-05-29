@@ -1,0 +1,89 @@
+"Mira's Journal"
+{
+	"actions"
+	{
+		"Overworld"
+		{
+			"title"					"#Set_Overworld"
+			"StickPadGyro"
+			{
+				"Move"
+				{
+					"title"			"#OV_Move"
+					"input_mode"	"joystick_move"
+				}
+			}
+			"Button"
+			{
+				"ov_up"		"#OV_Up"
+				"ov_down"	"#OV_Down"
+				"ov_left"	"#OV_Left"
+				"ov_right"	"#OV_Right"
+				"ov_attack"				"#OV_Attack"
+				"ov_dash"				"#OV_Dash"
+				"ov_bag_menu"		"#OV_BagMenu"
+			}
+		}
+		"Battle"
+		{
+			"title"					"#Set_Battle"
+			"Button"
+			{
+				"bt_attack"	"BT_Attack"
+				"bt_ability" "BT_Ability"
+				"bt_command" "BT_Command"
+				"bt_item"	"BT_Item"
+				"bt_escape" "BT_Escape"
+			}
+		}
+		"UI"
+		{
+			"title"		"#Set_UI"
+			"Button"
+			{
+				"ui_up"		"#UI_Up"
+				"ui_down"		"#UI_Down"
+				"ui_left"		"#UI_Left"
+				"ui_right"	"#UI_Right"
+				"ui_confirm"	"#UI_Confirm"
+				"ui_cancel"	"#UI_Cancel"
+				"ui_options_menu"	"#UI_OptionsMenu"
+				"ui_party_menu"	"#UI_PartyMenu"
+				"ui_tab_left"	"UI_TabLeft"
+				"ui_tab_right"	"UI_TabRight"
+			}
+		}
+	}
+	"localization"
+	{
+		"english"
+		{
+			"Set_Overworld"			"In-Game Controls"
+			"Set_Battle"				"Menu Controls"
+			"Set_UI"			"Movement"
+			"OV_Move" 	"Walk"
+			"OV_Left"	"Walk Left"
+			"OV_Right" 	"Walk Right"
+			"OV_Up" 	"Walk Up"
+			"OV_Down"	"Walk Down"
+			"OV_Dash" 	"Dash"
+			"OV_Attack"	"Attack"
+			"OV_BagMenu" 	"Bag Menu"
+			"BT_Ability"	"Ability"
+			"BT_Item"	"Item"
+			"BT_Attack"	"Attack"
+			"BT_Command"	"Command"
+			"BT_Escape"	"Escape"
+			"UI_Up"	"Up"
+			"UI_Down"	"Down"
+			"UI_Left"	"Left"
+			"UI_Right"	"Right"
+			"UI_Confirm"	"Confirm"
+			"UI_Cancel"	"Cancel"
+			"UI_OptionsMenu"	"Options Menu"
+			"UI_PartyMenu"	"Party Menu"
+			"UI_TabLeft" 	"Tab Left"
+			"UI_TabRight"	"Tab Right"
+		}
+	}
+}
