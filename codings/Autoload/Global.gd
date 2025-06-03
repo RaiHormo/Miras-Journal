@@ -159,7 +159,8 @@ func veinet_map(cur: String):
 	Map.focus_place(cur)
 
 func new_game() -> void:
-	if get_node_or_null("/root/Textbox"): $"/root/Textbox"._on_close()
+	if get_tree().root.has_node("/root/Textbox"): $"/root/Textbox"._on_close()
+	if get_tree().root.has_node("/root/Initializer"): $"/root/Initializer".queue_free()
 	init_party(Party)
 	FirstStartTime = Time.get_unix_time_from_system()
 	Event.Flags.clear()

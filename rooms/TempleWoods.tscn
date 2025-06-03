@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=4 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=120 format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -472,31 +472,52 @@ size = Vector2(28.9997, 11.0009)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mwwj"]
 size = Vector2(26.0002, 79.341)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_84w4r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8txd"]
 atlas = ExtResource("25_d0236")
-region = Rect2(28, 0, 28, 72)
+region = Rect2(56, 0, 28, 72)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_061vs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3j3j"]
+atlas = ExtResource("25_d0236")
+region = Rect2(84, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbvu1"]
+atlas = ExtResource("25_d0236")
+region = Rect2(112, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q7ov"]
 atlas = ExtResource("25_d0236")
 region = Rect2(0, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va2q4"]
+atlas = ExtResource("25_d0236")
+region = Rect2(28, 0, 28, 72)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5kqrr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_84w4r")
+"texture": SubResource("AtlasTexture_u8txd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3j3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbvu1")
 }],
-"loop": true,
+"loop": false,
 "name": &"break",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_061vs")
+"texture": SubResource("AtlasTexture_2q7ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va2q4")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqoxn"]
@@ -895,8 +916,35 @@ texture_filter = 1
 use_parent_material = true
 position = Vector2(4.57764e-05, 5.72205e-06)
 sprite_frames = SubResource("SpriteFrames_5kqrr")
-animation = &"break"
 autoplay = "default"
+frame_progress = 0.708336
+
+[node name="BreakableVines1" type="StaticBody2D" parent="."]
+position = Vector2(1579, 211)
+script = ExtResource("24_iq5im")
+
+[node name="AreaBreak" type="Area2D" parent="BreakableVines1"]
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines1/AreaBreak"]
+position = Vector2(1.61475, 5.84274)
+shape = SubResource("RectangleShape2D_gbt1u")
+debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines1"]
+use_parent_material = true
+position = Vector2(6.10352e-05, 6.17029)
+shape = SubResource("RectangleShape2D_1mwwj")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVines1"]
+y_sort_enabled = true
+texture_filter = 1
+use_parent_material = true
+position = Vector2(4.57764e-05, 5.72205e-06)
+sprite_frames = SubResource("SpriteFrames_5kqrr")
+autoplay = "default"
+frame_progress = 0.562652
 
 [node name="EffectFirefly" type="Marker2D" parent="."]
 process_mode = 3
@@ -1436,6 +1484,7 @@ KickDirection = Vector2(0, -2)
 
 [connection signal="text_changed" from="AlcineNaming/TextEdit" to="AlcineNaming" method="_on_text_edit_text_changed"]
 [connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]
+[connection signal="area_entered" from="BreakableVines1/AreaBreak" to="BreakableVines1" method="_on_area_break_area_entered"]
 [connection signal="body_entered" from="EvAlcine/Area2D" to="EvAlcine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]
