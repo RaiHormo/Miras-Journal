@@ -79,6 +79,10 @@ func handle_states():
 					"AuraOverwrite":
 						chara.MainColor = chara.AuraDefault
 						chara.node.material.set_shader_parameter("outline_enabled", false)
+					"KnockedOut":
+						Global.toast(chara.FirstName+" recovers!")
+						Bt.anim("Idle", chara)
+						chara.Health = 10
 				state.QueueRemove = true
 		if not state.QueueRemove:
 			match state.filename:
@@ -148,6 +152,9 @@ func handle_states():
 						chara.NextAction = "Attack"
 						chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
 						await Bt.shake_actor(chara)
+				"KnockedOut":
+					chara.NextAction = "Attack"
+					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
 				"Frozen":
 					Bt.focus_cam(chara)
 					Global.toast(chara.FirstName+" can't move from the cold!")

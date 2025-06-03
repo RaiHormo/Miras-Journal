@@ -170,12 +170,11 @@ func update_anim_prm() -> void:
 
 ##Item pickup animation
 func _on_pickup() -> void:
-	Global.Controllable = false
-	reset_speed()
+	await Event.take_control()
 	if Global.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true)
 	else: await set_anim("PickUpRight", true)
-	Global.Controllable = true
-	set_anim(str("Idle"+Global.get_dir_name(Global.get_direction(Global.PlayerDir))))
+	Event.give_control()
+	set_anim()
 
 func _check_party() -> void:
 	if get_node_or_null("%Base") == null: return

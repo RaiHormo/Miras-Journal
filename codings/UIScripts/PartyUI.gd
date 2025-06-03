@@ -471,7 +471,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Health").max_value = mem.MaxHP
 	draw_bar(mem, node)
 	node.get_node("Aura").max_value = mem.MaxAura
-	node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
+	node.get_node("Level/ExpBar").max_value = mem.skill_points_for(mem.SkillLevel)
 	t.tween_property(node.get_node("Aura"), "value", mem.Aura, 1)
 	node.get_node("Icon").texture = mem.PartyIcon
 	cycle_states(mem, node.get_node("Icon/State"))
@@ -488,17 +488,17 @@ func check_member(mem:Actor, node:Panel, ind):
 	await check_for_levelups(mem, node)
 
 func check_for_levelups(mem:Actor, node:Panel):
-	if mem.SkillPointsFor.size() - 1 == mem.SkillLevel: return
+	if mem.SkillCurve == null: return
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	if (mem.SkillLevel < mem.SkillPointsFor.size() and mem.SkillPoints < mem.SkillPointsFor[mem.SkillLevel]) or mem.codename in LevelupChain:
+	if (mem.SkillCurve != null and mem.SkillPoints < mem.skill_points_for(mem.SkillLevel)) or mem.codename in LevelupChain:
 		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPoints, 1)
 	else:
-		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.SkillPointsFor[mem.SkillLevel], 1)
+		t.tween_property(node.get_node("Level/ExpBar"), "value", mem.skill_points_for(mem.SkillLevel), 1)
 		await t.finished
-		mem.SkillPoints -= mem.SkillPointsFor[mem.SkillLevel]
+		mem.SkillPoints -= mem.skill_points_for(mem.SkillLevel)
 		mem.SkillPoints = max(mem.SkillPoints, 0)
 		t = create_tween()
 		t.tween_property(node.get_node("Level/ExpBar"), "value", 0, 0.3)
@@ -508,8 +508,8 @@ func check_for_levelups(mem:Actor, node:Panel):
 			LevelupChain.append(mem.codename)
 			print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
 			node.get_node("Level/Number").text = str(mem.SkillLevel)
-			if mem.SkillLevel < mem.SkillPointsFor.size():
-				node.get_node("Level/ExpBar").max_value = mem.SkillPointsFor[mem.SkillLevel]
+			if mem.SkillCurve != null:
+				node.get_node("Level/ExpBar").max_value = mem.skill_points_for(mem.SkillLevel)
 			check_for_levelups(mem, node)
 		else: 
 			push_error("Levelup bug occured")

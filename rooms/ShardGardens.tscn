@@ -82,7 +82,7 @@ size = Vector2(89, 201)
 size = Vector2(38.75, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd27v"]
-size = Vector2(14.5, 25)
+size = Vector2(21.5347, 189.925)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybpd3"]
 size = Vector2(108, 87)
@@ -543,7 +543,7 @@ Detransition = false
 ReturnControl = true
 EscPosition = Vector2i(-18, -5)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(-330, -42)
+ScenePosition = Vector2(-375, -44)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -607,7 +607,7 @@ Detransition = false
 ReturnControl = true
 EscPosition = Vector2i(-13, 26)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(-446, 578)
+ScenePosition = Vector2(-457, 452)
 CanEscape = true
 DeleteAttacker = true
 EntranceSequence = ""
@@ -1065,7 +1065,8 @@ position = Vector2(-109, 475.5)
 shape = SubResource("RectangleShape2D_8ubql")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Cover1"]
-position = Vector2(-491.25, 572.5)
+position = Vector2(-487.258, 496.221)
+rotation = -0.112733
 shape = SubResource("RectangleShape2D_dd27v")
 debug_color = Color(0.691822, 0.439815, 0.617756, 0.42)
 
@@ -1366,7 +1367,7 @@ offset = Vector2(0.0496826, -5.866)
 position = Vector2(-133, -77)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemySG10"]
-position = Vector2(-26, 2)
+position = Vector2(-71, 0)
 
 [node name="EnemySG2" parent="." instance=ExtResource("4_ujeyr")]
 position = Vector2(410, 655)

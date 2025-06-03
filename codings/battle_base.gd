@@ -303,8 +303,6 @@ func _on_next_turn():
 		else:
 			print("Character is knocked out, skip turn")
 			lock_turn = false
-			end_turn(true)
-			return
 	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
 	$Act.handle_states()
 
@@ -904,7 +902,7 @@ func end_battle():
 		if i.AuraDefault != Color.WHITE:
 			i.MainColor = i.AuraDefault
 			i.AuraDefault = Color.WHITE
-		i.Health = max(i.Health, 1)
+		i.Health = max(i.Health, 10)
 	await Loader.end_battle()
 	queue_free()
 
@@ -959,6 +957,7 @@ func victory_count_sp():
 
 func victory(ignore_seq:= false):
 	print("Victory!")
+	Action = true
 	if Seq.VictorySequence != "" and not ignore_seq:
 		$Act.call(Seq.VictorySequence)
 		return

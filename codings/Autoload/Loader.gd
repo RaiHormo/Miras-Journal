@@ -386,6 +386,8 @@ func start_battle(stg, advantage := 0):
 	var battle = (await load_res("res://codings/Battle.tscn")).instantiate()
 	if is_instance_valid(Global.Player):
 		Global.Player.hide()
+		#if Global.Player.is_on_wall():
+		Global.Player.position = Seq.ScenePosition
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 		Global.Player.camera_follow(false)
 	Global.get_cam().position_smoothing_enabled = false

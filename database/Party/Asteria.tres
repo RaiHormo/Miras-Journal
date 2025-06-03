@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://c7dagc4gevvwu"]
+[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://c7dagc4gevvwu"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_p1xdm"]
 [ext_resource type="Resource" uid="uid://cbh1if1c4xskl" path="res://database/Abilities/PhantomGuard.tres" id="2_qhfgp"]
 [ext_resource type="Resource" uid="uid://i76o7dyxd0rh" path="res://database/Abilities/Tighten.tres" id="3_5qh1h"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_rxi2h"]
@@ -11,6 +10,13 @@
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
 [ext_resource type="SpriteFrames" uid="uid://b21h4m0wtw0jl" path="res://art/BT/Asteria/AsteriaBt.tres" id="5_7hmow"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="9_7hmow"]
+
+[sub_resource type="Curve" id="Curve_7hmow"]
+_limits = [0.0, 500.0, 7.0, 50.0]
+bake_resolution = 50
+_data = [Vector2(7, 84.5508), -3.47912, -3.47912, 0, 0, Vector2(9.74468, 46.5668), 43.9126, 43.9126, 0, 0, Vector2(16.0658, 181.885), -36.9382, -36.9382, 0, 0, Vector2(50, 500), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [resource]
 script = ExtResource("3_s4tb4")
@@ -22,15 +28,15 @@ codename = &"Asteria"
 Pronouns = Array[String](["she", "her", "her", "herself"])
 WeaponPower = 16
 IsEnemy = false
-RecivedSP = 0
-SummonedAllies = Array[ExtResource("3_s4tb4")]([])
-CustomPosition = Vector2i(0, 0)
+RecivedSP = null
+SummonedAllies = null
+CustomPosition = null
 SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
 BoxProfile = ExtResource("3_tcuxw")
 LastName = "Versea"
 Weapon = "Possessed Scarf"
 PartyPageName = "SoulsLike"
-Controllable = false
+Controllable = null
 HpOnSLvUp = 18
 ApOnSLvUP = 13
 MaxHP = 130
@@ -44,22 +50,23 @@ Aura = 47
 SkillLevel = 7
 SkillPoints = 16
 SkillPointsFor = Array[int]([0, 0, 0, 0, 0, 0, 0, 49, 38, 42, 40, 60])
+SkillCurve = SubResource("Curve_7hmow")
 Abilities = Array[ExtResource("1_wfdm5")]([ExtResource("2_qhfgp"), ExtResource("3_5qh1h"), ExtResource("4_j7xb4")])
 StandardAttack = ExtResource("7_75i7m")
-LearnableAbilities = Array[ExtResource("1_wfdm5")]([])
+LearnableAbilities = null
 OV = ExtResource("3_rxi2h")
 BT = ExtResource("5_7hmow")
 Offset = Vector2(4, -15)
 Shadow = true
 ShadowOffset = 2
-SoundSet = ExtResource("2_p1xdm")
+SoundSet = ExtResource("9_7hmow")
 Disappear = false
-GlowDef = 0.3
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false
+GlowDef = null
+GlowSpecial = null
+GlowAnims = null
+DontIdle = null
+ClutchDmg = null
+SeqOnClutch = null
+CantDie = null
+IgnoreStates = null
+CantDodge = null

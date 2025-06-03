@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_uh23e")
 name = "Knocked Out"
-Description = "Cannot act at all."
+Description = "Cannot act at all. May recover at 10 HP after 3 turns"
 RemovedOnBattleEnd = true
-turns = -1
+turns = 3
 color = Color(1, 1, 1, 1)
 weak_mult = 1.0
 dmg_mult = 1.0

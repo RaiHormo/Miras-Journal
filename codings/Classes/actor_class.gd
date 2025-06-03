@@ -70,7 +70,7 @@ var SpeedBoost: int = 0
 @export var SkillPoints: int
 ##The skill points required to reach the next skill level. The 2nd item of the array for example
 ##is the skill points required to reach skill level 3.
-@export var SkillPointsFor: Array[int]
+@export var SkillCurve: Curve
 
 @export_category("Skills")
 ##The actors current skill list
@@ -278,7 +278,6 @@ func reset_static_info():
 	Attack = og.Attack
 	Defence = og.Defence
 	Magic = og.Magic
-	SkillPointsFor = og.SkillPointsFor
 	SoundSet = og.SoundSet
 	BT = og.BT
 	OV = og.OV
@@ -329,3 +328,6 @@ func has_ability(ab: String):
 	for i in Abilities:
 		if i.name == ab: return true
 	return false
+
+func skill_points_for(level: int) -> int:
+	return int(SkillCurve.sample(level))

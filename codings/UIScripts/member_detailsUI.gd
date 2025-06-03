@@ -8,12 +8,12 @@ func draw_character(chara: Actor):
 	Global.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
-	if chara.SkillPointsFor.size() > 0:
+	if chara.SkillCurve != null:
 		$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
 		$StatPanel/LvBox/Vbox/LvBar/SPNum.text = str(chara.SkillPoints)
-		$StatPanel/LvBox/Vbox/ExpBar.max_value = chara.SkillPointsFor[chara.SkillLevel]
+		$StatPanel/LvBox/Vbox/ExpBar.max_value = chara.skill_points_for(chara.SkillLevel)
 		$StatPanel/LvBox/Vbox/ExpBar.value = chara.SkillPoints
-		$StatPanel/LvBox/Vbox/ToNextLv/Number.text = str(chara.SkillPointsFor[chara.SkillLevel] - chara.SkillPoints)
+		$StatPanel/LvBox/Vbox/ToNextLv/Number.text = str(chara.skill_points_for(chara.SkillLevel) - chara.SkillPoints)
 	$StatPanel/HPAura/HPText.text = str(chara.MaxHP)
 	$StatPanel/HPAura/APText.text = str(chara.MaxAura)
 	$StatPanel/HPAura/Health.max_value = 300

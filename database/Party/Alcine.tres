@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://5dk5u2y85kai"]
 
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
@@ -11,7 +11,13 @@
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="4_roarn"]
 [ext_resource type="Resource" uid="uid://cy60md5f5cblk" path="res://database/Abilities/IcyDrizzle.tres" id="5_fp5sq"]
 [ext_resource type="Resource" uid="uid://glraxorvlv4r" path="res://database/Abilities/SoothingRain.tres" id="6_82uy0"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="6_bqqs6"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="10_wpfc1"]
+
+[sub_resource type="Curve" id="Curve_wpfc1"]
+_limits = [0.0, 500.0, 0.0, 50.0]
+bake_resolution = 50
+_data = [Vector2(0, 1.46094), 0.0, 0.0, 0, 0, Vector2(3.48162, 75.0548), -102.528, -102.528, 0, 0, Vector2(5.41586, 77.4288), 0.0, 0.0, 0, 0, Vector2(8.70406, 108.291), -134.906, -134.906, 0, 0, Vector2(12.3791, 162.893), -64.0801, -64.0801, 0, 0, Vector2(16.3961, 298.518), 0.0, 0.0, 0, 0, Vector2(20.8897, 324.324), -121.415, -121.415, 0, 0, Vector2(24.3507, 298.518), 0.0, 0.0, 0, 0, Vector2(25.487, 202.156), 53.9622, 53.9622, 0, 0, Vector2(28.8961, 206.536), 0.0, 0.0, 0, 0, Vector2(31.3312, 285.377), 0.0, 0.0, 0, 0, Vector2(33.6039, 342.318), 0.0, 0.0, 0, 0, Vector2(34.5779, 267.857), 0.0, 0.0, 0, 0, Vector2(37.3308, 241.234), 152.251, 152.251, 0, 0, Vector2(38.4913, 283.966), -57.2, -57.2, 0, 0, Vector2(42.8433, 386.048), 0.0, 0.0, 0, 0, Vector2(50, 500), 0.0, 0.0, 0, 0]
+point_count = 17
 
 [resource]
 script = ExtResource("1_o1wey")
@@ -44,7 +50,7 @@ Health = 90
 Aura = 90
 SkillLevel = 1
 SkillPoints = 0
-SkillPointsFor = Array[int]([1, 20, 30, 39, 46, 57, 50, 68, 79, 90])
+SkillCurve = SubResource("Curve_wpfc1")
 Abilities = Array[ExtResource("1_l356q")]([ExtResource("2_kbab6"), ExtResource("2_2vyew")])
 StandardAttack = ExtResource("2_3o6lq")
 LearnableAbilities = Array[ExtResource("1_l356q")]([ExtResource("5_fp5sq"), ExtResource("6_82uy0")])
@@ -53,7 +59,7 @@ BT = ExtResource("1_8ee1b")
 Offset = Vector2(-3, -15)
 Shadow = true
 ShadowOffset = 1
-SoundSet = ExtResource("6_bqqs6")
+SoundSet = ExtResource("10_wpfc1")
 Disappear = false
 GlowDef = 0.3
 GlowSpecial = 0.0
