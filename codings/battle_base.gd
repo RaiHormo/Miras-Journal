@@ -933,6 +933,9 @@ func victory_count_sp():
 	t.tween_property($Canvas/SPGain, "size:x", 260, 0.5).from(1)
 	t.tween_property($Canvas/SPGain/VBoxContainer/Text,
 		"custom_minimum_size:x", 140, 0.5).from(1)
+	for i in PartyArray:
+		i.add_SP(totalSP)
+	PartyUI._check_party()
 	await t.finished
 	var sp = totalSP
 	t = create_tween()
@@ -943,9 +946,6 @@ func victory_count_sp():
 		$Canvas/SPGain/VBoxContainer/Number.text = str(count)
 		await Event.wait()
 	var dub = $Canvas/SPGain.duplicate()
-	for i in PartyArray:
-		i.add_SP(totalSP)
-	PartyUI._check_party()
 	$Canvas.add_child(dub)
 	t = create_tween()
 	t.set_parallel()

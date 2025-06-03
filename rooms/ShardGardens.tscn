@@ -1648,6 +1648,16 @@ AddFlag = true
 TakeControl = false
 ReturnControl = false
 
+[node name="EvJumpReminder" parent="." instance=ExtResource("26_yhh0x")]
+position = Vector2(-182, 432)
+scale = Vector2(0.504117, 0.648075)
+TextFile = "interactions"
+TextNode = "sg_jump_reminder"
+Passive = true
+AddFlag = true
+TakeControl = false
+ReturnControl = false
+
 [node name="EvBlockedPath2" parent="." instance=ExtResource("26_yhh0x")]
 position = Vector2(-216, -301)
 scale = Vector2(1.06845, 0.443152)

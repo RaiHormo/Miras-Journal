@@ -145,3 +145,7 @@ Mira.Neutral: Hm?
 Asteria.Neutral: You have been stepping in a lot of these shards! I can give you my sandals if you want.
 Mira.Neutral: No, I'm fine.
 Asteria.Neutral: Okay, just be careful.
+
+~ sg_jump_reminder
+Mira.Neutral: I should be able to make that jump!
+=> END
