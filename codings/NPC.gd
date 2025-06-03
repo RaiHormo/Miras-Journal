@@ -150,7 +150,7 @@ func get_terrain() -> String:
 func get_tile(layer:int):
 	return Global.Area.Layers[layer].get_cell_tile_data(Global.Area.local_to_map(global_position))
 
-func move_dir(dir: Vector2, use_coords = true, autostop = true) -> void:
+func move_dir(dir: Vector2, use_coords = true, autostop = false) -> void:
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
 
@@ -194,7 +194,7 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos:Vector2, use_coords = true, autostop = true, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 5) -> void:
+func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 5) -> void:
 	if self is Mira and Global.Controllable: return
 	await stop_going()
 	Engine.time_scale = min(Engine.time_scale, 3)

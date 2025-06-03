@@ -2677,6 +2677,13 @@ texture_region_size = Vector2i(24, 24)
 11:15/0/texture_origin = Vector2i(-36, -24)
 11:15/0/physics_layer_2/polygon_0/points = PackedVector2Array(-12, 10.4681, 84.5017, 11.1808, 84.0163, 4.88271, -12, 4.65822)
 11:15/0/physics_layer_2/polygon_1/points = PackedVector2Array(-12.0717, 34.7005, 83.789, 33.9878, 84.6799, 43.4313, -11.1808, 42.5404)
+0:13/size_in_atlas = Vector2i(5, 1)
+0:13/animation_columns = 1
+0:13/animation_speed = 0.5
+0:13/animation_frame_0/duration = 1.0
+0:13/animation_frame_1/duration = 1.0
+0:13/0 = 0
+0:13/0/texture_origin = Vector2i(-48, 0)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fywe2"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -2786,9 +2793,6 @@ texture_region_size = Vector2i(24, 24)
 8:2/0/y_sort_origin = -16
 9:2/0 = 0
 9:2/0/y_sort_origin = -16
-6:9/size_in_atlas = Vector2i(4, 1)
-6:9/0 = 0
-6:9/0/texture_origin = Vector2i(-36, 0)
 15:8/0 = 0
 15:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.2, 12, -7.2, -2.4, 7.2, -2.4, 7.2, 12)
 15:8/0/physics_layer_4/polygon_0/points = PackedVector2Array(-7.2, 12, -7.2, -2.4, 7.2, -2.4, 7.2, 12)

@@ -42,7 +42,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player and self != Event.CutsceneHandler:
 		if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
 		Global.CameraInd == 2 and not Event.f("AlcineFollow", 3)):
-			Global.Player.collision(false)
 			Global.Party.Leader.ClutchDmg = true
 			Event.CutsceneHandler = self
 			await Event.take_control()
@@ -57,6 +56,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await t.finished
 			Event.wait(0.5)
 			await Global.textbox("story_events", "approach")
+			Global.Player.collision(false)
 			await Global.Player.go_to(Vector2(67, -45))
 			await Event.wait(0.3)
 			Global.Player.BodyState = CUSTOM
