@@ -52,7 +52,7 @@ animations = [{
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_36xvg")
 }, {
-"duration": 0.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_t0na5")
 }, {
 "duration": 2.0,
@@ -61,10 +61,10 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_vf25v")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_e0tlv")
 }, {
-"duration": 0.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hyon2")
 }, {
 "duration": 0.5,
@@ -75,10 +75,13 @@ animations = [{
 }, {
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_ek4sg")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"Hit",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -102,5 +105,7 @@ use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_e0tlv")
 animation = &"Hit"
 autoplay = "None"
-frame = 9
+frame = 10
 frame_progress = 1.0
+
+[connection signal="frame_changed" from="Sprite" to="." method="_on_sprite_frame_changed"]

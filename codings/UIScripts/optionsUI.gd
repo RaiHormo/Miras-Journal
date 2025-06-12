@@ -267,7 +267,7 @@ func _on_focus_changed(control:Control):
 				$SavePanel/Buttons/Delete.disabled = false
 	if cant_save:
 		$SavePanel/Buttons/Overwrite.disabled = true
-		$SavePanel/ScrollContainer/Files/New/NewFile/Button.disabled = true
+		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
 
 func load_settings():
 	Global.save_settings()

@@ -300,6 +300,7 @@ func reset_speed() -> void:
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	if cant_bump: return
+	winding_attack = false
 	direction = Vector2.ZERO
 	if dir == Vector2.ZERO: dir = dashdir
 	Global.jump_to_global(self, global_position - dir*15, 15, 0.5)
@@ -313,7 +314,9 @@ func camera_follow(follow = !$Camera2D.update_position) -> void:
 	$Camera2D.update_position = follow
 
 func attack():
-	if not Item.check_item("LightweightAxe", "Key"): return
+	if not Item.check_item("LightweightAxe", "Key"):
+		Global.buzzer_sound()
+		return
 	if dashing: await stop_dash()
 	reset_speed()
 	speed = 40
@@ -333,7 +336,14 @@ func attack():
 		if direction != Vector2.ZERO: Global.PlayerDir = direction
 		set_anim("Attack"+Global.get_dir_name()+"Windup")
 		check_before_attack()
-		if winding_attack == false: break
+		if not winding_attack: 
+			attacking = false
+			BodyState = IDLE
+			set_anim()
+			$Attack/AttackPreview/CollisionShape2D.disabled = false
+			$Attack/CollisionShape2D.disabled = false
+			speed = walk_speed
+			return
 		checked = true
 		await get_tree().physics_frame
 	winding_attack = false

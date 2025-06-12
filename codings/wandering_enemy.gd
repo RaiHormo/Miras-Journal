@@ -140,14 +140,15 @@ func _on_finder_body_entered(body):
 		PinRange = true
 
 func _on_catch_area_body_entered(body):
-	if (body == Global.Player and (not lock) and (not Loader.InBattle) and
-	(Global.Controllable or Global.Player.dashing) and (not Global.Player.attacking)):
+	if (body == Global.Player and (not lock) and (not Loader.InBattle) and (not Global.Player.attacking or Global.Player.winding_attack)):
 		#print(Global.Player.attacking)
 		Global.Player.winding_attack = false
 		await Event.take_control(false, false, false)
 		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
+		Facing = Global.get_direction(to_local(Global.PlayerPos))
+		Global.intro_effect(Global.Player)
 		begin_battle(2)
 
 func begin_battle(advatage := 0):
@@ -157,13 +158,14 @@ func begin_battle(advatage := 0):
 	global_position = DefaultPos
 
 func attacked():
+	if Global.Player.winding_attack: return
 	BodyState = NONE
 	set_anim("Hit")
 	var to_pos = position+Global.get_direction()*12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
-	Global.intro_effect(to_pos)
+	Global.intro_effect(self)
 	if PinRange: begin_battle()
 	else: begin_battle(1)
 
