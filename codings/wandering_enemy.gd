@@ -115,7 +115,7 @@ func extended_process():
 
 
 func _on_finder_body_entered(body):
-	if body == Global.Player and not PinRange and not Loader.chased:
+	if body == Global.Player and not PinRange and not Loader.chased and not Loader.InBattle:
 		Nav.set_target_position(Global.Player.position)
 		if not Nav.is_target_reachable(): return
 		stopping = true

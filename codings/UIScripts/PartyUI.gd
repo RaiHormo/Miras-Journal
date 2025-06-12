@@ -709,7 +709,7 @@ func preform_levelups():
 	show_all()
 
 func _on_idle_timer_timeout() -> void:
-	if Global.Controllable:
+	if Global.Controllable and not Loader.InBattle:
 		if Global.Settings.AutoHideHUD == 0:
 			hide_all()
 		if Global.Settings.AutoHideHUD == 1:

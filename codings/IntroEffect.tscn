@@ -103,9 +103,7 @@ process_mode = 3
 z_index = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_e0tlv")
-animation = &"Hit"
+animation = &"None"
 autoplay = "None"
-frame = 10
-frame_progress = 1.0
 
 [connection signal="frame_changed" from="Sprite" to="." method="_on_sprite_frame_changed"]

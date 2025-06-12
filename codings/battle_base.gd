@@ -215,6 +215,7 @@ func position_sprites():
 
 func entrance():
 	Action = true
+	Global.Controllable = false
 	$Cam.position_smoothing_enabled = false
 	if Seq.Transition:
 		$Cam.zoom = Vector2(4,4)
