@@ -893,6 +893,7 @@ size = Vector2(101, 69)
 process_mode = 3
 y_sort_enabled = true
 texture_filter = 1
+position = Vector2(0, 1)
 script = ExtResource("1_ydfuk")
 Name = "Shard gardens"
 SpawnPos = Vector2(12, 3)

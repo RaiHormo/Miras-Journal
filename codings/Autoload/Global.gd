@@ -226,6 +226,12 @@ func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	for child in node.get_children():
 		await nodes_of_type(child, className, result)
 
+func intro_effect(position: Vector2):
+	var node = (await Loader.load_res("res://codings/IntroEffect.tscn")).instantiate()
+	get_tree().root.add_child(node)
+	node.pos_ref = position
+	node.animate()
+
 #endregion
 
 #region Controller

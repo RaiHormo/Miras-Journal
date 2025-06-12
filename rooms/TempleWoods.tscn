@@ -1051,7 +1051,7 @@ z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 sprite_frames = ExtResource("12_1q04t")
-animation = &"IdleUp"
+animation = &"IdleRight"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="EscapePosition" type="Marker2D" parent="EnemyCrawlingSludge1"]

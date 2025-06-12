@@ -342,7 +342,6 @@ func attack():
 	BodyState = CUSTOM
 	direction = Vector2.ZERO
 	await get_tree().physics_frame
-	await get_tree().physics_frame
 	for i in $Attack/AttackPreview.get_overlapping_bodies():
 		#print(i)
 		if not (i is NPC or i is Follower or i is Mira):
@@ -378,19 +377,21 @@ func check_before_attack():
 			i.attacked()
 
 func dramatic_attack_pause():
-	while not Loader.InBattle and not Global.Controllable:
+	while not Global.Controllable:
 		Global.Controllable = false
 		BodyState = CUSTOM
 		#print(attacking)
 		if attacking:
 			set_anim("Attack" + Global.get_dir_name())
 			pause_anim()
-			while not Loader.InBattle:
+			var timer = get_tree().create_timer(3)
+			while timer.time_left > 0:
 				used_sprite = %Base
 				hide_other_sprites()
 				%Base.animation = "Attack" + Global.get_dir_name()
 				%Base.frame = 1
 				await Event.wait()
+			set_anim()
 		else:
 			set_anim("Dash" + Global.get_dir_name() + "Hit")
 			pause_anim()

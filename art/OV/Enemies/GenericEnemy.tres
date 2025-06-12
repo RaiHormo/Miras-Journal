@@ -1,6 +1,10 @@
-[gd_resource type="SpriteFrames" load_steps=26 format=3 uid="uid://cw67sswrcewvj"]
+[gd_resource type="SpriteFrames" load_steps=27 format=3 uid="uid://cw67sswrcewvj"]
 
 [ext_resource type="Texture2D" uid="uid://d4nogt6odgitx" path="res://art/OV/Enemies/GenericEnemy.png" id="2_cak3h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbve0"]
+atlas = ExtResource("2_cak3h")
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vv0s3"]
 atlas = ExtResource("2_cak3h")
@@ -100,6 +104,14 @@ region = Rect2(64, 96, 32, 32)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbve0")
+}],
+"loop": true,
+"name": &"Hit",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vv0s3")

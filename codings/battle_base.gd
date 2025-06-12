@@ -217,12 +217,9 @@ func entrance():
 	Action = true
 	$Cam.position_smoothing_enabled = false
 	if Seq.Transition:
-		$Cam.zoom = Vector2(5,5)
+		$Cam.zoom = Vector2(4,4)
 		$Cam.position = Vector2(90,10)
-		if Troop.size()<3:
-			Loader.battle_bars(3)
-		else:
-			Loader.battle_bars(2)
+		Loader.battle_bars(3)
 		if Seq.EntranceBanter != "":
 			if Seq.EntranceBanterIsPassive:
 				Global.passive("entrance_banter", Seq.EntranceBanter)

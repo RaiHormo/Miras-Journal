@@ -378,9 +378,12 @@ func start_battle(stg, advantage := 0):
 			t.set_trans(Tween.TRANS_QUART)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_parallel()
-			t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.8).as_relative()
-			if advantage == 1: t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
-			await t.finished
+			t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.3).as_relative()
+			t.tween_property(Global.get_cam(), "zoom", Vector2(2,2), 1).as_relative()
+			#if advantage == 1: t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
+			await Event.wait(0.8, false)
+		var tr = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tr.tween_property(Global.get_cam(), "zoom", Vector2(8,8), 0.5)
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
 	var battle = (await load_res("res://codings/Battle.tscn")).instantiate()

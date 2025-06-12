@@ -157,7 +157,13 @@ func begin_battle(advatage := 0):
 	global_position = DefaultPos
 
 func attacked():
-	#Global.jump_to(self, position+Global.get_direction()*12, 5, 0.5)
+	BodyState = NONE
+	set_anim("Hit")
+	var to_pos = position+Global.get_direction()*12
+	Global.jump_to_global(self, to_pos, 25, 1)
+	Global.Player.camera_follow(false)
+	Global.Camera.position = to_pos
+	Global.intro_effect(to_pos)
 	if PinRange: begin_battle()
 	else: begin_battle(1)
 

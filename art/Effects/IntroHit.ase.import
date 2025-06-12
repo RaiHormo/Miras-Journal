@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://i34hyjyym4qi"
+path="res://.godot/imported/IntroHit.ase-17a5a82d6200617f3a0937fe33891eef.res"
+
+[deps]
+
+source_file="res://art/Effects/IntroHit.ase"
+dest_files=["res://.godot/imported/IntroHit.ase-17a5a82d6200617f3a0937fe33891eef.res"]
+
+[params]
+
