@@ -87,21 +87,21 @@ func normal_mode():
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
-func init_steam():
-	OS.set_environment("SteamAppId", str(AppID))
-	OS.set_environment("SteamGameId", str(AppID))
-	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
-	print("Did Steam initialize?: %s " % initialize_response)
-	#Steam.inputInit()
-	#Steam.enableDeviceCallbacks()
-	#SteamInput.init()
-	if initialize_response.get("status") == 0:
-		print("Running with Steam")
-		UsingSteam = true
-		if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
-			Settings.ControlSchemeEnum = 7
-			Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
-		print(Steam.getFriendPersonaName(Steam.getSteamID()))
+#func init_steam():
+	#OS.set_environment("SteamAppId", str(AppID))
+	#OS.set_environment("SteamGameId", str(AppID))
+	#var initialize_response: Dictionary = Steam.steamInitEx(AppID)
+	#print("Did Steam initialize?: %s " % initialize_response)
+	##Steam.inputInit()
+	##Steam.enableDeviceCallbacks()
+	##SteamInput.init()
+	#if initialize_response.get("status") == 0:
+		#print("Running with Steam")
+		#UsingSteam = true
+		##if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
+			##Settings.ControlSchemeEnum = 7
+			##Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
+		##print(Steam.getFriendPersonaName(Steam.getSteamID()))
 
 func game_over():
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
@@ -125,9 +125,9 @@ func _process(delta: float) -> void:
 		#else:
 			#Engine.set_physics_ticks_per_second(Settings.FPS)
 		Engine.max_fps = Settings.FPS
-	if UsingSteam: 
-		Steam.run_callbacks()
-		Steam.runFrame()
+	#if UsingSteam: 
+		#Steam.run_callbacks()
+		#Steam.runFrame()
 
 func options(save_menu:= false):
 	var control = Controllable
@@ -238,7 +238,7 @@ func intro_effect(ref: Node):
 #region Controller
 
 func get_controller() -> ControlScheme:
-	if !Settings: return preload("res://UI/Input/Keyboard.tres")
+	if !Settings: return preload("res://UI/Input/None.tres")
 	if not Settings.ControlSchemeAuto:
 		return Settings.ControlSchemeOverride
 	if device == "Keyboard":

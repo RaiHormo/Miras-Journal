@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwjvyvtotnocu"
 path.s3tc="res://.godot/imported/Rat.png-c4eaadb221f787e501d506d3e028b4f3.s3tc.ctex"
+path.etc2="res://.godot/imported/Rat.png-c4eaadb221f787e501d506d3e028b4f3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Rat.png"
-dest_files=["res://.godot/imported/Rat.png-c4eaadb221f787e501d506d3e028b4f3.s3tc.ctex"]
+dest_files=["res://.godot/imported/Rat.png-c4eaadb221f787e501d506d3e028b4f3.s3tc.ctex", "res://.godot/imported/Rat.png-c4eaadb221f787e501d506d3e028b4f3.etc2.ctex"]
 
 [params]
 

@@ -156,6 +156,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
 [node name="Border2" type="PanelContainer" parent="."]
+visible = false
 show_behind_parent = true
 offset_left = 612.0
 offset_top = 201.0

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://5205kcxrxgw4"
 path.s3tc="res://.godot/imported/Base.png-9d46c12c18217df7f0ab89dfc5de7678.s3tc.ctex"
+path.etc2="res://.godot/imported/Base.png-9d46c12c18217df7f0ab89dfc5de7678.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Calendar/Base.png"
-dest_files=["res://.godot/imported/Base.png-9d46c12c18217df7f0ab89dfc5de7678.s3tc.ctex"]
+dest_files=["res://.godot/imported/Base.png-9d46c12c18217df7f0ab89dfc5de7678.s3tc.ctex", "res://.godot/imported/Base.png-9d46c12c18217df7f0ab89dfc5de7678.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn3nmf71w1a3f"
 path.s3tc="res://.godot/imported/MapleNeutral.png-b880022baf7bfee38f9f32b12108a2fd.s3tc.ctex"
+path.etc2="res://.godot/imported/MapleNeutral.png-b880022baf7bfee38f9f32b12108a2fd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Portraits/MapleNeutral.png"
-dest_files=["res://.godot/imported/MapleNeutral.png-b880022baf7bfee38f9f32b12108a2fd.s3tc.ctex"]
+dest_files=["res://.godot/imported/MapleNeutral.png-b880022baf7bfee38f9f32b12108a2fd.s3tc.ctex", "res://.godot/imported/MapleNeutral.png-b880022baf7bfee38f9f32b12108a2fd.etc2.ctex"]
 
 [params]
 

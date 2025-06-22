@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://o4m7xgkitjs1"
 path.s3tc="res://.godot/imported/Daze_low.png-9a4229e214d369762f76baa9262f906a.s3tc.ctex"
+path.etc2="res://.godot/imported/Daze_low.png-9a4229e214d369762f76baa9262f906a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Renders/Daze_low.png"
-dest_files=["res://.godot/imported/Daze_low.png-9a4229e214d369762f76baa9262f906a.s3tc.ctex"]
+dest_files=["res://.godot/imported/Daze_low.png-9a4229e214d369762f76baa9262f906a.s3tc.ctex", "res://.godot/imported/Daze_low.png-9a4229e214d369762f76baa9262f906a.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq6u87p34d13v"
 path.s3tc="res://.godot/imported/CommandBackground.png-276f27863d3ab0879d07679fea181a81.s3tc.ctex"
+path.etc2="res://.godot/imported/CommandBackground.png-276f27863d3ab0879d07679fea181a81.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Battle/CommandBackground.png"
-dest_files=["res://.godot/imported/CommandBackground.png-276f27863d3ab0879d07679fea181a81.s3tc.ctex"]
+dest_files=["res://.godot/imported/CommandBackground.png-276f27863d3ab0879d07679fea181a81.s3tc.ctex", "res://.godot/imported/CommandBackground.png-276f27863d3ab0879d07679fea181a81.etc2.ctex"]
 
 [params]
 

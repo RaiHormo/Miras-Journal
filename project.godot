@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Mira's Journal - Prototype"
+config/name="Mira's Journal"
 config/description="A prototype JRPG game
 Created by RaiDev"
 config/version="0.0.6"
@@ -459,6 +459,7 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
 
 [steam]

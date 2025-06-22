@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgp1bxulpb0qy"
 path.s3tc="res://.godot/imported/CastLines2.png-2d532409b1324530ac1e06139c65a5f2.s3tc.ctex"
+path.etc2="res://.godot/imported/CastLines2.png-2d532409b1324530ac1e06139c65a5f2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/OV/Objects/CastLines2.png"
-dest_files=["res://.godot/imported/CastLines2.png-2d532409b1324530ac1e06139c65a5f2.s3tc.ctex"]
+dest_files=["res://.godot/imported/CastLines2.png-2d532409b1324530ac1e06139c65a5f2.s3tc.ctex", "res://.godot/imported/CastLines2.png-2d532409b1324530ac1e06139c65a5f2.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkmfv7lb5ne4v"
 path.s3tc="res://.godot/imported/Asteria.png-56c31f0f163d902159eb8f3c757cacae.s3tc.ctex"
+path.etc2="res://.godot/imported/Asteria.png-56c31f0f163d902159eb8f3c757cacae.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Party/Asteria.png"
-dest_files=["res://.godot/imported/Asteria.png-56c31f0f163d902159eb8f3c757cacae.s3tc.ctex"]
+dest_files=["res://.godot/imported/Asteria.png-56c31f0f163d902159eb8f3c757cacae.s3tc.ctex", "res://.godot/imported/Asteria.png-56c31f0f163d902159eb8f3c757cacae.etc2.ctex"]
 
 [params]
 

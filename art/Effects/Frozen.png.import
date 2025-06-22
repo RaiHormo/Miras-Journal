@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpupiov04pw47"
 path.s3tc="res://.godot/imported/Frozen.png-4d481ddb4701d6fb7a8079898045e3a3.s3tc.ctex"
+path.etc2="res://.godot/imported/Frozen.png-4d481ddb4701d6fb7a8079898045e3a3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Effects/Frozen.png"
-dest_files=["res://.godot/imported/Frozen.png-4d481ddb4701d6fb7a8079898045e3a3.s3tc.ctex"]
+dest_files=["res://.godot/imported/Frozen.png-4d481ddb4701d6fb7a8079898045e3a3.s3tc.ctex", "res://.godot/imported/Frozen.png-4d481ddb4701d6fb7a8079898045e3a3.etc2.ctex"]
 
 [params]
 

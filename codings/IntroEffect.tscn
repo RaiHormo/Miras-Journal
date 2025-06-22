@@ -81,7 +81,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Hit",
-"speed": 10.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -103,7 +103,7 @@ process_mode = 3
 z_index = 3
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_e0tlv")
-animation = &"None"
+animation = &"Hit"
 autoplay = "None"
 
 [connection signal="frame_changed" from="Sprite" to="." method="_on_sprite_frame_changed"]

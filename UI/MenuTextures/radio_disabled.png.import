@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://btup6lcmt8k28"
 path.s3tc="res://.godot/imported/radio_disabled.png-110e6c4c84a4aa79bb34a49bf21dde1e.s3tc.ctex"
+path.etc2="res://.godot/imported/radio_disabled.png-110e6c4c84a4aa79bb34a49bf21dde1e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/radio_disabled.png"
-dest_files=["res://.godot/imported/radio_disabled.png-110e6c4c84a4aa79bb34a49bf21dde1e.s3tc.ctex"]
+dest_files=["res://.godot/imported/radio_disabled.png-110e6c4c84a4aa79bb34a49bf21dde1e.s3tc.ctex", "res://.godot/imported/radio_disabled.png-110e6c4c84a4aa79bb34a49bf21dde1e.etc2.ctex"]
 
 [params]
 

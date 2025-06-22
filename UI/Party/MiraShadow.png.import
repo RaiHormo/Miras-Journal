@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfcqx7nigfhc"
 path.s3tc="res://.godot/imported/MiraShadow.png-d789d70ea4d4b4f4e013b234806c574b.s3tc.ctex"
+path.etc2="res://.godot/imported/MiraShadow.png-d789d70ea4d4b4f4e013b234806c574b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/Party/MiraShadow.png"
-dest_files=["res://.godot/imported/MiraShadow.png-d789d70ea4d4b4f4e013b234806c574b.s3tc.ctex"]
+dest_files=["res://.godot/imported/MiraShadow.png-d789d70ea4d4b4f4e013b234806c574b.s3tc.ctex", "res://.godot/imported/MiraShadow.png-d789d70ea4d4b4f4e013b234806c574b.etc2.ctex"]
 
 [params]
 

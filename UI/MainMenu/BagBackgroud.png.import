@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://crttgauq3if3l"
 path.s3tc="res://.godot/imported/BagBackgroud.png-efb523277fca1604ebf0e2cc0883a87c.s3tc.ctex"
+path.etc2="res://.godot/imported/BagBackgroud.png-efb523277fca1604ebf0e2cc0883a87c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MainMenu/BagBackgroud.png"
-dest_files=["res://.godot/imported/BagBackgroud.png-efb523277fca1604ebf0e2cc0883a87c.s3tc.ctex"]
+dest_files=["res://.godot/imported/BagBackgroud.png-efb523277fca1604ebf0e2cc0883a87c.s3tc.ctex", "res://.godot/imported/BagBackgroud.png-efb523277fca1604ebf0e2cc0883a87c.etc2.ctex"]
 
 [params]
 

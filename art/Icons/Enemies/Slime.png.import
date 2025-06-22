@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://deqeff2tjgq00"
 path.s3tc="res://.godot/imported/Slime.png-94d08ec5ea03a066eaec590ef6f9b4ed.s3tc.ctex"
+path.etc2="res://.godot/imported/Slime.png-94d08ec5ea03a066eaec590ef6f9b4ed.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Slime.png"
-dest_files=["res://.godot/imported/Slime.png-94d08ec5ea03a066eaec590ef6f9b4ed.s3tc.ctex"]
+dest_files=["res://.godot/imported/Slime.png-94d08ec5ea03a066eaec590ef6f9b4ed.s3tc.ctex", "res://.godot/imported/Slime.png-94d08ec5ea03a066eaec590ef6f9b4ed.etc2.ctex"]
 
 [params]
 

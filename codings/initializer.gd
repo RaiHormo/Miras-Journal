@@ -2,10 +2,11 @@ extends Node
 var game_exists = false
 
 func _ready() -> void:
-	$TitleScreen.hide()
+	#$TitleScreen.hide()
+	print("Game Started!")
 	glyph_update()
 	Event.Flags.append("DisableMenus")
-	Global.controller_changed.connect(glyph_update)
+	#Global.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
 		game_exists = true
 	else:

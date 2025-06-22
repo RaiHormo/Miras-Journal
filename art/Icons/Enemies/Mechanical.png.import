@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://64lecqcynv4b"
 path.s3tc="res://.godot/imported/Mechanical.png-f959a53540b7cd09f709e094b20559da.s3tc.ctex"
+path.etc2="res://.godot/imported/Mechanical.png-f959a53540b7cd09f709e094b20559da.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Mechanical.png"
-dest_files=["res://.godot/imported/Mechanical.png-f959a53540b7cd09f709e094b20559da.s3tc.ctex"]
+dest_files=["res://.godot/imported/Mechanical.png-f959a53540b7cd09f709e094b20559da.s3tc.ctex", "res://.godot/imported/Mechanical.png-f959a53540b7cd09f709e094b20559da.etc2.ctex"]
 
 [params]
 

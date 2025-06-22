@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b10ixw0ybj06y"
 path.s3tc="res://.godot/imported/grabber_unfocused.png-ac7d11f2dfc6a9069d202d73ae07ddeb.s3tc.ctex"
+path.etc2="res://.godot/imported/grabber_unfocused.png-ac7d11f2dfc6a9069d202d73ae07ddeb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://UI/MenuTextures/grabber_unfocused.png"
-dest_files=["res://.godot/imported/grabber_unfocused.png-ac7d11f2dfc6a9069d202d73ae07ddeb.s3tc.ctex"]
+dest_files=["res://.godot/imported/grabber_unfocused.png-ac7d11f2dfc6a9069d202d73ae07ddeb.s3tc.ctex", "res://.godot/imported/grabber_unfocused.png-ac7d11f2dfc6a9069d202d73ae07ddeb.etc2.ctex"]
 
 [params]
 

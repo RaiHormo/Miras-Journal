@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1saefo0ermfg"
 path.s3tc="res://.godot/imported/MiraNeutral.png-5a4e32235bc9f53ae99ed9c2f0f6d7e7.s3tc.ctex"
+path.etc2="res://.godot/imported/MiraNeutral.png-5a4e32235bc9f53ae99ed9c2f0f6d7e7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Portraits/MiraNeutral.png"
-dest_files=["res://.godot/imported/MiraNeutral.png-5a4e32235bc9f53ae99ed9c2f0f6d7e7.s3tc.ctex"]
+dest_files=["res://.godot/imported/MiraNeutral.png-5a4e32235bc9f53ae99ed9c2f0f6d7e7.s3tc.ctex", "res://.godot/imported/MiraNeutral.png-5a4e32235bc9f53ae99ed9c2f0f6d7e7.etc2.ctex"]
 
 [params]
 

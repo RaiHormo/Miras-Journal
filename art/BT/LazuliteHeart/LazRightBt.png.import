@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgymx534malg2"
 path.s3tc="res://.godot/imported/LazRightBt.png-9670ae58def230c935d7ee8d760642e0.s3tc.ctex"
+path.etc2="res://.godot/imported/LazRightBt.png-9670ae58def230c935d7ee8d760642e0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/BT/LazuliteHeart/LazRightBt.png"
-dest_files=["res://.godot/imported/LazRightBt.png-9670ae58def230c935d7ee8d760642e0.s3tc.ctex"]
+dest_files=["res://.godot/imported/LazRightBt.png-9670ae58def230c935d7ee8d760642e0.s3tc.ctex", "res://.godot/imported/LazRightBt.png-9670ae58def230c935d7ee8d760642e0.etc2.ctex"]
 
 [params]
 

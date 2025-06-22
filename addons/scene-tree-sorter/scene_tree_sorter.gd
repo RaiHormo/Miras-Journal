@@ -40,6 +40,9 @@ func _sort_children(parent: Node):
 	for i in children.size():
 		var child: Node = children[i]
 
+		if child is Node2D:
+			child.position = round(child.position)
+		
 		if (String(child.name)[0] != "_"
 			and (
 				(not parent is Container)
