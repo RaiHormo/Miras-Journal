@@ -110,68 +110,6 @@ corner_radius_top_right = 42
 corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siagc"]
-content_margin_left = 6.0
-bg_color = Color(0.768627, 0.768627, 0.768627, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(0.768627, 0.768627, 0.768627, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6787"]
-content_margin_left = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srwa7"]
-content_margin_left = 8.0
-bg_color = Color(0.894118, 0.894118, 0.894118, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_right = 26
-corner_radius_bottom_left = 26
-
-[sub_resource type="Theme" id="Theme_4kcni"]
-default_font = ExtResource("5_80sd8")
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
-Button/styles/disabled = SubResource("StyleBoxFlat_siagc")
-Button/styles/focus = SubResource("StyleBoxFlat_p6787")
-Button/styles/hover = SubResource("StyleBoxFlat_srwa7")
-Button/styles/normal = SubResource("StyleBoxFlat_p6787")
-Button/styles/pressed = SubResource("StyleBoxFlat_p6787")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_enokf"]
-shader = ExtResource("8_pum06")
-
-[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
-action = &"ui_cancel"
-
-[sub_resource type="Shortcut" id="Shortcut_qyfpa"]
-events = [SubResource("InputEventAction_p5u4y")]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t27v"]
 bg_color = Color(0.862745, 0.862745, 0.862745, 1)
 
@@ -448,6 +386,62 @@ expand_margin_top = 8.0
 expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enokf"]
+shader = ExtResource("8_pum06")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siagc"]
+content_margin_left = 6.0
+bg_color = Color(0.768627, 0.768627, 0.768627, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.768627, 0.768627, 0.768627, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6787"]
+content_margin_left = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srwa7"]
+content_margin_left = 8.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_4kcni"]
+default_font = ExtResource("5_80sd8")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_siagc")
+Button/styles/focus = SubResource("StyleBoxFlat_p6787")
+Button/styles/hover = SubResource("StyleBoxFlat_srwa7")
+Button/styles/normal = SubResource("StyleBoxFlat_p6787")
+Button/styles/pressed = SubResource("StyleBoxFlat_p6787")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0taf"]
 content_margin_left = 8.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
@@ -493,10 +487,38 @@ expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_qyfpa"]
+events = [SubResource("InputEventAction_p5u4y")]
+
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
 layer = 3
 script = ExtResource("1_k6uh5")
+Tutorials = Array[String](["Introduction
+
+Welcome to the Manual! The feature that I added so I can avoid making proper tutorials!
+
+Just note that whenever Controller inputs are shown, the order is always: 
+Nintendo, Xbox, PlayStation", "Movement
+
+Keyboard:
+Walk around with the Arrow Keys
+Dash with  [img]res://UI/Input/Shift.png[/img]
+Interact with [img]res://UI/Input/Z.png[/img]
+Open the menu with [img]res://UI/Input/C.png[/img]
+
+Controller:
+Walk with the D-Pad or Left Stick
+Dash with [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/⸋.png[/img]
+Interact with [img]res://UI/Input/A.png[/img] / [img]res://UI/Input/X.png[/img]
+Open the menu with [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/Δ.png[/img]
+
+With the dash you can get around quickly, but only at one direction at a time. 
+With the dash, you can also jump above certain gaps or obstacles.
+"])
 
 [node name="Fader" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -588,14 +610,14 @@ offset_bottom = 15.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(30, 30)
 focus_neighbor_top = NodePath("../SaveManagment")
-focus_neighbor_bottom = NodePath("../Tutorials")
-focus_next = NodePath("../Tutorials")
+focus_neighbor_bottom = NodePath("../Manual")
+focus_next = NodePath("../Manual")
 focus_previous = NodePath("../SaveManagment")
 theme = SubResource("Theme_o6i8h")
 text = "Game Settings"
 metadata/_edit_use_anchors_ = true
 
-[node name="Tutorials" type="Button" parent="MainButtons"]
+[node name="Manual" type="Button" parent="MainButtons"]
 anchors_preset = -1
 anchor_left = 0.730469
 anchor_top = 0.48125
@@ -612,8 +634,7 @@ focus_neighbor_bottom = NodePath("../Gallery")
 focus_next = NodePath("../Gallery")
 focus_previous = NodePath("../GameSettings")
 theme = SubResource("Theme_o6i8h")
-disabled = true
-text = "Tutorials"
+text = "Manual"
 metadata/_edit_use_anchors_ = true
 
 [node name="Gallery" type="Button" parent="MainButtons"]
@@ -628,10 +649,10 @@ offset_right = 832.001
 offset_bottom = 20.0
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(30, 30)
-focus_neighbor_top = NodePath("../Tutorials")
+focus_neighbor_top = NodePath("../Manual")
 focus_neighbor_bottom = NodePath("../Quit")
 focus_next = NodePath("../Quit")
-focus_previous = NodePath("../Tutorials")
+focus_previous = NodePath("../Manual")
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
 text = "Extras"
@@ -682,44 +703,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 42
 text = "12:23:02"
-
-[node name="Confirm" type="Button" parent="."]
-visibility_layer = 1024
-layout_direction = 1
-offset_left = 26.0
-offset_top = 742.0
-offset_right = 143.0
-offset_bottom = 775.0
-scale = Vector2(1.4, 1.4)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-text = "Select"
-icon = ExtResource("6_d2agy")
-text_overrun_behavior = 1
-expand_icon = true
-
-[node name="Back" type="Button" parent="."]
-visibility_layer = 1024
-material = SubResource("ShaderMaterial_enokf")
-layout_direction = 1
-offset_left = 207.0
-offset_top = 742.0
-offset_right = 316.0
-offset_bottom = 775.0
-scale = Vector2(1.4, 1.4)
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme = SubResource("Theme_4kcni")
-theme_override_font_sizes/font_size = 15
-shortcut = SubResource("Shortcut_qyfpa")
-text = "Back"
-icon = ExtResource("7_xdp6q")
-text_overrun_behavior = 1
-expand_icon = true
 
 [node name="SidePanel" type="Panel" parent="."]
 visible = false
@@ -1443,7 +1426,6 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1528,7 +1510,6 @@ text = "Arena mode
 "
 
 [node name="Credits" type="ScrollContainer" parent="GalleryPanel"]
-clip_contents = false
 layout_mode = 0
 offset_left = 478.812
 offset_top = 80.3207
@@ -1536,6 +1517,7 @@ offset_right = 926.812
 offset_bottom = 786.321
 rotation = -0.0633063
 theme_override_styles/panel = SubResource("StyleBoxFlat_f335g")
+follow_focus = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits"]
 layout_mode = 2
@@ -1562,7 +1544,166 @@ Plugins used:
 - Scene Tree Sorter (Forked) by phinix-dev"
 fit_content = true
 
+[node name="ManualPanel" type="Panel" parent="."]
+offset_left = 1335.38
+offset_top = -91.0
+offset_right = 2615.38
+offset_bottom = 811.0
+rotation = 0.057901
+pivot_offset = Vector2(-0.249878, 90.9464)
+theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ManualPanel"]
+clip_contents = false
+layout_mode = 0
+offset_left = 75.9896
+offset_top = 129.616
+offset_right = 641.99
+offset_bottom = 828.616
+rotation = -0.0633063
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Introduction" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Introduction"
+
+[node name="Overworld" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_font_sizes/font_size = 28
+text = "Overworld"
+
+[node name="Movement" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Movement"
+
+[node name="OVCtrl2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Attacking"
+
+[node name="Battle" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_font_sizes/font_size = 28
+text = "Battle"
+
+[node name="BtBasics" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Battle basics"
+
+[node name="Aura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Aura mechanics"
+
+[node name="Text" type="ScrollContainer" parent="ManualPanel"]
+clip_contents = false
+layout_mode = 0
+offset_left = 416.0
+offset_top = 94.0
+offset_right = 1161.0
+offset_bottom = 846.0
+rotation = -0.0633063
+theme_override_styles/panel = SubResource("StyleBoxFlat_f335g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ManualPanel/Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("24_41402")
+theme_override_fonts/bold_font = ExtResource("17_chpua")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 38
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
+bbcode_enabled = true
+fit_content = true
+
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -1847,6 +1988,44 @@ theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
+[node name="Confirm" type="Button" parent="."]
+visibility_layer = 1024
+layout_direction = 1
+offset_left = 26.0
+offset_top = 742.0
+offset_right = 143.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+text = "Select"
+icon = ExtResource("6_d2agy")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Back" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_enokf")
+layout_direction = 1
+offset_left = 207.0
+offset_top = 742.0
+offset_right = 316.0
+offset_bottom = 775.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_4kcni")
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_qyfpa")
+text = "Back"
+icon = ExtResource("7_xdp6q")
+text_overrun_behavior = 1
+expand_icon = true
+
 [node name="AudioTester" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_u17hy")
 
@@ -1860,9 +2039,9 @@ texture = ExtResource("26_375bk")
 
 [connection signal="pressed" from="MainButtons/SaveManagment" to="." method="save_managment"]
 [connection signal="pressed" from="MainButtons/GameSettings" to="." method="game_settings"]
+[connection signal="pressed" from="MainButtons/Manual" to="." method="manual"]
 [connection signal="pressed" from="MainButtons/Gallery" to="." method="gallery"]
 [connection signal="pressed" from="MainButtons/Quit" to="." method="_on_quit"]
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/Gameplay" to="." method="_on_first_setting"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar" to="." method="_on_auto_hide_hud"]
@@ -1906,8 +2085,14 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="gallery"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="_on_website"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ArenaMode" to="." method="_arena_mode"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_pressed"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_pressed"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/OVCtrl2" to="." method="_manual_entry_pressed"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/BtBasics" to="." method="_manual_entry_pressed"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_pressed"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewGame" to="." method="_new_game"]
 [connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]
 [connection signal="pressed" from="SavePanel/Buttons/Overwrite" to="." method="_on_save_overwrite"]
 [connection signal="pressed" from="SavePanel/Buttons/Delete" to="." method="_on_save_delete"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

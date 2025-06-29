@@ -97,11 +97,11 @@ Button/styles/hover = SubResource("StyleBoxFlat_xi51m")
 Button/styles/normal = SubResource("StyleBoxFlat_xhyn7")
 Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
 
-[sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
-action = &"ui_cancel"
+[sub_resource type="InputEventAction" id="InputEventAction_5etnr"]
+action = &"DialogNext"
 
-[sub_resource type="Shortcut" id="Shortcut_7hrdc"]
-events = [SubResource("InputEventAction_p5u4y")]
+[sub_resource type="Shortcut" id="Shortcut_yev0x"]
+events = [SubResource("InputEventAction_5etnr")]
 
 [node name="Control" type="CanvasLayer"]
 process_mode = 3
@@ -158,10 +158,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 [node name="Border2" type="PanelContainer" parent="."]
 visible = false
 show_behind_parent = true
-offset_left = 612.0
-offset_top = 201.0
-offset_right = 912.0
-offset_bottom = 291.0
+offset_left = -412.0
+offset_top = 491.0
+offset_right = -112.0
+offset_bottom = 581.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
 
@@ -205,7 +205,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-shortcut = SubResource("Shortcut_7hrdc")
+shortcut = SubResource("Shortcut_yev0x")
 shortcut_in_tooltip = false
 text = "Next"
 icon = ExtResource("5_vdwkq")

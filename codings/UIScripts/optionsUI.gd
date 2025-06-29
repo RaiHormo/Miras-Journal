@@ -9,6 +9,8 @@ var was_paused: bool
 var cant_save:= false
 var save_files_loaded:= false
 
+@export_multiline var Tutorials: Array[String]
+
 func _ready():
 	hide()
 	if $/root.get_node_or_null("MainMenu") and $/root/MainMenu.stage != "options":
@@ -91,11 +93,7 @@ func _on_back_pressed():
 	match stage:
 		"main":
 			close()
-		"game_settings":
-			main()
-		"save_managment":
-			main()
-		"gallery":
+		"game_settings", "save_managment", "gallery", "manual":
 			main()
 
 func close(force = false):
@@ -141,14 +139,16 @@ func main():
 	t.tween_property($MainButtons/GameSettings, "position:x", 729, 0.5)
 	t.tween_property($MainButtons/SaveManagment, "position", Vector2(663, 52), 0.5)
 	t.tween_property($MainButtons/Gallery, "position", Vector2(887, 491), 0.5)
-	t.tween_property($MainButtons/Tutorials, "position", Vector2(846, 343), 0.5)
+	t.tween_property($MainButtons/Manual, "position", Vector2(846, 343), 0.5)
 	t.tween_property($MainButtons/Quit, "position", Vector2(932, 633), 0.5)
+	t.tween_property($MainButtons/Manual, "rotation_degrees", 0, 0.5)
 	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1)
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(0, -39), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
+	t.tween_property($ManualPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
 	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
@@ -221,6 +221,29 @@ func save_managment() -> void:
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame/Button.grab_focus()
+
+func manual() -> void:
+	if stage == "manual": return
+	if stage != "main": await loaded
+	$MainButtons/Manual.toggle_mode=true
+	$MainButtons/Manual.button_pressed=true
+	stage = "manual"
+	t=create_tween().set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT).set_parallel()
+	$ManualPanel/ScrollContainer.scroll_horizontal = 0
+	$MainButtons/Manual.z_index = 1
+	t.tween_property($MainButtons/Manual, "position", Vector2(40, 280), 0.5)
+	t.tween_property($MainButtons/Manual, "rotation_degrees", -90, 0.5)
+	for i in $MainButtons.get_children():
+		if i != $MainButtons/Manual: t.tween_property(i, "position:x", 850, 0.5)
+	t.tween_property($ManualPanel, "position", Vector2(100, -92), 0.5)
+	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
+	t.tween_property($Background, "position", Vector2(400, 0), 0.5)
+	$ManualPanel/ScrollContainer/VBoxContainer.get_child(0).grab_focus()
+	_manual_entry_pressed()
+	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
+	t.tween_property($Timer, "position", Vector2(-700, -39), 0.5)
+	Global.confirm_sound()
+	$ManualPanel.show()
 
 func gallery():
 	if stage == "gallery": return
@@ -675,3 +698,18 @@ func _on_highres_textures(toggle: bool) -> void:
 func _on_website() -> void:
 	OS.shell_open("https://raidev.eu")
 	Global.toast("\"raidev.eu\" was opened in your web browser.")
+
+
+func _manual_entry_pressed() -> void:
+	var entry: String = focus.name
+	var text: String = ""
+	for i in Tutorials:
+		if i.begins_with(entry):
+			text = i
+			break
+	if text == "":
+		Global.toast("Entry not found")
+		return
+	Global.confirm_sound()
+	text = text.replace(entry, "[b]"+focus.text+"[/b]")
+	$ManualPanel/Text/RichTextLabel.text = text
