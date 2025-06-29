@@ -711,11 +711,11 @@ func _manual_entry_select() -> void:
 	var entry: String = focus.name
 	var text: String = ""
 	for i in Tutorials:
-		if i.begins_with(entry):
+		if i.begins_with("#"+entry):
 			text = i
 			break
 	if text == "":
 		Global.toast("Entry not found")
 		return
-	text = text.replace(entry, "[b]"+focus.text+"[/b]")
+	text = text.replace("#"+entry, "[b]"+focus.text+"[/b]")
 	$ManualPanel/Text/RichTextLabel.text = text

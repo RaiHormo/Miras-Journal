@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=81 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -31,6 +31,7 @@
 [ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="26_jguiy"]
+[ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="29_t6ahs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_0ss3e")
@@ -359,10 +360,10 @@ expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f335g"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
 bg_color = Color(0.898039, 0.898039, 0.898039, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
@@ -497,12 +498,12 @@ events = [SubResource("InputEventAction_p5u4y")]
 process_mode = 3
 layer = 3
 script = ExtResource("1_k6uh5")
-Tutorials = Array[String](["Introduction
+Tutorials = Array[String](["#Introduction
 
 Welcome to the Manual! The feature that I added so I can avoid making proper tutorials!
 
 Just note that whenever Controller inputs are shown, the order is always: 
-Nintendo, Xbox, PlayStation", "Movement
+Nintendo, Xbox, PlayStation", "#Movement
 
 Keyboard:
 Walk around with the Arrow Keys
@@ -517,7 +518,22 @@ Interact with [img]res://UI/Input/A.png[/img] / [img]res://UI/Input/X.png[/img]
 Open the menu with [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/Δ.png[/img]
 
 With the dash you can get around quickly, but only at one direction at a time. While dashing, you can also jump above certain gaps or obstacles.
-"])
+", "#Attacking
+
+Keyboard: [img]res://UI/Input/X.png[/img]
+Controller: [img]res://UI/Input/ZR.png[/img] / [img]res://UI/Input/RT.png[/img] / [img]res://UI/Input/R2.png[/img]
+
+While exploring a dungeon, attack to break certain objects or obstacles to get items, or find hidden paths.
+
+You can also attack an enemy in the overworld to gain an advantage in battle. If the enemy hasn't noticed you, the enemy troops takes damage, and your party will go first. 
+If you run into the enemy however, the enemy troop will always strike first.", "#Turns
+
+Each actor gets their own turn to act. 
+Turns might be scattered between the party and the enemies, but the turns will always loop on the same order within a battle. 
+
+The party will always go in their order on the menu, while diffrent types of enemies will go in certain diffrent orders.
+
+You can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller."])
 
 [node name="Fader" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -704,7 +720,7 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SidePanel" type="Panel" parent="."]
-visible = false
+clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -739,6 +755,7 @@ layout_mode = 2
 
 [node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
+focus_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
@@ -1425,6 +1442,7 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1544,6 +1562,7 @@ Plugins used:
 fit_content = true
 
 [node name="ManualPanel" type="Panel" parent="."]
+clip_children = 2
 offset_left = 1335.38
 offset_top = -91.0
 offset_right = 2615.38
@@ -1551,6 +1570,17 @@ offset_bottom = 811.0
 rotation = 0.057901
 pivot_offset = Vector2(-0.249878, 90.9464)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
+
+[node name="PageLines" type="TextureRect" parent="ManualPanel"]
+modulate = Color(0.77, 0.77, 0.77, 0.258824)
+layout_mode = 0
+offset_left = -296.0
+offset_top = -26.0
+offset_right = 1613.0
+offset_bottom = 1023.0
+rotation = -0.0642666
+texture = ExtResource("29_t6ahs")
+expand_mode = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ManualPanel"]
 clip_contents = false
@@ -1613,7 +1643,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Movement"
 
-[node name="OVCtrl2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Attacking" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -1640,7 +1670,7 @@ theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 28
 text = "Battle"
 
-[node name="BtBasics" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Turns" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -1657,7 +1687,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-text = "Battle basics"
+text = "Turns"
 
 [node name="Aura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
 show_behind_parent = true
@@ -1699,6 +1729,14 @@ theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 38
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
 bbcode_enabled = true
+text = "Turns
+
+Each actor gets their own turn to act. 
+Turns might be scattered between the party and the enemies, but the turns will always loop on the same order within a battle. 
+
+The party will always go in their order on the menu, while diffrent types of enemies will go in certain diffrent orders.
+
+You can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
@@ -2088,9 +2126,10 @@ texture = ExtResource("26_375bk")
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_pressed"]
-[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/OVCtrl2" to="." method="_manual_entry_pressed"]
-[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/BtBasics" to="." method="_manual_entry_select"]
-[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/BtBasics" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Attacking" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Attacking" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Turns" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Turns" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_pressed"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile" to="." method="_new_file"]
