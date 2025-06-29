@@ -516,8 +516,7 @@ Dash with [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/X.png[/img] / [i
 Interact with [img]res://UI/Input/A.png[/img] / [img]res://UI/Input/X.png[/img]
 Open the menu with [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/Δ.png[/img]
 
-With the dash you can get around quickly, but only at one direction at a time. 
-With the dash, you can also jump above certain gaps or obstacles.
+With the dash you can get around quickly, but only at one direction at a time. While dashing, you can also jump above certain gaps or obstacles.
 "])
 
 [node name="Fader" type="ColorRect" parent="."]
@@ -2085,10 +2084,14 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="gallery"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="_on_website"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ArenaMode" to="." method="_arena_mode"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_pressed"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/OVCtrl2" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/BtBasics" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/BtBasics" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_pressed"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewGame" to="." method="_new_game"]

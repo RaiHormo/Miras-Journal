@@ -95,6 +95,9 @@ func _on_back_pressed():
 			close()
 		"game_settings", "save_managment", "gallery", "manual":
 			main()
+		"manual_text":
+			stage = "manual"
+			Global.cancel_sound()
 
 func close(force = false):
 	if force:
@@ -237,7 +240,7 @@ func manual() -> void:
 		if i != $MainButtons/Manual: t.tween_property(i, "position:x", 850, 0.5)
 	t.tween_property($ManualPanel, "position", Vector2(100, -92), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
-	t.tween_property($Background, "position", Vector2(400, 0), 0.5)
+	t.tween_property($Background, "position", Vector2(-200, 0), 0.5)
 	$ManualPanel/ScrollContainer/VBoxContainer.get_child(0).grab_focus()
 	_manual_entry_pressed()
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
@@ -701,6 +704,10 @@ func _on_website() -> void:
 
 
 func _manual_entry_pressed() -> void:
+	stage = "manual"
+	Global.confirm_sound()
+
+func _manual_entry_select() -> void:
 	var entry: String = focus.name
 	var text: String = ""
 	for i in Tutorials:
@@ -710,6 +717,5 @@ func _manual_entry_pressed() -> void:
 	if text == "":
 		Global.toast("Entry not found")
 		return
-	Global.confirm_sound()
 	text = text.replace(entry, "[b]"+focus.text+"[/b]")
 	$ManualPanel/Text/RichTextLabel.text = text
