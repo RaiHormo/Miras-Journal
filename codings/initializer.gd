@@ -3,8 +3,11 @@ var game_exists = false
 
 func _ready() -> void:
 	#$TitleScreen.hide()
+	$TitleScreen/Error.show()
+	$TitleScreen/Error/Hint.text = "Hint: Ready"
 	print("Game Started!")
 	glyph_update()
+	$TitleScreen/Error/Hint.text = "Hint: Glyph"
 	Event.Flags.append("DisableMenus")
 	#Global.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
@@ -12,6 +15,7 @@ func _ready() -> void:
 	else:
 		game_exists = false
 		$TitleScreen/Continue.text = "New game"
+	$TitleScreen/Error/Hint.text = "Hint: File check"
 	$TitleScreen.show()
 	$TitleScreen/Splash.show()
 	var t = create_tween().set_ease(Tween.EASE_IN).set_parallel().set_trans(Tween.TRANS_CUBIC)
@@ -20,6 +24,8 @@ func _ready() -> void:
 	$TitleScreen/Label.text += ProjectSettings.get_setting("application/config/version")
 	PartyUI.disabled = false
 	PartyUI.visible = true
+	$TitleScreen/Error/Hint.text = "Hint: Should have been fine"
+	$TitleScreen/Error.hide()
 
 func _on_continue_pressed() -> void:
 	if get_tree().root.has_node("Options"): return
