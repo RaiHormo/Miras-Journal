@@ -42,7 +42,6 @@ Health = 0
 Aura = 0
 SkillLevel = 0
 SkillPoints = 0
-SkillPointsFor = Array[int]([])
 Abilities = Array[ExtResource("1_keytb")]([ExtResource("2_pm52f"), ExtResource("3_xe4iy")])
 StandardAttack = ExtResource("4_rtvyb")
 LearnableAbilities = Array[ExtResource("1_keytb")]([])

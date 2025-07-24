@@ -153,6 +153,8 @@ func main():
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($ManualPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
+	t.tween_property($Back, "position:x", 207.0, 0.5)
+	t.tween_property($Confirm, "position:x", 26, 0.5)
 	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
 		i.z_index = 0
@@ -199,7 +201,6 @@ func save_managment() -> void:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame/Button.grab_focus()
 	$SavePanel.show()
-	$Confirm.hide()
 	$MainButtons/SaveManagment.toggle_mode=true
 	$MainButtons/SaveManagment.button_pressed=true
 	$SavePanel/Buttons/Load.icon = Global.get_controller().ConfirmIcon
@@ -216,6 +217,8 @@ func save_managment() -> void:
 	t.tween_property($SavePanel, "position", Vector2(684, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-50, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
+	t.tween_property($Back, "position:x", 26, 0.5)
+	t.tween_property($Confirm, "position:x", -200, 0.5)
 	Global.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
 	await t.finished
@@ -241,6 +244,8 @@ func manual() -> void:
 	t.tween_property($ManualPanel, "position", Vector2(100, -92), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(-200, 0), 0.5)
+	t.tween_property($Back, "position:x", 26, 0.5)
+	t.tween_property($Confirm, "position:x", -200, 0.5)
 	$ManualPanel/ScrollContainer/VBoxContainer.get_child(0).grab_focus()
 	_manual_entry_pressed()
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=84 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -372,6 +372,28 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vm5us"]
 
+[sub_resource type="Resource" id="Resource_t6ahs"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_siagc"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qw8o"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cttb0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5hkq"]
@@ -533,7 +555,28 @@ Turns might be scattered between the party and the enemies, but the turns will a
 
 The party will always go in their order on the menu, while diffrent types of enemies will go in certain diffrent orders.
 
-You can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller."])
+You can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller.", "#WhatIsAura
+
+The medium between mind and matter. It protects one from magic and allows them to cast it. All living things have one, and it can take diffrent forms and colors.
+
+Colors are important, as they determine what type of magic it can cast, as well as it's strengths and weaknesses.
+[img height=240]res://art/Journal/Manual/WhatIsAura.png[/img]
+
+You can easily tell an actor's aura color from its HUD color or when its aura takes form when casting magic.", "#AuraAffinity1
+
+So how do diffrent aura colors interact with each other? 
+Let's take an [color=e87b33]Orange[/color] attack for example. The graph will look something like this:
+[img height=240]res://art/Journal/Manual/AuraAffinity1.png[/img]
+
+This means that the attack will be more effective against a [color=#25b078]Cyan[/color] enemy.
+[right][img height=150]res://art/Journal/Manual/AuraAffinity2.png[/img]", "#AuraAffinity2
+
+If an enemy was attacking Mira ([color=#e87b33]Orange[/color] aura) with a [color=#269468]Cyan[/color] attack, the graph would look like this.
+[img height=240]res://art/Journal/Manual/AuraAffinity3.png[/img]
+
+The graph works by rotating the lonley X mark to the attacker's color.
+
+In this case, [color=#e87b33]Orange[/color] is in the X area, meaning the attack will not be very effective."])
 
 [node name="Fader" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -1585,11 +1628,17 @@ expand_mode = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="ManualPanel"]
 clip_contents = false
 layout_mode = 0
-offset_left = 75.9896
-offset_top = 129.616
-offset_right = 641.99
-offset_bottom = 828.616
+offset_left = 76.0
+offset_top = 130.0
+offset_right = 418.0
+offset_bottom = 810.0
 rotation = -0.0633063
+theme = SubResource("Theme_6ne1i")
+follow_focus = true
+script = ExtResource("19_e5lo7")
+wheel_scroll_damper = SubResource("Resource_t6ahs")
+dragging_scroll_damper = SubResource("Resource_siagc")
+metadata/_custom_type_script = "uid://deu6hmqfb1g2a"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -1601,6 +1650,7 @@ alignment = 1
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1628,6 +1678,7 @@ text = "Overworld"
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1647,6 +1698,7 @@ text = "Movement"
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1674,6 +1726,7 @@ text = "Battle"
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1689,10 +1742,11 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Turns"
 
-[node name="Aura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="WhatIsAura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1706,17 +1760,57 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-text = "Aura mechanics"
+text = "What is Aura?"
 
-[node name="Text" type="ScrollContainer" parent="ManualPanel"]
-clip_contents = false
+[node name="AuraAffinity1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Aura Affinity [1/2]"
+
+[node name="AuraAffinity2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Aura Affinity [2/2]"
+
+[node name="Text" type="PanelContainer" parent="ManualPanel"]
+clip_contents = true
 layout_mode = 0
 offset_left = 416.0
 offset_top = 94.0
-offset_right = 1161.0
-offset_bottom = 846.0
+offset_right = 1160.0
+offset_bottom = 835.0
 rotation = -0.0633063
-theme_override_styles/panel = SubResource("StyleBoxFlat_f335g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5qw8o")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ManualPanel/Text"]
 layout_mode = 2
@@ -1729,14 +1823,6 @@ theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 38
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
 bbcode_enabled = true
-text = "Turns
-
-Each actor gets their own turn to act. 
-Turns might be scattered between the party and the enemies, but the turns will always loop on the same order within a battle. 
-
-The party will always go in their order on the menu, while diffrent types of enemies will go in certain diffrent orders.
-
-You can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller."
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
@@ -2130,8 +2216,12 @@ texture = ExtResource("26_375bk")
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Attacking" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Turns" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Turns" to="." method="_manual_entry_pressed"]
-[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_select"]
-[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Aura" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/WhatIsAura" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/WhatIsAura" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity1" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity1" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity2" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity2" to="." method="_manual_entry_pressed"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewFile" to="." method="_new_file"]
 [connection signal="pressed" from="SavePanel/ScrollContainer/Files/New/NewGame" to="." method="_new_game"]
 [connection signal="pressed" from="SavePanel/Buttons/Load" to="." method="_on_save_load"]
