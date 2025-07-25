@@ -6,11 +6,14 @@ extends Control
 var item : ItemData
 var ind
 @onready var panel = $Can/Panel
+@onready var obtained: Label = $Can/Panel/HBoxContainer/Label/Obtained
 @onready var t :Tween
 signal pickup
 signal return_member(mem: Actor)
 @onready var Dicon: TextureRect = $Can/Panel/HBoxContainer/Icon
 @onready var label: Label = $Can/Panel/HBoxContainer/Label
+@onready var border: PanelContainer = $Can/Panel/HBoxContainer/Label/Border
+
 
 func _ready():
 	panel.hide()
@@ -21,23 +24,44 @@ func get_animation(icon, named, pickup_anim:= true):
 	label.text = named
 	Dicon.texture = icon
 	await get_tree().create_timer(0.1).timeout
+	var panel_size = label.get_theme_font("font").get_string_size(named, 0, -1, 32).x + 70
+	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_CHAR
+	panel.size.x = 69
+	await Event.wait()
+	var player_pos: Vector2 = Global.Player.get_global_transform_with_canvas().origin - Vector2(48, 0)
+	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(panel, "position", Vector2(555,250), 0.5).from(Vector2(555,300))
-	t.tween_property(panel, "modulate", Color(1,1,1,1), 0.5).from(Color(0,0,0,0))
+	t.set_trans(Tween.TRANS_QUINT)
+	obtained.self_modulate = Color.TRANSPARENT
+	panel.self_modulate = Color.TRANSPARENT
+	border.modulate = Color.TRANSPARENT
+	t.tween_property(panel, "position", Vector2(620,250), 0.8).from(player_pos)
+	t.tween_property(obtained, "position:x", -100, 0.8).from(-150).set_delay(0.3)
+	t.tween_property(obtained, "self_modulate", Color.WHITE, 0.8).from(Color.TRANSPARENT).set_delay(0.4)
+	t.tween_property(obtained, "scale", Vector2.ONE, 0.3).from(Vector2(1.5, 1.5)).set_delay(0.4)
+	t.tween_property(panel, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+	t.tween_property(panel, "self_modulate", Color.WHITE, 0.8).from(Color.TRANSPARENT).set_delay(0.2)
+	t.tween_property(panel, "position:x", 640-panel_size/2, 0.5).set_delay(0.3)
+	t.tween_property(panel, "size:x", panel_size, 0.5).set_delay(0.3)
+	t.set_trans(Tween.TRANS_BACK)
+	t.tween_property(panel, "scale", Vector2.ONE, 0.5).from(Vector2(0.9, 0.9))
 	panel.show()
-	await get_tree().create_timer(1).timeout
+	t.tween_property(border, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT).set_delay(0.6)
+	t.tween_property(border, "size", Vector2(panel_size+42, 76), 2).from(Vector2(panel_size+30, 64)).set_delay(0.6)
+	t.tween_property(border, "position", Vector2(-88, -15), 2).from(Vector2(-80, -10)).set_delay(0.6)
+	await get_tree().create_timer(3).timeout
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(panel, "position", Vector2(555,200), 0.5)
-	t.tween_property(panel, "modulate", Color(0,0,0,0), 0.5)
+	t.tween_property(panel, "position", Vector2(54, -100), 0.5).as_relative()
+	t.tween_property(panel, "modulate", Color(0,0,0,0), 0.4)
+	t.tween_property(panel, "scale", Vector2(0.3, 0.75), 0.5)
+	Global.check_party.emit()
 	await t.finished
 	panel.hide()
-	Global.check_party.emit()
 
 func add_item(ItemName, type: StringName = &"", animate:= true, player_animate:= true, quantity:= -1):
 	if ItemName is String and ItemName == "":
