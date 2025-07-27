@@ -100,7 +100,7 @@ func extended_process():
 		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
 			if is_on_wall():
 				Global.jump_to_global(self, CurHomepoint)
-			if round(position/12) == round(CurHomepoint/12):
+			if round(position/24) == round(CurHomepoint/24):
 				tmr.start(randf_range(0,3))
 				CurHomepoint = Vector2.ZERO
 				BodyState = IDLE

@@ -62,6 +62,7 @@ func check() -> void:
 		destroy()
 	if not hide_on_flag.is_empty() and Event.check_flag(hide_on_flag):
 		destroy()
+	#print(Global.Controllable, CanInteract)
 	if not Global.Controllable and CanInteract:
 		disappear()
 		CanInteract = false
@@ -97,7 +98,7 @@ func appear():
 		t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 		await get_tree().create_timer(0.1).timeout
 		animating = false
-		if not (Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()):
+		if not Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
 			disappear()
 			CanInteract = false
 

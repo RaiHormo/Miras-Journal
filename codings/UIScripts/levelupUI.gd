@@ -108,9 +108,8 @@ func level_cutin(chara: Actor):
 	show()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUINT)
+	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(self, "scale:y", 1, 0.3)
-	t.set_trans(Tween.TRANS_LINEAR)
 	t.tween_property($Line1/NameChain, "position:x", -800, 10).from(0)
 	t.tween_property($Line1/NameChain2, "position:x", 2300, 10).from(1400)
 

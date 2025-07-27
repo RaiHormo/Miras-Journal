@@ -54,7 +54,7 @@ func _ready():
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	if Fader == null: queue_free(); get_tree().paused = false; return
 	Fader.show()
-	stage = "inactive"
+	stage = "pre_root"
 	zoom = Global.get_cam().zoom
 	prevPos = player.global_position
 	t=create_tween()
@@ -100,7 +100,8 @@ func _ready():
 	for i in $Rail.get_children():
 		#if not i.get_child(0).disabled:
 			t.tween_property(i.get_child(0), "size:x", 200, 0.5)
-			t.tween_property(i.get_child(0), "position:x", -90, 0.5)
+			t.tween_property(i.get_child(0), "position:x", -45, 0.5).as_relative()
+	await t.finished
 
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
@@ -191,95 +192,95 @@ func close(give_control=true):
 	queue_free()
 
 func move_root():
-		var button : Button = $Rail.get_child(rootIndex).get_child(0)
-		button.grab_focus()
-		t=create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_CUBIC)
-		t.set_parallel()
-		t.tween_property($Rail, "position", $Rail.position, 0)
-		if rootIndex==0:
-			if $Rail/JournalFollow/JournalButton.disabled:
-				Global.buzzer_sound()
-				rootIndex = 1
+	var button : Button = $Rail.get_child(rootIndex).get_child(0)
+	button.grab_focus()
+	t=create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.set_parallel()
+	t.tween_property($Rail, "position", $Rail.position, 0)
+	if rootIndex==0:
+		if $Rail/JournalFollow/JournalButton.disabled:
+			Global.buzzer_sound()
+			rootIndex = 1
+			move_root()
+			return
+		if prevRootIndex == 1:
+			t.set_trans(Tween.TRANS_BACK)
+			$Base.play("ItemJournal")
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1.2,1.2), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow, "progress", 540, 0.3)
+		t.tween_property($Rail/ItemFollow, "progress", 660, 0.3)
+		t.tween_property($Rail/QuestFollow, "progress", 770, 0.3)
+		t.tween_property($Rail/OptionsFollow, "progress", 880, 0.3)
+		t.tween_property($Rail/JournalFollow, "rotation_degrees", -5, 0.3)
+		t.tween_property($Rail/ItemFollow, "rotation_degrees", 5, 0.3)
+		t.tween_property($Rail/QuestFollow, "rotation_degrees", 25, 0.3)
+		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 35, 0.3)
+	if rootIndex==1:
+		if prevRootIndex == 0:
+			$Base.play("JournalItem")
+		if prevRootIndex == 2:
+			$Base.play("QuestItem")
+			t.set_trans(Tween.TRANS_BACK)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1.2,1.2), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow, "progress", 460, 0.3)
+		t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
+		t.tween_property($Rail/QuestFollow, "progress", 709, 0.3)
+		t.tween_property($Rail/OptionsFollow, "progress", 817, 0.3)
+		t.tween_property($Rail/JournalFollow, "rotation_degrees", -15, 0.3)
+		t.tween_property($Rail/ItemFollow, "rotation_degrees", 0, 0.3)
+		t.tween_property($Rail/QuestFollow, "rotation_degrees", 15, 0.3)
+		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 25, 0.3)
+	if rootIndex==2:
+		if prevRootIndex == 1:
+			if $Rail/QuestFollow/QuestButton.disabled:
+				rootIndex = 3
+				prevRootIndex = 2
 				move_root()
 				return
-			if prevRootIndex == 1:
-				t.set_trans(Tween.TRANS_BACK)
-				$Base.play("ItemJournal")
-			t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1.2,1.2), 0.3)
-			t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/JournalFollow, "progress", 540, 0.3)
-			t.tween_property($Rail/ItemFollow, "progress", 660, 0.3)
-			t.tween_property($Rail/QuestFollow, "progress", 770, 0.3)
-			t.tween_property($Rail/OptionsFollow, "progress", 880, 0.3)
-			t.tween_property($Rail/JournalFollow, "rotation_degrees", -5, 0.3)
-			t.tween_property($Rail/ItemFollow, "rotation_degrees", 5, 0.3)
-			t.tween_property($Rail/QuestFollow, "rotation_degrees", 25, 0.3)
-			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 35, 0.3)
-		if rootIndex==1:
-			if prevRootIndex == 0:
-				$Base.play("JournalItem")
-			if prevRootIndex == 2:
-				$Base.play("QuestItem")
-				t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1.2,1.2), 0.3)
-			t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/JournalFollow, "progress", 460, 0.3)
-			t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
-			t.tween_property($Rail/QuestFollow, "progress", 709, 0.3)
-			t.tween_property($Rail/OptionsFollow, "progress", 817, 0.3)
-			t.tween_property($Rail/JournalFollow, "rotation_degrees", -15, 0.3)
-			t.tween_property($Rail/ItemFollow, "rotation_degrees", 0, 0.3)
-			t.tween_property($Rail/QuestFollow, "rotation_degrees", 15, 0.3)
-			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 25, 0.3)
-		if rootIndex==2:
-			if prevRootIndex == 1:
-				if $Rail/QuestFollow/QuestButton.disabled:
-					rootIndex = 3
-					prevRootIndex = 2
-					move_root()
-					return
-				$Base.play("ItemQuest")
-			if prevRootIndex == 3:
-				if $Rail/QuestFollow/QuestButton.disabled:
-					rootIndex = 1
-					prevRootIndex = 2
-					move_root()
-					return
-				$Base.play("OptionsQuest")
-				t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1.2,1.2), 0.3)
-			t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/JournalFollow, "progress", 380, 0.3)
-			t.tween_property($Rail/ItemFollow, "progress", 490, 0.3)
-			t.tween_property($Rail/QuestFollow, "progress", 590, 0.3)
-			t.tween_property($Rail/OptionsFollow, "progress", 700, 0.3)
-			t.tween_property($Rail/JournalFollow, "rotation_degrees", -20, 0.3)
-			t.tween_property($Rail/ItemFollow, "rotation_degrees", -10, 0.3)
-			t.tween_property($Rail/QuestFollow, "rotation_degrees", 0, 0.3)
-			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 15, 0.3)
-		if rootIndex==3:
-			if prevRootIndex == 2:
-				$Base.play("QuestOptions")
-			t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-			t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1.2,1.2), 0.3)
-			t.tween_property($Rail/JournalFollow, "progress", 300, 0.3)
-			t.tween_property($Rail/ItemFollow, "progress", 420, 0.3)
-			t.tween_property($Rail/QuestFollow, "progress", 540, 0.3)
-			t.tween_property($Rail/OptionsFollow, "progress", 650, 0.3)
-			t.tween_property($Rail/JournalFollow, "rotation_degrees", -45, 0.3)
-			t.tween_property($Rail/ItemFollow, "rotation_degrees", -25, 0.3)
-			t.tween_property($Rail/QuestFollow, "rotation_degrees", -10, 0.3)
-			t.tween_property($Rail/OptionsFollow, "rotation_degrees", 5, 0.3)
+			$Base.play("ItemQuest")
+		if prevRootIndex == 3:
+			if $Rail/QuestFollow/QuestButton.disabled:
+				rootIndex = 1
+				prevRootIndex = 2
+				move_root()
+				return
+			$Base.play("OptionsQuest")
+			t.set_trans(Tween.TRANS_BACK)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1.2,1.2), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow, "progress", 380, 0.3)
+		t.tween_property($Rail/ItemFollow, "progress", 490, 0.3)
+		t.tween_property($Rail/QuestFollow, "progress", 590, 0.3)
+		t.tween_property($Rail/OptionsFollow, "progress", 700, 0.3)
+		t.tween_property($Rail/JournalFollow, "rotation_degrees", -20, 0.3)
+		t.tween_property($Rail/ItemFollow, "rotation_degrees", -10, 0.3)
+		t.tween_property($Rail/QuestFollow, "rotation_degrees", 0, 0.3)
+		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 15, 0.3)
+	if rootIndex==3:
+		if prevRootIndex == 2:
+			$Base.play("QuestOptions")
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1.2,1.2), 0.3)
+		t.tween_property($Rail/JournalFollow, "progress", 300, 0.3)
+		t.tween_property($Rail/ItemFollow, "progress", 420, 0.3)
+		t.tween_property($Rail/QuestFollow, "progress", 540, 0.3)
+		t.tween_property($Rail/OptionsFollow, "progress", 650, 0.3)
+		t.tween_property($Rail/JournalFollow, "rotation_degrees", -45, 0.3)
+		t.tween_property($Rail/ItemFollow, "rotation_degrees", -25, 0.3)
+		t.tween_property($Rail/QuestFollow, "rotation_degrees", -10, 0.3)
+		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 5, 0.3)
 
 func _root():
 	show()

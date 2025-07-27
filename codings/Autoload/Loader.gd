@@ -182,7 +182,7 @@ func load_res(path: String) -> Resource:
 			path = path.replace(".png", "_low.png")
 	loaded_resource = path
 	if ResourceLoader.exists(path):
-		ResourceLoader.load_threaded_request(path)
+		ResourceLoader.call_deferred(&"load_threaded_request", path, "", true)
 	else: push_error("Resource "+ path+ " not found")
 	loading_thread = true
 	await thread_loaded

@@ -1470,9 +1470,11 @@ jump_am = 2
 
 [node name="JumpPoint6" parent="." instance=ExtResource("35_2q7ov")]
 position = Vector2(1574, -995)
+jump_am = 2
 
 [node name="JumpPoint7" parent="." instance=ExtResource("36_va2q4")]
 position = Vector2(1525, -968)
+jump_am = 2
 
 [node name="EnteredAmberelm2" parent="." instance=ExtResource("36_2q7ov")]
 z_index = 1

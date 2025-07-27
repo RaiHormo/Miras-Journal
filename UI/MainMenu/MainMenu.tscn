@@ -814,6 +814,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_w0qna")
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
 position = Vector2(643, 421)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5gyu0")
@@ -997,7 +998,6 @@ offset_bottom = 788.762
 scale = Vector2(0.395651, 0.395651)
 
 [node name="Inventory" type="PanelContainer" parent="."]
-visible = false
 use_parent_material = true
 offset_left = 241.0
 offset_top = 96.0

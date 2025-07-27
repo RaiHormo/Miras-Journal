@@ -550,6 +550,7 @@ scale = Vector2(0.0461321, 0.0461321)
 texture = ExtResource("11_hoi7k")
 
 [node name="StatPanel" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -856,7 +857,6 @@ theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
 [node name="AbilityPanel" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -933,10 +933,10 @@ text = "When you attack everyone you know and love will die. This deals 99999999
 
 [node name="Wheel" parent="AbilityPanel/AttackTitle" instance=ExtResource("4_tgr26")]
 layout_mode = 0
-offset_left = 89.625
-offset_top = -154.625
-offset_right = 1089.62
-offset_bottom = 845.375
+offset_left = -413.0
+offset_top = -640.0
+offset_right = 586.995
+offset_bottom = 360.0
 scale = Vector2(0.24075, 0.24075)
 color = Color(1, 0, 0.356863, 1)
 

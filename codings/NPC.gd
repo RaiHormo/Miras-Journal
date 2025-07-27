@@ -194,7 +194,7 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 5) -> void:
+func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 6) -> void:
 	if self is Mira and Global.Controllable: return
 	await stop_going()
 	Engine.time_scale = min(Engine.time_scale, 3)

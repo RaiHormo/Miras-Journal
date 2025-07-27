@@ -192,8 +192,9 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 	if has_state(state.name) and !state.is_stat_change:
 		var prev_state = get_state(state.name)
 		if state.turns != -1:
-			prev_state.turns += state.turns
-			Global.toast(FirstName+"'s "+state.name+" state was extended.")
+			if state.filename != "KnockedOut":
+				prev_state.turns += state.turns
+				Global.toast(FirstName+"'s "+state.name+" state was extended.")
 		elif state.name == "Poisoned":
 			prev_state.turns *= 2
 			Global.toast("The Poison's effect was intensified on "+FirstName+".")

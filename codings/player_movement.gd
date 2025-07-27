@@ -119,7 +119,7 @@ func control_process():
 			velocity = ((dashdir+direction).normalized() * speed)
 		else:
 			velocity = direction * speed
-		if move_frames > 5:
+		if RealVelocity != Vector2.ZERO:
 			if RealVelocity.x == 0: position.x = roundf(position.x)
 			if RealVelocity.y == 0: position.y = roundf(position.y)
 		var old_position = global_position
@@ -140,7 +140,6 @@ func update_anim_prm() -> void:
 	if Facing == Vector2.ZERO: return
 	if BodyState == CONTROLLED:
 		if (abs(RealVelocity.length())>1 and Global.Controllable):
-			move_frames+=1
 			if dashing:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
@@ -149,12 +148,16 @@ func update_anim_prm() -> void:
 				set_anim(str("Walk"+Global.get_dir_name(Facing)))
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
+			if move_frames < 0: move_frames = 0
+			move_frames+=1
 		elif Global.Controllable and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
-			if move_frames != 0:
-				move_frames = 0
+			print("a")
+			move_frames = 0
 			reset_speed()
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))
+		else:
+			move_frames -= 1
 		if direction.length()>RealVelocity.length() and dashing and not can_jump:
 			stop_dash()
 	else:
@@ -286,6 +289,7 @@ func stop_dash(slide = true) -> void:
 					speed = max(0, speed - 2)
 					await Event.wait()
 		Global.Controllable = true
+		Global.check_party.emit()
 		BodyState = CONTROLLED
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO

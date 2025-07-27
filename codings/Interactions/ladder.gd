@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 		elif Input.is_action_pressed("ui_up"):
 			Global.Player.direction = Vector2.UP * varience
 		else: Global.Player.direction = Vector2.ZERO
-		if Global.Player.position.y < $Start1.global_position.y:
+		if Global.Player.position.y < $Start1.global_position.y and Global.Player.Facing == Vector2.UP:
 			if enable_stairs:
 				Global.Player.z_index = zUp
 				Global.Player.collision_layer = LayersUp
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			await Global.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			Event.teleport_followers()
-		if Global.Player.position.y > $Start2.global_position.y:
+		if Global.Player.position.y > $Start2.global_position.y and Global.Player.Facing == Vector2.DOWN:
 			if enable_stairs:
 				Global.Player.z_index = zDown
 				Global.Player.collision_layer = LayersDown

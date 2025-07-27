@@ -101,19 +101,29 @@ I will not pass without a bag.
 
 ~ kick_sgplains
 if f("VPPlains"):
-	Asteria.Neutral: You wanna return to the village Mira?
-	Asteria.Neutral: That's the long way back, we should use the vains instead.
+	if Party.has_member("Asteria"):
+		Asteria.Neutral: You wanna return to the village Mira?
+		Asteria.Neutral: That's the long way back, we should use the veins instead.
+	else:
+		I'm not going back on foot, let's use the nearby Vein.
 else:
-	Daze.Neutral: Levenor, this way!
+	if Party.has_member("Daze"):
+		Daze.Neutral: Levenor, this way!
+	else:
+		Not this way.
 => END
 
 ~ blocked_path_sg1
 Mira.Neutral: This way seems to be blocked by some weird crystals.
-Asteria.Neutral: There should be a way to get past them, let's look around.
+if Party.has_member("Asteria"):
+	Asteria.Neutral: There should be a way to get past them, let's look around.
 => END
 
 ~ blocked_path_sg2
-Daze.Neutral: Another blocked path...
+if Party.has_member("Daze"):
+	Daze.Neutral: Another blocked path...
+else:
+	Mira.Neutral: I should be exploring this place with the others...
 => END
 
 ~ gather_pyrson
