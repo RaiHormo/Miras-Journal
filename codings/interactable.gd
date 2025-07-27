@@ -84,6 +84,7 @@ func appear():
 		do_position()
 		button.text = LabelText
 		button.icon = Global.get_controller().ConfirmIcon
+		z_index = 9
 		t = create_tween()
 		pack.self_modulate = Color.TRANSPARENT
 		pack.show()
@@ -121,10 +122,11 @@ func disappear():
 			t.tween_property(button, "custom_minimum_size:x", 48, 0.1)
 			await get_tree().create_timer(0.1).timeout
 			pack.hide()
+		z_index = 0
 		animating = false
 
 func _input(event: InputEvent) -> void:
-	if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
+	if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not get_tree().root.has_node("Textbox"):
 		if Input.is_action_just_pressed("ui_accept") and CanInteract:
 			_on_button_pressed()
 
@@ -183,6 +185,7 @@ func _on_button_pressed() -> void:
 			Global.confirm_sound()
 		"text":
 			await Event.take_control(false)
+			disappear()
 			await Global.textbox(file, title)
 		"item":
 			Item.add_item(item, itemtype)
@@ -220,7 +223,7 @@ func _on_button_pressed() -> void:
 		"social_link":
 			await Event.take_control(false)
 			var rank = Event.condition(file)
-			await Global.textbox(file, "rank"+rank+"_prepare")
+			await Global.textbox(file, "rank"+str(rank)+"_prepare")
 	if return_control:
 		Event.give_control(false)
 	if hidesprite:

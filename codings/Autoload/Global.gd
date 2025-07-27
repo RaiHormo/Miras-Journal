@@ -133,7 +133,7 @@ func options(save_menu:= false):
 	var control = Controllable
 	#var init = get_tree().root.get_node_or_null("Initializer")
 	#if init != null: init.queue_free()
-	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
+	var opt = (preload("res://UI/Options/Options.tscn")).instantiate()
 	Controllable = control
 	get_tree().root.add_child(opt)
 	if save_menu:

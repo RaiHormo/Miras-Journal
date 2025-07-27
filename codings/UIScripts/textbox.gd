@@ -256,7 +256,7 @@ func _on_close() -> void:
 	if self != null: queue_free()
 
 func hide_box():
-	t=create_tween()
+	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -307,7 +307,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
 				await Event.wait(0.05, false)
 		await t.finished
-		if item == null: return
+		if item == null or item.get_index() == -1: return
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:

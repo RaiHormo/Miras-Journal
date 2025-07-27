@@ -12,6 +12,7 @@ var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
 var ToTime:= TOD.DARKHOUR
+var ToDay: int
 signal time_changed
 signal next_day
 @onready var seq: Node = $Sequences
@@ -165,12 +166,13 @@ func flag_int(str: String, max_num:= 9) -> int:
 		if check_flag(str + str(i)): return i
 	return 0
 
-func flag_progress(str: String, to:= 1):
-	var num:= flag_int(str)
-	if num == 0: add_flag(str+str(to))
+func flag_progress(stri: String, to:= 1):
+	var num:= flag_int(stri)
+	if to == 0: remove_flag(stri+str(num))
+	elif num == 0: add_flag(stri+str(to))
 	elif num < to:
-		remove_flag(str+str(num))
-		add_flag(str+str(to))
+		remove_flag(stri+str(num))
+		add_flag(stri+str(to))
 
 func f_past(str: String, has_passed:= 9) -> bool:
 	if flag_int(str) >= has_passed:
@@ -193,10 +195,10 @@ func skip_cutscene():
 func bubble(anim: String, npc: String):
 	npc(npc).bubble(anim)
 
+## Sets up a time change. Run time_transition() to properly move time
 func progress_by_time(amount: int):
-	Day = get_day_progress_from_now(amount)
-	TimeOfDay = get_time_progress_from_now(amount)
-	Global.check_party.emit()
+	ToDay = get_day_progress_from_now(amount)
+	ToTime = get_time_progress_from_now(amount)
 
 func get_time_progress_from_now(amount: int):
 	var toad = TimeOfDay as int
@@ -215,6 +217,7 @@ func get_day_progress_from_now(amount: int):
 func set_time(tod: TOD):
 	if tod < TimeOfDay:
 		Global.next_day_ui()
+	setup_time_changes(TimeOfDay, (ToDay-Day)*5+ToTime)
 	TimeOfDay = tod
 	time_changed.emit()
 
@@ -266,7 +269,9 @@ func time_transition():
 	await Loader.transition()
 	await Loader.flip_time(TimeOfDay, ToTime)
 	set_time(ToTime)
+	Day = ToDay
 	start_time_events()
+	await Loader.detransition()
 
 func zoom(val: float):
 	Global.Camera.zoom = Vector2(val, val)
@@ -276,6 +281,7 @@ func start_time_events():
 	print(seq)
 	if sequence_exists(seq):
 		sequence(seq)
+	else: sequence("wake_home")
 
 func condition(con: String):
 	if $Conditions.has_method(con):
@@ -285,3 +291,10 @@ func condition(con: String):
 	else: 
 		push_error(con + " condition is not valid"); 
 		return 0
+
+func setup_time_changes(from: int, to: int):
+	if f("eepy", 1):
+		var eepy = flag_int("eepy")
+		flag_progress("eepy", eepy+to-from)
+		if eepy >= 2: remove_flag("eepy"+str(flag_int("eepy")))
+		

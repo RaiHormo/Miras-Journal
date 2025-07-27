@@ -29,11 +29,6 @@ func TWflame():
 	Loader.save()
 
 func sleep_home():
-	if Event.TimeOfDay == Event.TOD.MORNING:
-		await Loader.detransition()
-		await Global.textbox("interactions", "just_woke_up")
-		Event.give_control()
-		return
 	await Event.take_control()
 	Event.set_time(Event.TOD.MORNING)
 	#await Event.next_day
@@ -133,7 +128,9 @@ func jump_playtest():
 
 func waste_time():
 	await Event.take_control()
+	await Loader.transition("")
 	Event.progress_by_time(1)
+	await Event.time_transition()
 	Loader.detransition()
 	Event.give_control()
 
@@ -150,8 +147,9 @@ func hurt_1():
 		Global.Party.Leader.Health += 1
 	Global.check_party.emit()
 
-func gather_pyrson():
-	Global.textbox("interactions", "gather_pyrson")
+func wake_home():
+	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))
+	Event.give_control()
 
 func nov3_morning():
 	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))

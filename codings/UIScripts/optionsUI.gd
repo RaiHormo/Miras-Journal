@@ -226,7 +226,7 @@ func save_managment() -> void:
 		await load_save_files()
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
-		else: %Files/New/NewGame/Button.grab_focus()
+		else: %Files/New/NewGame.grab_focus()
 
 func manual() -> void:
 	if stage == "manual": return

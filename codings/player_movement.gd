@@ -152,7 +152,6 @@ func update_anim_prm() -> void:
 			move_frames+=1
 		elif Global.Controllable and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
-			print("a")
 			move_frames = 0
 			reset_speed()
 			set_anim(str("Idle"+Global.get_dir_name(Facing)))

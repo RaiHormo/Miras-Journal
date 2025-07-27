@@ -80,7 +80,6 @@ corner_radius_bottom_left = 26
 [node name="Interactable" type="Area2D"]
 process_mode = 3
 physics_interpolation_mode = 2
-z_index = 9
 material = SubResource("ShaderMaterial_rbnbg")
 collision_layer = 256
 collision_mask = 256

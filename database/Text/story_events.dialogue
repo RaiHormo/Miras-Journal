@@ -371,16 +371,16 @@ I guess it's time to leave now, the others should be waiting up at the gate.
 Alcine.Neutral: Wia!
 Asteria.Neutral: What took you so long!
 Daze.Neutral: Is everyone ready?
-- Just a minute
-	Mira.Neutral: Just a minute, I need to do something.
-	Asteria.Neutral: Alright, hurry it up!
-	do wait(0.2)
-	do give_control()
 - Let's go
 	Mira.Neutral: I'm ready, let's go!
 	Daze.Neutral: Someone's excited...
 	Asteria.Neutral: I'll lead the way, just follow me!
 	do! sequence("nov3_enterSG")
+- Just a minute
+	Mira.Neutral: Just a minute, I need to do something.
+	Asteria.Neutral: Alright, hurry it up!
+	do wait(0.2)
+	do give_control()
 => END
 
 ~ nov3_sg_enter

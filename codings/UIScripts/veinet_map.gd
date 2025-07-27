@@ -79,7 +79,7 @@ func location_selected():
 			message = "Exit the dungeon and rest at home."
 		else:
 			message = "Head into a dungeon. Time will pass when returning."
-		if not await PartyUI.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(1)):
+		if not await PartyUI.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(2)):
 			inited = true
 			foc =  prev_foc
 			PartyUI.hide_all()
@@ -88,6 +88,7 @@ func location_selected():
 		elif Global.Area.IsDungeon:
 			Event.ToTime = Event.get_time_progress_from_now(2)
 			progress_time = true
+			Event.add_flag("eepy1")
 	foc =  prev_foc
 	Global.confirm_sound()
 	Event.remove_flag("FlameActive")

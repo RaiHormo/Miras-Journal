@@ -19,7 +19,7 @@ var cam_follow: bool
 func _ready():
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
-	if not Event.f(&"HasBag") or Item.KeyInv.is_empty() or Event.f("DisableMenus"):
+	if not Event.f(&"HasBag") or Event.f("DisableMenus"):
 		Global.buzzer_sound()
 		queue_free()
 		get_tree().paused = false
@@ -492,6 +492,7 @@ func _on_back_button_down():
 			PartyUI.MemberChoosing = false
 
 func get_inventory():
+	if Item.KeyInv.is_empty(): return
 	await Item.verify_inventory()
 
 	if Item.ConInv.is_empty():
