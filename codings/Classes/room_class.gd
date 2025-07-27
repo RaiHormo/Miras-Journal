@@ -13,6 +13,7 @@ class_name Room
 ##[x]: left [y]: top [z]: right [w]: bottom
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
+var overwrite_zoom: float = 0
 var Stairs: Array[Stair]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 ##[0]: left [1]: top [2]: right [3]: bottom
@@ -92,7 +93,9 @@ func setup_params(tween_zoom = false):
 	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	var zoom = Vector2(4, 4)
-	if Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
+	if overwrite_zoom > 0:
+		zoom = Vector2(overwrite_zoom, overwrite_zoom)
+	if overwrite_zoom == 0 and Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
 		zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
 	elif CurSubRoom is SubRoom:
 		zoom = Vector2(CurSubRoom.cam_zoom, CurSubRoom.cam_zoom)

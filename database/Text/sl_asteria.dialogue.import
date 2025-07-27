@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bqh2dj3dcsfjb"
+path="res://.godot/imported/sl_asteria.dialogue-b0ae0fee84ff4e79d86afdd50ebc8b3f.tres"
+
+[deps]
+
+source_file="res://database/Text/sl_asteria.dialogue"
+dest_files=["res://.godot/imported/sl_asteria.dialogue-b0ae0fee84ff4e79d86afdd50ebc8b3f.tres"]
+
+[params]
+
+defaults=true

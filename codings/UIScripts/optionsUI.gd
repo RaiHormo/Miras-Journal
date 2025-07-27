@@ -50,7 +50,7 @@ func _ready():
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
-	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 3).from(0.0)
+	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
 	Global.confirm_sound()

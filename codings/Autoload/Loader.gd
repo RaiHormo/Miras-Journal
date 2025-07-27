@@ -326,7 +326,7 @@ func detransition(dir = "direc"):
 	dismiss_load_icon()
 	await Event.wait(0.4, false)
 	Global.get_cam().position_smoothing_enabled = true
-	Global.ready_window()
+	#Global.ready_window()
 
 func restore_bars(dir: String = ""):
 	$Can/Bars/Down.global_position = BAR_DOWN_POS

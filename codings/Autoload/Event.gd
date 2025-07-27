@@ -234,7 +234,7 @@ func sequence(title: String):
 func sequence_exists(title: String) -> bool:
 	return seq.has_method(title)
 
-func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
+func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var nam = id.split(":", false)
 	match nam.size():
@@ -248,6 +248,7 @@ func spawn(id: String, pos: Vector2i, dir:= "D") -> NPC:
 	var sprite_node:= AnimatedSprite2D.new()
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
+	if no_collision: chara.collision(false)
 	sprite_node.use_parent_material = true
 	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 	if sprite == null: return null
@@ -273,8 +274,9 @@ func time_transition():
 	start_time_events()
 	await Loader.detransition()
 
-func zoom(val: float):
+func zoom(val: float, maintain = false):
 	Global.Camera.zoom = Vector2(val, val)
+	if maintain: Global.Area.overwrite_zoom = val
 
 func start_time_events():
 	var seq = Global.get_mmm(Global.get_month(Day)).to_lower()+str(TimeOfDay)+"_"+Global.to_tod_text(TimeOfDay).to_lower()
