@@ -619,7 +619,7 @@ func str_length(str: String):
 func get_mmm(month: int) -> String:
 	match month:
 		1: return "Jan"
-		2: return "Fed"
+		2: return "Feb"
 		3: return "Mar"
 		4: return "Apr"
 		5: return "May"
@@ -631,6 +631,22 @@ func get_mmm(month: int) -> String:
 		11: return "Nov"
 		12: return "Dec"
 	return "???"
+
+func get_month_name(month: int) -> String:
+	match month:
+		1: return "January"
+		2: return "February"
+		3: return "March"
+		4: return "April"
+		5: return "May"
+		6: return "June"
+		7: return "July"
+		8: return "August"
+		9: return "September"
+		10: return "October"
+		11: return "November"
+		12: return "December"
+	return "Unknown"
 
 func get_month(day: int) -> int:
 	if day>0 and day<=30: return 11

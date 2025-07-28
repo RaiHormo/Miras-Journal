@@ -297,6 +297,7 @@ func done(controllable:= false):
 	Global.get_cam().position_smoothing_enabled = false
 	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
+		Global.Player.collision(false)
 		Global.Player.global_position = traveled_pos
 	for i in Global.Area.Followers:
 		i.position = traveled_pos

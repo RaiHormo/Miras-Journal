@@ -148,11 +148,12 @@ func hurt_1():
 	Global.check_party.emit()
 
 func wake_home():
-	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(106, 414))
+	Global.Player.look_to("R")
 	Event.give_control()
 
-func nov3_morning():
-	Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))
+#func nov3_morning():
+	#Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))
 
 func nov3_afternoon():
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)

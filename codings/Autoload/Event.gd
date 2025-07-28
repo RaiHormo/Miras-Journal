@@ -215,8 +215,6 @@ func get_day_progress_from_now(amount: int):
 	else: return Day
 
 func set_time(tod: TOD):
-	if tod < TimeOfDay:
-		Global.next_day_ui()
 	setup_time_changes(TimeOfDay, (ToDay-Day)*5+ToTime)
 	TimeOfDay = tod
 	time_changed.emit()
@@ -266,11 +264,15 @@ func no_player():
 	PartyUI.hide_all()
 
 func time_transition():
+	if get_tree().root.has_node("Textbox"):
+		get_tree().root.get_node("Textbox").hide_box()
 	await Event.take_control()
 	await Loader.transition()
 	await Loader.flip_time(TimeOfDay, ToTime)
+	if Day != ToDay:
+		Day = ToDay
+		Global.toast(Global.get_month_name(Global.get_month(Day))+" "+str(Day)+" cin16")
 	set_time(ToTime)
-	Day = ToDay
 	start_time_events()
 	await Loader.detransition()
 
@@ -279,7 +281,7 @@ func zoom(val: float, maintain = false):
 	if maintain: Global.Area.overwrite_zoom = val
 
 func start_time_events():
-	var seq = Global.get_mmm(Global.get_month(Day)).to_lower()+str(TimeOfDay)+"_"+Global.to_tod_text(TimeOfDay).to_lower()
+	var seq = Global.get_mmm(Global.get_month(Day)).to_lower()+str(Day)+"_"+Global.to_tod_text(TimeOfDay).to_lower()
 	print(seq)
 	if sequence_exists(seq):
 		sequence(seq)
