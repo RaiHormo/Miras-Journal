@@ -552,7 +552,7 @@ func toast(string: String) -> void:
 		$/root/Toast.free()
 		await Event.wait()
 	print("Toast: "+ string)
-	var tost = (await Loader.load_res("res://UI/Misc/Toast.tscn")).instantiate()
+	var tost = (preload("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
