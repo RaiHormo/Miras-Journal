@@ -800,6 +800,8 @@ func hp_sort(a:Actor, b:Actor):
 	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
+	if not is_instance_valid(chara):
+		Global.toast("Sequence cannot be played properly")
 	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
 		else: animation = "Idle"

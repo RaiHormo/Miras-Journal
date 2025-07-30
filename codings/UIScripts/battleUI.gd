@@ -28,6 +28,10 @@ var TargetFaction: Array[Actor]
 var foc:Control
 var analyzing:= false
 @onready var Bt :Battle = get_parent()
+var disable_attack:= false
+var disable_ability:= false
+var disable_item:= false
+var disable_command:= false
 
 func _ready():
 	t = create_tween()
@@ -94,10 +98,19 @@ func _on_battle_get_control():
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.Abilities
-
+	
+	$Attack.disabled = false
+	$Ability.disabled = false
+	$Command.disabled = false
+	$Item.disabled = false
+	
 	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
 	if CurrentChar.has_state("Bound"):
 		$Attack.disabled = true
+	if disable_attack: $Attack.disabled = true
+	if disable_ability: $Ability.disabled = true
+	if disable_command: $Command.disabled = true
+	if disable_item: $Item.disabled = true
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
 	if CurrentChar.BoxProfile != null:
