@@ -161,13 +161,13 @@ func handle_states():
 					chara.NextAction = "Attack"
 					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
 					await Bt.shake_actor(chara)
-	for i in range(chara.States.size() -1, -1, -1):
-		var state = chara.States[i]
-		if state.QueueRemove:
-			chara.remove_state(state)
-	if chara.States.is_empty(): chara.node.get_node("State").play("None")
+	Bt.remove_queued_states(chara)
 	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
+
+func end_turn_checks():
+	var chara = CurrentChar
+	Bt.remove_queued_states(chara)
 
 #region Attacks
 func AttackMira(target: Actor):
@@ -557,6 +557,15 @@ func AttackUp3(target: Actor):
 	Bt.zoom(6)
 	Bt.focus_cam(target)
 	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, 3)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
+func AttackUpNext(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target)
+	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, -2)
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()

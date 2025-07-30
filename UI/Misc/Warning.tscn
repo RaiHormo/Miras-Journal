@@ -1,0 +1,172 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1a5lbw0hkb0f"]
+
+[ext_resource type="Script" uid="uid://64snfotgfxe7" path="res://codings/UIScripts/warning.gd" id="1_2d5vw"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="2_nn1j7"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_hyroa"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="4_0xp38"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ex2em"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88xbf"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="FontVariation" id="FontVariation_mqv20"]
+base_font = ExtResource("4_0xp38")
+spacing_bottom = -2
+
+[sub_resource type="Theme" id="Theme_rkwdo"]
+default_font = SubResource("FontVariation_mqv20")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_ds1ry")
+Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
+Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
+Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
+Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
+
+[node name="Warning" type="CanvasLayer"]
+process_mode = 3
+layer = 9
+script = ExtResource("1_2d5vw")
+
+[node name="Bg" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.360784)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="."]
+offset_top = 248.0
+offset_right = 1282.0
+offset_bottom = 529.0
+pivot_offset = Vector2(0, 123)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ex2em")
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 783.0
+offset_top = 155.0
+offset_right = 1423.0
+offset_bottom = 321.0
+theme_override_colors/font_color = Color(0.122252, 0.122252, 0.122252, 1)
+theme_override_fonts/font = ExtResource("2_nn1j7")
+theme_override_font_sizes/font_size = 130
+text = "WARNING"
+
+[node name="Panel2" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_top = -8.0
+offset_right = 1282.0
+offset_bottom = 12.0
+color = Color(0.862674, 0, 0.0561501, 1)
+
+[node name="Panel4" type="ColorRect" parent="Panel/Panel2"]
+show_behind_parent = true
+layout_mode = 0
+offset_top = 18.0
+offset_right = 1282.0
+offset_bottom = 30.0
+color = Color(0.44, 0.1364, 0.14652, 1)
+
+[node name="Panel3" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_top = 272.0
+offset_right = 1282.0
+offset_bottom = 291.0
+color = Color(0.862745, 0, 0.054902, 1)
+
+[node name="Panel5" type="ColorRect" parent="Panel/Panel3"]
+show_behind_parent = true
+layout_mode = 0
+offset_top = -12.0
+offset_right = 1282.0
+color = Color(0.44, 0.1364, 0.14652, 1)
+
+[node name="Label" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 48.0
+offset_right = 1268.0
+offset_bottom = 234.0
+theme_override_fonts/normal_font = ExtResource("3_hyroa")
+theme_override_font_sizes/normal_font_size = 38
+text = "This will destroy absolutely everything!!!
+Continue?"
+
+[node name="Options" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 243.0
+offset_right = 471.0
+offset_bottom = 309.0
+theme_override_constants/separation = 24
+
+[node name="No" type="Button" parent="Panel/Options"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../Yes")
+focus_mode = 1
+theme = SubResource("Theme_rkwdo")
+text = "No"
+metadata/_edit_use_anchors_ = true
+
+[node name="Yes" type="Button" parent="Panel/Options"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../No")
+focus_mode = 1
+theme = SubResource("Theme_rkwdo")
+text = "Yes"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Panel/Options/No" to="." method="_on_no_pressed"]
+[connection signal="pressed" from="Panel/Options/Yes" to="." method="_on_yes_pressed"]

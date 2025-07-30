@@ -129,15 +129,20 @@ func _process(delta: float) -> void:
 		#Steam.run_callbacks()
 		#Steam.runFrame()
 
-func options(save_menu:= false):
+func options(submenu = 0):
 	var control = Controllable
 	#var init = get_tree().root.get_node_or_null("Initializer")
 	#if init != null: init.queue_free()
 	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
 	Controllable = control
+	match submenu:
+		1:
+			opt.set_no_main()
+			opt.save_managment()
+		3:
+			opt.set_no_main()
+			opt.manual()
 	get_tree().root.add_child(opt)
-	if save_menu:
-		opt.save_managment()
 
 func title_screen():
 	var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
@@ -178,13 +183,16 @@ func new_game() -> void:
 	#Item.add_item("SmallPotion", &"Con", false)
 	Loader.Defeated.clear()
 	Party.reset_party()
-	Loader.white_fadeout()
 	reset_all_members()
 	Event.TimeOfDay = Event.TOD.NIGHT
 	Event.Day = 0
+	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
 	await Global.area_initialized
 	await Event.take_control()
+	if Input.is_action_pressed("Dash"):
+		Global.refresh()
+		return
 	Player.BodyState = NPC.CUSTOM
 	Player.set_anim("OnFloor")
 	Player.get_node("%Shadow").modulate = Color.TRANSPARENT
@@ -309,7 +317,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		fullscreen()
 	if Input.is_action_just_pressed("Save"):
 		Loader.save()
-	if Input.is_action_just_pressed("SaveManagment"):
+	if Input.is_action_just_pressed("Load"):
 		Loader.load_game()
 	if Input.is_action_just_pressed("SaveDir"):
 		OS.shell_open(OS.get_user_data_dir())
@@ -557,6 +565,18 @@ func toast(string: String) -> void:
 	await Event.wait()
 	if is_instance_valid(tost):
 		tost.get_node("BoxContainer/Toast/Label").text = string
+
+func warning(text: String, label: String = "WARNING", awnser1: String = "No", awnser2: String = "Yes", color: Color = Color.hex(0xdc000eff)) -> bool:
+	if get_node_or_null("/root/Warning"):
+		$/root/Warning.free()
+		await Event.wait()
+	print("Warn: "+ text)
+	var tost = (preload("res://UI/Misc/Warning.tscn")).instantiate()
+	get_tree().root.add_child(tost)
+	await Event.wait()
+	if is_instance_valid(tost):
+		return await tost.ask_for_confirm(text, label, awnser1, awnser2, color)
+	else: return false
 
 func location_name(string: String) -> void:
 	if get_node_or_null("/root/LocationName"):

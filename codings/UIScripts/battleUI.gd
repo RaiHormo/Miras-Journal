@@ -168,6 +168,8 @@ func _input(event: InputEvent) -> void:
 					ability.emit()
 				if Input.is_action_just_pressed("Options"):
 					Global.options()
+				if Input.is_action_just_pressed("Manual"):
+					Global.options(3)
 			&"target":
 	#			if Input.is_action_just_pressed(Global.confirm()):
 	#				_on_confirm_pressed()

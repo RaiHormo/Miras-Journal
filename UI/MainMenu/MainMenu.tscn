@@ -462,7 +462,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4ivt"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -478,7 +478,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5thul"]
 content_margin_left = 11.0
 content_margin_right = 32.0
 bg_color = Color(1, 1, 1, 1)
@@ -492,7 +492,7 @@ corner_radius_top_right = 42
 corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88xbf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6vv6"]
 content_margin_left = 32.0
 content_margin_top = 0.0
 content_margin_right = 32.0
@@ -508,23 +508,23 @@ corner_radius_top_right = 42
 corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 
-[sub_resource type="FontVariation" id="FontVariation_mqv20"]
+[sub_resource type="FontVariation" id="FontVariation_00tn1"]
 base_font = ExtResource("4_pkqpv")
 spacing_bottom = -2
 
 [sub_resource type="Theme" id="Theme_o6i8h"]
-default_font = SubResource("FontVariation_mqv20")
+default_font = SubResource("FontVariation_00tn1")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
 Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxFlat_ds1ry")
-Button/styles/focus = SubResource("StyleBoxFlat_hgmdv")
-Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
-Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
-Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
+Button/styles/disabled = SubResource("StyleBoxFlat_h4ivt")
+Button/styles/focus = SubResource("StyleBoxFlat_5thul")
+Button/styles/hover = SubResource("StyleBoxFlat_a6vv6")
+Button/styles/normal = SubResource("StyleBoxFlat_h4ivt")
+Button/styles/pressed = SubResource("StyleBoxFlat_a6vv6")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvtq8"]
 content_margin_left = 32.0
