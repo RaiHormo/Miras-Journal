@@ -95,14 +95,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ex2em")
 
 [node name="Label2" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 783.0
+offset_left = 577.0
 offset_top = 155.0
-offset_right = 1423.0
+offset_right = 1288.0
 offset_bottom = 321.0
 theme_override_colors/font_color = Color(0.122252, 0.122252, 0.122252, 1)
 theme_override_fonts/font = ExtResource("2_nn1j7")
 theme_override_font_sizes/font_size = 130
 text = "WARNING"
+horizontal_alignment = 2
 
 [node name="Panel2" type="ColorRect" parent="Panel"]
 layout_mode = 0
@@ -163,10 +164,20 @@ metadata/_edit_use_anchors_ = true
 [node name="Yes" type="Button" parent="Panel/Options"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../No")
+focus_neighbor_right = NodePath("../Maybe")
 focus_mode = 1
 theme = SubResource("Theme_rkwdo")
 text = "Yes"
 metadata/_edit_use_anchors_ = true
 
+[node name="Maybe" type="Button" parent="Panel/Options"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Yes")
+focus_mode = 1
+theme = SubResource("Theme_rkwdo")
+text = "Maybe"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="Panel/Options/No" to="." method="_on_no_pressed"]
 [connection signal="pressed" from="Panel/Options/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="Panel/Options/Maybe" to="." method="_on_maybe_pressed"]

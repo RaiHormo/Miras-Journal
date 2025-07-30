@@ -451,6 +451,7 @@ func end_battle():
 	PartyUI._on_shrink()
 
 func icon_save():
+	if Icon.is_playing(): return
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)

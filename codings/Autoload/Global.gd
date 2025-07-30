@@ -73,14 +73,18 @@ func _init():
 	OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "0x28de/0x11ff")
 
 func quit() -> void:
-	if Loader.InBattle or not Global.Controllable or !Player or !Area: get_tree().quit()
-	Loader.icon_save()
+	if get_tree().root.has_node("Options"):
+		get_tree().root.get_node("Options").close()
+	if get_tree().root.has_node("MainMenu"):
+		get_tree().root.get_node("MainMenu").close()
+	if not Loader.InBattle and is_instance_valid(Player) and is_instance_valid(Area) and (
+		Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options")): 
+		Loader.icon_save()
+		await Loader.save()
+	elif is_instance_valid(Area):
+		if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
+			return
 	await Loader.transition("")
-	if get_node_or_null("/root/Options"):
-		await get_node("/root/Options").close()
-	if is_instance_valid(Player.get_node_or_null("MainMenu")):
-		await Player.get_node("MainMenu").close()
-	await Loader.save()
 	get_tree().quit()
 
 func normal_mode():
@@ -108,8 +112,7 @@ func game_over():
 
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		if Controllable: quit()
-		else: get_tree().quit()
+		quit()
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window() -> void:
@@ -566,7 +569,7 @@ func toast(string: String) -> void:
 	if is_instance_valid(tost):
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
-func warning(text: String, label: String = "WARNING", awnser1: String = "No", awnser2: String = "Yes", color: Color = Color.hex(0xdc000eff)) -> bool:
+func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
 	if get_node_or_null("/root/Warning"):
 		$/root/Warning.free()
 		await Event.wait()
@@ -575,7 +578,7 @@ func warning(text: String, label: String = "WARNING", awnser1: String = "No", aw
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
-		return await tost.ask_for_confirm(text, label, awnser1, awnser2, color)
+		return await tost.ask_for_confirm(text, label, awnser, color)
 	else: return false
 
 func location_name(string: String) -> void:

@@ -612,7 +612,32 @@ func _on_fullscreen(tog: bool):
 		load_settings()
 
 func _on_quit():
-	Global.quit()
+	stage = "quit"
+	var text: String
+	if is_instance_valid(Global.Area):
+		text = "Quit the game?\nYour progress will be saved."
+		if cant_save:
+			text = "Quit the game?\nYour progress cannot be saved right now, so it might be lost."
+	else: text = "Quit the game?"
+	var awnser = await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
+	match awnser:
+		2:
+			if not cant_save and is_instance_valid(Global.Area): 
+				await Loader.save()
+			Global.quit()
+		1:
+			if is_instance_valid(Global.Area): 
+				Global.Area.queue_free()
+				if not cant_save: await Loader.save()
+			if get_tree().root.has_node("MainMenu"):
+				get_tree().root.get_node("MainMenu").queue_free()
+			if get_tree().root.has_node("Battle"):
+				get_tree().root.get_node("Battle").queue_free()
+			PartyUI.hide_all()
+			close()
+		0:
+			main()
+			$MainButtons/Quit.grab_focus()
 
 func _on_master_volume(value:float):
 	Global.Settings.MasterVolume = value/10
@@ -722,7 +747,8 @@ func _arena_mode() -> void:
 
 func _on_credits() -> void:
 	Global.confirm_sound()
-	$GalleryPanel/Credits/RichTextLabel.grab_focus()
+	$GalleryPanel/Credits.grab_focus()
+	$GalleryPanel/Credits.scroll_vertical = 0
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -739,6 +765,7 @@ func _on_highres_textures(toggle: bool) -> void:
 
 
 func _on_website() -> void:
+	Global.confirm()
 	OS.shell_open("https://raidev.eu")
 	Global.toast("\"raidev.eu\" was opened in your web browser.")
 
@@ -764,6 +791,7 @@ func _manual_entry_select() -> void:
 
 func _on_reset() -> void:
 	stage = "inactive"
+	Global.confirm()
 	if await Global.warning("This will erase all save data, and restore settings!
 The game will then close.
 You can backup this data by pressing F1 and copying the files.\nProceed?"):
@@ -773,7 +801,14 @@ You can backup this data by pressing F1 and copying the files.\nProceed?"):
 		for file in dir.get_directories():
 			DirAccess.remove_absolute("user://"+file)
 		get_tree().quit(9)
-	else: 
+	else:
 		$GalleryPanel/ScrollContainer/VBoxContainer/ResetGame.grab_focus()
 		stage = "gallery"
 	
+func _on_credit_scroll(event: InputEvent) -> void:
+	if event.is_action("ui_up"):
+		$GalleryPanel/Credits.scroll_vertically(-1000)
+	if event.is_action("ui_down"):
+		$GalleryPanel/Credits.scroll_vertically(1000)
+	if event.is_action("ui_cancel") or event.is_action("ui_left"):
+		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
