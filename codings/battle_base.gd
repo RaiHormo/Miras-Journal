@@ -511,6 +511,7 @@ func end_turn(confirm_aoe:= false):
 	while lock_turn:
 		await Event.wait()
 	await get_tree().create_timer(0.3).timeout
+	$Act.end_turn_checks()
 	if CurrentChar.node:
 		CurrentChar.node.z_index = 0
 	for i in TurnOrder:
@@ -556,6 +557,9 @@ overwrite_color: Color = Color.WHITE) -> int:
 		Global.toast("The ice on "+ target.FirstName+ " breaks!")
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
+	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
+		CurrentChar.get_state("AtkUp").QueueRemove = true
+		print("Weapon attack, so AtkUp will be removeds")
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
 	if elemental and not target.has_state("UnbreakingAura"):
 		var aur_dmg = relation_to_aura_dmg(relation, dmg)
@@ -796,6 +800,8 @@ func hp_sort(a:Actor, b:Actor):
 	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
+	if not is_instance_valid(chara):
+		Global.toast("Sequence cannot be played properly")
 	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
 		else: animation = "Idle"
@@ -867,6 +873,14 @@ func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*Curren
 	PartyUI._check_party()
 	pop_aura(target)
 	pop_num(target, "+"+str(amount))
+
+func remove_queued_states(chara: Actor):
+	if not is_instance_valid(chara): return
+	for i in range(chara.States.size() -1, -1, -1):
+		var state = chara.States[i]
+		if state.QueueRemove:
+			chara.remove_state(state)
+	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 
 func pop_aura(target: Actor, time:float=0.5):
 	target.node.material.set_shader_parameter("outline_enabled", true)
@@ -1140,7 +1154,7 @@ chara := CurrentChar, turns: int = 3):
 		&"Atk": chara.AttackMultiplier += amount
 		&"Mag": chara.MagicMultiplier += amount
 		&"Def": chara.DefenceMultiplier += amount
-	chara.add_state(stat + updown)
+	chara.add_state(stat + updown, turns, CurrentChar)
 	await Event.wait(1.2)
 	pop_num(chara, stat_name(stat)
 	+ " x" + str(amount+1), (await Global.get_state(stat + updown)).color)

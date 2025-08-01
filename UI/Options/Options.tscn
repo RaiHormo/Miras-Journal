@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=89 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -326,6 +326,18 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="Resource" id="Resource_p6787"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_srwa7"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
@@ -359,7 +371,7 @@ expand_margin_top = 8.0
 expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f335g"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tth4"]
 content_margin_left = 24.0
 content_margin_top = 24.0
 content_margin_right = 24.0
@@ -369,6 +381,18 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="Resource" id="Resource_5qw8o"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
+
+[sub_resource type="Resource" id="Resource_2tth4"]
+script = ExtResource("20_l60hk")
+friction = 4.0
+minimum_velocity = 0.4
+rebound_strength = 7.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vm5us"]
 
@@ -393,6 +417,8 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6ahs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cttb0"]
 
@@ -526,7 +552,9 @@ Tutorials = Array[String](["#Introduction
 Welcome to the Manual! The feature that I added so I can avoid making proper tutorials!
 
 Just note that whenever Controller inputs are shown, the order is always: 
-Nintendo, Xbox, PlayStation", "#Movement
+Nintendo, Xbox, PlayStation
+
+Press M on the keyboard to open this manual at any time", "#Movement
 
 Keyboard:
 Walk around with the Arrow Keys
@@ -634,9 +662,16 @@ theme_override_font_sizes/font_size = 48
 text = "v"
 horizontal_alignment = 2
 
-[node name="MainButtons" type="Node" parent="."]
+[node name="MainButtons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SaveManagment" type="Button" parent="MainButtons"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.580469
 anchor_top = 0.12125
@@ -657,6 +692,7 @@ text = "Save Management"
 metadata/_edit_use_anchors_ = true
 
 [node name="GameSettings" type="Button" parent="MainButtons"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.641406
 anchor_top = 0.30125
@@ -677,6 +713,7 @@ text = "Game Settings"
 metadata/_edit_use_anchors_ = true
 
 [node name="Manual" type="Button" parent="MainButtons"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.730469
 anchor_top = 0.48125
@@ -697,6 +734,7 @@ text = "Manual"
 metadata/_edit_use_anchors_ = true
 
 [node name="Gallery" type="Button" parent="MainButtons"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.739062
 anchor_top = 0.66375
@@ -718,6 +756,7 @@ text = "Extras"
 metadata/_edit_use_anchors_ = true
 
 [node name="Quit" type="Button" parent="MainButtons"]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.710156
 anchor_top = 0.8475
@@ -764,6 +803,7 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0
@@ -782,7 +822,6 @@ offset_bottom = 855.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
-scroll_vertical = 610
 script = ExtResource("19_e5lo7")
 wheel_scroll_damper = SubResource("Resource_x8tqq")
 dragging_scroll_damper = SubResource("Resource_rkvv0")
@@ -1517,7 +1556,6 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1534,6 +1572,10 @@ offset_top = 111.426
 offset_right = 681.002
 offset_bottom = 810.426
 rotation = -0.0633063
+script = ExtResource("19_e5lo7")
+wheel_scroll_damper = SubResource("Resource_p6787")
+dragging_scroll_damper = SubResource("Resource_srwa7")
+metadata/_custom_type_script = "uid://deu6hmqfb1g2a"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -1545,6 +1587,7 @@ alignment = 1
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1565,6 +1608,7 @@ text = "Credits
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1585,6 +1629,7 @@ visible = false
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -1601,25 +1646,57 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
 text = "Arena mode
 "
 
+[node name="ResetGame" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+text = "Reset Game"
+
 [node name="Credits" type="ScrollContainer" parent="GalleryPanel"]
 layout_mode = 0
-offset_left = 478.812
-offset_top = 80.3207
-offset_right = 926.812
-offset_bottom = 786.321
+offset_left = 479.0
+offset_top = 80.0
+offset_right = 975.0
+offset_bottom = 812.0
 rotation = -0.0633063
-theme_override_styles/panel = SubResource("StyleBoxFlat_f335g")
+focus_mode = 2
+theme = SubResource("Theme_6ne1i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2tth4")
 follow_focus = true
+scroll_horizontal = -24
+scroll_vertical = -24
+script = ExtResource("19_e5lo7")
+wheel_scroll_damper = SubResource("Resource_5qw8o")
+dragging_scroll_damper = SubResource("Resource_2tth4")
+allow_horizontal_scroll = false
+hide_scrollbar_over_time = true
+scrollbar_hide_time = 2.0
+metadata/_custom_type_script = "uid://deu6hmqfb1g2a"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 1
+mouse_filter = 1
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("24_41402")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
-text = "Created by Iris Hormoviti (RaiDev)
+text = "
+Created by Iris Hormoviti (RaiDev)
 All rights reserved
 
 This prototype build was made completly solo.
@@ -1633,7 +1710,9 @@ Plugins used:
 - SmoothScroll by SpyrexDE
 - Aseprite Wizard by Vinicius Gerevini
 - MouseCoordinates (Forked) by CrayonApe
-- Scene Tree Sorter (Forked) by phinix-dev"
+- Scene Tree Sorter (Forked) by phinix-dev
+
+"
 fit_content = true
 
 [node name="ManualPanel" type="Panel" parent="."]
@@ -1873,10 +1952,11 @@ clip_contents = false
 layout_mode = 0
 offset_left = 18.0
 offset_top = 100.0
-offset_right = 603.0
+offset_right = 597.0
 offset_bottom = 770.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_t6ahs")
 follow_focus = true
 script = ExtResource("19_e5lo7")
 wheel_scroll_damper = SubResource("Resource_x8tqq")
@@ -1884,6 +1964,7 @@ dragging_scroll_damper = SubResource("Resource_rkvv0")
 
 [node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(542, 0)
 layout_mode = 2
 theme_override_constants/separation = 32
 
@@ -2242,6 +2323,9 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="gallery"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="_on_website"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ArenaMode" to="." method="_arena_mode"]
+[connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/ResetGame" to="." method="gallery"]
+[connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/ResetGame" to="." method="_on_reset"]
+[connection signal="gui_input" from="GalleryPanel/Credits" to="." method="_on_credit_scroll"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_select"]

@@ -118,9 +118,14 @@ func _check_party():
 func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
-	elif (Input.is_action_just_pressed("Options") and Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
+	elif (Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
 	and "Idle" in Global.Player.used_sprite.animation):
-		Global.options()
+		if Input.is_action_just_pressed("Options"):
+			Global.options(0)
+		if Input.is_action_just_pressed("SaveManagment"):
+			Global.options(1)
+		if Input.is_action_just_pressed("Manual"):
+			Global.options(3)
 	if Input.is_action_just_pressed(Global.cancel()):
 		back()
 	#if Input.is_action_just_pressed("ui_accept") and MemberChoosing:

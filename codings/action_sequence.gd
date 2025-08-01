@@ -161,13 +161,13 @@ func handle_states():
 					chara.NextAction = "Attack"
 					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
 					await Bt.shake_actor(chara)
-	for i in range(chara.States.size() -1, -1, -1):
-		var state = chara.States[i]
-		if state.QueueRemove:
-			chara.remove_state(state)
-	if chara.States.is_empty(): chara.node.get_node("State").play("None")
+	Bt.remove_queued_states(chara)
 	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
+
+func end_turn_checks():
+	var chara = CurrentChar
+	Bt.remove_queued_states(chara)
 
 #region Attacks
 func AttackMira(target: Actor):
@@ -561,6 +561,15 @@ func AttackUp3(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func AttackUpNext(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target)
+	await Bt.stat_change(&"Atk", Bt.CurrentAbility.Parameter, target, -2)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
 func MagicUp3(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -872,9 +881,9 @@ func FirstBattle1():
 	Loader.InBattle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
-	$"../BattleUI/Ability".disabled = true
-	$"../BattleUI/Command".disabled = true
-	$"../BattleUI/Item".disabled = true
+	$"../BattleUI".ability_disabled = true
+	$"../BattleUI".command_disabled = true
+	$"../BattleUI".item_disabled = true
 	$"../EnemyUI".all_enemy_ui()
 	$"../EnemyUI/AllEnemies".show()
 	Event.flag_progress("FirstBattle", 3)
@@ -924,8 +933,8 @@ func FirstBattle2(target: Actor):
 	target.Abilities[0].disabled = true
 	target.DontIdle = false
 	Bt.anim("", target)
-	$"../BattleUI/Ability".disabled = false
-	$"../BattleUI/Attack".disabled = true
+	$"../BattleUI".ability_disabled = false
+	$"../BattleUI".attack_disabled = true
 	CurrentChar.IgnoreStates = true
 	await Event.wait(2)
 	Event.pop_tutorial("ability")
@@ -945,7 +954,7 @@ func FirstBattle3():
 	Event.pop_tutorial("aura2")
 
 func FirstBattle4():
-	$"../BattleUI/Attack".disabled = false
+	$"../BattleUI".attack_disabled = false
 	Bt.get_actor("Mira").Aura = max(7, Bt.get_actor("Mira").Aura)
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura3")
