@@ -44,18 +44,19 @@ func _physics_process(_delta: float) -> void:
 		makepath()
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
+		var player_dist = to_local(Global.Player.position).length()
 		if Loader.chased:
 			$CollisionShape2D.disabled = true
 		if player_jumped:
-			if to_local(Global.Player.position).length() > distance+80:
+			if player_dist > distance+80:
 				jump_to_player()
 				player_jumped = false
-			elif to_local(Global.Player.position).length() < distance:
+			elif player_dist < distance:
 				player_jumped = false
 		else:
-			if to_local(Global.Player.position).length() > 180:
+			if player_dist > 180:
 				jump_to_player()
-			if to_local(Global.Player.position).length() > distance:
+			if (player_dist > distance and moving) or (player_dist > distance+20):
 				$CollisionShape2D.disabled = false
 				if nav_agent.is_target_reachable():
 					direction = to_local(nav_agent.get_next_path_position()).normalized()
@@ -63,14 +64,14 @@ func _physics_process(_delta: float) -> void:
 					direction = to_local(target).normalized()
 				move_and_slide()
 				velocity = speed * direction
-				speed = min(max(10, to_local(Global.Player.position).length() - distance)*3, Global.Player.speed)
-			elif to_local(Global.Player.position).length() < 12 and Global.Controllable:
+				speed = min(max(10, player_dist - distance)*3, Global.Player.speed)
+			elif player_dist < 12 and Global.Controllable:
 				animate()
 				oposite = (Global.get_direction() * Vector2(-1,-1))
 				velocity = oposite * 150
 				move_and_slide()
 		if (global_position-oldposition).length() > 0.3:
-			moving =true
+			moving = true
 			RealVelocity=global_position-oldposition
 		else:
 			moving =false

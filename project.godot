@@ -13,7 +13,7 @@ config_version=5
 config/name="Mira's Journal"
 config/description="A prototype JRPG game
 Created by RaiDev"
-config/version="0.0.6"
+config/version="0.0.7"
 run/main_scene="res://codings/Initializer.tscn"
 run/enable_alt_space_menu=true
 config/use_custom_user_dir=true
@@ -73,7 +73,7 @@ editor/wrap_long_lines=true
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
-window/size/initial_position_type=2
+window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
 
 [editor]
@@ -450,8 +450,6 @@ locale/translations_pot_files=PackedStringArray("res://database/Text/testbush.di
 [physics]
 
 2d/run_on_separate_thread=true
-common/physics_ticks_per_second=30
-common/physics_jitter_fix=0.0
 3d/physics_engine="Dummy"
 2d/default_gravity=0.0
 common/physics_interpolation=true

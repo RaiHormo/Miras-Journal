@@ -518,6 +518,7 @@ events = [SubResource("InputEventAction_p5u4y")]
 
 [node name="Options" type="CanvasLayer"]
 process_mode = 3
+physics_interpolation_mode = 2
 layer = 3
 script = ExtResource("1_k6uh5")
 Tutorials = Array[String](["#Introduction
@@ -781,6 +782,7 @@ offset_bottom = 855.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
+scroll_vertical = 610
 script = ExtResource("19_e5lo7")
 wheel_scroll_damper = SubResource("Resource_x8tqq")
 dragging_scroll_damper = SubResource("Resource_rkvv0")
@@ -1095,6 +1097,36 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
+[node name="UpscaledResolution" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Upscaled Resolution"
+
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+button_pressed = true
+alignment = 2
+
+[node name="UpscaledText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
+theme_override_font_sizes/font_size = 32
+text = "Renders the game in the window's full 
+resolution. When off, the game will be 
+rendered at 1280x800."
+
 [node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1120,8 +1152,8 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
 theme_override_font_sizes/font_size = 32
-text = "Useful beyond 1080p resolution.
-Uses more memory."
+text = "Artwork is shown at the originally drawn 
+resolution. Higher memory usage."
 
 [node name="FPS" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
@@ -1605,6 +1637,7 @@ Plugins used:
 fit_content = true
 
 [node name="ManualPanel" type="Panel" parent="."]
+visible = false
 clip_children = 2
 offset_left = 1335.38
 offset_top = -91.0
@@ -2177,6 +2210,7 @@ texture = ExtResource("26_375bk")
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="_on_control_scheme"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ControlScheme/MenuBar" to="." method="confirm"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/Fullscreen/CheckButton" to="." method="_on_fullscreen"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution/CheckButton" to="." method="_on_upscaledres"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/HighResTextures/CheckButton" to="." method="_on_highres_textures"]
 [connection signal="item_focused" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="cursor"]
 [connection signal="item_selected" from="SidePanel/ScrollContainer/SettingsVbox/FPS/MenuBar" to="." method="_fps"]

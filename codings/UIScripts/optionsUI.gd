@@ -302,6 +302,7 @@ func _on_focus_changed(control:Control):
 
 func load_settings():
 	Global.save_settings()
+	Global.apply_settings()
 	%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
 	%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 	%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
@@ -319,6 +320,7 @@ func load_settings():
 	%SettingsVbox/GlowEffect/CheckButton.button_pressed = Global.Settings.GlowEffect
 	%SettingsVbox/HighResTextures/CheckButton.button_pressed = Global.Settings.HighResTextures
 	%SettingsVbox/TextSpeed/MenuBar.selected = Global.Settings.TextSpeed
+	%SettingsVbox/UpscaledResolution/CheckButton.button_pressed = Global.Settings.UpscaledRes
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -724,3 +726,9 @@ func _manual_entry_select() -> void:
 		return
 	text = text.replace("#"+entry, "[b]"+focus.text+"[/b]")
 	$ManualPanel/Text/RichTextLabel.text = text
+
+
+func _on_upscaledres(toggled_on: bool) -> void:
+	Global.Settings.UpscaledRes = toggled_on
+	confirm()
+	load_settings()

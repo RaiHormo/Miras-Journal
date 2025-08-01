@@ -370,6 +370,10 @@ func apply_settings():
 	if Settings.GlowEffect:
 		World.environment.glow_enabled = true
 	else: World.environment.glow_enabled = false
+	if Settings.UpscaledRes:
+		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	else:
+		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
 	AudioServer.set_bus_volume_db(2, Settings.EnvSFXVolume)

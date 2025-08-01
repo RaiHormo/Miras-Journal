@@ -83,7 +83,7 @@ func _ready():
 	$Back.icon = Global.get_controller().CancelIcon
 	$Inventory.hide()
 	#$Rail.hide()
-	$Base.play("Open")
+	$AnimationPlayer.play("open")
 	rootIndex=1
 	move_root()
 	show()
@@ -91,7 +91,7 @@ func _ready():
 	#player.reset_speed()
 	#player.bag_anim()
 	stage = "root"
-	await $Base.animation_finished
+	await $AnimationPlayer.animation_finished
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -142,7 +142,8 @@ func _on_focus_changed(control:Control):
 	PrevCtrl = control
 
 func close(give_control=true):
-	$Base.play("Close")
+	$AnimationPlayer.speed_scale = 2
+	$AnimationPlayer.play_backwards("open")
 	stage = "inactive"
 	get_tree().paused = false
 	if t: t.kill()
@@ -199,15 +200,20 @@ func move_root():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	t.tween_property($Rail, "position", $Rail.position, 0)
+	if rootIndex > prevRootIndex: 
+		$AnimationPlayer.stop(true)
+		$AnimationPlayer.play("tick_down")
+	elif rootIndex < prevRootIndex: 
+		$AnimationPlayer.stop(true)
+		$AnimationPlayer.play("tick_up")
+		t.set_trans(Tween.TRANS_BACK)
 	if rootIndex==0:
 		if $Rail/JournalFollow/JournalButton.disabled:
 			Global.buzzer_sound()
 			rootIndex = 1
 			move_root()
 			return
-		if prevRootIndex == 1:
-			t.set_trans(Tween.TRANS_BACK)
-			$Base.play("ItemJournal")
+		t.tween_property($Base/Clip, "rotation_degrees", 19.5, 0.3)
 		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1.2,1.2), 0.3)
 		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
@@ -221,11 +227,8 @@ func move_root():
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 25, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 35, 0.3)
 	if rootIndex==1:
-		if prevRootIndex == 0:
-			$Base.play("JournalItem")
-		if prevRootIndex == 2:
-			$Base.play("QuestItem")
-			t.set_trans(Tween.TRANS_BACK)
+		if prevRootIndex != 1:
+			t.tween_property($Base/Clip, "rotation_degrees", 0, 0.3)
 		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1.2,1.2), 0.3)
 		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
@@ -239,21 +242,7 @@ func move_root():
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 15, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 25, 0.3)
 	if rootIndex==2:
-		if prevRootIndex == 1:
-			if $Rail/QuestFollow/QuestButton.disabled:
-				rootIndex = 3
-				prevRootIndex = 2
-				move_root()
-				return
-			$Base.play("ItemQuest")
-		if prevRootIndex == 3:
-			if $Rail/QuestFollow/QuestButton.disabled:
-				rootIndex = 1
-				prevRootIndex = 2
-				move_root()
-				return
-			$Base.play("OptionsQuest")
-			t.set_trans(Tween.TRANS_BACK)
+		t.tween_property($Base/Clip, "rotation_degrees", -19, 0.3)
 		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1.2,1.2), 0.3)
@@ -267,8 +256,7 @@ func move_root():
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 0, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 15, 0.3)
 	if rootIndex==3:
-		if prevRootIndex == 2:
-			$Base.play("QuestOptions")
+		t.tween_property($Base/Clip, "rotation_degrees", -39, 0.3)
 		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
 		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
@@ -281,6 +269,8 @@ func move_root():
 		t.tween_property($Rail/ItemFollow, "rotation_degrees", -25, 0.3)
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", -10, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 5, 0.3)
+	await t.finished
+	prevRootIndex = rootIndex
 
 func _root():
 	show()
