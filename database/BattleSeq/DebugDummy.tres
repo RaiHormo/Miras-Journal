@@ -42,6 +42,7 @@ AdditionalItems = Array[ExtResource("1_djiyi")]([])
 BattleBack = ExtResource("1_03qle")
 Transition = true
 Detransition = false
+ReturnControl = true
 EscPosition = Vector2i(0, 0)
 PositionSameAsPlayer = false
 ScenePosition = Vector2(0, 0)

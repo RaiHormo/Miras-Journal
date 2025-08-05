@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://cwp57sgr8rbwo"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://cwp57sgr8rbwo"]
 
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_ji43p"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_xk7u8"]
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="2_g2uxp"]
 [ext_resource type="SpriteFrames" uid="uid://b2x5q6v6p786q" path="res://art/BT/Dummy/DummyBT.tres" id="2_ioagn"]
+[ext_resource type="Resource" uid="uid://dmhsvhd1lkkue" path="res://database/Abilities/Summon.tres" id="2_s38ka"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="3_nn5al"]
 [ext_resource type="Resource" uid="uid://gnxloqwh4cjy" path="res://database/Abilities/Attacks/Nothing.tres" id="4_o7feg"]
+[ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="8_s38ka"]
 
 [resource]
 script = ExtResource("1_xk7u8")
@@ -15,17 +18,17 @@ ActorClass = "Unknown"
 codename = &"Actor"
 Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 1
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
 IsEnemy = true
 RecivedSP = 99
-SummonedAllies = Array[ExtResource("1_xk7u8")]([])
+SummonedAllies = Array[ExtResource("1_xk7u8")]([ExtResource("8_s38ka")])
+CustomPosition = Vector2i(0, 0)
 SecondaryColor = Color(0, 0, 0, 1)
 LastName = ""
 Weapon = ""
+PartyPageName = ""
 Controllable = false
+HpOnSLvUp = 25
+ApOnSLvUP = 10
 MaxHP = 200
 MaxAura = 50
 Attack = 1.0
@@ -36,16 +39,21 @@ Health = 0
 Aura = 0
 SkillLevel = 0
 SkillPoints = 0
-SkillPointsFor = Array[int]([])
-Abilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+Abilities = Array[ExtResource("1_ji43p")]([ExtResource("2_s38ka")])
 StandardAttack = ExtResource("4_o7feg")
-LearnableAbilities = Array[Resource("res://codings/Classes/ability.gd")]([])
+LearnableAbilities = Array[ExtResource("1_ji43p")]([])
 BT = ExtResource("2_ioagn")
 Offset = Vector2(3, -6)
 Shadow = false
+ShadowOffset = 0
 SoundSet = ExtResource("3_nn5al")
 Disappear = true
 GlowDef = 0.0
 GlowSpecial = 0.0
 GlowAnims = Array[String]([])
 DontIdle = false
+ClutchDmg = false
+SeqOnClutch = ""
+CantDie = false
+IgnoreStates = false
+CantDodge = false

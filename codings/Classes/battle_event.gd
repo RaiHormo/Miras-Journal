@@ -58,6 +58,8 @@ func run() -> void:
 			3:
 				Global.Bt.get_actor(actor).NextAction = parameter1
 				Global.Bt.get_actor(actor).NextMove = resource
+				if not parameter2.is_empty():
+					Global.Bt.get_actor(actor).NextTarget = Global.Bt.get_actor(parameter2)
 			4: Global.Bt.victory()
 	if add_flag: Event.f(flag, !flag_should_be)
 

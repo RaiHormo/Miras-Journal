@@ -14,34 +14,31 @@ func all_enemy_ui(from:= false):
 	Troop = get_parent().Troop
 	$AllEnemies.show()
 	if from:
-		var tw = create_tween()
-		tw.set_trans(Tween.TRANS_QUART)
-		tw.set_ease(Tween.EASE_OUT)
-		tw.tween_property($AllEnemies, "position:x", 1081, 0.2).from(1300)
-	if Troop.size() < $AllEnemies.get_child_count():
-		$AllEnemies.get_child($AllEnemies.get_child_count()-1).free()
-		all_enemy_ui()
-		return
-	$EnemyFocus.hide()
+		$AllEnemies.position.x = 1300
+	var tw = create_tween()
+	tw.set_trans(Tween.TRANS_QUART)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property($AllEnemies, "position:x", 1081, 0.2)
 	for enemy in Troop:
-		var panel: Panel
-		if get_node_or_null("AllEnemies/Enemy" + str(Troop.find(enemy))):
-			panel = get_node("AllEnemies/Enemy" + str(Troop.find(enemy)))
-		else:
-			panel = $AllEnemies/Enemy0.duplicate()
-			panel.name = "Enemy" + str(Troop.find(enemy))
-			$AllEnemies.add_child(panel)
-		make_box(enemy, panel)
-		panel.show()
-		if panel.position.x != 0:
-			t = create_tween()
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property(panel, "position:x", 0, 0.2)
-			await Event.wait(0.05)
+		if is_instance_valid(enemy):
+			find_box(enemy)
+	$EnemyFocus.hide()
+	$AllEnemies.move_child($AllEnemies/OtherEnemies, -1)
+	for panel in $AllEnemies.get_children():
+		if panel.has_meta("enemy") and is_instance_valid(panel.get_meta("enemy")):
+			panel.show()
+		elif panel.name != "OtherEnemies": panel.hide()
+	
+	for panel in $AllEnemies/OtherEnemies/Margin/VBox.get_children():
+		if (panel.has_meta("enemy") and 
+		is_instance_valid(panel.get_meta("enemy")) and 
+		panel.get_meta("enemy").Health > 0):
+			panel.show()
+		else: 
+			panel.hide()
+	
 	if Troop.size() != 0:
-		CurEnemy= Troop[0]
-		make_box(Troop[0], $AllEnemies/Enemy0)
+		CurEnemy = Troop[0]
 		make_box(Troop[0], $EnemyFocus)
 		_check_party()
 
@@ -56,16 +53,37 @@ func _on_battle_ui_target_foc(cur: Actor):
 	$EnemyFocus/Health.max_value = cur.MaxHP
 	$EnemyFocus/Aura.value = cur.Aura
 	$EnemyFocus/Aura.max_value = cur.MaxAura
-	$EnemyFocus/Icon.texture = cur.PartyIcon
 	$EnemyFocus/Health/HpText.add_theme_color_override("font_outline_color", CurEnemy.MainColor)
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
+
+func find_box(enemy: Actor):
+	if enemy.HealthBar:
+		for i in $AllEnemies.get_children():
+			if i.has_meta("enemy") and i.get_meta("enemy") == enemy:
+				return i
+		#Didn't find one, make one instead
+		var panel = $AllEnemies/Temp.duplicate()
+		panel.name = "Enemy" + str(Troop.find(enemy))
+		$AllEnemies.add_child(panel)
+		make_box(enemy, panel)
+		return panel
+	else:
+		for i in $AllEnemies/OtherEnemies/Margin/VBox.get_children():
+			if i.has_meta("enemy") and i.get_meta("enemy") == enemy:
+				return i
+			#Didn't find one, make one instead
+		var panel = $AllEnemies/OtherEnemies/Margin/VBox/Temp.duplicate()
+		panel.name = "Enemy" + str(Troop.find(enemy))
+		$AllEnemies/OtherEnemies/Margin/VBox.add_child(panel)
+		make_box(enemy, panel)
+		return panel
 
 func _check_party():
 	PartyUI._check_party()
 	Troop = get_parent().Troop
 	if t: t.stop()
 	for i in Troop:
-		check_panel(i, get_node_or_null("AllEnemies/Enemy" + str(Troop.find(i))))
+		check_panel(i, find_box(i))
 	$EnemyFocus/Name.text = CurEnemy.FirstName
 	for i in $EnemyFocus/States.get_children():
 		if i.name != "State": i.queue_free()
@@ -96,10 +114,10 @@ func _check_party():
 		$EnemyFocus/Health.value = CurEnemy.Health
 		$EnemyFocus/Aura.value = CurEnemy.Aura
 	$EnemyFocus/Icon.texture = CurEnemy.PartyIcon
-	if Troop.size() != 0:
-		make_box(Troop[0], $AllEnemies/Enemy0)
+	#if Troop.size() != 0:
+		#make_box(Troop[0], $AllEnemies/Enemy0)
 
-func check_panel(chara: Actor, panel: Panel):
+func check_panel(chara: Actor, panel: Control):
 	if panel == null: return
 	if chara.FirstName.length() > 16: panel.get_node("Name").add_theme_font_size_override("font_size", 12)
 	elif chara.FirstName.length() > 12	: panel.get_node("Name").add_theme_font_size_override("font_size", 14)
@@ -116,23 +134,23 @@ func check_panel(chara: Actor, panel: Panel):
 		panel.get_node("Aura").max_value = chara.MaxAura
 
 func _on_battle_ui_ability():
-	colapse_root()
+	if $"../BattleUI/DescPaper/ShowWheel/Wheel".visible:
+		colapse_root()
 	$EnemyFocus.hide()
 
 func colapse_root():
 	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_BACK)
-	for i in $AllEnemies.get_children():
-		t.tween_property(i, "position", Vector2(300, 0), 0.5).as_relative()
+	t.tween_property($AllEnemies, "position:x", 1300, 0.1)
 
 #func _process(delta):
 #	if get_parent().Action:
 #		_check_party()
 #	pass
 
-func make_box(en:Actor, node:Panel):
+func make_box(en:Actor, node:Control):
+	#node.show()
+	node.set_meta("enemy", en)
+	node.get_node("Icon").texture = en.PartyIcon
 	var hbox = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = en.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
@@ -143,12 +161,13 @@ func make_box(en:Actor, node:Panel):
 			en.SecondaryColor.h += 0.83
 		abox.bg_color = en.SecondaryColor
 		node.get_node("Aura").add_theme_stylebox_override("fill", abox.duplicate())
-	var bord1:StyleBoxFlat = node.get_node("Border1").get_theme_stylebox("panel")
-	bord1.border_color = en.MainColor
-	node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
-	var bord2:StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
-	bord2.border_color = Color.from_hsv(en.MainColor.h, en.MainColor.s - 0.2, max(0.3, en.MainColor.v - 0.5), 1)
-	node.get_node("Border1/Border2").add_theme_stylebox_override("panel", bord2.duplicate())
-	var bord3:StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
-	bord3.border_color = Color.from_hsv(en.MainColor.h, en.MainColor.s - 0.3, max(0.2 ,en.MainColor.v - 0.7), 1)
-	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
+	if node.has_node("Border1"):
+		var bord1:StyleBoxFlat = node.get_node("Border1").get_theme_stylebox("panel")
+		bord1.border_color = en.MainColor
+		node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
+		var bord2:StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
+		bord2.border_color = Color.from_hsv(en.MainColor.h, en.MainColor.s - 0.2, max(0.3, en.MainColor.v - 0.5), 1)
+		node.get_node("Border1/Border2").add_theme_stylebox_override("panel", bord2.duplicate())
+		var bord3:StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
+		bord3.border_color = Color.from_hsv(en.MainColor.h, en.MainColor.s - 0.3, max(0.2 ,en.MainColor.v - 0.7), 1)
+		node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())

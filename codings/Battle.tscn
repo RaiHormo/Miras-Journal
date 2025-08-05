@@ -1,4 +1,4 @@
-[gd_scene load_steps=277 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=279 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -51,6 +51,7 @@
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="43_0t5yi"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="44_v5pth"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="45_lj4u5"]
+[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="50_ml8ja"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_wsnu2")
@@ -1755,6 +1756,14 @@ expand_margin_bottom = 8.0
 Panel/styles/panel = SubResource("StyleBoxFlat_wxkm0")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_g77ug")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwtm7"]
+bg_color = Color(0.129559, 0.129558, 0.129558, 1)
+border_color = Color(0.803922, 0.784314, 0.894118, 1)
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_top = 18.0
+
 [sub_resource type="FontVariation" id="FontVariation_g3phn"]
 base_font = ExtResource("33_jy6my")
 
@@ -3263,6 +3272,7 @@ layer = 2
 script = ExtResource("42_kdm6a")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI"]
+visible = false
 texture_filter = 2
 offset_left = 947.0
 offset_top = 30.0
@@ -3375,16 +3385,17 @@ offset_top = 18.0
 offset_right = 1233.0
 offset_bottom = 103.0
 scale = Vector2(1.5, 1.5)
-theme_override_constants/separation = 19
+theme_override_constants/separation = 18
 
-[node name="Enemy0" type="Panel" parent="EnemyUI/AllEnemies"]
+[node name="Temp" type="Panel" parent="EnemyUI/AllEnemies"]
+visible = false
 texture_filter = 2
 custom_minimum_size = Vector2(130, 76)
 layout_direction = 1
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
 
-[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/Enemy0"]
+[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/Temp"]
 z_index = 1
 layout_mode = 2
 offset_left = 15.0
@@ -3397,7 +3408,7 @@ rounded = true
 allow_greater = true
 show_percentage = false
 
-[node name="Name" type="Label" parent="EnemyUI/AllEnemies/Enemy0"]
+[node name="Name" type="Label" parent="EnemyUI/AllEnemies/Temp"]
 layout_mode = 2
 offset_left = 10.3333
 offset_top = 17.7955
@@ -3409,7 +3420,15 @@ text = "White"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Border1" type="PanelContainer" parent="EnemyUI/AllEnemies/Enemy0"]
+[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/Temp"]
+visible = false
+custom_minimum_size = Vector2(40, 0)
+offset_right = 40.0
+texture = ExtResource("50_ml8ja")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Border1" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp"]
 layout_mode = 0
 offset_left = -11.0
 offset_top = -3.98671
@@ -3417,15 +3436,63 @@ offset_right = 174.0
 offset_bottom = 84.0133
 theme = SubResource("Theme_jepgw")
 
-[node name="Border2" type="PanelContainer" parent="EnemyUI/AllEnemies/Enemy0/Border1"]
+[node name="Border2" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1"]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_t73mt")
 
-[node name="Border3" type="PanelContainer" parent="EnemyUI/AllEnemies/Enemy0/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1/Border2"]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fkhdn")
+
+[node name="OtherEnemies" type="PanelContainer" parent="EnemyUI/AllEnemies"]
+show_behind_parent = true
+texture_filter = 2
+custom_minimum_size = Vector2(130, 0)
+layout_direction = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwtm7")
+
+[node name="Margin" type="MarginContainer" parent="EnemyUI/AllEnemies/OtherEnemies"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin"]
+layout_mode = 2
+
+[node name="Temp" type="HBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("50_ml8ja")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+z_index = 1
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = SubResource("Theme_bvcno")
+value = 75.0
+rounded = true
+allow_greater = true
+show_percentage = false
+
+[node name="Name" type="Label" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_font_sizes/font_size = 20
+text = "White"
+horizontal_alignment = 1
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 
@@ -3844,7 +3911,6 @@ vertical_alignment = 1
 [connection signal="attack" from="BattleUI" to="BattleUI" method="_on_attack"]
 [connection signal="command" from="BattleUI" to="." method="_on_battle_ui_command"]
 [connection signal="command" from="BattleUI" to="BattleUI" method="_on_command"]
-[connection signal="command" from="BattleUI" to="EnemyUI" method="_on_battle_ui_ability"]
 [connection signal="item" from="BattleUI" to="." method="_on_battle_ui_item"]
 [connection signal="item" from="BattleUI" to="BattleUI" method="_on_item"]
 [connection signal="root" from="BattleUI" to="." method="_on_battle_ui_root"]

@@ -47,9 +47,8 @@ func _ready():
 	Seq = Loader.Seq.duplicate()
 	Seq.reset_events(true)
 	Party = Global.Party
-	for i in Seq.Enemies.size():
-		Seq.Enemies[i-1] = Seq.Enemies[i-1].duplicate(true)
-	Troop = Seq.Enemies
+	for i in Seq.Enemies:
+		Troop.append(i.duplicate())
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
 	PartyArray.push_back(Party.Leader)
@@ -70,15 +69,17 @@ func _ready():
 	if Global.Area: Global.Area.show()
 	for i in range(1, 4):
 		if Global.check_member(i):
+			var member = Party.array()[i]
 			dub = $Act/Actor0.duplicate()
 			dub.name = "Actor"+ str(i)
 			$Act.add_child(dub)
-			Party.array()[i].node = dub
-			dub.sprite_frames = Party.array()[i].BT
-			TurnOrder.push_front(Party.array()[i])
-			PartyArray.push_back(Party.array()[i])
+			member.node = dub
+			dub.sprite_frames = member.BT
+			TurnOrder.push_front(member)
+			PartyArray.push_back(member)
 			dub.material = dub.material.duplicate()
-			dub.add_child(Party.array()[i].SoundSet.instantiate())
+			dub.add_child(member.SoundSet.instantiate())
+	for i in PartyArray: i.IsEnemy = false
 	for i in Troop.size():
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)
@@ -302,6 +303,7 @@ func _on_next_turn():
 			print("Character is knocked out, skip turn")
 			lock_turn = false
 	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
+	else: $EnemyUI.all_enemy_ui()
 	$Act.handle_states()
 
 func check_for_victory() -> bool:
@@ -1088,6 +1090,8 @@ func add_to_troop(en: Actor):
 	anim(&"Idle", en)
 	en.Health = en.MaxHP
 	en.Aura = en.MaxAura
+	dub.get_node("SFX").queue_free()
+	await Event.wait()
 	dub.add_child(en.SoundSet.instantiate())
 	dub.material.set_shader_parameter("outline_enabled", false)
 	TurnOrder.sort_custom(speed_sort)

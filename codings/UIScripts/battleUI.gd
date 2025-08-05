@@ -17,6 +17,7 @@ signal ability_returned(ab :Ability, tar: Actor)
 signal targeted
 signal targetFoc(ind :Actor)
 signal analyze
+signal rooted
 var target : Actor
 var LastTarget : Actor
 var TargetIndex: int
@@ -168,8 +169,8 @@ func _input(event: InputEvent) -> void:
 	if Global.LastInput==Global.ProcessFrame: return
 	if active:
 		match stage:
-			&"root":
-				if Input.is_action_just_pressed("BtAttack") and not $Attack.disabled:
+			&"root", &"pre_root":
+				if event.is_action("BtAttack") and not $Attack.disabled:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					attack.emit()
 				if Input.is_action_just_pressed("BtCommand") and not $Command.disabled:
@@ -315,8 +316,8 @@ func _on_root():
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
-	stage = &"root"
 	PrevStage = &"root"
+	stage = &"root"
 	PartyUI.battle_state()
 	Bt.get_node("EnemyUI").all_enemy_ui()
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
@@ -374,9 +375,13 @@ func _on_root():
 	$Command.show()
 	$Ability.show()
 	await t.finished
-	$DescPaper.hide()
-	$CommandMenu.hide()
-	$Inventory.hide()
+	#stage = &"root"
+	if stage == "root":
+		$DescPaper.hide()
+		$CommandMenu.hide()
+		$Inventory.hide()
+	rooted.emit()
+	
 
 func _on_attack():
 	Global.confirm_sound()
@@ -472,11 +477,16 @@ func _on_ability():
 func _on_command():
 	stage = &"inactive"
 	PrevStage= &"root"
+	if stage == "pre_root":
+		await rooted
+		print("delay command")
+		command.emit()
+		return
 	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	CurrentChar.NextAction = "command"
-	t.kill()
+	#t.kill()
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -635,7 +645,7 @@ func _on_attack_pressed():
 func _on_item_pressed():
 	item.emit()
 func _on_command_pressed():
-	if stage == &"root": command.emit()
+	if "root" in stage: command.emit()
 
 func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	if faction.is_empty(): 
@@ -958,12 +968,14 @@ func _on_show_wheel_pressed():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	if $DescPaper/ShowWheel/Wheel.visible:
+		$"../EnemyUI".all_enemy_ui()
 		$DescPaper/ShowWheel.text = "Show wheel"
 		t.tween_property($DescPaper/ShowWheel, "position:x", 150, 0.3)
 		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.TRANSPARENT, 0.3)
 		await t.finished
 		$DescPaper/ShowWheel/Wheel.hide()
 	else:
+		$"../EnemyUI".colapse_root()
 		$DescPaper/ShowWheel/Wheel.show()
 		$DescPaper/ShowWheel.text = "Hide"
 		$DescPaper/ShowWheel.size.x = 1

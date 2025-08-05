@@ -18,7 +18,8 @@ class_name Actor
 
 @export_group("Enemy specific")
 ##Used to check if the character is an enemy internally
-@export var IsEnemy: bool = true
+var IsEnemy: bool = true
+@export var HealthBar: bool = false
 ##Material item that the enemy drops at the end of battle
 @export var DroppedItem: MaterialItem = null
 ##Skill Points the party recives for defeating the enemy at the end of battle

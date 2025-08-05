@@ -521,10 +521,10 @@ func Summon(target: Actor):
 		Global.toast("Nobody awnsers the call.")
 		await Event.wait(1)
 	else:
-		Loader.white_fadeout(1, 0.5, 1)
-		await Event.wait(1)
+		Loader.white_fadeout(1, 0.5, 0.5)
+		await Event.wait(0.5)
 		Bt.add_to_troop(CurrentChar.SummonedAllies.pick_random())
-		await Event.wait(2)
+		await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
 
