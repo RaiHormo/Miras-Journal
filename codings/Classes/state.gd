@@ -4,6 +4,7 @@ class_name State
 @export var name: String
 @export_multiline var Description: String
 @export var RemovedOnBattleEnd:= true
+@export var parameter:= 0.0
 ## If not -1, the state will be removed after the specified turns
 @export var turns: int = -1
 @export var icon: Texture

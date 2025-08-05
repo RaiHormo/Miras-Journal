@@ -13,6 +13,7 @@ script = ExtResource("1_kandm")
 name = "Bound"
 Description = "Cannot preform weapon based attacks or escape. Also can't dodge."
 RemovedOnBattleEnd = true
+parameter = 0.0
 turns = 3
 icon = SubResource("AtlasTexture_hvbpe")
 color = Color(0.823529, 0.266667, 0.423529, 1)

@@ -73,9 +73,9 @@ func handle_states():
 				match state.filename:
 					"Guarding", "Protected":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
-					"AttackUp": chara.AttackMultiplier -= 0.5
-					"DefenceUp": chara.DefenceMultiplier -= 0.5
-					"MagicUp": chara.MagicMultiplier -= 0.5
+					"AtkUp": chara.AttackMultiplier -= state.parameter
+					"DefUp": chara.DefenceMultiplier -= state.parameter
+					"MagUp": chara.MagicMultiplier -= state.parameter
 					"AuraOverwrite":
 						chara.MainColor = chara.AuraDefault
 						chara.node.material.set_shader_parameter("outline_enabled", false)
@@ -298,6 +298,10 @@ func AttackAsteria(target: Actor):
 	await $Scarf1.animation_finished
 	$Scarf1.queue_free()
 	Bt.anim()
+	Bt.end_turn()
+
+func Pass(target: Actor):
+	target.add_aura(round(target.MaxAura*0.25))
 	Bt.end_turn()
 
 func TestState(target: Actor):

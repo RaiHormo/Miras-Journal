@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://b1xu46a1gjneu"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_0h2qo"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_fsy24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsy24"]
+resource_local_to_scene = true
+atlas = ExtResource("1_0h2qo")
+region = Rect2(54, 36, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_fsy24")
+name = "Bow To Me"
+description = "Spiritual damage, high chance of confusing all targets."
+Icon = SubResource("AtlasTexture_fsy24")
+ActionSequence = &"SoulTap"
+Type = "Curse"
+Group = ""
+InflictsState = "Confused"
+AuraCost = 20
+HPCost = 0
+disabled = false
+Damage = 2
+Parameter = 0.0
+Target = 2
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = false
+ColorSameAsActor = false
+WheelColor = Color(0.321569, 0.972549, 0.709804, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.85
+RecoverAura = true
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

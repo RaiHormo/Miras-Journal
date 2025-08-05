@@ -1154,16 +1154,16 @@ chara := CurrentChar, turns: int = 3):
 		&"Atk": chara.AttackMultiplier += amount
 		&"Mag": chara.MagicMultiplier += amount
 		&"Def": chara.DefenceMultiplier += amount
-	chara.add_state(stat + updown, turns, CurrentChar)
-	await Event.wait(1.2)
+	var state = await chara.add_state(stat + updown, turns, CurrentChar)
+	state.parameter = amount
 	pop_num(chara, stat_name(stat)
-	+ " x" + str(amount+1), (await Global.get_state(stat + updown)).color)
+	+ " x" + str(amount+1), state.color)
 	print(chara.FirstName, "'  ", stat, " was multiplied by ", str(amount+1))
 
 func stat_name(stat: StringName) -> String:
 	match stat:
 		&"Atk": return "Attack"
-		&"Def": return "Defense"
+		&"Def": return "Defence"
 		&"Mag": return "Magic"
 		_: return "Stat"
 

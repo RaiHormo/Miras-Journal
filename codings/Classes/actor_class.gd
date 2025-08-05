@@ -146,10 +146,11 @@ func set_aura(x):
 	if Aura > MaxAura: Aura = MaxAura
 	Global.check_party.emit()
 
-func add_aura(x):
+func add_aura(x: int):
 	Aura += x
 	if Aura < 0: Aura = 0
 	if Aura > MaxAura: Aura = MaxAura
+	print(FirstName+" gains ", x, " AP")
 	Global.check_party.emit()
 
 func add_SP(x):

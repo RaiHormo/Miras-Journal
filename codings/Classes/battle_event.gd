@@ -13,7 +13,7 @@ class_name  BattleEvent
 ##To be used with [member actor_hp_low]
 @export var low_hp: int = -1
 @export_group("Result")
-@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move") var result = 0
+@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory") var result = 0
 ##Used as text file for dialog, function name for call function, move type for force move
 @export var parameter1: String = ""
 ##Used as node name for dialog
@@ -27,16 +27,21 @@ var ran_this_turn := false
 
 
 func check() -> bool:
+	var actore = Global.Bt.get_actor(actor)
 	if ran_this_turn: return false
 	if not is_instance_valid(Global.Bt): return false
-	if not flag.is_empty() and Event.check_flag(flag) != flag_should_be: return false
+	if not flag.is_empty() and Event.check_flag(flag) != flag_should_be:
+		return false
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
-	if low_hp != -1:
-		if actor == &"" or not is_instance_valid(Global.Bt.get_actor(actor)): 
+	if low_hp != -1 and low_hp > 0:
+		if actor == &"" or actore == null: 
 			push_warning("The event refrences an actor not present")
 			return false
-		if Global.Bt.get_actor(actor).Health > low_hp: return false
+		if actore.Health > low_hp: return false
+	if low_hp ==  0:
+		if actore != null and not actore.has_state("KnockedOut"):
+			return false
 	return true
 
 func run() -> void:
@@ -53,6 +58,7 @@ func run() -> void:
 			3:
 				Global.Bt.get_actor(actor).NextAction = parameter1
 				Global.Bt.get_actor(actor).NextMove = resource
+			4: Global.Bt.victory()
 	if add_flag: Event.f(flag, !flag_should_be)
 
 func run_with_await() -> void:

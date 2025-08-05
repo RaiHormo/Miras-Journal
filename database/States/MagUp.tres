@@ -13,6 +13,7 @@ script = ExtResource("2_fbm4g")
 name = "MagicUp"
 Description = "Magic abilities deal more damage and heal by bigger amounts."
 RemovedOnBattleEnd = true
+parameter = 0.0
 turns = 3
 icon = SubResource("AtlasTexture_ghm4a")
 color = Color(0.352941, 0.407843, 0.87451, 1)

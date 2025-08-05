@@ -33,6 +33,8 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
+		if dialogue_line.text == "(hide)": hide_box()
+		
 		var char_name = tr(dialogue_line.character, "dialogue")
 		while "." in char_name:
 			#print(char_name)
@@ -154,6 +156,11 @@ func next(next_id: String) -> void:
 ### Signals
 
 func _on_close() -> void:
+	await hide_box()
+	Global.textbox_close.emit()
+	if self != null: queue_free()
+
+func hide_box():
 	t=create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
@@ -164,8 +171,6 @@ func _on_close() -> void:
 	await t.finished
 	Portrait.hide()
 	balloon.hide()
-	Global.textbox_close.emit()
-	if self != null: queue_free()
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false

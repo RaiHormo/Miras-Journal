@@ -59,9 +59,9 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 			targets = Ability.T.ONE_ENEMY
 	for i in AblilityList:
 		if i == null: continue
-		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)) and not (
+		if (i.Type == type and (targets == Ability.T.ANY or i.Target == Ability.T.ANY or i.Target == targets)) and not (
 		Char.has_state("Bound") and i.Damage == Ability.D.WEAPON):
-			if (i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health:
+			if (i.AuraCost == 0 or i.AuraCost < Char.Aura) and i.HPCost < Char.Health:
 				Choices.append(i)
 				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
 			else: print("Not enough resources")
@@ -93,7 +93,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 5
+	const n = 6
 	var r: int
 	var tries:= 0
 	while true:
@@ -101,7 +101,7 @@ func pick_general_ability() -> Ability:
 			Bt.death(Char)
 			return null
 		tries += 1
-		if tries > 50:
+		if tries > 99:
 			print("The AI got stuck in an infinite loop")
 			return Char.StandardAttack
 		var atk_chance = 0
@@ -117,10 +117,11 @@ func pick_general_ability() -> Ability:
 						return find_ability("AtkBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			2:
-				if has_type("Defensive") and ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.5) and
+				if has_type("Defensive"):
+					if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.6) and
 				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
 				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")):
-					return find_ability("Defensive").pick_random()
+						return find_ability("Defensive").pick_random()
 			3:
 				if has_type("BigAttack") and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "BigAttack") and Char.Aura > Char.Aura/3:
 					return find_ability("BigAttack").pick_random()
@@ -128,9 +129,17 @@ func pick_general_ability() -> Ability:
 				if has_type("MagBuff") and has_class_in_faction("Mage", Bt.get_ally_faction()):
 					var tar: Actor = get_class_in_faction("Mage", Bt.get_ally_faction()).pick_random()
 					print("Found ", tar.FirstName)
-					if tar.MagicMultiplier == 1 and ((tar == Char and Char.Health > 30) or tar != Char):
+					if tar.MagicMultiplier <= 1 and ((tar == Char and Char.Health > 30) or tar != Char):
 						Char.NextTarget = tar
 						return find_ability("MagBuff").pick_random()
+					print(tar.FirstName, " is a bad target")
+			5:
+				if has_type("DefBuff"):
+					var tar: Actor = Bt.get_ally_faction().pick_random()
+					print("Found ", tar.FirstName)
+					if tar.DefenceMultiplier <= 1:
+						Char.NextTarget = tar
+						return find_ability("DefBuff").pick_random()
 					print(tar.FirstName, " is a bad target")
 			_:
 				if has_type("CheapAttack"):

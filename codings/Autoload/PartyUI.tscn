@@ -771,16 +771,6 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
-[node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1"]
-layout_mode = 0
-offset_left = 81.0
-offset_top = 14.0
-offset_right = 180.0
-offset_bottom = 40.0
-text = "Alcine"
-label_settings = SubResource("LabelSettings_2t2lh")
-vertical_alignment = 1
-
 [node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0
 offset_left = -40.0
@@ -804,6 +794,16 @@ offset_top = 5.0
 offset_right = 274.0
 offset_bottom = 112.0
 theme = SubResource("Theme_6a77a")
+
+[node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 14.0
+offset_right = 180.0
+offset_bottom = 40.0
+text = "Alcine"
+label_settings = SubResource("LabelSettings_2t2lh")
+vertical_alignment = 1
 
 [node name="Level" type="Label" parent="CanvasLayer/Partybox/Member1"]
 layout_mode = 0

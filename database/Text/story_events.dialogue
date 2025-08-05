@@ -459,7 +459,8 @@ Asteria.Neutral: It's one of them..!
 Daze.Neutral: A Guardian...
 Asteria.Neutral: Hey! Why are you using Mira's thing!?
 Mira.Neutral: Heck yeah!
-do Bt.pop_num(Global.Party.Leader, "1")
+(hide)[next]
+do! Bt.pop_num(Global.Party.Leader, "1")
 Mira.Neutral: Ow.
 Mira.Neutral: A little help here?
 => END
