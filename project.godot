@@ -45,6 +45,7 @@ World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
 SteamInput="*res://codings/Autoload/SteamInput.gd"
+AntialiasedLine2DTexture="*res://addons/antialiased_line2d/texture.gd"
 
 [debug]
 
@@ -83,7 +84,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/mouse_coordinates/plugin.cfg", "res://addons/scene-tree-sorter/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg", "res://addons/antialiased_line2d/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/mouse_coordinates/plugin.cfg", "res://addons/scene-tree-sorter/plugin.cfg")
 
 [file_customization]
 

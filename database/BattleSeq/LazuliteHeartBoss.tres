@@ -16,12 +16,12 @@ flag = &""
 flag_should_be = false
 after_turn = -1
 actor = &"LHRight"
-low_hp = 98
+low_hp = 95
 result = 0
 parameter1 = "story_events"
 parameter2 = "lazulite_heart_1"
 hold_turn = true
-add_flag = true
+add_flag = false
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [resource]

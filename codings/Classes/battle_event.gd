@@ -28,11 +28,14 @@ var ran_this_turn := false
 
 func check() -> bool:
 	if ran_this_turn: return false
-	if !Global.Bt: return false
-	if Event.check_flag(flag) != flag_should_be: return false
+	if not is_instance_valid(Global.Bt): return false
+	if not flag.is_empty() and Event.check_flag(flag) != flag_should_be: return false
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
-	if low_hp != -1 and actor != &"" and Global.Bt.get_actor(actor) != null:
+	if low_hp != -1:
+		if actor == &"" or not is_instance_valid(Global.Bt.get_actor(actor)): 
+			push_warning("The event refrences an actor not present")
+			return false
 		if Global.Bt.get_actor(actor).Health > low_hp: return false
 	return true
 

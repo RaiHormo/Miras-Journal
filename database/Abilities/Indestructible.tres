@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://xkuji6v3lk6"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_73lk8"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_fgqpi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73lk8"]
+atlas = ExtResource("1_73lk8")
+region = Rect2(72, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_fgqpi")
+name = "Indestructible"
+description = "Boosts the Magic of an ally by 1.5x for 3 turns."
+Icon = SubResource("AtlasTexture_73lk8")
+ActionSequence = &"DefUp3"
+Type = "DefBuff"
+Group = ""
+InflictsState = "DefenceUp"
+AuraCost = 15
+HPCost = 0
+disabled = false
+Damage = 0
+Parameter = 3.0
+Target = 3
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.243137, 0.917647, 0.454902, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.0
+RecoverAura = false
+DmgVarience = false
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

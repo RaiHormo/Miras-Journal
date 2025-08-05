@@ -579,6 +579,15 @@ func MagicUp3(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func DefenceUp3(target: Actor):
+	Bt.anim("Cast", CurrentChar)
+	Bt.zoom(6)
+	Bt.focus_cam(target)
+	await Bt.stat_change(&"Def", Bt.CurrentAbility.Parameter, target, 3)
+	await Event.wait(1)
+	Bt.anim()
+	Bt.end_turn()
+
 func ToxicSplash(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -657,6 +666,7 @@ func FluidBlast(target: Actor):
 	Bt.end_turn()
 
 func StaticSaber(target: Actor):
+	if not is_instance_valid(target): return
 	Bt.anim("Attack2", CurrentChar)
 	Bt.zoom(6)
 	Bt.focus_cam(target, 1)

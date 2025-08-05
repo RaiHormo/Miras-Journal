@@ -807,7 +807,6 @@ metadata/_edit_group_ = true
 [node name="2-Obj" type="TileMapLayer" parent="."]
 z_index = 1
 y_sort_enabled = true
-texture_filter = 2
 use_parent_material = true
 tile_map_data = PackedByteArray("AAD9//7/AwACAAQAAAAAAP3/AwAIAAcAAAACAP7/AwAMAAcAAAACAAEAAAAOAAQAAAALAAEAAwAIAAQAAAALAAIAAwAIAAUAAAALAAMAAwAIAAYAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
@@ -821,8 +820,8 @@ energy = 0.8
 blend_mode = 1
 texture = SubResource("GradientTexture2D_4ag50")
 script = ExtResource("5_dcjai")
-Colors = Array[Color]([Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1)])
-Energy = Array[float]([0.8, 0.3, 0.5, 0.8, 1.0])
+Colors = Array[Color]([Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0.803922, 0.690196, 1), Color(0.748549, 0.856322, 0.480513, 1)])
+Energy = Array[float]([0.8, 0.3, 0.5, 0.8, 0.8])
 metadata/_edit_group_ = true
 
 [node name="BreakableGreebOre0" parent="." instance=ExtResource("14_bhjcf")]
