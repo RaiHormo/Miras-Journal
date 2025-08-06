@@ -199,11 +199,6 @@ func _input(event: InputEvent) -> void:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
-					while not Bt.is_valid_target(TargetFaction[TargetIndex], CurrentChar.NextMove):
-						if TargetIndex!=TargetFaction.size() -1:
-							TargetIndex += 1
-						else:
-							TargetIndex = 0
 					Global.cursor_sound()
 					move_menu()
 				if Input.is_action_just_pressed("ui_up") and active:
@@ -886,11 +881,11 @@ func _on_ability_entry():
 			Ability.T.ONE_ALLY:
 				PrevStage="ability"
 				stage = &"target"
-				get_target(Bt.get_ally_faction())
+				get_target(Bt.get_ally_faction(CurrentChar, ab.Type != "Healing"))
 			Ability.T.ANY:
 				PrevStage="ability"
 				stage = &"target"
-				get_target(Bt.get_any_faction())
+				get_target(Bt.get_any_faction(ab.Type != "Healing"))
 			_:
 				emit_signal("ability_returned", ab, CurrentChar)
 				close()

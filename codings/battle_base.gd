@@ -888,6 +888,9 @@ func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*Curren
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
 	PartyUI._check_party()
+	if target.has_state("KnockedOut"):
+		target.remove_state("KnockedOut")
+		target.add_aura(amount)
 	pop_aura(target)
 	pop_num(target, "+"+str(amount))
 
