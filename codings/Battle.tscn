@@ -959,7 +959,7 @@ shader_parameter/circle_size = 0.725
 shader_parameter/circle_thickness = 0.013
 shader_parameter/sine_freq = 20.0
 shader_parameter/sine_amp = 0.03
-shader_parameter/sine_phase = 0.3
+shader_parameter/sine_phase = -0.3
 
 [sub_resource type="Gradient" id="Gradient_pbqtd"]
 offsets = PackedFloat32Array(0)
@@ -3423,6 +3423,7 @@ autowrap_mode = 2
 [node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/Temp"]
 visible = false
 custom_minimum_size = Vector2(40, 0)
+layout_mode = 0
 offset_right = 40.0
 texture = ExtResource("50_ml8ja")
 expand_mode = 1

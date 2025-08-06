@@ -51,7 +51,7 @@ func _ready():
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if stage=="target":
-		$BaseRing/Ring2.rotation -= 0.002
+		$BaseRing/Ring2.rotation += 0.002
 	if CurrentChar and CurrentChar.has_state("Confused"):
 		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
 
@@ -199,7 +199,7 @@ func _input(event: InputEvent) -> void:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
-					while TargetFaction[TargetIndex].has_state("Knocked Out"):
+					while not Bt.is_valid_target(TargetFaction[TargetIndex], CurrentChar.NextMove):
 						if TargetIndex!=TargetFaction.size() -1:
 							TargetIndex += 1
 						else:
@@ -214,11 +214,6 @@ func _input(event: InputEvent) -> void:
 						TargetIndex -= 1
 					else:
 						TargetIndex = TargetFaction.size() -1
-					while TargetFaction[TargetIndex].has_state("Knocked Out"):
-						if TargetIndex!=0:
-							TargetIndex -= 1
-						else:
-							TargetIndex = TargetFaction.size() -1
 					Global.cursor_sound()
 					move_menu()
 			&"ability":
@@ -283,11 +278,6 @@ func _input(event: InputEvent) -> void:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
-					while TargetFaction[TargetIndex].has_state("Knocked Out"):
-						if TargetIndex!=TargetFaction.size() -1:
-							TargetIndex += 1
-						else:
-							TargetIndex = 0
 					Global.cursor_sound()
 					move_menu()
 				if Input.is_action_just_pressed("ui_up") and active:
@@ -299,11 +289,6 @@ func _input(event: InputEvent) -> void:
 					else:
 						TargetIndex = TargetFaction.size() -1
 					Global.cursor_sound()
-					while TargetFaction[TargetIndex].has_state("Knocked Out"):
-						if TargetIndex!=0:
-							TargetIndex -= 1
-						else:
-							TargetIndex = TargetFaction.size() -1
 					move_menu()
 
 func _on_root():
@@ -658,6 +643,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 		close()
 		Bt.victory()
 		return
+	CurrentChar.NextMove = ab
 	active = true
 	stage = &"pre_target"
 	TargetFaction = faction
@@ -734,7 +720,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 		TargetIndex = 0
 	target = LastTarget
 	if (TargetIndex >= faction.size() -1 or
-	faction[TargetIndex].has_state("Knocked Out") or faction[TargetIndex].node == null):
+	Bt.is_valid_target(faction[TargetIndex]) or faction[TargetIndex].node == null):
 		TargetIndex = 0
 	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)

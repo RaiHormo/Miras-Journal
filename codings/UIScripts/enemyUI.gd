@@ -151,6 +151,7 @@ func make_box(en:Actor, node:Control):
 	#node.show()
 	node.set_meta("enemy", en)
 	node.get_node("Icon").texture = en.PartyIcon
+	node.get_node("Icon").modulate = en.MainColor*2
 	var hbox = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = en.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())

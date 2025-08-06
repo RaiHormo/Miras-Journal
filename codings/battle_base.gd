@@ -79,7 +79,11 @@ func _ready():
 			PartyArray.push_back(member)
 			dub.material = dub.material.duplicate()
 			dub.add_child(member.SoundSet.instantiate())
-	for i in PartyArray: i.IsEnemy = false
+	for i in PartyArray: 
+		i.IsEnemy = false
+		if PartyArray.size() == 1 and i == Party.Leader:
+			i.ClutchDmg = true
+		else: i.ClutchDmg = false
 	for i in Troop.size():
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)
@@ -651,6 +655,16 @@ func offsetize(num, target=CurrentChar):
 	else:
 		return num
 
+func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> bool:
+	if ability == null: return true
+	if ability.Target == Ability.T.ONE_ENEMY or ability.Target == Ability.T.AOE_ENEMIES:
+		if target in get_ally_faction(): return false
+	if ability.Target == Ability.T.ONE_ALLY or ability.Target == Ability.T.AOE_ALLIES:
+		if target in get_oposing_faction(): return false
+	if target.has_state("KnockedOut"):
+		if ability.Type != "Healing": return false
+	return true
+
 func pop_num(target:Actor, text, color: Color = Color.WHITE):
 	if is_instance_valid(target) and target.node != null:
 		var number:Label = target.node.get_node("Nums").duplicate()
@@ -771,18 +785,18 @@ func slowmo(timescale = 0.5, time= 1):
 	await Event.wait(time * timescale)
 	Engine.time_scale = 1
 
-func get_ally_faction(act: Actor = CurrentChar) -> Array[Actor]:
+func get_ally_faction(act: Actor = CurrentChar, filter_dead = true) -> Array[Actor]:
 	var rtn: Array[Actor]
 	if act.IsEnemy: rtn = Troop
 	else: rtn = PartyArray
-	rtn = filter_dead(rtn)
+	if filter_dead: rtn = filter_dead(rtn)
 	return rtn
 
-func get_oposing_faction(act: Actor = CurrentChar) -> Array[Actor]:
+func get_oposing_faction(act: Actor = CurrentChar, filter_dead = true) -> Array[Actor]:
 	var rtn: Array[Actor]
 	if act.IsEnemy: rtn = PartyArray
 	else: rtn = Troop
-	rtn = filter_dead(rtn)
+	if filter_dead: rtn = filter_dead(rtn)
 	return rtn
 
 func get_target_faction() -> Array[Actor]:
@@ -791,11 +805,11 @@ func get_target_faction() -> Array[Actor]:
 		Ability.T.AOE_ENEMIES: return get_oposing_faction()
 		_: return [CurrentTarget]
 
-func get_any_faction() -> Array[Actor]:
+func get_any_faction(filter_dead = true) -> Array[Actor]:
 	var rtn: Array[Actor]
 	rtn.append_array(PartyArray)
 	rtn.append_array(Troop)
-	rtn = filter_dead(rtn)
+	if filter_dead: rtn = filter_dead(rtn)
 	return rtn
 
 func hp_sort(a:Actor, b:Actor):
@@ -804,6 +818,7 @@ func hp_sort(a:Actor, b:Actor):
 func anim(animation: String = "", chara: Actor = CurrentChar):
 	if not is_instance_valid(chara):
 		Global.toast("Sequence cannot be played properly")
+		return
 	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
 		else: animation = "Idle"

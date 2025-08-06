@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://bd3g408v78yyv"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_nfi6e"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_rl627"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfi6e"]
+atlas = ExtResource("1_nfi6e")
+region = Rect2(72, 36, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_rl627")
+name = "Zapper"
+description = "Weak Electric damage to a target. High chance to zap the target. Low chance of missing."
+Icon = SubResource("AtlasTexture_nfi6e")
+ActionSequence = &"StaticSaber"
+Type = "Curse"
+Group = ""
+InflictsState = "Zapped"
+AuraCost = 7
+HPCost = 0
+disabled = false
+Damage = 1
+Parameter = 0.0
+Target = 1
+AOE_Stagger = 0.0
+AOE_AdditionalSeq = true
+ColorSameAsActor = false
+WheelColor = Color(0.988235, 0.866667, 0.258824, 1)
+Callout = true
+SucessChance = 1.0
+CritChance = 0.8
+RecoverAura = false
+DmgVarience = false

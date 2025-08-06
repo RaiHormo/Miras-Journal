@@ -14,6 +14,7 @@ name = "Zapped"
 Description = "Might not be able to act for the next turn. 
 More damage from weak hits."
 RemovedOnBattleEnd = true
+parameter = 0.0
 turns = 2
 icon = SubResource("AtlasTexture_6wibv")
 color = Color(0.988235, 0.866667, 0.258824, 1)

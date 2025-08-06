@@ -483,6 +483,8 @@ func check_member(mem:Actor, node:Panel, ind):
 	var character_label = mem.FirstName
 	var txt_color = mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
+	mem.Health = min(mem.Health, mem.MaxHP)
+	mem.Aura = min(mem.Aura, mem.MaxAura)
 	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", txt_color)
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=18 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=17 format=3 uid="uid://dfxf3fj1wgl5q"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_446mq"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_e1lg0"]
@@ -13,7 +13,6 @@
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="6_vwhmd"]
 [ext_resource type="Resource" uid="uid://bc1byaoqk3s1q" path="res://database/Abilities/RagingFire.tres" id="8_27hub"]
-[ext_resource type="Resource" uid="uid://xkuji6v3lk6" path="res://database/Abilities/Indestructible.tres" id="10_a84rm"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/Sets/MiraSoundSet.tscn" id="10_rljiu"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="14_flf11"]
 
@@ -32,7 +31,7 @@ ActorClass = "Attacker"
 codename = &"Mira"
 Pronouns = Array[String](["she", "her", "her", "herself"])
 WeaponPower = 18
-IsEnemy = false
+HealthBar = false
 RecivedSP = null
 SummonedAllies = Array[ExtResource("1_e1lg0")]([ExtResource("14_flf11")])
 CustomPosition = null
@@ -57,7 +56,7 @@ SkillPoints = 0
 SkillCurve = SubResource("Curve_00vn1")
 Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
 StandardAttack = ExtResource("6_pdf3s")
-LearnableAbilities = Array[ExtResource("1_446mq")]([ExtResource("6_enhby"), ExtResource("3_g7gj5"), ExtResource("6_00vn1"), ExtResource("8_27hub"), ExtResource("10_a84rm")])
+LearnableAbilities = Array[ExtResource("1_446mq")]([ExtResource("6_enhby"), ExtResource("3_g7gj5"), ExtResource("6_00vn1"), ExtResource("8_27hub")])
 OV = ExtResource("6_vwhmd")
 BT = ExtResource("1_qv4op")
 Offset = Vector2(0, -15)

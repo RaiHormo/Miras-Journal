@@ -83,6 +83,7 @@ func handle_states():
 						Global.toast(chara.FirstName+" recovers!")
 						Bt.anim("Idle", chara)
 						chara.Health = 10
+						chara.Aura = chara.MaxAura
 				state.QueueRemove = true
 		if not state.QueueRemove:
 			match state.filename:
