@@ -1044,4 +1044,11 @@ func LazuliteHeartBoss1():
 	alcine.NextTarget = Bt.get_actor("LHRight")
 	Bt.no_misses = true
 	Bt.end_turn()
+	
+func LazuliteHeartBoss2():
+	Bt.death(Bt.get_actor("LHLeft"))
+	Bt.death(Bt.get_actor("LHRight"))
+	await Global.passive("story_events", "lazulite_heart_3")
+	Loader.gray_out(1, 0.5, 1, Color.WHITE)
+	Bt.victory(true)
 #endregion

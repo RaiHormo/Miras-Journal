@@ -564,19 +564,19 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1,
 	await tf.finished
 	fader.queue_free()
 
-func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3):
+func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3, color: Color = Color.BLACK):
 	$Can.show()
 	$Can.layer = 9
 	var fader = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
 	fader.position = Vector2(-134,-189)
 	fader.modulate = Color.TRANSPARENT
-	fader.color = Color.BLACK
+	fader.color = color
 	var tf = create_tween()
-	tf.tween_property(fader, "modulate", Color(0,0,0,amount), in_time)
+	tf.tween_property(fader, "modulate:a", amount, in_time)
 	await ungray
 	tf = create_tween()
-	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
+	tf.tween_property(fader, "modulate:a", 0, out_time)
 	await tf.finished
 	fader.queue_free()
 

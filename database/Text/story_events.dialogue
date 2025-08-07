@@ -471,4 +471,28 @@ do! Bt.focus_cam(Global.Party.Leader)
 Mira.Neutral: Thanks {{alcine()}}!
 do! Bt.entrance_anim(Global.Party.Leader)
 set Bt.no_misses = false
+=> END!
+
+~ lazulite_heart_2
+if Party.Member1.has_state("KnockedOut"):
+	do! Party.Member1.remove_state("KnockedOut")
+	do! Party.Member1.add_health("10")
+	do! Party.Member1.add_aura("5")
+Alcine.Neutral: ...!?
+Mira.Neutral: What's wrong?
+Asteria.Neutral: So they can feel it too...
+Daze.Neutral: ?
+do toast(alcine()+ " hesitates.")
+set Party.Member1.NextAction = "Attack"
+set Party.Member1.NextMove = load("res://database/Abilities/Attacks/Nothing.tres")
+=> END!
+
+~ lazulite_heart_3
+Mira.Neutral: We got it!
+Daze.Neutral: Let's finish it off!
+Yaru: wait..!
+Yaru: its link to the realm... it's falling apart...
+Yaru: star, maybe you can...
+(hide)
+Asteria.Neutral: There's no need to be scared anymore. Come to me.
 => END

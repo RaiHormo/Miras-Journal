@@ -662,7 +662,7 @@ func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> 
 	if ability.Target == Ability.T.ONE_ALLY or ability.Target == Ability.T.AOE_ALLIES:
 		if target in get_oposing_faction(): return false
 	if target.has_state("KnockedOut"):
-		if ability.Type != "Healing": return false
+		if !ability.CanTargetDead: return false
 	return true
 
 func pop_num(target:Actor, text, color: Color = Color.WHITE):
@@ -714,6 +714,7 @@ func stop_sound(SoundName: String, act: Actor):
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 func death(target:Actor):
+	if not is_instance_valid(target): return
 	if target == null or target.has_state("KnockedOut"): return
 	lock_turn = true
 	clear_states(target)
@@ -801,7 +802,7 @@ func get_oposing_faction(act: Actor = CurrentChar, filter_dead = true) -> Array[
 
 func get_target_faction() -> Array[Actor]:
 	match CurrentAbility.Target:
-		Ability.T.AOE_ALLIES: return get_ally_faction()
+		Ability.T.AOE_ALLIES: return get_ally_faction(CurrentChar, !CurrentAbility.CanTargetDead)
 		Ability.T.AOE_ENEMIES: return get_oposing_faction()
 		_: return [CurrentTarget]
 
@@ -930,13 +931,10 @@ func end_battle():
 	$Canvas/Continue.hide()
 	await PartyUI.preform_levelups()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
-	for i in Global.Members:
-		if i.AuraDefault != Color.WHITE:
-			i.MainColor = i.AuraDefault
-			i.AuraDefault = Color.WHITE
-		i.Health = max(i.Health, 10)
 	await Loader.end_battle()
 	queue_free()
+
+
 
 func reset_all():
 	for i in TurnOrder:
@@ -945,6 +943,12 @@ func reset_all():
 		i.DefenceMultiplier = 1
 		i.MagicMultiplier = 1
 		i.SpeedBoost = 0
+	for i in Global.Members:
+		if i.AuraDefault != Color.WHITE:
+			i.MainColor = i.AuraDefault
+			i.AuraDefault = Color.WHITE
+		i.Health = max(i.Health, 10)
+		i.Aura = max(i.Aura, 5)
 
 func victory_anim(chara:Actor):
 	$Act.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -1001,6 +1005,7 @@ func victory(ignore_seq:= false):
 		victory_anim(i)
 	check_party.emit()
 	$EnemyUI.colapse_root()
+	reset_all()
 	t.kill()
 	t = create_tween()
 	$Canvas/VictoryText.text = "Victory"

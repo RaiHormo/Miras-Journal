@@ -18,6 +18,7 @@ enum D {NONE, WEAK, MEDIUM, HEAVY, SEVERE, CUSTOM, WEAPON}
 ##0: Self, 1: One enemy, 2: AOE enemies, 3: One ally, 4 AOE allies
 enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 @export var Target: T = T.SELF
+@export var CanTargetDead:= false
 @export var AOE_Stagger: float = 0
 @export var AOE_AdditionalSeq:= true
 

@@ -881,11 +881,11 @@ func _on_ability_entry():
 			Ability.T.ONE_ALLY:
 				PrevStage="ability"
 				stage = &"target"
-				get_target(Bt.get_ally_faction(CurrentChar, ab.Type != "Healing"))
+				get_target(Bt.get_ally_faction(CurrentChar, !ab.CanTargetDead))
 			Ability.T.ANY:
 				PrevStage="ability"
 				stage = &"target"
-				get_target(Bt.get_any_faction(ab.Type != "Healing"))
+				get_target(Bt.get_any_faction(!ab.CanTargetDead))
 			_:
 				emit_signal("ability_returned", ab, CurrentChar)
 				close()
