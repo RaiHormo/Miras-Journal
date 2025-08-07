@@ -217,3 +217,12 @@ func sl_asteria_1():
 	await Global.textbox("sl_asteria", "rank1_1")
 	Event.progress_by_time(1)
 	Event.time_transition()
+
+func sg_bunker_entrance():
+	if Event.f("DefeatedLazuliteHeart"):
+		pass
+	else:
+		await Event.take_control()
+		await Global.Player.bubble("Surprise")
+		await Loader.start_battle("LazuliteHeartBoss")
+		print("done")

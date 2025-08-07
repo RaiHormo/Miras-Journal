@@ -556,5 +556,6 @@ func focus_item(node:Button):
 
 func _on_party_pressed() -> void:
 	if stage == "root":
+		get_viewport().gui_release_focus()
 		PartyUI.expand.emit()
 		stage = "party"

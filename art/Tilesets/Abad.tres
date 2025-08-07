@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://dfrkh3lthh51c"]
+[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://dfrkh3lthh51c"]
 
 [ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/TempleWoodsBuild.png" id="1_xt10d"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/AbadWater.png" id="2_7gdh7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="6_0uc7g"]
 [ext_resource type="Texture2D" uid="uid://bu735drdpamy3" path="res://art/Tilesets/PrysonGround.png" id="6_8dla1"]
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="7_eea3d"]
+[ext_resource type="Texture2D" uid="uid://cx02tfmfv6sxl" path="res://art/Tilesets/BunkerBuild.png" id="9_baio5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5671e"]
 resource_name = "Temple"
@@ -3121,6 +3122,14 @@ texture_region_size = Vector2i(24, 24)
 0:16/0 = 0
 0:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xw0yv"]
+texture = ExtResource("9_baio5")
+texture_region_size = Vector2i(24, 24)
+0:0/size_in_atlas = Vector2i(9, 6)
+0:0/0 = 0
+1:6/size_in_atlas = Vector2i(1, 2)
+1:6/0 = 0
+
 [resource]
 tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
@@ -3162,3 +3171,4 @@ sources/3 = SubResource("TileSetAtlasSource_5khia")
 sources/6 = SubResource("TileSetAtlasSource_vv60i")
 sources/7 = SubResource("TileSetAtlasSource_1dkap")
 sources/5 = SubResource("TileSetAtlasSource_baio5")
+sources/8 = SubResource("TileSetAtlasSource_xw0yv")

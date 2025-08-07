@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=19 format=3 uid="uid://fho6wbsdhxag"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=18 format=3 uid="uid://fho6wbsdhxag"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_c12ys"]
-[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="2_4g4ty"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_q5pv2"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="3_4g4ty"]
 [ext_resource type="Resource" uid="uid://dyqwhhom23j2x" path="res://database/Enemies/LazuliteHeartBody.tres" id="3_q5pv2"]
@@ -75,21 +74,6 @@ hold_turn = false
 add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
-[sub_resource type="Resource" id="Resource_4pxea"]
-script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
-actor = &"LHBody"
-low_hp = 0
-result = 4
-parameter1 = ""
-parameter2 = ""
-hold_turn = false
-add_flag = true
-metadata/_custom_type_script = "uid://cn75n6xjwndk3"
-
 [sub_resource type="Resource" id="Resource_v5s8n"]
 script = ExtResource("3_4g4ty")
 repeatable = false
@@ -121,24 +105,38 @@ hold_turn = true
 add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
+[sub_resource type="Resource" id="Resource_4pxea"]
+script = ExtResource("3_4g4ty")
+repeatable = false
+flag = &""
+flag_should_be = false
+after_turn = -1
+actor = &"LHBody"
+low_hp = 0
+result = 1
+parameter1 = "LazuliteHeartBoss2"
+parameter2 = ""
+hold_turn = true
+add_flag = true
+metadata/_custom_type_script = "uid://cn75n6xjwndk3"
+
 [resource]
 script = ExtResource("4_jfqv0")
 Enemies = Array[ExtResource("2_q5pv2")]([ExtResource("3_q5pv2"), ExtResource("6_fmg4r"), ExtResource("5_0ymhv")])
 AdditionalItems = Array[ExtResource("1_c12ys")]([])
-BattleBack = ExtResource("2_4g4ty")
 Transition = true
 Detransition = false
 ReturnControl = true
 EscPosition = Vector2i(0, 0)
 PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
-CanEscape = true
-DeleteAttacker = true
+ScenePosition = Vector2(300, -1331)
+CanEscape = false
+DeleteAttacker = false
 EntranceSequence = "LazuliteHeartBoss1"
 EntranceBanter = ""
 EntranceBanterIsPassive = false
 VictorySequence = "LazuliteHeartBoss2"
 VictoryBanter = ""
 DefeatSequence = ""
-Events = Array[ExtResource("3_4g4ty")]([SubResource("Resource_0ymhv"), SubResource("Resource_mo6wr"), SubResource("Resource_fmg4r"), SubResource("Resource_x75j7"), SubResource("Resource_4pxea"), SubResource("Resource_v5s8n"), SubResource("Resource_ewt77")])
+Events = Array[ExtResource("3_4g4ty")]([SubResource("Resource_0ymhv"), SubResource("Resource_mo6wr"), SubResource("Resource_fmg4r"), SubResource("Resource_x75j7"), SubResource("Resource_v5s8n"), SubResource("Resource_ewt77"), SubResource("Resource_4pxea")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

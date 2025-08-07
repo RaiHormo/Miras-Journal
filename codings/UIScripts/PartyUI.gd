@@ -686,6 +686,7 @@ func back():
 			Global.Controllable = was_controllable
 			if get_tree().root.has_node("MainMenu"):
 				get_tree().root.get_node("MainMenu").stage = "root"
+				get_tree().root.get_node("MainMenu").move_root()
 
 func close_submenu():
 	Partybox.show()

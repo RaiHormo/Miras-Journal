@@ -454,6 +454,18 @@ else:
 		Asteria.Neutral: Then use the Vain to return to the village already!
 => END
 
+~ sg_find_bunker
+do Player.camera_follow(false)
+set Camera.position += Vector2(0, -120)
+Asteria.Neutral: This is it.
+Mira.Neutral: What's the deal with all the crystals?
+Asteria.Neutral: I think they're all magical constructs. Like those gates we went through.
+Mira.Neutral: How do you know?
+Asteria.Neutral: They melted when no energy was holding them together. Most magical things do that.
+Daze.Neutral: These ones don't seem to be blocking the way though.
+Mira.Neutral: Let's go in then!
+=> END
+
 ~ lazulite_heart_intro
 Asteria.Neutral: It's one of them..!
 Daze.Neutral: A Guardian...
@@ -493,6 +505,7 @@ Daze.Neutral: Let's finish it off!
 Yaru: wait..!
 Yaru: its link to the realm... it's falling apart...
 Yaru: star, maybe you can...
-(hide)
+(hide)[next]
+do Bt.move(Party.Member2, Vector2(0,0), 0.5)
 Asteria.Neutral: There's no need to be scared anymore. Come to me.
 => END

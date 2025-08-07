@@ -744,8 +744,8 @@ z_index = 3
 material = ExtResource("1_srkwi")
 position = Vector2(-0.00622558, -32.0003)
 sprite_frames = ExtResource("11_buww2")
-animation = &"Ellipsis"
-frame = 4
+animation = &"Surprise"
+frame = 14
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

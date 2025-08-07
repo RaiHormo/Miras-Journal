@@ -1050,5 +1050,6 @@ func LazuliteHeartBoss2():
 	Bt.death(Bt.get_actor("LHRight"))
 	await Global.passive("story_events", "lazulite_heart_3")
 	Loader.gray_out(1, 0.5, 1, Color.WHITE)
+	await Event.wait(1)
 	Bt.victory(true)
 #endregion
