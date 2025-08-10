@@ -1,50 +1,13 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=5 format=3 uid="uid://dxr8psmfxx8ve"]
+[gd_resource type="Resource" script_class="TextProfile" load_steps=2 format=3 uid="uid://dxr8psmfxx8ve"]
 
-[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="1_g6kll"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltwut"]
-bg_color = Color(0.501961, 0.694118, 0.533333, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0.498039, 0.768627, 0.768627, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1mot"]
-bg_color = Color(0.501961, 0.694118, 0.533333, 0)
-border_width_left = 9
-border_width_top = 9
-border_width_right = 9
-border_width_bottom = 9
-border_color = Color(0.262745, 0.517647, 0.498039, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yly30"]
-bg_color = Color(0.501961, 0.694118, 0.533333, 0)
-border_width_left = 11
-border_width_top = 9
-border_width_right = 16
-border_width_bottom = 9
-border_color = Color(0.188235, 0.235294, 0.211765, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="1_g6kll"]
 
 [resource]
 script = ExtResource("1_g6kll")
-Border1 = SubResource("StyleBoxFlat_ltwut")
 Bord1 = Color(0.498039, 0.768627, 0.768627, 1)
-Border2 = SubResource("StyleBoxFlat_b1mot")
-Bord2 = Color(0.262745, 0.517647, 0.498039, 1)
-Border3 = SubResource("StyleBoxFlat_yly30")
-Bord3 = Color(0.188235, 0.235294, 0.211765, 1)
+Bord2 = Color(0.178011, 0.648106, 0.595767, 1)
+Bord3 = Color(0.335611, 0.802684, 0.586948, 1)
+Inner = Color(0.877083, 0.997901, 0.928917, 1)
+TextColor = Color(0.0225038, 0.102576, 0.0442805, 1)
 AudioFrequency = 4
 PitchVariance = 0.7

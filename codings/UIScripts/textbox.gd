@@ -77,7 +77,14 @@ var dialogue_line: DialogueLine:
 		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-
+		var inner:StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
+		inner.bg_color = mem.Inner
+		var nametag:StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
+		nametag.bg_color = mem.TextColor
+		$Balloon/Panel.add_theme_stylebox_override("panel", nametag.duplicate())
+		$Balloon/Panel/CharacterLabel.add_theme_color_override("font_color", mem.Inner)
+		$Balloon/Panel2/InputIndicator.modulate = mem.TextColor
+		$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
 		$PictureFrame/Picture.texture = picture
 
 		var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
@@ -383,9 +390,9 @@ func draw_portrait() -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUINT)
-			t.tween_property($Balloon, "position:x", 110, 0.5)
+			t.tween_property($Balloon, "position:x", 160, 0.5)
 			t.tween_property($Portrait, "modulate", Color(1,1,1,1), 0.8).from(Color(0,0,0,0))
-			t.tween_property($Portrait, "position:x", -55, 0.8).from(-200)
+			t.tween_property($Portrait, "position:x", 0, 0.8).from(-200)
 			t.tween_property($Portrait/Shadow, "position", Vector2(-131, 150), 1).from(Vector2(0, 0))
 	else:
 		$Balloon/Arrow.hide()

@@ -451,10 +451,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
 [node name="Arrow" type="Panel" parent="Balloon"]
 layout_mode = 0
-offset_left = 238.0
-offset_top = 621.0
-offset_right = 260.0
-offset_bottom = 654.0
+offset_left = 233.0
+offset_top = 593.0
+offset_right = 265.0
+offset_bottom = 641.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1o1fc")
 
 [node name="Panel2" type="Panel" parent="Balloon"]
@@ -512,9 +512,9 @@ theme = SubResource("Theme_wbt4v")
 
 [node name="Responses" type="VBoxContainer" parent="Balloon"]
 layout_mode = 2
-offset_left = 735.0
+offset_left = 655.0
 offset_top = 36.0
-offset_right = 1147.0
+offset_right = 1067.0
 offset_bottom = 498.0
 pivot_offset = Vector2(409, 118)
 theme_override_constants/separation = 36
@@ -560,9 +560,9 @@ theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="."]
-offset_left = -31.0
+visible = false
 offset_top = 340.0
-offset_right = 2052.0
+offset_right = 2083.0
 offset_bottom = 2423.0
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("8_7ao67")
@@ -604,6 +604,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_tbycd")
 }
 autoplay = "Glow"
+speed_scale = 1.5
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

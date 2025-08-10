@@ -91,7 +91,7 @@ func _ready():
 	#player.reset_speed()
 	#player.bag_anim()
 	stage = "root"
-	await $AnimationPlayer.animation_finished
+	await Event.wait(0.3, false)
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)

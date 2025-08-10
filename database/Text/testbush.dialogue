@@ -5,6 +5,10 @@ Mira.Neutral: Yes, this is [[indeed|in fact]] a bush
 	Daze.Neutral: This is certainly is a bush.
 	Asteria.Neutral: This is a bush, right?
 	Alcine.Neutral: Mhm...
+- Others talk
+	Yaru.Neutral: it... does look like a bush...
+	Maple.Neutral: It may look like a bush, but we're not sure...
+	Feni.Neutral: Are yall serious? This can't be anything but a bush!
 - Scream
 	Mira.OpenMouth: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	if is_in_party("Erinn"):

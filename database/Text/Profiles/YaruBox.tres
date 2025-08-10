@@ -4,8 +4,10 @@
 
 [resource]
 script = ExtResource("2_gq7wq")
-Bord1 = Color(0.775009, 0.285472, 0.760209, 1)
-Bord2 = Color(0.485957, 0.0121209, 0.41114, 1)
-Bord3 = Color(0.179304, 0.114861, 0.144652, 1)
+Bord1 = Color(0.933333, 0.4, 0.898039, 1)
+Bord2 = Color(0.766977, 0.456262, 0.882448, 1)
+Bord3 = Color(0.860298, 0.656229, 0.818662, 1)
+Inner = Color(0.996621, 0.957516, 0.996365, 1)
+TextColor = Color(0.376471, 0.27451, 0.380392, 1)
 AudioFrequency = 4
 PitchVariance = 0.2

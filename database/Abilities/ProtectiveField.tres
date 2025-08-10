@@ -23,6 +23,7 @@ disabled = false
 Damage = 0
 Parameter = 0.0
 Target = 3
+CanTargetDead = false
 AOE_Stagger = 0.0
 AOE_AdditionalSeq = true
 ColorSameAsActor = false

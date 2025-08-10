@@ -17,6 +17,8 @@ script = ExtResource("3_vnjlu")
 Bord1 = Color(0.831373, 0.768627, 0.388235, 1)
 Bord2 = Color(0.514254, 0.547661, 0.317093, 1)
 Bord3 = Color(0.227689, 0.244008, 0.144401, 1)
+Inner = Color(0.168627, 0.168627, 0.168627, 1)
+TextColor = Color(1, 1, 1, 1)
 AudioFrequency = 4
 PitchVariance = 1.0
 
