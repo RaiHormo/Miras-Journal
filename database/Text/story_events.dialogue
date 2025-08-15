@@ -77,11 +77,11 @@ Maybe I should try approaching it.
 => END
 
 ~ you_ok
-Mira.Neutral: Hey.
+Mira.Neutral: Hey little one.
 => END
 
 ~ no_harm
-Mira.Smile: Don't worry, I mean no harm. 
+Mira.Smile: Don't worry, I'm not here to harm you. 
 Mira.Smile: You just seem scared, and...
 => END
 
@@ -92,23 +92,24 @@ Shewww
 The creature tightly hugs me.
 Their body feels like it's made of liquid...
 Mira.Neutral: What are you so scared about?
-do npc("Alcine").move_dir(Vector2(2,0))
+do npc("Alcine").move_dir(Vector2(1,0))
 do npc("Alcine").look_to(Vector2(-1,0))
-Mira.Smile: Everything will be ok!
+Mira.Smile: It'll be okay..!
 do portrait("AlcineHappy")
 do next_box("Alcine")
-Whimm
+Whimm!
 do Global.Player.get_node("%Flame").play("ReachOut2")
-Mira.Smile: Here, you can have this.
+Mira.Smile: Wait, I have an idea.
 I take a green fabric from my bag, and tie it around their neck.
 => END
 
 ~ good_on_you
-Mira.Smile: Looks good on you!
+Mira.Smile: Hehe, looks good on you!
 => END
 
 ~ stay_back
-Mira.Neutral: Is this what scared you?
+Mira.Neutral: It's a dragonling![wait=0.5] No, a Petrogon..!
+Mira.Neutral: Was it chasing you?
 Mira.Neutral: Stay behind me, I'll deal with it!
 => END!
 
@@ -502,9 +503,9 @@ set Party.Member1.NextMove = load("res://database/Abilities/Attacks/Nothing.tres
 ~ lazulite_heart_3
 Mira.Neutral: We got it!
 Daze.Neutral: Let's finish it off!
-Yaru: wait..!
-Yaru: its link to the realm... it's falling apart...
-Yaru: star, maybe you can...
+Yaru.Neutral: wait..!
+Yaru.Neutral: its link to the realm... it's falling apart...
+Yaru.Neutral: star, maybe you can...
 (hide)[next]
 do Bt.move(Party.Member2, Vector2(0,0), 0.5)
 Asteria.Neutral: There's no need to be scared anymore. Come to me.

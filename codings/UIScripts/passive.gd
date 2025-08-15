@@ -60,7 +60,9 @@ var dialogue_line: DialogueLine:
 		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-
+		var inner:StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
+		inner.bg_color = mem.Inner
+		$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
 		dialogue_line.text = dialogue_line.text.replace("/*", "[color=Gray]*")
 		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
 

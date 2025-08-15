@@ -63,7 +63,7 @@ var dialogue_line: DialogueLine:
 		else: character_label.text = Global.find_member(char_name).FirstName
 		$Balloon/Panel.size.x = 1
 
-		dialogue_line.text = dialogue_line.text.replace("/*", "[color=Gray]*")
+		dialogue_line.text = dialogue_line.text.replace("/*", "[color=#787878]*")
 		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
 
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
