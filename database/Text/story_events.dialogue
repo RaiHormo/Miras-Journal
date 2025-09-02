@@ -510,3 +510,41 @@ Yaru.Neutral: star, maybe you can...
 do Bt.move(Party.Member2, Vector2(0,0), 0.5)
 Asteria.Neutral: There's no need to be scared anymore. Come to me.
 => END
+
+~ lazulite_heart_after
+Mira.Neutral: What.
+Mira.Neutral: What was all that?!
+Asteria.Neutral: The monster is on our side now!
+Mira.Neutral: Coool... 
+Mira.Smile: ...
+Asteria.Neutral: /*sigh[wait=1]*/ Fine Mira, you may name it...
+Mira.Neutral: Yay!!!!
+Mira.Neutral: Ok, ok. [wait=0.5]I think I've seen a crystal kinda like that in a geology book...
+Mira.Neutral: Hmm... [wait=0.5]I think it was Lazuli Heart.[wait=1] No,[wait=0.5] let's go with Lazulite Heart, that sounds cooler!
+Asteria.Neutral: That sounds stupi-[next=auto]
+Daze.Neutral: Yup, Lazulite heart it is.
+Yaru.Neutral: um....[wait=0.5] i kinda like lazulite heart too.
+Asteria.Neutral: Ok fine, I guess we're calling it Lazulite Heart then....
+=> END
+
+~ enter_bunker_2
+if Event.f("Bunker2Open"):
+	Daze.Neutral: You should've tried touching it without the orb...
+	Mira.Neutral: Sorry, didn't think this through-
+	Asteria.Neutral: Don't worry much about it, there are more doors like this.
+else:
+	do Player.camera_follow(false)
+	set Global.Camera.position -= Vector2(0, 50)
+	Mira.Neutral: So we can go in now?
+	I reach my hand to the machine
+	Daze.Neutral: LEVENOR, DON'T-[next]
+	(hide)[next]
+	do Event.add_flag("Bunker2Open")
+	do check_party.emit()
+	do screen_shake(2, 20, 0.4)
+	do screen_shake(10, 5, 0.2)
+	do Event.wait(2)
+	do Player.camera_follow(true)
+	Daze.Neutral: 'Grats, now we can't test out any of our theories...
+	Mira.Neutral: Whoops.
+=> END

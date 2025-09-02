@@ -803,7 +803,6 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SidePanel" type="Panel" parent="."]
-visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0
@@ -1147,7 +1146,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Upscaled Resolution"
+text = "Native Resolution"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution"]
 layout_mode = 2
@@ -1556,6 +1555,7 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0

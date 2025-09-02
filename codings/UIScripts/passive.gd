@@ -107,7 +107,7 @@ var dialogue_line: DialogueLine:
 		will_hide_balloon = false
 
 		dialogue_label.modulate.a = 1
-		await get_tree().create_timer(0.2).timeout
+		#await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
 			var prof = await Global.match_profile(char_name)
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
@@ -117,7 +117,7 @@ var dialogue_line: DialogueLine:
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
-			var time = dialogue_line.text.length() * 0.05 + 1
+			var time = dialogue_line.text.length() * 0.02 + 1
 			await get_tree().create_timer(max(time, 2)).timeout
 			next(dialogue_line.next_id)
 	get:

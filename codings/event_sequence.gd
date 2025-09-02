@@ -220,9 +220,18 @@ func sl_asteria_1():
 
 func sg_bunker_entrance():
 	if Event.f("DefeatedLazuliteHeart"):
-		pass
+		await Event.take_control()
+		await Global.textbox("story_events", "enter_bunker_2")
+		Event.give_control()
 	else:
 		await Event.take_control()
 		await Global.Player.bubble("Surprise")
 		await Loader.start_battle("LazuliteHeartBoss")
+		await Loader.battle_end
 		print("done")
+		Loader.ungray.emit()
+		await Global.textbox("story_events", "lazulite_heart_after")
+		Loader.white_fadeout(0.5, 0.3, 0.5)
+		await Event.wait(1)
+		Event.add_flag("DefeatedLazuliteHeart")
+		Event.give_control()

@@ -3127,8 +3127,10 @@ texture = ExtResource("9_baio5")
 texture_region_size = Vector2i(24, 24)
 0:0/size_in_atlas = Vector2i(9, 6)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-108, 72, -60, 72, -60, -66, 60, -66, 60, 72, 108, 72, 108, -72, -108, -72)
 1:6/size_in_atlas = Vector2i(1, 2)
 1:6/0 = 0
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 24, 12, 24, 12, 6, -12, 6)
 
 [resource]
 tile_size = Vector2i(24, 24)
