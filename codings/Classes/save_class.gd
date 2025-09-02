@@ -16,7 +16,7 @@ class_name SaveFile
 @export var PlayTime: float
 @export_group("Items")
 @export var Inventory: Array[String]
-@export var Flags: Array[StringName]
+@export var Flags: Dictionary[StringName, Variant]
 @export var Day: int
 @export var TimeOfDay: int
 @export var version = 0
@@ -25,6 +25,6 @@ class_name SaveFile
 func preview() -> Texture:
 	match Party:
 		["Mira", "Alcine"]:
-			return preload("res://art/Previews/2.png")
+			return await Loader.load_res("res://art/Previews/2.png")
 		_:
-			return preload("res://art/Previews/1.png")
+			return await Loader.load_res("res://art/Previews/1.png")

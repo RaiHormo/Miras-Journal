@@ -11,6 +11,7 @@ class_name EventTripwire
 @export var AddFlag: bool = false
 @export var TakeControl: bool = true
 @export var ReturnControl: bool = true
+@export var SlowDown: bool = false
 @export var KickDirection: Vector2
 
 func _on_body_entered(body):
@@ -18,6 +19,11 @@ func _on_body_entered(body):
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player:
 		print("Tripwire: ", name)
 		if AddFlag: Event.add_flag(Flag)
+		if SlowDown:
+			await Event.take_control()
+			Event.give_control(true)
+			Global.Player.can_dash = false
+			Global.Player.speed = 50
 		if TakeControl: await Event.take_control(false, true, true)
 		if KickDirection != Vector2.ZERO:
 			kick()
@@ -27,6 +33,9 @@ func _on_body_entered(body):
 				await Global.passive(TextFile, TextNode)
 			else:
 				await Global.textbox(TextFile, TextNode)
+		if SlowDown: 
+			Global.Player.speed = Global.Player.walk_speed
+			Global.Player.can_dash = true
 		if ReturnControl: Event.give_control(true)
 
 func kick():

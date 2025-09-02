@@ -142,15 +142,15 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("story_events", "was_that_a")
 			await Event.give_control(true)
 			Event.flag_progress("AlcineFollow", 1)
-		elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
-			await Event.take_control()
-			Event.give_control(true)
-			Global.Player.can_dash = false
-			Global.Player.speed = 50
-			await Global.passive("story_events", "a_bridge")
-			Global.Player.can_dash = true
-			Global.Player.speed = 75
-			Event.flag_progress("AlcineFollow", 5)
+		#elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
+			#await Event.take_control()
+			#Event.give_control(true)
+			#Global.Player.can_dash = false
+			#Global.Player.speed = 50
+			#await Global.passive("story_events", "a_bridge")
+			#Global.Player.can_dash = true
+			#Global.Player.speed = 75
+			#Event.flag_progress("AlcineFollow", 5)
 
 
 func skip():

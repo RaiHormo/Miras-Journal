@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=4 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=119 format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
@@ -9,7 +9,6 @@
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="6_82fx5"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="7_jtxqp"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="8_grqbv"]
-[ext_resource type="Script" uid="uid://cp7wg2g8ns3ad" path="res://codings/StoryEvents/FirstBattle.gd" id="9_plovl"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="10_rx6j2"]
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="11_1cjwu"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="12_1q04t"]
@@ -1413,7 +1412,6 @@ navigation_polygon = SubResource("NavigationPolygon_bhcd2")
 [node name="Transfer" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(792, 512)
 scale = Vector2(0.96, 1.21)
-script = ExtResource("9_plovl")
 Direction = Vector2(1, 0)
 Position = Vector2(1220, 461)
 room = "TempleWoods"
@@ -1483,6 +1481,22 @@ scale = Vector2(1.68, 1)
 EventName = "enter_amberelm"
 ReturnControl = false
 KickDirection = Vector2(0, -2)
+
+[node name="EvFirstBattle" parent="." instance=ExtResource("36_2q7ov")]
+position = Vector2(752, 513)
+scale = Vector2(1, 1.72)
+EventName = "first_battle"
+
+[node name="EvAmbWoodsBridge" parent="." instance=ExtResource("36_2q7ov")]
+position = Vector2(1956, -1318)
+scale = Vector2(1.83992, 1)
+TextFile = "story_events"
+TextNode = "a_bridge"
+Passive = true
+AddFlag = true
+TakeControl = false
+ReturnControl = false
+SlowDown = true
 
 [connection signal="text_changed" from="AlcineNaming/TextEdit" to="AlcineNaming" method="_on_text_edit_text_changed"]
 [connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]

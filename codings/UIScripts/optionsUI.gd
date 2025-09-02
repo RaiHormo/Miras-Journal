@@ -414,7 +414,7 @@ func load_save_files():
 func draw_file(file: SaveFile, node: Control):
 	var panel = node.get_child(0)
 	if file == null or file.version != Loader.SaveVersion:
-		node.get_node("Info/FileName").text = "Corrupt data"
+		node.get_node("Info/FileName").text = "Unloadable data"
 		panel.get_node("Date/Month").text = "Please"
 		panel.get_node("Date/Day").text = "Delete"
 		panel.get_node("Location").text = "Now"
@@ -533,7 +533,7 @@ func _on_save_load() -> void:
 	var filename = panel.name
 	if panel.name == "File0": filename = "Autosave"
 	if not panel is PanelContainer:
-		$SavePanel/ScrollContainer/Files/File0.grab_focus()
+		$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
 		return
 	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8

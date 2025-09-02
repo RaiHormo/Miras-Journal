@@ -1904,7 +1904,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint23"]
 position = Vector2(0.204978, -0.281688)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ggbak")
 debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
 

@@ -4,7 +4,7 @@ extends Node
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
-var Flags: Array[StringName]
+var Flags: Dictionary[StringName, Variant]
 var Day: int
 var Month: String = "November"
 var TimeOfDay:= TOD.DARKHOUR
@@ -95,30 +95,29 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
-func check_flag(flag: StringName):
+func check_flag(flag: StringName, value = true):
 	if "day:" in flag:
 		if int(flag.replace("day:", "")) == Day: return true
 		else: return false
 	if "time:" in flag:
 		if int(flag.replace("time:", "")) == TimeOfDay: return true
 		else: return false
-	if flag in Flags: return true
+	if Flags.has(flag) and Flags.get(flag) == value: return true
 	else: return false
 
-func add_flag(flag: StringName):
-	if flag not in Flags: Flags.append(flag)
-	print("Added flag \"", flag, "\"")
+func add_flag(flag: StringName, value = true):
+	Flags.set(flag, value)
+	print("Set flag \"", flag, "\" to ", value)
 
 func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
 	print("Removed flag \"", flag, "\"")
 
 func f(flag:StringName, state = null) -> bool:
-	if state is bool:
-		if state: add_flag(flag)
-		else: remove_flag(flag)
 	if state is int:
 		return f_past(flag, state)
+	elif state != null:
+		Flags.set(flag, state)
 	return check_flag(flag)
 
 func pop_tutorial(id: String):
@@ -163,23 +162,21 @@ func give_control(camera_follow:= false):
 	Global.check_party.emit()
 	Global.Area.setup_params(true)
 
-func flag_int(str: String, max_num:= 9) -> int:
-	for i in range(0, max_num):
-		if check_flag(str + str(i)): return i
-	return 0
+func flag_int(str: String) -> int:
+	if Flags.has(str) and Flags.get(str) is int:
+		return Flags.get(str)
+	else: return 0
 
 func flag_progress(stri: String, to:= 1):
-	var num:= flag_int(stri)
-	if to == 0: remove_flag(stri+str(num))
-	elif num == 0: add_flag(stri+str(to))
-	elif num < to:
-		remove_flag(stri+str(num))
-		add_flag(stri+str(to))
+	if to == 0: remove_flag(stri)
+	else:
+		Flags.set(stri, max(flag_int(stri), to))
 
 func f_past(str: String, has_passed:= 9) -> bool:
 	if flag_int(str) >= has_passed:
 		return true
 	else: return false
+
 #FIXME
 func skip_cutscene():
 	if is_instance_valid(CutsceneHandler) and CutsceneHandler.has_method(&"skip"):

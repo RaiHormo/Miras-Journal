@@ -6,8 +6,8 @@
 script = ExtResource("1_g6kll")
 Bord1 = Color(0.498039, 0.768627, 0.768627, 1)
 Bord2 = Color(0.31085, 0.540941, 0.469901, 1)
-Bord3 = Color(0.200994, 0.316791, 0.206676, 1)
-Inner = Color(0.776471, 0.858824, 0.858824, 1)
-TextColor = Color(0.0225038, 0.102576, 0.0442805, 1)
+Bord3 = Color(0.156297, 0.236977, 0.199017, 1)
+Inner = Color(0.160138, 0.181186, 0.165495, 1)
+TextColor = Color(0.847505, 0.948502, 0.866839, 1)
 AudioFrequency = 4
 PitchVariance = 0.7

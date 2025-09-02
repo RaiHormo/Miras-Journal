@@ -1677,8 +1677,6 @@ focus_mode = 2
 theme = SubResource("Theme_6ne1i")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2tth4")
 follow_focus = true
-scroll_horizontal = -24
-scroll_vertical = -24
 script = ExtResource("19_e5lo7")
 wheel_scroll_damper = SubResource("Resource_5qw8o")
 dragging_scroll_damper = SubResource("Resource_2tth4")
@@ -1938,7 +1936,6 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0

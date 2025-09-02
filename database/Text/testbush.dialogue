@@ -179,13 +179,13 @@ Choose battle
 Chapter select
 - Petrogon fight
 	do Event.Flags.clear()
-	set Day = 0
+	set ToDay = 0
 	set ToTime = TOD.NIGHT
 	do Event.add_flag("HasBag")
 	do Event.add_flag("FlameActive")
 	do travel_to("TempleWoods", Vector2(1272, -966), 2)
 - Going to shard gardens
-	set Day = 3
+	set ToDay = 3
 	set ToTime = TOD.AFTERNOON
 	do! time_transition()
 => END

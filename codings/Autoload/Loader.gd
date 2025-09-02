@@ -1,6 +1,6 @@
 extends Control
 
-const SaveVersion = 5
+const SaveVersion = 6
 
 @export var scene: Array[String] = []
 var status
@@ -16,12 +16,12 @@ signal thread_loaded
 var loaded_resource
 var traveled_pos
 @onready var Icon = $Can/Icon
-var BattleResult=0
+var BattleResult = 0
 var chased = false
 var Attacker: Node2D
 var CamZoom:Vector2 = Vector2(4,4)
 var Defeated:Array
-var Preview
+var Preview: Texture
 var BtAdvantage = 0
 var data: SaveFile
 var SaveFiles: Array[SaveFile]
@@ -82,7 +82,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.Day = Event.Day
 	data.TimeOfDay = Event.TimeOfDay
 	ResourceSaver.save(data, "user://"+filename+".tres")
-	Preview = (data.preview())
+	Preview = (await data.preview())
 
 func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true, transition_after_done = true):
 	if sound: Global.ui_sound("Load")
@@ -168,6 +168,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	else:
 		await Event.take_control()
 		dismiss_load_icon()
+	Preview = (await data.preview())
 	print("File loaded!\n-------------------------")
 	await Event.wait()
 	if chased and is_instance_valid(Attacker):
@@ -581,19 +582,18 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3, color: Color = Col
 	fader.queue_free()
 
 func validate_save(save: String) -> bool:
-	if FileAccess.file_exists("user://Autosave.tres"):
+	if FileAccess.file_exists(save):
 		var file = load(save)
 		if is_instance_valid(file):
 			if file.version == SaveVersion:
-				Preview = file.preview()
 				return true
 			else:
-				OS.alert("This save file is from an incompatible version", "Can't read file")
-				Global.options(true)
+				Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game...", "ERROR", ["Okay fine"])
+				Global.options(1)
 				return false
 		else:
-			OS.alert("This save file is corrupt or from an incompatible version", "Can't read file")
-			Global.options(true)
+			Global.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
+			Global.options(1)
 			return false
 	else: return false
 

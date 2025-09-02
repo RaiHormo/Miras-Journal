@@ -36,7 +36,7 @@ func check() -> bool:
 		if Global.Bt.Turn < after_turn: return false
 	if low_hp != -1 and low_hp > 0:
 		if actor == &"" or actore == null: 
-			push_warning("The event refrences an actor not present")
+			push_warning("The event refrences "+actor+" who is not present")
 			return false
 		if actore.Health > low_hp: return false
 	if low_hp ==  0:

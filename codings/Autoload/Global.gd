@@ -133,6 +133,7 @@ func _process(delta: float) -> void:
 		#Steam.runFrame()
 
 func options(submenu = 0):
+	if get_tree().root.has_node("Options"): return
 	var control = Controllable
 	#var init = get_tree().root.get_node_or_null("Initializer")
 	#if init != null: init.queue_free()
@@ -577,6 +578,7 @@ func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["
 	if get_node_or_null("/root/Warning"):
 		$/root/Warning.free()
 		await Event.wait()
+	await Event.wait()
 	print("Warn: "+ text)
 	var tost = (preload("res://UI/Misc/Warning.tscn")).instantiate()
 	get_tree().root.add_child(tost)

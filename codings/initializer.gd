@@ -8,7 +8,7 @@ func _ready() -> void:
 	print("Game Started!")
 	glyph_update()
 	$TitleScreen/Error/Hint.text = "Hint: Glyph"
-	Event.Flags.append("DisableMenus")
+	Event.add_flag("DisableMenus")
 	#Global.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
 		game_exists = true

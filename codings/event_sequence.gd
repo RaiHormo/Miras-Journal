@@ -17,6 +17,16 @@ func axe_seq():
 	Item.add_item("LightweightAxe", &"Key")
 	Event.pop_tutorial("ov_attack")
 
+func first_battle():
+	Loader.save()
+	Loader.gray_out(1)
+	Event.add_flag("EvFirstBattle")
+	#await Global.Player.move_dir(Vector2.RIGHT)
+	await Loader.travel_to("TempleWoods", Vector2(1220, 461), 1)
+	Loader.start_battle("FirstBattle")
+	Event.f("DisableMenus", false)
+	PartyUI.disabled = false
+
 func TWflame():
 	await Event.take_control()
 	Global.Player.set_anim("IdleRight")
@@ -107,10 +117,13 @@ func rest_amberelm():
 	Event.ToTime = Event.TOD.DAYTIME
 	await Event.time_transition()
 	Global.heal_party()
+
+func oct0_daytime():
 	await Loader.detransition()
 	await Global.textbox("story_events", "wake_amberelm", true)
 	await Loader.transition("R")
 	Global.get_cam().zoom = Vector2(4,4)
+	var cut = Global.Area.get_node("EvRestAmberelm")
 	cut.hide()
 	Global.Player.show()
 	Loader.detransition()
