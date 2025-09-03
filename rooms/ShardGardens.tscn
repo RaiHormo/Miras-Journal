@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=4 uid="uid://bt3npue7183vt"]
+[gd_scene load_steps=156 format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
@@ -422,7 +422,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd3du"]
-size = Vector2(214.704, 11.9915)
+size = Vector2(55.453, 21.0225)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpbgp"]
 atlas = ExtResource("23_8huol")
@@ -513,6 +513,9 @@ animations = [{
 "name": &"hide",
 "speed": 6.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvntm"]
+size = Vector2(142.454, 17.2214)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lj216"]
 atlas = ExtResource("13_ggbak")
@@ -1345,7 +1348,8 @@ position = Vector2(-335, 590)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLocked1"]
-position = Vector2(-1, 0)
+position = Vector2(-1.0986, 4.5155)
+scale = Vector2(0.999999, 1)
 shape = SubResource("RectangleShape2D_sd3du")
 
 [node name="HideOnFlag" type="Node2D" parent="DoorLocked1"]
@@ -1379,9 +1383,9 @@ position = Vector2(324.552, -1393.08)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLocked3"]
-position = Vector2(-1.49792, 5.99487)
+position = Vector2(-0.197144, 4.09424)
 scale = Vector2(0.999999, 1)
-shape = SubResource("RectangleShape2D_sd3du")
+shape = SubResource("RectangleShape2D_wvntm")
 
 [node name="HideOnFlag" type="Node2D" parent="DoorLocked3"]
 position = Vector2(-0.5, -34.5)
@@ -2385,6 +2389,7 @@ position = Vector2(438, 59)
 metadata/_edit_group_ = true
 
 [node name="VPUnderground" parent="." instance=ExtResource("3_r8nk5")]
+visible = false
 position = Vector2(-300, 528)
 metadata/_edit_group_ = true
 

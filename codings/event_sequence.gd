@@ -220,11 +220,15 @@ func sl_maple_1():
 func sl_asteria_1():
 	await Loader.travel_to("Pyrson", Vector2(513, 680), 0 , -1, "wait")
 	Event.no_player()
+	
 	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(530, 650), "R")
-	var maple: NPC = await Event.spawn("Asteria:AsteriaOV2", Vector2(530, 680), "R")
+	var asteria: NPC = Event.npc("Asteria")
+	asteria.position = Vector2(530, 680)
+	asteria.look_to("R")
 	await Loader.detransition("")
 	mira.BodyState = NPC.CUSTOM
 	mira.set_anim("SitRight")
+	asteria.set_anim("IdleRight")
 	Event.zoom(5, true)
 	await Event.wait(2)
 	await Global.textbox("sl_asteria", "rank1_1")

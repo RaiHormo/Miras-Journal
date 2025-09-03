@@ -86,7 +86,7 @@ func location_selected():
 			focus_place(here)
 			return
 		elif Global.Area.IsDungeon:
-			Event.ToTime = Event.get_time_progress_from_now(2)
+			Event.progress_by_time(2)
 			progress_time = true
 			Event.add_flag("eepy1")
 	foc =  prev_foc

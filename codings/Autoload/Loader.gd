@@ -629,3 +629,6 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	t.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)
 	await t.finished
 	tod.hide()
+
+func lower_layer():
+	$Can.layer = 3

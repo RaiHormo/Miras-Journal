@@ -611,7 +611,6 @@ offset_bottom = 1450.0
 texture = SubResource("GradientTexture2D_rqg3q")
 
 [node name="DottedBack" type="TextureRect" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0.2)
 show_behind_parent = true
 light_mask = 0

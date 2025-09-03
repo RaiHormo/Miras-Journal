@@ -53,8 +53,11 @@ func vain_check():
 		get_parent().get_node("Sprite").hide()
 
 func check() -> void:
+	if bubble_always:
+		if get_tree().root.has_node("Textbox"): disappear(true)
+		else: bubble()
 	if Loader.InBattle or not is_instance_valid(Global.Player):
-		pack.hide()
+		disappear(true)
 		return
 	if event_condition != "" and Event.condition(event_condition) == 0 :
 		destroy()
@@ -103,27 +106,32 @@ func appear():
 			disappear()
 			CanInteract = false
 
-func disappear():
+func disappear(also_hide_bubble:= false):
 	if not animating:
 		animating = true
-		t = create_tween()
-		t.set_parallel(true)
-		t.set_ease(Tween.EASE_IN)
-		t.set_trans(Tween.TRANS_LINEAR)
-		if bubble_always:
-			pack.show()
-			t.tween_property(pack, "scale", Vector2(0.3, 0.3), 0.1)
-			t.tween_property(button, "custom_minimum_size:x", 48, 0.1)
-			t.tween_property(pack, "self_modulate", Color(1,1,1,0.2), 0.1)
-			t.tween_property(button.get_node("Dots"), "self_modulate", Color.WHITE, 0.1)
-			await get_tree().create_timer(0.2).timeout
+		if bubble_always and not also_hide_bubble:
+			await bubble()
 		else:
+			t = create_tween().set_parallel()
+			t.set_ease(Tween.EASE_IN)
+			t.set_trans(Tween.TRANS_LINEAR)
 			t.tween_property(pack, "self_modulate", Color(1,1,1,0), 0.1)
 			t.tween_property(button, "custom_minimum_size:x", 48, 0.1)
 			await get_tree().create_timer(0.1).timeout
 			pack.hide()
 		z_index = 0
 		animating = false
+
+func bubble():
+	pack.show()
+	t = create_tween().set_parallel()
+	t.set_ease(Tween.EASE_IN)
+	t.set_trans(Tween.TRANS_LINEAR)
+	t.tween_property(pack, "scale", Vector2(0.3, 0.3), 0.1)
+	t.tween_property(button, "custom_minimum_size:x", 48, 0.1)
+	t.tween_property(pack, "self_modulate", Color(1,1,1,0.2), 0.1)
+	t.tween_property(button.get_node("Dots"), "self_modulate", Color.WHITE, 0.1)
+	await get_tree().create_timer(0.2).timeout
 
 func _input(event: InputEvent) -> void:
 	if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not get_tree().root.has_node("Textbox"):
@@ -185,7 +193,7 @@ func _on_button_pressed() -> void:
 			Global.confirm_sound()
 		"text":
 			await Event.take_control(false)
-			disappear()
+			disappear(true)
 			await Global.textbox(file, title)
 		"item":
 			Item.add_item(item, itemtype)
@@ -223,6 +231,7 @@ func _on_button_pressed() -> void:
 		"social_link":
 			await Event.take_control(false)
 			var rank = Event.condition(file)
+			disappear(true)
 			await Global.textbox(file, "rank"+str(rank)+"_prepare")
 	if return_control:
 		Event.give_control(false)
@@ -232,6 +241,7 @@ func _on_button_pressed() -> void:
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
 	action.emit()
+	check()
 
 func _on_area_entered(area: Area2D) -> void:
 	if Loader.InBattle or not Global.Controllable or not is_instance_valid(Global.Player):
