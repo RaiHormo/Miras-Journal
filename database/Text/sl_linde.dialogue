@@ -1,9 +1,21 @@
 ~ prepare
-do Global.textbox("rank"+str(Event.condition("sl_maple"))+"_prepare")
+do Global.textbox("rank"+str(Event.condition("sl_linde"))+"_prepare")
 => END
 
 ~ rank1_prepare
-Linde: You know dispel now, I don't have dialog for this
-do add_flag("sl_linde_1")
-do Party.Leader.Abilities.append(load("res://database/Abilities/Dispel.tres"))
+if f("LindeDoor"):
+	you know dispel now
+	do Party.Leader.Abilities.append(load("res://database/Abilities/Dispel.tres"))
+	do add_flag("sl_linde_1")
+	do Event.progress_by_time(1)
+	do Event.time_transition()
+else:
+	if f("sl_asteria_1"):
+		This is the building Asteria was talking about.
+		if confirm_time_passage("Open door" ,"Try the thing asteria told me and get in."):
+			/*knoc[wait=1]k knock*/
+			do add_flag("LindeDoor")
+			the door is open
+	else:
+		The door is locked.
 => END

@@ -888,8 +888,8 @@ ActionType = "item"
 file = "testbush"
 item = "LightweightAxe"
 hidesprite = true
-itemtype = "Key"
 hide_parent = true
+itemtype = "Key"
 
 [node name="EvDummy" type="Sprite2D" parent="."]
 z_index = 1

@@ -37,7 +37,7 @@ Asteria.Neutral: Are you liking this village?
 	Mira.Neutral: My family, the few friends I had... I don't want to just leave them.
 Mira.Neutral: What about you?
 Asteria.Neutral: Me..?
-Asteria.Neutral: I've been my whole life. There isn't much to miss...
+Asteria.Neutral: I've been here my whole life. There isn't much to miss...
 Mira.Neutral: Your whole life?
 Asteria.Neutral: Mhm.
 Mira.Neutral: ...
@@ -77,4 +77,19 @@ do transition()
 do lower_layer()
 do wait(1)
 After saying good night to asteria, I head back home to bed.
+=> END
+
+~ rank2_prepare
+Asteria.Neutral: Sigh... This is pilling up to be a lot of work...
+Mira.Neutral: Hm? What work?
+Asteria.Neutral: Mom tasked me to clean up the storage room. That place is quite a mess, there is so much work to do!
+Asteria.Neutral: Is this really the time to be cleaning? We have a mission at hand!
+Asteria.Neutral: I don't get her at all sometimes...
+She seems to be very stressed, maybe I should help out.
+if confirm_time_passage("Help Asteria" ,"This could be a chance to get to know Asteria better."):
+	Mira: Can I help somehow?
+	Asteria: You really want to help!? Thank you!
+else:
+	Mira: That sucks.
+	Asteria: Yeah...
 => END

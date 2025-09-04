@@ -284,7 +284,7 @@ func start_time_events():
 	print(seq)
 	if sequence_exists(seq):
 		sequence(seq)
-	else: sequence("wake_home")
+	elif not Global.Area.IsDungeon: sequence("wake_home")
 
 func condition(con: String):
 	if $Conditions.has_method(con):

@@ -506,16 +506,6 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_xaphv"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0357"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
@@ -531,6 +521,16 @@ action = &"PartyMenu"
 
 [sub_resource type="Shortcut" id="Shortcut_dk2bs"]
 events = [SubResource("InputEventAction_8yp3f")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0357"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [node name="PartyUI" type="Control"]
 process_mode = 3
@@ -561,17 +561,13 @@ offset_right = 1281.0
 offset_bottom = 799.0
 mouse_filter = 2
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Fade"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-
 [node name="Partybox" type="VBoxContainer" parent="CanvasLayer"]
 unique_name_in_owner = true
 texture_filter = 2
 offset_right = 252.0
 offset_bottom = 542.0
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/separation = 18
 
 [node name="Leader" type="Panel" parent="CanvasLayer/Partybox"]
@@ -843,6 +839,7 @@ offset_top = 60.0
 offset_right = 433.0
 offset_bottom = 152.0
 scale = Vector2(0.404152, 0.404152)
+mouse_filter = 2
 texture = ExtResource("6_w2g12")
 
 [node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor"]
@@ -928,6 +925,7 @@ offset_top = 408.0
 offset_right = 1650.0
 offset_bottom = 1408.0
 scale = Vector2(0.7, 0.7)
+mouse_filter = 2
 color = Color(1, 0, 0.356863, 1)
 
 [node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
@@ -941,6 +939,7 @@ offset_bottom = 660.0
 grow_horizontal = 0
 scale = Vector2(0.260146, 0.260146)
 pivot_offset = Vector2(1542.39, 0)
+mouse_filter = 2
 texture = ExtResource("11_4pd7b")
 script = ExtResource("12_wtwla")
 HideOnDays = Array[int]([0])
@@ -1159,19 +1158,6 @@ icon = ExtResource("15_rt2n5")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer"]
-visible = false
-offset_left = 10.0
-offset_top = 699.0
-offset_right = 521.0
-offset_bottom = 782.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_ujk23")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
-theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
-placeholder_text = "Enter a flag"
-
 [node name="PartyMenuButton" type="Button" parent="CanvasLayer"]
 offset_right = 253.0
 offset_bottom = 571.0
@@ -1188,6 +1174,7 @@ shortcut_in_tooltip = false
 flat = true
 
 [node name="VirtualJoystick" parent="CanvasLayer" instance=ExtResource("16_86i7e")]
+mouse_filter = 2
 
 [node name="Pages" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -1195,6 +1182,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Page0" type="TextureRect" parent="CanvasLayer/Pages"]
 z_index = 3
@@ -1263,6 +1251,81 @@ metadata/_aseprite_wizard_config_ = {
 "player": "",
 "source": ""
 }
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer"]
+visible = false
+clip_contents = false
+offset_left = 10.0
+offset_top = 699.0
+offset_right = 521.0
+offset_bottom = 782.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
+theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
+placeholder_text = "Enter a flag"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit"]
+layout_mode = 2
+offset_left = 245.0
+offset_top = -681.0
+offset_right = 681.0
+offset_bottom = -22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Flags will show up here"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/TextEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 241.0
+offset_top = -685.0
+offset_right = 179.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.768627)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/TextEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -388.0
+offset_right = -285.0
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.768627)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit/ColorRect2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.078
+anchor_bottom = 0.067
+offset_left = 22.0
+offset_top = 25.0
+offset_right = 197.776
+offset_bottom = 339.679
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 24
+text = "/day
+/time
+/enrestore
+/cam"
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 bus = &"UI"

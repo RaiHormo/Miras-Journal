@@ -6,6 +6,8 @@ class_name JumpPoint
 @export var time:= 5
 @export var height:= 0.5
 @export var RelativePositions: bool = false
+@export var to_z: int = -1
+@export_flags_2d_physics var to_layers := 0
 var busy: bool = false
 
 func _ready() -> void:
@@ -24,7 +26,7 @@ func _physics_process(delta: float) -> void:
 					busy = true
 					#Global.Player.cant_bump = true
 					var t = create_tween()
-					t.tween_property(Global.Player.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.1)
+					t.tween_property(Global.Player.get_node("Shadow"), "modulate:a", remap(height, 0, 0.5, 1, 0), 0.1)
 					var prev_z = Global.Player.z_index
 					Global.Player.BodyState = NPC.NONE
 					Global.Player.z_index += 10
@@ -45,7 +47,12 @@ func _physics_process(delta: float) -> void:
 					await Global.jump_to(Global.Player, coord, time, height)
 					Global.Player.collision(true)
 					Global.Controllable = true
-					Global.Player.z_index = prev_z
+					if to_z == -1:
+						Global.Player.z_index = prev_z
+					else: 
+						Global.Player.z_index = to_z
+						Global.Player.collision_layer = to_layers
+						Global.Player.collision_mask = to_layers
 					Global.Player.move_frames = 0
 					t = create_tween()
 					t.tween_property(Global.Player.get_node("Shadow"), "modulate", Color.WHITE, 0.2)

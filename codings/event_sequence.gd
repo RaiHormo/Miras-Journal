@@ -218,12 +218,12 @@ func sl_maple_1():
 	Event.time_transition()
 
 func sl_asteria_1():
-	await Loader.travel_to("Pyrson", Vector2(513, 680), 0 , -1, "wait")
+	await Loader.travel_to("Pyrson", Vector2(490, 680), 0 , -1, "wait")
 	Event.no_player()
 	
-	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(530, 650), "R")
+	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(506, 680), "R")
 	var asteria: NPC = Event.npc("Asteria")
-	asteria.position = Vector2(530, 680)
+	asteria.position = Vector2(506, 640)
 	asteria.look_to("R")
 	await Loader.detransition("")
 	mira.BodyState = NPC.CUSTOM
@@ -232,6 +232,7 @@ func sl_asteria_1():
 	Event.zoom(5, true)
 	await Event.wait(2)
 	await Global.textbox("sl_asteria", "rank1_1")
+	Event.add_flag("sl_asteria_1")
 	Event.progress_by_time(1)
 	Event.time_transition()
 

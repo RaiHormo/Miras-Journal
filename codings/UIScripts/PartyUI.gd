@@ -604,9 +604,10 @@ func cmd():
 	show_all()
 	if not $CanvasLayer/TextEdit.visible:
 		print(Event.Flags)
+		$CanvasLayer/TextEdit/RichTextLabel.text = str(Event.Flags).replace(",", "\n")
 		$CanvasLayer/TextEdit.show()
-		$CanvasLayer/TextEdit.text = ""
 		$CanvasLayer/TextEdit.grab_focus()
+		$CanvasLayer/TextEdit.set_deferred("text", "")
 		Global.Controllable = false
 	else:
 		if "/clear" in $CanvasLayer/TextEdit.text:

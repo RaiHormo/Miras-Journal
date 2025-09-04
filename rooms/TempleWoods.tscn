@@ -1237,10 +1237,10 @@ LabelText = "Pick up"
 ActionType = "event"
 file = "axe_seq"
 hidesprite = true
+hide_parent = true
 itemtype = "Key"
 hide_on_flag = &"PickedUpAxe"
 add_flag = true
-hide_parent = true
 needs_bag = true
 
 [node name="EvAxe2" type="Sprite2D" parent="."]
@@ -1267,10 +1267,10 @@ LabelText = "Pick up"
 ActionType = "event"
 file = "bag_seq"
 hidesprite = true
+hide_parent = true
 return_control = false
 hide_on_flag = &"HasBag"
 add_flag = true
-hide_parent = true
 proper_pos = Vector2(100, 406)
 proper_face = Vector2(1, 0)
 

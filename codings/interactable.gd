@@ -9,6 +9,8 @@ signal action()
 @export var title: String = ""
 @export var item: String = ""
 @export var hidesprite: bool = false
+@export var hide_parent: bool = false
+@export var free_on_hide: bool = false
 @export var itemtype: String = ""
 @export var to_time: Event.TOD
 @export var to_time_relative: int
@@ -23,7 +25,6 @@ signal action()
 @export var show_on_flag: StringName
 @export var hide_on_flag: StringName
 @export var add_flag: bool = false
-@export var hide_parent: bool = false
 @export var offset := 5
 @export var proper_pos:= Vector2.ZERO
 @export var proper_face:= Vector2.ZERO
@@ -77,7 +78,10 @@ func destroy():
 	if hide_parent: 
 		get_parent().hide()
 		get_parent().scale = Vector2.ZERO
-	else: 
+		if get_parent() is NPC: get_parent().collision(false)
+		if free_on_hide: get_parent().queue_free()
+	else:
+		if free_on_hide: queue_free() 
 		hide()
 		scale = Vector2.ZERO
 
@@ -231,6 +235,7 @@ func _on_button_pressed() -> void:
 		"social_link":
 			await Event.take_control(false)
 			var rank = Event.condition(file)
+			if rank == 0: return
 			disappear(true)
 			await Global.textbox(file, "rank"+str(rank)+"_prepare")
 	if return_control:
