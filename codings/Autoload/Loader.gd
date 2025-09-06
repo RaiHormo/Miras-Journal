@@ -533,12 +533,6 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
 		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
-		push_error("Some resource just failed to load. \nEither the dev made a mistake or there's a corrupt/outdated save file.
-\n
-If you've played this game in an older version, you may have to delete the old save files.\n
-If this has nothing to do with save data, please report this error to the developer, and include logs.\n
-To find the directory where save files and logs are located, launch the game and press F1.
-")
 		load_failed = true
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")

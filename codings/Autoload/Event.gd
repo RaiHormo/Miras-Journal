@@ -4,7 +4,7 @@ extends Node
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
-var Flags: Dictionary[StringName, Variant]
+var Flags: Dictionary[StringName, int]
 var Day: int
 var Month: String = "November"
 var TimeOfDay:= TOD.DARKHOUR
@@ -95,7 +95,7 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
-func check_flag(flag: StringName, value = true):
+func check_flag(flag: StringName, value:= 1):
 	if "day:" in flag:
 		if int(flag.replace("day:", "")) == Day: return true
 		else: return false
@@ -105,7 +105,7 @@ func check_flag(flag: StringName, value = true):
 	if Flags.has(flag) and Flags.get(flag) == value: return true
 	else: return false
 
-func add_flag(flag: StringName, value = true):
+func add_flag(flag: StringName, value:= 1):
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
 
@@ -116,8 +116,8 @@ func remove_flag(flag: StringName):
 func f(flag:StringName, state = null) -> bool:
 	if state is int:
 		return f_past(flag, state)
-	elif state != null:
-		Flags.set(flag, state)
+	elif state is bool:
+		Flags.set(flag, int(state))
 	return check_flag(flag)
 
 func pop_tutorial(id: String):

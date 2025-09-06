@@ -16,7 +16,7 @@ class_name SaveFile
 @export var PlayTime: float
 @export_group("Items")
 @export var Inventory: Array[String]
-@export var Flags: Dictionary[StringName, Variant]
+@export var Flags: Dictionary[StringName, int]
 @export var Day: int
 @export var TimeOfDay: int
 @export var version = 0

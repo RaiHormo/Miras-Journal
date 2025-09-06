@@ -234,8 +234,9 @@ func _on_button_pressed() -> void:
 			Global.Player.camera_follow(true)
 		"social_link":
 			await Event.take_control(false)
-			var rank = Event.condition(file)
-			if rank == 0: return
+			var rank = Event.condition(event_condition)
+			if rank == 0:
+				Global.toast("Something went wrong with the event condition")
 			disappear(true)
 			await Global.textbox(file, "rank"+str(rank)+"_prepare")
 	if return_control:
@@ -258,6 +259,7 @@ func _on_area_entered(area: Area2D) -> void:
 			CanInteract = true
 
 func _on_area_exited(area: Area2D) -> void:
+	if not is_instance_valid(Global.Player): return
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
 		await disappear()
 		CanInteract = false

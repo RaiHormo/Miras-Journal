@@ -82,14 +82,93 @@ After saying good night to asteria, I head back home to bed.
 ~ rank2_prepare
 Asteria.Neutral: Sigh... This is pilling up to be a lot of work...
 Mira.Neutral: Hm? What work?
-Asteria.Neutral: Mom tasked me to clean up the storage room. That place is quite a mess, there is so much work to do!
-Asteria.Neutral: Is this really the time to be cleaning? We have a mission at hand!
+Asteria.Neutral: Mom tasked me to clean up the storage room. 
+Asteria.Neutral: That place is quite a mess...[wait=0.5]\nThere is so much work to do!
+Asteria.Neutral: Is this really the time to be cleaning?[wait=0.5] We have a mission at hand!
 Asteria.Neutral: I don't get her at all sometimes...
 She seems to be very stressed, maybe I should help out.
-if confirm_time_passage("Help Asteria" ,"This could be a chance to get to know Asteria better."):
-	Mira: Can I help somehow?
-	Asteria: You really want to help!? Thank you!
+if confirm_time_passage("Help Asteria" ,"This could be a chance to get to know Asteria better.", 2):
+	Mira.Neutral: Can I help somehow?
+	Asteria.Neutral: You really want to help!? Thank you!
+	(hide)
+	do transition()
+	=> rank2_1
 else:
-	Mira: That sucks.
-	Asteria: Yeah...
+	Mira.Neutral: That sucks.
+	Asteria.Neutral: Yeah...
+=> END
+
+~ rank2_1
+do travel_to("Pyrson", Vector2(53, -183), 2)
+do no_player()
+do spawn("Mira:MiraOV", Vector2(64, -183), "R")
+do spawn("Asteria:AsteriaOV2", Vector2(53, -210), "R")
+do detransition()
+Mira.Neutral: You weren't kidding... What was the last time this place was cleaned?
+Asteria.Neutral: Could be 2 or 3 years ago, who keeps track?
+Mira.Neutral: ...
+(hide)
+do transition()
+do lower_layer()
+We start putting stuff to the side to clean the floor.
+I pick some wooden toys that were on the floor.
+(hide)
+do detransition()
+Mira.Neutral: Ooh this is cute, it's like a little train! Were these yours?
+Asteria.Neutral: Y-Yes...
+Asteria.Neutral: Although I've never seen a "train" like this in reality.
+- How?
+	Mira.Neutral: You've never seen a train...? \nIseferia's train system goes pretty much everywhere.
+	Asteria.Neutral: I grew up here in Abad, I've barely seen the outside world.
+- Why do you have this toy then?
+	Mira.Neutral: Why do you have a toy like this then if you barely know what a train is?
+	Asteria.Neutral: My mom would always tell me stories about the outside world.
+	Asteria.Neutral: Their cities, markets, transportation, the seas of people you'd see...
+Asteria.Neutral: So mom made me this toy and others to show me how it's like.
+Mira.Neutral: Oh... so you were born here?
+Asteria.Neutral: /*giggles*/[wait=0.5] \nAre you really asking that? You'd think I look like my mom?
+Mira.Neutral: Right, she's human and you're frayse. And you don't seem like much of a demi.
+Asteria.Neutral: She says she saved me from a monster when I was little.
+Mira.Neutral: And she took you in?
+Asteria.Neutral: Right. Back then Pyrson wasn't what it is now, there were only like 4 people.
+- Sounds like a good mother
+	Mira.Neutral: Feni sounds like a good mother. She didn't have to do any of this.
+	Asteria.Neutral: Maybe she is. She can be quite stubborn sometimes though.
+	Asteria.Neutral: She always makes me do pointless work like this.
+	Mira.Neutral: I'm sure shes very busy herself, managing the village and all...
+	Asteria.Neutral: Busy? She's probably at Morei's right now!
+- Sounds tough
+	Mira.Neutral: It must have been tough for her to raise a child in a place like this.
+	Mira.Neutral: What was it like?
+	Asteria.Neutral: You're asking me? This is the only place I know.
+	Asteria.Neutral: I can say that food was pretty scarce when I was little, but we have fairly big fields now-days.
+(hide)
+do transition()
+do lower_layer()
+We spent a few hours organizing the room
+Asteria.Neutral: Right, I'll go bring the cleaning supplies.
+(hide)
+do detransition()
+Whole thing happens here
+Asteria.Neutral: I'm back!
+Mira.Neutral: Asteria! Those things on the self over there fell by themselves!
+Asteria.Neutral: Huh... Oh! Don't worry about it I'll put them back up.
+She's acting like this is normal...
+(hide)
+do transition()
+do lower_layer()
+We spend a little more time cleaning
+(hide)
+do detransition()
+Asteria.Neutral: I think we're about done here, thank you for all the help today!
+Mira.Neutral: Don't mention it!
+Mira.Neutral: It's getting a bit late, I think I'll be going now.
+Asteria.Neutral: 'Night.
+(hide)
+do transition()
+do lower_layer()
+I return to my room.
+do add_flag("sl_asteria_2")
+do progress_by_time(2)
+do time_transition()
 => END
