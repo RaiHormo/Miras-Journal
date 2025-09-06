@@ -63,8 +63,10 @@ var dialogue_line: DialogueLine:
 		else: character_label.text = Global.find_member(char_name).FirstName
 		$Balloon/Panel.size.x = 1
 
-		dialogue_line.text = dialogue_line.text.replace("/*", "[color=#787878]*")
-		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
+		dialogue_line.text = Global.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
+		dialogue_line.text = Global.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
+		dialogue_line.inline_mutations
+
 
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		if next_box == "": next_box = char_name

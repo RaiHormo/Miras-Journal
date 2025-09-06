@@ -14,8 +14,8 @@ Mira.Neutral: Yes, this is [[indeed|in fact]] a bush
 	if is_in_party("Erinn"):
 		Erinn: Mira, what are you doing?
 - Talk a lot
-	Mira.Smile: Yeah, sure i can say a bunch of stuff.
-	Mira.Smile: I just like the sound of my voice, beep boop.
+	Mira.Smile: Yeah, sure i can say a *bunch of stuff*.
+	Mira.Smile: I just like the sound of my voice, *beep boop.
 	Mira.Smile: So how's your day bush? [p]Anything going on?
 	[wait=0.5](hide)[next=auto]
 	Mira.Smile: Yeah I thought so.

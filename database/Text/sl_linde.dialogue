@@ -13,7 +13,7 @@ else:
 	if f("sl_asteria_1"):
 		This is the building Asteria was talking about.
 		if confirm_time_passage("Open door" ,"Try the thing asteria told me and get in."):
-			/*knoc[wait=1]k knock*/
+			*knoc[wait=1]k knock*
 			do add_flag("LindeDoor")
 			the door is open
 	else:

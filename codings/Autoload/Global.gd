@@ -869,6 +869,13 @@ func make_array_unique(arr: Array):
 	for i in range(-1, arr.size() - 1):
 		arr[i] = arr[i].duplicate()
 
+func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
+	var idx = 0
+	for i in occurence:
+		idx = from.find(what, idx+1)
+	if idx == -1: return from
+	return from.substr(0, idx) + forwhat + from.substr(idx + what.length())
+
 func get_affinity(attacker:Color) -> Affinity:
 	var aff = Affinity.new()
 	var pres = round(remap(attacker.s, 0, 1, 10, 75))

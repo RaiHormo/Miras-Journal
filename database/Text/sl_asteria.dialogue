@@ -91,7 +91,6 @@ if confirm_time_passage("Help Asteria" ,"This could be a chance to get to know A
 	Mira.Neutral: Can I help somehow?
 	Asteria.Neutral: You really want to help!? Thank you!
 	(hide)
-	do transition()
 	=> rank2_1
 else:
 	Mira.Neutral: That sucks.
@@ -103,7 +102,6 @@ do travel_to("Pyrson", Vector2(53, -183), 2)
 do no_player()
 do spawn("Mira:MiraOV", Vector2(64, -183), "R")
 do spawn("Asteria:AsteriaOV2", Vector2(53, -210), "R")
-do detransition()
 Mira.Neutral: You weren't kidding... What was the last time this place was cleaned?
 Asteria.Neutral: Could be 2 or 3 years ago, who keeps track?
 Mira.Neutral: ...
@@ -126,7 +124,7 @@ Asteria.Neutral: Although I've never seen a "train" like this in reality.
 	Asteria.Neutral: Their cities, markets, transportation, the seas of people you'd see...
 Asteria.Neutral: So mom made me this toy and others to show me how it's like.
 Mira.Neutral: Oh... so you were born here?
-Asteria.Neutral: /*giggles*/[wait=0.5] \nAre you really asking that? You'd think I look like my mom?
+Asteria.Neutral: *giggles*[wait=0.5] \nAre you really asking that? You'd think I look like my mom?
 Mira.Neutral: Right, she's human and you're frayse. And you don't seem like much of a demi.
 Asteria.Neutral: She says she saved me from a monster when I was little.
 Mira.Neutral: And she took you in?
