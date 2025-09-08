@@ -253,3 +253,6 @@ func sg_bunker_entrance():
 		await Event.wait(1)
 		Event.add_flag("DefeatedLazuliteHeart")
 		Event.give_control()
+
+func amberelm_guardian():
+	Loader.start_battle("StoneGuardianBoss")

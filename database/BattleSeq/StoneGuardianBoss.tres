@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=5 format=3 uid="uid://cii3i6q16y4rw"]
+
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_huh7e"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_s2u2d"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="3_oponu"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_t20i2"]
+
+[resource]
+script = ExtResource("4_t20i2")
+Enemies = Array[ExtResource("2_s2u2d")]([])
+AdditionalItems = Array[ExtResource("1_huh7e")]([])
+Transition = true
+Detransition = false
+ReturnControl = true
+EscPosition = Vector2i(0, 0)
+PositionSameAsPlayer = false
+ScenePosition = Vector2(0, 0)
+CanEscape = true
+DeleteAttacker = true
+EntranceSequence = ""
+EntranceBanter = ""
+EntranceBanterIsPassive = true
+VictorySequence = ""
+VictoryBanter = ""
+DefeatSequence = ""
+Events = Array[ExtResource("3_oponu")]([])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"

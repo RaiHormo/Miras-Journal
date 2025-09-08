@@ -313,6 +313,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.set_parallel()
 				t.set_trans(Tween.TRANS_QUART)
 				t.set_ease(Tween.EASE_IN)
+				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.2)
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
 				await Event.wait(0.05, false)
 		await t.finished
