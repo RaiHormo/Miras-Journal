@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cy5y1ob0am5aa"
+path="res://.godot/imported/Guardian.ase-c176d79693fb45a4c7a47dbd4f8ab309.res"
+
+[deps]
+
+source_file="res://art/BT/StoneGuardian/Guardian.ase"
+dest_files=["res://.godot/imported/Guardian.ase-c176d79693fb45a4c7a47dbd4f8ab309.res"]
+
+[params]
+

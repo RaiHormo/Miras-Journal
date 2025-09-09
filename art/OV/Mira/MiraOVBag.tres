@@ -1376,7 +1376,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkDown",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1393,7 +1393,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkLeft",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1410,7 +1410,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkRight",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1427,5 +1427,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"WalkUp",
-"speed": 4.0
+"speed": 5.0
 }]

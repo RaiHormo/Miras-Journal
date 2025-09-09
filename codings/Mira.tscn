@@ -688,7 +688,8 @@ light_mask = 3
 material = ExtResource("1_srkwi")
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_u6lnn")
-animation = &"PickUpRight"
+animation = &"WalkUp"
+frame_progress = 0.560998
 metadata/_aseprite_wizard_config_ = {
 "layer": "Bag",
 "o_ex_p": "",
@@ -707,8 +708,9 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"45angle"
+animation = &"WalkUp"
 autoplay = "IdleDown"
+frame_progress = 0.842649
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",

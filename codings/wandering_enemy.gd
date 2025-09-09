@@ -154,6 +154,7 @@ func _on_catch_area_body_entered(body):
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
 	Global.Player.dramatic_attack_pause()
+	Global.rumble(1, 1, 0.2)
 	await Loader.start_battle(BattleSeq, advatage)
 	global_position = DefaultPos
 

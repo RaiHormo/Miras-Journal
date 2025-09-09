@@ -356,6 +356,7 @@ func load_settings():
 	%SettingsVbox/HighResTextures/CheckButton.button_pressed = Global.Settings.HighResTextures
 	%SettingsVbox/TextSpeed/MenuBar.selected = Global.Settings.TextSpeed
 	%SettingsVbox/UpscaledResolution/CheckButton.button_pressed = Global.Settings.UpscaledRes
+	%SettingsVbox/ControllerVibration/CheckButton.button_pressed = Global.Settings.ControllerVibration
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -819,3 +820,9 @@ func _on_credit_scroll(event: InputEvent) -> void:
 		$GalleryPanel/Credits.scroll_vertically(1000)
 	if event.is_action("ui_cancel") or event.is_action("ui_left"):
 		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
+
+
+func _on_controller_vibration(toggled_on: bool) -> void:
+	Global.Settings.ControllerVibration = toggled_on
+	confirm()
+	load_settings()

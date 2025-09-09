@@ -553,8 +553,6 @@ overwrite_color: Color = Color.WHITE) -> int:
 	if dmg == 0:
 		pop_num(target, "BLOCKED")
 		return 0
-	if target.Controllable:
-		Input.start_joy_vibration(0, remap(dmg, 0, target.MaxHP, 0.3, 1), remap(dmg, 0, target.MaxHP, 0, 0.5), 0.2)
 	target.damage(dmg, limiter)
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
 		$Act.call(target.SeqOnClutch, target)
@@ -574,6 +572,12 @@ overwrite_color: Color = Color.WHITE) -> int:
 		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
 	if not target.IsEnemy: PartyUI.hit_partybox(Party.array().find(target), int(dmg/2), int(dmg*100/target.MaxHP*100)/300)
+	if target.Controllable:
+		Global.rumble(remap(dmg*2, 0, target.MaxHP, 0, 1), remap(dmg, 0, 100, 0, 1), remap(dmg*2, 0, target.MaxHP, 0, 1))
+	elif CurrentChar.Controllable:
+		Global.rumble(remap(dmg, 0, target.MaxHP, 0, 0.5), remap(dmg, 0, 100, 0, 1), remap(dmg, 0, target.MaxHP, 0, 0.5))
+	else:
+		Global.rumble(remap(dmg, 0, target.MaxHP, 0, 0.3), remap(dmg, 0, 100, 0, 0.5), remap(dmg, 0, 100, 0, 0.5))
 	check_party.emit()
 	if target.Health == 0:
 		if target.CantDie:
@@ -604,6 +608,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 			t.tween_property(target.node.material,
 			"shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
 			await t.finished
+			Input.stop_joy_vibration(0)
 		target.node.material.set_shader_parameter("outline_enabled", false)
 	target.DamageRecivedThisTurn += dmg
 	return dmg
@@ -620,6 +625,8 @@ func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2)
 	t.set_trans(Tween.TRANS_QUART)
 	var dur = ShakeDuration/times
 	var am  = amount
+	if Input.get_joy_vibration_strength(0) == Vector2.ZERO:
+		Global.rumble(amount/20, times/10, ShakeDuration)
 	for i in range(0, times):
 		am = am - (amount/times)
 		#print(am)
@@ -1092,6 +1099,8 @@ func miss(target:Actor = CurrentTarget):
 	var prev = target.node.position
 	move(target, Vector2(target.node.position.x + offsetize(30), target.node.position.y), 0.3, Tween.EASE_OUT)
 	pop_num(target, "Miss")
+	if target.Controllable or CurrentChar.Controllable:
+		Global.rumble(0.3, 0, 0.3, 0.1)
 	await Event.wait(0.5)
 	await move(target, prev, 0.3)
 

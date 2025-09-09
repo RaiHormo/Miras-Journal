@@ -17,6 +17,7 @@ func _on_area_break_area_entered(area: Area2D) -> void:
 	if given_item != "":
 		if broken_anim != "":
 			$Sprite.play(break_anim)
+			Global.rumble(1, 0.3, 0.2)
 		Item.add_item(given_item, item_type, true, false)
 
 func set_break():

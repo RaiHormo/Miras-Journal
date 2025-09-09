@@ -8,6 +8,7 @@ class_name Setting
 @export var ControlSchemeAuto: bool = true
 @export var ControlSchemeEnum: int = 0
 @export var ControlSchemeOverride:ControlScheme = null
+@export var ControllerVibration:= true
 @export_category("Display")
 @export var Fullscreen:= false
 @export var UpscaledRes:= true

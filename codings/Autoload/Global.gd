@@ -66,7 +66,7 @@ func _ready() -> void:
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
-	#Input.start_joy_vibration(0, 1, 0, 0.1)
+	rumble(0, 0.5, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
 func _init():
@@ -303,7 +303,7 @@ func _input(event: InputEvent) -> void:
 		#var steam_controllers = Steam.getConnectedControllers()
 	if prev_dev != device: 
 		controller_changed.emit()
-		toast("Swapped to "+ device)
+		toast("Using "+ device)
 	LastInput=ProcessFrame
 	var is_fullscreen = get_window().mode == Window.MODE_FULLSCREEN
 	if is_fullscreen != Settings.Fullscreen:
@@ -315,6 +315,13 @@ func cancel() -> String:
 
 func confirm() -> String:
 	return "ui_accept"
+
+func rumble(strong: float, weak: float, duration: float, delay: float = 0):
+	if Settings.ControllerVibration:
+		if delay != 0: await Event.wait(delay, false)
+		Input.start_joy_vibration(0, strong, weak, duration)
+		await Event.wait(duration, false)
+		Input.stop_joy_vibration(0)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Fullscreen"):
@@ -940,7 +947,9 @@ func is_mem_healed(chara: Actor):
 func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
 	await jump_to_global(character, Area.to_global(position), time, height)
 
-func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1) -> void:
+func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
+	if character == Player and rumble:
+		Global.rumble(0, abs(height)/3, 0.06)
 	var t:Tween = create_tween()
 	var start = character.global_position
 	var jump_distance : float = start.distance_to(position)
@@ -949,6 +958,8 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
 	t.tween_method(global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
+	if character == Player and rumble:
+		Global.rumble(0, abs(height)/2, 0.06)
 	anim_done.emit()
 
 func heal_in_overworld(target:Actor, ab: Ability):

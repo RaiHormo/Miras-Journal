@@ -173,6 +173,8 @@ Choose battle
 	do! start_battle(load("res://database/BattleSeq/DebugDummy.tres"))
 - Lazulite Heart
 	do! start_battle(load("res://database/BattleSeq/LazuliteHeartBoss.tres"))
+- Stone Guardian
+	do! start_battle(load("res://database/BattleSeq/StoneGuardianBoss.tres"))
 => END
 
 ~ chapter_select

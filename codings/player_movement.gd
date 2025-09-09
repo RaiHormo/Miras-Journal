@@ -293,6 +293,7 @@ func stop_dash(slide = true) -> void:
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO
 	move_frames = 0
+	speed = walk_speed
 	if "Stop" in used_sprite.animation or "Hit" in used_sprite.animation:
 		set_anim(str("Idle"+Global.get_dir_name()))
 
@@ -304,9 +305,10 @@ func reset_speed() -> void:
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	if cant_bump: return
 	winding_attack = false
+	Global.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
 	if dir == Vector2.ZERO: dir = dashdir
-	Global.jump_to_global(self, global_position - dir*15, 15, 0.5)
+	Global.jump_to_global(self, global_position - dir*15, 15, 0.5, false)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
 	var mem = Global.Controllable
 	Global.Controllable = false
@@ -370,6 +372,7 @@ func attack():
 	if hits:
 		anim = "Attack" + Global.get_dir_name() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
+		Global.rumble(0.3, 0.3, 0.1, 0.1)
 	$Audio.stream = audio
 	$Audio.play()
 	await set_anim(anim, true)
