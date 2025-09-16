@@ -18,12 +18,12 @@ func _on_text_edit_text_changed() -> void:
 	if "\n" in $TextEdit.text:
 		$TextEdit.text = $TextEdit.text.replace("\n", "")
 		return
-	if $TextEdit.text.length() > 10:
+	if $TextEdit.text.length() > 13:
 		$Error.text = "Bit too long, isn't it?"
 		$Error.show()
-		if $TextEdit.text.length() > 11:
+		if $TextEdit.text.length() > 13:
 			$TextEdit.text = txt
-			$TextEdit.set_caret_column(11)
+			$TextEdit.set_caret_column(14)
 	else:
 		$Error.hide()
 	txt = $TextEdit.text
@@ -32,10 +32,10 @@ func on_confirm() -> void:
 	$TextEdit.text = $TextEdit.text.dedent()
 	$TextEdit.text = $TextEdit.text.capitalize()
 	await Event.wait(0.03)
-	$TextEdit.set_caret_column(11)
+	$TextEdit.set_caret_column(14)
 	txt = $TextEdit.text
 	txt = txt.to_lower()
-	if txt.length() > 10: return
+	if txt.length() > 13: return
 	elif txt.length() == 1:
 		$Error.text = "Let's try to be a little more creative."
 		$Error.show()
@@ -43,9 +43,9 @@ func on_confirm() -> void:
 		$TextEdit.text = "Alcine"
 		on_confirm()
 	elif check_for_symbols():
-		$Error.text = "Why would I include symbols in a name?"
+		$Error.text = "I shouldn't include symbols"
 		$Error.show()
-	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt:
+	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt or "nigg" in txt or "faggot" in txt:
 		$Error.text = "No."
 		$Error.show()
 	elif "mira" == txt or "levenor" == txt:
@@ -76,8 +76,8 @@ func on_confirm() -> void:
 	else:
 		Global.find_member("Alcine").FirstName = txt.capitalize()
 		enter.emit()
-	await Event.wait(0.02)
-	$TextEdit.set_caret_column(11)
+	await get_tree().process_frame
+	$TextEdit.set_caret_column(14)
 
 
 func _input(event: InputEvent) -> void:

@@ -2,10 +2,7 @@ extends NPC
 
 func default() -> void:
 	if Global.CameraInd == 1 and Event.f("AlcineFollow", 1): hide()
-	else:
-		$Sprite.play("IdleRight")
-		show()
-	if Global.CameraInd == 2 and not Event.f("AlcineFollow", 2):
+	elif Global.CameraInd == 2 and not Event.f("AlcineFollow", 2):
 		$"../EvPetrogon".hide()
 		Event.flag_progress("AlcineFollow", 1)
 		Event.warp_to(Vector2(55, -44), "Alcine")
@@ -15,8 +12,8 @@ func default() -> void:
 		Global.passive("story_events", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
 		BodyState = CUSTOM
+		$Sprite.play("Scared")
 		$Sprite.stop()
-		$Sprite.animation = &"Scared"
 		$Sprite.frame = 0
 		Event.flag_progress("AlcineFollow", 2)
 		Global.Player.can_dash = true
@@ -28,14 +25,16 @@ func default() -> void:
 		$"../EvPetrogon".hide()
 		Event.warp_to(Vector2(55+15, -45), "Alcine")
 		BodyState = CUSTOM
+		set_anim("Scared")
 		$Sprite.stop()
-		$Sprite.animation = &"Scared"
-		$Sprite.frame = 0
 	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
 		position = Vector2(1963, -1312)
 		hide()
 		$"../EvPetrogon".hide()
 		#Global.passive()
+	else:
+		$Sprite.play("IdleRight")
+		show()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -153,23 +152,23 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			#Event.flag_progress("AlcineFollow", 5)
 
 
-func skip():
-	if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
-	Global.CameraInd == 2 and not Event.f("AlcineFollow4")):
-		Event.flag_progress("AlcineFollow", 3)
-		$"../EvPetrogon".hide()
-		$"../EvPetrogon".play("Idle")
-		BodyState = CUSTOM
-		Global.Player.BodyState = CUSTOM
-		Global.Player.set_anim("EntrancePrep")
-		$Sprite.stop()
-		Event.remove_flag(&"FlameActive")
-		$Sprite.animation = &"Scared"
-		$Sprite.frame = 0
-		Global.Player.position = Global.globalize(Vector2(67, -45))
-		global_position = Global.globalize(Vector2(66, -45))
-		Loader.Attacker = Global.Area.get_node("Petrogon")
-		Loader.start_battle("AlcineFollow1")
+#func skip():
+	#if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
+	#Global.CameraInd == 2 and not Event.f("AlcineFollow4")):
+		#Event.flag_progress("AlcineFollow", 3)
+		#$"../EvPetrogon".hide()
+		#$"../EvPetrogon".play("Idle")
+		#BodyState = CUSTOM
+		#Global.Player.BodyState = CUSTOM
+		#Global.Player.set_anim("EntrancePrep")
+		#$Sprite.stop()
+		#Event.remove_flag(&"FlameActive")
+		#$Sprite.animation = &"Scared"
+		#$Sprite.frame = 0
+		#Global.Player.position = Global.globalize(Vector2(67, -45))
+		#global_position = Global.globalize(Vector2(66, -45))
+		#Loader.Attacker = Global.Area.get_node("Petrogon")
+		#Loader.start_battle("AlcineFollow1")
 
 func alcine_helps():
 	$Sprite.play("IdleRight")
@@ -189,6 +188,8 @@ func alcine_helps():
 	await Loader.start_battle("AlcineFollow2")
 	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
 	Global.Bt.get_actor("Petrogon").Health = hp
+	await Loader.battle_end
+	after_battle()
 
 func after_battle():
 	Event.take_control()
@@ -198,7 +199,7 @@ func after_battle():
 	z_index = 0
 	Event.allow_skipping = false
 	Event.flag_progress("AlcineFollow", 4)
-	Global.Player.get_node("%Base").sprite_frames = Global.find_member("Mira").OV
+	Global.find_member("Mira").OV = "res://art/OV/Mira/MiraOVBag.tres"
 	position = Global.Area.Followers[0].position
 	await Global.Player.go_to(Vector2(67, -45), true)
 	Global.Area.Followers[0].dont_follow = true

@@ -31,6 +31,8 @@ func _on_continue_pressed() -> void:
 	if get_tree().root.has_node("Options"): return
 	dismiss_title()
 	if game_exists:
+		if Input.is_action_pressed("ShoulderLeft"):
+			you_can_now_play_as("Asteria")
 		await Loader.load_game("Autosave")
 		Event.give_control(false)
 		get_tree().paused = false
@@ -50,3 +52,13 @@ func dismiss_title():
 func glyph_update():
 	$TitleScreen/Continue.icon = Global.get_controller().ConfirmIcon
 	$TitleScreen/Options.icon = Global.get_controller().Start
+
+func you_can_now_play_as(chara: String):
+	var data: SaveFile = load("user://Autosave.tres")
+	if chara in data.Party:
+		data.Party[data.Party.find(chara)] = "Mira"
+	data.Party[0] = chara
+	for i in data.Members:
+		if i.get("codename") == chara: i.set("Controllable", true)
+	ResourceSaver.save(data, "user://Autosave.tres")
+	Global.warning("You can now play as [img height=64]res://art/Icons/Party/"+chara+".png[/img] "+chara+".", "CONGRATS", ["A"])

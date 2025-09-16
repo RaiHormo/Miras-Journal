@@ -1017,7 +1017,7 @@ func AlcineWoods3():
 
 func AlcineWoods4():
 	get_tree().paused = false
-	Event.CutsceneHandler.after_battle()
+	#Event.CutsceneHandler.after_battle()
 
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")

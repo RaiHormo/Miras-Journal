@@ -101,7 +101,7 @@ func set_dir_marker(vec: Vector2 = direction):
 
 func update_anim_prm() -> void:
 	if $Sprite.sprite_frames == null: return
-	if not $Sprite.is_playing(): $Sprite.play()
+	if BodyState == IDLE and not $Sprite.is_playing(): $Sprite.play()
 	if BodyState == CUSTOM: return
 	if Facing == Vector2.ZERO: return
 	if RealVelocity.length() > 0.3:

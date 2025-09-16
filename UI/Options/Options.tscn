@@ -295,6 +295,17 @@ script = ExtResource("20_5gqn4")
 friction = 5.0
 rebound_strength = 12.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 12.0
+expand_margin_top = 8.0
+expand_margin_right = 12.0
+expand_margin_bottom = 8.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
@@ -307,17 +318,6 @@ expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
-bg_color = Color(0.898039, 0.898039, 0.898039, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 12.0
-expand_margin_top = 8.0
-expand_margin_right = 12.0
-expand_margin_bottom = 8.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
 bg_color = Color(0.898039, 0.898039, 0.898039, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -444,6 +444,17 @@ expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
+content_margin_left = 24.0
+content_margin_top = 6.0
+content_margin_right = 24.0
+content_margin_bottom = 6.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y0m"]
 content_margin_left = 24.0
 content_margin_top = 6.0
@@ -466,28 +477,11 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
-content_margin_left = 24.0
-content_margin_top = 6.0
-content_margin_right = 24.0
-content_margin_bottom = 6.0
-bg_color = Color(0.168627, 0.168627, 0.168627, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
 [sub_resource type="Resource" id="Resource_t6ahs"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_siagc"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qw8o"]
 content_margin_left = 24.0
@@ -503,15 +497,9 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="Resource" id="Resource_p6787"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_srwa7"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tth4"]
 content_margin_left = 24.0
@@ -526,15 +514,9 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="Resource" id="Resource_5qw8o"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="Resource" id="Resource_2tth4"]
 script = ExtResource("20_l60hk")
-friction = 4.0
-minimum_velocity = 0.4
-rebound_strength = 7.0
 
 [sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
 action = &"ui_cancel"
@@ -845,17 +827,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_right = NodePath("../NewGame")
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
 [node name="NewGame" type="Button" parent="SavePanel/ScrollContainer/Files/New"]
@@ -864,16 +846,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../NewFile")
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "New game"
 
 [node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files"]
@@ -1003,10 +985,10 @@ show_percentage = false
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 
 [node name="Buttons" type="HBoxContainer" parent="SavePanel"]
 custom_minimum_size = Vector2(300, 0)
@@ -1575,15 +1557,15 @@ layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 toggle_mode = true
 text = "Adjust Image"
 icon = ExtResource("9_mioka")
@@ -1818,15 +1800,15 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
 [node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -1911,19 +1893,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Introduction"
 
 [node name="Overworld" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -1939,19 +1921,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Movement"
 
 [node name="Attacking" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -1959,19 +1941,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Attacking"
 
 [node name="Battle" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -1987,19 +1969,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Turns"
 
 [node name="WhatIsAura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -2007,19 +1989,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "What is Aura?"
 
 [node name="AuraAffinity1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -2027,19 +2009,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Aura Affinity [1/2]"
 
 [node name="AuraAffinity2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
@@ -2047,19 +2029,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Aura Affinity [2/2]"
 
 [node name="Text" type="PanelContainer" parent="ManualPanel"]
@@ -2119,19 +2101,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Credits
 "
 
@@ -2140,19 +2122,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Website"
 
 [node name="ArenaMode" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
@@ -2161,19 +2143,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Arena mode
 "
 
@@ -2182,19 +2164,19 @@ show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Reset Game"
 
 [node name="Credits" type="ScrollContainer" parent="GalleryPanel"]

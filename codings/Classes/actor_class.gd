@@ -84,7 +84,8 @@ var SpeedBoost: int = 0
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
-@export var OV: SpriteFrames = SpriteFrames.new()
+#@export var OV: SpriteFrames = SpriteFrames.new()
+@export var OV: String
 ##The battle sprites for this actor.
 ##Some standard animation names include:
 ##Idle, Hit, Ability, Cast, KnockOut, Entrance, Attack1, Attack2, Item, Command,
@@ -282,8 +283,6 @@ func reset_static_info():
 	Defence = og.Defence
 	Magic = og.Magic
 	SoundSet = og.SoundSet
-	BT = og.BT
-	OV = og.OV
 	SoundSet = og.SoundSet
 	LearnableAbilities = og.LearnableAbilities
 	PartyPageName = og.PartyPageName
@@ -334,3 +333,6 @@ func has_ability(ab: String):
 
 func skill_points_for(level: int) -> int:
 	return int(SkillCurve.sample(level))
+
+func get_OV() -> SpriteFrames:
+	return await Loader.load_res(OV)

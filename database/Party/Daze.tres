@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://cwah0an2o3u15"]
+[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cwah0an2o3u15"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
 [ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
@@ -8,7 +8,6 @@
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
-[ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="4_iesjw"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="9_jt23b"]
 [ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
 
@@ -18,9 +17,6 @@ Bord1 = Color(0.831373, 0.768627, 0.388235, 1)
 Bord2 = Color(0.514254, 0.547661, 0.317093, 1)
 Bord3 = Color(0.227689, 0.244008, 0.144401, 1)
 Inner = Color(0.168627, 0.168627, 0.168627, 1)
-TextColor = Color(1, 1, 1, 1)
-AudioFrequency = 4
-PitchVariance = 1.0
 
 [sub_resource type="Curve" id="Curve_jt23b"]
 _limits = [0.0, 500.0, 18.0, 50.0]
@@ -37,7 +33,6 @@ ActorClass = "Tank"
 codename = &"Daze"
 Pronouns = Array[String](["he", "him", "his", "himself"])
 WeaponPower = null
-HealthBar = false
 RecivedSP = null
 SummonedAllies = null
 CustomPosition = null
@@ -63,12 +58,11 @@ SkillCurve = SubResource("Curve_jt23b")
 Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_y217q"), ExtResource("2_ps7rl"), ExtResource("3_ssdks")])
 StandardAttack = ExtResource("9_l2o8n")
 LearnableAbilities = null
-OV = ExtResource("4_iesjw")
+OV = "res://art/OV/Daze/DazeOV.tres"
 BT = ExtResource("2_awx47")
 Offset = Vector2(0, -12)
 Shadow = true
 ShadowOffset = 2
-SoundSet = ExtResource("9_jt23b")
 Disappear = false
 GlowDef = null
 GlowSpecial = null

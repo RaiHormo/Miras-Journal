@@ -31,6 +31,7 @@ func _ready() -> void:
 	ID = "P"
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
+	Global.check_party.connect(_check_party)
 	await Event.wait()
 	path = Path2D.new()
 	Global.Area.add_child(path)
@@ -193,8 +194,9 @@ func _on_pickup() -> void:
 
 func _check_party() -> void:
 	if get_node_or_null("%Base") == null: return
-	elif Global.Party.Leader:
-		%Base.sprite_frames =  Global.Party.Leader.OV
+	elif is_instance_valid(Global.Party.Leader):
+		if %Base.sprite_frames.resource_path != Global.Party.Leader.OV:
+			%Base.sprite_frames =  await Global.Party.Leader.get_OV()
 
 ##Sets the animation for all sprite layers
 func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrite_bodystate = false) -> void:
@@ -204,8 +206,6 @@ func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrit
 	if overwrite_bodystate: BodyState = CUSTOM
 	if Event.f(&"FlameActive") and anim in %Flame.sprite_frames.get_animation_names():
 		used_sprite = %Flame
-	elif Event.f(&"HasBag") and anim in %Bag.sprite_frames.get_animation_names():
-		used_sprite = %Bag
 	elif anim in %Base.sprite_frames.get_animation_names():
 		used_sprite = %Base
 	else:
@@ -262,7 +262,7 @@ func check_flame(force:= false) -> void:
 		flame.energy = 0
 
 func reset_sprite():
-	%Base.sprite_frames = Global.Party.Leader.OV
+	_check_party()
 
 ##For opening the menu
 func bag_anim() -> void:

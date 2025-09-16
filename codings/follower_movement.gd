@@ -102,8 +102,8 @@ func _physics_process(_delta: float) -> void:
 
 func animate():
 	if not Global.check_member(member): return
-	if $AnimatedSprite2D.sprite_frames != member_info().OV:
-		$AnimatedSprite2D.sprite_frames = member_info().OV
+	if $AnimatedSprite2D.sprite_frames.resource_path != member_info().OV:
+		$AnimatedSprite2D.sprite_frames = await member_info().get_OV()
 	if $AnimatedSprite2D.animation != "default":
 		if member_info().Shadow:
 			$AnimatedSprite2D/Shadow.position.y = $AnimatedSprite2D.sprite_frames.get_frame_texture($AnimatedSprite2D.animation, 0).get_size().y - 32 - member_info().ShadowOffset

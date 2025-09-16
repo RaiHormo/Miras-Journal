@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=14 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://5dk5u2y85kai"]
 
-[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="1_3dlsp"]
 [ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_l356q"]
@@ -28,18 +27,11 @@ ActorClass = "Support"
 codename = &"Alcine"
 Pronouns = Array[String](["they", "them", "their", "themself"])
 WeaponPower = 14
-HealthBar = false
-RecivedSP = 0
-SummonedAllies = Array[ExtResource("1_o1wey")]([])
-CustomPosition = Vector2i(0, 0)
 SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
 BoxProfile = ExtResource("4_roarn")
-LastName = ""
 Weapon = "Arms?"
 PartyPageName = "SpiralRoots"
-Controllable = false
 HpOnSLvUp = 15
-ApOnSLvUP = 10
 MaxHP = 60
 MaxAura = 25
 Attack = 0.5
@@ -48,25 +40,13 @@ Defence = 0.9
 Speed = 6.0
 Health = 90
 Aura = 90
-SkillLevel = 1
-SkillPoints = 0
 SkillCurve = SubResource("Curve_wpfc1")
 Abilities = Array[ExtResource("1_l356q")]([ExtResource("2_kbab6"), ExtResource("2_2vyew")])
 StandardAttack = ExtResource("2_3o6lq")
 LearnableAbilities = Array[ExtResource("1_l356q")]([ExtResource("5_fp5sq"), ExtResource("6_82uy0")])
-OV = ExtResource("1_3dlsp")
+OV = "res://art/OV/Alcine/AlcineOV2.tres"
 BT = ExtResource("1_8ee1b")
 Offset = Vector2(-3, -15)
 Shadow = true
 ShadowOffset = 1
-SoundSet = ExtResource("10_wpfc1")
 Disappear = false
-GlowDef = 0.3
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false

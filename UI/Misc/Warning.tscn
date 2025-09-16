@@ -142,6 +142,7 @@ offset_right = 1268.0
 offset_bottom = 234.0
 theme_override_fonts/normal_font = ExtResource("3_hyroa")
 theme_override_font_sizes/normal_font_size = 38
+bbcode_enabled = true
 text = "This will destroy absolutely everything!!!
 Continue?"
 

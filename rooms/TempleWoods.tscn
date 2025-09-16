@@ -1198,7 +1198,7 @@ y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, 6.10352e-05)
 sprite_frames = ExtResource("4_d61pe")
-animation = &"Hug"
+animation = &"Scared"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="EvAxe" type="Sprite2D" parent="."]

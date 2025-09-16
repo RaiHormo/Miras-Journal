@@ -1241,7 +1241,7 @@ func remove_state_effect(statename: String, chara: Actor):
 func get_actor(codename: StringName) -> Actor:
 	for i in TurnOrder:
 		if i.codename == codename: return i
-	return null
+	return Party.Leader
 
 func random_target(ab: Ability):
 	if ab.Target != Ability.T.SELF: print("Target decided randomly")

@@ -1,6 +1,7 @@
 extends Node
 
 func bag_seq():
+	Global.Party.Leader.OV = "res://art/OV/Mira/MiraOVBag.tres"
 	Global.Player.BodyState = NPC.CUSTOM
 	Global.Player.direction = Vector2.ZERO
 	await Global.Player.set_anim("BagGet", true)
