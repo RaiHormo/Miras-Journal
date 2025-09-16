@@ -16,6 +16,8 @@ var player_jumped:= false
 	set(x):
 		dont_follow = x
 @export var offset := 0
+var path: Path2D
+var follow: PathFollow2D
 
 func _ready():
 	hide()
@@ -23,6 +25,11 @@ func _ready():
 	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
 	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
 	velocity = oposite
+	path = Global.Player.path
+	follow = PathFollow2D.new()
+	follow.name = name+"Path"
+	path.add_child(follow)
+	follow.cubic_interp = true
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(Global.Player): return
@@ -31,7 +38,7 @@ func _physics_process(_delta: float) -> void:
 		moving = false
 		animate()
 		return
-	if Global.Party.check_member(member) and not Loader.InBattle:
+	if Global.Party.check_member(member) and not Loader.InBattle and is_instance_valid(follow):
 		add_collision_exception_with(Global.Player)
 		for i in Global.Area.Followers:
 			add_collision_exception_with(i)
@@ -54,23 +61,27 @@ func _physics_process(_delta: float) -> void:
 			elif player_dist < distance:
 				player_jumped = false
 		else:
+			var path_dist = floor(path.curve.get_baked_length() - follow.progress)
+			follow.progress = lerpf(follow.progress, float(path.curve.get_baked_length() -distance), 0.5)
 			if player_dist > 180:
 				jump_to_player()
-			if (player_dist > distance and moving) or (player_dist > distance+20):
-				$CollisionShape2D.disabled = false
-				if nav_agent.is_target_reachable():
-					direction = to_local(nav_agent.get_next_path_position()).normalized()
-				else:
-					direction = to_local(target).normalized()
-				move_and_slide()
-				velocity = speed * direction
-				speed = min(max(10, player_dist - distance)*3, Global.Player.speed)
-			elif player_dist < 12 and Global.Controllable:
+			if player_dist < 12 and Global.Controllable:
 				animate()
 				oposite = (Global.get_direction() * Vector2(-1,-1))
 				velocity = oposite * 150
 				move_and_slide()
-		if (global_position-oldposition).length() > 0.3:
+			elif path_dist > distance:
+				target = to_local(follow.global_position).floor()
+				position += target
+				$CollisionShape2D.disabled = true
+				#if nav_agent.is_target_reachable():
+					#direction = to_local(nav_agent.get_next_path_position()).normalized()
+				#else:
+					#direction = to_local(target).normalized()
+				#move_and_slide()
+				#velocity = speed * direction
+				#speed = min(max(10, player_dist - distance)*3, Global.Player.speed)
+		if (global_position-oldposition).length() > 1:
 			moving = true
 			RealVelocity=global_position-oldposition
 		else:

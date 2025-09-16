@@ -24,6 +24,7 @@ var attacking := false
 var is_clone: bool = false
 var can_jump:= false
 var cant_bump:= false
+var path: Path2D
 
 func _ready() -> void:
 	collision(false)
@@ -31,6 +32,9 @@ func _ready() -> void:
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	await Event.wait()
+	path = Path2D.new()
+	Global.Area.add_child(path)
+	path.curve = Curve2D.new()
 	if Global.Area == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
@@ -55,6 +59,15 @@ func _ready() -> void:
 	#Steam.runFrame()
 
 func extended_process() -> void:
+	if is_instance_valid(path):
+		if RealVelocity.length() > 500:
+			path.curve.clear_points()
+		if path.curve.point_count < 2:
+			path.curve.add_point(position)
+			path.curve.add_point(position)
+		path.curve.set_point_position(path.curve.point_count-1, position)
+		if (path.curve.get_point_position(path.curve.point_count-1) - path.curve.get_point_position(path.curve.point_count-2)).length() > 24:
+			path.curve.add_point(position.round())
 	if Global.Controllable:
 		BodyState = CONTROLLED
 		check_flame()
