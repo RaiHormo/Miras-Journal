@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=21 format=3 uid="uid://dfrkh3lthh51c"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://dfrkh3lthh51c"]
 
 [ext_resource type="Texture2D" uid="uid://s38ia6u3uhd1" path="res://art/Tilesets/TempleWoodsBuild.png" id="1_xt10d"]
 [ext_resource type="Texture2D" uid="uid://g8dm7hq2hkoi" path="res://art/Tilesets/AbadWater.png" id="2_7gdh7"]
@@ -2695,12 +2695,6 @@ texture_region_size = Vector2i(24, 24)
 10:18/0 = 0
 10:18/0/texture_origin = Vector2i(12, 12)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_fywe2"]
-source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_faf28"]
-source_geometry_group_name = &"navigation_polygon_source_group"
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iu8dd"]
 texture = ExtResource("4_begsd")
 texture_region_size = Vector2i(24, 24)
@@ -2748,7 +2742,6 @@ texture_region_size = Vector2i(24, 24)
 8:6/0/texture_origin = Vector2i(0, 12)
 8:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 6, -12, 6)
 8:6/0/physics_layer_2/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 6, -12, 6)
-8:6/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_faf28")
 6:6/size_in_atlas = Vector2i(2, 3)
 6:6/0 = 0
 6:6/0/texture_origin = Vector2i(0, 12)
@@ -2765,7 +2758,6 @@ texture_region_size = Vector2i(24, 24)
 8:13/0/texture_origin = Vector2i(0, 12)
 8:13/0/y_sort_origin = -9
 8:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -6, -6, -12, 6, -12, 6, -6, 12, 0, 6, 6, -5.5, 5.75, -12, 0)
-8:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_fywe2")
 10:7/0 = 0
 10:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 11:7/0 = 0
@@ -2797,7 +2789,7 @@ texture_region_size = Vector2i(24, 24)
 0:6/size_in_atlas = Vector2i(2, 4)
 0:6/0 = 0
 0:6/0/texture_origin = Vector2i(0, 24)
-0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -6, -12, -6, -12, -12, 12, -12, 12, -6, 18, -6, 18, 6, 12, 6, 12, 12, 0, 12, -12, 12, -12, 6, -18, 6)
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -6, -12, -6, -12, -12, 12, -12, 12, -6, 18, -6, 18, 6, 12, 6, 12, 12, -12, 12, -12, 6, -18, 6)
 0:6/0/physics_layer_2/polygon_0/points = PackedVector2Array(-18, 12, 0, 18, 18, 12, 24, -6, 18, -18, 0, -24, -18, -18, -24, -6)
 8:2/0 = 0
 8:2/0/y_sort_origin = -16
@@ -3160,7 +3152,6 @@ terrain_set_0/terrain_6/name = "Noise trans"
 terrain_set_0/terrain_6/color = Color(0.156863, 0.337255, 0.270588, 1)
 terrain_set_0/terrain_7/name = "Dirt gray"
 terrain_set_0/terrain_7/color = Color(0.425976, 0.48504, 0.187255, 1)
-navigation_layer_0/layers = 1
 custom_data_layer_0/name = "TerrainType"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "JumpDistance"

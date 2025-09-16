@@ -65,6 +65,7 @@ func control_process() -> void:
 	BodyState = IDLE
 
 func _physics_process(delta) -> void:
+	#move_and_collide(Vector2.ZERO)
 	if Engine.is_editor_hint(): return
 	if get_tree().paused or Loader.InBattle:
 		return
@@ -80,7 +81,7 @@ func _physics_process(delta) -> void:
 		IDLE:
 			direction = Vector2.ZERO
 			position = round(position)
-			move_and_collide(direction)
+			move_and_collide(Vector2.ZERO)
 		CONTROLLED:
 			control_process()
 		CUSTOM:

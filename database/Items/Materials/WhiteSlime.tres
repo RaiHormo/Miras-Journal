@@ -15,10 +15,3 @@ Description = "A piece of slime from a white sludge monster.
 Contains a Spiritual energy."
 ItemType = "Mat"
 Icon = SubResource("AtlasTexture_o2rdi")
-Quantity = 0
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 0
-UsedInBattle = false
-OvTarget = 3
-Parameter = ""

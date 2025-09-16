@@ -143,17 +143,10 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 		OS.alert("This save file doen't exist", "WHERE FILE")
 	if !data.RoomPath:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	for i in get_tree().root.get_children():
-		if i is Room: i.queue_free()
-	var sc_split = data.RoomPath.split(";")
-	get_tree().root.add_child((await load_res(sc_split[0])).instantiate())
-	Item.load_inventory(data.Inventory)
-
+	travel_to(data.RoomPath, data.Position, data.Camera, data.Z, "")
 	await Global.area_initialized
-	if sc_split.size() > 1: Global.Area.go_to_subroom(sc_split[1])
-	Global.Player.global_position = data.Position
+	Item.load_inventory(data.Inventory)
 	PartyUI._check_party()
-	Global.Area.handle_z(data.Z)
 	print("Loading room ", data.RoomName, " in camera ID ", data.Camera, " and Z index ", data.Z)
 	await Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu"):
@@ -197,6 +190,7 @@ func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, tr
 
 func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Global.get_dir_letter(), controllable:= true):
 	direc = trans
+	get_tree().paused = true
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1: controllable = false
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
@@ -207,10 +201,10 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	Global.CameraInd = camera_ind
 	scene.assign((sc.split(";").duplicate()))
 	sc = scene[0]
-	scene[0] = "res://rooms/" + sc + ".tscn"
+	if not ".tscn" in sc:
+		scene[0] = "res://rooms/" + sc + ".tscn"
 	if scene[0] != "":
 		ResourceLoader.load_threaded_request(scene[0])
-
 	await transition(trans)
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
@@ -291,8 +285,9 @@ func done(controllable:= false):
 	chased = false
 	var look_dir = Global.get_direction()
 	if Global.Area: Global.Area.queue_free()
-	$/root.add_child(ResourceLoader.load_threaded_get(scene[0]).instantiate())
-	await get_tree().create_timer(0.1).timeout
+	var area = ResourceLoader.load_threaded_get(scene[0]).instantiate()
+	$/root.add_child(area)
+	await Global.area_initialized
 	Global.Lights.clear()
 	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
 	Global.get_cam().position_smoothing_enabled = false
@@ -303,7 +298,7 @@ func done(controllable:= false):
 	for i in Global.Area.Followers:
 		i.position = traveled_pos
 	get_tree().paused = false
-	if controllable: 
+	if controllable:
 		await Global.Player.look_to(look_dir)
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
@@ -534,9 +529,11 @@ func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
 		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
+		loading_thread = false
 	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
 		load_failed = true
+		loading_thread = false
 
 func chase_mode():
 	CamZoom = Global.get_cam().zoom

@@ -9,6 +9,9 @@ sampling_rate = 22050.0
 
 [sub_resource type="AudioStreamOggVorbis" id="AudioStreamOggVorbis_pf66e"]
 packet_sequence = SubResource("OggPacketSequence_jgapi")
+tags = {
+"encoder": "Lavc58.134.100 libvorbis"
+}
 
 [resource]
 script = ExtResource("1_ggwfs")
@@ -16,7 +19,4 @@ Bord1 = Color(0.894118, 0.894118, 0.894118, 1)
 Bord2 = Color(0.584314, 0.584314, 0.584314, 1)
 Bord3 = Color(0.305882, 0.305882, 0.305882, 1)
 Inner = Color(0.168627, 0.168627, 0.168627, 1)
-TextColor = Color(1, 1, 1, 1)
 TextSound = SubResource("AudioStreamOggVorbis_pf66e")
-AudioFrequency = 4
-PitchVariance = 1.0
