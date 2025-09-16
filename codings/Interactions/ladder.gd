@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 			active = false
 			await Global.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
-			Event.teleport_followers()
+			#Event.teleport_followers()
 		if Global.Player.position.y > $Start2.global_position.y and Global.Player.Facing == Vector2.DOWN:
 			if enable_stairs:
 				Global.Player.z_index = zDown
@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 			Global.Player.look_to(Vector2.DOWN)
 			await Global.jump_to_global(Global.Player, $End2.global_position, time, height)
 			Event.give_control()
-			Event.teleport_followers()
+			#Event.teleport_followers()
 
 func climb_down():
 	Global.Player.collision(false)

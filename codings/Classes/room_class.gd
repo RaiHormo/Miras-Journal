@@ -60,10 +60,10 @@ func _ready():
 			Followers.append(follower)
 			SpawnPath.add_child(follower)
 			match i:
-				1: follower.offset = 24
-				2: follower.offset = -24
+				1: follower.offset = 6
+				2: follower.offset = -6
 				3: follower.offset = 0
-			dist += 25
+			dist += round(30+dist/4)
 		move_child(Player, 0)
 	Global.Area = self
 	await Global.player_ready

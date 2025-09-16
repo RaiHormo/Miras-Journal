@@ -11,7 +11,7 @@ var player_jumped:= false
 
 @export var member : int
 @export var distance : int = 30
-@onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
+#@onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false:
 	set(x):
 		dont_follow = x
@@ -30,6 +30,9 @@ func _ready():
 	follow.name = name+"Path"
 	path.add_child(follow)
 	follow.cubic_interp = true
+	await Event.wait(0.1)
+	follow.progress = -distance
+	position = follow.global_position
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(Global.Player): return
@@ -48,13 +51,13 @@ func _physics_process(_delta: float) -> void:
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
 		$Glow.energy = member_info().GlowDef/2
-		makepath()
+		#makepath()
 		var oldposition=global_position
 		#print(nav_agent.distance_to_target()," ", distance)
 		var player_dist = to_local(Global.Player.position).length()
-		if Loader.chased:
-			$CollisionShape2D.disabled = true
-		if player_jumped:
+		#if Loader.chased:
+			#$CollisionShape2D.disabled = true
+		if false:
 			if player_dist > distance+80:
 				jump_to_player()
 				player_jumped = false
@@ -71,30 +74,30 @@ func _physics_process(_delta: float) -> void:
 				velocity = oposite * 150
 				move_and_slide()
 			elif path_dist > distance:
-				target = to_local(follow.global_position).floor()
-				position += target
-				$CollisionShape2D.disabled = true
+				target = to_local(follow.global_position + Global.PlayerDir.rotated(PI/2)*offset).floor()
+				direction = target.normalized()
+				#$CollisionShape2D.disabled = true
 				#if nav_agent.is_target_reachable():
 					#direction = to_local(nav_agent.get_next_path_position()).normalized()
 				#else:
 					#direction = to_local(target).normalized()
-				#move_and_slide()
-				#velocity = speed * direction
-				#speed = min(max(10, player_dist - distance)*3, Global.Player.speed)
-		if (global_position-oldposition).length() > 1:
+				velocity = speed * direction
+				speed = max(50, Global.Player.speed*Global.Player.direction.length())
+				move_and_slide()
+		if (global_position-oldposition).length() > 0.3:
 			moving = true
 			RealVelocity=global_position-oldposition
 		else:
 			moving =false
 	else:
 		hide()
-		$CollisionShape2D.disabled = true
+		#$CollisionShape2D.disabled = true
 
-func makepath() -> void:
-	target = Global.Player.position + (Global.PlayerDir.rotated(PI/2)*offset)
-	nav_agent.set_target_position(target)
-	if not nav_agent.is_target_reachable():
-		nav_agent.set_target_position(Global.Player.position)
+#func makepath() -> void:
+	#target = Global.Player.position + (Global.PlayerDir.rotated(PI/2)*offset)
+	#nav_agent.set_target_position(target)
+	#if not nav_agent.is_target_reachable():
+		#nav_agent.set_target_position(Global.Player.position)
 
 
 func animate():

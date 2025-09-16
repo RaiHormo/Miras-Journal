@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_qao14"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvt3h"]
-radius = 7.99264
-height = 17.9995
+radius = 4.0070543
+height = 8.014109
 
 [sub_resource type="Gradient" id="Gradient_beaaw"]
 interpolation_mode = 2
@@ -24,25 +24,17 @@ z_index = 1
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
-wall_min_slide_angle = 0.0
-safe_margin = 1.0
+wall_min_slide_angle = 1.5707964
 script = ExtResource("1_kihhu")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 25.0
-target_desired_distance = 25.0
-simplify_path = true
-simplify_epsilon = 12.0
-debug_path_custom_color = Color(0.984314, 0.411765, 0.552941, 1)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.19209e-07, -1.43051e-06)
-rotation = 1.56364
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_xvt3h")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9PVi9Bc3RlcmlhLwpvX25hbWV8PUFzdGVyaWFPVjEKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="

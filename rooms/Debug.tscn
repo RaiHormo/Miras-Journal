@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene load_steps=78 format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_6ip0u"]
@@ -542,13 +542,6 @@ size = Vector2(21, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_c61np"]
-vertices = PackedVector2Array(-118.852, -93.9609, 116.898, -93.0312, 84.3828, -61, 35.6172, -61, 115.391, 61.2031, 82.6406, -14, -21.4922, -34, 37.3594, -14, -23.4922, 6, -99.5078, -34, -116.141, 91.9609, -97.5078, 6, 124.883, 91, 205, 59.8516, 274.891, 85.3672, 274.102, 14.6562, 205, 12.3281)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(6, 3, 7, 8), PackedInt32Array(0, 3, 6, 9), PackedInt32Array(10, 0, 9, 11), PackedInt32Array(12, 10, 11, 8), PackedInt32Array(12, 8, 7, 5, 4), PackedInt32Array(12, 4, 13, 14), PackedInt32Array(15, 14, 13, 16)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-129, -104, 127, -103, 125.49, 51.0436, 195, 50, 195, 2, 284, 5, 285, 95, 125, 101, -126, 102), PackedVector2Array(46, 23, 74, 23, 74, 50, 47, 50), PackedVector2Array(-50, 9, -33, 9, -33, 29, -51, 30), PackedVector2Array(-82, 46, -59, 47, -56, 80, -86, 79), PackedVector2Array(-88, -4, -33, -4, -32, -24, -89, -24), PackedVector2Array(47, -24, 73, -24, 74, -51, 46, -51), PackedVector2Array(-7, -66, 28, -65, 28, -37, -5, -38)])
-source_geometry_mode = 1
-source_geometry_group_name = &"physics"
 
 [node name="Area" type="Node2D"]
 y_sort_enabled = true
@@ -1101,11 +1094,6 @@ to_time = -1
 to_time_relative = 1
 Height = 16
 bubble_always = true
-
-[node name="RegionNav" type="NavigationRegion2D" parent="."]
-visible = false
-navigation_polygon = SubResource("NavigationPolygon_c61np")
-metadata/_edit_group_ = true
 
 [node name="Transfer" parent="." instance=ExtResource("25_osbeo")]
 position = Vector2(-270, 58)
