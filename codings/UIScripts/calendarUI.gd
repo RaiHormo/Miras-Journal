@@ -11,8 +11,8 @@ func _check_party():
 	if Event.f("HideDate") and not $Action.visible: hide()
 	else: show()
 	$Container/TimeOfDay.text = Global.to_tod_text(Event.TimeOfDay)
-	$Date/Day.text = str(Event.Day)
-	$Date/Month.text = Global.get_mmm(Global.get_month(Event.Day))
+	$Date/Day.text = str(wrapi(Event.Day, 1, 32))
+	$Date/Month.text = Global.get_month_name(Global.get_month(Event.Day))
 	$Container/TimeOfDay.icon = await Global.to_tod_icon(Event.TimeOfDay)
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:

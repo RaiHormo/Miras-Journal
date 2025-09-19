@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=89 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -291,6 +291,10 @@ events = [SubResource("InputEventAction_qhcm2")]
 default_font = ExtResource("12_2fkxq")
 Label/font_sizes/font_size = 224
 
+[sub_resource type="FontVariation" id="FontVariation_ql22e"]
+base_font = ExtResource("12_2fkxq")
+spacing_top = 52
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37wmm"]
 content_margin_left = 11.0
 content_margin_right = 32.0
@@ -506,15 +510,15 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_xaphv"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlcri"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t386i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvj12"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t386i"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlcri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj6wa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38op6"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_8yp3f"]
 action = &"PartyMenu"
@@ -777,7 +781,7 @@ theme = SubResource("Theme_x6d55")
 
 [node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1"]
 show_behind_parent = true
-layout_mode = 2
+layout_mode = 0
 offset_right = 277.0
 offset_bottom = 116.0
 theme = SubResource("Theme_3xf0g")
@@ -856,9 +860,9 @@ scale = Vector2(4, 4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 theme = SubResource("Theme_uwpxh")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_vilg5")
 text = "Item x3"
@@ -887,9 +891,9 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_uaes6")
 shortcut_in_tooltip = false
@@ -907,9 +911,9 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_pbvwb")
 shortcut_in_tooltip = false
@@ -946,30 +950,32 @@ HideOnDays = Array[int]([0])
 
 [node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
 layout_mode = 0
-offset_left = 370.0
+offset_left = 249.30835
 offset_top = 20.0
-offset_right = 1057.0
-offset_bottom = 364.0
+offset_right = 1137.2715
+offset_bottom = 382.0
 size_flags_horizontal = 10
-theme_override_constants/separation = 48
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Month" type="Label" parent="CanvasLayer/CalendarBase/Date"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
+size_flags_vertical = 1
 theme = SubResource("Theme_f46jh")
 theme_override_colors/font_color = Color(0.309804, 0.235294, 0.203922, 1)
-text = "Nov"
+theme_override_fonts/font = SubResource("FontVariation_ql22e")
+theme_override_font_sizes/font_size = 130
+text = "November"
 horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Day" type="Label" parent="CanvasLayer/CalendarBase/Date"]
 layout_mode = 2
-size_flags_horizontal = 3
 theme = SubResource("Theme_f46jh")
 theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
 theme_override_font_sizes/font_size = 265
 text = "12"
-horizontal_alignment = 1
 
 [node name="Container" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
 layout_mode = 1
@@ -986,13 +992,13 @@ alignment = 2
 [node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Container"]
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("14_fmwou")
@@ -1013,13 +1019,13 @@ alignment = 2
 [node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Future"]
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("14_fmwou")
@@ -1147,9 +1153,9 @@ pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_xncxc")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_xaphv")
 shortcut_in_tooltip = false
@@ -1163,11 +1169,11 @@ offset_right = 253.0
 offset_bottom = 571.0
 focus_mode = 0
 mouse_filter = 1
-theme_override_styles/focus = SubResource("StyleBoxEmpty_38op6")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_rj6wa")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_jlcri")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_gvj12")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_t386i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gvj12")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jlcri")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_rj6wa")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_38op6")
 shortcut = SubResource("Shortcut_dk2bs")
 shortcut_feedback = false
 shortcut_in_tooltip = false
@@ -1267,7 +1273,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
 placeholder_text = "Enter a flag"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 245.0
 offset_top = -681.0
 offset_right = 681.0

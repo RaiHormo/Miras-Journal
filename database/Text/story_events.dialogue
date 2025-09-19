@@ -137,7 +137,7 @@ Mira.Neutral: (hide)[next]
 do bubble("Question", "Alcine")
 [wait=1] [next=auto]
 Mira.Neutral: Right, you can't talk. But I need to call you something...
-Mira.Neutral: Ok, I'll come up with a name and you tell me if you like it. Alright?
+Mira.Neutral: Oh I got it! \nI'll come up with a name and you tell me if you like it, okay?
 
 ~ what_about
 [wait=0.1] [next=auto]
@@ -161,6 +161,10 @@ elif alcine() == "Journal":
 	And then she said "It's journaling time!" and journaled all over them.
 elif alcine() == "Name":
 	Name?
+elif alcine() == "Ghost":
+	Being literal with it, I like it.
+elif alcine() == "Alcine":
+	I wonder.
 elif alcine() == "Gaster":
 	I don't speak hands.
 elif alcine() == "Luigi":
@@ -207,6 +211,8 @@ elif alcine() == "Alkaline":
 	It's pronounced "Alk-ah-leen".
 elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":
 	Brazy.
+elif alcine() == "Piss Elmnt" or alcine() == "Piss Element":
+	Now that is a name!
 elif alcine() == "Creature":
 	Bit on the nose?
 else:

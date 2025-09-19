@@ -51,10 +51,12 @@ func _physics_process(_delta: float) -> void:
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
 		$Glow.energy = member_info().GlowDef/2
-		#makepath()
 		var oldposition=global_position
-		#print(nav_agent.distance_to_target()," ", distance)
 		var player_dist = to_local(Global.Player.position).length()
+		target = (follow.global_position + Global.PlayerDir.rotated(PI/2)*offset).floor()
+		direction = to_local(target).normalized()
+		if to_local(target).length() < 5: direction = Vector2.ZERO
+		var path_dist = floor(path.curve.get_baked_length() - follow.progress)
 		#if Loader.chased:
 			#$CollisionShape2D.disabled = true
 		if false:
@@ -64,26 +66,18 @@ func _physics_process(_delta: float) -> void:
 			elif player_dist < distance:
 				player_jumped = false
 		else:
-			var path_dist = floor(path.curve.get_baked_length() - follow.progress)
-			follow.progress = lerpf(follow.progress, float(path.curve.get_baked_length() -distance), 0.5)
+			follow.progress = round(lerpf(follow.progress, max(float(path.curve.get_baked_length() -distance), 0), 0.5))
 			if player_dist > 180:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
 				animate()
 				oposite = (Global.get_direction() * Vector2(-1,-1))
 				velocity = oposite * 150
-				move_and_slide()
-			elif path_dist > distance:
-				target = to_local(follow.global_position + Global.PlayerDir.rotated(PI/2)*offset).floor()
-				direction = target.normalized()
+			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
-				#if nav_agent.is_target_reachable():
-					#direction = to_local(nav_agent.get_next_path_position()).normalized()
-				#else:
-					#direction = to_local(target).normalized()
-				velocity = speed * direction
-				speed = max(50, Global.Player.speed*Global.Player.direction.length())
-				move_and_slide()
+		speed = max(50, Global.Player.speed*to_local(target).length()/20)
+		velocity = speed * direction
+		move_and_slide()
 		if (global_position-oldposition).length() > 0.3:
 			moving = true
 			RealVelocity=global_position-oldposition

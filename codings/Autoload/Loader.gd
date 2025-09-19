@@ -190,7 +190,6 @@ func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, tr
 
 func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Global.get_dir_letter(), controllable:= true):
 	direc = trans
-	get_tree().paused = true
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1: controllable = false
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
@@ -206,6 +205,7 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	if scene[0] != "":
 		ResourceLoader.load_threaded_request(scene[0])
 	await transition(trans)
+	get_tree().paused = true
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:

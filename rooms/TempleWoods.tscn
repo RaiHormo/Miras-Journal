@@ -603,6 +603,7 @@ SpawnPos = Vector2(5, 22)
 SpawnZ = Array[int]([1, 1, 1, 1])
 CameraLimits = Array[Vector4]([Vector4(-50, 150, 800, 700), Vector4(1000, -700, 1770, 550), Vector4(1140, -1800, 2100, -870)])
 CameraZooms = Array[float]([1.25, 1.0, 1.1])
+FlameInInd = Array[int]([2])
 
 [node name="AlcineNaming" type="Control" parent="."]
 visible = false
@@ -627,15 +628,16 @@ color = Color(0, 0, 0, 0.588235)
 [node name="Error" type="Label" parent="AlcineNaming"]
 light_mask = 0
 layout_mode = 0
-offset_left = -6.0
-offset_top = 17.0
-offset_right = 96.0
-offset_bottom = 37.0
+offset_left = -29.73999
+offset_top = 21.0
+offset_right = 125.26001
+offset_bottom = 41.0
 theme_override_colors/font_color = Color(0.913725, 0.27451, 0.247059, 1)
 theme_override_fonts/font = ExtResource("28_qbi5i")
 theme_override_font_sizes/font_size = 6
 text = "Bit too long, isn't it?"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Label" type="Label" parent="AlcineNaming"]
 light_mask = 0
@@ -684,10 +686,10 @@ caret_multiple = false
 [node name="TextureRect" type="TextureRect" parent="AlcineNaming"]
 light_mask = 0
 layout_mode = 0
-offset_left = -110.012
-offset_top = -50.9749
-offset_right = 3320.99
-offset_bottom = 3380.03
+offset_left = -156.74002
+offset_top = -90.64004
+offset_right = 4143.26
+offset_bottom = 4209.3633
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("5_e7y1u")
 
@@ -1393,7 +1395,6 @@ Direction = Vector2(1, 0)
 Position = Vector2(1220, 461)
 room = "TempleWoods"
 ToCamera = 1
-ToCameraIfFlag = 1
 
 [node name="Transfer2" parent="." instance=ExtResource("8_grqbv")]
 position = Vector2(1143.11, 461.739)
@@ -1417,11 +1418,10 @@ room = "TempleWoods"
 ToCamera = 1
 
 [node name="Transfer5" parent="." instance=ExtResource("8_grqbv")]
-position = Vector2(1953, -1766)
+z_index = 1
+position = Vector2(1956, -1786)
 Direction = Vector2(0, -1)
 room = "Amberelm"
-Flag = &"EnteredAmberelm2"
-FlagShouldBe = true
 
 [node name="JumpPoint2" parent="." instance=ExtResource("35_2q7ov")]
 position = Vector2(276, 261)
@@ -1453,11 +1453,11 @@ jump_am = 2
 
 [node name="EnteredAmberelm2" parent="." instance=ExtResource("36_2q7ov")]
 z_index = 1
-position = Vector2(1956, -1761)
+position = Vector2(1956.0001, -1758)
 scale = Vector2(1.68, 1)
 EventName = "enter_amberelm"
+Flag = "EnterAmberelm"
 ReturnControl = false
-KickDirection = Vector2(0, -2)
 
 [node name="EvFirstBattle" parent="." instance=ExtResource("36_2q7ov")]
 position = Vector2(752, 513)

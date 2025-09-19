@@ -219,8 +219,9 @@ func set_time(tod: TOD):
 	time_changed.emit()
 
 func teleport_followers():
-	for i in Global.Area.Followers:
-		i.jump_to_player()
+	#for i in Global.Area.Followers:
+		#i.jump_to_player()
+	Global.Player.path.curve.clear_points()
 
 func sequence(title: String):
 	if seq.has_method(title):

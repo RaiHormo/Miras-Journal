@@ -72,6 +72,7 @@ func show_all(except_date = false):
 	if disabled: return
 	UIvisible = true
 	visibly = true
+	inactive = false
 	#Partybox.queue_sort()
 	$CanvasLayer.show()
 	t = create_tween()

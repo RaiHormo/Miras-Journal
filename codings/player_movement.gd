@@ -64,8 +64,8 @@ func extended_process() -> void:
 		if RealVelocity.length() > 500:
 			path.curve.clear_points()
 		if path.curve.point_count < 2:
-			path.curve.add_point(position+Vector2(-32, 0))
-			path.curve.add_point(position+Vector2(-32, 32))
+			path.curve.add_point(position-Facing)
+			path.curve.add_point(position-Facing*2)
 		path.curve.set_point_position(path.curve.point_count-1, position)
 		if (path.curve.get_point_position(path.curve.point_count-1) - path.curve.get_point_position(path.curve.point_count-2)).length() > 24:
 			path.curve.add_point(position.round())

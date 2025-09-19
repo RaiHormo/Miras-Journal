@@ -70,6 +70,15 @@ func on_confirm() -> void:
 	elif "enowmi" in txt or "enomi" in txt or "eknowme" in txt or "enowm" in txt:
 		$Error.text = "You think you're clever, huh?"
 		$Error.show()
+	elif txt == "piss":
+		$Error.text = "That is an absolutely terrible name, why would I ever even consider it for a creature like this?"
+		$Error.show()
+	elif txt == "pissed":
+		$Error.text = "I'm absolutely pissed that I'm even going down this thought process, oh how can I be so cruel."
+		$Error.show()
+	elif txt == "pissing":
+		$Error.text = "It is a terrible fate that has fallen upon me."
+		$Error.show()
 	elif "aaa" in txt:
 		$Error.text = "Seriously? I think i can do better than this."
 		$Error.show()

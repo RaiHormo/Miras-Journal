@@ -59,10 +59,10 @@ func _ready():
 			follower.distance = dist
 			Followers.append(follower)
 			SpawnPath.add_child(follower)
-			match i:
-				1: follower.offset = 6
-				2: follower.offset = -6
-				3: follower.offset = 0
+			#match i:
+				#1: follower.offset = 6
+				#2: follower.offset = -6
+				#3: follower.offset = 0
 			dist += round(30+dist/4)
 		move_child(Player, 0)
 	Global.Area = self
@@ -77,7 +77,7 @@ func _ready():
 	if is_instance_valid(Global.Player):
 		if Global.CameraInd in FlameInInd:
 			if not Event.f("FlameActive"): Global.Player.activate_flame()
-		if -Global.CameraInd in FlameInInd:
+		if -Global.CameraInd in FlameInInd or (Global.CameraInd == 0 and -99 in FlameInInd):
 			Event.remove_flag("FlameActive")
 		Global.Player.collision(true)
 	default()

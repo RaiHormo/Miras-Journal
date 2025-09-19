@@ -46,6 +46,7 @@ func sleep_home():
 	#Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(178, 482), 0, 2, "")
 
 func enter_amberelm():
+	Global.Player.move_dir(Vector2(0, -2))
 	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, "U", false)
 	var mira: NPC = Global.Area.get_node("EvEntranceCutscene/MiraCut")
 	var alcine: NPC = Global.Area.get_node("EvEntranceCutscene/AlcineCut")
@@ -68,6 +69,7 @@ func enter_amberelm():
 	alcine.chain_moves([Vector2.RIGHT, Vector2.UP*5])
 	await Event.wait(0.8)
 	Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, "U")
+	Event.add_flag("EnterAmberelm")
 
 func enter_amberelm_2():
 	await Event.take_control()
@@ -115,6 +117,7 @@ func rest_amberelm():
 	await Loader.transition("")
 	await Event.wait(1)
 	Global.heal_party()
+	Event.ToDay = 0
 	Event.ToTime = Event.TOD.DAYTIME
 	await Event.time_transition()
 	Global.heal_party()

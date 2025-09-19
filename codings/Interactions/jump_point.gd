@@ -60,6 +60,7 @@ func _physics_process(delta: float) -> void:
 					for i in Global.Area.Followers:
 						i.player_jumped = true
 					busy = false
+					Event.teleport_followers()
 
 
 func _on_body_exited(body: Node2D) -> void:
