@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=4 uid="uid://dyfupfl7rjxav"]
+[gd_scene load_steps=87 format=4 uid="uid://dyfupfl7rjxav"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_45tma"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
@@ -407,9 +407,6 @@ Enemies = Array[ExtResource("11_djhcr")]([ExtResource("12_ylfhl"), ExtResource("
 EscPosition = Vector2i(48, 19)
 ScenePosition = Vector2(1392, 488)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuqbx"]
-size = Vector2(41.9999, 72.9999)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piqdh"]
 size = Vector2(78, 20)
@@ -986,22 +983,6 @@ texture_filter = 1
 sprite_frames = ExtResource("10_rs8em")
 animation = &"WalkUp"
 
-[node name="EvKick" type="Area2D" parent="."]
-z_index = 3
-position = Vector2(12, 830)
-collision_mask = 15
-script = ExtResource("19_5avo1")
-TextFile = "interactions"
-TextNode = "kick_bridge"
-Flag = "EvRestAmberelm"
-FlagIsName = false
-FlagShouldBe = true
-KickDirection = Vector2(0, -1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvKick"]
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_uuqbx")
-
 [node name="EvRestAmberelm" type="Node2D" parent="."]
 visible = false
 z_index = 2
@@ -1308,7 +1289,6 @@ ReturnControl = false
 [connection signal="body_exited" from="EffectUnderthouse" to="EffectUnderthouse" method="_on_body_exited"]
 [connection signal="body_entered" from="EffectUndertree" to="EffectUndertree" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectUndertree" to="EffectUndertree" method="_on_body_exited"]
-[connection signal="body_entered" from="EvKick" to="EvKick" method="_on_body_entered"]
 [connection signal="body_entered" from="EvSplash" to="EvSplash" method="_on_body_entered"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
 [connection signal="body_entered" from="JumpPoint3" to="JumpPoint3" method="_on_entered"]

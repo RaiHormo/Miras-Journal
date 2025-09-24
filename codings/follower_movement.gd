@@ -7,6 +7,7 @@ var oposite : Vector2
 var RealVelocity: Vector2
 var moving: bool
 var target: Vector2
+var dir: Vector2
 var player_jumped:= false
 
 @export var member : int
@@ -53,9 +54,9 @@ func _physics_process(_delta: float) -> void:
 		$Glow.energy = member_info().GlowDef/2
 		var oldposition=global_position
 		var player_dist = to_local(Global.Player.position).length()
-		target = (follow.global_position + Global.PlayerDir.rotated(PI/2)*offset).floor()
+		target = round((follow.global_position + Global.PlayerDir.rotated(PI/2)*offset))
 		direction = to_local(target).normalized()
-		if to_local(target).length() < 5: direction = Vector2.ZERO
+		if to_local(target).length() < 6: direction = Vector2.ZERO
 		var path_dist = floor(path.curve.get_baked_length() - follow.progress)
 		#if Loader.chased:
 			#$CollisionShape2D.disabled = true
@@ -63,7 +64,7 @@ func _physics_process(_delta: float) -> void:
 			if player_dist > distance+80:
 				jump_to_player()
 				player_jumped = false
-			elif player_dist < distance:
+			elif player_dist < distance and Global.Player.move_frames/10 > distance:
 				player_jumped = false
 		else:
 			follow.progress = round(lerpf(follow.progress, max(float(path.curve.get_baked_length() -distance), 0), 0.5))
@@ -75,10 +76,12 @@ func _physics_process(_delta: float) -> void:
 				velocity = oposite * 150
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
-		speed = max(50, Global.Player.speed*to_local(target).length()/20)
+		speed = max(50, Global.Player.speed*(to_local(target).length()/40))
+		if floor(player_dist/5) < floor(distance/5):
+			speed /= 2
 		velocity = speed * direction
 		move_and_slide()
-		if (global_position-oldposition).length() > 0.3:
+		if (global_position-oldposition).length() > 0.1:
 			moving = true
 			RealVelocity=global_position-oldposition
 		else:
@@ -107,8 +110,10 @@ func animate():
 	if RealVelocity.x == RealVelocity.y:
 		pass
 	elif not moving:
-		var dir = Global.get_direction(RealVelocity)
-		position = round(position)
+		if Global.Player.move_frames < randi_range(-100, -2000):
+			dir = Global.get_direction(to_local(Global.Player.position))
+		if RealVelocity.length() == 0:
+			position = round(position)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("IdleRight")
 		elif dir == Vector2.LEFT:
@@ -118,7 +123,7 @@ func animate():
 		elif dir == Vector2.DOWN:
 			$AnimatedSprite2D.play("IdleDown")
 	else:
-		var dir = Global.get_direction(RealVelocity)
+		dir = Global.get_direction(RealVelocity)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("WalkRight")
 		elif dir == Vector2.LEFT:

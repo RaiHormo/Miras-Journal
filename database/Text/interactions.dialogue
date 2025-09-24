@@ -78,7 +78,7 @@ if Event.f("TheSkyAmberelm"):
 else:
 	Mira.Neutral: The sky here is as strange as ever.
 	Mira.Neutral: Looks like we're near the sea, but it fades into those strange lines.
-	Mira.Neutral: It's definitely far from my home...
+	Mira.Neutral: It must be so far from my home...
 	do Event.f("TheSkyAmberelm", true)
 do Global.Player.camera_follow(true)
 => END
