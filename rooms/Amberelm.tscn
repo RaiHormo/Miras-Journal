@@ -931,7 +931,6 @@ motion_mode = 1
 script = ExtResource("8_spg60")
 speed = 50
 DefaultState = 1
-SpawnOnCameraInd = true
 CameraIndex = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/AlcineCut"]
@@ -959,7 +958,6 @@ motion_mode = 1
 script = ExtResource("8_spg60")
 speed = 50
 DefaultState = 1
-SpawnOnCameraInd = true
 CameraIndex = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/MiraCut"]

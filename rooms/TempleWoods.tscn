@@ -606,6 +606,7 @@ CameraZooms = Array[float]([1.25, 1.0, 1.1])
 FlameInInd = Array[int]([2])
 
 [node name="AlcineNaming" type="Control" parent="."]
+visible = false
 light_mask = 0
 z_index = 9
 layout_mode = 3
@@ -1168,6 +1169,7 @@ script = ExtResource("3_8qhui")
 speed = 100
 Facing = Vector2(1, 0)
 ID = "Alcine"
+SpawnOnCameraInd = false
 CameraIndex = 1
 
 [node name="Nav" type="NavigationAgent2D" parent="EvAlcine"]
@@ -1385,6 +1387,7 @@ position = Vector2(1597.78, -950.365)
 item_name = "StrangeFruit"
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_ovn4b")
 use_edge_connections = false
 navigation_layers = 2

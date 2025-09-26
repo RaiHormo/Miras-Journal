@@ -76,8 +76,8 @@ func _ready():
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
 	if duplicated:
 		t.tween_property(player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
-		t.tween_property(Fader.material, "shader_parameter/lod", 2.5, 0.5).from(0.0)
-	else: t.tween_property(Fader.material, "shader_parameter/lod", 1.0, 0.5).from(0.0)
+		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*2.5, 0.5).from(0.0)
+	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*1.0, 0.5).from(0.0)
 	get_inventory()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
@@ -108,6 +108,7 @@ func _input(event):
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	$Party.icon = Global.get_controller().Select
+	Global.Controllable = false
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
@@ -180,7 +181,8 @@ func close(give_control=true):
 	PartyUI.UIvisible = true
 	if not duplicated: Global.Area.handle_z(z)
 	else: t.tween_property(player, "modulate", Color(0,0,0,0), 0.5)
-	player.get_node("%Shadow").z_index = 0
+	if is_instance_valid(player):
+		player.get_node("%Shadow").z_index = 0
 	await t.finished
 	if duplicated:
 		player.free()

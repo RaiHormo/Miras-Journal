@@ -1892,6 +1892,7 @@ position = Vector2(-3, 53)
 position = Vector2(-2, 85)
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_pimpf")
 use_edge_connections = false
 navigation_layers = 2

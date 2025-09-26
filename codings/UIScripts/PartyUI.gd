@@ -163,7 +163,7 @@ func darken(toggle := true):
 	t = create_tween().set_parallel()
 	if toggle:
 		$CanvasLayer/Fade.show()
-		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.3)
+		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*3, 0.3)
 		t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.3)
 		await t.finished
 	else:
@@ -581,7 +581,7 @@ func choose_member():
 	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1,1,1,1), 0.4)
-	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", 3, 0.4)
+	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
 	await Event.wait(0.3, false)
 	MemberChoosing = true

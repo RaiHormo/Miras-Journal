@@ -51,7 +51,7 @@ func _ready():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
-	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1).from(0.0)
+	t.tween_property($Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*3.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
 	if no_main: return
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
@@ -98,7 +98,7 @@ func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
-	if stage == "game_settings": load_settings()
+	#if stage == "game_settings": load_settings()
 #	if Input.is_action_just_pressed("ui_cancel"):
 #		_on_back_pressed()
 
@@ -175,7 +175,7 @@ func main():
 	t.tween_property($MainButtons/Manual, "position", Vector2(846, 343), 0.5)
 	t.tween_property($MainButtons/Quit, "position", Vector2(932, 633), 0.5)
 	t.tween_property($MainButtons/Manual, "rotation_degrees", 0, 0.5)
-	t.tween_property($Fader.material, "shader_parameter/lod", 5.0, 1)
+	t.tween_property($Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*3.0, 1)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1)
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(0, -39), 0.5)
@@ -257,6 +257,7 @@ func save_managment() -> void:
 	await t.finished
 	if not save_files_loaded:
 		await load_save_files()
+		if stage != "save_managment": return
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame.grab_focus()
@@ -359,6 +360,7 @@ func load_settings():
 	%SettingsVbox/TextSpeed/MenuBar.selected = Global.Settings.TextSpeed
 	%SettingsVbox/UpscaledResolution/CheckButton.button_pressed = Global.Settings.UpscaledRes
 	%SettingsVbox/ControllerVibration/CheckButton.button_pressed = Global.Settings.ControllerVibration
+	%SettingsVbox/BlurEffect/CheckButton.button_pressed = Global.Settings.BlurEffect
 	match Global.Settings.FPS:
 		0: %SettingsVbox/FPS/MenuBar.selected = 0
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
@@ -818,14 +820,20 @@ You can backup this data by pressing F1 and copying the files.\nProceed?"):
 	
 func _on_credit_scroll(event: InputEvent) -> void:
 	if event.is_action("ui_up"):
-		$GalleryPanel/Credits.scroll_vertically(-1000)
+		$GalleryPanel/Credits.scroll_vertical -= 1000
 	if event.is_action("ui_down"):
-		$GalleryPanel/Credits.scroll_vertically(1000)
+		$GalleryPanel/Credits.scroll_vertical += 1000
 	if event.is_action("ui_cancel") or event.is_action("ui_left"):
 		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
 
 
 func _on_controller_vibration(toggled_on: bool) -> void:
 	Global.Settings.ControllerVibration = toggled_on
+	confirm()
+	load_settings()
+
+
+func _blur_effect(toggled_on: bool) -> void:
+	Global.Settings.BlurEffect = toggled_on
 	confirm()
 	load_settings()

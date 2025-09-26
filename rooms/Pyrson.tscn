@@ -756,6 +756,7 @@ tile_set = SubResource("TileSet_dw7lm")
 [node name="Linde" parent="LindeHouse" instance=ExtResource("16_s1pqb")]
 z_index = 0
 position = Vector2(-175, 555)
+CameraIndex = 1
 
 [node name="TalkPrompt" parent="LindeHouse/Linde" instance=ExtResource("9_w0u03")]
 position = Vector2(-1, -3)

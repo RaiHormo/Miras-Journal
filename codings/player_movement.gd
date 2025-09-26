@@ -25,6 +25,9 @@ var is_clone: bool = false
 var can_jump:= false
 var cant_bump:= false
 var path: Path2D
+var local_controllable:= true:
+	set(x):
+		local_controllable = x
 
 func _ready() -> void:
 	collision(false)
@@ -53,6 +56,7 @@ func _ready() -> void:
 	set_anim("Idle"+str(Global.get_dir_name(Global.get_direction())))
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
+	local_controllable = true
 	Global.player_ready.emit()
 
 #func _process(delta: float) -> void:
@@ -69,7 +73,7 @@ func extended_process() -> void:
 		path.curve.set_point_position(path.curve.point_count-1, position)
 		if (path.curve.get_point_position(path.curve.point_count-1) - path.curve.get_point_position(path.curve.point_count-2)).length() > 24:
 			path.curve.add_point(position.round())
-	if Global.Controllable:
+	if controllable():
 		BodyState = CONTROLLED
 		check_flame()
 	else:
@@ -94,7 +98,7 @@ func control_process():
 				position -= direction *6
 			else:
 				undashable = true
-	if Global.Controllable:
+	if controllable():
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
 		if Input.is_action_pressed("Dash") and Global.get_direction(
@@ -114,12 +118,12 @@ func control_process():
 				else:
 					dashdir = Global.get_direction(direction)
 					dashing = true
-					Global.Controllable=false
+					local_controllable = false
 					BodyState = CUSTOM
 					direction = dashdir
 					reset_speed()
 					if BodyState == CUSTOM:
-						Global.Controllable=true
+						local_controllable = true
 					if speed < dash_speed:
 						speed = dash_speed
 			elif Global.get_direction(direction.normalized()) != dashdir:
@@ -139,7 +143,7 @@ func control_process():
 		var old_position = global_position
 		if direction.length()>0.1:
 			move_and_slide()
-		if Input.is_action_just_pressed("OVAttack") and Global.Controllable:
+		if Input.is_action_just_pressed("OVAttack") and controllable():
 			attack()
 
 	if Global.Settings.DebugMode:
@@ -153,7 +157,7 @@ func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return
 	if Facing == Vector2.ZERO: return
 	if BodyState == CONTROLLED:
-		if (abs(RealVelocity.length())>1 and Global.Controllable):
+		if (abs(RealVelocity.length())>1 and controllable()):
 			if dashing:
 				reset_speed()
 				set_anim("Dash"+Global.get_dir_name(dashdir)+"Loop")
@@ -164,7 +168,7 @@ func update_anim_prm() -> void:
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 			if move_frames < 0: move_frames = 0
 			move_frames+=1
-		elif Global.Controllable and ("Walk" in used_sprite.animation or
+		elif controllable() and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			move_frames = 0
 			reset_speed()
@@ -202,7 +206,7 @@ func _check_party() -> void:
 func set_anim(anim:String = "Idle"+Global.get_dir_name(), wait = false, overwrite_bodystate = false) -> void:
 	#print(anim)
 	if get_node_or_null("%Base") == null: return
-	if not Global.Controllable: reset_speed()
+	if not controllable(): reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
 	if Event.f(&"FlameActive") and anim in %Flame.sprite_frames.get_animation_names():
 		used_sprite = %Flame
@@ -239,13 +243,13 @@ func activate_flame(animate:=true) -> void:
 	await Event.wait()
 	check_flame(true)
 	if animate:
-		Global.Controllable = false
+		local_controllable = false
 		BodyState = NONE
 		await set_anim("FlameActive", true)
 		set_anim("IdleRight")
 
 func check_flame(force:= false) -> void:
-	if not Global.Controllable and not force: return
+	if not controllable() and not force: return
 	if Event.check_flag(&"FlameActive"):
 		if get_node_or_null("Flame") == null: return
 		if flame.energy == 0:
@@ -288,7 +292,7 @@ func stop_dash(slide = true) -> void:
 		await bump()
 	else:
 		set_anim("Dash"+Global.get_dir_name(dashdir)+"Stop")
-		Global.Controllable=false
+		local_controllable = false
 		if Input.is_action_pressed("Dash") and Global.get_direction(direction) != dashdir and direction != Vector2.ZERO and not Global.get_direction(direction, true) == -dashdir:
 			await get_tree().create_timer(0.1).timeout
 		else:
@@ -301,7 +305,7 @@ func stop_dash(slide = true) -> void:
 					velocity = dashdir * speed
 					speed = max(0, speed - 2)
 					await Event.wait()
-		Global.Controllable = true
+		local_controllable = true
 		Global.check_party.emit()
 		BodyState = CONTROLLED
 		velocity = Vector2.ZERO
@@ -324,13 +328,16 @@ func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	if dir == Vector2.ZERO: dir = dashdir
 	Global.jump_to_global(self, global_position - dir*15, 15, 0.5, false)
 	set_anim("Dash"+Global.get_dir_name(dashdir)+"Hit")
-	var mem = Global.Controllable
-	Global.Controllable = false
+	var mem = local_controllable
+	local_controllable = false
 	if used_sprite.is_playing(): await used_sprite.animation_finished
-	Global.Controllable = mem
+	local_controllable = mem
 
 func camera_follow(follow = !$Camera2D.update_position) -> void:
 	$Camera2D.update_position = follow
+
+func controllable():
+	return local_controllable and Global.Controllable
 
 func attack():
 	if not Item.check_item("LightweightAxe", "Key"):
@@ -339,7 +346,7 @@ func attack():
 	if dashing: await stop_dash()
 	reset_speed()
 	speed = 40
-	Global.Controllable = false
+	local_controllable = false
 	$Attack/AttackPreview.collision_layer = collision_layer
 	$Attack/AttackPreview.collision_mask = collision_mask
 	$Attack/AttackPreview/CollisionShape2D.disabled = false
@@ -390,7 +397,7 @@ func attack():
 	$Audio.stream = audio
 	$Audio.play()
 	await set_anim(anim, true)
-	Global.Controllable = true
+	local_controllable = true
 	if Input.is_action_pressed("OVAttack"): attack()
 	else:
 		attacking = false
@@ -407,8 +414,8 @@ func check_before_attack():
 			i.attacked()
 
 func dramatic_attack_pause():
-	while not Global.Controllable:
-		Global.Controllable = false
+	while not controllable():
+		local_controllable = false
 		BodyState = CUSTOM
 		#print(attacking)
 		if attacking:
@@ -428,7 +435,7 @@ func dramatic_attack_pause():
 		await Event.wait()
 
 func _on_open_menu_pressed() -> void:
-	if Global.Controllable:
+	if controllable():
 		PartyUI.main_menu()
 
 func remove_light(node:Node2D = $Sprite):

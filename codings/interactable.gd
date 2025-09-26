@@ -179,6 +179,7 @@ func do_position():
 			$Pack/Arrow.flip_h = false
 
 func _on_button_pressed() -> void:
+	Global.Controllable = false
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
@@ -190,6 +191,8 @@ func _on_button_pressed() -> void:
 		Global.Player.collision(false)
 		await Global.Player.go_to(proper_pos, false, true, proper_face)
 	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
+	if get_tree().root.has_node("MainMenu"):
+		get_tree().root.get_node("MainMenu").close()
 	if not (to_time == 0 and to_time_relative == 0):
 		Event.ToTime = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
 	match ActionType:

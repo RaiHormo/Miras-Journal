@@ -139,7 +139,6 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 	if idle:
 		Global.Player.BodyState = NPC.IDLE
 		Global.Player.set_anim()
-
 	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
 	if not keep_followers:
@@ -161,6 +160,7 @@ func give_control(camera_follow:= false):
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
+	Global.Player.local_controllable = true
 	if camera_follow: Global.Player.camera_follow(true)
 	get_tree().paused = false
 	for i in Global.Area.Followers:

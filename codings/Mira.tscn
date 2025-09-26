@@ -631,7 +631,7 @@ radius = 7.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7m28b"]
 shader = ExtResource("14_kgs5v")
-shader_parameter/lod = 1.0
+shader_parameter/lod = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vcrc"]
 size = Vector2(16.875, 21)
@@ -768,6 +768,7 @@ update_rotation = false
 update_scale = false
 
 [node name="Fader" type="ColorRect" parent="."]
+process_mode = 1
 visible = false
 light_mask = 0
 material = SubResource("ShaderMaterial_7m28b")

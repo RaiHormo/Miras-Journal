@@ -31,8 +31,8 @@ var coords:Vector2 = Vector2.ZERO
 @export var ID: String
 var DefaultPos := Vector2.ZERO
 @export var Nav:NavigationAgent2D
-@export var SpawnOnCameraInd := false
-@export var CameraIndex: int
+@export var SpawnOnCameraInd := true
+@export var CameraIndex: int = 0
 var stopping:= false
 @export var Footsteps:= true
 var LastStepFrame:= -1

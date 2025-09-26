@@ -40,7 +40,7 @@ func _physics_process(_delta: float) -> void:
 	if dont_follow:
 		direction = Vector2.ZERO
 		moving = false
-		animate()
+		#animate()
 		return
 	if Global.Party.check_member(member) and not Loader.InBattle and is_instance_valid(follow):
 		add_collision_exception_with(Global.Player)
