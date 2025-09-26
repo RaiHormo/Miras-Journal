@@ -377,7 +377,7 @@ func load_settings():
 	%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
 	%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
 	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
-	var setting = await Loader.load_res("user://Settings.tres")
+	var setting = await Loader.load_res("user://Settings.res")
 
 
 func load_save_files():

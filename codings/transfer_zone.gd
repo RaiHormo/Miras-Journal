@@ -6,7 +6,8 @@ extends Area2D
 
 func _on_entered(body):
 	if body == Global.Player:
-		proceed()
+		if Global.Controllable or Global.Player.dashing or Global.Player.attacking: 
+			proceed()
 
 func proceed() -> void:
 	await Event.take_control()

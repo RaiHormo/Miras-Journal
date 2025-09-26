@@ -861,7 +861,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackDownWindup",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -906,7 +906,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackLeftWindup",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -951,7 +951,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackRightWindup",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -982,7 +982,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackUpWindup",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -125,6 +125,7 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
+	var pos = Global.Player.position
 	print("Taking control")
 	Global.Controllable = false
 	await wait()
@@ -132,6 +133,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 	if Global.Player.dashing:
 		await Global.Player.stop_dash(false)
 		Global.Player.dashing = false
+	Global.Player.dashdir = Vector2.ZERO
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
 	if idle:
@@ -144,6 +146,8 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 		for i in Global.Area.Followers:
 			i.dont_follow = true
 	await wait()
+	Global.Controllable = false
+	Global.Player.position = pos
 	Global.check_party.emit()
 
 func give_control(camera_follow:= false):

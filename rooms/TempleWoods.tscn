@@ -1460,7 +1460,7 @@ Flag = "EnterAmberelm"
 ReturnControl = false
 
 [node name="EvFirstBattle" parent="." instance=ExtResource("36_2q7ov")]
-position = Vector2(752, 513)
+position = Vector2(729, 512)
 scale = Vector2(1, 1.72)
 EventName = "first_battle"
 

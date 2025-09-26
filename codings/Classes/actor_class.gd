@@ -262,6 +262,7 @@ func save_to_dict() -> Dictionary:
 		"CantDie": CantDie,
 		"CantDodge": CantDodge,
 		"IgnoreStates": IgnoreStates,
+		"OV": OV,
 	}
 	return dict
 

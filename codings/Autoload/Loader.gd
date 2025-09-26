@@ -303,8 +303,12 @@ func done(controllable:= false):
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
 	if direc != "wait": detransition()
-	if controllable: Event.give_control(false)
 	Global.get_cam().position_smoothing_enabled = true
+	if controllable: 
+		Event.give_control(false)
+		await Event.wait(0.3, false)
+		if Global.Controllable:
+			PartyUI.show_all()
 
 func detransition(dir = "direc"):
 	if dir == "none": return

@@ -367,20 +367,21 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 
 func reset_settings() -> void:
 	Settings = Setting.new()
-	ResourceSaver.save(Settings, "user://Settings.tres")
+	ResourceSaver.save(Settings, "user://Settings.res")
 
 func init_settings() -> void:
-	if not ResourceLoader.exists("user://Settings.tres"):
+	if not ResourceLoader.exists("user://Settings.res"):
 		print("No settings found, initializing...")
 		reset_settings()
 		await Event.wait()
-	Settings = load("user://Settings.tres")
-	if !Settings:
+	Settings = ResourceLoader.load("user://Settings.res")
+	if not is_instance_valid(Settings):
 		print("Settings file is invalid, settings will be restored to default")
 		reset_settings()
 		await Event.wait()
-		Settings = load("user://Settings.tres")
-	if !Settings: OS.alert("Something is wrong with the settings file or user folder")
+		Settings = load("user://Settings.res")
+	if not is_instance_valid(Settings):
+		OS.alert("Something is wrong with the settings file or user folder")
 	apply_settings()
 
 func apply_settings():
@@ -407,7 +408,7 @@ func get_playtime() -> int:
 	return int(PlayTime)
 
 func save_settings() -> void:
-	ResourceSaver.save(Settings, "user://Settings.tres")
+	ResourceSaver.save(Settings, "user://Settings.res")
 #endregion
 
 #region UI Sounds
