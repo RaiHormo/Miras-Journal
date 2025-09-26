@@ -108,6 +108,7 @@ func _check_party():
 	if not Global.Party.Leader: Global.Party.Leader = Global.find_member(&"Mira")
 	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
+	$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
 		if Global.Party.check_member(i):
@@ -144,6 +145,8 @@ func _input(ev):
 			if Global.Controllable == true:
 				Event.take_control()
 			else: Event.give_control()
+		if Input.is_action_just_pressed("DebugHide"):
+			$CanvasLayer/DebugText.hide()
 		if Input.is_action_just_pressed("DebugI"):
 			Item.add_item("SmallPotion", "Con")
 		if Input.is_action_just_pressed("DebugA"):
@@ -643,6 +646,10 @@ func party_menu():
 
 func main_menu():
 	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
+		if Global.Player.move_frames > -10:
+			await Event.wait(0.3, false)
+			if Global.Controllable: main_menu()
+			return
 		Global.ui_sound("Menu")
 		Global.Player.bag_anim()
 		Global.Controllable = false

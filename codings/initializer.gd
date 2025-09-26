@@ -38,6 +38,8 @@ func _on_continue_pressed() -> void:
 		get_tree().paused = false
 	else:
 		Global.new_game()
+func _input(event: InputEvent) -> void:
+	glyph_update()
 
 func _on_options_pressed() -> void:
 	if get_tree().root.has_node("Options"): return

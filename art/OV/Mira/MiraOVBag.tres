@@ -850,7 +850,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackDown",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -878,7 +878,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackLeft",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -923,7 +923,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackRight",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -971,7 +971,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"AttackUp",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -155,6 +155,8 @@ func give_control(camera_follow:= false):
 	print("Giving control")
 	if get_tree().root.has_node("Warning"):
 		get_tree().root.get_node("Warning").queue_free()
+	#if get_tree().root.has_node("MainMenu"):
+		#get_tree().root.get_node("MainMenu").close()
 	Global.Player.direction = Vector2.ZERO
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true

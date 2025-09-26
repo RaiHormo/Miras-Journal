@@ -9,6 +9,7 @@ class_name Setting
 @export var ControlSchemeEnum: int = 0
 @export var ControlSchemeOverride:ControlScheme = null
 @export var ControllerVibration:= true
+@export var LastUsedDevice: String = "Keyboard"
 @export_category("Display")
 @export var Fullscreen:= false
 @export var UpscaledRes:= true

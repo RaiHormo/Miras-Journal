@@ -33,7 +33,8 @@ func _ready():
 		$MainButtons/GameSettings.grab_focus()
 	else:
 		$MainButtons/SaveManagment.grab_focus()
-	if not Global.Controllable and !$/root.get_node_or_null("MainMenu") or not ResourceLoader.exists("user://Autosave.tres"): cant_save = true
+	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area): 
+		cant_save = true
 	Loader.detransition("")
 	show()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
@@ -113,6 +114,7 @@ func _on_back_pressed():
 			Global.cancel_sound()
 
 func close(force = false):
+	Global.check_party.emit()
 	if force:
 		queue_free()
 		return
@@ -227,7 +229,7 @@ func save_managment() -> void:
 	else:
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
-		else: %Files/New/NewGame/Button.grab_focus()
+		else: %Files/New/NewGame.grab_focus()
 	$SavePanel.show()
 	$MainButtons/SaveManagment.show()
 	$MainButtons/SaveManagment.toggle_mode=true
@@ -800,12 +802,13 @@ func _on_upscaledres(toggled_on: bool) -> void:
 func _on_reset() -> void:
 	stage = "inactive"
 	Global.confirm()
-	if await Global.warning("This will erase all save data, and restore settings!
+	if await Global.warning("This will erase autosave save data, and restore settings!
 The game will then close.
 You can backup this data by pressing F1 and copying the files.\nProceed?"):
 		var dir:= DirAccess.open("user://")
 		for file in dir.get_files():
-			dir.remove(file)
+			if not "File" in file:
+				dir.remove(file)
 		for file in dir.get_directories():
 			DirAccess.remove_absolute("user://"+file)
 		get_tree().quit(9)

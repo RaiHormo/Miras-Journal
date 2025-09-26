@@ -22,7 +22,7 @@ var Camera: Camera2D:
 var CameraInd:= 0
 var Settings: Setting
 var Lights: Array[Light2D] = []
-var device: String = "Keyboard"
+var device: String = ""
 var ProcessFrame := 0
 var LastInput:= 0
 var AltConfirm: bool
@@ -253,10 +253,13 @@ func get_controller() -> ControlScheme:
 	if !Settings: return preload("res://UI/Input/None.tres")
 	if not Settings.ControlSchemeAuto:
 		return Settings.ControlSchemeOverride
+	if device == "":
+		device = Settings.LastUsedDevice
+	Settings.LastUsedDevice = device
 	if device == "Keyboard":
 		return preload("res://UI/Input/Keyboard.tres")
-	elif device == "Touch":
-		return preload("res://UI/Input/None.tres")
+	#elif device == "Touch":
+		#return preload("res://UI/Input/None.tres")
 	elif "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
 		return preload("res://UI/Input/Nintendo.tres")
 	elif "XInput" in device or "360" in device:
@@ -267,7 +270,7 @@ func get_controller() -> ControlScheme:
 		return preload("res://UI/Input/PlayStation.tres")
 	elif "PS3" in device or "DualShock" in device or "PS2" in device or "Sony" in device or "PlayStation" in device:
 		return preload("res://UI/Input/PlayStationOld.tres")
-	elif "Steam Virtual Gamepad" in device:
+	elif "Steam" in device:
 		return preload("res://UI/Input/SteamDeck.tres")
 	else:
 		return preload("res://UI/Input/Generic.tres")
@@ -279,8 +282,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		return
-	if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		device = "Touch"
+	#if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		#device = "Touch"
 	if not event.is_pressed(): return
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	if event is InputEventKey:
@@ -301,7 +304,7 @@ func _input(event: InputEvent) -> void:
 	#if "Steam" in device:
 		#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "28de:11ff")
 		#var steam_controllers = Steam.getConnectedControllers()
-	if prev_dev != device: 
+	if prev_dev != device and prev_dev != "": 
 		controller_changed.emit()
 		toast("Using "+ device)
 	LastInput=ProcessFrame
@@ -368,6 +371,9 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 func reset_settings() -> void:
 	Settings = Setting.new()
 	ResourceSaver.save(Settings, "user://Settings.res")
+	if OS.get_environment("STEAMDECK") == "1":
+		Settings.ControlSchemeAuto = false
+		Settings.ControlSchemeEnum = 7
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.res"):
@@ -647,7 +653,7 @@ func get_direction(v: Vector2 = PlayerDir, allow_zero = false) -> Vector2:
 			return Vector2.UP
 
 func get_cam() -> Camera2D:
-	if !is_instance_valid(Area): return Camera2D.new()
+	if !is_instance_valid(Area): return null
 	return Area.Cam
 
 func str_length(str: String):

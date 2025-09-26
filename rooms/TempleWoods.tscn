@@ -606,7 +606,6 @@ CameraZooms = Array[float]([1.25, 1.0, 1.1])
 FlameInInd = Array[int]([2])
 
 [node name="AlcineNaming" type="Control" parent="."]
-visible = false
 light_mask = 0
 z_index = 9
 layout_mode = 3
@@ -654,9 +653,9 @@ horizontal_alignment = 1
 [node name="TextEdit" type="TextEdit" parent="AlcineNaming"]
 light_mask = 0
 layout_mode = 0
-offset_left = 9.0
-offset_right = 158.0
-offset_bottom = 29.0
+offset_left = 6.26001
+offset_right = 172.26001
+offset_bottom = 35.0
 scale = Vector2(0.5, 0.5)
 theme_override_colors/search_result_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0.0901961, 0.278431, 0.231373, 1)
@@ -1226,6 +1225,7 @@ ActionType = "event"
 file = "axe_seq"
 hidesprite = true
 hide_parent = true
+free_on_hide = true
 itemtype = "Key"
 hide_on_flag = &"PickedUpAxe"
 add_flag = true
@@ -1252,6 +1252,7 @@ ActionType = "event"
 file = "bag_seq"
 hidesprite = true
 hide_parent = true
+free_on_hide = true
 return_control = false
 hide_on_flag = &"HasBag"
 add_flag = true

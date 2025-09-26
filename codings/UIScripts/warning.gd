@@ -1,6 +1,7 @@
 extends CanvasLayer
 signal response
 var value: int = 0
+var active = false
 
 func _ready() -> void:
 	hide()
@@ -19,7 +20,10 @@ func ask_for_confirm(text: String, label: String = "WARNING", awnser: Array[Stri
 	$Panel/Label.text = text
 	$Panel/Label2.text = label
 	$Panel/Options/No.grab_focus()
+	await t.finished
+	active = true
 	await response
+	active = false
 	print("awnser: "+str(value))
 	t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property($Bg, "modulate", Color.TRANSPARENT, 0.1)
@@ -30,20 +34,25 @@ func ask_for_confirm(text: String, label: String = "WARNING", awnser: Array[Stri
 	return value
 
 func _on_no_pressed() -> void:
+	if not active: return
 	Global.confirm_sound()
 	value = 0
 	response.emit()
 
 func _on_yes_pressed() -> void:
+	if not active: return
 	Global.confirm_sound()
 	value = 1
 	response.emit()
 
 func _on_maybe_pressed() -> void:
+	if not active: return
 	Global.confirm_sound()
 	value = 2
 	response.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("ui_cancel"):
+		_on_no_pressed()
 	get_viewport().set_input_as_handled()
 	if Global.Controllable: _on_no_pressed()

@@ -285,6 +285,8 @@ func done(controllable:= false):
 	chased = false
 	var look_dir = Global.get_direction()
 	if Global.Area: Global.Area.queue_free()
+	if get_tree().root.has_node("MainMenu"): 
+		get_tree().root.get_node("MainMenu").queue_free()
 	var area = ResourceLoader.load_threaded_get(scene[0]).instantiate()
 	$/root.add_child(area)
 	await Global.area_initialized
@@ -313,7 +315,8 @@ func done(controllable:= false):
 func detransition(dir = "direc"):
 	if dir == "none": return
 	#Engine.time_scale = 0.1
-	Global.get_cam().position_smoothing_enabled = false
+	if Global.Camera != null:
+		Global.get_cam().position_smoothing_enabled = false
 	t.kill()
 	t = create_tween()
 	t.set_parallel()
@@ -326,7 +329,8 @@ func detransition(dir = "direc"):
 	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)#.from(Vector2(-200,-177))
 	dismiss_load_icon()
 	await Event.wait(0.4, false)
-	Global.get_cam().position_smoothing_enabled = true
+	if Global.Camera != null:
+		Global.get_cam().position_smoothing_enabled = true
 	#Global.ready_window()
 
 func restore_bars(dir: String = ""):

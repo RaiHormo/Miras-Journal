@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=85 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -318,7 +318,7 @@ expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
-bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+bg_color = Color(0.76, 0.76, 0.76, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -477,12 +477,6 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="Resource" id="Resource_t6ahs"]
-script = ExtResource("20_l60hk")
-
-[sub_resource type="Resource" id="Resource_siagc"]
-script = ExtResource("20_l60hk")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qw8o"]
 content_margin_left = 24.0
 content_margin_top = 24.0
@@ -494,12 +488,6 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vm5us"]
-
-[sub_resource type="Resource" id="Resource_p6787"]
-script = ExtResource("20_l60hk")
-
-[sub_resource type="Resource" id="Resource_srwa7"]
-script = ExtResource("20_l60hk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tth4"]
 content_margin_left = 24.0
@@ -785,7 +773,6 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -831,6 +818,7 @@ theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_disabled_color = Color(0.37, 0.37, 0.37, 0.5019608)
 theme_override_constants/h_separation = 12
 theme_override_constants/icon_max_width = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
@@ -1073,6 +1061,7 @@ theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0
@@ -1084,19 +1073,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SidePanel"]
 layout_mode = 0
-offset_left = 104.0
+offset_left = 104.00012
 offset_top = 57.0
-offset_right = 874.0
-offset_bottom = 855.0
-rotation = -0.0581765
+offset_right = 875.6013
+offset_bottom = 858.0375
+rotation = -0.059190698
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
-script = ExtResource("19_e5lo7")
-wheel_scroll_damper = SubResource("Resource_x8tqq")
-dragging_scroll_damper = SubResource("Resource_rkvv0")
-drag_with_touch = false
-follow_focus_margin = 50
-allow_horizontal_scroll = false
 
 [node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
 unique_name_in_owner = true
@@ -1877,10 +1860,6 @@ offset_bottom = 810.0
 rotation = -0.0633063
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
-script = ExtResource("19_e5lo7")
-wheel_scroll_damper = SubResource("Resource_t6ahs")
-dragging_scroll_damper = SubResource("Resource_siagc")
-metadata/_custom_type_script = "uid://deu6hmqfb1g2a"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -2085,10 +2064,6 @@ offset_top = 111.426
 offset_right = 681.002
 offset_bottom = 810.426
 rotation = -0.0633063
-script = ExtResource("19_e5lo7")
-wheel_scroll_damper = SubResource("Resource_p6787")
-dragging_scroll_damper = SubResource("Resource_srwa7")
-metadata/_custom_type_script = "uid://deu6hmqfb1g2a"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
