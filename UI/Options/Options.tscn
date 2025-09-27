@@ -1057,7 +1057,7 @@ offset_bottom = 858.0375
 rotation = -0.059190698
 theme = SubResource("Theme_6ne1i")
 follow_focus = true
-scroll_vertical = 950
+scroll_vertical = 100
 
 [node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
 unique_name_in_owner = true

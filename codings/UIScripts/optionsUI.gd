@@ -393,21 +393,31 @@ func load_save_files():
 		%Files/File0.hide()
 		Global.toast("There is nothing saved, you can start a new game.")
 	Loader.SaveFiles.clear()
-	for i in DirAccess.get_files_at("user://"):
+	var files = DirAccess.get_files_at("user://")
+	for i in files:
 		if ".tres" in i and not "Autosave" in i:
 			var data = await Loader.load_res("user://"+i)
 			if data is SaveFile:
-				Loader.SaveFiles.append(data)
+				#Loader.SaveFiles.append(data)
 				var newpanel:PanelContainer = null
 				for j in %Files.get_children():
-					if j.name in i:
+					if j.name+".tres" == i:
 						newpanel = j
 						j.set_meta(&"Unprocessed", false)
-				if !newpanel:
+				if not is_instance_valid(newpanel):
 					newpanel = %Files/File0.duplicate()
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
 				draw_file(data, newpanel)
+	var sorted =  %Files.get_children()
+	sorted.sort_custom(file_sort)
+	for i in %Files.get_children():
+		%Files.remove_child(i)
+	for i in sorted:
+		%Files.add_child(i)
+	%Files.move_child(%Files/File0, 0)
+	%Files.move_child(%Files/New, 0)
+	#%Files/File0/Info/FileName.text = "Autosave"
 	for j in %Files.get_children():
 		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
 	await Event.wait()
@@ -415,15 +425,19 @@ func load_save_files():
 		Loader.ungray.emit()
 	save_files_loaded = true
 
+func file_sort(a: Control, b: Control):
+	return not (not a.has_meta("sort") or not b.has_meta("sort")) and a.get_meta("sort") > b.get_meta("sort") 
 
 func draw_file(file: SaveFile, node: Control):
 	var panel = node.get_child(0)
+	node.set_meta("sort", -1)
 	if file == null or file.version != Loader.SaveVersion:
 		node.get_node("Info/FileName").text = "Unloadable data"
 		panel.get_node("Date/Month").text = "Please"
 		panel.get_node("Date/Day").text = "Delete"
 		panel.get_node("Location").text = "Now"
 		return
+	node.set_meta("sort", file.SavedTime)
 	node.get_node("Info/FileName").text = file.Name
 	panel.get_node("Date/Day").text = str(file.Day)
 	if file.Day <= 30 and file.Day > 0:
@@ -462,6 +476,7 @@ func _on_save_delete() -> void:
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 2
 		await Event.wait(0.01, false)
+		if not is_instance_valid(panel): return
 	$SavePanel/Buttons/Delete.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Global.confirm_sound()
@@ -511,13 +526,13 @@ func _on_save_overwrite() -> void:
 		Loader.gray_out()
 		Global.confirm_sound()
 		print("Overwriting user://"+panel.name+".tres")
-		Loader.save(panel.name)
+		await Loader.save(panel.name)
 		await load_save_files()
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 1)
-		#%Files.get_child(%Files.get_child_count() -1).get_node("Button").grab_focus()
-		await t.finished
+		%Files.get_child(2).get_node("Button").grab_focus()
+		#await t.finished
 		Loader.ungray.emit()
 	else:
 		Global.buzzer_sound()
@@ -568,19 +583,13 @@ func _new_file() -> void:
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
 	Loader.icon_save()
-	var i = 0
-	while %Files.get_child_count() > i:
+	var i = 1
+	while FileAccess.file_exists("user://File"+str(i)+".tres"):
 		i += 1
-		var found = false
-		for file in %Files.get_children():
-			if file.name == "File"+str(i): 
-				found = true
-		if not found:
-			break
 	await Loader.save("File"+str(i), false)
 	await load_save_files()
 	Loader.ungray.emit()
-	%Files.get_child(%Files.get_child_count() -1).get_node("Button").grab_focus()
+	%Files.get_child(2).get_node("Button").grab_focus()
 	if Loader.get_node("Can/Icon").is_playing():
 		await Loader.get_node("Can/Icon").animation_finished
 
