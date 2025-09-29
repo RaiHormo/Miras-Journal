@@ -199,9 +199,11 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 6) -> void:
 	if self is Mira and Global.Controllable: return
 	await stop_going()
-	Engine.time_scale = min(Engine.time_scale, 3)
-	BodyState = MOVE
 	if use_coords: pos = Global.globalize(pos)
+	if Engine.time_scale > 2:
+		position = pos
+		return
+	BodyState = MOVE
 	while round(global_position / accuracy) != round(pos / accuracy):
 		BodyState = MOVE
 		direction = to_local(pos).normalized()

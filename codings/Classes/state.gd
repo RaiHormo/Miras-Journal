@@ -10,7 +10,8 @@ class_name State
 @export var icon: Texture
 @export var color: Color = Color.WHITE
 @export var weak_mult:= 1.0
-@export var dmg_mult:= 1.0
+@export var magic_dmg_mult:= 1.0
+@export var weapon_dmg_mult:= 1.0
 var inflicter: Actor = null
 var QueueRemove:= false
 var filename:= ""

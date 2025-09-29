@@ -18,24 +18,24 @@ func _on_text_edit_text_changed() -> void:
 	if "\n" in $TextEdit.text:
 		$TextEdit.text = $TextEdit.text.replace("\n", "")
 		return
-	if $TextEdit.text.length() > 13:
+	if $TextEdit.text.length() > 10:
 		$Error.text = "Bit too long, isn't it?"
 		$Error.show()
-		if $TextEdit.text.length() > 13:
+		if $TextEdit.text.length() > 10 and $TextEdit.text.length() > txt.length():
 			$TextEdit.text = txt
-			$TextEdit.set_caret_column(14)
+			$TextEdit.set_caret_column(20)
 	else:
 		$Error.hide()
 	txt = $TextEdit.text
 
 func on_confirm() -> void:
 	$TextEdit.text = $TextEdit.text.dedent()
-	$TextEdit.text = $TextEdit.text.capitalize()
+	$TextEdit.text[0].to_upper()
 	await Event.wait(0.03)
-	$TextEdit.set_caret_column(14)
+	$TextEdit.set_caret_column(20)
 	txt = $TextEdit.text
 	txt = txt.to_lower()
-	if txt.length() > 13: return
+	if txt.length() > 10: return
 	elif txt.length() == 1:
 		$Error.text = "Let's try to be a little more creative."
 		$Error.show()

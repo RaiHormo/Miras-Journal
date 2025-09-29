@@ -538,10 +538,10 @@ func error_handle(res):
 		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
 		loading_thread = false
-	if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
-		OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
-		load_failed = true
-		loading_thread = false
+	#if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+		#OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
+		#load_failed = true
+		#loading_thread = false
 
 func chase_mode():
 	CamZoom = Global.get_cam().zoom

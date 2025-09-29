@@ -181,6 +181,7 @@ func new_game() -> void:
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
 	Item.MatInv.clear()
+	Item.BtiInv.clear()
 	Item.add_item("Wallet", &"Key", false)
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)

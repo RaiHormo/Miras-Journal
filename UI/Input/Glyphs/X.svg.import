@@ -2,20 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdg4f6tw6yx4t"
-path="res://.godot/imported/1_low.png-2650bd5303162e14181f280c150d0d05.ctex"
+uid="uid://ch4dlpupg0ywv"
+path.s3tc="res://.godot/imported/X.svg-0242a37fef2a6630812d22db8a663ec1.s3tc.ctex"
+path.etc2="res://.godot/imported/X.svg-0242a37fef2a6630812d22db8a663ec1.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://art/Previews/1_low.png"
-dest_files=["res://.godot/imported/1_low.png-2650bd5303162e14181f280c150d0d05.ctex"]
+source_file="res://UI/Input/Glyphs/X.svg"
+dest_files=["res://.godot/imported/X.svg-0242a37fef2a6630812d22db8a663ec1.s3tc.ctex", "res://.godot/imported/X.svg-0242a37fef2a6630812d22db8a663ec1.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -38,3 +40,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=2
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

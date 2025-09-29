@@ -626,6 +626,7 @@ offset_bottom = 152.0
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Error" type="Label" parent="AlcineNaming"]
+visible = false
 light_mask = 0
 layout_mode = 0
 offset_left = -29.73999
@@ -1273,6 +1274,7 @@ rotation = 1.1737
 shape = SubResource("RectangleShape2D_px8hq")
 
 [node name="EvPetrogon" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = 3
 use_parent_material = true
 position = Vector2(1731, -1080)

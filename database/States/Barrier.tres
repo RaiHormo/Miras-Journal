@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://ct065moksssnj"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_l422w"]
+[ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="2_jg60n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qipse"]
+atlas = ExtResource("1_l422w")
+region = Rect2(144, 108, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_jg60n")
+name = "Barrier"
+Description = "Blocks any weapon damage."
+turns = 1
+icon = SubResource("AtlasTexture_qipse")
+weapon_dmg_mult = 0.0

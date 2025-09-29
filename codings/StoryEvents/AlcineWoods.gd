@@ -85,7 +85,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Event.wait(0.5)
 			await move_dir(Vector2(-2, 0))
 			t = create_tween()
-			t.tween_property(self, "position", Vector2(-24, 5), 0.1).as_relative()
+			t.tween_property(self, "position", Global.Player.position+Vector2(2, 4), 0.1)
 			BodyState = CUSTOM
 			$Sprite.play("Hug")
 			Global.Player.bubble("Surprise")

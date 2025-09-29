@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://bepaxlymwd13p"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_13awb"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_rby1t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rby1t"]
+resource_local_to_scene = true
+atlas = ExtResource("1_13awb")
+region = Rect2(144, 108, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_rby1t")
+name = "Sturdy Guard"
+description = "Put up a barrier against weapon attacks for 3 turns"
+Icon = SubResource("AtlasTexture_rby1t")
+ActionSequence = &"SturdyGuard"
+Type = "Defensive"
+InflictsState = "Barrier"
+AuraCost = 10
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

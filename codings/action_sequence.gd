@@ -71,7 +71,7 @@ func handle_states():
 			state.turns -= 1
 			if state.turns == 0:
 				match state.filename:
-					"Guarding", "Protected":
+					"Guarding", "MagicShield":
 						chara.node.material.set_shader_parameter("outline_enabled", false)
 					"AtkUp": chara.AttackMultiplier -= state.parameter
 					"DefUp": chara.DefenceMultiplier -= state.parameter
@@ -767,7 +767,7 @@ func Humidity(target: Actor):
 func ProtectiveField(target: Actor):
 	Bt.anim("Cast")
 	Bt.focus_cam(target)
-	await target.add_state("Protected")
+	await target.add_state("MagicShield")
 	Bt.anim()
 	Bt.end_turn()
 
@@ -780,6 +780,23 @@ func Attention(target: Actor):
 	target.add_state("Aggro")
 	await Event.wait(0.5)
 	Bt.anim()
+	Bt.end_turn()
+
+func SturdyGuard(target: Actor):
+	Bt.focus_cam(target)
+	await target.add_state("Barrier", 3)
+	Bt.end_turn()
+
+func RockThrow(target: Actor):
+	Bt.zoom()
+	await Bt.focus_cam(target)
+	Bt.play_effect("RockThrow", target, Vector2(30, -40))
+	await Event.wait(0.2)
+	if miss: await Bt.miss()
+	else:
+		Bt.screen_shake()
+		Bt.play_effect("SimpleHit", target)
+		await Bt.damage(target, false, true)
 	Bt.end_turn()
 
 func Dispel(target: Actor):

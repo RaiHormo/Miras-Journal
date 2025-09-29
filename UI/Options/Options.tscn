@@ -1,9 +1,9 @@
-[gd_scene load_steps=78 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=80 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
 [ext_resource type="Texture2D" uid="uid://2re3wu05q55a" path="res://UI/Options/Clock.png" id="3_iibdn"]
-[ext_resource type="Texture2D" uid="uid://dc3pmph6cr1u8" path="res://art/Previews/1_low.png" id="3_p6787"]
+[ext_resource type="Texture2D" uid="uid://cdg4f6tw6yx4t" path="res://art/Previews/1_low.png" id="3_p6787"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="4_nqfss"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
@@ -28,6 +28,8 @@
 [ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="26_jguiy"]
+[ext_resource type="Texture2D" uid="uid://db7yueymge8x6" path="res://UI/Input/Glyphs/A.svg" id="28_gg2m8"]
+[ext_resource type="Texture2D" uid="uid://ddpeq6dvruhph" path="res://UI/Input/Glyphs/B.svg" id="29_nqfss"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="29_t6ahs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
@@ -357,6 +359,8 @@ corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
+anti_aliasing = false
+anti_aliasing_size = 0.1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srwa7"]
 content_margin_left = 8.0
@@ -509,7 +513,7 @@ Press M on the keyboard to open this manual at any time", "#Movement
 Keyboard:
 Walk around with the Arrow Keys
 Dash with  [img]res://UI/Input/Shift.png[/img]
-Interact with [img]res://UI/Input/Z.png[/img]
+Interact with [img]res://UI/Input/Z.png[/img] / Enter / Space
 Open the menu with [img]res://UI/Input/C.png[/img]
 
 Controller:
@@ -1184,7 +1188,9 @@ offset_left = 210.731
 offset_top = 104.043
 offset_right = 260.731
 offset_bottom = 154.043
-texture = ExtResource("6_d2agy")
+texture = ExtResource("28_gg2m8")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="B" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1193,6 +1199,8 @@ offset_top = 154.028
 offset_right = 206.718
 offset_bottom = 204.028
 texture = ExtResource("7_xdp6q")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="X" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1201,6 +1209,8 @@ offset_top = 55.0281
 offset_right = 205.745
 offset_bottom = 105.028
 texture = ExtResource("23_gmb0o")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Y" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1209,6 +1219,8 @@ offset_top = 107.014
 offset_right = 153.731
 offset_bottom = 157.014
 texture = ExtResource("22_xyl14")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="L" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1217,6 +1229,8 @@ offset_top = 53.9766
 offset_right = 68.7451
 offset_bottom = 103.977
 texture = ExtResource("21_282ro")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="LZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1225,6 +1239,8 @@ offset_top = 8.99015
 offset_right = 117.758
 offset_bottom = 58.9901
 texture = ExtResource("22_w3i7s")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="RZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1233,6 +1249,8 @@ offset_top = 10.0378
 offset_right = 290.757
 offset_bottom = 60.0378
 texture = ExtResource("23_bqtf5")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="R" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
@@ -1241,37 +1259,45 @@ offset_top = 53.0527
 offset_right = 344.746
 offset_bottom = 103.053
 texture = ExtResource("24_kpda3")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Start" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
 offset_left = 290.716
 offset_top = 160.052
-offset_right = 340.716
+offset_right = 469.721
 offset_bottom = 210.052
 texture = ExtResource("25_aibxb")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Select" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
 offset_left = 19.7159
 offset_top = 159.977
-offset_right = 69.716
+offset_right = 150.71468
 offset_bottom = 209.977
 texture = ExtResource("26_jguiy")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 493.761
-offset_top = -1.89249
-offset_right = 543.761
-offset_bottom = 48.1075
+offset_left = 592.40686
+offset_top = -3.26423
+offset_right = 736.9061
+offset_bottom = 46.73576
 texture = ExtResource("6_d2agy")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 556.759
-offset_top = 5.12486
-offset_right = 707.759
-offset_bottom = 47.1249
+offset_left = 435.75903
+offset_top = 4.968793
+offset_right = 586.75903
+offset_bottom = 47.968792
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1280,18 +1306,20 @@ text = "Confirm"
 
 [node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 493.745
-offset_top = 56.1213
-offset_right = 543.745
-offset_bottom = 106.121
+offset_left = 591.32947
+offset_top = 56.73443
+offset_right = 733.16345
+offset_bottom = 106.73413
 texture = ExtResource("7_xdp6q")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 556.743
-offset_top = 63.1386
-offset_right = 707.743
-offset_bottom = 105.139
+offset_left = 433.32202
+offset_top = 62.530655
+offset_right = 584.322
+offset_bottom = 105.530655
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1300,18 +1328,20 @@ text = "Cancel"
 
 [node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 493.728
-offset_top = 115.121
-offset_right = 543.728
-offset_bottom = 165.121
+offset_left = 590.25214
+offset_top = 116.7331
+offset_right = 716.1192
+offset_bottom = 166.7331
 texture = ExtResource("23_gmb0o")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 556.726
-offset_top = 122.139
-offset_right = 707.726
-offset_bottom = 164.139
+offset_left = 435.24457
+offset_top = 122.53314
+offset_right = 586.24457
+offset_bottom = 165.53314
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1321,18 +1351,20 @@ text = "Menu"
 [node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_direction = 3
 layout_mode = 0
-offset_left = 165.712
-offset_top = 174.212
-offset_right = 215.712
-offset_bottom = 224.212
+offset_left = -22.465942
+offset_top = 176.33963
+offset_right = 116.71472
+offset_bottom = 226.33963
 texture = ExtResource("22_xyl14")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
 layout_mode = 0
-offset_left = 556.71
-offset_top = 181.139
-offset_right = 708.71
-offset_bottom = 223.139
+offset_left = 435.16705
+offset_top = 182.5332
+offset_right = 587.16705
+offset_bottom = 225.5332
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1837,7 +1869,6 @@ pivot_offset = Vector2(-0.249878, 90.9464)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
 [node name="PageLines" type="TextureRect" parent="ManualPanel"]
-visible = false
 modulate = Color(0.77, 0.77, 0.77, 0.258824)
 layout_mode = 0
 offset_left = -296.0
@@ -2198,6 +2229,7 @@ fit_content = true
 
 [node name="Confirm" type="Button" parent="."]
 visibility_layer = 1024
+texture_filter = 2
 layout_direction = 1
 offset_left = 26.0
 offset_top = 742.0
@@ -2210,7 +2242,7 @@ focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 text = "Select"
-icon = ExtResource("6_d2agy")
+icon = ExtResource("28_gg2m8")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -2230,7 +2262,7 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_qyfpa")
 text = "Back"
-icon = ExtResource("7_xdp6q")
+icon = ExtResource("29_nqfss")
 text_overrun_behavior = 1
 expand_icon = true
 

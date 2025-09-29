@@ -1,34 +1,33 @@
 [gd_resource type="Resource" script_class="ControlScheme" load_steps=14 format=3 uid="uid://cegr1m704s28r"]
 
-[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="1_2hp4l"]
 [ext_resource type="Script" uid="uid://bhsalia71p2n5" path="res://UI/Input/control_scheme.gd" id="1_g3dkl"]
-[ext_resource type="Texture2D" uid="uid://c67hybgw1i630" path="res://UI/Input/Z.png" id="2_08ilm"]
-[ext_resource type="Texture2D" uid="uid://b7c6n1k4856fo" path="res://UI/Input/S.png" id="2_m1gnw"]
+[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="1_pdj4w"]
+[ext_resource type="Texture2D" uid="uid://gpemuayxvtp6" path="res://UI/Input/Glyphs/Z.svg" id="2_5xwe1"]
+[ext_resource type="Texture2D" uid="uid://c47lsb5e5x57q" path="res://UI/Input/Glyphs/S.svg" id="3_g2y66"]
 [ext_resource type="Texture2D" uid="uid://bix8y5mi8nwtc" path="res://UI/Input/Shift.png" id="4_dyh0b"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="5_c1tnp"]
-[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_tcskx"]
+[ext_resource type="Texture2D" uid="uid://db7yueymge8x6" path="res://UI/Input/Glyphs/A.svg" id="5_qwx02"]
 [ext_resource type="Texture2D" uid="uid://hiql8lqd7ybf" path="res://UI/Input/Tab.png" id="7_61pbh"]
+[ext_resource type="Texture2D" uid="uid://cgciocrl6lgep" path="res://UI/Input/Glyphs/Q.svg" id="7_de2eu"]
 [ext_resource type="Texture2D" uid="uid://cf1jhta5ir8jp" path="res://UI/Input/F.png" id="7_g0u4i"]
-[ext_resource type="Texture2D" uid="uid://cu26e0x3twvka" path="res://UI/Input/Q.png" id="7_xor7b"]
-[ext_resource type="Texture2D" uid="uid://cesgbs37xly77" path="res://UI/Input/C.png" id="8_up4nc"]
-[ext_resource type="Texture2D" uid="uid://du1i8wshua825" path="res://UI/Input/E.png" id="8_vqo3u"]
+[ext_resource type="Texture2D" uid="uid://bli5egfnculyy" path="res://UI/Input/Glyphs/C.svg" id="8_a0qxn"]
+[ext_resource type="Texture2D" uid="uid://b24ronw7ooxlp" path="res://UI/Input/Glyphs/E.svg" id="10_1677i"]
 [ext_resource type="Texture2D" uid="uid://b2aoxf7qskfp4" path="res://UI/Input/Esc.png" id="12_4d2cv"]
 
 [resource]
 script = ExtResource("1_g3dkl")
-ConfirmIcon = ExtResource("2_08ilm")
-CancelIcon = ExtResource("1_2hp4l")
-AbilityIcon = ExtResource("1_2hp4l")
-AttackIcon = ExtResource("2_08ilm")
-ItemIcon = ExtResource("6_tcskx")
-CommandIcon = ExtResource("2_m1gnw")
+ConfirmIcon = ExtResource("2_5xwe1")
+CancelIcon = ExtResource("1_pdj4w")
+AbilityIcon = ExtResource("1_pdj4w")
+AttackIcon = ExtResource("2_5xwe1")
+ItemIcon = ExtResource("5_qwx02")
+CommandIcon = ExtResource("3_g2y66")
 Start = ExtResource("12_4d2cv")
 Select = ExtResource("7_61pbh")
 Dash = ExtResource("4_dyh0b")
 R = ExtResource("7_g0u4i")
-RZ = ExtResource("8_vqo3u")
+RZ = ExtResource("10_1677i")
 L = ExtResource("5_c1tnp")
-LZ = ExtResource("7_xor7b")
-Menu = ExtResource("8_up4nc")
-OVAttack = ExtResource("1_2hp4l")
-AltConfirm = false
+LZ = ExtResource("7_de2eu")
+Menu = ExtResource("8_a0qxn")
+OVAttack = ExtResource("1_pdj4w")

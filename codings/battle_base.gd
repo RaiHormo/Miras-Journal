@@ -547,7 +547,8 @@ overwrite_color: Color = Color.WHITE) -> int:
 	var attacker = null if ignore_stats else CurrentChar
 	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
 	for i in target.States:
-		dmg =  int(dmg * i.dmg_mult)
+		if is_magic: dmg =  int(dmg * i.magic_dmg_mult)
+		else: dmg =  int(dmg * i.weapon_dmg_mult)
 		if relation == "wk": dmg = int(dmg * i.weak_mult)
 	dmg = round(dmg)
 	if dmg == 0:
@@ -1213,7 +1214,7 @@ func on_state_add(state: State, chara: Actor, effect = true):
 			"Guarding", "AuraOverwrite":
 				chara.node.material.set_shader_parameter("outline_enabled", true)
 				chara.node.material.set_shader_parameter("outline_color", chara.MainColor)
-			"Protected":
+			"MagicShield":
 				chara.node.material.set_shader_parameter("outline_enabled", true)
 				chara.node.material.set_shader_parameter("outline_color", Color.WHITE)
 			"Aggro":

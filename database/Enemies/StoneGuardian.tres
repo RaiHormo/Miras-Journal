@@ -1,58 +1,28 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://bqwviswxxvkw2"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://bqwviswxxvkw2"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_mqkvp"]
+[ext_resource type="Resource" uid="uid://bepaxlymwd13p" path="res://database/Abilities/SturdyGuard.tres" id="2_px5pt"]
 [ext_resource type="SpriteFrames" uid="uid://bmy72a5ahffgh" path="res://art/BT/StoneGuardian/StoneGuardianBT.tres" id="2_uhvrc"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_vg5v8"]
 [ext_resource type="Texture2D" uid="uid://c3lg7n83ygaen" path="res://art/Icons/Enemies/Guardian.png" id="3_px5pt"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_px5pt"]
-[ext_resource type="Resource" uid="uid://dfwfci7qqogji" path="res://database/Abilities/Attacks/RemoteAttack.tres" id="5_vn7lg"]
+[ext_resource type="Resource" uid="uid://c2tn8slm5k1jq" path="res://database/Abilities/RockThrow.tres" id="5_uhvrc"]
 
 [resource]
 script = ExtResource("4_px5pt")
 FirstName = "Guardian"
-MainColor = Color(0.588251, 0.103326, 0.145979, 1)
+MainColor = Color(0.23529412, 0.5882353, 0.49803922, 1)
 PartyIcon = ExtResource("3_px5pt")
 ActorClass = "Boss"
 codename = &"Guardian"
-Pronouns = Array[String](["it", "it", "its", "itself"])
-WeaponPower = 24
 HealthBar = true
-RecivedSP = 0
-SummonedAllies = Array[ExtResource("4_px5pt")]([])
-CustomPosition = Vector2i(0, 0)
-SecondaryColor = Color(0, 0, 0, 1)
-LastName = ""
-Weapon = ""
-PartyPageName = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
-MaxHP = 200
+MaxHP = 300
 MaxAura = 70
-Attack = 1.0
 Magic = 0.4
-Defence = 1.5
+Defence = 2.0
 Speed = 1.0
-Health = 0
-Aura = 0
-SkillLevel = 1
-SkillPoints = 0
-Abilities = Array[ExtResource("1_mqkvp")]([])
-StandardAttack = ExtResource("5_vn7lg")
-LearnableAbilities = Array[ExtResource("1_mqkvp")]([])
+Abilities = Array[ExtResource("1_mqkvp")]([ExtResource("2_px5pt")])
+StandardAttack = ExtResource("5_uhvrc")
 BT = ExtResource("2_uhvrc")
 Offset = Vector2(12, -58)
-Shadow = false
-ShadowOffset = 0
-SoundSet = ExtResource("2_vg5v8")
-Disappear = true
-GlowDef = 0.3
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false
 metadata/_custom_type_script = "uid://msf7qb28ublo"

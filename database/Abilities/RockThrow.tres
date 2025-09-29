@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://c2tn8slm5k1jq"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_nye3s"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_0fx3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fx3q"]
+resource_local_to_scene = true
+atlas = ExtResource("1_nye3s")
+region = Rect2(18, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_0fx3q")
+name = "Rock Throw"
+description = "Slam a rock on the target, dealing medium Physical damage. Small chance of missing"
+Icon = SubResource("AtlasTexture_0fx3q")
+ActionSequence = &"RockThrow"
+AuraCost = 8
+Damage = 2
+Target = 1
+WheelColor = Color(0.827451, 0.26666668, 0.42745098, 1)
+SucessChance = 0.93
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

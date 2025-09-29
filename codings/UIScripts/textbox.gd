@@ -12,7 +12,7 @@ var currun = false
 var picture: Texture2D = null
 @onready var t :Tween
 const hold_time = 10
-
+var skip = false
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -162,6 +162,7 @@ func _ready() -> void:
 	$Hints.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
+	if Input.is_action_pressed("Dash"): skip = true
 	
 	match Global.Settings.TextSpeed:
 		1:
@@ -320,24 +321,22 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Dash"):
+	if Input.is_action_just_pressed("Dash") or skip:
+		skip = false
 		var hold_frames := 1
 		t = create_tween()
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
-		if Input.is_action_just_pressed("Dash"):
-			while Input.is_action_pressed("Dash"):
-				hold_frames += 1
-				await Event.wait()
-				if hold_frames > hold_time:
-					Engine.time_scale = 4
-					var ev:= InputEventAction.new()
-					ev.action = &"DialogNext"
-					ev.pressed = true
-					Input.parse_input_event(ev)
-			#if Event.allow_skipping:
-			#
-			#else: Global.toast("Hold the button down to skip")
+		#if Input.is_action_just_pressed("Dash") or skip:
+		while Input.is_action_pressed("Dash"):
+			hold_frames += 1
+			await Event.wait()
+			if hold_frames > hold_time:
+				Engine.time_scale = 4
+				var ev:= InputEventAction.new()
+				ev.action = &"DialogNext"
+				ev.pressed = true
+				Input.parse_input_event(ev)
 		Engine.time_scale = 1
 		return
 	

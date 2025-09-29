@@ -2015,9 +2015,7 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"DefenceUp"
-frame = 15
-frame_progress = 1.0
+animation = &"SimpleHit"
 
 [node name="Cam" type="Camera2D" parent="."]
 physics_interpolation_mode = 2
