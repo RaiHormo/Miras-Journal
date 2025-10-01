@@ -76,7 +76,7 @@ func _on_battle_get_control():
 	Bt.Action = false
 	show()
 	stage = &"root"
-	PrevStage = &"root"
+	PrevStage = &"proot"
 
 
 	$Ability.add_theme_constant_override("icon_max_width", 0)

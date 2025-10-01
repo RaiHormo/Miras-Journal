@@ -335,6 +335,15 @@ Alcine.Neutral: Mmmo...
 No reason to go back there.
 => END
 
+~ stone_guardian_intro
+Mira.Neutral: Wh- What is this!?
+Alcine.Upset: M- Mmeeaw...
+=> END
+
+~ stone_guardian_still_standing
+Mira.Neutral: This thing just won't go down..!
+=> END
+
 ~ nov3_morning
 ...
 I was seriously hoping it was all a long dream, but it seems this is my home for the time being...

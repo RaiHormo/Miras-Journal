@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://cci8aukur3fo7"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_tmx2n"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_rt0sr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt0sr"]
+resource_local_to_scene = true
+atlas = ExtResource("1_tmx2n")
+region = Rect2(144, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_rt0sr")
+name = "Drill"
+description = "Medium damage of the caster's color."
+Icon = SubResource("AtlasTexture_rt0sr")
+ActionSequence = &"Drill"
+Type = "BigAttack"
+AuraCost = 9
+Damage = 2
+Target = 1
+ColorSameAsActor = true
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

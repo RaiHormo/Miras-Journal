@@ -710,6 +710,23 @@ func Tighten(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+func AnythingGoes(target: Actor):
+	await Bt.focus_cam(target, 0.5, 0)
+	Bt.zoom(6)
+	target.remove_state("AuraOverwrite")
+	await Bt.aura_overwrite(target, Color(randf_range(0.2, 0.8), randf_range(0.2, 0.8), randf_range(0.2, 0.8)), -1)
+	await Event.wait(1)
+	Bt.end_turn()
+
+func Drill(target: Actor):
+	Bt.zoom(5)
+	Bt.focus_cam(target, 1)
+	Bt.play_effect("Needle", target)
+	await Event.wait(1)
+	await Bt.damage(target, true, true)
+	await Event.wait(0.5)
+	Bt.end_turn()
+
 func HeatWave(target: Actor):
 	if target == CurrentChar:
 		Bt.focus_cam(CurrentChar)
@@ -762,6 +779,11 @@ func Humidity(target: Actor):
 			Bt.damage(target, true, true)
 		elif crit:
 			target.add_state("Soaked")
+	Bt.end_turn()
+
+func Gather(target: Actor):
+	await Bt.focus_cam(target)
+	target.add_aura(target.MaxAura)
 	Bt.end_turn()
 
 func ProtectiveField(target: Actor):
@@ -1038,6 +1060,57 @@ func AlcineWoods4():
 
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
+
+func StoneGuardian1():
+	var guardian = Bt.get_actor("Guardian")
+	Bt.zoom(7, 0)
+	await Bt.focus_cam(guardian, 0, 0)
+	Loader.battle_bars(2)
+	guardian.NextMove = load("res://database/Abilities/SturdyGuard.tres")
+	guardian.NextAction = "Ability"
+	Bt.zoom(6, 2)
+	Bt.focus_cam(guardian, 2, Vector2(-20, -40))
+	await Global.passive("story_events", "stone_guardian_intro")
+	Bt.entrance_anim(Global.Party.Leader)
+	Bt.entrance_anim(Global.Party.Member1)
+	await Event.wait(0.2)
+	await Bt.focus_cam(Global.Party.Leader)
+	Bt.end_turn()
+
+func StoneGuardian2(target: Actor = CurrentChar):
+	Bt.ignore_end_turn = true
+	await Global.passive("story_events", "stone_guardian_still_standing")
+	var guardian = Bt.get_actor("Guardian")
+	var mira = Global.Party.Leader
+	CurrentChar = guardian
+	mira.CantDie = true
+	Bt.zoom(6)
+	await Bt.focus_cam(guardian)
+	guardian.remove_state("AuraOverwrite")
+	await Bt.aura_overwrite(guardian, Color(1, 0, 1))
+	Bt.pop_num(guardian, "Hue-Shift", Color(1, 0, 1))
+	Global.check_party.emit()
+	await Event.wait(1)
+	Global.Party.Member1.Health = 1
+	await Drill(Global.Party.Member1)
+	Global.toast("FOLLOW UP!")
+	await Event.wait(0.5)
+	await Bt.focus_cam(guardian)
+	guardian.remove_state("AuraOverwrite")
+	await Bt.aura_overwrite(guardian, Color(0.0, 0.758, 0.948, 1.0))
+	Bt.pop_num(guardian, "Hue-Shift", Color(0.0, 0.758, 0.948, 1.0))
+	Global.check_party.emit()
+	await Event.wait(1)
+	mira.Aura = 0
+	await Drill(mira)
+	Global.toast("FOLLOW UP!")
+	await Event.wait(0.5)
+	await Bt.focus_cam(guardian)
+	Bt.zoom(7)
+	await Bt.focus_cam(mira, 3)
+	Bt.zoom(6)
+	await Event.wait(1)
+	Bt.end_battle()
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader

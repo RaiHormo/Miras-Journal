@@ -31,6 +31,7 @@ var no_crits:= false
 var no_misses:= false
 var follow_up_next:= false
 var aoe_returns:= 0
+var ignore_end_turn:= false
 
 func _ready():
 	Loader.battle_start.emit()
@@ -223,8 +224,6 @@ func entrance():
 	Global.Controllable = false
 	$Cam.position_smoothing_enabled = false
 	if Seq.Transition:
-		$Cam.zoom = Vector2(4,4)
-		$Cam.position = Vector2(90,10)
 		Loader.battle_bars(3)
 		if Seq.EntranceBanter != "":
 			if Seq.EntranceBanterIsPassive:
@@ -234,22 +233,21 @@ func entrance():
 				while Global.textbox_open:
 					if $Cam.position.x > -30: $Cam.position.x -= 0.03
 					await Event.wait()
-		t = create_tween()
-		t.set_ease(Tween.EASE_IN_OUT)
-		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
-		t.parallel().tween_property($Cam, "position", Vector2(90,0), 0.5)
-		t.tween_property($Cam, "position", Vector2(-50,0), 0.5).set_delay(0.5)
-		await Event.wait(0.3, false)
-		$EnemyUI.all_enemy_ui(true)
-		if Loader.BtAdvantage == 1:
-			for i in Troop: damage(i, 1, false, 24/Troop.size())
-		await Event.wait(0.5, false)
-	elif Seq.EntranceSequence == "":
-		t = create_tween()
-		t.set_ease(Tween.EASE_IN_OUT)
-		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property($Cam, "position", Vector2(-50,0), 0.5)
+		elif Seq.EntranceSequence == "":
+			$Cam.zoom = Vector2(4,4)
+			$Cam.position = Vector2(90,10)
+			t = create_tween()
+			t.set_ease(Tween.EASE_IN_OUT)
+			t.set_trans(Tween.TRANS_QUART)
+			t.tween_property($Cam, "zoom", Vector2(5.5,5.5), 0.5)
+			t.parallel().tween_property($Cam, "position", Vector2(90,0), 0.5)
+			t.tween_property($Cam, "position", Vector2(-50,0), 0.5).set_delay(0.5)
+			await Event.wait(0.3, false)
+			$EnemyUI.all_enemy_ui(true)
+			if Loader.BtAdvantage == 1:
+				for i in Troop: damage(i, 1, false, 24/Troop.size())
+			await Event.wait(0.5, false)
+	else:
 		$Cam.global_position = Global.get_cam().global_position
 		$Cam.zoom = Global.get_cam().zoom
 	if Seq.EntranceSequence == "":
@@ -507,6 +505,7 @@ func end_turn(confirm_aoe:= false):
 	if CurrentAbility.is_aoe() and not confirm_aoe:
 		aoe_returns += 1
 		return
+	if ignore_end_turn: return
 	aoe_returns = 0
 	if Seq.check_events():
 		await Seq.call_events()
@@ -859,9 +858,13 @@ func glow(amount: float = 1, time: float = 1, chara:Actor = CurrentChar):
 	t=create_tween()
 	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
 
-func focus_cam(chara:Actor, time:float=0.5, offset=30):
+func focus_cam(chara:Actor, time:float=0.5, offset = 30):
 	if chara.node == null: return
-	await move_cam(Vector2(chara.node.position.x + offsetize(offset, chara), chara.node.position.y /2), time)
+	if offset is int:
+		await move_cam(Vector2(chara.node.position.x + offsetize(offset, chara), chara.node.position.y /2), time)
+	elif offset is Vector2:
+		move_cam(Vector2(chara.node.position.x, chara.node.position.y /2) + Vector2(offsetize(offset.x, chara), offset.y), time)
+		
 
 func move_cam(pos: Vector2, time:float=0.5):
 	if Input.is_action_pressed("Dash"):
@@ -1283,6 +1286,7 @@ func clear_states(target: Actor):
 func aura_overwrite(tar: Actor, color: Color, turns: int = 1):
 	tar.AuraDefault = tar.MainColor
 	tar.MainColor = color
+	Global.check_party.emit()
 	var state = await tar.add_state("AuraOverwrite", turns)
 	if state != null: state.color = color
 

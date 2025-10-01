@@ -52,6 +52,7 @@ func save(filename:String="Autosave", showicon=true):
 	print("Saving to user://"+filename+".tres")
 	if showicon:
 		icon_save()
+	Global.save_settings()
 	data = SaveFile.new()
 	data.Name = filename
 	data.Datetime = Time.get_datetime_dict_from_system()

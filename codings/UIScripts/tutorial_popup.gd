@@ -16,7 +16,7 @@ func pop_down():
 	await t.finished
 
 func dash():
-	%Text.text = "[center]Hold [img]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
+	%Text.text = "[center]Hold [img width=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("Dash"):
 		await Event.wait()
@@ -29,7 +29,7 @@ func dash():
 	queue_free()
 
 func ov_attack():
-	%Text.text = "[center]Press [img]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
+	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("OVAttack"):
 		await Event.wait()
@@ -48,7 +48,7 @@ func party():
 	queue_free()
 
 func bag():
-	%Text.text = "[center]Press [img]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
+	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
 	Loader.save()
 	await pop_down()
 	while not Input.is_action_pressed("PartyMenu"):
@@ -73,7 +73,7 @@ func ability():
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(50, 201)
 	$Border2/Control/Next.hide()
-	$Border2/Text.text = "Press [img]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
+	$Border2/Text.text = "Press [img width=48]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
 	await Global.Bt.get_node("BattleUI").ability
 	queue_free()
 

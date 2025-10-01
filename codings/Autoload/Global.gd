@@ -523,6 +523,11 @@ func unlock_all_abilities():
 	for mem in Members:
 		for ab in mem.LearnableAbilities:
 			mem.Abilities.append(ab)
+
+func give_every_ability():
+	for i in DirAccess.get_files_at("res://database/Abilities/"):
+		var ab: Ability = load("res://database/Abilities/"+i).duplicate()
+		Party.Leader.Abilities.append(ab)
 #endregion
 
 #region Textbox Managment

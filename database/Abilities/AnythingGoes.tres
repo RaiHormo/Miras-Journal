@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://cgseaetcr8gpe"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_r4wsk"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_v3k0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3k0o"]
+resource_local_to_scene = true
+atlas = ExtResource("1_r4wsk")
+region = Rect2(144, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_v3k0o")
+name = "Anything Goes"
+description = "Hue-Shift to a random color."
+Icon = SubResource("AtlasTexture_v3k0o")
+ActionSequence = &"AnythingGoes"
+Type = "Defensive"
+InflictsState = "AuraOverwrite"
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

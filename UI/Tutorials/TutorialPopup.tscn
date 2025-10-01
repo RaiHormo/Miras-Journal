@@ -145,7 +145,7 @@ theme_override_constants/line_separation = 12
 theme_override_fonts/normal_font = ExtResource("3_c8w00")
 theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
-text = "[center]Press  [img]res://UI/Input/Z.png[/img]  to blah blah.[/center]"
+text = "[center]Press  [img width=48]res://UI/Input/Glyphs/Z.svg[/img]  to blah blah.[/center]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -180,7 +180,7 @@ autowrap_mode = 2
 layout_mode = 2
 
 [node name="Arrow" type="Panel" parent="Border2/Control"]
-layout_mode = 2
+layout_mode = 0
 offset_left = -25.0
 offset_top = 23.0
 offset_right = -7.0
@@ -201,9 +201,9 @@ pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_q87ds")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_yev0x")
 shortcut_in_tooltip = false

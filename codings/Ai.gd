@@ -79,6 +79,8 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	if ab == null: Bt.end_turn(); return
 	if Char.NextTarget==null and tar==null:
 		Char.NextTarget = Bt.random_target(ab)
+	if ab.Target == Ability.T.SELF:
+		tar = Char
 	elif Char.NextTarget==null:
 		Char.NextTarget = tar
 	if Char.NextAction == "":
@@ -118,7 +120,7 @@ func pick_general_ability() -> Ability:
 					print(tar.FirstName, " is a bad target")
 			2:
 				if has_type("Defensive"):
-					if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.6) and
+					if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.6) or
 				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
 				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")):
 						return find_ability("Defensive").pick_random()

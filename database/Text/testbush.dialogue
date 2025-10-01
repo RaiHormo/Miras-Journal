@@ -109,6 +109,8 @@ What to do?
 		do unlock_all_abilities()
 	- Add state testing abilities
 		do add_test_state(Party.Leader)
+	- Give every ability
+		do give_every_ability()
 - Full heal
 	do heal_party()
 - Give Mira lots of HP

@@ -12,6 +12,7 @@ class_name  BattleEvent
 @export var actor: StringName = &""
 ##To be used with [member actor_hp_low]
 @export var low_hp: int = -1
+@export var low_ap: int = -1
 @export_group("Result")
 @export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory") var result = 0
 ##Used as text file for dialog, function name for call function, move type for force move
@@ -39,6 +40,11 @@ func check() -> bool:
 			push_warning("The event refrences "+actor+" who is not present")
 			return false
 		if actore.Health > low_hp: return false
+	if low_ap != -1 and low_ap > 0:
+		if actor == &"" or actore == null: 
+			push_warning("The event refrences "+actor+" who is not present")
+			return false
+		if actore.Aura > low_ap: return false
 	if low_hp ==  0:
 		if actore != null and not actore.has_state("KnockedOut"):
 			return false
@@ -56,6 +62,7 @@ func run() -> void:
 			1: Global.Bt.get_node("Act").call(parameter1)
 			2: Global.textbox(parameter1, parameter2)
 			3:
+				if parameter1 == "": parameter1 = "Ability"
 				Global.Bt.get_actor(actor).NextAction = parameter1
 				Global.Bt.get_actor(actor).NextMove = resource
 				if not parameter2.is_empty():

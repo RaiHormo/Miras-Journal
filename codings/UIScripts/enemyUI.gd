@@ -84,6 +84,7 @@ func _check_party():
 	if t: t.stop()
 	for i in Troop:
 		check_panel(i, find_box(i))
+	check_panel(CurEnemy,  $EnemyFocus)
 	$EnemyFocus/Name.text = CurEnemy.FirstName
 	for i in $EnemyFocus/States.get_children():
 		if i.name != "State": i.queue_free()
@@ -132,6 +133,7 @@ func check_panel(chara: Actor, panel: Control):
 	if panel.get_node_or_null("Aura"):
 		t.tween_property(panel.get_node("Aura"), "value", chara.Aura, 0.3)
 		panel.get_node("Aura").max_value = chara.MaxAura
+	color_box(chara, panel)
 
 func _on_battle_ui_ability():
 	if $"../BattleUI/DescPaper/ShowWheel/Wheel".visible:
@@ -152,6 +154,9 @@ func make_box(en:Actor, node:Control):
 	node.set_meta("enemy", en)
 	node.get_node("Icon").texture = en.PartyIcon
 	#node.get_node("Icon").modulate = en.MainColor*2
+	color_box(en, node)
+
+func color_box(en:Actor, node:Control):
 	var hbox = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = en.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())

@@ -13,13 +13,8 @@
 
 [sub_resource type="Resource" id="Resource_0ymhv"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHRight"
 low_hp = 95
-result = 0
 parameter1 = "story_events"
 parameter2 = "lazulite_heart_1"
 hold_turn = true
@@ -28,115 +23,65 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_mo6wr"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHBody"
 low_hp = 200
 result = 3
 parameter1 = "Ability"
-parameter2 = ""
 resource = ExtResource("8_fmg4r")
-hold_turn = false
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_fmg4r"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHBody"
 low_hp = 100
 result = 3
 parameter1 = "Ability"
-parameter2 = ""
 resource = ExtResource("8_fmg4r")
-hold_turn = false
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_x75j7"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHBody"
-low_hp = -1
 result = 3
 parameter1 = "Ability"
-parameter2 = ""
 resource = ExtResource("9_mo6wr")
-hold_turn = false
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_v5s8n"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHLeft"
-low_hp = -1
 result = 3
 parameter1 = "Ability"
 parameter2 = "LHRight"
 resource = ExtResource("10_x75j7")
-hold_turn = false
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_ewt77"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHBody"
 low_hp = 30
-result = 0
 parameter1 = "story_events"
 parameter2 = "lazulite_heart_2"
 hold_turn = true
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_4pxea"]
 script = ExtResource("3_4g4ty")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"LHBody"
 low_hp = 0
 result = 1
 parameter1 = "LazuliteHeartBoss2"
-parameter2 = ""
 hold_turn = true
-add_flag = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [resource]
 script = ExtResource("4_jfqv0")
 Enemies = Array[ExtResource("2_q5pv2")]([ExtResource("3_q5pv2"), ExtResource("6_fmg4r"), ExtResource("5_0ymhv")])
-AdditionalItems = Array[ExtResource("1_c12ys")]([])
-Transition = true
-Detransition = false
-ReturnControl = true
-EscPosition = Vector2i(0, 0)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(300, -1331)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "LazuliteHeartBoss1"
-EntranceBanter = ""
 EntranceBanterIsPassive = false
 VictorySequence = "LazuliteHeartBoss2"
-VictoryBanter = ""
-DefeatSequence = ""
 Events = Array[ExtResource("3_4g4ty")]([SubResource("Resource_0ymhv"), SubResource("Resource_mo6wr"), SubResource("Resource_fmg4r"), SubResource("Resource_x75j7"), SubResource("Resource_v5s8n"), SubResource("Resource_ewt77"), SubResource("Resource_4pxea")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

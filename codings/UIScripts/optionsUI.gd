@@ -23,16 +23,12 @@ func _ready():
 		queue_free()
 		return
 	if Loader.InBattle:
-		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or not $/root/Battle/BattleUI.active:
+		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or $/root/Battle/BattleUI.PrevStage != "root" or not $/root/Battle/BattleUI.active:
 			queue_free()
 			return
-		$/root/Battle/BattleUI.active = false
-		$/root/Battle/BattleUI.stage = "options"
-	if Loader.InBattle:
-		$MainButtons/SaveManagment.disabled = true
-		$MainButtons/GameSettings.grab_focus()
-	else:
-		$MainButtons/SaveManagment.grab_focus()
+		get_tree().root.get_node_or_null("Battle/BattleUI").stage = "options"
+		cant_save = true
+	$MainButtons/SaveManagment.grab_focus()
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area): 
 		cant_save = true
 	Loader.detransition("")

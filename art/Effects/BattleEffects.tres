@@ -1297,6 +1297,9 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jj5o5")
 }, {
 "duration": 1.0,

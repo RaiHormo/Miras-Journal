@@ -547,7 +547,7 @@ Colors are important, as they determine what type of magic it can cast, as well 
 
 You can easily tell an actor's aura color from its HUD color or when its aura takes form when casting magic.", "#AuraAffinity1
 
-So how do diffrent aura colors interact with each other? 
+So how do different aura colors interact with each other? 
 Let's take an [color=e87b33]Orange[/color] attack for example. The graph will look something like this:
 [img height=240]res://art/Journal/Manual/AuraAffinity1.png[/img]
 
