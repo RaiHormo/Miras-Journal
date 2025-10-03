@@ -72,18 +72,15 @@ func handle_states():
 			if state.turns == 0:
 				match state.filename:
 					"Guarding", "MagicShield":
-						chara.node.material.set_shader_parameter("outline_enabled", false)
+						Bt.outline_remove(chara)
 					"AtkUp": chara.AttackMultiplier -= state.parameter
 					"DefUp": chara.DefenceMultiplier -= state.parameter
 					"MagUp": chara.MagicMultiplier -= state.parameter
 					"AuraOverwrite":
 						chara.MainColor = chara.AuraDefault
-						chara.node.material.set_shader_parameter("outline_enabled", false)
+						Bt.outline_remove(chara)
 					"KnockedOut":
-						Global.toast(chara.FirstName+" recovers!")
-						Bt.anim("Idle", chara)
-						chara.Health = 10
-						chara.Aura = chara.MaxAura
+						Bt.recover(chara)
 				state.QueueRemove = true
 		if not state.QueueRemove:
 			match state.filename:
@@ -711,20 +708,38 @@ func Tighten(target: Actor):
 	Bt.end_turn()
 
 func AnythingGoes(target: Actor):
+	Bt.zoom()
 	await Bt.focus_cam(target, 0.5, 0)
-	Bt.zoom(6)
 	target.remove_state("AuraOverwrite")
 	await Bt.aura_overwrite(target, Color(randf_range(0.2, 0.8), randf_range(0.2, 0.8), randf_range(0.2, 0.8)), -1)
-	await Event.wait(1)
+	await Event.wait(1.5)
 	Bt.end_turn()
 
 func Drill(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(target, 1)
-	Bt.play_effect("Needle", target)
-	await Event.wait(1)
-	await Bt.damage(target, true, true)
+	Bt.play_effect("Drill", target, Vector2(100, 0))
+	$Drill.material = ShaderMaterial.new()
+	$Drill.material.shader = load("res://database/Abilities/color_replace.gdshader")
+	$Drill.material.set_shader_parameter("prev_color", Color.hex(0xff0000ff))
+	$Drill.material.set_shader_parameter("new_color", CurrentChar.MainColor)
+	await Event.wait(0.8)
+	t = create_tween()
+	t.tween_property($Drill, "position", target.node.position+Vector2(32, 0), 0.1)
+	await Event.wait(0.1)
+	Bt.screen_shake(5)
+	Bt.shake_actor(target)
 	await Event.wait(0.5)
+	Bt.screen_shake()
+	await Bt.damage(target, true, true, Global.calc_num(), true, false, false, Bt.CurrentChar.MainColor)
+	await Event.wait(0.5)
+	Bt.end_turn()
+
+func Crusher(target: Actor):
+	Bt.zoom(5)
+	Bt.focus_cam(target)
+	Bt.screen_shake()
+	await Bt.damage(target, true, true)
 	Bt.end_turn()
 
 func HeatWave(target: Actor):
@@ -796,7 +811,7 @@ func ProtectiveField(target: Actor):
 func Attention(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(CurrentChar)
-	Global.passive("BT_Daze", "attention")
+	Global.passive("battle", "attention")
 	await Event.wait(1)
 	Bt.focus_cam(target)
 	target.add_state("Aggro")
@@ -806,7 +821,7 @@ func Attention(target: Actor):
 
 func SturdyGuard(target: Actor):
 	Bt.focus_cam(target)
-	await target.add_state("Barrier", 3)
+	await target.add_state("Barrier", 2)
 	Bt.end_turn()
 
 func RockThrow(target: Actor):
@@ -1061,9 +1076,17 @@ func AlcineWoods4():
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
 
+func StoneGuardianLoop():
+	if Bt.CurrentChar.codename == "Guardian" and Bt.Turn % 2 == 0:
+		Bt.ignore_end_turn = true
+		Bt.callout(load("res://database/Abilities/AnythingGoes.tres"))
+		await AnythingGoes(Bt.get_actor("Guardian"))
+		Bt.ignore_end_turn = false
+
 func StoneGuardian1():
 	var guardian = Bt.get_actor("Guardian")
 	Bt.zoom(7, 0)
+	guardian.MaterialOverride.set_shader_parameter("new_color", Color(0.235, 0.588, 0.498))
 	await Bt.focus_cam(guardian, 0, 0)
 	Loader.battle_bars(2)
 	guardian.NextMove = load("res://database/Abilities/SturdyGuard.tres")
@@ -1079,37 +1102,61 @@ func StoneGuardian1():
 
 func StoneGuardian2(target: Actor = CurrentChar):
 	Bt.ignore_end_turn = true
-	await Global.passive("story_events", "stone_guardian_still_standing")
 	var guardian = Bt.get_actor("Guardian")
 	var mira = Global.Party.Leader
+	var alcine = Global.Party.Member1
+	Bt.CurrentChar = guardian
 	CurrentChar = guardian
-	mira.CantDie = true
+	if mira.Health < 0:
+		await Global.passive("story_events", "stone_guardian_still_standing")
+	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
 	Bt.zoom(6)
-	await Bt.focus_cam(guardian)
+	await Bt.focus_cam(alcine)
+	await Bt.focus_cam(guardian, 0.5, 0)
 	guardian.remove_state("AuraOverwrite")
-	await Bt.aura_overwrite(guardian, Color(1, 0, 1))
-	Bt.pop_num(guardian, "Hue-Shift", Color(1, 0, 1))
+	await Bt.aura_overwrite(guardian, Color(0.688, 0.636, 0.0, 1.0))
+	Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
 	Global.check_party.emit()
 	await Event.wait(1)
-	Global.Party.Member1.Health = 1
-	await Drill(Global.Party.Member1)
-	Global.toast("FOLLOW UP!")
-	await Event.wait(0.5)
-	await Bt.focus_cam(guardian)
+	alcine.Health = 1
+	Bt.callout(load("res://database/Abilities/Drill.tres"))
+	await Drill(alcine)
+	Bt.ignore_end_turn = false
+	Event.add_flag("BeatStoneGuardian")
+	Bt.follow_up_next = false
+	Bt.next_turn.emit()
+
+func StoneGuardian3():
+	Bt.ignore_end_turn = true
+	var guardian = Bt.get_actor("Guardian")
+	var mira = Global.Party.Leader
+	Bt.CurrentChar = guardian
+	CurrentChar = guardian
+	mira.CantDie = true
+	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
+	Bt.zoom(6)
+	await Bt.focus_cam(mira)
+	await Bt.focus_cam(guardian, 0.5, 0)
 	guardian.remove_state("AuraOverwrite")
-	await Bt.aura_overwrite(guardian, Color(0.0, 0.758, 0.948, 1.0))
-	Bt.pop_num(guardian, "Hue-Shift", Color(0.0, 0.758, 0.948, 1.0))
+	await Bt.aura_overwrite(guardian, Color(0.498, 0.09, 1.0))
+	Bt.pop_num(guardian, "Hue-Shift", Color(0.498, 0.09, 1.0))
+	guardian.MainColor = Color(0.498, 0.09, 1.0)
 	Global.check_party.emit()
 	await Event.wait(1)
 	mira.Aura = 0
+	mira.Health = min(mira.Health, 40)
+	Bt.callout(load("res://database/Abilities/Drill.tres"))
 	await Drill(mira)
-	Global.toast("FOLLOW UP!")
+	await mira.add_state("AuraBreak")
 	await Event.wait(0.5)
-	await Bt.focus_cam(guardian)
+	await Global.passive("story_events", "stone_guardian_my_arm")
+	Bt.follow_up_text()
 	Bt.zoom(7)
-	await Bt.focus_cam(mira, 3)
+	await Bt.focus_cam(guardian)
 	Bt.zoom(6)
+	await Bt.focus_cam(mira, 3)
 	await Event.wait(1)
+	mira.CantDie = false
 	Bt.end_battle()
 
 func LazuliteHeartBoss1():

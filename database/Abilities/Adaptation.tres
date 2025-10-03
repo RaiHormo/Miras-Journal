@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://de2ymbs4ajhqc"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_jjy1w"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_uefd8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uefd8"]
+resource_local_to_scene = true
+atlas = ExtResource("1_jjy1w")
+region = Rect2(144, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_uefd8")
+name = "Adaptation"
+description = "Hue-Shift to a color the target is weak to."
+Icon = SubResource("AtlasTexture_uefd8")
+Type = "Curse"
+AuraCost = 5
+Target = 1
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

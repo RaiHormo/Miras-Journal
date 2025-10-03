@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dkysiq802atj"
+path="res://.godot/imported/battle.dialogue-0678c242736281d7054d3d9e90add0f7.tres"
+
+[deps]
+
+source_file="res://database/Text/battle.dialogue"
+dest_files=["res://.godot/imported/battle.dialogue-0678c242736281d7054d3d9e90add0f7.tres"]
+
+[params]
+
+defaults=true

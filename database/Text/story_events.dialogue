@@ -169,7 +169,7 @@ elif alcine() == "Gaster":
 	I don't speak hands.
 elif alcine() == "Luigi":
 	Respectable.
-elif alcine() == "Rai" or alcine() == "Raidev":
+elif alcine() == "Rai" or alcine() == "Raidev" or alcine() == "RaiDev":
 	SECRET DEVELOPER MODE ACTIVATED! Or something...
 elif alcine() == "Iris":
 	Truly.
@@ -209,6 +209,8 @@ elif alcine() == "Alcines" or alcine() == "Alcinez":
 	Many of them.
 elif alcine() == "Alkaline":
 	It's pronounced "Alk-ah-leen".
+elif alcine() == "Slime":
+	I mean, they're not really a slime, ther body is made of clear water... I think.
 elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":
 	Brazy.
 elif alcine() == "Piss Elmnt" or alcine() == "Piss Element":
@@ -342,6 +344,10 @@ Alcine.Upset: M- Mmeeaw...
 
 ~ stone_guardian_still_standing
 Mira.Neutral: This thing just won't go down..!
+=> END
+
+~ stone_guardian_my_arm
+Mira.Neutral: I can't... move my arm...
 => END
 
 ~ nov3_morning

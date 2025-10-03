@@ -127,6 +127,8 @@ func sprite_init(i: Actor):
 		t = create_tween()
 		t.tween_property(i.node.get_node("Glow"), "energy", i.GlowDef, 1)
 	i.node.get_node("Glow").color = i.MainColor
+	if i.MaterialOverride != null:
+		i.node.material = i.MaterialOverride
 
 func speed_sort(a: Actor, b: Actor):
 	if a.Speed + a.SpeedBoost > b.Speed + b.SpeedBoost:
@@ -276,7 +278,7 @@ func _on_next_turn():
 	#position_sprites()
 	Turn += 1
 	if follow_up_next:
-		Global.toast("FOLLOW UP!")
+		follow_up_text()
 		follow_up_next = false
 		TurnInd = TurnOrder.find(CurrentChar)
 	else:
@@ -596,20 +598,11 @@ overwrite_color: Color = Color.WHITE) -> int:
 		if elemental and not target.has_state("AuraBreak"):
 			if el_mod > 1:
 				target.node.get_node("Particle").emitting = true
-			t = create_tween()
-			t.set_ease(Tween.EASE_IN)
-			t.set_trans(Tween.TRANS_QUART)
-			target.node.material.set_shader_parameter("outline_enabled", true)
-			target.node.material.set_shader_parameter("outline_color",
-			target.MainColor)
-			target.node.get_node("Particle"
-			).process_material.gravity = Vector3(offsetize(120), 0, 0)
+			outline(target)
+			target.node.get_node("Particle").process_material.gravity = Vector3(offsetize(120), 0, 0)
 			target.node.get_node("Particle").process_material.color = target.MainColor
-			t.tween_property(target.node.material,
-			"shader_parameter/outline_color", Color.TRANSPARENT, 0.5)
-			await t.finished
+			await outline_remove(target)
 			Input.stop_joy_vibration(0)
-		target.node.material.set_shader_parameter("outline_enabled", false)
 	target.DamageRecivedThisTurn += dmg
 	return dmg
 
@@ -618,6 +611,18 @@ func hit_animation(tar: Actor):
 		anim("Hit", tar)
 		await tar.node.animation_finished
 		anim("Idle", tar)
+
+func outline(target: Actor, color: Color = target.MainColor):
+	if target.node.material.get_shader_parameter("outline_enabled") != null:
+		target.node.material.set_shader_parameter("outline_enabled", true)
+		target.node.material.set_shader_parameter("outline_color", color)
+
+func outline_remove(target: Actor, time = 0.5):
+	if target.node.material.get_shader_parameter("outline_enabled") != null:
+		var t = create_tween()
+		t.tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, time)
+		await t.finished
+		target.node.material.set_shader_parameter("outline_enabled", false)
 
 func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
 	t = create_tween()
@@ -671,6 +676,12 @@ func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> 
 	if target.has_state("KnockedOut"):
 		if !ability.CanTargetDead: return false
 	return true
+
+func recover(chara: Actor):
+	Global.toast(chara.FirstName+" recovers!")
+	anim("Idle", chara)
+	chara.Health = 10
+	chara.Aura = chara.MaxAura
 
 func pop_num(target:Actor, text, color: Color = Color.WHITE):
 	if is_instance_valid(target) and target.node != null:
@@ -750,8 +761,7 @@ func death(target:Actor):
 		return
 	target.node.get_node("Particle").emitting = true
 	target.Health = 0
-	target.node.material.set_shader_parameter("outline_enabled", true)
-	target.node.material.set_shader_parameter("outline_color", target.MainColor)
+	outline(target)
 	target.node.get_node("Particle"
 	).process_material.gravity = Vector3(offsetize(120), 0, 0)
 	target.node.get_node("Particle"
@@ -762,17 +772,17 @@ func death(target:Actor):
 	td.set_parallel()
 	td.tween_property(
 		target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
-	td.tween_property(
-		target.node.material, "shader_parameter/outline_color",
-		Color.TRANSPARENT, 0.5)
+	outline_remove(target)
 	if target.Disappear:
 		td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
 	print(target.FirstName, " was defeated")
 	target.add_state("KnockedOut")
 	await Event.wait(1)
+	if target.DeathDialog != "":
+		Global.passive("battle", target.DeathDialog)
+		await Event.wait(0.5)
 	lock_turn = false
 	if is_instance_valid(target.node):
-		target.node.material.set_shader_parameter("outline_enabled", false)
 		if target.Disappear and not target.CantDie:
 			while target.node.is_playing() and target.node.animation == "KnockOut":
 				await Event.wait()
@@ -915,15 +925,9 @@ func remove_queued_states(chara: Actor):
 	if chara.States.is_empty(): chara.node.get_node("State").play("None")
 
 func pop_aura(target: Actor, time:float=0.5):
-	target.node.material.set_shader_parameter("outline_enabled", true)
-	target.node.material.set_shader_parameter("outline_color", Color.WHITE)
+	outline(target, Color.WHITE)
 	await get_tree().create_timer(time).timeout
-	t = create_tween()
-	t.parallel().tween_property(
-		target.node.material, "shader_parameter/outline_color",
-		Color.TRANSPARENT, 0.5)
-	await t.finished
-	target.node.material.set_shader_parameter("outline_enabled", false)
+	await outline_remove(target)
 
 func escape():
 	print("Escaped")
@@ -1129,7 +1133,7 @@ func add_to_troop(en: Actor):
 	dub.get_node("SFX").queue_free()
 	await Event.wait()
 	dub.add_child(en.SoundSet.instantiate())
-	dub.material.set_shader_parameter("outline_enabled", false)
+	outline_remove(en)
 	TurnOrder.sort_custom(speed_sort)
 	TurnInd = TurnOrder.find(CurrentChar)
 	position_sprites()
@@ -1215,11 +1219,9 @@ func on_state_add(state: State, chara: Actor, effect = true):
 		add_state_effect(state, chara)
 		match state.name:
 			"Guarding", "AuraOverwrite":
-				chara.node.material.set_shader_parameter("outline_enabled", true)
-				chara.node.material.set_shader_parameter("outline_color", chara.MainColor)
+				outline(chara)
 			"MagicShield":
-				chara.node.material.set_shader_parameter("outline_enabled", true)
-				chara.node.material.set_shader_parameter("outline_color", Color.WHITE)
+				outline(chara, Color.WHITE)
 			"Aggro":
 				chara.NextTarget = state.inflicter
 		await Event.wait()
@@ -1289,6 +1291,8 @@ func aura_overwrite(tar: Actor, color: Color, turns: int = 1):
 	Global.check_party.emit()
 	var state = await tar.add_state("AuraOverwrite", turns)
 	if state != null: state.color = color
+	if tar.node.material.get_shader_parameter("new_color") != null:
+		tar.node.material.set_shader_parameter("new_color", color)
 
 func confusion_msg():
 	var tar: Actor = CurrentChar.NextTarget
@@ -1298,3 +1302,19 @@ func confusion_msg():
 		Global.toast(CurrentChar.FirstName+" hits an ally in confusion!")
 	elif CurrentChar.Controllable:
 		Global.toast(CurrentChar.FirstName+" misses "+CurrentChar.Pronouns[2]+" target in Confusion!")
+
+func follow_up_text():
+	if CurrentChar.IsEnemy:
+		$Canvas/FollowUp.rotation_degrees = 15
+		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
+		var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+		t.tween_property($Canvas/FollowUp/Text, "position:x", 100, 0.5)
+		t.set_ease(Tween.EASE_IN)
+		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)
+	else:
+		$Canvas/FollowUp.rotation_degrees = -15
+		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
+		var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+		t.tween_property($Canvas/FollowUp/Text, "position:x", 450, 0.5)
+		t.set_ease(Tween.EASE_IN)
+		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)

@@ -50,3 +50,4 @@ Offset = Vector2(-3, -15)
 Shadow = true
 ShadowOffset = 1
 Disappear = false
+DeathDialog = "alcine_death"

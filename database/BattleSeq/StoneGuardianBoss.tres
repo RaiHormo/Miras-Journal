@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=10 format=3 uid="uid://cii3i6q16y4rw"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=12 format=3 uid="uid://cii3i6q16y4rw"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_huh7e"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="2_oponu"]
@@ -19,9 +19,26 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 [sub_resource type="Resource" id="Resource_t20i2"]
 script = ExtResource("3_oponu")
 actor = &"Guardian"
-low_hp = 50
+low_hp = 100
 result = 1
 parameter1 = "StoneGuardian2"
+hold_turn = true
+metadata/_custom_type_script = "uid://cn75n6xjwndk3"
+
+[sub_resource type="Resource" id="Resource_87ic2"]
+script = ExtResource("3_oponu")
+repeatable = true
+result = 1
+parameter1 = "StoneGuardianLoop"
+hold_turn = true
+metadata/_custom_type_script = "uid://cn75n6xjwndk3"
+
+[sub_resource type="Resource" id="Resource_yttu5"]
+script = ExtResource("3_oponu")
+flag = &"StoneGuardianFinisher"
+flag_should_be = true
+result = 1
+parameter1 = "StoneGuardian3"
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [resource]
@@ -31,6 +48,6 @@ BattleBack = ExtResource("2_oponu")
 CanEscape = false
 EntranceSequence = "StoneGuardian1"
 EntranceBanterIsPassive = false
-VictorySequence = "StoneGuardian2"
-Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2")])
+VictorySequence = "StoneGuardian3"
+Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2"), SubResource("Resource_87ic2"), SubResource("Resource_yttu5")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

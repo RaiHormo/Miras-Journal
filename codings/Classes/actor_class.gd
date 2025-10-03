@@ -106,6 +106,7 @@ var SpeedBoost: int = 0
 @export var GlowSpecial: float = 0.0
 ##Specify animations where GlowSpecial is used
 @export var GlowAnims: Array[String] = []
+@export var MaterialOverride: Material = null
 
 @export_group("Additional parameters")
 @export var DontIdle:= false
@@ -114,6 +115,7 @@ var SpeedBoost: int = 0
 ##Sequence played when the above happens
 @export var SeqOnClutch:= ""
 ##If true, the character cannot die, and will always stay at low hp
+@export var DeathDialog:= ""
 @export var CantDie:= false
 @export var IgnoreStates:= false
 @export var CantDodge:= false

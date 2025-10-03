@@ -1,0 +1,8 @@
+~ attention
+Daze.Neutral: [[Eyes on me|Over here|It's me you want|Come at me|I can take it]]!
+=> END
+
+~ alcine_death
+if find_member("Mira").Health > 0:
+	Mira.Neutral: [[{{alcine()}}!|Hang in there {{alcine()}}!|No...!|No, wait! {{alcine()}}!!]]!
+=> END

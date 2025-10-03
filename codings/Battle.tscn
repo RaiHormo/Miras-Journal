@@ -62,7 +62,7 @@ script = ExtResource("4_e2t6x")
 
 [sub_resource type="Curve" id="Curve_wrfky"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq3md"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bwtm7"]
 shader = ExtResource("10_bwtm7")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_enabled = false
@@ -1877,11 +1877,10 @@ use_parent_material = true
 script = ExtResource("6_ik7qm")
 
 [node name="Actor0" type="AnimatedSprite2D" parent="Act"]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9CVC9DcnlzdGFsL0NyeXN0YWxCdC5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvQlQvQnVyc3RQYXJhc2l0ZS8Kb19uYW1lfD1CdXJzdFBhcmFzaXRlQlQKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 16
 y_sort_enabled = true
 texture_filter = 1
-material = SubResource("ShaderMaterial_qq3md")
+material = SubResource("ShaderMaterial_bwtm7")
 position = Vector2(-60.5, -39.5)
 sprite_frames = ExtResource("10_ml8ja")
 animation = &"Idle"
@@ -1958,7 +1957,7 @@ z_index = 5
 material = ExtResource("1_dmrw5")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
-animation = &"RemoteHit"
+animation = &"Drill"
 
 [node name="Cam" type="Camera2D" parent="."]
 physics_interpolation_mode = 2
@@ -3821,6 +3820,29 @@ theme_override_fonts/font = ExtResource("33_jy6my")
 theme_override_font_sizes/font_size = 38
 text = "x2"
 vertical_alignment = 1
+
+[node name="FollowUp" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.2617994
+pivot_offset = Vector2(640, 400)
+
+[node name="Text" type="Label" parent="Canvas/FollowUp"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 1545.0
+offset_top = 600.0
+offset_right = 2280.0
+offset_bottom = 751.0001
+pivot_offset = Vector2(0.50787354, 1.3183594)
+theme_override_fonts/font = ExtResource("9_ys1vd")
+theme_override_font_sizes/font_size = 150
+text = "FOLLOW UP"
+horizontal_alignment = 2
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]
