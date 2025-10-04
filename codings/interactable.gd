@@ -180,6 +180,7 @@ func do_position():
 
 func _on_button_pressed() -> void:
 	Global.Controllable = false
+	Global.Player.direction = Vector2.ZERO
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
@@ -199,7 +200,7 @@ func _on_button_pressed() -> void:
 		"toggle":
 			Global.confirm_sound()
 		"text":
-			await Event.take_control(false)
+			await Event.take_control(false, false, true)
 			disappear(true)
 			await Global.textbox(file, title)
 		"item":

@@ -28,6 +28,7 @@ var SaveFiles: Array[SaveFile]
 signal battle_start
 signal battle_end
 signal ungray
+var prevent_battles:= false
 
 var BAR_DOWN_POS: Vector2
 var BAR_UP_POS: Vector2
@@ -101,6 +102,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	if not validate_save(filepath):
 		Loader.detransition()
 		return
+	prevent_battles = true
 	Global.textbox_kill()
 	chased = false
 	data = await load_res(filepath)
@@ -165,9 +167,12 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Preview = (await data.preview())
 	print("File loaded!\n-------------------------")
 	await Event.wait()
-	if chased and is_instance_valid(Attacker):
+	if (chased or Loader.InBattle) and is_instance_valid(Attacker):
 		print("Too close to an enemy, auto escape")
 		Global.Player.position = Attacker.BattleSeq.EscPosition *24
+		Global.refresh()
+	#await Event.wait(1)
+	prevent_battles = false
 
 func load_res(path: String) -> Resource:
 	load_failed = false
@@ -368,6 +373,7 @@ func start_battle(stg, advantage := 0):
 		PartyUI.show_all()
 		return
 	Loader.InBattle = true
+	if prevent_battles: return
 	BattleResult = 0
 	PartyUI.UIvisible = false
 	BtAdvantage = advantage

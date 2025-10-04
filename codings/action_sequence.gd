@@ -59,7 +59,7 @@ func roll_rng(tar: Actor):
 	crit = false
 	if not tar.CantDodge or tar.has_state("Bound") or tar.has_state("Soaked"):
 		if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
-	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits: crit = true
+	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits and not miss: crit = true
 
 ################################################
 
