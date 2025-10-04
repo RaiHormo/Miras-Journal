@@ -45,15 +45,18 @@ func on_confirm() -> void:
 	elif check_for_symbols():
 		$Error.text = "I shouldn't include symbols"
 		$Error.show()
-	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt or "nigg" in txt or "faggot" in txt:
+	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt or "nigg" in txt or "faggot" in txt or "tranny" in txt:
 		$Error.text = "No."
 		$Error.show()
 	elif "mira" == txt or "levenor" == txt:
 		$Error.text = "That's a little egotistical..."
 		$Error.show()
 	elif ("daze" == txt or "asteria" == txt or "versea" == txt or
-	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt or "noreen" == txt):
-		$Error.text = "I feel like i shouldn't choose that name."
+	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt or "noreen" == txt or "daroca" == txt or "reshanne" in txt or "yaru" == txt):
+		$Error.text = "I feel like I shouldn't choose that name."
+		$Error.show()
+	elif ("guardian" == txt):
+		$Error.text = "I need to keep that for something greater."
 		$Error.show()
 	elif "erinn" == txt:
 		$Error.text = "Name them after my cousin?\n Why?"

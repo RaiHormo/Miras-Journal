@@ -217,6 +217,10 @@ elif alcine() == "Piss Elmnt" or alcine() == "Piss Element":
 	Now that is a name!
 elif alcine() == "Creature":
 	Bit on the nose?
+elif alcine() == "Aa":
+	Speedrun strats.
+elif alcine().begins_with("John") or alcine() == "Jojo":
+	Jonathan Johnington Johnstar.
 else:
 	"{{alcine()}}". Should I go with this?
 - Use this name

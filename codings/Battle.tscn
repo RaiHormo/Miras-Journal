@@ -1883,7 +1883,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_bwtm7")
 position = Vector2(-60.5, -39.5)
 sprite_frames = ExtResource("10_ml8ja")
-animation = &"Idle"
+animation = &"Ability"
 offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0"]

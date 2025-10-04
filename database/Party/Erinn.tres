@@ -3,58 +3,36 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_gxbro"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_knk13"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="1_vkgex"]
-[ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/OV/Erinn/ErinnOV.tres" id="1_vt7ec"]
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="6_8ml7j"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="7_eppa1"]
+
+[sub_resource type="Curve" id="Curve_7tpjl"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [resource]
 script = ExtResource("1_gxbro")
 FirstName = "Erinn"
 MainColor = Color(0.50098, 0.74, 0.4588, 1)
 PartyIcon = ExtResource("2_b55w6")
-ActorClass = ""
 codename = &"Erinn"
 Pronouns = Array[String](["he", "him", "his", "himself"])
-WeaponPower = 24
-IsEnemy = false
-RecivedSP = 0
-SummonedAllies = Array[ExtResource("1_gxbro")]([])
-CustomPosition = Vector2i(0, 0)
 SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
 BoxProfile = ExtResource("1_vkgex")
 LastName = "Levenor"
-Weapon = ""
-PartyPageName = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
 MaxHP = 85
 MaxAura = 90
 Attack = 0.5
 Magic = 1.8
 Defence = 1.5
-Speed = 5.0
 Health = 85
 Aura = 90
-SkillLevel = 1
-SkillPoints = 0
-SkillPointsFor = Array[int]([1, 40, 0, 0, 0, 0, 0, 0, 0, 0])
-Abilities = Array[ExtResource("1_knk13")]([])
+SkillCurve = SubResource("Curve_7tpjl")
 StandardAttack = ExtResource("7_eppa1")
-LearnableAbilities = Array[ExtResource("1_knk13")]([])
-OV = ExtResource("1_vt7ec")
+OV = "res://art/OV/Erinn/ErinnOV.tres"
 Offset = Vector2(0, -15)
 Shadow = true
 ShadowOffset = 4
-SoundSet = ExtResource("6_8ml7j")
 Disappear = false
 GlowDef = 0.0
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false

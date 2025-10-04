@@ -1,14 +1,73 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bmy72a5ahffgh"]
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://bmy72a5ahffgh"]
 
 [ext_resource type="Texture2D" uid="uid://dr43dmlexc6p" path="res://art/BT/StoneGuardian/Guardian.png" id="1_fg14l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofnkw"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(0, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq4kn"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(0, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flcxo"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(200, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walck"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(400, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5735u"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w3dw"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2rb7"]
+atlas = ExtResource("1_fg14l")
+region = Rect2(400, 0, 200, 200)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_fg14l")
+"texture": SubResource("AtlasTexture_ofnkw")
+}],
+"loop": false,
+"name": &"Ability",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq4kn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flcxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walck")
+}],
+"loop": false,
+"name": &"Guard",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5735u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w3dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2rb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w3dw")
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 5.0
+"speed": 3.0
 }]
