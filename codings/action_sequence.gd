@@ -436,7 +436,7 @@ func CrystalHeal(target: Actor):
 #region Abilities
 func Guard(target: Actor):
 	Bt.zoom()
-	Bt.anim("Idle")
+	Bt.anim("Guard")
 	Bt.focus_cam(CurrentChar)
 	await CurrentChar.add_state("Guarding")
 	await Event.wait(0.5)
@@ -444,7 +444,7 @@ func Guard(target: Actor):
 
 func PhantomGuard(target: Actor):
 	Bt.zoom()
-	Bt.anim("Idle")
+	Bt.anim("Guard")
 	Bt.focus_cam(CurrentChar)
 	Bt.aura_overwrite(target, Bt.CurrentAbility.WheelColor)
 	await Event.wait(0.5)
@@ -805,6 +805,7 @@ func ProtectiveField(target: Actor):
 	Bt.anim("Cast")
 	Bt.focus_cam(target)
 	await target.add_state("MagicShield")
+	Bt.anim("Guard")
 	Bt.anim()
 	Bt.end_turn()
 
@@ -821,6 +822,7 @@ func Attention(target: Actor):
 
 func SturdyGuard(target: Actor):
 	Bt.focus_cam(target)
+	Bt.anim("Guard")
 	await target.add_state("Barrier", 2)
 	Bt.end_turn()
 
@@ -1077,11 +1079,13 @@ func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
 
 func StoneGuardianLoop():
-	if Bt.CurrentChar.codename == "Guardian" and Bt.Turn % 2 == 0:
+	if Bt.CurrentChar.codename == "Guardian" and Bt.Turn % 2 == 0 and not Event.f("StoneGuardianFinisher"):
 		Bt.ignore_end_turn = true
 		Bt.callout(load("res://database/Abilities/AnythingGoes.tres"))
 		await AnythingGoes(Bt.get_actor("Guardian"))
 		Bt.ignore_end_turn = false
+	if Bt.get_actor("Alcine").Health == 0 and Bt.CurrentChar.codename == "Mira" and Event.f("StoneGuardianFinisher"):
+		Event.add_flag("BeatStoneGuardian")
 
 func StoneGuardian1():
 	var guardian = Bt.get_actor("Guardian")
@@ -1107,27 +1111,34 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	var alcine = Global.Party.Member1
 	Bt.CurrentChar = guardian
 	CurrentChar = guardian
-	if mira.Health < 0:
+	if mira.Health > 0:
 		await Global.passive("story_events", "stone_guardian_still_standing")
 	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
 	Bt.zoom(6)
 	await Bt.focus_cam(alcine)
 	await Bt.focus_cam(guardian, 0.5, 0)
 	guardian.remove_state("AuraOverwrite")
-	await Bt.aura_overwrite(guardian, Color(0.688, 0.636, 0.0, 1.0))
-	Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
+	await Bt.aura_overwrite(guardian, Color(0.688, 0.636, 0.0, 1.0), -1)
+	#Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
 	Global.check_party.emit()
 	await Event.wait(1)
 	alcine.Health = 1
-	Bt.callout(load("res://database/Abilities/Drill.tres"))
-	await Drill(alcine)
+	guardian.NextAction = "Ability"
+	guardian.NextMove = load("res://database/Abilities/Drill.tres")
+	guardian.MainColor = Color(0.688, 0.636, 0.0, 1.0)
+	if alcine.Health > 0:
+		guardian.NextTarget = alcine
+	else: alcine.get_state("KnockedOut").turns = -1
 	Bt.ignore_end_turn = false
-	Event.add_flag("BeatStoneGuardian")
 	Bt.follow_up_next = false
-	Bt.next_turn.emit()
+	Bt.TurnInd = TurnOrder.find(guardian) -1
+	Event.add_flag("StoneGuardianFinisher")
+	#await Drill(alcine)
+	#Bt.next_turn.emit()
 
 func StoneGuardian3():
 	Bt.ignore_end_turn = true
+	Bt.lock_turn = true
 	var guardian = Bt.get_actor("Guardian")
 	var mira = Global.Party.Leader
 	Bt.CurrentChar = guardian
@@ -1138,7 +1149,7 @@ func StoneGuardian3():
 	await Bt.focus_cam(mira)
 	await Bt.focus_cam(guardian, 0.5, 0)
 	guardian.remove_state("AuraOverwrite")
-	await Bt.aura_overwrite(guardian, Color(0.498, 0.09, 1.0))
+	await Bt.aura_overwrite(guardian, Color(0.498, 0.09, 1.0), -1)
 	Bt.pop_num(guardian, "Hue-Shift", Color(0.498, 0.09, 1.0))
 	guardian.MainColor = Color(0.498, 0.09, 1.0)
 	Global.check_party.emit()
@@ -1147,9 +1158,23 @@ func StoneGuardian3():
 	mira.Health = min(mira.Health, 40)
 	Bt.callout(load("res://database/Abilities/Drill.tres"))
 	await Drill(mira)
-	await mira.add_state("AuraBreak")
-	await Event.wait(0.5)
-	await Global.passive("story_events", "stone_guardian_my_arm")
+	await Event.wait(0.1)
+	if mira.has_state("Guarding"):
+		mira.remove_state("Guarding")
+		await Event.wait(1)
+		Global.passive("story_events", "stone_guardian_guard")
+		await Event.wait(2)
+		mira.Aura = 0
+		mira.remove_state("Guarding")
+		Bt.outline_remove(mira)
+		Bt.anim("Bleed", mira)
+		await mira.add_state("AuraBreak")
+		await Event.wait(8)
+	else:
+		Bt.anim("Bleed", mira)
+		await mira.add_state("AuraBreak")
+		await Event.wait(2)
+		await Global.passive("story_events", "stone_guardian_my_arm")
 	Bt.follow_up_text()
 	Bt.zoom(7)
 	await Bt.focus_cam(guardian)

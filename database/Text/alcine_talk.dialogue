@@ -29,5 +29,5 @@ Alcine.Upset: *{{alcine()}} seems scared*
 		Alcine.Tired: *shakes head*
 		It seems they're too exhaused to use healing magic.
 - Pet
-	Alcine.Happy: *[[{{alcine()}} seems to be feeling better*|*They seem to like it*]]
+	Alcine.Happy: [[*{{alcine()}} seems to be feeling better*|*They seem to like it*]]
 => END

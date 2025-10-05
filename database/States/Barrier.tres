@@ -14,4 +14,5 @@ name = "Barrier"
 Description = "Blocks any weapon damage."
 turns = 1
 icon = SubResource("AtlasTexture_qipse")
+pose = "Guard"
 weapon_dmg_mult = 0.0

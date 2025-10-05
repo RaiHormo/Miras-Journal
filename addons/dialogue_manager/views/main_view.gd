@@ -48,8 +48,6 @@ signal confirmation_closed()
 @onready var build_error_dialog: AcceptDialog = $BuildErrorDialog
 @onready var close_confirmation_dialog: ConfirmationDialog = $CloseConfirmationDialog
 @onready var updated_dialog: AcceptDialog = $UpdatedDialog
-@onready var find_in_files_dialog: AcceptDialog = $FindInFilesDialog
-@onready var find_in_files: Control = $FindInFilesDialog/FindInFiles
 
 # Toolbar
 @onready var new_button: Button = %NewButton
@@ -93,6 +91,7 @@ var current_file_path: String = "":
 			title_list.hide()
 			code_edit.hide()
 			errors_panel.hide()
+			search_and_replace.hide()
 			banner.show()
 		else:
 			test_button.disabled = false
@@ -380,12 +379,13 @@ func apply_theme() -> void:
 			text_color = editor_settings.get_setting("text_editor/theme/highlighting/text_color"),
 			conditions_color = editor_settings.get_setting("text_editor/theme/highlighting/keyword_color"),
 			mutations_color = editor_settings.get_setting("text_editor/theme/highlighting/function_color"),
+			mutations_line_color = Color(editor_settings.get_setting("text_editor/theme/highlighting/function_color"), 0.6),
 			members_color = editor_settings.get_setting("text_editor/theme/highlighting/member_variable_color"),
 			strings_color = editor_settings.get_setting("text_editor/theme/highlighting/string_color"),
 			numbers_color = editor_settings.get_setting("text_editor/theme/highlighting/number_color"),
 			symbols_color = editor_settings.get_setting("text_editor/theme/highlighting/symbol_color"),
 			comments_color = editor_settings.get_setting("text_editor/theme/highlighting/comment_color"),
-			jumps_color = Color(editor_settings.get_setting("text_editor/theme/highlighting/control_flow_keyword_color"), 0.7),
+			jumps_color = Color(editor_settings.get_setting("text_editor/theme/highlighting/control_flow_keyword_color"), 0.6),
 
 			font_size = editor_settings.get_setting("interface/editor/code_font_size")
 		}
@@ -465,7 +465,6 @@ func apply_theme() -> void:
 		quick_open_dialog.min_size = Vector2(400, 600) * scale
 		export_dialog.min_size = Vector2(600, 500) * scale
 		import_dialog.min_size = Vector2(600, 500) * scale
-		find_in_files_dialog.min_size = Vector2(800, 600) * scale
 
 
 ### Helpers
@@ -523,6 +522,7 @@ func generate_translations_keys() -> void:
 	rng.randomize()
 
 	var cursor: Vector2 = code_edit.get_cursor()
+	var scroll_vertical = code_edit.scroll_vertical
 	var lines: PackedStringArray = code_edit.text.split("\n")
 
 	var key_regex = RegEx.new()
@@ -594,6 +594,7 @@ func generate_translations_keys() -> void:
 
 	code_edit.text = "\n".join(lines)
 	code_edit.set_cursor(cursor)
+	code_edit.scroll_vertical = scroll_vertical
 	_on_code_edit_text_changed()
 
 
@@ -1014,8 +1015,7 @@ func _on_save_all_button_pressed() -> void:
 
 
 func _on_find_in_files_button_pressed() -> void:
-	find_in_files_dialog.popup_centered()
-	find_in_files.prepare()
+	plugin.show_find_in_dialogue()
 
 
 func _on_code_edit_text_changed() -> void:

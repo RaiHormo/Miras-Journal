@@ -20,6 +20,8 @@ point_count = 17
 
 [resource]
 script = ExtResource("1_o1wey")
+Health = 90
+Aura = 90
 FirstName = "Alcine"
 MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 PartyIcon = ExtResource("1_by5ga")
@@ -38,8 +40,6 @@ Attack = 0.5
 Magic = 1.6
 Defence = 0.9
 Speed = 6.0
-Health = 90
-Aura = 90
 SkillCurve = SubResource("Curve_wpfc1")
 Abilities = Array[ExtResource("1_l356q")]([ExtResource("2_kbab6"), ExtResource("2_2vyew")])
 StandardAttack = ExtResource("2_3o6lq")

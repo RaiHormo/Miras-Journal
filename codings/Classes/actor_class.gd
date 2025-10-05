@@ -2,6 +2,10 @@ extends Resource
 
 class_name Actor
 
+@export_subgroup("Current")
+@export_range(0, 9999) var Health: int
+@export_range(0, 9999) var Aura: int
+
 ##Displayed name of the character
 @export var FirstName: String = "Name"
 ##Their Aura color
@@ -55,10 +59,6 @@ var IsEnemy: bool = true
 @export_range(0, 2) var Defence: float = 1
 ##Determines the position in the turn order
 @export_range(0, 10) var Speed: float = 5
-
-@export_subgroup("Current")
-@export_range(0, 9999) var Health: int
-@export_range(0, 9999) var Aura: int
 
 @export_subgroup("Multipliers")
 var AttackMultiplier: float = 1

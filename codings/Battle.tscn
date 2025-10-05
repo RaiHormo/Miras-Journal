@@ -1987,6 +1987,7 @@ grow_vertical = 2
 script = ExtResource("19_mhp3h")
 
 [node name="CommandMenu" type="Control" parent="BattleUI"]
+visible = false
 light_mask = 0
 anchors_preset = 0
 offset_left = 81.0
@@ -2243,6 +2244,7 @@ scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
+visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0
@@ -2749,6 +2751,7 @@ libraries = {
 autoplay = "arrows"
 
 [node name="Inventory" type="Panel" parent="BattleUI"]
+visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true

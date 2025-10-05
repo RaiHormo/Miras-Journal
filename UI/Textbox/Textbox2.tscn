@@ -458,7 +458,7 @@ offset_bottom = 641.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1o1fc")
 
 [node name="Panel2" type="Panel" parent="Balloon"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 257.0
 offset_top = 557.0
 offset_right = 1006.0
@@ -466,13 +466,14 @@ offset_bottom = 764.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
 [node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_rgh70")]
-layout_mode = 2
+layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
-offset_left = 34.0
-offset_top = 34.0
+offset_left = 35.0
+offset_top = 30.0
 offset_right = 721.0
-offset_bottom = 210.0
+offset_bottom = 206.0
+grow_horizontal = 1
 theme_override_fonts/normal_font = SubResource("FontVariation_oe2ra")
 theme_override_font_sizes/normal_font_size = 39
 text = "The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
@@ -511,7 +512,7 @@ layout_mode = 2
 theme = SubResource("Theme_wbt4v")
 
 [node name="Responses" type="VBoxContainer" parent="Balloon"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 482.0
 offset_top = 36.0
 offset_right = 1067.0
@@ -620,7 +621,7 @@ offset_bottom = 136.0
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
 layout_direction = 1
-layout_mode = 2
+layout_mode = 0
 offset_left = -82.0
 offset_top = -73.0
 offset_right = 38.0
@@ -641,7 +642,7 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
 layout_direction = 1
-layout_mode = 2
+layout_mode = 0
 offset_left = -82.0
 offset_top = -11.0
 offset_right = 38.0

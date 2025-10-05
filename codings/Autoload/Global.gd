@@ -550,8 +550,8 @@ func textbox_kill():
 	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	if get_node_or_null("/root/Textbox"):
-		$"/root/Textbox"._on_close()
+	if get_node_or_null("/root/Passive"):
+		$"/root/Passive"._on_close()
 		await textbox_close
 		await Event.wait(0.1)
 		passive(file, title, extra_game_states)
@@ -890,7 +890,7 @@ func make_array_unique(arr: Array):
 		arr[i] = arr[i].duplicate()
 
 func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
-	var idx = 0
+	var idx = -1
 	for i in occurence:
 		idx = from.find(what, idx+1)
 	if idx == -1: return from

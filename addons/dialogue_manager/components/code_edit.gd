@@ -100,6 +100,12 @@ func _gui_input(event: InputEvent) -> void:
 			"text_size_reset":
 				self.font_size = theme_overrides.font_size
 				get_viewport().set_input_as_handled()
+			"make_bold":
+				insert_bbcode("[b]", "[/b]")
+				get_viewport().set_input_as_handled()
+			"make_italic":
+				insert_bbcode("[i]", "[/i]")
+				get_viewport().set_input_as_handled()
 
 	elif event is InputEventMouse:
 		match event.as_text():
@@ -141,7 +147,20 @@ func _drop_data(at_position: Vector2, data) -> void:
 			if cursor.x > -1 and cursor.y > -1:
 				set_cursor(cursor)
 				remove_secondary_carets()
-				insert_text("\"%s\"" % file, cursor.y, cursor.x)
+				var resource = load(file)
+				# If the dropped file is an audio stream then assume it's a voice reference
+				if is_instance_of(resource, AudioStream):
+					var current_voice_regex: RegEx = RegEx.create_from_string("\\[#voice=.+\\]")
+					var path: String = ResourceUID.path_to_uid(file)
+					var line_text: String = get_line(cursor.y)
+					var voice_text: String = "[#voice=%s]" % [path]
+					if current_voice_regex.search(line_text):
+						set_line(cursor.y, current_voice_regex.replace(get_line(cursor.y), voice_text))
+					else:
+						insert_text(" " + voice_text, cursor.y, line_text.length())
+				# Other wise it's just a file reference
+				else:
+					insert_text("\"%s\"" % file, cursor.y, cursor.x)
 	grab_focus()
 
 
@@ -186,7 +205,7 @@ func _request_code_completion(force: bool) -> void:
 				add_code_completion_option(CodeEdit.KIND_CLASS, name + ": ", name.substr(name_so_far.length()) + ": ", theme_overrides.text_color, get_theme_icon("Sprite2D", "EditorIcons"))
 
 	# Match autoloads on mutation lines
-	for prefix in ["do ", "do! ", "set ", "if ", "elif ", "else if ", "match ", "when ", "using "]:
+	for prefix in ["$>", "$>>", "do ", "do! ", "set ", "if ", "elif ", "else if ", "match ", "when ", "using "]:
 		if (current_line.strip_edges().begins_with(prefix) and (cursor.x > current_line.find(prefix))):
 			var expression: String = current_line.substr(0, cursor.x).strip_edges().substr(3)
 			# Find the last couple of tokens

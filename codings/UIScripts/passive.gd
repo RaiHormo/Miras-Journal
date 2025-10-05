@@ -67,7 +67,7 @@ var dialogue_line: DialogueLine:
 		dialogue_line.text = dialogue_line.text.replace("*/", "*[/color]")
 
 		dialogue_label.modulate.a = 0
-		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
+		#dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
 		dialogue_label.dialogue_line = dialogue_line
 
 		# Show any responses we have

@@ -14,4 +14,5 @@ name = "Magic Shield"
 Description = "Blocks any magic damage."
 turns = 1
 icon = SubResource("AtlasTexture_qipse")
+pose = "Guard"
 magic_dmg_mult = 0.0

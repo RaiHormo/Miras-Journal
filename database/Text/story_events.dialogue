@@ -350,6 +350,9 @@ Alcine.Upset: M- Mmeeaw...
 Mira.Neutral: This thing just won't go down..!
 => END
 
+~ stone_guardian_guard
+Mira.Neutral: I can still...[wait=2]
+Mira.Neutral: No...
 ~ stone_guardian_my_arm
 Mira.Neutral: I can't... move my arm...
 => END

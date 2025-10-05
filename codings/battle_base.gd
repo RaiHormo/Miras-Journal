@@ -336,6 +336,8 @@ func _on_ai_chosen():
 
 func confirm_next(action_anim = true):
 	if CurrentChar.Controllable: $BattleUI.close()
+	if CurrentChar.NextMove == CurrentChar.StandardAttack:
+		CurrentChar.NextAction = "Attack"
 	if action_anim:
 		match CurrentChar.NextAction:
 			"Ability":
@@ -839,8 +841,13 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 		return
 	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
-		else: animation = "Idle"
-	if animation not in chara.node.sprite_frames.get_animation_names(): return
+		else: 
+			animation = "Idle"
+			for i in chara.States:
+				if i.pose != "None" and i.pose in chara.node.sprite_frames.get_animation_names():
+					anim(i.pose, chara)
+	if animation not in chara.node.sprite_frames.get_animation_names(): 
+		return
 	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
 		t=create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor

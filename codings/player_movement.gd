@@ -273,6 +273,7 @@ func bag_anim() -> void:
 	BodyState = NONE
 	if get_node_or_null("%Base") == null: return
 	Global.find_member("Mira").OV = "res://art/OV/Mira/MiraOVBag.tres"
+	Global.check_party.emit()
 	await set_anim("BagOpen", true)
 	set_anim("BagIdle")
 

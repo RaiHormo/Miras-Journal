@@ -94,7 +94,7 @@ var dialogue_line: DialogueLine:
 		glow_bord.border_color = Color.TRANSPARENT
 
 		dialogue_label.modulate.a = 0
-		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
+		#dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
 		dialogue_label.dialogue_line = dialogue_line
 
 		# Show any responses we have
@@ -171,7 +171,6 @@ func _ready() -> void:
 		2:
 			dialogue_label.seconds_per_step = 0.001
 			dialogue_label.seconds_per_pause_step = 0.05
-
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
 
@@ -337,6 +336,8 @@ func _input(event: InputEvent) -> void:
 				ev.action = &"DialogNext"
 				ev.pressed = true
 				Input.parse_input_event(ev)
+				dialogue_label.seconds_per_step = 0
+				dialogue_label.seconds_per_pause_step = 0
 		Engine.time_scale = 1
 		return
 	
