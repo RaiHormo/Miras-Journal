@@ -9,7 +9,6 @@
 
 [sub_resource type="Resource" id="Resource_eg56s"]
 script = ExtResource("2_yeq0t")
-repeatable = false
 flag = &"AlcineFollow4"
 flag_should_be = true
 after_turn = 5
@@ -17,55 +16,33 @@ actor = &"Mira"
 low_hp = 60
 result = 1
 parameter1 = "AlcineWoods1"
-parameter2 = ""
 hold_turn = true
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_cbbvb"]
 script = ExtResource("2_yeq0t")
-repeatable = false
 flag = &"AlcineFollow4"
-flag_should_be = false
-after_turn = -1
 actor = &"Mira"
 low_hp = 30
-result = 0
 parameter1 = "story_events"
 parameter2 = "not_going_well"
-hold_turn = false
-add_flag = true
 
 [sub_resource type="Resource" id="Resource_jw6e0"]
 script = ExtResource("2_yeq0t")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"Petrogon"
-low_hp = -1
 result = 3
 parameter1 = "Ability"
-parameter2 = ""
 resource = ExtResource("3_bbvgb")
-hold_turn = false
 add_flag = false
 
 [resource]
 script = ExtResource("1_6ngvg")
 Enemies = Array[ExtResource("2_xsh2d")]([ExtResource("1_uhysb")])
-AdditionalItems = Array[ExtResource("1_ylk11")]([])
 Transition = false
-Detransition = false
 ReturnControl = false
-EscPosition = Vector2i(0, 0)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1665, -1067)
 CanEscape = false
 DeleteAttacker = false
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
 VictorySequence = "AlcineWoods1"
-VictoryBanter = ""
-DefeatSequence = ""
+PartyOverride = ["Mira"]
 Events = Array[ExtResource("2_yeq0t")]([SubResource("Resource_eg56s"), SubResource("Resource_cbbvb"), SubResource("Resource_jw6e0")])

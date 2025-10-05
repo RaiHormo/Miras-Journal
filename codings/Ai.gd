@@ -5,7 +5,7 @@ signal ai_chosen
 
 func ai() -> void:
 	Char = Bt.CurrentChar
-	if Char.has_state("KnockedOut"): Bt.end_turn(); return
+	if Char.has_state("KnockedOut") or Char.Health == 0: Bt.end_turn(); return
 	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
 	HpSortedAllies.sort_custom(Bt.hp_sort)
 	#for i in HpSortedAllies:

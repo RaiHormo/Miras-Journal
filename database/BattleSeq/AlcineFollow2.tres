@@ -8,48 +8,31 @@
 
 [sub_resource type="Resource" id="Resource_7bvd2"]
 script = ExtResource("2_xpmoy")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 1
-actor = &""
-low_hp = -1
 result = 1
 parameter1 = "AlcineWoods3"
-parameter2 = ""
 hold_turn = true
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_q672f"]
 script = ExtResource("2_xpmoy")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 2
 actor = &"Petrogon"
 low_hp = 6
 result = 1
 parameter1 = "AlcineWoods4"
-parameter2 = ""
 hold_turn = true
 add_flag = false
 
 [resource]
 script = ExtResource("4_7uopt")
 Enemies = Array[ExtResource("2_aalrw")]([ExtResource("1_ianey")])
-AdditionalItems = Array[ExtResource("1_isrps")]([])
 Transition = false
-Detransition = false
 ReturnControl = false
-EscPosition = Vector2i(0, 0)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1665, -1067)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "AlcineWoods2"
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
 VictoryBanter = "it_flew_away"
-DefeatSequence = ""
+PartyOverride = ["Mira", "Alcine"]
 Events = Array[ExtResource("2_xpmoy")]([SubResource("Resource_7bvd2"), SubResource("Resource_q672f")])

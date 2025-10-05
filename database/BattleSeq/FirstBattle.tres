@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=12 format=3 uid="uid://b5xnwqgw051bd"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=13 format=3 uid="uid://b5xnwqgw051bd"]
 
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="1_e62gl"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_qsrni"]
@@ -6,102 +6,52 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_44rbb"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="2_68ui3"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_kk4y6"]
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="5_afpnf"]
 
 [sub_resource type="Resource" id="Resource_kgu6i"]
 script = ExtResource("2_kk4y6")
 name = "JumpSucc"
-description = ""
 ActionSequence = &"FirstBattle2"
-Type = "CheapAttack"
-InflictsState = ""
-AuraCost = 0
-HPCost = 0
-disabled = false
-Damage = 0
-Parameter = 0.0
-Target = 0
-AOE_Stagger = 0.0
-AOE_AdditionalSeq = true
-ColorSameAsActor = false
-WheelColor = Color(1, 1, 1, 1)
 Callout = false
-SucessChance = 1.0
-CritChance = 0.0
-RecoverAura = false
-DmgVarience = false
 
 [sub_resource type="Resource" id="Resource_6vdia"]
 script = ExtResource("2_68ui3")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 1
 actor = &"CS"
-low_hp = -1
 result = 3
 parameter1 = "Attack"
-parameter2 = ""
 resource = SubResource("Resource_kgu6i")
-hold_turn = false
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_g722f"]
 script = ExtResource("2_68ui3")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 3
-actor = &""
-low_hp = -1
 result = 1
 parameter1 = "FirstBattle22"
-parameter2 = ""
-hold_turn = false
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_baynq"]
 script = ExtResource("2_68ui3")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 4
-actor = &""
-low_hp = -1
 result = 1
 parameter1 = "FirstBattle3"
-parameter2 = ""
-hold_turn = false
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_d4pnn"]
 script = ExtResource("2_68ui3")
-repeatable = false
-flag = &""
-flag_should_be = false
 after_turn = 6
-actor = &""
-low_hp = -1
 result = 1
 parameter1 = "FirstBattle4"
-parameter2 = ""
-hold_turn = false
 add_flag = false
 
 [resource]
 script = ExtResource("1_e62gl")
 Enemies = Array[ExtResource("2_44rbb")]([ExtResource("1_qsrni")])
-AdditionalItems = Array[ExtResource("1_tus72")]([])
 Transition = false
-Detransition = false
-EscPosition = Vector2(0, 0)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1470, 420)
 CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "FirstBattle1"
-EntranceBanter = ""
-EntranceBanterIsPassive = true
 VictorySequence = "FirstBattle5"
-VictoryBanter = ""
-DefeatSequence = ""
+PartyOverride = ["Mira"]
 Events = Array[ExtResource("2_68ui3")]([SubResource("Resource_6vdia"), SubResource("Resource_g722f"), SubResource("Resource_baynq"), SubResource("Resource_d4pnn")])

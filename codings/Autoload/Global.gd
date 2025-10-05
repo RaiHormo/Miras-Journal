@@ -34,6 +34,7 @@ var HasPortrait := false
 var textbox_open:= false
 var PortraitRedraw := true
 var ArbData0 = null
+var Complimentaries: Array[String]
 signal lights_loaded
 signal check_party
 signal anim_done
@@ -767,6 +768,19 @@ func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
 	return base
+
+func get_complimentaries() -> Array[Ability]:
+	var rtn: Array[Ability]
+	for i in Complimentaries:
+		rtn.append(await get_ability(i))
+	return rtn
+
+func get_ability(ab: String) -> Ability:
+	if ResourceLoader.exists("res://database/Abilities/"+ab+".tres"):
+		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
+	if ResourceLoader.exists("res://database/Abilities/Attacks/"+ab+".tres"):
+		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
+	return null
 
 func state_element_verb(str: String) -> String:
 	match str:

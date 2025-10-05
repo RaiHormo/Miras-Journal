@@ -65,6 +65,7 @@ func save(filename:String="Autosave", showicon=true):
 	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
 	data.Camera = Global.CameraInd
+	data.Complimentaries = Global.Complimentaries
 	data.Defeated = Defeated.duplicate()
 	for mem in Global.Members:
 		data.Members.append(mem.save_to_dict())
@@ -109,6 +110,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Global.StartTime = Time.get_unix_time_from_system()
 	Global.FirstStartTime = data.StartTime
 	Global.SaveTime = data.PlayTime
+	Global.Complimentaries = data.Complimentaries
 	Defeated = data.Defeated.duplicate()
 	Global.CameraInd = data.Camera
 	PartyUI.UIvisible = true
@@ -372,6 +374,8 @@ func start_battle(stg, advantage := 0):
 		Event.give_control()
 		PartyUI.show_all()
 		return
+	if not Seq.PartyOverride.is_empty():
+		Global.Party.set_to_strarr(Seq.PartyOverride)
 	Loader.InBattle = true
 	if prevent_battles: return
 	BattleResult = 0

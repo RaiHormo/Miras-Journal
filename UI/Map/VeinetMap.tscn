@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://b31w3e1tiwp0y"]
 
 [ext_resource type="Script" uid="uid://b4ww3rphxb7qi" path="res://codings/UIScripts/veinet_map.gd" id="1_8kw10"]
-[ext_resource type="Texture2D" uid="uid://cdys3kc6ljylm" path="res://art/Branding/Placeholder.png" id="2_ynyg8"]
+[ext_resource type="Texture2D" uid="uid://csspp3j26q3o3" path="res://art/Pictures/AbadMap.png" id="2_8kw10"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_3o4ps"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_rkbbg"]
 [ext_resource type="Texture2D" uid="uid://d15lsfxr4aggu" path="res://UI/MenuTextures/dot.png" id="5_5boh2"]
@@ -171,6 +171,16 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3i5s"]
+content_margin_left = 12.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i72nw"]
 content_margin_left = 12.0
 content_margin_right = 10.0
@@ -179,16 +189,6 @@ border_width_left = 12
 border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3i5s"]
-content_margin_left = 12.0
-content_margin_right = 5.0
-bg_color = Color(1, 1, 1, 0)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
@@ -230,74 +230,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Map" type="ColorRect" parent="."]
+[node name="Map" type="TextureRect" parent="."]
 light_mask = 0
 layout_mode = 0
-offset_left = 46.0
-offset_top = 74.0
-offset_right = 857.0
-offset_bottom = 729.0
-color = Color(0.764706, 0.764706, 0.580392, 1)
+offset_left = 38.0
+offset_top = -12.0
+offset_right = 868.0
+offset_bottom = 818.0
+texture = ExtResource("2_8kw10")
+expand_mode = 1
 
-[node name="Amberelm" type="TextureRect" parent="Map"]
+[node name="Amberelm" type="Marker2D" parent="Map"]
 light_mask = 0
-layout_mode = 0
-offset_left = 126.0
-offset_top = 471.0
-offset_right = 174.0
-offset_bottom = 519.0
-pivot_offset = Vector2(22, 25)
-texture = ExtResource("2_ynyg8")
+position = Vector2(174, 284)
 
-[node name="Gate" type="TextureRect" parent="Map"]
+[node name="Gate" type="Marker2D" parent="Map"]
 light_mask = 0
-layout_mode = 0
-offset_left = 351.0
-offset_top = 293.0
-offset_right = 399.0
-offset_bottom = 341.0
-pivot_offset = Vector2(24, 22)
-texture = ExtResource("2_ynyg8")
+position = Vector2(336, 336)
 
-[node name="Plains" type="TextureRect" parent="Map"]
+[node name="Plains" type="Marker2D" parent="Map"]
 light_mask = 0
-layout_mode = 0
-offset_left = 508.0
-offset_top = 292.0
-offset_right = 556.0
-offset_bottom = 340.0
-pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_ynyg8")
+position = Vector2(647, 542)
 
-[node name="Underground" type="TextureRect" parent="Map"]
+[node name="Deep Underground" type="Marker2D" parent="Map"]
 light_mask = 0
-layout_mode = 0
-offset_left = 480.0
-offset_top = 313.0
-offset_right = 528.0
-offset_bottom = 361.0
-pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_ynyg8")
+position = Vector2(557, 496)
 
-[node name="Deep Underground" type="TextureRect" parent="Map"]
+[node name="Lakeside" type="Marker2D" parent="Map"]
 light_mask = 0
-layout_mode = 0
-offset_left = 480.0
-offset_top = 313.0
-offset_right = 528.0
-offset_bottom = 361.0
-pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_ynyg8")
-
-[node name="Lakeside" type="TextureRect" parent="Map"]
-light_mask = 0
-layout_mode = 0
-offset_left = 480.0
-offset_top = 313.0
-offset_right = 528.0
-offset_bottom = 361.0
-pivot_offset = Vector2(23, 24)
-texture = ExtResource("2_ynyg8")
+position = Vector2(524, 420)
 
 [node name="Container" type="PanelContainer" parent="."]
 light_mask = 0
@@ -360,11 +321,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Gate"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -392,11 +353,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Plains"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -415,11 +376,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Underground"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -438,11 +399,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Deep Underground"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -461,11 +422,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Lakeside"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -493,11 +454,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Temple woods"
 icon = ExtResource("5_5boh2")
 alignment = 0
@@ -516,11 +477,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Amberelm
 "
 icon = ExtResource("5_5boh2")
@@ -538,11 +499,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 8
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 32
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
 text = "Bunker"
 icon = ExtResource("5_5boh2")
 alignment = 0

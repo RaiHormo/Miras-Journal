@@ -182,6 +182,8 @@ func _input(event: InputEvent) -> void:
 					ability.emit()
 				if Input.is_action_just_pressed("Options"):
 					Global.options()
+				if Input.is_action_just_pressed("PartyMenu"):
+					turn_order()
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
 			&"target":
@@ -340,8 +342,10 @@ func _on_root():
 	t.tween_property($Inventory, "modulate", Color(0,0,0,0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
+	Bt.get_node("Canvas/TurnOrder/Options").icon = Global.get_controller().Start
 	Bt.get_node("Canvas/TurnOrder").show()
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,742), 0.4)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", -40, 0.4)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 850, 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position:y", 850, 0.4)
 	t.tween_property(Bt.get_node("Canvas/Give"), "position:y", 850, 0.5)
@@ -401,7 +405,8 @@ func _on_ability():
 	$Ability.icon = null
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.4)
 	t.tween_property($"../Canvas/Confirm", "position",
 	Vector2(31,742), 0.4).from(Vector2(31,850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(210,742), 0.3).from(Vector2(210,850))
@@ -420,7 +425,6 @@ func _on_ability():
 	t.tween_property($AbilityUI, "position", Vector2(20,-160), 0.3)
 	t.tween_property($Ability, "position", Vector2(43,-59), 0.3)
 	CurrentChar.NextAction = "ability"
-
 	t.tween_property($DescPaper, "scale", Vector2(0.17,0.17), 0.4)
 	t.tween_property($DescPaper, "rotation_degrees", 0, 0.4)
 	t.tween_property($DescPaper, "modulate", Color(1,1,1,1), 0.3)
@@ -475,7 +479,7 @@ func _on_command():
 	Global.confirm_sound()
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position",
 	Vector2(31, 742), 0.3).from(Vector2(31, 850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
@@ -542,7 +546,7 @@ func _on_item() -> void:
 	t.tween_property(self, "scale", Vector2(1,1), 0.3)
 	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
 	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
 	t.tween_property($"../Canvas/Confirm", "position", Vector2(30, 742), 0.3).from(Vector2(30, 850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(210, 742), 0.4).from(Vector2(210, 850))
 	t.tween_property($"../Canvas/Give", "position", Vector2(380,742), 0.5).from(Vector2(380,850))
@@ -609,6 +613,8 @@ func close():
 	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.4)
 	$RankSwap.hide()
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 850, 0.3)
@@ -683,7 +689,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property($Item, "size", Vector2(33,33), 0.2)
 	t.tween_property($Command, "size", Vector2(33,33), 0.2)
 #	t.tween_property(self, "rotation_degrees", 360, 0.2)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y",
 	742, 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position:y",
@@ -924,6 +930,7 @@ func turn_order():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	Bt.get_node("Canvas/TurnOrderPop").show()
+	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.2)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.WHITE, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(52, 40), 0.3)
 	while (Input.is_action_pressed("PartyMenu") or Bt.get_node("Canvas/TurnOrder").button_pressed):
@@ -933,6 +940,7 @@ func turn_order():
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
+	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", -40, 0.2)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(-468, 40), 0.3)
 
@@ -1112,3 +1120,7 @@ func _analyze() -> void:
 	PrevStage = &"command"
 	await Event.wait()
 	get_target(Bt.get_any_faction())
+
+
+func _on_options_pressed() -> void:
+	Input.action_press("Options")

@@ -83,5 +83,6 @@ DeleteAttacker = false
 EntranceSequence = "LazuliteHeartBoss1"
 EntranceBanterIsPassive = false
 VictorySequence = "LazuliteHeartBoss2"
+PartyOverride = ["Mira", "Alcine", "Asteria", "Daze"]
 Events = Array[ExtResource("3_4g4ty")]([SubResource("Resource_0ymhv"), SubResource("Resource_mo6wr"), SubResource("Resource_fmg4r"), SubResource("Resource_x75j7"), SubResource("Resource_v5s8n"), SubResource("Resource_ewt77"), SubResource("Resource_4pxea")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

@@ -81,6 +81,8 @@ var SpeedBoost: int = 0
 @export var StandardAttack: Ability = preload("res://database/Abilities/Attacks/Nothing.tres")
 ##The abilities that can be unlocked by leveling up, party member only
 @export var LearnableAbilities: Array[Ability]
+@export var Complimentaries: Array[Ability]
+@export var ComplimentaryList: Dictionary[String, int]
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
@@ -260,6 +262,7 @@ func save_to_dict() -> Dictionary:
 		"SkillLevel": SkillLevel,
 		"SkillPoints": SkillPoints,
 		"AbilitiesList": get_ability_list(),
+		"Complimentaries": ComplimentaryList,
 		"ClutchDmg": ClutchDmg,
 		"CantDie": CantDie,
 		"CantDodge": CantDodge,
@@ -339,3 +342,8 @@ func skill_points_for(level: int) -> int:
 
 func get_OV() -> SpriteFrames:
 	return await Loader.load_res(OV)
+
+func load_complimentaries():
+	Complimentaries = []
+	for i in ComplimentaryList:
+		Complimentaries.append(await Global.get_ability(i))

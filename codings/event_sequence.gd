@@ -136,6 +136,9 @@ func oct0_daytime():
 	Global.check_party.emit()
 	Loader.save()
 
+func nov1_morning():
+	Global.toast("Beep")
+
 func jump_playtest():
 	await Global.textbox("testbush", "jump_playtest")
 	Event.Day = 3

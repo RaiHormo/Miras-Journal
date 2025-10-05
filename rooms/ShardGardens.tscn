@@ -2232,11 +2232,6 @@ metadata/_edit_group_ = true
 position = Vector2(438, 59)
 metadata/_edit_group_ = true
 
-[node name="VPUnderground" parent="." instance=ExtResource("3_r8nk5")]
-visible = false
-position = Vector2(-300, 528)
-metadata/_edit_group_ = true
-
 [node name="JumpPoint19" parent="." instance=ExtResource("34_avv3b")]
 position = Vector2(190, -947)
 scale = Vector2(1.88, 1)

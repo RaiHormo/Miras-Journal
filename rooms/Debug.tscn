@@ -556,6 +556,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Labels"]
 light_mask = 0

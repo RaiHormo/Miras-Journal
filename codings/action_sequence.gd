@@ -1182,7 +1182,15 @@ func StoneGuardian3():
 	await Bt.focus_cam(mira, 3)
 	await Event.wait(1)
 	mira.CantDie = false
-	Bt.end_battle()
+	Loader.gray_out(1)
+	await Event.wait(1)
+	Loader.get_node("Can").layer = 3
+	Bt.victory(true)
+	await Loader.battle_end
+	Loader.ungray.emit()
+	Event.ToDay = 1
+	Event.ToTime = 1
+	Event.time_transition()
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader

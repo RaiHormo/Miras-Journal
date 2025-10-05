@@ -10,6 +10,7 @@ class_name SaveFile
 @export var Camera: int = 0
 @export var Z: int = 1
 @export var Members: Array[Dictionary]
+@export var Complimentaries: Array[String]
 @export var Defeated: Array
 @export var StartTime: float
 @export var SavedTime: float

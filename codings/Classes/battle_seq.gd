@@ -18,6 +18,7 @@ class_name BattleSequence
 @export var VictorySequence:= ""
 @export var VictoryBanter:= ""
 @export var DefeatSequence:= ""
+@export var PartyOverride: PackedStringArray = []
 @export var Events: Array[BattleEvent] = []
 
 func call_events():

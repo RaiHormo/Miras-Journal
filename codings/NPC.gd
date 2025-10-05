@@ -227,7 +227,7 @@ func defeat() -> void:
 	queue_free()
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("DebugR"):
+	if Input.is_action_just_pressed("DebugD"):
 		go_to(get_global_mouse_position(), false)
 
 func wall_in_front() -> bool:

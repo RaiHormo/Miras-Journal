@@ -23,6 +23,8 @@ point_count = 6
 
 [resource]
 script = ExtResource("1_e1lg0")
+Health = 100
+Aura = 20
 FirstName = "Mira"
 MainColor = Color(0.847059, 0.607843, 0.447059, 1)
 PartyIcon = ExtResource("2_gadvr")
@@ -47,8 +49,6 @@ Attack = 1.5
 Magic = 1.1
 Defence = 0.4
 Speed = 8.0
-Health = 100
-Aura = 20
 SkillCurve = SubResource("Curve_00vn1")
 Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
 StandardAttack = ExtResource("6_pdf3s")
