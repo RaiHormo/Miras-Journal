@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://b7kxxkiuyhc4n"]
+[gd_scene load_steps=71 format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
 [ext_resource type="Script" uid="uid://cwdc884x20ihl" path="res://codings/UIScripts/member_detailsUI.gd" id="1_uy7q8"]
@@ -13,12 +13,13 @@
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="8_v0df1"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_spv8q"]
 [ext_resource type="Texture2D" uid="uid://c0jhsoyqi0d4" path="res://art/Icons/Party/Kai.png" id="11_hoi7k"]
+[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="11_rmica"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_km2id"]
 shader = ExtResource("1_gsbq0")
 shader_parameter/lod = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux7hg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmica"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -31,7 +32,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3sgg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6lob"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -45,8 +46,8 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_uta00"]
-Panel/styles/panel = SubResource("StyleBoxFlat_ux7hg")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_n3sgg")
+Panel/styles/panel = SubResource("StyleBoxFlat_rmica")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_x6lob")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31uqa"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -61,7 +62,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8742"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lf3cw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -74,7 +75,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3chc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2dpw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 8
@@ -92,8 +93,8 @@ expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
 [sub_resource type="Theme" id="Theme_fmx3m"]
-Panel/styles/panel = SubResource("StyleBoxFlat_h8742")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_o3chc")
+Panel/styles/panel = SubResource("StyleBoxFlat_lf3cw")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_w2dpw")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64gcj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -112,7 +113,7 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uohd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7epo1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -125,7 +126,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn0gx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lo3ku"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 border_width_left = 11
@@ -143,8 +144,8 @@ expand_margin_right = 10.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="Theme" id="Theme_fl61u"]
-Panel/styles/panel = SubResource("StyleBoxFlat_0uohd")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_dn0gx")
+Panel/styles/panel = SubResource("StyleBoxFlat_7epo1")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_lo3ku")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v187k"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -276,7 +277,7 @@ filter_clip = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vy61h"]
 shader = ExtResource("5_jewkm")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mog53"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyx10"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -289,7 +290,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5wxi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuxaf"]
 content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -312,11 +313,11 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_mog53")
-Button/styles/hover = SubResource("StyleBoxFlat_f5wxi")
-Button/styles/normal = SubResource("StyleBoxFlat_mog53")
-Button/styles/pressed = SubResource("StyleBoxFlat_mog53")
-Panel/styles/panel = SubResource("StyleBoxFlat_mog53")
+Button/styles/focus = SubResource("StyleBoxFlat_pyx10")
+Button/styles/hover = SubResource("StyleBoxFlat_wuxaf")
+Button/styles/normal = SubResource("StyleBoxFlat_pyx10")
+Button/styles/pressed = SubResource("StyleBoxFlat_pyx10")
+Panel/styles/panel = SubResource("StyleBoxFlat_pyx10")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eob7a"]
 content_margin_left = 18.0
@@ -347,6 +348,16 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjapk"]
+content_margin_left = 56.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8j2a"]
 content_margin_left = 56.0
 content_margin_right = 10.0
@@ -355,16 +366,6 @@ border_width_left = 12
 border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjapk"]
-content_margin_left = 56.0
-content_margin_right = 5.0
-bg_color = Color(1, 1, 1, 0)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
@@ -384,7 +385,7 @@ filter_clip = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qgu3d"]
 shader = ExtResource("5_jewkm")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rj3v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ke41"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -397,7 +398,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw783"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m84sq"]
 content_margin_left = 8.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -420,21 +421,27 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_3rj3v")
-Button/styles/hover = SubResource("StyleBoxFlat_bw783")
-Button/styles/normal = SubResource("StyleBoxFlat_3rj3v")
-Button/styles/pressed = SubResource("StyleBoxFlat_3rj3v")
+Button/styles/focus = SubResource("StyleBoxFlat_7ke41")
+Button/styles/hover = SubResource("StyleBoxFlat_m84sq")
+Button/styles/normal = SubResource("StyleBoxFlat_7ke41")
+Button/styles/pressed = SubResource("StyleBoxFlat_7ke41")
 
-[sub_resource type="InputEventAction" id="InputEventAction_noc7j"]
-action = &"ui_accept"
+[sub_resource type="InputEventAction" id="InputEventAction_x6lob"]
+action = &"BtItem"
 
 [sub_resource type="Shortcut" id="Shortcut_d52i0"]
-events = [SubResource("InputEventAction_noc7j")]
+events = [SubResource("InputEventAction_x6lob")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_rmica"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_x6lob"]
+events = [SubResource("InputEventAction_rmica")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mgrs3"]
 shader = ExtResource("5_jewkm")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8uy1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ona2b"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -447,7 +454,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0t6ho"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdfns"]
 content_margin_left = 8.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -470,10 +477,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 2
 Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_w8uy1")
-Button/styles/hover = SubResource("StyleBoxFlat_0t6ho")
-Button/styles/normal = SubResource("StyleBoxFlat_w8uy1")
-Button/styles/pressed = SubResource("StyleBoxFlat_w8uy1")
+Button/styles/focus = SubResource("StyleBoxFlat_ona2b")
+Button/styles/hover = SubResource("StyleBoxFlat_vdfns")
+Button/styles/normal = SubResource("StyleBoxFlat_ona2b")
+Button/styles/pressed = SubResource("StyleBoxFlat_ona2b")
 
 [sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
 action = &"ui_cancel"
@@ -596,7 +603,7 @@ offset_bottom = 690.0
 scale = Vector2(0.23775, 0.23775)
 
 [node name="LvBox" type="PanelContainer" parent="StatPanel"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 344.0
 offset_top = 86.0
 offset_right = 615.0
@@ -880,11 +887,11 @@ focus_mode = 0
 theme = SubResource("Theme_sbfw5")
 theme_override_fonts/font = ExtResource("3_cwuly")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxFlat_eob7a")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_eob7a")
-theme_override_styles/hover = SubResource("StyleBoxFlat_eob7a")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_eob7a")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eob7a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eob7a")
 text = "Attack"
 alignment = 0
 expand_icon = true
@@ -946,7 +953,7 @@ layout_mode = 0
 offset_left = 1.0
 offset_top = 38.0
 offset_right = 337.0
-offset_bottom = 609.0
+offset_bottom = 537.0
 theme = SubResource("Theme_uta00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
 
@@ -1009,11 +1016,11 @@ theme = SubResource("Theme_xfsfw")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxFlat_y8j2a")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_fjapk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_y8j2a")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_y8j2a")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fjapk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y8j2a")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fjapk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y8j2a")
 text = "Ability Name"
 alignment = 0
 autowrap_mode = 2
@@ -1043,24 +1050,49 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_o18lt")
 
-[node name="Abilities" type="Button" parent="."]
+[node name="Complimentary" type="Button" parent="AbilityPanel"]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_qgu3d")
 layout_direction = 1
-offset_left = 187.0
-offset_top = 746.0
-offset_right = 321.0
-offset_bottom = 780.0
+layout_mode = 0
+offset_left = 9.701439
+offset_top = 562.00006
+offset_right = 250.41571
+offset_bottom = 596.00006
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_03e00")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_d52i0")
+shortcut_in_tooltip = false
+text = "Set Complimentary"
+icon = ExtResource("11_rmica")
+text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Abilities" type="Button" parent="."]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_qgu3d")
+layout_direction = 1
+offset_left = 24.000015
+offset_top = 745.0
+offset_right = 158.00002
+offset_bottom = 779.0
+scale = Vector2(1.4, 1.4)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_03e00")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_x6lob")
 shortcut_in_tooltip = false
 text = "Abilities"
 icon = ExtResource("7_v1cgy")
@@ -1071,18 +1103,18 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_mgrs3")
 layout_direction = 1
-offset_left = 24.0
+offset_left = 225.0
 offset_top = 746.0
-offset_right = 133.0
+offset_right = 334.0
 offset_bottom = 779.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_48usk")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_6q7i3")
 shortcut_in_tooltip = false
@@ -1205,5 +1237,6 @@ libraries = {
 autoplay = "scrollname"
 
 [connection signal="focus_entered" from="AbilityPanel/Border1/Scroller/Ab0" to="." method="_on_ab_focus_entered"]
+[connection signal="pressed" from="AbilityPanel/Complimentary" to="." method="_on_complimentary"]
 [connection signal="pressed" from="Abilities" to="." method="_on_abilities_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

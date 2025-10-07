@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene load_steps=93 format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_jb2qv"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="8_wqv20"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="9_r3lax"]
+[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="10_3r1mm"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_ihe7c"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="10_l2ivr"]
 [ext_resource type="Texture2D" uid="uid://5205kcxrxgw4" path="res://UI/Calendar/Base.png" id="11_4pd7b"]
@@ -269,6 +270,7 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/icon_max_width = 24
 Button/constants/outline_size = 2
 Button/styles/disabled = null
 Button/styles/focus = SubResource("StyleBoxFlat_ql22e")
@@ -281,6 +283,12 @@ action = &"ui_accept"
 
 [sub_resource type="Shortcut" id="Shortcut_uaes6"]
 events = [SubResource("InputEventAction_wxtwq")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_3r1mm"]
+action = &"BtItem"
+
+[sub_resource type="Shortcut" id="Shortcut_g1pyy"]
+events = [SubResource("InputEventAction_3r1mm")]
 
 [sub_resource type="InputEventAction" id="InputEventAction_qhcm2"]
 action = &"BtCommand"
@@ -870,12 +878,11 @@ text = "Item x3"
 icon = SubResource("AtlasTexture_wk61q")
 
 [node name="MemberOptions" type="PanelContainer" parent="CanvasLayer/Cursor"]
-visible = false
 layout_mode = 0
 offset_left = 32.1661
 offset_top = -47.012
-offset_right = 169.166
-offset_bottom = 1.98799
+offset_right = 171.44669
+offset_bottom = 78.988
 scale = Vector2(3.855, 3.855)
 theme_override_styles/panel = SubResource("StyleBoxFlat_q4g4i")
 
@@ -883,7 +890,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q4g4i")
 layout_mode = 2
 
 [node name="Talk" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
-visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_jf75l")
 custom_minimum_size = Vector2(0, 33)
@@ -900,8 +906,24 @@ shortcut = SubResource("Shortcut_uaes6")
 shortcut_in_tooltip = false
 text = "Talk"
 icon = ExtResource("10_l2ivr")
-text_overrun_behavior = 1
-expand_icon = true
+
+[node name="Abilities" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_jf75l")
+custom_minimum_size = Vector2(0, 33)
+layout_direction = 1
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_xncxc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+shortcut = SubResource("Shortcut_g1pyy")
+shortcut_in_tooltip = false
+text = "Abilities"
+icon = ExtResource("11_k5mql")
 
 [node name="Details" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
 visibility_layer = 1024
@@ -918,10 +940,8 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_pbvwb")
 shortcut_in_tooltip = false
-text = "Details"
-icon = ExtResource("11_k5mql")
-text_overrun_behavior = 1
-expand_icon = true
+text = "Stats"
+icon = ExtResource("10_3r1mm")
 
 [node name="Wheel" parent="CanvasLayer" instance=ExtResource("10_ihe7c")]
 visible = false
@@ -934,6 +954,7 @@ mouse_filter = 2
 color = Color(1, 0, 0.356863, 1)
 
 [node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
+visible = false
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
@@ -1362,6 +1383,7 @@ one_shot = true
 [connection signal="sort_children" from="CanvasLayer/Partybox" to="." method="_on_partybox_sort_children"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
+[connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Abilities" to="." method="abilities"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Details" to="." method="details"]
 [connection signal="focus_entered" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_cursor"]
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/Nevermind" to="CanvasLayer/CalendarBase" method="_on_nevermind_pressed"]

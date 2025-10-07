@@ -42,9 +42,10 @@ signal area_initialized
 signal textbox_close
 signal player_ready
 signal controller_changed
-const AppID = 480
+const AppID = 4059970
 var UsingSteam:= false
 var SteamInputDevice
+var UserID: int
 
 var ElementColor: Dictionary = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
@@ -63,7 +64,11 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
-	#init_steam()
+	UserID = 0
+	init_steam()
+	if not DirAccess.dir_exists_absolute("user://"+str(UserID)):
+		DirAccess.make_dir_absolute("user://"+str(UserID))
+	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/"+str(UserID))
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
@@ -92,21 +97,23 @@ func normal_mode():
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
-#func init_steam():
-	#OS.set_environment("SteamAppId", str(AppID))
-	#OS.set_environment("SteamGameId", str(AppID))
-	#var initialize_response: Dictionary = Steam.steamInitEx(AppID)
-	#print("Did Steam initialize?: %s " % initialize_response)
-	##Steam.inputInit()
-	##Steam.enableDeviceCallbacks()
-	##SteamInput.init()
-	#if initialize_response.get("status") == 0:
-		#print("Running with Steam")
-		#UsingSteam = true
-		##if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
-			##Settings.ControlSchemeEnum = 7
-			##Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
-		##print(Steam.getFriendPersonaName(Steam.getSteamID()))
+func init_steam():
+	OS.set_environment("SteamAppId", str(AppID))
+	OS.set_environment("SteamGameId", str(AppID))
+	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
+	print("Did Steam initialize?: %s " % initialize_response)
+	#Steam.inputInit()
+	#Steam.enableDeviceCallbacks()
+	#SteamInput.init()
+	if initialize_response.get("status") == 0:
+		print("Running with Steam")
+		UsingSteam = true
+		UserID = Steam.getSteamID32(Steam.getSteamID())
+		print("User: ", Steam.getPersonaName(), " ", UserID)
+		#if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
+			#Settings.ControlSchemeEnum = 7
+			#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
+		#print(Steam.getFriendPersonaName(Steam.getSteamID()))
 
 func game_over():
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
@@ -153,9 +160,16 @@ func title_screen():
 	var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
 	get_tree().root.add_child(init)
 
-func member_details(chara: Actor):
+func member_details(chara: Actor, menu:= 0):
 	if chara == null: return
 	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
+	get_tree().root.add_child(dub)
+	await Event.wait()
+	dub.draw_character(chara, menu)
+
+func complimentary_ui(chara: Actor):
+	if chara == null: return
+	var dub = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
 	get_tree().root.add_child(dub)
 	await Event.wait()
 	dub.draw_character(chara)

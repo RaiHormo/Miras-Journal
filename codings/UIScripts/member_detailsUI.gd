@@ -1,10 +1,13 @@
 extends CanvasLayer
 var stability_menu:= false
+var actor: Actor
+var inactive:= false
 
 func _ready():
 	hide()
 
-func draw_character(chara: Actor):
+func draw_character(chara: Actor, menu:= 0):
+	actor = chara
 	Global.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
@@ -89,6 +92,8 @@ func draw_character(chara: Actor):
 	t.tween_property($Render, "global_position", Vector2(587, -2), 1).from(Vector2(706, 109))
 	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 1).from(Vector2(0.43/2, 0.43/2))
 	t.tween_property($Line1, "position:x", 750, 1).from(-2700)
+	if menu == 1:
+		swap_mode(true)
 	await Event.wait(0.2, false)
 	$Name.show()
 	$Fade.show()
@@ -133,6 +138,7 @@ func swap_mode(stability:= false):
 			t.tween_property($AbilityPanel/AttackTitle, "position:x", 400, 0.5).from(0)
 
 func _on_back_pressed():
+	if inactive: return
 	Global.cancel_sound()
 	var t = create_tween()
 	t.tween_property(self, "offset:x", -3500, 0.2)
@@ -177,6 +183,7 @@ func fetch_abilities(chara: Actor):
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
 
 func _on_abilities_pressed() -> void:
+	if inactive: return
 	swap_mode(!stability_menu)
 
 func _on_ab_focus_entered() -> void:
@@ -192,3 +199,7 @@ func _on_ab_focus_entered() -> void:
 	$AbilityPanel/AttackTitle.text = ab.name
 	#$AbilityPanel/AttackTitle.icon = ab.Icon
 	$AbilityPanel/AttackTitle/RichTextLabel.text = Global.colorize(ab.description)
+
+func _on_complimentary() -> void:
+	inactive = true
+	Global.complimentary_ui(actor)

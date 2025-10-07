@@ -183,6 +183,7 @@ func _on_expand(open_ui=0):
 	t.kill()
 	if UIvisible == false:
 		await show_all(true)
+	if open_ui != 2: $CanvasLayer/Cursor.show()
 	$CanvasLayer/Cursor.position=CursorPosition[0]
 	if open_ui == 0: WasPaused = false
 	else: WasPaused = get_tree().paused
@@ -208,6 +209,7 @@ func _on_expand(open_ui=0):
 			else: get_node("%Pages/Page"+str(i)).hide()
 		$CanvasLayer/Cursor/MemberOptions.show()
 		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Global.get_controller().CommandIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Abilities.icon = Global.get_controller().ItemIcon
 		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.icon = Global.get_controller().ConfirmIcon
 		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
 		$CanvasLayer/Cursor/MemberOptions.size.y = 1
@@ -235,7 +237,6 @@ func _on_expand(open_ui=0):
 	Global.check_party.emit()
 	if open_ui == 0:
 		await focus_now()
-	if open_ui != 2: $CanvasLayer/Cursor.show()
 	inactive = false
 
 func expand_panel(Pan:Panel, mem := 0):
@@ -677,6 +678,16 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):
 func details():
 	if Expanded and not submenu_opened:
 		Global.member_details(Global.Party.array()[focus])
+		submenu_opened = true
+		await Event.wait(0.3, false)
+		%Pages.hide()
+		$CanvasLayer/Cursor.hide()
+		$CanvasLayer/Back.hide()
+		Partybox.hide()
+
+func abilities() -> void:
+	if Expanded and not submenu_opened:
+		Global.member_details(Global.Party.array()[focus], 1)
 		submenu_opened = true
 		await Event.wait(0.3, false)
 		%Pages.hide()
