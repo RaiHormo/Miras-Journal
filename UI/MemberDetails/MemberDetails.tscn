@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://b7kxxkiuyhc4n"]
+[gd_scene load_steps=68 format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
 [ext_resource type="Script" uid="uid://cwdc884x20ihl" path="res://codings/UIScripts/member_detailsUI.gd" id="1_uy7q8"]
@@ -385,62 +385,6 @@ filter_clip = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qgu3d"]
 shader = ExtResource("5_jewkm")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ke41"]
-content_margin_left = 8.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m84sq"]
-content_margin_left = 8.0
-bg_color = Color(0.894118, 0.894118, 0.894118, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_right = 26
-corner_radius_bottom_left = 26
-
-[sub_resource type="Theme" id="Theme_03e00"]
-default_font = ExtResource("6_61s32")
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
-Button/constants/outline_size = 2
-Button/styles/disabled = null
-Button/styles/focus = SubResource("StyleBoxFlat_7ke41")
-Button/styles/hover = SubResource("StyleBoxFlat_m84sq")
-Button/styles/normal = SubResource("StyleBoxFlat_7ke41")
-Button/styles/pressed = SubResource("StyleBoxFlat_7ke41")
-
-[sub_resource type="InputEventAction" id="InputEventAction_x6lob"]
-action = &"BtItem"
-
-[sub_resource type="Shortcut" id="Shortcut_d52i0"]
-events = [SubResource("InputEventAction_x6lob")]
-
-[sub_resource type="InputEventAction" id="InputEventAction_rmica"]
-action = &"ui_accept"
-
-[sub_resource type="Shortcut" id="Shortcut_x6lob"]
-events = [SubResource("InputEventAction_rmica")]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgrs3"]
-shader = ExtResource("5_jewkm")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ona2b"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 1)
@@ -449,10 +393,10 @@ border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 26
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 26
+corner_radius_top_left = 16
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdfns"]
 content_margin_left = 8.0
@@ -481,6 +425,21 @@ Button/styles/focus = SubResource("StyleBoxFlat_ona2b")
 Button/styles/hover = SubResource("StyleBoxFlat_vdfns")
 Button/styles/normal = SubResource("StyleBoxFlat_ona2b")
 Button/styles/pressed = SubResource("StyleBoxFlat_ona2b")
+
+[sub_resource type="InputEventAction" id="InputEventAction_x6lob"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_d52i0"]
+events = [SubResource("InputEventAction_x6lob")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_rmica"]
+action = &"BtCommand"
+
+[sub_resource type="Shortcut" id="Shortcut_x6lob"]
+events = [SubResource("InputEventAction_rmica")]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgrs3"]
+shader = ExtResource("5_jewkm")
 
 [sub_resource type="InputEventAction" id="InputEventAction_p5u4y"]
 action = &"ui_cancel"
@@ -1063,7 +1022,7 @@ scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
-theme = SubResource("Theme_03e00")
+theme = SubResource("Theme_48usk")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1079,15 +1038,15 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_qgu3d")
 layout_direction = 1
-offset_left = 24.000015
+offset_left = 186.0
 offset_top = 745.0
-offset_right = 158.00002
+offset_right = 320.0
 offset_bottom = 779.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
-theme = SubResource("Theme_03e00")
+theme = SubResource("Theme_48usk")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1103,9 +1062,9 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_mgrs3")
 layout_direction = 1
-offset_left = 225.0
+offset_left = 23.000036
 offset_top = 746.0
-offset_right = 334.0
+offset_right = 132.00002
 offset_bottom = 779.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)

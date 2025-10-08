@@ -46,7 +46,7 @@ func draw_character(chara: Actor, menu:= 0):
 	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_override("fill", hbox.duplicate())
 	#var xbox = hbox.duplicate()
 	#xbox.bg_color = chara.BoxProfile.Bord3
-	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_override("background", xbox)
+	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_o]verride("background", xbox)
 
 		$Line1.color = chara.BoxProfile.Bord1
 		$Line1/Line2.color = chara.BoxProfile.Bord2
@@ -80,7 +80,7 @@ func draw_character(chara: Actor, menu:= 0):
 	$AbilityPanel.hide()
 	$StatPanel.hide()
 	$Back.icon = Global.get_controller().CancelIcon
-	$Abilities.icon = Global.get_controller().ConfirmIcon
+	$Abilities.icon = Global.get_controller().ItemIcon
 
 	swap_mode()
 	show()
@@ -119,6 +119,8 @@ func swap_mode(stability:= false):
 			t.set_ease(Tween.EASE_OUT)
 			t.tween_property($StatPanel, "position:x", 60, 0.1).from(300)
 			t.tween_property($StatPanel, "scale:x", 1, 0.1).from(0.1)
+			$Abilities.shortcut.events[0].action = "BtItem"
+			$Abilities.icon = Global.get_controller().ItemIcon
 		true:
 			var t = create_tween()
 			t.set_parallel()
@@ -136,6 +138,9 @@ func swap_mode(stability:= false):
 			t.tween_property($AbilityPanel, "position:x", 60, 0.1).from(300)
 			t.tween_property($AbilityPanel, "scale:x", 1, 0.1).from(0.1)
 			t.tween_property($AbilityPanel/AttackTitle, "position:x", 400, 0.5).from(0)
+			$Abilities.shortcut.events[0].action = "BtCommand"
+			$Abilities.icon = Global.get_controller().CommandIcon
+			$AbilityPanel/Complimentary.icon = Global.get_controller().ConfirmIcon
 
 func _on_back_pressed():
 	if inactive: return
@@ -173,13 +178,13 @@ func fetch_abilities(chara: Actor):
 			dub.get_child(0).hide()
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
-	for i in %AbilityList.get_children():
-		if not i is Button: continue
-		if i.get_meta("Ability").AuraCost > chara.Aura or i.get_meta("Ability").disabled:
-			if i.get_meta("Ability").AuraCost > chara.Aura:
-				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
-			i.disabled = true
-			%AbilityList.get_children().push_back(i)
+	#for i in %AbilityList.get_children():
+		#if not i is Button: continue
+		#if i.get_meta("Ability").AuraCost > chara.Aura or i.get_meta("Ability").disabled:
+			#if i.get_meta("Ability").AuraCost > chara.Aura:
+				#i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+			#i.disabled = true
+			#%AbilityList.get_children().push_back(i)
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
 
 func _on_abilities_pressed() -> void:
@@ -203,3 +208,20 @@ func _on_ab_focus_entered() -> void:
 func _on_complimentary() -> void:
 	inactive = true
 	Global.complimentary_ui(actor)
+
+func _input(event: InputEvent) -> void:
+	if not inactive and actor in Global.Party.array():
+		if event.is_action_pressed("ShoulderRight"):
+			var next_char: Actor
+			if Global.Party.array().size() > Global.Party.array().find(actor)+1:
+				next_char = Global.Party.array()[Global.Party.array().find(actor)+1]
+			else:
+				next_char = Global.Party.Leader
+			if is_instance_valid(next_char):
+				Global.member_details(next_char, stability_menu)
+				queue_free()
+		elif event.is_action_pressed("ShoulderLeft"):
+			var next_char = Global.Party.array()[Global.Party.array().find(actor)-1]
+			if is_instance_valid(next_char):
+				Global.member_details(next_char, stability_menu)
+				queue_free()

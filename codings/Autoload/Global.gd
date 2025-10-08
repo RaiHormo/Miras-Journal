@@ -57,6 +57,10 @@ var ElementColor: Dictionary = {
 #endregion
 
 #region System
+func _init():
+	init_user()
+	#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "0x28de/0x11ff")
+
 func _ready() -> void:
 	StartTime=Time.get_unix_time_from_system()
 	add_child(Audio)
@@ -64,19 +68,13 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
-	UserID = 0
-	init_steam()
-	if not DirAccess.dir_exists_absolute("user://"+str(UserID)):
-		DirAccess.make_dir_absolute("user://"+str(UserID))
-	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/"+str(UserID))
+	
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
 	rumble(0, 0.5, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
-func _init():
-	OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "0x28de/0x11ff")
 
 func quit() -> void:
 	if get_tree().root.has_node("Options"):
@@ -114,6 +112,19 @@ func init_steam():
 			#Settings.ControlSchemeEnum = 7
 			#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
 		#print(Steam.getFriendPersonaName(Steam.getSteamID()))
+
+func init_user():
+	UserID = 0
+	init_steam()
+	if UserID == 0:
+		if FileAccess.file_exists("user://last_user_id.txt"):
+			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
+			print("Using last used user ID, ", UserID)
+	var last_id_write = FileAccess.open("user://last_user_id.txt", FileAccess.WRITE)
+	last_id_write.store_string(str(UserID))
+	if not DirAccess.dir_exists_absolute("user://"+str(UserID)):
+		DirAccess.make_dir_absolute("user://"+str(UserID))
+	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/"+str(UserID))
 
 func game_over():
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())

@@ -134,4 +134,5 @@ func _process(delta: float) -> void:
 func _on_back_pressed() -> void:
 	if get_tree().root.has_node("MemberDetails"):
 		get_tree().root.get_node("MemberDetails").inactive = false
+		get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
 	queue_free()
