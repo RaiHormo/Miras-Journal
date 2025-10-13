@@ -1102,6 +1102,8 @@ func StoneGuardian1():
 	Bt.entrance_anim(Global.Party.Member1)
 	await Event.wait(0.2)
 	await Bt.focus_cam(Global.Party.Leader)
+	Event.remove_flag("StoneGuardianFinisher")
+	Event.remove_flag("BeatStoneGuardian")
 	Bt.end_turn()
 
 func StoneGuardian2(target: Actor = CurrentChar):
@@ -1187,10 +1189,6 @@ func StoneGuardian3():
 	Loader.get_node("Can").layer = 3
 	Bt.victory(true)
 	await Loader.battle_end
-	Loader.ungray.emit()
-	Event.ToDay = 1
-	Event.ToTime = 1
-	Event.time_transition()
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader

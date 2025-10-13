@@ -10,26 +10,26 @@ z_index = 8
 position = Vector2(493, 207)
 script = ExtResource("1_i5v3q")
 
-[node name="BottomInteractable" parent="." instance=ExtResource("2_bewv0")]
-position = Vector2(0, 85)
-LabelText = "Climb"
-Length = 90
+[node name="End1" type="Marker2D" parent="."]
+position = Vector2(0, -20)
 
 [node name="TopInteractable" parent="." instance=ExtResource("2_bewv0")]
 LabelText = "Climb down"
 Length = 140
-
-[node name="End1" type="Marker2D" parent="."]
-position = Vector2(0, -20)
-
-[node name="End2" type="Marker2D" parent="."]
-position = Vector2(0, 115)
 
 [node name="Start1" type="Marker2D" parent="."]
 position = Vector2(0, 18)
 
 [node name="Start2" type="Marker2D" parent="."]
 position = Vector2(0, 85)
+
+[node name="BottomInteractable" parent="." instance=ExtResource("2_bewv0")]
+position = Vector2(0, 85)
+LabelText = "Climb"
+Length = 90
+
+[node name="End2" type="Marker2D" parent="."]
+position = Vector2(0, 115)
 
 [node name="Icon" type="Sprite2D" parent="."]
 light_mask = 0
@@ -39,5 +39,5 @@ scale = Vector2(0.366667, 0.366667)
 texture = ExtResource("3_aymlr")
 script = ExtResource("4_nlliy")
 
-[connection signal="action" from="BottomInteractable" to="." method="climb_up"]
 [connection signal="action" from="TopInteractable" to="." method="climb_down"]
+[connection signal="action" from="BottomInteractable" to="." method="climb_up"]

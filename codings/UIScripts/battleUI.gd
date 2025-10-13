@@ -50,8 +50,8 @@ func _ready():
 
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
-	if stage=="target":
-		$BaseRing/Ring2.rotation += 0.002
+	if "target" in stage:
+		$BaseRing/Ring2.rotation += 0.001
 	if CurrentChar and CurrentChar.has_state("Confused"):
 		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
 
@@ -98,7 +98,7 @@ func _on_battle_get_control():
 	#if CurrentChar.FirstName == "Mira":
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
-	Abilities = CurrentChar.Abilities
+	Abilities = CurrentChar.get_abilities()
 	
 	$Attack.disabled = false
 	$Ability.disabled = false

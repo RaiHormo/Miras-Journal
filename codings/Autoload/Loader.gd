@@ -26,7 +26,7 @@ var BtAdvantage = 0
 var data: SaveFile
 var SaveFiles: Array[SaveFile]
 signal battle_start
-signal battle_end
+signal battle_end(result: int)
 signal ungray
 var prevent_battles:= false
 
@@ -56,7 +56,7 @@ func save(filename:String="Autosave", showicon=true):
 	Global.save_settings()
 	data = SaveFile.new()
 	data.Name = filename
-	data.Datetime = Time.get_datetime_dict_from_system()
+	#data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.FirstStartTime
 	data.Z = (Global.Player.z_index if !get_tree().root.get_node_or_null("MainMenu")
@@ -438,7 +438,7 @@ func end_battle():
 		hide_victory_stuff()
 	InBattle = false
 	Global.get_cam().position_smoothing_enabled = true
-	battle_end.emit()
+	battle_end.emit(BattleResult)
 
 	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:

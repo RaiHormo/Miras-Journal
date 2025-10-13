@@ -2694,6 +2694,13 @@ texture_region_size = Vector2i(24, 24)
 10:18/size_in_atlas = Vector2i(8, 6)
 10:18/0 = 0
 10:18/0/texture_origin = Vector2i(12, 12)
+4:17/0 = 0
+4:16/0 = 0
+4:15/0 = 0
+3:15/0 = 0
+2:17/size_in_atlas = Vector2i(2, 8)
+2:17/0 = 0
+2:17/0/texture_origin = Vector2i(-12, 12)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iu8dd"]
 texture = ExtResource("4_begsd")

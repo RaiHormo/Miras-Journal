@@ -357,6 +357,117 @@ Mira.Neutral: No...
 Mira.Neutral: I can't... move my arm...
 => END
 
+~ daze_introduction
+I open my eyes and see im somewhere else. Is this a tent?
+I get up and look around. My clothes are all ripped and i have a bandage on my left arm.
+Ow, it hurts quite a bit to move it around.
+set Global.find_member("Daze").FirstName = ""
+Daze.Neutral: Oh Ms. Levenor, you're finally up!
+I'm not that sure what to say, and i just stare silent for a bit. 
+After a bit of hesitation I go to sit on the other side of the campfire.
+Mira.Neutral: I have so many questions...
+Daze.Neutral: Ask away.
+do Event.Flags.set("DazeQuestions", 0)
+~ daze_questions
+What do I ask?
+- Who are you?
+	Mira.Neutral: So... who are you?
+	Daze.Neutral: The name is Daze.
+	set Global.find_member("Daze").FirstName = "Daze"
+	Daze.Neutral: I'm from Elmethin, a city to the north of the Capital, but I've been traveling around for a while now.
+	Mira.Neutral: A traveller? Where are you going?
+	Daze.Neutral: That's a long story... and doesn't really matter.
+	He just brushes that off, okay.
+	Daze.Neutral: What matters is I was seprated from my comanions while traveling.
+- Where are we?
+	Mira.Neutral: Do you have any idea where we are?
+	Daze.Neutral: I'm not so sure... I don't remember exactly how I got here.
+	Daze.Neutral: However I speculate that this place is disconnected from the outside world.
+	Mira.Neutral: Huh?! How so?
+	Daze.Neutral: Do you remember how you got here? Have you tried walking far away?
+	Mira.Neutral: I don't remember much...
+	Mira.Neutral: And no, I was just walking through an abandoned town.
+	Mira.Neutral: What do you mean?
+	Daze.Neutral: It'll be easier to show than tell, hold that thought.
+	Huh? What does he want to show me?
+	Daze.Neutral: Any other questions?
+- How did you know my name?
+	Mira.Neutral: How did you know my name? Do you know me?
+	Daze.Neutral: Oh, it's because of this...
+	He picks up a book next to him... wait that's my journal!
+	I quickly take it from him.
+	Mira.Neutral: Hey! Where did you even find this?!
+	Mira.Neutral: You can't just read people's personal Journals!
+	Daze.Neutral: I'm sorry. It was the only way I could know who you are, since you were unconscious...
+	Mira.Neutral: How much did you read!?
+	Daze.Neutral: Only a few pages, but a lot of the pages also seem to have been ripped out of it.
+	Mira.Neutral: Wait what? How did that happen?
+	Daze.Neutral: I don't know, this is how I found it.
+	It's true, many of the pages seem ripped out.
+	I should take a closer look later.
+- About the monster...
+	Mira.Neutral: How did you take on that monster so easily?
+	Daze.Neutral: Oh it was already quite weakened, I simply finished it off.
+	Mira.Neutral: But you just... cleanly sliced a rock in half. With a sword. Like it's BREAD! How is that even possible?!
+	Daze.Neutral: What can I say, I'm just that skilled~
+	Daze.Neutral: No, you had weakened its Aura shield quite a bit. 
+	Daze.Neutral: Monsters like that are pretty fragile once their control over their physical parts is weakened.
+	Daze.Neutral: Anything else?
+- About Alcine...
+	Mira.Neutral: Did you happen to see something like a water spirit with spirally aura where you found me?
+	Daze.Neutral: I apologize, but no. Was it important?
+	Mira.Neutral: Quite a bit...
+	I should go back and look for them at some point later.
+- Can I have some water?
+	Mira.Neutral: You got any water?
+	Daze.Neutral: Here.
+	He brings a bottle of water. I drink it all quickly.
+	Mira.Neutral: Do you have any more?
+	He gives me another bottle, I also drink it quickly.
+	Mira.Neutral: Ahh... I didn't drink anything the whole day yesterday...
+	Daze.Neutral: And you were fighting that thing? You need like a week's worth of rest...
+	Daze.Neutral: I also got some food packed up. Hold on.
+	do Loader.gray_out(1)
+	do Loader.lower_layer()
+	He gives me some bread wraps he had. It's nothing special but not having eated a whole day makes anything taste amazing.
+	do Loader.ungray.emit()
+	Mira.Neutral: Thank you, I was starving...
+- Nothing else to ask
+	Mira.Neutral: I think that all I had to ask. Thanks.
+	if Flags.get("DazeQuestions") == 0:
+		Daze.Neutral: What is all? You didn't ask anything!
+		Mira.Neutral: Oh I didn't, did I?
+		Mira.Neutral: Sorry, I forgot what I wanted to ask.
+		Daze.Neutral: ...
+	if Flags.get("DazeQuestions") == 1:
+		Daze.Neutral: That was... one question...
+		Mira.Neutral: Yeah, that's all I needed.
+		Daze.Neutral: Understood...
+	if Flags.get("DazeQuestions") == 2:
+		Daze.Neutral: That was just two question...
+		Mira.Neutral: I guess I didn't have as much on my mind as I expected, hehe.
+	=> daze_questions_done
+do Event.Flags.set("DazeQuestions", Event.Flags.get("DazeQuestions")+1)
+=> daze_questions
+
+~ daze_questions_done
+Mira.Neutral: So what's the plan now?
+Daze.Neutral: You stay here and rest now. I want to explore this place further, but let's leave that for tommorow.
+Daze.Neutral: I'll go scout around here for monsters. Just stay here in the camp while I'm away.
+Mira.Neutral: Alright.
+if find_member("Daze").FirstName != "Daze":
+	Mira.Neutral: Oh by the way, I didn't ask. What's your name?
+	if Flags.get("DazeQuestions") < 3:
+		Daze.Neutral: Oh, so you did have more things to ask.
+	Daze.Neutral: It's Daze.
+	set Global.find_member("Daze").FirstName = "Daze"
+	Mira.Neutral: Daze...
+	Mira.Neutral: Is that a first or last name?
+	Daze.Neutral: It's... more of a nickname.
+	Mira.Neutral: Oh, okay.
+
+=> END
+
 ~ nov3_morning
 ...
 I was seriously hoping it was all a long dream, but it seems this is my home for the time being...

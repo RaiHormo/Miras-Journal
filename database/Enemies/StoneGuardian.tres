@@ -25,7 +25,6 @@ ActorClass = "Boss"
 codename = &"Guardian"
 WeaponPower = 20
 HealthBar = true
-RecivedSP = 30
 CustomPosition = Vector2i(66, 30)
 MaxHP = 300
 MaxAura = 44

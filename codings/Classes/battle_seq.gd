@@ -17,6 +17,7 @@ class_name BattleSequence
 @export var EntranceBanterIsPassive:= true
 @export var VictorySequence:= ""
 @export var VictoryBanter:= ""
+@export var VictoryText:= "Victory"
 @export var DefeatSequence:= ""
 @export var PartyOverride: PackedStringArray = []
 @export var Events: Array[BattleEvent] = []

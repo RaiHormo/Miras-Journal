@@ -109,6 +109,7 @@ func _ready():
 		sprite_init(i)
 		i.NextAction = ""
 		i.BattleLog.clear()
+		i.load_complimentaries()
 	position_sprites()
 	if is_instance_valid(Loader.Attacker): Loader.Attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
@@ -1030,13 +1031,14 @@ func victory(ignore_seq:= false):
 	reset_all()
 	t.kill()
 	t = create_tween()
-	$Canvas/VictoryText.text = "Victory"
+	$Canvas/VictoryText.text = Seq.VictoryText
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
 	$EnemyUI/EnemyFocus.hide()
 	$Canvas/TurnOrder.hide()
 	$Canvas/VictoryText.add_theme_color_override("font_color", Color.WHITE)
+	$Canvas/VictoryText.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_RIGHT
 	$Canvas/VictoryText.scale = Vector2(1.5,1.5)
 	PartyUI._on_expand(2)
 	Loader.battle_bars(0)
@@ -1044,7 +1046,7 @@ func victory(ignore_seq:= false):
 	t.tween_property($Canvas/DottedBack, "modulate",
 	Color(0.188,0.188,0.188,0.8), 1).from(Color(0.188,0.188,0.188,0))
 	t.tween_property($Canvas/VictoryText, "position",
-	Vector2(700, 50), 2).from(Vector2(1200, 50))
+	Vector2(260, 50), 2).from(Vector2(1000, 50))
 	t.tween_property($Canvas/VictoryText, "modulate",
 	Color.WHITE, 2).from(Color.TRANSPARENT)
 	t.tween_property($Cam, "position", Vector2(-20,0), 1)

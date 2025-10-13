@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=12 format=3 uid="uid://cii3i6q16y4rw"]
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=11 format=3 uid="uid://cii3i6q16y4rw"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_huh7e"]
-[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="2_oponu"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_s2u2d"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="3_oponu"]
 [ext_resource type="Resource" uid="uid://bqwviswxxvkw2" path="res://database/Enemies/StoneGuardian.tres" id="3_s2u2d"]
@@ -45,11 +44,11 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 [resource]
 script = ExtResource("4_t20i2")
 Enemies = Array[ExtResource("2_s2u2d")]([ExtResource("3_s2u2d")])
-BattleBack = ExtResource("2_oponu")
+ScenePosition = Vector2(2543, -145)
 CanEscape = false
 EntranceSequence = "StoneGuardian1"
 EntranceBanterIsPassive = false
 VictorySequence = "StoneGuardian3"
-PartyOverride = ["Mira", "Alcine"]
+VictoryText = "Victory?"
 Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2"), SubResource("Resource_87ic2"), SubResource("Resource_yttu5")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

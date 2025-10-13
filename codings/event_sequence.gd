@@ -136,8 +136,24 @@ func oct0_daytime():
 	Global.check_party.emit()
 	Loader.save()
 
-func nov1_morning():
-	Global.toast("Beep")
+func amberelm_guardian():
+	Loader.start_battle("StoneGuardianBoss")
+	await Loader.battle_end
+	if Loader.BattleResult == 1:
+		Global.Party.set_to_strarr(["Mira"])
+		Loader.ungray.emit()
+		Event.ToDay = 0
+		Event.ToTime = 5
+		Event.add_flag("BeatStoneGuardian")
+		Event.time_transition()
+
+func oct0_night():
+	await Loader.travel_to("Orange", Vector2(775, -211), 0, -1, "none", false)
+	Event.no_player()
+	await Event.spawn("Mira", Vector2(750, -211), "L")
+	await Event.spawn("Daze", Vector2(660, -211), "R")
+	await Global.textbox("story_events", "daze_introduction")
+	await Loader.travel_to("Orange", Vector2(775, -211))
 
 func jump_playtest():
 	await Global.textbox("testbush", "jump_playtest")
@@ -260,6 +276,3 @@ func sg_bunker_entrance():
 		await Event.wait(1)
 		Event.add_flag("DefeatedLazuliteHeart")
 		Event.give_control()
-
-func amberelm_guardian():
-	Loader.start_battle("StoneGuardianBoss")

@@ -181,7 +181,7 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 			atk_stat = E.Attack * E.AttackMultiplier
 			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
 	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)"% [pow, atk_stat, Defence, DefenceMultiplier])
-	return int(max(((pow * atk_stat) / ((Defence * DefenceMultiplier) + 0.3)), 1))
+	return int(max(((pow * atk_stat) / ((Defence*2 * DefenceMultiplier) + 0.3)), 1))
 
 func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect = true) -> State:
 	var state: State
@@ -304,9 +304,15 @@ func get_ability_list() -> Array[String]:
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
 
+func get_abilities(include_compl:= true, include_attack:= false) -> Array[Ability]:
+	var rtn:= Abilities.duplicate()
+	if include_attack: rtn.append(StandardAttack)
+	if include_compl: rtn.append_array(Complimentaries)
+	return rtn
+
 func groupped_abilities() -> Array[Array]:
 	var rtn: Array[Array]
-	for i in Abilities:
+	for i in get_abilities():
 		var found = false
 		if i.Group != "":
 			for j in rtn:
