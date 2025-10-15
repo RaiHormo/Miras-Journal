@@ -1864,32 +1864,32 @@ metadata/_edit_group_ = true
 position = Vector2(-228, 505)
 metadata/_edit_group_ = true
 
+[node name="End1" parent="Ladder2" index="0"]
+position = Vector2(0, 27)
+
 [node name="TopInteractable" parent="Ladder2" index="1"]
 position = Vector2(0, 56)
 
-[node name="End1" parent="Ladder2" index="2"]
-position = Vector2(0, 27)
-
-[node name="Start1" parent="Ladder2" index="4"]
+[node name="Start1" parent="Ladder2" index="2"]
 position = Vector2(0, 56)
 
 [node name="Ladder3" parent="." instance=ExtResource("8_hjqnr")]
 position = Vector2(-370, -405)
 
+[node name="End1" parent="Ladder3" index="0"]
+position = Vector2(-3, 21)
+
 [node name="TopInteractable" parent="Ladder3" index="1"]
 position = Vector2(-3, 44)
 
-[node name="End1" parent="Ladder3" index="2"]
-position = Vector2(-3, 21)
-
-[node name="End2" parent="Ladder3" index="3"]
-position = Vector2(-2, 115)
-
-[node name="Start1" parent="Ladder3" index="4"]
+[node name="Start1" parent="Ladder3" index="2"]
 position = Vector2(-3, 53)
 
-[node name="Start2" parent="Ladder3" index="5"]
+[node name="Start2" parent="Ladder3" index="3"]
 position = Vector2(-2, 85)
+
+[node name="End2" parent="Ladder3" index="5"]
+position = Vector2(-2, 115)
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="."]
 visible = false

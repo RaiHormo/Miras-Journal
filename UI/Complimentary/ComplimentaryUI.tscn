@@ -595,6 +595,65 @@ size_flags_vertical = 4
 theme_override_constants/separation = 12
 alignment = 1
 
+[node name="Title" type="Label" parent="."]
+offset_left = 541.0
+offset_top = 17.0
+offset_right = 1262.0
+offset_bottom = 149.0
+theme_override_fonts/font = ExtResource("1_ankbo")
+theme_override_font_sizes/font_size = 100
+text = "Complimentary"
+
+[node name="Member" type="RichTextLabel" parent="Title"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 124.0
+offset_right = 709.0
+offset_bottom = 196.0
+theme_override_fonts/normal_font = ExtResource("6_17jba")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[img width=58]res://art/Icons/Party/Mira.png[/img] Mira Levenor"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Desc" type="Control" parent="."]
+visibility_layer = 1024
+texture_filter = 1
+material = SubResource("ShaderMaterial_vkf3o")
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 912.0
+offset_top = 512.0
+offset_right = 1218.0
+offset_bottom = 773.0
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_bskk0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Desc"]
+layout_mode = 0
+offset_left = -267.0
+offset_top = -253.0
+offset_right = 340.0
+offset_bottom = 9.0
+theme_override_constants/line_separation = 12
+theme_override_fonts/normal_font = ExtResource("6_17jba")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
+vertical_alignment = 1
+
+[node name="Wheel" parent="Desc" instance=ExtResource("7_wqo8e")]
+layout_mode = 0
+offset_left = -294.0
+offset_top = -362.0
+offset_right = 706.0
+offset_bottom = 638.0
+scale = Vector2(0.24075, 0.24075)
+color = Color(1, 0, 0.356863, 1)
+
 [node name="AbilityPanel" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -785,65 +844,6 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_qyand")
 
-[node name="Title" type="Label" parent="."]
-offset_left = 541.0
-offset_top = 17.0
-offset_right = 1262.0
-offset_bottom = 149.0
-theme_override_fonts/font = ExtResource("1_ankbo")
-theme_override_font_sizes/font_size = 100
-text = "Complimentary"
-
-[node name="Member" type="RichTextLabel" parent="Title"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 124.0
-offset_right = 709.0
-offset_bottom = 196.0
-theme_override_fonts/normal_font = ExtResource("6_17jba")
-theme_override_font_sizes/normal_font_size = 48
-bbcode_enabled = true
-text = "[img width=58]res://art/Icons/Party/Mira.png[/img] Mira Levenor"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Desc" type="Control" parent="."]
-visibility_layer = 1024
-texture_filter = 1
-material = SubResource("ShaderMaterial_vkf3o")
-layout_direction = 1
-layout_mode = 3
-anchors_preset = 0
-offset_left = 912.0
-offset_top = 512.0
-offset_right = 1218.0
-offset_bottom = 773.0
-pivot_offset = Vector2(19.2536, 14.8241)
-size_flags_stretch_ratio = 0.0
-theme = SubResource("Theme_bskk0")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Desc"]
-layout_mode = 0
-offset_left = -267.0
-offset_top = -253.0
-offset_right = 340.0
-offset_bottom = 9.0
-theme_override_constants/line_separation = 12
-theme_override_fonts/normal_font = ExtResource("6_17jba")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
-vertical_alignment = 1
-
-[node name="Wheel" parent="Desc" instance=ExtResource("7_wqo8e")]
-layout_mode = 0
-offset_left = -294.0
-offset_top = -362.0
-offset_right = 706.0
-offset_bottom = 638.0
-scale = Vector2(0.24075, 0.24075)
-color = Color(1, 0, 0.356863, 1)
-
 [node name="Set" type="Button" parent="."]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_bskk0")
@@ -894,4 +894,5 @@ expand_icon = true
 
 [connection signal="focus_entered" from="Slot0" to="." method="_on_equipped_focus_entered"]
 [connection signal="focus_entered" from="AbilityPanel/Border1/Scroller/Ab0" to="." method="_on_list_focus_entered"]
+[connection signal="pressed" from="Set" to="." method="_set_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

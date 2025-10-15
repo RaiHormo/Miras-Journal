@@ -3,6 +3,7 @@ extends CanvasLayer
 var chara: Actor
 var slots: int
 var setting:= false
+var active_slot: int = 0
 
 func _init() -> void:
 	hide()
@@ -130,9 +131,31 @@ func _process(delta: float) -> void:
 	for i: TextureRect in $Background.get_children():
 		i.rotation_degrees += i.get_meta("rate")
 
-
 func _on_back_pressed() -> void:
-	if get_tree().root.has_node("MemberDetails"):
-		get_tree().root.get_node("MemberDetails").inactive = false
-		get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
-	queue_free()
+	if $AbilityPanel.visible:
+		$AbilityPanel.hide()
+		$Equipped.get_child(active_slot).grab_focus()
+	else:
+		if get_tree().root.has_node("MemberDetails"):
+			get_tree().root.get_node("MemberDetails").inactive = false
+			get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
+		queue_free()
+
+func set_ability(slot: int):
+	active_slot = slot
+	$AbilityPanel.show()
+	refresh()
+	%AbilityList.get_child(0).grab_focus()
+
+func _set_pressed():
+	if $AbilityPanel.visible:
+		_list_ability_pressed()
+	else:
+		_on_slot_pressed()
+
+func _on_slot_pressed() -> void:
+	var foc = get_viewport().gui_get_focus_owner()
+	set_ability(foc.get_index())
+
+func _list_ability_pressed():
+	chara
