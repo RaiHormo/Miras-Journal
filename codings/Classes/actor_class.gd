@@ -352,4 +352,5 @@ func get_OV() -> SpriteFrames:
 func load_complimentaries():
 	Complimentaries = []
 	for i in ComplimentaryList:
-		Complimentaries.append(await Global.get_ability(i))
+		if ComplimentaryList.get(i) > 0:
+			Complimentaries.append(await Global.get_ability(i))

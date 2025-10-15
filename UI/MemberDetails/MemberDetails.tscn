@@ -338,6 +338,7 @@ corner_radius_bottom_left = 26
 content_margin_left = 12.0
 content_margin_top = 24.0
 content_margin_right = 12.0
+content_margin_bottom = 12.0
 
 [sub_resource type="Theme" id="Theme_xfsfw"]
 default_font = ExtResource("6_61s32")
@@ -962,6 +963,13 @@ theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "  Abilities"
+
+[node name="CompTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
+theme_override_fonts/font = ExtResource("5_ffgmy")
+theme_override_font_sizes/font_size = 24
+text = "  Complimentary"
 
 [node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller"]
 unique_name_in_owner = true

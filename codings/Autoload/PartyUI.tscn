@@ -1356,6 +1356,7 @@ text = "/day
 /cam"
 
 [node name="DebugText" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 1089.0
 offset_top = 760.0
 offset_right = 1272.0

@@ -108,7 +108,7 @@ func _check_party():
 	if not Global.Party.Leader: Global.Party.Leader = Global.find_member(&"Mira")
 	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
-	$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
+	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
 		if Global.Party.check_member(i):

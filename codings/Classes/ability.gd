@@ -32,6 +32,11 @@ enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES, ANY}
 @export var RecoverAura: bool = false
 @export var DmgVarience: bool = false
 
+var filename: String = "":
+	get():
+		if filename == "":
+			filename = resource_path.replace(".tres", "").replace("res://database/Abilities/", "").replace("Attacks/", "")
+		return filename
 var remove_item_on_use: ItemData = null
 
 func is_aoe() -> bool:

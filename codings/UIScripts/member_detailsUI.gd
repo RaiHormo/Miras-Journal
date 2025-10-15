@@ -159,7 +159,7 @@ func _on_back_pressed():
 	queue_free()
 
 func fetch_abilities(chara: Actor):
-	var Abilities = chara.Abilities.duplicate()
+	var Abilities = chara.get_abilities()
 	Abilities.push_front(chara.StandardAttack)
 	for n in %AbilityList.get_children():
 		if n is Button:
@@ -185,6 +185,7 @@ func fetch_abilities(chara: Actor):
 				#i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
 			#i.disabled = true
 			#%AbilityList.get_children().push_back(i)
+	%AbilityList.move_child(%AbilityList/CompTxt, chara.Abilities.size()+3)
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
 
 func _on_abilities_pressed() -> void:
@@ -192,6 +193,8 @@ func _on_abilities_pressed() -> void:
 	swap_mode(!stability_menu)
 
 func _on_ab_focus_entered() -> void:
+	if get_viewport().gui_get_focus_owner().get_index() == 1:
+		$AbilityPanel/Border1/Scroller.scroll_vertical = 0
 	if $AbilityPanel.scale == Vector2.ONE: Global.cursor_sound()
 	var ab:Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
 	if not is_instance_valid(ab): return
