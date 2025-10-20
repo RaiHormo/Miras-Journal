@@ -10,9 +10,9 @@ func _init() -> void:
 
 func draw_character(character: Actor):
 	chara = character
-	#Test
-	Global.Complimentaries = ["FluidBlast", "RedShift", "Dispel"]
-	chara.SkillLevel = 10
+	##Test
+	#Global.Complimentaries = ["FluidBlast", "RedShift", "Dispel"]
+	#chara.SkillLevel = 10
 	#chara.ComplimentaryList = {"FluidBlast":1, "RedShift":1}
 	
 	slots = chara.SkillLevel/10 + 1

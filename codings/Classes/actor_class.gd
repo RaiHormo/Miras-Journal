@@ -347,6 +347,8 @@ func skill_points_for(level: int) -> int:
 	return int(SkillCurve.sample(level))
 
 func get_OV() -> SpriteFrames:
+	if not ResourceLoader.exists(OV):
+		OV = load("res://database/Party/"+codename+".tres").OV
 	return await Loader.load_res(OV)
 
 func load_complimentaries():

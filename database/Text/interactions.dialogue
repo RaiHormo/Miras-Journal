@@ -87,6 +87,26 @@ do Global.Player.camera_follow(true)
  Mira.Neutral: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
 => END
 
+~ amberelm_bench
+if Day == 0 and TimeOfDay == 4:
+	We just rested here, let's move forward for now.
+else:
+	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
+	if confirm_time_passage("Rest", "Fully restore health."):
+		do Event.progress_by_time(1)
+		do Event.time_transition()
+=> END
+
+~ oct0_evening
+The sky getting darker now.
+I've really been out here all day...
+Placeholder description: Mira looks forward to Alcine goofing around.
+Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
+Their color is nearly oposite to mine...
+But perhaps I could give it a try.
+Placeholder description: Unlocked Complimentary Ability: Fluid Blast
+Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
+
 ~ sleep_home
 do progress_by_time(1)
 if Event.TimeOfDay == 1:

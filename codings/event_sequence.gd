@@ -99,17 +99,17 @@ func rest_amberelm():
 	Event.take_control()
 	await Loader.save()
 	Global.check_party.emit()
-	Loader.detransition()
-	var cut = Global.Area.get_node("EvRestAmberelm")
-	cut.show()
 	get_tree().paused = false
 	Global.Area.Followers[0].hide() 
-	cut.get_node("Mira").BodyState = NPC.NONE
-	cut.get_node("Alcine").BodyState = NPC.NONE
-	cut.get_node("Mira").set_anim("SitDown")
-	cut.get_node("Alcine").set_anim("IdleDown")
-	Global.Player.hide()
+	var mira = await Event.spawn("Mira:MiraOVBag", Vector2(90, 360), "D", true, 8)
+	var alcine = await Event.spawn("Alcine", Vector2(110, 350), "D", true, 8)
+	mira.BodyState = NPC.NONE
+	alcine.BodyState = NPC.NONE
+	mira.set_anim("SitDown")
+	alcine.set_anim("IdleDown")
+	Loader.detransition()
 	Global.Player.camera_follow(false)
+	Global.Player.hide()
 	Global.get_cam().zoom = Vector2(6,6)
 	Global.get_cam().position = Vector2(85,360)
 	await Event.wait(1)
@@ -146,6 +146,10 @@ func amberelm_guardian():
 		Event.ToTime = 5
 		Event.add_flag("BeatStoneGuardian")
 		Event.time_transition()
+
+func oct0_evening():
+	await Global.textbox("interactions", "oct0_evening")
+	Global.Complimentaries.append("FluidBlast")
 
 func oct0_night():
 	await Loader.travel_to("Orange", Vector2(775, -211), 0, -1, "none", false)

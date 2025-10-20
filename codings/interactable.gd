@@ -106,7 +106,7 @@ func appear():
 		t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 		await get_tree().create_timer(0.1).timeout
 		animating = false
-		if not Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
+		if not is_instance_valid(Global.Player) or not Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
 			disappear()
 			CanInteract = false
 

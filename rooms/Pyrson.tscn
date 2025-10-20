@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="21_p415d"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="22_ejpht"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="23_taf6h"]
-[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV2.tres" id="24_4lmea"]
+[ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV.tres" id="24_4lmea"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="28_prfhr"]
 
 [sub_resource type="Gradient" id="Gradient_desij"]
@@ -880,23 +880,23 @@ LayersUp = 4
 LayersDown = 3
 zUp = 3
 
-[node name="BottomInteractable" parent="Ladder" index="0"]
-position = Vector2(0, 79)
+[node name="End1" parent="Ladder" index="0"]
+position = Vector2(1, 15)
 
 [node name="TopInteractable" parent="Ladder" index="1"]
 position = Vector2(0, 34)
 
-[node name="End1" parent="Ladder" index="2"]
-position = Vector2(1, 15)
-
-[node name="End2" parent="Ladder" index="3"]
-position = Vector2(0, 102.5)
-
-[node name="Start1" parent="Ladder" index="4"]
+[node name="Start1" parent="Ladder" index="2"]
 position = Vector2(0, 50)
 
-[node name="Start2" parent="Ladder" index="5"]
+[node name="Start2" parent="Ladder" index="3"]
 position = Vector2(0, 81)
+
+[node name="BottomInteractable" parent="Ladder" index="4"]
+position = Vector2(0, 79)
+
+[node name="End2" parent="Ladder" index="5"]
+position = Vector2(0, 102.5)
 
 [node name="Maple" parent="." instance=ExtResource("16_s1pqb")]
 z_index = 3

@@ -94,7 +94,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t = create_tween()
 			t.tween_property(self, "position:y", -10, 0.1).as_relative()
 			t.tween_property(self, "position:y", 10, 0.1).as_relative()
-			$Sprite.sprite_frames = preload("res://art/OV/Alcine/AlcineOV2.tres")
+			$Sprite.sprite_frames = preload("res://art/OV/Alcine/AlcineOV.tres")
 			await Event.wait(1)
 			Global.Player.set_anim("IdleRight")
 			await Global.textbox("story_events", "good_on_you")

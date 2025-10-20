@@ -238,7 +238,7 @@ func sequence(title: String):
 func sequence_exists(title: String) -> bool:
 	return seq.has_method(title)
 
-func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true) -> NPC:
+func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var nam = id.split(":", false)
 	match nam.size():
@@ -260,6 +260,7 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true) -> NPC:
 	Global.Area.add_child(chara)
 	chara.name = nam[0]
 	chara.position = pos
+	chara.z_index = z
 	chara.look_to(Global.get_dir_from_letter(dir))
 	return chara
 
