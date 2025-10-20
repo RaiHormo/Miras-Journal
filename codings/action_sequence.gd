@@ -82,6 +82,7 @@ func handle_states():
 					"KnockedOut":
 						Bt.recover(chara)
 				state.QueueRemove = true
+				Bt.anim("", chara)
 		if not state.QueueRemove:
 			match state.filename:
 				"AuraBreak":
@@ -812,7 +813,7 @@ func ProtectiveField(target: Actor):
 func Attention(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(CurrentChar)
-	Global.passive("battle", "attention")
+	Global.passive("banter_battle", "attention")
 	await Event.wait(1)
 	Bt.focus_cam(target)
 	target.add_state("Aggro")
@@ -823,7 +824,7 @@ func Attention(target: Actor):
 func SturdyGuard(target: Actor):
 	Bt.focus_cam(target)
 	Bt.anim("Guard")
-	await target.add_state("Barrier", 2)
+	await target.add_state("Barrier", 1)
 	Bt.end_turn()
 
 func RockThrow(target: Actor):
@@ -934,7 +935,7 @@ func FirstBattle1():
 	Bt.Action = true
 	Loader.InBattle = true
 	Loader.get_node("Can").layer = 3
-	await Global.textbox("story_events", "first_cutscene")
+	await Global.textbox("story_0", "first_cutscene")
 	Loader.battle_bars(4)
 	Global.Player.hide()
 	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
@@ -947,7 +948,7 @@ func FirstBattle1():
 	Bt.get_actor("Mira").node.frame = 2
 	Bt.focus_cam(Bt.get_actor("Mira"), 3, 40)
 	await Event.wait(1)
-	Global.passive("story_events", "sstay_back")
+	Global.passive("story_0", "sstay_back")
 	await Event.wait(1)
 	Loader.InBattle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
@@ -979,7 +980,7 @@ func FirstBattle2(target: Actor):
 	CurrentChar.node.hide()
 	Bt.play_sound("Attack2", CurrentChar)
 	Bt.damage(target, CurrentChar.Attack, false, 12, false)
-	Global.passive("story_events", "gahh")
+	Global.passive("story_0", "gahh")
 	await Event.wait(2)
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
@@ -992,7 +993,7 @@ func FirstBattle2(target: Actor):
 	Bt.zoom(7, 1)
 	await Event.wait(4)
 	Bt.glow(1, 2, Bt.Party.Leader)
-	Global.passive("story_events", "my_aura")
+	Global.passive("story_0", "my_aura")
 	await Event.wait(6)
 	Bt.zoom(5, 3)
 	Bt.move_cam(Vector2(-15,0), 3)
@@ -1040,7 +1041,7 @@ func FirstBattle5():
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)
 	Bt.victory_anim(Global.Party.Leader)
-	await Global.textbox("story_events", "what_this")
+	await Global.textbox("story_0", "what_this")
 	Global.heal_party()
 	Bt.ObtainedItems.clear()
 	Bt.victory(true)
@@ -1050,7 +1051,7 @@ func AlcineWoods1():
 	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
 	Bt.Action = true
-	await Global.passive("story_events", "going_nowhere")
+	await Global.passive("story_0", "going_nowhere")
 	Event.CutsceneHandler.alcine_helps()
 
 func AlcineWoods2():
@@ -1069,7 +1070,7 @@ func AlcineWoods2():
 
 func AlcineWoods3():
 	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
-	await Global.passive("story_events", "amazing")
+	await Global.passive("story_0", "amazing")
 
 func AlcineWoods4():
 	get_tree().paused = false
@@ -1097,7 +1098,7 @@ func StoneGuardian1():
 	guardian.NextAction = "Ability"
 	Bt.zoom(6, 2)
 	Bt.focus_cam(guardian, 2, Vector2(-20, -40))
-	await Global.passive("story_events", "stone_guardian_intro")
+	await Global.passive("story_0", "stone_guardian_intro")
 	Bt.entrance_anim(Global.Party.Leader)
 	Bt.entrance_anim(Global.Party.Member1)
 	await Event.wait(0.2)
@@ -1114,7 +1115,7 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	Bt.CurrentChar = guardian
 	CurrentChar = guardian
 	if mira.Health > 0:
-		await Global.passive("story_events", "stone_guardian_still_standing")
+		await Global.passive("story_0", "stone_guardian_still_standing")
 	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
 	Bt.zoom(6)
 	await Bt.focus_cam(alcine)
@@ -1164,7 +1165,7 @@ func StoneGuardian3():
 	if mira.has_state("Guarding"):
 		mira.remove_state("Guarding")
 		await Event.wait(1)
-		Global.passive("story_events", "stone_guardian_guard")
+		Global.passive("story_0", "stone_guardian_guard")
 		await Event.wait(2)
 		mira.Aura = 0
 		mira.remove_state("Guarding")
@@ -1176,7 +1177,7 @@ func StoneGuardian3():
 		Bt.anim("Bleed", mira)
 		await mira.add_state("AuraBreak")
 		await Event.wait(2)
-		await Global.passive("story_events", "stone_guardian_my_arm")
+		await Global.passive("story_0", "stone_guardian_my_arm")
 	Bt.follow_up_text()
 	Bt.zoom(7)
 	await Bt.focus_cam(guardian)
@@ -1184,6 +1185,7 @@ func StoneGuardian3():
 	await Bt.focus_cam(mira, 3)
 	await Event.wait(1)
 	mira.CantDie = false
+	Event.add_flag("BeatStoneGuardian")
 	Loader.gray_out(1)
 	await Event.wait(1)
 	Loader.get_node("Can").layer = 3
@@ -1202,7 +1204,7 @@ func LazuliteHeartBoss1():
 	await Bt.get_actor("LHBody").add_state("UnbreakingAura", -1, mira, false)
 	mira.node.position = Bt.get_actor("LHRight").node.position
 	Loader.battle_bars(2)
-	await Global.passive("story_events", "lazulite_heart_intro")
+	await Global.passive("story_1", "lazulite_heart_intro")
 	#Bt.return_cur(mira)
 	mira.NextAction = "Attack"
 	mira.NextMove = Ability.nothing()
@@ -1216,7 +1218,7 @@ func LazuliteHeartBoss1():
 func LazuliteHeartBoss2():
 	Bt.death(Bt.get_actor("LHLeft"))
 	Bt.death(Bt.get_actor("LHRight"))
-	await Global.passive("story_events", "lazulite_heart_3")
+	await Global.passive("story_1", "lazulite_heart_3")
 	Loader.gray_out(1, 0.5, 1, Color.WHITE)
 	await Event.wait(1)
 	Bt.victory(true)

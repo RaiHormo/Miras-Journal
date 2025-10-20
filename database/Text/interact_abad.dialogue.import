@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dyn0tf4oi5m2j"
+path="res://.godot/imported/interact_abad.dialogue-1762056a660d83c10d72664731899330.tres"
+
+[deps]
+
+source_file="res://database/Text/interact_abad.dialogue"
+dest_files=["res://.godot/imported/interact_abad.dialogue-1762056a660d83c10d72664731899330.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dkysiq802atj"
+path="res://.godot/imported/banter_battle.dialogue-f260c66c787b4136c406caa50061dfab.tres"
+
+[deps]
+
+source_file="res://database/Text/banter_battle.dialogue"
+dest_files=["res://.godot/imported/banter_battle.dialogue-f260c66c787b4136c406caa50061dfab.tres"]
+
+[params]
+
+defaults=true

@@ -9,7 +9,7 @@ func default() -> void:
 		await Event.wait(0.2)
 		Global.Player.can_dash = false
 		await move_dir(Vector2.UP)
-		Global.passive("story_events", "hey_wait")
+		Global.passive("story_0", "hey_wait")
 		await move_dir(Vector2.RIGHT*15)
 		BodyState = CUSTOM
 		$Sprite.play("Scared")
@@ -54,7 +54,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.frame = 0
 			await t.finished
 			Event.wait(0.5)
-			await Global.textbox("story_events", "approach")
+			await Global.textbox("story_0", "approach")
 			Global.Player.collision(false)
 			await Global.Player.go_to(Vector2(67, -45))
 			await Event.wait(0.3)
@@ -71,7 +71,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
 			Event.f("FlameActive", false)
-			await Global.textbox("story_events", "you_ok")
+			await Global.textbox("story_0", "you_ok")
 			await Event.wait(0.5)
 			BodyState = CUSTOM
 			$Sprite.play("Scared")
@@ -80,7 +80,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			#await bubble("Question")
 			await Event.wait(1)
 			round(position)
-			await Global.textbox("story_events", "no_harm")
+			await Global.textbox("story_0", "no_harm")
 			$Sprite.play("ScaredTurn")
 			await Event.wait(0.5)
 			await move_dir(Vector2(-2, 0))
@@ -90,14 +90,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.play("Hug")
 			Global.Player.bubble("Surprise")
 			await Event.wait(1.5)
-			await Global.textbox("story_events", "haha")
+			await Global.textbox("story_0", "haha")
 			t = create_tween()
 			t.tween_property(self, "position:y", -10, 0.1).as_relative()
 			t.tween_property(self, "position:y", 10, 0.1).as_relative()
 			$Sprite.sprite_frames = preload("res://art/OV/Alcine/AlcineOV.tres")
 			await Event.wait(1)
 			Global.Player.set_anim("IdleRight")
-			await Global.textbox("story_events", "good_on_you")
+			await Global.textbox("story_0", "good_on_you")
 			look_to(Vector2.RIGHT)
 			await bubble("Surprise")
 			await go_to(Vector2(1630, -1081), false)
@@ -121,7 +121,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Sprite.frame = 0
 			await Event.wait(1)
 			$"../EvPetrogon".play("Idle")
-			await Global.textbox("story_events", "stay_back")
+			await Global.textbox("story_0", "stay_back")
 			Loader.Attacker = Global.Area.get_node("EvPetrogon")
 			await Event.wait(0.1)
 			Global.Party.Leader.add_health(30)
@@ -138,7 +138,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			$Bubble.play("Surprise")
 			await $Bubble.animation_finished
 			await move_dir(Vector2.UP*5)
-			await Global.textbox("story_events", "was_that_a")
+			await Global.textbox("story_0", "was_that_a")
 			await Event.give_control(true)
 			Event.flag_progress("AlcineFollow", 1)
 		#elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
@@ -146,7 +146,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			#Event.give_control(true)
 			#Global.Player.can_dash = false
 			#Global.Player.speed = 50
-			#await Global.passive("story_events", "a_bridge")
+			#await Global.passive("story_0", "a_bridge")
 			#Global.Player.can_dash = true
 			#Global.Player.speed = 75
 			#Event.flag_progress("AlcineFollow", 5)
@@ -212,7 +212,7 @@ func after_battle():
 	Event.take_control()
 	Global.Player.look_to(Vector2.LEFT)
 	Global.Player.position = Vector2(1619, -1068)
-	await Global.textbox("story_events", "got_through_that")
+	await Global.textbox("story_0", "got_through_that")
 	await Loader.transition("R")
 	hide()
 	Global.get_cam().zoom = Vector2(4, 4)

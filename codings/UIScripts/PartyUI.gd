@@ -718,14 +718,14 @@ func close_submenu():
 func talk() -> void:
 	if submenu_opened or not Expanded: return
 	var dialog: DialogueResource
-	dialog = load("res://database/Text/" + Global.Party.array()[focus].codename.to_lower()+"_talk.dialogue")
+	dialog = load("res://database/Text/talk_" + Global.Party.array()[focus].codename.to_lower()+".dialogue")
 	if not dialog: Global.buzzer_sound(); return
 	var key = "d"+str(Event.Day)+"_"+str(Event.flag_int(Global.Party.array()[focus].codename+"Talk"))
 	if not key in dialog.get_titles(): key = "error"
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
 	nametag_to_be_used = (await dialog.get_next_dialogue_line(key)).character
 	submenu_opened = true
-	await Global.textbox(Global.Party.array()[focus].codename.to_lower()+"_talk", "options", true)
+	await Global.textbox("talk_"+Global.Party.array()[focus].codename.to_lower(), "options", true)
 	close_submenu()
 
 func preform_levelups():

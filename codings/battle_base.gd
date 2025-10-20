@@ -230,9 +230,9 @@ func entrance():
 		Loader.battle_bars(3)
 		if Seq.EntranceBanter != "":
 			if Seq.EntranceBanterIsPassive:
-				Global.passive("entrance_banter", Seq.EntranceBanter)
+				Global.passive("banter_entrance", Seq.EntranceBanter)
 			else:
-				Global.textbox("entrance_banter", Seq.EntranceBanter)
+				Global.textbox("banter_entrance", Seq.EntranceBanter)
 				while Global.textbox_open:
 					if $Cam.position.x > -30: $Cam.position.x -= 0.03
 					await Event.wait()
@@ -1021,7 +1021,7 @@ func victory(ignore_seq:= false):
 		$Act.call(Seq.VictorySequence)
 		return
 	if Seq.VictoryBanter != "":
-		Global.passive("victory_banter", Seq.VictoryBanter)
+		Global.passive("banter_victory", Seq.VictoryBanter)
 	$Canvas.layer = 1
 	Loader.BattleResult = 1
 	for i in PartyArray:

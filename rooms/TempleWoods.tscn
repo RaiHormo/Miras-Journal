@@ -1321,7 +1321,7 @@ position = Vector2(1233.99, -52.2818)
 collision_layer = 257
 collision_mask = 257
 ActionType = "text"
-file = "interactions"
+file = "interact_abad"
 title = "skeleton"
 
 [node name="CollisionShape2D" parent="InteractSkeleton" index="0"]
@@ -1333,7 +1333,7 @@ position = Vector2(1427.88, -532.326)
 collision_layer = 257
 collision_mask = 257
 ActionType = "text"
-file = "interactions"
+file = "interact_abad"
 title = "statue_legs"
 Height = 15
 
@@ -1342,7 +1342,7 @@ position = Vector2(1439.9, -439.329)
 collision_layer = 257
 collision_mask = 257
 ActionType = "text"
-file = "interactions"
+file = "interact_abad"
 title = "symbol"
 proper_pos = Vector2(1410, -444)
 proper_face = Vector2(1, 0)

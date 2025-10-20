@@ -707,7 +707,7 @@ position = Vector2(157, 419)
 LabelText = "Sleep"
 ActionType = "text"
 Length = 100
-file = "interactions"
+file = "interact_pyrson"
 title = "sleep_home"
 Height = 6
 return_control = false
@@ -1079,7 +1079,7 @@ position = Vector2(79, 127)
 
 [node name="Interactable" parent="VPGate" index="0"]
 ActionType = "text"
-file = "interactions"
+file = "interact_pyrson"
 title = "gather_pyrson"
 return_control = false
 

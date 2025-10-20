@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=4 uid="uid://c27y1nbapxay"]
+[gd_scene load_steps=5 format=4 uid="uid://c27y1nbapxay"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_peein"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_qu5r6"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="3_seyrr"]
+[ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="4_kse44"]
 
 [node name="Orange" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_peein")
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
 
@@ -31,3 +33,11 @@ Direction = Vector2(-1, 0)
 Position = Vector2(2938, -138)
 room = "Amberelm"
 ToCamera = 2
+
+[node name="Interactable" parent="." instance=ExtResource("4_kse44")]
+position = Vector2(780, -256)
+LabelText = "Rest"
+ActionType = "text"
+Length = 100
+file = "interact_abad"
+title = "rest_camp"

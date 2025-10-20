@@ -125,6 +125,9 @@ func pop_tutorial(id: String):
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
+	if not is_instance_valid(Global.Player):
+		Global.Controllable = false
+		return
 	var pos = Global.Player.position
 	print("Taking control")
 	Global.Controllable = false
@@ -259,9 +262,10 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	sprite_node.sprite_frames = sprite
 	Global.Area.add_child(chara)
 	chara.name = nam[0]
+	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
-	chara.look_to(Global.get_dir_from_letter(dir))
+	await chara.look_to(Global.get_dir_from_letter(dir))
 	return chara
 
 func no_player():

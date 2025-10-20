@@ -12,11 +12,11 @@ if confirm_time_passage("Talk to Asteria" ,"I've been looking for a chance to ta
 
 ~ rank1_1
 Mira.Neutral: So...
-(hide)[next]
+(hide)
 do wait(2)
 Asteria.Neutral: How are you holding up?
 Mira.Neutral: M-Me? I'm not sure...
-(hide)[next]
+(hide)
 do wait(2)
 Asteria.Neutral: Are you liking this village?
 - Somewhat
@@ -27,7 +27,7 @@ Asteria.Neutral: Are you liking this village?
 	Asteria.Neutral: Or maybe I don't...
 - No
 	Mira.Neutral: I just want to go home...
-	(hide)[next]
+	(hide)
 	do wait(1)
 	Asteria.Neutral: ...[wait=1]I get it.
 	Asteria.Neutral: What was... your home like?
@@ -41,7 +41,7 @@ Asteria.Neutral: I've been here my whole life. There isn't much to miss...
 Mira.Neutral: Your whole life?
 Asteria.Neutral: Mhm.
 Mira.Neutral: ...
-(hide)[next]
+(hide)
 do wait(3)
 Mira.Neutral: So... you mentioned knowing someone who can dispell?
 Asteria.Neutral: Oh right, [shake rate=20 level=8]them[/shake].
@@ -56,7 +56,7 @@ Asteria.Neutral: Turn the door handle twice, then cast a straight line.
 Mira.Neutral: Is that some sort of passcode? Can't I just... knock the door?
 Asteria.Neutral: No, just do what I said.
 Mira.Neutral: Okay...
-(hide)[next]
+(hide)
 do wait(3)
 Asteria.Neutral: One... last thing...
 Asteria.Neutral: I'm sorry about everything back at the bunker... I jumped to conclusions too fast!
@@ -72,7 +72,7 @@ Asteria.Neutral: I'm sorry if I hurt you...
 	Mira.Neutral: It's totally valid how you'd feel about those keepers.
 	Mira.Neutral: Just...[wait=1] make sure you're aiming at the right person next time, okay?
 Asteria.Neutral: Yeah...
-(hide)[next]
+(hide)
 do transition()
 do lower_layer()
 do wait(1)

@@ -10,6 +10,8 @@ func draw_character(chara: Actor, menu:= 0):
 	if Global.Complimentaries.is_empty():
 		$AbilityPanel/Complimentary.disabled = true
 		$AbilityPanel/Border1/Scroller/AbilityList/CompTxt.hide()
+	else:
+		$AbilityPanel/Complimentary.disabled = false
 	actor = chara
 	Global.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon

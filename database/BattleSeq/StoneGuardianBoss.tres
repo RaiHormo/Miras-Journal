@@ -9,6 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_d2kvd"]
 script = ExtResource("3_oponu")
+repeatable = true
 actor = &"Guardian"
 low_ap = 1
 result = 3

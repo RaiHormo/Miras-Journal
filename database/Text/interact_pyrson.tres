@@ -1,0 +1,54 @@
+~ sleep_home
+do progress_by_time(1)
+if Event.TimeOfDay == 1:
+	I just got up... should I go back to bed?
+	if confirm_time_passage("Rest", "Will make me feel less tired."):
+		do Loader.transition("")
+		do Event.progress_by_time(1)
+		do Event.time_transition()
+elif Event.TimeOfDay == 5:
+	if f("eepy", 1):
+		I'm exhausted.
+	else:
+		Bedtime.
+	if confirm_time_passage("Sleep", "Sleep until next the morning."):
+		do Loader.transition("")
+		do Event.progress_by_time(1)
+		do Event.time_transition()
+else:
+	if f("eepy", 1):
+		I do feel pretty tired... Should I take a quick nap?
+	else:
+		It's my bed.
+	if confirm_time_passage("Rest", "Will make me feel less tired."):
+		do Loader.transition("")
+		do Event.progress_by_time(1)
+		do Event.time_transition()
+=> END
+
+~ gather_pyrson
+if f("eepy", 1):
+	I don't have the energy to go out right now...
+	do give_control()
+	=> END!
+[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
+- Gather allies
+	do transition("L")
+	do Party.add("Alcine")
+	do Party.add("Asteria")
+	do Party.add("Daze")
+	do zoom(5)
+	do wait(0.3, false)
+	set Global.Area.Followers[1].position = Global.Player.position + Vector2(24, 0)
+	set Global.Area.Followers[0].position = Global.Player.position + Vector2(24, 24)
+	set Global.Area.Followers[2].position = Global.Player.position + Vector2(0, 24)
+	do PartyUI.hide_all()
+	do detransition()
+	Ok, let's go.
+	do Global.veinet_map("Gate")
+- Go alone
+	do Party.reset_party()
+	do Global.veinet_map("Gate")
+- Don't go
+	do give_control()
+=> END

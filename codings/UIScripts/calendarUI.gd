@@ -18,6 +18,11 @@ func _check_party():
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
 	Global.check_party.emit()
 	Event.f("DisableMenus", false)
+	if Event.f("HideDate"):
+		$Date/Day.add_theme_font_size_override("font_size", 150)
+		$Date/Month.text = "Unknown"
+		$Date/Day.text = "Date"
+	else: $Date/Day.add_theme_font_size_override("font_size", 265)
 	show()
 	Global.Controllable = false
 	get_tree().paused = true

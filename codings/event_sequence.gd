@@ -31,10 +31,7 @@ func first_battle():
 func TWflame():
 	await Event.take_control()
 	Global.Player.set_anim("IdleRight")
-	await Global.textbox("interactions", "getting_dark")
-	await Global.Player.activate_flame()
-	await Event.wait(0.5)
-	await Global.textbox("interactions", "that_should_do_it")
+	await Global.textbox("interact_abad", "getting_dark")
 	Event.give_control()
 	Event.add_flag("TWflame")
 	Loader.save()
@@ -63,7 +60,7 @@ func enter_amberelm():
 	alcine.speed = 75
 	Event.TimeOfDay = Event.TOD.MORNING
 	Event.Day = 1
-	await Global.textbox("story_events", "morning")
+	await Global.textbox("story_0", "morning")
 	mira.speed = 75
 	mira.move_dir(Vector2.UP*5)
 	alcine.chain_moves([Vector2.RIGHT, Vector2.UP*5])
@@ -88,7 +85,7 @@ func enter_amberelm_2():
 	await Event.wait(1)
 	Global.Area.Followers[0].position = Global.Player.position + Vector2(0, 24)
 	Loader.ungray.emit()
-	await Global.textbox("story_events", "what_happened_here")
+	await Global.textbox("story_0", "what_happened_here")
 	await Loader.transition("R")
 	Global.Player.position = Vector2(150, 345)
 	Loader.detransition()
@@ -96,44 +93,44 @@ func enter_amberelm_2():
 	Global.Player.set_anim("IdleRight")
 
 func rest_amberelm():
-	Event.take_control()
-	await Loader.save()
-	Global.check_party.emit()
-	get_tree().paused = false
-	Global.Area.Followers[0].hide() 
-	var mira = await Event.spawn("Mira:MiraOVBag", Vector2(90, 360), "D", true, 8)
-	var alcine = await Event.spawn("Alcine", Vector2(110, 350), "D", true, 8)
-	mira.BodyState = NPC.NONE
-	alcine.BodyState = NPC.NONE
-	mira.set_anim("SitDown")
-	alcine.set_anim("IdleDown")
-	Loader.detransition()
-	Global.Player.camera_follow(false)
-	Global.Player.hide()
-	Global.get_cam().zoom = Vector2(6,6)
-	Global.get_cam().position = Vector2(85,360)
-	await Event.wait(1)
-	await Global.textbox("story_events", "rest_amberelm", true)
-	await Loader.transition("")
-	await Event.wait(1)
-	Global.heal_party()
-	Event.ToDay = 0
-	Event.ToTime = Event.TOD.DAYTIME
-	await Event.time_transition()
-	Global.heal_party()
+	Event.progress_by_time(1)
+	if await PartyUI.confirm_time_passage("Rest", "Fully recover Health."):
+		await Loader.save()
+		Event.no_player()
+		Global.check_party.emit()
+		get_tree().paused = false
+		Global.Area.Followers[0].hide() 
+		var mira = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), "D", true, 8)
+		var alcine = await Event.spawn("Alcine", Vector2(100, 340), "D", true, 8)
+		mira.BodyState = NPC.NONE
+		alcine.BodyState = NPC.NONE
+		mira.set_anim("SitDown")
+		alcine.set_anim("IdleDown")
+		Loader.detransition()
+		Global.get_cam().zoom = Vector2(6,6)
+		Global.get_cam().position = Vector2(85,360)
+		await Event.wait(1)
+		await Global.textbox("story_0", "rest_amberelm", true)
+		await Loader.transition("")
+		await Event.wait(1)
+		Global.heal_party()
+		Event.ToDay = 0
+		Event.ToTime = Event.TOD.DAYTIME
+		await Event.time_transition()
+		Global.heal_party()
 
 func oct0_daytime():
+	Event.no_player()
 	await Loader.detransition()
-	await Global.textbox("story_events", "wake_amberelm", true)
 	await Loader.transition("R")
 	Global.get_cam().zoom = Vector2(4,4)
-	var cut = Global.Area.get_node("EvRestAmberelm")
-	cut.hide()
-	Global.Player.show()
-	Loader.detransition()
-	Event.give_control(true)
+	var mira = Event.npc("Mira")
+	var alcine = Event.npc("Alcine")
+	mira.set_anim("SitDown")
+	alcine.set_anim("IdleDown")
+	await Global.textbox("story_0", "wake_amberelm", true)
 	Event.f("EvRestAmberelm", true)
-	Global.check_party.emit()
+	await Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)
 	Loader.save()
 
 func amberelm_guardian():
@@ -147,8 +144,8 @@ func amberelm_guardian():
 		Event.add_flag("BeatStoneGuardian")
 		Event.time_transition()
 
-func oct0_evening():
-	await Global.textbox("interactions", "oct0_evening")
+func oct0_afternoon():
+	await Global.textbox("interact_abad", "oct0_afternoon")
 	Global.Complimentaries.append("FluidBlast")
 
 func oct0_night():
@@ -156,7 +153,7 @@ func oct0_night():
 	Event.no_player()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
 	await Event.spawn("Daze", Vector2(660, -211), "R")
-	await Global.textbox("story_events", "daze_introduction")
+	await Global.textbox("story_0", "daze_introduction")
 	await Loader.travel_to("Orange", Vector2(775, -211))
 
 func jump_playtest():
@@ -182,7 +179,7 @@ func hurt_1():
 		if not Event.f("ShardsLowHP") and Global.Party.has_member("Asteria"):
 			Event.take_control(false, true, true)
 			Event.add_flag("ShardsLowHP")
-			await Global.textbox("interactions", "shards_low_hp")
+			await Global.textbox("interact_abad", "shards_low_hp")
 			Event.give_control()
 		Global.Party.Leader.Health += 1
 	Global.check_party.emit()
@@ -204,7 +201,7 @@ func nov3_afternoon():
 	Event.npc("RoomMira").position = Vector2(166, 412)
 	Event.npc("RoomMira").set_anim("SitRight")
 	await Event.wait(2)
-	await Global.textbox("story_events", "nov3_afternoon", false)
+	await Global.textbox("story_1", "nov3_afternoon", false)
 	Event.add_flag("Nov3_Afternoon")
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.Facing = Vector2.RIGHT
@@ -224,11 +221,11 @@ func nov3_enterSG():
 	Global.Player.collision(false)
 	await Event.take_control(false, true)
 	await Global.Player.move_dir(Vector2(6, 0))
-	await Global.textbox("story_events", "nov3_sg_enter")
+	await Global.textbox("story_1", "nov3_sg_enter")
 	Event.give_control(true)
 	Event.add_flag("Nov3_WentToSG")
 	await Event.wait(2)
-	Global.passive("story_events", "very_shiny")
+	Global.passive("story_1", "very_shiny")
 
 #############################################################
 
@@ -247,7 +244,6 @@ func sl_maple_1():
 func sl_asteria_1():
 	await Loader.travel_to("Pyrson", Vector2(490, 680), 0 , -1, "wait")
 	Event.no_player()
-	
 	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(506, 680), "R")
 	var asteria: NPC = Event.npc("Asteria")
 	asteria.position = Vector2(506, 640)
@@ -266,7 +262,7 @@ func sl_asteria_1():
 func sg_bunker_entrance():
 	if Event.f("DefeatedLazuliteHeart"):
 		await Event.take_control()
-		await Global.textbox("story_events", "enter_bunker_2")
+		await Global.textbox("story_1", "enter_bunker_2")
 		Event.give_control()
 	else:
 		await Event.take_control()
@@ -275,7 +271,7 @@ func sg_bunker_entrance():
 		await Loader.battle_end
 		print("done")
 		Loader.ungray.emit()
-		await Global.textbox("story_events", "lazulite_heart_after")
+		await Global.textbox("story_1", "lazulite_heart_after")
 		Loader.white_fadeout(0.5, 0.3, 0.5)
 		await Event.wait(1)
 		Event.add_flag("DefeatedLazuliteHeart")

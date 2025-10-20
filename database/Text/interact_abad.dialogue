@@ -1,13 +1,9 @@
 ~ getting_dark
 ...It's getting a little dark.
-=> END
-
-~ that_should_do_it
+(hide)
+do Player.activate_flame()
+do Event.wait(0.5)
 This should help.
-=> END
-
-~ cant_dash_on_flame
-Mira.Neutral: I can't dash and hold this flame at the same time.[next=4]
 => END
 
 ~ skeleton
@@ -88,16 +84,16 @@ do Global.Player.camera_follow(true)
 => END
 
 ~ amberelm_bench
-if Day == 0 and TimeOfDay == 4:
+if Day == 0 and TimeOfDay == 3:
 	We just rested here, let's move forward for now.
 else:
 	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
+	do Event.progress_by_time(1)
 	if confirm_time_passage("Rest", "Fully restore health."):
-		do Event.progress_by_time(1)
 		do Event.time_transition()
 => END
 
-~ oct0_evening
+~ oct0_afternoon
 The sky getting darker now.
 I've really been out here all day...
 Placeholder description: Mira looks forward to Alcine goofing around.
@@ -106,33 +102,13 @@ Their color is nearly oposite to mine...
 But perhaps I could give it a try.
 Placeholder description: Unlocked Complimentary Ability: Fluid Blast
 Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
+=> END
 
-~ sleep_home
+~ rest_camp
+It's the tent.
 do progress_by_time(1)
-if Event.TimeOfDay == 1:
-	I just got up... should I go back to bed?
-	if confirm_time_passage("Rest", "Will make me feel less tired."):
-		do Loader.transition("")
-		do Event.progress_by_time(1)
-		do Event.time_transition()
-elif Event.TimeOfDay == 5:
-	if f("eepy", 1):
-		I'm exhausted.
-	else:
-		Bedtime.
-	if confirm_time_passage("Sleep", "Sleep until next the morning."):
-		do Loader.transition("")
-		do Event.progress_by_time(1)
-		do Event.time_transition()
-else:
-	if f("eepy", 1):
-		I do feel pretty tired... Should I take a quick nap?
-	else:
-		It's my bed.
-	if confirm_time_passage("Rest", "Will make me feel less tired."):
-		do Loader.transition("")
-		do Event.progress_by_time(1)
-		do Event.time_transition()
+if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
+	do time_transition()
 => END
 
 ~ kick_bridge
@@ -170,39 +146,13 @@ else:
 	Mira.Neutral: I should be exploring this place with the others...
 => END
 
-~ gather_pyrson
-if f("eepy", 1):
-	I don't have the energy to go out right now...
-	do give_control()
-	=> END!
-[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
-- Gather allies
-	do transition("L")
-	do Party.add("Alcine")
-	do Party.add("Asteria")
-	do Party.add("Daze")
-	do zoom(5)
-	do wait(0.3, false)
-	set Global.Area.Followers[1].position = Global.Player.position + Vector2(24, 0)
-	set Global.Area.Followers[0].position = Global.Player.position + Vector2(24, 24)
-	set Global.Area.Followers[2].position = Global.Player.position + Vector2(0, 24)
-	do PartyUI.hide_all()
-	do detransition()
-	Ok, let's go.
-	do Global.veinet_map("Gate")
-- Go alone
-	do Party.reset_party()
-	do Global.veinet_map("Gate")
-- Don't go
-	do give_control()
-=> END
-
 ~ shards_low_hp
 Asteria.Neutral: Mira? Are you okay?
 Mira.Neutral: Hm?
 Asteria.Neutral: You have been stepping in a lot of these shards! I can give you my sandals if you want.
 Mira.Neutral: No, I'm fine.
 Asteria.Neutral: Okay, just be careful.
+=> END
 
 ~ sg_jump_reminder
 Mira.Neutral: I should be able to make that jump!

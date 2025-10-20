@@ -12,7 +12,7 @@ filter_clip = true
 [resource]
 script = ExtResource("2_rby1t")
 name = "Sturdy Guard"
-description = "Put up a barrier against weapon attacks for 2 turns"
+description = "Put up a barrier against weapon attacks for a turn."
 Icon = SubResource("AtlasTexture_rby1t")
 ActionSequence = &"SturdyGuard"
 Type = "Defensive"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cenyme3altlln"
+path="res://.godot/imported/banter_victory.dialogue-39311a4f07b91c7a83c59d013797f29a.tres"
+
+[deps]
+
+source_file="res://database/Text/banter_victory.dialogue"
+dest_files=["res://.godot/imported/banter_victory.dialogue-39311a4f07b91c7a83c59d013797f29a.tres"]
+
+[params]
+
+defaults=true

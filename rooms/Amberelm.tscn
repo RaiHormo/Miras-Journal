@@ -534,6 +534,15 @@ color = Color(0.694118, 1, 1, 1)
 energy = 1.02
 texture = SubResource("GradientTexture1D_bfo0u")
 
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(2169, -402)
+scale = Vector2(28.5469, 14.0781)
+color = Color(0.776471, 0.721569, 0.713726, 1)
+energy = 0.71
+blend_mode = 1
+texture = SubResource("GradientTexture2D_66tw6")
+script = ExtResource("5_b87t5")
+
 [node name="0-Water" type="TileMapLayer" parent="." groups=["TileMap"]]
 z_index = -2
 use_parent_material = true
@@ -984,7 +993,7 @@ animation = &"WalkUp"
 [node name="EvRestFirst" parent="." instance=ExtResource("30_djhcr")]
 z_index = 6
 position = Vector2(-4, 226)
-TextFile = "interactions"
+TextFile = "interact_abad"
 TextNode = "amberelm_rest_first"
 Flag = "EvRestAmberelm"
 FlagIsName = false
@@ -993,11 +1002,9 @@ KickDirection = Vector2(0, 1)
 [node name="EvRestTree" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(106, 344)
 LabelText = "Rest"
-ActionType = "pass_time"
+ActionType = "event"
 Length = 100
 file = "rest_amberelm"
-title = "Rest"
-item = "Fully recovers the party's HP"
 to_time = 2
 Height = 5
 hide_on_flag = &"EvRestAmberelm"
@@ -1246,7 +1253,7 @@ position = Vector2(2232, -156)
 LabelText = "Rest"
 ActionType = "text"
 Length = 100
-file = "interactions"
+file = "interact_abad"
 title = "amberelm_bench"
 
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]

@@ -928,6 +928,10 @@ func make_array_unique(arr: Array):
 	for i in range(-1, arr.size() - 1):
 		arr[i] = arr[i].duplicate()
 
+func add_complimentary(ability: String):
+	if ability not in Complimentaries:
+		Complimentaries.append(ability)
+
 func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
 	var idx = -1
 	for i in occurence:
