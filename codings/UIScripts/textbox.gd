@@ -384,9 +384,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
 	if Global.HasPortrait:
-		if not dialogue_line.text.begins_with("[color=Gray]*"):
-			$Balloon/Arrow.show()
-		else: $Balloon/Arrow.hide()
+		if dialogue_line.text.begins_with("[color=") and dialogue_line.text.ends_with("[/color]"):
+			$Balloon/Arrow.hide()
+		else: $Balloon/Arrow.show()
 		var pan = $Balloon/Arrow.get_theme_stylebox("panel")
 		pan.bg_color = mem.Bord1
 		$Portrait.texture = Global.PortraitIMG
