@@ -24,7 +24,7 @@ script = ExtResource("2_yeq0t")
 flag = &"AlcineFollow4"
 actor = &"Mira"
 low_hp = 30
-parameter1 = "story_events"
+parameter1 = "story_0"
 parameter2 = "not_going_well"
 
 [sub_resource type="Resource" id="Resource_jw6e0"]

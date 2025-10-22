@@ -1245,8 +1245,8 @@ text = "Mira Levenor"
 layout_mode = 0
 offset_left = 86.7788
 offset_top = 100.868
-offset_right = 3517.78
-offset_bottom = 3580.87
+offset_right = 3517.7788
+offset_bottom = 3580.868
 scale = Vector2(0.43, 0.43)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",

@@ -1473,7 +1473,7 @@ EventName = "first_battle"
 [node name="EvAmbWoodsBridge" parent="." instance=ExtResource("36_2q7ov")]
 position = Vector2(1956, -1318)
 scale = Vector2(1.83992, 1)
-TextFile = "story_events"
+TextFile = "story_0"
 TextNode = "a_bridge"
 Passive = true
 AddFlag = true

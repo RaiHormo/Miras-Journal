@@ -915,6 +915,7 @@ use_parent_material = true
 clip_contents = false
 layout_mode = 2
 follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller"]
 layout_mode = 2

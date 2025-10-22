@@ -175,7 +175,7 @@ func member_details(chara: Actor, menu:= 0):
 	if chara == null: return
 	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
 	get_tree().root.add_child(dub)
-	await Event.wait()
+	#await Event.wait()
 	dub.draw_character(chara, menu)
 
 func complimentary_ui(chara: Actor):

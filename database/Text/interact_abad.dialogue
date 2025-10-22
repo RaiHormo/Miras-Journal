@@ -91,6 +91,7 @@ else:
 	do Event.progress_by_time(1)
 	if confirm_time_passage("Rest", "Fully restore health."):
 		do Event.time_transition()
+		do heal_party()
 => END
 
 ~ oct0_afternoon
@@ -109,6 +110,7 @@ It's the tent.
 do progress_by_time(1)
 if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
 	do time_transition()
+	do heal_party()
 => END
 
 ~ kick_bridge

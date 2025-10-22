@@ -67,7 +67,9 @@ func draw_character(chara: Actor, menu:= 0):
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
 	$Render.texture = await chara.RenderArtwork()
-
+	$Render/Shadow.texture = await chara.RenderShadow()
+	$Render.global_position = PartyUI.get_node("CanvasLayer/Pages/Page"+str(PartyUI.focus)+"/Render").global_position
+	
 	fetch_abilities(chara)
 
 	for i in $Line1/NameChain.get_children():
@@ -92,14 +94,16 @@ func draw_character(chara: Actor, menu:= 0):
 	var t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property($Render, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Render, "global_position", Vector2(587, -2), 1).from(Vector2(706, 109))
-	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 1).from(Vector2(0.43/2, 0.43/2))
-	t.tween_property($Line1, "position:x", 750, 1).from(-2700)
+	t.set_trans(Tween.TRANS_QUINT)
+	#t.tween_property($Render, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+	PartyUI.get_node("CanvasLayer/Pages/Page"+str(PartyUI.focus)+"/Render").hide()
+	t.tween_property($Render, "global_position", Vector2(587, -2), 0.8)
+	t.tween_property($Render/Shadow, "modulate:a", 0.4, 0.6)
+	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 0.8).from(Vector2(0.215, 0.215))
+	t.tween_property($Line1, "position:x", 750, 0.6).from(-2700)
 	if menu == 1:
 		swap_mode(true)
-	await Event.wait(0.2, false)
+	await Event.wait(0.1, false)
 	$Name.show()
 	$Fade.show()
 	$Abilities.show()
@@ -183,13 +187,6 @@ func fetch_abilities(chara: Actor):
 			dub.get_child(0).hide()
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
-	#for i in %AbilityList.get_children():
-		#if not i is Button: continue
-		#if i.get_meta("Ability").AuraCost > chara.Aura or i.get_meta("Ability").disabled:
-			#if i.get_meta("Ability").AuraCost > chara.Aura:
-				#i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
-			#i.disabled = true
-			#%AbilityList.get_children().push_back(i)
 	%AbilityList.move_child(%AbilityList/CompTxt, chara.Abilities.size()+3)
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
 

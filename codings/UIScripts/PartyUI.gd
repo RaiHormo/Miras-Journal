@@ -677,9 +677,9 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):
 
 func details():
 	if Expanded and not submenu_opened:
-		Global.member_details(Global.Party.array()[focus])
+		await Global.member_details(Global.Party.array()[focus])
 		submenu_opened = true
-		await Event.wait(0.3, false)
+		await Event.wait(0.2, false)
 		%Pages.hide()
 		$CanvasLayer/Cursor.hide()
 		$CanvasLayer/Back.hide()
@@ -687,9 +687,9 @@ func details():
 
 func abilities() -> void:
 	if Expanded and not submenu_opened:
-		Global.member_details(Global.Party.array()[focus], 1)
+		await Global.member_details(Global.Party.array()[focus], 1)
 		submenu_opened = true
-		await Event.wait(0.3, false)
+		await Event.wait(0.2, false)
 		%Pages.hide()
 		$CanvasLayer/Cursor.hide()
 		$CanvasLayer/Back.hide()
@@ -710,6 +710,7 @@ func back():
 
 func close_submenu():
 	Partybox.show()
+	get_node("CanvasLayer/Pages/Page"+str(focus)+"/Render").show()
 	$CanvasLayer/Back.show()
 	%Pages.show()
 	$CanvasLayer/Cursor.show()

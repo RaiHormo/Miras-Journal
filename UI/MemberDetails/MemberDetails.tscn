@@ -1196,8 +1196,29 @@ text = "FIRSTNAME LASTNAME "
 offset_left = 587.0
 offset_top = -2.0
 offset_right = 4018.0
-offset_bottom = 3429.0
+offset_bottom = 3478.0
 scale = Vector2(0.244821, 0.244821)
+
+[node name="Shadow" type="TextureRect" parent="Render"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+texture_filter = 4
+layout_mode = 0
+offset_left = 11.4436035
+offset_top = 69.12463
+offset_right = 9086.443
+offset_bottom = 9274.126
+scale = Vector2(0.380595, 0.380595)
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": true,
+"player": "",
+"source": ""
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
