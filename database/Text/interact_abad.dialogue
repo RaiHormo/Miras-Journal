@@ -106,11 +106,14 @@ Placeholder description: To equip Complimentaries, go to the Menu > Party > Abil
 => END
 
 ~ rest_camp
-It's the tent.
-do progress_by_time(1)
-if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
-	do time_transition()
-	do heal_party()
+if Time == 2 and Day == 1:
+	I'm all rested, let's go find Alcine.
+else:
+	It's the tent.
+	do progress_by_time(1)
+	if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
+		do time_transition()
+		do heal_party()
 => END
 
 ~ kick_bridge

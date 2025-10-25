@@ -13,7 +13,7 @@ config_version=5
 config/name="Mira's Journal"
 config/description="A prototype JRPG game
 Created by RaiDev"
-config/version="0.0.8"
+config/version="0.1.0"
 run/main_scene="res://codings/Initializer.tscn"
 run/enable_alt_space_menu=true
 config/use_custom_user_dir=true

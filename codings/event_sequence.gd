@@ -171,6 +171,32 @@ func waste_time():
 	Loader.detransition()
 	Event.give_control()
 
+func nov1_morning():
+	Loader.gray_out(1)
+	await Global.textbox("story_1", "nov1_dream")
+	await Loader.travel_to("Orange", Vector2(-97, -155), 1)
+	Loader.ungray.emit()
+	Event.no_player()
+	await Global.textbox("story_1", "nov1_morning")
+	await Loader.travel_to("Orange", Vector2(775, -211), 0, -1, "D", false)
+	Event.no_player()
+	await Event.spawn("Mira", Vector2(750, -211), "L")
+	await Event.spawn("Daze", Vector2(660, -211), "R")
+	await Global.textbox("story_1", "nov1_daytime")
+	Global.Party.set_to_strarr(["Mira", 'Daze'])
+	await Loader.travel_to("Orange", Vector2(775, -211))
+
+func daze_enemy_1():
+	Global.passive("story_1", "daze_enemy_1")
+	await Event.wait(2)
+	await Event.spawn("Daze", Global.Area.Followers[0].position, "L")
+	Global.Area.Followers[0].dont_follow = true
+	Global.Area.Followers[0].hide()
+	Event.npc("Daze").speed = 150
+	await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
+	await Event.npc("EnemyFlowent1").attacked()
+	Event.npc("Daze").hide()
+
 func hurt_1():
 	Global.Party.Leader.Health -= 1
 	Global.ui_sound("Crunch")
@@ -191,7 +217,6 @@ func wake_home():
 
 #func nov3_morning():
 	#Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(124, 469))
-
 func nov3_afternoon():
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	await Event.wait(0.3)

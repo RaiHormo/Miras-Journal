@@ -90,40 +90,50 @@ scale = Vector2(0.634497, 0.634497)
 texture = ExtResource("9_8unpa")
 
 [node name="Logo" type="TextureRect" parent="TitleScreen"]
-offset_left = 632.0
-offset_top = 50.0
-offset_right = 3033.0
-offset_bottom = 1566.0
+offset_left = 628.0
+offset_top = 31.0
+offset_right = 3060.6755
+offset_bottom = 1567.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_ee01i")
 
 [node name="Label" type="Label" parent="TitleScreen"]
-offset_left = 760.0
-offset_top = 697.0
-offset_right = 1166.0
-offset_bottom = 730.0
+offset_left = 858.0
+offset_top = 714.0
+offset_right = 1264.0
+offset_bottom = 783.0
 theme_override_fonts/font = ExtResource("5_li13k")
 theme_override_font_sizes/font_size = 32
-text = "Prototype by RaiDev
+text = "Created by Iris
 v"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="TitleScreen"]
+offset_left = 665.0
+offset_top = 396.0
+offset_right = 1216.0
+offset_bottom = 465.0
+theme_override_fonts/font = ExtResource("5_li13k")
+theme_override_font_sizes/font_size = 32
+text = "Development Build"
 horizontal_alignment = 1
 
 [node name="Continue" type="Button" parent="TitleScreen"]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nvmut")
 layout_direction = 1
-offset_left = 861.701
-offset_top = 481.93
-offset_right = 995.701
-offset_bottom = 514.93
+offset_left = 860.0
+offset_top = 535.00006
+offset_right = 994.0
+offset_bottom = 568.00006
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_t61ta")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_ts7k6")
 shortcut_in_tooltip = false
@@ -136,18 +146,18 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nvmut")
 layout_direction = 1
-offset_left = 862.701
-offset_top = 550.93
-offset_right = 996.701
-offset_bottom = 583.93
+offset_left = 27.0
+offset_top = 739.0
+offset_right = 161.0
+offset_bottom = 772.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_t61ta")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_wu61f")
 shortcut_in_tooltip = false
@@ -172,6 +182,7 @@ mouse_filter = 2
 texture = ExtResource("2_s81ns")
 
 [node name="Error" type="Panel" parent="TitleScreen"]
+visible = false
 offset_left = -1.0
 offset_top = 412.0
 offset_right = 1284.0
@@ -180,7 +191,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qngc8")
 
 [node name="Label" type="Label" parent="TitleScreen/Error"]
 custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
+layout_mode = 0
 offset_top = 13.0
 offset_right = 1285.0
 offset_bottom = 196.0
@@ -194,7 +205,7 @@ autowrap_mode = 3
 
 [node name="Hint" type="Label" parent="TitleScreen/Error"]
 custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
+layout_mode = 0
 offset_left = -11.0
 offset_top = 198.0
 offset_right = 1274.0

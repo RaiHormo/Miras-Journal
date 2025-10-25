@@ -2,8 +2,10 @@ extends CanvasLayer
 
 func _ready() -> void:
 	Loader.InBattle = false
-	Global.Bt.queue_free()
-	Global.Area.queue_free()
+	if is_instance_valid(Global.Bt):
+		Global.Bt.queue_free()
+	if is_instance_valid(Global.Area):
+		Global.Area.queue_free()
 	PartyUI.disabled = true
 	get_viewport().gui_focus_changed.connect(focus)
 	$Options/Retry.grab_focus()
@@ -13,7 +15,7 @@ func retry() -> void:
 	queue_free()
 
 func _load() -> void:
-	Global.options()
+	Global.options(1)
 	queue_free()
 
 func _quit() -> void:
@@ -21,6 +23,3 @@ func _quit() -> void:
 
 func focus(control):
 	Global.cursor_sound()
-
-func _on_button_pressed() -> void:
-	print("jidi")

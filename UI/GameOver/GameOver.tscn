@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dna5vcce2e6gi"]
 
-[ext_resource type="Script" path="res://UI/GameOver/game_overUI.gd" id="1_slw46"]
+[ext_resource type="Script" uid="uid://1aiewu1w4aa7" path="res://UI/GameOver/game_overUI.gd" id="1_slw46"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="2_1b12g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds1ry"]
@@ -107,19 +107,28 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 focus_neighbor_top = NodePath("../Quit")
 theme = SubResource("Theme_8enlg")
+theme_override_colors/font_focus_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
 text = "Retry"
 
 [node name="Load" type="Button" parent="Options"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme = SubResource("Theme_8enlg")
-text = "Options"
+theme_override_colors/font_focus_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
+text = "Load"
 
 [node name="Quit" type="Button" parent="Options"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Retry")
 theme = SubResource("Theme_8enlg")
+theme_override_colors/font_focus_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.6384497, 0.05690524, 1)
 text = "Quit"
 
 [connection signal="pressed" from="Options/Retry" to="." method="retry"]

@@ -255,12 +255,12 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	var sprite_node:= AnimatedSprite2D.new()
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
-	if no_collision: chara.collision(false)
 	sprite_node.use_parent_material = true
 	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 	if sprite == null: return null
 	sprite_node.sprite_frames = sprite
 	Global.Area.add_child(chara)
+	if no_collision: chara.collision(false)
 	chara.name = nam[0]
 	chara.ID = nam[0]
 	chara.position = pos
@@ -272,6 +272,8 @@ func no_player():
 	Global.Controllable = false
 	if is_instance_valid(Global.Player):
 		Global.Player.queue_free()
+		for i in Global.Area.Followers:
+			i.queue_free()
 	PartyUI.hide_all()
 
 func time_transition():

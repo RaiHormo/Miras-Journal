@@ -244,6 +244,7 @@ corner_radius_bottom_right = 42
 corner_radius_bottom_left = 42
 expand_margin_left = 12.0
 expand_margin_right = 8.0
+anti_aliasing = false
 
 [node name="Loader" type="Control"]
 process_mode = 3
@@ -330,13 +331,13 @@ offset_right = 785.0
 offset_bottom = 438.0
 pivot_offset = Vector2(150, 31)
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_fonts/font = ExtResource("3_aa01v")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/hover = SubResource("StyleBoxFlat_vxw0p")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vxw0p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vxw0p")
 button_mask = 0
 text = "Morning"
 icon = ExtResource("4_gk7ox")

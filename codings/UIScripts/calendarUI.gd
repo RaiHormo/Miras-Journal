@@ -8,21 +8,23 @@ func _ready() -> void:
 	hide_prompt()
 
 func _check_party():
-	if Event.f("HideDate") and not $Action.visible: hide()
-	else: show()
+	if Event.f("HideDate") and not $Action.visible: 
+		$Date/Day.add_theme_font_size_override("font_size", 150)
+		$Date/Month.text = "Unknown"
+		$Date/Day.text = "Date"
+		hide()
+	else: 
+		show()
+		$Date/Day.add_theme_font_size_override("font_size", 265) 
 	$Container/TimeOfDay.text = Global.to_tod_text(Event.TimeOfDay)
 	$Date/Day.text = str(wrapi(Event.Day, 1, 32))
 	$Date/Month.text = Global.get_month_name(Global.get_month(Event.Day))
 	$Container/TimeOfDay.icon = await Global.to_tod_icon(Event.TimeOfDay)
+	
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
 	Global.check_party.emit()
 	Event.f("DisableMenus", false)
-	if Event.f("HideDate"):
-		$Date/Day.add_theme_font_size_override("font_size", 150)
-		$Date/Month.text = "Unknown"
-		$Date/Day.text = "Date"
-	else: $Date/Day.add_theme_font_size_override("font_size", 265)
 	show()
 	Global.Controllable = false
 	get_tree().paused = true

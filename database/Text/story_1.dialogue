@@ -1,10 +1,54 @@
 ~ nov1_dream
+do lower_layer()
 I feel like I'm in a city... I walk around... 
 There is one central building... Lots of people...
 Suddenly my view shatters, i see many pieces of glass around me that reflect like mirrors.... 
 The people around me are gone, but I feel like there is still someone with me... 
-I hear a loud noise
+I hear a loud noise.
+=> END
+
+~ nov1_morning
 ...
+Sleeping next to him is quite akward...
+My fur touching his bare Human skin feels weird.
+I do want to sleep a bit longer though, I don't think I can ever get enough rest with all that's happened.
+I wonder what Alcine is doing now... I left them all alone...
+Maybe I should ask Daze to go back to Amberelm so I can find them.
+(hide)
+set ToTime = 2
+set ToDay = 1
+do time_transition()
+do npc("DazeTent").hide()
+Daze seems to have woken up.
+I guess I should get up too...
+=> END
+
+~ nov1_daytime
+Daze: The food I have really won't last us long, I really didn't prepare for this situation.
+Mira: Hey, my supplies weren't even enough to take a step outside my village!
+(hide)
+do transition()
+do lower_layer()
+After we finish eating, I'll ask.
+(hide)
+do detransition()
+Mira: Um... would you mind if we went towards that abandoned city you found me in again?
+Daze: Did you forget something there?
+Mira: Remember that spirit I mentioned?
+Mira: {{alcine()}}, they really helped me out with healing magic in that place but I lost them after the Guardian attacked.
+Daze: I was planning on exploring further today, but I guess we can go back if really want to.
+Mira: Ok let's go then.
+I go to pick up my axe, but it seems too hard to hold it with my injured arm.
+Daze: No, Ms. Levenor, you are in no state to be fighting.
+Mira: But-
+Daze: No. If we run into any monters I'll do the fighting and you stay back. Undertood?
+Mira: Ugh, fine...
+=> END
+
+~ daze_enemy_1
+Mira.Neutral: There's a monster!
+Daze.Neutral: Stay Back!
+=> END
 
 ~ nov3_afternoon
 ...

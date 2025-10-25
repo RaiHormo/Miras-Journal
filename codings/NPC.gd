@@ -30,6 +30,7 @@ var coords:Vector2 = Vector2.ZERO
 ##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
 @export var ID: String
 var DefaultPos := Vector2.ZERO
+@export var no_collision: bool = false
 @export var Nav:NavigationAgent2D
 @export var SpawnOnCameraInd := true
 @export var CameraIndex: int = 0
@@ -48,6 +49,7 @@ func _ready() -> void:
 	if ID in Loader.Defeated: queue_free()
 	Event.add_char(self)
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+	if no_collision: collision(false)
 	await Event.wait()
 	if Nav == null: Nav = get_node_or_null("Nav")
 	process_mode = Node.PROCESS_MODE_PAUSABLE
