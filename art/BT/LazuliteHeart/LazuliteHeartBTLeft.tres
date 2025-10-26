@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://wrsq6847xok8"]
+
+[ext_resource type="Texture2D" uid="uid://b173w1g38hw3g" path="res://art/BT/LazuliteHeart/LazuliteHeartBTLeft.png" id="1_7kdj3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7kdj3")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]

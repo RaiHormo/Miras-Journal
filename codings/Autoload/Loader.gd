@@ -438,7 +438,7 @@ func end_battle():
 		hide_victory_stuff()
 	InBattle = false
 	Global.get_cam().position_smoothing_enabled = true
-	battle_end.emit(BattleResult)
+	battle_end.emit()
 
 	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:

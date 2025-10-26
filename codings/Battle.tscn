@@ -3754,6 +3754,7 @@ scale = Vector2(0.2, 0.2)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="SPGain" type="PanelContainer" parent="Canvas"]
+visible = false
 clip_contents = true
 offset_left = 953.0
 offset_top = 308.0
@@ -3795,6 +3796,7 @@ vertical_alignment = 1
 text_overrun_behavior = 1
 
 [node name="VictoryItems" type="VBoxContainer" parent="Canvas"]
+visible = false
 offset_left = 870.0
 offset_top = 414.0
 offset_right = 1206.0

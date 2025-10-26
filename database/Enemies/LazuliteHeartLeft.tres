@@ -1,25 +1,13 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dssdstvmfydt3"]
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://dssdstvmfydt3"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_stamu"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_eq6wa"]
-[ext_resource type="Texture2D" uid="uid://bgymx534malg2" path="res://art/BT/LazuliteHeart/LazRightBt.png" id="2_pfxhc"]
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="3_okcgo"]
 [ext_resource type="Resource" uid="uid://dsmlea0nfgq7h" path="res://database/Abilities/FluidBlast.tres" id="3_wbo3k"]
 [ext_resource type="Resource" uid="uid://i76o7dyxd0rh" path="res://database/Abilities/Tighten.tres" id="4_7xn8o"]
 [ext_resource type="Resource" uid="uid://dbs3pn78pvpuc" path="res://database/Abilities/Glimmer.tres" id="4_mbsok"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_okcgo"]
 [ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="5_pfxhc"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_a8rpr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_pfxhc")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}]
 
 [resource]
 script = ExtResource("4_okcgo")
@@ -37,5 +25,5 @@ Defence = 1.3
 Speed = 6.0
 Abilities = Array[ExtResource("1_stamu")]([ExtResource("3_wbo3k"), ExtResource("4_7xn8o"), ExtResource("4_mbsok")])
 StandardAttack = ExtResource("5_pfxhc")
-BT = SubResource("SpriteFrames_a8rpr")
+BT = "LazuliteHeart/LazuliteHeartBTLeft"
 metadata/_custom_type_script = "uid://msf7qb28ublo"

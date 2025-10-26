@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://dyqwhhom23j2x"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dyqwhhom23j2x"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_j4a1g"]
-[ext_resource type="Texture2D" uid="uid://cfsrbe1qnqrxt" path="res://art/BT/LazuliteHeart/LazBt.png" id="2_3qp5y"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_tk2k6"]
 [ext_resource type="Resource" uid="uid://xkuji6v3lk6" path="res://database/Abilities/Indestructible.tres" id="2_ubodn"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_3qp5y"]
@@ -11,17 +10,6 @@
 [ext_resource type="Resource" uid="uid://c63vtxcgx6spf" path="res://database/Abilities/Attacks/Pass.tres" id="6_ubodn"]
 [ext_resource type="Resource" uid="uid://dssdstvmfydt3" path="res://database/Enemies/LazuliteHeartLeft.tres" id="9_hsgqg"]
 [ext_resource type="Resource" uid="uid://01s5imheles6" path="res://database/Enemies/LazuliteHeartRight.tres" id="10_amlp5"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_j4a1g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_3qp5y")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}]
 
 [resource]
 script = ExtResource("3_3qp5y")
@@ -42,7 +30,7 @@ Defence = 2.0
 Speed = 1.0
 Abilities = Array[ExtResource("1_j4a1g")]([ExtResource("2_ubodn"), ExtResource("3_8lohf"), ExtResource("4_hsgqg")])
 StandardAttack = ExtResource("6_ubodn")
-BT = SubResource("SpriteFrames_j4a1g")
+BT = "LazuliteHeart/LazuliteHeartBT"
 Offset = Vector2(0, -58)
 Disappear = false
 CantDodge = true

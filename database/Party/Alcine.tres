@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://5dk5u2y85kai"]
+[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://5dk5u2y85kai"]
 
-[ext_resource type="SpriteFrames" uid="uid://bmbis13j145si" path="res://art/BT/Alcine/AlcineBT.tres" id="1_8ee1b"]
 [ext_resource type="Texture2D" uid="uid://b1j4plv0rs4k1" path="res://art/Icons/Party/Alcine.png" id="1_by5ga"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_l356q"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_o1wey"]
@@ -44,8 +43,6 @@ SkillCurve = SubResource("Curve_wpfc1")
 Abilities = Array[ExtResource("1_l356q")]([ExtResource("2_kbab6"), ExtResource("2_2vyew")])
 StandardAttack = ExtResource("2_3o6lq")
 LearnableAbilities = Array[ExtResource("1_l356q")]([ExtResource("5_fp5sq"), ExtResource("6_82uy0")])
-OV = "res://art/OV/Alcine/AlcineOV.tres"
-BT = ExtResource("1_8ee1b")
 Offset = Vector2(-3, -15)
 Shadow = true
 ShadowOffset = 1

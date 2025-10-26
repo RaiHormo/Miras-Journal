@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=13 format=3 uid="uid://cwah0an2o3u15"]
+[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://cwah0an2o3u15"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_3ecv6"]
-[ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="2_awx47"]
 [ext_resource type="Resource" uid="uid://d1u2ywuvl1411" path="res://database/Abilities/Attention.tres" id="2_ps7rl"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_g8t8l"]
@@ -26,50 +25,31 @@ point_count = 21
 
 [resource]
 script = ExtResource("3_g8t8l")
+Health = 220
+Aura = 60
 FirstName = "Daze"
 MainColor = Color(0.801293, 0.777858, 0.43949, 1)
 PartyIcon = ExtResource("4_ddwib")
 ActorClass = "Tank"
 codename = &"Daze"
 Pronouns = Array[String](["he", "him", "his", "himself"])
-WeaponPower = null
-RecivedSP = null
-SummonedAllies = null
-CustomPosition = null
 SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
 BoxProfile = SubResource("Resource_v2ahk")
-LastName = null
 Weapon = "Gold-trimmed Katana"
 PartyPageName = "BranchWave"
-Controllable = null
 HpOnSLvUp = 20
 ApOnSLvUP = 8
 MaxHP = 150
 MaxAura = 30
-Attack = null
 Magic = 0.8
 Defence = 1.2
 Speed = 2.0
-Health = 220
-Aura = 60
 SkillLevel = 18
 SkillPoints = 21
 SkillCurve = SubResource("Curve_jt23b")
 Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_y217q"), ExtResource("2_ps7rl"), ExtResource("3_ssdks")])
 StandardAttack = ExtResource("9_l2o8n")
-LearnableAbilities = null
-OV = "res://art/OV/Daze/DazeOV.tres"
-BT = ExtResource("2_awx47")
 Offset = Vector2(0, -12)
 Shadow = true
 ShadowOffset = 2
 Disappear = false
-GlowDef = null
-GlowSpecial = null
-GlowAnims = null
-DontIdle = null
-ClutchDmg = null
-SeqOnClutch = null
-CantDie = null
-IgnoreStates = null
-CantDodge = null

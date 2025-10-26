@@ -60,7 +60,7 @@ func _ready():
 		Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
 	global_position = Vector2i(global_position)
-	$Act/Actor0.sprite_frames = Party.Leader.BT
+	$Act/Actor0.sprite_frames = await Party.Leader.get_BT()
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
 	$Act/Actor0/Shadow.modulate = Color.WHITE
@@ -75,7 +75,7 @@ func _ready():
 			dub.name = "Actor"+ str(i)
 			$Act.add_child(dub)
 			member.node = dub
-			dub.sprite_frames = member.BT
+			dub.sprite_frames = await member.get_BT()
 			TurnOrder.push_front(member)
 			PartyArray.push_back(member)
 			dub.material = dub.material.duplicate()
@@ -91,7 +91,7 @@ func _ready():
 		$Act.add_child(dub)
 		TurnOrder.push_front(Troop[i])
 		Troop[i].node = dub
-		dub.sprite_frames = Troop[i].BT
+		dub.sprite_frames = await Troop[i].get_BT()
 		dub.material = dub.material.duplicate()
 		dub.offset = Troop[i].Offset
 		dub.play("Idle")
@@ -865,6 +865,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 		await Event.wait()
 
 func pixel_perfectize(chara: Actor, xy: int = 0):
+	if not is_instance_valid(chara.node.sprite_frames): return
 	if int(chara.node.sprite_frames.get_frame_texture(
 		chara.node.animation, chara.node.frame).get_size()[xy]) % 2 == 0:
 		chara.node.offset[xy] = chara.Offset[xy]
@@ -1133,7 +1134,7 @@ func add_to_troop(en: Actor):
 	$Act.add_child(dub)
 	TurnOrder.push_front(en)
 	en.node = dub
-	dub.sprite_frames = en.BT
+	dub.sprite_frames = await en.get_BT()
 	dub.material = dub.material.duplicate()
 	dub.offset = en.Offset
 	anim(&"Idle", en)

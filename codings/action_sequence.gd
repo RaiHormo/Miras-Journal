@@ -1015,13 +1015,13 @@ func FirstBattle2(target: Actor):
 func FirstBattle22():
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura1")
-	Bt.get_actor("CS").NextAction = "Ability"
-	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/InnerFocus.tres")
+	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
+	Bt.get_actor("CrawlingSludge").NextMove = preload("res://database/Abilities/InnerFocus.tres")
 
 func FirstBattle3():
 	Bt.get_actor("Mira").Abilities[0].disabled = false
-	Bt.get_actor("CS").NextAction = "Ability"
-	Bt.get_actor("CS").NextMove = preload("res://database/Abilities/SoulTap.tres")
+	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
+	Bt.get_actor("CrawlingSludge").NextMove = preload("res://database/Abilities/SoulTap.tres")
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura2")
 

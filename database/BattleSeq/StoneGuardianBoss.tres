@@ -51,6 +51,6 @@ EntranceSequence = "StoneGuardian1"
 EntranceBanterIsPassive = false
 VictorySequence = "StoneGuardian3"
 VictoryText = "Victory?"
-PartyOverride = ["Mira"]
+PartyOverride = ["Mira", "Alcine"]
 Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2"), SubResource("Resource_87ic2"), SubResource("Resource_yttu5")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

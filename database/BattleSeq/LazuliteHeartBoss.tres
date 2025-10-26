@@ -15,7 +15,7 @@
 script = ExtResource("3_4g4ty")
 actor = &"LHRight"
 low_hp = 95
-parameter1 = "story_events"
+parameter1 = "story_1"
 parameter2 = "lazulite_heart_1"
 hold_turn = true
 add_flag = false
@@ -60,7 +60,7 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 script = ExtResource("3_4g4ty")
 actor = &"LHBody"
 low_hp = 30
-parameter1 = "story_events"
+parameter1 = "story_1"
 parameter2 = "lazulite_heart_2"
 hold_turn = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"

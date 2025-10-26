@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dhcj1318p3b4g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://dhcj1318p3b4g"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_4agl2"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_keytb"]
-[ext_resource type="SpriteFrames" uid="uid://kruexy171pbg" path="res://art/BT/CrawlingSludge/CrawlingSludgeBT.tres" id="1_nfmau"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_u1o0b"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_iy5kn"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="2_pm52f"]
@@ -17,46 +16,16 @@ FirstName = "Crawling Sludge"
 MainColor = Color(0.560784, 1, 0.886275, 1)
 PartyIcon = ExtResource("1_u1o0b")
 ActorClass = "Attacker"
-codename = &"CS"
-Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 17
-IsEnemy = true
 DroppedItem = ExtResource("4_n0njt")
 RecivedSP = 5
 SummonedAllies = Array[ExtResource("2_iy5kn")]([ExtResource("8_t44b1")])
-CustomPosition = Vector2i(0, 0)
-SecondaryColor = Color(0, 0, 0, 1)
-LastName = ""
-Weapon = ""
-PartyPageName = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
 MaxHP = 50
 MaxAura = 20
 Attack = 0.4
 Magic = 0.5
-Defence = 1.0
 Speed = 3.0
-Health = 0
-Aura = 0
 SkillLevel = 0
-SkillPoints = 0
 Abilities = Array[ExtResource("1_keytb")]([ExtResource("2_pm52f"), ExtResource("3_xe4iy")])
 StandardAttack = ExtResource("4_rtvyb")
-LearnableAbilities = Array[ExtResource("1_keytb")]([])
-BT = ExtResource("1_nfmau")
 Offset = Vector2(0, -17)
-Shadow = false
-ShadowOffset = 0
-SoundSet = ExtResource("1_4agl2")
-Disappear = true
-GlowDef = 0.3
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false

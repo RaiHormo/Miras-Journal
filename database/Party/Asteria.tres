@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://c7dagc4gevvwu"]
+[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://c7dagc4gevvwu"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_s4tb4"]
 [ext_resource type="Resource" uid="uid://b28b6eda2u4a" path="res://database/Text/Profiles/AsteriaBox.tres" id="3_tcuxw"]
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
-[ext_resource type="SpriteFrames" uid="uid://b21h4m0wtw0jl" path="res://art/BT/Asteria/AsteriaBt.tres" id="5_7hmow"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="9_7hmow"]
 
@@ -19,6 +18,8 @@ point_count = 4
 
 [resource]
 script = ExtResource("3_s4tb4")
+Health = 130
+Aura = 47
 FirstName = "Asteria"
 MainColor = Color(0.56, 0.2576, 0.26768, 1)
 PartyIcon = ExtResource("2_jl2mg")
@@ -26,15 +27,11 @@ ActorClass = "Mage"
 codename = &"Asteria"
 Pronouns = Array[String](["she", "her", "her", "herself"])
 WeaponPower = 16
-RecivedSP = null
-SummonedAllies = null
-CustomPosition = null
 SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
 BoxProfile = ExtResource("3_tcuxw")
 LastName = "Versea"
 Weapon = "Possessed Scarf"
 PartyPageName = "SoulsLike"
-Controllable = null
 HpOnSLvUp = 18
 ApOnSLvUP = 13
 MaxHP = 90
@@ -43,26 +40,13 @@ Attack = 0.6
 Magic = 1.6
 Defence = 0.8
 Speed = 4.0
-Health = 130
-Aura = 47
 SkillLevel = 7
 SkillPoints = 16
 SkillCurve = SubResource("Curve_7hmow")
 Abilities = Array[ExtResource("1_wfdm5")]([ExtResource("2_qhfgp"), ExtResource("3_5qh1h"), ExtResource("4_j7xb4")])
 StandardAttack = ExtResource("7_75i7m")
-LearnableAbilities = null
-OV = "res://art/OV/Asteria/AsteriaOV1.tres"
-BT = ExtResource("5_7hmow")
+OV = "1"
 Offset = Vector2(4, -15)
 Shadow = true
 ShadowOffset = 2
 Disappear = false
-GlowDef = null
-GlowSpecial = null
-GlowAnims = null
-DontIdle = null
-ClutchDmg = null
-SeqOnClutch = null
-CantDie = null
-IgnoreStates = null
-CantDodge = null

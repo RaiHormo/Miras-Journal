@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=16 format=3 uid="uid://dfxf3fj1wgl5q"]
+[gd_resource type="Resource" script_class="Actor" load_steps=15 format=3 uid="uid://dfxf3fj1wgl5q"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_446mq"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_e1lg0"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="1_qv4op"]
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="1_uxycv"]
 [ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="2_gadvr"]
 [ext_resource type="Resource" uid="uid://dt3173m0fj781" path="res://database/Abilities/FlameSpark.tres" id="2_ntlg3"]
@@ -32,9 +31,7 @@ ActorClass = "Attacker"
 codename = &"Mira"
 Pronouns = Array[String](["she", "her", "her", "herself"])
 WeaponPower = 14
-RecivedSP = null
 SummonedAllies = Array[ExtResource("1_e1lg0")]([ExtResource("14_flf11")])
-CustomPosition = null
 SecondaryColor = Color(0.886275, 0.345098, 0.192157, 1)
 BoxProfile = ExtResource("6_u8hid")
 LastName = "Levenor"
@@ -53,19 +50,10 @@ SkillCurve = SubResource("Curve_00vn1")
 Abilities = Array[ExtResource("1_446mq")]([ExtResource("1_uxycv"), ExtResource("2_ntlg3")])
 StandardAttack = ExtResource("6_pdf3s")
 LearnableAbilities = Array[ExtResource("1_446mq")]([ExtResource("6_enhby"), ExtResource("3_g7gj5"), ExtResource("6_00vn1"), ExtResource("8_27hub")])
-OV = "res://art/OV/Mira/MiraOV.tres"
-BT = ExtResource("1_qv4op")
 Offset = Vector2(0, -15)
 Shadow = true
-ShadowOffset = null
 SoundSet = ExtResource("10_rljiu")
 Disappear = false
-GlowDef = null
 GlowSpecial = 1.5
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
-DontIdle = null
 ClutchDmg = true
-SeqOnClutch = null
-CantDie = null
-IgnoreStates = null
-CantDodge = null

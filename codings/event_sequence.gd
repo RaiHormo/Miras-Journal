@@ -1,7 +1,7 @@
 extends Node
 
 func bag_seq():
-	Global.Party.Leader.OV = "res://art/OV/Mira/MiraOVBag.tres"
+	Global.Party.Leader.OV = "Bag"
 	Global.Player.BodyState = NPC.CUSTOM
 	Global.Player.direction = Vector2.ZERO
 	await Global.Player.set_anim("BagGet", true)
@@ -185,6 +185,7 @@ func nov1_morning():
 	await Global.textbox("story_1", "nov1_daytime")
 	Global.Party.set_to_strarr(["Mira", 'Daze'])
 	await Loader.travel_to("Orange", Vector2(775, -211))
+	Global.Party.Leader.CantAttack = true
 
 func daze_enemy_1():
 	Global.passive("story_1", "daze_enemy_1")

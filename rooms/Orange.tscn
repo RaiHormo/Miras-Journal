@@ -95,7 +95,6 @@ position = Vector2(416, -141)
 collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_8i5v0")
-no_collision = null
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent1"]

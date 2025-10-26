@@ -199,7 +199,7 @@ func _on_pickup() -> void:
 func _check_party() -> void:
 	if get_node_or_null("%Base") == null: return
 	elif is_instance_valid(Global.Party.Leader):
-		if %Base.sprite_frames.resource_path != Global.Party.Leader.OV:
+		if not %Base.sprite_frames.resource_path.ends_with(Global.Party.Leader.codename+Global.Party.Leader.OV+".tres"):
 			%Base.sprite_frames =  await Global.Party.Leader.get_OV()
 
 ##Sets the animation for all sprite layers
@@ -272,7 +272,7 @@ func reset_sprite():
 func bag_anim() -> void:
 	BodyState = NONE
 	if get_node_or_null("%Base") == null: return
-	Global.find_member("Mira").OV = "res://art/OV/Mira/MiraOVBag.tres"
+	Global.find_member("Mira").OV = "Bag"
 	Global.check_party.emit()
 	await set_anim("BagOpen", true)
 	set_anim("BagIdle")

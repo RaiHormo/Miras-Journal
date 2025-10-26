@@ -106,7 +106,7 @@ Placeholder description: To equip Complimentaries, go to the Menu > Party > Abil
 => END
 
 ~ rest_camp
-if Time == 2 and Day == 1:
+if Event.TimeOfDay == 2 and Event.Day == 1:
 	I'm all rested, let's go find Alcine.
 else:
 	It's the tent.

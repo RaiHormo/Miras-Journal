@@ -16,7 +16,7 @@ func levelup(chara: Actor):
 	$ChooseUpgrade/Continue.hide()
 	$ChooseUpgrade/Cursor.show()
 	index = 0
-	$ChooseUpgrade/Actor.sprite_frames = chara.BT
+	$ChooseUpgrade/Actor.sprite_frames = await chara.get_BT()
 	$ChooseUpgrade/HPCont.position.y = 374
 	$ChooseUpgrade/APCont.position.y = 515
 	$ChooseUpgrade/NewAb.position.y = 654

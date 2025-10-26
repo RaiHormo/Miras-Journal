@@ -6,6 +6,7 @@ class_name Actor
 @export_range(0, 9999) var Health: int
 @export_range(0, 9999) var Aura: int
 
+@export_subgroup("Info")
 ##Displayed name of the character
 @export var FirstName: String = "Name"
 ##Their Aura color
@@ -15,7 +16,11 @@ class_name Actor
 ##Used for AI decisions
 @export_enum("Unknown", "Attacker", "Mage", "Support", "Tank", "Boss") var ActorClass: String
 ##Used for refrencing the character in code
-@export var codename: StringName = &"Actor"
+@export var codename: StringName = &"Actor":
+	get():
+		if codename == &"Actor":
+			codename = FirstName.to_pascal_case()
+		return codename
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
 @export var Pronouns: Array[String] = ["it", "it", "its", "itself"]
 @export var WeaponPower: int = 24
@@ -92,7 +97,7 @@ var SpeedBoost: int = 0
 ##Some standard animation names include:
 ##Idle, Hit, Ability, Cast, KnockOut, Entrance, Attack1, Attack2, Item, Command,
 ##AbilityLoop, ItemLoop, Victory, VictoryLoop
-@export var BT: SpriteFrames = SpriteFrames.new()
+@export var BT: String
 ##Offset for the battle sprite
 @export var Offset: Vector2 = Vector2.ZERO
 ##Whether the shadow sprite should be drawn, preferable for humanoid characters
@@ -121,6 +126,7 @@ var SpeedBoost: int = 0
 @export var CantDie:= false
 @export var IgnoreStates:= false
 @export var CantDodge:= false
+@export var CantAttack:= false
 
 var NextAction: String = ""
 var NextMove: Resource = null
@@ -266,6 +272,7 @@ func save_to_dict() -> Dictionary:
 		"ClutchDmg": ClutchDmg,
 		"CantDie": CantDie,
 		"CantDodge": CantDodge,
+		"CantAttack": CantAttack,
 		"IgnoreStates": IgnoreStates,
 		"OV": OV,
 	}
@@ -347,9 +354,25 @@ func skill_points_for(level: int) -> int:
 	return int(SkillCurve.sample(level))
 
 func get_OV() -> SpriteFrames:
-	if not ResourceLoader.exists(OV):
-		OV = load("res://database/Party/"+codename+".tres").OV
-	return await Loader.load_res(OV)
+	var path = "res://art/OV/"+codename+"/"+codename+"OV"+OV+".tres"
+	if not ResourceLoader.exists(path):
+		if OV != "":
+			OV = ""
+			push_warning("Couldn't find "+path+", using fallback")
+			return await get_BT()
+		else: OS.alert("Invalid OV path, "+ path)
+	return await Loader.load_res(path)
+	
+func get_BT() -> SpriteFrames:
+	var path: String
+	if "/" in BT: path = "res://art/BT/"+BT+".tres"
+	else: path = "res://art/BT/"+codename+"/"+codename+"BT"+BT+".tres"
+	if not ResourceLoader.exists(path):
+		if BT != "":
+			BT = ""
+			return await get_BT()
+		else: OS.alert("Invalid BT path, "+ path)
+	return await Loader.load_res(path)
 
 func load_complimentaries():
 	Complimentaries = []

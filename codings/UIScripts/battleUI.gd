@@ -108,7 +108,7 @@ func _on_battle_get_control():
 	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
 	if CurrentChar.has_state("Bound"):
 		$Attack.disabled = true
-	if disable_attack: $Attack.disabled = true
+	if disable_attack or CurrentChar.CantAttack: $Attack.disabled = true
 	if disable_ability: $Ability.disabled = true
 	if disable_command: $Command.disabled = true
 	if disable_item: $Item.disabled = true
