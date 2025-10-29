@@ -44,7 +44,7 @@ func draw_character(character: Actor):
 
 
 func fetch_all_abilities():
-	var Abilities = await Global.get_complimentaries()
+	var Abilities = await Query.get_complimentaries()
 	for n in %AbilityList.get_children():
 		if n is Button:
 			%AbilityList.remove_child(n)
@@ -125,7 +125,7 @@ func _on_list_focus_entered() -> void:
 		%Wheel.draw_wheel()
 	else: %Wheel.hide()
 	%AttackTitle.text = ab.name
-	%AttackTitle/RichTextLabel.text = Global.colorize(ab.description)
+	%AttackTitle/RichTextLabel.text = Colorizer.colorize(ab.description)
 
 func _on_equipped_focus_entered() -> void:
 	#refresh()
@@ -140,7 +140,7 @@ func _on_equipped_focus_entered() -> void:
 			$Desc/Wheel.draw_wheel()
 			$Desc/Wheel.draw_wheel()
 		else: $Desc/Wheel.hide()
-		$Desc/RichTextLabel.text = Global.colorize(ab.description)
+		$Desc/RichTextLabel.text = Colorizer.colorize(ab.description)
 	else:
 		$Desc/RichTextLabel.text = "This slot is empty.\n\nPress [img width=48]"+Global.get_controller().ConfirmIcon.resource_path+"[/img] to equip one of the available Complimentary abilities to this slot."
 		$Desc/Wheel.hide()

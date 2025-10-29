@@ -1,5 +1,5 @@
 extends TextureRect
-@export var HideOnDays: Array[int]
+#@export var HideOnDays: Array[int]
 var time_pass_id: String
 signal chosen_time_pass(awnser: bool)
 
@@ -8,24 +8,23 @@ func _ready() -> void:
 	hide_prompt()
 
 func _check_party():
-	if Event.f("HideDate") and not $Action.visible: 
+	if Event.f("HideDate"): 
 		$Date/Day.add_theme_font_size_override("font_size", 150)
 		$Date/Month.text = "Unknown"
 		$Date/Day.text = "Date"
-		hide()
+		if not $Action.visible: hide()
 	else: 
-		show()
 		$Date/Day.add_theme_font_size_override("font_size", 265) 
-	$Container/TimeOfDay.text = Global.to_tod_text(Event.TimeOfDay)
+		show()
+	$Container/TimeOfDay.text = Query.to_tod_text(Event.TimeOfDay)
 	$Date/Day.text = str(wrapi(Event.Day, 1, 32))
-	$Date/Month.text = Global.get_month_name(Global.get_month(Event.Day))
-	$Container/TimeOfDay.icon = await Global.to_tod_icon(Event.TimeOfDay)
+	$Date/Month.text = Query.get_month_name(Query.get_month(Event.Day))
+	$Container/TimeOfDay.icon = await Query.to_tod_icon(Event.TimeOfDay)
 	
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
 	Global.check_party.emit()
 	Event.f("DisableMenus", false)
-	show()
 	Global.Controllable = false
 	get_tree().paused = true
 	PartyUI.show_all()
@@ -38,11 +37,12 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	t.tween_property($Action, "position:x", -1750, 0.3).from(-1850)
 	$Action/RichTextLabel.text = description
 	$Action.text = title
-	$Future/TimeOfDay.text = Global.to_tod_text(to_time)
-	$Future/TimeOfDay.icon = await Global.to_tod_icon(to_time)
+	$Future/TimeOfDay.text = Query.to_tod_text(to_time)
+	$Future/TimeOfDay.icon = await Query.to_tod_icon(to_time)
 	$Action.show()
 	$Future.show()
 	$Arrow.show()
+	show()
 	await t.finished
 	Global.Controllable = false
 	$Action/Nevermind.grab_focus()

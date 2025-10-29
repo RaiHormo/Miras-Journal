@@ -20,9 +20,9 @@ func _physics_process(delta: float) -> void:
 			if jump_dirs.is_empty():
 				Global.toast("No jump dirs here, fix this!")
 				return
-			Global.Player.can_jump = true if Global.get_direction() in jump_dirs else false
+			Global.Player.can_jump = true if Query.get_direction() in jump_dirs else false
 			if Global.Player.dashing and Global.Controllable:
-				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Global.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):
+				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Query.get_direction(to_local(Global.Player.position)*-1*jump_dirs[0])):
 					busy = true
 					#Global.Player.cant_bump = true
 					var t = create_tween()
@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 					#coord /= 24
 					coord = coord.round()
 					#coord *= 24
-					Global.Player.set_anim("Dash"+Global.get_dir_name(Global.Player.dashdir)+"Loop")
+					Global.Player.set_anim("Dash"+Query.get_dir_name(Global.Player.dashdir)+"Loop")
 					Global.Player.used_sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)
 					Global.Player.collision(true)

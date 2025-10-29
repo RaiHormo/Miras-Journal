@@ -93,7 +93,7 @@ func _physics_process(delta) -> void:
 	if direction.length() > 0.2:
 		if get_node_or_null("DirectionMarker"):
 			set_dir_marker(direction)
-		if direction.length() > 0.05: Facing = Global.get_direction(direction)
+		if direction.length() > 0.05: Facing = Query.get_direction(direction)
 	update_anim_prm()
 
 func set_dir_marker(vec: Vector2 = direction):
@@ -108,12 +108,12 @@ func update_anim_prm() -> void:
 	if Facing == Vector2.ZERO: return
 	if RealVelocity.length() > 0.3:
 		#BodyState = MOVE
-		if str("Walk"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
-			$Sprite.play(str("Walk"+Global.get_dir_name(Facing)))
+		if str("Walk"+Query.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
+			$Sprite.play(str("Walk"+Query.get_dir_name(Facing)))
 	else:
 		#BodyState = IDLE
-		if str("Idle"+Global.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
-			$Sprite.play(str("Idle"+Global.get_dir_name(Facing)))
+		if str("Idle"+Query.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
+			$Sprite.play(str("Idle"+Query.get_dir_name(Facing)))
 	if Footsteps: handle_step_sounds($Sprite)
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
@@ -201,7 +201,7 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 6) -> void:
 	if self is Mira and Global.Controllable: return
 	await stop_going()
-	if use_coords: pos = Global.globalize(pos)
+	if use_coords: pos = Query.globalize(pos)
 	if Engine.time_scale > 2:
 		position = pos
 		return
@@ -233,7 +233,7 @@ func _input(event: InputEvent) -> void:
 		go_to(get_global_mouse_position(), false)
 
 func wall_in_front() -> bool:
-	if is_on_wall() and Global.get_direction(get_wall_normal()) == Global.get_direction(): return true
+	if is_on_wall() and Query.get_direction(get_wall_normal()) == Query.get_direction(): return true
 	else: return false
 
 func bubble(stri:String) -> void:

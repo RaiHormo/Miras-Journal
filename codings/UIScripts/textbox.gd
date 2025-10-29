@@ -56,21 +56,21 @@ var dialogue_line: DialogueLine:
 			char_name = char_name.erase(char_name.length()-1)
 		if "." in tr(dialogue_line.character, "dialogue"):
 			var redraw: bool = true
-			if character_label.text == Global.find_member(char_name).FirstName: redraw = false
-			if Global.find_member(char_name) != null:
-				if Global.find_member(char_name).FirstName == character_label.text: redraw = false
+			if character_label.text == Query.find_member(char_name).FirstName: redraw = false
+			if Query.find_member(char_name) != null:
+				if Query.find_member(char_name).FirstName == character_label.text: redraw = false
 			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
-		if Global.find_member(char_name) == null:
+		if Query.find_member(char_name) == null:
 			character_label.text = char_name
-		else: character_label.text = Global.find_member(char_name).FirstName
+		else: character_label.text = Query.find_member(char_name).FirstName
 		if character_label.text.is_empty(): 
 			$Balloon/Panel.hide()
 		else: 
 			$Balloon/Panel.show()
 			$Balloon/Panel.size.x = 1
 
-		dialogue_line.text = Global.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
-		dialogue_line.text = Global.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
+		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
+		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
 
 
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")

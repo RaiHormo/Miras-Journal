@@ -1,5 +1,70 @@
 extends Node
 
+func new_game() -> void:
+	if get_tree().root.has_node("/root/Textbox"): $"/root/Textbox"._on_close()
+	if get_tree().root.has_node("/root/Initializer"): $"/root/Initializer".queue_free()
+	Global.init_party(Global.Party)
+	Global.FirstStartTime = Time.get_unix_time_from_system()
+	Event.Flags.clear()
+	Event.add_flag("Started")
+	Event.f("HasBag", false)
+	PartyUI.hide_all()
+	Event.f("DisableMenus", true)
+	Event.f("HideDate", true)
+	Item.KeyInv.clear()
+	Item.ConInv.clear()
+	Item.MatInv.clear()
+	Item.BtiInv.clear()
+	Item.add_item("Wallet", &"Key", false)
+	Item.add_item("PenCase", &"Key", false)
+	Item.add_item("FoldedPaper", &"Key", false)
+	#Item.add_item("SmallPotion", &"Con", false)
+	Loader.Defeated.clear()
+	Global.Party.reset_party()
+	Global.reset_all_members()
+	Event.TimeOfDay = Event.TOD.NIGHT
+	Event.Day = 0
+	Loader.white_fadeout()
+	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
+	await Global.area_initialized
+	await Event.take_control()
+	if Input.is_action_pressed("Dash"):
+		Global.refresh()
+		return
+	Global.Player.BodyState = NPC.CUSTOM
+	Global.Player.set_anim("OnFloor")
+	Global.Player.get_node("%Shadow").modulate = Color.TRANSPARENT
+	Global.Player._check_party()
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	PartyUI.UIvisible = false
+	t.tween_property(Global.Camera, "zoom", Vector2(6,6), 6).from(Vector2(2, 2))
+	Loader.save()
+	await t.finished
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	t.tween_property(Global.Area.get_node("GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
+	t.tween_property(Global.Area.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
+	t.tween_property(Global.Area.get_node("GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
+	Global.Area.get_node("GetUp").show()
+	await Global.Area.get_node("GetUp").pressed
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	PartyUI.disabled = true
+	t.tween_property(Global.Area.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
+	t.tween_property(Global.Area.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(Global.Camera, "zoom", Vector2(5,5), 5)
+	t.tween_property(Global.Player.get_node("%Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
+	await Global.Player.set_anim("GetUp", true)
+	Global.Player.set_anim("IdleUp")
+	Global.Controllable = true
+	Event.pop_tutorial("walk")
+
 func bag_seq():
 	Global.Party.Leader.OV = "Bag"
 	Global.Player.BodyState = NPC.CUSTOM
@@ -118,6 +183,7 @@ func rest_amberelm():
 		Event.ToTime = Event.TOD.DAYTIME
 		await Event.time_transition()
 		Global.heal_party()
+	else: Event.give_control()
 
 func oct0_daytime():
 	Event.no_player()

@@ -50,7 +50,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	AblilityList.append(Char.StandardAttack)
 	for i: Ability in AblilityList.duplicate():
-		if i == null: AblilityList.erase(i)
+		if not is_instance_valid(i): AblilityList.erase(i)
 	var Choices:Array[Ability] = []
 	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:

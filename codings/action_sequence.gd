@@ -92,13 +92,13 @@ func handle_states():
 					#chara.node.get_node("State").play("Burned")
 					Bt.focus_cam(chara, 0.3)
 					Bt.play_sound("BurnWoosh", chara)
-					Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Global.ElementColor.get("heat"))
+					Bt.damage(chara, true, true, randi_range(3, 12), false, true, true, Colorizer.ElementColor.get("heat"))
 					await get_tree().create_timer(0.8).timeout
 				"Poisoned":
 					state.turns += 1
 					#chara.node.get_node("State").play("Poisoned")
 					Bt.focus_cam(chara, 0.3)
-					Bt.damage(chara, true, true, abs(state.turns), false, true, true, Global.ElementColor.get("corruption"))
+					Bt.damage(chara, true, true, abs(state.turns), false, true, true, Colorizer.ElementColor.get("corruption"))
 					await get_tree().create_timer(0.8).timeout
 				"Confused":
 					var luck := randi_range(state.turns, 1)
@@ -125,7 +125,7 @@ func handle_states():
 						Bt.play_effect("LeechGrab1", chara, Vector2.ZERO, false, true)
 						Bt.focus_cam(chara, 0.3)
 						if chara.DamageRecivedThisTurn == 0:
-							Bt.damage(chara, true, true, 4, false, true, true, Global.ElementColor.get("natural"))
+							Bt.damage(chara, true, true, 4, false, true, true, Colorizer.ElementColor.get("natural"))
 						var dmg = chara.DamageRecivedThisTurn
 						await $LeechGrab1.animation_finished
 						var t = create_tween()
@@ -619,13 +619,13 @@ func IcyDrizzle(target: Actor):
 		Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
 		await Event.wait(0.3)
 		if not miss:
-			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
+			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num()/2)
 			Bt.screen_shake(5)
 		roll_rng(target)
 		if not miss:
 			Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
 			await Event.wait(randf_range(0, 0.5))
-			Bt.damage(target, CurrentChar.Magic, true, Global.calc_num()/2)
+			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num()/2)
 			Bt.screen_shake(5)
 			if crit: await target.add_state("Frozen")
 	Bt.end_turn()
@@ -689,7 +689,7 @@ func RedShift(target: Actor):
 	Bt.focus_cam(target, 1)
 	Bt.play_effect("ToxicSplash", target)
 	await Event.wait(0.8)
-	Bt.damage(target, true, true, Global.calc_num()+(Global.calc_num()*target.States.size()))
+	Bt.damage(target, true, true, Query.calc_num()+(Query.calc_num()*target.States.size()))
 	Bt.screen_shake(8, 5, 0.1)
 	await Event.wait(1)
 	Bt.anim()
@@ -732,7 +732,7 @@ func Drill(target: Actor):
 	Bt.shake_actor(target)
 	await Event.wait(0.5)
 	Bt.screen_shake()
-	await Bt.damage(target, true, true, Global.calc_num(), true, false, false, Bt.CurrentChar.MainColor)
+	await Bt.damage(target, true, true, Query.calc_num(), true, false, false, Bt.CurrentChar.MainColor)
 	await Event.wait(0.5)
 	Bt.end_turn()
 
@@ -898,7 +898,7 @@ func ItemThrow(target: Actor):
 	Bt.focus_cam(target)
 	Bt.play_effect("Hit", target)
 	Bt.screen_shake()
-	Bt.damage(target, false, true, Global.calc_num(), true, false, true)
+	Bt.damage(target, false, true, Query.calc_num(), true, false, true)
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()

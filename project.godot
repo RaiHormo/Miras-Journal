@@ -47,6 +47,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
 SteamInput="*res://codings/Autoload/SteamInput.gd"
 AntialiasedLine2DTexture="*res://addons/antialiased_line2d/texture.gd"
+Query="*res://codings/Classes/query.gd"
 
 [debug]
 
@@ -67,7 +68,7 @@ gdscript/warnings/int_as_enum_without_match=0
 
 [dialogue_manager]
 
-runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item"]
+runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item", "Query"]
 editor/wrap_long_lines=true
 
 [display]

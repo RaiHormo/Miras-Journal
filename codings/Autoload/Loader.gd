@@ -193,10 +193,10 @@ func load_res(path: String) -> Resource:
 	#if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
-func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Global.get_dir_letter()):
+func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Query.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Global.get_dir_letter(), controllable:= true):
+func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Query.get_dir_letter(), controllable:= true):
 	direc = trans
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1: controllable = false
@@ -240,7 +240,7 @@ func _process(delta):
 			loading_thread = false
 			thread_loaded.emit()
 
-func transition(dir=Global.get_dir_letter()):
+func transition(dir=Query.get_dir_letter()):
 	if dir == "none": return
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
@@ -291,7 +291,7 @@ func transition(dir=Global.get_dir_letter()):
 
 func done(controllable:= false):
 	chased = false
-	var look_dir = Global.get_direction()
+	var look_dir = Query.get_direction()
 	if Global.Area: Global.Area.queue_free()
 	if get_tree().root.has_node("MainMenu"): 
 		get_tree().root.get_node("MainMenu").queue_free()
@@ -300,7 +300,7 @@ func done(controllable:= false):
 	await Global.area_initialized
 	Global.Lights.clear()
 	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
-	Global.get_cam().position_smoothing_enabled = false
+	Global.Camera.position_smoothing_enabled = false
 	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.collision(false)
@@ -442,7 +442,7 @@ func end_battle():
 
 	if not is_instance_valid(Global.Player): return
 	for i in Global.Area.Followers:
-		if i and Global.check_member(i.member): i.show()
+		if i and Query.check_member(i.member): i.show()
 	Global.Player.set_anim("IdleRight")
 	Global.Player.dashing = false
 	if is_instance_valid(Global.Bt): Global.Bt.get_node("Act").hide()
@@ -617,8 +617,8 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	var tod = $Can/TimeOfDay
 	tod.modulate = Color.TRANSPARENT
 	tod.scale = Vector2(0.6, 0.6)
-	tod.text = Global.to_tod_text(from)
-	tod.icon = await  Global.to_tod_icon(from)
+	tod.text = Query.to_tod_text(from)
+	tod.icon = await  Query.to_tod_icon(from)
 	tod.show()
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
@@ -629,8 +629,8 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	t = create_tween()
 	t.tween_property(tod, "scale:x", 0, 0.1)
 	await t.finished
-	tod.text = Global.to_tod_text(to)
-	tod.icon = await Global.to_tod_icon(to)
+	tod.text = Query.to_tod_text(to)
+	tod.icon = await Query.to_tod_icon(to)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(tod, "scale:x", 1, 0.3)
 	await Event.wait(0.6, false)

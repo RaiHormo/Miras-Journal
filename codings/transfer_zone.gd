@@ -23,6 +23,6 @@ func _on_preview_entered(body):
 	if body == Global.Player: $Cursor.hide()
 
 func _on_body_exited(body: Node2D) -> void:
-	if body == Global.Player and Global.get_direction(to_local(body.position)) == Direction:
+	if body == Global.Player and Query.get_direction(to_local(body.position)) == Direction:
 		body.position = position - Direction*48
 		_on_entered(body)

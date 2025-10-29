@@ -827,7 +827,6 @@ position = Vector2(564, 336)
 collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_dejne")
-no_collision = null
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook1"]
@@ -865,7 +864,6 @@ position = Vector2(1096, 243)
 collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_45tma")
-no_collision = null
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook2"]
@@ -900,7 +898,6 @@ position = Vector2(1400, 476)
 collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_djhcr")
-no_collision = null
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook3"]

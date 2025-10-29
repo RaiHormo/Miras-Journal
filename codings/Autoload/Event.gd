@@ -265,7 +265,7 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
-	await chara.look_to(Global.get_dir_from_letter(dir))
+	await chara.look_to(Query.get_dir_from_letter(dir))
 	return chara
 
 func no_player():
@@ -284,7 +284,7 @@ func time_transition():
 	await Loader.flip_time(TimeOfDay, ToTime)
 	if Day != ToDay:
 		Day = ToDay
-		Global.toast(Global.get_month_name(Global.get_month(Day))+" "+str(Day)+" cin16")
+		Global.toast(Query.get_month_name(Query.get_month(Day))+" "+str(Day)+" cin16")
 	set_time(ToTime)
 	start_time_events()
 	await Loader.detransition()
@@ -294,7 +294,7 @@ func zoom(val: float, maintain = false):
 	if maintain: Global.Area.overwrite_zoom = val
 
 func start_time_events():
-	var seq = Global.get_mmm(Global.get_month(Day)).to_lower()+str(Day)+"_"+Global.to_tod_text(TimeOfDay).to_lower()
+	var seq = Query.get_mmm(Query.get_month(Day)).to_lower()+str(Day)+"_"+Query.to_tod_text(TimeOfDay).to_lower()
 	print(seq)
 	if sequence_exists(seq):
 		sequence(seq)

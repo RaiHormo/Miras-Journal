@@ -23,8 +23,8 @@ var follow: PathFollow2D
 func _ready():
 	hide()
 	await Event.wait()
-	oposite = (Global.get_direction() * Vector2(-1,-1)) * 150
-	$AnimatedSprite2D.play("Idle"+Global.get_dir_name())
+	oposite = (Query.get_direction() * Vector2(-1,-1)) * 150
+	$AnimatedSprite2D.play("Idle"+Query.get_dir_name())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()
@@ -72,7 +72,7 @@ func _physics_process(_delta: float) -> void:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
 				animate()
-				oposite = (Global.get_direction() * Vector2(-1,-1))
+				oposite = (Query.get_direction() * Vector2(-1,-1))
 				velocity = oposite * 150
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
@@ -98,7 +98,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func animate():
-	if not Global.check_member(member): return
+	if not Query.check_member(member): return
 	if $AnimatedSprite2D.sprite_frames.resource_path != member_info().OV:
 		$AnimatedSprite2D.sprite_frames = await member_info().get_OV()
 	if $AnimatedSprite2D.animation != "default":
@@ -111,7 +111,7 @@ func animate():
 		pass
 	elif not moving:
 		if Global.Player.move_frames < randi_range(-100, -2000):
-			dir = Global.get_direction(to_local(Global.Player.position))
+			dir = Query.get_direction(to_local(Global.Player.position))
 		if RealVelocity.length() == 0:
 			position = round(position)
 		if dir == Vector2.RIGHT:
@@ -123,7 +123,7 @@ func animate():
 		elif dir == Vector2.DOWN:
 			$AnimatedSprite2D.play("IdleDown")
 	else:
-		dir = Global.get_direction(RealVelocity)
+		dir = Query.get_direction(RealVelocity)
 		if dir == Vector2.RIGHT:
 			$AnimatedSprite2D.play("WalkRight")
 		elif dir == Vector2.LEFT:
@@ -152,4 +152,4 @@ func member_info() -> Actor:
 	return Global.Party.get_member(member)
 
 func attacked():
-	Global.jump_to(self, position-Vector2(Global.get_direction()*24), 5, 0.5)
+	Global.jump_to(self, position-Vector2(Query.get_direction()*24), 5, 0.5)

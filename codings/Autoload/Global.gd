@@ -46,14 +46,6 @@ const AppID = 4059970
 var UsingSteam:= false
 var SteamInputDevice
 var UserID: int
-
-var ElementColor: Dictionary = {
-	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
-	wind = Color.hex(0x56d741ff), spiritual = Color.hex(0x52f8b5ff), cold = Color.hex(0x52f8b5ff),
-	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc333c3ff),
-	physical = Color.hex(0xd3446dff),
-
-	attack = Color.hex(0xdf3737ff), magic = Color.hex(0x5a68dfff), defence = Color.hex(0x40f178ff)}
 #endregion
 
 #region System
@@ -193,70 +185,8 @@ func veinet_map(cur: String):
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 
-func new_game() -> void:
-	if get_tree().root.has_node("/root/Textbox"): $"/root/Textbox"._on_close()
-	if get_tree().root.has_node("/root/Initializer"): $"/root/Initializer".queue_free()
-	init_party(Party)
-	FirstStartTime = Time.get_unix_time_from_system()
-	Event.Flags.clear()
-	Event.add_flag("Started")
-	Event.f("HasBag", false)
-	PartyUI.hide_all()
-	Event.f("DisableMenus", true)
-	Event.f("HideDate", true)
-	Item.KeyInv.clear()
-	Item.ConInv.clear()
-	Item.MatInv.clear()
-	Item.BtiInv.clear()
-	Item.add_item("Wallet", &"Key", false)
-	Item.add_item("PenCase", &"Key", false)
-	Item.add_item("FoldedPaper", &"Key", false)
-	#Item.add_item("SmallPotion", &"Con", false)
-	Loader.Defeated.clear()
-	Party.reset_party()
-	reset_all_members()
-	Event.TimeOfDay = Event.TOD.NIGHT
-	Event.Day = 0
-	Loader.white_fadeout()
-	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
-	await Global.area_initialized
-	await Event.take_control()
-	if Input.is_action_pressed("Dash"):
-		Global.refresh()
-		return
-	Player.BodyState = NPC.CUSTOM
-	Player.set_anim("OnFloor")
-	Player.get_node("%Shadow").modulate = Color.TRANSPARENT
-	Player._check_party()
-	var t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	PartyUI.UIvisible = false
-	t.tween_property(get_cam(), "zoom", Vector2(6,6), 6).from(Vector2(2, 2))
-	Loader.save()
-	await t.finished
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.set_parallel()
-	t.tween_property(Area.get_node("GetUp"), "position", Vector2(100,512), 0.2).from(Vector2(120,512))
-	t.tween_property(Area.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
-	t.tween_property(Area.get_node("GetUp"), "size", Vector2(120,33), 0.2).from(Vector2(41, 33))
-	Area.get_node("GetUp").show()
-	await Area.get_node("GetUp").pressed
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.set_parallel()
-	PartyUI.disabled = true
-	t.tween_property(Area.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
-	t.tween_property(Area.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
-	t.tween_property(get_cam(), "zoom", Vector2(5,5), 5)
-	t.tween_property(Player.get_node("%Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
-	await Player.set_anim("GetUp", true)
-	Player.set_anim("IdleUp")
-	Controllable = true
-	Event.pop_tutorial("walk")
+static func alcine() -> String:
+	return Query.find_member("Alcine").FirstName
 
 func nodes_of_type(node: Node, className : String, result : Array) -> void:
 	if !node: return
@@ -470,21 +400,6 @@ func ui_sound(string:String) -> void:
 func get_party() -> PartyData:
 	return Global.Party
 
-func check_member(n:int) -> bool:
-	return Party.check_member(n)
-
-func get_member_name(n:int) -> String:
-	if Party.check_member(0) and n==0:
-		return Party.Leader.codename
-	elif Party.check_member(1) and n==1:
-		return Party.Member1.codename
-	elif Party.check_member(2) and n==2:
-		return Party.Member2.codename
-	elif Party.check_member(3) and n==2:
-		return Party.Member3.codename
-	else:
-		return "Null"
-
 func heal_party() -> void:
 	for i in Members:
 		i.full_heal()
@@ -503,15 +418,11 @@ func reset_all_members() -> void:
 		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
 	Party.set_to(Party)
 
-func find_member(Name: StringName) -> Actor:
-	for i in Members:
-		if i.codename == Name: return i
-	#push_error("No party member with the name "+ Name + " was found")
-	return null
-
 ##Alias for find_member()
-func mem(Name: StringName) -> Actor:
-	return find_member(Name)
+
+func add_complimentary(ability: String):
+	if ability not in Global.Complimentaries:
+		Global.Complimentaries.append(ability)
 
 func init_party(party:PartyData) -> void:
 	Members.clear()
@@ -522,28 +433,6 @@ func init_party(party:PartyData) -> void:
 			Members.append(file.duplicate())
 	Party = PartyData.new()
 	Party.set_to(party)
-
-func number_of_party_members() -> int:
-	var num= 1
-	if check_member(1):
-		num+=1
-	if check_member(2):
-		num+=1
-	if check_member(3):
-		num+=1
-	return num
-
-func is_in_party(n:String) -> bool:
-	if Party.Leader.codename == n:
-		return true
-	elif Party.check_member(1) and Party.Member1.codename == n:
-		return true
-	elif Party.check_member(2) and Party.Member2.codename == n:
-		return true
-	elif Party.check_member(3) and Party.Member3.codename == n:
-		return true
-	else:
-		return false
 
 func unlock_all_abilities():
 	for mem in Members:
@@ -652,352 +541,8 @@ func match_profile(named:String) -> TextProfile:
 
 #endregion
 
-#region Quick Queries
-func colorize(str: String) -> String:
-	for i in ElementColor.keys():
-		var elname: String = i
-		#str = colorize_replace(elname, str, i)
-		str = colorize_replace(elname.capitalize(), str, i)
-		str = colorize_replace(state_element_verbing(elname), str, i)
-		str = colorize_replace(state_element_verbs(elname), str, i)
-		str = colorize_replace(state_element_verbed(elname), str, i)
-		str = colorize_replace(state_element_verb(elname), str, i)
-	return str
-
-func colorize_replace(elname, str: String, i) -> String:
-	if elname in str:
-		var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
-		var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
-		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
-	return str
-
-func get_direction(v: Vector2 = PlayerDir, allow_zero = false) -> Vector2:
-	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
-	if abs(v.x) > abs(v.y):
-		if v.x >0:
-			return Vector2.RIGHT
-		else:
-			return Vector2.LEFT
-	else:
-		if v.y >0:
-			return Vector2.DOWN
-		else:
-			return Vector2.UP
-
-func get_cam() -> Camera2D:
-	if !is_instance_valid(Area): return null
-	return Area.Cam
-
-func str_length(str: String):
-	return str.length()
-
-func get_mmm(month: int) -> String:
-	match month:
-		1: return "Jan"
-		2: return "Feb"
-		3: return "Mar"
-		4: return "Apr"
-		5: return "May"
-		6: return "Jun"
-		7: return "Jul"
-		8: return "Aug"
-		9: return "Sep"
-		10: return "Oct"
-		11: return "Nov"
-		12: return "Dec"
-	return "???"
-
-func get_month_name(month: int) -> String:
-	match month:
-		1: return "January"
-		2: return "February"
-		3: return "March"
-		4: return "April"
-		5: return "May"
-		6: return "June"
-		7: return "July"
-		8: return "August"
-		9: return "September"
-		10: return "October"
-		11: return "November"
-		12: return "December"
-	return "Unknown"
-
-func get_month(day: int) -> int:
-	if day>0 and day<=30: return 11
-	if day<=0: return 10
-	else: return 0
-
-func get_dir_letter(d: Vector2 = PlayerDir) -> String:
-	match  get_direction(d):
-		Vector2.RIGHT:
-			return "R"
-		Vector2.LEFT:
-			return "L"
-		Vector2.UP:
-			return "U"
-		Vector2.DOWN:
-			return "D"
-		_: return "C"
-
-func get_dir_from_letter(d: String) -> Vector2:
-	match d:
-		"R", "Right":
-			return Vector2.RIGHT
-		"L", "Left":
-			return Vector2.LEFT
-		"U", "Up":
-			return Vector2.UP
-		"D", "Down":
-			return Vector2.DOWN
-		_:
-			return Vector2.ZERO
-
-
-func tilemapize(pos: Vector2) -> Vector2:
-	return Area.local_to_map(pos)
-
-func globalize(coords :Vector2i) -> Vector2:
-	return Area.map_to_local(coords)
-
-func get_state(stat: StringName) -> State:
-	return await Loader.load_res("res://database/States/" + stat + ".tres")
-
-func get_dir_name(d: Vector2 = PlayerDir) -> String:
-	if get_direction(d) == Vector2.RIGHT:
-		return "Right"
-	elif get_direction(d) == Vector2.LEFT:
-		return "Left"
-	elif get_direction(d) == Vector2.UP:
-		return "Up"
-	elif get_direction(d) == Vector2.DOWN:
-		return "Down"
-	else: return "Center"
-
-func in_360(nm) -> int:
-	return wrapi(nm, 0, 359)
-
-func alcine() -> String:
-	return find_member("Alcine").FirstName
-
-func calc_num(ab: Ability = Bt.CurrentAbility, chara: Actor = null):
-	var base: int
-	match ab.Damage:
-		Ability.D.NONE: base = 0
-		Ability.D.WEAK: base = 12
-		Ability.D.MEDIUM: base = 24
-		Ability.D.HEAVY: base = 48
-		Ability.D.SEVERE: base = 96
-		Ability.D.CUSTOM: base = int(ab.Parameter)
-		Ability.D.WEAPON: base = chara.WeaponPower if chara else Bt.CurrentChar.WeaponPower
-	if ab.DmgVarience:
-		base = int(base * randf_range(0.8, 1.2))
-	return base
-
-func get_complimentaries() -> Array[Ability]:
-	var rtn: Array[Ability]
-	for i in Complimentaries:
-		rtn.append(await get_ability(i))
-	return rtn
-
-func get_ability(ab: String) -> Ability:
-	if ResourceLoader.exists("res://database/Abilities/"+ab+".tres"):
-		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
-	if ResourceLoader.exists("res://database/Abilities/Attacks/"+ab+".tres"):
-		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
-	return null
-
-func state_element_verb(str: String) -> String:
-	match str:
-		"heat": return "burn"
-		"wind": return "launch"
-		"corruption": return "poison"
-		"spiritual": return "confuse"
-		"cold": return "freeze"
-		"technical": return "deflect"
-		"physical": return "bind"
-		"liquid": return "soak"
-		"electric": return "zap"
-		"natural": return "leech"
-		"defence": return "guard"
-		"attack": return "knock out"
-		"magic": return "Aura break"
-	return str
-
-func state_element_verbs(str: String) -> String:
-	match str:
-		"heat": return "burns"
-		"wind": return "launches"
-		"corruption": return "poisons"
-		"spiritual": return "confuses"
-		"cold": return "freezes"
-		"technical": return "deflects"
-		"physical": return "binds"
-		"liquid": return "soaks"
-		"heat": return "burns"
-		"electric": return "zaps"
-		"natural": return "leeches"
-		"defence": return "guards"
-		"attack": return "knocks out"
-		"magic": return "breaks their Aura"
-	return str
-
-func state_element_verbed(str: String) -> String:
-	match str:
-		"heat": return "burned"
-		"wind": return "launched"
-		"corruption": return "poisoned"
-		"spiritual": return "confused"
-		"cold": return "freezed"
-		"technical": return "deflected"
-		"physical": return "bound"
-		"liquid": return "soaked"
-		"heat": return "burned"
-		"electric": return "zapped"
-		"natural": return "leeched"
-		"defence": return "guarded"
-		"attack": return "knocked out"
-		"magic": return "Aura broken"
-	return str
-
-func state_element_verbing(str: String) -> String:
-	match str:
-		"heat": return "burning"
-		"wind": return "launching"
-		"corruption": return "poisoning"
-		"spiritual": return "confusing"
-		"cold": return "freezing"
-		"technical": return "deflecting"
-		"physical": return "binding"
-		"liquid": return "soaking"
-		"heat": return "burning"
-		"electric": return "zapping"
-		"natural": return "leeching"
-		"defence": return "guarding"
-		"attack": return "knocking out"
-		"magic": return "breaking their Aura"
-	return str
-
-func get_power_rating(power: int) -> String:
-	if power < 6: return "Useless"
-	if power < 12: return "Very weak"
-	if power < 18: return "Weak"
-	if power < 24: return "Servicable"
-	if power < 30: return "Avrage"
-	if power < 36: return "Fine"
-	if power < 42: return "Kinda good"
-	if power < 48: return "Pretty good"
-	if power < 54: return "Sharp"
-	if power < 60: return "Pretty strong"
-	if power < 66: return "Excellent"
-	if power < 72: return "Powerful"
-	if power < 78: return "Very powerful"
-	if power < 84: return "Formidable"
-	if power < 90: return "Overpowered"
-	if power < 96: return "Godly"
-	return "Illegal"
-
-func to_tod_text(x: Event.TOD) -> String:
-	match x:
-		Event.TOD.MORNING: return "Morning"
-		Event.TOD.DAYTIME: return "Daytime"
-		Event.TOD.AFTERNOON: return "Afternoon"
-		Event.TOD.EVENING: return "Evening"
-		Event.TOD.NIGHT: return "Night"
-	return "Dark hour"
-
-func to_tod_icon(x: Event.TOD) -> Texture:
-	if ResourceLoader.exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
-		return await Loader.load_res("res://UI/Calendar/" + to_tod_text(x) + ".png")
-	else: return null
-
-func range_360(n1, n2) -> Array:
-	if n2 > 359:
-		var range1 = range(n1, 359)
-		var range2 = range(0, n2 - 359)
-		range1.append_array(range2)
-		return range1
-	elif n1 < 0:
-		var range1 = range(0, n2)
-		var range2 = range(359 + n1, 359)
-		range2.append_array(range1)
-		return range2
-	else: return range(n1, n2)
-
-func make_array_unique(arr: Array):
-	for i in range(-1, arr.size() - 1):
-		arr[i] = arr[i].duplicate()
-
-func add_complimentary(ability: String):
-	if ability not in Complimentaries:
-		Complimentaries.append(ability)
-
-func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
-	var idx = -1
-	for i in occurence:
-		idx = from.find(what, idx+1)
-	if idx == -1: return from
-	return from.substr(0, idx) + forwhat + from.substr(idx + what.length())
-
-func get_affinity(attacker:Color) -> Affinity:
-	var aff = Affinity.new()
-	var pres = round(remap(attacker.s, 0, 1, 10, 75))
-	var hue = round(remap(attacker.h, 0, 1, 0, 359))
-	#print(in_360(hue-pres/4)," ", in_360(hue+pres/4))
-	aff.hue = hue
-	aff.color = attacker
-	aff.oposing_hue = in_360(hue + 180)
-	aff.oposing_range = range_360(aff.oposing_hue-pres/4, aff.oposing_hue+pres/4)
-	aff.weak_range = range_360(aff.oposing_range[0]-1-pres, aff.oposing_range[0]+1)
-	aff.resist_range = range_360(aff.oposing_range[-1]+1, aff.oposing_range[-1]+1+max(pres, 15))
-	aff.near_range = range_360(hue-max(pres/3, 10), hue+max(pres/3, 10))
-	return aff
-
 func toggle(boo:bool) -> bool:
 	return not boo
-
-func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
-
-	if target.has_method("is_on_wall") and target.is_on_wall(): return
-	else: target.position = r
-
-func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
-
-	target.global_position = r
-
-#Finds an ability of a certain type
-func find_abilities(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
-	#print("Chosing a ", type, " ability")
-	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
-	AblilityList.push_front(Char.StandardAttack)
-	var Choices:Array[Ability] = []
-	for i in AblilityList:
-		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
-			if ((i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health) or ignore_cost:
-				Choices.push_front(i)
-				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
-			else: print("Not enough resources")
-	return Choices
-
-func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Ability:
-	return find_abilities(Char, type, ignore_cost, targets)[0]
-
-func is_everyone_fully_healed() -> bool:
-	for i in Party.array():
-		if !is_instance_valid(i): continue
-		if not i.is_fully_healed(): return false
-	return true
-
-func is_mem_healed(chara: Actor):
-	if !is_instance_valid(chara): return true
-	return chara.is_fully_healed()
-#endregion
 
 #region Quick Actions
 func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
@@ -1012,15 +557,19 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	var jump_height : float = jump_distance * height #will need tweaking
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
+	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	if character == Player and rumble:
 		Global.rumble(0, abs(height)/2, 0.06)
 	anim_done.emit()
 
+func get_cam() -> Camera2D:
+	if !is_instance_valid(Area): return null
+	return Global.Area.Cam
+
 func heal_in_overworld(target:Actor, ab: Ability):
 	print(ArbData0, " healed")
-	var amount:= int(max(calc_num(ab), target.MaxHP*((calc_num(ab)*target.Magic)*0.02)))
+	var amount:= int(max(Query.calc_num(ab), target.MaxHP*((Query.calc_num(ab)*target.Magic)*0.02)))
 	target.add_health(amount)
 	check_party.emit()
 

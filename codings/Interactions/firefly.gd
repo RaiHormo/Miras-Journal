@@ -7,7 +7,7 @@ func _process(delta):
 	if not moving:
 		moving = true
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		var d = Global.get_direction()*50
+		var d = Query.get_direction()*50
 		if is_instance_valid(Global.Player): global_position = Global.Player.global_position + Vector2(randf_range(-180 , 180), randf_range(-150, 150)) +d
 		t= create_tween()
 		t.set_ease(randi_range(0,3))

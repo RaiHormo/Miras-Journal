@@ -226,7 +226,7 @@ func _confirm():
 			t.tween_property($ChooseUpgrade/NewAb/Hbox, "modulate", Color.WHITE, 0.1)
 			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.5,1.5), 0.1)
 			await Event.wait(1, false)
-			$ChooseUpgrade/Desc.text = Global.colorize(learnable.description)
+			$ChooseUpgrade/Desc.text = Colorizer.colorize(learnable.description)
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)

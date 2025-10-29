@@ -62,7 +62,7 @@ func draw_character(chara: Actor, menu:= 0):
 	$StatPanel/StatBars/Magic.value = chara.Magic
 	$StatPanel/Weapon/WeaponName.text = chara.Weapon
 	$StatPanel/Weapon/Icon.texture = chara.StandardAttack.Icon
-	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: "+ Global.get_power_rating(chara.WeaponPower)
+	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: "+ Query.get_power_rating(chara.WeaponPower)
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
@@ -208,7 +208,7 @@ func _on_ab_focus_entered() -> void:
 	else: $AbilityPanel/AttackTitle/Wheel.hide()
 	$AbilityPanel/AttackTitle.text = ab.name
 	#$AbilityPanel/AttackTitle.icon = ab.Icon
-	$AbilityPanel/AttackTitle/RichTextLabel.text = Global.colorize(ab.description)
+	$AbilityPanel/AttackTitle/RichTextLabel.text = Colorizer.colorize(ab.description)
 
 func _on_complimentary() -> void:
 	inactive = true

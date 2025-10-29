@@ -444,9 +444,9 @@ func draw_file(file: SaveFile, node: Control):
 	else:
 		panel.get_node("Date/Month").text = "Beyond"
 		panel.get_node("Date/Day").text = "Time"
-	panel.get_node("Party/Icon0").texture = Global.find_member(file.Party[0]).PartyIcon
+	panel.get_node("Party/Icon0").texture = Query.find_member(file.Party[0]).PartyIcon
 	for i in range(0,4):
-		if file.Party[i] != &"": panel.get_node("Party/Icon"+str(i)).texture =  Global.find_member(file.Party[i]).PartyIcon
+		if file.Party[i] != &"": panel.get_node("Party/Icon"+str(i)).texture =  Query.find_member(file.Party[i]).PartyIcon
 		else: panel.get_node("Party/Icon"+str(i)).texture = null
 	var playtime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.PlayTime))
 	panel.get_node("Time/Playtime").text = "%02d:%02d:%02d" % [playtime.hour, playtime.minute, playtime.second]

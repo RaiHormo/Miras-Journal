@@ -530,7 +530,7 @@ func focus_item(node:Button):
 	var item:ItemData = node.get_meta("ItemData")
 	focused_item = item
 	$DescPaper/Title.text = item.Name
-	$DescPaper/Desc.text = Global.colorize(item.Description)
+	$DescPaper/Desc.text = Colorizer.colorize(item.Description)
 	$DescPaper/Art.texture = item.Artwork
 	if node.get_parent().name == "KeyItems":
 		$Inventory/Margin/Scroller.scroll_vertical = 0

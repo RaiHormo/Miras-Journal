@@ -87,7 +87,7 @@ func extended_process():
 				Nav.set_target_position(Global.Player.position)
 				if  tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.start(2)
-			if Global.get_direction(to_local(Nav.get_next_path_position())) != -Global.get_direction(direction):
+			if Query.get_direction(to_local(Nav.get_next_path_position())) != -Query.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
 			if not Loader.InBattle: Loader.battle_bars(0)
@@ -126,9 +126,9 @@ func _on_finder_body_entered(body):
 		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
 		Loader.Attacker = self
-		look_to(Global.get_direction(to_local(Global.Player.global_position)))
+		look_to(Query.get_direction(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
-		look_to(Global.get_direction(to_local(Global.Player.global_position)))
+		look_to(Query.get_direction(to_local(Global.Player.global_position)))
 		speed = chase_speed
 		set_dir_marker(to_local(Global.Player.global_position))
 		await Event.wait()
@@ -144,10 +144,10 @@ func _on_catch_area_body_entered(body):
 		#print(Global.Player.attacking)
 		Global.Player.winding_attack = false
 		await Event.take_control(false, false, false)
-		Global.Player.dashdir = Global.get_direction(Global.Player.to_local(global_position))
+		Global.Player.dashdir = Query.get_direction(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		Facing = Global.get_direction(to_local(Global.PlayerPos))
+		Facing = Query.get_direction(to_local(Global.PlayerPos))
 		Global.intro_effect(Global.Player)
 		begin_battle(2)
 
@@ -162,7 +162,7 @@ func attacked():
 	if Global.Player.winding_attack: return
 	BodyState = NONE
 	set_anim("Hit")
-	var to_pos = position+Global.get_direction()*12
+	var to_pos = position + Query.get_direction()*12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos

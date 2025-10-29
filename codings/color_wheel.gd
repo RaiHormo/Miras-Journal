@@ -12,7 +12,7 @@ func _input(event):
 
 func draw_wheel():
 	if color.s != 0:
-		affinity = Global.get_affinity(color)
+		affinity = Query.get_affinity(color)
 		$Rangenear1.rotation_degrees = affinity.near_range[0]
 		$Rangenear2.rotation_degrees = affinity.near_range[-1]
 		#print(affinity.oposing_range.size())
@@ -55,7 +55,7 @@ func show_trg_color(clr: Color):
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
-	tar_aff = Global.get_affinity(clr)
+	tar_aff = Query.get_affinity(clr)
 	t.tween_property($ColorIndicator, "rotation_degrees", tar_aff.hue, 0.3)
 	var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel").duplicate()
 	IndicatorPanel.bg_color = tar_aff.color

@@ -69,7 +69,7 @@ func _ready():
 	$Canvas/VictoryItems.hide()
 	if Global.Area: Global.Area.show()
 	for i in range(1, 4):
-		if Global.check_member(i):
+		if Query.check_member(i):
 			var member = Party.array()[i]
 			dub = $Act/Actor0.duplicate()
 			dub.name = "Actor"+ str(i)
@@ -161,7 +161,7 @@ func turn_ui_check():
 
 func position_sprites():
 	$Act/Actor0.show()
-	match Global.number_of_party_members():
+	match Query.number_of_party_members():
 		1:
 			$Act/Actor0.position = Vector2(-45,0)
 		2:
@@ -251,8 +251,8 @@ func entrance():
 				for i in Troop: damage(i, 1, false, 24/Troop.size())
 			await Event.wait(0.5, false)
 	else:
-		$Cam.global_position = Global.get_cam().global_position
-		$Cam.zoom = Global.get_cam().zoom
+		$Cam.global_position = Global.Camera.global_position
+		$Cam.zoom = Global.Camera.zoom
 	if Seq.EntranceSequence == "":
 		for i in PartyArray:
 			entrance_anim(i)
@@ -493,7 +493,7 @@ character: Actor, tar: Actor, offset: Vector2, time: float) -> void:
 	var jump_height : float = jump_distance * 0.5 #will need tweaking
 	var midpoint = start.lerp(target, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001)
-	t.tween_method(Global._quad_bezier.bind(
+	t.tween_method(Query._quad_bezier.bind(
 		start, midpoint, target, character.node), 0.0, 1.0, jump_time)
 	await t.finished
 	anim_done.emit()
@@ -531,7 +531,7 @@ func end_turn(confirm_aoe:= false):
 
 func damage(
 target: Actor, is_magic:= CurrentAbility.Damage != Ability.D.WEAPON, elemental:= false,
-x: int = Global.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
+x: int = Query.calc_num(), effect:= true, limiter:= false, ignore_stats:= false,
 overwrite_color: Color = Color.WHITE) -> int:
 	take_dmg.emit()
 	if CurrentAbility == null: CurrentAbility = Ability.nothing()
@@ -910,8 +910,8 @@ mode:Tween.EaseType = Tween.EASE_IN_OUT, offset:Vector2 = Vector2.ZERO):
 		await tm.finished
 	anim_done.emit()
 
-#int(max(Global.calc_num(), target.MaxHP*((Global.calc_num()*CurrentChar.Magic)*0.02)))
-func heal(target:Actor, amount: int = Global.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
+#int(max(Query.calc_num(), target.MaxHP*((Query.calc_num()*CurrentChar.Magic)*0.02)))
+func heal(target:Actor, amount: int = Query.calc_num()*CurrentChar.Magic*CurrentChar.MagicMultiplier):
 	if CurrentAbility.DmgVarience:
 		amount = round(amount * randf_range(1, 1.5))
 	amount = min(amount, target.MaxHP-target.Health)
@@ -1072,10 +1072,10 @@ func victory(ignore_seq:= false):
 			for i in range(1, 4):
 				if Party.check_member(i):
 					Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
-		Global.get_cam().position_smoothing_enabled = false
-		Global.get_cam().global_position = $Cam.global_position
+		Global.Camera.position_smoothing_enabled = false
+		Global.Camera.global_position = $Cam.global_position
 		$Cam.enabled = false
-		Global.get_cam().zoom = $Cam.zoom
+		Global.Camera.zoom = $Cam.zoom
 
 func victory_show_items():
 	for i in $Canvas/VictoryItems.get_children():
@@ -1156,8 +1156,8 @@ func add_to_troop(en: Actor):
 	lock_turn = false
 
 func color_relation(attacker:Color, defender:Color) -> String:
-	var affinity = Global.get_affinity(attacker)
-	var def = Global.get_affinity(defender)
+	var affinity = Query.get_affinity(attacker)
+	var def = Query.get_affinity(defender)
 	if def.hue in affinity.oposing_range: return "op"
 	elif def.hue in affinity.weak_range: return "wk"
 	elif def.hue in affinity.resist_range: return "res"

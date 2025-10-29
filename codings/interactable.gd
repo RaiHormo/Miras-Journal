@@ -146,7 +146,7 @@ func do_position():
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	var dir = Global.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
+	var dir = Query.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
 		Vector2.UP:

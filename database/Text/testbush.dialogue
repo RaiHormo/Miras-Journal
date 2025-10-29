@@ -99,10 +99,10 @@ What to do?
 		do Party.add("Asteria")
 		do Party.add("Daze")
 	- Make everyone controllable
-		set find_member("Mira").Controllable = true
-		set find_member("Alcine").Controllable = true
-		set find_member("Asteria").Controllable = true
-		set find_member("Daze").Controllable = true
+		set Query.find_member("Mira").Controllable = true
+		set Query.find_member("Alcine").Controllable = true
+		set Query.find_member("Asteria").Controllable = true
+		set Query.find_member("Daze").Controllable = true
 - Abilities
 	go on
 	- Unlock all abilities

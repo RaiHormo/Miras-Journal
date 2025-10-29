@@ -7,7 +7,7 @@ class_name PartyData
 @export var Member3: Actor = null
 
 func reset_party():
-	Leader = Global.find_member("Mira")
+	Leader = Query.find_member("Mira")
 	Member1 = null
 	Member2 = null
 	Member3 = null
@@ -30,23 +30,23 @@ func make_unique():
 	if Member3!=null: Member3 = Member1.duplicate()
 
 func set_to(p:PartyData):
-	Leader = Global.find_member(p.Leader.codename)
-	if p.Member1!=null: Member1 = Global.find_member(p.Member1.codename)
+	Leader = Query.find_member(p.Leader.codename)
+	if p.Member1!=null: Member1 = Query.find_member(p.Member1.codename)
 	else: Member1 = null
-	if p.Member2!=null: Member2 = Global.find_member(p.Member2.codename)
+	if p.Member2!=null: Member2 = Query.find_member(p.Member2.codename)
 	else: Member2 = null
-	if p.Member3!=null: Member3 = Global.find_member(p.Member3.codename)
+	if p.Member3!=null: Member3 = Query.find_member(p.Member3.codename)
 	else: Member3 = null
 
 func set_to_strarr(p:Array[StringName]):
 	if p.is_empty(): p = [&"Mira", &"", &"", &""]
 	while p.size() < 4: p.append(&"")
-	Leader = Global.find_member(p[0])
-	if p[1] != &"": Member1 = Global.find_member(p[1])
+	Leader = Query.find_member(p[0])
+	if p[1] != &"": Member1 = Query.find_member(p[1])
 	else: Member1 = null
-	if p[2] != &"": Member2 = Global.find_member(p[2])
+	if p[2] != &"": Member2 = Query.find_member(p[2])
 	else: Member2 = null
-	if p[3] != &"": Member3 = Global.find_member(p[3])
+	if p[3] != &"": Member3 = Query.find_member(p[3])
 	else: Member3 = null
 
 func get_strarr() -> Array[StringName]:
@@ -73,9 +73,9 @@ func overwrite_member(num:int, actor:Actor):
 		3: Member3 = actor
 
 func add(member: String):
-	overwrite_member(Global.number_of_party_members(), Global.find_member(member))
+	overwrite_member(Query.number_of_party_members(), Query.find_member(member))
 	Global.check_party.emit()
-	print(member, " joins the party at position ", Global.find_member(member))
+	print(member, " joins the party at position ", Query.find_member(member))
 
 func array() -> Array[Actor]:
 	return [Leader, Member1, Member2, Member3]

@@ -439,7 +439,7 @@ func _on_ability():
 	var color: Color = Abilities[MenuIndex].WheelColor
 	if Abilities[MenuIndex].ColorSameAsActor: color = CurrentChar.MainColor
 	$DescPaper/Title.add_theme_color_override("font_color", color - Color(0.2, 0.2, 0.2, 0))
-	$DescPaper/Desc.text = Global.colorize(Abilities[0].description)
+	$DescPaper/Desc.text = Colorizer.colorize(Abilities[0].description)
 	if Abilities[0].AuraCost != 0:
 		$DescPaper/Cost.text = str("Cost ", str(Abilities[0].AuraCost))
 		$DescPaper/Cost.show()
@@ -668,7 +668,7 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 			wheel.show_atk_color(ab.WheelColor)
 		else:
 			wheel.hide()
-		$"../Canvas/AttackTitle/RichTextLabel".text = Global.colorize(ab.description)
+		$"../Canvas/AttackTitle/RichTextLabel".text = Colorizer.colorize(ab.description)
 		$"../Canvas/AttackTitle".text = ab.name
 		$"../Canvas/AttackTitle".icon = ab.Icon
 	if analyzing:
@@ -802,7 +802,7 @@ func move_menu():
 			t.tween_property($AbilityUI/Margin/Scroller,
 			"scroll_vertical", 80 + (MenuIndex-6) *70, 0.2)
 		#print(MenuIndex)
-		$DescPaper/Desc.text = Global.colorize(ab.description)
+		$DescPaper/Desc.text = Colorizer.colorize(ab.description)
 		var color: Color = ab.WheelColor
 		if ab.ColorSameAsActor or color == Color.WHITE: color = CurrentChar.MainColor
 		$DescPaper/Title.add_theme_color_override("font_color",
@@ -1066,7 +1066,7 @@ func focus_item(node:Button):
 	if not node.get_parent() is GridContainer: return
 	var item:ItemData = node.get_meta("ItemData")
 	$Inventory/DescPaper/Title.text = item.Name
-	$Inventory/DescPaper/Desc.text = Global.colorize(item.Description)
+	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item.Description)
 	$Inventory/DescPaper/Art.texture = item.Artwork
 	if item.Quantity>1:
 		$Inventory/DescPaper/Amount.text = str(item.Quantity) + " in bag"

@@ -7,24 +7,24 @@ Alcine.Upset: *{{alcine()}} seems scared*
 ~ options
 {{nametag_to_be_used}}: {{line_to_be_used}}
 - Cancel
-- Ask for healing [if not is_everyone_fully_healed()]
-	if find_ability(mem("Alcine"), "Healing", true).AuraCost < mem("Alcine").Aura:
+- Ask for healing
+	if Query.find_ability(Query.mem("Alcine"), "Healing", true).AuraCost < Query.mem("Alcine").Aura:
 		Alcine.Neutral: *nod*
-		- For me [if not is_mem_healed(Party.Leader)]
+		- For me [if not Query.is_mem_healed(Party.Leader)]
 			set ArbData0 = Global.Party.Leader
-		- For {{Party.member_name(1)}} [if check_member(1) and Party.Member1 != mem("Alcine") and !is_mem_healed(Party.Member1)]
+		- For {{Party.member_name(1)}} [if Query.check_member(1) and Party.Member1 != Query.mem("Alcine") and !Query.is_mem_healed(Party.Member1)]
 			set ArbData0 = Global.Party.Member1
-		- For {{Party.member_name(2)}} [if check_member(2) and Party.Member2 != mem("Alcine") and !is_mem_healed(Party.Member2)]
+		- For {{Party.member_name(2)}} [if Query.check_member(2) and Party.Member2 != Query.mem("Alcine") and !Query.is_mem_healed(Party.Member2)]
 			set ArbData0 = Global.Party.Member2
-		- For {{Party.member_name(3)}} [if check_member(3) and Party.Member3 != mem("Alcine") and !is_mem_healed(Party.Member3)]
+		- For {{Party.member_name(3)}} [if Query.check_member(3) and Party.Member3 != mem("Alcine") and !Query.is_mem_healed(Party.Member3)]
 			set ArbData0 = Global.Party.Member3
-		- For yourself [if not is_mem_healed(mem("Alcine"))]
-			set ArbData0 = mem("Alcine")
+		- For yourself [if not Query.is_mem_healed(mem("Alcine"))]
+			set ArbData0 = Query.mem("Alcine")
 		- Nevermind
 			set ArbData0 = null
 		if ArbData0 != null:
-			set mem("Alcine").Aura -= find_ability(mem("Alcine"), "Healing", true).AuraCost
-			do heal_in_overworld(ArbData0, find_ability(mem("Alcine"), "Healing", true))
+			set Query.mem("Alcine").Aura -= Query.find_ability(Query.mem("Alcine"), "Healing", true).AuraCost
+			do heal_in_overworld(ArbData0, Query.find_ability(Query.mem("Alcine"), "Healing", true))
 	else: 
 		Alcine.Tired: *shakes head*
 		It seems they're too exhaused to use healing magic.

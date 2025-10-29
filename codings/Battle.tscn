@@ -38,7 +38,7 @@
 [ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="29_7ycgm"]
 [ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="30_g1vxc"]
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="32_ebvy8"]
-[ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/colortest.gd" id="33_5y8r5"]
+[ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/color_wheel.gd" id="33_5y8r5"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="33_jy6my"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="34_mbmoj"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="35_7gyy2"]

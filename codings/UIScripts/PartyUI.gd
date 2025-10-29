@@ -105,7 +105,7 @@ func hide_all(animate = true):
 
 func _check_party():
 	if not Global.Party: return
-	if not Global.Party.Leader: Global.Party.Leader = Global.find_member(&"Mira")
+	if not Global.Party.Leader: Global.Party.Leader = Query.find_member(&"Mira")
 	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
 	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
@@ -205,7 +205,7 @@ func _on_expand(open_ui=0):
 	t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	if open_ui == 0:
 		for i in range(0,4):
-			if Global.check_member(i): get_node("%Pages/Page"+str(i)).show()
+			if Query.check_member(i): get_node("%Pages/Page"+str(i)).show()
 			else: get_node("%Pages/Page"+str(i)).hide()
 		$CanvasLayer/Cursor/MemberOptions.show()
 		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Global.get_controller().CommandIcon
@@ -429,7 +429,7 @@ func battle_state(from:= false):
 	Partybox.scale = Vector2(1.25, 1.25)
 	if from: hide_all()
 	for i in range(0, 4):
-		if Global.check_member(i):
+		if Query.check_member(i):
 			Partybox.get_child(i).get_node("Name").show()
 			Partybox.get_child(i).get_node("Level").show()
 			Partybox.get_child(i).get_node("Icon").scale = Vector2(0.09, 0.09)
@@ -733,7 +733,7 @@ func preform_levelups():
 	var scenepack: PackedScene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn"))
 	if Global.Bt: Loader.hide_victory_stuff()
 	for i in LevelupChain:
-		var mem:Actor = Global.find_member(i.split(":", false)[0])
+		var mem:Actor = Query.find_member(i.split(":", false)[0])
 		var scene = scenepack.instantiate()
 		get_tree().root.add_child(scene)
 		await Event.wait()
