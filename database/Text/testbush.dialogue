@@ -67,6 +67,8 @@ Where to go?
 		do travel_to("ShardGardens", Vector2(-130, -100), 1)
 	- Lakeside
 		do travel_to("ShardGardens", Vector2(-223, -697), 2)
+- Orange
+	do travel_to("Orange")
 => END
 
 ~ greetings
