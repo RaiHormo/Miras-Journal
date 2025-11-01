@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://c3p87m0egagf4"]
+
+[ext_resource type="Texture2D" uid="uid://bfdqv506jm40g" path="res://art/BT/AquaFlowent/AquaFlowentBT.png" id="1_0olt5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0olt5"]
+atlas = ExtResource("1_0olt5")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ylah"]
+atlas = ExtResource("1_0olt5")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_316mo"]
+atlas = ExtResource("1_0olt5")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w53t4"]
+atlas = ExtResource("1_0olt5")
+region = Rect2(40, 0, 40, 40)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0olt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ylah")
+}],
+"loop": false,
+"name": &"Ability",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_316mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w53t4")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}]

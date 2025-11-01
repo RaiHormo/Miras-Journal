@@ -6,7 +6,7 @@ class_name Actor
 @export_range(0, 9999) var Health: int
 @export_range(0, 9999) var Aura: int
 
-@export_subgroup("Info")
+@export_category("Info")
 ##Displayed name of the character
 @export var FirstName: String = "Name"
 ##Their Aura color
@@ -83,7 +83,7 @@ var SpeedBoost: int = 0
 @export var Abilities: Array[Ability]
 ##The ability used when the "Attack" button is pressed. Also determines the
 ##actor's weapon icon
-@export var StandardAttack: Ability = preload("res://database/Abilities/Attacks/Nothing.tres")
+@export var StandardAttack: Ability = Ability.nothing()
 ##The abilities that can be unlocked by leveling up, party member only
 @export var LearnableAbilities: Array[Ability]
 @export var Complimentaries: Array[Ability]
@@ -129,7 +129,11 @@ var SpeedBoost: int = 0
 @export var CantAttack:= false
 
 var NextAction: String = ""
-var NextMove: Resource = null
+var NextMove: Resource = null:
+		set(x):
+			NextMove = x
+			if x is not Ability and x != null:
+				pass
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
@@ -378,4 +382,4 @@ func load_complimentaries():
 	Complimentaries = []
 	for i in ComplimentaryList:
 		if ComplimentaryList.get(i) > 0:
-			Complimentaries.append(await Global.get_ability(i))
+			Complimentaries.append(await Query.get_ability(i))

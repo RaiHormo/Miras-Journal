@@ -149,16 +149,16 @@ func handle_states():
 						Bt.focus_cam(chara)
 						Global.toast(chara.FirstName+" can't move from the shock!")
 						chara.NextAction = "Attack"
-						chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+						chara.NextMove = Ability.nothing()
 						await Bt.shake_actor(chara)
 				"KnockedOut":
 					chara.NextAction = "Attack"
-					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+					chara.NextMove = Ability.nothing()
 				"Frozen":
 					Bt.focus_cam(chara)
 					Global.toast(chara.FirstName+" can't move from the cold!")
 					chara.NextAction = "Attack"
-					chara.NextMove = preload("res://database/Abilities/Attacks/Nothing.tres")
+					chara.NextMove = Ability.nothing()
 					await Bt.shake_actor(chara)
 	Bt.remove_queued_states(chara)
 	chara.DamageRecivedThisTurn = 0
@@ -297,6 +297,9 @@ func AttackAsteria(target: Actor):
 	await $Scarf1.animation_finished
 	$Scarf1.queue_free()
 	Bt.anim()
+	Bt.end_turn()
+
+func Nothing(target: Actor):
 	Bt.end_turn()
 
 func Pass(target: Actor):

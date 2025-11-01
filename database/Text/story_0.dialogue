@@ -357,7 +357,7 @@ Mira.Neutral: I can't... move my arm...
 I open my eyes and see im somewhere else. Is this a tent?
 I get up and look around. My clothes are all ripped and i have a bandage on my left arm.
 Ow, it hurts quite a bit to move it around.
-set Global.find_member("Daze").FirstName = ""
+set Query.find_member("Daze").FirstName = ""
 Daze.Neutral: Oh Ms. Levenor, you're finally up!
 I'm not that sure what to say, and i just stare silent for a bit. 
 After a bit of hesitation I go to sit on the other side of the campfire.
@@ -369,7 +369,7 @@ What do I ask?
 - Who are you?
 	Mira.Neutral: So... who are you?
 	Daze.Neutral: The name is Daze.
-	set Global.find_member("Daze").FirstName = "Daze"
+	set Query.find_member("Daze").FirstName = "Daze"
 	Daze.Neutral: I'm from Elmethin, a city to the north of the Capital, but I've been traveling around for a while now.
 	Mira.Neutral: A traveller? Where are you going?
 	Daze.Neutral: That's a long story... and doesn't really matter.
@@ -456,7 +456,7 @@ if find_member("Daze").FirstName != "Daze":
 	if Flags.get("DazeQuestions") < 3:
 		Daze.Neutral: Oh, so you did have more things to ask.
 	Daze.Neutral: It's Daze.
-	set Global.find_member("Daze").FirstName = "Daze"
+	set Query.find_member("Daze").FirstName = "Daze"
 	Mira.Neutral: Daze...
 	Mira.Neutral: Is that a first or last name?
 	Daze.Neutral: It's... more of a nickname.

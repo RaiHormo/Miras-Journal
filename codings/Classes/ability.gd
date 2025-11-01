@@ -44,4 +44,4 @@ func is_aoe() -> bool:
 	else: return false
 
 static func nothing() -> Ability:
-	return preload("res://database/Abilities/Attacks/Nothing.tres")
+	return ResourceLoader.load("res://database/Abilities/Nothing.tres")

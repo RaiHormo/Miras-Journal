@@ -453,8 +453,8 @@ func draw_file(file: SaveFile, node: Control):
 	panel.get_node("Location").text = file.RoomName
 	var savedtime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.SavedTime))
 	var starttime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.StartTime))
-	panel.get_node("SavedDate").text = "Saved: %02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Global.get_mmm(savedtime.month),
-	savedtime.year, savedtime.hour, savedtime.minute, starttime.day, Global.get_mmm(starttime.month), starttime.year]
+	panel.get_node("SavedDate").text = "Saved: %02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Query.get_mmm(savedtime.month),
+	savedtime.year, savedtime.hour, savedtime.minute, starttime.day, Query.get_mmm(starttime.month), starttime.year]
 
 func hold_down():
 	if $SavePanel/Toast.modulate != Color.TRANSPARENT: return

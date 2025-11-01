@@ -10,15 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="8_ob0f5"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="9_8i5v0"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="10_p063c"]
-[ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="11_4hokc"]
+[ext_resource type="Resource" uid="uid://briso80ln21mg" path="res://database/Enemies/AquaFlowent.tres" id="11_p063c"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="12_xovcb"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="13_tsx22"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="14_overr"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="15_p063c"]
 
-[sub_resource type="Resource" id="Resource_8i5v0"]
+[sub_resource type="Resource" id="Resource_4hokc"]
 script = ExtResource("13_tsx22")
-Enemies = Array[ExtResource("10_p063c")]([ExtResource("11_4hokc"), ExtResource("11_4hokc")])
+Enemies = Array[ExtResource("10_p063c")]([ExtResource("11_p063c"), ExtResource("11_p063c")])
 EscPosition = Vector2i(28, -8)
 ScenePosition = Vector2(416, -141)
 CanEscape = false
@@ -94,7 +94,7 @@ z_index = 5
 position = Vector2(416, -141)
 collision_layer = 512
 collision_mask = 512
-BattleSeq = SubResource("Resource_8i5v0")
+BattleSeq = SubResource("Resource_4hokc")
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent1"]

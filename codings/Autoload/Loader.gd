@@ -448,7 +448,7 @@ func end_battle():
 	if is_instance_valid(Global.Bt): Global.Bt.get_node("Act").hide()
 
 	if BattleResult == 2:
-		Global.Player.position = Global.globalize(Seq.EscPosition)
+		Global.Player.position = Query.globalize(Seq.EscPosition)
 
 	if is_instance_valid(Attacker) and BattleResult != 1: Attacker.show()
 	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:

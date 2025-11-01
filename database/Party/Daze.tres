@@ -33,6 +33,7 @@ PartyIcon = ExtResource("4_ddwib")
 ActorClass = "Tank"
 codename = &"Daze"
 Pronouns = Array[String](["he", "him", "his", "himself"])
+WeaponPower = 30
 SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
 BoxProfile = SubResource("Resource_v2ahk")
 Weapon = "Gold-trimmed Katana"

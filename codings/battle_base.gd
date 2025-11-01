@@ -438,7 +438,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	CurrentAbility = ab
 	CurrentTarget = tar
 	if CurrentChar.has_state("Bound") and (CurrentAbility.Damage == Ability.D.WEAPON or CurrentAbility == CurrentChar.StandardAttack):
-		CurrentAbility = preload("res://database/Abilities/Attacks/Nothing.tres")
+		CurrentAbility = Query.nothing()
 		Global.toast(CurrentChar.FirstName + " is struggling to move!")
 		await shake_actor(CurrentChar)
 		end_turn()
