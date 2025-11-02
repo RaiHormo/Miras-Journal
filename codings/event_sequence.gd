@@ -240,7 +240,7 @@ func waste_time():
 func nov1_morning():
 	Loader.gray_out(1)
 	await Global.textbox("story_1", "nov1_dream")
-	await Loader.travel_to("Orange", Vector2(-97, -155), 1)
+	await Loader.travel_to("Orange", Vector2(-96, -384), 1)
 	Loader.ungray.emit()
 	Event.no_player()
 	await Global.textbox("story_1", "nov1_morning")
@@ -263,6 +263,10 @@ func daze_enemy_1():
 	await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
 	await Event.npc("EnemyFlowent1").attacked()
 	Event.npc("Daze").hide()
+
+func daze_enemy_2():
+	await Event.npc("P").bubble("Surprise")
+	Loader.start_battle("SkritcherRootDaze", 2)
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1

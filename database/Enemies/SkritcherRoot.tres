@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://b0haspr714s0g"]
+[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://b0haspr714s0g"]
 
-[ext_resource type="SpriteFrames" uid="uid://desrc5r1bkfbx" path="res://art/BT/SkritcherRoot/SkritcherRootBT.tres" id="1_lsskt"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_oxflc"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_w33vv"]
 [ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="1_wkiio"]
@@ -14,45 +13,17 @@ script = ExtResource("2_8gv1j")
 FirstName = "Skritcher Root"
 MainColor = Color(0.698039, 0.815686, 0.356863, 1)
 PartyIcon = ExtResource("2_0pvgk")
-ActorClass = "Mage"
-codename = &"Actor"
-Pronouns = Array[String](["it", "it", "its", "itself"])
+ActorClass = "Tank"
 WeaponPower = 44
-IsEnemy = true
 RecivedSP = 8
-SummonedAllies = Array[ExtResource("2_8gv1j")]([])
-SecondaryColor = Color(0, 0, 0, 1)
-LastName = ""
-Weapon = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
 MaxHP = 90
 MaxAura = 10
-Attack = 0.3
+Attack = 0.5
 Magic = 0.9
 Defence = 1.5
 Speed = 4.0
-Health = 0
-Aura = 0
 SkillLevel = 0
-SkillPoints = 0
-SkillPointsFor = Array[int]([])
 Abilities = Array[ExtResource("1_oxflc")]([ExtResource("1_wkiio"), ExtResource("2_y7wux")])
 StandardAttack = ExtResource("5_orakj")
-LearnableAbilities = Array[ExtResource("1_oxflc")]([])
-BT = ExtResource("1_lsskt")
 Offset = Vector2(8, -16)
-Shadow = false
-ShadowOffset = 0
-SoundSet = ExtResource("1_w33vv")
-Disappear = true
-GlowDef = 0.3
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
 CantDodge = true

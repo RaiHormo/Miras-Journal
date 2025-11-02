@@ -57,3 +57,4 @@ Disappear = false
 GlowSpecial = 1.5
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
 ClutchDmg = true
+DeathDialog = "mira_death"

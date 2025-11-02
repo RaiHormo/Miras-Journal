@@ -1,3 +1,9 @@
 ~ it_flew_away
 Mira.Neutral: Oh it flew away...\nI guess we'll be ok.
 => END
+
+~ skritcher_root_daze
+Mira.Neutral: Oh finally!
+Mira.Neutral: That thing was annoying!
+Daze.Neutral: Let's be on the lookout for plant monsters like this from now on.
+=> END

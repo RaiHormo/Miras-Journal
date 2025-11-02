@@ -35,5 +35,8 @@ func check_events() -> bool:
 
 func reset_events(force:= false):
 	for i in Events:
+		if i == null:
+			push_error("There's a null battle event, you better remove that")
+			continue
 		if i.repeatable or force:
 			i.ran_this_turn = false

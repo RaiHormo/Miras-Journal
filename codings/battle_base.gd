@@ -782,7 +782,7 @@ func death(target:Actor):
 	target.add_state("KnockedOut")
 	await Event.wait(1)
 	if target.DeathDialog != "":
-		Global.passive("battle", target.DeathDialog)
+		Global.passive("banter_battle", target.DeathDialog)
 		await Event.wait(0.5)
 	lock_turn = false
 	if is_instance_valid(target.node):

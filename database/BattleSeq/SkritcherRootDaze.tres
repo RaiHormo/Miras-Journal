@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://oi2xv8bjx6ph"]
+
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_vdu0h"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_x6468"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="3_kjmt8"]
+[ext_resource type="Resource" uid="uid://b0haspr714s0g" path="res://database/Enemies/SkritcherRoot.tres" id="3_x6468"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_2lova"]
+
+[resource]
+script = ExtResource("4_2lova")
+Enemies = Array[ExtResource("2_x6468")]([ExtResource("3_x6468")])
+CanEscape = false
+EntranceBanter = "skritcher_root_daze"
+VictoryBanter = "skritcher_root_daze"
+metadata/_custom_type_script = "uid://blx6fs34ughqo"

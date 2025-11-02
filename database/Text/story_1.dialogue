@@ -47,7 +47,12 @@ Mira: Ugh, fine...
 
 ~ daze_enemy_1
 Mira.Neutral: There's a monster!
-Daze.Neutral: Stay Back!
+Daze.Neutral: Leave it to me.
+=> END
+
+~ daze_enemy_2
+Daze.Neutral: Ms. Levenor, just focus on protecting yourself!
+Mira.Neutral: But I can fight!
 => END
 
 ~ nov3_afternoon
