@@ -81,11 +81,11 @@ func aura1():
 	await Event.wait(0.5, false)
 	$Border2.show()
 	$Border2.position = Vector2(290, 15)
-	$Border2/Text.text = Global.colorize("This is the AP meter.")
+	$Border2/Text.text = Colorizer.colorize("This is the AP meter.")
 	await await_next()
-	$Border2/Text.text = Global.colorize("It represents how much power Mira currently has.")
+	$Border2/Text.text = Colorizer.colorize("It represents how much power Mira currently has.")
 	await await_next()
-	$Border2/Text.text = Global.colorize("This meter will be drained whenever a magic Ability is used.")
+	$Border2/Text.text = Colorizer.colorize("This meter will be drained whenever a magic Ability is used.")
 	await await_next()
 	Global.Bt.lock_turn = false
 	queue_free()
@@ -104,7 +104,7 @@ func aura2():
 	await await_next()
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(104, 279)
-	$Border2/Text.text = Global.colorize("Using her Aura Guard ability, Mira will take less damage, while increasing her AP when hit.").replace("guard", "Guard")
+	$Border2/Text.text = Colorizer.colorize("Using her Aura Guard ability, Mira will take less damage, while increasing her AP when hit.").replace("guard", "Guard")
 	await await_next()
 	Global.Bt.lock_turn = false
 	queue_free()

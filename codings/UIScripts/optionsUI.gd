@@ -750,7 +750,7 @@ func _gloweffect(toggle: bool) -> void:
 func _new_game() -> void:
 	was_controllable = false
 	close(true)
-	Global.new_game()
+	Event.sequence("new_game")
 
 func _arena_mode() -> void:
 	await Loader.save()

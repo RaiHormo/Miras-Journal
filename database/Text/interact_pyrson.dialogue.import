@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b8uaucq1q420w"
+path="res://.godot/imported/interact_pyrson.dialogue-76deadec0bbd68055c9c243299b63448.tres"
+
+[deps]
+
+source_file="res://database/Text/interact_pyrson.dialogue"
+dest_files=["res://.godot/imported/interact_pyrson.dialogue-76deadec0bbd68055c9c243299b63448.tres"]
+
+[params]
+
+defaults=true

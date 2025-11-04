@@ -86,7 +86,7 @@ func on_confirm() -> void:
 		$Error.text = "Seriously? I think i can do better than this."
 		$Error.show()
 	else:
-		Global.find_member("Alcine").FirstName = txt.capitalize()
+		Query.find_member("Alcine").FirstName = txt.capitalize()
 		enter.emit()
 	await get_tree().process_frame
 	$TextEdit.set_caret_column(14)
