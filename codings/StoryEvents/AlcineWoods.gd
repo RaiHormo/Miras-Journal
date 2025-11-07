@@ -175,7 +175,7 @@ func alcine_helps():
 	await bubble("Surprise")
 	PartyUI.disabled = true
 	PartyUI.hide_all()
-	var hp: int = max(Global.Bt.get_actor("Petrogon").Health, 5)
+	var hp: int = max(Global.Bt.get_actor("Pterogon").Health, 5)
 	z_index = 9
 	Global.jump_to_global(self, Vector2(1660, -1068), 7, 0.5)
 	Loader.white_fadeout(2, 3, 0.5)
@@ -186,8 +186,7 @@ func alcine_helps():
 	await Event.wait(1, false)
 	Global.Party.Member1.FirstName = "Spirit"
 	await Loader.start_battle("AlcineFollow2")
-	Global.Bt.get_node("Act/Actor1").global_position = Vector2(1660, -1068)
-	Global.Bt.get_actor("Petrogon").Health = hp
+	Global.Bt.get_actor("Pterogon").Health = hp
 	await Loader.battle_end
 	after_battle()
 
@@ -199,7 +198,7 @@ func after_battle():
 	z_index = 0
 	Event.allow_skipping = false
 	Event.flag_progress("AlcineFollow", 4)
-	Global.find_member("Mira").OV = "res://art/OV/Mira/MiraOVBag.tres"
+	Query.find_member("Mira").OV = "Bag"
 	position = Global.Area.Followers[0].position
 	await Global.Player.go_to(Vector2(67, -45), true)
 	Global.Area.Followers[0].dont_follow = true
@@ -213,6 +212,8 @@ func after_battle():
 	Global.Player.look_to(Vector2.LEFT)
 	Global.Player.position = Vector2(1619, -1068)
 	await Global.textbox("story_0", "got_through_that")
+	await Global.alcine_naming()
+	await Global.textbox("story_0", "use_name")
 	await Loader.transition("R")
 	hide()
 	Global.get_cam().zoom = Vector2(4, 4)

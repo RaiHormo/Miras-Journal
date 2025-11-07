@@ -180,6 +180,12 @@ func complimentary_ui(chara: Actor):
 func next_day_ui():
 	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
 
+func alcine_naming():
+	var scene = (await Loader.load_res("res://UI/Misc/AlcineNaming.tscn")).instantiate()
+	get_tree().root.add_child(scene)
+	await scene.start()
+	
+
 func veinet_map(cur: String):
 	var Map = (await Loader.load_res("res://UI/Map/VeinetMap.tscn")).instantiate()
 	get_tree().root.add_child(Map)
@@ -462,7 +468,9 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	textbox_open = false
 
 func textbox_kill():
-	if get_node_or_null("/root/Textbox"): $"/root/Textbox".free(); await Event.wait()
+	if get_tree().root.has_node("Textbox"): 
+		get_tree().root.get_node("Textbox").queue_free()
+		await Event.wait()
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Passive"):

@@ -968,7 +968,6 @@ pivot_offset = Vector2(1542.39, 0)
 mouse_filter = 2
 texture = ExtResource("11_4pd7b")
 script = ExtResource("12_wtwla")
-HideOnDays = Array[int]([0])
 
 [node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
 layout_mode = 0

@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0dgn2l164lj0"]
+
+[ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/StoryEvents/AlcineNaming.gd" id="1_lh7uy"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="2_exujk"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_yq4b6"]
+[ext_resource type="Texture2D" uid="uid://b6e2vcb7sglq0" path="res://art/Renders/Alcine_low.png" id="4_dvfyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp00o"]
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_right = 24.0
+bg_color = Color(0.890196, 0.890196, 0.890196, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="AlcineNaming" type="CanvasLayer"]
+process_mode = 3
+layer = 3
+script = ExtResource("1_lh7uy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Error" type="Label" parent="."]
+visible = false
+light_mask = 0
+offset_left = 442.0
+offset_top = 352.0
+offset_right = 1238.0
+offset_bottom = 402.0
+theme_override_colors/font_color = Color(0.913725, 0.27451, 0.247059, 1)
+theme_override_fonts/font = ExtResource("2_exujk")
+theme_override_font_sizes/font_size = 40
+text = "Bit too long, isn't it?"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label" type="Label" parent="."]
+light_mask = 0
+offset_left = 438.0
+offset_top = 158.0
+offset_right = 1231.0
+offset_bottom = 219.0
+theme_override_fonts/font = ExtResource("2_exujk")
+theme_override_font_sizes/font_size = 60
+text = "What name shall I give them?"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="LineEdit" parent="."]
+light_mask = 0
+offset_left = 630.0
+offset_top = 254.0
+offset_right = 1047.0
+offset_bottom = 335.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.529412)
+theme_override_colors/caret_color = Color(0.0901961, 0.278431, 0.231373, 1)
+theme_override_colors/selection_color = Color(0.270588, 0.882353, 0.811765, 1)
+theme_override_constants/caret_width = 1
+theme_override_fonts/font = ExtResource("3_yq4b6")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_hp00o")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hp00o")
+text = "Alcine"
+placeholder_text = "Alcine"
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+caret_blink = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+light_mask = 0
+offset_left = -156.74002
+offset_top = -90.64004
+offset_right = 17698.059
+offset_bottom = 17764.174
+scale = Vector2(0.05, 0.05)
+mouse_filter = 2
+texture = ExtResource("4_dvfyj")
+
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="text_submitted" from="TextEdit" to="." method="on_confirm"]

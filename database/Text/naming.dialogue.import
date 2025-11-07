@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dkhxi3arcydwv"
+path="res://.godot/imported/naming.dialogue-2133cc117db227de7d72624ae97013c8.tres"
+
+[deps]
+
+source_file="res://database/Text/naming.dialogue"
+dest_files=["res://.godot/imported/naming.dialogue-2133cc117db227de7d72624ae97013c8.tres"]
+
+[params]
+
+defaults=true

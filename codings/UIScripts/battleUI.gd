@@ -778,8 +778,7 @@ func move_menu():
 	if stage == &"ability":
 		if not foc.has_meta("Ability"): return
 		if not foc.has_meta("AbilityGroup"): return
-		active= false
-		await get_tree().create_timer(0.001).timeout
+		active = false
 		if not is_instance_valid(foc): return
 		$RankSwap.global_position = foc.global_position
 		var abgroup: Array = foc.get_meta("AbilityGroup")

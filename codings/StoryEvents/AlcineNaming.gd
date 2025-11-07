@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 signal enter
 var txt: String = ''
 
@@ -6,31 +6,34 @@ func _ready() -> void:
 	hide()
 
 func start():
+	get_tree().paused = false
 	PartyUI.Expanded = false
 	show()
-	$TextureRect.texture = await Global.find_member("Alcine").RenderArtwork()
+	$TextureRect.texture = await Query.find_member("Alcine").RenderArtwork()
 	$Error.hide()
 	$TextEdit.grab_focus()
 	$TextEdit.set_caret_column(10)
 	await enter
+	queue_free()
 
-func _on_text_edit_text_changed() -> void:
-	if "\n" in $TextEdit.text:
-		$TextEdit.text = $TextEdit.text.replace("\n", "")
+func _on_text_edit_text_changed(text: String) -> void:
+	if "\n" in text:
+		$TextEdit.text = text.replace("\n", "")
 		return
-	if $TextEdit.text.length() > 10:
+	if text.length() > 10:
 		$Error.text = "Bit too long, isn't it?"
 		$Error.show()
-		if $TextEdit.text.length() > 10 and $TextEdit.text.length() > txt.length():
+		if text.length() > 10 and text.length() > txt.length():
 			$TextEdit.text = txt
 			$TextEdit.set_caret_column(20)
 	else:
 		$Error.hide()
 	txt = $TextEdit.text
 
-func on_confirm() -> void:
+func on_confirm(text: String) -> void:
 	$TextEdit.text = $TextEdit.text.dedent()
-	$TextEdit.text[0].to_upper()
+	if $TextEdit.text != "":
+		$TextEdit.text[0].to_upper()
 	await Event.wait(0.03)
 	$TextEdit.set_caret_column(20)
 	txt = $TextEdit.text
@@ -41,7 +44,7 @@ func on_confirm() -> void:
 		$Error.show()
 	elif txt.length() == 0:
 		$TextEdit.text = "Alcine"
-		on_confirm()
+		on_confirm("Alcine")
 	elif check_for_symbols():
 		$Error.text = "I shouldn't include symbols"
 		$Error.show()
@@ -87,14 +90,9 @@ func on_confirm() -> void:
 		$Error.show()
 	else:
 		Query.find_member("Alcine").FirstName = txt.capitalize()
-		enter.emit()
+		Global.textbox("naming", "what_about")
 	await get_tree().process_frame
 	$TextEdit.set_caret_column(14)
-
-
-func _input(event: InputEvent) -> void:
-	if InputMap.event_is_action(event, "Options") or Input.is_key_pressed(KEY_ENTER):
-		on_confirm()
 
 func check_for_symbols():
 	var res = false

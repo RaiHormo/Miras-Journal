@@ -307,13 +307,14 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		Global.confirm_sound()
 	elif event.is_action_pressed("DialogNext") and item in get_responses():
 		Global.confirm_sound()
+		item.release_focus()
 		t = create_tween()
 		t.set_parallel()
 		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property(get_viewport().gui_get_focus_owner(), "position:x", -100, 0.2).as_relative()
-		t.tween_property(get_viewport().gui_get_focus_owner(), "modulate", Color.TRANSPARENT, 0.2)
+		t.tween_property(item, "position:x", -100, 0.2).as_relative()
+		t.tween_property(item, "modulate", Color.TRANSPARENT, 0.2)
 		for i in responses_menu.get_children():
-			if get_viewport().gui_get_focus_owner() != i:
+			if item != i:
 				t = create_tween()
 				t.set_parallel()
 				t.set_trans(Tween.TRANS_QUART)

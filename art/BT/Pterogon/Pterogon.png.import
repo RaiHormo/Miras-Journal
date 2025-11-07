@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bo8vkoinuhw5j"
-path="res://.godot/imported/Petrogon.png-7c699dff14ebad2ddf8748b6fbff606a.ctex"
+path="res://.godot/imported/Pterogon.png-47f4f8b6561a52ac8912c3083ac75b34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/BT/Pterogon/Petrogon.png"
-dest_files=["res://.godot/imported/Petrogon.png-7c699dff14ebad2ddf8748b6fbff606a.ctex"]
+source_file="res://art/BT/Pterogon/Pterogon.png"
+dest_files=["res://.godot/imported/Pterogon.png-47f4f8b6561a52ac8912c3083ac75b34.ctex"]
 
 [params]
 

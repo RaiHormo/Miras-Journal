@@ -842,3 +842,11 @@ func _blur_effect(toggled_on: bool) -> void:
 	Global.Settings.BlurEffect = toggled_on
 	confirm()
 	load_settings()
+
+
+func rename_alcine() -> void:
+	stage = "popup"
+	await Global.alcine_naming()
+	gallery()
+	$GalleryPanel/ScrollContainer/VBoxContainer/RenameAlcine.grab_focus()
+	

@@ -1,0 +1,87 @@
+~ what_about
+if alcine() == "Alcine":
+	"Alcine". I think that's the best name I can think of.
+elif alcine() == "Pikachu":
+	Pika pika?
+elif alcine() == "Raichu":
+	Rai?
+elif alcine() == "Watery":
+	Very straight forward.
+elif alcine() == "Mario":
+	I maybe I should name them Sonic instead.
+elif alcine() == "Sonic":
+	I'd rather just name them Mario.
+elif alcine() == "Sans":
+	(deep breath)[wait=1] SA-[wait=0.1][next]
+	Shall I use this name?
+elif alcine() == "Journal":
+	And then she said "It's journaling time!" and journaled all over them.
+elif alcine() == "Name":
+	Name?
+elif alcine() == "Ghost":
+	Being literal with it, I like it.
+elif alcine() == "Alcine":
+	I wonder.
+elif alcine() == "Gaster":
+	I don't speak hands.
+elif alcine() == "Luigi":
+	Respectable.
+elif alcine() == "Rai" or alcine() == "Raidev" or alcine() == "RaiDev":
+	SECRET DEVELOPER MODE ACTIVATED! Or something...
+elif alcine() == "Iris":
+	Truly.
+elif alcine() == "Petrogon":
+	That's quite ironic.
+elif alcine() == "Godot":
+	The very fabric of this world.
+elif alcine() == "Kirby":
+	Poyo!
+elif alcine() == "Dog":
+	Uhhhh, sure...
+elif alcine() == "Cat" or alcine() == "Kitty":
+	Is that really fitting?
+elif alcine() == "Rat":
+	Squeak!
+elif alcine() == "Alcin":
+	Silent letters are for loosers.
+elif alcine() == "Chip":
+	That's the way it is.
+elif alcine() == "Harold":
+	har har, very funny
+elif alcine() == "Bob":
+	The true name?
+elif alcine() == "Alcinoe":
+	A godly name.
+elif alcine() == "Alci":
+	Short and sweet.
+elif alcine() == "Alc":
+	Maybe too short?
+elif alcine() == "Al":
+	Weird.
+elif alcine() == "Steve":
+	They... will be Steve.
+elif alcine() == "Alcaine":
+	No, too far.
+elif alcine() == "Alcines" or alcine() == "Alcinez":
+	Many of them.
+elif alcine() == "Alkaline":
+	It's pronounced "Alk-ah-leen".
+elif alcine() == "Slime":
+	I mean, they're not really a slime, ther body is made of clear water... I think.
+elif alcine() == "Cone" or alcine() == "Alcone" or alcine() == "Alex":
+	Brazy.
+elif alcine() == "Piss Elmnt" or alcine() == "Piss Element":
+	Now that is a name!
+elif alcine() == "Creature":
+	Bit on the nose?
+elif alcine() == "Aa":
+	Speedrun strats.
+elif alcine().begins_with("John") or alcine() == "Jojo":
+	Jonathan Johnington Johnstar.
+else:
+	"{{alcine()}}". Should I go with this?
+- Use this name
+	do get_tree().root.get_node("AlcineNaming").enter.emit()
+- Let's rethink this
+	do! get_tree().root.get_node("AlcineNaming").start()
+=> END

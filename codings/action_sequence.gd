@@ -1060,6 +1060,7 @@ func AlcineWoods1():
 func AlcineWoods2():
 	for i in Bt.TurnOrder:
 		Bt.anim("Idle", i)
+	Global.Bt.get_actor("Alcine").node.global_position = Vector2(1660, -1068)
 	Bt.focus_cam(Bt.get_actor("Alcine"))
 	Bt.get_actor("Alcine").SpeedBoost =+ 10
 	Bt.TurnOrder.sort_custom(Bt.speed_sort)

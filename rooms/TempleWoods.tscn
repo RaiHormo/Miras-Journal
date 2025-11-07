@@ -1,13 +1,12 @@
-[gd_scene load_steps=117 format=4 uid="uid://2sbvfn5kq0id"]
+[gd_scene load_steps=112 format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
 [ext_resource type="Script" uid="uid://sxx81cfxpfld" path="res://codings/StoryEvents/AlcineWoods.gd" id="3_8qhui"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/OV/Alcine/AlcineOV1.tres" id="4_d61pe"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="5_4nr7e"]
-[ext_resource type="Texture2D" uid="uid://b6e2vcb7sglq0" path="res://art/Renders/Alcine_low.png" id="5_e7y1u"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="6_82fx5"]
-[ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PetrogonBT.tres" id="7_jtxqp"]
+[ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PterogonBT.tres" id="7_jtxqp"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="8_grqbv"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="10_rx6j2"]
 [ext_resource type="Resource" uid="uid://g32tgyicqumu" path="res://database/BattleSeq/SludgeBattle1.tres" id="11_1cjwu"]
@@ -27,24 +26,11 @@
 [ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="24_iq5im"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="26_k6j3t"]
-[ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/StoryEvents/AlcineNaming.gd" id="27_pc4vh"]
-[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="28_qbi5i"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="29_2u8xp"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="31_svxf2"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="32_o2d87"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="35_2q7ov"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="36_2q7ov"]
 [ext_resource type="PackedScene" uid="uid://vgsferl0deam" path="res://rooms/components/JumpPointV.tscn" id="36_va2q4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp00o"]
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-bg_color = Color(0.890196, 0.890196, 0.890196, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_llchn"]
 shader = ExtResource("17_a4d1y")
@@ -604,95 +590,6 @@ SpawnZ = Array[int]([1, 1, 1, 1])
 CameraLimits = Array[Vector4]([Vector4(-50, 150, 800, 700), Vector4(1000, -700, 1770, 550), Vector4(1140, -1800, 2100, -870)])
 CameraZooms = Array[float]([1.25, 1.0, 1.1])
 FlameInInd = Array[int]([2])
-
-[node name="AlcineNaming" type="Control" parent="."]
-visible = false
-light_mask = 0
-z_index = 9
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1558.74
-offset_top = -1118.36
-offset_right = 1632.74
-offset_bottom = -1078.36
-script = ExtResource("27_pc4vh")
-
-[node name="ColorRect" type="ColorRect" parent="AlcineNaming"]
-layout_mode = 0
-offset_left = -147.0
-offset_top = -80.0
-offset_right = 225.0
-offset_bottom = 152.0
-color = Color(0, 0, 0, 0.588235)
-
-[node name="Error" type="Label" parent="AlcineNaming"]
-visible = false
-light_mask = 0
-layout_mode = 0
-offset_left = -29.73999
-offset_top = 21.0
-offset_right = 125.26001
-offset_bottom = 41.0
-theme_override_colors/font_color = Color(0.913725, 0.27451, 0.247059, 1)
-theme_override_fonts/font = ExtResource("28_qbi5i")
-theme_override_font_sizes/font_size = 6
-text = "Bit too long, isn't it?"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="Label" type="Label" parent="AlcineNaming"]
-light_mask = 0
-layout_mode = 0
-offset_left = -28.0
-offset_top = -11.0
-offset_right = 114.0
-offset_bottom = -2.0
-theme_override_fonts/font = ExtResource("28_qbi5i")
-theme_override_font_sizes/font_size = 8
-text = "What name shall I give them?"
-horizontal_alignment = 1
-
-[node name="TextEdit" type="TextEdit" parent="AlcineNaming"]
-light_mask = 0
-layout_mode = 0
-offset_left = 6.26001
-offset_right = 172.26001
-offset_bottom = 35.0
-scale = Vector2(0.5, 0.5)
-theme_override_colors/search_result_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0.0901961, 0.278431, 0.231373, 1)
-theme_override_colors/caret_background_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0.270588, 0.882353, 0.811765, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.529412)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/caret_width = 1
-theme_override_fonts/font = ExtResource("29_2u8xp")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hp00o")
-theme_override_styles/focus = SubResource("StyleBoxFlat_hp00o")
-text = "Alcine"
-placeholder_text = "Alcine"
-context_menu_enabled = false
-deselect_on_focus_loss_enabled = false
-drag_and_drop_selection_enabled = false
-middle_mouse_paste_enabled = false
-wrap_mode = 1
-scroll_fit_content_height = true
-caret_blink = true
-caret_move_on_right_click = false
-caret_multiple = false
-
-[node name="TextureRect" type="TextureRect" parent="AlcineNaming"]
-light_mask = 0
-layout_mode = 0
-offset_left = -156.74002
-offset_top = -90.64004
-offset_right = 4143.26
-offset_bottom = 4209.3633
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("5_e7y1u")
 
 [node name="GetUp" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -1481,7 +1378,6 @@ TakeControl = false
 ReturnControl = false
 SlowDown = true
 
-[connection signal="text_changed" from="AlcineNaming/TextEdit" to="AlcineNaming" method="_on_text_edit_text_changed"]
 [connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableVines1/AreaBreak" to="BreakableVines1" method="_on_area_break_area_entered"]
 [connection signal="body_entered" from="EvAlcine/Area2D" to="EvAlcine" method="_on_area_2d_body_entered"]
