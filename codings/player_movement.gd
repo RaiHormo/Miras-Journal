@@ -75,7 +75,7 @@ func extended_process() -> void:
 			path.curve.add_point(position.round())
 	if controllable():
 		BodyState = CONTROLLED
-		check_flame()
+		#check_flame()
 	else:
 		first_frame = true
 		if BodyState == CONTROLLED:

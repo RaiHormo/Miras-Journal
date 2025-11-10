@@ -134,7 +134,7 @@ func get_ability(ab: String) -> Ability:
 	if ResourceLoader.exists("res://database/Abilities/"+ab+".tres"):
 		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
 	if ResourceLoader.exists("res://database/Abilities/Attacks/"+ab+".tres"):
-		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
+		return await Loader.load_res("res://database/Abilities/Attacks/"+ab+".tres")
 	return null
 
 func to_tod_text(x: Event.TOD) -> String:

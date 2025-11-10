@@ -170,9 +170,18 @@ func _input(event: InputEvent) -> void:
 	if active:
 		match stage:
 			&"root", &"pre_root":
-				if event.is_action("BtAttack") and not $Attack.disabled:
+				if event.is_action_pressed("BtAttack"):
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
-					attack.emit()
+					if $Attack.disabled:
+						stage = "popup"
+						if await Global.warning("Cannot attack right now.\nPass the turn and regain AP instead?","PASS"):
+							CurrentChar.NextAction = "Attack"
+							CurrentChar.NextMove = await Query.get_ability("Pass")
+							CurrentChar.NextTarget = CurrentChar
+							emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
+						else: root.emit()
+					else:
+						attack.emit()
 				if Input.is_action_just_pressed("BtCommand") and not $Command.disabled:
 					command.emit()
 				if Input.is_action_just_pressed("BtItem") and not $Item.disabled:
@@ -445,8 +454,8 @@ func _on_ability():
 		$DescPaper/Cost.show()
 	else:
 		$DescPaper/Cost.hide()
-	$DescPaper/Title.text = Abilities[0].name
-	CurrentChar.NextMove = CurrentChar.Abilities[0]
+	$DescPaper/Title.text = Abilities[foc.get_index()].name
+	CurrentChar.NextMove = CurrentChar.Abilities[foc.get_index()]
 	$RankSwap.modulate = Color.TRANSPARENT
 	$RankSwap.show()
 	await t.finished

@@ -5,7 +5,7 @@ class_name Ability
 @export_multiline var description : String
 @export var Icon: Texture = preload("res://art/Icons/Items.tres")
 @export var ActionSequence : StringName = &""
-@export_enum("CheapAttack", "BigAttack", "Defensive", "Curse", "Healing", "AtkBuff", "MagBuff", "DefBuff", "Summon") var Type: String = "CheapAttack"
+@export_enum("CheapAttack", "BigAttack", "Defensive", "Curse", "Healing", "AtkBuff", "MagBuff", "DefBuff", "Summon", "Aggro") var Type: String = "CheapAttack"
 @export var Group: String = ""
 @export var InflictsState: String = ""
 @export var AuraCost: int

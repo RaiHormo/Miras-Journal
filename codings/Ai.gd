@@ -95,7 +95,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 6
+	const n = 7
 	var r: int
 	var tries:= 0
 	while true:
@@ -142,6 +142,14 @@ func pick_general_ability() -> Ability:
 					if tar.DefenceMultiplier <= 1:
 						Char.NextTarget = tar
 						return find_ability("DefBuff").pick_random()
+					print(tar.FirstName, " is a bad target")
+			6:
+				if has_type("Aggro") and (has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction())):
+					var tar: Actor = [get_class_in_faction("Attacker", Bt.get_oposing_faction())+get_class_in_faction("Boss", Bt.get_oposing_faction())].pick_random()
+					print("Found ", tar.FirstName)
+					if tar.ActorClass == "Attacker" or tar.ActorClass == "Boss":
+						Char.NextTarget = tar
+						return find_ability("Aggro").pick_random()
 					print(tar.FirstName, " is a bad target")
 			_:
 				if has_type("CheapAttack"):

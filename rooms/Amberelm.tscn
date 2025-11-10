@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=4 uid="uid://dyfupfl7rjxav"]
+[gd_scene load_steps=90 format=4 uid="uid://dyfupfl7rjxav"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_45tma"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
@@ -29,6 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://ch2j5pngca4u" path="res://rooms/components/StairsV.tscn" id="24_i77sn"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="25_vddgi"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="30_djhcr"]
+[ext_resource type="Texture2D" uid="uid://dc01c6q7ceiwc" path="res://art/OV/Objects/GuardianDestroyed.png" id="30_ylfhl"]
+[ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="31_ylfhl"]
 
 [sub_resource type="Gradient" id="Gradient_auwcy"]
 offsets = PackedFloat32Array(1)
@@ -425,6 +427,9 @@ vertices = PackedVector2Array(1402, 442, 1402, 419.64844, 1538, 440.5703, 1538, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 7, 8, 9, 10), PackedInt32Array(9, 11, 10), PackedInt32Array(12, 13, 7, 6, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(19, 15, 18, 20)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(462, 318, 462, 416, 556, 410, 672, 432, 660, 335, 663, 229, 567, 227, 514, 246, 514, 318), PackedVector2Array(1392, 408, 1392, 432, 1284, 432, 1284, 540, 1548, 540, 1548, 432), PackedVector2Array(1008, 144, 1008, 264, 1104, 264, 1104, 288, 1176, 288, 1176, 144)])
 cell_size = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0o4df"]
+size = Vector2(138, 36)
 
 [node name="Amberelm" type="Node2D"]
 y_sort_enabled = true
@@ -1256,6 +1261,32 @@ ActionType = "text"
 Length = 100
 file = "interact_abad"
 title = "amberelm_bench"
+
+[node name="EvDestroyedGuardian" type="StaticBody2D" parent="."]
+z_index = 4
+use_parent_material = true
+position = Vector2(2589, -144)
+collision_layer = 7
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="EvDestroyedGuardian"]
+use_parent_material = true
+position = Vector2(-24, -24)
+texture = ExtResource("30_ylfhl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EvDestroyedGuardian"]
+position = Vector2(-24, 8)
+shape = SubResource("RectangleShape2D_0o4df")
+
+[node name="HideOnFlag" parent="EvDestroyedGuardian" instance=ExtResource("31_ylfhl")]
+flag = "BeatStoneGuardian"
+hide_if = false
+
+[node name="Interactable" parent="EvDestroyedGuardian" instance=ExtResource("5_3ycob")]
+position = Vector2(-10, 5)
+ActionType = "text"
+file = "story_1"
+title = "destroyed_guardian"
 
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]
