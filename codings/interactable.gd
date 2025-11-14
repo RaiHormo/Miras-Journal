@@ -243,10 +243,13 @@ func _on_button_pressed() -> void:
 				Global.toast("Something went wrong with the event condition")
 			disappear(true)
 			await Global.textbox(file, "rank"+str(rank)+"_prepare")
+	if add_flag: 
+		if hide_on_flag != "":
+			Event.f(hide_on_flag, true)
+		else: Event.f(name, true)
 	if return_control:
 		Event.give_control(false)
 	if hidesprite:
-		if add_flag: Event.f(hide_on_flag, true)
 		if Collision: Collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()

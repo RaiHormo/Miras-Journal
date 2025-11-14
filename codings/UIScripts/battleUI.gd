@@ -111,7 +111,7 @@ func _on_battle_get_control():
 	if disable_attack or CurrentChar.CantAttack: $Attack.disabled = true
 	if disable_ability: $Ability.disabled = true
 	if disable_command: $Command.disabled = true
-	if disable_item: $Item.disabled = true
+	if disable_item or not Event.f("HasBag"): $Item.disabled = true
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
 	if CurrentChar.BoxProfile != null:

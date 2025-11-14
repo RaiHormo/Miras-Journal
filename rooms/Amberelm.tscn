@@ -1282,11 +1282,12 @@ shape = SubResource("RectangleShape2D_0o4df")
 flag = "BeatStoneGuardian"
 hide_if = false
 
-[node name="Interactable" parent="EvDestroyedGuardian" instance=ExtResource("5_3ycob")]
+[node name="EvDestroyedGuardian" parent="EvDestroyedGuardian" instance=ExtResource("5_3ycob")]
 position = Vector2(-10, 5)
 ActionType = "text"
 file = "story_1"
 title = "destroyed_guardian"
+add_flag = true
 
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]

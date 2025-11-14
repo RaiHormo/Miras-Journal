@@ -268,6 +268,15 @@ func daze_enemy_2():
 	await Event.npc("P").bubble("Surprise")
 	Loader.start_battle("SkritcherRootDaze", 2)
 
+func where_is_alcine_1():
+	await Loader.transition()
+	Event.remove_flag("HasBag")
+	Global.Party.reset_party()
+	Global.Party.Leader = Query.find_member("Alcine")
+	Global.Party.Leader.Controllable = true
+	await Loader.detransition()
+	Event.give_control()
+
 func hurt_1():
 	Global.Party.Leader.Health -= 1
 	Global.ui_sound("Crunch")

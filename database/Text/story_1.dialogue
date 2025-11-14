@@ -245,3 +245,36 @@ else:
 	Daze.Neutral: 'Grats, now we can't test out any of our theories...
 	Mira.Neutral: Whoops.
 => END
+
+~ destroyed_guardian
+if f("EvDestroyedGuardian"):
+	The remains of the Stone Guardian.
+	Daze cut it completely clean.
+else:
+	Mira: Hey, the remains of the Guardian are all here.
+	Daze: Guardian?
+	Mira: It's a name I just came up with for this thing.
+	Daze: I don't think It's guarding anything though. Most monsters are simply enraged spirits that attack with no real purpose.
+	Mira: Is that really true though?
+	Mira: Look at this thing. These vains aren't there for no purpose.
+	Mira: They were finely crafted to connect this part down here to here.
+	Mira: And this controls the aura around it to make the rocks float.
+	Mira: Which means...
+	I break appart a part of the stone, revealing...
+	Mira: Does this look naturally made to you?
+	Daze: What are you trying to say?
+	Mira: This monster is artificial, and nobody would create such a thing if it's not meant to be protecting something.
+	Daze: Hm...
+	Daze: How do you know all this?
+	Mira: I looked into magic beings once when I was bored.
+	Mira: It's a complicated topic, but telling a natural and artificial one appart is not all that hard.
+	Mira: I'm surprised you can't tell them appart Mr. Swordsman warrior who fights these things for a living.
+	Daze: I don't-[wait=1]\n *sigh...*
+	Daze: So you're saying there is something important around here that needs to be protected?
+	Mira: Possibly.
+	(hide)
+	Daze: I think we should take this, it seems to still contain a lot of power.
+	Mira: Mhm.
+	(hide)
+	Mira: Still no traces of {{alcine()}} though... Where did they wander off to?
+	do! sequence("where_is_alcine_1")

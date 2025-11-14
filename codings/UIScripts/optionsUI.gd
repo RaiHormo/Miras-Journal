@@ -824,11 +824,11 @@ You can backup this data by pressing F1 and copying the files.\nProceed?"):
 		stage = "gallery"
 	
 func _on_credit_scroll(event: InputEvent) -> void:
-	if event.is_action("ui_up"):
-		$GalleryPanel/Credits.scroll_vertical -= 1000
-	if event.is_action("ui_down"):
-		$GalleryPanel/Credits.scroll_vertical += 1000
-	if event.is_action("ui_cancel") or event.is_action("ui_left"):
+	if event.is_action_pressed("ui_up"):
+		$GalleryPanel/Credits.scroll_vertical -= 100
+	if event.is_action_pressed("ui_down"):
+		$GalleryPanel/Credits.scroll_vertical += 100
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_left"):
 		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
 
 
@@ -849,4 +849,5 @@ func rename_alcine() -> void:
 	await Global.alcine_naming()
 	gallery()
 	$GalleryPanel/ScrollContainer/VBoxContainer/RenameAlcine.grab_focus()
+	stage = "gallery"
 	
