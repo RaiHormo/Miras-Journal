@@ -160,7 +160,10 @@ func update_anim_prm() -> void:
 		if (abs(RealVelocity.length())>1 and controllable()):
 			if dashing:
 				reset_speed()
-				set_anim("Dash"+Query.get_dir_name(dashdir)+"Loop")
+				var dir_name = Query.get_dir_name(dashdir)
+				if has_anim("Dash"+dir_name+"Loop"):
+					set_anim("Dash"+dir_name+"Loop")
+				else: set_anim("Walk"+dir_name)
 			else:
 				speed = min(walk_speed, speed)
 				set_anim(str("Walk"+Query.get_dir_name(Facing)))
@@ -208,9 +211,9 @@ func set_anim(anim:String = "Idle"+Query.get_dir_name(), wait = false, overwrite
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
-	if Event.f(&"FlameActive") and anim in %Flame.sprite_frames.get_animation_names():
+	if Event.f(&"FlameActive") and has_anim(anim, %Flame):
 		used_sprite = %Flame
-	elif anim in %Base.sprite_frames.get_animation_names():
+	elif has_anim(anim):
 		used_sprite = %Base
 	else:
 		if wait: await Event.wait()
@@ -221,6 +224,9 @@ func set_anim(anim:String = "Idle"+Query.get_dir_name(), wait = false, overwrite
 	if wait:
 		while used_sprite.is_playing() and used_sprite.animation == anim:
 			await get_tree().physics_frame
+
+func has_anim(anim: String, node = %Base):
+	return anim in node.sprite_frames.get_animation_names()
 
 func hide_other_sprites():
 	for i in $Sprite.get_children():
@@ -322,7 +328,7 @@ func reset_speed() -> void:
 		i.speed_scale=1
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
-	if cant_bump: return
+	if cant_bump or not has_anim("Bump"+Query.get_dir_name(dashdir)+"Hit"): return
 	winding_attack = false
 	Global.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
@@ -341,7 +347,7 @@ func controllable():
 	return local_controllable and Global.Controllable
 
 func attack():
-	if not Item.check_item("LightweightAxe", "Key"):
+	if not Item.check_item("LightweightAxe", "Key") or not Event.f("HasBag"):
 		Global.buzzer_sound()
 		return
 	if dashing: await stop_dash()

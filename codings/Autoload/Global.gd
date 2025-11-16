@@ -88,6 +88,9 @@ func normal_mode():
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
 func init_steam():
+	if not Engine.has_singleton("Steam"):
+		return
+	var Steam = Engine.get_singleton("Steam")
 	OS.set_environment("SteamAppId", str(AppID))
 	OS.set_environment("SteamGameId", str(AppID))
 	var initialize_response: Dictionary = Steam.steamInitEx(AppID)

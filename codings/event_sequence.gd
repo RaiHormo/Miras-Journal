@@ -215,12 +215,12 @@ func oct0_afternoon():
 	Global.Complimentaries.append("FluidBlast")
 
 func oct0_night():
-	await Loader.travel_to("Orange", Vector2(775, -211), 0, -1, "none", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "none", false)
 	Event.no_player()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox("story_0", "daze_introduction")
-	await Loader.travel_to("Orange", Vector2(775, -211))
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 func jump_playtest():
 	await Global.textbox("testbush", "jump_playtest")
@@ -240,17 +240,17 @@ func waste_time():
 func nov1_morning():
 	Loader.gray_out(1)
 	await Global.textbox("story_1", "nov1_dream")
-	await Loader.travel_to("Orange", Vector2(-96, -384), 1)
+	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
 	Loader.ungray.emit()
 	Event.no_player()
 	await Global.textbox("story_1", "nov1_morning")
-	await Loader.travel_to("Orange", Vector2(775, -211), 0, -1, "D", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
 	Event.no_player()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox("story_1", "nov1_daytime")
 	Global.Party.set_to_strarr(["Mira", 'Daze'])
-	await Loader.travel_to("Orange", Vector2(775, -211))
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 	Global.Party.Leader.CantAttack = true
 
 func daze_enemy_1():

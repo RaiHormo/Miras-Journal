@@ -295,7 +295,11 @@ func done(controllable:= false):
 	if Global.Area: Global.Area.queue_free()
 	if get_tree().root.has_node("MainMenu"): 
 		get_tree().root.get_node("MainMenu").queue_free()
-	var area = ResourceLoader.load_threaded_get(scene[0]).instantiate()
+	var area = ResourceLoader.load_threaded_get(scene[0])
+	if area == null: 
+		load_game()
+		return
+	area = area.instantiate()
 	$/root.add_child(area)
 	await Global.area_initialized
 	Global.Lights.clear()
@@ -549,6 +553,10 @@ func error_handle(res):
 		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
 		loading_thread = false
+		if loading:
+			loading = false
+			OS.alert("The room failed to load.")
+		
 	#if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		#OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
 		#load_failed = true

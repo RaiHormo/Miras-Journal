@@ -1251,8 +1251,8 @@ texture = ExtResource("6_gki33")
 [node name="Transfer3" parent="." instance=ExtResource("7_q8qii")]
 position = Vector2(3010, -139)
 Direction = Vector2(1, 0)
-Position = Vector2(58, -10)
-room = "Orange"
+Position = Vector2(-440, -80)
+room = "WitheredLeaves"
 
 [node name="EvBench" parent="." instance=ExtResource("5_3ycob")]
 position = Vector2(2232, -156)

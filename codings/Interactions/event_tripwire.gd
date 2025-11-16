@@ -4,6 +4,7 @@ class_name EventTripwire
 @export var EventName: String
 @export var TextFile: String
 @export var TextNode: String
+@export var BattleSeq: BattleSequence
 @export var Passive: bool = false
 @export var Flag: String
 @export var FlagIsName: bool = true
@@ -28,11 +29,12 @@ func _on_body_entered(body):
 		if KickDirection != Vector2.ZERO:
 			kick()
 		if EventName != "": Event.sequence(EventName)
-		else:
+		elif TextFile != "":
 			if Passive:
 				await Global.passive(TextFile, TextNode)
 			else:
 				await Global.textbox(TextFile, TextNode)
+		elif BattleSeq != null: Loader.start_battle(BattleSeq)
 		if SlowDown: 
 			Global.Player.speed = Global.Player.walk_speed
 			Global.Player.can_dash = true
