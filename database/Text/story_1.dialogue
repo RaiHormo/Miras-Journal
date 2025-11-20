@@ -247,7 +247,9 @@ else:
 => END
 
 ~ destroyed_guardian
-if f("EvDestroyedGuardian"):
+if Party.Leader.codename == "Alcine":
+	Alcine.Upset: Shwoooom...
+elif f("EvDestroyedGuardian"):
 	The remains of the Stone Guardian.
 	Daze cut it completely clean.
 else:

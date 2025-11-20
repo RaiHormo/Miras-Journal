@@ -96,6 +96,11 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	await t.finished
 
 func check_flag(flag: StringName, value:= 1):
+	if "+" in flag:
+		var split = flag.split("+")
+		for i in split:
+			if not check_flag(i): return false
+		return true
 	if "day:" in flag:
 		if int(flag.replace("day:", "")) == Day: return true
 		else: return false

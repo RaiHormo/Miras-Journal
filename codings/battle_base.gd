@@ -266,6 +266,7 @@ func entrance():
 
 func entrance_anim(i: Actor):
 	play_sound("Entrance", i)
+	await Event.wait(0.3)
 	await anim(&"Entrance", i)
 	if i.node.animation == &"Entrance" or i.node.animation == &"Idle": anim("", i)
 

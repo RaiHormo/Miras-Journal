@@ -159,7 +159,7 @@ func move_dir(dir: Vector2, use_coords = true, autostop = false) -> void:
 	else: await go_to(position + dir, use_coords, autostop)
 
 func look_to(dir):
-	if dir is String: dir = Global.get_dir_from_letter(dir)
+	if dir is String: dir = Query.get_dir_from_letter(dir)
 	BodyState = MOVE
 	Facing = dir
 	direction = dir

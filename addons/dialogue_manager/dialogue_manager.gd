@@ -234,7 +234,7 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 
 	# If the line is a random block then go to the start of the block.
 	elif data.type == DMConstants.TYPE_RANDOM:
-		data = resource.lines.get(data.next_id)
+		return await get_line(resource, data.next_id + id_trail, extra_game_states)
 
 	# Check conditions.
 	elif data.type in [DMConstants.TYPE_CONDITION, DMConstants.TYPE_WHILE]:
@@ -545,6 +545,10 @@ func _bridge_get_line(resource: DialogueResource, key: String, extra_game_states
 func _bridge_mutate(mutation: Dictionary, extra_game_states: Array, is_inline_mutation: bool = false) -> void:
 	await _mutate(mutation, extra_game_states, is_inline_mutation)
 	bridge_mutated.emit()
+
+
+func _bridge_get_error_message(error: int) -> String:
+	return DMConstants.get_error_message(error)
 
 
 #endregion
@@ -1475,8 +1479,10 @@ func _get_method_info_for(thing: Variant, method: String, args: Array) -> Dictio
 	var method_key: String = "%s:%d" % [method, args.size()]
 	if methods.has(method_key):
 		return methods.get(method_key)
-	else:
+	elif methods.has(method):
 		return methods.get(method)
+	else:
+		return _get_method_info_for(thing.new(), method, args)
 
 
 func _resolve_thing_method(thing, method: String, args: Array):

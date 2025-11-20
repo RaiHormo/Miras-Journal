@@ -277,6 +277,17 @@ func where_is_alcine_1():
 	await Loader.detransition()
 	Event.give_control()
 
+func WL_alcine_slide():
+	await Event.take_control()
+	Global.Player.collision(false)
+	Global.Player.set_anim("IdleDown")
+	Global.Player.BodyState = NPC.NONE
+	await Global.jump_to_global(Global.Player, Vector2(-104, 250), 8, 0)
+	Global.Player.set_anim("IdleUp")
+	await Event.wait(1)
+	await Global.jump_to_global(Global.Player, Vector2(-110, 198), 5, 0.5)
+	Event.give_control()
+
 func hurt_1():
 	Global.Party.Leader.Health -= 1
 	Global.ui_sound("Crunch")
