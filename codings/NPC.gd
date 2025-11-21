@@ -217,7 +217,8 @@ func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 =
 	await Event.wait()
 
 func set_anim(anim: String):
-	$Sprite.play(anim)
+	if $Sprite.sprite_frames.has_animation(anim):
+		$Sprite.play(anim)
 
 func stop_going() -> void:
 	stopping = true

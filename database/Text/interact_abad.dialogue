@@ -106,7 +106,9 @@ Placeholder description: To equip Complimentaries, go to the Menu > Party > Abil
 => END
 
 ~ rest_camp
-if Event.TimeOfDay == 2 and Event.Day == 1:
+if f("AlcineAlone"):
+	Alcine.Neutral: Shwooo?
+elif Event.TimeOfDay == 2 and Event.Day == 1:
 	I'm all rested, let's go find Alcine.
 else:
 	It's the tent.
@@ -114,6 +116,25 @@ else:
 	if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
 		do time_transition()
 		do heal_party()
+=> END
+
+~ WL_void
+if Query.check_member("Mira") and Query.check_member("Daze"):
+	do take_control()
+	Daze.Neutral: Ms. Levenor stop.
+	Mira.Neutral: Huh?
+	Daze takes a pebble and throws it forward.
+	The pebble bounces around and changes shapes quickly until it disappears.
+	Mira.Neutral: What- What is this?!
+	Daze.Neutral: It is as I suspected.
+	Daze.Neutral: This is the border of this realm. \nGoing beyond would be very dangerous.
+	Mira.Neutral: The border of this realm?
+	Daze.Neutral: Remember when I told you this place in not connected to the outside world? This is the limit.
+	I keep staring into this void. 
+	It's a lot like being on top of a tall building.
+	The urge to just walk into it, even though I know I shouldn't.
+	Mira.Neutral: Yeah...  let's walk the other way.
+	do Event.add_flag("EvWLVoidMira")
 => END
 
 ~ kick_bridge

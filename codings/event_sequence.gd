@@ -254,23 +254,28 @@ func nov1_morning():
 	Global.Party.Leader.CantAttack = true
 
 func daze_enemy_1():
-	Global.passive("story_1", "daze_enemy_1")
-	await Event.wait(2)
-	await Event.spawn("Daze", Global.Area.Followers[0].position, "L")
-	Global.Area.Followers[0].dont_follow = true
-	Global.Area.Followers[0].hide()
-	Event.npc("Daze").speed = 150
-	await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
-	await Event.npc("EnemyFlowent1").attacked()
-	Event.npc("Daze").hide()
+	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
+		Global.passive("story_1", "daze_enemy_1")
+		await Event.wait(2)
+		await Event.spawn("Daze", Global.Area.Followers[0].position, "L")
+		Global.Area.Followers[0].dont_follow = true
+		Global.Area.Followers[0].hide()
+		Event.npc("Daze").speed = 150
+		await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
+		await Event.npc("EnemyFlowent1").attacked()
+		Event.npc("Daze").hide()
+	else: Event.give_control()
 
 func daze_enemy_2():
-	await Event.npc("P").bubble("Surprise")
-	Loader.start_battle("SkritcherRootDaze", 2)
+	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
+		await Event.npc("P").bubble("Surprise")
+		Loader.start_battle("SkritcherRootDaze", 2)
+	else: Event.give_control()
 
 func where_is_alcine_1():
 	await Loader.transition()
 	Event.remove_flag("HasBag")
+	Event.add_flag("AlcineAlone")
 	Global.Party.reset_party()
 	Global.Party.Leader = Query.find_member("Alcine")
 	Global.Party.Leader.Controllable = true
@@ -287,6 +292,31 @@ func WL_alcine_slide():
 	await Event.wait(1)
 	await Global.jump_to_global(Global.Player, Vector2(-110, 198), 5, 0.5)
 	Event.give_control()
+
+func amberelm_reunion():
+	Global.Player.camera_follow(false)
+	await Event.take_control()
+	await Event.wait(0.3)
+	await Global.Player.look_to("L")
+	await Global.Player.bubble("Surprise")
+	await Event.spawn("Mira", Vector2(2224, -157), "SitDown", true, 7)
+	await Event.spawn("Daze", Vector2(2200, -157), "SitDown", true, 7)
+	Global.Camera.position = Vector2(2247, -157)
+	await Event.wait(0.3)
+	Global.Player.chain_moves([Vector2.LEFT*2, Vector2.DOWN, Vector2.LEFT*2])
+	await Event.wait(1)
+	await Event.npc("Mira").move_dir(Vector2.DOWN)
+	await Event.npc("Mira").look_to("R")
+	await Event.npc("Mira").bubble("Surprise")
+	await Global.textbox("story_1", "amberelm_reunion")
+	await Loader.transition("R")
+	Event.add_flag("HasBag")
+	Event.remove_flag("AlcineAlone")
+	Global.Party.set_to_strarr(["Mira", "Alcine", "Daze"])
+	Loader.travel_to("WitheredLeaves", Vector2(777, -218))
+	Event.ToDay = 1
+	Event.ToTime = 3
+	await Event.time_transition()
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1

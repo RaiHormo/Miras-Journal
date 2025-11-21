@@ -258,6 +258,7 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 			push_error("Invalid spawn id: " + id)
 			return null
 	var sprite_node:= AnimatedSprite2D.new()
+	chara.SpawnOnCameraInd = false
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
@@ -270,7 +271,11 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
-	await chara.look_to(Query.get_dir_from_letter(dir))
+	if dir.length() > 1:
+		chara.BodyState = NPC.CUSTOM
+		chara.set_anim(dir)
+	else:
+		await chara.look_to(Query.get_dir_from_letter(dir))
 	return chara
 
 func no_player():

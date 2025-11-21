@@ -64,6 +64,9 @@ func on_confirm(text: String) -> void:
 	elif "erinn" == txt:
 		$Error.text = "Name them after my cousin?\n Why?"
 		$Error.show()
+	elif "erin" == txt:
+		$Error.text = "It's spelled with two Ns,\n and no."
+		$Error.show()
 	elif "brent" == txt:
 		$Error.text = "What does he have to do with this?!"
 		$Error.show()

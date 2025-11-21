@@ -55,6 +55,20 @@ Daze.Neutral: Ms. Levenor, just focus on protecting yourself!
 Mira.Neutral: But I can fight!
 => END
 
+~ amberelm_reunion
+Mira.Neutral: {{alcine()}}!!
+Alcine.Happy: Mewaaa!!
+Daze.Neutral: So this is the {{alcine()}} you were talking about.
+do! npc("P").bubble("Question")
+Alcine.Neutral: Mwwoo?
+Mira.Neutral: Oh {{alcine()}}, this is Daze. He saved me from that big rock monster.
+do npc("P").move_dir(Vector2.RIGHT)
+Alcine.Upset: Sheww...
+do! npc("Mira").bubble("Question")
+Mira.Neutral: Huh?
+Daze.Neutral: Did I do something wrong?
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

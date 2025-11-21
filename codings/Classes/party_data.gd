@@ -13,7 +13,8 @@ func reset_party():
 	Member3 = null
 
 func check_member(n) -> bool:
-	if n==0: return true
+	if n == 0 and Leader != null: 
+		return true
 	if n == 1 and Member1 != null:
 		return true
 	elif n == 2 and Member2 != null:

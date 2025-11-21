@@ -172,7 +172,9 @@ func mem(Name: StringName) -> Actor:
 	return Query.find_member(Name)
 
 func number_of_party_members() -> int:
-	var num= 1
+	var num = 0
+	if check_member(0):
+		num+=1
 	if check_member(1):
 		num+=1
 	if check_member(2):
@@ -181,8 +183,11 @@ func number_of_party_members() -> int:
 		num+=1
 	return num
 
-func check_member(n:int) -> bool:
-	return Global.Party.check_member(n)
+func check_member(n: Variant) -> bool:
+	if n is int:
+		return Global.Party.check_member(n)
+	elif n is String: return Global.Party.has_member(n)
+	else: return false
 
 func get_member_name(n:int) -> String:
 	if Global.Party.check_member(0) and n==0:

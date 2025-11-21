@@ -81,6 +81,7 @@ What to do?
 - Manage party
 	we shall
 	- Add to party
+		~ add
 		Who to add?
 		- Mira
 			do Party.add("Mira")
@@ -92,14 +93,16 @@ What to do?
 			do Party.add("Asteria")
 		- Erinn
 			do Party.add("Erinn")
-	- Clear party
-		do Party.reset_party()
 	- Standard full party
 		do heal_party()
 		do Party.reset_party()
 		do Party.add("Alcine")
 		do Party.add("Asteria")
 		do Party.add("Daze")
+	- Clear and set Leader
+		do Party.reset_party()
+		set Party.Leader = null
+		=> add
 	- Make everyone controllable
 		set Query.find_member("Mira").Controllable = true
 		set Query.find_member("Alcine").Controllable = true
