@@ -163,8 +163,10 @@ func options(submenu = 0):
 	get_tree().root.add_child(opt)
 
 func title_screen():
-	var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
-	get_tree().root.add_child(init)
+	if not get_tree().root.has_node("Initializer"):
+		var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
+		get_tree().root.add_child(init)
+	else: get_tree().root.get_node("Initializer").focus()
 
 func member_details(chara: Actor, menu:= 0):
 	if chara == null: return

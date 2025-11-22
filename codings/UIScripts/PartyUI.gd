@@ -646,22 +646,24 @@ func party_menu():
 			Global.confirm_sound()
 
 func main_menu():
-	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and Event.f("HasBag") and not Event.f("DisableMenus"):
+	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.f("DisableMenus"):
 		if Global.Player.move_frames > -10:
 			await Event.wait(0.3, false)
 			if Global.Controllable: main_menu()
 			return
-		Global.ui_sound("Menu")
-		Global.Player.bag_anim()
-		Global.Controllable = false
-		get_tree().paused = true
-		var menu = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
-		if get_tree().root.get_node_or_null("Options") == null:
-			get_tree().root.add_child(menu.instantiate())
-		else: 
-			get_tree().root.get_node_or_null("Options").free()
-			Event.give_control()
-			Global.options()
+		if Event.f("HasBag"):
+			Global.ui_sound("Menu")
+			Global.Player.bag_anim()
+			Global.Controllable = false
+			get_tree().paused = true
+			var menu = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
+			if get_tree().root.get_node_or_null("Options") == null:
+				get_tree().root.add_child(menu.instantiate())
+			else: 
+				get_tree().root.get_node_or_null("Options").free()
+				Event.give_control()
+				Global.options()
+		else: Global.options()
 	elif Global.Controllable: Global.buzzer_sound()
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude:= true):

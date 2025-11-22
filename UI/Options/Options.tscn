@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=81 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -8,12 +8,12 @@
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
+[ext_resource type="Texture2D" uid="uid://30fjbtopqs22" path="res://UI/MenuTextures/toggle_on.svg" id="8_nqfss"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
 [ext_resource type="Texture2D" uid="uid://dcnd802jcwswl" path="res://UI/MenuTextures/down.png" id="9_mioka"]
+[ext_resource type="Texture2D" uid="uid://ba1164hwmukxq" path="res://UI/MenuTextures/toggle_off.svg" id="9_t6ahs"]
 [ext_resource type="Texture2D" uid="uid://d2cju0uv5rmjr" path="res://UI/MenuTextures/radio_enabled.png" id="9_xvg8c"]
-[ext_resource type="Texture2D" uid="uid://daasx8kvi6kbq" path="res://UI/MenuTextures/toggle_on.png" id="9_yynoc"]
 [ext_resource type="Texture2D" uid="uid://btup6lcmt8k28" path="res://UI/MenuTextures/radio_disabled.png" id="10_bx0nk"]
-[ext_resource type="Texture2D" uid="uid://dxo3r3qn5quv3" path="res://UI/MenuTextures/toggle_off.png" id="10_p5f5g"]
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
@@ -114,15 +114,16 @@ corner_radius_bottom_left = 42
 bg_color = Color(0.862745, 0.862745, 0.862745, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfm5m"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoxig"]
-bg_color = Color(0.168627, 0.168627, 0.168627, 1)
-border_color = Color(0.168627, 0.168627, 0.168627, 1)
+bg_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
 corner_radius_top_left = 32
 corner_radius_bottom_left = 32
 
@@ -232,10 +233,14 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_6ne1i"]
 default_font = ExtResource("24_41402")
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+Button/colors/font_focus_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
+Button/colors/font_hover_color = Color(0.36659428, 0.3665946, 0.36659542, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/font_sizes/font_size = 32
 Button/styles/normal = null
-CheckButton/icons/checked = ExtResource("9_yynoc")
-CheckButton/icons/unchecked = ExtResource("10_p5f5g")
+CheckButton/icons/checked = ExtResource("8_nqfss")
+CheckButton/icons/unchecked = ExtResource("9_t6ahs")
 CheckButton/styles/disabled = SubResource("StyleBoxFlat_vfm5m")
 CheckButton/styles/focus = SubResource("StyleBoxFlat_vfm5m")
 HSlider/constants/center_grabber = -2
@@ -251,7 +256,7 @@ MenuButton/styles/focus = SubResource("StyleBoxFlat_7j3ca")
 MenuButton/styles/hover = SubResource("StyleBoxFlat_7j3ca")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_7j3ca")
 OptionButton/colors/font_color = Color(1, 1, 1, 1)
-OptionButton/colors/font_focus_color = Color(0, 0, 0, 1)
+OptionButton/colors/font_focus_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
 OptionButton/colors/font_hover_color = Color(0.572549, 0.572549, 0.572549, 1)
 OptionButton/colors/font_pressed_color = Color(0, 0, 0, 1)
 OptionButton/constants/arrow_margin = 25
@@ -433,6 +438,8 @@ expand_margin_left = 12.0
 expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqfss"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
 content_margin_left = 24.0
@@ -1074,6 +1081,7 @@ focus_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nqfss")
 text = "Gameplay"
 
 [node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
@@ -1165,11 +1173,11 @@ popup/item_3/text = "Xbox"
 popup/item_3/id = 3
 popup/item_4/text = "Xbox 360"
 popup/item_4/id = 4
-popup/item_5/text = "DualSense"
+popup/item_5/text = "PlayStation"
 popup/item_5/id = 5
-popup/item_6/text = "DualShock"
+popup/item_6/text = "PlayStation 3"
 popup/item_6/id = 6
-popup/item_7/text = "Steam Deck"
+popup/item_7/text = "Steam"
 popup/item_7/id = 7
 popup/item_8/text = "No prompts"
 popup/item_8/id = 8
@@ -1516,7 +1524,6 @@ text = "VSync"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../AdjustImage")
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
@@ -1536,7 +1543,6 @@ text = "Glow effect"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../AdjustImage")
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
@@ -1556,12 +1562,12 @@ text = "Blur effect"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../AdjustImage")
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
 [node name="AdjustImage" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
+visible = false
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1810,14 +1816,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a2y0m")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fj70o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q5j0g")
 theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
@@ -2073,6 +2074,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="GalleryPanel" type="Panel" parent="."]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0

@@ -26,6 +26,11 @@ func _ready() -> void:
 	PartyUI.visible = true
 	$TitleScreen/Error/Hint.text = "Hint: Should have been fine"
 	$TitleScreen/Error.hide()
+	focus()
+
+func focus():
+	$TitleScreen/Menu/Continue.grab_focus()
+	get_window().grab_focus()
 
 func _on_continue_pressed() -> void:
 	if get_tree().root.has_node("Options"): return
@@ -38,8 +43,11 @@ func _on_continue_pressed() -> void:
 		get_tree().paused = false
 	else:
 		Global.new_game()
+
 func _input(event: InputEvent) -> void:
 	glyph_update()
+	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down") and get_viewport().gui_get_focus_owner().get_parent() == $TitleScreen/Menu:
+		Global.cursor_sound() 
 
 func _on_options_pressed() -> void:
 	if get_tree().root.has_node("Options"): return
@@ -52,7 +60,7 @@ func dismiss_title():
 	queue_free()
 
 func glyph_update():
-	$TitleScreen/Continue.icon = Global.get_controller().ConfirmIcon
+	#$TitleScreen/Continue.icon = Global.get_controller().ConfirmIcon
 	$TitleScreen/Options.icon = Global.get_controller().Start
 
 func you_can_now_play_as(chara: String):
@@ -64,3 +72,8 @@ func you_can_now_play_as(chara: String):
 		if i.get("codename") == chara: i.set("Controllable", true)
 	ResourceSaver.save(data, "user://Autosave.tres")
 	Global.warning("You can now play as [img height=64]res://art/Icons/Party/"+chara+".png[/img] "+chara+".", "CONGRATS", ["A"])
+
+
+func _on_load_pressed() -> void:
+	if get_tree().root.has_node("Options"): return
+	Global.options(1)

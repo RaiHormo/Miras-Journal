@@ -33,6 +33,7 @@ func _ready():
 		cant_save = true
 	Loader.detransition("")
 	show()
+	$Silhouette.texture = Loader.Preview
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
 	Global.Controllable = false
@@ -149,8 +150,7 @@ func close(force = false):
 	get_tree().paused = was_paused
 	Global.Controllable = was_controllable
 	if !is_instance_valid(Global.Area):
-		if not get_tree().root.has_node("Initializer"):
-			Global.title_screen()
+		Global.title_screen()
 	queue_free()
 
 func main():
@@ -210,7 +210,7 @@ func game_settings():
 	t.tween_property($SidePanel, "position", Vector2(407, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
-	%SettingsVbox/ControlScheme/MenuBar.grab_focus()
+	%SettingsVbox/Gameplay.grab_focus()
 	Global.confirm_sound()
 	$SidePanel.show()
 	await t.finished
