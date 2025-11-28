@@ -328,7 +328,7 @@ func reset_speed() -> void:
 		i.speed_scale=1
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
-	if cant_bump or not has_anim("Bump"+Query.get_dir_name(dashdir)+"Hit"): return
+	if cant_bump or not has_anim("Dash"+Query.get_dir_name(dir)+"Hit"): return
 	winding_attack = false
 	Global.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO

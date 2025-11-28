@@ -272,6 +272,11 @@ func daze_enemy_2():
 		Loader.start_battle("SkritcherRootDaze", 2)
 	else: Event.give_control()
 
+func WL_void():
+	await Event.take_control(false, true, true)
+	await Global.textbox("interact_abad", "WL_void")
+	Event.give_control()
+
 func where_is_alcine_1():
 	await Loader.transition()
 	Event.remove_flag("HasBag")
@@ -312,11 +317,21 @@ func amberelm_reunion():
 	await Loader.transition("R")
 	Event.add_flag("HasBag")
 	Event.remove_flag("AlcineAlone")
-	Global.Party.set_to_strarr(["Mira", "Alcine", "Daze"])
-	Loader.travel_to("WitheredLeaves", Vector2(777, -218))
+	Global.Party.set_to_strarr(["Mira"])
 	Event.ToDay = 1
-	Event.ToTime = 3
+	Event.ToTime = 5
 	await Event.time_transition()
+
+func nov1_night():
+	Event.add_flag("InCamp")
+	Event.add_flag("HasBag")
+	Query.find_member("Mira").OV = "Bag"
+	await Loader.travel_to("WitheredLeaves", Vector2(777, -218))
+	Loader.detransition()
+	await Global.textbox("story_1", "nov1_night")
+	Event.give_control()
+	Loader.save()
+	
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1

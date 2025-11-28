@@ -137,6 +137,7 @@ func _input(ev):
 	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("Debug"):
 			Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+			Event.remove_flag("HideDate")
 			Event.remove_flag("FlameActive")
 		if Input.is_action_just_pressed("DebugT"):
 			Global.passive("testbush", "greetings")

@@ -77,6 +77,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=800
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
+display_server/driver.linuxbsd="wayland"
 
 [editor]
 

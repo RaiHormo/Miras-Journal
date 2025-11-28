@@ -120,7 +120,6 @@ else:
 
 ~ WL_void
 if Query.check_member("Mira") and Query.check_member("Daze"):
-	do take_control()
 	Daze.Neutral: Ms. Levenor stop.
 	Mira.Neutral: Huh?
 	Daze takes a pebble and throws it forward.
@@ -135,6 +134,55 @@ if Query.check_member("Mira") and Query.check_member("Daze"):
 	The urge to just walk into it, even though I know I shouldn't.
 	Mira.Neutral: Yeah...  let's walk the other way.
 	do Event.add_flag("EvWLVoidMira")
+=> END
+
+~ daze_age
+if f("AlcineIsTheLeaderReal", 3):
+	Mira.Neutral: {{alcine()}} should be the leader anyways.
+	Daze.Neutral: I have a feeling I would be expelled from the team immediatly.
+elif f("AlcineIsTheLeaderReal", 1):
+	Daze.Neutral: When did I say I'm the leader in the first place?
+	Mira.Neutral: Nobody!
+	Mira.Neutral: Which is why I elect myself as the leader!!
+	Daze.Neutral: What is your command, oh Leader of... uhh...
+	Daze.Neutral: What exactly are you leading again?
+	Mira.Neutral: The Three Lost Souls, bravely adventuring through the mysterious ruins and forests..!
+	Mira.Neutral: ...Yeah, I dunno.
+	if f("AlcineIsTheLeaderReal", 2):
+		do add_flag("AlcineIsTheLeaderReal", 3)
+else:
+	Mira: Hey Daze, how old are you again?
+	Daze: 18, why?
+	Mira: WHAT!?
+	Mira: That makes me the oldest one here! I should be the leader!!!
+	(hide)
+	Daze looks down at me with a straight face, making it clear that he's a whole head taller than me.
+	He proceeds to pat my head.
+	Daze: That's cute.
+	do add_flag("AlcineIsTheLeaderReal", 1)
+=> END
+
+~ alcine_age
+if f("AlcineIsTheLeaderReal", 2):
+	Mira.Neutral: Lead the way!
+	Alcine.Neutral: Whim!
+elif f("AlcineIsTheLeaderReal", 1):
+	Mira.Neutral: Psst, {{alcine()}}! How old are you?
+	(hide)
+	do npc("AlcineCamp").bubble("Question")
+	{{alcine()}} seems unsure. Maybe more confused.
+	Mira.Neutral: Not surprised, you could be a thousand years old for all I know.
+	Mira.Neutral: Maybe you should be the leader!
+	(hide)
+	do npc("AlcineCamp").bubble("Ellipsis")
+	do npc("AlcineCamp").bubble("Excited")
+	{{alcine()}} thinks about it for a moment, then poses heroically at me.
+	Mira.Neutral: Hehe, that's the spirit!
+	do add_flag("AlcineIsTheLeaderReal", 2)
+else:
+	Mira.Neutral: Why are you so scared of him..?
+	Alcine.Neutral: Shewoom!!
+	Mira.Neutral: I promise he doesn't bite...
 => END
 
 ~ kick_bridge

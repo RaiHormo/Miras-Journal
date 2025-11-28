@@ -759,8 +759,8 @@ func death(target:Actor):
 		target.node.play()
 		get_tree().paused = false
 		await Event.wait(1, false)
-		Loader.white_fadeout(0.1, 1, 3)
-		await Event.wait(4, false)
+		Loader.white_fadeout(0, 1, 2)
+		await Event.wait(3, false)
 		game_over()
 		return
 	target.node.get_node("Particle").emitting = true

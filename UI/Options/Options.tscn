@@ -311,7 +311,7 @@ expand_margin_right = 12.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
-bg_color = Color(0.76, 0.76, 0.76, 1)
+bg_color = Color(0.8627451, 0.8627451, 0.8627451, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -340,17 +340,19 @@ expand_margin_bottom = 8.0
 shader = ExtResource("8_pum06")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siagc"]
-content_margin_left = 6.0
-bg_color = Color(0.768627, 0.768627, 0.768627, 1)
+content_margin_left = 8.0
+bg_color = Color(0.819788, 0.81978786, 0.8197878, 1)
 border_width_left = 12
 border_width_top = 5
 border_width_right = 13
 border_width_bottom = 5
-border_color = Color(0.768627, 0.768627, 0.768627, 1)
+border_color = Color(0.819788, 0.81978786, 0.8197878, 1)
 corner_radius_top_left = 26
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
+anti_aliasing = false
+anti_aliasing_size = 0.1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6787"]
 content_margin_left = 8.0
@@ -761,7 +763,6 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -845,6 +846,7 @@ columns = 2
 
 [node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Loading..."
@@ -905,7 +907,7 @@ size_flags_vertical = 4
 expand_mode = 1
 
 [node name="Location" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(250, 70)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 6
@@ -914,6 +916,7 @@ theme_override_font_sizes/font_size = 32
 text = "Just a bit"
 horizontal_alignment = 2
 autowrap_mode = 2
+text_overrun_behavior = 1
 
 [node name="SavedDate" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 custom_minimum_size = Vector2(0, 55)
@@ -921,7 +924,7 @@ layout_mode = 2
 size_flags_vertical = 6
 mouse_filter = 1
 theme_override_font_sizes/font_size = 24
-text = "Saved: 06 Dec 2023 12:30
+text = "06 Dec 2023 12:30
 Started: 10 Jan 2005"
 vertical_alignment = 2
 
@@ -1047,6 +1050,7 @@ theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0

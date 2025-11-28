@@ -69,6 +69,15 @@ Mira.Neutral: Huh?
 Daze.Neutral: Did I do something wrong?
 => END
 
+~ nov1_night
+We setup a camp again, now reunited with {{alcine()}}.
+{{alcine()}}... does't seem to be very fond of him though.
+Every time he approaches, they hide behind me...
+(hide)
+I should fill in my journal for today...[wait=1] Oh i just remembered!
+I need to ask Daze his age.
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

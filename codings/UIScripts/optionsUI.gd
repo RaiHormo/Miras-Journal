@@ -226,6 +226,9 @@ func save_managment() -> void:
 		if %Files/File0.visible:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame.grab_focus()
+	if cant_save:
+		$SavePanel/Buttons/Overwrite.disabled = true
+		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
 	$SavePanel.show()
 	$MainButtons/SaveManagment.show()
 	$MainButtons/SaveManagment.toggle_mode=true
@@ -453,8 +456,9 @@ func draw_file(file: SaveFile, node: Control):
 	panel.get_node("Location").text = file.RoomName
 	var savedtime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.SavedTime))
 	var starttime: Dictionary = Time.get_datetime_dict_from_unix_time(int(file.StartTime))
-	panel.get_node("SavedDate").text = "Saved: %02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Query.get_mmm(savedtime.month),
+	panel.get_node("SavedDate").text = "%02d %s %d %d:%d\nStarted: %02d %s %d" % [savedtime.day, Query.get_mmm(savedtime.month),
 	savedtime.year, savedtime.hour, savedtime.minute, starttime.day, Query.get_mmm(starttime.month), starttime.year]
+	panel.get_parent().get_node("ProgressBar").value = 0
 
 func hold_down():
 	if $SavePanel/Toast.modulate != Color.TRANSPARENT: return
@@ -748,9 +752,14 @@ func _gloweffect(toggle: bool) -> void:
 	load_settings()
 
 func _new_game() -> void:
-	was_controllable = false
-	close(true)
-	Event.sequence("new_game")
+	stage = "popup"
+	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Autosave data will be overwritten. If you want to keep that autosave data, save it into a new file.", "NEW GAME", ["Cancel", "Overwrite"]):
+		was_controllable = false
+		close(true)
+		Event.sequence("new_game")
+	else: 
+		stage = "save_managment"
+		$SavePanel/ScrollContainer/Files/New/NewGame.grab_focus()
 
 func _arena_mode() -> void:
 	await Loader.save()
