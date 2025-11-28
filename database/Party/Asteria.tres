@@ -45,7 +45,6 @@ SkillPoints = 16
 SkillCurve = SubResource("Curve_7hmow")
 Abilities = Array[ExtResource("1_wfdm5")]([ExtResource("2_qhfgp"), ExtResource("3_5qh1h"), ExtResource("4_j7xb4")])
 StandardAttack = ExtResource("7_75i7m")
-OV = "1"
 Offset = Vector2(4, -15)
 Shadow = true
 ShadowOffset = 2

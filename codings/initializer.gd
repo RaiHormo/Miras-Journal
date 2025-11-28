@@ -14,7 +14,7 @@ func _ready() -> void:
 		game_exists = true
 	else:
 		game_exists = false
-		$TitleScreen/Continue.text = "New game"
+		$TitleScreen/Menu/Continue.text = "New game"
 	$TitleScreen/Error/Hint.text = "Hint: File check"
 	$TitleScreen.show()
 	$TitleScreen/Splash.show()
@@ -26,7 +26,10 @@ func _ready() -> void:
 	PartyUI.visible = true
 	$TitleScreen/Error/Hint.text = "Hint: Should have been fine"
 	$TitleScreen/Error.hide()
-	focus()
+	if game_exists:
+		focus()
+	else: _on_continue_pressed()
+	
 
 func focus():
 	$TitleScreen/Menu/Continue.grab_focus()
@@ -42,7 +45,7 @@ func _on_continue_pressed() -> void:
 		Event.give_control(false)
 		get_tree().paused = false
 	else:
-		Global.new_game()
+		Event.sequence("new_game")
 
 func _input(event: InputEvent) -> void:
 	glyph_update()

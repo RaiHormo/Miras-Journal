@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://plp0a8d856yh" path="res://codings/follower_movement.gd" id="1_kihhu"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_ppxuy"]
-[ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV1.tres" id="3_vmt3u"]
+[ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV.tres" id="3_vmt3u"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_qao14"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvt3h"]
