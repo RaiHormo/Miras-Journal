@@ -294,7 +294,6 @@ hide_if = false
 position = Vector2(0, -2)
 LabelText = "Talk"
 ActionType = "text"
-Length = 100
 file = "interact_abad"
 title = "alcine_age"
 bubble_always = true
@@ -327,7 +326,6 @@ hide_if = false
 [node name="Interactable" parent="DazeCamp" instance=ExtResource("4_d8pup")]
 LabelText = "Talk"
 ActionType = "text"
-Length = 100
 file = "interact_abad"
 title = "daze_age"
 Height = 10
@@ -531,7 +529,6 @@ amount = 0.08
 position = Vector2(780, -256)
 LabelText = "Rest"
 ActionType = "text"
-Length = 100
 file = "interact_abad"
 title = "rest_camp"
 

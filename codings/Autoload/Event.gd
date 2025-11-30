@@ -173,8 +173,8 @@ func give_control(camera_follow:= false):
 	get_tree().paused = false
 	for i in Global.Area.Followers:
 		i.dont_follow = false
-	Global.check_party.emit()
 	Global.Area.setup_params(true)
+	Global.check_party.emit()
 
 func flag_int(str: String) -> int:
 	if Flags.has(str) and Flags.get(str) is int:

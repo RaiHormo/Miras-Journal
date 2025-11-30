@@ -52,7 +52,7 @@ func set_to_strarr(p:Array[StringName]):
 
 func get_strarr() -> Array[StringName]:
 	var arr: Array[StringName] = [&"", &"", &"", &""]
-	arr[0] = Leader.codename
+	if check_member(0): arr[0] = Leader.codename
 	if check_member(1): arr[1] = Member1.codename
 	if check_member(2): arr[2] = Member2.codename
 	if check_member(3): arr[3] = Member3.codename

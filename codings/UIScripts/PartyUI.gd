@@ -105,7 +105,7 @@ func hide_all(animate = true):
 
 func _check_party():
 	if not Global.Party: return
-	if not Global.Party.Leader: Global.Party.Leader = Query.find_member(&"Mira")
+	if not is_instance_valid(Global.Party.Leader): return
 	if Event.f("DisableMenus"): disabled = true
 	Global.Party = Global.Party
 	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
@@ -121,12 +121,12 @@ func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
 	elif (Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
-	and "Idle" in Global.Player.used_sprite.animation):
+	and "Idle" in Global.Player.used_sprite.animation) and not Expanded:
 		if Input.is_action_just_pressed("Options"):
 			Global.options(0)
-		if Input.is_action_just_pressed("SaveManagment"):
+		elif Input.is_action_just_pressed("SaveManagment"):
 			Global.options(1)
-		if Input.is_action_just_pressed("Manual"):
+		elif Input.is_action_just_pressed("Manual"):
 			Global.options(3)
 	if Input.is_action_just_pressed(Global.cancel()):
 		back()
@@ -177,6 +177,7 @@ func darken(toggle := true):
 			darken(false)
 
 func _on_expand(open_ui=0):
+	#Engine.time_scale = 0.1
 	Global.check_party.emit()
 	inactive = true
 	await Event.wait()
@@ -184,6 +185,7 @@ func _on_expand(open_ui=0):
 	t.kill()
 	if UIvisible == false:
 		await show_all(true)
+	if get_tree().root.has_node("Options"): return
 	if open_ui != 2: $CanvasLayer/Cursor.show()
 	$CanvasLayer/Cursor.position=CursorPosition[0]
 	if open_ui == 0: WasPaused = false
@@ -317,6 +319,7 @@ func _on_shrink():
 	%Pages.hide()
 	$IdleTimer.start(5)
 	inactive = false
+	Global.check_party.emit()
 
 func shrink_panel(Pan:Panel, mem = 0,):
 	t = create_tween()
@@ -480,6 +483,7 @@ func only_current():
 			t.tween_property(Partybox.get_child(i), "position:x", -400, 0.2)
 
 func check_member(mem:Actor, node:Panel, ind):
+	if not is_instance_valid(mem): return
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)

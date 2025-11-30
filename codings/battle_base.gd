@@ -43,6 +43,9 @@ func _ready():
 	Action = true
 	TurnInd= -1
 	Turn = 0
+	if Global.Party.Leader == null:
+		end_battle()
+		return
 	CurrentChar = Global.Party.Leader
 	CurrentAbility = Global.Party.Leader.StandardAttack
 	Seq = Loader.Seq.duplicate()

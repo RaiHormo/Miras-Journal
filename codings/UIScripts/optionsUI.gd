@@ -38,6 +38,7 @@ func _ready():
 	was_controllable = Global.Controllable
 	Global.Controllable = false
 	was_paused = get_tree().paused
+	Global.check_party.emit()
 	get_tree().paused = true
 	$Timer.position =  Vector2(-300, 27)
 	$Silhouette.position = Vector2(-1000, -39)
@@ -50,7 +51,9 @@ func _ready():
 	t.set_parallel()
 	t.tween_property($Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*3.0, 1).from(0.0)
 	t.tween_property($Fader, "modulate", Color(0,0,0,0.4), 1).from(Color(0,0,0,0))
-	if no_main: return
+	if no_main: 
+		$Background.position = Vector2(1500, 0)
+		return
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
 	siilhouette()
@@ -151,6 +154,7 @@ func close(force = false):
 	Global.Controllable = was_controllable
 	if !is_instance_valid(Global.Area):
 		Global.title_screen()
+	Global.check_party.emit()
 	queue_free()
 
 func main():

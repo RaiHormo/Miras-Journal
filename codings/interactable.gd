@@ -4,7 +4,9 @@ class_name Interactable
 signal action()
 @export var LabelText : String = "Inspect"
 @export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "veinet", "focus_cam", "social_link") var ActionType: String
-@export var Length: int = 120
+var Length: int = 120:
+	get():
+		return (LabelText.length() * 10) + 50
 @export var file: String = ""
 @export var title: String = ""
 @export var item: String = ""
@@ -55,7 +57,7 @@ func vain_check():
 
 func check() -> void:
 	if bubble_always:
-		if get_tree().root.has_node("Textbox"): disappear(true)
+		if not Global.Controllable: disappear(true)
 		else: bubble()
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		disappear(true)
@@ -70,9 +72,12 @@ func check() -> void:
 	if not Global.Controllable and CanInteract:
 		disappear()
 		CanInteract = false
-	elif Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract:
+	elif player_is_near():
 		appear()
 		CanInteract = true
+
+func player_is_near():
+	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract
 
 func destroy():
 	if hide_parent: 
@@ -92,6 +97,7 @@ func appear():
 		button.text = LabelText
 		button.icon = Global.get_controller().ConfirmIcon
 		z_index = 9
+		if is_instance_valid(t): t.kill()
 		t = create_tween()
 		pack.self_modulate = Color.TRANSPARENT
 		pack.show()
@@ -116,6 +122,7 @@ func disappear(also_hide_bubble:= false):
 		if bubble_always and not also_hide_bubble:
 			await bubble()
 		else:
+			if is_instance_valid(t): t.kill()
 			t = create_tween().set_parallel()
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_LINEAR)
@@ -128,6 +135,7 @@ func disappear(also_hide_bubble:= false):
 
 func bubble():
 	pack.show()
+	if is_instance_valid(t): t.kill()
 	t = create_tween().set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_LINEAR)
