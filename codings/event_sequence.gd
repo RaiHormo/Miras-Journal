@@ -331,7 +331,20 @@ func nov1_night():
 	await Global.textbox("story_1", "nov1_night")
 	Event.give_control()
 	Loader.save()
-	
+
+func nov2_morning():
+	Loader.gray_out(1)
+	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
+	Loader.ungray.emit()
+	Event.no_player()
+	await Global.textbox("story_1", "nov2_morning")
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
+	Global.Party.set_to_strarr(["Alcine"])
+	Event.remove_flag("HasBag")
+	Event.remove_flag("InCamp")
+	Event.add_flag("AlcineAlone")
+	Event.add_flag("WLLeftSideOpen")
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1

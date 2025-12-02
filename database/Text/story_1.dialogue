@@ -76,6 +76,25 @@ Every time he approaches, they hide behind me...
 (hide)
 I should fill in my journal for today...[wait=1] Oh i just remembered!
 I need to ask Daze his age.
+=> END!
+
+~ nov2_morning
+While sleeping I feel like I can barely breathe, like something liquid is surrounding me...
+I jump up. Then I see {{alcine()}} fall off my face.
+if f("AlcineIsTheLeaderReal", 2):
+	Mira: Hey {{alcine()}}, I don't think sitting on your allies' face is part of leadership...
+else: 
+	Mira: Oh, morning {{alcine()}}...
+	Mira: Could you not sleep on my face, pretty please?
+Alcine.Tired: Whooomm...
+(hide)[wait=1]
+I notice Daze is not in the tent.
+Mira: Yawnn...[wait=0.5] Do you know where Daze is?
+{{alcine()}} looks outside the tent. Then shakes their head at me.
+Mira: Mmh, I think I'll sleep a bit longer. He's out hunting or something.
+Alcine: Sho?
+Mira: I dunno {{alcine()}}, that guy probably eats monsters for breakfast.
+{{alcine()}} gets out of the tent.
 => END
 
 ~ nov3_afternoon

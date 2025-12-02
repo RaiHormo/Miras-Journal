@@ -620,24 +620,28 @@ func cmd():
 		$CanvasLayer/TextEdit.set_deferred("text", "")
 		Global.Controllable = false
 	else:
-		if "/clear" in $CanvasLayer/TextEdit.text:
-			Event.Flags.clear()
-			Loader.Defeated.clear()
-		elif "/cam" in $CanvasLayer/TextEdit.text:
-			Global.Player.camera_follow()
-		elif "/day " in $CanvasLayer/TextEdit.text:
-			$CanvasLayer/TextEdit.text.replace("/day ", "")
-			Event.Day = int($CanvasLayer/TextEdit.text)
-		elif "/time " in $CanvasLayer/TextEdit.text:
-			$CanvasLayer/TextEdit.text.replace("/time ", "")
-			Event.TimeOfDay = $CanvasLayer/TextEdit.text as Event.TOD
-		elif "/enrestore" in $CanvasLayer/TextEdit.text:
-			Loader.Defeated.clear()
+		if $CanvasLayer/TextEdit.text.begins_with("/"):
+			if "/clear" in $CanvasLayer/TextEdit.text:
+				Event.Flags.clear()
+				Loader.Defeated.clear()
+			elif "/cam" in $CanvasLayer/TextEdit.text:
+				Global.Player.camera_follow()
+			elif "/day " in $CanvasLayer/TextEdit.text:
+				var text = $CanvasLayer/TextEdit.text.replace("/day ", "")
+				Event.Day = int(text)
+			elif "/time " in $CanvasLayer/TextEdit.text:
+				var text = $CanvasLayer/TextEdit.text.replace("/time ", "")
+				Event.TimeOfDay = text as Event.TOD
+			elif "/comp " in $CanvasLayer/TextEdit.text:
+				var text = $CanvasLayer/TextEdit.text.replace("/comp ", "")
+				Global.add_complimentary(text)
+			elif "/enrestore" in $CanvasLayer/TextEdit.text:
+				Loader.Defeated.clear()
 		elif $CanvasLayer/TextEdit.text != "":
-			$CanvasLayer/TextEdit.text.replace("/", "")
-			Event.f($CanvasLayer/TextEdit.text, Global.toggle(Event.f($CanvasLayer/TextEdit.text)))
-			Global.toast("Flag \"" + $CanvasLayer/TextEdit.text + "\" set to "
-			+ str(Event.f($CanvasLayer/TextEdit.text)))
+			var text = $CanvasLayer/TextEdit.text
+			Event.f(text, Global.toggle(Event.f(text)))
+			Global.toast("Flag \"" + text + "\" set to "
+			+ str(Event.f(text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true
 

@@ -1349,10 +1349,12 @@ offset_bottom = 339.679
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 24
-text = "/day
+text = "/clear
+/day
 /time
 /enrestore
-/cam"
+/cam
+/comp"
 
 [node name="DebugText" type="Label" parent="CanvasLayer"]
 visible = false

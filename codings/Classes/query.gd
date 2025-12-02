@@ -127,7 +127,10 @@ func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):
 func get_complimentaries() -> Array[Ability]:
 	var rtn: Array[Ability]
 	for i in Global.Complimentaries:
-		rtn.append(await get_ability(i))
+		var ability = await get_ability(i)
+		if ability != null:
+			rtn.append(ability)
+		else: push_error("The complimentary Ability ", i, " is invalid")
 	return rtn
 
 func get_ability(ab: String) -> Ability:
