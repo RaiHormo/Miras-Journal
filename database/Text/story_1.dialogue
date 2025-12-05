@@ -97,6 +97,23 @@ Mira: I dunno {{alcine()}}, that guy probably eats monsters for breakfast.
 {{alcine()}} gets out of the tent.
 => END
 
+~ nov2_daytime
+...[wait=1]Huh?
+That was a dream?
+...
+I need to stop sleeping all morning.
+=> END
+
+~ nov2_call_1
+Mira.Neutral: Hello..?
+Mira.Neutral: {{alcine()}}? Are you here?
+=> END
+
+~ nov2_call_2
+Mira.Neutral: Daze..?
+Mira.Neutral: (Why am I feeling deja vu all of a sudden...)[wait=2]
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

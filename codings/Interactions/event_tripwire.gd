@@ -9,6 +9,7 @@ class_name EventTripwire
 @export var Flag: String
 @export var FlagIsName: bool = true
 @export var FlagShouldBe: bool
+## If FlagIsname is on, it will be added as the flag regardless of what is set in the flag
 @export var AddFlag: bool = false
 @export var TakeControl: bool = true
 @export var ReturnControl: bool = true
@@ -19,7 +20,9 @@ func _on_body_entered(body):
 	if Flag == "" and FlagIsName: Flag = name
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player:
 		print("Tripwire: ", name)
-		if AddFlag: Event.add_flag(Flag)
+		if AddFlag:
+			if FlagIsName: Event.add_flag(name)
+			else: Event.add_flag(Flag)
 		if SlowDown:
 			await Event.take_control()
 			Event.give_control(true)

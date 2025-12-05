@@ -248,6 +248,7 @@ func transition(dir=Query.get_dir_letter()):
 	$Can.show()
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
+	$Can/Bars.self_modulate = Color.WHITE
 	t.kill()
 	if not is_in_transition():
 		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
@@ -628,6 +629,7 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	tod.text = Query.to_tod_text(from)
 	tod.icon = await  Query.to_tod_icon(from)
 	tod.show()
+	PartyUI.hide_all(false)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
 	t.tween_property(tod, "modulate", Color.WHITE, 0.3)

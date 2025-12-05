@@ -96,6 +96,7 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	await t.finished
 
 func check_flag(flag: StringName, value:= 1):
+	if flag.begins_with("!"): return not check_flag(flag.replace("!", ""))
 	if "+" in flag:
 		var split = flag.split("+")
 		for i in split:
@@ -153,9 +154,10 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 		for i in Global.Area.Followers:
 			i.dont_follow = true
 	await wait()
-	Global.Controllable = false
-	Global.Player.position = pos
-	Global.check_party.emit()
+	if is_instance_valid(Global.Player):
+		Global.Controllable = false
+		Global.Player.position = pos
+		Global.check_party.emit()
 
 func give_control(camera_follow:= false):
 	if Global.Player == null:  return

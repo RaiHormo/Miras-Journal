@@ -107,7 +107,7 @@ func in_360(nm) -> int:
 func find_member(Name: StringName) -> Actor:
 	for i in Global.Members:
 		if i.codename == Name: return i
-	#push_error("No party member with the name "+ Name + " was found")
+	push_warning("No party member with the name "+ Name + " was found")
 	return null
 
 func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):

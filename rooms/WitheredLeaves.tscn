@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://c27y1nbapxay"]
+[gd_scene load_steps=61 format=4 uid="uid://c27y1nbapxay"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ofsxd"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_7gvkw"]
@@ -19,10 +19,12 @@
 [ext_resource type="Resource" uid="uid://oi2xv8bjx6ph" path="res://database/BattleSeq/SkritcherRootDaze.tres" id="16_lemrk"]
 [ext_resource type="Texture2D" uid="uid://ubrl1l3wlpgo" path="res://art/OV/Objects/CastSwitch.png" id="18_6fdth"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="19_3p2gw"]
-[ext_resource type="Resource" uid="uid://i4ogg3cv41m1" path="res://database/BattleSeq/WLLeftDaze.tres" id="20_ceufj"]
+[ext_resource type="Resource" uid="uid://cod3sfmno6veq" path="res://database/Enemies/Skullish.tres" id="20_ceufj"]
 [ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="20_nxfet"]
 [ext_resource type="Texture2D" uid="uid://ct33ao2bh7eoj" path="res://art/OV/Objects/SGGate.png" id="21_5vs6x"]
+[ext_resource type="Resource" uid="uid://c4vpbxeag0n74" path="res://database/Enemies/Steelkee.tres" id="21_ohbkp"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="22_5vs6x"]
+[ext_resource type="Resource" uid="uid://bsu5mmo1yulev" path="res://database/BattleSeq/SkritcherRootParty.tres" id="22_it168"]
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="23_ha88r"]
 [ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="24_vctnq"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV.tres" id="25_xe12t"]
@@ -137,9 +139,9 @@ parameter1 = "story_1"
 parameter2 = "daze_enemy_2"
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
-[sub_resource type="Resource" id="Resource_4hokc"]
+[sub_resource type="Resource" id="Resource_mqvg4"]
 script = ExtResource("13_ohbkp")
-Enemies = Array[ExtResource("10_vctnq")]([ExtResource("11_xe12t"), ExtResource("11_xe12t")])
+Enemies = Array[ExtResource("10_vctnq")]([ExtResource("11_xe12t")])
 EscPosition = Vector2i(28, -8)
 ScenePosition = Vector2(416, -141)
 Events = Array[ExtResource("12_ceufj")]([SubResource("Resource_xovcb")])
@@ -158,6 +160,15 @@ script = ExtResource("13_ohbkp")
 Enemies = Array[ExtResource("10_vctnq")]([ExtResource("11_xe12t")])
 EscPosition = Vector2i(-41, 11)
 ScenePosition = Vector2(-1193, 405)
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_it168"]
+script = ExtResource("13_ohbkp")
+Enemies = Array[ExtResource("10_vctnq")]([ExtResource("20_ceufj"), ExtResource("21_ohbkp")])
+ScenePosition = Vector2(259, -584)
+CanEscape = false
+VictorySequence = "nov2_mira_dream"
+PartyOverride = ["Daze", "Alcine"]
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
 [sub_resource type="Resource" id="Resource_lemrk"]
@@ -403,7 +414,7 @@ z_index = 5
 position = Vector2(416, -141)
 collision_layer = 512
 collision_mask = 512
-BattleSeq = SubResource("Resource_4hokc")
+BattleSeq = SubResource("Resource_mqvg4")
 patrol_speed = 50
 chase_speed = 100
 speed = 100
@@ -507,6 +518,30 @@ Passive = true
 AddFlag = true
 ReturnControl = false
 
+[node name="EvNov2Call1" parent="." instance=ExtResource("15_mqvg4")]
+position = Vector2(807, -167)
+scale = Vector2(1.835803, 0.88678694)
+TextFile = "story_1"
+TextNode = "nov2_call_1"
+Passive = true
+Flag = "day:2+time:2+!EvNov2Call1"
+FlagShouldBe = true
+AddFlag = true
+TakeControl = false
+ReturnControl = false
+
+[node name="EvNov2Call2" parent="." instance=ExtResource("15_mqvg4")]
+position = Vector2(508, -644)
+scale = Vector2(1.835803, 0.88678694)
+TextFile = "story_1"
+TextNode = "nov2_call_2"
+Passive = true
+Flag = "day:2+time:2+!EvNov2Call2"
+FlagShouldBe = true
+AddFlag = true
+TakeControl = false
+ReturnControl = false
+
 [node name="EvDazeEnemy2" parent="." instance=ExtResource("15_mqvg4")]
 position = Vector2(-250, -24)
 scale = Vector2(0.056183375, 1.324671)
@@ -517,7 +552,14 @@ ReturnControl = false
 [node name="EvDazeEnemy3" parent="." instance=ExtResource("15_mqvg4")]
 position = Vector2(316.99997, -842)
 scale = Vector2(0.056183375, 1.324671)
-BattleSeq = ExtResource("20_ceufj")
+BattleSeq = SubResource("Resource_it168")
+AddFlag = true
+ReturnControl = false
+
+[node name="EvDazeEnemy4" parent="." instance=ExtResource("15_mqvg4")]
+position = Vector2(-36, -585)
+scale = Vector2(0.056183375, 1.324671)
+BattleSeq = ExtResource("22_it168")
 AddFlag = true
 ReturnControl = false
 
@@ -575,6 +617,7 @@ sprite_frames = ExtResource("7_nxfet")
 animation = &"Sleep"
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_xe12t")
 navigation_layers = 2
 

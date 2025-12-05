@@ -455,7 +455,7 @@ func _on_ability():
 	else:
 		$DescPaper/Cost.hide()
 	$DescPaper/Title.text = Abilities[foc.get_index()].name
-	CurrentChar.NextMove = CurrentChar.Abilities[foc.get_index()]
+	CurrentChar.NextMove = CurrentChar.get_abilities()[foc.get_index()]
 	$RankSwap.modulate = Color.TRANSPARENT
 	$RankSwap.show()
 	await t.finished

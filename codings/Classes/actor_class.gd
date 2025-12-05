@@ -54,7 +54,7 @@ var IsEnemy: bool = true
 
 @export_category("Stats")
 @export_range(1, 9999, 1, "suffix:HP") var MaxHP: int = 99
-@export_range(1, 9999, 1, "suffix:AP") var MaxAura: int = 99
+@export_range(1, 9999, 1, "suffix:AP") var MaxAura: int = 20
 
 ##Used for weapon based attacks
 @export_range(0, 2) var Attack: float = 1
@@ -272,7 +272,7 @@ func save_to_dict() -> Dictionary:
 		"SkillLevel": SkillLevel,
 		"SkillPoints": SkillPoints,
 		"AbilitiesList": get_ability_list(),
-		"Complimentaries": ComplimentaryList,
+		"ComplimentaryList": ComplimentaryList,
 		"ClutchDmg": ClutchDmg,
 		"CantDie": CantDie,
 		"CantDodge": CantDodge,

@@ -83,7 +83,12 @@ func _ready():
 			PartyArray.push_back(member)
 			dub.material = dub.material.duplicate()
 			dub.add_child(member.SoundSet.instantiate())
-	for i in PartyArray: 
+	for i in PartyArray:
+		match PartyArray.find(i):
+			0: i.Speed = 8
+			1: i.Speed = 6
+			2: i.Speed = 4
+			3: i.Speed = 2
 		i.IsEnemy = false
 		if PartyArray.size() == 1 and i == Party.Leader:
 			i.ClutchDmg = true
@@ -870,8 +875,9 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 
 func pixel_perfectize(chara: Actor, xy: int = 0):
 	if not is_instance_valid(chara.node.sprite_frames): return
-	if int(chara.node.sprite_frames.get_frame_texture(
-		chara.node.animation, chara.node.frame).get_size()[xy]) % 2 == 0:
+	var frame = chara.node.sprite_frames.get_frame_texture(chara.node.animation, chara.node.frame)
+	if frame == null: return
+	if int(frame.get_size()[xy]) % 2 == 0:
 		chara.node.offset[xy] = chara.Offset[xy]
 	else: chara.node.offset[xy] = chara.Offset[xy] + 0.5
 	if xy == 0: pixel_perfectize(chara, 1)

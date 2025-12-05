@@ -145,7 +145,9 @@ func pick_general_ability() -> Ability:
 					print(tar.FirstName, " is a bad target")
 			6:
 				if has_type("Aggro") and (has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction())):
-					var tar: Actor = [get_class_in_faction("Attacker", Bt.get_oposing_faction())+get_class_in_faction("Boss", Bt.get_oposing_faction())].pick_random()
+					var targets = get_class_in_faction("Attacker", Bt.get_oposing_faction()).duplicate()
+					targets.append_array(get_class_in_faction("Boss", Bt.get_oposing_faction()))
+					var tar: Actor = targets.pick_random()
 					print("Found ", tar.FirstName)
 					if tar.ActorClass == "Attacker" or tar.ActorClass == "Boss":
 						Char.NextTarget = tar

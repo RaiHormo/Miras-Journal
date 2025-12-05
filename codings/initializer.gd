@@ -37,11 +37,11 @@ func focus():
 
 func _on_continue_pressed() -> void:
 	if get_tree().root.has_node("Options"): return
-	dismiss_title()
 	if game_exists:
 		if Input.is_action_pressed("ShoulderLeft"):
 			you_can_now_play_as("Asteria")
 		await Loader.load_game("Autosave")
+		dismiss_title()
 		Event.give_control(false)
 		get_tree().paused = false
 	else:

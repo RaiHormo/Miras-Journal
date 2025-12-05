@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hthdjd4xnn0g"
-path="res://.godot/imported/SteelishBt.png-3cc808696508061209d9d37e21319b68.ctex"
+path="res://.godot/imported/SteelkeeBT.png-b7dc6400d887ca48b9b81425e481b4ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/BT/Steelish/SteelishBt.png"
-dest_files=["res://.godot/imported/SteelishBt.png-3cc808696508061209d9d37e21319b68.ctex"]
+source_file="res://art/BT/Steelkee/SteelkeeBT.png"
+dest_files=["res://.godot/imported/SteelkeeBT.png-b7dc6400d887ca48b9b81425e481b4ed.ctex"]
 
 [params]
 

@@ -85,6 +85,7 @@ shape = SubResource("CircleShape2D_7h34c")
 debug_color = Color(0.745, 0.337, 0.804, 0.072)
 
 [node name="Pack" type="CanvasGroup" parent="."]
+visible = false
 scale = Vector2(0.4, 0.4)
 
 [node name="Arrow" type="TextureRect" parent="Pack"]

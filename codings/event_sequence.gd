@@ -250,8 +250,8 @@ func nov1_morning():
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox("story_1", "nov1_daytime")
 	Global.Party.set_to_strarr(["Mira", 'Daze'])
+	Item.remove_item("LightweightAxe", &"Key")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
-	Global.Party.Leader.CantAttack = true
 
 func daze_enemy_1():
 	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
@@ -336,6 +336,7 @@ func nov2_morning():
 	Loader.gray_out(1)
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
 	Loader.ungray.emit()
+	Event.npc("DazeTent").hide()
 	Event.no_player()
 	await Global.textbox("story_1", "nov2_morning")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
@@ -344,6 +345,19 @@ func nov2_morning():
 	Event.remove_flag("InCamp")
 	Event.add_flag("AlcineAlone")
 	Event.add_flag("WLLeftSideOpen")
+	Event.remove_flag("HideDate")
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
+
+func nov2_daytime():
+	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1, -1, "none", false)
+	Event.no_player()
+	Event.npc("DazeTent").hide()
+	Loader.ungray.emit()
+	await Global.textbox("story_1", "nov2_daytime")
+	Global.Party.set_to_strarr(["Mira"])
+	Event.add_flag("HasBag")
+	Event.remove_flag("AlcineAlone")
+	Event.remove_flag("HideDate")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 func hurt_1():

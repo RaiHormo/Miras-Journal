@@ -174,20 +174,27 @@ func AttackMira(target: Actor):
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
-	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
-	await Bt.anim_done
-	if not miss:
-		Bt.play_sound("Attack2", CurrentChar)
-		Bt.screen_shake(15, 7, 0.2)
-		Bt.anim("Attack2")
-		Bt.play_effect("SimpleHit", target)
-		Bt.damage(target)
+	if Item.check_item("LightweightAxe", &"Key"):
+		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
+		await Bt.anim_done
+		if not miss:
+			Bt.play_sound("Attack2", CurrentChar)
+			Bt.screen_shake(15, 7, 0.2)
+			Bt.anim("Attack2")
+			Bt.play_effect("SimpleHit", target)
+			Bt.damage(target)
+		else:
+			Bt.anim("Attack2")
+			Bt.miss()
+		if crit:
+			Bt.damage(target, CurrentChar.Attack, true)
+			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	else:
+		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 0)
 		Bt.anim("Attack2")
-		Bt.miss()
-	if crit:
-		Bt.damage(target, CurrentChar.Attack, true)
-		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+		if not miss:
+			Bt.damage(target)
+		else: Bt.miss()
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	Bt.anim("Idle")
@@ -1218,7 +1225,16 @@ func LazuliteHeartBoss1():
 	alcine.NextTarget = Bt.get_actor("LHRight")
 	Bt.no_misses = true
 	Bt.end_turn()
-	
+
+func nov2_mira_dream():
+	Loader.gray_out(1)
+	await Event.wait(0.7)
+	Event.ToDay = 2
+	Event.ToTime = 2
+	Loader.ungray.emit()
+	Event.time_transition()
+	Bt.end_battle()
+
 func LazuliteHeartBoss2():
 	Bt.death(Bt.get_actor("LHLeft"))
 	Bt.death(Bt.get_actor("LHRight"))

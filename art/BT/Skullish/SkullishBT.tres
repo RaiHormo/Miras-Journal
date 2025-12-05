@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://dli5p4rf1ovww"]
+
+[ext_resource type="Texture2D" uid="uid://cl12jkghpw1qq" path="res://art/BT/Skullish/SkullishBt.png" id="1_vaagw"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vaagw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]

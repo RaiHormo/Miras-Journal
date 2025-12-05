@@ -13,6 +13,7 @@ func draw_character(chara: Actor, menu:= 0):
 	else:
 		$AbilityPanel/Complimentary.disabled = false
 	actor = chara
+	chara.load_complimentaries()
 	Global.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
