@@ -185,6 +185,11 @@ else:
 	Mira.Neutral: I promise he doesn't bite...
 => END
 
+~ bunker_gate_budge
+I try pulling it.
+Mira.Neutral: It won't budge.
+=> END
+
 ~ kick_bridge
 No reason to go back there.
 => END

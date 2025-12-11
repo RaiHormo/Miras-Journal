@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_cly74")
 Enemies = Array[ExtResource("2_x3pxt")]([ExtResource("3_y76bn"), ExtResource("4_csxh4"), ExtResource("3_y76bn")])
-ScenePosition = Vector2(259, -584)
+ScenePosition = Vector2(-86, -616)
 CanEscape = false
 PartyOverride = ["Mira", "Alcine", "Daze"]
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

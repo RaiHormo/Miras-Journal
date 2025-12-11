@@ -114,6 +114,70 @@ Mira.Neutral: Daze..?
 Mira.Neutral: (Why am I feeling deja vu all of a sudden...)[wait=2]
 => END
 
+~ metalic_gate
+do Player.look_to("U")
+do Player.camera_follow(false)
+set Camera.position = Vector2(-205, -1080)
+do wait(1)
+Mira.Neutral: This is new...
+Daze.Neutral: This looks to be some sort of metallic gate. You think we can get in?
+Mira.Neutral: We could try.
+=> END
+
+~ WL_bunker_switch
+Daze: Maybe this makes it open somehow?
+do npc("Mira").look_to("R")
+Mira: Wait.
+(hide)
+do npc("Daze").look_to("R")
+do npc("Alcine").look_to("R")
+do npc("Daze").bubble("Question")
+I use my aura to reveal cast lines around.
+set Camera.position = Vector2(-180, -1010)
+(hide)
+Mira: This mechanism has a ton of cast lines leading that way.
+do npc("Mira").look_to("U")
+Mira: This might be some sort of switch..?
+do npc("Daze").look_to("U")
+Daze puts his hand on the panel.
+(hide)
+...[wait=1]Nothing happens.
+do npc("Daze").look_to("R")
+Daze: Well if it is, I cannot understand how it's activated.
+Daze: Maybe the mechanism is hidden?
+(hide)
+do npc("Mira").look_to("R")
+do npc("Alcine").look_to("R")
+do! npc("Daze").go_to(Vector2(-111, -1036), false, false, Vector2(0, -1))
+do wait(0.5)
+do! npc("Alcine").go_to(Vector2(-124, -1020), false, false, Vector2(0, -1))
+do npc("Mira").move_dir(Vector2(1, 0))
+do wait(2)
+do npc("Mira").look_to("U")
+do! npc("Daze").go_to(Vector2(-90, -1036), false, false)
+do wait(2)
+do npc("Mira").go_to(Vector2(-276, -1010), false)
+do npc("Mira").look_to("U")
+do passive("story_1", "something_in_here")
+do npc("Daze").move_dir(Vector2(-1, 0))
+do npc("Daze").look_to("U")
+do npc("Mira").bubble("Ellipsis")
+do npc("Daze").move_dir(Vector2(1, 0))
+do npc("Daze").look_to("U")
+do wait(2)
+do! npc("Mira").bubble("Surprise")
+do add_flag("WLBunkerOpen")
+do screen_shake()
+do npc("Daze").look_to("L")
+do npc("Alcine").look_to("L")
+do wait(1)
+Mira: Wha? What did I do?!
+=> END
+
+~ something_in_here
+Daze.Neutral: It must be something in here...
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

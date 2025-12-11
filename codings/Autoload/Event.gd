@@ -286,6 +286,7 @@ func no_player():
 		Global.Player.queue_free()
 		for i in Global.Area.Followers:
 			i.queue_free()
+			await get_tree().physics_frame
 	PartyUI.hide_all()
 
 func time_transition():

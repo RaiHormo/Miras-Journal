@@ -41,7 +41,6 @@ Controllable = true
 HpOnSLvUp = 20
 ApOnSLvUP = 5
 MaxHP = 100
-MaxAura = 20
 Attack = 1.5
 Magic = 1.1
 Defence = 0.4

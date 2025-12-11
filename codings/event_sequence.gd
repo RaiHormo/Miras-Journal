@@ -360,6 +360,17 @@ func nov2_daytime():
 	Event.remove_flag("HideDate")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
+func WL_bunker_switch():
+	await Loader.transition()
+	await Loader.travel_to("WitheredLeaves", Vector2(-250, -1010), 0, -1, "none", false)
+	await Event.no_player()
+	await Event.spawn("Mira:MiraOVBag", Vector2(-250, -1000), "U")
+	await Event.spawn("Daze", Vector2(-275, -1010), "U")
+	await Event.spawn("Alcine", Vector2(-275, -990), "U")
+	await Loader.detransition("U")
+	await Global.textbox("story_1", "WL_bunker_switch")
+	await Loader.travel_to("WitheredLeaves", Vector2(-275, -986), 0, -1, "U")
+
 func hurt_1():
 	Global.Party.Leader.Health -= 1
 	Global.ui_sound("Crunch")

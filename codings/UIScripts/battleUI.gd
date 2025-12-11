@@ -756,6 +756,8 @@ func _on_ability_returned(ab:Ability, tar):
 	close()
 
 func move_menu():
+	await Event.wait()
+	var foc = get_viewport().gui_get_focus_owner()
 	if stage == &"target" or stage == &"pre_target":
 		active= false
 		t = create_tween()

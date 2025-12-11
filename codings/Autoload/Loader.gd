@@ -203,7 +203,6 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
 	PartyUI.hide_all()
-	Event.List.clear()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
 	scene.assign((sc.split(";").duplicate()))
@@ -294,6 +293,7 @@ func done(controllable:= false):
 	chased = false
 	var look_dir = Query.get_direction()
 	if Global.Area: Global.Area.queue_free()
+	Event.List.clear()
 	if get_tree().root.has_node("MainMenu"): 
 		get_tree().root.get_node("MainMenu").queue_free()
 	var area = ResourceLoader.load_threaded_get(scene[0])
@@ -325,7 +325,7 @@ func done(controllable:= false):
 		if Global.Controllable:
 			PartyUI.show_all()
 
-func detransition(dir = "direc"):
+func detransition(dir = direc):
 	if dir == "none": return
 	#Engine.time_scale = 0.1
 	if Global.Camera != null:

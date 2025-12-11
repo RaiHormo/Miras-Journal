@@ -190,7 +190,7 @@ func AttackMira(target: Actor):
 			Bt.damage(target, CurrentChar.Attack, true)
 			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	else:
-		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 0)
+		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 8, 0)
 		Bt.anim("Attack2")
 		if not miss:
 			Bt.damage(target)

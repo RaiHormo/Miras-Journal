@@ -95,7 +95,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 7
+	const n = 8
 	var r: int
 	var tries:= 0
 	while true:
@@ -153,6 +153,12 @@ func pick_general_ability() -> Ability:
 						Char.NextTarget = tar
 						return find_ability("Aggro").pick_random()
 					print(tar.FirstName, " is a bad target")
+			7:
+				if has_type("Curse"):
+					var ab = find_ability("Curse").pick_random()
+					var targets = Bt.filter_actors_by_state(Bt.get_oposing_faction(), ab.InflictsState)
+					if not targets.is_empty():
+						return ab
 			_:
 				if has_type("CheapAttack"):
 					return find_ability("CheapAttack").pick_random()

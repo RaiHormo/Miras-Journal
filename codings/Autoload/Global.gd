@@ -40,6 +40,7 @@ signal check_party
 signal anim_done
 signal area_initialized
 signal textbox_close
+signal passive_close
 signal player_ready
 signal controller_changed
 const AppID = 4059970
@@ -480,7 +481,7 @@ func textbox_kill():
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	if get_node_or_null("/root/Passive"):
 		$"/root/Passive"._on_close()
-		await textbox_close
+		await passive_close
 		await Event.wait(0.1)
 		passive(file, title, extra_game_states)
 		return
@@ -488,7 +489,7 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
-	await textbox_close
+	await passive_close
 
 func portrait(img:String, redraw:=true) -> void:
 	PortraitRedraw = redraw

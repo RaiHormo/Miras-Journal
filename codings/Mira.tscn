@@ -648,6 +648,7 @@ z_as_relative = false
 y_sort_enabled = true
 material = ExtResource("1_srkwi")
 use_parent_material = true
+position = Vector2(0, -3)
 collision_layer = 3
 collision_mask = 15
 motion_mode = 1
@@ -815,5 +816,6 @@ focus_mode = 0
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_siatn")
 flat = true
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="OpenMenu" to="." method="_on_open_menu_pressed"]

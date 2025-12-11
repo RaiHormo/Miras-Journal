@@ -159,7 +159,7 @@ func next(next_id: String) -> void:
 
 func _on_close() -> void:
 	await hide_box()
-	Global.textbox_close.emit()
+	Global.passive_close.emit()
 	if self != null: queue_free()
 
 func hide_box():

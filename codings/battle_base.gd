@@ -494,12 +494,12 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 ###################################################
 
 func jump_to_target(
-character: Actor, tar: Actor, offset: Vector2, time: float) -> void:
+character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5) -> void:
 	t = create_tween()
 	var target = tar.node.position + offset
 	var start = character.node.position
 	var jump_distance : float = start.distance_to(target)
-	var jump_height : float = jump_distance * 0.5 #will need tweaking
+	var jump_height : float = jump_distance * height
 	var midpoint = start.lerp(target, 0.5) + Vector2.UP * jump_height
 	var jump_time = jump_distance * (time * 0.001)
 	t.tween_method(Query._quad_bezier.bind(
@@ -829,9 +829,9 @@ func get_oposing_faction(act: Actor = CurrentChar, filter_dead = true) -> Array[
 	if filter_dead: rtn = filter_dead(rtn)
 	return rtn
 
-func get_target_faction() -> Array[Actor]:
-	match CurrentAbility.Target:
-		Ability.T.AOE_ALLIES: return get_ally_faction(CurrentChar, !CurrentAbility.CanTargetDead)
+func get_target_faction(ab = CurrentAbility) -> Array[Actor]:
+	match ab.Target:
+		Ability.T.AOE_ALLIES: return get_ally_faction(CurrentChar, !ab.CanTargetDead)
 		Ability.T.AOE_ENEMIES: return get_oposing_faction()
 		_: return [CurrentTarget]
 

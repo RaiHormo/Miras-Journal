@@ -12,6 +12,7 @@ FirstName = "Steelkee"
 MainColor = Color(0.6901961, 0.24705882, 0.24705882, 1)
 PartyIcon = ExtResource("2_ncvkl")
 ActorClass = "Tank"
+RecivedSP = 4
 MaxHP = 60
 MaxAura = 15
 Magic = 1.6
