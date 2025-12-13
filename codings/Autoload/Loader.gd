@@ -202,7 +202,6 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	if z < -1: controllable = false
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
 	if t.is_running(): await t.finished
-	PartyUI.hide_all()
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
 	scene.assign((sc.split(";").duplicate()))
@@ -212,6 +211,7 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	if scene[0] != "":
 		ResourceLoader.load_threaded_request(scene[0])
 	await transition(trans)
+	PartyUI.hide_all()
 	get_tree().paused = true
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()

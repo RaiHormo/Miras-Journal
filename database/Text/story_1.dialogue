@@ -165,12 +165,14 @@ do npc("Mira").bubble("Ellipsis")
 do npc("Daze").move_dir(Vector2(1, 0))
 do npc("Daze").look_to("U")
 do wait(2)
-do! npc("Mira").bubble("Surprise")
-do add_flag("WLBunkerOpen")
+do add_flag("Bunker1Open")
+do check_party.emit()
 do screen_shake()
+do wait(0.5)
+do! npc("Mira").bubble("Surprise")
 do npc("Daze").look_to("L")
 do npc("Alcine").look_to("L")
-do wait(1)
+do wait(2)
 Mira: Wha? What did I do?!
 => END
 

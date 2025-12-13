@@ -10,7 +10,7 @@ func _on_entered(body):
 			proceed()
 
 func proceed() -> void:
-	await Event.take_control()
+	await Event.take_control(true, true)
 	Global.Player.collision(false)
 	Global.Player.move_dir(Direction*2)
 	print(name, " to ", room, " with camera index ", ToCamera)

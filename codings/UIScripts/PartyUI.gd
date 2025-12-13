@@ -53,23 +53,25 @@ func _process(delta):
 	if not Loader.InBattle:
 		if UIvisible != visibly:
 			if UIvisible and not Event.f("DisableMenus") and not disabled:
-				show_all()
+				if not Global.Settings.AutoHideHUD == 1:
+					show_all()
 			else: hide_all()
 		visibly = UIvisible
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
 
-		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames != 0:
+		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames > 0:
 			if Global.Settings.AutoHideHUD == 0:
 				if $IdleTimer.time_left == 0:
 					show_all()
-				$IdleTimer.start(5)
+				$IdleTimer.start(3)
 			if Global.Settings.AutoHideHUD == 1:
 				hide_all()
 				$IdleTimer.start(3)
 
 func show_all(except_date = false):
 	if disabled: return
+	if is_instance_valid(Global.Player) and Global.Settings.AutoHideHUD == 1 and Global.Player.move_frames > 0: return
 	UIvisible = true
 	visibly = true
 	inactive = false

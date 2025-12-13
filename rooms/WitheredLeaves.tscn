@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://c27y1nbapxay"]
+[gd_scene load_steps=72 format=4 uid="uid://c27y1nbapxay"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ofsxd"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_7gvkw"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="23_ha88r"]
 [ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="24_vctnq"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV.tres" id="25_xe12t"]
+[ext_resource type="Texture2D" uid="uid://i83opbcfgob" path="res://art/OV/Objects/BunkerDoor.png" id="29_mqvg4"]
 
 [sub_resource type="Gradient" id="Gradient_auwcy"]
 offsets = PackedFloat32Array(1)
@@ -252,6 +253,78 @@ gradient = SubResource("Gradient_06fd7")
 fill = 1
 fill_from = Vector2(0.508547, 0.495726)
 fill_to = Vector2(0.897436, 0.00854701)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fci10"]
+size = Vector2(142.454, 17.2214)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj216"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(0, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk642"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(118, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6l2x"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(236, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex6dr"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(354, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3jwk"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(472, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjok2"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(590, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1go5"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(708, 0, 118, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e642t"]
+atlas = ExtResource("29_mqvg4")
+region = Rect2(826, 0, 118, 95)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ug3t0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj216")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk642")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6l2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex6dr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3jwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjok2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1go5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e642t")
+}],
+"loop": false,
+"name": &"hide",
+"speed": 6.0
+}]
 
 [node name="WitheredLeaves" type="Node2D"]
 y_sort_enabled = true
@@ -679,17 +752,43 @@ TextFile = "story_1"
 TextNode = "metalic_gate"
 AddFlag = true
 
-[node name="Interactable2" parent="." instance=ExtResource("4_d8pup")]
-position = Vector2(-204, -1056)
-LabelText = "Force Open"
-ActionType = "text"
-file = "interact_abad"
-title = "bunker_gate_budge"
-hide_on_flag = &"WLBunkerOpen"
-
 [node name="WLBunkerSwitch" parent="." instance=ExtResource("4_d8pup")]
 position = Vector2(-275, -1010)
 ActionType = "event"
 file = "WL_bunker_switch"
 return_control = false
-hide_on_flag = &"WLBunkerOpen"
+hide_on_flag = &"Bunker1Open"
+
+[node name="DoorLocked4" type="StaticBody2D" parent="."]
+position = Vector2(-204, -1057)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLocked4"]
+position = Vector2(-0.197144, 4.09424)
+scale = Vector2(0.999999, 1)
+shape = SubResource("RectangleShape2D_fci10")
+
+[node name="HideOnFlag" type="Node2D" parent="DoorLocked4"]
+position = Vector2(0, -34)
+script = ExtResource("20_nxfet")
+flag = "Bunker1Open"
+
+[node name="Sprite" type="AnimatedSprite2D" parent="DoorLocked4/HideOnFlag"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ug3t0")
+
+[node name="Interactable2" parent="DoorLocked4/HideOnFlag" instance=ExtResource("4_d8pup")]
+position = Vector2(0, 35)
+LabelText = "Force Open"
+ActionType = "text"
+file = "interact_abad"
+title = "bunker_gate_budge"
+hide_on_flag = &"Bunker1Open"
+
+[node name="Transfer2" parent="." instance=ExtResource("3_lemrk")]
+z_index = 1
+position = Vector2(-205, -1146)
+scale = Vector2(1.3051578, 1)
+Direction = Vector2(0, -1)
+Position = Vector2(35, 647)
+room = "BunkerSectorA"

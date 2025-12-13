@@ -69,6 +69,10 @@ Where to go?
 		do travel_to("ShardGardens", Vector2(-223, -697), 2)
 - WitheredLeaves
 	do travel_to("WitheredLeaves")
+- Bunker
+	Sector
+	- A
+		do travel_to("BunkerSectorA")
 => END
 
 ~ greetings
