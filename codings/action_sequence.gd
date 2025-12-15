@@ -934,7 +934,7 @@ func FlyAway(chara: Actor):
 
 #region Battle events
 func FirstBattle1():
-	while !Global.Player: await Event.wait()
+	while not is_instance_valid(Global.Player): await Event.wait()
 	Bt.no_misses = true
 	Bt.no_crits = true
 	Global.Player.position = Vector2(1470, 400)

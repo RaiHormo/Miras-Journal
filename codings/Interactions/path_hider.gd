@@ -7,7 +7,7 @@ func _ready() -> void:
 	modulate = Color.WHITE
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	$HideTiles.show()
+	for i in get_children(): show()
 
 func _on_body_entered(body: Node2D):
 	if body == Global.Player:

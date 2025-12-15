@@ -933,7 +933,6 @@ texture = SubResource("GradientTexture2D_h3wgk")
 height = 100.0
 
 [node name="EditorLight" type="DirectionalLight2D" parent="."]
-visible = false
 editor_only = true
 metadata/_edit_group_ = true
 

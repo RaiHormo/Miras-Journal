@@ -3,6 +3,7 @@ extends Area2D
 @export var Position:= Vector2.ZERO
 @export var room: String
 @export var ToCamera: int = 0
+@export var lock_camera:= true
 
 func _on_entered(body):
 	if body == Global.Player:
@@ -10,9 +11,12 @@ func _on_entered(body):
 			proceed()
 
 func proceed() -> void:
-	await Event.take_control(true, true)
+	var frame = Global.Player.used_sprite.frame
+	Global.Player.camera_follow(false)
+	Event.take_control(true, true)
 	Global.Player.collision(false)
-	Global.Player.move_dir(Direction*2)
+	Global.Player.move_dir(Direction*48, false)
+	Global.Player.used_sprite.frame = frame
 	print(name, " to ", room, " with camera index ", ToCamera)
 	await Loader.travel_to(room, Position, ToCamera)
 

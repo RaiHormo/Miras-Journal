@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=59 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" uid="uid://vrtx6mt06wtk" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="2_w0qna"]
@@ -279,10 +279,11 @@ border_width_top = 8
 border_width_right = 8
 border_width_bottom = 8
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
+corner_radius_top_left = 29
+corner_radius_top_right = 29
+corner_radius_bottom_right = 29
+corner_radius_bottom_left = 29
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6vv6"]
 content_margin_left = 32.0
@@ -290,15 +291,12 @@ content_margin_top = 0.0
 content_margin_right = 32.0
 content_margin_bottom = 0.0
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
+corner_radius_top_left = 29
+corner_radius_top_right = 29
+corner_radius_bottom_right = 29
+corner_radius_bottom_left = 29
+corner_detail = 12
 
 [sub_resource type="FontVariation" id="FontVariation_00tn1"]
 base_font = ExtResource("4_pkqpv")
@@ -317,22 +315,6 @@ Button/styles/focus = SubResource("StyleBoxFlat_a6vv6")
 Button/styles/hover = SubResource("StyleBoxFlat_a6vv6")
 Button/styles/normal = SubResource("StyleBoxFlat_h4ivt")
 Button/styles/pressed = SubResource("StyleBoxFlat_a6vv6")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvtq8"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
 
 [sub_resource type="FontVariation" id="FontVariation_4a8fb"]
 base_font = ExtResource("6_pyltt")
@@ -739,7 +721,6 @@ offset_bottom = 30.0
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")
-theme_override_styles/normal = SubResource("StyleBoxFlat_lvtq8")
 text = "Item"
 text_overrun_behavior = 1
 clip_text = true
@@ -771,10 +752,10 @@ progress = 950.0
 rotates = false
 
 [node name="OptionsButton" type="Button" parent="Rail/OptionsFollow"]
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 110.0
-offset_bottom = 30.0
+offset_left = -89.416504
+offset_top = -29.912413
+offset_right = 110.583496
+offset_bottom = 30.087587
 pivot_offset = Vector2(31.8671, 30.1991)
 focus_mode = 1
 theme = SubResource("Theme_o6i8h")

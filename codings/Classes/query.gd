@@ -104,6 +104,11 @@ func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
 func in_360(nm) -> int:
 	return wrapi(nm, 0, 359)
 
+func member_exists(Name: StringName) -> bool:
+	for i in Global.Members:
+		if i.codename == Name: return true
+	return false
+
 func find_member(Name: StringName) -> Actor:
 	for i in Global.Members:
 		if i.codename == Name: return i

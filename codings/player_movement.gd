@@ -193,13 +193,14 @@ func update_anim_prm() -> void:
 
 ##Item pickup animation
 func _on_pickup() -> void:
-	await Event.take_control()
+	await Event.take_control(true, true)
 	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true)
 	else: await set_anim("PickUpRight", true)
 	Event.give_control()
 	set_anim()
 
 func _check_party() -> void:
+	check_flame()
 	if get_node_or_null("%Base") == null: return
 	elif is_instance_valid(Global.Party.Leader):
 		if not %Base.sprite_frames.resource_path.ends_with(Global.Party.Leader.codename+Global.Party.Leader.OV+".tres"):
