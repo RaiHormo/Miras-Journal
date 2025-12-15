@@ -65,6 +65,7 @@ gdscript/warnings/shadowed_global_identifier=0
 gdscript/warnings/integer_division=0
 gdscript/warnings/int_as_enum_without_cast=0
 gdscript/warnings/int_as_enum_without_match=0
+gdscript/warnings/native_method_override=0
 
 [dialogue_manager]
 

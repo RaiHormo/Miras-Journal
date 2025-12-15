@@ -214,7 +214,7 @@ func game_settings():
 	t.tween_property($SidePanel, "position", Vector2(407, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
-	%SettingsVbox/Gameplay.grab_focus()
+	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus()
 	Global.confirm_sound()
 	$SidePanel.show()
 	await t.finished
@@ -356,7 +356,7 @@ func load_settings():
 	%SettingsVbox/BCSadjust/BrtSlider.value = World.environment.adjustment_brightness
 	%SettingsVbox/BCSadjust/ConSlider.value = World.environment.adjustment_contrast
 	%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
-	%SettingsVbox/DebugMode.button_pressed = Global.Settings.DebugMode
+	%SettingsVbox/DebugMode/DebugMode.button_pressed = Global.Settings.DebugMode
 	%SettingsVbox/Vsync/CheckButton.button_pressed = Global.Settings.VSync
 	%SettingsVbox/GlowEffect/CheckButton.button_pressed = Global.Settings.GlowEffect
 	%SettingsVbox/HighResTextures/CheckButton.button_pressed = Global.Settings.HighResTextures
@@ -838,9 +838,9 @@ You can backup this data by pressing F1 and copying the files.\nProceed?"):
 	
 func _on_credit_scroll(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_up"):
-		$GalleryPanel/Credits.scroll_vertical -= 100
+		$GalleryPanel/Credits.scroll_by(-100)
 	if event.is_action_pressed("ui_down"):
-		$GalleryPanel/Credits.scroll_vertical += 100
+		$GalleryPanel/Credits.scroll_by(100)
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_left"):
 		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
 

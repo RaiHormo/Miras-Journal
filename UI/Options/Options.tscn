@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=82 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
 [ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
+[ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="20_t6ahs"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
 [ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="22_w3i7s"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
@@ -763,6 +764,7 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="."]
+visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -781,7 +783,8 @@ offset_bottom = 770.0
 rotation = -0.0581765
 theme = SubResource("Theme_6ne1i")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_t6ahs")
-follow_focus = true
+script = ExtResource("20_t6ahs")
+metadata/_custom_type_script = "uid://biopjphf2psbr"
 
 [node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer"]
 unique_name_in_owner = true
@@ -1050,7 +1053,6 @@ theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
 [node name="SidePanel" type="Panel" parent="."]
-visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0
@@ -1068,8 +1070,7 @@ offset_right = 875.6013
 offset_bottom = 858.0375
 rotation = -0.059190698
 theme = SubResource("Theme_6ne1i")
-follow_focus = true
-scroll_vertical = 100
+script = ExtResource("20_t6ahs")
 
 [node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
 unique_name_in_owner = true
@@ -1081,7 +1082,6 @@ layout_mode = 2
 
 [node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
-focus_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
@@ -1817,7 +1817,7 @@ scrollable = false
 [node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_styles/normal = SubResource("StyleBoxFlat_q5j0g")
@@ -1834,7 +1834,12 @@ theme_override_fonts/font = ExtResource("17_chpua")
 text = "
 System"
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="DebugMode" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1842,22 +1847,23 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Debug tools"
 
+[node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+
 [node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
 theme_override_font_sizes/font_size = 32
-text = "For a regular playthrough it's recommended that
+text = "Unless there is an issue, it's recommended that
 this is kept off.
 Debug tools are used with ctrl key 
-combinations."
-
-[node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox"]
-layout_mode = 2
-size_flags_horizontal = 0
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
+combinations.
+"
 
 [node name="ManualPanel" type="Panel" parent="."]
 visible = false
@@ -1890,7 +1896,8 @@ offset_right = 418.0
 offset_bottom = 810.0
 rotation = -0.0633063
 theme = SubResource("Theme_6ne1i")
-follow_focus = true
+script = ExtResource("20_t6ahs")
+metadata/_custom_type_script = "uid://biopjphf2psbr"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer"]
 custom_minimum_size = Vector2(64, 0)
@@ -2215,7 +2222,8 @@ rotation = -0.0633063
 focus_mode = 2
 theme = SubResource("Theme_6ne1i")
 theme_override_styles/panel = SubResource("StyleBoxFlat_2tth4")
-follow_focus = true
+script = ExtResource("20_t6ahs")
+metadata/_custom_type_script = "uid://biopjphf2psbr"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits"]
 layout_mode = 2
@@ -2349,7 +2357,7 @@ texture = ExtResource("26_375bk")
 [connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Voices/Slider" to="." method="_on_master_volume"]
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_last_setting"]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
-[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode" to="." method="_debug_mode"]
+[connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode/DebugMode" to="." method="_debug_mode"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Movement" to="." method="_manual_entry_select"]
