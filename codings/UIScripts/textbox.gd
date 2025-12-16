@@ -56,9 +56,10 @@ var dialogue_line: DialogueLine:
 			char_name = char_name.erase(char_name.length()-1)
 		if "." in tr(dialogue_line.character, "dialogue"):
 			var redraw: bool = true
-			if character_label.text == Query.find_member(char_name).FirstName: redraw = false
-			if Query.member_exists(char_name) != null:
+			if Query.member_exists(char_name):
 				if Query.find_member(char_name).FirstName == character_label.text: redraw = false
+			else:
+				if character_label.text == char_name: redraw = false
 			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
 		if not Query.member_exists(char_name):
 			character_label.text = char_name
