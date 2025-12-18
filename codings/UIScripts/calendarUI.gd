@@ -17,7 +17,7 @@ func _check_party():
 		$Date/Day.add_theme_font_size_override("font_size", 265) 
 		show()
 	$Container/TimeOfDay.text = Query.to_tod_text(Event.TimeOfDay)
-	$Date/Day.text = str(wrapi(Event.Day, 1, 32))
+	$Date/Day.text = Query.get_date_day(Event.Day)
 	$Date/Month.text = Query.get_month_name(Query.get_month(Event.Day))
 	$Container/TimeOfDay.icon = await Query.to_tod_icon(Event.TimeOfDay)
 	

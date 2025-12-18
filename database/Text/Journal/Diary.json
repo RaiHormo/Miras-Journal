@@ -1,0 +1,27 @@
+[
+["boo", 
+"As I take boo from the
+bee, the bii explodes.
+It was crazy"
+], 
+
+["bee",
+"Another test entry 
+to see if this thing 
+really works
+
+Also making sure 
+newlines work properly
+[b]bold text[/b]
+[img width=64]res://art/Icons/Party/Mira.png[/img]"
+],
+["baa",
+"This will now
+go on
+a bit
+longer
+so it can
+overflow to the other
+page"
+],
+]

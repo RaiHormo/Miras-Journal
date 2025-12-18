@@ -1,11 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://bchvfsnxp6bfc"]
+[gd_scene load_steps=30 format=3 uid="uid://bchvfsnxp6bfc"]
 
-[ext_resource type="Texture2D" uid="uid://mbqtyqlv57rt" path="res://UI/Journal/journal.png" id="1_iw8eb"]
+[ext_resource type="Texture2D" uid="uid://mbqtyqlv57rt" path="res://art/Journal/journal.png" id="1_iw8eb"]
 [ext_resource type="Script" uid="uid://dwaeamqyqf44y" path="res://codings/UIScripts/journalUI.gd" id="1_ttv6j"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_oxs8c"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_w8w16"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="2_yay85"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="3_w8w16"]
+[ext_resource type="Texture2D" uid="uid://b7nloiy8nck44" path="res://art/Journal/JournalBack.png" id="4_vunfc"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="7_relpl"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="8_0smgh"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="9_nfiq0"]
@@ -27,6 +28,11 @@ RichTextLabel/fonts/bold_font = ExtResource("2_w8w16")
 RichTextLabel/fonts/bold_italics_font = ExtResource("2_w8w16")
 RichTextLabel/fonts/italics_font = ExtResource("2_yay85")
 RichTextLabel/fonts/normal_font = ExtResource("2_yay85")
+
+[sub_resource type="Theme" id="Theme_vunfc"]
+RichTextLabel/constants/line_separation = -6
+RichTextLabel/constants/paragraph_separation = -6
+RichTextLabel/font_sizes/normal_font_size = 36
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ct1v"]
 content_margin_left = 32.0
@@ -96,14 +102,14 @@ bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 border_width_right = 8
 border_color = Color(0.894118, 0.894118, 0.894118, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_relpl"]
-bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0smgh"]
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfiq0"]
 bg_color = Color(0.89, 0.89, 0.89, 0.666667)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0smgh"]
-draw_center = false
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_relpl"]
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vunfc"]
 shader = ExtResource("8_0smgh")
@@ -199,6 +205,14 @@ texture = ExtResource("1_iw8eb")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="JournalBack" type="TextureRect" parent="."]
+visible = false
+offset_left = 171.0
+offset_top = -100.0
+offset_right = 1411.5
+offset_bottom = 727.0
+texture = ExtResource("4_vunfc")
+
 [node name="Pages" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -215,44 +229,49 @@ offset_left = -20.2228
 offset_top = -0.242176
 offset_right = 517.777
 offset_bottom = 694.758
-rotation = 0.00731892
+rotation = 0.0101500675
 texture = ExtResource("3_w8w16")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="TextL" type="RichTextLabel" parent="Pages/PageL"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 58.485046
+offset_top = 47.428787
+offset_right = 451.81836
+offset_bottom = 644.429
+theme = SubResource("Theme_vunfc")
+bbcode_enabled = true
+text = "This journal menu is unfinished.
+
+Maybe check it out another time :)"
+scroll_active = false
+
 [node name="PageR" type="TextureRect" parent="Pages"]
 layout_mode = 0
-offset_left = 492.222
-offset_top = 10.0
-offset_right = 1030.23
-offset_bottom = 705.0
-rotation = -0.0149447
+offset_left = 478.88885
+offset_top = 4.4444404
+offset_right = 1016.8969
+offset_bottom = 699.44446
+rotation = -0.036126994
 texture = ExtResource("3_w8w16")
 expand_mode = 1
 stretch_mode = 4
 flip_h = true
 
-[node name="TextL" type="RichTextLabel" parent="Pages"]
+[node name="TextR" type="RichTextLabel" parent="Pages/PageR"]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 37.7778
-offset_top = 47.7778
-offset_right = 424.778
-offset_bottom = 644.778
-bbcode_enabled = true
-text = "This journal menu is unfinished.
-
-Maybe check it out another time :)"
-fit_content = true
-
-[node name="TextR" type="RichTextLabel" parent="Pages"]
-layout_mode = 0
-offset_left = 582.222
-offset_top = 53.3333
-offset_right = 969.222
-offset_bottom = 650.333
+offset_left = 87.66341
+offset_top = 49.094162
+offset_right = 474.6634
+offset_bottom = 644.9827
+rotation = -0.0010446366
+theme = SubResource("Theme_vunfc")
 bbcode_enabled = true
 text = "Yes, the mechanic in the title of the game is not actually implemented yet, go figure."
-fit_content = true
+scroll_active = false
 
 [node name="RootMenu" type="VBoxContainer" parent="."]
 offset_left = 254.0
@@ -299,13 +318,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_oxs8c")
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Listing1" type="Button" parent="List/List"]
+[node name="Listing0" type="Button" parent="List/List"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme = SubResource("Theme_nfiq0")
-theme_override_styles/focus = SubResource("StyleBoxFlat_relpl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nfiq0")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0smgh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nfiq0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_relpl")
 text = "Listing"
 metadata/_edit_use_anchors_ = true
 
@@ -350,5 +369,6 @@ text_overrun_behavior = 1
 expand_icon = true
 
 [connection signal="pressed" from="RootMenu/Diary" to="." method="diary"]
+[connection signal="focus_entered" from="List/List/Listing0" to="." method="diary_focus_button"]
 [connection signal="pressed" from="Close" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Select" to="." method="_on_back_pressed"]

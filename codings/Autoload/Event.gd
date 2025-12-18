@@ -5,6 +5,10 @@ extends Node
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Array[NPC]
 var Flags: Dictionary[StringName, int]
+var Diary: Dictionary[int, PackedStringArray] = {
+	2: ["boo"],
+	5: ["boo", "bee"]
+}
 var Day: int
 var Month: String = "November"
 var TimeOfDay:= TOD.DARKHOUR

@@ -18,6 +18,7 @@ class_name SaveFile
 @export_group("Items")
 @export var Inventory: Array[String]
 @export var Flags: Dictionary[StringName, int]
+@export var Diary: Dictionary[int, PackedStringArray]
 @export var Day: int
 @export var TimeOfDay: int
 @export var version = 0

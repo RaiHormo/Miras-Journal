@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mbqtyqlv57rt"
-path.s3tc="res://.godot/imported/journal.png-f226637fb4bb89352816208d71376fd4.s3tc.ctex"
-path.etc2="res://.godot/imported/journal.png-f226637fb4bb89352816208d71376fd4.etc2.ctex"
+path.s3tc="res://.godot/imported/journal.png-29105d2a67fb8757af6a722890f23c34.s3tc.ctex"
+path.etc2="res://.godot/imported/journal.png-29105d2a67fb8757af6a722890f23c34.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://UI/Journal/journal.png"
-dest_files=["res://.godot/imported/journal.png-f226637fb4bb89352816208d71376fd4.s3tc.ctex", "res://.godot/imported/journal.png-f226637fb4bb89352816208d71376fd4.etc2.ctex"]
+source_file="res://art/Journal/journal.png"
+dest_files=["res://.godot/imported/journal.png-29105d2a67fb8757af6a722890f23c34.s3tc.ctex", "res://.godot/imported/journal.png-29105d2a67fb8757af6a722890f23c34.etc2.ctex"]
 
 [params]
 

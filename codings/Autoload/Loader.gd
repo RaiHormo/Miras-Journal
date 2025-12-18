@@ -56,7 +56,6 @@ func save(filename:String="Autosave", showicon=true):
 	Global.save_settings()
 	data = SaveFile.new()
 	data.Name = filename
-	#data.Datetime = Time.get_datetime_dict_from_system()
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.FirstStartTime
 	data.Z = (Global.Player.z_index if !get_tree().root.get_node_or_null("MainMenu")
@@ -69,15 +68,10 @@ func save(filename:String="Autosave", showicon=true):
 	data.Defeated = Defeated.duplicate()
 	for mem in Global.Members:
 		data.Members.append(mem.save_to_dict())
-	#data.Members = Global.Members.duplicate()
-	#Global.make_array_unique(data.Members)
 	data.version = SaveVersion
 	data.Flags = Event.Flags.duplicate()
-	#for i in data.Members:
-		#data.Members[data.Members.find(i)] = i.duplicate()
 	data.Inventory = Item.save_to_strings()
-	#for i in data.Inventory:
-		#data.Inventory[data.Inventory.find(i)] = i.duplicate()
+	data.Diary = Event.Diary
 
 	data.RoomPath = Global.Area.scene_file_path
 	if Global.Area.CurSubRoom != null: data.RoomPath += ";" + Global.Area.CurSubRoom.name
@@ -116,6 +110,7 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	PartyUI.UIvisible = true
 	PartyUI.disabled = false
 	Event.Flags = data.Flags.duplicate()
+	Event.Diary = data.Diary
 	print("Flags loaded: ", Event.Flags)
 	Event.Day = data.Day
 	Event.TimeOfDay = data.TimeOfDay as Event.TOD

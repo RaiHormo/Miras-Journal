@@ -55,6 +55,9 @@ func get_month(day: int) -> int:
 	if day<=0: return 10
 	else: return 0
 
+func get_date_day(day: int) -> String:
+	return str(wrapi(day, 1, 32))
+
 func get_dir_letter(d: Vector2 = Global.PlayerDir) -> String:
 	match  get_direction(d):
 		Vector2.RIGHT:

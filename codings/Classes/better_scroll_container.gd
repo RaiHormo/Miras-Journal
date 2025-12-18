@@ -3,22 +3,12 @@ class_name BetterScrollContainer
 var t: Tween
 var target = 0
 
-#func _set(property: StringName, value: Variant) -> bool:
-	#if value == get(property): return true
-	#match property:
-		#"scroll_horizontal":
-			#scroll_to(value, &"h")
-			#return true
-		#"scroll_vertical":
-			#scroll_to(value, &"v")
-			#return true
-	#return false
-
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(scroll_to_focus)
 
 func scroll_to_focus(foc: Control):
-	if foc.get_parent() != get_child(0): 
+	if foc.get_parent() != get_child(0):
+		if foc.get_parent() is not Control: return
 		foc = foc.get_parent()
 		if foc.get_parent() != get_child(0): return
 	scroll_to(int(foc.position.y - size.y/2))
