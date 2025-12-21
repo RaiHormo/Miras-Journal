@@ -180,6 +180,27 @@ Mira: Wha? What did I do?!
 Daze.Neutral: It must be something in here...
 => END
 
+~ asteria_boss
+Daze: What language is this...?
+Mira: That's Cyrenian! 
+Mira: My family speaks it, so I can somewhat understand. Although I'm not great at speaking or writing...
+Daze: That might prove useful then.
+Daze: What does this say?
+Mira: I think this page is about... some medical stuff, im not sure.
+Mira: This one talks about... some Freeze based magic? Seems to be in a context of some conflict.
+Daze: A weapon perhaps?
+Mira: Maybe.
+(hide)
+Daze: What about this one?
+Daze hands me something that looks like a newspaper.
+On the top is a picture of some sort of long mechanical cylinder.
+It also mentions Iseferia a lot in the text, but I can't understand it well enough. But I have a guess.
+Mira: All these documents seem to have been taken from somewhere in Cyrenia.
+Mira: "pik24"
+Mira: This is... some time before the Sinking.
+Daze: What is-[next=auto]
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://cpkyv7iusq33j"]
+
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_kv2eb"]
+[ext_resource type="Resource" uid="uid://c7dagc4gevvwu" path="res://database/Party/Asteria.tres" id="3_6tm4s"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="3_bg0et"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_ym1rv"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_6tm4s"]
+
+[resource]
+script = ExtResource("4_6tm4s")
+Enemies = Array[ExtResource("3_ym1rv")]([ExtResource("3_6tm4s")])
+ScenePosition = Vector2(-351, 312)
+CanEscape = false
+PartyOverride = ["Mira", "Alcine", "Daze"]
+metadata/_custom_type_script = "uid://blx6fs34ughqo"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://b7ajjs2h8tfm8"]
+[gd_scene load_steps=24 format=4 uid="uid://b7ajjs2h8tfm8"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_lifib"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_41bk5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="5_2g6ay"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="6_2g6ay"]
 [ext_resource type="Script" uid="uid://cvp04cgsljoib" path="res://codings/Interactions/path_hider.gd" id="7_4n5ci"]
+[ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="8_jy425"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jy425"]
 texture = ExtResource("2_41bk5")
@@ -466,3 +467,7 @@ position = Vector2(-193, 299)
 Direction = Vector2(1, 0)
 Position = Vector2(369, 347)
 room = "BunkerSectorA"
+
+[node name="EvTripwire0" parent="." instance=ExtResource("8_jy425")]
+position = Vector2(-406, 305)
+EventName = "asteria_boss"

@@ -371,6 +371,11 @@ func WL_bunker_switch():
 	await Global.textbox("story_1", "WL_bunker_switch")
 	await Loader.travel_to("WitheredLeaves", Vector2(-275, -986), 0, -1, "U")
 
+func asteria_boss():
+	await Event.take_control()
+	await Global.textbox("story_1", "asteria_boss")
+	Loader.start_battle("AsteriaBoss")
+
 func hurt_1():
 	Global.Party.Leader.Health -= 1
 	Global.ui_sound("Crunch")
