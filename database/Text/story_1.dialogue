@@ -201,6 +201,11 @@ Mira: This is... some time before the Sinking.
 Daze: What is-[next=auto]
 => END
 
+~ asteria_boss_2
+Asteria.Neutral: This just isn't fair, it never was!
+Asteria.Neutral: Maybe I should even the playing feild for once!
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

@@ -45,7 +45,14 @@ func diary() -> void:
 		t.tween_property(Global.Camera, "offset:x", 150, 0.5)
 	$List/List.get_children()[-1].grab_focus()
 
+func add_test_entries():
+	Event.Diary = {
+	2: ["boo"],
+	5: ["boo", "bee"]
+}
+
 func diary_load_day_list():
+	if Event.Diary.is_empty(): add_test_entries()
 	for i in Event.Diary:
 		var dub =  $List/List/Listing0.duplicate()
 		dub.name = str(i)

@@ -128,6 +128,8 @@ func _ready():
 	await entrance()
 
 func sprite_init(i: Actor):
+	i.node.sprite_frames = await i.get_BT()
+	i.node.flip_h = i.FlipH
 	i.node.get_node("State").play("None")
 	if not i.Shadow:
 			i.node.get_child(0).hide()
@@ -447,7 +449,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	CurrentAbility = ab
 	CurrentTarget = tar
 	if CurrentChar.has_state("Bound") and (CurrentAbility.Damage == Ability.D.WEAPON or CurrentAbility == CurrentChar.StandardAttack):
-		CurrentAbility = Query.nothing()
+		CurrentAbility = Ability.nothing()
 		Global.toast(CurrentChar.FirstName + " is struggling to move!")
 		await shake_actor(CurrentChar)
 		end_turn()
@@ -846,6 +848,8 @@ func hp_sort(a:Actor, b:Actor):
 	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
+	if chara.FlipH:
+		chara.node.flip_h = true
 	if not is_instance_valid(chara):
 		Global.toast("Sequence cannot be played properly")
 		return

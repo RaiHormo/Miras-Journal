@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://bsdc68x2mth0w"]
+
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_oqlrg"]
+[ext_resource type="Texture2D" uid="uid://2mlrn7q550rg" path="res://art/Icons/Enemies/Spirit.png" id="2_af8c6"]
+[ext_resource type="Resource" uid="uid://cci8aukur3fo7" path="res://database/Abilities/Drill.tres" id="2_hs4by"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_kphlf"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_af8c6"]
+[ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="5_nlnc3"]
+
+[resource]
+script = ExtResource("3_af8c6")
+FirstName = "Bird Summon"
+MainColor = Color(0.3618105, 0.5630479, 0, 1)
+PartyIcon = ExtResource("2_af8c6")
+ActorClass = "Mage"
+MaxHP = 30
+Attack = 0.8
+Magic = 2.0
+Defence = 0.7
+Abilities = Array[ExtResource("1_oqlrg")]([ExtResource("2_hs4by")])
+StandardAttack = ExtResource("5_nlnc3")
+BT = "AsteriaSummons/BirdBT"
+metadata/_custom_type_script = "uid://msf7qb28ublo"

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://h2dsutkgob4w"]
+
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_vhj2c"]
+[ext_resource type="Texture2D" uid="uid://2mlrn7q550rg" path="res://art/Icons/Enemies/Spirit.png" id="2_f6gkn"]
+[ext_resource type="Resource" uid="uid://jbe4kiixyygg" path="res://database/Abilities/SoothingSpray.tres" id="2_gam0d"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_vluvj"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_f6gkn"]
+[ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="5_p2j87"]
+
+[resource]
+script = ExtResource("3_f6gkn")
+FirstName = "Lion Summon"
+MainColor = Color(0.2924576, 0.00070675195, 0.7316276, 1)
+PartyIcon = ExtResource("2_f6gkn")
+MaxHP = 30
+Attack = 1.6
+Magic = 0.8
+Defence = 1.2
+Abilities = Array[ExtResource("1_vhj2c")]([ExtResource("2_gam0d")])
+StandardAttack = ExtResource("5_p2j87")
+BT = "AsteriaSummons/LionBT"
+metadata/_custom_type_script = "uid://msf7qb28ublo"

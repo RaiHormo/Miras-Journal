@@ -382,8 +382,8 @@ func RemoteAttack(target: Actor):
 func CloseupAttack(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(target)
-	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.8)
-	await Bt.anim("Attack1")
+	Bt.anim("Attack1")
+	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.5)
 	Bt.anim("Attack2")
 	await Event.wait(0.2)
 	if not miss:
@@ -1202,6 +1202,16 @@ func StoneGuardian3():
 	Loader.get_node("Can").layer = 3
 	Bt.victory(true)
 	await Loader.battle_end
+
+func AsteriaBoss2():
+	await Global.passive("story_1", "asteria_boss_2")
+	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[0])
+	Bt.Troop.erase(Bt.get_actor("Asteria"))
+	Bt.Troop.push_back(Bt.get_actor("Asteria"))
+	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[1])
+	Bt.position_sprites()
+	for i in Bt.Troop: Bt.sprite_init(i)
+	Bt.get_actor("Asteria").add_health(90)
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader
