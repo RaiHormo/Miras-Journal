@@ -1,10 +1,7 @@
-extends CharacterBody2D
+extends NPC
 class_name Follower
 
-var speed = 60
-var direction : Vector2
 var oposite : Vector2
-var RealVelocity: Vector2
 var moving: bool
 var target: Vector2
 var dir: Vector2
@@ -16,15 +13,17 @@ var player_jumped:= false
 @export var dont_follow := false:
 	set(x):
 		dont_follow = x
+		if dont_follow and BodyState == CONTROLLED: BodyState = IDLE
+		elif not dont_follow: BodyState = CONTROLLED
 @export var offset := 0
 var path: Path2D
 var follow: PathFollow2D
 
-func _ready():
+func default():
 	hide()
 	await Event.wait()
 	oposite = (Query.get_direction() * Vector2(-1,-1)) * 150
-	$AnimatedSprite2D.play("Idle"+Query.get_dir_name())
+	set_anim("Idle"+Query.get_dir_name())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()
@@ -34,15 +33,21 @@ func _ready():
 	await Event.wait(0.1)
 	follow.progress = -distance
 	position = follow.global_position
+	ID = "F"+str(member)
+	BodyState = CONTROLLED
 
-func _physics_process(_delta: float) -> void:
+func control_process() -> void:
 	if not is_instance_valid(Global.Player): return
+	move_and_slide()
 	if dont_follow:
 		direction = Vector2.ZERO
 		moving = false
 		#animate()
+		BodyState = IDLE
 		return
 	if Global.Party.check_member(member) and not Loader.InBattle and is_instance_valid(follow):
+		if sprite.sprite_frames.resource_path != member_info().OV:
+			sprite.sprite_frames = await member_info().get_OV()
 		add_collision_exception_with(Global.Player)
 		for i in Global.Area.Followers:
 			add_collision_exception_with(i)
@@ -71,7 +76,7 @@ func _physics_process(_delta: float) -> void:
 			if player_dist > 180:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
-				animate()
+				update_anim_prm()
 				oposite = (Query.get_direction() * Vector2(-1,-1))
 				velocity = oposite * 150
 			#elif path_dist > distance:
@@ -80,7 +85,6 @@ func _physics_process(_delta: float) -> void:
 		if floor(player_dist/5) < floor(distance/5):
 			speed /= 2
 		velocity = speed * direction
-		move_and_slide()
 		if (global_position-oldposition).length() > 0.1:
 			moving = true
 			RealVelocity=global_position-oldposition
@@ -97,41 +101,41 @@ func _physics_process(_delta: float) -> void:
 		#nav_agent.set_target_position(Global.Player.position)
 
 
-func animate():
-	if not Query.check_member(member): return
-	if $AnimatedSprite2D.sprite_frames.resource_path != member_info().OV:
-		$AnimatedSprite2D.sprite_frames = await member_info().get_OV()
-	if $AnimatedSprite2D.animation != "default":
-		if member_info().Shadow:
-			$AnimatedSprite2D/Shadow.position.y = $AnimatedSprite2D.sprite_frames.get_frame_texture($AnimatedSprite2D.animation, 0).get_size().y - 32 - member_info().ShadowOffset
-			#print($AnimatedSprite2D/Shadow.position.y)
-			$AnimatedSprite2D/Shadow.show()
-		else: $AnimatedSprite2D/Shadow.hide()
-	if RealVelocity.x == RealVelocity.y:
-		pass
-	elif not moving:
-		if Global.Player.move_frames < randi_range(-100, -2000):
-			dir = Query.get_direction(to_local(Global.Player.position))
-		if RealVelocity.length() == 0:
-			position = round(position)
-		if dir == Vector2.RIGHT:
-			$AnimatedSprite2D.play("IdleRight")
-		elif dir == Vector2.LEFT:
-			$AnimatedSprite2D.play("IdleLeft")
-		elif dir == Vector2.UP:
-			$AnimatedSprite2D.play("IdleUp")
-		elif dir == Vector2.DOWN:
-			$AnimatedSprite2D.play("IdleDown")
-	else:
-		dir = Query.get_direction(RealVelocity)
-		if dir == Vector2.RIGHT:
-			$AnimatedSprite2D.play("WalkRight")
-		elif dir == Vector2.LEFT:
-			$AnimatedSprite2D.play("WalkLeft")
-		elif dir == Vector2.UP:
-			$AnimatedSprite2D.play("WalkUp")
-		elif dir == Vector2.DOWN:
-			$AnimatedSprite2D.play("WalkDown")
+#func update_anim_prm() -> void:
+	#if not Query.check_member(member): return
+	#if sprite.sprite_frames.resource_path != member_info().OV:
+		#sprite.sprite_frames = await member_info().get_OV()
+	#if sprite.animation != "default":
+		#if member_info().Shadow:
+			#sprite.get_node("Shadow").position.y = sprite.sprite_frames.get_frame_texture(sprite.animation, 0).get_size().y - 32 - member_info().ShadowOffset
+			##print(sprite/Shadow.position.y)
+			#sprite.get_node("Shadow").show()
+		#else: sprite.get_node("Shadow").hide()
+	#if RealVelocity.x == RealVelocity.y:
+		#pass
+	#elif not moving:
+		#if Global.Player.move_frames < randi_range(-100, -2000):
+			#dir = Query.get_direction(to_local(Global.Player.position))
+		#if RealVelocity.length() == 0:
+			#position = round(position)
+		#if dir == Vector2.RIGHT:
+			#sprite.play("IdleRight")
+		#elif dir == Vector2.LEFT:
+			#sprite.play("IdleLeft")
+		#elif dir == Vector2.UP:
+			#sprite.play("IdleUp")
+		#elif dir == Vector2.DOWN:
+			#sprite.play("IdleDown")
+	#else:
+		#dir = Query.get_direction(RealVelocity)
+		#if dir == Vector2.RIGHT:
+			#sprite.play("WalkRight")
+		#elif dir == Vector2.LEFT:
+			#sprite.play("WalkLeft")
+		#elif dir == Vector2.UP:
+			#sprite.play("WalkUp")
+		#elif dir == Vector2.DOWN:
+			#sprite.play("WalkDown")
 
 func jump_to_player(speed = 2):
 	if not is_instance_valid(Global.Player): return
@@ -146,7 +150,7 @@ func jump_to_player(speed = 2):
 
 func _on_timer_timeout():
 	if Global.Party.check_member(member):
-		animate()
+		update_anim_prm()
 
 func member_info() -> Actor:
 	return Global.Party.get_member(member)

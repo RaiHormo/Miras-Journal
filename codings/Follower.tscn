@@ -26,6 +26,7 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 1.5707964
 script = ExtResource("1_kihhu")
+SpawnOnCameraInd = false
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -36,7 +37,7 @@ position = Vector2(0, 9)
 shape = SubResource("CapsuleShape2D_xvt3h")
 disabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9PVi9Bc3RlcmlhLwpvX25hbWV8PUFzdGVyaWFPVjEKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 texture_filter = 1
 material = ExtResource("2_ppxuy")
@@ -45,7 +46,7 @@ sprite_frames = ExtResource("3_vmt3u")
 animation = &"IdleLeft"
 offset = Vector2(0, -9)
 
-[node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
+[node name="Shadow" type="Sprite2D" parent="Sprite"]
 show_behind_parent = true
 use_parent_material = true
 position = Vector2(0, -1)

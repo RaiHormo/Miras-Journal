@@ -40,9 +40,12 @@ var LastStepFrame:= -1
 ##How many frames the character has been moving
 var move_frames:= 0
 @export var Shadow: Node2D
+@export var sprite: AnimatedSprite2D
+var minimum_movment: float = 0.2
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
+	if has_node("Sprite"): sprite = $Sprite
 	#BodyState = DefaultState
 	if ID == "": ID = name
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
@@ -102,19 +105,19 @@ func set_dir_marker(vec: Vector2 = direction):
 	$DirectionMarker.rotation = direction.angle()
 
 func update_anim_prm() -> void:
-	if $Sprite.sprite_frames == null: return
-	if BodyState == IDLE and not $Sprite.is_playing(): $Sprite.play()
+	if sprite.sprite_frames == null: return
+	if BodyState == IDLE and not sprite.is_playing(): sprite.play()
 	if BodyState == CUSTOM: return
 	if Facing == Vector2.ZERO: return
-	if RealVelocity.length() > 0.3:
+	if RealVelocity.length() > minimum_movment:
 		#BodyState = MOVE
-		if str("Walk"+Query.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
-			$Sprite.play(str("Walk"+Query.get_dir_name(Facing)))
+		if str("Walk"+Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Walk"+Query.get_dir_name(Facing)))
 	else:
 		#BodyState = IDLE
-		if str("Idle"+Query.get_dir_name(Facing)) in $Sprite.sprite_frames.get_animation_names():
-			$Sprite.play(str("Idle"+Query.get_dir_name(Facing)))
-	if Footsteps: handle_step_sounds($Sprite)
+		if str("Idle"+Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Idle"+Query.get_dir_name(Facing)))
+	if Footsteps: handle_step_sounds(sprite)
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 	if "Generic" in get_terrain(): return
@@ -217,8 +220,8 @@ func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 =
 	await Event.wait()
 
 func set_anim(anim: String):
-	if $Sprite.sprite_frames.has_animation(anim):
-		$Sprite.play(anim)
+	if sprite.sprite_frames.has_animation(anim):
+		sprite.play(anim)
 
 func stop_going() -> void:
 	stopping = true
@@ -243,11 +246,11 @@ func bubble(stri:String) -> void:
 
 func shade(opacity: float = 0.8) -> void:
 	var t = create_tween()
-	t.tween_property($Sprite, "modulate", Color(opacity, opacity, opacity, 1), 0.3)
+	t.tween_property(sprite, "modulate", Color(opacity, opacity, opacity, 1), 0.3)
 
 func unshade() -> void:
 	var t = create_tween()
-	t.tween_property($Sprite, "modulate", Color.WHITE, 0.3)
+	t.tween_property(sprite, "modulate", Color.WHITE, 0.3)
 
 func collision(tog: bool = $CollisionShape2D.disabled):
 	$CollisionShape2D.set_deferred("disabled", not tog)
