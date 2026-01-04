@@ -101,7 +101,7 @@ func control_process():
 	if controllable():
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
-		if Input.is_action_pressed("Dash") and Query.get_direction(
+		if (Input.is_action_pressed("Dash")) and Query.get_direction(
 			direction)!= dashdir*Vector2(-1,-1) and direction!=Vector2.ZERO and can_dash:
 			if dashing:
 				if dashdir.y == 0:
@@ -169,7 +169,9 @@ func update_anim_prm() -> void:
 				set_anim(str("Walk"+Query.get_dir_name(Facing)))
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
-			if move_frames < 0: move_frames = 0
+			if move_frames < 0: 
+				move_frames = 0
+					
 			move_frames+=1
 		elif controllable() and ("Walk" in used_sprite.animation or
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):

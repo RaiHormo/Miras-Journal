@@ -78,7 +78,6 @@ window/size/viewport_width=1280
 window/size/viewport_height=800
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
-display_server/driver.linuxbsd="wayland"
 
 [editor]
 
@@ -445,6 +444,7 @@ DebugHide={
 [input_devices]
 
 pointing/android/enable_pan_and_scale_gestures=true
+pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
