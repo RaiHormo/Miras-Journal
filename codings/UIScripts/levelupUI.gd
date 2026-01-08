@@ -147,11 +147,7 @@ func move_menu():
 	t.tween_property($ChooseUpgrade/Cursor, "position:y", ypos, 0.1)
 
 func find_learnable():
-	for i in working_chara.LearnableAbilities:
-		if not i in working_chara.Abilities:
-			learnable = i
-			return
-	learnable = null
+	learnable = working_chara.find_learnable()
 
 var count:int
 

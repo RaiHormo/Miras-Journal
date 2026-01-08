@@ -384,3 +384,22 @@ func load_complimentaries():
 	for i in ComplimentaryList:
 		if ComplimentaryList.get(i) > 0:
 			Complimentaries.append(await Query.get_ability(i))
+
+func level_up_to(lv: int):
+	while SkillLevel < lv:
+		var learnable = find_learnable()
+		var rand = randi_range(0, 2)
+		if learnable == null: rand = randi_range(0, 1)
+		match rand:
+			0: MaxHP += HpOnSLvUp
+			1: MaxAura += ApOnSLvUP
+			2: Abilities.append(learnable)
+		SkillLevel += 1
+
+func find_learnable() -> Ability:
+	var learnable = null
+	for i in LearnableAbilities:
+		if not i in Abilities:
+			learnable = i
+			continue
+	return learnable

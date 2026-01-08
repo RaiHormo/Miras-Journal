@@ -1354,7 +1354,10 @@ text = "/clear
 /time
 /enrestore
 /cam
-/comp"
+/comp
+/lv
+/item
+/itemrm"
 
 [node name="DebugText" type="Label" parent="CanvasLayer"]
 visible = false

@@ -639,6 +639,28 @@ func cmd():
 				Global.add_complimentary(text)
 			elif "/enrestore" in $CanvasLayer/TextEdit.text:
 				Loader.Defeated.clear()
+			elif "/lv " in $CanvasLayer/TextEdit.text:
+				Global.reset_all_members()
+				var text = $CanvasLayer/TextEdit.text.replace("/lv ", "")
+				for i in Global.Party.array():
+					if i != null:
+						i.level_up_to(int(text))
+				Global.heal_party()
+				Global.check_party.emit()
+			elif "/item " in $CanvasLayer/TextEdit.text:
+				var text: String = $CanvasLayer/TextEdit.text.replace("/item ", "")
+				var split = text.split(":")
+				if split.size() < 2:
+					Global.toast("Item type needed")
+					return
+				Item.add_item(split[0], split[1])
+			elif "/itemrm " in $CanvasLayer/TextEdit.text:
+				var text: String = $CanvasLayer/TextEdit.text.replace("/itemrm ", "")
+				var split = text.split(":")
+				if split.size() < 2:
+					Global.toast("Item type needed")
+					return
+				Item.remove_item(split[0], split[1])
 		elif $CanvasLayer/TextEdit.text != "":
 			var text = $CanvasLayer/TextEdit.text
 			Event.f(text, Global.toggle(Event.f(text)))
