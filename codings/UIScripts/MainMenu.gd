@@ -113,9 +113,9 @@ func _input(event):
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
-				if rootIndex == 0:
-					#Global.buzzer_sound()
-					pass
+				if rootIndex <= 0:
+					$Party.grab_focus()
+					rootIndex = -1
 				else:
 					Global.cursor_sound()
 					prevRootIndex = rootIndex
@@ -202,6 +202,9 @@ func move_root():
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	t.tween_property($Rail, "position", $Rail.position, 0)
+	if rootIndex == -1: 
+		$Party.grab_focus()
+		return
 	if rootIndex > prevRootIndex: 
 		$AnimationPlayer.stop(true)
 		$AnimationPlayer.play("tick_down")
@@ -561,3 +564,15 @@ func _on_party_pressed() -> void:
 		get_viewport().gui_release_focus()
 		PartyUI.expand.emit()
 		stage = "party"
+
+
+func _on_party_focus_entered() -> void:
+	Global.cursor_sound()
+	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	t.tween_property($Party, "scale", Vector2(1.8, 1.8), 0.3)
+
+
+func _on_party_focus_exited() -> void:
+	Global.ui_sound("shrink")
+	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	t.tween_property($Party, "scale", Vector2(1.4, 1.4), 0.3)

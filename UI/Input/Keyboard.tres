@@ -1,15 +1,13 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=14 format=3 uid="uid://cegr1m704s28r"]
+[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://cegr1m704s28r"]
 
 [ext_resource type="Script" uid="uid://bhsalia71p2n5" path="res://UI/Input/control_scheme.gd" id="1_g3dkl"]
 [ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="1_pdj4w"]
 [ext_resource type="Texture2D" uid="uid://gpemuayxvtp6" path="res://UI/Input/Glyphs/Z.svg" id="2_5xwe1"]
 [ext_resource type="Texture2D" uid="uid://c47lsb5e5x57q" path="res://UI/Input/Glyphs/S.svg" id="3_g2y66"]
 [ext_resource type="Texture2D" uid="uid://bix8y5mi8nwtc" path="res://UI/Input/Shift.png" id="4_dyh0b"]
-[ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="5_c1tnp"]
 [ext_resource type="Texture2D" uid="uid://db7yueymge8x6" path="res://UI/Input/Glyphs/A.svg" id="5_qwx02"]
 [ext_resource type="Texture2D" uid="uid://hiql8lqd7ybf" path="res://UI/Input/Tab.png" id="7_61pbh"]
 [ext_resource type="Texture2D" uid="uid://cgciocrl6lgep" path="res://UI/Input/Glyphs/Q.svg" id="7_de2eu"]
-[ext_resource type="Texture2D" uid="uid://cf1jhta5ir8jp" path="res://UI/Input/F.png" id="7_g0u4i"]
 [ext_resource type="Texture2D" uid="uid://bli5egfnculyy" path="res://UI/Input/Glyphs/C.svg" id="8_a0qxn"]
 [ext_resource type="Texture2D" uid="uid://b24ronw7ooxlp" path="res://UI/Input/Glyphs/E.svg" id="10_1677i"]
 [ext_resource type="Texture2D" uid="uid://b2aoxf7qskfp4" path="res://UI/Input/Esc.png" id="12_4d2cv"]
@@ -25,9 +23,9 @@ CommandIcon = ExtResource("3_g2y66")
 Start = ExtResource("12_4d2cv")
 Select = ExtResource("7_61pbh")
 Dash = ExtResource("4_dyh0b")
-R = ExtResource("7_g0u4i")
+R = ExtResource("10_1677i")
 RZ = ExtResource("10_1677i")
-L = ExtResource("5_c1tnp")
+L = ExtResource("7_de2eu")
 LZ = ExtResource("7_de2eu")
 Menu = ExtResource("8_a0qxn")
 OVAttack = ExtResource("1_pdj4w")

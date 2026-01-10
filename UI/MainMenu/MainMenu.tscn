@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene load_steps=60 format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" uid="uid://vrtx6mt06wtk" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="2_w0qna"]
@@ -513,6 +513,22 @@ Button/styles/hover = SubResource("StyleBoxFlat_hvgpy")
 Button/styles/normal = SubResource("StyleBoxFlat_4qf4k")
 Button/styles/pressed = SubResource("StyleBoxFlat_4qf4k")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q33u5"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
 [sub_resource type="InputEventAction" id="InputEventAction_4qf4k"]
 action = &"PartyMenu"
 
@@ -988,19 +1004,19 @@ expand_icon = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1
-offset_left = 274.0
-offset_top = 28.0
-offset_right = 409.0
-offset_bottom = 61.0
+offset_left = 265.5329
+offset_top = 31.2579
+offset_right = 400.5329
+offset_bottom = 64.257904
 scale = Vector2(1.4, 1.4)
-pivot_offset = Vector2(19.2536, 14.8241)
+pivot_offset = Vector2(0, 10)
 size_flags_stretch_ratio = 0.0
-focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
+theme_override_styles/focus = SubResource("StyleBoxFlat_q33u5")
 shortcut = SubResource("Shortcut_h4ivt")
 shortcut_in_tooltip = false
 text = "Party"
@@ -1060,6 +1076,8 @@ expand_icon = true
 [connection signal="pressed" from="Rail/ItemFollow/ItemButton" to="." method="_item"]
 [connection signal="pressed" from="Rail/QuestFollow/QuestButton" to="." method="_quest"]
 [connection signal="pressed" from="Rail/OptionsFollow/OptionsButton" to="." method="_options"]
+[connection signal="focus_entered" from="Party" to="." method="_on_party_focus_entered"]
+[connection signal="focus_exited" from="Party" to="." method="_on_party_focus_exited"]
 [connection signal="pressed" from="Party" to="." method="_on_party_pressed"]
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_button_down"]
 [connection signal="pressed" from="Back" to="." method="_on_back_button_down"]

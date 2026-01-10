@@ -1,4 +1,4 @@
-[gd_scene load_steps=280 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene load_steps=282 format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -54,6 +54,7 @@
 [ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="50_ml8ja"]
 [ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="53_qq3md"]
 [ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="54_qr1i0"]
+[ext_resource type="Texture2D" uid="uid://cmxeir5at8m3f" path="res://art/Pictures/Cutin_Mira.png" id="55_qr1i0"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
 script = ExtResource("3_wsnu2")
@@ -1237,7 +1238,7 @@ expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
 [sub_resource type="InputEventAction" id="InputEventAction_wsj7d"]
-action = &"ShoulderLeft"
+action = &"LeftTrigger"
 
 [sub_resource type="Shortcut" id="Shortcut_5o8yt"]
 events = [SubResource("InputEventAction_wsj7d")]
@@ -1270,7 +1271,7 @@ expand_margin_right = 10.0
 expand_margin_bottom = 6.0
 
 [sub_resource type="InputEventAction" id="InputEventAction_1e1px"]
-action = &"ShoulderRight"
+action = &"RightTrigger"
 
 [sub_resource type="Shortcut" id="Shortcut_66som"]
 events = [SubResource("InputEventAction_1e1px")]
@@ -1844,6 +1845,9 @@ expand_margin_left = 12.0
 expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qr1i0"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Battle" type="Node2D"]
 process_mode = 3
@@ -2753,7 +2757,6 @@ libraries = {
 autoplay = "arrows"
 
 [node name="Inventory" type="Panel" parent="BattleUI"]
-visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -3868,6 +3871,24 @@ theme_override_fonts/font = ExtResource("9_ys1vd")
 theme_override_font_sizes/font_size = 150
 text = "FOLLOW UP"
 horizontal_alignment = 2
+
+[node name="Cutin" type="Panel" parent="Canvas"]
+clip_children = 2
+offset_left = -14.685207
+offset_top = 169.66144
+offset_right = 1300.7777
+offset_bottom = 549.6613
+rotation = 0.08139256
+pivot_offset = Vector2(0, 184)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qr1i0")
+
+[node name="Texture" type="TextureRect" parent="Canvas/Cutin"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -147.0
+offset_right = 1399.6666
+offset_bottom = 379.0
+texture = ExtResource("55_qr1i0")
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]

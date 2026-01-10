@@ -63,6 +63,7 @@ func _ready():
 		Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
 	global_position = Vector2i(global_position)
+	$Canvas/Cutin.hide()
 	$Act/Actor0.sprite_frames = await Party.Leader.get_BT()
 	$Act/Actor0.animation = &"Entrance"
 	$Act/Actor0.frame = 0
@@ -671,6 +672,27 @@ func play_effect(stri: String, tar, offset = Vector2.ZERO, flip_on_player_use:= 
 		ef.play(stri)
 		await ef.animation_finished
 		if not dont_free: ef.queue_free()
+
+func cut_in(image: String = CurrentChar.codename):
+	#Engine.time_scale = 0.1
+	var img = await Loader.load_res("res://art/Pictures/Cutin_"+image+".png")
+	$Canvas/Cutin/Texture.texture = img
+	$Canvas/Cutin.show()
+	var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	t.tween_property($Canvas/Cutin, "size:y", 380, 0.3).from(0)
+	t.tween_property($Canvas/Cutin, "position:y", 185, 0.3).from(400)
+	t.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	t.tween_property($Canvas/Cutin/Texture, "position", Vector2(0, -145), 1.5).from(Vector2(-1000, 0))
+	#t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	#t.tween_property($Canvas/Cutin/Texture, "position", Vector2(0, -148), 1).from(Vector2(-121, 0))
+	await t.finished
+	#await Event.wait(1.5)
+	t = create_tween().set_parallel().set_trans(Tween.TRANS_QUAD)
+	t.tween_property($Canvas/Cutin, "size:y", 0, 0.2)
+	t.tween_property($Canvas/Cutin, "position:y", 400, 0.2)
+	t.tween_property($Canvas/Cutin/Texture, "position", Vector2(1000, -300), 0.2)
+	await t.finished
+	$Canvas/Cutin.hide()
 
 func offsetize(num, target=CurrentChar):
 	if target == null: return num
