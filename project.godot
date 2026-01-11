@@ -45,7 +45,6 @@ Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
-SteamInput="res://codings/Autoload/SteamInput.gd"
 AntialiasedLine2DTexture="*res://addons/antialiased_line2d/texture.gd"
 Query="*res://codings/Classes/query.gd"
 

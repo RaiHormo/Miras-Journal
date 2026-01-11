@@ -88,6 +88,7 @@ var SpeedBoost: int = 0
 @export var LearnableAbilities: Array[Ability]
 @export var Complimentaries: Array[Ability]
 @export var ComplimentaryList: Dictionary[String, int]
+@export var FollowupAbility: Ability
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party

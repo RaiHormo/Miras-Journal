@@ -45,6 +45,7 @@ func _ready():
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	$Background/Version.text += ProjectSettings.get_setting("application/config/version")
+	$SavePanel/FileNaming.hide()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
@@ -242,6 +243,7 @@ func save_managment() -> void:
 	$SavePanel/Buttons/Delete.icon = Global.get_controller().CommandIcon
 	$SavePanel/Buttons/Overwrite.disabled = true
 	$SavePanel/Buttons/Delete.disabled = true
+	$SavePanel/FileNaming.hide()
 	stage="save_managment"
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -582,21 +584,35 @@ func _on_save_load() -> void:
 	$SavePanel/Buttons/Load.button_pressed = false
 
 func _new_file() -> void:
+	stage = "saving"
 	Global.confirm_sound()
-	Loader.gray_out()
+	#Loader.gray_out()
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
-	Loader.icon_save()
 	var i = 1
 	while FileAccess.file_exists("user://File"+str(i)+".tres"):
 		i += 1
-	await Loader.save("File"+str(i), false)
+	var filename = await name_file("File"+str(i))
+	Loader.icon_save()
+	await Loader.save(filename, false)
 	await load_save_files()
-	Loader.ungray.emit()
+	#Loader.ungray.emit()
 	%Files.get_child(2).get_node("Button").grab_focus()
 	if Loader.get_node("Can/Icon").is_playing():
 		await Loader.get_node("Can/Icon").animation_finished
+	stage = "save_managment"
 
+func name_file(default: String):
+	$SavePanel/FileNaming.show()
+	var line = $SavePanel/FileNaming/VBoxContainer/Label2
+	line.grab_focus()
+	line.text = ""
+	line.placeholder_text = default
+	await line.text_submitted
+	$SavePanel/FileNaming.hide()
+	Global.confirm_sound()
+	if line.text == "": line.text = default
+	return line.text
 
 func _on_control_scheme(index):
 	Global.confirm_sound()

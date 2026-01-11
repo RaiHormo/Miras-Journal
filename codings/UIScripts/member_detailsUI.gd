@@ -217,7 +217,7 @@ func _on_complimentary() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not inactive and actor in Global.Party.array():
-		if event.is_action_pressed("ShoulderRight"):
+		if event.is_action_pressed("RightTrigger"):
 			var next_char: Actor
 			if Global.Party.array().size() > Global.Party.array().find(actor)+1:
 				next_char = Global.Party.array()[Global.Party.array().find(actor)+1]
@@ -226,7 +226,7 @@ func _input(event: InputEvent) -> void:
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()
-		elif event.is_action_pressed("ShoulderLeft"):
+		elif event.is_action_pressed("LeftTrigger"):
 			var next_char = Global.Party.array()[Global.Party.array().find(actor)-1]
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)

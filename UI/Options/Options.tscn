@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene load_steps=91 format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -19,6 +19,7 @@
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 [ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="20_t6ahs"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]
+[ext_resource type="Script" uid="uid://dy50hc3ikd7ls" path="res://codings/UIScripts/line_edit.gd" id="21_siagc"]
 [ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="22_w3i7s"]
 [ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="22_xyl14"]
 [ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="23_bqtf5"]
@@ -442,6 +443,65 @@ expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_voc1x"]
+bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb7ok"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.09, 0.09, 0.09, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xogwg"]
+content_margin_left = 12.0
+content_margin_top = 2.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63pqu"]
+content_margin_left = 12.0
+content_margin_top = 2.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3v8v2"]
+content_margin_left = 12.0
+content_margin_top = 2.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_siagc"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_t6ahs"]
+action = &"ui_text_newline"
+
+[sub_resource type="Shortcut" id="Shortcut_siagc"]
+events = [SubResource("InputEventAction_t6ahs")]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqfss"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j0g"]
@@ -764,7 +824,6 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="."]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -849,10 +908,11 @@ columns = 2
 
 [node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Loading..."
+text_overrun_behavior = 3
 
 [node name="Date" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
 layout_mode = 2
@@ -1052,7 +1112,102 @@ theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
+[node name="FileNaming" type="Panel" parent="SavePanel"]
+layout_mode = 0
+offset_left = 77.35503
+offset_top = 187.73245
+offset_right = 422.6386
+offset_bottom = 313.7812
+theme_override_styles/panel = SubResource("StyleBoxFlat_voc1x")
+
+[node name="Polygon2D" type="Polygon2D" parent="SavePanel/FileNaming"]
+color = Color(0.15686275, 0.15686275, 0.15686275, 1)
+polygon = PackedVector2Array(30.296875, 4.2538986, 43.8396, -38.601616, 71.28601, 2.8796082)
+
+[node name="ColorRect" type="ColorRect" parent="SavePanel/FileNaming"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -898.1819
+offset_top = -259.37903
+offset_right = 603.14124
+offset_bottom = 721.5204
+color = Color(0, 0, 0, 0.32941177)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SavePanel/FileNaming"]
+layout_mode = 0
+offset_left = 16.55704
+offset_top = 10.850189
+offset_right = 329.1116
+offset_bottom = 108.85019
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="SavePanel/FileNaming/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+text = "Name the file"
+
+[node name="Label2" type="LineEdit" parent="SavePanel/FileNaming/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_eb7ok")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_eb7ok")
+theme_override_styles/focus = SubResource("StyleBoxFlat_eb7ok")
+placeholder_text = "File"
+max_length = 12
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+script = ExtResource("21_siagc")
+
+[node name="Save" type="Button" parent="SavePanel/FileNaming/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_xogwg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xogwg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_63pqu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3v8v2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_siagc")
+shortcut = SubResource("Shortcut_siagc")
+text = "Save"
+
+[node name="NewFile" type="Button" parent="SavePanel/FileNaming"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 0
+offset_left = -59.79153
+offset_top = -88.70286
+offset_right = 189.74252
+offset_bottom = -24.702858
+rotation = -0.05654822
+size_flags_horizontal = 3
+focus_neighbor_right = NodePath("../NewGame")
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
+theme_override_colors/font_disabled_color = Color(0.37, 0.37, 0.37, 0.5019608)
+theme_override_constants/h_separation = 12
+theme_override_constants/icon_max_width = 32
+theme_override_fonts/font = ExtResource("24_41402")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+text = "Save to new file"
+
 [node name="SidePanel" type="Panel" parent="."]
+visible = false
 clip_children = 2
 offset_left = 1335.0
 offset_top = -62.0

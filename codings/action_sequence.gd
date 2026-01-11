@@ -174,9 +174,8 @@ func AttackMira(target: Actor):
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
-	await Bt.cut_in("Alcine")
 	if Item.check_item("LightweightAxe", &"Key"):
-		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 3)
+		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 1)
 		await Bt.anim_done
 		if not miss:
 			Bt.play_sound("Attack2", CurrentChar)
@@ -1215,7 +1214,12 @@ func AsteriaBoss2():
 	Bt.get_actor("Asteria").add_health(90)
 
 func AsteriaBoss3():
-	pass
+	await Bt.cut_in("Asteria")
+	Bt.focus_cam(Bt.get_actor("Asteria"))
+	Bt.zoom(6)
+	await Bt.anim("Ability")
+	for i in Bt.Troop:
+		i.Health = i.MaxHP
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader

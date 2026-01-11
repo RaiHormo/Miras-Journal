@@ -197,6 +197,8 @@ Chapter select
 	do Event.add_flag("HasBag")
 	do Event.add_flag("FlameActive")
 	do travel_to("TempleWoods", Vector2(1272, -966), 2)
+- Asteria Fight
+	
 - Going to shard gardens
 	set ToDay = 3
 	set ToTime = TOD.AFTERNOON

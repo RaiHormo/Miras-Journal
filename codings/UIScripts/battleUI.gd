@@ -172,14 +172,14 @@ func _input(event: InputEvent) -> void:
 			&"root", &"pre_root":
 				if event.is_action_pressed("BtAttack"):
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
-					if $Attack.disabled:
-						stage = "popup"
-						if await Global.warning("Cannot attack right now.\nPass the turn and regain AP instead?","PASS"):
-							CurrentChar.NextAction = "Attack"
-							CurrentChar.NextMove = await Query.get_ability("Pass")
-							CurrentChar.NextTarget = CurrentChar
-							emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
-						else: root.emit()
+					if $Attack.disabled: Global.buzzer_sound()
+						#stage = "popup"
+						#if await Global.warning("Cannot attack right now.\nPass the turn and regain AP instead?","PASS"):
+							#CurrentChar.NextAction = "Attack"
+							#CurrentChar.NextMove = await Query.get_ability("Pass")
+							#CurrentChar.NextTarget = CurrentChar
+							#emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
+						#else: root.emit()
 					else:
 						attack.emit()
 				if Input.is_action_just_pressed("BtCommand") and not $Command.disabled:
