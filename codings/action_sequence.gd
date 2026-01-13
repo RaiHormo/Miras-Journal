@@ -1212,14 +1212,63 @@ func AsteriaBoss2():
 	Bt.position_sprites()
 	for i in Bt.Troop: Bt.sprite_init(i)
 	Bt.get_actor("Asteria").add_health(90)
+	Event.add_flag("AsteriaBoss", 2)
 
 func AsteriaBoss3():
-	await Bt.cut_in("Asteria")
-	Bt.focus_cam(Bt.get_actor("Asteria"))
+	var asteria = Bt.get_actor("Asteria")
+	Bt.focus_cam(asteria)
 	Bt.zoom(6)
-	await Bt.anim("Ability")
-	for i in Bt.Troop:
-		i.Health = i.MaxHP
+	if not Event.f("AsteriaBoss", 4):
+		await Bt.cut_in("Asteria")
+		await Bt.anim("Ability", asteria)
+		Loader.white_fadeout(0, 0, 0.5)
+		await Event.wait(0.3)
+		Bt.anim("", asteria)
+		if Bt.has_actor("Bird") or Bt.has_actor("Bird"):
+			asteria.Health = asteria.MaxHP
+			for i in Bt.Troop:
+				match randi_range(0,3):
+					0: i.Health += 20
+					1: Bt.stat_change("Mag", 2, i)
+					2: Bt.stat_change("Def", 2, i)
+					3: Bt.stat_change("Atk", 2, i)
+		elif Event.f("AsteriaBoss", 3):
+			await Global.textbox("story_1", "asteria_boss_4")
+			Event.add_flag("AsteriaBoss", 4)
+			asteria.Health = asteria.MaxHP
+			Bt.stat_change("Atk", 2, asteria, -1)
+			Bt.stat_change("Mag", 2, asteria, -1)
+			Bt.stat_change("Def", 2, asteria, -1)
+			await Event.wait(3)
+		elif Event.f("AsteriaBoss", 2):
+			await Global.textbox("story_1", "asteria_boss_3")
+			Event.add_flag("AsteriaBoss", 3)
+			asteria.Health = asteria.MaxHP
+		Loader.white_fadeout(0.5, 0, 0)
+	else:
+		Bt.lock_turn = true
+		Bt.anim("", asteria)
+		await Global.passive("story_1", "asteria_boss_5")
+		Event.add_flag("AsteriaBoss", 5)
+		Bt.victory()
+
+func AsteriaBossFollowup():
+	await Bt.cut_in("Asteria")
+	var asteria = Bt.get_actor("Asteria")
+	Bt.focus_cam(asteria)
+	Bt.zoom(6)
+	await Bt.anim("Ability", asteria)
+	Loader.white_fadeout(0, 0, 0.5)
+	await Event.wait(0.5)
+	if Event.flag_int("AsteriaBoss") < 4:
+		for i in Bt.Troop:
+			match randi_range(0,3):
+				0: i.Health += 20
+				1: Bt.stat_change("Mag", 2, i)
+				2: Bt.stat_change("Def", 2, i)
+				3: Bt.stat_change("Atk", 2, i)
+	else:
+		asteria.Health += 15
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader

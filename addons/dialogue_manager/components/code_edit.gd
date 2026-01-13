@@ -125,8 +125,10 @@ func _can_drop_data(at_position: Vector2, data) -> bool:
 	return files.size() > 0
 
 
-func _drop_data(at_position: Vector2, data) -> void:
+func _drop_data(at_position: Vector2, data: Variant) -> void:
 	var replace_regex: RegEx = RegEx.create_from_string("[^a-zA-Z_0-9]+")
+
+	if typeof(data) == TYPE_STRING: return
 
 	var files: PackedStringArray = Array(data.files)
 	for file in files:
@@ -134,12 +136,24 @@ func _drop_data(at_position: Vector2, data) -> void:
 		if file == main_view.current_file_path: continue
 
 		if file.get_extension() == "dialogue":
+			var known_aliases: PackedStringArray = []
 			var path = file.replace("res://", "").replace(".dialogue", "")
 			# Find the first non-import line in the file to add our import
 			var lines = text.split("\n")
 			for i in range(0, lines.size()):
-				if not lines[i].begins_with("import "):
-					insert_line_at(i, "import \"%s\" as %s\n" % [file, replace_regex.sub(path, "_", true)])
+				if lines[i].begins_with("import "):
+					var found: RegExMatch = compiler_regex.IMPORT_REGEX.search(lines[i])
+					if found:
+						known_aliases.append(found.strings[found.names.prefix])
+				else:
+					var alias: String = ""
+					var bits: PackedStringArray = replace_regex.sub(path, "|", true).split("|")
+					bits.reverse()
+					for end: int in range(1, bits.size() + 1):
+						alias =  "_".join(bits.slice(0, end))
+						if not alias in known_aliases:
+							break
+					insert_line_at(i, "import \"%s\" as %s\n" % [file, alias])
 					set_caret_line(i)
 					break
 		else:
@@ -310,7 +324,16 @@ func set_cursor(from_cursor: Vector2) -> void:
 
 # Check if a prompt is the start of a string without actually being that string
 func matches_prompt(prompt: String, matcher: String) -> bool:
-	return prompt.length() < matcher.length() and matcher.to_lower().begins_with(prompt.to_lower())
+	if prompt.length() > matcher.length(): return false
+
+	# Fuzzy match
+	matcher = matcher.to_lower()
+	var next_index: int = 0
+	for char: String in prompt.to_lower():
+		next_index = matcher.find(char, next_index)
+		if next_index == -1:
+			return false
+	return true
 
 
 func get_state_shortcuts() -> PackedStringArray:
@@ -401,12 +424,20 @@ func check_active_title() -> void:
 
 
 # Move the caret line to match a given title
-func go_to_title(title: String) -> void:
+func go_to_title(title: String, create_if_none: bool = false) -> void:
+	var found_title: bool = false
+
 	var lines = text.split("\n")
 	for i in range(0, lines.size()):
 		if lines[i].strip_edges() == "~ " + title:
+			found_title = true
 			set_caret_line(i)
 			center_viewport_to_caret()
+
+	if create_if_none and not found_title:
+		text += "\n\n\n~ %s\n\n=> END" % [title]
+		set_caret_line(text.split("\n").size() - 2)
+		center_viewport_to_caret()
 
 
 func get_character_names(beginning_with: String) -> PackedStringArray:

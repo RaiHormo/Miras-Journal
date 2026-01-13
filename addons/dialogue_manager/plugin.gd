@@ -126,6 +126,17 @@ func _apply_changes() -> void:
 		_update_localization()
 
 
+func _get_unsaved_status(for_scene: String) -> String:
+	if not for_scene.is_empty(): return ""
+	if not is_instance_valid(main_view): return ""
+
+	var unsaved_count: int = main_view.count_unsaved_files()
+	if unsaved_count > 0:
+		return DMConstants.translate(&"confirm_n_unsaved_files").format({ count = unsaved_count })
+	else:
+		return ""
+
+
 func _save_external_data() -> void:
 	if is_instance_valid(main_view) and EditorInterface.get_editor_settings().get_setting("run/auto_save/save_before_running"):
 		main_view.apply_changes()
@@ -154,6 +165,13 @@ func _build() -> bool:
 			return false
 
 	return true
+
+
+## Open a [Dialogue Resource] and jump to a given title.
+func open_file_at_title(resource_or_path: Variant, title: String, create_if_none: bool = false) -> void:
+	var resource: DialogueResource = resource_or_path if resource_or_path is DialogueResource else load(resource_or_path)
+	EditorInterface.edit_resource(resource)
+	main_view.go_to_title(title, create_if_none)
 
 
 func show_find_in_dialogue() -> void:

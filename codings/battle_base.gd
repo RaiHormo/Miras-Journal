@@ -283,11 +283,6 @@ func entrance_anim(i: Actor):
 
 func _on_next_turn():
 	if check_for_victory(): return
-	for i in TurnOrder:
-		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("UnbreakingAura") and not i.has_state("KnockedOut") and i.Health != 0:
-			await i.add_state("AuraBreak")
-			if i != CurrentChar:
-				follow_up_next = true
 	#position_sprites()
 	Turn += 1
 	if follow_up_next:
@@ -524,7 +519,13 @@ func end_turn(confirm_aoe:= false):
 		return
 	if ignore_end_turn: return
 	aoe_returns = 0
-	if Seq.check_events():
+	for i in TurnOrder:
+		if i.Aura == 0 and not i.has_state("AuraBreak") and not i.has_state("UnbreakingAura") and not i.has_state("KnockedOut") and i.Health != 0:
+			await i.add_state("AuraBreak")
+			if i != CurrentChar:
+				follow_up_next = true
+	if Seq.check_events() and not follow_up_next:
+		await Event.wait(0.5)
 		await Seq.call_events()
 	Seq.reset_events()
 	TurnOrder.sort_custom(speed_sort)
@@ -580,10 +581,11 @@ overwrite_color: Color = Color.WHITE) -> int:
 	str(dmg) + " damage to " + target.FirstName)
 	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
 		CurrentChar.get_state("AtkUp").QueueRemove = true
-		print("Weapon attack, so AtkUp will be removeds")
+		print("Weapon attack, so AtkUp will be removed")
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg/2)
 	if elemental and not target.has_state("UnbreakingAura"):
-		var aur_dmg = relation_to_aura_dmg(relation, dmg)
+		var base_dmg:= int((dmg*target.Defence*2*target.DefenceMultiplier)/(target.Magic*target.MagicMultiplier))
+		var aur_dmg = relation_to_aura_dmg(relation, base_dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
 		target.add_aura(-aur_dmg)
 		pop_num(target, dmg, color)
@@ -1290,10 +1292,13 @@ func remove_state_effect(statename: String, chara: Actor):
 	if chara.node.get_node_or_null(statename):
 		chara.node.get_node(statename).queue_free()
 
-func get_actor(codename: StringName) -> Actor:
+func get_actor(codename: StringName, unsafe = false) -> Actor:
 	for i in TurnOrder:
 		if i.codename == codename: return i
-	return Party.Leader
+	return null if unsafe else Party.Leader
+
+func has_actor(codename: StringName) -> bool:
+	return not get_actor(codename, true) == null
 
 func random_target(ab: Ability):
 	if ab.Target != Ability.T.SELF: print("Target decided randomly")

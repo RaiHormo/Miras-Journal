@@ -12,6 +12,7 @@ script = ExtResource("3_f6gkn")
 FirstName = "Lion Summon"
 MainColor = Color(0.2924576, 0.00070675195, 0.7316276, 1)
 PartyIcon = ExtResource("2_f6gkn")
+codename = &"Lion"
 MaxHP = 30
 Attack = 1.6
 Magic = 0.8

@@ -106,6 +106,9 @@ func check_flag(flag: StringName, value:= 1):
 		for i in split:
 			if not check_flag(i): return false
 		return true
+	if "=" in flag:
+		var split = flag.split("=")
+		return check_flag(str(split[0]), int(split[1]))
 	if "day:" in flag:
 		if int(flag.replace("day:", "")) == Day: return true
 		else: return false

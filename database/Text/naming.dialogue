@@ -5,29 +5,47 @@ elif alcine() == "Pikachu":
 	Pika pika?
 elif alcine() == "Raichu":
 	Rai?
-elif alcine() == "Watery":
+elif alcine() == "Eevee" or alcine() == "Vee" or alcine() == "Evolution":
+	Hope they evolve to something great.
+elif alcine() == "Linux" or alcine() == "Tux" or alcine() == "Richard" or alcine() == "Stallman" or alcine() == "Fedora":
+	I'd just like to interject for a moment. What you're refering to as Alcine, is in fact, Abad/Alcine, or as I've recently taken to calling it, Abad plus Alcine. Alcine is not a being unto itself, but rather another manifestation of another will made seprate by Donomic power, this realm and a strong desire, comprising a full independent creature as defined by nature.
+elif alcine() == "Watery" or alcine() == "Water":
 	Very straight forward.
 elif alcine() == "Mario":
 	I maybe I should name them Sonic instead.
 elif alcine() == "Sonic":
 	I'd rather just name them Mario.
 elif alcine() == "Sans":
-	(deep breath)[wait=1] SA-[wait=0.1][next]
+	 [wait=2] [font_size=100]SA-[/font_size][wait=0.1][next]
 	Shall I use this name?
 elif alcine() == "Journal":
 	And then she said "It's journaling time!" and journaled all over them.
 elif alcine() == "Name":
-	Name?
+	Name Name Name?
+elif alcine() == "Hello" or alcine() == "Hi":
+	Hi, how are you, my inner voice?
+elif alcine() == "Fine":
+	Glad we could communicate.
 elif alcine() == "Ghost":
 	Being literal with it, I like it.
-elif alcine() == "Alcine":
+elif alcine() == "Blue" or alcine() == "Blu" or alcine() == "Cyan":
+	They sure are.
+elif alcine() == "Red" or alcine() == "Green" or alcine() == "Yellow" or alcine() == "Purple" or alcine() == "Pink":
+	That makes absolutely no sense.
+elif alcine() == "Orange":
+	A great color, but this makes no sense.
+elif alcine() == "Alcaine":
 	I wonder.
+elif alcine() == "Alcohol":
+	I'm not drunk.
 elif alcine() == "Gaster":
 	I don't speak hands.
 elif alcine() == "Luigi":
 	Respectable.
 elif alcine() == "Rai" or alcine() == "Raidev" or alcine() == "RaiDev":
 	SECRET DEVELOPER MODE ACTIVATED! Or something...
+elif alcine() == "Lol" or alcine() == "Lmao" or alcine() == "Www" or alcine() == "Lmfao" or alcine() == "Haha" or alcine() == "Hehe":
+	Hillarious.
 elif alcine() == "Iris":
 	Truly.
 elif alcine() == "Petrogon":
@@ -36,12 +54,14 @@ elif alcine() == "Godot":
 	The very fabric of this world.
 elif alcine() == "Kirby":
 	Poyo!
-elif alcine() == "Dog":
+elif alcine() == "Dog" or alcine() == "Puppy" or alcine() == "Mutt":
 	Uhhhh, sure...
 elif alcine() == "Cat" or alcine() == "Kitty":
 	Is that really fitting?
-elif alcine() == "Rat":
+elif alcine() == "Rat" or alcine() == "Mouse":
 	Squeak!
+elif alcine() == "Blob":
+	I know I can do better than this.
 elif alcine() == "Alcin":
 	Silent letters are for loosers.
 elif alcine() == "Chip":
@@ -50,14 +70,20 @@ elif alcine() == "Harold":
 	har har, very funny
 elif alcine() == "Bob":
 	The true name?
+elif alcine() == "Null":
+	Error at (95, 50)\: Cannot assign a value of type "null" as "String".
 elif alcine() == "Alcinoe":
 	A godly name.
+elif alcine() == "Rename":
+	Is this some sort of placeholder? This is a horrible name.
 elif alcine() == "Alci":
 	Short and sweet.
 elif alcine() == "Alc":
 	Maybe too short?
 elif alcine() == "Al":
 	Weird.
+elif alcine() == "Ai":
+	This is a very sloppy choice for a name.
 elif alcine() == "Steve":
 	They... will be Steve.
 elif alcine() == "Alcaine":

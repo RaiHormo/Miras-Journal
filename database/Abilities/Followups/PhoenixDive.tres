@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://bv70o5jgnx32n"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_2ea5x"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_84ete"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84ete"]
+resource_local_to_scene = true
+atlas = ExtResource("1_2ea5x")
+region = Rect2(0, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_84ete")
+name = "Phoenix Dive"
+description = "Deals moderate Heat damage to all targets, and recovers fallen allies."
+Icon = SubResource("AtlasTexture_84ete")
+ActionSequence = &"FollowupMira"
+Type = "BigAttack"
+InflictsState = "Burned"
+Damage = 2
+Target = 2
+ColorSameAsActor = true
+CritChance = 0.6
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

@@ -1,0 +1,225 @@
+~ nov3_afternoon
+...
+So finding these bunkers might give us clues on how to escape.
+Or it could just be a complete dead-end.
+I hope Daze's hypothesis is right... it seems like our only hope right now.
+As long as we have something to strive for, it'll all be fine...
+...
+I guess it's time to leave now, the others should be waiting up at the gate.
+=> END
+
+~ nov3_exit
+Alcine.Neutral: Wia!
+Asteria.Neutral: What took you so long!
+Daze.Neutral: Is everyone ready?
+- Let's go
+	Mira.Neutral: I'm ready, let's go!
+	Daze.Neutral: Someone's excited...
+	Asteria.Neutral: I'll lead the way, just follow me!
+	do! sequence("nov3_enterSG")
+- Just a minute
+	Mira.Neutral: Just a minute, I need to do something.
+	Asteria.Neutral: Alright, hurry it up!
+	do wait(0.2)
+	do give_control()
+=> END
+
+~ nov3_sg_enter
+Asteria.Neutral: Here we are. The place should be somewhere up ahead.
+Mira.Neutral: Whoah, everything's so shiny!
+Asteria.Neutral: Don't go near the shiny stuff! Those tiny crystal shards hurt!
+=> END
+
+~ very_shiny
+Daze.Neutral: Levenor, don't you think you of all people should be the most careful?
+Mira.Neutral: Huh?
+Asteria.Neutral: You're the only one not wearing shoes, haha.
+Mira.Neutral: {{alcine()}} isn't wearing shoes either!
+Alcine.Tired: Wooom...
+=> END
+
+~ cast_lines_sg
+do Player.look_to("U")
+do Player.camera_follow(false)
+set Camera.position = Vector2(-158, -18)
+do wait(1)
+Mira.Neutral: Look, there are a lot of cast lines scattered around here.
+Mira.Neutral: Is this some sort of spell?
+Asteria.Neutral: This place is a magical organism. This might be just another part of it.
+Mira.Neutral: The entire cave is an organism..?
+Daze.Neutral: I suspect it's more than just this cave.
+Daze.Neutral: The monsters everywhere, they must be a defense mechanism.
+Asteria.Neutral: Right, I don't think we're wanted here...
+Alcine.Upset: ...
+Alcine seems to be bothered by something.
+=> END
+
+~ blocked_cast_lines
+if not f("EvSwitchCastLines2"):
+	Alcine.Neutral: Waooo!
+	Daze.Neutral: These lines gather towards the center.
+	Asteria.Neutral: Doesn't this look like the thing that broke the crystals last time?
+	- Try touching
+		(hide)
+		do Player.camera_follow(false)
+		do Player.collision(false)
+		do Player.go_to(Vector2(-25, -17),true, false)
+		do! white_fadeout(0.5, 0, 0, 0.5)
+		do! screen_shake()
+		set Player.BodyState = NPC.CUSTOM
+		do Player.bump(Vector2(0, -2))
+		do wait(0.5)
+		Asteria.Neutral: Mira! You okay?
+		Mira.Neutral: Ow.
+		Mira.Neutral: I think there is a protective spell on these.
+	- Back off
+		Mira.Neutral: Everyone, be careful!
+		Mira.Neutral: It looks like there is some sort of protective spell, don't touch that.
+	Daze.Neutral: What could we do about this? Does anyone know how to dispell? 
+	Mira.Neutral: Wild cast patterns like this are hard to decipher.
+	Asteria.Neutral: ...
+	Asteria.Neutral: I think there's someone back at the village that would know how.
+	Mira.Neutral: You mean we should return?
+	Daze.Neutral: I think we could all use some rest, no?
+	do Player.camera_follow(true)
+	Asteria.Neutral: There was a Vain nearby, let's head there. 
+	do add_flag("EvSwitchCastLines2")
+	Placeholder description: This is the last part of the game developed right now
+else:
+	if Party.Leader.has_ability("Dispel"):
+		Placeholder description: The gate is unlocked, there's no dialog for this yet.
+		do add_flag("SGDoor2")
+	else:
+		Asteria.Neutral: Mira! We can't make any progress here unless we despell this.
+		Mira.Neutral: I know, I know.
+		Asteria.Neutral: Then use the Vain to return to the village already!
+=> END
+
+~ sg_find_bunker
+do Player.camera_follow(false)
+set Camera.position += Vector2(0, -120)
+Asteria.Neutral: This is it.
+Mira.Neutral: What's the deal with all the crystals?
+Asteria.Neutral: I think they're all magical constructs. Like those gates we went through.
+Mira.Neutral: How do you know?
+Asteria.Neutral: They melted when no energy was holding them together. Most magical things do that.
+Daze.Neutral: These ones don't seem to be blocking the way though.
+Mira.Neutral: Let's go in then!
+=> END
+
+~ lazulite_heart_intro
+Asteria.Neutral: It's one of them..!
+Daze.Neutral: A Guardian...
+Asteria.Neutral: Hey! Why are you using Mira's thing!?
+Mira.Neutral: Heck yeah!
+(hide)[next]
+do! Bt.pop_num(Global.Party.Leader, "1")
+Mira.Neutral: Ow.
+Mira.Neutral: A little help here?
+=> END
+
+~ lazulite_heart_1
+do Bt.move(Global.Party.Leader, Vector2(-20,-40), 0.3)
+do! Bt.focus_cam(Global.Party.Leader)
+Mira.Neutral: Thanks {{alcine()}}!
+do! Bt.entrance_anim(Global.Party.Leader)
+set Bt.no_misses = false
+=> END!
+
+~ lazulite_heart_2
+if Party.Member1.has_state("KnockedOut"):
+	do! Party.Member1.remove_state("KnockedOut")
+	do! Party.Member1.add_health("10")
+	do! Party.Member1.add_aura("5")
+Alcine.Neutral: ...!?
+Mira.Neutral: What's wrong?
+Asteria.Neutral: So they can feel it too...
+Daze.Neutral: ?
+do toast(alcine()+ " hesitates.")
+set Party.Member1.NextAction = "Attack"
+set Party.Member1.NextMove = load("res://database/Abilities/Attacks/Nothing.tres")
+=> END!
+
+~ lazulite_heart_3
+Mira.Neutral: We got it!
+Daze.Neutral: Let's finish it off!
+Yaru.Neutral: wait..!
+Yaru.Neutral: its link to the realm... it's falling apart...
+Yaru.Neutral: star, maybe you can...
+(hide)[next]
+do Bt.move(Party.Member2, Vector2(0,0), 0.5)
+Asteria.Neutral: There's no need to be scared anymore. Come to me.
+=> END
+
+~ lazulite_heart_after
+Mira.Neutral: What.
+Mira.Neutral: What was all that?!
+Asteria.Neutral: The monster is on our side now!
+Mira.Neutral: Coool... 
+Mira.Smile: ...
+Asteria.Neutral: *sigh[wait=1]* Fine Mira, you may name it...
+Mira.Neutral: Yay!!!!
+Mira.Neutral: Ok, ok. [wait=0.5]I think I've seen a crystal kinda like that in a geology book...
+Mira.Neutral: Hmm... [wait=0.5]I think it was Lazuli Heart.[wait=1] No,[wait=0.5] let's go with Lazulite Heart, that sounds cooler!
+Asteria.Neutral: That sounds stupi-[next=auto]
+Daze.Neutral: Yup, Lazulite heart it is.
+Yaru.Neutral: um....[wait=0.5] i kinda like lazulite heart too.
+Asteria.Neutral: Ok fine, I guess we're calling it Lazulite Heart then....
+=> END
+
+~ enter_bunker_2
+if Event.f("Bunker2Open"):
+	Daze.Neutral: You should've tried touching it without the orb...
+	Mira.Neutral: Sorry, didn't think this through-
+	Asteria.Neutral: Don't worry much about it, there are more doors like this.
+else:
+	do Player.camera_follow(false)
+	set Global.Camera.position -= Vector2(0, 50)
+	Mira.Neutral: So we can go in now?
+	I reach my hand to the machine
+	Daze.Neutral: LEVENOR, DON'T-[next]
+	(hide)[next]
+	do Event.add_flag("Bunker2Open")
+	do check_party.emit()
+	do screen_shake(2, 20, 0.4)
+	do screen_shake(10, 5, 0.2)
+	do Event.wait(2)
+	do Player.camera_follow(true)
+	Daze.Neutral: 'Grats, now we can't test out any of our theories...
+	Mira.Neutral: Whoops.
+=> END
+
+~ destroyed_guardian
+if Party.Leader.codename == "Alcine":
+	Alcine.Upset: Shwoooom...
+elif f("EvDestroyedGuardian"):
+	The remains of the Stone Guardian.
+	Daze cut it completely clean.
+else:
+	Mira: Hey, the remains of the Guardian are all here.
+	Daze: Guardian?
+	Mira: It's a name I just came up with for this thing.
+	Daze: I don't think It's guarding anything though. Most monsters are simply enraged spirits that attack with no real purpose.
+	Mira: Is that really true though?
+	Mira: Look at this thing. These vains aren't there for no purpose.
+	Mira: They were finely crafted to connect this part down here to here.
+	Mira: And this controls the aura around it to make the rocks float.
+	Mira: Which means...
+	I break appart a part of the stone, revealing...
+	Mira: Does this look naturally made to you?
+	Daze: What are you trying to say?
+	Mira: This monster is artificial, and nobody would create such a thing if it's not meant to be protecting something.
+	Daze: Hm...
+	Daze: How do you know all this?
+	Mira: I looked into magic beings once when I was bored.
+	Mira: It's a complicated topic, but telling a natural and artificial one appart is not all that hard.
+	Mira: I'm surprised you can't tell them appart Mr. Swordsman warrior who fights these things for a living.
+	Daze: I don't-[wait=1]\n *sigh...*
+	Daze: So you're saying there is something important around here that needs to be protected?
+	Mira: Possibly.
+	(hide)
+	Daze: I think we should take this, it seems to still contain a lot of power.
+	Mira: Mhm.
+	(hide)
+	Mira: Still no traces of {{alcine()}} though... Where did they wander off to?
+	do! sequence("where_is_alcine_1")

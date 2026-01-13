@@ -478,6 +478,7 @@ func _on_save_delete() -> void:
 	if stage != "save_managment": return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
+	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 2
@@ -521,6 +522,7 @@ func _on_save_overwrite() -> void:
 	if stage != "save_managment": return
 	var panel = focus.get_parent()
 	var index = focus.get_index()
+	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 4

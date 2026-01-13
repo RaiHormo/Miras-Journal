@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0dgn2l164lj0"]
+[gd_scene load_steps=7 format=3 uid="uid://c0dgn2l164lj0"]
 
 [ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/StoryEvents/AlcineNaming.gd" id="1_lh7uy"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="2_exujk"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_yq4b6"]
 [ext_resource type="Texture2D" uid="uid://b6e2vcb7sglq0" path="res://art/Renders/Alcine_low.png" id="4_dvfyj"]
+[ext_resource type="Script" uid="uid://dy50hc3ikd7ls" path="res://codings/UIScripts/line_edit.gd" id="4_exujk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp00o"]
 content_margin_left = 24.0
@@ -78,6 +79,7 @@ middle_mouse_paste_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 caret_blink = true
+script = ExtResource("4_exujk")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 light_mask = 0

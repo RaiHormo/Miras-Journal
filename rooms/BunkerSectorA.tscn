@@ -471,3 +471,5 @@ room = "BunkerSectorA"
 [node name="EvTripwire0" parent="." instance=ExtResource("8_jy425")]
 position = Vector2(-406, 305)
 EventName = "asteria_boss"
+Flag = "AsteriaBoss=5"
+FlagIsName = false
