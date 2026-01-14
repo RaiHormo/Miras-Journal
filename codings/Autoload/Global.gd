@@ -518,7 +518,7 @@ func toast(string: String) -> void:
 		await Event.wait()
 	print("Toast: "+ string)
 	var tost = (preload("res://UI/Misc/Toast.tscn")).instantiate()
-	get_tree().root.add_child(tost)
+	get_tree().root.add_child.call_deferred(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
 		tost.get_node("BoxContainer/Toast/Label").text = string

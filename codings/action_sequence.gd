@@ -1282,7 +1282,7 @@ func LazuliteHeartBoss1():
 	await Bt.get_actor("LHBody").add_state("UnbreakingAura", -1, mira, false)
 	mira.node.position = Bt.get_actor("LHRight").node.position
 	Loader.battle_bars(2)
-	await Global.passive("story_1", "lazulite_heart_intro")
+	await Global.passive("story_2", "lazulite_heart_intro")
 	#Bt.return_cur(mira)
 	mira.NextAction = "Attack"
 	mira.NextMove = Ability.nothing()
@@ -1305,7 +1305,7 @@ func nov2_mira_dream():
 func LazuliteHeartBoss2():
 	Bt.death(Bt.get_actor("LHLeft"))
 	Bt.death(Bt.get_actor("LHRight"))
-	await Global.passive("story_1", "lazulite_heart_3")
+	await Global.passive("story_2", "lazulite_heart_3")
 	Loader.gray_out(1, 0.5, 1, Color.WHITE)
 	await Event.wait(1)
 	Bt.victory(true)

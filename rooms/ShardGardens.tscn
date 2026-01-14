@@ -1587,7 +1587,7 @@ position = Vector2(32, -29)
 [node name="EvBlockedPath1" parent="." instance=ExtResource("26_yhh0x")]
 position = Vector2(-334, 613)
 scale = Vector2(1.06845, 0.443152)
-TextFile = "interactions"
+TextFile = "interact_abad"
 TextNode = "blocked_path_sg1"
 Passive = true
 AddFlag = true
@@ -1607,7 +1607,7 @@ ReturnControl = false
 [node name="EvBlockedPath2" parent="." instance=ExtResource("26_yhh0x")]
 position = Vector2(-216, -301)
 scale = Vector2(1.06845, 0.443152)
-TextFile = "interactions"
+TextFile = "interact_abad"
 TextNode = "blocked_path_sg2"
 Passive = true
 AddFlag = true
@@ -1616,7 +1616,7 @@ ReturnControl = false
 
 [node name="EvCastLines" parent="." instance=ExtResource("26_yhh0x")]
 position = Vector2(-143, -26)
-TextFile = "story_events"
+TextFile = "story_2"
 TextNode = "cast_lines_sg"
 AddFlag = true
 
@@ -2180,7 +2180,7 @@ offset = Vector2(6, 0)
 [node name="Interactable" parent="SwitchCastLines2" instance=ExtResource("20_pu5uh")]
 position = Vector2(2, 27)
 ActionType = "text"
-file = "story_events"
+file = "story_2"
 title = "blocked_cast_lines"
 Height = 24
 

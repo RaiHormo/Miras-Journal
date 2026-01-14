@@ -106,6 +106,11 @@ func check_flag(flag: StringName, value:= 1):
 		for i in split:
 			if not check_flag(i): return false
 		return true
+	if "||" in flag:
+		var split = flag.split("||")
+		for i in split:
+			if check_flag(i): return true
+		return false
 	if "=" in flag:
 		var split = flag.split("=")
 		return check_flag(str(split[0]), int(split[1]))

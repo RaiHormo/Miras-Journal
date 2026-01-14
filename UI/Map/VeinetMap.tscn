@@ -260,6 +260,10 @@ position = Vector2(557, 496)
 light_mask = 0
 position = Vector2(524, 420)
 
+[node name="OldCamp" type="Marker2D" parent="Map"]
+light_mask = 0
+position = Vector2(544, 202)
+
 [node name="Container" type="PanelContainer" parent="."]
 light_mask = 0
 layout_mode = 0
@@ -365,29 +369,6 @@ expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 0
 
-[node name="Underground" type="Button" parent="Container/Scroller/LocationList"]
-light_mask = 0
-texture_filter = 2
-use_parent_material = true
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme = SubResource("Theme_mgbs5")
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/h_separation = 8
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-text = "Underground"
-icon = ExtResource("5_5boh2")
-alignment = 0
-expand_icon = true
-metadata/Room = "ShardGardens"
-metadata/CamID = 1
-
 [node name="Deep Underground" type="Button" parent="Container/Scroller/LocationList"]
 light_mask = 0
 texture_filter = 2
@@ -434,16 +415,15 @@ expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 2
 
-[node name="Ruins" type="Label" parent="Container/Scroller/LocationList"]
+[node name="WitheredLeaves" type="Label" parent="Container/Scroller/LocationList"]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
-text = "Ruins
-"
+text = "Withered Leaves"
 
-[node name="TempleWoods" type="Button" parent="Container/Scroller/LocationList"]
+[node name="OldCamp" type="Button" parent="Container/Scroller/LocationList"]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -459,55 +439,75 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
 theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-text = "Temple woods"
+text = "Old Camp"
+icon = ExtResource("5_5boh2")
+alignment = 0
+expand_icon = true
+metadata/Room = "WitheredLeaves"
+metadata/CamID = 0
+metadata/IsDungeon = true
+
+[node name="Amberelm" type="Label" parent="Container/Scroller/LocationList"]
+light_mask = 0
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_fonts/font = ExtResource("3_3o4ps")
+theme_override_font_sizes/font_size = 32
+text = "Amberelm"
+
+[node name="Entrance" type="Button" parent="Container/Scroller/LocationList"]
+light_mask = 0
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_mgbs5")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
+text = "Entrance
+"
+icon = ExtResource("5_5boh2")
+alignment = 0
+expand_icon = true
+
+[node name="TempleWoods" type="Label" parent="Container/Scroller/LocationList"]
+light_mask = 0
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_fonts/font = ExtResource("3_3o4ps")
+theme_override_font_sizes/font_size = 32
+text = "Temple Woods"
+
+[node name="Ruins" type="Button" parent="Container/Scroller/LocationList"]
+light_mask = 0
+texture_filter = 2
+use_parent_material = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = SubResource("Theme_mgbs5")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 8
+theme_override_constants/icon_max_width = 32
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
+text = "Ruins
+"
 icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 metadata/Room = "TempleWoods"
 metadata/CamID = 1
-
-[node name="Amberelm" type="Button" parent="Container/Scroller/LocationList"]
-light_mask = 0
-texture_filter = 2
-use_parent_material = true
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme = SubResource("Theme_mgbs5")
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/h_separation = 8
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-text = "Amberelm
-"
-icon = ExtResource("5_5boh2")
-alignment = 0
-expand_icon = true
-
-[node name="Bunker" type="Button" parent="Container/Scroller/LocationList"]
-light_mask = 0
-texture_filter = 2
-use_parent_material = true
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme = SubResource("Theme_mgbs5")
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/h_separation = 8
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i72nw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_asjpg")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_f3i5s")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i72nw")
-text = "Bunker"
-icon = ExtResource("5_5boh2")
-alignment = 0
-expand_icon = true
 
 [node name="Marker" type="Sprite2D" parent="."]
 light_mask = 0

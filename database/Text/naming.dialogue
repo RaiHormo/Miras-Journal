@@ -88,6 +88,8 @@ elif alcine() == "Steve":
 	They... will be Steve.
 elif alcine() == "Alcaine":
 	No, too far.
+elif alcine() == "Fame":
+	He forced me to add this as an easter egg.
 elif alcine() == "Alcines" or alcine() == "Alcinez":
 	Many of them.
 elif alcine() == "Alkaline":

@@ -30,6 +30,8 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 [resource]
 script = ExtResource("4_6tm4s")
 Enemies = Array[ExtResource("3_ym1rv")]([ExtResource("3_6tm4s")])
+Transition = false
+ReturnControl = false
 ScenePosition = Vector2(-351, 312)
 CanEscape = false
 VictoryText = "Victory?"

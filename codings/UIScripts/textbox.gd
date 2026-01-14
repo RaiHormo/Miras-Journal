@@ -11,7 +11,7 @@ var next_box: String = ""
 var currun = false
 var picture: Texture2D = null
 @onready var t :Tween
-const hold_time = 10
+const hold_time = 30
 var skip = false
 
 ## The dialogue resource
@@ -335,6 +335,8 @@ func _input(event: InputEvent) -> void:
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
 		#if Input.is_action_just_pressed("Dash") or skip:
+		var prev_a = dialogue_label.seconds_per_step
+		var prev_b = dialogue_label.seconds_per_pause_step
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
 			await Event.wait()
@@ -347,6 +349,8 @@ func _input(event: InputEvent) -> void:
 				dialogue_label.seconds_per_step = 0
 				dialogue_label.seconds_per_pause_step = 0
 		Engine.time_scale = 1
+		dialogue_label.seconds_per_step = prev_a
+		dialogue_label.seconds_per_pause_step = prev_b
 		return
 	
 	if not is_waiting_for_input: return

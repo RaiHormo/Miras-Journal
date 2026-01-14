@@ -225,3 +225,44 @@ Asteria.Neutral: If you wish.
 Asteria.Neutral: I can't... go on...
 Asteria.Neutral: I... surrender. [wait=1]Do whatever you want...
 => END
+
+~ asteria_boss_after
+Placeholder description: Alcine steps forward and heals Asteria.
+Asteria.Neutral: ...Huh?
+Daze.Neutral: I don't know who you think we are, but our intention was not to hurt you.
+Mira.Neutral: Yeah, this is a misunderstanding. We just wanted to see what this place's deal is.
+Asteria.Neutral: So then... How did you get in here!?
+Asteria.Neutral: I've known this place my whole life, nobody has ever been able to open the metal doors!
+=> END
+
+~ asteria_joins
+Mira: ...then the door just sorta opened.
+Asteria: Huh. I thought you guys were one of those Keepers.
+Daze: You should've let us explain ourselves before attacking.
+Asteria: But the Keepers always disappear before anyone can approach them! 
+Asteria: If I was going to catch them, it had to be an ambush!
+Mira: Who are these Keepers?
+Asteria: Those responsible for this Lost Realm we're trapped in. We call them "Keepers".
+Asteria: From time to time, they appear. People say they're our key to freedom, but not many have seen them.
+Daze: And do these keepers tend to be teams of Humans, Cyrenians and water blobs...?
+Asteria: I don't know... I just jumped to conclusions because you had access to this place.
+Placeholder description: {{alcine()}} is making Asteria's ears swing around
+do! npc("AsteriaCamp").look_to("R")
+do  npc("AsteriaCamp").bubble("Surprise")
+Asteria.Neutral: Hey-[wait=0.3] Will you quit doing that!
+(hide)
+do transition("R")
+set npc("AlcineCamp").position = Vector2(800, -232)
+do npc("AsteriaCamp").look_to("D")
+do detransition("R")
+Mira: Where do we go from here?
+Asteria: I can take you two to the village. Mom could probably find a place for you two to stay.
+Daze: A village...That'd be nice.
+Daze: Is it far?
+Asteria: Quite, but don't worry.
+Asteria: You with the pointy ears! You see that crack in the ground with the purple coming out?
+Mira: Yeah, I think I've seen something like it around. What is it?
+Asteria: Stab it as hard as you can.
+Mira: Huh? Okay...
+=> END
+=> END

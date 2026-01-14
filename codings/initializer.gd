@@ -19,8 +19,8 @@ func _ready() -> void:
 	$TitleScreen.show()
 	$TitleScreen/Splash.show()
 	var t = create_tween().set_ease(Tween.EASE_IN).set_parallel().set_trans(Tween.TRANS_CUBIC)
-	t.tween_property($TitleScreen/Splash, "modulate", Color.TRANSPARENT, 0.2).from(Color.WHITE).set_delay(0.3)
-	t.tween_property($TitleScreen/Splash, "scale", Vector2(0.6, 0.6), 0.3).set_delay(0.3)
+	t.tween_property($TitleScreen/Splash, "modulate", Color.TRANSPARENT, 0.3).from(Color.WHITE).set_delay(0.3)
+	#t.tween_property($TitleScreen/Splash, "scale", Vector2(0.6, 0.6), 0.3).set_delay(0.3)
 	$TitleScreen/Label.text += ProjectSettings.get_setting("application/config/version")
 	PartyUI.disabled = false
 	PartyUI.visible = true

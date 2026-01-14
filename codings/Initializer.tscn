@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://ds1hwdmholrjy"]
+[gd_scene load_steps=22 format=3 uid="uid://ds1hwdmholrjy"]
 
 [ext_resource type="Script" uid="uid://3cdediw7jna7" path="res://codings/initializer.gd" id="1_tesvr"]
+[ext_resource type="Texture2D" uid="uid://dy0olm4gsn8eo" path="res://art/Branding/splash_bg.png" id="2_a4ygc"]
 [ext_resource type="Texture2D" uid="uid://cvnuw1n43hcfj" path="res://art/Branding/splash.png" id="2_s81ns"]
 [ext_resource type="Texture2D" uid="uid://byelv1407kucs" path="res://art/Branding/logo_solid_low.png" id="4_ee01i"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="5_li13k"]
@@ -115,18 +116,36 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 
+[node name="SplashBg" type="TextureRect" parent="TitleScreen"]
+modulate = Color(0.43, 0.6808334, 0.86, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -645.0
+offset_top = -400.0
+offset_right = 635.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(1290, 800)
+mouse_filter = 2
+texture = ExtResource("2_a4ygc")
+stretch_mode = 4
+
 [node name="PrototypeTitle" type="Sprite2D" parent="TitleScreen"]
 position = Vector2(406, 472)
 scale = Vector2(0.634497, 0.634497)
 texture = ExtResource("9_8unpa")
 
 [node name="Logo" type="TextureRect" parent="TitleScreen"]
-offset_left = 628.0
-offset_top = 31.0
-offset_right = 3060.6755
-offset_bottom = 1567.0
+offset_left = 546.81134
+offset_top = 33.0
+offset_right = 3289.9058
+offset_bottom = 1765.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_ee01i")
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="TitleScreen"]
 offset_left = 858.0
@@ -140,10 +159,10 @@ v"
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="TitleScreen"]
-offset_left = 665.0
-offset_top = 396.0
-offset_right = 1216.0
-offset_bottom = 465.0
+offset_left = 790.0
+offset_top = 381.0
+offset_right = 1341.0
+offset_bottom = 450.0
 theme_override_fonts/font = ExtResource("5_li13k")
 theme_override_font_sizes/font_size = 32
 text = "Development Build"
@@ -221,6 +240,7 @@ scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(1290, 800)
 mouse_filter = 2
 texture = ExtResource("2_s81ns")
+stretch_mode = 4
 
 [node name="Error" type="Panel" parent="TitleScreen"]
 visible = false

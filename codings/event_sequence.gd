@@ -374,7 +374,30 @@ func WL_bunker_switch():
 func asteria_boss():
 	await Event.take_control()
 	await Global.textbox("story_1", "asteria_boss")
-	Loader.start_battle("AsteriaBoss")
+	await Event.spawn("Asteria", Vector2(-286, 308), "L")
+	await Event.wait(1)
+	await Loader.start_battle("AsteriaBoss")
+	Event.npc("Asteria").hide()
+	await Loader.battle_end
+	if Loader.BattleResult == 1:
+		Event.npc("Asteria").show()
+		Event.add_flag("AsteriaBoss", 5)
+		Event.take_control()
+		Event.npc("F1").move_dir(Vector2(1, 0))
+		await Global.textbox("story_1", "asteria_boss_after")
+		Event.ToDay = 2
+		Event.ToTime = 4
+		Event.add_flag("InCamp")
+		Event.time_transition()
+
+func nov2_evening():
+	Global.Party.set_to_strarr(["Mira"])
+	await Loader.travel_to("WitheredLeaves", Vector2(774, -202), 0, -1, "R", false)
+	Event.npc("AlcineCamp").position = Vector2(746, -232)
+	Event.npc("P").look_to("L")
+	await Global.textbox("story_1", "asteria_joins")
+	Event.give_control(true)
+	Loader.save()
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1
@@ -405,7 +428,7 @@ func nov3_afternoon():
 	Event.npc("RoomMira").position = Vector2(166, 412)
 	Event.npc("RoomMira").set_anim("SitRight")
 	await Event.wait(2)
-	await Global.textbox("story_1", "nov3_afternoon", false)
+	await Global.textbox("story_2", "nov3_afternoon", false)
 	Event.add_flag("Nov3_Afternoon")
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.Facing = Vector2.RIGHT
@@ -425,11 +448,11 @@ func nov3_enterSG():
 	Global.Player.collision(false)
 	await Event.take_control(false, true)
 	await Global.Player.move_dir(Vector2(6, 0))
-	await Global.textbox("story_1", "nov3_sg_enter")
+	await Global.textbox("story_2", "nov3_sg_enter")
 	Event.give_control(true)
 	Event.add_flag("Nov3_WentToSG")
 	await Event.wait(2)
-	Global.passive("story_1", "very_shiny")
+	Global.passive("story_2", "very_shiny")
 
 #############################################################
 
