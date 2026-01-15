@@ -73,7 +73,7 @@ func location_selected():
 
 	var progress_time = false
 	var prev_foc = foc
-	if foc.get_meta("IsDungeon", true) != Global.Area.IsDungeon:
+	if foc.get_meta("IsDungeon", true) != Global.Area.IsDungeon and not Event.f("FreeTravelOnce"):
 		var message: String
 		if Global.Area.IsDungeon:
 			message = "Exit the dungeon and rest at home."
@@ -92,6 +92,7 @@ func location_selected():
 	foc =  prev_foc
 	Global.confirm_sound()
 	Event.remove_flag("FlameActive")
+	Event.remove_flag("FreeTravelOnce")
 	var map_point = $Map.get_node_or_null(str(foc.name))
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
 	var t = create_tween()

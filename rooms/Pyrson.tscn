@@ -1002,6 +1002,7 @@ scale = Vector2(2.678, 2.919)
 texture = SubResource("GradientTexture2D_ae0d8")
 
 [node name="TownHall" type="Node2D" parent="."]
+visible = false
 z_index = 2
 texture_filter = 1
 position = Vector2(-70, -1)

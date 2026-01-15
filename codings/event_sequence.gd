@@ -397,7 +397,12 @@ func nov2_evening():
 	Event.npc("P").look_to("L")
 	await Global.textbox("story_1", "asteria_joins")
 	Event.give_control(true)
+	Event.add_flag("FreeTravelOnce")
 	Loader.save()
+
+func enter_pyrson():
+	await Loader.travel_to("Pyrson")
+	Loader.ungray.emit()
 
 func hurt_1():
 	Global.Party.Leader.Health -= 1

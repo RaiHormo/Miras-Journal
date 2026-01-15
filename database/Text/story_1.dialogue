@@ -265,4 +265,29 @@ Mira: Yeah, I think I've seen something like it around. What is it?
 Asteria: Stab it as hard as you can.
 Mira: Huh? Okay...
 => END
-=> END
+
+~ vp_tutorial
+This must be what she was reffering to.
+- Stab it
+	Placeholder description: Mira stabs the ground with her axe.
+	Placeholder description: Purple particles jump out and the ground opens.
+	Asteria: Jump in now, I'll guide you.
+	Mira: Wha- You want me to jump in there?! I'm not that insane..!
+	Asteria: Your loss, I'll go ahead then.
+	Asteria jumps into the purple hole. I can't see well but it looks like she's floating?
+	Daze jumps in as well.
+	Mira: Okay... here goes...
+	(hide)
+	do! Loader.gray_out(1)
+	do Loader.lower_layer()
+	I jump in, start to float as well. Around me are various colors, creating many paths around me.
+	Alcine jumps in as well
+	Asteria: I'll take us to the village now. Ready? 
+	Mira: Which way do we... WHAAA-
+	As asteria moves, we're all dragged around and go really fast.
+	do add_flag("VPOldCamp")
+	do sequence("enter_pyrson")
+	=> END
+- Not yet
+	do give_control()
+	=> END

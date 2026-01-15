@@ -820,3 +820,12 @@ room = "BunkerSectorA"
 
 [node name="VPOldCamp" parent="." instance=ExtResource("30_fci10")]
 position = Vector2(931, -169)
+
+[node name="VPTutorial" parent="." instance=ExtResource("15_mqvg4")]
+position = Vector2(932, -170)
+scale = Vector2(0.89645237, 0.64821947)
+TextFile = "story_1"
+TextNode = "vp_tutorial"
+Flag = "VPOldCamp"
+FlagIsName = false
+ReturnControl = false

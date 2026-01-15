@@ -169,7 +169,7 @@ func close(give_control=true):
 	t.tween_property($Rail/QuestFollow/QuestButton, "position:x", -30, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "size:x", 64, 0.3)
 	t.tween_property($Rail/OptionsFollow/OptionsButton, "position:x", -30, 0.3)
-	t.tween_property($Party, "position", Vector2(274, -50), 0.2)
+	t.tween_property($Party, "position", Vector2(274, -80), 0.2)
 	t.tween_property(player, "global_position", prevPos, 0.5)
 	t.tween_property($Confirm, "position:y", 850, 0.4)
 	t.tween_property($Back, "position:y", 850, 0.3)

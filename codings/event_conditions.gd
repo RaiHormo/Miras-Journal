@@ -9,7 +9,7 @@ func sl_maple():
 	return 0
 
 func sl_asteria_outside_house():
-	if Event.f("sl_asteria_1") and not Event.f("sl_asteria_2") and Event.TimeOfDay == Event.TOD.AFTERNOON or Event.TimeOfDay == Event.TOD.EVENING:
+	if Event.f("sl_asteria_1") and not Event.f("sl_asteria_2") and (Event.TimeOfDay == Event.TOD.AFTERNOON or Event.TimeOfDay == Event.TOD.EVENING):
 		return 2
 	return 0
 

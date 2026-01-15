@@ -164,10 +164,14 @@ if Day == 1
 		Daze: That's cute.
 		do add_flag("AlcineIsTheLeaderReal", 1)
 elif Day == 2:
-	Daze.Neutral: I'm glad we could find shelter in a place like this.
-	Daze.Neutral: I hope it's decent, I haven't slept in a proper bed in ages...
-	Mira.Neutral: Hey, don't jynx it. We might end up having to share a haystack to sleep.
-	Daze.Neutral: Wouldn't be the worst sleep I've gotten...
+	Daze.Neutral: Shelter in a place like this, huh?
+	Daze.Neutral: Well, I'm glad we won't have to share a tent anymore, no offense.
+	Mira.Neutral: H-huh..?
+	Daze.Neutral: Proper beds, protection from the elements, less snoring...
+	Mira.Neutral: Snoring??
+	Daze.Neutral: N- Not you in particular Levenor, I- I meant...
+	Daze.Neutral: ...The creatures of the night! You know? They make all sorts of noises, it's uhh... hard to sleep with them.
+	Mira.Smile: Hey, maybe if you keep jynxing it, we'll end up having to share a haystack instead.
 => END
 
 ~ alcine_camp
