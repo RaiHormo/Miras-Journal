@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://djxhl7cy4xi55"]
+[gd_scene format=3 uid="uid://djxhl7cy4xi55"]
 
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="1_ankbo"]
 [ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="1_efh2m"]
@@ -473,12 +473,12 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_njg8j"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[node name="Complimentary" type="CanvasLayer"]
+[node name="Complimentary" type="CanvasLayer" unique_id=381104203]
 process_mode = 3
 layer = 9
 script = ExtResource("1_i362o")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=589432930]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -486,7 +486,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_vkf3o")
 
-[node name="Gradient" type="TextureRect" parent="Background"]
+[node name="Gradient" type="TextureRect" parent="Background" unique_id=82251363]
 modulate = Color(0.22256732, 0.5876639, 0.5285282, 1)
 layout_mode = 0
 offset_left = -504.0
@@ -497,7 +497,7 @@ pivot_offset = Vector2(1112, 1005)
 texture = SubResource("GradientTexture2D_wqo8e")
 metadata/rate = 0.02
 
-[node name="Sines" type="Control" parent="."]
+[node name="Sines" type="Control" parent="." unique_id=25611872]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -507,11 +507,11 @@ grow_vertical = 2
 pivot_offset = Vector2(1162, 395)
 mouse_filter = 2
 
-[node name="Modulate" type="CanvasGroup" parent="Sines"]
+[node name="Modulate" type="CanvasGroup" parent="Sines" unique_id=249135710]
 modulate = Color(1, 1, 1, 0.47843137)
 position = Vector2(-16, -1134)
 
-[node name="Wave2" type="TextureRect" parent="Sines/Modulate"]
+[node name="Wave2" type="TextureRect" parent="Sines/Modulate" unique_id=122377833]
 material = SubResource("ShaderMaterial_rox60")
 offset_right = 2394.0
 offset_bottom = 3067.0
@@ -519,7 +519,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_1ebtr")
 flip_h = true
 
-[node name="Wave1" type="TextureRect" parent="Sines"]
+[node name="Wave1" type="TextureRect" parent="Sines" unique_id=1972056906]
 material = SubResource("ShaderMaterial_0ed3l")
 layout_mode = 0
 offset_left = -16.0
@@ -529,7 +529,7 @@ offset_bottom = 1933.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_17jba")
 
-[node name="Slot0" type="Button" parent="."]
+[node name="Slot0" type="Button" parent="." unique_id=1004154483]
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
@@ -556,7 +556,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="Slot0"]
+[node name="Label" type="Label" parent="Slot0" unique_id=1643968283]
 use_parent_material = true
 layout_mode = 0
 offset_left = 239.0
@@ -569,7 +569,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 text_overrun_behavior = 1
 
-[node name="Icon" type="TextureRect" parent="Slot0"]
+[node name="Icon" type="TextureRect" parent="Slot0" unique_id=2145736007]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -578,7 +578,7 @@ offset_top = 4.0
 offset_right = 52.75
 offset_bottom = 46.0
 
-[node name="Equipped" type="VBoxContainer" parent="."]
+[node name="Equipped" type="VBoxContainer" parent="." unique_id=1406154777]
 unique_name_in_owner = true
 anchors_preset = 13
 anchor_left = 0.5
@@ -596,7 +596,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=1267903088]
 offset_left = 541.0
 offset_top = 17.0
 offset_right = 1262.0
@@ -606,7 +606,7 @@ theme_override_fonts/font = ExtResource("1_ankbo")
 theme_override_font_sizes/font_size = 100
 text = "Complimentary"
 
-[node name="Member" type="RichTextLabel" parent="Title"]
+[node name="Member" type="RichTextLabel" parent="Title" unique_id=1150037023]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 124.0
@@ -619,7 +619,7 @@ text = "[img width=58]res://art/Icons/Party/Mira.png[/img] Mira Levenor"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Desc" type="Control" parent="."]
+[node name="Desc" type="Control" parent="." unique_id=1565797812]
 visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_vkf3o")
@@ -634,7 +634,7 @@ pivot_offset = Vector2(-293, -123)
 size_flags_stretch_ratio = 0.0
 theme = SubResource("Theme_bskk0")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Desc"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Desc" unique_id=642469533]
 layout_mode = 0
 offset_left = -267.0
 offset_top = -253.0
@@ -647,7 +647,7 @@ bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 vertical_alignment = 1
 
-[node name="Wheel" parent="Desc" instance=ExtResource("7_wqo8e")]
+[node name="Wheel" parent="Desc" unique_id=254667624 instance=ExtResource("7_wqo8e")]
 layout_mode = 0
 offset_left = -294.0
 offset_top = -362.0
@@ -656,7 +656,7 @@ offset_bottom = 638.0
 scale = Vector2(0.24075, 0.24075)
 color = Color(1, 0, 0.356863, 1)
 
-[node name="AbilityPanel" type="Control" parent="."]
+[node name="AbilityPanel" type="Control" parent="." unique_id=1083496303]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -666,7 +666,7 @@ offset_right = 866.0
 offset_bottom = 68.0
 scale = Vector2(1.2, 1.2)
 
-[node name="Fade" type="ColorRect" parent="AbilityPanel"]
+[node name="Fade" type="ColorRect" parent="AbilityPanel" unique_id=208199756]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -679,7 +679,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.7058824)
 
-[node name="AttackTitle" type="Button" parent="AbilityPanel"]
+[node name="AttackTitle" type="Button" parent="AbilityPanel" unique_id=1620154403]
 unique_name_in_owner = true
 visibility_layer = 1024
 texture_filter = 1
@@ -705,7 +705,7 @@ text = "Attack"
 alignment = 0
 expand_icon = true
 
-[node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle"]
+[node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle" unique_id=719923526]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -716,26 +716,26 @@ offset_bottom = 264.0
 theme = SubResource("Theme_u5vfj")
 theme_override_styles/panel = SubResource("StyleBoxFlat_yblvx")
 
-[node name="Border2" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1"]
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1" unique_id=1318067664]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_y2k4d")
 theme_override_styles/panel = SubResource("StyleBoxFlat_4q6f6")
 
-[node name="Border3" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2" unique_id=23491834]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_njg8j")
 theme_override_styles/panel = SubResource("StyleBoxFlat_0g8s0")
 
-[node name="Bg" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2/Border3"]
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2/Border3" unique_id=830674954]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sot4m")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AbilityPanel/AttackTitle"]
+[node name="RichTextLabel" type="RichTextLabel" parent="AbilityPanel/AttackTitle" unique_id=842534544]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 56.0
@@ -747,7 +747,7 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
-[node name="Wheel" parent="AbilityPanel/AttackTitle" instance=ExtResource("7_wqo8e")]
+[node name="Wheel" parent="AbilityPanel/AttackTitle" unique_id=1748995979 instance=ExtResource("7_wqo8e")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -337.49988
@@ -757,7 +757,7 @@ offset_bottom = 355.83344
 scale = Vector2(0.24075, 0.24075)
 color = Color(1, 0, 0.356863, 1)
 
-[node name="Border1" type="PanelContainer" parent="AbilityPanel"]
+[node name="Border1" type="PanelContainer" parent="AbilityPanel" unique_id=66021652]
 light_mask = 0
 layout_mode = 0
 offset_left = 1.0
@@ -767,40 +767,40 @@ offset_bottom = 609.0
 theme = SubResource("Theme_u5vfj")
 theme_override_styles/panel = SubResource("StyleBoxFlat_yblvx")
 
-[node name="Border2" type="PanelContainer" parent="AbilityPanel/Border1"]
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/Border1" unique_id=1252023182]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_y2k4d")
 theme_override_styles/panel = SubResource("StyleBoxFlat_4q6f6")
 
-[node name="Border3" type="PanelContainer" parent="AbilityPanel/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/Border1/Border2" unique_id=292380582]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_njg8j")
 theme_override_styles/panel = SubResource("StyleBoxFlat_0g8s0")
 
-[node name="Bg" type="PanelContainer" parent="AbilityPanel/Border1/Border2/Border3"]
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/Border1/Border2/Border3" unique_id=1308040225]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sot4m")
 
-[node name="Scroller" type="ScrollContainer" parent="AbilityPanel/Border1"]
+[node name="Scroller" type="ScrollContainer" parent="AbilityPanel/Border1" unique_id=616882439]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_04ftr")
 follow_focus = true
 horizontal_scroll_mode = 3
 
-[node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller"]
+[node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller" unique_id=841455511]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller"]
+[node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller" unique_id=2141808013]
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
@@ -822,7 +822,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0"]
+[node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0" unique_id=234213461]
 use_parent_material = true
 layout_mode = 0
 offset_left = 239.0
@@ -836,7 +836,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 text_overrun_behavior = 1
 
-[node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0"]
+[node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0" unique_id=305455074]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -846,7 +846,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_qyand")
 
-[node name="Set" type="Button" parent="."]
+[node name="Set" type="Button" parent="." unique_id=350092600]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_bskk0")
 layout_direction = 1
@@ -870,7 +870,7 @@ icon = ExtResource("9_wqo8e")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="." unique_id=146383791]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_yblvx")
 layout_direction = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bomaairqx0y6l"]
+[gd_scene format=3 uid="uid://bomaairqx0y6l"]
 
 [ext_resource type="Texture2D" uid="uid://gj4wp4wijlgc" path="res://UI/Wheel/colorwheel.png" id="1_16cvd"]
 [ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/color_wheel.gd" id="2_tybns"]
@@ -39,7 +39,7 @@ corner_radius_top_right = 64
 corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
 
-[node name="Wheel" type="TextureRect"]
+[node name="Wheel" type="TextureRect" unique_id=24791494]
 light_mask = 0
 offset_left = -500.0
 offset_top = -500.0
@@ -51,7 +51,7 @@ texture = ExtResource("1_16cvd")
 script = ExtResource("2_tybns")
 color = Color(1, 0.32549, 0.294118, 1)
 
-[node name="Rangenear1" type="TextureRect" parent="."]
+[node name="Rangenear1" type="TextureRect" parent="." unique_id=2069702849]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -68,7 +68,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-320.417, 6.67419)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="Rangenear2" type="TextureRect" parent="."]
+[node name="Rangenear2" type="TextureRect" parent="." unique_id=135672528]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -85,7 +85,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-318.895, 6.8501)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="Rangeopose1" type="TextureRect" parent="."]
+[node name="Rangeopose1" type="TextureRect" parent="." unique_id=1363679672]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -102,7 +102,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-318.895, 6.8501)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="Rangeopose2" type="TextureRect" parent="."]
+[node name="Rangeopose2" type="TextureRect" parent="." unique_id=1399757282]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -119,7 +119,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-318.895, 6.8501)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="Rangeweak" type="TextureRect" parent="."]
+[node name="Rangeweak" type="TextureRect" parent="." unique_id=258564804]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -136,7 +136,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-318.895, 6.8501)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="Rangeresist" type="TextureRect" parent="."]
+[node name="Rangeresist" type="TextureRect" parent="." unique_id=115316936]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 6
@@ -153,7 +153,7 @@ grow_vertical = 2
 pivot_offset = Vector2(-318.895, 6.8501)
 texture = SubResource("GradientTexture1D_3g5d6")
 
-[node name="ColorIndicator" type="Panel" parent="."]
+[node name="ColorIndicator" type="Panel" parent="." unique_id=1399893179]
 light_mask = 0
 layout_mode = 0
 offset_left = 540.002
@@ -163,7 +163,7 @@ offset_bottom = 598.002
 pivot_offset = Vector2(-43.5209, 99.1564)
 theme_override_styles/panel = SubResource("StyleBoxFlat_uj7sc")
 
-[node name="Point" type="Panel" parent="ColorIndicator"]
+[node name="Point" type="Panel" parent="ColorIndicator" unique_id=174358326]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -174,7 +174,7 @@ rotation = 0.781856
 pivot_offset = Vector2(101.355, 101.278)
 theme_override_styles/panel = SubResource("StyleBoxFlat_u676l")
 
-[node name="WeakIcon" type="TextureRect" parent="."]
+[node name="WeakIcon" type="TextureRect" parent="." unique_id=1181255769]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792
@@ -184,7 +184,7 @@ offset_bottom = 543.791
 pivot_offset = Vector2(-354.311, 45.3674)
 texture = ExtResource("3_a4pka")
 
-[node name="ResistIcon" type="TextureRect" parent="."]
+[node name="ResistIcon" type="TextureRect" parent="." unique_id=1239250801]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792
@@ -194,7 +194,7 @@ offset_bottom = 543.791
 pivot_offset = Vector2(-354.311, 45.3674)
 texture = ExtResource("4_iacvs")
 
-[node name="NearIcon" type="TextureRect" parent="."]
+[node name="NearIcon" type="TextureRect" parent="." unique_id=794006634]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792
@@ -204,7 +204,7 @@ offset_bottom = 543.791
 pivot_offset = Vector2(-354.311, 45.3674)
 texture = ExtResource("4_iacvs")
 
-[node name="NeturalIcon1" type="TextureRect" parent="."]
+[node name="NeturalIcon1" type="TextureRect" parent="." unique_id=983035349]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792
@@ -214,7 +214,7 @@ offset_bottom = 543.791
 pivot_offset = Vector2(-354.311, 45.3674)
 texture = ExtResource("5_kkn45")
 
-[node name="NeturalIcon2" type="TextureRect" parent="."]
+[node name="NeturalIcon2" type="TextureRect" parent="." unique_id=1695767091]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792
@@ -224,7 +224,7 @@ offset_bottom = 543.791
 pivot_offset = Vector2(-354.311, 45.3674)
 texture = ExtResource("5_kkn45")
 
-[node name="DoubleWeakIcon" type="TextureRect" parent="."]
+[node name="DoubleWeakIcon" type="TextureRect" parent="." unique_id=139375068]
 light_mask = 0
 layout_mode = 0
 offset_left = 850.792

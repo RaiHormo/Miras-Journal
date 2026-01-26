@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bnwig6n21wjpt"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bnwig6n21wjpt"]
 
 [ext_resource type="Texture2D" uid="uid://bmxwee3vr5s7i" path="res://art/BT/FlowParasite/FlowParasiteBT.png" id="1_vd14q"]
 

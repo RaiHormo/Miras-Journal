@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=15 format=3 uid="uid://c4o6fedb0tbyt"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c4o6fedb0tbyt"]
 
 [ext_resource type="Texture2D" uid="uid://b4eon1g4m4is4" path="res://art/BT/WhiteSpawn/WhiteSpawn.png" id="1_k5h7d"]
 

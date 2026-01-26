@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://bqwviswxxvkw2"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://bqwviswxxvkw2"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_mqkvp"]
 [ext_resource type="Resource" uid="uid://bepaxlymwd13p" path="res://database/Abilities/SturdyGuard.tres" id="2_px5pt"]
@@ -22,14 +22,15 @@ MainColor = Color(0.23529412, 0.5882353, 0.49803922, 1)
 PartyIcon = ExtResource("3_px5pt")
 ActorClass = "Boss"
 codename = &"Guardian"
-WeaponPower = 20
+WeaponPower = 40
 HealthBar = true
+RecivedSP = 20
 CustomPosition = Vector2i(66, 30)
 MaxHP = 300
 MaxAura = 44
 Attack = 0.9
 Magic = 1.2
-Defence = 2.0
+Defence = 1.7
 Speed = 1.0
 Abilities = Array[ExtResource("1_mqkvp")]([ExtResource("2_px5pt"), ExtResource("3_2uyqa")])
 StandardAttack = ExtResource("5_uhvrc")

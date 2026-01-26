@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://cpkyv7iusq33j"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cpkyv7iusq33j"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_kv2eb"]
 [ext_resource type="Resource" uid="uid://bu66eiqtjjnvk" path="res://database/Enemies/AsteriaEnemy.tres" id="3_6tm4s"]

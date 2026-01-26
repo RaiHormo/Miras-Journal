@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://of5cf81xb3dd"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://of5cf81xb3dd"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_6rebp"]
-[ext_resource type="SpriteFrames" uid="uid://c4o6fedb0tbyt" path="res://art/BT/WhiteSpawn/WhiteSpawnBT.tres" id="1_e5cux"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_f06dm"]
 [ext_resource type="Resource" uid="uid://c60vqgbtkew60" path="res://database/Abilities/SoulTap.tres" id="1_p3tw5"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_udw1f"]
@@ -15,46 +14,17 @@ FirstName = "White Spawn"
 MainColor = Color(0.768627, 1, 0.85098, 1)
 PartyIcon = ExtResource("1_udw1f")
 ActorClass = "Support"
-codename = &"Actor"
-Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 9
-IsEnemy = true
 DroppedItem = ExtResource("3_r050w")
 RecivedSP = 2
-SummonedAllies = Array[ExtResource("2_a457n")]([])
-CustomPosition = Vector2i(0, 0)
-SecondaryColor = Color(0, 0, 0, 1)
-LastName = ""
-Weapon = ""
-PartyPageName = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
 MaxHP = 40
 MaxAura = 8
 Attack = 0.1
 Magic = 0.3
 Defence = 0.6
 Speed = 8.0
-Health = 0
-Aura = 0
 SkillLevel = 0
-SkillPoints = 0
 Abilities = Array[ExtResource("1_f06dm")]([ExtResource("1_p3tw5")])
 StandardAttack = ExtResource("4_cbmb1")
-LearnableAbilities = Array[ExtResource("1_f06dm")]([])
-BT = ExtResource("1_e5cux")
 Offset = Vector2(0, -15)
-Shadow = false
-ShadowOffset = 0
-SoundSet = ExtResource("1_6rebp")
-Disappear = true
 GlowDef = 0.5
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false

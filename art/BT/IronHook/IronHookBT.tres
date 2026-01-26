@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=37 format=3 uid="uid://chr1a5jyqf65k"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://chr1a5jyqf65k"]
 
 [ext_resource type="Texture2D" uid="uid://dqg4a00wd8377" path="res://art/BT/IronHook/IronHook.png" id="1_26svd"]
 

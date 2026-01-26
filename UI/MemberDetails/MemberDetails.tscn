@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://b7kxxkiuyhc4n"]
+[gd_scene format=3 uid="uid://b7kxxkiuyhc4n"]
 
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="1_gsbq0"]
 [ext_resource type="Script" uid="uid://cwdc884x20ihl" path="res://codings/UIScripts/member_detailsUI.gd" id="1_uy7q8"]
@@ -471,12 +471,12 @@ _data = {
 &"scrollname": SubResource("Animation_r5370")
 }
 
-[node name="MemberDetails" type="CanvasLayer"]
+[node name="MemberDetails" type="CanvasLayer" unique_id=1890809789]
 process_mode = 3
 layer = 8
 script = ExtResource("1_uy7q8")
 
-[node name="Fade" type="ColorRect" parent="."]
+[node name="Fade" type="ColorRect" parent="." unique_id=271343449]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -485,14 +485,14 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.196078)
 
-[node name="Blur" type="ColorRect" parent="Fade"]
+[node name="Blur" type="ColorRect" parent="Fade" unique_id=2007805912]
 material = SubResource("ShaderMaterial_km2id")
 layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 799.0
 mouse_filter = 2
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" type="Label" parent="." unique_id=1939378366]
 offset_left = 166.0
 offset_top = 44.0
 offset_right = 328.0
@@ -501,14 +501,14 @@ scale = Vector2(3.7379, 3.7379)
 theme_override_fonts/font = ExtResource("3_cwuly")
 text = "Firstname Lastname"
 
-[node name="Brushstroke" type="Sprite2D" parent="Name"]
+[node name="Brushstroke" type="Sprite2D" parent="Name" unique_id=485180994]
 modulate = Color(1, 1, 1, 0.486275)
 show_behind_parent = true
 position = Vector2(50.494, 30.7385)
 scale = Vector2(0.173059, 0.173059)
 texture = ExtResource("4_1o3jg")
 
-[node name="Icon" type="TextureRect" parent="Name"]
+[node name="Icon" type="TextureRect" parent="Name" unique_id=1409976129]
 layout_mode = 0
 offset_left = -33.9763
 offset_top = -8.0259
@@ -517,7 +517,7 @@ offset_bottom = 711.974
 scale = Vector2(0.0461321, 0.0461321)
 texture = ExtResource("11_hoi7k")
 
-[node name="StatPanel" type="Control" parent="."]
+[node name="StatPanel" type="Control" parent="." unique_id=1662705863]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -526,7 +526,7 @@ offset_top = 104.0
 offset_right = 100.0
 offset_bottom = 144.0
 
-[node name="Border1" type="PanelContainer" parent="StatPanel"]
+[node name="Border1" type="PanelContainer" parent="StatPanel" unique_id=354132029]
 light_mask = 0
 layout_mode = 0
 offset_left = 1.0
@@ -536,26 +536,26 @@ offset_bottom = 609.0
 theme = SubResource("Theme_uta00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
 
-[node name="Border2" type="PanelContainer" parent="StatPanel/Border1"]
+[node name="Border2" type="PanelContainer" parent="StatPanel/Border1" unique_id=906438228]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fmx3m")
 theme_override_styles/panel = SubResource("StyleBoxFlat_64gcj")
 
-[node name="Border3" type="PanelContainer" parent="StatPanel/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="StatPanel/Border1/Border2" unique_id=460027905]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fl61u")
 theme_override_styles/panel = SubResource("StyleBoxFlat_v187k")
 
-[node name="Bg" type="PanelContainer" parent="StatPanel/Border1/Border2/Border3"]
+[node name="Bg" type="PanelContainer" parent="StatPanel/Border1/Border2/Border3" unique_id=1678330203]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
 
-[node name="Wheel" parent="StatPanel" instance=ExtResource("4_tgr26")]
+[node name="Wheel" parent="StatPanel" unique_id=24906502 instance=ExtResource("4_tgr26")]
 layout_mode = 0
 offset_left = -324.0
 offset_top = -310.0
@@ -563,7 +563,7 @@ offset_right = 676.0
 offset_bottom = 690.0
 scale = Vector2(0.23775, 0.23775)
 
-[node name="LvBox" type="PanelContainer" parent="StatPanel"]
+[node name="LvBox" type="PanelContainer" parent="StatPanel" unique_id=364508195]
 layout_mode = 0
 offset_left = 344.0
 offset_top = 86.0
@@ -571,20 +571,20 @@ offset_right = 615.0
 offset_bottom = 190.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rewb4")
 
-[node name="Vbox" type="VBoxContainer" parent="StatPanel/LvBox"]
+[node name="Vbox" type="VBoxContainer" parent="StatPanel/LvBox" unique_id=1922649168]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="LvBar" type="HBoxContainer" parent="StatPanel/LvBox/Vbox"]
+[node name="LvBar" type="HBoxContainer" parent="StatPanel/LvBox/Vbox" unique_id=1478401313]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Level" type="Label" parent="StatPanel/LvBox/Vbox/LvBar"]
+[node name="Level" type="Label" parent="StatPanel/LvBox/Vbox/LvBar" unique_id=1872926016]
 layout_mode = 2
 text = " Skill Level "
 label_settings = SubResource("LabelSettings_ecwek")
 
-[node name="Number" type="Label" parent="StatPanel/LvBox/Vbox/LvBar"]
+[node name="Number" type="Label" parent="StatPanel/LvBox/Vbox/LvBar" unique_id=2104692488]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
@@ -592,7 +592,7 @@ theme_override_font_sizes/font_size = 32
 text = "1"
 vertical_alignment = 1
 
-[node name="SPNum" type="Label" parent="StatPanel/LvBox/Vbox/LvBar"]
+[node name="SPNum" type="Label" parent="StatPanel/LvBox/Vbox/LvBar" unique_id=1372769306]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -601,7 +601,7 @@ theme_override_font_sizes/font_size = 32
 text = "13"
 horizontal_alignment = 2
 
-[node name="SPInd" type="Label" parent="StatPanel/LvBox/Vbox/LvBar"]
+[node name="SPInd" type="Label" parent="StatPanel/LvBox/Vbox/LvBar" unique_id=601206703]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.388235, 0.388235, 0.388235, 1)
@@ -610,7 +610,7 @@ theme_override_font_sizes/font_size = 18
 text = "SP"
 horizontal_alignment = 2
 
-[node name="ExpBar" type="ProgressBar" parent="StatPanel/LvBox/Vbox"]
+[node name="ExpBar" type="ProgressBar" parent="StatPanel/LvBox/Vbox" unique_id=1188927394]
 custom_minimum_size = Vector2(150, 24)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_n5nr3")
@@ -618,12 +618,12 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_eupc1")
 value = 30.0
 show_percentage = false
 
-[node name="ToNextLv" type="HBoxContainer" parent="StatPanel/LvBox/Vbox"]
+[node name="ToNextLv" type="HBoxContainer" parent="StatPanel/LvBox/Vbox" unique_id=2013836135]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Number" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv"]
+[node name="Number" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv" unique_id=277268167]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
@@ -631,12 +631,12 @@ theme_override_font_sizes/font_size = 24
 text = "123"
 vertical_alignment = 1
 
-[node name="SP" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv"]
+[node name="SP" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv" unique_id=1229069407]
 layout_mode = 2
 text = "SP"
 label_settings = SubResource("LabelSettings_3pwu7")
 
-[node name="Txt" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv"]
+[node name="Txt" type="Label" parent="StatPanel/LvBox/Vbox/ToNextLv" unique_id=607687590]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -644,7 +644,7 @@ theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = " to Level Up"
 
-[node name="HPAura" type="GridContainer" parent="StatPanel"]
+[node name="HPAura" type="GridContainer" parent="StatPanel" unique_id=972554690]
 layout_mode = 0
 offset_left = 336.0
 offset_top = 233.0
@@ -653,20 +653,20 @@ offset_bottom = 331.0
 theme_override_constants/v_separation = 8
 columns = 4
 
-[node name="HealthText" type="Label" parent="StatPanel/HPAura"]
+[node name="HealthText" type="Label" parent="StatPanel/HPAura" unique_id=1763329042]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "Health "
 
-[node name="HPText" type="Label" parent="StatPanel/HPAura"]
+[node name="HPText" type="Label" parent="StatPanel/HPAura" unique_id=126543141]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 32
 text = "999"
 
-[node name="HPInd" type="Label" parent="StatPanel/HPAura"]
+[node name="HPInd" type="Label" parent="StatPanel/HPAura" unique_id=431090683]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
@@ -674,7 +674,7 @@ theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "HP "
 
-[node name="Health" type="ProgressBar" parent="StatPanel/HPAura"]
+[node name="Health" type="ProgressBar" parent="StatPanel/HPAura" unique_id=914946537]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -684,21 +684,21 @@ value = 100.0
 rounded = true
 show_percentage = false
 
-[node name="AuraText" type="Label" parent="StatPanel/HPAura"]
+[node name="AuraText" type="Label" parent="StatPanel/HPAura" unique_id=1237239686]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "Aura"
 
-[node name="APText" type="Label" parent="StatPanel/HPAura"]
+[node name="APText" type="Label" parent="StatPanel/HPAura" unique_id=360821986]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 32
 text = "134"
 horizontal_alignment = 1
 
-[node name="APInd" type="Label" parent="StatPanel/HPAura"]
+[node name="APInd" type="Label" parent="StatPanel/HPAura" unique_id=960603482]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
@@ -706,7 +706,7 @@ theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "AP"
 
-[node name="Aura" type="ProgressBar" parent="StatPanel/HPAura"]
+[node name="Aura" type="ProgressBar" parent="StatPanel/HPAura" unique_id=1481972895]
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -716,7 +716,7 @@ value = 47.0
 rounded = true
 show_percentage = false
 
-[node name="StatBars" type="GridContainer" parent="StatPanel"]
+[node name="StatBars" type="GridContainer" parent="StatPanel" unique_id=1669025871]
 layout_mode = 0
 offset_left = 59.0
 offset_top = 346.0
@@ -726,14 +726,14 @@ theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 18
 columns = 2
 
-[node name="AtkText" type="Label" parent="StatPanel/StatBars"]
+[node name="AtkText" type="Label" parent="StatPanel/StatBars" unique_id=26624181]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Attack"
 
-[node name="Attack" type="ProgressBar" parent="StatPanel/StatBars"]
+[node name="Attack" type="ProgressBar" parent="StatPanel/StatBars" unique_id=22720234]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -745,14 +745,14 @@ step = 0.1
 value = 1.8
 show_percentage = false
 
-[node name="MagText" type="Label" parent="StatPanel/StatBars"]
+[node name="MagText" type="Label" parent="StatPanel/StatBars" unique_id=1639712925]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Magic"
 
-[node name="Magic" type="ProgressBar" parent="StatPanel/StatBars"]
+[node name="Magic" type="ProgressBar" parent="StatPanel/StatBars" unique_id=419122519]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -764,14 +764,14 @@ step = 0.1
 value = 1.1
 show_percentage = false
 
-[node name="DefText" type="Label" parent="StatPanel/StatBars"]
+[node name="DefText" type="Label" parent="StatPanel/StatBars" unique_id=1987030880]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Defence"
 
-[node name="Defence" type="ProgressBar" parent="StatPanel/StatBars"]
+[node name="Defence" type="ProgressBar" parent="StatPanel/StatBars" unique_id=899826046]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -783,7 +783,7 @@ step = 0.1
 value = 0.8
 show_percentage = false
 
-[node name="Weapon" type="HBoxContainer" parent="StatPanel"]
+[node name="Weapon" type="HBoxContainer" parent="StatPanel" unique_id=242243700]
 layout_mode = 0
 offset_left = 54.0
 offset_top = 501.0
@@ -791,21 +791,21 @@ offset_right = 496.0
 offset_bottom = 549.0
 theme_override_constants/separation = 12
 
-[node name="WeaponTxt" type="Label" parent="StatPanel/Weapon"]
+[node name="WeaponTxt" type="Label" parent="StatPanel/Weapon" unique_id=40970596]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Weapon  "
 
-[node name="Icon" type="TextureRect" parent="StatPanel/Weapon"]
+[node name="Icon" type="TextureRect" parent="StatPanel/Weapon" unique_id=1465115677]
 texture_filter = 1
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = SubResource("AtlasTexture_rvp3l")
 stretch_mode = 4
 
-[node name="WeaponRating" type="Label" parent="StatPanel/Weapon/Icon"]
+[node name="WeaponRating" type="Label" parent="StatPanel/Weapon/Icon" unique_id=357131489]
 layout_mode = 0
 offset_left = -146.0
 offset_top = 54.0
@@ -817,14 +817,14 @@ theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 24
 text = "Rating: Does the job"
 
-[node name="WeaponName" type="Label" parent="StatPanel/Weapon"]
+[node name="WeaponName" type="Label" parent="StatPanel/Weapon" unique_id=1444660443]
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = SubResource("FontVariation_maora")
 theme_override_font_sizes/font_size = 32
 text = "Whatever this is"
 
-[node name="AbilityPanel" type="Control" parent="."]
+[node name="AbilityPanel" type="Control" parent="." unique_id=133191284]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 60.0
@@ -832,7 +832,7 @@ offset_top = 104.0
 offset_right = 100.0
 offset_bottom = 144.0
 
-[node name="AttackTitle" type="Button" parent="AbilityPanel"]
+[node name="AttackTitle" type="Button" parent="AbilityPanel" unique_id=1185406477]
 visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_vy61h")
@@ -857,7 +857,7 @@ text = "Attack"
 alignment = 0
 expand_icon = true
 
-[node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle"]
+[node name="Border1" type="PanelContainer" parent="AbilityPanel/AttackTitle" unique_id=880228085]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -868,26 +868,26 @@ offset_bottom = 264.0
 theme = SubResource("Theme_uta00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
 
-[node name="Border2" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1"]
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1" unique_id=2121289790]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fmx3m")
 theme_override_styles/panel = SubResource("StyleBoxFlat_64gcj")
 
-[node name="Border3" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2" unique_id=1469847142]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fl61u")
 theme_override_styles/panel = SubResource("StyleBoxFlat_v187k")
 
-[node name="Bg" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2/Border3"]
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/AttackTitle/Border1/Border2/Border3" unique_id=1846885199]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AbilityPanel/AttackTitle"]
+[node name="RichTextLabel" type="RichTextLabel" parent="AbilityPanel/AttackTitle" unique_id=291122254]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 56.0
@@ -899,7 +899,7 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
-[node name="Wheel" parent="AbilityPanel/AttackTitle" instance=ExtResource("4_tgr26")]
+[node name="Wheel" parent="AbilityPanel/AttackTitle" unique_id=1816965465 instance=ExtResource("4_tgr26")]
 layout_mode = 0
 offset_left = -413.0
 offset_top = -640.0
@@ -908,7 +908,7 @@ offset_bottom = 360.0
 scale = Vector2(0.24075, 0.24075)
 color = Color(1, 0, 0.356863, 1)
 
-[node name="Border1" type="PanelContainer" parent="AbilityPanel"]
+[node name="Border1" type="PanelContainer" parent="AbilityPanel" unique_id=903174763]
 light_mask = 0
 layout_mode = 0
 offset_left = 1.0
@@ -918,61 +918,61 @@ offset_bottom = 537.0
 theme = SubResource("Theme_uta00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_31uqa")
 
-[node name="Border2" type="PanelContainer" parent="AbilityPanel/Border1"]
+[node name="Border2" type="PanelContainer" parent="AbilityPanel/Border1" unique_id=1798106572]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fmx3m")
 theme_override_styles/panel = SubResource("StyleBoxFlat_64gcj")
 
-[node name="Border3" type="PanelContainer" parent="AbilityPanel/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="AbilityPanel/Border1/Border2" unique_id=2077363820]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_fl61u")
 theme_override_styles/panel = SubResource("StyleBoxFlat_v187k")
 
-[node name="Bg" type="PanelContainer" parent="AbilityPanel/Border1/Border2/Border3"]
+[node name="Bg" type="PanelContainer" parent="AbilityPanel/Border1/Border2/Border3" unique_id=930965552]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tgh6b")
 
-[node name="Scroller" type="ScrollContainer" parent="AbilityPanel/Border1"]
+[node name="Scroller" type="ScrollContainer" parent="AbilityPanel/Border1" unique_id=1076183658]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1vly1")
 follow_focus = true
 horizontal_scroll_mode = 3
 
-[node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller"]
+[node name="AbilityList" type="VBoxContainer" parent="AbilityPanel/Border1/Scroller" unique_id=1570186778]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="AttackTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+[node name="AttackTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList" unique_id=2118887981]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "  Weapon Attack"
 
-[node name="AbilitiesTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+[node name="AbilitiesTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList" unique_id=1777992115]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "  Abilities"
 
-[node name="CompTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList"]
+[node name="CompTxt" type="Label" parent="AbilityPanel/Border1/Scroller/AbilityList" unique_id=715251849]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
 theme_override_fonts/font = ExtResource("5_ffgmy")
 theme_override_font_sizes/font_size = 24
 text = "  Complimentary"
 
-[node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller"]
+[node name="Ab0" type="Button" parent="AbilityPanel/Border1/Scroller" unique_id=228829994]
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
@@ -994,7 +994,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0"]
+[node name="Label" type="Label" parent="AbilityPanel/Border1/Scroller/Ab0" unique_id=1636561810]
 use_parent_material = true
 layout_mode = 0
 offset_left = 239.0
@@ -1008,7 +1008,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 text_overrun_behavior = 1
 
-[node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0"]
+[node name="Icon" type="TextureRect" parent="AbilityPanel/Border1/Scroller/Ab0" unique_id=789588253]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -1018,7 +1018,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_o18lt")
 
-[node name="Complimentary" type="Button" parent="AbilityPanel"]
+[node name="Complimentary" type="Button" parent="AbilityPanel" unique_id=2094847947]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_qgu3d")
 layout_direction = 1
@@ -1044,7 +1044,7 @@ icon = ExtResource("11_rmica")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Abilities" type="Button" parent="."]
+[node name="Abilities" type="Button" parent="." unique_id=1171674342]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_qgu3d")
 layout_direction = 1
@@ -1068,7 +1068,7 @@ icon = ExtResource("7_v1cgy")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="." unique_id=1608463145]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_mgrs3")
 layout_direction = 1
@@ -1092,7 +1092,7 @@ icon = ExtResource("8_v0df1")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Line1" type="ColorRect" parent="."]
+[node name="Line1" type="ColorRect" parent="." unique_id=1323025381]
 offset_left = 750.0
 offset_top = 808.0
 offset_right = 1762.0
@@ -1100,7 +1100,7 @@ offset_bottom = 853.0
 rotation = -1.02012
 color = Color(0.894118, 0.894118, 0.894118, 1)
 
-[node name="Line2" type="ColorRect" parent="Line1"]
+[node name="Line2" type="ColorRect" parent="Line1" unique_id=958514624]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 3.0
@@ -1110,7 +1110,7 @@ offset_bottom = 68.0
 rotation = -0.00256336
 color = Color(0.584314, 0.584314, 0.584314, 1)
 
-[node name="Line3" type="ColorRect" parent="Line1/Line2"]
+[node name="Line3" type="ColorRect" parent="Line1/Line2" unique_id=610459324]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -3.0
@@ -1120,7 +1120,7 @@ offset_bottom = 74.0
 rotation = -0.00256336
 color = Color(0.305882, 0.305882, 0.305882, 1)
 
-[node name="Line4" type="ColorRect" parent="Line1/Line2/Line3"]
+[node name="Line4" type="ColorRect" parent="Line1/Line2/Line3" unique_id=641254056]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 33.0
@@ -1130,7 +1130,7 @@ offset_bottom = 398.0
 rotation = -0.00256336
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="Line6" type="ColorRect" parent="Line1/Line2/Line3"]
+[node name="Line6" type="ColorRect" parent="Line1/Line2/Line3" unique_id=923810299]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 1066.0
@@ -1140,7 +1140,7 @@ offset_bottom = 1809.0
 rotation = -0.00256336
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="Line5" type="ColorRect" parent="Line1/Line2/Line3"]
+[node name="Line5" type="ColorRect" parent="Line1/Line2/Line3" unique_id=855400324]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 254.0
@@ -1150,56 +1150,56 @@ offset_bottom = 2045.0
 rotation = -0.54258
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="NameChain" type="HBoxContainer" parent="Line1"]
+[node name="NameChain" type="HBoxContainer" parent="Line1" unique_id=1445150528]
 layout_mode = 0
 offset_left = -100.744
 offset_top = 130.0
 offset_right = 4030.26
 offset_bottom = 224.0
 
-[node name="Name1" type="Label" parent="Line1/NameChain"]
+[node name="Name1" type="Label" parent="Line1/NameChain" unique_id=486640754]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("9_spv8q")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name2" type="Label" parent="Line1/NameChain"]
+[node name="Name2" type="Label" parent="Line1/NameChain" unique_id=1519877660]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("9_spv8q")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name3" type="Label" parent="Line1/NameChain"]
+[node name="Name3" type="Label" parent="Line1/NameChain" unique_id=176857720]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("9_spv8q")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name4" type="Label" parent="Line1/NameChain"]
+[node name="Name4" type="Label" parent="Line1/NameChain" unique_id=167889635]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("9_spv8q")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name5" type="Label" parent="Line1/NameChain"]
+[node name="Name5" type="Label" parent="Line1/NameChain" unique_id=1907115256]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("9_spv8q")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Render" type="TextureRect" parent="."]
+[node name="Render" type="TextureRect" parent="." unique_id=564255431]
 offset_left = 587.0
 offset_top = -2.0
 offset_right = 4018.0
 offset_bottom = 3478.0
 scale = Vector2(0.244821, 0.244821)
 
-[node name="Shadow" type="TextureRect" parent="Render"]
+[node name="Shadow" type="TextureRect" parent="Render" unique_id=349505504]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 texture_filter = 4
@@ -1220,11 +1220,9 @@ metadata/_aseprite_wizard_config_ = {
 "source": ""
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_of3rt")
-}
-autoplay = "scrollname"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1515850872]
+libraries/ = SubResource("AnimationLibrary_of3rt")
+autoplay = &"scrollname"
 
 [connection signal="focus_entered" from="AbilityPanel/Border1/Scroller/Ab0" to="." method="_on_ab_focus_entered"]
 [connection signal="pressed" from="AbilityPanel/Complimentary" to="." method="_on_complimentary"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://h8hsgjo5gg6"]
+[gd_scene format=3 uid="uid://h8hsgjo5gg6"]
 
 [ext_resource type="Script" uid="uid://bn783yamujd4k" path="res://codings/Interactions/ground_item.gd" id="1_65lo7"]
 [ext_resource type="Texture2D" uid="uid://cu1p6ew3p2s5f" path="res://art/OV/Objects/Sparkles.png" id="2_1gsdw"]
@@ -104,11 +104,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="ItemDefault1" type="Node2D"]
+[node name="ItemDefault1" type="Node2D" unique_id=1687002140]
 script = ExtResource("1_65lo7")
 metadata/_edit_group_ = true
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=136841469]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL0l0ZW1TcGFya2xlLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PVNwYXJrbGVzCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 light_mask = 0
 texture_filter = 1
@@ -118,18 +118,17 @@ autoplay = "default"
 frame_progress = 0.770717
 offset = Vector2(0.5, 0.5)
 
-[node name="Interactable" parent="." instance=ExtResource("3_uqxwf")]
+[node name="Interactable" parent="." unique_id=1703852966 instance=ExtResource("3_uqxwf")]
 position = Vector2(0.6875, 12.9102)
 LabelText = "Search"
 ActionType = "item"
-Length = 110
 hidesprite = true
-add_flag = true
 hide_parent = true
+add_flag = true
 offset = 10
 needs_bag = true
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="." unique_id=1942093357]
 light_mask = 0
 z_index = 10
 position = Vector2(-0.3125, 12.9102)

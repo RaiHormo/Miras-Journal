@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://d05eisax2ikpg"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://d05eisax2ikpg"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_am8fo"]
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_wpwwi"]
@@ -13,11 +13,6 @@ script = ExtResource("1_wpwwi")
 name = "Frozen"
 Description = "Cannot move until hit again, or after 3 turns
 "
-RemovedOnBattleEnd = true
-parameter = 0.0
 turns = 3
 icon = SubResource("AtlasTexture_ir784")
 color = Color(0.0745098, 0.909804, 1, 1)
-weak_mult = 1.0
-dmg_mult = 0.8
-is_stat_change = false

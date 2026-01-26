@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=208 format=3 uid="uid://doam5hhftuw4e"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://doam5hhftuw4e"]
 
 [ext_resource type="Texture2D" uid="uid://dflkgvfdlrm6y" path="res://art/OV/Mira/Base.png" id="1_rpd6c"]
 [ext_resource type="Texture2D" uid="uid://cp2o868d0iqig" path="res://art/OV/Mira/axeupdown.png" id="2_ag6f7"]

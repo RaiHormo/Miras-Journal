@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://oi2xv8bjx6ph"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://oi2xv8bjx6ph"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_vdu0h"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_x6468"]

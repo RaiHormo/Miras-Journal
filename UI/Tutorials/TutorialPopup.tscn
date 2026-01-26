@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dp06lj85ovb8f"]
+[gd_scene format=3 uid="uid://dp06lj85ovb8f"]
 
 [ext_resource type="Script" uid="uid://uxyko46qedi" path="res://codings/UIScripts/tutorial_popup.gd" id="1_kw845"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="3_5etnr"]
@@ -103,12 +103,12 @@ action = &"DialogNext"
 [sub_resource type="Shortcut" id="Shortcut_yev0x"]
 events = [SubResource("InputEventAction_5etnr")]
 
-[node name="Control" type="CanvasLayer"]
+[node name="Control" type="CanvasLayer" unique_id=903447602]
 process_mode = 3
 layer = 2
 script = ExtResource("1_kw845")
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=964943107]
 visible = false
 show_behind_parent = true
 z_index = -39
@@ -120,7 +120,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Border1" type="PanelContainer" parent="."]
+[node name="Border1" type="PanelContainer" parent="." unique_id=2011004174]
 show_behind_parent = true
 offset_left = -407.0
 offset_top = 628.0
@@ -129,7 +129,7 @@ offset_bottom = 716.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_1v6ly")
 
-[node name="Label" type="Label" parent="Border1"]
+[node name="Label" type="Label" parent="Border1" unique_id=1318091991]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 0.466667)
@@ -137,7 +137,7 @@ theme_override_fonts/font = ExtResource("3_c8w00")
 theme_override_font_sizes/font_size = 48
 text = "TUTORIAL"
 
-[node name="Text" type="RichTextLabel" parent="Border1"]
+[node name="Text" type="RichTextLabel" parent="Border1" unique_id=737747927]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -150,12 +150,12 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="Arrow" type="Panel" parent="Border1"]
+[node name="Arrow" type="Panel" parent="Border1" unique_id=401647495]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
-[node name="Border2" type="PanelContainer" parent="."]
+[node name="Border2" type="PanelContainer" parent="." unique_id=1558549862]
 visible = false
 show_behind_parent = true
 offset_left = -412.0
@@ -165,7 +165,7 @@ offset_bottom = 581.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
 
-[node name="Text" type="RichTextLabel" parent="Border2"]
+[node name="Text" type="RichTextLabel" parent="Border2" unique_id=1210740812]
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 12
@@ -176,10 +176,10 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="Control" type="Control" parent="Border2"]
+[node name="Control" type="Control" parent="Border2" unique_id=1324697287]
 layout_mode = 2
 
-[node name="Arrow" type="Panel" parent="Border2/Control"]
+[node name="Arrow" type="Panel" parent="Border2/Control" unique_id=1745521516]
 layout_mode = 0
 offset_left = -25.0
 offset_top = 23.0
@@ -187,7 +187,7 @@ offset_right = -7.0
 offset_bottom = 54.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
-[node name="Next" type="Button" parent="Border2/Control"]
+[node name="Next" type="Button" parent="Border2/Control" unique_id=1005465923]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_wx1q2")
 layout_direction = 1
@@ -212,7 +212,7 @@ icon = ExtResource("5_vdwkq")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Border3" type="PanelContainer" parent="."]
+[node name="Border3" type="PanelContainer" parent="." unique_id=1375610800]
 visible = false
 show_behind_parent = true
 offset_left = 328.0
@@ -222,7 +222,7 @@ offset_bottom = 349.0
 theme = SubResource("Theme_77ie1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcgxk")
 
-[node name="Text" type="RichTextLabel" parent="Border3"]
+[node name="Text" type="RichTextLabel" parent="Border3" unique_id=1751108867]
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 12

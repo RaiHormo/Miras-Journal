@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://cb76smqxxpbjr"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cb76smqxxpbjr"]
 
 [ext_resource type="Texture2D" uid="uid://vnwe6gtk3qeb" path="res://art/OV/Linde/Linde.png" id="1_3j5xf"]
 

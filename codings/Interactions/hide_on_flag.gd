@@ -2,7 +2,8 @@ extends Node2D
 
 @export var flag: String = ""
 @export var hide_if: bool = true
-var use_sprite = false
+@export var use_sprite = false
+@export var free_instead:= false
 
 func _ready() -> void:
 	check()
@@ -14,6 +15,8 @@ func check():
 	if Event.f(flag) == hide_if:
 		if use_sprite:
 			if $Sprite.animation != "hide": $Sprite.play("hide")
+		elif free_instead:
+			get_parent().queue_free()
 		else:
 			get_parent().hide()
 		for i in get_parent().get_children():

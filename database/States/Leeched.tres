@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://c22qro3ss1nuy"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://c22qro3ss1nuy"]
 
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_3cc81"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_pyp2k"]

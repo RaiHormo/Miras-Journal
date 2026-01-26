@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj1uo3blocr8e"]
+[gd_scene format=3 uid="uid://dj1uo3blocr8e"]
 
-[ext_resource type="Script" path="res://addons/AsepriteWizard/shared/source_drop_button.gd" id="1_smfgi"]
+[ext_resource type="Script" uid="uid://cwe1gd2tc2qyg" path="res://addons/AsepriteWizard/shared/source_drop_button.gd" id="1_smfgi"]
 
-[node name="source_drop_button" type="Button"]
+[node name="source_drop_button" type="Button" unique_id=1712117975]
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "[empty]"

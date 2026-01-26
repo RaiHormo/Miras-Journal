@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://b47an2y5t4kb8"]
+[gd_resource type="Resource" script_class="ControlScheme" format=3 uid="uid://b47an2y5t4kb8"]
 
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="1_3dbgw"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="2_dtym5"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c5jexglyr0fg0" path="res://UI/Input/RT.png" id="8_4rye4"]
 [ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="9_hqi6v"]
 [ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="10_sccna"]
-[ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="11_a8w62"]
+[ext_resource type="Script" uid="uid://bhsalia71p2n5" path="res://UI/Input/control_scheme.gd" id="11_a8w62"]
 
 [resource]
 script = ExtResource("11_a8w62")
@@ -29,4 +29,3 @@ L = ExtResource("5_g8qpv")
 LZ = ExtResource("6_yndug")
 Menu = ExtResource("3_f2iby")
 OVAttack = ExtResource("8_4rye4")
-AltConfirm = false

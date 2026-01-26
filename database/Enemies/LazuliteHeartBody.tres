@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://dyqwhhom23j2x"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://dyqwhhom23j2x"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_j4a1g"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_tk2k6"]
@@ -24,7 +24,6 @@ RecivedSP = 30
 SummonedAllies = Array[ExtResource("3_3qp5y")]([ExtResource("9_hsgqg"), ExtResource("10_amlp5")])
 CustomPosition = Vector2i(78, 24)
 MaxHP = 300
-MaxAura = 20
 Attack = 0.0
 Defence = 2.0
 Speed = 1.0

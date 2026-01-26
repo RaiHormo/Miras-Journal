@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://gcvk81uqf88q"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://gcvk81uqf88q"]
 
 [ext_resource type="Texture2D" uid="uid://cyn5l5nfdsxi8" path="res://art/BT/AsteriaSummons/IndigoLion.png" id="1_r4as0"]
 

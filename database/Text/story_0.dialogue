@@ -171,7 +171,7 @@ Mira.Neutral: Come on let's go! The people there might be able to help us!
 ~ what_happened_here
 Mira.Neutral: What... happened here?
 [wait=0.1] [next=auto]
-do npc("P").go_to(Vector2(6, 15))
+do npc("P").go_to(Vector2(6, 15), true)
 do npc("P").look_to(Vector2(1, 0))
 [wait=0.1] [next=auto]
 do npc("P").look_to(Vector2(-1, 0))

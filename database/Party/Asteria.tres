@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=11 format=3 uid="uid://c7dagc4gevvwu"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://c7dagc4gevvwu"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_wfdm5"]
 [ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="2_jl2mg"]

@@ -98,7 +98,7 @@ else:
 if f("AlcineAlone"):
 	Alcine.Neutral: Shwooo?
 elif Event.TimeOfDay == 2 and Event.Day == 1:
-	I'm all rested, let's go find Alcine.
+	I'm all rested, let's go find {{alcine()}}.
 elif Event.TimeOfDay > 2 and Event.Day == 2:
 	It's the tent.\nBut now is not the time to sleep.
 else:

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=49 format=3 uid="uid://cgnsvgqdju2dh"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cgnsvgqdju2dh"]
 
 [ext_resource type="Texture2D" uid="uid://dyqps8m6q0lbi" path="res://art/Effects/Ellipsis.png" id="1_qclsh"]
 [ext_resource type="Texture2D" uid="uid://y8plcl80k7cw" path="res://art/Effects/Question.png" id="2_4bwgg"]

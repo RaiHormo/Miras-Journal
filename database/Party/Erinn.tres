@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=8 format=3 uid="uid://css4l7jfuhb4v"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://css4l7jfuhb4v"]
 
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_gxbro"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_knk13"]
@@ -13,6 +13,8 @@ point_count = 2
 
 [resource]
 script = ExtResource("1_gxbro")
+Health = 85
+Aura = 90
 FirstName = "Erinn"
 MainColor = Color(0.50098, 0.74, 0.4588, 1)
 PartyIcon = ExtResource("2_b55w6")
@@ -26,8 +28,6 @@ MaxAura = 90
 Attack = 0.5
 Magic = 1.8
 Defence = 1.5
-Health = 85
-Aura = 90
 SkillCurve = SubResource("Curve_7tpjl")
 StandardAttack = ExtResource("7_eppa1")
 OV = "res://art/OV/Erinn/ErinnOV.tres"

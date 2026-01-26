@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://c5vyc5fu4kgon"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://c5vyc5fu4kgon"]
 
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_c548v"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ytnjp"]
@@ -13,10 +13,7 @@ script = ExtResource("1_c548v")
 name = "Soaked"
 Description = "Can't evade and is more likely to miss.
 Increased damage from weak hits."
-RemovedOnBattleEnd = true
 turns = 5
 icon = SubResource("AtlasTexture_tsrog")
 color = Color(0.337255, 0.623529, 0.976471, 1)
 weak_mult = 1.5
-dmg_mult = 1.0
-is_stat_change = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cp07hd6816l7e"]
+[gd_scene format=3 uid="uid://cp07hd6816l7e"]
 
 [ext_resource type="Script" uid="uid://cps0x3mdxcyvu" path="res://codings/Autoload/ItemManager.gd" id="1_tytpn"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_d0a2x"]
@@ -33,7 +33,7 @@ corner_radius_top_right = 48
 corner_radius_bottom_right = 48
 corner_radius_bottom_left = 48
 
-[node name="ItemManager" type="Control"]
+[node name="ItemManager" type="Control" unique_id=1506861721]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -44,9 +44,9 @@ grow_vertical = 2
 script = ExtResource("1_tytpn")
 KeyInv = Array[ExtResource("2_yoeyv")]([ExtResource("2_jpvbu"), ExtResource("3_p3mct"), ExtResource("4_22d57")])
 
-[node name="Can" type="CanvasLayer" parent="."]
+[node name="Can" type="CanvasLayer" parent="." unique_id=423061814]
 
-[node name="Panel" type="PanelContainer" parent="Can"]
+[node name="Panel" type="PanelContainer" parent="Can" unique_id=1648628415]
 offset_left = 544.11
 offset_top = 376.0
 offset_right = 679.11
@@ -54,10 +54,10 @@ offset_bottom = 433.0
 pivot_offset = Vector2(54, 28)
 theme_override_styles/panel = SubResource("StyleBoxFlat_6duet")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Can/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Can/Panel" unique_id=1466726364]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Can/Panel/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Can/Panel/HBoxContainer" unique_id=1272326882]
 texture_filter = 1
 material = ExtResource("2_d0a2x")
 custom_minimum_size = Vector2(64, 0)
@@ -65,16 +65,16 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_gtdj1")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Can/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="Can/Panel/HBoxContainer" unique_id=564814680]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("8_vrnpu")
 theme_override_font_sizes/font_size = 32
 text = "Item"
 
-[node name="Obtained" type="Label" parent="Can/Panel/HBoxContainer/Label"]
+[node name="Obtained" type="Label" parent="Can/Panel/HBoxContainer/Label" unique_id=353151159]
 texture_filter = 2
-layout_mode = 2
+layout_mode = 0
 offset_left = -101.11
 offset_top = -29.0
 offset_right = 33.89
@@ -85,11 +85,11 @@ theme_override_fonts/font = ExtResource("8_b5qlt")
 theme_override_font_sizes/font_size = 32
 text = "OBTAINED"
 
-[node name="Border" type="PanelContainer" parent="Can/Panel/HBoxContainer/Label"]
+[node name="Border" type="PanelContainer" parent="Can/Panel/HBoxContainer/Label" unique_id=198477979]
 show_behind_parent = true
 z_index = -1
 z_as_relative = false
-layout_mode = 2
+layout_mode = 0
 offset_left = -79.0
 offset_top = -9.0
 offset_right = 82.0
@@ -97,7 +97,7 @@ offset_bottom = 54.0
 pivot_offset = Vector2(54, 28)
 theme_override_styles/panel = SubResource("StyleBoxFlat_vrnpu")
 
-[node name="ItemEffect" type="Node" parent="."]
+[node name="ItemEffect" type="Node" parent="." unique_id=507917263]
 script = ExtResource("4_1qmny")
 
 [connection signal="return_member" from="." to="ItemEffect" method="_on_item_manager_return_member"]

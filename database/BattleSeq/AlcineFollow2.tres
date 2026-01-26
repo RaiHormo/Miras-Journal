@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://dm1nvrvosexxj"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://dm1nvrvosexxj"]
 
 [ext_resource type="Resource" uid="uid://blb51swqx23w7" path="res://database/Enemies/Pterogon.tres" id="1_ianey"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_isrps"]

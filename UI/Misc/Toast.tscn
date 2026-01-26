@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdocri2qcief1"]
+[gd_scene format=3 uid="uid://bdocri2qcief1"]
 
 [ext_resource type="Script" uid="uid://cvcje8hoc6ofh" path="res://codings/UIScripts/Toast.gd" id="1_1ovav"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_foll0"]
@@ -23,12 +23,12 @@ expand_margin_top = 2.0
 expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
-[node name="Toast" type="CanvasLayer"]
+[node name="Toast" type="CanvasLayer" unique_id=426901355]
 process_mode = 3
 layer = 12
 script = ExtResource("1_1ovav")
 
-[node name="BoxContainer" type="BoxContainer" parent="."]
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=1706400265]
 offset_left = 2.0
 offset_top = 634.0
 offset_right = 1277.0
@@ -36,12 +36,12 @@ offset_bottom = 674.0
 pivot_offset = Vector2(637, 20)
 alignment = 1
 
-[node name="Toast" type="PanelContainer" parent="BoxContainer"]
+[node name="Toast" type="PanelContainer" parent="BoxContainer" unique_id=299900130]
 light_mask = 0
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0wg3v")
 
-[node name="Label" type="Label" parent="BoxContainer/Toast"]
+[node name="Label" type="Label" parent="BoxContainer/Toast" unique_id=1405599402]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_foll0")
 theme_override_font_sizes/font_size = 28

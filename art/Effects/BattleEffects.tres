@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=232 format=3 uid="uid://5k4mw47d473r"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://5k4mw47d473r"]
 
 [ext_resource type="Texture2D" uid="uid://c8dtn4cmhytm0" path="res://art/Effects/AttackUp.png" id="1_hoxdm"]
 [ext_resource type="Texture2D" uid="uid://blsrjdw2tysha" path="res://art/Effects/DefenceUp.png" id="2_5l7v7"]

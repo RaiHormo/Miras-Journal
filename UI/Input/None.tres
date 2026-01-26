@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=8 format=3 uid="uid://dxkj4vowlw8um"]
+[gd_resource type="Resource" script_class="ControlScheme" format=3 uid="uid://dxkj4vowlw8um"]
 
-[ext_resource type="Script" path="res://UI/Input/control_scheme.gd" id="1_1a562"]
+[ext_resource type="Script" uid="uid://bhsalia71p2n5" path="res://UI/Input/control_scheme.gd" id="1_1a562"]
 [ext_resource type="Texture2D" uid="uid://ba63ddjq5l5lu" path="res://UI/Input/None.png" id="1_n04el"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="2_6idsj"]
 [ext_resource type="Texture2D" uid="uid://cfr61ucg7dky8" path="res://UI/Input/O.png" id="3_xxwsm"]
@@ -25,4 +25,3 @@ L = ExtResource("1_n04el")
 LZ = ExtResource("1_n04el")
 Menu = ExtResource("4_vbque")
 OVAttack = ExtResource("1_n04el")
-AltConfirm = false

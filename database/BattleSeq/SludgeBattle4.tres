@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://dv24x1ivfytn7"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://dv24x1ivfytn7"]
 
 [ext_resource type="Resource" uid="uid://7mrwuvwe5lbt" path="res://database/Enemies/DarkSludge.tres" id="1_hxhgp"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_jt2de"]
@@ -10,18 +10,5 @@
 [resource]
 script = ExtResource("3_y4cbm")
 Enemies = Array[ExtResource("2_fujfa")]([ExtResource("1_hxhgp"), ExtResource("2_rfvsl")])
-AdditionalItems = Array[ExtResource("1_jt2de")]([])
-Transition = true
-Detransition = false
 EscPosition = Vector2i(58, -17)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1200, -338)
-CanEscape = true
-DeleteAttacker = true
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
-VictoryBanter = ""
-DefeatSequence = ""
-Events = Array[ExtResource("5_q870w")]([])

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=30 format=3 uid="uid://cyxmhihsxgop5"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cyxmhihsxgop5"]
 
 [ext_resource type="Texture2D" uid="uid://brtarcva6c5uq" path="res://art/BT/Crystal/CrystalBt.png" id="1_xb7qr"]
 

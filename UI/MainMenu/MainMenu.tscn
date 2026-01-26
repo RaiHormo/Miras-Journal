@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://taraixnnnyo7"]
+[gd_scene format=3 uid="uid://taraixnnnyo7"]
 
 [ext_resource type="Script" uid="uid://vrtx6mt06wtk" path="res://codings/UIScripts/MainMenu.gd" id="1_5tx7f"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="2_w0qna"]
@@ -547,12 +547,12 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_qyfpa"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[node name="MainMenu" type="CanvasLayer"]
+[node name="MainMenu" type="CanvasLayer" unique_id=1121141846]
 process_mode = 3
 physics_interpolation_mode = 2
 script = ExtResource("1_5tx7f")
 
-[node name="Ring" type="TextureRect" parent="."]
+[node name="Ring" type="TextureRect" parent="." unique_id=17972559]
 material = SubResource("ShaderMaterial_gki4e")
 offset_left = -186.0
 offset_top = -394.0
@@ -561,7 +561,7 @@ offset_bottom = 1255.0
 pivot_offset = Vector2(806, 806)
 texture = SubResource("GradientTexture1D_6e4y7")
 
-[node name="ColorRect" type="ColorRect" parent="Ring"]
+[node name="ColorRect" type="ColorRect" parent="Ring" unique_id=1027324751]
 layout_mode = 0
 offset_left = 1601.0
 offset_top = 383.0
@@ -569,7 +569,7 @@ offset_right = 2332.0
 offset_bottom = 1212.0
 color = Color(0, 0, 0, 1)
 
-[node name="Glow" type="TextureRect" parent="Ring"]
+[node name="Glow" type="TextureRect" parent="Ring" unique_id=1538316233]
 show_behind_parent = true
 light_mask = 0
 texture_filter = 2
@@ -580,7 +580,7 @@ offset_right = 1470.0
 offset_bottom = 1450.0
 texture = SubResource("GradientTexture2D_rqg3q")
 
-[node name="DottedBack" type="TextureRect" parent="."]
+[node name="DottedBack" type="TextureRect" parent="." unique_id=67744050]
 modulate = Color(1, 1, 1, 0.2)
 show_behind_parent = true
 light_mask = 0
@@ -591,24 +591,24 @@ offset_bottom = 1016.0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_w0qna")
 
-[node name="Base" type="Node2D" parent="."]
+[node name="Base" type="Node2D" parent="." unique_id=1975348100]
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 2
 position = Vector2(646.227, 422.751)
 scale = Vector2(0.5, 0.5)
 
-[node name="Clip" type="Polygon2D" parent="Base"]
+[node name="Clip" type="Polygon2D" parent="Base" unique_id=212188677]
 clip_children = 1
 antialiased = true
 invert_enabled = true
 invert_border = 400.0
 
-[node name="Background" type="Polygon2D" parent="Base/Clip"]
+[node name="Background" type="Polygon2D" parent="Base/Clip" unique_id=1613770673]
 color = Color(0.117647, 0.117647, 0.117647, 1)
 antialiased = true
 polygon = PackedVector2Array(-340.454, 226.498, -342, 164, -342, 98, -334, 32, -318, -40, -300, -98, -274, -154, -236, -206, -182, -254, -120, -290, -42, -310, 40, -312, 118, -296, 188, -262, 238, -222, 276, -178, 306, -128, 314, -104, 334, -30, 336, 32, 316, 128, 294, 176, 268, 214, 246, 240, 228, 258, 186, 290, 152, 310, 106, 328, 58, 338, -14, 342, -82.3307, 328.52, -115.3, 317.929, -117.415, 311.551, -120.567, 305.373, -125.673, 298.691, -130.853, 291.098, -139.229, 284.844, -145.483, 280.823, -156.531, 275.33, -166.13, 272.561, -184.316, 272.437, -198.388, 276.681, -207.322, 282.153, -215.474, 288.631, -225.972, 299.91, -230.998, 310.854, -233.566, 320.57, -235.576, 331.068, -235.241, 343.464, -231.891, 355.748, -220.5, 371.941, -199.839, 387.241, -186.549, 391.597, -174.935, 391.262, -163.209, 390.368, -155.932, 389.315, -96, 410, -42, 420, 14, 422, 46, 422, 114, 410, 188, 382, 262, 336, 340, 256, 364, 220, 376, 194, 396, 146, 412, 76, 418, 2, 404, -102, 386, -150, 358, -198, 326, -244, 270, -304, 182, -360, 128, -378, 70, -392, 16, -396, -32, -394, -104, -382, -174, -354, -214, -332, -244, -308, -274, -284, -322, -230, -382, -118, -402, -2, -396, 82, -386, 134, -368, 182)
 
-[node name="Rail" type="Polygon2D" parent="Base/Clip/Background"]
+[node name="Rail" type="Polygon2D" parent="Base/Clip/Background" unique_id=1600784826]
 color = Color(0.839216, 0.843137, 0.839216, 1)
 antialiased = true
 polygon = PackedVector2Array(-160.24, 332.354, -128.215, 351.137, -95.4922, 362.304, -45.3795, 373.568, -2.91846, 376.98, 59.8287, 374.109, 92.5303, 367.758, 127.609, 358.281, 172.208, 339.36, 228.016, 303.363, 253.33, 279.863, 275.733, 256.661, 311.065, 209.538, 328.511, 181.48, 343.079, 148.026, 352.432, 120.328, 362.296, 81.7601, 366.821, 37.2336, 366.641, -10.0691, 360.706, -48.7388, 344.698, -113.308, 310.885, -180.215, 281.927, -222.122, 257.107, -247.482, 223.474, -277.878, 189.121, -300.181, 154.048, -318.706, 110.342, -335.793, 51.2711, -344.983, 20.2335, -347.663, -24.3715, -350.002, -76.5303, -339.75, -122.022, -323.533, -159.625, -308.994, -198.294, -284.533, -232.468, -255.936, -265.963, -220.798, -299.915, -178.956, -320.418, -132.733, -338.78, -84.7603, -348.476, -48.9186, -356.454, 14.498, -362.454, 82.498, -368.454, 36.498, -368.454, -17.502, -365.311, -54.2784, -357.829, -105.394, -346.119, -139.514, -329.411, -173.021, -304.771, -212.05, -286.284, -233.781, -247.576, -274.101, -210.08, -299.825, -159.625, -332.016, -92.6698, -354.579, -24.1917, -368.707, 43.9329, -366.997, 111.422, -354.138, 182.793, -329.177, 216.999, -305.936, 249.013, -280.037, 277.071, -252.698, 293.025, -236.032, 307.949, -217.453, 327.137, -188.62, 340.336, -166.893, 353.229, -143.136, 362.367, -121.207, 375.915, -73.717, 384.119, -30.7974, 386.349, 22.8635, 382.187, 62.8491, 378.322, 94.9559, 367.025, 133.306, 350.625, 175.46, 341.132, 194.892, 327.173, 218.901, 310.868, 242.242, 295.344, 263.349, 277.252, 282.67, 241.617, 315.406, 221.773, 329.712, 190.232, 349.048, 136.274, 374.228, 99.6483, 386.328, 68.8824, 392.352, 1.84106, 397.159, -35.0289, 395.814, -65.2349, 390.528, -106.594, 380.46, -138.62, 366.271, -169.835, 347.488)
@@ -617,7 +617,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_sharp_limit = 20.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Tooth1" type="Polygon2D" parent="Base/Clip/Background/Rail"]
+[node name="Tooth1" type="Polygon2D" parent="Base/Clip/Background/Rail" unique_id=413958221]
 position = Vector2(2, 0)
 color = Color(0.839216, 0.843137, 0.839216, 1)
 antialiased = true
@@ -627,7 +627,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_sharp_limit = 20.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Tooth2" type="Polygon2D" parent="Base/Clip/Background/Rail"]
+[node name="Tooth2" type="Polygon2D" parent="Base/Clip/Background/Rail" unique_id=438737182]
 position = Vector2(2, -2)
 rotation = -0.35246
 color = Color(0.839216, 0.843137, 0.839216, 1)
@@ -638,7 +638,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_sharp_limit = 20.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Tooth3" type="Polygon2D" parent="Base/Clip/Background/Rail"]
+[node name="Tooth3" type="Polygon2D" parent="Base/Clip/Background/Rail" unique_id=57227577]
 position = Vector2(-43.7946, 33.5984)
 rotation = -0.552201
 color = Color(0.839216, 0.843137, 0.839216, 1)
@@ -649,7 +649,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_sharp_limit = 20.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Tooth4" type="Polygon2D" parent="Base/Clip/Background/Rail"]
+[node name="Tooth4" type="Polygon2D" parent="Base/Clip/Background/Rail" unique_id=492674882]
 position = Vector2(-26.1818, 56.6623)
 rotation = -0.890748
 color = Color(0.839216, 0.843137, 0.839216, 1)
@@ -660,7 +660,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_sharp_limit = 20.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="End" type="Polygon2D" parent="Base/Clip/Background"]
+[node name="End" type="Polygon2D" parent="Base/Clip/Background" unique_id=264543284]
 color = Color(0.839216, 0.843137, 0.839216, 1)
 antialiased = true
 polygon = PackedVector2Array(-138.793, 327.828, -116, 342, -114, 332, -113.504, 322.013, -118, 310, -124, 300, -132, 290, -140, 284, -154, 276, -168, 272, -182, 272, -195.663, 274.389, -206, 280, -218, 290, -228, 304, -234, 320, -236, 340, -232, 356, -222, 370, -206, 384, -192, 390, -182, 392, -170.469, 392.571, -158, 390, -142, 382, -164, 368, -172.387, 370.234, -181.946, 370.449, -190.04, 369.287, -197.963, 365.11, -206, 358, -212, 350, -216, 338, -216, 328, -212, 316, -208, 308, -198, 298, -188, 294, -176, 292, -165.928, 293.402, -156, 298, -148, 304, -142.208, 310.753, -140, 318)
@@ -669,7 +669,7 @@ stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 stroke_width = 4.0
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Center" type="Polygon2D" parent="Base/Clip/Background/End"]
+[node name="Center" type="Polygon2D" parent="Base/Clip/Background/End" unique_id=530148166]
 color = Color(0.839216, 0.843137, 0.839216, 1)
 antialiased = true
 polygon = PackedVector2Array(-190.762, 312.203, -182.455, 307.756, -172.219, 307.42, -161.143, 312.538, -155.438, 319.251, -151.662, 329.739, -153.508, 341.989, -158.291, 348.953, -164.583, 353.736, -169.102, 356.006, -176.917, 356.631, -185.721, 355.745, -190.619, 352.619, -195.964, 347.107, -199.237, 340.395, -200.495, 333.011, -199.32, 323.53, -196.216, 316.985)
@@ -677,7 +677,7 @@ script = ExtResource("4_4qf4k")
 stroke_color = Color(0.839216, 0.843137, 0.839216, 1)
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Ticker" type="Polygon2D" parent="Base"]
+[node name="Ticker" type="Polygon2D" parent="Base" unique_id=1181133415]
 position = Vector2(-370, -440)
 color = Color(0.894118, 0.576471, 0.431373, 1)
 antialiased = true
@@ -688,7 +688,7 @@ stroke_sharp_limit = 20.0
 stroke_round_precision = 12
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="Center" type="Polygon2D" parent="Base/Ticker"]
+[node name="Center" type="Polygon2D" parent="Base/Ticker" unique_id=1282986783]
 color = Color(0.117647, 0.117647, 0.117647, 1)
 antialiased = true
 polygon = PackedVector2Array(-30.5798, 1.23021, -28.5798, -10.7698, -20.5798, -22.7698, -10.5798, -28.7698, -0.579819, -30.7698, 13.4202, -28.7698, 23.4202, -22.7698, 31.4202, -12.7698, 33.7891, 0.87822, 31.4202, 15.2302, 23.4202, 25.2302, 11.4202, 31.2302, -0.579819, 33.2302, -12.5798, 31.2302, -22.5798, 25.2302, -28.5798, 13.2302)
@@ -697,21 +697,19 @@ script = ExtResource("4_4qf4k")
 stroke_color = Color(0.117647, 0.117647, 0.117647, 1)
 metadata/_custom_type_script = "uid://dp3ul2l83a01q"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_5thul")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1102399075]
+libraries/ = SubResource("AnimationLibrary_5thul")
 
-[node name="Rail" type="Path2D" parent="."]
+[node name="Rail" type="Path2D" parent="." unique_id=839668007]
 position = Vector2(458, 235)
 curve = SubResource("Curve2D_v64sb")
 
-[node name="JournalFollow" type="PathFollow2D" parent="Rail"]
+[node name="JournalFollow" type="PathFollow2D" parent="Rail" unique_id=1751049635]
 position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="JournalButton" type="Button" parent="Rail/JournalFollow"]
+[node name="JournalButton" type="Button" parent="Rail/JournalFollow" unique_id=1474927484]
 offset_left = -90.0
 offset_top = -30.0
 offset_right = 100.0
@@ -724,12 +722,12 @@ text_overrun_behavior = 1
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ItemFollow" type="PathFollow2D" parent="Rail"]
+[node name="ItemFollow" type="PathFollow2D" parent="Rail" unique_id=1258354772]
 position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="ItemButton" type="Button" parent="Rail/ItemFollow"]
+[node name="ItemButton" type="Button" parent="Rail/ItemFollow" unique_id=1668579956]
 offset_left = -90.0
 offset_top = -30.0
 offset_right = 100.0
@@ -742,12 +740,12 @@ text_overrun_behavior = 1
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="QuestFollow" type="PathFollow2D" parent="Rail"]
+[node name="QuestFollow" type="PathFollow2D" parent="Rail" unique_id=1535710853]
 position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="QuestButton" type="Button" parent="Rail/QuestFollow"]
+[node name="QuestButton" type="Button" parent="Rail/QuestFollow" unique_id=1446805233]
 offset_left = -90.0
 offset_top = -30.0
 offset_right = 100.0
@@ -761,13 +759,13 @@ text_overrun_behavior = 1
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionsFollow" type="PathFollow2D" parent="Rail"]
+[node name="OptionsFollow" type="PathFollow2D" parent="Rail" unique_id=236104955]
 position = Vector2(119.416595, 365.912)
 rotation = -6.28319
 progress = 950.0
 rotates = false
 
-[node name="OptionsButton" type="Button" parent="Rail/OptionsFollow"]
+[node name="OptionsButton" type="Button" parent="Rail/OptionsFollow" unique_id=1991239420]
 offset_left = -89.416504
 offset_top = -29.912413
 offset_right = 110.583496
@@ -780,7 +778,7 @@ text_overrun_behavior = 1
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="DescPaper" type="TextureRect" parent="."]
+[node name="DescPaper" type="TextureRect" parent="." unique_id=1712763501]
 visible = false
 use_parent_material = true
 offset_left = 737.0
@@ -792,7 +790,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(-0.000183105, 317.647)
 texture = ExtResource("3_2t42f")
 
-[node name="Title" type="Label" parent="DescPaper"]
+[node name="Title" type="Label" parent="DescPaper" unique_id=1548870279]
 use_parent_material = true
 layout_mode = 0
 offset_left = 132.0
@@ -805,7 +803,7 @@ theme_override_font_sizes/font_size = 53
 text = "Item Name"
 horizontal_alignment = 2
 
-[node name="Desc" type="RichTextLabel" parent="DescPaper"]
+[node name="Desc" type="RichTextLabel" parent="DescPaper" unique_id=440992870]
 use_parent_material = true
 layout_mode = 0
 offset_left = 120.0
@@ -817,7 +815,7 @@ theme = SubResource("Theme_bug03")
 bbcode_enabled = true
 text = "This item is very cool, almost too cool for you."
 
-[node name="Amount" type="Label" parent="DescPaper"]
+[node name="Amount" type="Label" parent="DescPaper" unique_id=778980650]
 use_parent_material = true
 layout_mode = 0
 offset_left = 226.0
@@ -830,7 +828,7 @@ theme_override_font_sizes/font_size = 46
 text = "52 in bag"
 horizontal_alignment = 2
 
-[node name="ShowWheel" type="Button" parent="DescPaper"]
+[node name="ShowWheel" type="Button" parent="DescPaper" unique_id=341576497]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_efl2n")
@@ -858,7 +856,7 @@ icon = ExtResource("5_ilv5n")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Art" type="TextureRect" parent="DescPaper"]
+[node name="Art" type="TextureRect" parent="DescPaper" unique_id=1267902080]
 layout_mode = 0
 offset_left = 76.2687
 offset_top = -472.581
@@ -868,7 +866,7 @@ rotation = -0.0531199
 scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("6_emlrx")
 
-[node name="Wheel" parent="DescPaper" instance=ExtResource("10_tp8ni")]
+[node name="Wheel" parent="DescPaper" unique_id=1211174659 instance=ExtResource("10_tp8ni")]
 visible = false
 layout_mode = 0
 offset_left = -169.036
@@ -877,7 +875,7 @@ offset_right = 830.961
 offset_bottom = 321.29
 scale = Vector2(0.395651, 0.395651)
 
-[node name="Inventory" type="PanelContainer" parent="."]
+[node name="Inventory" type="PanelContainer" parent="." unique_id=545507572]
 visible = false
 use_parent_material = true
 offset_left = 241.0
@@ -887,17 +885,17 @@ offset_bottom = 645.0
 pivot_offset = Vector2(33, 210)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2eyg6")
 
-[node name="Border2" type="PanelContainer" parent="Inventory"]
+[node name="Border2" type="PanelContainer" parent="Inventory" unique_id=813270620]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0phpv")
 
-[node name="Border1" type="Panel" parent="Inventory/Border2"]
+[node name="Border1" type="Panel" parent="Inventory/Border2" unique_id=1399394947]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nerx1")
 
-[node name="Margin" type="MarginContainer" parent="Inventory"]
+[node name="Margin" type="MarginContainer" parent="Inventory" unique_id=1070055849]
 use_parent_material = true
 clip_contents = true
 layout_mode = 2
@@ -907,18 +905,18 @@ theme_override_constants/margin_top = 46
 theme_override_constants/margin_right = -11
 theme_override_constants/margin_bottom = 14
 
-[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin"]
+[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin" unique_id=1103036096]
 use_parent_material = true
 clip_contents = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller"]
+[node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller" unique_id=392401587]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="KeyLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="KeyLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox" unique_id=1949853843]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
@@ -926,14 +924,14 @@ theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Key Items"
 
-[node name="KeyItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="KeyItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox" unique_id=1946249162]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 5
 
-[node name="ConLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="ConLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox" unique_id=868349040]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
@@ -941,7 +939,7 @@ theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Consumables"
 
-[node name="Consumables" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="Consumables" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox" unique_id=84610855]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -949,7 +947,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 5
 
-[node name="MatLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="MatLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox" unique_id=1001589719]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
@@ -957,7 +955,7 @@ theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Materials"
 
-[node name="Materials" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="Materials" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox" unique_id=292235183]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -965,7 +963,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 5
 
-[node name="BtiLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="BtiLabel" type="Label" parent="Inventory/Margin/Scroller/Vbox" unique_id=295834135]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
@@ -973,7 +971,7 @@ theme_override_fonts/font = ExtResource("4_pkqpv")
 theme_override_font_sizes/font_size = 28
 text = "Battle Items"
 
-[node name="BattleItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox"]
+[node name="BattleItems" type="GridContainer" parent="Inventory/Margin/Scroller/Vbox" unique_id=840759272]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -981,7 +979,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 5
 
-[node name="Item" type="Button" parent="Inventory"]
+[node name="Item" type="Button" parent="Inventory" unique_id=728650716]
 visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -1000,7 +998,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Party" type="Button" parent="."]
+[node name="Party" type="Button" parent="." unique_id=859113310]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1
@@ -1024,7 +1022,7 @@ icon = ExtResource("16_4qf4k")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Confirm" type="Button" parent="."]
+[node name="Confirm" type="Button" parent="." unique_id=1371539381]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1
@@ -1048,7 +1046,7 @@ icon = ExtResource("5_biinq")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="." unique_id=2078966436]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_xe1ew")
 layout_direction = 1

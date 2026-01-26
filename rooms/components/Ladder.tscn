@@ -1,37 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://tcn5wh8gstsu"]
+[gd_scene format=3 uid="uid://tcn5wh8gstsu"]
 
 [ext_resource type="Script" uid="uid://bsbkg084xt4ln" path="res://codings/Interactions/ladder.gd" id="1_i5v3q"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="2_bewv0"]
 [ext_resource type="Texture2D" uid="uid://iatje3wqjmwh" path="res://art/Icons/Editor/ladder.png" id="3_aymlr"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="4_nlliy"]
 
-[node name="Ladder" type="Node2D"]
+[node name="Ladder" type="Node2D" unique_id=449673161]
 z_index = 8
 position = Vector2(493, 207)
 script = ExtResource("1_i5v3q")
 
-[node name="End1" type="Marker2D" parent="."]
+[node name="End1" type="Marker2D" parent="." unique_id=1730241983]
 position = Vector2(0, -20)
 
-[node name="TopInteractable" parent="." instance=ExtResource("2_bewv0")]
+[node name="TopInteractable" parent="." unique_id=281369955 instance=ExtResource("2_bewv0")]
 LabelText = "Climb down"
-Length = 140
 
-[node name="Start1" type="Marker2D" parent="."]
+[node name="Start1" type="Marker2D" parent="." unique_id=881222092]
 position = Vector2(0, 18)
 
-[node name="Start2" type="Marker2D" parent="."]
+[node name="Start2" type="Marker2D" parent="." unique_id=970116861]
 position = Vector2(0, 85)
 
-[node name="BottomInteractable" parent="." instance=ExtResource("2_bewv0")]
+[node name="BottomInteractable" parent="." unique_id=363924431 instance=ExtResource("2_bewv0")]
 position = Vector2(0, 85)
 LabelText = "Climb"
-Length = 90
 
-[node name="End2" type="Marker2D" parent="."]
+[node name="End2" type="Marker2D" parent="." unique_id=1844712371]
 position = Vector2(0, 115)
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="." unique_id=1446677574]
 light_mask = 0
 z_index = 10
 position = Vector2(1, 50)

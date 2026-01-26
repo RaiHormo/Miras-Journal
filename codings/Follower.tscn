@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://da22xhcxygcjl"]
+[gd_scene format=3 uid="uid://da22xhcxygcjl"]
 
 [ext_resource type="Script" uid="uid://plp0a8d856yh" path="res://codings/follower_movement.gd" id="1_kihhu"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="2_ppxuy"]
@@ -19,7 +19,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.852941, 0.894118)
 
-[node name="Follower" type="CharacterBody2D"]
+[node name="Follower" type="CharacterBody2D" unique_id=1910152779]
 z_index = 1
 collision_layer = 3
 collision_mask = 3
@@ -28,16 +28,16 @@ wall_min_slide_angle = 1.5707964
 script = ExtResource("1_kihhu")
 SpawnOnCameraInd = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=807342352]
 wait_time = 0.1
 autostart = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=48673383]
 position = Vector2(0, 9)
 shape = SubResource("CapsuleShape2D_xvt3h")
 disabled = true
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=215878745]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9PVi9Bc3RlcmlhLwpvX25hbWV8PUFzdGVyaWFPVjEKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 texture_filter = 1
 material = ExtResource("2_ppxuy")
@@ -46,13 +46,13 @@ sprite_frames = ExtResource("3_vmt3u")
 animation = &"IdleLeft"
 offset = Vector2(0, -9)
 
-[node name="Shadow" type="Sprite2D" parent="Sprite"]
+[node name="Shadow" type="Sprite2D" parent="Sprite" unique_id=1941196585]
 show_behind_parent = true
 use_parent_material = true
 position = Vector2(0, -1)
 texture = ExtResource("4_qao14")
 
-[node name="Glow" type="PointLight2D" parent="."]
+[node name="Glow" type="PointLight2D" parent="." unique_id=1295388205]
 texture_filter = 2
 position = Vector2(0, -1)
 color = Color(0.498039, 0.768627, 0.768627, 1)

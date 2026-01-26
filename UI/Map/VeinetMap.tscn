@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b31w3e1tiwp0y"]
+[gd_scene format=3 uid="uid://b31w3e1tiwp0y"]
 
 [ext_resource type="Script" uid="uid://b4ww3rphxb7qi" path="res://codings/UIScripts/veinet_map.gd" id="1_8kw10"]
 [ext_resource type="Texture2D" uid="uid://csspp3j26q3o3" path="res://art/Pictures/AbadMap.png" id="2_8kw10"]
@@ -209,7 +209,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[node name="VeinetMap" type="Control"]
+[node name="VeinetMap" type="Control" unique_id=1915922114]
 process_mode = 3
 light_mask = 0
 z_index = 10
@@ -221,7 +221,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8kw10")
 
-[node name="BG" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="." unique_id=1336906112]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 15
@@ -230,7 +230,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Map" type="TextureRect" parent="."]
+[node name="Map" type="TextureRect" parent="." unique_id=811976523]
 light_mask = 0
 layout_mode = 0
 offset_left = 38.0
@@ -240,31 +240,31 @@ offset_bottom = 818.0
 texture = ExtResource("2_8kw10")
 expand_mode = 1
 
-[node name="Amberelm" type="Marker2D" parent="Map"]
+[node name="Amberelm" type="Marker2D" parent="Map" unique_id=1098013337]
 light_mask = 0
 position = Vector2(174, 284)
 
-[node name="Gate" type="Marker2D" parent="Map"]
+[node name="Gate" type="Marker2D" parent="Map" unique_id=1897191341]
 light_mask = 0
 position = Vector2(336, 336)
 
-[node name="Plains" type="Marker2D" parent="Map"]
+[node name="Plains" type="Marker2D" parent="Map" unique_id=886005243]
 light_mask = 0
 position = Vector2(647, 542)
 
-[node name="Deep Underground" type="Marker2D" parent="Map"]
+[node name="Deep Underground" type="Marker2D" parent="Map" unique_id=1195651719]
 light_mask = 0
 position = Vector2(557, 496)
 
-[node name="Lakeside" type="Marker2D" parent="Map"]
+[node name="Lakeside" type="Marker2D" parent="Map" unique_id=1562151512]
 light_mask = 0
 position = Vector2(524, 420)
 
-[node name="OldCamp" type="Marker2D" parent="Map"]
+[node name="OldCamp" type="Marker2D" parent="Map" unique_id=1636359655]
 light_mask = 0
 position = Vector2(544, 202)
 
-[node name="Container" type="PanelContainer" parent="."]
+[node name="Container" type="PanelContainer" parent="." unique_id=983392907]
 light_mask = 0
 layout_mode = 0
 offset_left = 898.0
@@ -273,40 +273,40 @@ offset_right = 1304.0
 offset_bottom = 826.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6vbuu")
 
-[node name="Border1" type="PanelContainer" parent="Container"]
+[node name="Border1" type="PanelContainer" parent="Container" unique_id=453410920]
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_2gk0n")
 theme_override_styles/panel = SubResource("StyleBoxFlat_e7deh")
 
-[node name="Border2" type="PanelContainer" parent="Container/Border1"]
+[node name="Border2" type="PanelContainer" parent="Container/Border1" unique_id=313950036]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_gwbqm")
 theme_override_styles/panel = SubResource("StyleBoxFlat_g88f6")
 
-[node name="Border3" type="PanelContainer" parent="Container/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="Container/Border1/Border2" unique_id=1812955121]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_b6cro")
 theme_override_styles/panel = SubResource("StyleBoxFlat_x60r8")
 
-[node name="Scroller" type="ScrollContainer" parent="Container"]
+[node name="Scroller" type="ScrollContainer" parent="Container" unique_id=1542249932]
 light_mask = 0
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_obqmg")
 
-[node name="LocationList" type="VBoxContainer" parent="Container/Scroller"]
+[node name="LocationList" type="VBoxContainer" parent="Container/Scroller" unique_id=410702513]
 light_mask = 0
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Pyrson" type="Label" parent="Container/Scroller/LocationList"]
+[node name="Pyrson" type="Label" parent="Container/Scroller/LocationList" unique_id=1217951763]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
@@ -314,7 +314,7 @@ theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Pyrson"
 
-[node name="Gate" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Gate" type="Button" parent="Container/Scroller/LocationList" unique_id=922232246]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -338,7 +338,7 @@ metadata/Room = "Pyrson"
 metadata/CamID = 0
 metadata/IsDungeon = false
 
-[node name="ShardGardens" type="Label" parent="Container/Scroller/LocationList"]
+[node name="ShardGardens" type="Label" parent="Container/Scroller/LocationList" unique_id=985562043]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
@@ -346,7 +346,7 @@ theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Shard gardens"
 
-[node name="Plains" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Plains" type="Button" parent="Container/Scroller/LocationList" unique_id=1751702290]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -369,7 +369,7 @@ expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 0
 
-[node name="Deep Underground" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Deep Underground" type="Button" parent="Container/Scroller/LocationList" unique_id=1284025602]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -392,7 +392,7 @@ expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 1
 
-[node name="Lakeside" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Lakeside" type="Button" parent="Container/Scroller/LocationList" unique_id=2063169547]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -415,7 +415,7 @@ expand_icon = true
 metadata/Room = "ShardGardens"
 metadata/CamID = 2
 
-[node name="WitheredLeaves" type="Label" parent="Container/Scroller/LocationList"]
+[node name="WitheredLeaves" type="Label" parent="Container/Scroller/LocationList" unique_id=1081624362]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
@@ -423,7 +423,7 @@ theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Withered Leaves"
 
-[node name="OldCamp" type="Button" parent="Container/Scroller/LocationList"]
+[node name="OldCamp" type="Button" parent="Container/Scroller/LocationList" unique_id=2051464224]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -447,7 +447,7 @@ metadata/Room = "WitheredLeaves"
 metadata/CamID = 0
 metadata/IsDungeon = true
 
-[node name="Amberelm" type="Label" parent="Container/Scroller/LocationList"]
+[node name="Amberelm" type="Label" parent="Container/Scroller/LocationList" unique_id=1217240477]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
@@ -455,7 +455,7 @@ theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Amberelm"
 
-[node name="Entrance" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Entrance" type="Button" parent="Container/Scroller/LocationList" unique_id=1220722643]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -477,7 +477,7 @@ icon = ExtResource("5_5boh2")
 alignment = 0
 expand_icon = true
 
-[node name="TempleWoods" type="Label" parent="Container/Scroller/LocationList"]
+[node name="TempleWoods" type="Label" parent="Container/Scroller/LocationList" unique_id=1064790436]
 light_mask = 0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
@@ -485,7 +485,7 @@ theme_override_fonts/font = ExtResource("3_3o4ps")
 theme_override_font_sizes/font_size = 32
 text = "Temple Woods"
 
-[node name="Ruins" type="Button" parent="Container/Scroller/LocationList"]
+[node name="Ruins" type="Button" parent="Container/Scroller/LocationList" unique_id=271102123]
 light_mask = 0
 texture_filter = 2
 use_parent_material = true
@@ -509,13 +509,13 @@ expand_icon = true
 metadata/Room = "TempleWoods"
 metadata/CamID = 1
 
-[node name="Marker" type="Sprite2D" parent="."]
+[node name="Marker" type="Sprite2D" parent="." unique_id=855972417]
 light_mask = 0
 position = Vector2(577, 390)
 texture = ExtResource("6_m545d")
 offset = Vector2(6, -47)
 
-[node name="Here" type="Sprite2D" parent="."]
+[node name="Here" type="Sprite2D" parent="." unique_id=622261770]
 light_mask = 0
 position = Vector2(412, 395)
 texture = ExtResource("7_ilyqy")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0pk66kwtm38a"]
+[gd_scene format=3 uid="uid://b0pk66kwtm38a"]
 
-[ext_resource type="Script" path="res://codings/Interactions/hide_on_flag.gd" id="1_2p54b"]
+[ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="1_2p54b"]
 
-[node name="HideOnFlag" type="Node2D"]
+[node name="HideOnFlag" type="Node2D" unique_id=206159318]
 script = ExtResource("1_2p54b")
 flag = "SGDoor1"

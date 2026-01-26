@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://bosscgoo8k16u"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bosscgoo8k16u"]
 
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_g34i7"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_jpavj"]
@@ -8,26 +8,12 @@
 [sub_resource type="Resource" id="Resource_as5re"]
 script = ExtResource("2_t7t58")
 name = "Weapon"
-description = ""
-Icon = ExtResource("1_g34i7")
 ActionSequence = &"ItemThrow"
 Type = "BigAttack"
-Group = ""
-InflictsState = ""
-AuraCost = 0
-HPCost = 0
-disabled = false
 Damage = 3
-Parameter = 0.0
 Target = 1
-AOE_Stagger = 0.0
-AOE_AdditionalSeq = true
-ColorSameAsActor = false
-WheelColor = Color(1, 1, 1, 1)
 Callout = false
-SucessChance = 1.0
 CritChance = 0.2
-RecoverAura = false
 DmgVarience = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_asmxh"]
@@ -42,11 +28,8 @@ Description = "An old rusty sword found in an abandoned building.
 It could be used 3 times before it breaks."
 ItemType = "Bti"
 Icon = SubResource("AtlasTexture_asmxh")
-Quantity = 0
 QuantityMeansUses = true
 AmountOnAdd = 3
-Use = 0
 UsedInBattle = true
 OvTarget = 1
 BattleEffect = SubResource("Resource_as5re")
-Parameter = ""

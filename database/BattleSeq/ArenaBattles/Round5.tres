@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=6 format=3 uid="uid://cehkmec4xgr1i"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cehkmec4xgr1i"]
 
 [ext_resource type="Resource" uid="uid://cdwcbsh8dnrli" path="res://database/Enemies/IronHook.tres" id="1_0wjhy"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_02teb"]
@@ -9,18 +9,9 @@
 [resource]
 script = ExtResource("2_kuhcl")
 Enemies = Array[ExtResource("2_dgk6x")]([ExtResource("1_0wjhy"), ExtResource("1_0wjhy")])
-AdditionalItems = Array[ExtResource("1_02teb")]([])
-Transition = true
 Detransition = true
-EscPosition = Vector2(0, 0)
-PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
 CanEscape = false
 DeleteAttacker = false
-EntranceSequence = ""
 EntranceBanter = "arena_round5"
 EntranceBanterIsPassive = false
-VictorySequence = ""
-VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[ExtResource("4_6fysc")]([])

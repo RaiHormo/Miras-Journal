@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://chrk1phkqh7ah"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://chrk1phkqh7ah"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_w03q0"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_sjw21"]
@@ -10,18 +10,4 @@
 [resource]
 script = ExtResource("4_rw702")
 Enemies = Array[ExtResource("2_sjw21")]([ExtResource("3_tja4k"), ExtResource("4_358ak")])
-AdditionalItems = Array[ExtResource("1_w03q0")]([])
-Transition = true
-Detransition = false
-EscPosition = Vector2(28, 15)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(648, 504)
-CanEscape = true
-DeleteAttacker = true
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
-VictoryBanter = ""
-DefeatSequence = ""
-Events = Array[ExtResource("3_35n3r")]([])

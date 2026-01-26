@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxghrxdajokgh"]
+[gd_scene format=3 uid="uid://dxghrxdajokgh"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/location_name.gd" id="1_gl338"]
+[ext_resource type="Script" uid="uid://dqgsqvbdrb8ta" path="res://codings/UIScripts/location_name.gd" id="1_gl338"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="1_uejks"]
 
-[node name="LocationName" type="CanvasLayer"]
+[node name="LocationName" type="CanvasLayer" unique_id=1632549826]
 script = ExtResource("1_gl338")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=299566291]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

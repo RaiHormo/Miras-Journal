@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=106 format=3 uid="uid://bmbis13j145si"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bmbis13j145si"]
 
 [ext_resource type="Texture2D" uid="uid://dn31hi5nmolq6" path="res://art/BT/Alcine/Idle + Ability + Cast.png" id="1_bcxsf"]
 [ext_resource type="Texture2D" uid="uid://clfvdk8xkhvhi" path="res://art/BT/Alcine/Attack.png" id="2_rndu1"]

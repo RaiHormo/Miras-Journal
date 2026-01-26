@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dird66c51jjoc"]
+[gd_scene format=3 uid="uid://dird66c51jjoc"]
 
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="1_72ntk"]
 [ext_resource type="Script" uid="uid://h8ptegorgcsy" path="res://codings/UIScripts/levelupUI.gd" id="1_xo3yi"]
@@ -113,9 +113,9 @@ action = &"ui_accept"
 [sub_resource type="Shortcut" id="Shortcut_1n6d2"]
 events = [SubResource("InputEventAction_wxtwq")]
 
-[node name="LevelupScene" type="CanvasLayer"]
+[node name="LevelupScene" type="CanvasLayer" unique_id=982396025]
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=759012657]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -123,14 +123,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.607843)
 
-[node name="Levelup" type="Control" parent="."]
+[node name="Levelup" type="Control" parent="." unique_id=1682794809]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(2, 403)
 script = ExtResource("1_xo3yi")
 
-[node name="Line1" type="ColorRect" parent="Levelup"]
+[node name="Line1" type="ColorRect" parent="Levelup" unique_id=966131807]
 layout_mode = 0
 offset_left = -32.0
 offset_top = -100.0
@@ -139,7 +139,7 @@ offset_bottom = -62.0
 rotation = -0.10821
 color = Color(0.894118, 0.894118, 0.894118, 1)
 
-[node name="Line2" type="ColorRect" parent="Levelup/Line1"]
+[node name="Line2" type="ColorRect" parent="Levelup/Line1" unique_id=74077174]
 show_behind_parent = true
 layout_mode = 0
 offset_top = 28.0
@@ -147,7 +147,7 @@ offset_right = 1287.0
 offset_bottom = 68.0
 color = Color(0.584314, 0.584314, 0.584314, 1)
 
-[node name="Line3" type="ColorRect" parent="Levelup/Line1/Line2"]
+[node name="Line3" type="ColorRect" parent="Levelup/Line1/Line2" unique_id=1264368732]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -3.0
@@ -156,7 +156,7 @@ offset_right = 1284.0
 offset_bottom = 74.0
 color = Color(0.305882, 0.305882, 0.305882, 1)
 
-[node name="Line4" type="ColorRect" parent="Levelup/Line1/Line2/Line3"]
+[node name="Line4" type="ColorRect" parent="Levelup/Line1/Line2/Line3" unique_id=239723655]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -16.0
@@ -165,7 +165,7 @@ offset_right = 1297.0
 offset_bottom = 202.0
 color = Color(0.101961, 0.101961, 0.101961, 1)
 
-[node name="Line3" type="ColorRect" parent="Levelup/Line1"]
+[node name="Line3" type="ColorRect" parent="Levelup/Line1" unique_id=454145757]
 layout_mode = 0
 offset_left = 1287.0
 offset_top = 340.0
@@ -174,7 +174,7 @@ offset_bottom = 378.0
 rotation = 3.14159
 color = Color(0.894118, 0.894118, 0.894118, 1)
 
-[node name="Line2" type="ColorRect" parent="Levelup/Line1/Line3"]
+[node name="Line2" type="ColorRect" parent="Levelup/Line1/Line3" unique_id=1507756260]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -3.0
@@ -183,7 +183,7 @@ offset_right = 1287.0
 offset_bottom = 68.0
 color = Color(0.584314, 0.584314, 0.584314, 1)
 
-[node name="Line3" type="ColorRect" parent="Levelup/Line1/Line3/Line2"]
+[node name="Line3" type="ColorRect" parent="Levelup/Line1/Line3/Line2" unique_id=452139438]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -3.0
@@ -192,7 +192,7 @@ offset_right = 1306.0
 offset_bottom = 74.0
 color = Color(0.305882, 0.305882, 0.305882, 1)
 
-[node name="NameChain" type="HBoxContainer" parent="Levelup/Line1"]
+[node name="NameChain" type="HBoxContainer" parent="Levelup/Line1" unique_id=329308150]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 90.0
@@ -200,42 +200,42 @@ offset_right = 4136.0
 offset_bottom = 184.0
 scale = Vector2(1.1818, 1.1818)
 
-[node name="Name1" type="Label" parent="Levelup/Line1/NameChain"]
+[node name="Name1" type="Label" parent="Levelup/Line1/NameChain" unique_id=1199300816]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name2" type="Label" parent="Levelup/Line1/NameChain"]
+[node name="Name2" type="Label" parent="Levelup/Line1/NameChain" unique_id=1978342610]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name3" type="Label" parent="Levelup/Line1/NameChain"]
+[node name="Name3" type="Label" parent="Levelup/Line1/NameChain" unique_id=2025967133]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name4" type="Label" parent="Levelup/Line1/NameChain"]
+[node name="Name4" type="Label" parent="Levelup/Line1/NameChain" unique_id=15781781]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name5" type="Label" parent="Levelup/Line1/NameChain"]
+[node name="Name5" type="Label" parent="Levelup/Line1/NameChain" unique_id=4515821]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="NameChain2" type="HBoxContainer" parent="Levelup/Line1"]
+[node name="NameChain2" type="HBoxContainer" parent="Levelup/Line1" unique_id=413641209]
 layout_mode = 0
 offset_left = 1301.0
 offset_top = 248.0
@@ -244,42 +244,42 @@ offset_bottom = 342.0
 rotation = 3.14159
 scale = Vector2(1.04064, 1.08054)
 
-[node name="Name1" type="Label" parent="Levelup/Line1/NameChain2"]
+[node name="Name1" type="Label" parent="Levelup/Line1/NameChain2" unique_id=1049268319]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name2" type="Label" parent="Levelup/Line1/NameChain2"]
+[node name="Name2" type="Label" parent="Levelup/Line1/NameChain2" unique_id=1504483814]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name3" type="Label" parent="Levelup/Line1/NameChain2"]
+[node name="Name3" type="Label" parent="Levelup/Line1/NameChain2" unique_id=562837398]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name4" type="Label" parent="Levelup/Line1/NameChain2"]
+[node name="Name4" type="Label" parent="Levelup/Line1/NameChain2" unique_id=521040820]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Name5" type="Label" parent="Levelup/Line1/NameChain2"]
+[node name="Name5" type="Label" parent="Levelup/Line1/NameChain2" unique_id=2008783361]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.305882, 0.305882, 0.305882, 1)
 theme_override_fonts/font = ExtResource("1_72ntk")
 theme_override_font_sizes/font_size = 80
 text = "FIRSTNAME LASTNAME "
 
-[node name="Bg" type="ColorRect" parent="Levelup/Line1"]
+[node name="Bg" type="ColorRect" parent="Levelup/Line1" unique_id=976467493]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -77.0
@@ -288,7 +288,7 @@ offset_right = 1333.0
 offset_bottom = 1099.0
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Levelup"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Levelup" unique_id=503731197]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -307,7 +307,7 @@ theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center][img=128]res://art/Icons/Party/Kai.png[/img]Firstname Lastname joins the party![/center]"
 
-[node name="LevelupText" type="RichTextLabel" parent="Levelup"]
+[node name="LevelupText" type="RichTextLabel" parent="Levelup" unique_id=247159368]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -325,14 +325,13 @@ theme_override_font_sizes/normal_font_size = 112
 bbcode_enabled = true
 text = "[center]SKILL LEVEL UP![/center]"
 
-[node name="ChooseUpgrade" type="Control" parent="Levelup"]
-layout_mode = 3
+[node name="ChooseUpgrade" type="Control" parent="Levelup" unique_id=292885406]
 anchors_preset = 0
 offset_right = 1278.0
 offset_bottom = 800.0
 
-[node name="HPCont" type="PanelContainer" parent="Levelup/ChooseUpgrade"]
-layout_mode = 2
+[node name="HPCont" type="PanelContainer" parent="Levelup/ChooseUpgrade" unique_id=1643807381]
+layout_mode = 0
 offset_left = 160.0
 offset_top = 374.0
 offset_right = 523.0
@@ -341,10 +340,10 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(181, 20)
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ys1q")
 
-[node name="HPBox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/HPCont"]
+[node name="HPBox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/HPCont" unique_id=2097824236]
 layout_mode = 2
 
-[node name="HealthText" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox"]
+[node name="HealthText" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox" unique_id=1264080990]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -353,7 +352,7 @@ theme_override_font_sizes/font_size = 24
 text = "Health"
 horizontal_alignment = 1
 
-[node name="HPText" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox"]
+[node name="HPText" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox" unique_id=1754267212]
 custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_bn54i")
@@ -361,7 +360,7 @@ theme_override_font_sizes/font_size = 32
 text = "999"
 horizontal_alignment = 1
 
-[node name="HPInd" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox"]
+[node name="HPInd" type="Label" parent="Levelup/ChooseUpgrade/HPCont/HPBox" unique_id=614238786]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
@@ -369,7 +368,7 @@ theme_override_fonts/font = ExtResource("4_bn54i")
 theme_override_font_sizes/font_size = 24
 text = "HP "
 
-[node name="Health" type="ProgressBar" parent="Levelup/ChooseUpgrade/HPCont/HPBox"]
+[node name="Health" type="ProgressBar" parent="Levelup/ChooseUpgrade/HPCont/HPBox" unique_id=1849995111]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -379,8 +378,8 @@ value = 100.0
 rounded = true
 show_percentage = false
 
-[node name="APCont" type="PanelContainer" parent="Levelup/ChooseUpgrade"]
-layout_mode = 2
+[node name="APCont" type="PanelContainer" parent="Levelup/ChooseUpgrade" unique_id=1498897898]
+layout_mode = 0
 offset_left = 160.0
 offset_top = 515.0
 offset_right = 523.0
@@ -389,10 +388,10 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(181, 20)
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ys1q")
 
-[node name="APBox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/APCont"]
+[node name="APBox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/APCont" unique_id=1744897262]
 layout_mode = 2
 
-[node name="AuraText" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox"]
+[node name="AuraText" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox" unique_id=1015736808]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -401,7 +400,7 @@ theme_override_font_sizes/font_size = 24
 text = "Aura"
 horizontal_alignment = 1
 
-[node name="APText" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox"]
+[node name="APText" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox" unique_id=1829766928]
 custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_bn54i")
@@ -409,7 +408,7 @@ theme_override_font_sizes/font_size = 32
 text = "134"
 horizontal_alignment = 1
 
-[node name="APInd" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox"]
+[node name="APInd" type="Label" parent="Levelup/ChooseUpgrade/APCont/APBox" unique_id=642966001]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
@@ -417,7 +416,7 @@ theme_override_fonts/font = ExtResource("4_bn54i")
 theme_override_font_sizes/font_size = 24
 text = "AP "
 
-[node name="Aura" type="ProgressBar" parent="Levelup/ChooseUpgrade/APCont/APBox"]
+[node name="Aura" type="ProgressBar" parent="Levelup/ChooseUpgrade/APCont/APBox" unique_id=1721466052]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -426,8 +425,8 @@ value = 47.0
 rounded = true
 show_percentage = false
 
-[node name="NewAb" type="PanelContainer" parent="Levelup/ChooseUpgrade"]
-layout_mode = 2
+[node name="NewAb" type="PanelContainer" parent="Levelup/ChooseUpgrade" unique_id=790210996]
+layout_mode = 0
 offset_left = 160.0
 offset_top = 654.0
 offset_right = 523.0
@@ -438,11 +437,11 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(181, 20)
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ys1q")
 
-[node name="Hbox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/NewAb"]
+[node name="Hbox" type="HBoxContainer" parent="Levelup/ChooseUpgrade/NewAb" unique_id=1065760083]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Icon" type="TextureRect" parent="Levelup/ChooseUpgrade/NewAb/Hbox"]
+[node name="Icon" type="TextureRect" parent="Levelup/ChooseUpgrade/NewAb/Hbox" unique_id=1897821160]
 texture_filter = 1
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
@@ -451,7 +450,7 @@ texture = ExtResource("5_6262g")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Text" type="Label" parent="Levelup/ChooseUpgrade/NewAb/Hbox"]
+[node name="Text" type="Label" parent="Levelup/ChooseUpgrade/NewAb/Hbox" unique_id=2083731528]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -460,8 +459,8 @@ theme_override_font_sizes/font_size = 24
 text = "New ability"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Levelup/ChooseUpgrade"]
-layout_mode = 2
+[node name="Label" type="Label" parent="Levelup/ChooseUpgrade" unique_id=1822670403]
+layout_mode = 0
 offset_left = 399.0
 offset_top = 233.0
 offset_right = 870.0
@@ -472,7 +471,7 @@ theme_override_font_sizes/font_size = 48
 text = "Choose an upgrade"
 horizontal_alignment = 1
 
-[node name="Actor" type="AnimatedSprite2D" parent="Levelup/ChooseUpgrade"]
+[node name="Actor" type="AnimatedSprite2D" parent="Levelup/ChooseUpgrade" unique_id=642784153]
 texture_filter = 1
 position = Vector2(1104, 493)
 scale = Vector2(7.5, 7.5)
@@ -480,7 +479,7 @@ sprite_frames = ExtResource("6_aeyej")
 animation = &"Idle"
 frame_progress = 0.672767
 
-[node name="Cursor" type="TextureRect" parent="Levelup/ChooseUpgrade"]
+[node name="Cursor" type="TextureRect" parent="Levelup/ChooseUpgrade" unique_id=122696528]
 self_modulate = Color(0.909804, 0.909804, 0.909804, 1)
 layout_mode = 0
 offset_left = 661.0
@@ -490,7 +489,7 @@ offset_bottom = 467.0
 scale = Vector2(0.404152, 0.404152)
 texture = ExtResource("7_v7do3")
 
-[node name="Cont" type="PanelContainer" parent="Levelup/ChooseUpgrade/Cursor"]
+[node name="Cont" type="PanelContainer" parent="Levelup/ChooseUpgrade/Cursor" unique_id=285610851]
 layout_mode = 0
 offset_left = 32.0
 offset_top = -47.0
@@ -499,7 +498,7 @@ offset_bottom = 2.0
 scale = Vector2(3.855, 3.855)
 theme_override_styles/panel = SubResource("StyleBoxFlat_tuywr")
 
-[node name="Button" type="Button" parent="Levelup/ChooseUpgrade/Cursor/Cont"]
+[node name="Button" type="Button" parent="Levelup/ChooseUpgrade/Cursor/Cont" unique_id=1446526961]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_gwah4")
 custom_minimum_size = Vector2(0, 33)
@@ -508,9 +507,9 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_pkcqn")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_1n6d2")
 shortcut_in_tooltip = false
@@ -519,7 +518,7 @@ icon = ExtResource("10_8nico")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Continue" type="Button" parent="Levelup/ChooseUpgrade"]
+[node name="Continue" type="Button" parent="Levelup/ChooseUpgrade" unique_id=1294368415]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_gwah4")
@@ -534,9 +533,9 @@ scale = Vector2(1.5, 1.5)
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme = SubResource("Theme_pkcqn")
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_1n6d2")
 shortcut_in_tooltip = false
@@ -545,7 +544,7 @@ icon = ExtResource("10_8nico")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Desc" type="RichTextLabel" parent="Levelup/ChooseUpgrade"]
+[node name="Desc" type="RichTextLabel" parent="Levelup/ChooseUpgrade" unique_id=172184270]
 layout_mode = 0
 offset_left = 198.0
 offset_top = 449.0

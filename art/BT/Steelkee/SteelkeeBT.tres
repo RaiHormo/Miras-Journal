@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://badf7mbvn0waj"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://badf7mbvn0waj"]
 
 [ext_resource type="Texture2D" uid="uid://hthdjd4xnn0g" path="res://art/BT/Steelkee/SteelkeeBT.png" id="1_ghtfl"]
 

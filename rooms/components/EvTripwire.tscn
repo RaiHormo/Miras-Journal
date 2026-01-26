@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://vddf6k6h8067"]
+[gd_scene format=3 uid="uid://vddf6k6h8067"]
 
 [ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="1_3fj50"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fj50"]
 size = Vector2(69.5, 53)
 
-[node name="EvTripwire0" type="Area2D"]
+[node name="EvTripwire0" type="Area2D" unique_id=1297631556]
 collision_mask = 15
 script = ExtResource("1_3fj50")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=624211629]
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_3fj50")
 debug_color = Color(0.612989, 0.359674, 1, 0.42)

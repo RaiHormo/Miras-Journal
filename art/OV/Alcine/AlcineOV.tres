@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=52 format=3 uid="uid://diybsgyevylva"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://diybsgyevylva"]
 
 [ext_resource type="Texture2D" uid="uid://dycsbmy4t6nph" path="res://art/OV/Alcine/Alcineov-Sheet2.png" id="1_sbgir"]
 [ext_resource type="Texture2D" uid="uid://cucn8yjwga4qu" path="res://art/OV/Alcine/Scared.png" id="2_gma5m"]

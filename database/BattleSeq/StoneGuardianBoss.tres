@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=11 format=3 uid="uid://cii3i6q16y4rw"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cii3i6q16y4rw"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_huh7e"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_s2u2d"]
@@ -42,6 +42,16 @@ parameter1 = "StoneGuardian3"
 hold_turn = true
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
+[sub_resource type="Resource" id="Resource_oponu"]
+script = ExtResource("3_oponu")
+actor = &"Guardian"
+low_hp = 200
+parameter1 = "story_0"
+parameter2 = "stone_guardian_still_standing"
+hold_turn = true
+add_flag = false
+metadata/_custom_type_script = "uid://cn75n6xjwndk3"
+
 [resource]
 script = ExtResource("4_t20i2")
 Enemies = Array[ExtResource("2_s2u2d")]([ExtResource("3_s2u2d")])
@@ -52,5 +62,5 @@ EntranceBanterIsPassive = false
 VictorySequence = "StoneGuardian3"
 VictoryText = "Victory?"
 PartyOverride = ["Mira", "Alcine"]
-Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2"), SubResource("Resource_87ic2"), SubResource("Resource_yttu5")])
+Events = Array[ExtResource("3_oponu")]([SubResource("Resource_d2kvd"), SubResource("Resource_t20i2"), SubResource("Resource_87ic2"), SubResource("Resource_yttu5"), SubResource("Resource_oponu")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://c2cqusickawh0"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://c2cqusickawh0"]
 
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="1_thmpc"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_ywwog"]
@@ -10,18 +10,5 @@
 [resource]
 script = ExtResource("3_jdfoh")
 Enemies = Array[ExtResource("2_emkeo")]([ExtResource("1_thmpc"), ExtResource("2_7yq6g")])
-AdditionalItems = Array[ExtResource("1_ywwog")]([])
-Transition = true
-Detransition = false
 EscPosition = Vector2i(63, 9)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1609, 228)
-CanEscape = true
-DeleteAttacker = true
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
-VictoryBanter = ""
-DefeatSequence = ""
-Events = Array[ExtResource("5_y1qyo")]([])

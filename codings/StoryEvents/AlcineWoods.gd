@@ -56,7 +56,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Event.wait(0.5)
 			await Global.textbox("story_0", "approach")
 			Global.Player.collision(false)
-			await Global.Player.go_to(Vector2(67, -45))
+			await Global.Player.go_to(Vector2(67, -45), true)
 			await Event.wait(0.3)
 			Global.Player.BodyState = CUSTOM
 			Global.Player.set_anim("ReachOut")
@@ -191,6 +191,7 @@ func alcine_helps():
 	after_battle()
 
 func after_battle():
+	Global.check_party.emit()
 	Event.take_control()
 	while Loader.InBattle: await Event.wait(0.1)
 	Event.take_control()

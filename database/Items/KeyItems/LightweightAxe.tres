@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://dumcwabsghqgu"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dumcwabsghqgu"]
 
-[ext_resource type="Script" path="res://codings/Classes/item_data.gd" id="1_1608p"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_1608p"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="1_ryhrm"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xa71e"]
@@ -19,10 +19,3 @@ It can be attached to a strap on the bag."
 ItemType = "Key"
 Icon = SubResource("AtlasTexture_w33rk")
 Artwork = ExtResource("1_ryhrm")
-Quantity = 0
-QuantityMeansUses = false
-AmountOnAdd = 1
-Use = 0
-UsedInBattle = false
-OvTarget = 3
-Parameter = ""

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=4 format=3 uid="uid://de2ymbs4ajhqc"]
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://de2ymbs4ajhqc"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_jjy1w"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_uefd8"]

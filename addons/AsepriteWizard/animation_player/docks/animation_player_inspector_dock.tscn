@@ -1,177 +1,177 @@
-[gd_scene load_steps=5 format=3 uid="uid://biyshalfalqqw"]
+[gd_scene format=3 uid="uid://biyshalfalqqw"]
 
-[ext_resource type="Script" path="res://addons/AsepriteWizard/animation_player/docks/animation_player_inspector_dock.gd" id="1"]
+[ext_resource type="Script" uid="uid://wiaxahwjgmv8" path="res://addons/AsepriteWizard/animation_player/docks/animation_player_inspector_dock.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://x1f1t87m582u" path="res://addons/AsepriteWizard/shared/animation_player_drop_button.tscn" id="2_nfeqc"]
 [ext_resource type="PackedScene" uid="uid://dj1uo3blocr8e" path="res://addons/AsepriteWizard/shared/source_drop_button.tscn" id="2_pj0v0"]
 [ext_resource type="PackedScene" uid="uid://cwvgnm3o7eed2" path="res://addons/AsepriteWizard/shared/dir_drop_button.tscn" id="4_jb8bn"]
 
-[node name="sprite_inspector_dock" type="PanelContainer"]
+[node name="sprite_inspector_dock" type="PanelContainer" unique_id=514555810]
 offset_right = 14.0
 offset_bottom = 14.0
 script = ExtResource("1")
 
-[node name="margin" type="MarginContainer" parent="."]
+[node name="margin" type="MarginContainer" parent="." unique_id=1373366557]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="margin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="margin" unique_id=331093626]
 layout_mode = 2
 
-[node name="section_title" type="PanelContainer" parent="margin/VBoxContainer"]
+[node name="section_title" type="PanelContainer" parent="margin/VBoxContainer" unique_id=1109599456]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="margin/VBoxContainer/section_title"]
+[node name="title" type="Label" parent="margin/VBoxContainer/section_title" unique_id=1480194828]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Aseprite"
 horizontal_alignment = 1
 
-[node name="animation_player" type="HBoxContainer" parent="margin/VBoxContainer"]
+[node name="animation_player" type="HBoxContainer" parent="margin/VBoxContainer" unique_id=258813332]
 layout_mode = 2
 tooltip_text = "AnimationPlayer  node where animations should be added to."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/animation_player"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/animation_player" unique_id=1913287767]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "AnimationPlayer"
 
-[node name="options" parent="margin/VBoxContainer/animation_player" instance=ExtResource("2_nfeqc")]
+[node name="options" parent="margin/VBoxContainer/animation_player" unique_id=1798122068 instance=ExtResource("2_nfeqc")]
 layout_mode = 2
 
-[node name="source" type="HBoxContainer" parent="margin/VBoxContainer"]
+[node name="source" type="HBoxContainer" parent="margin/VBoxContainer" unique_id=1741997543]
 layout_mode = 2
 tooltip_text = "Location of the Aseprite (*.ase, *.aseprite)  source file."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/source"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/source" unique_id=1607961560]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Aseprite File"
 
-[node name="button" parent="margin/VBoxContainer/source" instance=ExtResource("2_pj0v0")]
+[node name="button" parent="margin/VBoxContainer/source" unique_id=1965129012 instance=ExtResource("2_pj0v0")]
 layout_mode = 2
 
-[node name="layer" type="HBoxContainer" parent="margin/VBoxContainer"]
+[node name="layer" type="HBoxContainer" parent="margin/VBoxContainer" unique_id=472568576]
 layout_mode = 2
 tooltip_text = "Aseprite layer to be used in the animation. By default all layers are included."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/layer"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/layer" unique_id=1059957445]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Layer"
 
-[node name="options" type="OptionButton" parent="margin/VBoxContainer/layer"]
+[node name="options" type="OptionButton" parent="margin/VBoxContainer/layer" unique_id=596996486]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "[all]"
 popup/item_0/id = 0
 
-[node name="options_title" type="PanelContainer" parent="margin/VBoxContainer"]
+[node name="options_title" type="PanelContainer" parent="margin/VBoxContainer" unique_id=178152238]
 layout_mode = 2
 
-[node name="options_title" type="Button" parent="margin/VBoxContainer/options_title"]
+[node name="options_title" type="Button" parent="margin/VBoxContainer/options_title" unique_id=464671145]
 layout_mode = 2
 toggle_mode = true
 text = "Options"
 
-[node name="options" type="VBoxContainer" parent="margin/VBoxContainer"]
+[node name="options" type="VBoxContainer" parent="margin/VBoxContainer" unique_id=1734751218]
 visible = false
 layout_mode = 2
 
-[node name="out_folder" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="out_folder" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=1979665714]
 layout_mode = 2
 tooltip_text = "Location where the spritesheet file should be saved."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/out_folder"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/out_folder" unique_id=2105134440]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Output folder"
 
-[node name="button" parent="margin/VBoxContainer/options/out_folder" instance=ExtResource("4_jb8bn")]
+[node name="button" parent="margin/VBoxContainer/options/out_folder" unique_id=716682898 instance=ExtResource("4_jb8bn")]
 layout_mode = 2
 
-[node name="out_filename" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="out_filename" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=327085633]
 layout_mode = 2
 tooltip_text = "Base filename for spritesheet. In case the layer option is used, this works as a prefix to the layer name."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/out_filename"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/out_filename" unique_id=1664630306]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Output file name"
 
-[node name="LineEdit" type="LineEdit" parent="margin/VBoxContainer/options/out_filename"]
+[node name="LineEdit" type="LineEdit" parent="margin/VBoxContainer/options/out_filename" unique_id=102317959]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="ex_pattern" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="ex_pattern" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=1143349033]
 layout_mode = 2
 tooltip_text = "Exclude layers with name matching this pattern (regex)."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/ex_pattern"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/ex_pattern" unique_id=1721438694]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Exclude pattern"
 
-[node name="LineEdit" type="LineEdit" parent="margin/VBoxContainer/options/ex_pattern"]
+[node name="LineEdit" type="LineEdit" parent="margin/VBoxContainer/options/ex_pattern" unique_id=1781428578]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="keep_length" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="keep_length" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=2062533637]
 layout_mode = 2
 tooltip_text = "When this is active the animation length won't be adjusted if other properties were added and the resulting imported animation is shorter."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/keep_length"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/keep_length" unique_id=346475893]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Keep manual animation length"
 
-[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/keep_length"]
+[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/keep_length" unique_id=1168984900]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="visible_layers" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="visible_layers" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=1859617477]
 layout_mode = 2
 tooltip_text = "If active, layers not visible in the source file won't be included in the final image."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/visible_layers"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/visible_layers" unique_id=2111138763]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Only visible layers"
 
-[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/visible_layers"]
+[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/visible_layers" unique_id=1674122195]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="auto_visible_track" type="HBoxContainer" parent="margin/VBoxContainer/options"]
+[node name="auto_visible_track" type="HBoxContainer" parent="margin/VBoxContainer/options" unique_id=449028737]
 layout_mode = 2
 tooltip_text = "If active, it will automatically determine unused Sprite2D and Sprite3D nodes in each animation and hide them."
 
-[node name="Label" type="Label" parent="margin/VBoxContainer/options/auto_visible_track"]
+[node name="Label" type="Label" parent="margin/VBoxContainer/options/auto_visible_track" unique_id=953889708]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 text = "Hide unused sprites"
 
-[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/auto_visible_track"]
+[node name="CheckButton" type="CheckButton" parent="margin/VBoxContainer/options/auto_visible_track" unique_id=786272087]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="import" type="Button" parent="margin/VBoxContainer"]
+[node name="import" type="Button" parent="margin/VBoxContainer" unique_id=1821736723]
 layout_mode = 2
 text = "Import"
 

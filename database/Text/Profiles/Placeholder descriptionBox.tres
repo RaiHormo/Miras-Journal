@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=2 format=3 uid="uid://blvwbcd0u6eox"]
+[gd_resource type="Resource" script_class="TextProfile" format=3 uid="uid://blvwbcd0u6eox"]
 
-[ext_resource type="Script" path="res://codings/Classes/box_profile_data.gd" id="2_1lbyj"]
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="2_1lbyj"]
 
 [resource]
 script = ExtResource("2_1lbyj")
 Bord1 = Color(0.160784, 0.160784, 0.160784, 1)
 Bord2 = Color(0.160784, 0.160784, 0.160784, 1)
 Bord3 = Color(0.160784, 0.160784, 0.160784, 1)
-AudioFrequency = 4
 PitchVariance = 0.5

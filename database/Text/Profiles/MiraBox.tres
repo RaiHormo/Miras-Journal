@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=3 format=3 uid="uid://cnpmp4umxxgic"]
+[gd_resource type="Resource" script_class="TextProfile" format=3 uid="uid://cnpmp4umxxgic"]
 
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="1_3dtyf"]
 [ext_resource type="AudioStream" uid="uid://bwaags6jxi3bi" path="res://sound/SFX/Mira/Voice.ogg" id="1_r8pyh"]
@@ -9,5 +9,4 @@ Bord1 = Color(0.847059, 0.607843, 0.447059, 1)
 Bord2 = Color(0.509804, 0.384314, 0.282353, 1)
 Bord3 = Color(0.243137, 0.203922, 0.172549, 1)
 TextSound = ExtResource("1_r8pyh")
-AudioFrequency = 4
 PitchVariance = 0.5

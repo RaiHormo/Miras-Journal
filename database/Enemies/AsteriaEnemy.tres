@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=16 format=3 uid="uid://bu66eiqtjjnvk"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://bu66eiqtjjnvk"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_lcqvh"]
 [ext_resource type="Resource" uid="uid://cbh1if1c4xskl" path="res://database/Abilities/PhantomGuard.tres" id="2_433ji"]

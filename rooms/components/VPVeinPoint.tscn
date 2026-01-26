@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://brwxiq17qyyeb"]
+[gd_scene format=3 uid="uid://brwxiq17qyyeb"]
 
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="1_sli5j"]
 [ext_resource type="Texture2D" uid="uid://cuodplc4cg1gg" path="res://art/Icons/Editor/vp.png" id="2_focdk"]
@@ -45,30 +45,30 @@ scale_max = 0.5
 scale_over_velocity_max = 19.61
 color_ramp = SubResource("GradientTexture1D_fq0ps")
 
-[node name="VPVainPoint" type="Area2D"]
+[node name="VPVainPoint" type="Area2D" unique_id=243513642]
 position = Vector2(438, -46)
 
-[node name="Interactable" parent="." instance=ExtResource("1_sli5j")]
+[node name="Interactable" parent="." unique_id=68636642 instance=ExtResource("1_sli5j")]
 LabelText = "Enter"
 ActionType = "veinet"
 hide_on_flag = &"DisableVeinet"
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1825868405]
 position = Vector2(-4.76837e-07, -4.76837e-07)
 scale = Vector2(11, 10)
 texture = SubResource("PlaceholderTexture2D_4p5qo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854152943]
 shape = SubResource("RectangleShape2D_wv1qn")
 
-[node name="Particle" type="GPUParticles2D" parent="."]
+[node name="Particle" type="GPUParticles2D" parent="." unique_id=745566607]
 emitting = false
 texture = SubResource("GradientTexture2D_ku46n")
 explosiveness = 0.12
 randomness = 0.19
 process_material = SubResource("ParticleProcessMaterial_esk01")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="." unique_id=444896618]
 light_mask = 0
 z_index = 10
 position = Vector2(1.04904e-05, -9.53674e-07)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0dgn2l164lj0"]
+[gd_scene format=3 uid="uid://c0dgn2l164lj0"]
 
 [ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/StoryEvents/AlcineNaming.gd" id="1_lh7uy"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="2_exujk"]
@@ -16,12 +16,12 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="AlcineNaming" type="CanvasLayer"]
+[node name="AlcineNaming" type="CanvasLayer" unique_id=1838565653]
 process_mode = 3
 layer = 3
 script = ExtResource("1_lh7uy")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=774584512]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="Error" type="Label" parent="."]
+[node name="Error" type="Label" parent="." unique_id=1509420605]
 visible = false
 light_mask = 0
 offset_left = 442.0
@@ -43,7 +43,7 @@ text = "Bit too long, isn't it?"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1704698844]
 light_mask = 0
 offset_left = 438.0
 offset_top = 158.0
@@ -54,7 +54,7 @@ theme_override_font_sizes/font_size = 60
 text = "What name shall I give them?"
 horizontal_alignment = 1
 
-[node name="TextEdit" type="LineEdit" parent="."]
+[node name="TextEdit" type="LineEdit" parent="." unique_id=1935797503]
 light_mask = 0
 offset_left = 630.0
 offset_top = 254.0
@@ -81,7 +81,7 @@ drag_and_drop_selection_enabled = false
 caret_blink = true
 script = ExtResource("4_exujk")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2112569083]
 light_mask = 0
 offset_left = -156.74002
 offset_top = -90.64004

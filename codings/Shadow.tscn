@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmte3derk4pn3"]
+[gd_scene format=3 uid="uid://bmte3derk4pn3"]
 
-[ext_resource type="Script" path="res://codings/shadow.gd" id="1_pk6kf"]
+[ext_resource type="Script" uid="uid://dvf302h3lyblq" path="res://codings/shadow.gd" id="1_pk6kf"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="2_b75dq"]
 
-[node name="Shadow" type="CanvasGroup"]
+[node name="Shadow" type="CanvasGroup" unique_id=1637720171]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 light_mask = 3
@@ -12,7 +12,7 @@ position = Vector2(0, 14)
 script = ExtResource("1_pk6kf")
 SampleParent = 1
 
-[node name="Circle" type="Sprite2D" parent="."]
+[node name="Circle" type="Sprite2D" parent="." unique_id=569343551]
 modulate = Color(0, 0, 0, 0.509804)
 show_behind_parent = true
 light_mask = 3

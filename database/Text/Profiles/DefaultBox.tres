@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=4 format=4 uid="uid://kc23d8ih5v7u"]
+[gd_resource type="Resource" script_class="TextProfile" format=4 uid="uid://kc23d8ih5v7u"]
 
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="1_ggwfs"]
 

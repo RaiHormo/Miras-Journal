@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4o1pysvvd273"]
+[gd_scene format=3 uid="uid://b4o1pysvvd273"]
 
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="1_ih71b"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="2_ss358"]
@@ -179,7 +179,7 @@ texture_region_size = Vector2i(24, 24)
 2:4/size_in_atlas = Vector2i(2, 3)
 2:4/0 = 0
 2:4/0/y_sort_origin = 15
-2:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_lb215")
+2:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lb215")
 2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 20, 24, 19.5, 24, 30, -24, 30)
 9:8/size_in_atlas = Vector2i(1, 2)
 9:8/0 = 0
@@ -189,7 +189,7 @@ texture_region_size = Vector2i(24, 24)
 8:7/size_in_atlas = Vector2i(1, 2)
 8:7/0 = 0
 8:7/0/y_sort_origin = 5
-8:7/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
+8:7/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
 8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 12, 6, 12, 17, -12, 17)
 
 [sub_resource type="TileSet" id="TileSet_dw7lm"]
@@ -205,20 +205,20 @@ sources/1 = SubResource("TileSetAtlasSource_m6yxp")
 sources/3 = SubResource("TileSetAtlasSource_c2mgj")
 sources/0 = SubResource("TileSetAtlasSource_87swt")
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node2D" unique_id=1406597942]
 process_mode = 1
 script = ExtResource("4_gfx0h")
 Name = "Arena"
 
-[node name="Layer0" type="TileMapLayer" parent="."]
+[node name="Layer0" type="TileMapLayer" parent="." unique_id=1332807072]
 use_parent_material = true
 tile_set = SubResource("TileSet_dw7lm")
 
-[node name="Bg" type="Sprite2D" parent="."]
+[node name="Bg" type="Sprite2D" parent="." unique_id=397873208]
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("5_px3yq")
 
-[node name="Round" type="Label" parent="."]
+[node name="Round" type="Label" parent="." unique_id=2038960158]
 modulate = Color(0, 0, 0, 0.639216)
 offset_left = 73.0
 offset_top = 75.0

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://cod3sfmno6veq"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://cod3sfmno6veq"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_svj8s"]
 [ext_resource type="Texture2D" uid="uid://2mlrn7q550rg" path="res://art/Icons/Enemies/Spirit.png" id="2_5hrse"]

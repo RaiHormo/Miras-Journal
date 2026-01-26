@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bh82q5qur5ppl"]
+[gd_scene format=3 uid="uid://bh82q5qur5ppl"]
 
 [ext_resource type="Script" uid="uid://c08j1xesagh1l" path="res://codings/UIScripts/optionsUI.gd" id="1_k6uh5"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_0ss3e"]
@@ -566,7 +566,7 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_qyfpa"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[node name="Options" type="CanvasLayer"]
+[node name="Options" type="CanvasLayer" unique_id=290402923]
 process_mode = 3
 physics_interpolation_mode = 2
 layer = 3
@@ -631,7 +631,7 @@ The graph works by rotating the lonley X mark to the attacker's color.
 
 In this case, [color=#e87b33]Orange[/color] is in the X area, meaning the attack will not be very effective."])
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=1921882639]
 modulate = Color(1, 1, 1, 0)
 light_mask = 0
 material = SubResource("ShaderMaterial_4ha3i")
@@ -641,7 +641,7 @@ offset_right = 1286.0
 offset_bottom = 801.0
 color = Color(0, 0, 0, 1)
 
-[node name="Darken" type="ColorRect" parent="Fader"]
+[node name="Darken" type="ColorRect" parent="Fader" unique_id=1533524725]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -6.0
@@ -649,14 +649,14 @@ offset_right = 1288.0
 offset_bottom = 809.0
 color = Color(0, 0, 0, 1)
 
-[node name="Silhouette" type="TextureRect" parent="."]
+[node name="Silhouette" type="TextureRect" parent="." unique_id=347962139]
 offset_top = -39.0
 offset_right = 1500.0
 offset_bottom = 1361.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_p6787")
 
-[node name="Background" type="Control" parent="."]
+[node name="Background" type="Control" parent="." unique_id=1451630366]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 560.0
@@ -665,17 +665,17 @@ offset_bottom = 2402.0
 scale = Vector2(0.654824, 0.599552)
 mouse_filter = 2
 
-[node name="2" type="Polygon2D" parent="Background"]
+[node name="2" type="Polygon2D" parent="Background" unique_id=823038630]
 color = Color(0.156863, 0.160784, 0.156863, 1)
 polygon = PackedVector2Array(600.161, 0, 1099.53, 0, 1099.53, 1334.33, 1085.79, 1432.74, 1061.35, 1519.47, 936.129, 1772.99, 820.068, 1954.79, 545.185, 2273.36, 691.789, 1402.71)
 
-[node name="1" type="Polygon2D" parent="Background"]
+[node name="1" type="Polygon2D" parent="Background" unique_id=404041327]
 position = Vector2(468.828, 181.802)
 scale = Vector2(405.189, 369.109)
 color = Color(0.705882, 0.709804, 0.705882, 1)
 polygon = PackedVector2Array(-0.765092, -0.498645, -0.403275, 0.25305, -0.146988, 0.867602, 0.0452271, 1.42341, 0.24498, 2.15093, 0.384431, 3.02147, 0.414582, 3.58179, 0.410813, 4.04429, 0.335435, 4.69047, 0.180908, 5.69815, 0.354279, 5.1785, 0.538957, 4.49616, 0.6671, 3.80479, 0.734941, 3.27, 0.799013, 2.44758, 0.810319, 1.55897, 0.757555, 0.884094, 0.625642, 0.185269, 0.429658, -0.494127)
 
-[node name="Version" type="Label" parent="Background"]
+[node name="Version" type="Label" parent="Background" unique_id=569712063]
 layout_mode = 0
 offset_left = 822.0
 offset_top = 1263.0
@@ -687,7 +687,7 @@ theme_override_font_sizes/font_size = 48
 text = "v"
 horizontal_alignment = 2
 
-[node name="MainButtons" type="Control" parent="."]
+[node name="MainButtons" type="Control" parent="." unique_id=322398056]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -695,7 +695,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SaveManagment" type="Button" parent="MainButtons"]
+[node name="SaveManagment" type="Button" parent="MainButtons" unique_id=858771662]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.580469
@@ -714,7 +714,7 @@ theme = SubResource("Theme_o6i8h")
 text = "Save Management"
 metadata/_edit_use_anchors_ = true
 
-[node name="GameSettings" type="Button" parent="MainButtons"]
+[node name="GameSettings" type="Button" parent="MainButtons" unique_id=361318790]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.641406
@@ -735,7 +735,7 @@ theme = SubResource("Theme_o6i8h")
 text = "Game Settings"
 metadata/_edit_use_anchors_ = true
 
-[node name="Manual" type="Button" parent="MainButtons"]
+[node name="Manual" type="Button" parent="MainButtons" unique_id=348587204]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.730469
@@ -756,7 +756,7 @@ theme = SubResource("Theme_o6i8h")
 text = "Manual"
 metadata/_edit_use_anchors_ = true
 
-[node name="Gallery" type="Button" parent="MainButtons"]
+[node name="Gallery" type="Button" parent="MainButtons" unique_id=976111043]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.739062
@@ -778,7 +778,7 @@ theme = SubResource("Theme_o6i8h")
 text = "Extras"
 metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Button" parent="MainButtons"]
+[node name="Quit" type="Button" parent="MainButtons" unique_id=487484617]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.710156
@@ -799,7 +799,7 @@ text = "Quit
 icon_alignment = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Timer" type="PanelContainer" parent="."]
+[node name="Timer" type="PanelContainer" parent="." unique_id=1390562438]
 offset_left = 27.0
 offset_top = 27.0
 offset_right = 332.0
@@ -807,23 +807,23 @@ offset_bottom = 106.0
 scale = Vector2(0.819045, 0.819045)
 theme_override_styles/panel = SubResource("StyleBoxFlat_hgmdv")
 
-[node name="HSplitContainer" type="HBoxContainer" parent="Timer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="Timer" unique_id=657899220]
 custom_minimum_size = Vector2(69, 69)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Timer/HSplitContainer"]
+[node name="TextureRect" type="TextureRect" parent="Timer/HSplitContainer" unique_id=1876560110]
 custom_minimum_size = Vector2(69, 69)
 layout_mode = 2
 texture = ExtResource("3_iibdn")
 
-[node name="Label" type="Label" parent="Timer/HSplitContainer"]
+[node name="Label" type="Label" parent="Timer/HSplitContainer" unique_id=593679216]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
-[node name="SavePanel" type="Panel" parent="."]
+[node name="SavePanel" type="Panel" parent="." unique_id=2111716590]
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -832,7 +832,7 @@ rotation = 0.057901
 pivot_offset = Vector2(-0.00598145, 62.8742)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="SavePanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SavePanel" unique_id=1719899646]
 clip_contents = false
 layout_mode = 0
 offset_left = 18.0
@@ -845,18 +845,18 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_t6ahs")
 script = ExtResource("20_t6ahs")
 metadata/_custom_type_script = "uid://biopjphf2psbr"
 
-[node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer"]
+[node name="Files" type="VBoxContainer" parent="SavePanel/ScrollContainer" unique_id=663717394]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(542, 0)
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="New" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files"]
+[node name="New" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files" unique_id=1152061857]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 42
 
-[node name="NewFile" type="Button" parent="SavePanel/ScrollContainer/Files/New"]
+[node name="NewFile" type="Button" parent="SavePanel/ScrollContainer/Files/New" unique_id=1845728213]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -877,7 +877,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
-[node name="NewGame" type="Button" parent="SavePanel/ScrollContainer/Files/New"]
+[node name="NewGame" type="Button" parent="SavePanel/ScrollContainer/Files/New" unique_id=110506252]
 show_behind_parent = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -895,18 +895,18 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "New game"
 
-[node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files"]
+[node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files" unique_id=285207809]
 custom_minimum_size = Vector2(515, 150)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cttb0")
 metadata/Unprocessed = false
 
-[node name="Info" type="GridContainer" parent="SavePanel/ScrollContainer/Files/File0"]
+[node name="Info" type="GridContainer" parent="SavePanel/ScrollContainer/Files/File0" unique_id=1741110188]
 layout_mode = 2
 columns = 2
 
-[node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="FileName" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=697619602]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -914,13 +914,13 @@ theme_override_font_sizes/font_size = 32
 text = "Loading..."
 text_overrun_behavior = 3
 
-[node name="Date" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="Date" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=645021958]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/separation = 12
 alignment = 2
 
-[node name="Month" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
+[node name="Month" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date" unique_id=1558062365]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -928,7 +928,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Please"
 horizontal_alignment = 2
 
-[node name="Day" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date"]
+[node name="Day" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Date" unique_id=242755840]
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
@@ -936,40 +936,40 @@ theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
 text = "Wait"
 horizontal_alignment = 2
 
-[node name="Party" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="Party" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=1205544872]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="Icon0" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
+[node name="Icon0" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party" unique_id=1636980703]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 expand_mode = 1
 
-[node name="Icon1" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
+[node name="Icon1" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party" unique_id=918715247]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 expand_mode = 1
 
-[node name="Icon2" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
+[node name="Icon2" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party" unique_id=240267952]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 expand_mode = 1
 
-[node name="Icon3" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party"]
+[node name="Icon3" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Party" unique_id=1449423153]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 expand_mode = 1
 
-[node name="Location" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="Location" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=2136302673]
 custom_minimum_size = Vector2(250, 70)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -981,7 +981,7 @@ horizontal_alignment = 2
 autowrap_mode = 2
 text_overrun_behavior = 1
 
-[node name="SavedDate" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="SavedDate" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=109930196]
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_vertical = 6
@@ -991,12 +991,12 @@ text = "06 Dec 2023 12:30
 Started: 10 Jan 2005"
 vertical_alignment = 2
 
-[node name="Time" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info"]
+[node name="Time" type="HBoxContainer" parent="SavePanel/ScrollContainer/Files/File0/Info" unique_id=352159612]
 layout_mode = 2
 size_flags_horizontal = 8
 alignment = 2
 
-[node name="Playtime" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Time"]
+[node name="Playtime" type="Label" parent="SavePanel/ScrollContainer/Files/File0/Info/Time" unique_id=1393864917]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -1005,7 +1005,7 @@ theme_override_font_sizes/font_size = 32
 text = "00:00:00"
 horizontal_alignment = 2
 
-[node name="Clock" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Time"]
+[node name="Clock" type="TextureRect" parent="SavePanel/ScrollContainer/Files/File0/Info/Time" unique_id=905357980]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -1013,7 +1013,7 @@ size_flags_vertical = 4
 texture = ExtResource("3_iibdn")
 expand_mode = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="SavePanel/ScrollContainer/Files/File0"]
+[node name="ProgressBar" type="ProgressBar" parent="SavePanel/ScrollContainer/Files/File0" unique_id=2129570553]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1021,7 +1021,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_t5hkq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5f7o0")
 show_percentage = false
 
-[node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/File0"]
+[node name="Button" type="Button" parent="SavePanel/ScrollContainer/Files/File0" unique_id=806071727]
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 1
@@ -1030,7 +1030,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 
-[node name="Buttons" type="HBoxContainer" parent="SavePanel"]
+[node name="Buttons" type="HBoxContainer" parent="SavePanel" unique_id=411527066]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
 offset_left = 81.0124
@@ -1041,7 +1041,7 @@ rotation = -0.0575959
 theme_override_constants/separation = 12
 alignment = 2
 
-[node name="Load" type="Button" parent="SavePanel/Buttons"]
+[node name="Load" type="Button" parent="SavePanel/Buttons" unique_id=1562533437]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_enokf")
 layout_direction = 1
@@ -1059,7 +1059,7 @@ shortcut = SubResource("Shortcut_6pens")
 text = "Load"
 icon = ExtResource("6_d2agy")
 
-[node name="Overwrite" type="Button" parent="SavePanel/Buttons"]
+[node name="Overwrite" type="Button" parent="SavePanel/Buttons" unique_id=1372755857]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_enokf")
 layout_direction = 1
@@ -1077,7 +1077,7 @@ shortcut = SubResource("Shortcut_wppp7")
 text = "Overwrite"
 icon = ExtResource("22_xyl14")
 
-[node name="Delete" type="Button" parent="SavePanel/Buttons"]
+[node name="Delete" type="Button" parent="SavePanel/Buttons" unique_id=1074487087]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_enokf")
 layout_direction = 1
@@ -1096,7 +1096,7 @@ shortcut_in_tooltip = false
 text = "Delete"
 icon = ExtResource("23_gmb0o")
 
-[node name="Toast" type="PanelContainer" parent="SavePanel"]
+[node name="Toast" type="PanelContainer" parent="SavePanel" unique_id=1018612028]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 121.814
@@ -1106,13 +1106,13 @@ offset_bottom = 770.069
 rotation = -0.0575959
 theme_override_styles/panel = SubResource("StyleBoxFlat_m505t")
 
-[node name="Label" type="Label" parent="SavePanel/Toast"]
+[node name="Label" type="Label" parent="SavePanel/Toast" unique_id=34008240]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
-[node name="FileNaming" type="Panel" parent="SavePanel"]
+[node name="FileNaming" type="Panel" parent="SavePanel" unique_id=1393713984]
 layout_mode = 0
 offset_left = 77.35503
 offset_top = 187.73245
@@ -1120,11 +1120,11 @@ offset_right = 404.9234
 offset_bottom = 313.7812
 theme_override_styles/panel = SubResource("StyleBoxFlat_voc1x")
 
-[node name="Polygon2D" type="Polygon2D" parent="SavePanel/FileNaming"]
+[node name="Polygon2D" type="Polygon2D" parent="SavePanel/FileNaming" unique_id=1088281012]
 color = Color(0.15686275, 0.15686275, 0.15686275, 1)
 polygon = PackedVector2Array(30.296875, 4.2538986, 43.8396, -38.601616, 71.28601, 2.8796082)
 
-[node name="ColorRect" type="ColorRect" parent="SavePanel/FileNaming"]
+[node name="ColorRect" type="ColorRect" parent="SavePanel/FileNaming" unique_id=1055621422]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -898.1819
@@ -1133,7 +1133,7 @@ offset_right = 603.14124
 offset_bottom = 721.5204
 color = Color(0, 0, 0, 0.32941177)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SavePanel/FileNaming"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SavePanel/FileNaming" unique_id=1811932382]
 layout_mode = 0
 offset_left = 16.55704
 offset_top = 10.850189
@@ -1141,13 +1141,13 @@ offset_right = 310.69864
 offset_bottom = 108.85019
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="SavePanel/FileNaming/VBoxContainer"]
+[node name="Label" type="Label" parent="SavePanel/FileNaming/VBoxContainer" unique_id=1217538052]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("24_41402")
 theme_override_font_sizes/font_size = 32
 text = "Name the file"
 
-[node name="Label2" type="LineEdit" parent="SavePanel/FileNaming/VBoxContainer"]
+[node name="Label2" type="LineEdit" parent="SavePanel/FileNaming/VBoxContainer" unique_id=1792057366]
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
@@ -1167,7 +1167,7 @@ middle_mouse_paste_enabled = false
 deselect_on_focus_loss_enabled = false
 script = ExtResource("21_siagc")
 
-[node name="Save" type="Button" parent="SavePanel/FileNaming/VBoxContainer"]
+[node name="Save" type="Button" parent="SavePanel/FileNaming/VBoxContainer" unique_id=2096133373]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1184,7 +1184,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_siagc")
 shortcut = SubResource("Shortcut_siagc")
 text = "Save"
 
-[node name="NewFile" type="Button" parent="SavePanel/FileNaming"]
+[node name="NewFile" type="Button" parent="SavePanel/FileNaming" unique_id=1830467355]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 0
@@ -1212,7 +1212,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
-[node name="SidePanel" type="Panel" parent="."]
+[node name="SidePanel" type="Panel" parent="." unique_id=1391057141]
 visible = false
 clip_children = 2
 offset_left = 1335.0
@@ -1223,7 +1223,7 @@ rotation = 0.057901
 pivot_offset = Vector2(-0.00598145, 62.8742)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="SidePanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SidePanel" unique_id=736780253]
 layout_mode = 0
 offset_left = 104.00012
 offset_top = 57.0
@@ -1233,15 +1233,15 @@ rotation = -0.059190698
 theme = SubResource("Theme_6ne1i")
 script = ExtResource("20_t6ahs")
 
-[node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer"]
+[node name="SettingsVbox" type="VBoxContainer" parent="SidePanel/ScrollContainer" unique_id=1445211942]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="MarginContainer" type="MarginContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="MarginContainer" type="MarginContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=642286373]
 layout_mode = 2
 
-[node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Gameplay" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=832508707]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1249,11 +1249,11 @@ theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nqfss")
 text = "Gameplay"
 
-[node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="AutoHideHUD" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=768468380]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD" unique_id=1067720280]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1261,7 +1261,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Auto-hide HUD"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD" unique_id=1132387334]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1275,11 +1275,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Never"
 popup/item_2/id = 2
 
-[node name="TextSpeed" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="TextSpeed" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1885857689]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed" unique_id=1315201660]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1287,7 +1287,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text speed"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed" unique_id=812046990]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1301,7 +1301,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Instant"
 popup/item_2/id = 2
 
-[node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Input" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=147423305]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1309,11 +1309,11 @@ theme_override_fonts/font = ExtResource("17_chpua")
 text = "
 Input"
 
-[node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="ControlScheme" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1278113488]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme" unique_id=27501734]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1321,7 +1321,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Control scheme"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme" unique_id=665539237]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1347,12 +1347,12 @@ popup/item_7/id = 7
 popup/item_8/text = "No prompts"
 popup/item_8/id = 8
 
-[node name="ControlPreview" type="Control" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="ControlPreview" type="Control" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1894395867]
 custom_minimum_size = Vector2(0, 225)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="A" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="A" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=718141966]
 layout_mode = 0
 offset_left = 210.731
 offset_top = 104.043
@@ -1362,7 +1362,7 @@ texture = ExtResource("28_gg2m8")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="B" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="B" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1487099155]
 layout_mode = 0
 offset_left = 156.718
 offset_top = 154.028
@@ -1372,7 +1372,7 @@ texture = ExtResource("7_xdp6q")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="X" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="X" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=217339712]
 layout_mode = 0
 offset_left = 155.745
 offset_top = 55.0281
@@ -1382,7 +1382,7 @@ texture = ExtResource("23_gmb0o")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Y" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Y" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=498055822]
 layout_mode = 0
 offset_left = 103.731
 offset_top = 107.014
@@ -1392,7 +1392,7 @@ texture = ExtResource("22_xyl14")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="L" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="L" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1745376610]
 layout_mode = 0
 offset_left = 18.7451
 offset_top = 53.9766
@@ -1402,7 +1402,7 @@ texture = ExtResource("21_282ro")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="LZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="LZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1021245359]
 layout_mode = 0
 offset_left = 67.7575
 offset_top = 8.99015
@@ -1412,7 +1412,7 @@ texture = ExtResource("22_w3i7s")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="RZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="RZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=908204203]
 layout_mode = 0
 offset_left = 240.757
 offset_top = 10.0378
@@ -1422,7 +1422,7 @@ texture = ExtResource("23_bqtf5")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="R" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="R" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=766235050]
 layout_mode = 0
 offset_left = 294.746
 offset_top = 53.0527
@@ -1432,7 +1432,7 @@ texture = ExtResource("24_kpda3")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Start" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Start" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1651202583]
 layout_mode = 0
 offset_left = 290.716
 offset_top = 160.052
@@ -1442,7 +1442,7 @@ texture = ExtResource("25_aibxb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Select" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Select" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=548667109]
 layout_mode = 0
 offset_left = 19.7159
 offset_top = 159.977
@@ -1452,7 +1452,7 @@ texture = ExtResource("26_jguiy")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1480074097]
 layout_mode = 0
 offset_left = 592.40686
 offset_top = -3.26423
@@ -1462,7 +1462,7 @@ texture = ExtResource("6_d2agy")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1584231730]
 layout_mode = 0
 offset_left = 435.75903
 offset_top = 4.968793
@@ -1474,7 +1474,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Confirm"
 
-[node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1610211722]
 layout_mode = 0
 offset_left = 591.32947
 offset_top = 56.73443
@@ -1484,7 +1484,7 @@ texture = ExtResource("7_xdp6q")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=825774138]
 layout_mode = 0
 offset_left = 433.32202
 offset_top = 62.530655
@@ -1496,7 +1496,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Cancel"
 
-[node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1148712420]
 layout_mode = 0
 offset_left = 590.25214
 offset_top = 116.7331
@@ -1506,7 +1506,7 @@ texture = ExtResource("23_gmb0o")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1440104093]
 layout_mode = 0
 offset_left = 435.24457
 offset_top = 122.53314
@@ -1518,7 +1518,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Menu"
 
-[node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1899993411]
 layout_direction = 3
 layout_mode = 0
 offset_left = -22.465942
@@ -1529,7 +1529,7 @@ texture = ExtResource("22_xyl14")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview"]
+[node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=2027174800]
 layout_mode = 0
 offset_left = 435.16705
 offset_top = 182.5332
@@ -1541,12 +1541,12 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Dash"
 
-[node name="ControllerVibration" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="ControllerVibration" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=159656234]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControllerVibration"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControllerVibration" unique_id=486807829]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1554,14 +1554,14 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Controller Vibration"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControllerVibration"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControllerVibration" unique_id=1576481349]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 button_pressed = true
 alignment = 2
 
-[node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Display" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=2051425050]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1569,12 +1569,12 @@ theme_override_fonts/font = ExtResource("17_chpua")
 text = "
 Display"
 
-[node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Fullscreen" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1864906061]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen" unique_id=836543906]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1582,18 +1582,18 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fullscreen"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen" unique_id=2030962562]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="UpscaledResolution" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="UpscaledResolution" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1140639711]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution" unique_id=1892587762]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1601,14 +1601,14 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Native Resolution"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution" unique_id=1227651980]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 button_pressed = true
 alignment = 2
 
-[node name="UpscaledText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="UpscaledText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=717998530]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1618,12 +1618,12 @@ text = "Renders the game in the window's full
 resolution. When off, the game will be 
 rendered at 1280x800."
 
-[node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1158978083]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures" unique_id=1062615875]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1631,13 +1631,13 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "High resoultion textures"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures" unique_id=216632991]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="HighResText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="HighResText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=18760393]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1646,11 +1646,11 @@ theme_override_font_sizes/font_size = 32
 text = "Artwork is shown at the originally drawn 
 resolution. Higher memory usage."
 
-[node name="FPS" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="FPS" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=277585794]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/FPS" unique_id=954569435]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1658,7 +1658,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Framerate limit"
 
-[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/FPS"]
+[node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/FPS" unique_id=1435488156]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1674,12 +1674,12 @@ popup/item_2/id = 60
 popup/item_3/text = "144 FPS"
 popup/item_3/id = 144
 
-[node name="Vsync" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Vsync" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1602327089]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync" unique_id=1666455322]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1687,18 +1687,18 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "VSync"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync" unique_id=207652245]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="GlowEffect" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="GlowEffect" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=333549649]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect" unique_id=1426065112]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1706,18 +1706,18 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Glow effect"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect" unique_id=2060267726]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="BlurEffect" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="BlurEffect" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=804045683]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect" unique_id=1399400629]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -1725,13 +1725,13 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Blur effect"
 
-[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect"]
+[node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect" unique_id=1292114426]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
 
-[node name="AdjustImage" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="AdjustImage" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1923350416]
 visible = false
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
@@ -1752,13 +1752,13 @@ text = "Adjust Image"
 icon = ExtResource("9_mioka")
 icon_alignment = 2
 
-[node name="BCSadjust" type="GridContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="BCSadjust" type="GridContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=592658474]
 visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 160
 columns = 2
 
-[node name="BrtLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="BrtLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=687742831]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1766,7 +1766,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Brightness"
 
-[node name="BrtSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="BrtSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=435646972]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -1777,7 +1777,7 @@ step = 0.1
 value = 1.0
 scrollable = false
 
-[node name="ConLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="ConLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=253177315]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1786,7 +1786,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Contrast
 "
 
-[node name="ConSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="ConSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=235693951]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -1797,7 +1797,7 @@ step = 0.1
 value = 1.0
 scrollable = false
 
-[node name="SatLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="SatLabel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=1489490008]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1805,7 +1805,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Saturation"
 
-[node name="SatSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust"]
+[node name="SatSlider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BCSadjust" unique_id=144606045]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -1816,7 +1816,7 @@ step = 0.1
 value = 1.0
 scrollable = false
 
-[node name="Audio" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Audio" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=2080954433]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1824,12 +1824,12 @@ theme_override_fonts/font = ExtResource("17_chpua")
 text = "
 Audio"
 
-[node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Master" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1420973542]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Master"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Master" unique_id=742051073]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1837,7 +1837,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master" unique_id=1243398164]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1849,13 +1849,13 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1654909818]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Music"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Music" unique_id=1236929021]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1863,7 +1863,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Music"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music" unique_id=1472663198]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1875,11 +1875,11 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="EnvSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="EnvSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1543289105]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX" unique_id=697290000]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1887,7 +1887,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Enviroment SFX"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX" unique_id=1979375946]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1899,12 +1899,12 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=294077927]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX" unique_id=320436523]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1912,7 +1912,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Battle SFX"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX" unique_id=2082903867]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1924,13 +1924,13 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1278899376]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UI"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UI" unique_id=160171876]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1938,7 +1938,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "UI"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/UI"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/UI" unique_id=1738999704]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1950,12 +1950,12 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1234101140]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Voices"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Voices" unique_id=883699734]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1963,7 +1963,7 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text sounds"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Voices"]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Voices" unique_id=1632352661]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1975,7 +1975,7 @@ max_value = 60.0
 step = 10.0
 scrollable = false
 
-[node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1998929522]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1987,7 +1987,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_q5j0g")
 theme_override_styles/focus = SubResource("StyleBoxFlat_a2y0m")
 text = "Reset Volume"
 
-[node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="System" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1456009362]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1995,12 +1995,12 @@ theme_override_fonts/font = ExtResource("17_chpua")
 text = "
 System"
 
-[node name="DebugMode" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="DebugMode" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1858533688]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode"]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode" unique_id=526686401]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -2008,13 +2008,13 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Debug tools"
 
-[node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode"]
+[node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode" unique_id=83996935]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
-[node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox"]
+[node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=884525833]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -2026,7 +2026,7 @@ Debug tools are used with ctrl key
 combinations.
 "
 
-[node name="ManualPanel" type="Panel" parent="."]
+[node name="ManualPanel" type="Panel" parent="." unique_id=1885979468]
 visible = false
 clip_children = 2
 offset_left = 1335.38
@@ -2037,7 +2037,7 @@ rotation = 0.057901
 pivot_offset = Vector2(-0.249878, 90.9464)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
-[node name="PageLines" type="TextureRect" parent="ManualPanel"]
+[node name="PageLines" type="TextureRect" parent="ManualPanel" unique_id=1082921245]
 modulate = Color(0.77, 0.77, 0.77, 0.258824)
 layout_mode = 0
 offset_left = -296.0
@@ -2048,7 +2048,7 @@ rotation = -0.0642666
 texture = ExtResource("29_t6ahs")
 expand_mode = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ManualPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ManualPanel" unique_id=1528658211]
 clip_contents = false
 layout_mode = 0
 offset_left = 76.0
@@ -2060,13 +2060,13 @@ theme = SubResource("Theme_6ne1i")
 script = ExtResource("20_t6ahs")
 metadata/_custom_type_script = "uid://biopjphf2psbr"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer" unique_id=1665164176]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Introduction" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Introduction" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=158884226]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2086,7 +2086,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Introduction"
 
-[node name="Overworld" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Overworld" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=843719272]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -2094,7 +2094,7 @@ theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 28
 text = "Overworld"
 
-[node name="Movement" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Movement" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=210801917]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2114,7 +2114,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Movement"
 
-[node name="Attacking" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Attacking" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=2132282629]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2134,7 +2134,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Attacking"
 
-[node name="Battle" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Battle" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=425545207]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -2142,7 +2142,7 @@ theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 28
 text = "Battle"
 
-[node name="Turns" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="Turns" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=886615942]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2162,7 +2162,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Turns"
 
-[node name="WhatIsAura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="WhatIsAura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=464590659]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2182,7 +2182,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "What is Aura?"
 
-[node name="AuraAffinity1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="AuraAffinity1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1907099788]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2202,7 +2202,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Aura Affinity [1/2]"
 
-[node name="AuraAffinity2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer"]
+[node name="AuraAffinity2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1128534970]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2222,7 +2222,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Aura Affinity [2/2]"
 
-[node name="Text" type="PanelContainer" parent="ManualPanel"]
+[node name="Text" type="PanelContainer" parent="ManualPanel" unique_id=1014152683]
 clip_contents = true
 layout_mode = 0
 offset_left = 416.0
@@ -2232,7 +2232,7 @@ offset_bottom = 835.0
 rotation = -0.0633063
 theme_override_styles/panel = SubResource("StyleBoxFlat_5qw8o")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ManualPanel/Text"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ManualPanel/Text" unique_id=1312466143]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
@@ -2245,7 +2245,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vm5us")
 bbcode_enabled = true
 fit_content = true
 
-[node name="GalleryPanel" type="Panel" parent="."]
+[node name="GalleryPanel" type="Panel" parent="." unique_id=426410032]
 visible = false
 offset_left = 1335.0
 offset_top = -62.0
@@ -2255,7 +2255,7 @@ rotation = 0.057901
 pivot_offset = Vector2(-0.00598145, 62.8742)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="GalleryPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="GalleryPanel" unique_id=62679732]
 clip_contents = false
 layout_mode = 0
 offset_left = 115.002
@@ -2264,13 +2264,13 @@ offset_right = 681.002
 offset_bottom = 810.426
 rotation = -0.0633063
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer" unique_id=1332204467]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Credits" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+[node name="Credits" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=1383160212]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2291,7 +2291,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Credits
 "
 
-[node name="Website" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+[node name="Website" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=55180716]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2311,7 +2311,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Website"
 
-[node name="RenameAlcine" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+[node name="RenameAlcine" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=1011020241]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2331,7 +2331,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Rename Alcine"
 
-[node name="ArenaMode" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+[node name="ArenaMode" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=1881442102]
 visible = false
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
@@ -2353,7 +2353,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Arena mode
 "
 
-[node name="ResetGame" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer"]
+[node name="ResetGame" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=1130908055]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
@@ -2373,7 +2373,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Reset Game"
 
-[node name="Credits" type="ScrollContainer" parent="GalleryPanel"]
+[node name="Credits" type="ScrollContainer" parent="GalleryPanel" unique_id=2112281784]
 layout_mode = 0
 offset_left = 479.0
 offset_top = 80.0
@@ -2386,7 +2386,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2tth4")
 script = ExtResource("20_t6ahs")
 metadata/_custom_type_script = "uid://biopjphf2psbr"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits"]
+[node name="RichTextLabel" type="RichTextLabel" parent="GalleryPanel/Credits" unique_id=1820278891]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -2418,7 +2418,7 @@ Plugins used:
 "
 fit_content = true
 
-[node name="Confirm" type="Button" parent="."]
+[node name="Confirm" type="Button" parent="." unique_id=1068814314]
 visibility_layer = 1024
 texture_filter = 2
 layout_direction = 1
@@ -2437,7 +2437,7 @@ icon = ExtResource("28_gg2m8")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="." unique_id=1327671105]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_enokf")
 layout_direction = 1
@@ -2457,15 +2457,15 @@ icon = ExtResource("29_nqfss")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="AudioTester" type="AudioStreamPlayer" parent="."]
+[node name="AudioTester" type="AudioStreamPlayer" parent="." unique_id=146275737]
 stream = ExtResource("25_u17hy")
 
-[node name="ImageTester" type="Node2D" parent="."]
+[node name="ImageTester" type="Node2D" parent="." unique_id=1524579278]
 visible = false
 position = Vector2(253, 504)
 scale = Vector2(0.742924, 0.742924)
 
-[node name="Sprite2D" type="Sprite2D" parent="ImageTester"]
+[node name="Sprite2D" type="Sprite2D" parent="ImageTester" unique_id=1842032453]
 texture = ExtResource("26_375bk")
 
 [connection signal="pressed" from="MainButtons/SaveManagment" to="." method="save_managment"]

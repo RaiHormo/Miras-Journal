@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://co34lfhkwbp56"]
+[gd_scene format=3 uid="uid://co34lfhkwbp56"]
 
 [ext_resource type="AudioStream" uid="uid://0bbq3igj0pmf" path="res://sound/SFX/Crunch.ogg" id="1_aqdhg"]
 [ext_resource type="AudioStream" uid="uid://se4msb05n030" path="res://sound/SFX/Punch.ogg" id="2_662ba"]
 
-[node name="SFX" type="Node2D"]
+[node name="SFX" type="Node2D" unique_id=1502526900]
 
-[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+[node name="Hit" type="AudioStreamPlayer2D" parent="." unique_id=1536681691]
 stream = ExtResource("1_aqdhg")
 
-[node name="Attack2" type="AudioStreamPlayer2D" parent="."]
+[node name="Attack2" type="AudioStreamPlayer2D" parent="." unique_id=42541279]
 stream = ExtResource("2_662ba")

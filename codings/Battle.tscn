@@ -1,4 +1,4 @@
-[gd_scene load_steps=282 format=3 uid="uid://chjrhe4gw1iu6"]
+[gd_scene format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
@@ -1849,7 +1849,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qr1i0"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Node2D" unique_id=189468572]
 process_mode = 3
 physics_interpolation_mode = 2
 z_index = 3
@@ -1861,7 +1861,7 @@ Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
 curve = SubResource("Curve_wrfky")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1543652970]
 light_mask = 16
 z_index = -1
 material = ExtResource("1_dmrw5")
@@ -1874,7 +1874,7 @@ size_flags_vertical = 4
 texture = ExtResource("5_441cr")
 expand_mode = 1
 
-[node name="Act" type="Node2D" parent="."]
+[node name="Act" type="Node2D" parent="." unique_id=1447045837]
 process_mode = 1
 visibility_layer = 16
 y_sort_enabled = true
@@ -1882,7 +1882,7 @@ texture_filter = 1
 use_parent_material = true
 script = ExtResource("6_ik7qm")
 
-[node name="Actor0" type="AnimatedSprite2D" parent="Act"]
+[node name="Actor0" type="AnimatedSprite2D" parent="Act" unique_id=1675625572]
 light_mask = 16
 y_sort_enabled = true
 texture_filter = 1
@@ -1892,7 +1892,7 @@ sprite_frames = ExtResource("10_ml8ja")
 animation = &"Ability"
 offset = Vector2(0.5, -15.5)
 
-[node name="Shadow" type="Sprite2D" parent="Act/Actor0"]
+[node name="Shadow" type="Sprite2D" parent="Act/Actor0" unique_id=721850700]
 show_behind_parent = true
 light_mask = 16
 z_index = -1
@@ -1901,7 +1901,7 @@ position = Vector2(0, 3)
 texture = ExtResource("8_gbira")
 offset = Vector2(0, 4)
 
-[node name="Nums" type="Label" parent="Act/Actor0"]
+[node name="Nums" type="Label" parent="Act/Actor0" unique_id=1752888550]
 visible = false
 light_mask = 16
 z_index = 1
@@ -1925,7 +1925,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Particle" type="GPUParticles2D" parent="Act/Actor0"]
+[node name="Particle" type="GPUParticles2D" parent="Act/Actor0" unique_id=973908754]
 show_behind_parent = true
 z_index = 1
 material = SubResource("CanvasItemMaterial_6yjmp")
@@ -1939,7 +1939,7 @@ explosiveness = 0.89
 fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_ht7eu")
 
-[node name="State" type="AnimatedSprite2D" parent="Act/Actor0"]
+[node name="State" type="AnimatedSprite2D" parent="Act/Actor0" unique_id=889654675]
 light_mask = 16
 z_index = 1
 material = ExtResource("1_dmrw5")
@@ -1949,7 +1949,7 @@ animation = &"DefenceUp"
 autoplay = "None"
 frame_progress = 0.958692
 
-[node name="Glow" type="PointLight2D" parent="Act/Actor0"]
+[node name="Glow" type="PointLight2D" parent="Act/Actor0" unique_id=885067995]
 light_mask = 16
 z_index = 1
 energy = 0.0
@@ -1957,7 +1957,7 @@ range_item_cull_mask = 17
 texture = SubResource("GradientTexture2D_tbe80")
 texture_scale = 2.0
 
-[node name="Effects" type="AnimatedSprite2D" parent="Act"]
+[node name="Effects" type="AnimatedSprite2D" parent="Act" unique_id=1863851345]
 light_mask = 16
 z_index = 5
 material = ExtResource("1_dmrw5")
@@ -1965,16 +1965,16 @@ position = Vector2(-60, -39)
 sprite_frames = ExtResource("14_o6mu3")
 animation = &"Drill"
 
-[node name="Cam" type="Camera2D" parent="."]
+[node name="Cam" type="Camera2D" parent="." unique_id=71352168]
 physics_interpolation_mode = 2
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_speed = 20.0
 
-[node name="AI" type="Node" parent="."]
+[node name="AI" type="Node" parent="." unique_id=1881764654]
 script = ExtResource("17_5kmxv")
 
-[node name="BattleUI" type="Control" parent="."]
+[node name="BattleUI" type="Control" parent="." unique_id=185173348]
 z_index = 10
 z_as_relative = false
 material = SubResource("ShaderMaterial_nmg3k")
@@ -1992,7 +1992,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_mhp3h")
 
-[node name="CommandMenu" type="Control" parent="BattleUI"]
+[node name="CommandMenu" type="Control" parent="BattleUI" unique_id=1627208994]
 visible = false
 light_mask = 0
 anchors_preset = 0
@@ -2002,7 +2002,7 @@ offset_right = 360.0
 offset_bottom = 234.0
 scale = Vector2(0.7, 0.7)
 
-[node name="CmdBack" type="Polygon2D" parent="BattleUI/CommandMenu"]
+[node name="CmdBack" type="Polygon2D" parent="BattleUI/CommandMenu" unique_id=1660236563]
 light_mask = 0
 position = Vector2(-83.8007, 105.927)
 rotation = 0.20944
@@ -2011,7 +2011,7 @@ color = Color(0.113725, 0.113725, 0.113725, 1)
 offset = Vector2(78.0864, -107.356)
 polygon = PackedVector2Array(811.811, -766.054, 811.127, 286.293, 768.113, 396.206, 710.82, 491.257, 662.912, 554.43, 612.265, 608.802, 558.88, 654.374, 502.756, 691.146, 545.186, 610.373, 570.016, 535.077, 592.691, 421.842, 609.305, 320.145, 611.057, 232.727, 604.008, 148.047, 585.421, 57.3053, 560.772, -21.8971, 527.323, -98.3607, 476.273, -169.347, 402.145, -252.456, 313.156, -321.287, 209.305, -375.841, 81.7913, -413.378, 0.43412, -426.669, -86.9846, -428.42, -162.864, -424.111, -250.867, -396.723, -344.931, -357.797, -442.318, -298.53, -495.704, -252.958, -561.212, -184.308, -623.982, -106.858, -657.028, -57.9627, -681.274, -11.8066, -674.891, -766.697)
 
-[node name="Analyze" type="Button" parent="BattleUI/CommandMenu"]
+[node name="Analyze" type="Button" parent="BattleUI/CommandMenu" unique_id=1884730250]
 visibility_layer = 1024
 z_index = 12
 material = SubResource("ShaderMaterial_nmg3k")
@@ -2032,7 +2032,7 @@ text = "Analyze"
 icon = ExtResource("22_wtv1c")
 expand_icon = true
 
-[node name="Swap" type="Button" parent="BattleUI/CommandMenu"]
+[node name="Swap" type="Button" parent="BattleUI/CommandMenu" unique_id=2068333761]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
@@ -2054,7 +2054,7 @@ icon = ExtResource("23_8x6w2")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Strategize" type="Button" parent="BattleUI/CommandMenu"]
+[node name="Strategize" type="Button" parent="BattleUI/CommandMenu" unique_id=1127233509]
 visibility_layer = 1024
 z_index = 12
 material = SubResource("ShaderMaterial_nmg3k")
@@ -2077,7 +2077,7 @@ text = "Strategize
 icon = ExtResource("23_8x6w2")
 expand_icon = true
 
-[node name="Escape" type="Button" parent="BattleUI/CommandMenu"]
+[node name="Escape" type="Button" parent="BattleUI/CommandMenu" unique_id=1717281525]
 visibility_layer = 1024
 z_index = 12
 z_as_relative = false
@@ -2103,7 +2103,7 @@ text_overrun_behavior = 1
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="BattleUI/CommandMenu/Escape"]
+[node name="TextureRect" type="TextureRect" parent="BattleUI/CommandMenu/Escape" unique_id=2009458172]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -2115,7 +2115,7 @@ rotation = 0.27361
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("26_samhe")
 
-[node name="Label" type="Label" parent="BattleUI/CommandMenu/Escape"]
+[node name="Label" type="Label" parent="BattleUI/CommandMenu/Escape" unique_id=1346337101]
 light_mask = 0
 layout_mode = 0
 offset_left = 34.483
@@ -2130,7 +2130,7 @@ theme_override_fonts/font = ExtResource("21_bxskg")
 theme_override_font_sizes/font_size = 14
 text = "Escape"
 
-[node name="BaseRing" type="TextureRect" parent="BattleUI"]
+[node name="BaseRing" type="TextureRect" parent="BattleUI" unique_id=42149275]
 light_mask = 0
 material = SubResource("ShaderMaterial_ryg6s")
 layout_mode = 1
@@ -2149,7 +2149,7 @@ scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(200, 200)
 texture = ExtResource("30_g1vxc")
 
-[node name="Ring1" type="TextureRect" parent="BattleUI/BaseRing"]
+[node name="Ring1" type="TextureRect" parent="BattleUI/BaseRing" unique_id=614700733]
 light_mask = 0
 material = SubResource("ShaderMaterial_65pvt")
 layout_mode = 0
@@ -2159,7 +2159,7 @@ pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_b4gte")
 script = ExtResource("33_5y8r5")
 
-[node name="Ring2" type="TextureRect" parent="BattleUI/BaseRing"]
+[node name="Ring2" type="TextureRect" parent="BattleUI/BaseRing" unique_id=1431885871]
 light_mask = 0
 material = SubResource("ShaderMaterial_3xpp0")
 layout_mode = 0
@@ -2168,7 +2168,7 @@ offset_bottom = 400.0
 pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_litkr")
 
-[node name="DescPaper" type="TextureRect" parent="BattleUI"]
+[node name="DescPaper" type="TextureRect" parent="BattleUI" unique_id=2095232882]
 use_parent_material = true
 layout_mode = 0
 offset_left = 102.0
@@ -2180,7 +2180,7 @@ scale = Vector2(0.17, 0.17)
 pivot_offset = Vector2(-0.000183105, 317.647)
 texture = ExtResource("32_ebvy8")
 
-[node name="Title" type="Label" parent="BattleUI/DescPaper"]
+[node name="Title" type="Label" parent="BattleUI/DescPaper" unique_id=1278579315]
 use_parent_material = true
 layout_mode = 0
 offset_left = 132.0
@@ -2193,7 +2193,7 @@ theme_override_font_sizes/font_size = 53
 text = "Ability Name"
 horizontal_alignment = 2
 
-[node name="Desc" type="RichTextLabel" parent="BattleUI/DescPaper"]
+[node name="Desc" type="RichTextLabel" parent="BattleUI/DescPaper" unique_id=739209301]
 use_parent_material = true
 layout_mode = 0
 offset_left = 120.0
@@ -2206,7 +2206,7 @@ bbcode_enabled = true
 text = "This is a very long and intesting description of this ability. Using this spell the entire world will blow up.
 "
 
-[node name="Cost" type="Label" parent="BattleUI/DescPaper"]
+[node name="Cost" type="Label" parent="BattleUI/DescPaper" unique_id=2090244203]
 use_parent_material = true
 layout_mode = 0
 offset_left = 302.0
@@ -2218,7 +2218,7 @@ theme = SubResource("Theme_4tyuc")
 text = "Cost 5"
 horizontal_alignment = 2
 
-[node name="ShowWheel" type="Button" parent="BattleUI/DescPaper"]
+[node name="ShowWheel" type="Button" parent="BattleUI/DescPaper" unique_id=1416435802]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -2239,7 +2239,7 @@ shortcut = SubResource("Shortcut_loao7")
 text = "Show wheel"
 icon = ExtResource("24_2n7m0")
 
-[node name="Wheel" parent="BattleUI/DescPaper/ShowWheel" instance=ExtResource("34_mbmoj")]
+[node name="Wheel" parent="BattleUI/DescPaper/ShowWheel" unique_id=1346881085 instance=ExtResource("34_mbmoj")]
 visible = false
 layout_mode = 0
 offset_left = -602.354
@@ -2249,7 +2249,7 @@ offset_bottom = 413.222
 scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
-[node name="AbilityUI" type="PanelContainer" parent="BattleUI"]
+[node name="AbilityUI" type="PanelContainer" parent="BattleUI" unique_id=1811911615]
 visible = false
 use_parent_material = true
 layout_mode = 0
@@ -2261,17 +2261,17 @@ scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(22.75, 158)
 theme_override_styles/panel = SubResource("StyleBoxFlat_misl1")
 
-[node name="Border2" type="PanelContainer" parent="BattleUI/AbilityUI"]
+[node name="Border2" type="PanelContainer" parent="BattleUI/AbilityUI" unique_id=735885324]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wyes3")
 
-[node name="Border1" type="Panel" parent="BattleUI/AbilityUI/Border2"]
+[node name="Border1" type="Panel" parent="BattleUI/AbilityUI/Border2" unique_id=2018296510]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s5sl2")
 
-[node name="Margin" type="MarginContainer" parent="BattleUI/AbilityUI"]
+[node name="Margin" type="MarginContainer" parent="BattleUI/AbilityUI" unique_id=64150214]
 light_mask = 0
 use_parent_material = true
 layout_mode = 2
@@ -2281,7 +2281,7 @@ theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = -8
 theme_override_constants/margin_bottom = 14
 
-[node name="Scroller" type="ScrollContainer" parent="BattleUI/AbilityUI/Margin"]
+[node name="Scroller" type="ScrollContainer" parent="BattleUI/AbilityUI/Margin" unique_id=1795010570]
 light_mask = 0
 use_parent_material = true
 layout_mode = 2
@@ -2290,16 +2290,16 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_5y8r5")
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="AbilityList" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller"]
+[node name="AbilityList" type="VBoxContainer" parent="BattleUI/AbilityUI/Margin/Scroller" unique_id=992760361]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Node" type="Node" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Node" type="Node" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1069917452]
 
-[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1043433494]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2320,7 +2320,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=1885720603]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2333,7 +2333,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=1961327499]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2343,7 +2343,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab1" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab1" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1487881212]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2364,7 +2364,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab1"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab1" unique_id=1294321467]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2377,7 +2377,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab1"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab1" unique_id=1452660826]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2387,7 +2387,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab2" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab2" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=876606203]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2408,7 +2408,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab2"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab2" unique_id=1933135240]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2421,7 +2421,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab2"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab2" unique_id=840185158]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2431,7 +2431,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab3" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab3" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=732239735]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2452,7 +2452,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab3"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab3" unique_id=1202622615]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2465,7 +2465,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab3"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab3" unique_id=857682902]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2475,7 +2475,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab4" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab4" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1972710754]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2496,7 +2496,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab4"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab4" unique_id=1051992162]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2509,7 +2509,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab4"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab4" unique_id=1472169925]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2519,7 +2519,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab5" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab5" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=448166044]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2540,7 +2540,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab5"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab5" unique_id=927250611]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2553,7 +2553,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab5"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab5" unique_id=2140550730]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2563,7 +2563,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab6" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab6" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=71928202]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2584,7 +2584,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab6"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab6" unique_id=952107661]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2597,7 +2597,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab6"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab6" unique_id=90098331]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2607,7 +2607,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab7" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList"]
+[node name="Ab7" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1286757722]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -2628,7 +2628,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab7"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab7" unique_id=453060125]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2641,7 +2641,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab7"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab7" unique_id=184066167]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2651,7 +2651,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller"]
+[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller" unique_id=1916926879]
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
@@ -2674,7 +2674,7 @@ alignment = 0
 autowrap_mode = 2
 expand_icon = true
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0" unique_id=195546793]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -2687,7 +2687,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0"]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0" unique_id=715199528]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -2697,7 +2697,7 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="RankSwap" type="Control" parent="BattleUI"]
+[node name="RankSwap" type="Control" parent="BattleUI" unique_id=223776131]
 visible = false
 light_mask = 0
 anchors_preset = 0
@@ -2707,7 +2707,7 @@ offset_right = 121.0
 offset_bottom = -25.0
 pivot_offset = Vector2(10, -3)
 
-[node name="Left" type="TextureRect" parent="BattleUI/RankSwap"]
+[node name="Left" type="TextureRect" parent="BattleUI/RankSwap" unique_id=799945889]
 light_mask = 0
 layout_mode = 0
 offset_left = -12.0
@@ -2718,7 +2718,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("20_ei4ea")
 expand_mode = 1
 
-[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Left"]
+[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Left" unique_id=1540836794]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -2728,7 +2728,7 @@ offset_right = 14.0
 offset_bottom = 15.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
 
-[node name="Right" type="TextureRect" parent="BattleUI/RankSwap"]
+[node name="Right" type="TextureRect" parent="BattleUI/RankSwap" unique_id=2070753170]
 light_mask = 0
 layout_mode = 0
 offset_left = 76.2944
@@ -2740,7 +2740,7 @@ texture = ExtResource("20_ei4ea")
 expand_mode = 1
 flip_h = true
 
-[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Right"]
+[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Right" unique_id=908036678]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -2750,13 +2750,11 @@ offset_right = 12.2
 offset_bottom = 15.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/RankSwap"]
-libraries = {
-&"": SubResource("AnimationLibrary_j7n1p")
-}
-autoplay = "arrows"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/RankSwap" unique_id=449098572]
+libraries/ = SubResource("AnimationLibrary_j7n1p")
+autoplay = &"arrows"
 
-[node name="Inventory" type="Panel" parent="BattleUI"]
+[node name="Inventory" type="Panel" parent="BattleUI" unique_id=40897737]
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -2769,7 +2767,7 @@ scale = Vector2(0.21, 0.21)
 pivot_offset = Vector2(465.351, 259.974)
 theme_override_styles/panel = SubResource("StyleBoxFlat_inmoa")
 
-[node name="Item" type="Button" parent="BattleUI/Inventory"]
+[node name="Item" type="Button" parent="BattleUI/Inventory" unique_id=1580591017]
 visible = false
 light_mask = 0
 texture_filter = 1
@@ -2794,7 +2792,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Margin" type="TabContainer" parent="BattleUI/Inventory"]
+[node name="Margin" type="TabContainer" parent="BattleUI/Inventory" unique_id=1336038201]
 light_mask = 0
 layout_mode = 0
 offset_left = 8.0
@@ -2813,14 +2811,14 @@ tab_alignment = 1
 current_tab = 0
 tabs_visible = false
 
-[node name="BattleItems" type="ScrollContainer" parent="BattleUI/Inventory/Margin"]
+[node name="BattleItems" type="ScrollContainer" parent="BattleUI/Inventory/Margin" unique_id=607030875]
 light_mask = 0
 use_parent_material = true
 clip_contents = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/BattleItems"]
+[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/BattleItems" unique_id=154631886]
 light_mask = 0
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -2829,7 +2827,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 4
 
-[node name="Item2" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid"]
+[node name="Item2" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=616432876]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2849,7 +2847,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Item3" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid"]
+[node name="Item3" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=378795564]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2868,7 +2866,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Item4" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid"]
+[node name="Item4" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=1925929881]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2887,7 +2885,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Item5" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid"]
+[node name="Item5" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=834980850]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2906,7 +2904,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Consumables" type="ScrollContainer" parent="BattleUI/Inventory/Margin"]
+[node name="Consumables" type="ScrollContainer" parent="BattleUI/Inventory/Margin" unique_id=322803905]
 visible = false
 light_mask = 0
 use_parent_material = true
@@ -2914,7 +2912,7 @@ clip_contents = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/Consumables"]
+[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/Consumables" unique_id=235337847]
 light_mask = 0
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -2923,7 +2921,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 4
 
-[node name="BIbutton" type="Button" parent="BattleUI/Inventory"]
+[node name="BIbutton" type="Button" parent="BattleUI/Inventory" unique_id=1521159781]
 light_mask = 0
 layout_mode = 0
 offset_left = 31.5498
@@ -2949,7 +2947,7 @@ text = "Battle items"
 icon = ExtResource("37_rnoys")
 expand_icon = true
 
-[node name="Cbutton" type="Button" parent="BattleUI/Inventory"]
+[node name="Cbutton" type="Button" parent="BattleUI/Inventory" unique_id=1541943967]
 light_mask = 0
 layout_mode = 0
 offset_left = 227.55
@@ -2977,7 +2975,7 @@ icon = ExtResource("38_6wdco")
 icon_alignment = 2
 expand_icon = true
 
-[node name="DottedBack" type="Sprite2D" parent="BattleUI/Inventory"]
+[node name="DottedBack" type="Sprite2D" parent="BattleUI/Inventory" unique_id=796066175]
 modulate = Color(0.380392, 0.380392, 0.380392, 1)
 show_behind_parent = true
 light_mask = 0
@@ -2986,7 +2984,7 @@ scale = Vector2(0.7, 0.899713)
 texture = ExtResource("39_e8j71")
 flip_h = true
 
-[node name="DottedBack2" type="Sprite2D" parent="BattleUI/Inventory"]
+[node name="DottedBack2" type="Sprite2D" parent="BattleUI/Inventory" unique_id=1897827750]
 modulate = Color(0.380392, 0.380392, 0.380392, 1)
 show_behind_parent = true
 light_mask = 0
@@ -2995,7 +2993,7 @@ scale = Vector2(-0.485233, -0.898616)
 texture = ExtResource("39_e8j71")
 flip_h = true
 
-[node name="DescPaper" type="TextureRect" parent="BattleUI/Inventory"]
+[node name="DescPaper" type="TextureRect" parent="BattleUI/Inventory" unique_id=44987799]
 show_behind_parent = true
 light_mask = 0
 use_parent_material = true
@@ -3010,7 +3008,7 @@ pivot_offset = Vector2(-0.000183105, 317.647)
 texture = ExtResource("32_ebvy8")
 flip_h = true
 
-[node name="Title" type="Label" parent="BattleUI/Inventory/DescPaper"]
+[node name="Title" type="Label" parent="BattleUI/Inventory/DescPaper" unique_id=2113033823]
 light_mask = 0
 use_parent_material = true
 layout_mode = 0
@@ -3024,7 +3022,7 @@ theme_override_font_sizes/font_size = 53
 text = "Item Name"
 horizontal_alignment = 2
 
-[node name="Desc" type="RichTextLabel" parent="BattleUI/Inventory/DescPaper"]
+[node name="Desc" type="RichTextLabel" parent="BattleUI/Inventory/DescPaper" unique_id=1113279538]
 light_mask = 0
 use_parent_material = true
 layout_direction = 3
@@ -3038,7 +3036,7 @@ theme = SubResource("Theme_gsplh")
 bbcode_enabled = true
 text = "This item is very cool, almost too cool for you."
 
-[node name="Amount" type="Label" parent="BattleUI/Inventory/DescPaper"]
+[node name="Amount" type="Label" parent="BattleUI/Inventory/DescPaper" unique_id=264683631]
 light_mask = 0
 use_parent_material = true
 layout_mode = 0
@@ -3052,7 +3050,7 @@ theme_override_font_sizes/font_size = 46
 text = "52 in bag"
 horizontal_alignment = 2
 
-[node name="ShowWheel" type="Button" parent="BattleUI/Inventory/DescPaper"]
+[node name="ShowWheel" type="Button" parent="BattleUI/Inventory/DescPaper" unique_id=1467676690]
 visible = false
 light_mask = 0
 visibility_layer = 1024
@@ -3081,7 +3079,7 @@ icon = ExtResource("24_2n7m0")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Art" type="TextureRect" parent="BattleUI/Inventory/DescPaper"]
+[node name="Art" type="TextureRect" parent="BattleUI/Inventory/DescPaper" unique_id=1003237727]
 light_mask = 0
 layout_mode = 0
 offset_left = -12.4795
@@ -3092,7 +3090,7 @@ rotation = -0.0531199
 scale = Vector2(0.381942, 0.381942)
 texture = ExtResource("40_0qwln")
 
-[node name="Border1" type="PanelContainer" parent="BattleUI/Inventory"]
+[node name="Border1" type="PanelContainer" parent="BattleUI/Inventory" unique_id=1901926094]
 light_mask = 0
 layout_mode = 0
 offset_left = -10.0
@@ -3102,21 +3100,21 @@ offset_bottom = 537.0
 theme = SubResource("Theme_8i68l")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kisea")
 
-[node name="Border2" type="PanelContainer" parent="BattleUI/Inventory/Border1"]
+[node name="Border2" type="PanelContainer" parent="BattleUI/Inventory/Border1" unique_id=1851199117]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_gjtdb")
 theme_override_styles/panel = SubResource("StyleBoxFlat_lg5jp")
 
-[node name="Border3" type="PanelContainer" parent="BattleUI/Inventory/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="BattleUI/Inventory/Border1/Border2" unique_id=173244662]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 2
 theme = SubResource("Theme_pg44w")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvanb")
 
-[node name="Ability" type="Button" parent="BattleUI"]
+[node name="Ability" type="Button" parent="BattleUI" unique_id=1132732390]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -3136,7 +3134,7 @@ icon = ExtResource("22_wtv1c")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Attack" type="Button" parent="BattleUI"]
+[node name="Attack" type="Button" parent="BattleUI" unique_id=2047138243]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -3157,7 +3155,7 @@ icon = ExtResource("41_70b84")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Item" type="Button" parent="BattleUI"]
+[node name="Item" type="Button" parent="BattleUI" unique_id=1310127929]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -3178,7 +3176,7 @@ icon = ExtResource("23_8x6w2")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Command" type="Button" parent="BattleUI"]
+[node name="Command" type="Button" parent="BattleUI" unique_id=285599713]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -3199,11 +3197,11 @@ icon = ExtResource("24_2n7m0")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="EnemyUI" type="CanvasLayer" parent="."]
+[node name="EnemyUI" type="CanvasLayer" parent="." unique_id=1218219876]
 layer = 2
 script = ExtResource("42_kdm6a")
 
-[node name="EnemyFocus" type="Panel" parent="EnemyUI"]
+[node name="EnemyFocus" type="Panel" parent="EnemyUI" unique_id=826857972]
 visible = false
 texture_filter = 2
 offset_left = 947.0
@@ -3214,13 +3212,13 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(0.137743, -0.0191193)
 theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
 
-[node name="Icon" type="Sprite2D" parent="EnemyUI/EnemyFocus"]
+[node name="Icon" type="Sprite2D" parent="EnemyUI/EnemyFocus" unique_id=83291018]
 texture_filter = 2
 position = Vector2(40, 43)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("43_0t5yi")
 
-[node name="Aura" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
+[node name="Aura" type="ProgressBar" parent="EnemyUI/EnemyFocus" unique_id=883745386]
 z_index = 1
 layout_mode = 0
 offset_left = 74.0
@@ -3233,7 +3231,7 @@ rounded = true
 allow_greater = true
 show_percentage = false
 
-[node name="Health" type="ProgressBar" parent="EnemyUI/EnemyFocus"]
+[node name="Health" type="ProgressBar" parent="EnemyUI/EnemyFocus" unique_id=346894057]
 z_index = 1
 layout_mode = 0
 offset_left = 74.0
@@ -3245,7 +3243,7 @@ rounded = true
 allow_greater = true
 show_percentage = false
 
-[node name="HpText" type="Label" parent="EnemyUI/EnemyFocus/Health"]
+[node name="HpText" type="Label" parent="EnemyUI/EnemyFocus/Health" unique_id=2036465479]
 layout_mode = 0
 offset_left = 5.0
 offset_top = -1.0
@@ -3255,7 +3253,7 @@ theme = SubResource("Theme_2lgx1")
 text = "70"
 vertical_alignment = 1
 
-[node name="Name" type="Label" parent="EnemyUI/EnemyFocus"]
+[node name="Name" type="Label" parent="EnemyUI/EnemyFocus" unique_id=1745961716]
 layout_mode = 0
 offset_left = 69.0
 offset_top = 15.0
@@ -3267,7 +3265,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 1
 
-[node name="Border1" type="Panel" parent="EnemyUI/EnemyFocus"]
+[node name="Border1" type="Panel" parent="EnemyUI/EnemyFocus" unique_id=205804472]
 layout_mode = 0
 offset_left = -12.0
 offset_top = -7.0
@@ -3276,7 +3274,7 @@ offset_bottom = 96.0
 theme = SubResource("Theme_jepgw")
 theme_override_styles/panel = SubResource("StyleBoxFlat_w18cv")
 
-[node name="Border2" type="Panel" parent="EnemyUI/EnemyFocus/Border1"]
+[node name="Border2" type="Panel" parent="EnemyUI/EnemyFocus/Border1" unique_id=557753794]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
@@ -3285,7 +3283,7 @@ offset_right = 215.0
 offset_bottom = 98.0
 theme = SubResource("Theme_t73mt")
 
-[node name="Border3" type="Panel" parent="EnemyUI/EnemyFocus/Border1/Border2"]
+[node name="Border3" type="Panel" parent="EnemyUI/EnemyFocus/Border1/Border2" unique_id=1088978984]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 2.0
@@ -3294,7 +3292,7 @@ offset_right = 212.0
 offset_bottom = 89.0
 theme = SubResource("Theme_wxbdf")
 
-[node name="States" type="HBoxContainer" parent="EnemyUI/EnemyFocus"]
+[node name="States" type="HBoxContainer" parent="EnemyUI/EnemyFocus" unique_id=774670441]
 layout_mode = 0
 offset_left = -373.0
 offset_top = 12.0
@@ -3302,7 +3300,7 @@ offset_right = -22.0
 offset_bottom = 76.0
 alignment = 2
 
-[node name="State" type="TextureRect" parent="EnemyUI/EnemyFocus/States"]
+[node name="State" type="TextureRect" parent="EnemyUI/EnemyFocus/States" unique_id=504740689]
 visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
@@ -3311,7 +3309,7 @@ theme = SubResource("Theme_xkd1q")
 texture = SubResource("AtlasTexture_mtoyd")
 stretch_mode = 4
 
-[node name="AllEnemies" type="VBoxContainer" parent="EnemyUI"]
+[node name="AllEnemies" type="VBoxContainer" parent="EnemyUI" unique_id=1305658972]
 offset_left = 1081.0
 offset_top = 18.0
 offset_right = 1233.0
@@ -3319,7 +3317,7 @@ offset_bottom = 103.0
 scale = Vector2(1.5, 1.5)
 theme_override_constants/separation = 18
 
-[node name="Temp" type="Panel" parent="EnemyUI/AllEnemies"]
+[node name="Temp" type="Panel" parent="EnemyUI/AllEnemies" unique_id=280689738]
 visible = false
 texture_filter = 2
 custom_minimum_size = Vector2(130, 76)
@@ -3327,7 +3325,7 @@ layout_direction = 1
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
 
-[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/Temp"]
+[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/Temp" unique_id=1488785257]
 z_index = 1
 layout_mode = 0
 offset_left = 15.0
@@ -3340,7 +3338,7 @@ rounded = true
 allow_greater = true
 show_percentage = false
 
-[node name="Name" type="Label" parent="EnemyUI/AllEnemies/Temp"]
+[node name="Name" type="Label" parent="EnemyUI/AllEnemies/Temp" unique_id=101305626]
 layout_mode = 0
 offset_left = 10.3333
 offset_top = 17.7955
@@ -3352,7 +3350,7 @@ text = "White"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/Temp"]
+[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/Temp" unique_id=617025242]
 visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 0
@@ -3361,7 +3359,7 @@ texture = ExtResource("50_ml8ja")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Border1" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp"]
+[node name="Border1" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp" unique_id=1652928059]
 layout_mode = 0
 offset_left = -11.0
 offset_top = -3.98671
@@ -3369,17 +3367,17 @@ offset_right = 174.0
 offset_bottom = 84.0133
 theme = SubResource("Theme_jepgw")
 
-[node name="Border2" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1"]
+[node name="Border2" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1" unique_id=1872352162]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_t73mt")
 
-[node name="Border3" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="EnemyUI/AllEnemies/Temp/Border1/Border2" unique_id=1679515196]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fkhdn")
 
-[node name="OtherEnemies" type="PanelContainer" parent="EnemyUI/AllEnemies"]
+[node name="OtherEnemies" type="PanelContainer" parent="EnemyUI/AllEnemies" unique_id=622677260]
 show_behind_parent = true
 texture_filter = 2
 custom_minimum_size = Vector2(130, 0)
@@ -3387,27 +3385,27 @@ layout_direction = 1
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bwtm7")
 
-[node name="Margin" type="MarginContainer" parent="EnemyUI/AllEnemies/OtherEnemies"]
+[node name="Margin" type="MarginContainer" parent="EnemyUI/AllEnemies/OtherEnemies" unique_id=673764006]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_right = 28
 theme_override_constants/margin_bottom = 8
 
-[node name="VBox" type="VBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin"]
+[node name="VBox" type="VBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin" unique_id=1016930580]
 layout_mode = 2
 
-[node name="Temp" type="HBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox"]
+[node name="Temp" type="HBoxContainer" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox" unique_id=2114878915]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+[node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp" unique_id=716424961]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("50_ml8ja")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+[node name="Health" type="ProgressBar" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp" unique_id=1089332728]
 z_index = 1
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
@@ -3419,7 +3417,7 @@ rounded = true
 allow_greater = true
 show_percentage = false
 
-[node name="Name" type="Label" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp"]
+[node name="Name" type="Label" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp" unique_id=1282728469]
 visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("27_7ghwb")
@@ -3427,17 +3425,17 @@ theme_override_font_sizes/font_size = 20
 text = "White"
 horizontal_alignment = 1
 
-[node name="AudioListener2D" type="AudioListener2D" parent="."]
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=137936418]
 
-[node name="Audio" type="Node" parent="."]
+[node name="Audio" type="Node" parent="." unique_id=233732952]
 
-[node name="Stream0" type="AudioStreamPlayer2D" parent="Audio"]
+[node name="Stream0" type="AudioStreamPlayer2D" parent="Audio" unique_id=1685678398]
 bus = &"BtSFX"
 
-[node name="Canvas" type="CanvasLayer" parent="."]
+[node name="Canvas" type="CanvasLayer" parent="." unique_id=405987260]
 layer = 3
 
-[node name="DottedBack" type="TextureRect" parent="Canvas"]
+[node name="DottedBack" type="TextureRect" parent="Canvas" unique_id=1606603155]
 visible = false
 modulate = Color(0.188235, 0.188235, 0.188235, 0.8)
 show_behind_parent = true
@@ -3449,7 +3447,7 @@ offset_bottom = 1016.0
 scale = Vector2(0.688708, 0.8)
 texture = ExtResource("39_e8j71")
 
-[node name="Callout" type="Label" parent="Canvas"]
+[node name="Callout" type="Label" parent="Canvas" unique_id=1464272626]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 2
 anchor_top = 1.0
@@ -3464,7 +3462,7 @@ theme_override_font_sizes/font_size = 116
 text = "Ability Name"
 vertical_alignment = 1
 
-[node name="VictoryText" type="Label" parent="Canvas"]
+[node name="VictoryText" type="Label" parent="Canvas" unique_id=602554288]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 2
 anchor_top = 1.0
@@ -3479,7 +3477,7 @@ theme_override_font_sizes/font_size = 116
 text = "Victory"
 vertical_alignment = 1
 
-[node name="Confirm" type="Button" parent="Canvas"]
+[node name="Confirm" type="Button" parent="Canvas" unique_id=1988872992]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
@@ -3500,7 +3498,7 @@ icon = ExtResource("22_wtv1c")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Back" type="Button" parent="Canvas"]
+[node name="Back" type="Button" parent="Canvas" unique_id=1997111828]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
@@ -3522,7 +3520,7 @@ icon = ExtResource("41_70b84")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Give" type="Button" parent="Canvas"]
+[node name="Give" type="Button" parent="Canvas" unique_id=75391151]
 visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
@@ -3545,7 +3543,7 @@ icon = ExtResource("23_8x6w2")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="TurnOrderPop" type="Panel" parent="Canvas"]
+[node name="TurnOrderPop" type="Panel" parent="Canvas" unique_id=1849491009]
 visible = false
 use_parent_material = true
 offset_left = -468.0
@@ -3555,7 +3553,7 @@ offset_bottom = 698.0
 pivot_offset = Vector2(22.75, 158)
 theme_override_styles/panel = SubResource("StyleBoxFlat_misl1")
 
-[node name="Fader" type="ColorRect" parent="Canvas/TurnOrderPop"]
+[node name="Fader" type="ColorRect" parent="Canvas/TurnOrderPop" unique_id=872443648]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -64.0
@@ -3564,7 +3562,7 @@ offset_right = 1754.0
 offset_bottom = 760.0
 color = Color(0, 0, 0, 0.615686)
 
-[node name="Border2" type="PanelContainer" parent="Canvas/TurnOrderPop"]
+[node name="Border2" type="PanelContainer" parent="Canvas/TurnOrderPop" unique_id=71830145]
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0
@@ -3573,12 +3571,12 @@ offset_right = 400.0
 offset_bottom = 650.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wyes3")
 
-[node name="Border1" type="Panel" parent="Canvas/TurnOrderPop/Border2"]
+[node name="Border1" type="Panel" parent="Canvas/TurnOrderPop/Border2" unique_id=1113369777]
 use_parent_material = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s5sl2")
 
-[node name="Margin" type="MarginContainer" parent="Canvas/TurnOrderPop"]
+[node name="Margin" type="MarginContainer" parent="Canvas/TurnOrderPop" unique_id=1097080688]
 use_parent_material = true
 layout_mode = 0
 offset_left = 28.0
@@ -3591,17 +3589,17 @@ theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = -11
 theme_override_constants/margin_bottom = 14
 
-[node name="List" type="VBoxContainer" parent="Canvas/TurnOrderPop/Margin"]
+[node name="List" type="VBoxContainer" parent="Canvas/TurnOrderPop/Margin" unique_id=891388785]
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Char" type="HBoxContainer" parent="Canvas/TurnOrderPop/Margin/List"]
+[node name="Char" type="HBoxContainer" parent="Canvas/TurnOrderPop/Margin/List" unique_id=1505545876]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Arrow" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+[node name="Arrow" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char" unique_id=1560163962]
 modulate = Color(0.901961, 0.901961, 0.901961, 1)
 use_parent_material = true
 custom_minimum_size = Vector2(18, 36)
@@ -3611,19 +3609,19 @@ texture = ExtResource("20_ei4ea")
 expand_mode = 1
 flip_h = true
 
-[node name="Icon" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+[node name="Icon" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char" unique_id=869777039]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("44_v5pth")
 expand_mode = 1
 
-[node name="Name" type="Label" parent="Canvas/TurnOrderPop/Margin/List/Char"]
+[node name="Name" type="Label" parent="Canvas/TurnOrderPop/Margin/List/Char" unique_id=1540801094]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_sc4xk")
 theme_override_font_sizes/font_size = 32
 text = "Asteria"
 
-[node name="TurnOrder" type="Button" parent="Canvas"]
+[node name="TurnOrder" type="Button" parent="Canvas" unique_id=1731375219]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 offset_left = -236.0
@@ -3640,7 +3638,7 @@ text = "Turn Order"
 icon = ExtResource("53_qq3md")
 expand_icon = true
 
-[node name="Options" type="Button" parent="Canvas/TurnOrder"]
+[node name="Options" type="Button" parent="Canvas/TurnOrder" unique_id=613395301]
 show_behind_parent = true
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
@@ -3658,7 +3656,7 @@ text = "Options"
 icon = ExtResource("54_qr1i0")
 expand_icon = true
 
-[node name="Continue" type="Button" parent="Canvas"]
+[node name="Continue" type="Button" parent="Canvas" unique_id=77002511]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_direction = 1
@@ -3679,7 +3677,7 @@ icon = ExtResource("22_wtv1c")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="AttackTitle" type="Button" parent="Canvas"]
+[node name="AttackTitle" type="Button" parent="Canvas" unique_id=1841430532]
 visible = false
 visibility_layer = 1024
 texture_filter = 1
@@ -3700,7 +3698,7 @@ icon = SubResource("AtlasTexture_gxtaj")
 alignment = 0
 expand_icon = true
 
-[node name="Border1" type="Panel" parent="Canvas/AttackTitle"]
+[node name="Border1" type="Panel" parent="Canvas/AttackTitle" unique_id=286790644]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -30.0
@@ -3709,7 +3707,7 @@ offset_right = 285.0
 offset_bottom = 163.0
 theme = SubResource("Theme_xlg74")
 
-[node name="Border2" type="Panel" parent="Canvas/AttackTitle/Border1"]
+[node name="Border2" type="Panel" parent="Canvas/AttackTitle/Border1" unique_id=1017236126]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 3.0
@@ -3718,7 +3716,7 @@ offset_right = 311.0
 offset_bottom = 148.0
 theme = SubResource("Theme_qg3wj")
 
-[node name="Border3" type="Panel" parent="Canvas/AttackTitle/Border1/Border2"]
+[node name="Border3" type="Panel" parent="Canvas/AttackTitle/Border1/Border2" unique_id=774349482]
 show_behind_parent = true
 layout_mode = 0
 offset_top = 4.0
@@ -3726,7 +3724,7 @@ offset_right = 308.0
 offset_bottom = 142.0
 theme = SubResource("Theme_lh3jm")
 
-[node name="Panel" type="Panel" parent="Canvas/AttackTitle/Border1/Border2/Border3"]
+[node name="Panel" type="Panel" parent="Canvas/AttackTitle/Border1/Border2/Border3" unique_id=1441187236]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 7.0
@@ -3735,7 +3733,7 @@ offset_right = 297.0
 offset_bottom = 134.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ah1ku")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Canvas/AttackTitle"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas/AttackTitle" unique_id=504067975]
 layout_mode = 0
 offset_left = -4.0
 offset_top = 48.0
@@ -3746,7 +3744,7 @@ theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
-[node name="Wheel" parent="Canvas/AttackTitle" instance=ExtResource("34_mbmoj")]
+[node name="Wheel" parent="Canvas/AttackTitle" unique_id=1946168779 instance=ExtResource("34_mbmoj")]
 visible = false
 layout_mode = 0
 offset_left = -318.249
@@ -3756,7 +3754,7 @@ offset_bottom = 387.608
 scale = Vector2(0.2, 0.2)
 color = Color(1, 0, 0.356863, 1)
 
-[node name="SPGain" type="PanelContainer" parent="Canvas"]
+[node name="SPGain" type="PanelContainer" parent="Canvas" unique_id=1651040741]
 visible = false
 clip_contents = true
 offset_left = 953.0
@@ -3767,12 +3765,12 @@ scale = Vector2(1.2, 1.2)
 pivot_offset = Vector2(130.984, 30.2405)
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0jrc")
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Canvas/SPGain"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Canvas/SPGain" unique_id=1633786938]
 clip_contents = true
 layout_mode = 2
 alignment = 1
 
-[node name="Plus" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+[node name="Plus" type="Label" parent="Canvas/SPGain/VBoxContainer" unique_id=339714358]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("33_jy6my")
@@ -3780,7 +3778,7 @@ theme_override_font_sizes/font_size = 48
 text = "+"
 horizontal_alignment = 2
 
-[node name="Number" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+[node name="Number" type="Label" parent="Canvas/SPGain/VBoxContainer" unique_id=844471438]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -3789,7 +3787,7 @@ theme_override_font_sizes/font_size = 42
 text = "0"
 horizontal_alignment = 1
 
-[node name="Text" type="Label" parent="Canvas/SPGain/VBoxContainer"]
+[node name="Text" type="Label" parent="Canvas/SPGain/VBoxContainer" unique_id=1920172912]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.388235, 0.388235, 1)
 theme_override_fonts/font = ExtResource("33_jy6my")
@@ -3798,7 +3796,7 @@ text = " Skill Points"
 vertical_alignment = 1
 text_overrun_behavior = 1
 
-[node name="VictoryItems" type="VBoxContainer" parent="Canvas"]
+[node name="VictoryItems" type="VBoxContainer" parent="Canvas" unique_id=1366595418]
 visible = false
 offset_left = 870.0
 offset_top = 414.0
@@ -3806,32 +3804,32 @@ offset_right = 1206.0
 offset_bottom = 542.0
 theme_override_constants/separation = 24
 
-[node name="Text" type="Label" parent="Canvas/VictoryItems"]
+[node name="Text" type="Label" parent="Canvas/VictoryItems" unique_id=1321546098]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("27_7ghwb")
 theme_override_font_sizes/font_size = 42
 text = "Obtained items:"
 horizontal_alignment = 2
 
-[node name="ItemTemp" type="PanelContainer" parent="Canvas/VictoryItems"]
+[node name="ItemTemp" type="PanelContainer" parent="Canvas/VictoryItems" unique_id=1877297613]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_4gdq3")
 
-[node name="Hbox" type="HBoxContainer" parent="Canvas/VictoryItems/ItemTemp"]
+[node name="Hbox" type="HBoxContainer" parent="Canvas/VictoryItems/ItemTemp" unique_id=1732171007]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+[node name="Icon" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox" unique_id=1878887984]
 material = ExtResource("1_dmrw5")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("36_wspte")
 
-[node name="ItemName" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+[node name="ItemName" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox" unique_id=1644703804]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("33_jy6my")
@@ -3839,7 +3837,7 @@ theme_override_font_sizes/font_size = 38
 text = "Item name"
 vertical_alignment = 1
 
-[node name="Count" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox"]
+[node name="Count" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox" unique_id=631044083]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
@@ -3848,7 +3846,7 @@ theme_override_font_sizes/font_size = 38
 text = "x2"
 vertical_alignment = 1
 
-[node name="FollowUp" type="Control" parent="Canvas"]
+[node name="FollowUp" type="Control" parent="Canvas" unique_id=589515278]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -3859,7 +3857,7 @@ rotation = -0.2617994
 pivot_offset = Vector2(640, 400)
 mouse_filter = 2
 
-[node name="Text" type="Label" parent="Canvas/FollowUp"]
+[node name="Text" type="Label" parent="Canvas/FollowUp" unique_id=180404440]
 layout_direction = 3
 layout_mode = 0
 offset_left = 1545.0
@@ -3872,7 +3870,7 @@ theme_override_font_sizes/font_size = 150
 text = "FOLLOW UP"
 horizontal_alignment = 2
 
-[node name="Cutin" type="Panel" parent="Canvas"]
+[node name="Cutin" type="Panel" parent="Canvas" unique_id=2071336707]
 clip_children = 2
 offset_left = -14.685207
 offset_top = 169.66144
@@ -3882,7 +3880,7 @@ rotation = 0.08139256
 pivot_offset = Vector2(0, 184)
 theme_override_styles/panel = SubResource("StyleBoxFlat_qr1i0")
 
-[node name="Texture" type="TextureRect" parent="Canvas/Cutin"]
+[node name="Texture" type="TextureRect" parent="Canvas/Cutin" unique_id=2074945333]
 layout_mode = 0
 offset_left = -3.0
 offset_top = -147.0

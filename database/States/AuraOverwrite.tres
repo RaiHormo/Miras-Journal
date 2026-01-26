@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://du6r33xbjfihd"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://du6r33xbjfihd"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_5vvbb"]
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_utcws"]
@@ -12,10 +12,4 @@ filter_clip = true
 script = ExtResource("1_utcws")
 name = "Hue-Shift"
 Description = "Temporarily changes the defensive Aura color."
-RemovedOnBattleEnd = true
-turns = -1
 icon = SubResource("AtlasTexture_1h2ov")
-color = Color(1, 1, 1, 1)
-weak_mult = 1.0
-dmg_mult = 1.0
-is_stat_change = false

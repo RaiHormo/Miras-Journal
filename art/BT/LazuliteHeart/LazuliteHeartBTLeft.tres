@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://wrsq6847xok8"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://wrsq6847xok8"]
 
 [ext_resource type="Texture2D" uid="uid://b173w1g38hw3g" path="res://art/BT/LazuliteHeart/LazuliteHeartBTLeft.png" id="1_7kdj3"]
 

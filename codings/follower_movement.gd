@@ -21,6 +21,7 @@ var follow: PathFollow2D
 
 func default():
 	hide()
+	Global.check_party.connect(update)
 	await Event.wait()
 	oposite = (Query.get_direction() * Vector2(-1,-1)) * 150
 	set_anim("Idle"+Query.get_dir_name())
@@ -30,6 +31,7 @@ func default():
 	follow.name = name+"Path"
 	path.add_child(follow)
 	follow.cubic_interp = true
+	update()
 	await Event.wait(0.1)
 	follow.progress = -distance
 	position = follow.global_position
@@ -48,8 +50,6 @@ func control_process() -> void:
 		BodyState = IDLE
 		return
 	if Global.Party.check_member(member) and not Loader.InBattle and is_instance_valid(follow):
-		if sprite.sprite_frames.resource_path != member_info().OV:
-			sprite.sprite_frames = await member_info().get_OV()
 		add_collision_exception_with(Global.Player)
 		for i in Global.Area.Followers:
 			add_collision_exception_with(i)
@@ -159,3 +159,8 @@ func member_info() -> Actor:
 
 func attacked():
 	Global.jump_to(self, position-Vector2(Query.get_direction()*24), 5, 0.5)
+
+func update():
+	var mem = member_info()
+	if mem != null and sprite.sprite_frames.resource_path != member_info().OV:
+		sprite.sprite_frames = await member_info().get_OV()

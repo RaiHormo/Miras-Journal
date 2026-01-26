@@ -20,7 +20,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.5", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 run/load_shell_environment=true
 boot_splash/bg_color=Color(0.054902, 0.054902, 0.054902, 1)
 boot_splash/image="uid://cvnuw1n43hcfj"
@@ -45,7 +45,7 @@ Item="*res://codings/Autoload/ItemManager.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
-AntialiasedLine2DTexture="*res://addons/antialiased_line2d/texture.gd"
+AntialiasedLine2DTexture="*uid://xy5dit2nshd5"
 Query="*res://codings/Classes/query.gd"
 
 [debug]

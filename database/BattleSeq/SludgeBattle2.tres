@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://c81ribbmkkgh8"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://c81ribbmkkgh8"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_42fjq"]
 [ext_resource type="Resource" uid="uid://bdfytl8ohvtj6" path="res://database/Enemies/DarkSpawn.tres" id="2_5xbdp"]
@@ -10,18 +10,5 @@
 [resource]
 script = ExtResource("3_q0sql")
 Enemies = Array[ExtResource("2_s778w")]([ExtResource("2_5xbdp"), ExtResource("2_ib8cl"), ExtResource("2_ib8cl")])
-AdditionalItems = Array[ExtResource("1_42fjq")]([])
-Transition = true
-Detransition = false
 EscPosition = Vector2i(59, -16)
-PositionSameAsPlayer = false
 ScenePosition = Vector2(1195, -356)
-CanEscape = true
-DeleteAttacker = true
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
-VictoryBanter = ""
-DefeatSequence = ""
-Events = Array[ExtResource("5_aqt6o")]([])

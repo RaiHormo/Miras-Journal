@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlScheme" load_steps=12 format=3 uid="uid://cegr1m704s28r"]
+[gd_resource type="Resource" script_class="ControlScheme" format=3 uid="uid://cegr1m704s28r"]
 
 [ext_resource type="Script" uid="uid://bhsalia71p2n5" path="res://UI/Input/control_scheme.gd" id="1_g3dkl"]
 [ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="1_pdj4w"]

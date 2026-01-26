@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=53 format=3 uid="uid://ekhtbc64cnse"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://ekhtbc64cnse"]
 
 [ext_resource type="Texture2D" uid="uid://bm30ge6p4ucyx" path="res://UI/MainMenu/MenuBase.png" id="1_802ht"]
 

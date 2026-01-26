@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://bpnyp57rpx77e"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://bpnyp57rpx77e"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_63mrt"]
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="1_h1qn3"]
@@ -12,10 +12,6 @@ filter_clip = true
 script = ExtResource("1_h1qn3")
 name = "Deflected"
 Description = "Cannot use magic abilities, but also takes less damage from weak hits."
-RemovedOnBattleEnd = true
-turns = -1
 icon = SubResource("AtlasTexture_740n8")
 color = Color(0.494118, 0.0862745, 1, 1)
 weak_mult = 0.5
-dmg_mult = 1.0
-is_stat_change = false

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=42 format=3 uid="uid://d1xgldxgwt31e"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://d1xgldxgwt31e"]
 
 [ext_resource type="Texture2D" uid="uid://y54ycho78ifp" path="res://art/BT/DarkSludge/DarkSludge.png" id="1_3evi3"]
 

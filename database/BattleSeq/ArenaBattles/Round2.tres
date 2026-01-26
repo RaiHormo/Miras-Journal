@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://cvpd5khlr1gda"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cvpd5khlr1gda"]
 
 [ext_resource type="Resource" uid="uid://dxj2fsd3j1mvp" path="res://database/Items/Consumables/StrangeFruit.tres" id="1_1071f"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_p3gc1"]
@@ -12,17 +12,9 @@
 script = ExtResource("4_43po6")
 Enemies = Array[ExtResource("3_q4pic")]([ExtResource("2_utsek"), ExtResource("4_idxag")])
 AdditionalItems = Array[ExtResource("1_p3gc1")]([ExtResource("1_1071f"), ExtResource("1_1071f")])
-Transition = true
 Detransition = true
-EscPosition = Vector2(0, 0)
-PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
 CanEscape = false
 DeleteAttacker = false
-EntranceSequence = ""
 EntranceBanter = "arena_round2"
 EntranceBanterIsPassive = false
-VictorySequence = ""
-VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[ExtResource("6_mafn6")]([])

@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckvpempt84wyr"]
+[gd_scene format=3 uid="uid://ckvpempt84wyr"]
 
-[ext_resource type="Script" path="res://codings/UIScripts/day_change_ui.gd" id="1_0cnvx"]
+[ext_resource type="Script" uid="uid://cfo375xc53mm8" path="res://codings/UIScripts/day_change_ui.gd" id="1_0cnvx"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_7fpk2"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_nxysf"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_wm8im"]
@@ -69,12 +69,12 @@ Button/styles/hover = SubResource("StyleBoxFlat_v6bse")
 Button/styles/normal = SubResource("StyleBoxFlat_o2u6j")
 Button/styles/pressed = SubResource("StyleBoxFlat_v6bse")
 
-[node name="DayChangeUI" type="CanvasLayer"]
+[node name="DayChangeUI" type="CanvasLayer" unique_id=1567086173]
 process_mode = 3
 layer = 2
 script = ExtResource("1_0cnvx")
 
-[node name="Bg" type="ColorRect" parent="."]
+[node name="Bg" type="ColorRect" parent="." unique_id=1588634142]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -82,7 +82,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="DayCurrent" type="Label" parent="."]
+[node name="DayCurrent" type="Label" parent="." unique_id=577045237]
 offset_left = 708.0
 offset_top = 336.0
 offset_right = 815.0
@@ -92,7 +92,7 @@ theme_override_fonts/font = ExtResource("2_7fpk2")
 theme_override_font_sizes/font_size = 100
 text = "30"
 
-[node name="Month" type="Label" parent="."]
+[node name="Month" type="Label" parent="." unique_id=1863663376]
 offset_left = 196.0
 offset_top = 330.0
 offset_right = 646.0
@@ -101,7 +101,7 @@ theme_override_fonts/font = ExtResource("2_7fpk2")
 theme_override_font_sizes/font_size = 100
 text = "November"
 
-[node name="Year" type="Label" parent="."]
+[node name="Year" type="Label" parent="." unique_id=243552080]
 offset_left = 875.0
 offset_top = 336.0
 offset_right = 1034.0
@@ -111,7 +111,7 @@ theme_override_fonts/font = ExtResource("2_7fpk2")
 theme_override_font_sizes/font_size = 100
 text = "  16"
 
-[node name="Label" type="Label" parent="Year"]
+[node name="Label" type="Label" parent="Year" unique_id=778645693]
 visible = false
 layout_mode = 0
 offset_left = 11.0
@@ -123,7 +123,7 @@ theme_override_fonts/font = ExtResource("3_nxysf")
 theme_override_font_sizes/font_size = 32
 text = "cin"
 
-[node name="Label2" type="Label" parent="Year"]
+[node name="Label2" type="Label" parent="Year" unique_id=1955135916]
 layout_mode = 0
 offset_left = -19.0
 offset_top = 62.6359
@@ -136,7 +136,7 @@ theme_override_fonts/font = SubResource("FontVariation_3cgs8")
 theme_override_font_sizes/font_size = 75
 text = "u"
 
-[node name="Label3" type="Label" parent="Year"]
+[node name="Label3" type="Label" parent="Year" unique_id=856923626]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 82.6359
@@ -149,13 +149,13 @@ theme_override_fonts/font = SubResource("FontVariation_3cgs8")
 theme_override_font_sizes/font_size = 75
 text = "C"
 
-[node name="Buttons" type="Control" parent="."]
+[node name="Buttons" type="Control" parent="." unique_id=927577608]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="NextDay" type="Button" parent="Buttons"]
+[node name="NextDay" type="Button" parent="Buttons" unique_id=1206794684]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.580469
@@ -171,7 +171,7 @@ theme = SubResource("Theme_a0d8y")
 text = "On to the next day"
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Buttons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons" unique_id=786321031]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 6.725
@@ -183,14 +183,14 @@ grow_vertical = 0
 theme_override_constants/separation = 32
 metadata/_edit_use_anchors_ = true
 
-[node name="Options" type="Button" parent="Buttons/HBoxContainer"]
+[node name="Options" type="Button" parent="Buttons/HBoxContainer" unique_id=104231034]
 layout_mode = 2
 focus_neighbor_top = NodePath("../../NextDay")
 theme = SubResource("Theme_a0d8y")
 text = "Options"
 metadata/_edit_use_anchors_ = true
 
-[node name="Journal" type="Button" parent="Buttons/HBoxContainer"]
+[node name="Journal" type="Button" parent="Buttons/HBoxContainer" unique_id=1637989464]
 layout_mode = 2
 focus_neighbor_top = NodePath("../../NextDay")
 theme = SubResource("Theme_a0d8y")
@@ -198,7 +198,7 @@ disabled = true
 text = "Journal"
 metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Button" parent="Buttons/HBoxContainer"]
+[node name="Quit" type="Button" parent="Buttons/HBoxContainer" unique_id=390552617]
 layout_mode = 2
 focus_neighbor_top = NodePath("../../NextDay")
 theme = SubResource("Theme_a0d8y")

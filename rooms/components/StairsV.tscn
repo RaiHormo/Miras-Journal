@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ch2j5pngca4u"]
+[gd_scene format=3 uid="uid://ch2j5pngca4u"]
 
 [ext_resource type="Script" uid="uid://dcmcg8uht6d7h" path="res://codings/Interactions/stairs_up_down.gd" id="1_ew0ml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bojbw"]
 size = Vector2(49, 4.5)
 
-[node name="Stairs1" type="Area2D"]
+[node name="Stairs1" type="Area2D" unique_id=439422721]
 z_index = 4
 collision_layer = 15
 collision_mask = 15
@@ -15,7 +15,7 @@ LayersDown = 4
 zUp = 7
 zDown = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1819985893]
 shape = SubResource("RectangleShape2D_bojbw")
 debug_color = Color(0.487905, 0.433999, 1, 0.42)
 

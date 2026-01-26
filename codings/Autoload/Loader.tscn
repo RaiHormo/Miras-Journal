@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ykcn5dmyux3m"]
+[gd_scene format=3 uid="uid://ykcn5dmyux3m"]
 
 [ext_resource type="Script" uid="uid://bkudobr2el52k" path="res://codings/Autoload/Loader.gd" id="1_5wiw1"]
 [ext_resource type="Texture2D" uid="uid://d3lf2kvyggym1" path="res://art/Icons/LoadingIcon.png" id="2_qfelw"]
@@ -246,19 +246,19 @@ expand_margin_left = 12.0
 expand_margin_right = 8.0
 anti_aliasing = false
 
-[node name="Loader" type="Control"]
+[node name="Loader" type="Control" unique_id=2037654814]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_5wiw1")
 
-[node name="Can" type="CanvasLayer" parent="."]
+[node name="Can" type="CanvasLayer" parent="." unique_id=1599328663]
 layer = 9
 
-[node name="Bars" type="CanvasGroup" parent="Can"]
+[node name="Bars" type="CanvasGroup" parent="Can" unique_id=99097265]
 
-[node name="Up" type="ColorRect" parent="Can/Bars"]
+[node name="Up" type="ColorRect" parent="Can/Bars" unique_id=1391820493]
 light_mask = 16
 offset_left = -194.0
 offset_top = -1164.0
@@ -269,7 +269,7 @@ mouse_filter = 2
 color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Down" type="ColorRect" parent="Can/Bars"]
+[node name="Down" type="ColorRect" parent="Can/Bars" unique_id=969932717]
 light_mask = 16
 offset_left = -228.0
 offset_top = 786.0
@@ -280,7 +280,7 @@ mouse_filter = 2
 color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Right" type="ColorRect" parent="Can/Bars"]
+[node name="Right" type="ColorRect" parent="Can/Bars" unique_id=1535157251]
 light_mask = 16
 offset_left = 1400.0
 offset_top = -177.0
@@ -291,7 +291,7 @@ mouse_filter = 2
 color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Left" type="ColorRect" parent="Can/Bars"]
+[node name="Left" type="ColorRect" parent="Can/Bars" unique_id=1143410817]
 light_mask = 16
 offset_left = -1721.0
 offset_top = -204.0
@@ -302,7 +302,7 @@ mouse_filter = 2
 color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Icon" type="AnimatedSprite2D" parent="Can"]
+[node name="Icon" type="AnimatedSprite2D" parent="Can" unique_id=1227582004]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9JY29ucy9Mb2FkaW5nSWNvbi5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvSWNvbnMKb19uYW1lfD1Mb2FkaW5nSWNvbgpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 z_index = 11
 texture_filter = 1
@@ -323,7 +323,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/Icons/LoadingIcon.ase"
 }
 
-[node name="TimeOfDay" type="Button" parent="Can"]
+[node name="TimeOfDay" type="Button" parent="Can" unique_id=1808425522]
 visible = false
 offset_left = 494.0
 offset_top = 361.0

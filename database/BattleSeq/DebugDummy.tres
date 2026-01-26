@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=9 format=3 uid="uid://cpwqhga2rnw0s"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cpwqhga2rnw0s"]
 
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="1_03qle"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_djiyi"]
@@ -9,49 +9,21 @@
 
 [sub_resource type="Resource" id="Resource_5vx4i"]
 script = ExtResource("5_a1d4h")
-repeatable = false
-flag = &""
-flag_should_be = false
-after_turn = -1
 actor = &"Mira"
 low_hp = 20
-result = 0
 parameter1 = "testbush"
 parameter2 = "mira_hp_low"
-hold_turn = false
 add_flag = false
 
 [sub_resource type="Resource" id="Resource_wpf26"]
 script = ExtResource("5_a1d4h")
-repeatable = false
 flag = &"DebugBattle"
-flag_should_be = false
 after_turn = 0
-actor = &""
-low_hp = -1
-result = 0
 parameter1 = "testbush"
 parameter2 = "debug_battle_begin"
-hold_turn = false
-add_flag = true
 
 [resource]
 script = ExtResource("1_tyx4l")
 Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv")])
-AdditionalItems = Array[ExtResource("1_djiyi")]([])
 BattleBack = ExtResource("1_03qle")
-Transition = true
-Detransition = false
-ReturnControl = true
-EscPosition = Vector2i(0, 0)
-PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
-CanEscape = true
-DeleteAttacker = true
-EntranceSequence = ""
-EntranceBanter = ""
-EntranceBanterIsPassive = true
-VictorySequence = ""
-VictoryBanter = ""
-DefeatSequence = ""
 Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_5vx4i"), SubResource("Resource_wpf26")])

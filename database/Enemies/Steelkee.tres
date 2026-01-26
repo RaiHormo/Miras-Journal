@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=6 format=3 uid="uid://c4vpbxeag0n74"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://c4vpbxeag0n74"]
 
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_rxq6t"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="2_kbpcj"]

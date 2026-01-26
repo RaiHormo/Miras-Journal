@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="State" load_steps=4 format=3 uid="uid://c3gxpm223pcj1"]
+[gd_resource type="Resource" script_class="State" format=3 uid="uid://c3gxpm223pcj1"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_7j6t2"]
 [ext_resource type="Script" uid="uid://47q0we3aw5v" path="res://codings/Classes/state.gd" id="2_fbm4g"]
@@ -12,11 +12,7 @@ filter_clip = true
 script = ExtResource("2_fbm4g")
 name = "MagicUp"
 Description = "Magic abilities deal more damage and heal by bigger amounts."
-RemovedOnBattleEnd = true
-parameter = 0.0
 turns = 3
 icon = SubResource("AtlasTexture_ghm4a")
 color = Color(0.352941, 0.407843, 0.87451, 1)
-weak_mult = 1.0
-dmg_mult = 1.0
 is_stat_change = true

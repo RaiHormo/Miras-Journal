@@ -63,6 +63,8 @@ func _ready():
 		Seq.ScenePosition = Global.Player.global_position + Vector2(45,0)
 	global_position = Seq.ScenePosition
 	global_position = Vector2i(global_position)
+	$Cam.global_position = Global.Camera.global_position
+	$Cam.zoom = Global.Camera.zoom
 	$Canvas/Cutin.hide()
 	$Act/Actor0.sprite_frames = await Party.Leader.get_BT()
 	$Act/Actor0.animation = &"Entrance"
@@ -261,9 +263,6 @@ func entrance():
 			if Loader.BtAdvantage == 1:
 				for i in Troop: damage(i, 1, false, 24/Troop.size())
 			await Event.wait(0.5, false)
-	else:
-		$Cam.global_position = Global.Camera.global_position
-		$Cam.zoom = Global.Camera.zoom
 	if Seq.EntranceSequence == "":
 		for i in PartyArray:
 			entrance_anim(i)
@@ -996,8 +995,6 @@ func end_battle():
 	await Loader.end_battle()
 	queue_free()
 
-
-
 func reset_all():
 	for i in TurnOrder:
 		for j in i.States: if j.RemovedOnBattleEnd: i.States.erase(j)
@@ -1034,7 +1031,7 @@ func victory_count_sp():
 	for i in PartyArray:
 		i.add_SP(totalSP)
 	PartyUI._check_party()
-	await t.finished
+	await Event.wait(0.5, false)
 	var sp = totalSP
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -1049,8 +1046,7 @@ func victory_count_sp():
 	t.set_parallel()
 	t.tween_property(dub, "scale", Vector2(1.5, 1.5), 0.3)
 	t.tween_property(dub, "modulate", Color.TRANSPARENT, 0.3)
-	#await Event.wait(0.3, false)
-	await t.finished
+	await Event.wait(0.3, false)
 	dub.queue_free()
 
 func victory(ignore_seq:= false):
@@ -1092,7 +1088,7 @@ func victory(ignore_seq:= false):
 	t.tween_property($Cam, "zoom", Vector2(5,5), 1)
 	ObtainedItems.append_array(Seq.AdditionalItems)
 	if totalSP != 0: await victory_count_sp()
-	if not ObtainedItems.is_empty(): await victory_show_items()
+	if not ObtainedItems.is_empty(): victory_show_items()
 	$Canvas/TurnOrder.hide()
 	$Canvas/Continue.show()
 	$Canvas/Continue.icon = Global.get_controller().ConfirmIcon
@@ -1100,10 +1096,9 @@ func victory(ignore_seq:= false):
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
-	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500)
+	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500).set_delay(1)
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
-	await t.finished
 	if is_instance_valid(Global.Player):
 		if Seq.BattleBack == null:
 			Global.Player.global_position = $Act/Actor0.global_position
@@ -1112,6 +1107,7 @@ func victory(ignore_seq:= false):
 					Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
 		Global.Camera.position_smoothing_enabled = false
 		Global.Camera.global_position = $Cam.global_position
+		Global.Camera.enabled = true
 		$Cam.enabled = false
 		Global.Camera.zoom = $Cam.zoom
 
@@ -1148,7 +1144,7 @@ func victory_show_items():
 			t.set_parallel()
 			t.tween_property(i, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
 			t.tween_property(i, "position:x", i.position.x, 0.5).from(i.position.x+500)
-			await t.finished
+			await Event.wait(0.5, false)
 
 func miss(target:Actor = CurrentTarget):
 	play_effect("Miss", target)

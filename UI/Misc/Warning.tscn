@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1a5lbw0hkb0f"]
+[gd_scene format=3 uid="uid://c1a5lbw0hkb0f"]
 
 [ext_resource type="Script" uid="uid://64snfotgfxe7" path="res://codings/UIScripts/warning.gd" id="1_2d5vw"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="2_nn1j7"]
@@ -72,12 +72,12 @@ Button/styles/hover = SubResource("StyleBoxFlat_88xbf")
 Button/styles/normal = SubResource("StyleBoxFlat_ds1ry")
 Button/styles/pressed = SubResource("StyleBoxFlat_88xbf")
 
-[node name="Warning" type="CanvasLayer"]
+[node name="Warning" type="CanvasLayer" unique_id=352750543]
 process_mode = 3
 layer = 9
 script = ExtResource("1_2d5vw")
 
-[node name="Bg" type="ColorRect" parent="."]
+[node name="Bg" type="ColorRect" parent="." unique_id=1175628555]
 modulate = Color(1, 1, 1, 0.360784)
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,14 +86,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=928858660]
 offset_top = 248.0
 offset_right = 1282.0
 offset_bottom = 529.0
 pivot_offset = Vector2(0, 123)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ex2em")
 
-[node name="Label2" type="Label" parent="Panel"]
+[node name="Label2" type="Label" parent="Panel" unique_id=636383653]
 layout_mode = 0
 offset_left = 577.0
 offset_top = 155.0
@@ -105,14 +105,14 @@ theme_override_font_sizes/font_size = 130
 text = "WARNING"
 horizontal_alignment = 2
 
-[node name="Panel2" type="ColorRect" parent="Panel"]
+[node name="Panel2" type="ColorRect" parent="Panel" unique_id=1550042527]
 layout_mode = 0
 offset_top = -8.0
 offset_right = 1282.0
 offset_bottom = 12.0
 color = Color(0.862674, 0, 0.0561501, 1)
 
-[node name="Panel4" type="ColorRect" parent="Panel/Panel2"]
+[node name="Panel4" type="ColorRect" parent="Panel/Panel2" unique_id=1131991775]
 show_behind_parent = true
 layout_mode = 0
 offset_top = 18.0
@@ -120,21 +120,21 @@ offset_right = 1282.0
 offset_bottom = 30.0
 color = Color(0.44, 0.1364, 0.14652, 1)
 
-[node name="Panel3" type="ColorRect" parent="Panel"]
+[node name="Panel3" type="ColorRect" parent="Panel" unique_id=2048311614]
 layout_mode = 0
 offset_top = 272.0
 offset_right = 1282.0
 offset_bottom = 291.0
 color = Color(0.862745, 0, 0.054902, 1)
 
-[node name="Panel5" type="ColorRect" parent="Panel/Panel3"]
+[node name="Panel5" type="ColorRect" parent="Panel/Panel3" unique_id=1933784289]
 show_behind_parent = true
 layout_mode = 0
 offset_top = -12.0
 offset_right = 1282.0
 color = Color(0.44, 0.1364, 0.14652, 1)
 
-[node name="Label" type="RichTextLabel" parent="Panel"]
+[node name="Label" type="RichTextLabel" parent="Panel" unique_id=128418097]
 layout_mode = 0
 offset_left = 49.0
 offset_top = 48.0
@@ -146,7 +146,7 @@ bbcode_enabled = true
 text = "This will destroy absolutely everything!!!
 Continue?"
 
-[node name="Options" type="HBoxContainer" parent="Panel"]
+[node name="Options" type="HBoxContainer" parent="Panel" unique_id=1125811526]
 layout_mode = 0
 offset_left = 53.0
 offset_top = 243.0
@@ -154,7 +154,7 @@ offset_right = 471.0
 offset_bottom = 309.0
 theme_override_constants/separation = 24
 
-[node name="No" type="Button" parent="Panel/Options"]
+[node name="No" type="Button" parent="Panel/Options" unique_id=1099115883]
 layout_mode = 2
 focus_neighbor_right = NodePath("../Yes")
 focus_mode = 1
@@ -162,7 +162,7 @@ theme = SubResource("Theme_rkwdo")
 text = "No"
 metadata/_edit_use_anchors_ = true
 
-[node name="Yes" type="Button" parent="Panel/Options"]
+[node name="Yes" type="Button" parent="Panel/Options" unique_id=865238120]
 layout_mode = 2
 focus_neighbor_left = NodePath("../No")
 focus_neighbor_right = NodePath("../Maybe")
@@ -171,7 +171,7 @@ theme = SubResource("Theme_rkwdo")
 text = "Yes"
 metadata/_edit_use_anchors_ = true
 
-[node name="Maybe" type="Button" parent="Panel/Options"]
+[node name="Maybe" type="Button" parent="Panel/Options" unique_id=1463726311]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Yes")
 focus_mode = 1

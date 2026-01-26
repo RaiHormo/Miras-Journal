@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://dh64f5bodshv7"]
+[gd_scene format=3 uid="uid://dh64f5bodshv7"]
 
 [ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
@@ -545,7 +545,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[node name="PartyUI" type="Control"]
+[node name="PartyUI" type="Control" unique_id=974459483]
 process_mode = 3
 texture_filter = 2
 layout_mode = 3
@@ -558,23 +558,23 @@ grow_vertical = 2
 script = ExtResource("1_nullq")
 CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(385, 426), Vector2(385, 615)])
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1483732302]
 layer = 2
 
-[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+[node name="Fade" type="ColorRect" parent="CanvasLayer" unique_id=735149284]
 offset_right = 1282.0
 offset_bottom = 801.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Blur" type="ColorRect" parent="CanvasLayer/Fade"]
+[node name="Blur" type="ColorRect" parent="CanvasLayer/Fade" unique_id=1753667604]
 material = SubResource("ShaderMaterial_j4job")
 layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 799.0
 mouse_filter = 2
 
-[node name="Partybox" type="VBoxContainer" parent="CanvasLayer"]
+[node name="Partybox" type="VBoxContainer" parent="CanvasLayer" unique_id=777498716]
 unique_name_in_owner = true
 texture_filter = 2
 offset_right = 252.0
@@ -583,19 +583,19 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 18
 
-[node name="Leader" type="Panel" parent="CanvasLayer/Partybox"]
+[node name="Leader" type="Panel" parent="CanvasLayer/Partybox" unique_id=1263022627]
 texture_filter = 2
 custom_minimum_size = Vector2(230, 98)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
-[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Leader"]
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Leader" unique_id=190986066]
 position = Vector2(37, 45)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
-[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Leader/Icon"]
+[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Leader/Icon" unique_id=1544928473]
 visible = false
 texture_filter = 1
 offset_left = -88.8889
@@ -605,7 +605,7 @@ offset_bottom = -0.77774
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
-[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Leader"]
+[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Leader" unique_id=719787744]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 37.0
@@ -616,7 +616,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura"]
+[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura" unique_id=451451156]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
@@ -626,7 +626,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Leader"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Leader" unique_id=1464045390]
 z_index = 1
 layout_mode = 0
 offset_left = 75.0
@@ -638,7 +638,7 @@ value = 75.0
 rounded = true
 show_percentage = false
 
-[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Leader/Health"]
+[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Leader/Health" unique_id=1866796359]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 1.0
@@ -648,7 +648,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
-[node name="Name" type="Label" parent="CanvasLayer/Partybox/Leader"]
+[node name="Name" type="Label" parent="CanvasLayer/Partybox/Leader" unique_id=1962907746]
 layout_mode = 0
 offset_left = 82.0
 offset_top = 3.0
@@ -658,7 +658,7 @@ text = "Mira"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="CanvasLayer/Partybox/Leader"]
+[node name="Level" type="Label" parent="CanvasLayer/Partybox/Leader" unique_id=1340263761]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 71.3334
@@ -667,7 +667,7 @@ offset_bottom = 97.3334
 text = "S. Lv "
 label_settings = SubResource("LabelSettings_owkfl")
 
-[node name="Number" type="Label" parent="CanvasLayer/Partybox/Leader/Level"]
+[node name="Number" type="Label" parent="CanvasLayer/Partybox/Leader/Level" unique_id=2011501551]
 layout_mode = 0
 offset_left = 32.9492
 offset_top = -9.33336
@@ -678,7 +678,7 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Leader/Level"]
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Leader/Level" unique_id=721126986]
 layout_mode = 0
 offset_left = -58.0223
 offset_top = 1.6482
@@ -689,7 +689,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
 show_percentage = false
 
-[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Leader"]
+[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Leader" unique_id=1788736398]
 layout_mode = 0
 offset_left = -40.0
 offset_top = -25.0
@@ -697,7 +697,7 @@ offset_right = 240.0
 offset_bottom = 101.0
 theme = SubResource("Theme_x6d55")
 
-[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1"]
+[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1" unique_id=958549904]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
@@ -706,7 +706,7 @@ offset_right = 276.0
 offset_bottom = 122.0
 theme = SubResource("Theme_3xf0g")
 
-[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1/Border2"]
+[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1/Border2" unique_id=2039758143]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
@@ -715,19 +715,19 @@ offset_right = 267.0
 offset_bottom = 113.0
 theme = SubResource("Theme_6a77a")
 
-[node name="Member1" type="Panel" parent="CanvasLayer/Partybox"]
+[node name="Member1" type="Panel" parent="CanvasLayer/Partybox" unique_id=2122788177]
 texture_filter = 2
 custom_minimum_size = Vector2(222, 110)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 
-[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Member1"]
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Member1" unique_id=510320069]
 position = Vector2(37, 54.333)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_cich6")
 
-[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Member1/Icon"]
+[node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Member1/Icon" unique_id=894064193]
 visible = false
 texture_filter = 1
 offset_left = -107.0
@@ -737,7 +737,7 @@ offset_bottom = -4.0
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
-[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Member1"]
+[node name="Aura" type="ProgressBar" parent="CanvasLayer/Partybox/Member1" unique_id=1665363314]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 46.6667
@@ -748,7 +748,7 @@ value = 13.0
 rounded = true
 show_percentage = false
 
-[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura"]
+[node name="ApText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura" unique_id=1709349608]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 12.0
@@ -758,7 +758,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Member1"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/Partybox/Member1" unique_id=783859598]
 z_index = 1
 layout_mode = 0
 offset_left = 75.0
@@ -770,7 +770,7 @@ value = 75.0
 rounded = true
 show_percentage = false
 
-[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Member1/Health"]
+[node name="HpText" type="Label" parent="CanvasLayer/Partybox/Member1/Health" unique_id=1708555157]
 layout_mode = 0
 offset_left = 115.0
 offset_top = 1.0
@@ -780,7 +780,7 @@ theme_override_fonts/font = ExtResource("4_ujk23")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
-[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Member1"]
+[node name="Border1" type="Panel" parent="CanvasLayer/Partybox/Member1" unique_id=281718122]
 layout_mode = 0
 offset_left = -40.0
 offset_top = -7.0
@@ -788,14 +788,14 @@ offset_right = 243.0
 offset_bottom = 113.0
 theme = SubResource("Theme_x6d55")
 
-[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1"]
+[node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1" unique_id=729474626]
 show_behind_parent = true
 layout_mode = 0
 offset_right = 277.0
 offset_bottom = 116.0
 theme = SubResource("Theme_3xf0g")
 
-[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1/Border2"]
+[node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1/Border2" unique_id=1252904282]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
@@ -804,7 +804,7 @@ offset_right = 274.0
 offset_bottom = 112.0
 theme = SubResource("Theme_6a77a")
 
-[node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1"]
+[node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1" unique_id=192955763]
 layout_mode = 0
 offset_left = 81.0
 offset_top = 14.0
@@ -814,7 +814,7 @@ text = "Alcine"
 label_settings = SubResource("LabelSettings_2t2lh")
 vertical_alignment = 1
 
-[node name="Level" type="Label" parent="CanvasLayer/Partybox/Member1"]
+[node name="Level" type="Label" parent="CanvasLayer/Partybox/Member1" unique_id=1936574946]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 81.3333
@@ -823,7 +823,7 @@ offset_bottom = 107.333
 text = "S. Lv "
 label_settings = SubResource("LabelSettings_owkfl")
 
-[node name="Number" type="Label" parent="CanvasLayer/Partybox/Member1/Level"]
+[node name="Number" type="Label" parent="CanvasLayer/Partybox/Member1/Level" unique_id=1231485893]
 layout_mode = 0
 offset_left = 32.9492
 offset_top = -9.33336
@@ -834,7 +834,7 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Member1/Level"]
+[node name="ExpBar" type="ProgressBar" parent="CanvasLayer/Partybox/Member1/Level" unique_id=1657054408]
 layout_mode = 0
 offset_left = -60.0
 offset_top = 2.66669
@@ -845,7 +845,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
 show_percentage = false
 
-[node name="Cursor" type="TextureRect" parent="CanvasLayer"]
+[node name="Cursor" type="TextureRect" parent="CanvasLayer" unique_id=930544962]
 self_modulate = Color(0.909804, 0.909804, 0.909804, 1)
 offset_left = 385.0
 offset_top = 60.0
@@ -855,7 +855,7 @@ scale = Vector2(0.404152, 0.404152)
 mouse_filter = 2
 texture = ExtResource("6_w2g12")
 
-[node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor"]
+[node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor" unique_id=427346250]
 visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_llexj")
@@ -877,7 +877,7 @@ shortcut = SubResource("Shortcut_vilg5")
 text = "Item x3"
 icon = SubResource("AtlasTexture_wk61q")
 
-[node name="MemberOptions" type="PanelContainer" parent="CanvasLayer/Cursor"]
+[node name="MemberOptions" type="PanelContainer" parent="CanvasLayer/Cursor" unique_id=2143411570]
 layout_mode = 0
 offset_left = 32.1661
 offset_top = -47.012
@@ -886,10 +886,10 @@ offset_bottom = 78.988
 scale = Vector2(3.855, 3.855)
 theme_override_styles/panel = SubResource("StyleBoxFlat_q4g4i")
 
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Cursor/MemberOptions"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Cursor/MemberOptions" unique_id=1682084423]
 layout_mode = 2
 
-[node name="Talk" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
+[node name="Talk" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox" unique_id=1650240290]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_jf75l")
 custom_minimum_size = Vector2(0, 33)
@@ -907,7 +907,7 @@ shortcut_in_tooltip = false
 text = "Talk"
 icon = ExtResource("10_l2ivr")
 
-[node name="Abilities" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
+[node name="Abilities" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox" unique_id=1425677363]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_jf75l")
 custom_minimum_size = Vector2(0, 33)
@@ -925,7 +925,7 @@ shortcut_in_tooltip = false
 text = "Abilities"
 icon = ExtResource("11_k5mql")
 
-[node name="Details" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox"]
+[node name="Details" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox" unique_id=1437251849]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_jf75l")
 custom_minimum_size = Vector2(0, 33)
@@ -943,7 +943,7 @@ shortcut_in_tooltip = false
 text = "Stats"
 icon = ExtResource("10_3r1mm")
 
-[node name="Wheel" parent="CanvasLayer" instance=ExtResource("10_ihe7c")]
+[node name="Wheel" parent="CanvasLayer" unique_id=1137152955 instance=ExtResource("10_ihe7c")]
 visible = false
 offset_left = 650.0
 offset_top = 408.0
@@ -953,7 +953,7 @@ scale = Vector2(0.7, 0.7)
 mouse_filter = 2
 color = Color(1, 0, 0.356863, 1)
 
-[node name="CalendarBase" type="TextureRect" parent="CanvasLayer"]
+[node name="CalendarBase" type="TextureRect" parent="CanvasLayer" unique_id=1569506024]
 visible = false
 texture_filter = 2
 anchors_preset = 1
@@ -969,7 +969,7 @@ mouse_filter = 2
 texture = ExtResource("11_4pd7b")
 script = ExtResource("12_wtwla")
 
-[node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase"]
+[node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase" unique_id=495101031]
 layout_mode = 0
 offset_left = 249.30835
 offset_top = 20.0
@@ -979,7 +979,7 @@ size_flags_horizontal = 10
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Month" type="Label" parent="CanvasLayer/CalendarBase/Date"]
+[node name="Month" type="Label" parent="CanvasLayer/CalendarBase/Date" unique_id=1128156028]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 1
@@ -991,14 +991,14 @@ text = "November"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Day" type="Label" parent="CanvasLayer/CalendarBase/Date"]
+[node name="Day" type="Label" parent="CanvasLayer/CalendarBase/Date" unique_id=445891596]
 layout_mode = 2
 theme = SubResource("Theme_f46jh")
 theme_override_colors/font_color = Color(0.909804, 0.552941, 0.4, 1)
 theme_override_font_sizes/font_size = 265
 text = "12"
 
-[node name="Container" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
+[node name="Container" type="BoxContainer" parent="CanvasLayer/CalendarBase" unique_id=128965790]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.743
@@ -1010,7 +1010,7 @@ offset_bottom = 423.566
 scale = Vector2(2, 2)
 alignment = 2
 
-[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Container"]
+[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Container" unique_id=790979162]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -1025,7 +1025,7 @@ text = "Morning"
 icon = ExtResource("14_fmwou")
 alignment = 2
 
-[node name="Future" type="BoxContainer" parent="CanvasLayer/CalendarBase"]
+[node name="Future" type="BoxContainer" parent="CanvasLayer/CalendarBase" unique_id=367246423]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.743
@@ -1037,7 +1037,7 @@ offset_bottom = 897.239
 scale = Vector2(2, 2)
 alignment = 2
 
-[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Future"]
+[node name="TimeOfDay" type="Button" parent="CanvasLayer/CalendarBase/Future" unique_id=1235567971]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -1052,7 +1052,7 @@ text = "Morning"
 icon = ExtResource("14_fmwou")
 alignment = 2
 
-[node name="Action" type="Button" parent="CanvasLayer/CalendarBase"]
+[node name="Action" type="Button" parent="CanvasLayer/CalendarBase" unique_id=1937317852]
 visibility_layer = 1024
 texture_filter = 1
 material = SubResource("ShaderMaterial_ovcy8")
@@ -1071,7 +1071,7 @@ theme_override_font_sizes/font_size = 18
 text = "H"
 expand_icon = true
 
-[node name="Border1" type="Panel" parent="CanvasLayer/CalendarBase/Action"]
+[node name="Border1" type="Panel" parent="CanvasLayer/CalendarBase/Action" unique_id=655508692]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -51.0
@@ -1080,7 +1080,7 @@ offset_right = 334.0
 offset_bottom = 174.0
 theme = SubResource("Theme_jjjvx")
 
-[node name="Border2" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1"]
+[node name="Border2" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1" unique_id=1828448356]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 3.0
@@ -1089,7 +1089,7 @@ offset_right = 382.0
 offset_bottom = 159.0
 theme = SubResource("Theme_bumyi")
 
-[node name="Border3" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2"]
+[node name="Border3" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2" unique_id=108837970]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 1.0
@@ -1098,7 +1098,7 @@ offset_right = 380.0
 offset_bottom = 152.0
 theme = SubResource("Theme_h8rhe")
 
-[node name="Panel" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2/Border3"]
+[node name="Panel" type="Panel" parent="CanvasLayer/CalendarBase/Action/Border1/Border2/Border3" unique_id=330679148]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 7.0
@@ -1107,7 +1107,7 @@ offset_right = 369.0
 offset_bottom = 146.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6ffbd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CalendarBase/Action"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CalendarBase/Action" unique_id=240219384]
 layout_mode = 0
 offset_left = -21.0
 offset_top = 48.0
@@ -1117,7 +1117,7 @@ theme_override_constants/line_separation = 12
 theme_override_font_sizes/normal_font_size = 18
 text = "Killing yourself will take you about an infinite amount of time."
 
-[node name="Nevermind" type="Button" parent="CanvasLayer/CalendarBase/Action"]
+[node name="Nevermind" type="Button" parent="CanvasLayer/CalendarBase/Action" unique_id=1313363750]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -17.6555
@@ -1129,7 +1129,7 @@ size_flags_horizontal = 8
 theme = SubResource("Theme_uf457")
 text = "Nevermind"
 
-[node name="UseTime" type="Button" parent="CanvasLayer/CalendarBase/Action"]
+[node name="UseTime" type="Button" parent="CanvasLayer/CalendarBase/Action" unique_id=444151058]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 157.631
@@ -1141,7 +1141,7 @@ size_flags_horizontal = 8
 theme = SubResource("Theme_uf457")
 text = "Use time"
 
-[node name="Arrow" type="Panel" parent="CanvasLayer/CalendarBase/Action"]
+[node name="Arrow" type="Panel" parent="CanvasLayer/CalendarBase/Action" unique_id=819259961]
 layout_mode = 0
 offset_left = 344.397
 offset_top = 72.5096
@@ -1151,7 +1151,7 @@ rotation = 3.14159
 scale = Vector2(0.559689, 0.559689)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ksnvr")
 
-[node name="Arrow" type="TextureRect" parent="CanvasLayer/CalendarBase"]
+[node name="Arrow" type="TextureRect" parent="CanvasLayer/CalendarBase" unique_id=656029726]
 visible = false
 layout_mode = 0
 offset_left = 687.524
@@ -1161,7 +1161,7 @@ offset_bottom = 841.607
 rotation = -1.57079
 texture = ExtResource("6_w2g12")
 
-[node name="Back" type="Button" parent="CanvasLayer"]
+[node name="Back" type="Button" parent="CanvasLayer" unique_id=131082473]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_jf75l")
 layout_direction = 1
@@ -1185,7 +1185,7 @@ icon = ExtResource("15_rt2n5")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="PartyMenuButton" type="Button" parent="CanvasLayer"]
+[node name="PartyMenuButton" type="Button" parent="CanvasLayer" unique_id=858554926]
 offset_right = 253.0
 offset_bottom = 571.0
 focus_mode = 0
@@ -1200,10 +1200,10 @@ shortcut_feedback = false
 shortcut_in_tooltip = false
 flat = true
 
-[node name="VirtualJoystick" parent="CanvasLayer" instance=ExtResource("16_86i7e")]
+[node name="VirtualJoystick" parent="CanvasLayer" unique_id=1295526431 instance=ExtResource("16_86i7e")]
 mouse_filter = 2
 
-[node name="Pages" type="Control" parent="CanvasLayer"]
+[node name="Pages" type="Control" parent="CanvasLayer" unique_id=461101647]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
@@ -1211,7 +1211,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="Page0" type="TextureRect" parent="CanvasLayer/Pages"]
+[node name="Page0" type="TextureRect" parent="CanvasLayer/Pages" unique_id=1109483515]
 z_index = 3
 layout_mode = 0
 offset_left = 1346.0
@@ -1222,14 +1222,14 @@ rotation = -0.010472
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_1ty82")
 
-[node name="AuraDoodle" type="TextureRect" parent="CanvasLayer/Pages/Page0"]
+[node name="AuraDoodle" type="TextureRect" parent="CanvasLayer/Pages/Page0" unique_id=450780679]
 layout_mode = 0
 offset_left = 53.8653
 offset_top = 118.951
 offset_right = 1070.87
 offset_bottom = 1433.95
 
-[node name="Label" type="Label" parent="CanvasLayer/Pages/Page0"]
+[node name="Label" type="Label" parent="CanvasLayer/Pages/Page0" unique_id=1370635984]
 layout_mode = 0
 offset_left = 147.598
 offset_top = 134.221
@@ -1240,7 +1240,7 @@ theme_override_fonts/font = ExtResource("12_2fkxq")
 theme_override_font_sizes/font_size = 110
 text = "Bob Bobbers"
 
-[node name="Render" type="TextureRect" parent="CanvasLayer/Pages/Page0"]
+[node name="Render" type="TextureRect" parent="CanvasLayer/Pages/Page0" unique_id=988990927]
 layout_mode = 0
 offset_left = 86.7788
 offset_top = 100.868
@@ -1258,7 +1258,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": ""
 }
 
-[node name="Shadow" type="TextureRect" parent="CanvasLayer/Pages/Page0/Render"]
+[node name="Shadow" type="TextureRect" parent="CanvasLayer/Pages/Page0/Render" unique_id=1287923389]
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 texture_filter = 4
@@ -1279,9 +1279,8 @@ metadata/_aseprite_wizard_config_ = {
 "source": ""
 }
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer"]
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer" unique_id=784429027]
 visible = false
-clip_contents = false
 offset_left = 10.0
 offset_top = 699.0
 offset_right = 521.0
@@ -1293,7 +1292,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
 theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
 placeholder_text = "Enter a flag"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit" unique_id=1768654457]
 layout_mode = 0
 offset_left = 245.0
 offset_top = -681.0
@@ -1307,7 +1306,7 @@ text = "Flags will show up here"
 context_menu_enabled = true
 selection_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/TextEdit"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/TextEdit" unique_id=822251609]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -1322,7 +1321,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.768627)
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/TextEdit"]
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/TextEdit" unique_id=555863609]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -1337,7 +1336,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.768627)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit/ColorRect2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TextEdit/ColorRect2" unique_id=182355391]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.078
@@ -1359,7 +1358,7 @@ text = "/clear
 /item
 /itemrm"
 
-[node name="DebugText" type="Label" parent="CanvasLayer"]
+[node name="DebugText" type="Label" parent="CanvasLayer" unique_id=473974110]
 visible = false
 offset_left = 1089.0
 offset_top = 760.0
@@ -1371,15 +1370,15 @@ theme_override_font_sizes/font_size = 32
 text = "DEBUG"
 horizontal_alignment = 2
 
-[node name="Audio" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="AudioStreamPlayer" parent="." unique_id=786867749]
 bus = &"UI"
 
-[node name="StateTimer" type="Timer" parent="."]
+[node name="StateTimer" type="Timer" parent="." unique_id=25242753]
 process_callback = 0
 wait_time = 12.0
 autostart = true
 
-[node name="IdleTimer" type="Timer" parent="."]
+[node name="IdleTimer" type="Timer" parent="." unique_id=200835152]
 wait_time = 12.0
 one_shot = true
 

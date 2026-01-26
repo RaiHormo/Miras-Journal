@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://sql6r7jv7fjq"]
+[gd_scene format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
 [ext_resource type="Script" uid="uid://d0udqc2dg3nk0" path="res://codings/player_movement.gd" id="2_d6ige"]
@@ -641,7 +641,7 @@ size = Vector2(13, 6)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_siatn"]
 
-[node name="Mira" type="CharacterBody2D" node_paths=PackedStringArray("Nav")]
+[node name="Mira" type="CharacterBody2D" unique_id=1955284413 node_paths=PackedStringArray("Nav")]
 process_mode = 3
 z_index = 3
 z_as_relative = false
@@ -657,7 +657,7 @@ speed = 100
 DefaultState = 6
 Nav = NodePath("Nav")
 
-[node name="Flame" type="PointLight2D" parent="."]
+[node name="Flame" type="PointLight2D" parent="." unique_id=680748428]
 texture_filter = 2
 position = Vector2(-2, 2)
 color = Color(1, 0.333333, 0, 1)
@@ -669,18 +669,18 @@ script = ExtResource("12_1md4f")
 around_scale = 3.5
 amount = 0.08
 
-[node name="Glow" type="PointLight2D" parent="."]
+[node name="Glow" type="PointLight2D" parent="." unique_id=446179672]
 scale = Vector2(1.96875, 1.96875)
 color = Color(0.847059, 0.607843, 0.447059, 1)
 energy = 0.1
 texture = SubResource("GradientTexture2D_84k7l")
 texture_scale = 1.5
 
-[node name="Sprite" type="CanvasGroup" parent="."]
+[node name="Sprite" type="CanvasGroup" parent="." unique_id=1951205845]
 light_mask = 3
 texture_filter = 2
 
-[node name="Base" type="AnimatedSprite2D" parent="Sprite"]
+[node name="Base" type="AnimatedSprite2D" parent="Sprite" unique_id=288160506]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhb3YuYXNlcHJpdGUKbGF5ZXJ8PUJhc2UKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PUJhc2UKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 light_mask = 3
@@ -701,7 +701,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://art/OV/Miraov.aseprite"
 }
 
-[node name="Flame" type="AnimatedSprite2D" parent="Sprite"]
+[node name="Flame" type="AnimatedSprite2D" parent="Sprite" unique_id=1771969169]
 unique_name_in_owner = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9NaXJhL01pcmFvdi5hc2Vwcml0ZQpsYXllcnw9RmxhbWUKb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L3NoZWV0cwpvX25hbWV8PWZsYW1lCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 visible = false
@@ -711,7 +711,7 @@ position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_spx3p")
 animation = &"ReachOut2"
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1871577307]
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
@@ -719,7 +719,7 @@ position = Vector2(0, -4)
 texture = ExtResource("10_dxclp")
 offset = Vector2(0, 9)
 
-[node name="Bubble" type="AnimatedSprite2D" parent="."]
+[node name="Bubble" type="AnimatedSprite2D" parent="." unique_id=1706025424]
 light_mask = 0
 z_index = 3
 material = ExtResource("1_srkwi")
@@ -727,46 +727,46 @@ position = Vector2(-0.00622558, -32.0003)
 sprite_frames = ExtResource("11_buww2")
 animation = &"Ellipsis"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970471933]
 position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ss1lh")
 one_way_collision_margin = 15.4
 
-[node name="DirectionMarker" type="Marker2D" parent="."]
+[node name="DirectionMarker" type="Marker2D" parent="." unique_id=1161425471]
 position = Vector2(0, 20)
 gizmo_extents = 0.0
 
-[node name="Finder" type="Area2D" parent="DirectionMarker"]
+[node name="Finder" type="Area2D" parent="DirectionMarker" unique_id=137096727]
 collision_layer = 256
 collision_mask = 257
 
-[node name="Shape" type="CollisionShape2D" parent="DirectionMarker/Finder"]
+[node name="Shape" type="CollisionShape2D" parent="DirectionMarker/Finder" unique_id=1784437600]
 shape = SubResource("RectangleShape2D_qv763")
 debug_color = Color(0.4, 0.603922, 0.239216, 0.419608)
 
-[node name="TerrainDetector" type="Area2D" parent="."]
+[node name="TerrainDetector" type="Area2D" parent="." unique_id=825912033]
 z_index = -1
 collision_layer = 0
 collision_mask = 255
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainDetector" unique_id=1696832705]
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_1wjc1")
 debug_color = Color(1, 0.486275, 0.0235294, 0.552941)
 
-[node name="Nav" type="NavigationAgent2D" parent="."]
+[node name="Nav" type="NavigationAgent2D" parent="." unique_id=1047565253]
 path_max_distance = 20.0
 
-[node name="StdrFootsteps" parent="." instance=ExtResource("13_av38v")]
+[node name="StdrFootsteps" parent="." unique_id=936257518 instance=ExtResource("13_av38v")]
 
-[node name="Ear" type="AudioListener2D" parent="."]
+[node name="Ear" type="AudioListener2D" parent="." unique_id=984354471]
 
-[node name="Camera2D" type="RemoteTransform2D" parent="."]
+[node name="Camera2D" type="RemoteTransform2D" parent="." unique_id=1856948275]
 update_rotation = false
 update_scale = false
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=1841963060]
 process_mode = 1
 visible = false
 light_mask = 0
@@ -778,36 +778,36 @@ offset_bottom = 239.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Darken" type="ColorRect" parent="Fader"]
+[node name="Darken" type="ColorRect" parent="Fader" unique_id=1460161718]
 layout_mode = 0
 offset_right = 617.0
 offset_bottom = 467.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Attack" type="Area2D" parent="."]
+[node name="Attack" type="Area2D" parent="." unique_id=1395755508]
 position = Vector2(0, 2)
 collision_layer = 767
 collision_mask = 767
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=141676499]
 position = Vector2(17.5625, 0)
 shape = SubResource("RectangleShape2D_0vcrc")
 debug_color = Color(0.964706, 0, 0.494118, 0.419608)
 
-[node name="AttackPreview" type="Area2D" parent="Attack"]
+[node name="AttackPreview" type="Area2D" parent="Attack" unique_id=32351966]
 collision_layer = 15
 collision_mask = 15
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackPreview"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackPreview" unique_id=563379949]
 position = Vector2(19, 0)
 shape = SubResource("RectangleShape2D_6jnlw")
 debug_color = Color(0.321569, 0.533333, 0.870588, 0.419608)
 
-[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+[node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1543988533]
 bus = &"EnvSFX"
 
-[node name="OpenMenu" type="Button" parent="."]
+[node name="OpenMenu" type="Button" parent="." unique_id=995529857]
 offset_left = -18.0
 offset_top = -22.0
 offset_right = 20.0

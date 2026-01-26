@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=7 format=3 uid="uid://dhl3e7rl6r456"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://dhl3e7rl6r456"]
 
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_1e1g1"]
 [ext_resource type="Resource" uid="uid://j602f3ere055" path="res://database/Items/Consumables/SmallPotion.tres" id="1_ni1bv"]
@@ -11,17 +11,9 @@
 script = ExtResource("3_6tqej")
 Enemies = Array[ExtResource("3_rxj6m")]([ExtResource("1_utiv4")])
 AdditionalItems = Array[ExtResource("1_1e1g1")]([ExtResource("1_ni1bv")])
-Transition = true
 Detransition = true
-EscPosition = Vector2(0, 0)
-PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
 CanEscape = false
 DeleteAttacker = false
-EntranceSequence = ""
 EntranceBanter = "arena_round4"
 EntranceBanterIsPassive = false
-VictorySequence = ""
-VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[ExtResource("5_b2fvs")]([])

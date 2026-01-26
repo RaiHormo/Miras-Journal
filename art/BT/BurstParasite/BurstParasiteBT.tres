@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=44 format=3 uid="uid://854ynmcdfk2k"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://854ynmcdfk2k"]
 
 [ext_resource type="Texture2D" uid="uid://d2xephed3vcnu" path="res://art/BT/BurstParasite/BurstParasiteBT.png" id="1_x7usy"]
 

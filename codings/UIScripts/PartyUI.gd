@@ -430,6 +430,7 @@ func focus_now():
 
 func battle_state(from:= false):
 	if not Loader.InBattle: $CanvasLayer.hide(); return
+	$CanvasLayer.show()
 	$CanvasLayer/Cursor.hide()
 	visibly=true
 	Partybox.scale = Vector2(1.25, 1.25)

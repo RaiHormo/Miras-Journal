@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleSequence" load_steps=8 format=3 uid="uid://cexeojlgyu7rg"]
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://cexeojlgyu7rg"]
 
 [ext_resource type="Resource" uid="uid://of5cf81xb3dd" path="res://database/Enemies/WhiteSpawn.tres" id="1_4n7h5"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_dctk4"]
@@ -12,17 +12,9 @@
 script = ExtResource("4_ndxij")
 Enemies = Array[ExtResource("3_lf0st")]([ExtResource("1_4n7h5"), ExtResource("1_rafmn")])
 AdditionalItems = Array[ExtResource("1_dctk4")]([ExtResource("2_6ahgl"), ExtResource("2_6ahgl")])
-Transition = true
 Detransition = true
-EscPosition = Vector2(0, 0)
-PositionSameAsPlayer = false
-ScenePosition = Vector2(0, 0)
 CanEscape = false
 DeleteAttacker = false
-EntranceSequence = ""
 EntranceBanter = "arena_round3"
 EntranceBanterIsPassive = false
-VictorySequence = ""
-VictoryBanter = ""
 DefeatSequence = "ArenaGameOver"
-Events = Array[ExtResource("6_6bth7")]([])

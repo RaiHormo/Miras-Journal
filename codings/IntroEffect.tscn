@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://jrg5p2oev3io"]
+[gd_scene format=3 uid="uid://jrg5p2oev3io"]
 
 [ext_resource type="Script" uid="uid://foqvcpbe6ksq" path="res://codings/intro_effect.gd" id="1_e0tlv"]
 [ext_resource type="Texture2D" uid="uid://diciesnv8261h" path="res://art/Effects/IntroHit.png" id="1_pcghd"]
@@ -92,13 +92,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="IntroEffect" type="CanvasLayer"]
+[node name="IntroEffect" type="CanvasLayer" unique_id=1799834629]
 process_mode = 3
 layer = 6
 follow_viewport_enabled = true
 script = ExtResource("1_e0tlv")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1006775564]
 process_mode = 3
 z_index = 3
 texture_filter = 1

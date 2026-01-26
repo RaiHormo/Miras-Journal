@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dro6xc73x3rl4"]
+[gd_scene format=3 uid="uid://dro6xc73x3rl4"]
 
 [ext_resource type="Script" uid="uid://hlalmsu7y4nk" path="res://codings/UIScripts/textbox.gd" id="1_ho4q7"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_rgh70"]
@@ -412,23 +412,23 @@ action = &"ui_accept"
 [sub_resource type="Shortcut" id="Shortcut_a7vvg"]
 events = [SubResource("InputEventAction_jeo6e")]
 
-[node name="Textbox" type="CanvasLayer"]
+[node name="Textbox" type="CanvasLayer" unique_id=755451757]
 process_mode = 3
 layer = 3
 script = ExtResource("1_ho4q7")
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=1298697035]
 offset_right = 1284.0
 offset_bottom = 803.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Balloon" type="ColorRect" parent="."]
+[node name="Balloon" type="ColorRect" parent="." unique_id=1596284179]
 pivot_offset = Vector2(635, 735)
 size_flags_horizontal = 4
 color = Color(0, 0, 0, 1)
 
-[node name="Glow" type="Panel" parent="Balloon"]
+[node name="Glow" type="Panel" parent="Balloon" unique_id=1451678357]
 modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 0
 offset_left = 255.0
@@ -438,7 +438,7 @@ offset_bottom = 777.0
 pivot_offset = Vector2(382, 120)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
-[node name="Glow2" type="Panel" parent="Balloon"]
+[node name="Glow2" type="Panel" parent="Balloon" unique_id=1690788830]
 modulate = Color(0.623529, 0.596078, 0.572549, 0.333333)
 layout_mode = 0
 offset_left = 255.0
@@ -449,7 +449,7 @@ scale = Vector2(1.025, 1.065)
 pivot_offset = Vector2(382, 120)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1nv2a")
 
-[node name="Arrow" type="Panel" parent="Balloon"]
+[node name="Arrow" type="Panel" parent="Balloon" unique_id=1050587520]
 layout_mode = 0
 offset_left = 233.0
 offset_top = 593.0
@@ -457,7 +457,7 @@ offset_right = 265.0
 offset_bottom = 641.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1o1fc")
 
-[node name="Panel2" type="Panel" parent="Balloon"]
+[node name="Panel2" type="Panel" parent="Balloon" unique_id=1837158450]
 layout_mode = 0
 offset_left = 257.0
 offset_top = 557.0
@@ -465,7 +465,7 @@ offset_right = 1006.0
 offset_bottom = 764.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
-[node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_rgh70")]
+[node name="DialogueLabel" parent="Balloon/Panel2" unique_id=128932050 node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_rgh70")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
@@ -483,7 +483,7 @@ skip_action = &"DialogNext"
 pause_at_characters = ".?!,"
 skip_pause_at_character_if_followed_by = ")\".?"
 
-[node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2"]
+[node name="InputIndicator" type="TextureRect" parent="Balloon/Panel2" unique_id=249006128]
 layout_mode = 0
 offset_left = 694.0
 offset_top = 195.0
@@ -493,7 +493,7 @@ rotation = -1.5708
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_byelp")
 
-[node name="Border1" type="PanelContainer" parent="Balloon/Panel2"]
+[node name="Border1" type="PanelContainer" parent="Balloon/Panel2" unique_id=1584753554]
 layout_mode = 0
 offset_left = -3.0
 offset_top = -2.0
@@ -501,17 +501,17 @@ offset_right = 762.0
 offset_bottom = 221.0
 theme = SubResource("Theme_ukaqu")
 
-[node name="Border2" type="PanelContainer" parent="Balloon/Panel2/Border1"]
+[node name="Border2" type="PanelContainer" parent="Balloon/Panel2/Border1" unique_id=668048315]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_fl2w0")
 
-[node name="Border3" type="PanelContainer" parent="Balloon/Panel2/Border1/Border2"]
+[node name="Border3" type="PanelContainer" parent="Balloon/Panel2/Border1/Border2" unique_id=713537639]
 show_behind_parent = true
 layout_mode = 2
 theme = SubResource("Theme_wbt4v")
 
-[node name="Responses" type="VBoxContainer" parent="Balloon"]
+[node name="Responses" type="VBoxContainer" parent="Balloon" unique_id=824889081]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 36.0
@@ -521,7 +521,7 @@ pivot_offset = Vector2(409, 118)
 theme_override_constants/separation = 36
 alignment = 2
 
-[node name="Button" type="Button" parent="Balloon/Responses"]
+[node name="Button" type="Button" parent="Balloon/Responses" unique_id=1414407099]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -529,7 +529,7 @@ mouse_default_cursor_shape = 2
 theme = SubResource("Theme_kq38n")
 text = "Response"
 
-[node name="Panel" type="PanelContainer" parent="Balloon"]
+[node name="Panel" type="PanelContainer" parent="Balloon" unique_id=1384996050]
 layout_mode = 0
 offset_left = 342.0
 offset_top = 530.0
@@ -538,7 +538,7 @@ offset_bottom = 570.0
 scale = Vector2(1.24951, 1.24951)
 theme_override_styles/panel = SubResource("StyleBoxFlat_cc2f1")
 
-[node name="CharacterLabel" type="Label" parent="Balloon/Panel"]
+[node name="CharacterLabel" type="Label" parent="Balloon/Panel" unique_id=1271223220]
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_v0wf3")
@@ -546,7 +546,7 @@ text = "Char"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Balloon"]
+[node name="Margin" type="MarginContainer" parent="Balloon" unique_id=1020631918]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -560,7 +560,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 metadata/_edit_layout_mode = 1
 
-[node name="Portrait" type="TextureRect" parent="."]
+[node name="Portrait" type="TextureRect" parent="." unique_id=1769315632]
 visible = false
 offset_top = 340.0
 offset_right = 2083.0
@@ -568,7 +568,7 @@ offset_bottom = 2423.0
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("8_7ao67")
 
-[node name="Shadow" type="TextureRect" parent="Portrait"]
+[node name="Shadow" type="TextureRect" parent="Portrait" unique_id=824555201]
 modulate = Color(0, 0, 0, 0.513726)
 show_behind_parent = true
 z_index = -3
@@ -580,7 +580,7 @@ offset_bottom = 9746.0
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("8_7ao67")
 
-[node name="PictureFrame" type="TextureRect" parent="."]
+[node name="PictureFrame" type="TextureRect" parent="." unique_id=891431144]
 clip_children = 1
 offset_left = 829.0
 offset_top = 98.0
@@ -590,7 +590,7 @@ scale = Vector2(0.205429, 0.205429)
 mouse_filter = 2
 texture = ExtResource("9_t302t")
 
-[node name="Picture" type="TextureRect" parent="PictureFrame"]
+[node name="Picture" type="TextureRect" parent="PictureFrame" unique_id=972562103]
 layout_mode = 0
 offset_left = 43.8107
 offset_top = 19.4714
@@ -600,16 +600,14 @@ scale = Vector2(0.205429, 0.205429)
 mouse_filter = 2
 stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_tbycd")
-}
-autoplay = "Glow"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=423022897]
+libraries/ = SubResource("AnimationLibrary_tbycd")
+autoplay = &"Glow"
 speed_scale = 1.5
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1302326722]
 
-[node name="Hints" type="Control" parent="."]
+[node name="Hints" type="Control" parent="." unique_id=400620563]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1183.0
@@ -617,7 +615,7 @@ offset_top = 96.0
 offset_right = 1223.0
 offset_bottom = 136.0
 
-[node name="Skip" type="Button" parent="Hints"]
+[node name="Skip" type="Button" parent="Hints" unique_id=1403964458]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
 layout_direction = 1
@@ -638,7 +636,7 @@ text = "Skip"
 icon = ExtResource("10_rchcl")
 expand_icon = true
 
-[node name="Advance" type="Button" parent="Hints"]
+[node name="Advance" type="Button" parent="Hints" unique_id=1466229751]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
 layout_direction = 1

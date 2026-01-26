@@ -1,135 +1,135 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5dwobjd34w3p"]
+[gd_scene format=3 uid="uid://c5dwobjd34w3p"]
 
-[ext_resource type="Script" path="res://addons/AsepriteWizard/animated_sprite/docks/as_wizard_window.gd" id="1"]
+[ext_resource type="Script" uid="uid://bsinxjygydfub" path="res://addons/AsepriteWizard/animated_sprite/docks/as_wizard_window.gd" id="1"]
 
-[node name="ASWizardWindow" type="PanelContainer"]
+[node name="ASWizardWindow" type="PanelContainer" unique_id=48009684]
 offset_right = 600.0
 offset_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 script = ExtResource("1")
 
-[node name="container" type="MarginContainer" parent="."]
+[node name="container" type="MarginContainer" parent="." unique_id=1877955048]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="options" type="VBoxContainer" parent="container"]
+[node name="options" type="VBoxContainer" parent="container" unique_id=1080353396]
 layout_mode = 2
 
-[node name="file_location" type="VBoxContainer" parent="container/options"]
+[node name="file_location" type="VBoxContainer" parent="container/options" unique_id=1117122082]
 layout_mode = 2
 
-[node name="file_location_label" type="Label" parent="container/options/file_location"]
+[node name="file_location_label" type="Label" parent="container/options/file_location" unique_id=1869415156]
 layout_mode = 2
 tooltip_text = "Location of the Aseprite *.ase source file"
 mouse_filter = 1
 text = "Aseprite File Location:*"
 clip_text = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="container/options/file_location"]
+[node name="HBoxContainer" type="HBoxContainer" parent="container/options/file_location" unique_id=1174072386]
 layout_mode = 2
 
-[node name="file_location_path" type="LineEdit" parent="container/options/file_location/HBoxContainer"]
+[node name="file_location_path" type="LineEdit" parent="container/options/file_location/HBoxContainer" unique_id=307552818]
 layout_mode = 2
 size_flags_horizontal = 3
 caret_blink = true
 
-[node name="file_location_btn" type="Button" parent="container/options/file_location/HBoxContainer"]
+[node name="file_location_btn" type="Button" parent="container/options/file_location/HBoxContainer" unique_id=249344278]
 layout_mode = 2
 text = "Select"
 
-[node name="output_folder" type="VBoxContainer" parent="container/options"]
+[node name="output_folder" type="VBoxContainer" parent="container/options" unique_id=629440435]
 layout_mode = 2
 
-[node name="label" type="Label" parent="container/options/output_folder"]
+[node name="label" type="Label" parent="container/options/output_folder" unique_id=1746376055]
 layout_mode = 2
 tooltip_text = "Folder where the SpriteSheet resource is going to be saved"
 mouse_filter = 1
 text = "Output folder:*"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="container/options/output_folder"]
+[node name="HBoxContainer" type="HBoxContainer" parent="container/options/output_folder" unique_id=1953519733]
 layout_mode = 2
 
-[node name="file_location_path" type="LineEdit" parent="container/options/output_folder/HBoxContainer"]
+[node name="file_location_path" type="LineEdit" parent="container/options/output_folder/HBoxContainer" unique_id=717974191]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "res://"
 caret_blink = true
 
-[node name="output_folder_btn" type="Button" parent="container/options/output_folder/HBoxContainer"]
+[node name="output_folder_btn" type="Button" parent="container/options/output_folder/HBoxContainer" unique_id=1652797173]
 layout_mode = 2
 text = "Select"
 
-[node name="exclude_pattern" type="VBoxContainer" parent="container/options"]
+[node name="exclude_pattern" type="VBoxContainer" parent="container/options" unique_id=2104933439]
 layout_mode = 2
 
-[node name="label" type="Label" parent="container/options/exclude_pattern"]
+[node name="label" type="Label" parent="container/options/exclude_pattern" unique_id=1611431067]
 layout_mode = 2
 tooltip_text = "If layer name matches this pattern, it won't be exported."
 mouse_filter = 1
 text = "Exclude layers with name matching pattern:"
 
-[node name="pattern" type="LineEdit" parent="container/options/exclude_pattern"]
+[node name="pattern" type="LineEdit" parent="container/options/exclude_pattern" unique_id=34501209]
 layout_mode = 2
 caret_blink = true
 
-[node name="custom_filename" type="VBoxContainer" parent="container/options"]
+[node name="custom_filename" type="VBoxContainer" parent="container/options" unique_id=432970347]
 layout_mode = 2
 
-[node name="label" type="Label" parent="container/options/custom_filename"]
+[node name="label" type="Label" parent="container/options/custom_filename" unique_id=336661702]
 layout_mode = 2
 tooltip_text = "Output filename. In case layers are not being merged, this is used as file prefix.
 If not set, source filename is used."
 mouse_filter = 1
 text = "Output file name / prefix:"
 
-[node name="pattern" type="LineEdit" parent="container/options/custom_filename"]
+[node name="pattern" type="LineEdit" parent="container/options/custom_filename" unique_id=1718252626]
 layout_mode = 2
 caret_blink = true
 
-[node name="layer_importing_mode" type="VBoxContainer" parent="container/options"]
+[node name="layer_importing_mode" type="VBoxContainer" parent="container/options" unique_id=193427312]
 layout_mode = 2
 
-[node name="label" type="Label" parent="container/options/layer_importing_mode"]
+[node name="label" type="Label" parent="container/options/layer_importing_mode" unique_id=871018476]
 layout_mode = 2
 mouse_filter = 1
 text = "Options:"
 
-[node name="split_layers" type="HBoxContainer" parent="container/options/layer_importing_mode"]
+[node name="split_layers" type="HBoxContainer" parent="container/options/layer_importing_mode" unique_id=1244365708]
 layout_mode = 2
 
-[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/split_layers"]
+[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/split_layers" unique_id=695271109]
 layout_mode = 2
 tooltip_text = "If selected, one resource will be created for each layer.
 If not selected, layers will be merged and exported as one SpriteSheet."
 text = "Split layers in multiple resources"
 
-[node name="visible_layers" type="HBoxContainer" parent="container/options/layer_importing_mode"]
+[node name="visible_layers" type="HBoxContainer" parent="container/options/layer_importing_mode" unique_id=597856346]
 layout_mode = 2
 
-[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/visible_layers"]
+[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/visible_layers" unique_id=340048414]
 layout_mode = 2
 tooltip_text = "If selected, layers not visible in the source file won't be included in the final image."
 text = "Only include visible layers"
 
-[node name="disable_resource_creation" type="HBoxContainer" parent="container/options/layer_importing_mode"]
+[node name="disable_resource_creation" type="HBoxContainer" parent="container/options/layer_importing_mode" unique_id=1349744702]
 layout_mode = 2
 
-[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/disable_resource_creation"]
+[node name="field" type="CheckBox" parent="container/options/layer_importing_mode/disable_resource_creation" unique_id=654721777]
 layout_mode = 2
 tooltip_text = "Does not create SpriteFrames resource. Useful if you are only interested in the .json and .png output from Aseprite."
 text = "Do not create resource file"
 
-[node name="buttons" type="HBoxContainer" parent="container/options"]
+[node name="buttons" type="HBoxContainer" parent="container/options" unique_id=1607502693]
 layout_mode = 2
 alignment = 2
 
-[node name="close" type="Button" parent="container/options/buttons"]
+[node name="close" type="Button" parent="container/options/buttons" unique_id=1337960087]
 layout_mode = 2
 text = "Close"
 
-[node name="next" type="Button" parent="container/options/buttons"]
+[node name="next" type="Button" parent="container/options/buttons" unique_id=1906424506]
 layout_mode = 2
 text = "Import"
 

@@ -194,8 +194,10 @@ func oct0_afternoon():
 	Global.Complimentaries.append("FluidBlast")
 
 func oct0_night():
+	Event.add_flag("BeatStoneGuardian")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "none", false)
 	Event.no_player()
+	Loader.ungray.emit()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox(name, "daze_introduction")

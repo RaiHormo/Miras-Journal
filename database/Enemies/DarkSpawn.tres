@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://bdfytl8ohvtj6"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://bdfytl8ohvtj6"]
 
 [ext_resource type="Resource" uid="uid://b1h2pffoho6bu" path="res://database/Abilities/ToxicSplash.tres" id="1_ge8t8"]
 [ext_resource type="Texture2D" uid="uid://deqeff2tjgq00" path="res://art/Icons/Enemies/Slime.png" id="1_gfcpg"]
-[ext_resource type="SpriteFrames" uid="uid://d3xamvjet470a" path="res://art/BT/DarkSpawn/DarkSpawnBT.tres" id="1_gt5hy"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_lfptl"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_tn5j1"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_nskis"]
@@ -15,46 +14,16 @@ FirstName = "Dark Spawn"
 MainColor = Color(0.768627, 0.654902, 0.929412, 1)
 PartyIcon = ExtResource("1_gfcpg")
 ActorClass = "Support"
-codename = &"Actor"
-Pronouns = Array[String](["it", "it", "its", "itself"])
 WeaponPower = 4
-IsEnemy = true
 RecivedSP = 3
-SummonedAllies = Array[ExtResource("2_nskis")]([])
-CustomPosition = Vector2i(0, 0)
-SecondaryColor = Color(0, 0, 0, 1)
-LastName = ""
-Weapon = ""
-PartyPageName = ""
-Controllable = false
-HpOnSLvUp = 25
-ApOnSLvUP = 10
 MaxHP = 45
 MaxAura = 15
 Attack = 0.3
 Magic = 0.4
 Defence = 0.4
 Speed = 3.0
-Health = 0
-Aura = 0
 SkillLevel = 0
-SkillPoints = 0
-SkillPointsFor = Array[int]([])
 Abilities = Array[ExtResource("1_tn5j1")]([ExtResource("1_ge8t8"), ExtResource("2_pmj1l")])
 StandardAttack = ExtResource("4_bmd5k")
-LearnableAbilities = Array[ExtResource("1_tn5j1")]([])
-BT = ExtResource("1_gt5hy")
 Offset = Vector2(2, -15)
-Shadow = false
-ShadowOffset = 0
-SoundSet = ExtResource("1_lfptl")
-Disappear = true
 GlowDef = 0.5
-GlowSpecial = 0.0
-GlowAnims = Array[String]([])
-DontIdle = false
-ClutchDmg = false
-SeqOnClutch = ""
-CantDie = false
-IgnoreStates = false
-CantDodge = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://cyk04tp4jiw8n"]
+[gd_scene format=4 uid="uid://cyk04tp4jiw8n"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_gxc4q"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_6ip0u"]
@@ -543,13 +543,13 @@ size = Vector2(21, 68)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
 
-[node name="Area" type="Node2D"]
+[node name="Area" type="Node2D" unique_id=1799317089]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("5_00dms")
 Name = "Debug room"
 
-[node name="Labels" type="Control" parent="."]
+[node name="Labels" type="Control" parent="." unique_id=797296850]
 light_mask = 0
 z_index = 2
 layout_mode = 3
@@ -558,7 +558,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Labels"]
+[node name="Label" type="Label" parent="Labels" unique_id=1626801897]
 light_mask = 0
 layout_mode = 0
 offset_left = -11.0
@@ -570,7 +570,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Fast travel"
 
-[node name="Label10" type="Label" parent="Labels"]
+[node name="Label10" type="Label" parent="Labels" unique_id=2138679119]
 light_mask = 0
 layout_mode = 0
 offset_left = -115.0
@@ -583,7 +583,7 @@ theme_override_font_sizes/font_size = 8
 text = "Breakable
 item"
 
-[node name="Label11" type="Label" parent="Labels"]
+[node name="Label11" type="Label" parent="Labels" unique_id=1604308667]
 light_mask = 0
 layout_mode = 0
 offset_left = -135.0
@@ -596,7 +596,7 @@ theme_override_font_sizes/font_size = 8
 text = "Breakable
 wall"
 
-[node name="Label12" type="Label" parent="Labels"]
+[node name="Label12" type="Label" parent="Labels" unique_id=836222514]
 light_mask = 0
 layout_mode = 0
 offset_left = -210.0
@@ -608,7 +608,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Event tripwire"
 
-[node name="Label13" type="Label" parent="Labels"]
+[node name="Label13" type="Label" parent="Labels" unique_id=1815014654]
 light_mask = 0
 layout_mode = 0
 offset_left = -281.0
@@ -620,7 +620,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Transfer"
 
-[node name="Label14" type="Label" parent="Labels"]
+[node name="Label14" type="Label" parent="Labels" unique_id=319109867]
 light_mask = 0
 layout_mode = 0
 offset_left = 109.0
@@ -632,7 +632,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Ladder (bottom)"
 
-[node name="Label15" type="Label" parent="Labels"]
+[node name="Label15" type="Label" parent="Labels" unique_id=532321044]
 light_mask = 0
 layout_mode = 0
 offset_left = 110.0
@@ -644,7 +644,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Ladder (top)"
 
-[node name="Label16" type="Label" parent="Labels"]
+[node name="Label16" type="Label" parent="Labels" unique_id=2055868262]
 light_mask = 0
 layout_mode = 0
 offset_left = 36.0
@@ -657,7 +657,7 @@ theme_override_font_sizes/font_size = 8
 text = "Interactable/
 Light"
 
-[node name="Label17" type="Label" parent="Labels"]
+[node name="Label17" type="Label" parent="Labels" unique_id=1785097836]
 light_mask = 0
 layout_mode = 0
 offset_left = 253.0
@@ -669,7 +669,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Day change"
 
-[node name="Label18" type="Label" parent="Labels"]
+[node name="Label18" type="Label" parent="Labels" unique_id=717055294]
 light_mask = 0
 layout_mode = 0
 offset_left = 234.0
@@ -681,7 +681,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Journal event"
 
-[node name="Label19" type="Label" parent="Labels"]
+[node name="Label19" type="Label" parent="Labels" unique_id=446880237]
 light_mask = 0
 layout_mode = 0
 offset_left = -170.0
@@ -693,7 +693,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Debug room"
 
-[node name="Label2" type="Label" parent="Labels"]
+[node name="Label2" type="Label" parent="Labels" unique_id=766679700]
 light_mask = 0
 layout_mode = 0
 offset_left = 49.0
@@ -705,7 +705,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Dialog"
 
-[node name="Label3" type="Label" parent="Labels"]
+[node name="Label3" type="Label" parent="Labels" unique_id=1732425473]
 light_mask = 0
 layout_mode = 0
 offset_left = 201.0
@@ -718,7 +718,7 @@ theme_override_font_sizes/font_size = 8
 text = "Time pass
 "
 
-[node name="Label4" type="Label" parent="Labels"]
+[node name="Label4" type="Label" parent="Labels" unique_id=18726398]
 light_mask = 0
 layout_mode = 0
 offset_left = -4.0
@@ -730,7 +730,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "NPC"
 
-[node name="Label5" type="Label" parent="Labels"]
+[node name="Label5" type="Label" parent="Labels" unique_id=778837957]
 light_mask = 0
 layout_mode = 0
 offset_left = -29.0
@@ -742,7 +742,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Battle"
 
-[node name="Label6" type="Label" parent="Labels"]
+[node name="Label6" type="Label" parent="Labels" unique_id=1602870151]
 light_mask = 0
 layout_mode = 0
 offset_left = -66.0
@@ -754,7 +754,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Chapter select"
 
-[node name="Label7" type="Label" parent="Labels"]
+[node name="Label7" type="Label" parent="Labels" unique_id=1547013190]
 light_mask = 0
 layout_mode = 0
 offset_left = -80.0
@@ -766,7 +766,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Y sorting"
 
-[node name="Label8" type="Label" parent="Labels"]
+[node name="Label8" type="Label" parent="Labels" unique_id=120687649]
 light_mask = 0
 layout_mode = 0
 offset_left = -63.0
@@ -778,7 +778,7 @@ theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
 text = "Event item"
 
-[node name="Label9" type="Label" parent="Labels"]
+[node name="Label9" type="Label" parent="Labels" unique_id=1562687598]
 light_mask = 0
 layout_mode = 0
 offset_left = -83.0
@@ -791,14 +791,14 @@ theme_override_font_sizes/font_size = 8
 text = "Consumable 
 item"
 
-[node name="1-Floor" type="TileMapLayer" parent="."]
+[node name="1-Floor" type="TileMapLayer" parent="." unique_id=1190195885]
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAQAHAAIAAAD//wAAAQAHAAIAAAD//wEAAQAHAAIAAAAAAAEAAQAHAAIAAAABAAEAAQAHAAIAAAACAAEAAQAHAAIAAAADAAEAAQAHAAIAAAAEAAMAAQAHAAIAAAADAAMAAQAHAAIAAAACAAMAAQAHAAIAAAABAAMAAQAHAAIAAAAAAAMAAQAHAAIAAAD//wMAAQAHAAIAAAD+/wMAAQAHAAIAAAD9/wMAAQAHAAIAAAD8/wMAAQAHAAIAAAD7/wMAAQAHAAIAAAD7/wIAAQAHAAIAAAD7/wEAAQAHAAIAAAD7/wAAAQAHAAIAAAD7////AQAHAAIAAAD7//7/AQAHAAIAAAD7//3/AQAHAAIAAAD8//3/AQAHAAIAAAD9//3/AQAHAAIAAAD+//3/AQAHAAIAAAD///3/AQAHAAIAAAAAAP3/AQAHAAIAAAABAP3/AQAHAAIAAAACAP3/AQAHAAIAAAADAP3/AQAHAAIAAAAEAP3/AQAHAAIAAAAEAAIAAQAHAAIAAAADAAIAAQAHAAIAAAD9/wIAAQAHAAIAAAD8/wIAAQAHAAIAAAD+/wIAAQAHAAIAAAD//wIAAQAHAAIAAAAAAAIAAQAHAAIAAAABAAIAAQAHAAIAAAACAAIAAQAHAAIAAAAEAAEAAQAHAAIAAAD+/wEAAQAHAAIAAAD9/wEAAQAHAAIAAAD8/wEAAQAHAAIAAAD9/wAAAQAHAAIAAAD8/wAAAQAHAAIAAAD+/wAAAQAHAAIAAAABAAAAAQAHAAIAAAABAP//AQAHAAIAAAACAP//AQAHAAIAAAADAP//AQAHAAIAAAAEAAAAAQAHAAIAAAADAAAAAQAHAAIAAAACAAAAAQAHAAIAAAAEAP//AQAHAAIAAAAEAP7/AQAHAAIAAAADAP7/AQAHAAIAAAACAP7/AQAHAAIAAAABAP7/AQAHAAIAAAAAAP7/AQAHAAIAAAD///7/AQAHAAIAAAD+//7/AQAHAAIAAAD9//7/AQAHAAIAAAD8//7/AQAHAAIAAAD8////AQAHAAIAAAD9////AQAHAAIAAAD+////AQAHAAIAAAD/////AQAHAAIAAAAAAP//AQAHAAIAAAD7//z/AQAHAAIAAAD8//z/AQAHAAIAAAD9//z/AQAHAAIAAAD+//z/AQAHAAIAAAD///z/AQAHAAIAAAAAAPz/AQAHAAIAAAABAPz/AQAHAAIAAAACAPz/AQAHAAIAAAADAPz/AQAHAAIAAAAEAPz/AQAHAAIAAAD7/wQAAQACAAEAAAD8/wQAAQACAAEAAAD9/wQAAQACAAEAAAD+/wQAAQACAAEAAAD//wQAAQACAAEAAAAAAAQAAQACAAEAAAABAAQAAQACAAEAAAACAAQAAQACAAEAAAADAAQAAQACAAEAAAAEAAQAAQACAAEAAAAFAAQAAQACAAEAAAAFAAMAAQAHAAIAAAAFAAIAAQAHAAIAAAAFAAEAAQACAAEAAAAFAAAAAQACAAEAAAAFAP//AQAHAAIAAAAFAP7/AQAHAAIAAAAFAP3/AQACAAEAAAAFAPz/AQACAAEAAAD6//v/AQACAAEAAAD7//v/AQACAAEAAAD8//v/AQACAAEAAAD9//v/AQACAAEAAAD+//v/AQACAAEAAAD///v/AQACAAEAAAAAAPv/AQACAAEAAAABAPv/AQACAAEAAAACAPv/AQACAAEAAAADAPv/AQACAAEAAAAEAPv/AQACAAEAAAAFAPv/AQACAAEAAAD6//z/AQACAAEAAAD6//3/AQACAAEAAAD6//7/AQACAAEAAAD6////AQACAAEAAAD6/wAAAQACAAEAAAD6/wEAAQAHAAIAAAD6/wIAAQAHAAIAAAD6/wMAAQAHAAIAAAD6/wQAAQACAAEAAAAGAAIAAQAHAAIAAAAHAAIAAQAHAAIAAAAIAAIAAQAAAAIAAAAJAAIAAQAAAAIAAAAHAAMAAQAHAAIAAAAGAAMAAQAHAAIAAAAIAAMAAQAAAAIAAAAJAAMAAQAAAAIAAAAKAAMAAQAAAAIAAAAKAAIAAQAAAAIAAAAKAAEAAQAAAAIAAAAKAAAAAQAAAAIAAAALAAMAAQAAAAIAAAALAAIAAQAAAAIAAAALAAEAAQAAAAIAAAALAAAAAQAAAAIAAAAJAAAAAQAAAAIAAAAJAAEAAQAAAAIAAAAIAAEAAQAAAAIAAAAIAAAAAQAAAAIAAAAGAAEAAQACAAEAAAAHAAEAAQACAAEAAAAHAAAAAQACAAEAAAAHAP//AQACAAEAAAAIAP//AQACAAEAAAAJAP//AQACAAEAAAAKAP//AQACAAEAAAALAP//AQACAAEAAAAMAP//AQACAAEAAAAMAAAAAQACAAEAAAAMAAEAAQACAAEAAAAMAAIAAQACAAEAAAAMAAMAAQACAAEAAAAMAAQAAQACAAEAAAALAAQAAQACAAEAAAAKAAQAAQACAAEAAAAJAAQAAQACAAEAAAAIAAQAAQACAAEAAAAHAAQAAQACAAEAAAAGAAQAAQACAAEAAAD5/wEAAQAHAAIAAAD5/wIAAQAHAAIAAAD5/wMAAQAHAAIAAAD4/wMAAQAHAAIAAAD4/wIAAQAHAAIAAAD4/wEAAQAHAAIAAAD3/wEAAQAHAAIAAAD3/wIAAQAHAAIAAAD3/wMAAQAHAAIAAAD2/wMAAQAHAAIAAAD2/wIAAQAHAAIAAAD2/wEAAQAHAAIAAAAGAP7/AQAHAAIAAAAGAP//AQAHAAIAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 metadata/_edit_group_ = true
 
-[node name="2-Obj" type="TileMapLayer" parent="."]
+[node name="2-Obj" type="TileMapLayer" parent="." unique_id=1888368141]
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
@@ -806,7 +806,7 @@ tile_map_data = PackedByteArray("AAD9//7/AwACAAQAAAAAAP3/AwAIAAcAAAACAP7/AwAMAAc
 tile_set = SubResource("TileSet_dw7lm")
 metadata/_edit_group_ = true
 
-[node name="LightDarkness" type="PointLight2D" parent="."]
+[node name="LightDarkness" type="PointLight2D" parent="." unique_id=1301092881]
 position = Vector2(-2.00005, -1)
 scale = Vector2(604, 230)
 color = Color(0.839216, 0.803922, 0.690196, 1)
@@ -818,13 +818,13 @@ Colors = Array[Color]([Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0
 Energy = Array[float]([0.8, 0.3, 0.5, 0.8, 0.8])
 metadata/_edit_group_ = true
 
-[node name="BreakableGreebOre0" parent="." instance=ExtResource("14_bhjcf")]
+[node name="BreakableGreebOre0" parent="." unique_id=51296909 instance=ExtResource("14_bhjcf")]
 position = Vector2(-94, 29)
 default_anim = "IdleWind"
 given_item = "GreenFragment"
 metadata/_edit_group_ = true
 
-[node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0"]
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0" unique_id=2016243466]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 z_index = 1
 y_sort_enabled = true
@@ -832,26 +832,26 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dba5s")
 animation = &"IdleWind"
 
-[node name="BreakableVinesDB" type="StaticBody2D" parent="."]
+[node name="BreakableVinesDB" type="StaticBody2D" parent="." unique_id=609743797]
 position = Vector2(-117, 52)
 script = ExtResource("20_3hgx6")
 metadata/_edit_group_ = true
 
-[node name="AreaBreak" type="Area2D" parent="BreakableVinesDB"]
+[node name="AreaBreak" type="Area2D" parent="BreakableVinesDB" unique_id=1007460960]
 collision_layer = 512
 collision_mask = 512
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB/AreaBreak"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB/AreaBreak" unique_id=994554866]
 position = Vector2(1.61475, 5.84274)
 shape = SubResource("RectangleShape2D_wo8dh")
 debug_color = Color(0.980392, 0, 0.388235, 0.419608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB" unique_id=1419837000]
 use_parent_material = true
 position = Vector2(6.10352e-05, 6.17029)
 shape = SubResource("RectangleShape2D_kmjyx")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVinesDB"]
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVinesDB" unique_id=1740790505]
 y_sort_enabled = true
 texture_filter = 1
 use_parent_material = true
@@ -860,20 +860,20 @@ sprite_frames = SubResource("SpriteFrames_tk5ci")
 animation = &"break"
 autoplay = "default"
 
-[node name="EvAxe" type="Sprite2D" parent="."]
+[node name="EvAxe" type="Sprite2D" parent="." unique_id=1481103296]
 use_parent_material = true
 position = Vector2(-42, 19)
 texture = SubResource("AtlasTexture_gtdj1")
 metadata/_edit_group_ = true
 
-[node name="Body" type="StaticBody2D" parent="EvAxe"]
+[node name="Body" type="StaticBody2D" parent="EvAxe" unique_id=902611174]
 
-[node name="Collision" type="CollisionShape2D" parent="EvAxe/Body"]
+[node name="Collision" type="CollisionShape2D" parent="EvAxe/Body" unique_id=136064261]
 z_index = 1
 position = Vector2(0.00749207, 0.51857)
 shape = SubResource("RectangleShape2D_72f6p")
 
-[node name="PickUp" parent="EvAxe" instance=ExtResource("6_pmuyc")]
+[node name="PickUp" parent="EvAxe" unique_id=2024637876 instance=ExtResource("6_pmuyc")]
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -885,7 +885,7 @@ hidesprite = true
 hide_parent = true
 itemtype = "Key"
 
-[node name="EvDummy" type="Sprite2D" parent="."]
+[node name="EvDummy" type="Sprite2D" parent="." unique_id=1187520318]
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
@@ -894,24 +894,23 @@ texture = ExtResource("9_adhpg")
 offset = Vector2(2.05523, -14.1279)
 metadata/_edit_group_ = true
 
-[node name="Body" type="StaticBody2D" parent="EvDummy"]
+[node name="Body" type="StaticBody2D" parent="EvDummy" unique_id=1796135829]
 
-[node name="Collision" type="CollisionShape2D" parent="EvDummy/Body"]
+[node name="Collision" type="CollisionShape2D" parent="EvDummy/Body" unique_id=979129060]
 z_index = 1
 position = Vector2(-1.3261, 2.8676)
 shape = SubResource("RectangleShape2D_72f6p")
 
-[node name="Fight" parent="EvDummy" instance=ExtResource("6_pmuyc")]
+[node name="Fight" parent="EvDummy" unique_id=1996157492 instance=ExtResource("6_pmuyc")]
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
 ActionType = "text"
-Length = 100
 file = "testbush"
 title = "battle_test"
 Height = 16
 return_control = false
 
-[node name="EvHarold" type="Sprite2D" parent="."]
+[node name="EvHarold" type="Sprite2D" parent="." unique_id=943113080]
 z_index = 1
 y_sort_enabled = true
 material = ExtResource("1_gxc4q")
@@ -919,43 +918,41 @@ position = Vector2(-39, -72)
 texture = ExtResource("12_xx0e1")
 metadata/_edit_group_ = true
 
-[node name="Body2" type="StaticBody2D" parent="EvHarold"]
+[node name="Body2" type="StaticBody2D" parent="EvHarold" unique_id=1901240974]
 position = Vector2(0, 8)
 
-[node name="Collision" type="CollisionShape2D" parent="EvHarold/Body2"]
+[node name="Collision" type="CollisionShape2D" parent="EvHarold/Body2" unique_id=2126015174]
 z_index = 1
 position = Vector2(0, 2.25)
 shape = SubResource("RectangleShape2D_72f6p")
 
-[node name="NewGame" parent="EvHarold" instance=ExtResource("6_pmuyc")]
+[node name="NewGame" parent="EvHarold" unique_id=789011594 instance=ExtResource("6_pmuyc")]
 position = Vector2(0, 8)
 LabelText = "Chapter select"
 ActionType = "text"
-Length = 200
 file = "testbush"
 title = "chapter_select"
 Height = 16
 return_control = false
 
-[node name="EvKick" parent="." instance=ExtResource("16_35d7e")]
+[node name="EvKick" parent="." unique_id=1509469914 instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)
 TextFile = "interactions"
 TextNode = "kick_debug"
 Flag = "HasBag"
 KickDirection = Vector2(1, 0)
 
-[node name="InteractBush" parent="." instance=ExtResource("6_pmuyc")]
+[node name="InteractBush" parent="." unique_id=1801924940 instance=ExtResource("6_pmuyc")]
 position = Vector2(60.2736, 36.5526)
 ActionType = "text"
 file = "testbush"
 title = "bush"
 Height = 4
 
-[node name="InteractRest" parent="." instance=ExtResource("6_pmuyc")]
+[node name="InteractRest" parent="." unique_id=56388288 instance=ExtResource("6_pmuyc")]
 position = Vector2(276, 63)
 LabelText = "Sleep"
 ActionType = "pass_time"
-Length = 100
 file = "sleep_home"
 title = "Sleep"
 item = "Sleep until next the morning. Fully recovers the party's health."
@@ -963,16 +960,15 @@ to_time = 1
 Height = 6
 hide_on_flag = &"time:1"
 
-[node name="InteractFastTravel" parent="." instance=ExtResource("6_pmuyc")]
+[node name="InteractFastTravel" parent="." unique_id=142965281 instance=ExtResource("6_pmuyc")]
 position = Vector2(11.5979, -54.0878)
 LabelText = "Fast Travel"
 ActionType = "text"
-Length = 150
 file = "testbush"
 title = "travel"
 Height = 16
 
-[node name="PointLight2D2" type="PointLight2D" parent="."]
+[node name="PointLight2D2" type="PointLight2D" parent="." unique_id=689197905]
 position = Vector2(293, 75)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
@@ -983,17 +979,16 @@ shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("7_bbmkb")
 
-[node name="ItemDebugPotion" parent="." instance=ExtResource("13_b8v1n")]
+[node name="ItemDebugPotion" parent="." unique_id=652741038 instance=ExtResource("13_b8v1n")]
 position = Vector2(-61, 59)
 item_name = "SmallPotion"
 
-[node name="IteractLamp" parent="." instance=ExtResource("6_pmuyc")]
+[node name="IteractLamp" parent="." unique_id=1389352068 instance=ExtResource("6_pmuyc")]
 position = Vector2(59.7305, -36.4454)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
-Length = 160
 
-[node name="PointLight2D" type="PointLight2D" parent="IteractLamp"]
+[node name="PointLight2D" type="PointLight2D" parent="IteractLamp" unique_id=1531683962]
 position = Vector2(0.269501, 0.4454)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
@@ -1004,72 +999,72 @@ shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("7_bbmkb")
 
-[node name="JumpPoint1" type="Area2D" parent="."]
+[node name="JumpPoint1" type="Area2D" parent="." unique_id=113983416]
 position = Vector2(61, 36)
 script = ExtResource("16_e25m3")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1" unique_id=696609099]
 position = Vector2(-1.49998, -1)
 shape = SubResource("RectangleShape2D_3whwc")
 debug_color = Color(0.752941, 0.458824, 0, 0.419608)
 
-[node name="JumpPoint2" parent="." instance=ExtResource("20_8b40e")]
+[node name="JumpPoint2" parent="." unique_id=2034951050 instance=ExtResource("20_8b40e")]
 jump_am = 2
 
-[node name="Ladder1" parent="." instance=ExtResource("23_5somt")]
+[node name="Ladder1" parent="." unique_id=1338487090 instance=ExtResource("23_5somt")]
 position = Vector2(136, -30)
 metadata/_edit_group_ = true
 
-[node name="NPC" parent="." instance=ExtResource("12_toobe")]
+[node name="NPC" parent="." unique_id=1663552864 instance=ExtResource("12_toobe")]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="NPC"]
+[node name="Sprite" type="AnimatedSprite2D" parent="NPC" unique_id=951535178]
 use_parent_material = true
 position = Vector2(0.0552656, 0.0200653)
 sprite_frames = ExtResource("11_78rf1")
 animation = &"IdleDown"
 offset = Vector2(-0.0924684, -5.01993)
 
-[node name="NPCAsteria" type="CharacterBody2D" parent="."]
+[node name="NPCAsteria" type="CharacterBody2D" parent="." unique_id=1778668115]
 z_index = 1
 position = Vector2(251, 22)
 motion_mode = 1
 script = ExtResource("10_yq8yv")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCAsteria"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCAsteria" unique_id=1406627352]
 visible = false
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_dxoxl")
 
-[node name="Shadow" type="Sprite2D" parent="NPCAsteria"]
+[node name="Shadow" type="Sprite2D" parent="NPCAsteria" unique_id=1113500281]
 show_behind_parent = true
 texture_filter = 1
 position = Vector2(0, 2)
 texture = ExtResource("18_wmbgr")
 offset = Vector2(-0.4, 9.2)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="NPCAsteria"]
+[node name="Sprite" type="AnimatedSprite2D" parent="NPCAsteria" unique_id=1894290467]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvQXN0ZXJpYS8Kb19uYW1lfD1Bc3RlcmlhT1YyLnBuZwpvbmx5X3Zpc2libGV8PXRydWUKb19leF9wfD0K"
 texture_filter = 1
 sprite_frames = ExtResource("19_tuy8d")
 animation = &"IdleUp"
 
-[node name="NPCDaze" type="CharacterBody2D" parent="."]
+[node name="NPCDaze" type="CharacterBody2D" parent="." unique_id=1374157244]
 z_index = 1
 position = Vector2(221, 22)
 motion_mode = 1
 script = ExtResource("10_yq8yv")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCDaze"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCDaze" unique_id=1375955543]
 visible = false
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_dxoxl")
 
-[node name="Shadow" type="Sprite2D" parent="NPCDaze"]
+[node name="Shadow" type="Sprite2D" parent="NPCDaze" unique_id=813886352]
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
@@ -1077,17 +1072,16 @@ position = Vector2(0, 2)
 texture = ExtResource("18_wmbgr")
 offset = Vector2(-0.4, 9.2)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="NPCDaze"]
+[node name="Sprite" type="AnimatedSprite2D" parent="NPCDaze" unique_id=1986616382]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0RhemUvCm9fbmFtZXw9RGF6ZU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 texture_filter = 1
 sprite_frames = ExtResource("17_en1a7")
 animation = &"WalkUp"
 
-[node name="TalkPrompt" parent="NPCDaze" instance=ExtResource("6_pmuyc")]
+[node name="TalkPrompt" parent="NPCDaze" unique_id=562294727 instance=ExtResource("6_pmuyc")]
 position = Vector2(1.14441e-05, 8)
 LabelText = "Talk"
 ActionType = "pass_time"
-Length = 90
 file = "waste_time"
 title = "Waste a bit of time"
 item = "Do nothing for a few hours."
@@ -1096,7 +1090,7 @@ to_time_relative = 1
 Height = 16
 bubble_always = true
 
-[node name="Transfer" parent="." instance=ExtResource("25_osbeo")]
+[node name="Transfer" parent="." unique_id=1724436530 instance=ExtResource("25_osbeo")]
 position = Vector2(-270, 58)
 scale = Vector2(1.1, 1)
 Direction = Vector2(-1, 0)

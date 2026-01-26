@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmpwjae3tgvdx"]
+[gd_scene format=3 uid="uid://bmpwjae3tgvdx"]
 
 [ext_resource type="Script" uid="uid://dhy3yoqxs5k4s" path="res://codings/UIScripts/passive.gd" id="1_jjmcy"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_adpgd"]
@@ -67,12 +67,12 @@ border_width_left = 50
 border_width_bottom = 50
 corner_radius_bottom_left = 74
 
-[node name="Passive" type="CanvasLayer"]
+[node name="Passive" type="CanvasLayer" unique_id=153872725]
 process_mode = 3
 layer = 10
 script = ExtResource("1_jjmcy")
 
-[node name="Balloon" type="ColorRect" parent="."]
+[node name="Balloon" type="ColorRect" parent="." unique_id=23193537]
 offset_left = 251.0
 offset_top = -9.0
 offset_right = 251.0
@@ -80,16 +80,16 @@ offset_bottom = -9.0
 pivot_offset = Vector2(820, 730)
 color = Color(0, 0, 0, 1)
 
-[node name="Panel2" type="Panel" parent="Balloon"]
-layout_mode = 2
+[node name="Panel2" type="Panel" parent="Balloon" unique_id=1928699274]
+layout_mode = 0
 offset_left = 376.0
 offset_top = 639.0
 offset_right = 1006.0
 offset_bottom = 787.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nyggq")
 
-[node name="DialogueLabel" parent="Balloon/Panel2" node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_adpgd")]
-layout_mode = 2
+[node name="DialogueLabel" parent="Balloon/Panel2" unique_id=1112214611 node_paths=PackedStringArray("AudioPlayer") instance=ExtResource("2_adpgd")]
+layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 offset_left = 191.0
@@ -102,7 +102,7 @@ text = "Dialogue"
 script = ExtResource("3_2bhme")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 
-[node name="Border1" type="Panel" parent="Balloon/Panel2"]
+[node name="Border1" type="Panel" parent="Balloon/Panel2" unique_id=1010087966]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -4.0
@@ -110,7 +110,7 @@ offset_right = 646.0
 offset_bottom = 163.0
 theme = SubResource("Theme_svg3g")
 
-[node name="Border2" type="Panel" parent="Balloon/Panel2/Border1"]
+[node name="Border2" type="Panel" parent="Balloon/Panel2/Border1" unique_id=735056705]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 6.0
@@ -119,7 +119,7 @@ offset_right = 641.0
 offset_bottom = 162.0
 theme = SubResource("Theme_hbabm")
 
-[node name="Border3" type="Panel" parent="Balloon/Panel2/Border1/Border2"]
+[node name="Border3" type="Panel" parent="Balloon/Panel2/Border1/Border2" unique_id=1276647964]
 show_behind_parent = true
 layout_mode = 0
 offset_left = 5.0
@@ -128,7 +128,7 @@ offset_right = 631.0
 offset_bottom = 151.0
 theme = SubResource("Theme_xqn8v")
 
-[node name="Margin" type="Panel" parent="Balloon"]
+[node name="Margin" type="Panel" parent="Balloon" unique_id=1043271193]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 10
@@ -142,8 +142,8 @@ scale = Vector2(0.25, 0.25)
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl650")
 metadata/_edit_layout_mode = 1
 
-[node name="Portrait" type="TextureRect" parent="Balloon/Margin"]
-layout_mode = 2
+[node name="Portrait" type="TextureRect" parent="Balloon/Margin" unique_id=673480706]
+layout_mode = 0
 offset_left = -208.0
 offset_top = 156.0
 offset_right = 1812.0
@@ -151,6 +151,6 @@ offset_bottom = 2156.0
 scale = Vector2(0.5461, 0.5461)
 texture = ExtResource("5_ldxqq")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1450132341]
 
 [connection signal="spoke" from="Balloon/Panel2/DialogueLabel" to="Balloon/Panel2/DialogueLabel" method="_on_spoke"]

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://08nk40b6v8vc"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://08nk40b6v8vc"]
 
 [ext_resource type="Texture2D" uid="uid://ce6mum28kni7i" path="res://art/BT/Daze/DazeBT.png" id="1_dbyx3"]
 

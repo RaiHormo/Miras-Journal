@@ -175,7 +175,7 @@ func AttackMira(target: Actor):
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
 	if Item.check_item("LightweightAxe", &"Key"):
-		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 1)
+		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 		await Bt.anim_done
 		if not miss:
 			Bt.play_sound("Attack2", CurrentChar)
@@ -545,7 +545,7 @@ func SoulTap(target: Actor):
 	await Event.wait(1)
 	if crit: target.add_state("Confused")
 	await Bt.shake_actor(target, 1)
-	Bt.screen_shake(8, 5, 0.1)
+	Bt.screen_shake(8, 2, 0.1)
 	Bt.damage(target, true, true)
 	await Event.wait(1)
 	Bt.anim()
@@ -939,6 +939,7 @@ func FirstBattle1():
 	Bt.no_crits = true
 	Global.Player.position = Vector2(1470, 400)
 	await Event.wait(2, false)
+	Global.Camera.enabled = false
 	Bt.Troop[0].node.position.x = 50
 	Bt.focus_cam(Bt.Troop[0], 0.1, 0)
 	Bt.zoom(6)
@@ -948,11 +949,11 @@ func FirstBattle1():
 	await Global.textbox("story_0", "first_cutscene")
 	Loader.battle_bars(4)
 	Global.Player.hide()
-	$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
-	PartyUI.battle_state()
 	await Event.wait(0.5, false)
 	Loader.ungray.emit()
 	await Event.wait(0.3, false)
+	#PartyUI.battle_state(true)
+	#$"../EnemyUI"._on_battle_ui_target_foc(Bt.Troop[0])
 	Loader.battle_bars(3)
 	Bt.get_actor("Mira").node.animation = "Entrance"
 	Bt.get_actor("Mira").node.frame = 2
@@ -966,8 +967,8 @@ func FirstBattle1():
 	$"../BattleUI".disable_ability = true
 	$"../BattleUI".disable_command = true
 	$"../BattleUI".disable_item = true
-	$"../EnemyUI".all_enemy_ui()
-	$"../EnemyUI/AllEnemies".show()
+	#$"../EnemyUI".all_enemy_ui()
+	#$"../EnemyUI/AllEnemies".show()
 	Event.flag_progress("FirstBattle", 3)
 	Bt.get_actor("Mira").DontIdle = true
 	Bt.end_turn()
@@ -1125,8 +1126,8 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	var alcine = Global.Party.Member1
 	Bt.CurrentChar = guardian
 	CurrentChar = guardian
-	if mira.Health > 0:
-		await Global.passive("story_0", "stone_guardian_still_standing")
+	#if mira.Health > 0:
+		#await Global.passive("story_0", "stone_guardian_still_standing")
 	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
 	Bt.zoom(6)
 	await Bt.focus_cam(alcine)
@@ -1196,12 +1197,12 @@ func StoneGuardian3():
 	await Bt.focus_cam(mira, 3)
 	await Event.wait(1)
 	mira.CantDie = false
-	Event.add_flag("BeatStoneGuardian")
 	Loader.gray_out(1)
 	await Event.wait(1)
 	Loader.get_node("Can").layer = 3
 	Bt.victory(true)
 	await Loader.battle_end
+	Event.add_flag("BeatStoneGuardian")
 
 func AsteriaBoss2():
 	await Global.passive("story_1", "asteria_boss_2")

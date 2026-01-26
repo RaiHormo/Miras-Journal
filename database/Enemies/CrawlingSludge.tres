@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://dhcj1318p3b4g"]
+[gd_resource type="Resource" script_class="Actor" format=3 uid="uid://dhcj1318p3b4g"]
 
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="1_4agl2"]
 [ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="1_keytb"]
@@ -21,7 +21,6 @@ DroppedItem = ExtResource("4_n0njt")
 RecivedSP = 5
 SummonedAllies = Array[ExtResource("2_iy5kn")]([ExtResource("8_t44b1")])
 MaxHP = 50
-MaxAura = 20
 Attack = 0.4
 Magic = 0.5
 Defence = 0.7

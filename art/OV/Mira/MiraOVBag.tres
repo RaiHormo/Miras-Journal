@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=213 format=3 uid="uid://cad11u5nsdi8q"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cad11u5nsdi8q"]
 
 [ext_resource type="Texture2D" uid="uid://dflkgvfdlrm6y" path="res://art/OV/Mira/Base.png" id="1_cnn7p"]
 [ext_resource type="Texture2D" uid="uid://j7kjn2qr0h8w" path="res://art/OV/Mira/BaseBag.png" id="1_ulfu1"]

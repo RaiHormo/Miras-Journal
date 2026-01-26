@@ -1,35 +1,10 @@
-[gd_resource type="Resource" script_class="SaveFile" load_steps=4 format=3 uid="uid://b5qcq7nbnaka"]
+[gd_resource type="Resource" script_class="SaveFile" format=3 uid="uid://b5qcq7nbnaka"]
 
-[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="2_mah4s"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="12_4qvp4"]
 [ext_resource type="Script" uid="uid://bd11i2cbodmmv" path="res://codings/Classes/save_class.gd" id="44_yd2ky"]
 
 [resource]
 script = ExtResource("44_yd2ky")
 Name = "Arena mode"
-Datetime = {
-"day": 12,
-"dst": false,
-"hour": 20,
-"minute": 40,
-"month": 3,
-"second": 26,
-"weekday": 2,
-"year": 2024
-}
-Party = Array[StringName]([&"Mira", &"", &"", &""])
 RoomPath = "res://rooms/Arena.tscn"
 RoomName = "Arena"
-Position = Vector2(0, 0)
-Camera = 0
-Z = 1
-Members = Array[ExtResource("12_4qvp4")]([])
-Defeated = []
-StartTime = 0.0
-SavedTime = 0.0
-PlayTime = 0.0
-Inventory = Array[ExtResource("2_mah4s")]([])
-Flags = Array[StringName]([])
-Day = 0
-TimeOfDay = 0
 version = 4

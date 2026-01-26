@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=180 format=3 uid="uid://betyaul8nc6fe"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://betyaul8nc6fe"]
 
 [ext_resource type="Texture2D" uid="uid://dwmfsk8kaksvw" path="res://art/BT/Mira/Ability.png" id="1_olfb7"]
 [ext_resource type="Texture2D" uid="uid://c6jhbwfqv5kjs" path="res://art/BT/Mira/Attack.png" id="2_3x432"]

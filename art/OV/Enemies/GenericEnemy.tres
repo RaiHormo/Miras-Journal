@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=27 format=3 uid="uid://cw67sswrcewvj"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cw67sswrcewvj"]
 
 [ext_resource type="Texture2D" uid="uid://d4nogt6odgitx" path="res://art/OV/Enemies/GenericEnemy.png" id="2_cak3h"]
 

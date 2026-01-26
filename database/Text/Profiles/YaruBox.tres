@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TextProfile" load_steps=2 format=3 uid="uid://cwog04axh4c7e"]
+[gd_resource type="Resource" script_class="TextProfile" format=3 uid="uid://cwog04axh4c7e"]
 
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="2_gq7wq"]
 
@@ -9,5 +9,4 @@ Bord2 = Color(0.766977, 0.456262, 0.882448, 1)
 Bord3 = Color(0.860298, 0.656229, 0.818662, 1)
 Inner = Color(0.996621, 0.957516, 0.996365, 1)
 TextColor = Color(0.376471, 0.27451, 0.380392, 1)
-AudioFrequency = 4
 PitchVariance = 0.2

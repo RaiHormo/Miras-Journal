@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bchvfsnxp6bfc"]
+[gd_scene format=3 uid="uid://bchvfsnxp6bfc"]
 
 [ext_resource type="Texture2D" uid="uid://mbqtyqlv57rt" path="res://art/Journal/journal.png" id="1_iw8eb"]
 [ext_resource type="Script" uid="uid://dwaeamqyqf44y" path="res://codings/UIScripts/journalUI.gd" id="1_ttv6j"]
@@ -173,12 +173,12 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_5hctv"]
 events = [SubResource("InputEventAction_p5u4y")]
 
-[node name="JournalUI" type="CanvasLayer"]
+[node name="JournalUI" type="CanvasLayer" unique_id=1861066861]
 process_mode = 3
 layer = 2
 script = ExtResource("1_ttv6j")
 
-[node name="Fader" type="ColorRect" parent="."]
+[node name="Fader" type="ColorRect" parent="." unique_id=677650292]
 visible = false
 modulate = Color(1, 1, 1, 0)
 light_mask = 0
@@ -189,7 +189,7 @@ offset_right = 1286.0
 offset_bottom = 801.0
 color = Color(0, 0, 0, 1)
 
-[node name="Darken" type="ColorRect" parent="Fader"]
+[node name="Darken" type="ColorRect" parent="Fader" unique_id=308603276]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -6.0
@@ -197,7 +197,7 @@ offset_right = 1288.0
 offset_bottom = 809.0
 color = Color(0, 0, 0, 1)
 
-[node name="Journal" type="TextureRect" parent="."]
+[node name="Journal" type="TextureRect" parent="." unique_id=218341997]
 offset_left = 600.0
 offset_right = 1200.0
 offset_bottom = 762.0
@@ -205,7 +205,7 @@ texture = ExtResource("1_iw8eb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="JournalBack" type="TextureRect" parent="."]
+[node name="JournalBack" type="TextureRect" parent="." unique_id=1177703639]
 visible = false
 offset_left = 171.0
 offset_top = -100.0
@@ -213,7 +213,7 @@ offset_right = 1411.5
 offset_bottom = 727.0
 texture = ExtResource("4_vunfc")
 
-[node name="Pages" type="Control" parent="."]
+[node name="Pages" type="Control" parent="." unique_id=484128283]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 333.0
@@ -223,7 +223,7 @@ offset_bottom = 744.0
 scale = Vector2(0.9, 0.9)
 theme = SubResource("Theme_ttv6j")
 
-[node name="PageL" type="TextureRect" parent="Pages"]
+[node name="PageL" type="TextureRect" parent="Pages" unique_id=1400819960]
 layout_mode = 0
 offset_left = -20.2228
 offset_top = -0.242176
@@ -234,7 +234,7 @@ texture = ExtResource("3_w8w16")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextL" type="RichTextLabel" parent="Pages/PageL"]
+[node name="TextL" type="RichTextLabel" parent="Pages/PageL" unique_id=1600387505]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 58.485046
@@ -248,7 +248,7 @@ text = "This journal menu is unfinished.
 Maybe check it out another time :)"
 scroll_active = false
 
-[node name="PageR" type="TextureRect" parent="Pages"]
+[node name="PageR" type="TextureRect" parent="Pages" unique_id=367926668]
 layout_mode = 0
 offset_left = 478.88885
 offset_top = 4.4444404
@@ -260,7 +260,7 @@ expand_mode = 1
 stretch_mode = 4
 flip_h = true
 
-[node name="TextR" type="RichTextLabel" parent="Pages/PageR"]
+[node name="TextR" type="RichTextLabel" parent="Pages/PageR" unique_id=799535873]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 87.66341
@@ -273,14 +273,14 @@ bbcode_enabled = true
 text = "Yes, the mechanic in the title of the game is not actually implemented yet, go figure."
 scroll_active = false
 
-[node name="RootMenu" type="VBoxContainer" parent="."]
+[node name="RootMenu" type="VBoxContainer" parent="." unique_id=1463312290]
 offset_left = 254.0
 offset_top = 416.0
 offset_right = 479.0
 offset_bottom = 732.0
 theme_override_constants/separation = 12
 
-[node name="Diary" type="Button" parent="RootMenu"]
+[node name="Diary" type="Button" parent="RootMenu" unique_id=1950677200]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -289,7 +289,7 @@ text = "Diary
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="Profiles" type="Button" parent="RootMenu"]
+[node name="Profiles" type="Button" parent="RootMenu" unique_id=733171882]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -298,7 +298,7 @@ disabled = true
 text = "Profiles"
 metadata/_edit_use_anchors_ = true
 
-[node name="Beastiary" type="Button" parent="RootMenu"]
+[node name="Beastiary" type="Button" parent="RootMenu" unique_id=1356048960]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -308,17 +308,17 @@ text = "Beastiary
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="List" type="PanelContainer" parent="."]
+[node name="List" type="PanelContainer" parent="." unique_id=1077425298]
 visible = false
 offset_right = 296.0
 offset_bottom = 798.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_oxs8c")
 
-[node name="List" type="VBoxContainer" parent="List"]
+[node name="List" type="VBoxContainer" parent="List" unique_id=1841590328]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Listing0" type="Button" parent="List/List"]
+[node name="Listing0" type="Button" parent="List/List" unique_id=1883639567]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme = SubResource("Theme_nfiq0")
@@ -328,7 +328,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_relpl")
 text = "Listing"
 metadata/_edit_use_anchors_ = true
 
-[node name="Close" type="Button" parent="."]
+[node name="Close" type="Button" parent="." unique_id=1208998881]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_vunfc")
 layout_direction = 1
@@ -348,7 +348,7 @@ icon = ExtResource("9_nfiq0")
 text_overrun_behavior = 1
 expand_icon = true
 
-[node name="Select" type="Button" parent="."]
+[node name="Select" type="Button" parent="." unique_id=2078033736]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_vunfc")
 layout_direction = 1
