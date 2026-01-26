@@ -504,13 +504,16 @@ func fade_txt_background(alpha := 0.8):
 	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
 
 func next_box(profile:String) -> void:
-	$/root.get_node("Textbox").next_box = profile
+	get_tree().root.get_node("Textbox").next_box = profile
 
 func picture(img: String):
-	$/root/Textbox.picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
+	get_tree().root.get_node("Textbox").picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
 
 func picture_clear():
-	$/root/Textbox.picture = null
+	get_tree().root.get_node("Textbox").picture = null
+
+func no_nametag():
+	get_tree().root.get_node("Textbox").no_nametag = true
 
 func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):

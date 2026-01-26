@@ -47,7 +47,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	if has_node("Sprite"): sprite = $Sprite
 	#BodyState = DefaultState
-	if ID == "": ID = name
+	if ID == "": ID = default_id()
 	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
 	if ID in Loader.Defeated: queue_free()
 	Event.add_char(self)
@@ -58,6 +58,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	DefaultPos = global_position
 	default()
+
+func default_id() -> String:
+	return name
 
 func default() -> void:
 	pass
@@ -161,7 +164,7 @@ func move_dir(dir: Vector2, use_coords = true, autostop = false) -> void:
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
 
-func look_to(dir):
+func look_to(dir: Variant):
 	if dir is String: dir = Query.get_dir_from_letter(dir)
 	BodyState = MOVE
 	Facing = dir
@@ -201,8 +204,8 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 = Vector2.ZERO, accuracy: int = 6) -> void:
-	if self is Mira and Global.Controllable: return
+func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
+	if self is Mira and Global.Player.controllable(): return
 	await stop_going()
 	if use_coords: pos = Query.globalize(pos)
 	if Engine.time_scale > 2:
@@ -216,7 +219,7 @@ func go_to(pos:Vector2, use_coords = true, autostop = false, look_dir: Vector2 =
 		if (autostop and is_on_wall()) or stopping: break
 	direction = Vector2.ZERO
 	BodyState = IDLE
-	if look_dir != Vector2.ZERO: look_to(look_dir)
+	if look_dir is String or look_dir != Vector2.ZERO: look_to(look_dir)
 	await Event.wait()
 
 func set_anim(anim: String):

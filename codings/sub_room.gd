@@ -7,6 +7,7 @@ class_name SubRoom
 @export var cam_zoom: float = 4
 @export var cant_dash_inside = true
 var Layers: Array[TileMapLayer]
+var t
 
 func _ready() -> void:
 	modulate = Color.TRANSPARENT
@@ -19,7 +20,8 @@ func _ready() -> void:
 func transition():
 	Global.Area.CurSubRoom = self
 	show()
-	var t = create_tween()
+	if is_instance_valid(t): t.kill()
+	t = create_tween()
 	t.set_parallel()
 	t.tween_property(self, "modulate", Color.WHITE,0.3)
 	Global.Area.fade()
@@ -55,7 +57,8 @@ func detransition():
 		Event.give_control(false)
 
 func fade_out():
-	var t = create_tween()
+	if is_instance_valid(t): t.kill()
+	t = create_tween()
 	t.tween_property(self, "modulate", Color.TRANSPARENT, 0.2)
 	for i in Layers:
 		i.material = null

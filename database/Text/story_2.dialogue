@@ -63,7 +63,7 @@ if not f("EvSwitchCastLines2"):
 		(hide)
 		do Player.camera_follow(false)
 		do Player.collision(false)
-		do Player.go_to(Vector2(-25, -17),true, false)
+		do Player.go_to(Vector2(-25, -17), true, false)
 		do! white_fadeout(0.5, 0, 0, 0.5)
 		do! screen_shake()
 		set Player.BodyState = NPC.CUSTOM

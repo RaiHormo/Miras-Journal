@@ -256,7 +256,7 @@ func sequence_exists(title: String) -> bool:
 			return true
 	return false
 
-func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1) -> NPC:
+func spawn(id: String, pos: Vector2i, dir:= "D", z: int = Global.Area.get_z(), no_collision = true) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var nam = id.split(":", false)
 	match nam.size():
@@ -280,7 +280,11 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
-	Global.Area.add_child(chara)
+	if Global.Area.CurSubRoom == null:
+		Global.Area.add_child.call_deferred(chara)
+	else: 
+		Global.Area.CurSubRoom.add_child.call_deferred(chara)
+		chara.position -= Global.Area.CurSubRoom.position
 	print("Spawned: ", chara.ID)
 	if dir.length() > 1:
 		chara.BodyState = NPC.CUSTOM

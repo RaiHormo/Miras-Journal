@@ -10,6 +10,7 @@ var mem: TextProfile
 var next_box: String = ""
 var currun = false
 var picture: Texture2D = null
+var no_nametag:= false
 @onready var t :Tween
 const hold_time = 30
 var skip = false
@@ -50,7 +51,8 @@ var dialogue_line: DialogueLine:
 			char_name = ""
 			return
 
-		$Balloon/Panel.visible = not dialogue_line.character.is_empty()
+		$Balloon/Panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
+		no_nametag = false
 		while "." in char_name:
 			#print(char_name)
 			char_name = char_name.erase(char_name.length()-1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://bd1tjlb5qs82v"]
+[gd_scene load_steps=57 format=4 uid="uid://bd1tjlb5qs82v"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_prfhr"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
@@ -28,6 +28,7 @@
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV.tres" id="23_taf6h"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV.tres" id="24_4lmea"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="24_u5udm"]
+[ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="26_vxpye"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="28_prfhr"]
 
 [sub_resource type="Gradient" id="Gradient_desij"]
@@ -1072,6 +1073,14 @@ scale = Vector2(0.37302, 0.27264)
 Direction = Vector2(-1, 0)
 Position = Vector2(367, 130)
 room = "Pyrson;TownHall"
+
+[node name="EvNov2TownHall" parent="TownHall" instance=ExtResource("26_vxpye")]
+position = Vector2(442, 203)
+scale = Vector2(1, 0.3600012)
+TextFile = "story_1"
+TextNode = "nov2_town_hall"
+Flag = "day:2+EvNov2TownHall"
+ReturnControl = false
 
 [node name="TownHall-Bedroom" type="Node2D" parent="."]
 z_index = 2

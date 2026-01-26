@@ -122,14 +122,21 @@ func handle_z(z := -1):
 		if i.zDown == Global.Player.z_index:
 			i.go_down()
 
+func get_z() -> int:
+	if is_instance_valid(Global.Player): return Global.Player.z_index
+	else: return SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
+
 func map_to_local(vec: Vector2i) -> Vector2:
 	return Layers[0].map_to_local(vec)
 
 func local_to_map(vec: Vector2) -> Vector2i:
 	return Layers[0].local_to_map(vec)
 
+var t
+
 func fade():
-	var t = create_tween()
+	if is_instance_valid(t): t.kill()
+	t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
 	for i in Layers:
 		i.collision_enabled = false
@@ -138,7 +145,8 @@ func fade():
 		i.hide()
 
 func unfade():
-	var t = create_tween()
+	if is_instance_valid(t): t.kill()
+	t = create_tween()
 	for i in Layers:
 		i.collision_enabled = true
 		i.show()

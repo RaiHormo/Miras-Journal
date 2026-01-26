@@ -33,8 +33,10 @@ func default():
 	await Event.wait(0.1)
 	follow.progress = -distance
 	position = follow.global_position
-	ID = "F"+str(member)
 	BodyState = CONTROLLED
+
+func default_id() -> String:
+	return "F"+str(member)
 
 func control_process() -> void:
 	if not is_instance_valid(Global.Player): return
