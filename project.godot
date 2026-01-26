@@ -441,7 +441,6 @@ RightTrigger={
 [input_devices]
 
 pointing/android/enable_pan_and_scale_gestures=true
-pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
