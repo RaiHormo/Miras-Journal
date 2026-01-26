@@ -51,7 +51,7 @@ position = Vector2(438, -46)
 [node name="Interactable" parent="." instance=ExtResource("1_sli5j")]
 LabelText = "Enter"
 ActionType = "veinet"
-Length = 110
+hide_on_flag = &"DisableVeinet"
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-4.76837e-07, -4.76837e-07)

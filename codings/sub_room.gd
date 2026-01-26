@@ -24,6 +24,7 @@ func transition():
 	t.tween_property(self, "modulate", Color.WHITE,0.3)
 	Global.Area.fade()
 	Global.Player.z_index = z_index
+	Event.teleport_followers()
 	if cant_dash_inside: Global.Player.can_dash = false
 	if lock_cam:
 		Global.Player.camera_follow(false)
@@ -46,6 +47,7 @@ func detransition():
 	await fade_out()
 	hide()
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false
+	Event.teleport_followers()
 	Global.Player.z_index = Global.Area.z_index
 	if Global.Area.CurSubRoom == self:
 		Event.take_control(true, true)

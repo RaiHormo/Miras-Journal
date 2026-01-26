@@ -31,6 +31,11 @@ if f("eepy", 1):
 	I don't have the energy to go out right now...
 	do give_control()
 	=> END!
+if Day == 2:
+	Seems to be a gate to whatever it was we used to enter.
+	I... should probably not enter it myself right now, I'd get completely lost.
+	do give_control()
+	=> END!
 [[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
 - Gather allies
 	do transition("L")

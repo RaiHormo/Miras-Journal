@@ -286,8 +286,24 @@ This must be what she was reffering to.
 	Mira: Which way do we... WHAAA-
 	As asteria moves, we're all dragged around and go really fast.
 	do add_flag("VPOldCamp")
-	do sequence("enter_pyrson")
+	do remove_flag("DisableVeinet")
+	do! sequence("enter_pyrson")
 	=> END
 - Not yet
 	do give_control()
 	=> END
+
+~ enter_pyrson
+Placeholder description: Asteria comes out of a gate and lands gracefully, Daze comes out striking a cool pose as he lands.
+Placeholder description: Mira falls out and land right on her face, Alcine lands and becomes a puddle, then reforms.
+do npc("Asteria").look_to("L")
+Asteria.Neutral: Well, here we are.\nHow did you like the trip?
+Alcine.Tired: Weeww..
+Mira: Ughh... I'm gonna throw up...
+Asteria.Neutral: That was Vein Network, the fastest way of getting around Abad. You'll get used to it.
+Asteria.Neutral: Regardless, I welcome you Pyrson village!
+Daze.Neutral: It's a lot better looking than I expected.
+do npc("Asteria").look_to("R")
+Asteria.Neutral: Maybe first... I should inform my mother that you're here.
+Asteria.Neutral: Follow me if you'd like.
+=> END

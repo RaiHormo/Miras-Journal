@@ -28,7 +28,7 @@ var PrevPosition:= Vector2.ZERO
 ##Coordinates on the [TileMap]
 var coords:Vector2 = Vector2.ZERO
 ##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
-@export var ID: String
+@export var ID: String = ""
 var DefaultPos := Vector2.ZERO
 @export var no_collision: bool = false
 @export var Nav:NavigationAgent2D

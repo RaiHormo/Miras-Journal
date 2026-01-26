@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_iwqwt"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="5_441cr"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
-[ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://codings/action_sequence.gd" id="6_ik7qm"]
+[ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
 [ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="10_bwtm7"]

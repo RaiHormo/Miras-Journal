@@ -3,7 +3,7 @@ extends Node
 
 
 ##An [Array] of all [NPC] nodes in the current scene
-var List: Array[NPC]
+var List: Dictionary[String, NPC]
 var Flags: Dictionary[StringName, int]
 var Diary: Dictionary[int, PackedStringArray] = {
 	2: ["boo"],
@@ -19,7 +19,7 @@ var ToTime:= TOD.DARKHOUR
 var ToDay: int
 signal time_changed
 signal next_day
-@onready var seq: Node = $Sequences
+@onready var sequences: Node = $Sequences
 
 
 enum TOD {DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5}
@@ -29,24 +29,13 @@ func _ready():
 
 ##Character is added to the list of NPCS
 func add_char(b:NPC):
-	for i in List:
-		if !is_instance_valid(i):
-			#List.remove_at
-			continue
-		if i.ID == b.ID:
-			List[List.find(i)] = b
-			return
-	List.append(b)
+	if List.has(b.ID) and is_instance_valid(List.get(b.ID)):
+		push_error("Duplicate npc spawned: ", b.ID)
+	List.set(b.ID, b)
 
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
-	for i in List:
-		if !is_instance_valid(i):
-			#List.erase(i)
-			continue
-		if i.ID == ID:
-			return i
-	return null
+	return List.get(ID)
 
 ##Move an [NPC] relative to their current coords
 func move_dir(dir:Vector2=Global.get_direction(), chara:String="P"):
@@ -171,7 +160,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 		Global.Player.position = pos
 		Global.check_party.emit()
 
-func give_control(camera_follow:= false):
+func give_control(camera_follow:= false, bring_followers:= true):
 	if Global.Player == null:  return
 	print("Giving control")
 	if get_tree().root.has_node("Warning"):
@@ -185,8 +174,10 @@ func give_control(camera_follow:= false):
 	Global.Player.local_controllable = true
 	if camera_follow: Global.Player.camera_follow(true)
 	get_tree().paused = false
-	for i in Global.Area.Followers:
-		i.dont_follow = false
+	if bring_followers:
+		for i in Global.Area.Followers:
+			i.dont_follow = false
+		Event.teleport_followers()
 	Global.Area.setup_params(true)
 	Global.check_party.emit()
 
@@ -250,15 +241,20 @@ func teleport_followers():
 	#for i in Global.Area.Followers:
 		#i.jump_to_player()
 	Global.Player.path.curve.clear_points()
+	Global.Player.path.curve.add_point(Global.PlayerPos)
+	Global.Player.path.curve.add_point(Global.PlayerPos)
 
 func sequence(title: String):
-	if seq.has_method(title):
-		seq.call(title)
-	else:
-		OS.alert(title + " is not a valid event")
+	for i in sequences.get_children():
+		if i.has_method(title):
+			return i.call(title)
+	OS.alert(title + " is not a valid event")
 
 func sequence_exists(title: String) -> bool:
-	return seq.has_method(title)
+	for i in sequences.get_children():
+		if i.has_method(title):
+			return true
+	return false
 
 func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
@@ -279,12 +275,13 @@ func spawn(id: String, pos: Vector2i, dir:= "D", no_collision = true, z: int = 1
 	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 	if sprite == null: return null
 	sprite_node.sprite_frames = sprite
-	Global.Area.add_child(chara)
 	if no_collision: chara.collision(false)
 	chara.name = nam[0]
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
+	Global.Area.add_child(chara)
+	print("Spawned: ", chara.ID)
 	if dir.length() > 1:
 		chara.BodyState = NPC.CUSTOM
 		chara.set_anim(dir)
@@ -318,6 +315,18 @@ func zoom(val: float, maintain = false):
 	Global.Camera.zoom = Vector2(val, val)
 	if maintain: Global.Area.overwrite_zoom = val
 
+func camera_move(to: Vector2, time: float = 0, ease:= Tween.EASE_IN_OUT, trans:= Tween.TRANS_QUAD):
+	if time > 0:
+		Global.Camera.position_smoothing_enabled = false
+		var t = create_tween().set_ease(ease).set_trans(trans).set_parallel()
+		t.tween_property(Global.Camera, "position", to, time)
+		await t.finished
+		Global.Camera.position_smoothing_enabled = true
+	else: 
+		Global.Camera.position_smoothing_enabled = false
+		Global.Camera.position = to
+		Global.Camera.position_smoothing_enabled = true
+
 func start_time_events():
 	var seq = Query.get_mmm(Query.get_month(Day)).to_lower()+str(Day)+"_"+Query.to_tod_text(TimeOfDay).to_lower()
 	print(seq)
@@ -340,3 +349,7 @@ func setup_time_changes(from: int, to: int):
 		flag_progress("eepy", eepy+to-from)
 		if eepy >= 2: remove_flag("eepy"+str(flag_int("eepy")))
 		
+
+func camera_unlock():
+	if is_instance_valid(Global.Player):
+		Global.Player.camera_follow(false)

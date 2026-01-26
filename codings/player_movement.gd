@@ -65,7 +65,7 @@ func _ready() -> void:
 
 func extended_process() -> void:
 	if is_instance_valid(path):
-		if RealVelocity.length() > 500:
+		if RealVelocity.length() > 350:
 			path.curve.clear_points()
 		if path.curve.point_count < 2:
 			path.curve.add_point(position-Facing)

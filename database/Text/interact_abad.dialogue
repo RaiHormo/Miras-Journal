@@ -94,17 +94,6 @@ else:
 		do heal_party()
 => END
 
-~ oct0_afternoon
-The sky getting darker now.
-I've really been out here all day...
-Placeholder description: Mira looks forward to Alcine goofing around.
-Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
-Their color is nearly oposite to mine...
-But perhaps I could give it a try.
-Placeholder description: Unlocked Complimentary Ability: Fluid Blast
-Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
-=> END
-
 ~ rest_camp
 if f("AlcineAlone"):
 	Alcine.Neutral: Shwooo?
