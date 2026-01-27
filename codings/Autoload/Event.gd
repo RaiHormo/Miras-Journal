@@ -177,7 +177,7 @@ func give_control(camera_follow:= false, bring_followers:= true):
 	if bring_followers:
 		for i in Global.Area.Followers:
 			i.dont_follow = false
-		Event.teleport_followers()
+		#Event.teleport_followers()
 	Global.Area.setup_params(true)
 	Global.check_party.emit()
 

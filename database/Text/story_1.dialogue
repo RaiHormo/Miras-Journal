@@ -313,7 +313,7 @@ do spawn("Feni", Vector2(381, 130), "D", 0)
 do spawn("Asteria", Vector2(368, 150), "U", 0)
 do! npc("P").go_to(Vector2(368, 184), false, false, "U")
 do! npc("F2").go_to(Vector2(390, 184), false, false, "U")
-do! npc("F1").go_to(Vector2(340, 190), false, false, "U")
+do! npc("F1").go_to(Vector2(350, 190), false, false, "U")
 do no_nametag()
 Feni.Neutral: ...know you meant well, but I don't think we can handle-[next=auto]
 (hide)
@@ -337,6 +337,26 @@ Mira.Neutral: So... is there a place for us to stay here?
 Feni.Neutral: Certainly. There should be a few usused rooms at Ernos'.
 Feni.Neutral: Can you take 'em there, dear?
 Asteria.Neutral: Right, follow me.
+(hide)
 do add_flag("EvNov2TownHall")
-do! travel_to("Pyrson", Vector2(374, 228))
+do travel_to("Pyrson", Vector2(275, 606), 0, -1, "D", false)
+do no_player()
+do spawn("Asteria", Vector2(400, 606), "L", 0)
+do spawn("Mira", Vector2(424, 600), "L", 0)
+do spawn("Daze", Vector2(464, 600), "L", 0)
+do spawn("Alcine", Vector2(448, 600), "L", 0)
+do! npc("Asteria").go_to(Vector2(275, 572))
+do! npc("Alcine").go_to(Vector2(300, 596))
+do! npc("Daze").go_to(Vector2(320, 575))
+do! npc("Mira").go_to(Vector2(260, 600))
+do wait(2.5)
+do! npc("Asteria").look_to("D")
+do! npc("Mira").look_to("U")
+do! npc("Daze").look_to("L")
+do! npc("Alcine").look_to("U")
+Asteria.Neutral: This is the building.
+Placeholder description: This scene is unfinished, you now have a home here.
+do add_flag("PyrsonHome")
+do Party.set_to_strarr(["Mira"])
+do! travel_to("Pyrson", Vector2(275, 606))
 => END

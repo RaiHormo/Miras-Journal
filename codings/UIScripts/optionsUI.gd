@@ -44,7 +44,17 @@ func _ready():
 	$Silhouette.position = Vector2(-1000, -39)
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
-	$Background/Version.text += ProjectSettings.get_setting("application/config/version")
+	$Background/Info/Version.text += ProjectSettings.get_setting("application/config/version")
+	if Global.UsingSteam:
+		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
+	$Background/Info/User.text = Global.Settings.PlayerName
+	var platform_icon: Texture
+	match OS.get_name():
+		"Windows": platform_icon = preload("res://UI/Misc/Platforms/windows.svg")
+		"Linux": platform_icon = preload("res://UI/Misc/Platforms/linux.svg")
+		"Android": platform_icon = preload("res://UI/Misc/Platforms/android.svg")
+		_: platform_icon = preload("res://UI/Misc/Platforms/LoggedOut.svg")
+	$Background/Info/Platform.texture = platform_icon
 	$SavePanel/FileNaming.hide()
 	t=create_tween()
 	t.set_trans(Tween.TRANS_QUART)

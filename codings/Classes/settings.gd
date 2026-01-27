@@ -1,6 +1,7 @@
 extends Resource
 class_name Setting
 
+@export var PlayerName: String = "Local"
 @export_category("Gameplay")
 @export var AutoHideHUD: int = 0
 @export var TextSpeed: int = 0

@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cdg4f6tw6yx4t" path="res://art/Previews/1_low.png" id="3_p6787"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="4_nqfss"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="5_80sd8"]
+[ext_resource type="Texture2D" uid="uid://ban3yhsivavgk" path="res://UI/Misc/Platforms/LoggedOut.svg" id="5_srwa7"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
+[ext_resource type="Texture2D" uid="uid://kujjyrvil8do" path="res://UI/Misc/Platforms/android.svg" id="6_srwa7"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
 [ext_resource type="Texture2D" uid="uid://30fjbtopqs22" path="res://UI/MenuTextures/toggle_on.svg" id="8_nqfss"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
@@ -662,7 +664,7 @@ anchors_preset = 0
 offset_left = 560.0
 offset_right = 1660.0
 offset_bottom = 2402.0
-scale = Vector2(0.654824, 0.599552)
+scale = Vector2(0.655, 0.655)
 mouse_filter = 2
 
 [node name="2" type="Polygon2D" parent="Background" unique_id=823038630]
@@ -675,17 +677,51 @@ scale = Vector2(405.189, 369.109)
 color = Color(0.705882, 0.709804, 0.705882, 1)
 polygon = PackedVector2Array(-0.765092, -0.498645, -0.403275, 0.25305, -0.146988, 0.867602, 0.0452271, 1.42341, 0.24498, 2.15093, 0.384431, 3.02147, 0.414582, 3.58179, 0.410813, 4.04429, 0.335435, 4.69047, 0.180908, 5.69815, 0.354279, 5.1785, 0.538957, 4.49616, 0.6671, 3.80479, 0.734941, 3.27, 0.799013, 2.44758, 0.810319, 1.55897, 0.757555, 0.884094, 0.625642, 0.185269, 0.429658, -0.494127)
 
-[node name="Version" type="Label" parent="Background" unique_id=569712063]
+[node name="Info" type="GridContainer" parent="Background" unique_id=885206755]
 layout_mode = 0
-offset_left = 822.0
-offset_top = 1263.0
-offset_right = 1071.0
-offset_bottom = 1312.0
+offset_left = 790.8397
+offset_top = 1096.1069
+offset_right = 1085.4962
+offset_bottom = 1206.1069
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="User" type="Label" parent="Background/Info" unique_id=1666832707]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.2)
 theme_override_fonts/font = ExtResource("4_nqfss")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 2
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="LoggedIn" type="TextureRect" parent="Background/Info" unique_id=647579096]
+modulate = Color(1, 1, 1, 0.21568628)
+layout_mode = 2
+texture = ExtResource("5_srwa7")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Version" type="Label" parent="Background/Info" unique_id=569712063]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.2)
+theme_override_fonts/font = ExtResource("4_nqfss")
+theme_override_font_sizes/font_size = 40
 text = "v"
 horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Platform" type="TextureRect" parent="Background/Info" unique_id=1892800621]
+modulate = Color(1, 1, 1, 0.21568628)
+layout_mode = 2
+texture = ExtResource("6_srwa7")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="MainButtons" type="Control" parent="." unique_id=322398056]
 layout_mode = 3
@@ -824,6 +860,7 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="." unique_id=2111716590]
+visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0

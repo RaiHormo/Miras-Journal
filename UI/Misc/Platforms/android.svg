@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   aria-label="Android"
+   role="img"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="android.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.79204246"
+     inkscape:cx="243.04253"
+     inkscape:cy="205.16577"
+     inkscape:window-width="2560"
+     inkscape:window-height="1405"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 371.15744,325.67835 a 20.83885,20.83885 0 1 1 20.83503,-20.84278 20.866337,20.866337 0 0 1 -20.83503,20.84278 m -230.31488,0 a 20.83885,20.83885 0 1 1 20.83488,-20.84278 20.86241,20.86241 0 0 1 -20.83488,20.84278 m 237.78735,-125.51609 41.64243,-72.12511 a 8.6653487,8.6653487 0 1 0 -15.0038,-8.67402 l -42.16863,73.03611 C 330.8542,177.68206 294.63845,169.4871 255.99608,169.4871 c -38.64238,0 -74.8542,8.20675 -107.10005,22.91214 l -42.16457,-73.03611 a 8.6641027,8.6641027 0 1 0 -15.007729,8.66223 l 41.646359,72.1369 C 61.861473,239.05596 12.9508,311.44808 5.7963779,396.97886 H 506.20362 C 499.04135,311.44808 450.1346,239.05596 378.62991,200.16226"
+     fill="#3ddc84"
+     id="path1"
+     style="fill:#ffffff;stroke-width:1.4017" />
+</svg>

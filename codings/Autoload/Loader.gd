@@ -312,7 +312,7 @@ func done(controllable:= false):
 		await Global.Player.look_to(look_dir)
 	if scene.size() > 1:
 		await Global.Area.go_to_subroom(scene[1])
-	if direc != "wait": await detransition()
+	if direc != "wait": detransition()
 	Global.get_cam().position_smoothing_enabled = true
 	if controllable: 
 		Event.give_control(false)

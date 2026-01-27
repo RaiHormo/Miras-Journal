@@ -39,7 +39,7 @@ func set_to(p:PartyData):
 	if p.Member3!=null: Member3 = Query.find_member(p.Member3.codename)
 	else: Member3 = null
 
-func set_to_strarr(p:Array[StringName]):
+func set_to_strarr(p:PackedStringArray):
 	if p.is_empty(): p = [&"Mira", &"", &"", &""]
 	while p.size() < 4: p.append(&"")
 	Leader = Query.find_member(p[0])

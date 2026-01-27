@@ -6,6 +6,6 @@ class_name TextProfile
 @export var Bord3: Color = Color(0x4e4e4eff)
 @export var Inner: Color = Color(0x2b2b2bff)
 @export var TextColor: Color = Color.WHITE
-@export var TextSound: AudioStream = null
+@export var TextSound: AudioStream = preload("res://sound/SFX/thonk.ogg")
 @export var AudioFrequency: int = 4
 @export var PitchVariance: float = 1

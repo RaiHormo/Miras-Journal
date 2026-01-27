@@ -45,6 +45,7 @@ signal player_ready
 signal controller_changed
 const AppID = 4059970
 var UsingSteam:= false
+var PlayerName: String = "Local"
 var SteamInputDevice
 var UserID: int
 #endregion
@@ -103,7 +104,8 @@ func init_steam():
 		print("Running with Steam")
 		UsingSteam = true
 		UserID = Steam.getSteamID32(Steam.getSteamID())
-		print("User: ", Steam.getPersonaName(), " ", UserID)
+		PlayerName = Steam.getPersonaName()
+		print("User: ", PlayerName, " ", UserID)
 		#if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
 			#Settings.ControlSchemeEnum = 7
 			#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
@@ -377,6 +379,9 @@ func apply_settings():
 	AudioServer.set_bus_volume_db(4, Settings.VoicesVolume)
 	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	if UsingSteam:
+		Settings.PlayerName = PlayerName
+	else: PlayerName = Settings.PlayerName
 
 func get_playtime() -> int:
 	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime

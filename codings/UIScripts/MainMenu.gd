@@ -104,15 +104,19 @@ func _ready():
 			t.tween_property(i.get_child(0), "position:x", -45, 0.5).as_relative()
 	await t.finished
 
+var input_frame
+
 func _input(event):
 	if Global.LastInput==Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	$Party.icon = Global.get_controller().Select
 	Global.Controllable = false
+	if input_frame == Global.ProcessFrame: return
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
+				input_frame = Global.ProcessFrame
 				if rootIndex <= 0:
 					$Party.grab_focus()
 					rootIndex = -1
