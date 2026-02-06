@@ -9,7 +9,6 @@ class_name Room
 @export var SpawnPos: Vector2 = Vector2(0,0)
 @export var SpawnZ: Array[int] = [1]
 @export_flags_2d_physics var SpawnLayers := 1
-@export var AutoLimits = false
 ##[x]: left [y]: top [z]: right [w]: bottom
 @export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
 @export var CameraZooms: Array[float] = [1]
@@ -17,7 +16,6 @@ var overwrite_zoom: float = 0
 var Stairs: Array[Stair]
 enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
 ##[0]: left [1]: top [2]: right [3]: bottom
-var bounds : Vector4
 var Size:Vector2
 var Cam = Camera2D.new()
 var Followers: Array[CharacterBody2D] = []
@@ -38,11 +36,11 @@ func _ready():
 	for i in get_children():
 		if i is TileMapLayer:
 			Layers.append(i)
-	if AutoLimits:
-		Cam.limit_left = bounds[LEFT]
-		Cam.limit_right = bounds[RIGHT]
-		Cam.limit_top = bounds[TOP]
-		Cam.limit_bottom = bounds[BOTTOM]
+	if CameraLimits[Global.CameraInd] == Vector4.ZERO:
+		Cam.limit_left = -10000000
+		Cam.limit_right = 10000000
+		Cam.limit_top = -10000000
+		Cam.limit_bottom = 10000000
 	else:
 		Cam.limit_left = (CameraLimits[Global.CameraInd])[LEFT]
 		Cam.limit_right = (CameraLimits[Global.CameraInd])[RIGHT]
@@ -156,7 +154,7 @@ func _physics_process(delta: float) -> void:
 	if has_node("SubRoomBg") and CurSubRoom != null:
 		$SubRoomBg.position = Cam.position
 
-func go_to_subroom(subroom: String):
+func go_to_subroom(subroom: String, fast = false):
 	for i in get_children(): 
 		if is_instance_valid(i) and i.name == subroom and i is SubRoom:
-			await i.transition()
+			await i.transition(0)

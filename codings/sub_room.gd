@@ -17,13 +17,13 @@ func _ready() -> void:
 			Layers.append(i)
 			i.collision_enabled = false
 
-func transition():
+func transition(time:= 0.3):
 	Global.Area.CurSubRoom = self
 	show()
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_parallel()
-	t.tween_property(self, "modulate", Color.WHITE,0.3)
+	t.tween_property(self, "modulate", Color.WHITE,time)
 	Global.Area.fade()
 	Global.Player.z_index = z_index
 	Event.teleport_followers()
@@ -33,7 +33,7 @@ func transition():
 		Global.get_cam().position  = cam_pos
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), 0.2)
+	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), time)
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = true
 	await t.finished
 	for i in Layers:

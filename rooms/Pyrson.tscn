@@ -31,6 +31,15 @@
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="26_vxpye"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="28_prfhr"]
 
+[sub_resource type="Gradient" id="Gradient_2oe0j"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.0509804, 0.0509804, 0.0509804, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ae0d8"]
+gradient = SubResource("Gradient_2oe0j")
+width = 500
+height = 500
+
 [sub_resource type="Gradient" id="Gradient_desij"]
 offsets = PackedFloat32Array(0, 0.28125, 0.735577, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.8125, 0.8125, 0.8125, 1, 0.22, 0.22, 0.22, 1, 0, 0, 0, 1)
@@ -390,15 +399,6 @@ size = Vector2(36, 123)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66y4c"]
 size = Vector2(97.5528, 20)
 
-[sub_resource type="Gradient" id="Gradient_2oe0j"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.0509804, 0.0509804, 0.0509804, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ae0d8"]
-gradient = SubResource("Gradient_2oe0j")
-width = 500
-height = 500
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_prfhr"]
 radius = 40.05
 
@@ -409,10 +409,19 @@ script = ExtResource("1_prfhr")
 Name = "Pyrson"
 IsDungeon = false
 SpawnPos = Vector2(5, 7)
-SpawnZ = Array[int]([0, 0, 1])
-CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1176), Vector4(-10000, 0, 100, 886), Vector4(-100, -300, 300, -100)])
-CameraZooms = Array[float]([0.75, 1.25, 1.0])
+SpawnZ = Array[int]([0, 0, 1, 3])
+CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1176), Vector4(-10000, 0, 100, 886), Vector4(-100, -300, 300, -100), Vector4(0, 0, 0, 0)])
+CameraZooms = Array[float]([0.75, 1.25, 1.0, 1.0])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
+
+[node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
+modulate = Color(1, 1, 1, 0)
+light_mask = 0
+z_index = 1
+texture_filter = 2
+position = Vector2(266.5, 658.25)
+scale = Vector2(2.678, 2.919)
+texture = SubResource("GradientTexture2D_ae0d8")
 
 [node name="Lights" type="Node2D" parent="." unique_id=836323417]
 
@@ -611,24 +620,7 @@ position = Vector2(-47.9999, -0.5)
 tile_map_data = PackedByteArray("AAAZABEABwAAAAgAAAAbABEABwAYABAAAAAJAC8ABwAOABQAAAAIAC8ABwAOABMAAAAHAC8ABwAOABMAAAAGAC8ABwAOABMAAAAFAC8ABwAOABMAAAAEAC8ABwAOABMAAAAJADAABwANABQAAAAJADEABwANABQAAAAJADIABwANABQAAAAJADMABwANABQAAAAJADQABwANABQAAAAOAC8ABwAOABQAABAOADAABwANABQAABAOADEABwANABQAABAOADIABwANABQAABAOADMABwANABQAABAOADQABwANABQAABAPAC8ABwAOABMAAAAQAC8ABwAOABMAAAARAC8ABwAOABMAAAASAC8ABwAOABMAAAATAC8ABwAOABMAAAAUAC8ABwAOABMAAAAVAC8ABwAOABMAAAAWAC8ABwAOABMAAAAXAC8ABwAOABMAAAAYAC8ABwAOABMAAAAZAC8ABwAOABMAAAAaAC8ABwAOABMAAAAbAC8ABwAOABMAAAAcAC8ABwAOABMAAAAdAC8ABwAOABMAAAAeAC8ABwAOABMAAAAfAC8ABwAOABMAAAAgAC8ABwAOABMAAAAhAC8ABwAOABMAAAAiAC8ABwAOABMAAAAjAC8ABwAOABMAAAAkAC8ABwAOABMAAAAlAC8ABwAOABMAAAAmAC8ABwAOABMAAAAPADAABwANABMAAAAQADAABwANABMAAAARADAABwANABMAAAASADAABwANABMAAAATADAABwANABMAAAAUADAABwANABMAAAAVADAABwANABMAAAAWADAABwANABMAAAAXADAABwANABMAAAAYADAABwANABMAAAAZADAABwANABMAAAAaADAABwANABMAAAAbADAABwANABMAAAAcADAABwANABMAAAAdADAABwANABMAAAAeADAABwANABMAAAAfADAABwANABMAAAAgADAABwANABMAAAAhADAABwANABMAAAAiADAABwANABMAAAAjADAABwANABMAAAAkADAABwANABMAAAAlADAABwANABMAAAAmADAABwANABMAAAAIADAABwANABMAAAAHADAABwANABMAAAAGADAABwANABMAAAAFADAABwANABMAAAAEADAABwANABMAAAAKADAABgAAAAEAAAALADAABgAAAAEAAAAMADAABgAAAAEAAAANADAABgAAAAEAAAAYACMABwACAAUAAAAZACMABwACAAUAAAAaACMABwACAAUAAAAbACMABwACAAUAAAAcACMABwACAAUAAAAdACMABwACAAUAAAAeACMABwACAAUAAAAfACMABwACAAUAAAAgACMABwACAAUAAAAhACMABwACAAUAAAAAAC8ABwANABMAAAAAADAABwANABMAAAABAC8ABwANABMAAAABADAABwANABMAAAACAC8ABwANABMAAAACADAABwANABMAAAADAC8ABwANABMAAAADADAABwANABMAAAD6/yMABwAOABMAAAD6/yQABwANABMAAAD7/yMABwAOABMAAAD7/yQABwANABMAAAD8/yMABwAOABMAAAD8/yQABwANABMAAAD9/yMABwAOABMAAAD9/yQABwANABMAAAD+/yMABwAOABMAAAD+/yQABwANABMAAAD//yMABwAOABMAAAD//yQABwANABMAAAAAACMABwAOABMAAAAAACQABwANABMAAAAAACUABwANABMAAAAAACYABwANABMAAAAAACcABwANABMAAAAAACgABwANABMAAAAAACkABwANABMAAAAAACoABwANABMAAAAAACsABwANABMAAAAAACwABwANABMAAAAAAC0ABwANABMAAAAAAC4ABwANABMAAAABACMABwAOABMAAAABACQABwANABMAAAABACUABwANABMAAAABACYABwANABMAAAABACcABwANABMAAAABACgABwANABMAAAABACkABwANABMAAAABACoABwANABMAAAABACsABwANABMAAAABACwABwANABMAAAABAC0ABwANABMAAAABAC4ABwANABMAAAACACMABwAOABMAAAACACQABwANABMAAAACACUABwANABMAAAACACYABwANABMAAAACACcABwANABMAAAACACgABwANABMAAAACACkABwANABMAAAACACoABwANABMAAAACACsABwANABMAAAACACwABwANABMAAAACAC0ABwANABMAAAACAC4ABwANABMAAAADACMABwAOABQAAAADACQABwANABQAAAADACUABwANABQAAAADACYABwANABQAAAADACcABwANABQAAAADACgABwANABQAAAADACkABwANABQAAAADACoABwANABQAAAADACsABwANABQAAAADACwABwANABQAAAADAC0ABwANABQAAAADAC4ABwANABQAAAAWACMABwACAAUAAAAVACMABwAEAAMAABAXACMABwACAAUAAAAfABMABwASAAoAAAAgAB0ABwAXAAkAAAAhABMABwAVAAoAAAAhABkABwATABsAAAAhACIABwAAAAgAAAAVAC4ABwAAAAgAAAAEAC4ABwAAAAgAAAASACsABwAAAAgAAAAJACsABwAAAAgAAAANADEABwAOABMAAAAMADEABwAOABMAAAALADEABwAOABMAAAAKADEABwAOABMAAAAEACUABwAAAAgAAAAIACUABwAAAAgAAAA=")
 tile_set = ExtResource("2_3r7g5")
 
-[node name="HomeBuilding-Kitchen" type="Node2D" parent="." unique_id=189478252]
-visible = false
-z_index = 2
-texture_filter = 1
-position = Vector2(-72, 0)
-script = ExtResource("3_aq7mb")
-Title = "Kichen"
-cam_pos = Vector2(386, 480)
-
-[node name="Floor" type="TileMapLayer" parent="HomeBuilding-Kitchen" unique_id=1972110053]
-tile_map_data = PackedByteArray("AAARABEAAQACAAIAAAASABEAAQACAAIAAAATABEAAQACAAIAAAAUABEAAQACAAIAAAAVABEAAQACAAIAAAAVABIAAQACAAIAAAAVABMAAQACAAIAAAAVABQAAQACAAIAAAASABUAAQACAAIAAAARABUAAQACAAIAAAASABQAAQACAAIAAAARABQAAQACAAIAAAATABQAAQACAAIAAAAUABQAAQACAAIAAAAUABMAAQACAAIAAAAUABIAAQACAAIAAAATABIAAQACAAIAAAASABIAAQACAAIAAAARABIAAQACAAIAAAARABMAAQACAAIAAAASABMAAQACAAIAAAATABMAAQACAAIAAAARABYAAQACAAIAAAASABYAAQACAAIAAAARABcAAQACAAIAAAASABcAAQACAAIAAAA=")
-tile_set = SubResource("TileSet_dw7lm")
-
-[node name="Wall" type="TileMapLayer" parent="HomeBuilding-Kitchen" unique_id=378289056]
-tile_map_data = PackedByteArray("AAASABUAAQABAAYAAAASABYAAQABAAYAAAASABcAAQABAAYAAAAVABEAAQABAAYAAAAVABIAAQABAAYAAAAVABMAAQABAAYAAAAVABQAAQABAAYAAAARABAAAQADAAIAAAASABAAAQADAAIAAAATABAAAQADAAIAAAAUABAAAQADAAIAAAAVABAAAQADAAIAAAATABUAAQADAAIAAAAUABUAAQADAAIAAAAVABUAAQADAAIAAAARABEAAQABAAYAABARABIAAQABAAYAABARABMAAQABAAYAABARABUAAQABAAYAABARABYAAQABAAYAABARABcAAQABAAYAABA=")
-tile_set = SubResource("TileSet_dw7lm")
-
-[node name="HomeBuilding-Lobby" type="Node2D" parent="." unique_id=1028987970]
+[node name="HomeBuilding" type="Node2D" parent="." unique_id=1028987970]
 z_index = 2
 y_sort_enabled = true
 texture_filter = 1
@@ -638,30 +630,30 @@ Title = "Home building lobby"
 cam_pos = Vector2(266, 470)
 cam_zoom = 3.5
 
-[node name="Floor" type="TileMapLayer" parent="HomeBuilding-Lobby" unique_id=1940414211]
+[node name="Floor" type="TileMapLayer" parent="HomeBuilding" unique_id=1940414211]
 tile_map_data = PackedByteArray("AAANABEAAQACAAIAAAANABIAAQACAAIAAAANABMAAQACAAIAAAANABQAAQACAAIAAAANABUAAQACAAIAAAANABYAAQACAAIAAAANABcAAQACAAIAAAAOABEAAQACAAIAAAAOABIAAQACAAIAAAAOABMAAQACAAIAAAAOABQAAQACAAIAAAAOABUAAQACAAIAAAAOABYAAQACAAIAAAAPABEAAQACAAIAAAAPABIAAQACAAIAAAAPABMAAQACAAIAAAAPABQAAQACAAIAAAAPABUAAQACAAIAAAAPABYAAQACAAIAAAAPABcAAQACAAIAAAALABEAAQACAAIAAAALABIAAQACAAIAAAALABMAAQACAAIAAAALABQAAQACAAIAAAALABUAAQACAAIAAAALABYAAQACAAIAAAALABcAAQACAAIAAAAMABEAAQACAAIAAAAMABIAAQACAAIAAAAMABMAAQACAAIAAAAMABQAAQACAAIAAAAMABUAAQACAAIAAAAMABYAAQACAAIAAAAMABcAAQACAAIAAAALAA8AAQACAAIAAAAMAA8AAQACAAIAAAANAA8AAQACAAIAAAAOAA8AAQACAAIAAAAPAA8AAQACAAIAAAALABAAAQADAAIAAAAMABAAAQADAAIAAAANABAAAQADAAIAAAAOABAAAQADAAIAAAAPABAAAQADAAIAAAAQAA8AAQACAAIAAAAQABAAAQADAAIAAAAQABEAAQACAAIAAAAQABIAAQACAAIAAAAQABMAAQACAAIAAAAQABQAAQACAAIAAAAQABUAAQACAAIAAAAQABYAAQACAAIAAAAQABcAAQACAAIAAAAOABcAAQACAAIAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 
-[node name="Wall" type="TileMapLayer" parent="HomeBuilding-Lobby" unique_id=929696400]
+[node name="Wall" type="TileMapLayer" parent="HomeBuilding" unique_id=929696400]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAALABcAAQACAAcAAAALABMAAQAAAAcAAAALABEAAwAIAAoAAAALAA8AAQAAAAcAAAALABAAAQABAAcAAAALABIAAwAAAAEAAAAMABIAAwAAAAEAAAAMABAAAwAGAAsAAAAPABAAAwABAAAAAAAQAA8AAQAAAAcAABAQABAAAQABAAYAAAAQABEAAQABAAYAAAAQABIAAQABAAYAAAAQABMAAQACAAcAABAQABUAAQAAAAcAABAQABYAAQABAAYAAAAQABcAAQACAAYAAAALABgAAQACAAEAAAAMABgAAQACAAEAAAANABgAAQACAAEAAAAPABgAAQACAAEAAAAQABgAAQACAAEAAAAKABMAAQACAAEAAAAJABIAAQACAAEAAAAKABEAAQACAAEAAAANABEAAwABAAYAAAALABQAAQABAAYAABALABUAAQABAAYAABALABYAAQABAAYAABAMABUAAwAGAAwAAAANABYAAwAGAAwAAAAMABYAAwAKAAoAAAANABcAAwAGAAwAAAAOABgAAwABAAIAAAAQABQAAwAGAAwAAAA=")
 tile_set = SubResource("TileSet_dw7lm")
 
-[node name="KirchenDoor" type="Area2D" parent="HomeBuilding-Lobby" unique_id=620967013 node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+[node name="KirchenDoor" type="Area2D" parent="HomeBuilding" unique_id=620967013 node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
 position = Vector2(408, 492)
 script = ExtResource("8_3nvdu")
 LeftSubarea = NodePath("..")
 RightSubarea = NodePath("../../HomeBuilding-Kitchen")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding-Lobby/KirchenDoor" unique_id=1840654582]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding/KirchenDoor" unique_id=1840654582]
 shape = SubResource("RectangleShape2D_6we5s")
 
-[node name="Lamp3" parent="HomeBuilding-Lobby" unique_id=1553265074 instance=ExtResource("9_w0u03")]
+[node name="Lamp3" parent="HomeBuilding" unique_id=1553265074 instance=ExtResource("9_w0u03")]
 position = Vector2(298, 412)
 LabelText = "Toggle Lamp"
 ActionType = "toggle"
 
-[node name="PointLight2D" type="PointLight2D" parent="HomeBuilding-Lobby/Lamp3" unique_id=630158991]
+[node name="PointLight2D" type="PointLight2D" parent="HomeBuilding/Lamp3" unique_id=630158991]
 position = Vector2(2.38419e-07, -3.8147e-06)
 scale = Vector2(4.18577, 3.73135)
 color = Color(1, 0.317647, 0, 1)
@@ -672,14 +664,105 @@ texture = SubResource("GradientTexture2D_52siy")
 script = ExtResource("10_4xvqm")
 Light = false
 
-[node name="RoomDoor" type="Area2D" parent="HomeBuilding-Lobby" unique_id=257365630 node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+[node name="RoomDoor" type="Area2D" parent="HomeBuilding" unique_id=257365630 node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
 position = Vector2(268, 445)
 script = ExtResource("8_3nvdu")
 LeftSubarea = NodePath("../../HomeBuilding-MyRoom")
 RightSubarea = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding-Lobby/RoomDoor" unique_id=1102561000]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding/RoomDoor" unique_id=1102561000]
 shape = SubResource("RectangleShape2D_6we5s")
+
+[node name="Transfer" parent="HomeBuilding" unique_id=1658848307 instance=ExtResource("28_prfhr")]
+position = Vector2(393, 411)
+scale = Vector2(0.21302, 0.27264)
+Position = Vector2(750, -524)
+room = "Pyrson;HomeBuilding-UpperFloor"
+ToCamera = 3
+
+[node name="HomeBuilding-Kitchen" type="Node2D" parent="." unique_id=189478252]
+visible = false
+z_index = 2
+texture_filter = 1
+position = Vector2(-72, 0)
+script = ExtResource("3_aq7mb")
+Title = "Home Building Kichen"
+cam_pos = Vector2(386, 480)
+
+[node name="Floor" type="TileMapLayer" parent="HomeBuilding-Kitchen" unique_id=1972110053]
+tile_map_data = PackedByteArray("AAARABEAAQACAAIAAAASABEAAQACAAIAAAATABEAAQACAAIAAAAUABEAAQACAAIAAAAVABEAAQACAAIAAAAVABIAAQACAAIAAAAVABMAAQACAAIAAAAVABQAAQACAAIAAAASABUAAQACAAIAAAARABUAAQACAAIAAAASABQAAQACAAIAAAARABQAAQACAAIAAAATABQAAQACAAIAAAAUABQAAQACAAIAAAAUABMAAQACAAIAAAAUABIAAQACAAIAAAATABIAAQACAAIAAAASABIAAQACAAIAAAARABIAAQACAAIAAAARABMAAQACAAIAAAASABMAAQACAAIAAAATABMAAQACAAIAAAARABYAAQACAAIAAAASABYAAQACAAIAAAARABcAAQACAAIAAAASABcAAQACAAIAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="Wall" type="TileMapLayer" parent="HomeBuilding-Kitchen" unique_id=378289056]
+tile_map_data = PackedByteArray("AAASABUAAQABAAYAAAASABYAAQABAAYAAAASABcAAQABAAYAAAAVABEAAQABAAYAAAAVABIAAQABAAYAAAAVABMAAQABAAYAAAAVABQAAQABAAYAAAARABAAAQADAAIAAAASABAAAQADAAIAAAATABAAAQADAAIAAAAUABAAAQADAAIAAAAVABAAAQADAAIAAAATABUAAQADAAIAAAAUABUAAQADAAIAAAAVABUAAQADAAIAAAARABEAAQABAAYAABARABIAAQABAAYAABARABMAAQABAAYAABARABUAAQABAAYAABARABYAAQABAAYAABARABcAAQABAAYAABA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="HomeBuilding-UpperFloor" type="Node2D" parent="." unique_id=455964367]
+z_index = 2
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("3_aq7mb")
+Title = "Home building Upper Floor"
+cam_pos = Vector2(740, -500)
+cam_zoom = 3.5
+
+[node name="Floor" type="TileMapLayer" parent="HomeBuilding-UpperFloor" unique_id=561555285]
+z_index = -1
+tile_map_data = PackedByteArray("AAAaAOj/AQABAAcAABAaAOn/AQACAAcAABAaAOv/AQABAAcAABAaAOz/AQACAAcAABAbAOj/AQADAAAAAAAbAOn/AQADAAEAAAAbAOr/AQACAAIAAAAbAOv/AQACAAIAAAAbAOz/AQACAAIAAAAcAOj/AQADAAAAAAAcAOn/AQADAAEAAAAcAOr/AQACAAIAAAAcAOv/AQACAAIAAAAcAOz/AQACAAIAAAAdAOj/AQADAAAAAAAdAOn/AQADAAEAAAAdAOr/AQACAAIAAAAdAOv/AQACAAIAAAAdAOz/AQACAAIAAAAeAOj/AQADAAAAAAAeAOn/AQADAAEAAAAeAOr/AQACAAIAAAAeAOv/AQACAAIAAAAeAOz/AQACAAIAAAAfAOj/AQADAAAAAAAfAOn/AQADAAEAAAAfAOr/AQACAAIAAAAfAOv/AQACAAIAAAAfAOz/AQACAAIAAAAgAOj/AQADAAAAAAAgAOn/AQADAAEAAAAgAOr/AwAIAAEAAAAgAOv/AQACAAIAAAAgAOz/AQACAAIAAAAhAOj/AQADAAAAAAAhAOn/AQADAAEAAAAhAOr/AQACAAIAAAAhAOv/AQACAAIAAAAhAOz/AQACAAIAAAAiAOj/AQABAAcAAAAiAOn/AQABAAcAAAAiAOr/AQABAAcAAAAiAOv/AQABAAcAAAAiAOz/AQACAAcAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="Wall" type="TileMapLayer" parent="HomeBuilding-UpperFloor" unique_id=14152143]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAfAOz/AwABAAIAACA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="Border" type="TileMapLayer" parent="HomeBuilding-UpperFloor" unique_id=657143670]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAaAO3/AwAAAAIAAAAbAO3/AwAAAAIAAAAcAO3/AwAAAAIAAAAdAO3/AwAAAAIAAAAeAO3/AwAAAAIAAAAgAO3/AwAAAAIAAAAhAO3/AwAAAAIAAAAiAO3/AwAAAAIAAAAiAOz/AwAAAAIAAAAiAOv/AwAAAAIAAAAiAOr/AwAAAAIAAAAiAOn/AwAAAAIAAAAhAOn/AwAAAAIAAAAgAOn/AwAAAAIAAAAfAOn/AwAAAAIAAAAeAOn/AwAAAAIAAAAdAOn/AwAAAAIAAAAcAOn/AwAAAAIAAAAbAOn/AwAAAAIAAAAaAOn/AwAAAAIAAAAaAOv/AwAAAAIAAAAaAOz/AwAAAAIAAAAfAO3/AwAAAAIAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+script = ExtResource("24_u5udm")
+hide_instead = true
+
+[node name="Transfer" parent="HomeBuilding-UpperFloor" unique_id=797416010 instance=ExtResource("28_prfhr")]
+position = Vector2(780, -516)
+scale = Vector2(0.21302, 0.27264)
+Position = Vector2(296, 414)
+room = "Pyrson;HomeBuilding"
+
+[node name="RoomDoor" type="Area2D" parent="HomeBuilding-UpperFloor" unique_id=1460167508 node_paths=PackedStringArray("LeftSubarea", "RightSubarea")]
+position = Vector2(651, -516)
+script = ExtResource("8_3nvdu")
+LeftSubarea = NodePath("../../HomeBuilding-DazeRoom")
+RightSubarea = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuilding-UpperFloor/RoomDoor" unique_id=1089043872]
+shape = SubResource("RectangleShape2D_6we5s")
+
+[node name="HomeBuilding-DazeRoom" type="Node2D" parent="." unique_id=1562588733]
+z_index = 2
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("3_aq7mb")
+Title = "Daze's Room"
+cam_pos = Vector2(580, -500)
+cam_zoom = 3.5
+
+[node name="Floor" type="TileMapLayer" parent="HomeBuilding-DazeRoom" unique_id=1851564740]
+z_index = -1
+tile_map_data = PackedByteArray("AAAVAOj/AQADAAAAAAAVAOn/AQADAAEAAAAVAOr/AQACAAIAAAAVAOz/AQACAAIAAAAVAO3/AQACAAIAAAAWAOj/AQADAAAAAAAWAOn/AQADAAEAAAAWAOr/AQACAAIAAAAWAOz/AQACAAIAAAAWAO3/AQACAAIAAAAXAOj/AQADAAAAAAAXAOn/AQADAAEAAAAXAOr/AQACAAIAAAAXAOz/AQACAAIAAAAXAO3/AQACAAIAAAAYAOj/AQADAAAAAAAYAOn/AQADAAEAAAAYAOr/AQACAAIAAAAYAOz/AQACAAIAAAAYAO3/AQACAAIAAAAZAOj/AQADAAAAAAAZAOn/AQADAAEAAAAZAOz/AQACAAIAAAAZAO3/AQACAAIAAAAaAOj/AQADAAAAAAAaAOn/AQADAAEAAAAaAOr/AQACAAIAAAAaAOz/AQACAAIAAAAaAO3/AQACAAIAAAAbAOj/AQABAAcAAAAbAOn/AQACAAcAAAAbAO3/AQACAAcAAAAbAOz/AQABAAcAAAAbAOv/AQAAAAcAAAAaAOv/AQACAAIAAAAZAOv/AQACAAIAAAAYAOv/AQACAAIAAAAXAOv/AQACAAIAAAAWAOv/AQACAAIAAAAVAOv/AQACAAIAAAAZAOr/AQACAAIAAAAUAOj/AQABAAcAABAUAOn/AQABAAYAAAAUAOz/AQABAAcAABAUAO3/AQACAAcAABAUAOr/AQABAAYAAAAUAOv/AQABAAYAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="Wall" type="TileMapLayer" parent="HomeBuilding-DazeRoom" unique_id=174499597]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAaAOz/AwABAAsAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+
+[node name="Border" type="TileMapLayer" parent="HomeBuilding-DazeRoom" unique_id=1893864847]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAaAOn/AwAAAAIAAAAUAOn/AwAAAAIAAAAUAOr/AwAAAAIAAAAUAOv/AwAAAAIAAAAUAOz/AwAAAAIAAAAUAO3/AwAAAAIAAAAUAO7/AwAAAAIAAAAVAOn/AwAAAAIAAAAVAO7/AwAAAAIAAAAWAOn/AwAAAAIAAAAWAO7/AwAAAAIAAAAXAOn/AwAAAAIAAAAXAO7/AwAAAAIAAAAYAOn/AwAAAAIAAAAYAO7/AwAAAAIAAAAZAOn/AwAAAAIAAAAZAO7/AwAAAAIAAAAaAO7/AwAAAAIAAAAbAOn/AwAAAAIAAAAbAOv/AwAAAAIAAAAbAOz/AwAAAAIAAAAbAO3/AwAAAAIAAAAbAO7/AwAAAAIAAAA=")
+tile_set = SubResource("TileSet_dw7lm")
+script = ExtResource("24_u5udm")
+hide_instead = true
 
 [node name="HomeBuilding-MyRoom" type="Node2D" parent="." unique_id=1096791357]
 z_index = 2
@@ -760,7 +843,7 @@ animation = &"SitRight"
 visible = false
 position = Vector2(276, 569)
 script = ExtResource("7_akxl2")
-ToSubarea = NodePath("../HomeBuilding-Lobby")
+ToSubarea = NodePath("../HomeBuilding")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HomeBuildingDoor" unique_id=478679484]
 position = Vector2(0, -2.5)
@@ -1025,15 +1108,6 @@ shape = SubResource("RectangleShape2D_66y4c")
 [node name="Stairs1" parent="." unique_id=1395634390 instance=ExtResource("14_y8h7v")]
 position = Vector2(322, 884.5)
 
-[node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
-modulate = Color(1, 1, 1, 0)
-light_mask = 0
-z_index = 1
-texture_filter = 2
-position = Vector2(266.5, 658.25)
-scale = Vector2(2.678, 2.919)
-texture = SubResource("GradientTexture2D_ae0d8")
-
 [node name="TownHall" type="Node2D" parent="." unique_id=486572569]
 z_index = 2
 y_sort_enabled = true
@@ -1199,11 +1273,13 @@ Direction = Vector2(1, 0)
 Position = Vector2(54, 826)
 room = "Pyrson"
 
-[connection signal="body_entered" from="HomeBuilding-Lobby/KirchenDoor" to="HomeBuilding-Lobby/KirchenDoor" method="_on_body_entered"]
-[connection signal="body_exited" from="HomeBuilding-Lobby/KirchenDoor" to="HomeBuilding-Lobby/KirchenDoor" method="_on_body_exited"]
-[connection signal="action" from="HomeBuilding-Lobby/Lamp3" to="HomeBuilding-Lobby/Lamp3/PointLight2D" method="_on_interactable_action"]
-[connection signal="body_entered" from="HomeBuilding-Lobby/RoomDoor" to="HomeBuilding-Lobby/RoomDoor" method="_on_body_entered"]
-[connection signal="body_exited" from="HomeBuilding-Lobby/RoomDoor" to="HomeBuilding-Lobby/RoomDoor" method="_on_body_exited"]
+[connection signal="body_entered" from="HomeBuilding/KirchenDoor" to="HomeBuilding/KirchenDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="HomeBuilding/KirchenDoor" to="HomeBuilding/KirchenDoor" method="_on_body_exited"]
+[connection signal="action" from="HomeBuilding/Lamp3" to="HomeBuilding/Lamp3/PointLight2D" method="_on_interactable_action"]
+[connection signal="body_entered" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_exited"]
+[connection signal="body_entered" from="HomeBuilding-UpperFloor/RoomDoor" to="HomeBuilding-UpperFloor/RoomDoor" method="_on_body_entered"]
+[connection signal="body_exited" from="HomeBuilding-UpperFloor/RoomDoor" to="HomeBuilding-UpperFloor/RoomDoor" method="_on_body_exited"]
 [connection signal="action" from="HomeBuilding-MyRoom/Lamp2" to="HomeBuilding-MyRoom/Lamp2/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="HomeBuildingDoor" to="HomeBuildingDoor" method="_on_body_entered"]
 [connection signal="body_exited" from="HomeBuildingDoor" to="HomeBuildingDoor" method="_on_body_exited"]

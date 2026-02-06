@@ -74,8 +74,11 @@ func save(filename:String="Autosave", showicon=true):
 	data.Diary = Event.Diary
 
 	data.RoomPath = Global.Area.scene_file_path
-	if Global.Area.CurSubRoom != null: data.RoomPath += ";" + Global.Area.CurSubRoom.name
-	data.RoomName = Global.Area.Name
+	if Global.Area.CurSubRoom != null: 
+		data.RoomPath += ";" + Global.Area.CurSubRoom.name
+		data.RoomName = Global.Area.CurSubRoom.Title
+	else:
+		data.RoomName = Global.Area.Name
 	data.Day = Event.Day
 	data.TimeOfDay = Event.TimeOfDay
 	ResourceSaver.save(data, "user://"+filename+".tres")
@@ -299,7 +302,7 @@ func done(controllable:= false):
 	$/root.add_child(area)
 	await Global.area_initialized
 	Global.Lights.clear()
-	await Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
+	Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
 	Global.Camera.position_smoothing_enabled = false
 	Global.lights_loaded.emit()
 	if traveled_pos != Vector2.ZERO:
@@ -311,12 +314,12 @@ func done(controllable:= false):
 	if controllable:
 		await Global.Player.look_to(look_dir)
 	if scene.size() > 1:
-		await Global.Area.go_to_subroom(scene[1])
+		await Global.Area.go_to_subroom(scene[1], true)
 	if direc != "wait": detransition()
 	Global.get_cam().position_smoothing_enabled = true
 	if controllable: 
-		Event.give_control(false)
 		await Event.wait(0.3, false)
+		Event.give_control(false)
 		if Global.Controllable:
 			PartyUI.show_all()
 

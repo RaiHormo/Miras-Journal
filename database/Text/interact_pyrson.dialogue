@@ -15,6 +15,8 @@ elif Event.TimeOfDay == 5:
 		do Loader.transition("")
 		do Event.progress_by_time(1)
 		do Event.time_transition()
+	else:
+		do! give_control()
 else:
 	if f("eepy", 1):
 		I do feel pretty tired... Should I take a quick nap?
@@ -24,6 +26,8 @@ else:
 		do Loader.transition("")
 		do Event.progress_by_time(1)
 		do Event.time_transition()
+	else:
+		do! give_control()
 => END
 
 ~ gather_pyrson

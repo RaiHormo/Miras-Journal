@@ -359,4 +359,7 @@ Placeholder description: This scene is unfinished, you now have a home here.
 do add_flag("PyrsonHome")
 do Party.set_to_strarr(["Mira"])
 do! travel_to("Pyrson", Vector2(275, 606))
+set ToDay = 2
+set ToTime = 5
+do! time_transition()
 => END
