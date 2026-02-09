@@ -374,7 +374,6 @@ func _on_root():
 		$CommandMenu.hide()
 		$Inventory.hide()
 	rooted.emit()
-	
 
 func _on_attack():
 	Global.confirm_sound()
@@ -479,7 +478,7 @@ func _on_command():
 	Bt.get_node("Canvas/Back").text = "Back"
 	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
 	CurrentChar.NextAction = "command"
-	#t.kill()
+	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)

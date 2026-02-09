@@ -16,7 +16,7 @@ func pop_down():
 	await t.finished
 
 func dash():
-	%Text.text = "[center]Hold [img width=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
+	%Text.text = "[center]Hold [img height=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("Dash"):
 		await Event.wait()

@@ -19,6 +19,7 @@ func _ready():
 	panel.hide()
 
 func get_animation(icon, named, pickup_anim:= true):
+	if is_instance_valid(t): t.kill()
 	Global.item_sound()
 	if pickup_anim: pickup.emit()
 	label.text = named

@@ -195,11 +195,14 @@ func _on_button_pressed() -> void:
 	t.set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
 	await t.finished
+	if needs_bag and not Event.f("HasBag"): 
+		Global.toast("A bag is needed to store that.")
+		Event.give_control()
+		return
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
 		await Global.Player.go_to(proper_pos, false, true, proper_face)
-	if needs_bag and not Event.f("HasBag"): Global.toast("A bag is needed to store that."); return
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
 	if not (to_time == 0 and to_time_relative == 0):

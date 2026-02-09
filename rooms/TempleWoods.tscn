@@ -1221,7 +1221,7 @@ ActionType = "text"
 file = "interact_abad"
 title = "skeleton"
 
-[node name="CollisionShape2D" parent="InteractSkeleton" index="0"]
+[node name="CollisionShape2D" parent="InteractSkeleton" index="0" unique_id=2035817221]
 position = Vector2(2.00228, 9.99954)
 shape = SubResource("CircleShape2D_wjino")
 
