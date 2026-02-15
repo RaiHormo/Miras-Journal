@@ -822,22 +822,21 @@ ActionType = "text"
 file = "interact_pyrson"
 title = "sleep_home"
 Height = 6
-return_control = false
 
 [node name="CollisionShape2D" parent="HomeBuilding-MyRoom/Sleep" index="0" unique_id=2035817221]
 position = Vector2(2, 0.999996)
 shape = SubResource("CircleShape2D_xmoor")
 
-[node name="RoomMira" type="CharacterBody2D" parent="HomeBuilding-MyRoom" unique_id=1390314806]
-position = Vector2(25, 405)
-script = ExtResource("21_p415d")
-CameraIndex = 5
-metadata/_custom_type_script = "uid://gfinmw5y4txi"
+[node name="RoomMira" parent="HomeBuilding-MyRoom" unique_id=344934070 instance=ExtResource("16_s1pqb")]
+position = Vector2(-26, 372)
+DefaultState = 6
+no_collision = true
+SpawnOnCameraInd = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HomeBuilding-MyRoom/RoomMira" unique_id=1736324877]
 z_index = 1
 sprite_frames = ExtResource("12_ejpht")
-animation = &"SitRight"
+animation = &"Sleep"
 
 [node name="HomeBuildingDoor" type="Area2D" parent="." unique_id=1930868321 node_paths=PackedStringArray("ToSubarea")]
 visible = false

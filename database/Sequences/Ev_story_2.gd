@@ -1,9 +1,20 @@
 extends Node
 
+func nov3_morning():
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
+	Event.no_player()
+	Event.npc("RoomMira").BodyState = NPC.CUSTOM
+	Event.npc("RoomMira").show()
+	Event.npc("RoomMira").position = Vector2(152, 424)
+	Event.npc("RoomMira").set_anim("Sleep")
+	await Event.wait(2)
+	await Global.textbox(name, "nov3_morning", false)
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
+	Global.Player.Facing = Vector2.RIGHT
+
 func nov3_afternoon():
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
-	await Event.wait(0.3)
-	Global.Player.hide()
+	Event.no_player()
 	Event.npc("RoomMira").BodyState = NPC.CUSTOM
 	Event.npc("RoomMira").show()
 	Event.npc("RoomMira").position = Vector2(166, 412)

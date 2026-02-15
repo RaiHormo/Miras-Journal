@@ -1,3 +1,45 @@
+~ nov3_morning
+An unfamiliar ceiling.
+it's always bizzare, expecting to wake up in my house, and staring at an unfamiliar ceiling.
+It's not the first time I've slept here in Abad, but the first time I really got a proper rest.
+To be honest, I still had hope in the back of my mind it was all a dream.
+But I guess this is my home for the time being...
+(hide)
+Alcine is resting peacfully in the side of the room.
+(hide)
+do wait(2)
+*Knock Knock*
+set Event.npc("RoomMira").position = Vector2(166, 412)
+do Event.npc("RoomMira").set_anim("SitRight")
+Mira: Who is it?
+do spawn("Daze", Vector2(179, 438), "L")
+the door creaks open as Daze enters the room.
+Mira.Neutral: ...
+Daze.Neutral: ...
+We both look at each other with the same uneasy look, a tense atmosphere runs through the room
+Daze.Neutral: Hey...
+Daze.Neutral: How are you doing?
+Mira.Neutral: I'm... okay.
+Daze stares at me intently
+Daze.Neutral: You don't look okay.
+I begin to somewhat tear up.
+Mira.Neutral: How can you stay so calm!? We're BOTH stuck here!
+Mira.Neutral: Am I supposed to just accept the fact that I'll spend the rest of my life in this Donom of a place!?
+Mira.Neutral: That everything I've done has been for NOTHING? That I'll never see my family again?
+Daze.Neutral: I... I didn't mean to-
+Mira.Neutral: Do you have nothing going on in your life?! Or are you just pretending to be calm because you need to always look cool?!
+Daze.Neutral: Levenor, listen. I didn't mean to blame you.
+Daze.Neutral: I completely understand why you feel this way. 
+Daze.Neutral: I know it firsthand, maybe a bit too well.
+Daze.Neutral: But both you and I, and everyone here, we all share a goal.
+Mira.Neutral: Don't baby me Daze, If it was that simple to exit the realm then the whole village would've done so already!
+Daze.Neutral: ...
+Daze seems to quickly glance left and right before looking back at me
+Daze.Neutral: What if I told you I already have a lead?
+do npc("RoomMira").bubble("Surprise")
+Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting there. Okay?
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.
@@ -188,38 +230,3 @@ else:
 	Daze.Neutral: 'Grats, now we can't test out any of our theories...
 	Mira.Neutral: Whoops.
 => END
-
-~ destroyed_guardian
-if Party.Leader.codename == "Alcine":
-	Alcine.Upset: Shwoooom...
-elif f("EvDestroyedGuardian"):
-	The remains of the Stone Guardian.
-	Daze cut it completely clean.
-else:
-	Mira: Hey, the remains of the Guardian are all here.
-	Daze: Guardian?
-	Mira: It's a name I just came up with for this thing.
-	Daze: I don't think It's guarding anything though. Most monsters are simply enraged spirits that attack with no real purpose.
-	Mira: Is that really true though?
-	Mira: Look at this thing. These vains aren't there for no purpose.
-	Mira: They were finely crafted to connect this part down here to here.
-	Mira: And this controls the aura around it to make the rocks float.
-	Mira: Which means...
-	I break appart a part of the stone, revealing...
-	Mira: Does this look naturally made to you?
-	Daze: What are you trying to say?
-	Mira: This monster is artificial, and nobody would create such a thing if it's not meant to be protecting something.
-	Daze: Hm...
-	Daze: How do you know all this?
-	Mira: I looked into magic beings once when I was bored.
-	Mira: It's a complicated topic, but telling a natural and artificial one appart is not all that hard.
-	Mira: I'm surprised you can't tell them appart Mr. Swordsman warrior who fights these things for a living.
-	Daze: I don't-[wait=1]\n *sigh...*
-	Daze: So you're saying there is something important around here that needs to be protected?
-	Mira: Possibly.
-	(hide)
-	Daze: I think we should take this, it seems to still contain a lot of power.
-	Mira: Mhm.
-	(hide)
-	Mira: Still no traces of {{alcine()}} though... Where did they wander off to?
-	do! sequence("where_is_alcine_1")

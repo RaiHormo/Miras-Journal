@@ -6,7 +6,7 @@
 [sub_resource type="SyntaxHighlighter" id="SyntaxHighlighter_crbvo"]
 script = ExtResource("1_58cfo")
 
-[node name="CodeEdit" type="CodeEdit" unique_id=13876990]
+[node name="CodeEdit" type="CodeEdit" unique_id=236286673]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
