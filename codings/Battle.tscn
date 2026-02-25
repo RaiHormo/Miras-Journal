@@ -62,8 +62,6 @@ script = ExtResource("3_wsnu2")
 [sub_resource type="Resource" id="Resource_bnt1k"]
 script = ExtResource("4_e2t6x")
 
-[sub_resource type="Curve" id="Curve_wrfky"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bwtm7"]
 shader = ExtResource("10_bwtm7")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
@@ -1857,9 +1855,31 @@ z_as_relative = false
 y_sort_enabled = true
 texture_filter = 2
 script = ExtResource("2_xgmkj")
+BattleText = Dictionary[String, String]({
+"busy": "[insert] is busy.",
+"confusion_hit_ally": "[cur] hits an ally in confusion!",
+"confusion_hit_self": "[cur] hits [cur_themself] in Confusion!",
+"confusion_lose_control": "[cur] loses control in Confusion!",
+"confusion_miss": "[cur misses [cur_their] target in Confusion!",
+"confusion_recover": "[cur] snaps out of Confusion!",
+"dispel": "[tar]'s [insert] state was dispelled!",
+"dispel_fail": "[tar] has no states to dispel.",
+"frozen": "[cur] can't move from the cold!",
+"ice_breaks": "The ice on [insert] breaks!",
+"nothing_happened": "Nothing happened.",
+"poison_intensified": "The Poison's effect was intensified on [insert].",
+"recovers": "[insert] recovers!",
+"retreat": "[insert] retreats from the battle",
+"seq_error": "Sequence cannot be played properly",
+"shock": "[cur] can't move from the shock!",
+"state_extended": "[insert]'s [insert2] state was extended.",
+"struggle": "[cur] is struggling to move!",
+"summon_fail": "Nobody awnsers the call.",
+"summon_no_friends": "But [cur] has no friends.",
+"use_on_turn": "[tar] will use the [insert] on [tar_their] turn."
+})
 Party = SubResource("Resource_y6axd")
 Seq = SubResource("Resource_bnt1k")
-curve = SubResource("Curve_wrfky")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1543652970]
 light_mask = 16

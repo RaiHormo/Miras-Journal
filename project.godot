@@ -46,7 +46,6 @@ World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
 AntialiasedLine2DTexture="*uid://xy5dit2nshd5"
-Query="*res://codings/Classes/query.gd"
 
 [debug]
 

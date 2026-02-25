@@ -14,6 +14,7 @@ var no_nametag:= false
 @onready var t :Tween
 const hold_time = 30
 var skip = false
+const small_text_size = 24
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -71,10 +72,11 @@ var dialogue_line: DialogueLine:
 		else: 
 			$Balloon/Panel.show()
 			$Balloon/Panel.size.x = 1
-
+		
 		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
 		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
-
+		dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]"%[small_text_size])
+		dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
 
 		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		if next_box == "": next_box = char_name

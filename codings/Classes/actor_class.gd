@@ -22,7 +22,7 @@ class_name Actor
 			codename = FirstName.to_pascal_case()
 		return codename
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
-@export var Pronouns: Array[String] = ["it", "it", "its", "itself"]
+@export_enum("it", "he", "she", "they") var Pronouns: String = "it"
 @export var WeaponPower: int = 24
 
 @export_group("Enemy specific")
@@ -213,13 +213,13 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 		if state.turns != -1:
 			if state.filename != "KnockedOut":
 				prev_state.turns += state.turns
-				Global.toast(FirstName+"'s "+state.name+" state was extended.")
+				Global.Bt.battle_msg("state_extended", FirstName, state.name)
 		elif state.name == "Poisoned":
 			prev_state.turns *= 2
-			Global.toast("The Poison's effect was intensified on "+FirstName+".")
+			Global.Bt.battle_msg("poison_intensified", FirstName)
 		elif state.name == "Confused":
 			prev_state.turns = -1
-			Global.toast(FirstName+"'s "+state.name+" state was extended.")
+			Global.Bt.battle_msg("state_extended", FirstName, state.name)
 		#else: Global.toast(FirstName+" is already "+state.name)
 		return prev_state
 	if turns != -1:
@@ -404,3 +404,6 @@ func find_learnable() -> Ability:
 			learnable = i
 			continue
 	return learnable
+
+func get_pronoun(str: String = "they") -> String:
+	return Query.get_pronoun(str, Pronouns)

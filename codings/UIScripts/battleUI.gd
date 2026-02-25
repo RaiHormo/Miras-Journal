@@ -1114,13 +1114,14 @@ func _on_give_pressed() -> void:
 				return
 			if target != null:
 				close()
+				Bt.CurrentTarget = target
 				if target.NextAction == "":
 					target.NextAction = "Item"
 					target.NextMove = item_dat.BattleEffect
 					Item.remove_item(item_dat)
-					Global.toast(target.FirstName+" will use the "+item_dat.Name+" on "+target.Pronouns[2]+" turn.")
+					Bt.battle_msg("use_on_turn", item_dat.name)
 				else:
-					Global.toast(target.FirstName+" is busy.")
+					Bt.battle_msg("busy")
 				await Event.wait(1)
 				_on_battle_get_control()
 

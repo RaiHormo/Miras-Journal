@@ -105,7 +105,7 @@ func handle_states():
 					print("Confusion dice roll: ", luck)
 					if luck < -1:
 						chara.remove_state(state.name)
-						Global.toast(chara.FirstName+" snaps out of Confusion!")
+						Bt.battle_msg("confusion_recover")
 					elif luck == -1 or not chara.Controllable:
 						var choices: Array[Ability] = chara.Abilities.duplicate()
 						choices.append(chara.StandardAttack)
@@ -113,12 +113,12 @@ func handle_states():
 						chara.NextAction = "Ability"
 						chara.NextTarget = TurnOrder.pick_random()
 						if chara.Controllable:
-							Global.toast(chara.FirstName+" looses control in Confusion!")
+							Bt.battle_msg("confusion_lose_control")
 						else:
 							if chara == chara.NextTarget and chara.NextMove.Target == Ability.T.ONE_ENEMY:
-								Global.toast(chara.FirstName+" hits "+chara.Pronouns[3]+" in Confusion!")
+								Bt.battle_msg("confusion_hit_self")
 							elif chara.NextTarget in Bt.get_ally_faction(chara) and chara.NextMove.Target == Ability.T.ONE_ENEMY:
-								Global.toast(chara.FirstName+" hits an ally in confusion!")
+								Bt.battle_msg("confusion_hit_ally")
 					state.turns -= 1
 				"Leeched":
 					if state.inflicter in TurnOrder:
@@ -147,7 +147,7 @@ func handle_states():
 				"Zapped":
 					if randi_range(0,6) > 1:
 						Bt.focus_cam(chara)
-						Global.toast(chara.FirstName+" can't move from the shock!")
+						Bt.battle_msg("shock")
 						chara.NextAction = "Attack"
 						chara.NextMove = Ability.nothing()
 						await Bt.shake_actor(chara)
@@ -156,7 +156,7 @@ func handle_states():
 					chara.NextMove = Ability.nothing()
 				"Frozen":
 					Bt.focus_cam(chara)
-					Global.toast(chara.FirstName+" can't move from the cold!")
+					Bt.battle_msg("frozen")
 					chara.NextAction = "Attack"
 					chara.NextMove = Ability.nothing()
 					await Bt.shake_actor(chara)
@@ -525,9 +525,9 @@ func Summon(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3, 0)
 	await Bt.anim("Cast")
-	if CurrentChar.SummonedAllies.is_empty(): Global.toast("But " + CurrentChar.FirstName + " has no friends.")
+	if CurrentChar.SummonedAllies.is_empty(): Bt.battle_msg("summon_no_friends")
 	elif miss:
-		Global.toast("Nobody awnsers the call.")
+		Bt.battle_msg("summon_fail")
 		await Event.wait(1)
 	else:
 		Loader.white_fadeout(1, 0.5, 0.5)
@@ -767,7 +767,7 @@ func HeatWave(target: Actor):
 		additional_done.emit()
 		await Event.wait(0.3)
 		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Burned").is_empty():
-			Global.toast("Nothing happened.")
+			Bt.battle_msg("nothing_happened")
 			await Event.wait(1)
 		Bt.anim()
 	else:
@@ -794,7 +794,7 @@ func Humidity(target: Actor):
 		additional_done.emit()
 		await Event.wait(0.3)
 		if Bt.filter_actors_by_state(Bt.get_oposing_faction(), "Soaked").is_empty():
-			Global.toast("Nothing happened.")
+			Bt.battle_msg("nothing_happened")
 		await Event.wait(1)
 		Bt.anim()
 	else:
@@ -854,10 +854,10 @@ func Dispel(target: Actor):
 	Bt.anim("Cast")
 	await Bt.focus_cam(target)
 	if target.States.is_empty():
-		Global.toast(target.FirstName + " has no states to dispel.")
+		Bt.battle_msg("dispel_fail")
 	else:
 		var state: State = target.States.pick_random()
-		Global.toast(target.FirstName + "'s "+ state.name +" state was dispelled!")
+		Bt.battle_msg("dispel", state.name)
 		target.remove_state(state)
 	await Event.wait(1)
 	Bt.anim()
@@ -924,7 +924,7 @@ func FlyAway(chara: Actor):
 	await Event.wait(1, false)
 	chara.node.flip_h = true
 	Bt.anim("Fly", chara)
-	Global.toast(chara.FirstName+" retreats from the battle")
+	Bt.battle_msg("retreat", chara.FirstName)
 	Bt.move(chara, Vector2(150, -150), 2)
 	await Event.wait(2.5, false)
 	Bt.death(chara)

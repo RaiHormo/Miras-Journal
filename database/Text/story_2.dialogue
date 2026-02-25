@@ -40,6 +40,28 @@ do npc("RoomMira").bubble("Surprise")
 Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting there. Okay?
 => END
 
+~ nov_3_tavern
+Asteria: Oh there she is!
+I sit in their table.
+Mira: What're you two up to?
+Asteria: Oh not much, this guy said we should wait for you to talk about something important.
+Asteria: Right now we were just wondering what to order.
+Daze: It's surprising that they have this much variety in a self sustained place like this.
+Asteria: Right, i don't know where we would be without Esto and the others.
+I look at the menu, checking if there's anything that interests me.
+Mira: You call this variety!? It's all vegitables!
+Asteria: What were you looking for?
+Mira: ...
+Daze: Meat I presume?
+Mira: [s]
+Daze: it's quite dangerous for most people to wander out of the village, with monsters lurking eveywhere.
+Daze: So, growing crops here is much easier and safer. Right?
+Asteria: The idea of eating animals just sounds disgusting to me...
+I guess it might seem like that if you've never tried meat...
+Or maybe it's just a Frayse thing...
+Mira: Well, do you recommend anything?
+=> END
+
 ~ nov3_afternoon
 ...
 So finding these bunkers might give us clues on how to escape.

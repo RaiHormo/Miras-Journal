@@ -88,6 +88,13 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
+## Check if a flag is equal to a given value.[br]
+## Additional syntax:[br]
+## [code]flag + flag[/code] AND[br]
+## [code]flag || flag[/code] OR[br]
+## [code]flag = (Number)[/code] alternative to setting the value, useful for event triggers.[br]
+## [code]day: (Number)[/code] Check if the current day is the given number.[br]
+## [code]time: (Number)[/code] Check if the current time of day is the given number.[br]
 func check_flag(flag: StringName, value:= 1):
 	if flag.begins_with("!"): return not check_flag(flag.replace("!", ""))
 	if "+" in flag:
@@ -112,6 +119,7 @@ func check_flag(flag: StringName, value:= 1):
 	if Flags.has(flag) and Flags.get(flag) == value: return true
 	else: return false
 
+## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value:= 1):
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
@@ -120,6 +128,7 @@ func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
 	print("Removed flag \"", flag, "\"")
 
+## Check if a flag is 0 or 1 with `f("Example")`. It also has some depricated funtionality.
 func f(flag:StringName, state = null) -> bool:
 	if state is int:
 		return f_past(flag, state)

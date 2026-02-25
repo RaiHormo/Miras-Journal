@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_s4tb4"]
 [ext_resource type="Resource" uid="uid://b28b6eda2u4a" path="res://database/Text/Profiles/AsteriaBox.tres" id="3_tcuxw"]
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="7_6lfki"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="9_7hmow"]
 
 [sub_resource type="Curve" id="Curve_7hmow"]
 _limits = [0.0, 500.0, 7.0, 50.0]
@@ -25,7 +25,7 @@ MainColor = Color(0.56, 0.2576, 0.26768, 1)
 PartyIcon = ExtResource("2_jl2mg")
 ActorClass = "Mage"
 codename = &"Asteria"
-Pronouns = Array[String](["she", "her", "her", "herself"])
+Pronouns = "she"
 WeaponPower = 16
 SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
 BoxProfile = ExtResource("3_tcuxw")

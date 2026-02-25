@@ -1,8 +1,8 @@
 extends Node
-#class_name Query
+class_name Query
 
 
-func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> Vector2:
+static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> Vector2:
 	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
 	if abs(v.x) > abs(v.y):
 		if v.x >0:
@@ -15,10 +15,10 @@ func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> Vector2
 		else:
 			return Vector2.UP
 
-func str_length(str: String):
+static func str_length(str: String):
 	return str.length()
 
-func get_mmm(month: int) -> String:
+static func get_mmm(month: int) -> String:
 	match month:
 		1: return "Jan"
 		2: return "Feb"
@@ -34,7 +34,7 @@ func get_mmm(month: int) -> String:
 		12: return "Dec"
 	return "???"
 
-func get_month_name(month: int) -> String:
+static func get_month_name(month: int) -> String:
 	match month:
 		1: return "January"
 		2: return "February"
@@ -50,15 +50,15 @@ func get_month_name(month: int) -> String:
 		12: return "December"
 	return "Unknown"
 
-func get_month(day: int) -> int:
+static func get_month(day: int) -> int:
 	if day>0 and day<=30: return 11
 	if day<=0: return 10
 	else: return 0
 
-func get_date_day(day: int) -> String:
+static func get_date_day(day: int) -> String:
 	return str(wrapi(day, 1, 32))
 
-func get_dir_letter(d: Vector2 = Global.PlayerDir) -> String:
+static func get_dir_letter(d: Vector2 = Global.PlayerDir) -> String:
 	match  get_direction(d):
 		Vector2.RIGHT:
 			return "R"
@@ -70,7 +70,7 @@ func get_dir_letter(d: Vector2 = Global.PlayerDir) -> String:
 			return "D"
 		_: return "C"
 
-func get_dir_from_letter(d: String) -> Vector2:
+static func get_dir_from_letter(d: String) -> Vector2:
 	match d:
 		"R", "Right":
 			return Vector2.RIGHT
@@ -84,16 +84,16 @@ func get_dir_from_letter(d: String) -> Vector2:
 			return Vector2.ZERO
 
 
-func tilemapize(pos: Vector2) -> Vector2:
+static func tilemapize(pos: Vector2) -> Vector2:
 	return Global.Area.local_to_map(pos)
 
-func globalize(coords :Vector2i) -> Vector2:
+static func globalize(coords :Vector2i) -> Vector2:
 	return Global.Area.map_to_local(coords)
 
-func get_state(stat: StringName) -> State:
+static func get_state(stat: StringName) -> State:
 	return await Loader.load_res("res://database/States/" + stat + ".tres")
 
-func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
+static func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
 	if get_direction(d) == Vector2.RIGHT:
 		return "Right"
 	elif get_direction(d) == Vector2.LEFT:
@@ -104,21 +104,21 @@ func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
 		return "Down"
 	else: return "Center"
 
-func in_360(nm) -> int:
+static func in_360(nm) -> int:
 	return wrapi(nm, 0, 359)
 
-func member_exists(Name: StringName) -> bool:
+static func member_exists(Name: StringName) -> bool:
 	for i in Global.Members:
 		if i.codename == Name: return true
 	return false
 
-func find_member(Name: StringName) -> Actor:
+static func find_member(Name: StringName) -> Actor:
 	for i in Global.Members:
 		if i.codename == Name: return i
 	push_warning("No party member with the name "+ Name + " was found")
 	return null
 
-func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):
+static func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):
 	var base: int
 	match ab.Damage:
 		Ability.D.NONE: base = 0
@@ -132,7 +132,7 @@ func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):
 		base = int(base * randf_range(0.8, 1.2))
 	return base
 
-func get_complimentaries() -> Array[Ability]:
+static func get_complimentaries() -> Array[Ability]:
 	var rtn: Array[Ability]
 	for i in Global.Complimentaries:
 		var ability = await get_ability(i)
@@ -141,14 +141,14 @@ func get_complimentaries() -> Array[Ability]:
 		else: push_error("The complimentary Ability ", i, " is invalid")
 	return rtn
 
-func get_ability(ab: String) -> Ability:
+static func get_ability(ab: String) -> Ability:
 	if ResourceLoader.exists("res://database/Abilities/"+ab+".tres"):
 		return await Loader.load_res("res://database/Abilities/"+ab+".tres")
 	if ResourceLoader.exists("res://database/Abilities/Attacks/"+ab+".tres"):
 		return await Loader.load_res("res://database/Abilities/Attacks/"+ab+".tres")
 	return null
 
-func to_tod_text(x: Event.TOD) -> String:
+static func to_tod_text(x: Event.TOD) -> String:
 	match x:
 		Event.TOD.MORNING: return "Morning"
 		Event.TOD.DAYTIME: return "Daytime"
@@ -157,12 +157,12 @@ func to_tod_text(x: Event.TOD) -> String:
 		Event.TOD.NIGHT: return "Night"
 	return "Dark hour"
 
-func to_tod_icon(x: Event.TOD) -> Texture:
+static func to_tod_icon(x: Event.TOD) -> Texture:
 	if ResourceLoader.exists("res://UI/Calendar/" + to_tod_text(x) + ".png"):
 		return await Loader.load_res("res://UI/Calendar/" + to_tod_text(x) + ".png")
 	else: return null
 
-func range_360(n1, n2) -> Array:
+static func range_360(n1, n2) -> Array:
 	if n2 > 359:
 		var range1 = range(n1, 359)
 		var range2 = range(0, n2 - 359)
@@ -175,14 +175,14 @@ func range_360(n1, n2) -> Array:
 		return range2
 	else: return range(n1, n2)
 
-func make_array_unique(arr: Array):
+static func make_array_unique(arr: Array):
 	for i in range(-1, arr.size() - 1):
 		arr[i] = arr[i].duplicate()
 
-func mem(Name: StringName) -> Actor:
+static func mem(Name: StringName) -> Actor:
 	return Query.find_member(Name)
 
-func number_of_party_members() -> int:
+static func number_of_party_members() -> int:
 	var num = 0
 	if check_member(0):
 		num+=1
@@ -194,13 +194,13 @@ func number_of_party_members() -> int:
 		num+=1
 	return num
 
-func check_member(n: Variant) -> bool:
+static func check_member(n: Variant) -> bool:
 	if n is int:
 		return Global.Party.check_member(n)
 	elif n is String: return Global.Party.has_member(n)
 	else: return false
 
-func get_member_name(n:int) -> String:
+static func get_member_name(n:int) -> String:
 	if Global.Party.check_member(0) and n==0:
 		return Global.Party.Leader.codename
 	elif Global.Party.check_member(1) and n==1:
@@ -212,7 +212,7 @@ func get_member_name(n:int) -> String:
 	else:
 		return "Null"
 
-func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
+static func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
@@ -220,7 +220,7 @@ func _quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : 
 	if target.has_method("is_on_wall") and target.is_on_wall(): return
 	else: target.position = r
 
-func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
+static func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, target : Node2D) -> void:
 	var q0 = p0.lerp(p1, ti)
 	var q1 = p1.lerp(p2, ti)
 	var r = q0.lerp(q1, ti)
@@ -228,7 +228,7 @@ func global_quad_bezier(ti : float, p0 : Vector2, p1 : Vector2, p2: Vector2, tar
 	target.global_position = r
 
 #Finds an ability of a certain type
-func find_abilities(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
+static func find_abilities(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
 	#print("Chosing a ", type, " ability")
 	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
@@ -241,20 +241,20 @@ func find_abilities(Char: Actor, type:String, ignore_cost:= false, targets: Abil
 			else: print("Not enough resources")
 	return Choices
 
-func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Ability:
+static func find_ability(Char: Actor, type:String, ignore_cost:= false, targets: Ability.T = Ability.T.ANY) -> Ability:
 	return find_abilities(Char, type, ignore_cost, targets)[0]
 
-func is_everyone_fully_healed() -> bool:
+static func is_everyone_fully_healed() -> bool:
 	for i in Global.Party.array():
 		if !is_instance_valid(i): continue
 		if not i.is_fully_healed(): return false
 	return true
 
-func is_mem_healed(chara: Actor):
+static func is_mem_healed(chara: Actor):
 	if !is_instance_valid(chara): return true
 	return chara.is_fully_healed()
 
-func is_in_party(n:String) -> bool:
+static func is_in_party(n:String) -> bool:
 	if Global.Party.Leader.codename == n:
 		return true
 	elif Global.Party.check_member(1) and Global.Party.Member1.codename == n:
@@ -266,14 +266,14 @@ func is_in_party(n:String) -> bool:
 	else:
 		return false
 
-func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
+static func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
 	var idx = -1
 	for i in occurence:
 		idx = from.find(what, idx+1)
 	if idx == -1: return from
 	return from.substr(0, idx) + forwhat + from.substr(idx + what.length())
 
-func get_affinity(attacker:Color) -> Affinity:
+static func get_affinity(attacker:Color) -> Affinity:
 	var aff = Affinity.new()
 	var pres = round(remap(attacker.s, 0, 1, 10, 75))
 	var hue = round(remap(attacker.h, 0, 1, 0, 359))
@@ -287,7 +287,7 @@ func get_affinity(attacker:Color) -> Affinity:
 	aff.near_range = range_360(hue-max(pres/3, 10), hue+max(pres/3, 10))
 	return aff
 
-func get_power_rating(power: int) -> String:
+static func get_power_rating(power: int) -> String:
 	if power < 6: return "Useless"
 	if power < 12: return "Very weak"
 	if power < 18: return "Weak"
@@ -305,3 +305,31 @@ func get_power_rating(power: int) -> String:
 	if power < 90: return "Overpowered"
 	if power < 96: return "Godly"
 	return "Illegal"
+
+static func get_pronoun(form: String = "they", gender = "they") -> String:
+	match form:
+		"they":
+			match gender:
+				"he": return "he"
+				"she": return "she"
+				"it": return "it"
+				"they": return "they"
+		"them":
+			match gender:
+				"he": return "him"
+				"she": return "her"
+				"it": return "it"
+				"they": return "them"
+		"their":
+			match gender:
+				"he": return "his"
+				"she": return "her"
+				"it": return "its"
+				"they": return "their"
+		"themself":
+			match gender:
+				"he": return "himself"
+				"she": return "herself"
+				"it": return "itself"
+				"they": return "themself"
+	return form

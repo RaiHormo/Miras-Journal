@@ -1,5 +1,6 @@
 extends Node2D
 class_name Battle
+@export var BattleText: Dictionary[String, String]
 @export var Party: PartyData
 @export var Seq: BattleSequence= Loader.Seq
 @export var Troop: Array[Actor]
@@ -11,7 +12,6 @@ signal GetControl
 @onready var t = Tween
 var dub
 var initial: Vector2
-@export var curve:Curve
 signal next_turn
 signal check_party
 signal anim_done
@@ -445,7 +445,7 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 	CurrentTarget = tar
 	if CurrentChar.has_state("Bound") and (CurrentAbility.Damage == Ability.D.WEAPON or CurrentAbility == CurrentChar.StandardAttack):
 		CurrentAbility = Ability.nothing()
-		Global.toast(CurrentChar.FirstName + " is struggling to move!")
+		battle_msg("struggle")
 		await shake_actor(CurrentChar)
 		end_turn()
 		return
@@ -489,6 +489,19 @@ func _on_battle_ui_ability_returned(ab :Ability, tar: Actor):
 		return
 
 ###################################################
+
+func battle_msg(id: String, insert = "MISSING", insert2 = "MISSING2") -> String:
+	var text = BattleText[id]
+	text = text.replace("[cur]", CurrentChar.FirstName)
+	text = text.replace("[tar]", CurrentChar.FirstName)
+	text = text.replace("[insert]", insert)
+	text = text.replace("[insert2]", insert2)
+	text = text.replace("[cur_themself]", CurrentChar.get_pronoun("themself"))
+	text = text.replace("[cur_they]", CurrentChar.get_pronoun("they"))
+	text = text.replace("[cur_them]", CurrentChar.get_pronoun("them"))
+	text = text.replace("[cur_their]", CurrentChar.get_pronoun("their"))
+	await Global.toast(text)
+	return text
 
 func jump_to_target(
 character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5) -> void:
@@ -575,7 +588,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		$Act.call(target.SeqOnClutch, target)
 	if target.has_state("Frozen"):
 		target.remove_state("Frozen")
-		Global.toast("The ice on "+ target.FirstName+ " breaks!")
+		battle_msg("ice_breaks", target.FirstName)
 	print(CurrentChar.FirstName + " deals " +
 	str(dmg) + " damage to " + target.FirstName)
 	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
@@ -715,7 +728,7 @@ func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> 
 	return true
 
 func recover(chara: Actor):
-	Global.toast(chara.FirstName+" recovers!")
+	battle_msg("recovers", chara)
 	anim("Idle", chara)
 	chara.Health = 10
 	chara.Aura = chara.MaxAura
@@ -874,7 +887,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar):
 	if chara.FlipH:
 		chara.node.flip_h = true
 	if not is_instance_valid(chara):
-		Global.toast("Sequence cannot be played properly")
+		battle_msg("seq_error")
 		return
 	if animation == "" or chara.has_state("KnockedOut"):
 		if chara.DontIdle: return
@@ -1344,11 +1357,11 @@ func aura_overwrite(tar: Actor, color: Color, turns: int = 1):
 func confusion_msg():
 	var tar: Actor = CurrentChar.NextTarget
 	if CurrentChar == tar:
-		Global.toast(CurrentChar.FirstName+" hits "+CurrentChar.Pronouns[3]+" in Confusion!")
+		battle_msg("confusion_hit_self")
 	elif tar in get_ally_faction(CurrentChar) and CurrentChar.NextMove.Target == Ability.T.ONE_ENEMY:
-		Global.toast(CurrentChar.FirstName+" hits an ally in confusion!")
+		battle_msg("confusion_hit_ally")
 	elif CurrentChar.Controllable:
-		Global.toast(CurrentChar.FirstName+" misses "+CurrentChar.Pronouns[2]+" target in Confusion!")
+		battle_msg("confusion_miss")
 
 func follow_up_text():
 	if CurrentChar.IsEnemy:

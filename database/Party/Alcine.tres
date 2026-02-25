@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dxr8psmfxx8ve" path="res://database/Text/Profiles/AlcineBox.tres" id="4_roarn"]
 [ext_resource type="Resource" uid="uid://cy60md5f5cblk" path="res://database/Abilities/IcyDrizzle.tres" id="5_fp5sq"]
 [ext_resource type="Resource" uid="uid://glraxorvlv4r" path="res://database/Abilities/SoothingRain.tres" id="6_82uy0"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="10_wpfc1"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="8_h1qhr"]
 
 [sub_resource type="Curve" id="Curve_wpfc1"]
 _limits = [0.0, 500.0, 0.0, 50.0]
@@ -26,7 +26,7 @@ MainColor = Color(0.498039, 0.768627, 0.768627, 1)
 PartyIcon = ExtResource("1_by5ga")
 ActorClass = "Support"
 codename = &"Alcine"
-Pronouns = Array[String](["they", "them", "their", "themself"])
+Pronouns = "they"
 WeaponPower = 14
 SecondaryColor = Color(0.305882, 0.580392, 0.439216, 1)
 BoxProfile = ExtResource("4_roarn")

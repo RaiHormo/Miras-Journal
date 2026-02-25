@@ -7,7 +7,8 @@
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="9_jt23b"]
+[ext_resource type="AudioStream" uid="uid://mkdu2qbuty2g" path="res://sound/SFX/thonk.ogg" id="5_g4s8f"]
+[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="8_s8hit"]
 [ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
 
 [sub_resource type="Resource" id="Resource_v2ahk"]
@@ -32,7 +33,7 @@ MainColor = Color(0.801293, 0.777858, 0.43949, 1)
 PartyIcon = ExtResource("4_ddwib")
 ActorClass = "Tank"
 codename = &"Daze"
-Pronouns = Array[String](["he", "him", "his", "himself"])
+Pronouns = "he"
 WeaponPower = 30
 SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
 BoxProfile = SubResource("Resource_v2ahk")
