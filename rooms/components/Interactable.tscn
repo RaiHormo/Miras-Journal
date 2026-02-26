@@ -77,7 +77,6 @@ material = SubResource("ShaderMaterial_rbnbg")
 collision_layer = 256
 collision_mask = 256
 script = ExtResource("2_g6i65")
-ActionType = "text"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2035817221]

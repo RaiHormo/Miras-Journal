@@ -391,8 +391,8 @@ hide_if = false
 [node name="Interactable" parent="AlcineCamp" unique_id=1591526370 instance=ExtResource("4_d8pup")]
 position = Vector2(0, -2)
 LabelText = "Talk"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "alcine_camp"
 bubble_always = true
 
@@ -412,11 +412,11 @@ hide_if = false
 
 [node name="Interactable" parent="DazeCamp" unique_id=2120091847 instance=ExtResource("4_d8pup")]
 LabelText = "Talk"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "daze_camp"
-Height = 10
 bubble_always = true
+Height = 10
 
 [node name="AsteriaCamp" parent="." unique_id=267053427 instance=ExtResource("5_6fdth")]
 z_index = 0
@@ -435,11 +435,11 @@ hide_if = false
 
 [node name="Interactable" parent="AsteriaCamp" unique_id=2033615367 instance=ExtResource("4_d8pup")]
 LabelText = "Talk"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "asteria_camp"
-Height = 10
 bubble_always = true
+Height = 10
 
 [node name="DazeTent" parent="." unique_id=885850652 instance=ExtResource("5_6fdth")]
 position = Vector2(-103, -388)
@@ -694,8 +694,8 @@ amount = 0.08
 [node name="Interactable" parent="." unique_id=980109826 instance=ExtResource("4_d8pup")]
 position = Vector2(780, -256)
 LabelText = "Rest"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "rest_camp"
 
 [node name="JumpPoint2" parent="." unique_id=61352011 instance=ExtResource("22_5vs6x")]
@@ -737,9 +737,10 @@ texture = SubResource("GradientTexture2D_5vs6x")
 [node name="WLAlcineSwitch1" parent="SwitchCast1" unique_id=244300434 instance=ExtResource("4_d8pup")]
 ActionType = "focus_cam"
 file = "-741"
+dialogue_file = "-741"
 title = "320"
-hide_on_flag = &"WLDoor1b"
 add_flag = true
+hide_on_flag = &"WLDoor1b"
 
 [node name="SwitchCast2" type="AnimatedSprite2D" parent="." unique_id=1499783082]
 texture_filter = 1
@@ -759,9 +760,10 @@ texture = SubResource("GradientTexture2D_5vs6x")
 [node name="WLDoor1a" parent="SwitchCast2" unique_id=191020952 instance=ExtResource("4_d8pup")]
 ActionType = "focus_cam"
 file = "-681"
+dialogue_file = "-681"
 title = "406"
-hide_on_flag = &"WLDoor1a"
 add_flag = true
+hide_on_flag = &"WLDoor1a"
 
 [node name="Transfer" parent="." unique_id=1439515348 instance=ExtResource("3_lemrk")]
 position = Vector2(-510, -87)
@@ -781,6 +783,7 @@ AddFlag = true
 position = Vector2(-275, -1010)
 ActionType = "event"
 file = "WL_bunker_switch"
+dialogue_file = "WL_bunker_switch"
 return_control = false
 hide_on_flag = &"Bunker1Open"
 
@@ -805,8 +808,8 @@ sprite_frames = SubResource("SpriteFrames_ug3t0")
 [node name="Interactable2" parent="DoorLocked4/HideOnFlag" unique_id=1759938912 instance=ExtResource("4_d8pup")]
 position = Vector2(0, 35)
 LabelText = "Force Open"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "bunker_gate_budge"
 hide_on_flag = &"Bunker1Open"
 
@@ -824,9 +827,9 @@ position = Vector2(931, -169)
 [node name="VPTutorial" parent="." unique_id=1760939469 instance=ExtResource("4_d8pup")]
 position = Vector2(931, -169)
 LabelText = "Open"
-ActionType = "text"
 file = "story_1"
+dialogue_file = "story_1"
 title = "vp_tutorial"
-free_on_hide = true
 return_control = false
 hide_on_flag = &"VPOldCamp||!AsteriaBoss=5"
+free_on_hide = true

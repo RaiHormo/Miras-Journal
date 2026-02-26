@@ -3,7 +3,9 @@ extends Area2D
 class_name Interactable
 
 signal action()
+## The label shown on the bubble
 @export var LabelText : String = "Inspect"
+## The mode of the interactable
 @export_enum(
 	"text", 
 	"toggle", 
@@ -15,7 +17,7 @@ signal action()
 	"focus_cam", 
 	"social_link", 
 	"chair",
-) var ActionType: String:
+) var ActionType: String = "text":
 	set(x):
 		ActionType = x
 		setup_action_options()
@@ -27,8 +29,12 @@ var Length: int = 120:
 @export var file: String = ""
 @export_enum("testbush") var dialogue_file: String
 @export var title: String = ""
-@export var item: String = ""
-@export var itemtype: String = ""
+@export_enum("Con", "Mat", "Bti", "Key") var itemtype := "Con":
+	set(x):
+		itemtype = x
+		item = ""
+		notify_property_list_changed()
+@export_enum("Failed to Load") var item := ""
 @export var to_time: Event.TOD
 @export var to_time_relative: int
 @export var event_condition:= ""
@@ -72,6 +78,7 @@ var t:Tween
 var animating:= false
 
 func setup_action_options():
+	if dialogue_file.is_empty(): dialogue_file = file
 	match ActionType:
 		"text": 
 			used_properties = ["title", "return_control", "event_condition", "dialogue_file"]
@@ -95,7 +102,9 @@ func setup_action_options():
 			used_properties = ["chair_faces"]
 			return_control = true
 
+## For editor listings
 func _validate_property(property: Dictionary) -> void:
+	if not Engine.is_editor_hint(): return
 	if property.name in action_options:
 		if property.name in used_properties:
 			property.usage |= PROPERTY_USAGE_EDITOR
@@ -109,9 +118,27 @@ func _validate_property(property: Dictionary) -> void:
 					if not i.ends_with(".import"):
 						files_filtered.append(i.replace(".dialogue", ""))
 				property.hint_string = ",".join(files_filtered)
+	
+	if property.name == "item":
+		var type: String
+		match itemtype:
+			"Con": type = "Consumables"
+			"Bti": type = "BattleItems"
+			"Mat": type = "Materials"
+			"Key": type = "KeyItems"
+		var files = DirAccess.get_files_at("res://database/Items/"+type)
+		var items: Array[String]
+		for i in files:
+			items.append(i.replace(".tres", ""))
+		property.hint_string = ",".join(items)
+		if get(property.name) != "" and get(property.name) not in items:
+			itemtype = ["Con", "Mat", "Bti", "Key"].pick_random()
+			notify_property_list_changed()
 
 func _ready() -> void:
-	if Engine.is_editor_hint(): return
+	if Engine.is_editor_hint(): 
+		setup_action_options()
+		return
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
 	check()

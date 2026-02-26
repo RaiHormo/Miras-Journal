@@ -115,18 +115,19 @@ texture_filter = 1
 position = Vector2(0.6875, 12.9102)
 sprite_frames = SubResource("SpriteFrames_t6ikl")
 autoplay = "default"
-frame_progress = 0.770717
 offset = Vector2(0.5, 0.5)
 
 [node name="Interactable" parent="." unique_id=1703852966 instance=ExtResource("3_uqxwf")]
 position = Vector2(0.6875, 12.9102)
 LabelText = "Search"
 ActionType = "item"
-hidesprite = true
-hide_parent = true
+itemtype = "Mat"
 add_flag = true
+hide_on_flag = &"ItemDefault1"
 offset = 10
 needs_bag = true
+hidesprite = true
+hide_parent = true
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=1942093357]
 light_mask = 0

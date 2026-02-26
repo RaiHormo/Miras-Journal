@@ -1,10 +1,32 @@
+@tool
 extends Node2D
 
-@export var item_type := &"Con"
-@export var item_name := ""
+@export_enum("Con", "Mat", "Bti", "Key") var item_type := "Con":
+	set(x):
+		item_type = x
+		item_name = ""
+		notify_property_list_changed()
+@export_enum("Failed to Load") var item_name := ""
 
 func _ready() -> void:
 	$Sprite.frame = randi_range(0, 13)
 	$Interactable.item = item_name
 	$Interactable.itemtype = item_type
 	$Interactable.hide_on_flag = name
+
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "item_name" and Engine.is_editor_hint():
+		var type: String
+		match item_type:
+			"Con": type = "Consumables"
+			"Bti": type = "BattleItems"
+			"Mat": type = "Materials"
+			"Key": type = "KeyItems"
+		var files = DirAccess.get_files_at("res://database/Items/"+type)
+		var items: Array[String]
+		for i in files:
+			items.append(i.replace(".tres", ""))
+		property.hint_string = ",".join(items)
+		if get(property.name) != "" and get(property.name) not in items:
+			item_type = ["Con", "Mat", "Bti", "Key"].pick_random()
+			notify_property_list_changed()

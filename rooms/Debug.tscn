@@ -880,10 +880,11 @@ collision_mask = 257
 LabelText = "Pick up"
 ActionType = "item"
 file = "testbush"
+dialogue_file = "testbush"
 item = "LightweightAxe"
+itemtype = "Key"
 hidesprite = true
 hide_parent = true
-itemtype = "Key"
 
 [node name="EvDummy" type="Sprite2D" parent="." unique_id=1187520318]
 z_index = 1
@@ -904,11 +905,11 @@ shape = SubResource("RectangleShape2D_72f6p")
 [node name="Fight" parent="EvDummy" unique_id=1996157492 instance=ExtResource("6_pmuyc")]
 position = Vector2(-1.833, 0.901522)
 LabelText = "Fight"
-ActionType = "text"
 file = "testbush"
+dialogue_file = "testbush"
 title = "battle_test"
-Height = 16
 return_control = false
+Height = 16
 
 [node name="EvHarold" type="Sprite2D" parent="." unique_id=943113080]
 z_index = 1
@@ -929,11 +930,11 @@ shape = SubResource("RectangleShape2D_72f6p")
 [node name="NewGame" parent="EvHarold" unique_id=789011594 instance=ExtResource("6_pmuyc")]
 position = Vector2(0, 8)
 LabelText = "Chapter select"
-ActionType = "text"
 file = "testbush"
+dialogue_file = "testbush"
 title = "chapter_select"
-Height = 16
 return_control = false
+Height = 16
 
 [node name="EvKick" parent="." unique_id=1509469914 instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)
@@ -944,8 +945,8 @@ KickDirection = Vector2(1, 0)
 
 [node name="InteractBush" parent="." unique_id=1801924940 instance=ExtResource("6_pmuyc")]
 position = Vector2(60.2736, 36.5526)
-ActionType = "text"
 file = "testbush"
+dialogue_file = "testbush"
 title = "bush"
 Height = 4
 
@@ -954,17 +955,18 @@ position = Vector2(276, 63)
 LabelText = "Sleep"
 ActionType = "pass_time"
 file = "sleep_home"
+dialogue_file = "sleep_home"
 title = "Sleep"
 item = "Sleep until next the morning. Fully recovers the party's health."
 to_time = 1
-Height = 6
 hide_on_flag = &"time:1"
+Height = 6
 
 [node name="InteractFastTravel" parent="." unique_id=142965281 instance=ExtResource("6_pmuyc")]
 position = Vector2(11.5979, -54.0878)
 LabelText = "Fast Travel"
-ActionType = "text"
 file = "testbush"
+dialogue_file = "testbush"
 title = "travel"
 Height = 16
 
@@ -1083,12 +1085,13 @@ position = Vector2(1.14441e-05, 8)
 LabelText = "Talk"
 ActionType = "pass_time"
 file = "waste_time"
+dialogue_file = "waste_time"
 title = "Waste a bit of time"
 item = "Do nothing for a few hours."
 to_time = -1
 to_time_relative = 1
-Height = 16
 bubble_always = true
+Height = 16
 
 [node name="Transfer" parent="." unique_id=1724436530 instance=ExtResource("25_osbeo")]
 position = Vector2(-270, 58)

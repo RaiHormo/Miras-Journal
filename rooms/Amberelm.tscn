@@ -413,8 +413,8 @@ metadata/_custom_type_script = "uid://blx6fs34ughqo"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piqdh"]
 size = Vector2(78, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4d8k"]
-size = Vector2(65, 35)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfhl"]
+size = Vector2(70, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s71jc"]
 size = Vector2(150, 39.5)
@@ -622,6 +622,7 @@ position = Vector2(227, 673)
 collision_layer = 7
 collision_mask = 7
 default_anim = "IdleWind"
+item_type = "Mat"
 given_item = "GreenFragment"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0" unique_id=466049933]
@@ -630,45 +631,43 @@ y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xmikp")
 animation = &"IdleWind"
+frame_progress = 0.39495888
 
 [node name="CrateAmb1" parent="." unique_id=1103748164 instance=ExtResource("15_frp5k")]
 z_index = 7
 position = Vector2(284, 75)
 collision_layer = 15
 given_item = "SmallPotion"
-item_type = &"Con"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CrateAmb1" unique_id=516118455]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6v2gr")
-frame_progress = 0.357551
+frame_progress = 0.015837016
 
 [node name="CrateAmb2" parent="." unique_id=902865483 instance=ExtResource("15_frp5k")]
 z_index = 4
 position = Vector2(994, 359)
 collision_layer = 15
 given_item = "SmallPotion"
-item_type = &"Con"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CrateAmb2" unique_id=1819375948]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6v2gr")
-frame_progress = 0.357551
+frame_progress = 0.015837016
 
 [node name="CrateAmb3" parent="." unique_id=241163125 instance=ExtResource("15_frp5k")]
 z_index = 4
 position = Vector2(947, 336)
 collision_layer = 15
 given_item = "SmallPotion"
-item_type = &"Con"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CrateAmb3" unique_id=1361277206]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6v2gr")
-frame_progress = 0.357551
+frame_progress = 0.015837016
 
 [node name="EffectShadow1" type="PointLight2D" parent="." unique_id=370494079]
 position = Vector2(8, 324)
@@ -1009,9 +1008,11 @@ position = Vector2(106, 344)
 LabelText = "Rest"
 ActionType = "event"
 file = "rest_amberelm"
+dialogue_file = "rest_amberelm"
+itemtype = ""
 to_time = 2
-Height = 5
 hide_on_flag = &"EvRestAmberelm"
+Height = 5
 
 [node name="CollisionShape2D" parent="EvRestTree" index="0" unique_id=2035817221]
 position = Vector2(-1, 13)
@@ -1052,31 +1053,31 @@ ReturnControl = false
 
 [node name="InteractBackround" parent="." unique_id=373005192 instance=ExtResource("5_3ycob")]
 position = Vector2(69, 206)
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "the_sky"
+itemtype = ""
 Height = 5
 
-[node name="CollisionShape2D" parent="InteractBackround" index="0" unique_id=2035817221]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_l4d8k")
-
-[node name="Pack" parent="InteractBackround" index="1" unique_id=1040141046]
-visible = true
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InteractBackround" unique_id=1702740099]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ylfhl")
 
 [node name="InteractBackround2" parent="." unique_id=1240743148 instance=ExtResource("5_3ycob")]
 position = Vector2(376, 344)
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "broken_bridge"
+itemtype = ""
 Height = 5
 
 [node name="InteractSign" parent="." unique_id=810826483 instance=ExtResource("5_3ycob")]
 position = Vector2(347, 391)
 LabelText = "Read"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "amberelm_sign"
+itemtype = ""
 Height = 5
 
 [node name="CollisionShape2D" parent="InteractSign" index="0" unique_id=2035817221]
@@ -1085,21 +1086,22 @@ position = Vector2(-1, 8)
 [node name="ItemRustySword1" parent="." unique_id=431728369 instance=ExtResource("14_15y50")]
 z_index = 6
 position = Vector2(224, 250)
-item_type = &"Bti"
+item_type = "Bti"
 item_name = "RustySword"
 
 [node name="ItemSharpRock2" parent="." unique_id=640826869 instance=ExtResource("14_15y50")]
 z_index = 6
 z_as_relative = false
 position = Vector2(-48, 329)
-item_type = &"Bti"
+item_type = "Bti"
 item_name = "SharpRock"
 
 [node name="InteractJumpGap" parent="." unique_id=235540380 instance=ExtResource("5_3ycob")]
 position = Vector2(16, 100)
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "day10_gap"
+itemtype = ""
 Height = 5
 
 [node name="JumpPoint1" type="Area2D" parent="." unique_id=1529145191]
@@ -1146,6 +1148,12 @@ shape = SubResource("RectangleShape2D_4a3if")
 [node name="End1" parent="Ladder1" index="0" unique_id=1730241983]
 position = Vector2(-15, -11)
 
+[node name="TopInteractable" parent="Ladder1" index="1" unique_id=281369955]
+itemtype = ""
+
+[node name="BottomInteractable" parent="Ladder1" index="4" unique_id=363924431]
+itemtype = ""
+
 [node name="Ladder2" parent="." unique_id=1153047757 instance=ExtResource("25_vddgi")]
 position = Vector2(828, 352)
 enable_stairs = true
@@ -1159,6 +1167,7 @@ position = Vector2(-19, -31)
 
 [node name="TopInteractable" parent="Ladder2" index="1" unique_id=281369955]
 position = Vector2(0, -29)
+itemtype = ""
 
 [node name="Start1" parent="Ladder2" index="2" unique_id=881222092]
 position = Vector2(0, 0)
@@ -1168,6 +1177,7 @@ position = Vector2(0, 91)
 
 [node name="BottomInteractable" parent="Ladder2" index="4" unique_id=363924431]
 position = Vector2(-1, 91)
+itemtype = ""
 
 [node name="Ladder3" parent="." unique_id=929178601 instance=ExtResource("25_vddgi")]
 position = Vector2(1524, 326)
@@ -1182,6 +1192,7 @@ position = Vector2(-19, -31)
 
 [node name="TopInteractable" parent="Ladder3" index="1" unique_id=281369955]
 position = Vector2(0, -29)
+itemtype = ""
 
 [node name="Start1" parent="Ladder3" index="2" unique_id=881222092]
 position = Vector2(0, 0)
@@ -1191,6 +1202,7 @@ position = Vector2(0, 117)
 
 [node name="BottomInteractable" parent="Ladder3" index="4" unique_id=363924431]
 position = Vector2(0, 126)
+itemtype = ""
 
 [node name="End2" parent="Ladder3" index="5" unique_id=1844712371]
 position = Vector2(0, 150)
@@ -1198,11 +1210,15 @@ position = Vector2(0, 150)
 [node name="Ladder4" parent="." unique_id=47126867 instance=ExtResource("25_vddgi")]
 position = Vector2(2388, -129)
 
+[node name="TopInteractable" parent="Ladder4" index="1" unique_id=281369955]
+itemtype = ""
+
 [node name="Start2" parent="Ladder4" index="3" unique_id=970116861]
 position = Vector2(0, 49)
 
 [node name="BottomInteractable" parent="Ladder4" index="4" unique_id=363924431]
 position = Vector2(9, 49)
+itemtype = ""
 
 [node name="End2" parent="Ladder4" index="5" unique_id=1844712371]
 position = Vector2(0, 67)
@@ -1258,9 +1274,10 @@ room = "WitheredLeaves"
 [node name="EvBench" parent="." unique_id=557881661 instance=ExtResource("5_3ycob")]
 position = Vector2(2232, -156)
 LabelText = "Rest"
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "amberelm_bench"
+itemtype = ""
 
 [node name="EvDestroyedGuardian" type="StaticBody2D" parent="." unique_id=511751132]
 z_index = 4
@@ -1285,9 +1302,10 @@ free_instead = true
 
 [node name="EvDestroyedGuardian" parent="EvDestroyedGuardian" unique_id=772884644 instance=ExtResource("5_3ycob")]
 position = Vector2(-10, 5)
-ActionType = "text"
 file = "story_1"
+dialogue_file = "story_1"
 title = "destroyed_guardian"
+itemtype = ""
 add_flag = true
 
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
@@ -1302,7 +1320,6 @@ add_flag = true
 [connection signal="body_entered" from="JumpPoint4" to="JumpPoint4" method="_on_entered"]
 
 [editable path="EvRestTree"]
-[editable path="InteractBackround"]
 [editable path="InteractSign"]
 [editable path="Ladder1"]
 [editable path="Ladder2"]

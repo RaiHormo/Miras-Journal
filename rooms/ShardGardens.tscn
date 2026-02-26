@@ -1868,9 +1868,13 @@ position = Vector2(0, 27)
 
 [node name="TopInteractable" parent="Ladder2" index="1" unique_id=281369955]
 position = Vector2(0, 56)
+itemtype = ""
 
 [node name="Start1" parent="Ladder2" index="2" unique_id=881222092]
 position = Vector2(0, 56)
+
+[node name="BottomInteractable" parent="Ladder2" index="4" unique_id=363924431]
+itemtype = ""
 
 [node name="Ladder3" parent="." unique_id=865544797 instance=ExtResource("8_hjqnr")]
 position = Vector2(-370, -405)
@@ -1880,12 +1884,16 @@ position = Vector2(-3, 21)
 
 [node name="TopInteractable" parent="Ladder3" index="1" unique_id=281369955]
 position = Vector2(-3, 44)
+itemtype = ""
 
 [node name="Start1" parent="Ladder3" index="2" unique_id=881222092]
 position = Vector2(-3, 53)
 
 [node name="Start2" parent="Ladder3" index="3" unique_id=970116861]
 position = Vector2(-2, 85)
+
+[node name="BottomInteractable" parent="Ladder3" index="4" unique_id=363924431]
+itemtype = ""
 
 [node name="End2" parent="Ladder3" index="5" unique_id=1844712371]
 position = Vector2(-2, 115)
@@ -2167,9 +2175,11 @@ texture = SubResource("GradientTexture2D_tdwg2")
 [node name="LockedDoor1Switch" parent="SwitchCast1" unique_id=751756239 instance=ExtResource("20_pu5uh")]
 ActionType = "focus_cam"
 file = "-335"
+dialogue_file = "-335"
 title = "590"
-hide_on_flag = &"SGDoor1"
+itemtype = ""
 add_flag = true
+hide_on_flag = &"SGDoor1"
 
 [node name="SwitchCastLines2" type="Sprite2D" parent="." unique_id=477013644]
 texture_filter = 1
@@ -2179,9 +2189,10 @@ offset = Vector2(6, 0)
 
 [node name="Interactable" parent="SwitchCastLines2" unique_id=1533374989 instance=ExtResource("20_pu5uh")]
 position = Vector2(2, 27)
-ActionType = "text"
 file = "story_2"
+dialogue_file = "story_2"
 title = "blocked_cast_lines"
+itemtype = ""
 Height = 24
 
 [node name="StaticBody2D" type="StaticBody2D" parent="SwitchCastLines2" unique_id=1886172275]
@@ -2195,6 +2206,8 @@ position = Vector2(983, -975)
 scale = Vector2(1.01136, 0.996569)
 ActionType = "event"
 file = "sg_bunker_entrance"
+dialogue_file = "sg_bunker_entrance"
+itemtype = ""
 return_control = false
 
 [node name="Transfer2" parent="." unique_id=1525700929 instance=ExtResource("30_ekhkx")]

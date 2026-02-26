@@ -741,6 +741,7 @@ tile_set = ExtResource("1_hnsnu")
 [node name="BreakablePurpleOre0" parent="." unique_id=47316099 instance=ExtResource("31_svxf2")]
 position = Vector2(1141.01, 21.7394)
 default_anim = "IdleCorruption"
+item_type = "Mat"
 given_item = "PurpleFragment"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre0" unique_id=1069926924]
@@ -754,6 +755,7 @@ animation = &"IdleCorruption"
 [node name="BreakablePurpleOre1" parent="." unique_id=1586827886 instance=ExtResource("31_svxf2")]
 position = Vector2(1546.89, -469.353)
 default_anim = "IdleCorruption"
+item_type = "Mat"
 given_item = "PurpleFragment"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre1" unique_id=1355919699]
@@ -767,7 +769,8 @@ animation = &"IdleCorruption"
 [node name="BreakablePurpleOre2" parent="." unique_id=1280618619 instance=ExtResource("31_svxf2")]
 position = Vector2(589.123, 537.865)
 default_anim = "IdlePhysical"
-given_item = "RedFragment"
+item_type = "Mat"
+given_item = "PurpleFragment"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre2" unique_id=1521724338]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
@@ -1123,13 +1126,14 @@ collision_mask = 257
 LabelText = "Pick up"
 ActionType = "event"
 file = "axe_seq"
+dialogue_file = "axe_seq"
+itemtype = "Key"
+add_flag = true
+hide_on_flag = &"PickedUpAxe"
+needs_bag = true
 hidesprite = true
 hide_parent = true
 free_on_hide = true
-itemtype = "Key"
-hide_on_flag = &"PickedUpAxe"
-add_flag = true
-needs_bag = true
 
 [node name="EvAxe2" type="Sprite2D" parent="." unique_id=1289465666]
 use_parent_material = true
@@ -1150,14 +1154,15 @@ collision_mask = 257
 LabelText = "Pick up"
 ActionType = "event"
 file = "bag_seq"
+dialogue_file = "bag_seq"
+return_control = false
+add_flag = true
+hide_on_flag = &"HasBag"
+proper_pos = Vector2(100, 406)
+proper_face = Vector2(1, 0)
 hidesprite = true
 hide_parent = true
 free_on_hide = true
-return_control = false
-hide_on_flag = &"HasBag"
-add_flag = true
-proper_pos = Vector2(100, 406)
-proper_face = Vector2(1, 0)
 
 [node name="EvFlameActive" type="Area2D" parent="." unique_id=869247540]
 position = Vector2(1538.99, -56.3515)
@@ -1217,8 +1222,8 @@ debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
 position = Vector2(1233.99, -52.2818)
 collision_layer = 257
 collision_mask = 257
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "skeleton"
 
 [node name="CollisionShape2D" parent="InteractSkeleton" index="0" unique_id=2035817221]
@@ -1229,8 +1234,8 @@ shape = SubResource("CircleShape2D_wjino")
 position = Vector2(1427.88, -532.326)
 collision_layer = 257
 collision_mask = 257
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "statue_legs"
 Height = 15
 
@@ -1238,8 +1243,8 @@ Height = 15
 position = Vector2(1439.9, -439.329)
 collision_layer = 257
 collision_mask = 257
-ActionType = "text"
 file = "interact_abad"
+dialogue_file = "interact_abad"
 title = "symbol"
 proper_pos = Vector2(1410, -444)
 proper_face = Vector2(1, 0)
@@ -1254,7 +1259,7 @@ item_name = "LifeLave"
 
 [node name="ItemSharpRock1" parent="." unique_id=159193781 instance=ExtResource("26_k6j3t")]
 position = Vector2(1234, 268)
-item_type = &"Bti"
+item_type = "Bti"
 item_name = "SharpRock"
 
 [node name="ItemStrangeFruit1" parent="." unique_id=1130146568 instance=ExtResource("26_k6j3t")]
