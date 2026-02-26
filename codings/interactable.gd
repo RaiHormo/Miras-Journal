@@ -1,41 +1,117 @@
+@tool
 extends Area2D
 class_name Interactable
 
 signal action()
 @export var LabelText : String = "Inspect"
-@export_enum("text", "toggle", "item", "battle", "event", "global", "pass_time", "veinet", "focus_cam", "social_link") var ActionType: String
+@export_enum(
+	"text", 
+	"toggle", 
+	"item", 
+	"battle", 
+	"event",
+	"pass_time", 
+	"veinet", 
+	"focus_cam", 
+	"social_link", 
+	"chair",
+) var ActionType: String:
+	set(x):
+		ActionType = x
+		setup_action_options()
+		notify_property_list_changed()
 var Length: int = 120:
 	get():
 		return (LabelText.length() * 10) + 50
+@export_category("Action Options")
 @export var file: String = ""
+@export_enum("testbush") var dialogue_file: String
 @export var title: String = ""
 @export var item: String = ""
-@export var hidesprite: bool = false
-@export var hide_parent: bool = false
-@export var free_on_hide: bool = false
 @export var itemtype: String = ""
 @export var to_time: Event.TOD
 @export var to_time_relative: int
-@export var Collision: CollisionShape2D = null
-@export var Height: int = 0
-@export var bubble_always: bool
-@onready var button:Button
-@onready var arrow:TextureRect
-@onready var pack := $Pack
-@export var return_control:= true
 @export var event_condition:= ""
+@export var chair_faces: Array[String] = ["U", "D", "L", "R"]
+@export var return_control:= true
+@export_category("Flag")
+@export var add_flag: bool = false
 @export var show_on_flag: StringName
 @export var hide_on_flag: StringName
-@export var add_flag: bool = false
+@export_category("Bubble Options")
+@export var bubble_always: bool
+@export var Height: int = 0
 @export var offset := 5
 @export var proper_pos:= Vector2.ZERO
 @export var proper_face:= Vector2.ZERO
 @export var needs_bag:= false
+@export_group("Hiding")
+@export var hidesprite: bool = false
+@export var hide_parent: bool = false
+@export var free_on_hide: bool = false
+@export var collision: CollisionShape2D = null
+var used_properties: Array[String]
+var action_options: Array[String] = [
+		"file", 
+		"title", 
+		"item", 
+		"itemtype", 
+		"to_time", 
+		"to_time_relative", 
+		"return_control", 
+		"event_condition", 
+		"chair_faces",
+		"dialogue_file",
+	]
+
+@onready var button:Button
+@onready var arrow:TextureRect
+@onready var pack := $Pack
 var CanInteract := false
 var t:Tween
 var animating:= false
 
+func setup_action_options():
+	match ActionType:
+		"text": 
+			used_properties = ["title", "return_control", "event_condition", "dialogue_file"]
+		"toggle": 
+			used_properties = []
+			return_control = true
+		"battle": 
+			used_properties = ["file", "return_control"]
+		"event": used_properties = ["event_condition", "title", "return_control"]
+		"pass_time": used_properties = ["event_condition", "to_time", "return_control", "to_time_relative"]
+		"item": 
+			used_properties = ["item", "itemtype"]
+			return_control = true
+		"veinet": used_properties = []
+		"social_link":
+			used_properties = ["dialogue_file", "return_control", "event_condition"]
+		"focus_cam": 
+			used_properties = []
+			return_control = true
+		"chair": 
+			used_properties = ["chair_faces"]
+			return_control = true
+
+func _validate_property(property: Dictionary) -> void:
+	if property.name in action_options:
+		if property.name in used_properties:
+			property.usage |= PROPERTY_USAGE_EDITOR
+		else: property.usage = PROPERTY_USAGE_STORAGE
+	match ActionType:
+		"text", "social_link":
+			if property.name == "dialogue_file":
+				var files = DirAccess.get_files_at("res://database/Text/")
+				var files_filtered: Array[String]
+				for i in files:
+					if not i.ends_with(".import"):
+						files_filtered.append(i.replace(".dialogue", ""))
+				property.hint_string = ",".join(files_filtered)
+
 func _ready() -> void:
+	if Engine.is_editor_hint(): return
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
 	check()
@@ -56,6 +132,7 @@ func vain_check():
 		get_parent().get_node("Sprite").hide()
 
 func check() -> void:
+	if Engine.is_editor_hint(): return
 	if bubble_always:
 		if not Global.Controllable: disappear(true)
 		else: bubble()
@@ -146,7 +223,12 @@ func bubble():
 	await get_tree().create_timer(0.2).timeout
 
 func _input(event: InputEvent) -> void:
-	if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not get_tree().root.has_node("Textbox"):
+	if (
+		is_instance_valid(Global.Player) 
+		and Global.Controllable
+		and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() 
+		and not get_tree().root.has_node("Textbox")
+	):
 		if Input.is_action_just_pressed("ui_accept") and CanInteract:
 			_on_button_pressed()
 
@@ -189,10 +271,7 @@ func do_position():
 func _on_button_pressed() -> void:
 	Global.Controllable = false
 	Global.Player.direction = Vector2.ZERO
-	t = create_tween()
-	t.set_parallel(true)
-	t.set_ease(Tween.EASE_IN)
-	t.set_trans(Tween.TRANS_LINEAR)
+	t = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
 	await t.finished
 	if needs_bag and not Event.f("HasBag"): 
@@ -200,9 +279,9 @@ func _on_button_pressed() -> void:
 		Event.give_control()
 		return
 	if proper_pos != Vector2.ZERO:
-		await Event.take_control()
-		Global.Player.collision(false)
-		await Global.Player.go_to(proper_pos, false, true, proper_face)
+			await Event.take_control()
+			Global.Player.collision(false)
+			await Global.Player.go_to(proper_pos, false, true, proper_face)
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
 	if not (to_time == 0 and to_time_relative == 0):
@@ -213,7 +292,8 @@ func _on_button_pressed() -> void:
 		"text":
 			await Event.take_control(false, false, true)
 			disappear(true)
-			await Global.textbox(file, title)
+			if dialogue_file.is_empty(): dialogue_file = file
+			await Global.textbox(dialogue_file, title)
 		"item":
 			Item.add_item(item, itemtype)
 		"battle":
@@ -253,7 +333,17 @@ func _on_button_pressed() -> void:
 			if rank == 0:
 				Global.toast("Something went wrong with the event condition")
 			disappear(true)
-			await Global.textbox(file, "rank"+str(rank)+"_prepare")
+			await Global.textbox(dialogue_file, "rank"+str(rank)+"_prepare")
+		"chair":
+			await Event.take_control()
+			if not chair_faces.is_empty() and not Query.get_dir_letter() in chair_faces:
+				await Global.Player.look_to(chair_faces[0])
+			var pos = Global.Player.position
+			Global.Player.BodyState = NPC.NONE
+			await Global.jump_to_global(Global.Player, position)
+			while not Input.is_action_just_pressed(Global.confirm()):
+				await Event.wait()
+				await Global.jump_to_global(Global.Player, pos)
 	if add_flag: 
 		if hide_on_flag != "":
 			Event.f(hide_on_flag, true)
@@ -261,7 +351,7 @@ func _on_button_pressed() -> void:
 	if return_control:
 		Event.give_control(false)
 	if hidesprite:
-		if Collision: Collision.set_deferred("disabled", true)
+		if is_instance_valid(collision): collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
 		else: queue_free()
 	action.emit()

@@ -1025,11 +1025,11 @@ animation = &"IdleCorruption"
 position = Vector2(-468, -236)
 decrease_z = false
 
-[node name="CollisionShape2D" parent="BreakableSG2" index="0"]
+[node name="CollisionShape2D" parent="BreakableSG2" index="0" unique_id=1962511091]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_70av8")
 
-[node name="AreaBreak" parent="BreakableSG2" index="1"]
+[node name="AreaBreak" parent="BreakableSG2" index="1" unique_id=720273437]
 position = Vector2(0, 5)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableSG2" unique_id=1365100790]
@@ -1045,7 +1045,7 @@ autoplay = "default"
 position = Vector2(-183, -171)
 decrease_z = false
 
-[node name="CollisionShape2D" parent="BreakableSG3" index="0"]
+[node name="CollisionShape2D" parent="BreakableSG3" index="0" unique_id=1962511091]
 shape = SubResource("RectangleShape2D_7o8rc")
 debug_color = Color(0.75, 0.4365, 0.42, 0.0823529)
 
@@ -1821,7 +1821,7 @@ jump_dirs = Array[Vector2]([Vector2(1, 0)])
 jump_am_v = 1
 height = 0.8
 
-[node name="CollisionShape2D" parent="JumpPoint6" index="0"]
+[node name="CollisionShape2D" parent="JumpPoint6" index="0" unique_id=1228440326]
 position = Vector2(-1, -11.25)
 shape = SubResource("RectangleShape2D_k4fo8")
 
@@ -1863,31 +1863,31 @@ metadata/_edit_group_ = true
 position = Vector2(-228, 505)
 metadata/_edit_group_ = true
 
-[node name="End1" parent="Ladder2" index="0"]
+[node name="End1" parent="Ladder2" index="0" unique_id=1730241983]
 position = Vector2(0, 27)
 
-[node name="TopInteractable" parent="Ladder2" index="1"]
+[node name="TopInteractable" parent="Ladder2" index="1" unique_id=281369955]
 position = Vector2(0, 56)
 
-[node name="Start1" parent="Ladder2" index="2"]
+[node name="Start1" parent="Ladder2" index="2" unique_id=881222092]
 position = Vector2(0, 56)
 
 [node name="Ladder3" parent="." unique_id=865544797 instance=ExtResource("8_hjqnr")]
 position = Vector2(-370, -405)
 
-[node name="End1" parent="Ladder3" index="0"]
+[node name="End1" parent="Ladder3" index="0" unique_id=1730241983]
 position = Vector2(-3, 21)
 
-[node name="TopInteractable" parent="Ladder3" index="1"]
+[node name="TopInteractable" parent="Ladder3" index="1" unique_id=281369955]
 position = Vector2(-3, 44)
 
-[node name="Start1" parent="Ladder3" index="2"]
+[node name="Start1" parent="Ladder3" index="2" unique_id=881222092]
 position = Vector2(-3, 53)
 
-[node name="Start2" parent="Ladder3" index="3"]
+[node name="Start2" parent="Ladder3" index="3" unique_id=970116861]
 position = Vector2(-2, 85)
 
-[node name="End2" parent="Ladder3" index="5"]
+[node name="End2" parent="Ladder3" index="5" unique_id=1844712371]
 position = Vector2(-2, 115)
 
 [node name="RegionEnemy" type="NavigationRegion2D" parent="." unique_id=74833953]
@@ -1905,7 +1905,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard1" index="0"]
+[node name="CollisionShape2D" parent="Shard1" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard1" unique_id=322957644]
@@ -1923,7 +1923,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard10" index="0"]
+[node name="CollisionShape2D" parent="Shard10" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard10" unique_id=1998432349]
@@ -1941,7 +1941,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard11" index="0"]
+[node name="CollisionShape2D" parent="Shard11" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard11" unique_id=1017952183]
@@ -1959,7 +1959,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard12" index="0"]
+[node name="CollisionShape2D" parent="Shard12" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard12" unique_id=1079834420]
@@ -1977,7 +1977,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard13" index="0"]
+[node name="CollisionShape2D" parent="Shard13" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard13" unique_id=1081419047]
@@ -1995,7 +1995,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard14" index="0"]
+[node name="CollisionShape2D" parent="Shard14" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard14" unique_id=1585986215]
@@ -2013,7 +2013,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard2" index="0"]
+[node name="CollisionShape2D" parent="Shard2" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard2" unique_id=2004623470]
@@ -2031,7 +2031,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard3" index="0"]
+[node name="CollisionShape2D" parent="Shard3" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard3" unique_id=836629858]
@@ -2049,7 +2049,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard4" index="0"]
+[node name="CollisionShape2D" parent="Shard4" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard4" unique_id=469530112]
@@ -2067,7 +2067,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard5" index="0"]
+[node name="CollisionShape2D" parent="Shard5" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard5" unique_id=453130158]
@@ -2085,7 +2085,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard6" index="0"]
+[node name="CollisionShape2D" parent="Shard6" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard6" unique_id=1011881628]
@@ -2103,7 +2103,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard7" index="0"]
+[node name="CollisionShape2D" parent="Shard7" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard7" unique_id=903898466]
@@ -2121,7 +2121,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard8" index="0"]
+[node name="CollisionShape2D" parent="Shard8" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard8" unique_id=170276186]
@@ -2139,7 +2139,7 @@ EventName = "hurt_1"
 TakeControl = false
 ReturnControl = false
 
-[node name="CollisionShape2D" parent="Shard9" index="0"]
+[node name="CollisionShape2D" parent="Shard9" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shard9" unique_id=1479115008]
