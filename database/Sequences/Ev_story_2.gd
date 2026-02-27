@@ -9,6 +9,7 @@ func nov3_morning():
 	Event.npc("RoomMira").set_anim("Sleep")
 	await Event.wait(2)
 	await Global.textbox(name, "nov3_morning", false)
+	Global.Party.set_to(["Mira", "Acine"])
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.Facing = Vector2.RIGHT
 

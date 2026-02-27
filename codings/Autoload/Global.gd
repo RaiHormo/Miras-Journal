@@ -433,7 +433,7 @@ func reset_all_members() -> void:
 	init_party(Party)
 	for i in range(-1, Members.size() - 1):
 		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
-	Party.set_to(Party)
+	Party.set_to_party(Party)
 
 ##Alias for find_member()
 
@@ -449,7 +449,7 @@ func init_party(party:PartyData) -> void:
 		if file is Actor:
 			Members.append(file.duplicate())
 	Party = PartyData.new()
-	Party.set_to(party)
+	Party.set_to_party(party)
 
 func unlock_all_abilities():
 	for mem in Members:

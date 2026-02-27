@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://y8plcl80k7cw" path="res://art/Effects/Question.png" id="2_4bwgg"]
 [ext_resource type="Texture2D" uid="uid://c2rwupoi45o47" path="res://art/Effects/Excited.png" id="2_tpnmq"]
 [ext_resource type="Texture2D" uid="uid://3ynu7ttkio7" path="res://art/Effects/Surprise.png" id="3_gvato"]
+[ext_resource type="Texture2D" uid="uid://ec21ncujs7k2" path="res://art/Effects/Sweat.png" id="5_oox7y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2g5k2"]
 atlas = ExtResource("1_qclsh")
@@ -181,6 +182,50 @@ region = Rect2(384, 0, 32, 32)
 atlas = ExtResource("3_gvato")
 region = Rect2(416, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbut8"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k0gn"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xu7fg"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dtbe"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbqv4"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht1wb"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb37r"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnqnb"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3a4g"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pm70"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emaor"]
+atlas = ExtResource("5_oox7y")
+region = Rect2(320, 0, 32, 48)
+
 [resource]
 animations = [{
 "frames": [{
@@ -340,4 +385,48 @@ animations = [{
 "loop": false,
 "name": &"Surprise",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbut8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k0gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xu7fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dtbe")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_jbqv4")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_ht1wb")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_eb37r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnqnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3a4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pm70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emaor")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Sweat",
+"speed": 12.0
 }]

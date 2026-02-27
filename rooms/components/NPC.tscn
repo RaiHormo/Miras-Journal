@@ -50,6 +50,4 @@ z_index = 3
 material = ExtResource("5_qa61s")
 position = Vector2(-0.00622558, -32.0003)
 sprite_frames = ExtResource("6_yku7r")
-animation = &"Surprise"
-frame = 14
-frame_progress = 1.0
+animation = &"Sweat"

@@ -30,7 +30,7 @@ func make_unique():
 	if Member2!=null: Member2 = Member2.duplicate()
 	if Member3!=null: Member3 = Member1.duplicate()
 
-func set_to(p:PartyData):
+func set_to_party(p:PartyData):
 	Leader = Query.find_member(p.Leader.codename)
 	if p.Member1!=null: Member1 = Query.find_member(p.Member1.codename)
 	else: Member1 = null
@@ -39,7 +39,7 @@ func set_to(p:PartyData):
 	if p.Member3!=null: Member3 = Query.find_member(p.Member3.codename)
 	else: Member3 = null
 
-func set_to_strarr(p:PackedStringArray):
+func set_to(p: PackedStringArray):
 	if p.is_empty(): p = [&"Mira", &"", &"", &""]
 	while p.size() < 4: p.append(&"")
 	Leader = Query.find_member(p[0])
@@ -49,6 +49,11 @@ func set_to_strarr(p:PackedStringArray):
 	else: Member2 = null
 	if p[3] != &"": Member3 = Query.find_member(p[3])
 	else: Member3 = null
+	Global.check_party.emit()
+
+## For backwards compatibility
+func set_to_strarr(p: PackedStringArray):
+	set_to(p)
 
 func get_strarr() -> Array[StringName]:
 	var arr: Array[StringName] = [&"", &"", &"", &""]

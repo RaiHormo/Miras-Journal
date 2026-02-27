@@ -242,6 +242,8 @@ func transition(dir=Query.get_dir_letter()):
 	#Engine.time_scale = 0.1
 	Global.Controllable = false
 	direc = dir
+	if get_tree().root.has_node("Textbox"):
+		get_tree().root.get_node("Textbox").hide_box()
 	$Can.show()
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE

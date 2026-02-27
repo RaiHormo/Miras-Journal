@@ -41,12 +41,17 @@ Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting t
 => END
 
 ~ nov3_tavern
+do Party.set_to(["Mira", "Alcine"])
 do spawn("Daze", Vector2(551, 1046), "D")
 do spawn("Asteria", Vector2(589, 1094), "L")
 do! camera_move(Vector2(600, 1080))
 do! zoom(4)
 do npc("P").collision(false)
-do npc("P").go_to(Vector2(513, 1071))
+do! npc("P").go_to(Vector2(513, 1071))
+do wait(1)
+set npc("F1").BodyState = NPC.IDLE
+do! npc("F1").go_to(Vector2(520, 1056))
+do wait(1)
 Asteria: Oh there she is!
 do npc("P").set_anim("SitRight", false, true)
 do jump_to_global(npc("P"), Vector2(516, 1090))
@@ -58,8 +63,10 @@ Asteria: Right, i don't know where we would be without Esto and the others.
 I look at the menu, checking if there's anything that interests me.
 Mira: You call this variety!? It's all vegitables!
 Asteria: What were you looking for?
-Mira: ...
+(hide)
+do npc("P").bubble("Ellipsis")
 Daze: Meat I presume?
+do! npc("P").bubble("Sweat")
 Mira: [small]Yeah...[/small]
 Daze: it's quite dangerous for most people to wander out of the village, with monsters lurking eveywhere.
 Daze: So, growing crops here is much easier and safer. Right?
@@ -79,20 +86,22 @@ Asteria: But that never did anything for me or anyone else...
 Daze: What was different between Mira's case and all other people that have tried to enter?
 Mira: You sound like you already have an awnser. Just spill it!
 Daze: I don't know for sure, I just wanted to hear everyone's theories.
+~ tavern_options
 What was different about me?
-- I haven't been here long
+- You haven't been here long
 	Mira: Maybe it's because I haven't been in the realm long enough.
 	Mira: There could be something different about people who have been exposed to these kinds of places...
 	Daze: Wouldn't that also be true for me though?
-	Mira: But earlier you said-
-	Daze: I didn't mean I've been inside other isolated realms before.
+	Mira: But earlier you said you've been-
+	Daze: I didn't mean I've been to places exactly like this...
 	Mira: Then what DID you mean? Quit acting so cryptic!
-	Daze: ...
+	(hide)
+	do npc("Daze").bubble("Sweat")
 	Daze: I don't think that's relevant at this moment. But I will assure you I haven't been in a place like this before.
 	Nice question dodging Daze.
 	Asteria: So what then?
-	(goes back to the options)
-- I had something they didn't
+	=> tavern_options
+- You had something they didn't
 	Mira: Maybe I had an item on me the others didn't.
 	Daze: But you touched it with your bare paw, you weren't holding anything.
 	Mira: It could activate from a distance, or something like that.
@@ -103,43 +112,75 @@ What was different about me?
 	Mira: The Guardian?
 	Asteria: Are you talking about one of the three-eyed ones!?
 	Mira: I suppose it did-
+	do! npc("Asteria").bubble("Surprise")
 	Asteria: YOU TWO WENT AGAINST ONE OF THOSE!!!???
 	Mira: Oh yeah I almost died to one, and Daze cut it in half.
-	Asteria: Huh!?
-- I'm a Cyrenian
+	Asteria: [small]You two are insane.
+- You're a Cyrenian
 	Mira: Could it be because I'm a Cyrenian?
 	Daze: You're saying it's designed to only open to Cyrenians?
-	Daze: That could be it... Have there been any other Cyrenians around here?
+	Daze: Have there been any other Cyrenians around here?
+	do! npc("Asteria").bubble("Question")
 	Asteria: What's.. a Cyrenian?
 	Mira: I'm not surprised you don't know, there are very few of us left.
 	Mira: It's my kind. Big triangular ears, small posture, etc etc.
-- I pushed it in a specific way
+	Asteria: Then... no, I don't think I've seen any around here
+	do! npc("Asteria").bubble("Sweat")
+	Asteria: But don't count on me for this, I don't know much about diffrent species and things like that...
+- You pushed it in a specific way
 	Mira: Maybe I pushed it in a very particular way that triggered it?
 	Daze: What's that specific way?
-	Mira: ...
+	(hide)
+	do npc("P").bubble("Ellipsis")
 	Mira: I have no idea.
 	Mira: I just pushed it as far as I know, but maybe I accidentally pushed it in the secret way?
-	Daze & Asteria: ...
+	(hide)
+	do! npc("Daze").bubble("Ellipsis")
+	do npc("Asteria").bubble("Ellipsis")
 	Asteria: Somehow I doubt that's the answer.
-	(goes back to the options)
+	=> tavern_options
 Daze: This could explain it...
 Daze: Are there any other places like this bunker?
 Asteria: Yeah there are a few, but... The only one I can remember is in a quite dangerous place.
 Mira: Dangerous?
 Asteria: That place is basically a monster nest.
 Daze: I've dealt with plenty of strong monsters, we'll be fine.
-Asteria: I can take you there if you wish.
+Asteria: I can take you there if you wish, but...
+do! npc("P").bubble("Excited")
+Mira: We're going!
+(hide)
+do npc("Asteria").bubble("Sweat")
 Mira: Alcine, do you want to come too?
 Alcine: *nod*
-Daze: Meet you all at the gate then!
-...
-Mira: I guess the food wasn't that bad.
-Mira: Um, how much do we have to owe? I don't have much money...
-Asteria: Pay? We don't have "money" around here.
+Daze: Meet you all at the gate later then!
+do transition()
+do detransition()
+Daze: It was delicious, thank you so much Esto... sir.
+Mira: It was okay...
+Mira: Um, how much do we owe? I don't have much money.
+Esto: Oh, don't worry about that! We don't do that here.
+do! npc("P").bubble("Question")
 Mira: Huh? Is everything free then??
-Asteria: Well Esto's policy is that every person can get one meal per day.
-Asteria: Some other stores accept item trading.
+Asteria: Well Esto's policy is that each person can get one meal per day.
+Asteria: That is... Unless he gets mad at you, then you get zero.
+Esto: Ehehehe, you blaming me for that now?
+(hide)
+do npc("Asteria").bubble("Sweat")
+Asteria: Well the point is, we don't have some sort of currency here.
+Asteria: Some places might ask for other goods in return.
 Mira: That's a lot of work for no reward...
+Esto: My reward is seeing the village not passing from hunger!
+Esto: Ain't it enough?
+I feel so entitled... He's here doing all of this for free and I'm just complaining about variety.
+I should say something nicer.
+Mira: Well... thank you a lot for the food..!
+do transition()
+do lower_layer()
+do Party.set_to(["Mira"])
+After thanking Esto, we disband for a bit and I head to my room.
+set ToDay = 3
+set ToTime = 3
+do! time_transition()
 => END
 
 ~ nov3_afternoon
