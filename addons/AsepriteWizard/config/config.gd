@@ -9,58 +9,60 @@ const _COMMAND_KEY = 'aseprite/general/command_path'
 
 # animation import defaults
 const _DEFAULT_EXCLUSION_PATTERN_KEY = 'aseprite/animation/layers/exclusion_pattern'
+const _DEFAULT_ONLY_VISIBLE_LAYERS = 'aseprite/animation/layers/only_include_visible_layers_by_default'
 const _DEFAULT_LOOP_EX_PREFIX = '_'
 const _LOOP_ENABLED = 'aseprite/animation/loop/enabled'
 const _LOOP_EXCEPTION_PREFIX = 'aseprite/animation/loop/exception_prefix'
-const _USE_METADATA = 'aseprite/animation/storage/use_metadata'
-
 
 # cleanup
 const _REMOVE_SOURCE_FILES_KEY = 'aseprite/import/cleanup/remove_json_file'
 const _SET_VISIBLE_TRACK_AUTOMATICALLY = 'aseprite/import/cleanup/automatically_hide_sprites_not_in_animation'
-
 
 # automatic importer
 const _IMPORTER_ENABLE_KEY = 'aseprite/import/import_plugin/enable_automatic_importer'
 const _DEFAULT_IMPORTER_KEY = 'aseprite/import/import_plugin/default_automatic_importer'
 
 const IMPORTER_SPRITEFRAMES_NAME = "SpriteFrames"
+const IMPORTER_SPRITEFRAMES_SPLIT_NAME = "SpriteFrames (Split By Layer)"
 const IMPORTER_NOOP_NAME = "No Import"
-const TILESET_TEXTURE_NAME = "Tileset Texture"
+const IMPORTER_TILESET_TEXTURE_NAME = "Tileset Texture"
+const IMPORTER_STATIC_TEXTURE_NAME = "Static Texture"
+const IMPORTER_STATIC_TEXTURE_SPLIT_NAME = "Static Texture (Split By Layer)"
+
+const _IMPORTER_GENERATE_BAKE_FILE_KEY = 'aseprite/import/import_plugin/generate_bake_files'
 
 # wizard history
-const _HISTORY_CONFIG_FILE_CFG_KEY = 'aseprite/wizard/history/cache_file_path'
-const _HISTORY_SINGLE_ENTRY_KEY = 'aseprite/wizard/history/keep_one_entry_per_source_file'
-const _DEFAULT_HISTORY_CONFIG_FILE_PATH = 'res://.aseprite_wizard_history'
+const _WIZARD_HISTORY = "wizard_history"
+const _HISTORY_MAX_ENTRIES = 'aseprite/wizard/history/max_history_entries'
+const _HISTORY_DEFAULT_MAX_ENTRIES = 100
 
-# IMPORT SETTINGS
-const _I_LAST_SOURCE_PATH_KEY = 'i_source'
-const _I_LAST_OUTPUT_DIR_KEY = 'i_output'
-const _I_SHOULD_SPLIT_LAYERS_KEY = 'i_split_layers'
-const _I_EXCEPTIONS_KEY = 'i_exceptions_key'
-const _I_ONLY_VISIBLE_LAYERS_KEY = 'i_only_visible_layers'
-const _I_CUSTOM_NAME_KEY = 'i_custom_name'
-const _I_DO_NOT_CREATE_RES_KEY = 'i_disable_resource_creation'
+# SpriteFrames import last config
+const _STANDALONE_SPRITEFRAMES_LAST_IMPORT_CFG = "standalone_sf_last_import_cfg"
 
-# export
-const _EXPORTER_ENABLE_KEY = 'aseprite/animation/storage/enable_metadata_removal_on_export'
-
-var _editor_settings: EditorSettings
-
-# INTERFACE SETTINGS
-var _plugin_icons: Dictionary
+var _editor_settings: EditorSettings = EditorInterface.get_editor_settings()
 
 #######################################################
 # GLOBAL CONFIGS
 ######################################################
 
 func default_command() -> String:
-	return 'aseprite'
+	match OS.get_name():
+		"Windows":
+			return "C:\\\\Steam\\steamapps\\common\\Aseprite\\aseprite.exe"
+		"macOS":
+			return "/Applications/Aseprite.app/Contents/MacOS/aseprite"
+		_:
+			return 'aseprite'
 
 
-func is_command_or_control_pressed() -> String:
+func get_command() -> String:
 	var command = _editor_settings.get(_COMMAND_KEY) if _editor_settings.has_setting(_COMMAND_KEY) else ""
 	return command if command != "" else default_command()
+
+
+func set_command(command: String) -> void:
+	_editor_settings.set_setting(_COMMAND_KEY, command)
+
 
 
 #######################################################
@@ -76,8 +78,8 @@ func get_default_importer() -> String:
 	return _get_project_setting(_DEFAULT_IMPORTER_KEY, IMPORTER_SPRITEFRAMES_NAME if is_importer_enabled() else IMPORTER_NOOP_NAME)
 
 
-func is_exporter_enabled() -> bool:
-	return _get_project_setting(_EXPORTER_ENABLE_KEY, true)
+func should_generate_bake_files() -> bool:
+	return _get_project_setting(_IMPORTER_GENERATE_BAKE_FILE_KEY, false)
 
 
 func should_remove_source_files() -> bool:
@@ -91,121 +93,53 @@ func is_default_animation_loop_enabled() -> bool:
 func get_animation_loop_exception_prefix() -> String:
 	return _get_project_setting(_LOOP_EXCEPTION_PREFIX, _DEFAULT_LOOP_EX_PREFIX)
 
-func is_use_metadata_enabled() -> bool:
-	return _get_project_setting(_USE_METADATA, true)
-
 
 func get_default_exclusion_pattern() -> String:
 	return _get_project_setting(_DEFAULT_EXCLUSION_PATTERN_KEY, "")
 
 
-func is_single_file_history() -> bool:
-	return ProjectSettings.get(_HISTORY_SINGLE_ENTRY_KEY) == true
+func should_include_only_visible_layers_by_default() -> bool:
+	return _get_project_setting(_DEFAULT_ONLY_VISIBLE_LAYERS, false)
+
+
+func get_history_max_entries() -> int:
+	return _get_project_setting(_HISTORY_MAX_ENTRIES, _HISTORY_DEFAULT_MAX_ENTRIES)
 
 
 func get_import_history() -> Array:
-	var history = []
-	var history_path := _get_history_file_path()
-
-	if not FileAccess.file_exists(history_path):
-		return history
-
-	var file_object = FileAccess.open(history_path, FileAccess.READ)
-
-	while not file_object.eof_reached():
-		var line = file_object.get_line()
-		if line:
-			var test_json_conv = JSON.new()
-			test_json_conv.parse(line)
-			history.push_back(test_json_conv.get_data())
-
-	return history
+	return get_plugin_metadata(_WIZARD_HISTORY, [])
 
 
 func is_set_visible_track_automatically_enabled() -> bool:
 	return _get_project_setting(_SET_VISIBLE_TRACK_AUTOMATICALLY, false)
 
-# history is saved and retrieved line-by-line so
-# file becomes version control friendly
+
 func save_import_history(history: Array):
-	var file = FileAccess.open(_get_history_file_path(), FileAccess.WRITE)
-	for entry in history:
-		file.store_line(JSON.new().stringify(entry))
-	file = null
+	set_plugin_metadata(_WIZARD_HISTORY, history)
 
 
-func _get_history_file_path() -> String:
-	return _get_project_setting(_HISTORY_CONFIG_FILE_CFG_KEY, _DEFAULT_HISTORY_CONFIG_FILE_PATH)
-
-
-#######################################################
+#=========================================================
 # IMPORT CONFIGS
-######################################################
-func get_last_source_path() -> String:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_LAST_SOURCE_PATH_KEY, "")
+#=========================================================
+## Return config for last import done via standalone SpriteFrames import dock
+func get_standalone_spriteframes_last_import_config() -> Dictionary:
+	return get_plugin_metadata(_STANDALONE_SPRITEFRAMES_LAST_IMPORT_CFG, {})
+
+## Set config for last import done via standalone SpriteFrames import dock
+func set_standalone_spriteframes_last_import_config(data: Dictionary) -> void:
+	set_plugin_metadata(_STANDALONE_SPRITEFRAMES_LAST_IMPORT_CFG, data)
 
 
-func set_last_source_path(source_path: String) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_LAST_SOURCE_PATH_KEY, source_path)
+func clear_standalone_spriteframes_last_import_config() -> void:
+	set_plugin_metadata(_STANDALONE_SPRITEFRAMES_LAST_IMPORT_CFG, {})
 
 
-func get_last_output_path() -> String:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_LAST_OUTPUT_DIR_KEY, "")
+func get_plugin_metadata(key: String, default: Variant = null) -> Variant:
+	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, key, default)
 
 
-func set_last_output_path(output_path: String) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_LAST_OUTPUT_DIR_KEY, output_path)
-
-
-func should_split_layers() -> bool:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_SHOULD_SPLIT_LAYERS_KEY, false)
-
-
-func set_split_layers(should_split: bool) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_SHOULD_SPLIT_LAYERS_KEY, false)
-
-
-func get_exception_pattern() -> String:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_EXCEPTIONS_KEY, "")
-
-
-func set_exception_pattern(pattern: String) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_EXCEPTIONS_KEY, pattern)
-
-
-func should_include_only_visible_layers() -> bool:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_ONLY_VISIBLE_LAYERS_KEY, false)
-
-
-func set_include_only_visible_layers(include_only_visible: bool) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_ONLY_VISIBLE_LAYERS_KEY, include_only_visible)
-
-
-func get_last_custom_name() -> String:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_CUSTOM_NAME_KEY, "")
-
-
-func set_custom_name(custom_name: String) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_CUSTOM_NAME_KEY, custom_name)
-
-
-func should_not_create_resource() -> bool:
-	return _editor_settings.get_project_metadata(_CONFIG_SECTION_KEY, _I_DO_NOT_CREATE_RES_KEY, false)
-
-
-func set_do_not_create_resource(do_no_create: bool) -> void:
-	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, _I_DO_NOT_CREATE_RES_KEY, do_no_create)
-
-#######################################################
-# INTERFACE SETTINGS
-######################################################
-
-func set_icons(plugin_icons: Dictionary) -> void:
-	_plugin_icons = plugin_icons
-
-
-func get_icon(icon_name: String) -> Texture2D:
-	return _plugin_icons[icon_name]
+func set_plugin_metadata(key: String, data: Variant):
+	_editor_settings.set_project_metadata(_CONFIG_SECTION_KEY, key, data)
 
 
 #######################################################
@@ -213,9 +147,9 @@ func get_icon(icon_name: String) -> Texture2D:
 ######################################################
 func initialize_project_settings():
 	_initialize_project_cfg(_DEFAULT_EXCLUSION_PATTERN_KEY, "", TYPE_STRING)
+	_initialize_project_cfg(_DEFAULT_ONLY_VISIBLE_LAYERS, false, TYPE_BOOL)
 	_initialize_project_cfg(_LOOP_ENABLED, true, TYPE_BOOL)
 	_initialize_project_cfg(_LOOP_EXCEPTION_PREFIX, _DEFAULT_LOOP_EX_PREFIX, TYPE_STRING)
-	_initialize_project_cfg(_USE_METADATA, true, TYPE_BOOL)
 
 	_initialize_project_cfg(_REMOVE_SOURCE_FILES_KEY, true, TYPE_BOOL)
 	_initialize_project_cfg(
@@ -223,13 +157,18 @@ func initialize_project_settings():
 		IMPORTER_SPRITEFRAMES_NAME if is_importer_enabled() else IMPORTER_NOOP_NAME,
 		TYPE_STRING,
 		PROPERTY_HINT_ENUM,
-		"%s,%s,%s" % [IMPORTER_NOOP_NAME, IMPORTER_SPRITEFRAMES_NAME, TILESET_TEXTURE_NAME]
+		",".join([
+			IMPORTER_NOOP_NAME,
+			IMPORTER_SPRITEFRAMES_NAME,
+			IMPORTER_SPRITEFRAMES_SPLIT_NAME,
+			IMPORTER_TILESET_TEXTURE_NAME,
+			IMPORTER_STATIC_TEXTURE_NAME,
+			IMPORTER_STATIC_TEXTURE_SPLIT_NAME
+		])
 	)
+	_initialize_project_cfg(_IMPORTER_GENERATE_BAKE_FILE_KEY, false, TYPE_BOOL)
 
-	_initialize_project_cfg(_EXPORTER_ENABLE_KEY, true, TYPE_BOOL)
-
-	_initialize_project_cfg(_HISTORY_CONFIG_FILE_CFG_KEY, _DEFAULT_HISTORY_CONFIG_FILE_PATH, TYPE_STRING, PROPERTY_HINT_GLOBAL_FILE)
-	_initialize_project_cfg(_HISTORY_SINGLE_ENTRY_KEY, false, TYPE_BOOL)
+	_initialize_project_cfg(_HISTORY_MAX_ENTRIES, _HISTORY_DEFAULT_MAX_ENTRIES, TYPE_INT)
 
 	_initialize_project_cfg(_SET_VISIBLE_TRACK_AUTOMATICALLY, false, TYPE_BOOL)
 
@@ -243,13 +182,12 @@ func clear_project_settings():
 		_DEFAULT_EXCLUSION_PATTERN_KEY,
 		_LOOP_ENABLED,
 		_LOOP_EXCEPTION_PREFIX,
-		_USE_METADATA,
 		_REMOVE_SOURCE_FILES_KEY,
 		_DEFAULT_IMPORTER_KEY,
-		_EXPORTER_ENABLE_KEY,
-		_HISTORY_CONFIG_FILE_CFG_KEY,
-		_HISTORY_SINGLE_ENTRY_KEY,
-		_SET_VISIBLE_TRACK_AUTOMATICALLY
+		_HISTORY_MAX_ENTRIES,
+		_SET_VISIBLE_TRACK_AUTOMATICALLY,
+		_DEFAULT_ONLY_VISIBLE_LAYERS,
+		_IMPORTER_GENERATE_BAKE_FILE_KEY,
 	]
 	for key in _all_settings:
 		ProjectSettings.clear(key)

@@ -9,9 +9,6 @@ enum {
 	LAYERS_EXPORT_MODE
 }
 
-func init(config):
-	_aseprite.init(config)
-
 ##
 ## Generate Aseprite spritesheet and data files for source.
 ##
@@ -21,6 +18,7 @@ func init(config):
 ##    export_mode (FILE_EXPORT_MODE, LAYERS_EXPORT_MODE) default: FILE_EXPORT_MODE
 ##    exception_pattern (string, optional)
 ##    only_visible_layers (boolean, optional)
+##    scale (string, optional)
 ##
 ## Return:
 ##  Array
@@ -58,9 +56,9 @@ func generate_aseprite_files(source_file: String, options: Dictionary):
 ##    layer (string, optional)
 ##    exception_pattern (string, optional)
 ##    only_visible_layers (boolean, optional)
+##    scale (string, optional)
 ##
 ## Return:
-##  Array
 ##    Dictionary
 ##     sprite_sheet: sprite sheet path
 ##     data_file:  json file path
@@ -73,10 +71,13 @@ func generate_aseprite_file(source_file: String, options: Dictionary) -> Diction
 
 	var output
 
-	if options.get("layer", "") == "":
-		output = _aseprite.export_file(source_file, options.output_folder, options)
+	if options.get("layer") != null and options.get("layer") != "":
+		output = _aseprite.export_file_with_layers(source_file, [options.layer], options.output_folder, options)
+	elif options.get("layers", []).size() > 0:
+		output = _aseprite.export_file_with_layers(source_file, options.layers, options.output_folder, options)
 	else:
-		output = _aseprite.export_layer(source_file, options.layer, options.output_folder, options)
+		output = _aseprite.export_file(source_file, options.output_folder, options)
+
 
 	if output.is_empty():
 		return result_code.error(result_code.ERR_ASEPRITE_EXPORT_FAILED)
@@ -135,7 +136,7 @@ func _initial_checks(source: String, options: Dictionary) -> int:
 func load_json_content(source_file: String) -> Dictionary:
 	var file = FileAccess.open(source_file, FileAccess.READ)
 	if file == null:
-		return result_code.error(file.get_open_error())
+		return result_code.error(FileAccess.get_open_error())
 	var test_json_conv = JSON.new()
 	test_json_conv.parse(file.get_as_text())
 
@@ -145,3 +146,7 @@ func load_json_content(source_file: String) -> Dictionary:
 		return result_code.error(result_code.ERR_INVALID_ASEPRITE_SPRITESHEET)
 
 	return result_code.result(content)
+
+
+func is_aseprite_command_working() -> bool:
+	return _aseprite.test_command()

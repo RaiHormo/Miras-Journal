@@ -40,9 +40,16 @@ do npc("RoomMira").bubble("Surprise")
 Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting there. Okay?
 => END
 
-~ nov_3_tavern
+~ nov3_tavern
+do spawn("Daze", Vector2(551, 1046), "D")
+do spawn("Asteria", Vector2(589, 1094), "L")
+do! camera_move(Vector2(600, 1080))
+do! zoom(4)
+do npc("P").collision(false)
+do npc("P").go_to(Vector2(513, 1071))
 Asteria: Oh there she is!
-I sit in their table.
+do npc("P").set_anim("SitRight", false, true)
+do jump_to_global(npc("P"), Vector2(516, 1090))
 Mira: What're you two up to?
 Asteria: Oh not much, this guy said we should wait for you to talk about something important.
 Asteria: Right now we were just wondering what to order.
@@ -53,13 +60,86 @@ Mira: You call this variety!? It's all vegitables!
 Asteria: What were you looking for?
 Mira: ...
 Daze: Meat I presume?
-Mira: [s]
+Mira: [small]Yeah...[/small]
 Daze: it's quite dangerous for most people to wander out of the village, with monsters lurking eveywhere.
 Daze: So, growing crops here is much easier and safer. Right?
 Asteria: The idea of eating animals just sounds disgusting to me...
 I guess it might seem like that if you've never tried meat...
-Or maybe it's just a Frayse thing...
+Or maybe it's just a Frayse thing?
 Mira: Well, do you recommend anything?
+do transition()
+do detransition()
+Asteria: You wanted to tell us something important, right?
+Daze: Ms. Versea, you said something interesting yesterday.
+Daze: You've been here for all this time and have never seen that bunker open, correct?
+Asteria: ...
+Daze: Which brings the question, what did we do differently that hasn't been done all this time?
+Mira: All I did was touch that pillar looking thing.
+Asteria: But that never did anything for me or anyone else...
+Daze: What was different between Mira's case and all other people that have tried to enter?
+Mira: You sound like you already have an awnser. Just spill it!
+Daze: I don't know for sure, I just wanted to hear everyone's theories.
+What was different about me?
+- I haven't been here long
+	Mira: Maybe it's because I haven't been in the realm long enough.
+	Mira: There could be something different about people who have been exposed to these kinds of places...
+	Daze: Wouldn't that also be true for me though?
+	Mira: But earlier you said-
+	Daze: I didn't mean I've been inside other isolated realms before.
+	Mira: Then what DID you mean? Quit acting so cryptic!
+	Daze: ...
+	Daze: I don't think that's relevant at this moment. But I will assure you I haven't been in a place like this before.
+	Nice question dodging Daze.
+	Asteria: So what then?
+	(goes back to the options)
+- I had something they didn't
+	Mira: Maybe I had an item on me the others didn't.
+	Daze: But you touched it with your bare paw, you weren't holding anything.
+	Mira: It could activate from a distance, or something like that.
+	Asteria: What kind of item are we talking about?
+	Mira: Well, the most likely thing would be...
+	I show them the Cyan Guardian Orb.
+	Daze: That's... from the rock monster!
+	Mira: The Guardian?
+	Asteria: Are you talking about one of the three-eyed ones!?
+	Mira: I suppose it did-
+	Asteria: YOU TWO WENT AGAINST ONE OF THOSE!!!???
+	Mira: Oh yeah I almost died to one, and Daze cut it in half.
+	Asteria: Huh!?
+- I'm a Cyrenian
+	Mira: Could it be because I'm a Cyrenian?
+	Daze: You're saying it's designed to only open to Cyrenians?
+	Daze: That could be it... Have there been any other Cyrenians around here?
+	Asteria: What's.. a Cyrenian?
+	Mira: I'm not surprised you don't know, there are very few of us left.
+	Mira: It's my kind. Big triangular ears, small posture, etc etc.
+- I pushed it in a specific way
+	Mira: Maybe I pushed it in a very particular way that triggered it?
+	Daze: What's that specific way?
+	Mira: ...
+	Mira: I have no idea.
+	Mira: I just pushed it as far as I know, but maybe I accidentally pushed it in the secret way?
+	Daze & Asteria: ...
+	Asteria: Somehow I doubt that's the answer.
+	(goes back to the options)
+Daze: This could explain it...
+Daze: Are there any other places like this bunker?
+Asteria: Yeah there are a few, but... The only one I can remember is in a quite dangerous place.
+Mira: Dangerous?
+Asteria: That place is basically a monster nest.
+Daze: I've dealt with plenty of strong monsters, we'll be fine.
+Asteria: I can take you there if you wish.
+Mira: Alcine, do you want to come too?
+Alcine: *nod*
+Daze: Meet you all at the gate then!
+...
+Mira: I guess the food wasn't that bad.
+Mira: Um, how much do we have to owe? I don't have much money...
+Asteria: Pay? We don't have "money" around here.
+Mira: Huh? Is everything free then??
+Asteria: Well Esto's policy is that every person can get one meal per day.
+Asteria: Some other stores accept item trading.
+Mira: That's a lot of work for no reward...
 => END
 
 ~ nov3_afternoon

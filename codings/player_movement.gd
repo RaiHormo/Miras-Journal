@@ -162,11 +162,11 @@ func update_anim_prm() -> void:
 				reset_speed()
 				var dir_name = Query.get_dir_name(dashdir)
 				if has_anim("Dash"+dir_name+"Loop"):
-					set_anim("Dash"+dir_name+"Loop")
-				else: set_anim("Walk"+dir_name)
+					set_anim("Dash"+dir_name+"Loop", false, false)
+				else: set_anim("Walk"+dir_name, false, false)
 			else:
 				speed = min(walk_speed, speed)
-				set_anim(str("Walk"+Query.get_dir_name(Facing)))
+				set_anim(str("Walk"+Query.get_dir_name(Facing)), false, false)
 				for i in $Sprite.get_children():
 					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 			if move_frames < 0: 
@@ -177,7 +177,7 @@ func update_anim_prm() -> void:
 		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
 			move_frames = 0
 			reset_speed()
-			set_anim(str("Idle"+Query.get_dir_name(Facing)))
+			set_anim(str("Idle"+Query.get_dir_name(Facing)), false, false)
 		else:
 			move_frames -= 1
 		if direction.length()>RealVelocity.length() and dashing and not can_jump:
@@ -185,19 +185,19 @@ func update_anim_prm() -> void:
 	else:
 		if RealVelocity.length() > 1:
 			if dashing:
-				set_anim("Dash"+Query.get_dir_name(dashdir)+"Stop")
+				set_anim("Dash"+Query.get_dir_name(dashdir)+"Stop", false, false)
 			else:
-				set_anim(str("Walk"+Query.get_dir_name(Facing)))
+				set_anim(str("Walk"+Query.get_dir_name(Facing)), false, false)
 		else:
 			if RealVelocity == Vector2.ZERO:
 				position = round(position)
-			set_anim(str("Idle"+Query.get_dir_name(Facing)))
+			set_anim(str("Idle"+Query.get_dir_name(Facing)), false, false)
 
 ##Item pickup animation
 func _on_pickup() -> void:
 	await Event.take_control(true, true)
-	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true)
-	else: await set_anim("PickUpRight", true)
+	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true, false)
+	else: await set_anim("PickUpRight", true, false)
 	Event.give_control()
 	set_anim()
 

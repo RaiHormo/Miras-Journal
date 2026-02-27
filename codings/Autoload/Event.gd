@@ -328,17 +328,24 @@ func zoom(val: float, maintain = false):
 	Global.Camera.zoom = Vector2(val, val)
 	if maintain: Global.Area.overwrite_zoom = val
 
-func camera_move(to: Vector2, time: float = 0, ease:= Tween.EASE_IN_OUT, trans:= Tween.TRANS_QUAD):
+func camera_move(to: Vector2, time: float = -1, ease:= Tween.EASE_IN_OUT, trans:= Tween.TRANS_QUAD):
+	camera_unlock()
 	if time > 0:
 		Global.Camera.position_smoothing_enabled = false
 		var t = create_tween().set_ease(ease).set_trans(trans).set_parallel()
 		t.tween_property(Global.Camera, "position", to, time)
 		await t.finished
 		Global.Camera.position_smoothing_enabled = true
-	else: 
+	elif time == 0: 
 		Global.Camera.position_smoothing_enabled = false
 		Global.Camera.position = to
 		Global.Camera.position_smoothing_enabled = true
+	else:
+		Global.Camera.position = to
+
+func camera_unlock():
+	if is_instance_valid(Global.Player):
+		Global.Player.camera_follow(false)
 
 func start_time_events():
 	var seq = Query.get_mmm(Query.get_month(Day)).to_lower()+str(Day)+"_"+Query.to_tod_text(TimeOfDay).to_lower()
@@ -362,7 +369,3 @@ func setup_time_changes(from: int, to: int):
 		flag_progress("eepy", eepy+to-from)
 		if eepy >= 2: remove_flag("eepy"+str(flag_int("eepy")))
 		
-
-func camera_unlock():
-	if is_instance_valid(Global.Player):
-		Global.Player.camera_follow(false)
