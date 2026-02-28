@@ -363,14 +363,25 @@ func _on_button_pressed() -> void:
 			await Global.textbox(dialogue_file, "rank"+str(rank)+"_prepare")
 		"chair":
 			await Event.take_control()
+			var face = Query.get_direction()
 			if not chair_faces.is_empty() and not Query.get_dir_letter() in chair_faces:
-				await Global.Player.look_to(chair_faces[0])
+				face = Query.get_dir_from_letter(chair_faces[0])
 			var pos = Global.Player.position
 			Global.Player.BodyState = NPC.NONE
-			await Global.jump_to_global(Global.Player, position)
+			Global.Player.collision(false)
+			Global.Player.set_anim("Sit"+Query.get_dir_name(face))
+			var sound: AudioStreamPlayer2D = get_node_or_null("JumpSound")
+			if sound != null: 
+				sound.pitch_scale = 1
+				sound.play()
+			await Global.jump_to_global(Global.Player, global_position)
 			while not Input.is_action_just_pressed(Global.confirm()):
 				await Event.wait()
-				await Global.jump_to_global(Global.Player, pos)
+			if sound != null: 
+				sound.pitch_scale = 0.8
+				sound.play()
+			Global.Player.look_to(Query.get_direction(to_local(pos)))
+			await Global.jump_to_global(Global.Player, pos)
 	if add_flag: 
 		if hide_on_flag != "":
 			Event.f(hide_on_flag, true)

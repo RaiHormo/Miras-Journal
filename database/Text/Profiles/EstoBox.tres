@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TextProfile" format=3 uid="uid://o8or0043j0f8"]
+
+[ext_resource type="AudioStream" uid="uid://mkdu2qbuty2g" path="res://sound/SFX/thonk.ogg" id="1_b2ryd"]
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="2_516v3"]
+
+[resource]
+script = ExtResource("2_516v3")
+Bord1 = Color(0.46, 0.42258668, 0.1794, 1)
+Bord2 = Color(0.77084833, 0.9558787, 0.80390203, 1)
+Bord3 = Color(0.32042184, 0.27336434, 0.14382401, 1)
+AudioFrequency = 2

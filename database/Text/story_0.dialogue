@@ -287,7 +287,7 @@ Daze.Neutral: Ask away.
 do Event.Flags.set("DazeQuestions", 0)
 ~ daze_questions
 What do I ask?
-- Who are you?
+- Who is he?
 	Mira.Neutral: So... who are you?
 	Daze.Neutral: The name is Daze.
 	set Query.find_member("Daze").FirstName = "Daze"
@@ -308,7 +308,7 @@ What do I ask?
 	Daze.Neutral: It'll be easier to show than tell, hold that thought.
 	Huh? What does he want to show me?
 	Daze.Neutral: Any other questions?
-- How did you know my name?
+- How does he know your name?
 	Mira.Neutral: How did you know my name? Do you know me?
 	Daze.Neutral: Oh, it's because of this...
 	He picks up a book next to him... wait that's my journal!
@@ -335,7 +335,7 @@ What do I ask?
 	Daze.Neutral: I apologize, but no. Was it important?
 	Mira.Neutral: Quite a bit...
 	I should go back and look for them at some point later.
-- Can I have some water?
+- Ask for some water?
 	Mira.Neutral: You got any water?
 	Daze.Neutral: Here.
 	He brings a bottle of water. I drink it all quickly.

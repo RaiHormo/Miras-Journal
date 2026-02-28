@@ -239,15 +239,15 @@ func _process(delta):
 
 func transition(dir=Query.get_dir_letter()):
 	if dir == "none": return
-	#Engine.time_scale = 0.1
 	Global.Controllable = false
 	direc = dir
-	if get_tree().root.has_node("Textbox"):
-		get_tree().root.get_node("Textbox").hide_box()
 	$Can.show()
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
+	if Global.textbox_open:
+		await get_tree().root.get_node("Textbox").hide_box()
+		lower_layer()
 	t.kill()
 	if not is_in_transition():
 		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()

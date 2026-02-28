@@ -6,6 +6,7 @@
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_ebl3n"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_hupws"]
 [ext_resource type="Texture2D" uid="uid://f4g4drrcns48" path="res://UI/MenuTextures/dots.svg" id="6_2m81j"]
+[ext_resource type="AudioStream" uid="uid://dnuefrj84xyk6" path="res://sound/SFX/Jump.ogg" id="7_e1r3o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]
 shader = ExtResource("1_jheuy")
@@ -79,6 +80,7 @@ collision_mask = 256
 script = ExtResource("2_e1r3o")
 LabelText = "Sit"
 ActionType = "chair"
+Height = -10
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2035817221]
@@ -144,6 +146,10 @@ offset_bottom = 74.99999
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_2m81j")
 expand_mode = 1
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=110722114]
+stream = ExtResource("7_e1r3o")
+bus = &"EnvSFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

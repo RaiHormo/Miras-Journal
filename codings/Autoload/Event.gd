@@ -313,7 +313,7 @@ func no_player():
 
 func time_transition():
 	if get_tree().root.has_node("Textbox"):
-		get_tree().root.get_node("Textbox").hide_box()
+		await get_tree().root.get_node("Textbox")._on_close()
 	await Event.take_control()
 	await Loader.transition()
 	await Loader.flip_time(TimeOfDay, ToTime)

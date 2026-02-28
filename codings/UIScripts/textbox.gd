@@ -344,7 +344,7 @@ func _input(event: InputEvent) -> void:
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
 			await Event.wait()
-			if hold_frames > hold_time:
+			if hold_frames > hold_time and get_viewport().gui_get_focus_owner() == balloon:
 				Engine.time_scale = 4
 				var ev:= InputEventAction.new()
 				ev.action = &"DialogNext"

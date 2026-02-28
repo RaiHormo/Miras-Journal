@@ -38,6 +38,25 @@ base_font = ExtResource("3_8nnac")
 spacing_space = 1
 spacing_bottom = 5
 
+[sub_resource type="FontVariation" id="FontVariation_ylkqr"]
+base_font = ExtResource("3_8nnac")
+variation_embolden = 0.2
+variation_transform = Transform2D(1, 0.3, 0, 1, 0, 0)
+spacing_space = 1
+spacing_bottom = 5
+
+[sub_resource type="FontVariation" id="FontVariation_7ao67"]
+base_font = ExtResource("3_8nnac")
+variation_transform = Transform2D(1, 0.3, 0, 1, 0, 0)
+spacing_space = 1
+spacing_bottom = 5
+
+[sub_resource type="FontVariation" id="FontVariation_eyo7g"]
+base_font = ExtResource("3_8nnac")
+spacing_glyph = 10
+spacing_space = 1
+spacing_bottom = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18cv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
@@ -475,8 +494,17 @@ offset_right = 721.0
 offset_bottom = 206.0
 grow_horizontal = 1
 theme_override_fonts/normal_font = SubResource("FontVariation_oe2ra")
-theme_override_font_sizes/normal_font_size = 39
-text = "The quick brown fox jumps over the lazy gods. This is a pretty long string of words to showcase the textbox"
+theme_override_fonts/bold_font = ExtResource("6_jj8vm")
+theme_override_fonts/bold_italics_font = SubResource("FontVariation_ylkqr")
+theme_override_fonts/italics_font = SubResource("FontVariation_7ao67")
+theme_override_fonts/mono_font = SubResource("FontVariation_eyo7g")
+theme_override_font_sizes/normal_font_size = 38
+theme_override_font_sizes/bold_font_size = 38
+theme_override_font_sizes/bold_italics_font_size = 38
+theme_override_font_sizes/italics_font_size = 38
+theme_override_font_sizes/mono_font_size = 38
+text = "The [i]quick[/i] brown fox jumps over the lazy [b]gods[/b]. This is a pretty long string of words to showcase the textbox"
+justification_flags = 161
 script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
 skip_action = &"DialogNext"

@@ -44,140 +44,145 @@ Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting t
 do Party.set_to(["Mira", "Alcine"])
 do spawn("Daze", Vector2(551, 1046), "D")
 do spawn("Asteria", Vector2(589, 1094), "L")
-do! camera_move(Vector2(600, 1080))
 do! zoom(4)
+do! camera_move(Vector2(570, 1080))
 do npc("P").collision(false)
 do! npc("P").go_to(Vector2(513, 1071))
 do wait(1)
 set npc("F1").BodyState = NPC.IDLE
 do! npc("F1").go_to(Vector2(520, 1056))
 do wait(1)
-Asteria: Oh there she is!
+Asteria.Neutral: Oh there she is!
+Mira.Smile: Hey Asteria! Hey Daze!
 do npc("P").set_anim("SitRight", false, true)
 do jump_to_global(npc("P"), Vector2(516, 1090))
-Mira: What're you two up to?
-Asteria: Oh not much, this guy said we should wait for you to talk about something important.
-Asteria: Right now we were just wondering what to order.
-Daze: It's surprising that they have this much variety in a self sustained place like this.
-Asteria: Right, i don't know where we would be without Esto and the others.
-I look at the menu, checking if there's anything that interests me.
-Mira: You call this variety!? It's all vegitables!
-Asteria: What were you looking for?
+Mira.Curious: What're you two up to?
+Asteria.Neutral: Oh not much, he was just saying we should wait for you. Apparently it's about something important.
+Asteria.Neutral: Right now we were just wondering what to order.
+Daze.Neutral: It's surprising just how much variety they have while being self sustaining!
+Asteria.Neutral: Right, I don't know where we would be without Esto and the others.
+I look at the menu, checking if there's something that catches my eye.
+.[wait=0.5].[wait=0.5]. ???
+Mira.Angry: You call this variety!? There's NOTHING here but vegetables!
+Asteria.Neutral: Huh? What were you looking for?
 (hide)
 do npc("P").bubble("Ellipsis")
-Daze: Meat I presume?
+Daze.Neutral: I presume you were looking for... meat?
 do! npc("P").bubble("Sweat")
-Mira: [small]Yeah...[/small]
-Daze: it's quite dangerous for most people to wander out of the village, with monsters lurking eveywhere.
-Daze: So, growing crops here is much easier and safer. Right?
-Asteria: The idea of eating animals just sounds disgusting to me...
-I guess it might seem like that if you've never tried meat...
+Mira.Upset: [small]Yeah...[/small]
+Daze.Neutral: It must be dangerous most people to wander out of the village for hunting, with monsters lurking eveywhere.
+Daze.Neutral: So, growing crops here is much easier and safer. Right?
+Asteria.Curious: The idea of eating animals just sounds disgusting to me...
+Disgusting?! \n...Well I guess it might seem that way to someone who's never had meat.
 Or maybe it's just a Frayse thing?
-Mira: Well, do you recommend anything?
+Mira.Angry: *sigh* [wait=1]\nWell, do you suggest anything then?
 do transition()
 do detransition()
-Asteria: You wanted to tell us something important, right?
-Daze: Ms. Versea, you said something interesting yesterday.
-Daze: You've been here for all this time and have never seen that bunker open, correct?
-Asteria: ...
-Daze: Which brings the question, what did we do differently that hasn't been done all this time?
-Mira: All I did was touch that pillar looking thing.
-Asteria: But that never did anything for me or anyone else...
-Daze: What was different between Mira's case and all other people that have tried to enter?
-Mira: You sound like you already have an awnser. Just spill it!
-Daze: I don't know for sure, I just wanted to hear everyone's theories.
+Asteria.Curious: So, what was it you wanted to talk about anyways?
+Daze.Neutral: Ms. Versea, you said something intriguing yesterday.
+Daze.Neutral: You've been here for all this time and have never seen that bunker open, correct?
+Asteria.Neutral: hm...
+Daze.Neutral: Which brings the question, what did we do differently that hasn't been done before all this time?
+Mira.Upset: All I did was touch that pillar looking thing.
+Asteria.Neutral: That can't be it, everyone's tried that before and it never did anything.
+Daze.Neutral: What was different between Mira's case and everyone else's?
+Mira.Angry: Daze![wait=0.3] Stop skirting around and just say what you brought us here for!
+Daze.Neutral: I don't know for sure, I wanted to get your opinions on this first to be sure.
 ~ tavern_options
-What was different about me?
+What was different about me compared to everyone else who's tried entering?
 - You haven't been here long
-	Mira: Maybe it's because I haven't been in the realm long enough.
-	Mira: There could be something different about people who have been exposed to these kinds of places...
-	Daze: Wouldn't that also be true for me though?
-	Mira: But earlier you said you've been-
-	Daze: I didn't mean I've been to places exactly like this...
-	Mira: Then what DID you mean? Quit acting so cryptic!
+	Mira.Curious: Maybe it's because I haven't been in the realm long enough.
+	Mira.Neutral: There could be something different about people who have been exposed to [i]these[/i] kinds of places...
+	Daze.Neutral: Hm, but then it should have worked for me too, right?
+	Mira.Neutral: But 2 days ago you said you've been-
+	Daze.Neutral: I didn't mean I've been to other isolated realms like this.
+	Mira.Angry: Then what DID you mean? Stop being so cryptic!
 	(hide)
 	do npc("Daze").bubble("Sweat")
-	Daze: I don't think that's relevant at this moment. But I will assure you I haven't been in a place like this before.
-	Nice question dodging Daze.
-	Asteria: So what then?
+	Daze.Neutral: I don't think that's relevant at this moment. But I will assure you I haven't been in a place like this before.
+	Nice question dodging Daze. He always tries to avoid talking about his past.
+	Asteria.Neutral: So what then?
 	=> tavern_options
 - You had something they didn't
-	Mira: Maybe I had an item on me the others didn't.
-	Daze: But you touched it with your bare paw, you weren't holding anything.
-	Mira: It could activate from a distance, or something like that.
-	Asteria: What kind of item are we talking about?
-	Mira: Well, the most likely thing would be...
+	Mira.Curious: Maybe I had an item on me the others didn't.
+	Daze.Neutral: But you touched it with your bare paw, you weren't holding anything.
+	Mira.Neutral: It could need to be in proximity, but not touching it necessarily?
+	Asteria.Neutral: What kind of item are we talking about?
+	Mira.Neutral: Well, the most likely thing would be...
 	I show them the Cyan Guardian Orb.
-	Daze: That's... from the rock monster!
-	Mira: The Guardian?
-	Asteria: Are you talking about one of the three-eyed ones!?
-	Mira: I suppose it did-
+	Daze.Neutral: That's... from the rock monster!
+	Mira.Neutral: The Guardian?
+	Asteria.Neutral: Are you talking about one of the three-eyed ones!?
+	Mira.Neutral: Yeah, it did have three-
 	do! npc("Asteria").bubble("Surprise")
-	Asteria: YOU TWO WENT AGAINST ONE OF THOSE!!!???
-	Mira: Oh yeah I almost died to one, and Daze cut it in half.
-	Asteria: [small]You two are insane.
+	Asteria.Angry: YOU TWO WENT AGAINST ONE OF THOSE!!!???
+	Mira.OpenMouth: Oh yeah I almost died to one, and Daze cut it in half. 
+	Asteria.Neutral: [small]I have no words for you two.
+	do add_flag("TavernTheory", 2)
 - You're a Cyrenian
-	Mira: Could it be because I'm a Cyrenian?
-	Daze: You're saying it's designed to only open to Cyrenians?
-	Daze: Have there been any other Cyrenians around here?
+	Mira.Curious: Could it be because I'm a Cyrenian?
+	Daze.Neutral: You're saying it's designed specifically to be opened [i]only[/i] by Cyrenians?
+	Daze.Neutral: Have Cyrenians ever had any involment with this place?
 	do! npc("Asteria").bubble("Question")
-	Asteria: What's.. a Cyrenian?
-	Mira: I'm not surprised you don't know, there are very few of us left.
-	Mira: It's my kind. Big triangular ears, small posture, etc etc.
-	Asteria: Then... no, I don't think I've seen any around here
+	Asteria.Neutral: What's.. a Cyrenian?
+	Mira.Neutral: Oh.[wait=0.5] Right, I guess it's not that surprising. [wait=1]\nThere aren't many of us left.
+	Mira.Neutral: It's... my kind.[wait=1] Large triangular ears, thick fur coats, small posture, et cetera, et cetera.
+	Asteria.Neutral: Right... thanks for letting me know. \nThen I don't I've ever seen your people around here...
 	do! npc("Asteria").bubble("Sweat")
-	Asteria: But don't count on me for this, I don't know much about diffrent species and things like that...
+	Asteria.Neutral: B-But don't count on me for this! I mean I didn't even know of your... species until... now...
+	Mira.Neutral: That means... this is a plausible explaination!
+	do add_flag("TavernTheory", 1)
 - You pushed it in a specific way
-	Mira: Maybe I pushed it in a very particular way that triggered it?
-	Daze: What's that specific way?
+	Mira.Neutral: Maybe I pushed it in a very particular way that triggered it?
+	Daze.Neutral: What's that specific way?
 	(hide)
 	do npc("P").bubble("Ellipsis")
-	Mira: I have no idea.
-	Mira: I just pushed it as far as I know, but maybe I accidentally pushed it in the secret way?
+	Mira.Neutral: I have no idea.
+	Mira.Neutral: I just pushed it as far as I know, but maybe I accidentally pushed it in the secret way?
 	(hide)
 	do! npc("Daze").bubble("Ellipsis")
 	do npc("Asteria").bubble("Ellipsis")
-	Asteria: Somehow I doubt that's the answer.
+	Daze.Neutral: Somehow I doubt that's the answer.
 	=> tavern_options
-Daze: This could explain it...
-Daze: Are there any other places like this bunker?
-Asteria: Yeah there are a few, but... The only one I can remember is in a quite dangerous place.
-Mira: Dangerous?
-Asteria: That place is basically a monster nest.
-Daze: I've dealt with plenty of strong monsters, we'll be fine.
-Asteria: I can take you there if you wish, but...
+Daze.Neutral: This could explain it...
+Daze.Neutral: Are there any other places like this bunker?
+Asteria.Neutral: Yeah there are a few, but... The only one I can remember is in a quite dangerous place.
+Mira.Neutral: Dangerous?
+Asteria.Neutral: That place is infested, it's basically a monster nest!
+Daze.Neutral: Nothing I haven't dealt with before, especially with your help it shouldn't be a problem.
+Asteria.Curious: I can take you there if you wish, but...
 do! npc("P").bubble("Excited")
-Mira: We're going!
+Mira.Smile: We're going!
 (hide)
 do npc("Asteria").bubble("Sweat")
-Mira: Alcine, do you want to come too?
-Alcine: *nod*
-Daze: Meet you all at the gate later then!
+Mira.Smile: Alcine, do you want to come too?
+Alcine.Laugh: Whimm!
+Daze.Neutral: It's a plan! We'll meet at the gate by sunset then!
 do transition()
 do detransition()
-Daze: It was delicious, thank you so much Esto... sir.
-Mira: It was okay...
-Mira: Um, how much do we owe? I don't have much money.
+Daze.Neutral: It was delicious, Thanks a ton once again Esto... sir.
+Mira.Upset: Eh, it was okay...
+Mira.Upset: Um, how much does this all cost? I'm kind of strapped for money.
 Esto: Oh, don't worry about that! We don't do that here.
 do! npc("P").bubble("Question")
-Mira: Huh? Is everything free then??
-Asteria: Well Esto's policy is that each person can get one meal per day.
-Asteria: That is... Unless he gets mad at you, then you get zero.
+Mira.Surprised: Huh? OH right, do you guys use like a different currency or-
+Asteria.Neutral: Esto's policy is that anyone can get one meal per day.
+Asteria.Neutral: That is... Unless he gets mad at you, then you get zero.
 Esto: Ehehehe, you blaming me for that now?
 (hide)
 do npc("Asteria").bubble("Sweat")
-Asteria: Well the point is, we don't have some sort of currency here.
-Asteria: Some places might ask for other goods in return.
-Mira: That's a lot of work for no reward...
+Asteria.Neutral: Regardless, we don't really do things for payment, it's mostly for the good of everyone.
+Asteria.Neutral: We sometimes pay it forward by doing them favors or trading goods.
+Mira.Worried: That's a lot of work for no reward...
 Esto: My reward is seeing the village not passing from hunger!
-Esto: Ain't it enough?
-I feel so entitled... He's here doing all of this for free and I'm just complaining about variety.
-I should say something nicer.
-Mira: Well... thank you a lot for the food..!
+Esto: That's more than enough for me.
+I feel so entitled... He's been feeding everyone for free, and all I did was complain about not getting what I wanted.
+I should show more gratitude.
+Mira.Upset: Well... 
+Mira.Smile: Thank you.
 do transition()
-do lower_layer()
 do Party.set_to(["Mira"])
-After thanking Esto, we disband for a bit and I head to my room.
+After finishing our meal we disbanded, as we would regroup by the gate later. For now I'll go back to my room.
 set ToDay = 3
 set ToTime = 3
 do! time_transition()
@@ -191,7 +196,7 @@ I hope Daze's hypothesis is right... it seems like our only hope right now.
 As long as we have something to strive for, it'll all be fine...
 ...
 I guess it's time to leave now, the others should be waiting up at the gate.
-=> END
+=> END!
 
 ~ nov3_exit
 Alcine.Neutral: Wia!
