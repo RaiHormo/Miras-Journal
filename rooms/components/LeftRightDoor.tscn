@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://4qj3e07t5fsi"]
+
+[ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="1_3f8s0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6we5s"]
+size = Vector2(2, 23)
+
+[node name="LeftRightDoor" type="Area2D" unique_id=1664954931]
+script = ExtResource("1_3f8s0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1132117516]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6we5s")
+debug_color = Color(0.34915262, 0.60495996, 0.39291275, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

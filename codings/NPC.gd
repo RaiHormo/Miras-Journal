@@ -42,6 +42,10 @@ var move_frames:= 0
 @export var Shadow: Node2D
 @export var sprite: AnimatedSprite2D
 var minimum_movment: float = 0.2
+@export var step_frames: Dictionary[String, PackedInt32Array] = {
+	"Walk": [0, 2],
+	"Loop": [0, 1],
+}
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
@@ -109,6 +113,7 @@ func set_dir_marker(vec: Vector2 = direction):
 
 func update_anim_prm() -> void:
 	if sprite.sprite_frames == null: return
+	if Footsteps: handle_step_sounds(sprite)
 	if BodyState == IDLE and not sprite.is_playing(): sprite.play()
 	if BodyState == CUSTOM: return
 	if Facing == Vector2.ZERO: return
@@ -120,26 +125,26 @@ func update_anim_prm() -> void:
 		#BodyState = IDLE
 		if str("Idle"+Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
 			sprite.play(str("Idle"+Query.get_dir_name(Facing)))
-	if Footsteps: handle_step_sounds(sprite)
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
-	if "Generic" in get_terrain(): return
-	if "Idle" in sprite.animation: LastStepFrame = -1
-	if not get_node_or_null("StdrFootsteps"): return
-	if "Start" in sprite.animation:
-		$StdrFootsteps.get_node(get_terrain() + str(randi_range(1,3))).play()
-	if (("Walk" in sprite.animation and (
-		sprite.frame == 0 or sprite.frame == 2)) or (
-			"Dash" in sprite.animation and (
-				sprite.frame == 0 or sprite.frame == 4))) and sprite.frame != LastStepFrame and move_frames>10:
-		LastStepFrame = sprite.frame
-		var rand
-		if sprite.frame == 0: rand = str(randi_range(1,3))
-		else: rand = str(randi_range(4,6))
-		if $StdrFootsteps.get_node_or_null(get_terrain() + str(rand)) == null:
-			return
-		#print(get_terrain())
-		$StdrFootsteps.get_node(get_terrain() + str(rand)).play()
+	if "Idle" in sprite.animation: 
+		LastStepFrame = -1
+		return
+	if not has_node("StdrFootsteps") or sprite.frame == LastStepFrame or (LastStepFrame == -1 and move_frames == 0): return
+	LastStepFrame = sprite.frame
+	var frames: PackedInt32Array
+	for i in step_frames: 
+		if i in sprite.animation: frames = step_frames.get(i)
+	if frames.has(sprite.frame):
+		var terrain = Global.Area.get_terrain(coords)
+		if "Generic" == terrain: return
+		var rand: int
+		if sprite.frame == 0: rand = randi_range(1,3)
+		else: rand = randi_range(4,6)
+		var sound = terrain + str(rand)
+		print(sprite.animation,sprite.frame)
+		if $StdrFootsteps.has_node(sound):
+			$StdrFootsteps.get_node(sound).play()
 
 func check_terrain(terrain:String, layer:=1) -> bool:
 	if get_tile(layer):
@@ -147,18 +152,8 @@ func check_terrain(terrain:String, layer:=1) -> bool:
 			return true
 	return false
 
-func get_terrain() -> String:
-	var layers: Array[TileMapLayer] = Global.Area.Layers.duplicate()
-	layers.reverse()
-	var j = layers.size() -1
-	for i in layers:
-		j -= 1
-		if get_tile(j) and get_tile(j).get_custom_data("TerrainType") != "":
-			return get_tile(j).get_custom_data("TerrainType")
-	return "Generic"
-
 func get_tile(layer:int):
-	return Global.Area.Layers[layer].get_cell_tile_data(Global.Area.local_to_map(global_position))
+	return Global.Area.get_tile(Global.Area.local_to_map(global_position), layer)
 
 func move_dir(dir: Vector2, use_coords = true, autostop = false) -> void:
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
@@ -216,7 +211,7 @@ func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant 
 		BodyState = MOVE
 		direction = to_local(pos).normalized()
 		await Event.wait()
-		if (autostop and is_on_wall()) or stopping: break
+		if (autostop and is_on_wall()) or stopping or Global.Player.controllable(): break
 	direction = Vector2.ZERO
 	BodyState = IDLE
 	if look_dir is String or look_dir != Vector2.ZERO: look_to(look_dir)

@@ -24,6 +24,7 @@ var CurSubRoom: SubRoom = null
 @export var FlameInInd: Array[int]
 
 func _ready():
+	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	Cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
@@ -158,3 +159,22 @@ func go_to_subroom(subroom: String, fast = false):
 	for i in get_children(): 
 		if is_instance_valid(i) and i.name == subroom and i is SubRoom:
 			await i.transition(0)
+
+func get_layers() -> Array[TileMapLayer]:
+	return Layers if CurSubRoom == null else CurSubRoom.Layers
+
+func get_tile(pos: Vector2, layer: int = 1):
+	var tilemap = get_layers()[layer]
+	tilemap.get_cell_tile_data(pos)
+	
+func get_terrain(coords: Vector2i) -> String:
+	var layers: Array[TileMapLayer] = get_layers().duplicate()
+	layers.reverse()
+	for i in layers:
+		var data = i.get_cell_tile_data(coords)
+		if is_instance_valid(data) and data.has_custom_data("TerrainType"):
+			var terrain: String = data.get_custom_data("TerrainType")
+			#print(i, terrain, terrain)
+			if not terrain.is_empty():
+				return terrain
+	return "Generic"

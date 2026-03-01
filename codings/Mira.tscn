@@ -687,9 +687,8 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("3_rei3u")
-animation = &"WalkUp"
+animation = &"DashLeftLoop"
 autoplay = "IdleDown"
-frame_progress = 0.842649
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",
@@ -699,6 +698,16 @@ metadata/_aseprite_wizard_config_ = {
 "op_exp": true,
 "player": "AnimationPlayer",
 "source": "res://art/OV/Miraov.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"embed_tex": false,
+"layers": ["Base"],
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source_uid": -1
+}
 }
 
 [node name="Flame" type="AnimatedSprite2D" parent="Sprite" unique_id=1771969169]

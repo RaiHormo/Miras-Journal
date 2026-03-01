@@ -10,6 +10,7 @@ var Layers: Array[TileMapLayer]
 var t
 
 func _ready() -> void:
+	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
 	modulate = Color.TRANSPARENT
 	hide()
 	for i in get_children():
