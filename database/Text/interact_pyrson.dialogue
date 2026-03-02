@@ -7,7 +7,7 @@ if Event.TimeOfDay == 1:
 		do Event.progress_by_time(1)
 		do Event.time_transition()
 elif Event.TimeOfDay == 5:
-	if f("eepy", 1):
+	if f_past("eepy", 1):
 		I'm exhausted.
 	else:
 		Bedtime.

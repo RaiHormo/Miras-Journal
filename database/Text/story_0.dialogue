@@ -78,9 +78,10 @@ Maybe I should try approaching it.
 
 ~ you_ok
 Mira.Neutral: Hey little one.
-=> END
-
-~ no_harm
+(hide)
+do wait(0.5)
+do npc("Alcine").set_anim("ScaredTurn1", false, true)
+do wait(1)
 Mira.Smile: Don't worry, I'm not here to harm you. 
 Mira.Smile: You just seem scared, and...
 => END
@@ -101,9 +102,13 @@ Whimm!
 do Global.Player.get_node("%Flame").play("ReachOut2")
 Mira.Smile: Wait, I have an idea.
 I take a green fabric from my bag, and tie it around their neck.
-=> END
-
-~ good_on_you
+(hide)
+do npc("Alcine").hop()
+do npc("Alcine").change_sprite("Alcine")
+do wait(1)
+do remove_flag(&"FlameActive")
+do Global.Player.check_flame(true)
+do Global.Player.set_anim("IdleRight")
 Mira.Smile: Hehe, looks good on you!
 => END
 
@@ -124,7 +129,7 @@ Mira.Neutral: If this goes on...
 ~ amazing
 Mira.Neutral: Woah, you can use healing magic!?
 Mira.Neutral: We might have a chance like this!
-Alcine.Happy: *happy noises*
+Alcine.Happy: Whieaaa!
 => END
 
 ~ got_through_that

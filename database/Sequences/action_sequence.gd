@@ -1063,7 +1063,7 @@ func AlcineWoods1():
 	Bt.lock_turn = true
 	Bt.Action = true
 	await Global.passive("story_0", "going_nowhere")
-	Event.CutsceneHandler.alcine_helps()
+	Event.sequence("AlcineFollowHelp")
 
 func AlcineWoods2():
 	for i in Bt.TurnOrder:
@@ -1083,10 +1083,6 @@ func AlcineWoods2():
 func AlcineWoods3():
 	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
 	await Global.passive("story_0", "amazing")
-
-func AlcineWoods4():
-	get_tree().paused = false
-	#Event.CutsceneHandler.after_battle()
 
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
@@ -1219,7 +1215,7 @@ func AsteriaBoss3():
 	var asteria = Bt.get_actor("Asteria")
 	Bt.focus_cam(asteria)
 	Bt.zoom(6)
-	if not Event.f("AsteriaBoss", 4):
+	if not Event.f_past("AsteriaBoss", 4):
 		await Bt.cut_in("Asteria")
 		await Bt.anim("Ability", asteria)
 		Loader.white_fadeout(0, 0, 0.5)
@@ -1233,7 +1229,7 @@ func AsteriaBoss3():
 					1: Bt.stat_change("Mag", 2, i)
 					2: Bt.stat_change("Def", 2, i)
 					3: Bt.stat_change("Atk", 2, i)
-		elif Event.f("AsteriaBoss", 3):
+		elif Event.f_past("AsteriaBoss", 3):
 			await Global.textbox("story_1", "asteria_boss_4")
 			Event.add_flag("AsteriaBoss", 4)
 			asteria.Health = asteria.MaxHP
@@ -1241,7 +1237,7 @@ func AsteriaBoss3():
 			Bt.stat_change("Mag", 2, asteria, -1)
 			Bt.stat_change("Def", 2, asteria, -1)
 			await Event.wait(3)
-		elif Event.f("AsteriaBoss", 2):
+		elif Event.f_past("AsteriaBoss", 2):
 			await Global.textbox("story_1", "asteria_boss_3")
 			Event.add_flag("AsteriaBoss", 3)
 			asteria.Health = asteria.MaxHP

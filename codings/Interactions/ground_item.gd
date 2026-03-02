@@ -10,8 +10,8 @@ extends Node2D
 
 func _ready() -> void:
 	$Sprite.frame = randi_range(0, 13)
-	$Interactable.item = item_name
 	$Interactable.itemtype = item_type
+	$Interactable.item = item_name
 	$Interactable.hide_on_flag = name
 
 func _validate_property(property: Dictionary) -> void:

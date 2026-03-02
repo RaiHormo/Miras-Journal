@@ -1,8 +1,8 @@
 extends NPC
 
 func default() -> void:
-	if Global.CameraInd == 1 and Event.f("AlcineFollow", 1): hide()
-	elif Global.CameraInd == 2 and not Event.f("AlcineFollow", 2):
+	if Global.CameraInd == 1 and Event.f_past("AlcineFollow", 1): hide()
+	elif Global.CameraInd == 2 and not Event.f_past("AlcineFollow", 2):
 		$"../EvPetrogon".hide()
 		Event.flag_progress("AlcineFollow", 1)
 		Event.warp_to(Vector2(55, -44), "Alcine")
@@ -20,14 +20,14 @@ func default() -> void:
 		Loader.save()
 		if Global.Player in $Area2D.get_overlapping_bodies():
 			_on_area_2d_body_entered(Global.Player)
-	elif (Global.CameraInd == 2 and Event.f("AlcineFollow", 2)
-	and not Event.f("AlcineFollow", 3)):
+	elif (Global.CameraInd == 2 and Event.f_past("AlcineFollow", 2)
+	and not Event.f_past("AlcineFollow", 3)):
 		$"../EvPetrogon".hide()
 		Event.warp_to(Vector2(55+15, -45), "Alcine")
 		BodyState = CUSTOM
 		set_anim("Scared")
 		$Sprite.stop()
-	elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4):
+	elif Global.CameraInd == 2 and Event.f_past("AlcineFollow", 4):
 		position = Vector2(1963, -1312)
 		hide()
 		$"../EvPetrogon".hide()
@@ -39,8 +39,8 @@ func default() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.Player and self != Event.CutsceneHandler:
-		if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
-		Global.CameraInd == 2 and not Event.f("AlcineFollow", 3)):
+		if (Event.f_past("AlcineFollow", 1) and Event.f_past("AlcineFollow", 2) and
+		Global.CameraInd == 2 and not Event.f_past("AlcineFollow", 3)):
 			Global.Party.Leader.ClutchDmg = true
 			Event.CutsceneHandler = self
 			await Event.take_control()
@@ -70,7 +70,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Global.Player.get_node("Flame").flicker = false
 			t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 			await t.finished
-			Event.f("FlameActive", false)
+			Event.f_past("FlameActive", false)
 			await Global.textbox("story_0", "you_ok")
 			await Event.wait(0.5)
 			BodyState = CUSTOM
@@ -127,7 +127,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Global.Party.Leader.add_health(30)
 			Event.flag_progress("AlcineFollow", 3)
 			Loader.start_battle("AlcineFollow1")
-		elif Global.CameraInd == 1 and not Event.f("AlcineFollow", 1):
+		elif Global.CameraInd == 1 and not Event.f_past("AlcineFollow", 1):
 			print("a")
 			show()
 			BodyState = IDLE
@@ -141,7 +141,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await Global.textbox("story_0", "was_that_a")
 			await Event.give_control(true)
 			Event.flag_progress("AlcineFollow", 1)
-		#elif Global.CameraInd == 2 and Event.f("AlcineFollow", 4) and not Event.f("AlcineFollow", 5):
+		#elif Global.CameraInd == 2 and Event.f_past("AlcineFollow", 4) and not Event.f_past("AlcineFollow", 5):
 			#await Event.take_control()
 			#Event.give_control(true)
 			#Global.Player.can_dash = false
@@ -153,8 +153,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 #func skip():
-	#if (Event.f("AlcineFollow", 1) and Event.f("AlcineFollow", 2) and
-	#Global.CameraInd == 2 and not Event.f("AlcineFollow4")):
+	#if (Event.f_past("AlcineFollow", 1) and Event.f_past("AlcineFollow", 2) and
+	#Global.CameraInd == 2 and not Event.f_past("AlcineFollow4")):
 		#Event.flag_progress("AlcineFollow", 3)
 		#$"../EvPetrogon".hide()
 		#$"../EvPetrogon".play("Idle")

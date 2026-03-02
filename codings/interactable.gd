@@ -159,6 +159,7 @@ func vain_check():
 		get_parent().get_node("Sprite").hide()
 
 func check() -> void:
+	var eval_flag = Event.f(show_on_flag)
 	if Engine.is_editor_hint(): return
 	if bubble_always:
 		if not Global.Controllable: disappear(true)
@@ -168,9 +169,9 @@ func check() -> void:
 		return
 	if event_condition != "" and Event.condition(event_condition) == 0 :
 		destroy()
-	if not show_on_flag.is_empty() and not Event.check_flag(show_on_flag):
+	if not show_on_flag.is_empty() and not eval_flag:
 		destroy()
-	if not hide_on_flag.is_empty() and Event.check_flag(hide_on_flag):
+	if not hide_on_flag.is_empty() and eval_flag:
 		destroy()
 	#print(Global.Controllable, CanInteract)
 	if not Global.Controllable and CanInteract:
@@ -339,7 +340,7 @@ func _on_button_pressed() -> void:
 				Global.veinet_map(get_parent().name.replace("VP", ""))
 				Loader.save()
 			else:
-				Event.f(get_parent().name, true)
+				Event.add_flag(get_parent().name, true)
 				vain_check()
 				disappear()
 				await Event.wait(0.3)
@@ -350,7 +351,7 @@ func _on_button_pressed() -> void:
 			Global.Player.camera_follow(false)
 			Global.get_cam().position = Vector2(file.to_int(), title.to_int())
 			await Event.wait(1)
-			if add_flag: Event.f(hide_on_flag, true)
+			if add_flag: Event.add_flag(hide_on_flag, true)
 			Global.check_party.emit()
 			await Event.wait(3, false)
 			Global.Player.camera_follow(true)
@@ -384,8 +385,8 @@ func _on_button_pressed() -> void:
 			await Global.jump_to_global(Global.Player, pos)
 	if add_flag: 
 		if hide_on_flag != "":
-			Event.f(hide_on_flag, true)
-		else: Event.f(name, true)
+			Event.add_flag(hide_on_flag, true)
+		else: Event.add_flag(name, true)
 	if return_control:
 		Event.give_control(false)
 	if hidesprite:

@@ -7,10 +7,10 @@ func new_game() -> void:
 	Global.FirstStartTime = Time.get_unix_time_from_system()
 	Event.Flags.clear()
 	Event.add_flag("Started")
-	Event.f("HasBag", false)
+	Event.add_flag("HasBag", false)
 	PartyUI.hide_all()
-	Event.f("DisableMenus", true)
-	Event.f("HideDate", true)
+	Event.add_flag("DisableMenus", true)
+	Event.add_flag("HideDate", true)
 	Event.add_flag("DisableVeinet")
 	Item.KeyInv.clear()
 	Item.ConInv.clear()
@@ -74,7 +74,7 @@ func first_battle():
 	#await Global.Player.move_dir(Vector2.RIGHT)
 	await Loader.travel_to("TempleWoods", Vector2(1220, 461), 1)
 	Loader.start_battle("FirstBattle")
-	Event.f("DisableMenus", false)
+	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
 
 func TWflame():
@@ -85,6 +85,158 @@ func TWflame():
 	Event.add_flag("TWflame")
 	Loader.save()
 
+func AlcineFollow1():
+	var Alcine = Event.npc("EvAlcineBelow")
+	Alcine.show()
+	Alcine.BodyState = NPC.IDLE
+	await Event.take_control()
+	Global.Player.set_anim("IdleUp")
+	await Event.wait(0.5)
+	Alcine.look_to(Vector2.DOWN)
+	await Alcine.bubble("Surprise")
+	await Alcine.move_dir(Vector2.UP*5)
+	await Global.textbox("story_0", "was_that_a")
+	Event.flag_progress("AlcineFollow", 1)
+	await Event.give_control(true)
+
+func AlcineFollow2():
+	var Alcine = Event.npc("Alcine")
+	Event.flag_progress("AlcineFollow", 2)
+	Event.obj("Pterogon").hide()
+	Alcine.position = Vector2(1282, -990)
+	Global.Player.can_dash = false
+	Global.passive("story_0", "hey_wait")
+	await Alcine.go_to(Vector2(1334, -1060))
+	await Alcine.go_to(Vector2(1681, -1070))
+	Alcine.BodyState = NPC.CUSTOM
+	Alcine.set_anim("Scared")
+	Alcine.get_node("Sprite").stop()
+	Global.Player.can_dash = true
+	Loader.save()
+
+func AlcineFollow3():
+	var Alcine = Event.npc("Alcine")
+	await Event.take_control()
+	Global.Party.Leader.ClutchDmg = true
+	Global.Player.set_anim("IdleRight")
+	Global.Player.camera_follow(false)
+	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	t.tween_property(Global.get_cam(), "position:x", 1650, 1)
+	Alcine.set_anim("Scared")
+	await t.finished
+	Event.wait(0.5)
+	await Global.textbox("story_0", "approach")
+	Global.Player.collision(false)
+	await Global.Player.go_to(Vector2(67, -45), true)
+	await Event.wait(0.3)
+	Global.Player.BodyState = NPC.CUSTOM
+	Global.Player.set_anim("ReachOut")
+	Global.Player.position = round(Global.Player.position)
+	t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	t.tween_property(Alcine.get_node("Glow"), "energy", 0.6, 2)
+	t.tween_property(Alcine.get_node("Glow"), "texture_scale", 3, 2)
+	Global.Player.get_node("Flame").flicker = false
+	t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
+	await t.finished
+	Event.f_past("FlameActive", false)
+	await Global.textbox("story_0", "you_ok")
+	Alcine.set_anim("ScaredTurn2", false, true)
+	await Event.wait(0.5)
+	await Alcine.go_to(Global.Player.position+Vector2(12, 0))
+	t = create_tween()
+	t.tween_property(Alcine, "position", Global.Player.position+Vector2(2, 4), 0.1)
+	Alcine.BodyState = Alcine.CUSTOM
+	Alcine.set_anim("Hug")
+	Global.Player.bubble("Surprise")
+	await Event.wait(1.5)
+	await Global.textbox("story_0", "haha")
+	#await Global.textbox("story_0", "good_on_you")
+	Alcine.look_to(Vector2.RIGHT)
+	await Alcine.bubble("Surprise")
+	await Alcine.go_to(Vector2(1630, -1081), false)
+	Event.obj("Pterogon").show()
+	Event.obj("Pterogon").play("Fly")
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	t.tween_property(Event.obj("Pterogon"), "position", Vector2(1731, -1080), 2).from(Vector2(1805, -1183))
+	Global.Player.bubble("Surprise")
+	Global.Player.reset_sprite()
+	await Event.wait()
+	Global.Player.set_anim("EntrancePrep")
+	Global.get_cam().position += Vector2(50, 0)
+	await Alcine.go_to(Vector2(1607, -1081), false)
+	await Alcine.go_to(Vector2(1607, -1100), false)
+	Alcine.BodyState = NPC.CUSTOM
+	Alcine.set_anim("Scared")
+	await Event.wait(1)
+	Event.obj("Pterogon").play("Idle")
+	await Global.textbox("story_0", "stay_back")
+	Loader.Attacker = Event.obj("Pterogon")
+	await Event.wait(0.1)
+	Global.Party.Leader.add_health(30)
+	Event.flag_progress("AlcineFollow", 3)
+	Loader.start_battle("AlcineFollow1")
+
+func AlcineFollowHelp():
+	var Alcine = Event.npc("Alcine")
+	Alcine.set_anim("IdleRight")
+	await Alcine.bubble("Surprise")
+	#PartyUI.disabled = true
+	#PartyUI.hide_all()
+	var hp: int = max(Global.Bt.get_actor("Pterogon").Health, 5)
+	Alcine.z_index = 9
+	Loader.white_fadeout(2, 3, 0.5)
+	await Alcine.jump_to(Vector2(1660, -1068), 7, 0.5)
+	Global.Bt.end_battle()
+	await Loader.battle_end
+	Global.Party.add("Alcine")
+	Global.Party.Member1.FirstName = "Spirit"
+	Alcine.hide()
+	await Event.wait(0.5, false)
+	await Loader.start_battle("AlcineFollow2")
+	Global.Bt.get_actor("Pterogon", true).Health = hp
+	await Loader.battle_end
+	AlcineFollow4()
+
+func AlcineFollow4():
+	var Alcine = Event.npc("Alcine")
+	Global.check_party.emit()
+	Event.take_control()
+	while Loader.InBattle: await Event.wait(0.1)
+	Event.take_control()
+	Global.Party.Member1.FirstName = "Alcine"
+	Alcine.z_index = 0
+	Event.allow_skipping = false
+	Query.find_member("Mira").OV = "Bag"
+	Alcine.position = Global.Area.Followers[0].position
+	await Global.Player.go_to(Vector2(67, -45), true)
+	Global.Area.Followers[0].dont_follow = true
+	Global.Area.Followers[0].hide()
+	Alcine.show()
+	await Alcine.go_to(Vector2(66, -45), true)
+	await Event.wait(0.3)
+	Alcine.look_to(Vector2.RIGHT)
+	Global.Camera.position =  Global.Player.position - Vector2(18, 0)
+	Event.take_control()
+	Global.Player.look_to(Vector2.LEFT)
+	Global.Player.position = Vector2(1619, -1068)
+	await Global.textbox("story_0", "got_through_that")
+	await Global.alcine_naming()
+	await Global.textbox("story_0", "use_name")
+	await Loader.transition("R")
+	Event.flag_progress("AlcineFollow", 4)
+	Alcine.hide()
+	Global.get_cam().zoom = Vector2(4, 4)
+	PartyUI.disabled = false
+	PartyUI.UIvisible = true
+	Event.allow_skipping = true
+	Event.add_flag("FlameActive")
+	Global.Area.Followers[0].dont_follow = false
+	Loader.detransition()
+	PartyUI._on_shrink()
+	Event.give_control(true)
+	Event.pop_tutorial("party")
+	Alcine.default()
+	Loader.save()
 
 func enter_amberelm():
 	Global.Player.move_dir(Vector2(0, -2))
@@ -174,7 +326,7 @@ func oct0_daytime():
 	mira.set_anim("SitDown")
 	alcine.set_anim("IdleDown")
 	await Global.textbox(name, "wake_amberelm", true)
-	Event.f("EvRestAmberelm", true)
+	Event.add_flag("EvRestAmberelm", true)
 	await Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)
 	Loader.save()
 

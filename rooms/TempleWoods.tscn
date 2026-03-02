@@ -2,7 +2,6 @@
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
-[ext_resource type="Script" uid="uid://sxx81cfxpfld" path="res://codings/StoryEvents/AlcineWoods.gd" id="3_8qhui"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/OV/Alcine/AlcineOV1.tres" id="4_d61pe"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="5_4nr7e"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="6_82fx5"]
@@ -18,14 +17,17 @@
 [ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="16_0acit"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="19_dpu00"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="19_vwt3b"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="20_bwh8w"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="21_e7y1u"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="21_hylag"]
 [ext_resource type="Script" uid="uid://dmasgg87jbfvd" path="res://codings/Interactions/pop_tutorial.gd" id="23_5qp58"]
+[ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="23_dpu00"]
 [ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="24_iq5im"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="26_k6j3t"]
+[ext_resource type="PackedScene" uid="uid://dltu4a3f82ic4" path="res://rooms/components/ObjectIdentifier.tscn" id="28_bhcd2"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="31_svxf2"]
 [ext_resource type="Texture2D" uid="uid://j5vc50ku588f" path="res://art/OV/Objects/BreakableOre.png" id="32_o2d87"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="35_2q7ov"]
@@ -523,9 +525,6 @@ fill = 1
 fill_from = Vector2(0.494787, 0.514692)
 fill_to = Vector2(0.835294, 0.135294)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6qhg"]
-size = Vector2(206, 79.0111)
-
 [sub_resource type="Gradient" id="Gradient_s6doo"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.256303, 0.483193, 1)
@@ -580,7 +579,7 @@ source_geometry_group_name = &"TileMap"
 cell_size = 24.0
 agent_radius = 5.0
 
-[node name="TileMap" type="Node2D" unique_id=65343537]
+[node name="TempleWoods" type="Node2D" unique_id=65343537]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_unic6")
@@ -910,6 +909,10 @@ texture_scale = 4.94
 position = Vector2(1365.05, 222.688)
 BattleSeq = ExtResource("11_1cjwu")
 ID = "CS1"
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1" unique_id=739350443]
 
@@ -953,6 +956,10 @@ gizmo_extents = 100.0
 position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
 ID = "CS3"
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2" unique_id=421879962]
 
@@ -995,6 +1002,10 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge3" parent="." unique_id=1347610146 instance=ExtResource("10_rx6j2")]
 position = Vector2(1638.08, 368.626)
 BattleSeq = ExtResource("13_812cc")
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3" unique_id=2002211728]
 
@@ -1033,6 +1044,10 @@ gizmo_extents = 100.0
 position = Vector2(1257.89, -491.287)
 BattleSeq = ExtResource("21_e7y1u")
 ID = "CS5"
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4" unique_id=1500271890]
 
@@ -1063,25 +1078,39 @@ position = Vector2(142.11, 72.287)
 position = Vector2(-57.89, 153.287)
 gizmo_extents = 100.0
 
-[node name="EvAlcine" type="CharacterBody2D" parent="." unique_id=1108744894]
+[node name="EvAlcineFollow1" parent="." unique_id=1297631556 instance=ExtResource("36_2q7ov")]
+position = Vector2(1250, -635)
+scale = Vector2(1.3199999, 1)
+EventName = "AlcineFollow1"
+Flag = "day:0+!AlcineFollow"
+FlagIsName = false
+FlagShouldBe = true
+
+[node name="EvAlcineFollow2" parent="." unique_id=554411234 instance=ExtResource("36_2q7ov")]
+position = Vector2(1268, -925.00006)
+scale = Vector2(1.3199999, 0.52)
+EventName = "AlcineFollow2"
+Flag = "day=0+AlcineFollow=1"
+FlagIsName = false
+FlagShouldBe = true
+
+[node name="EvAlcineFollow3" parent="." unique_id=73391420 instance=ExtResource("36_2q7ov")]
+z_index = 1
+position = Vector2(1573, -1073)
+scale = Vector2(1.8799999, 1.0799999)
+EventName = "AlcineFollow3"
+Flag = "day=0+AlcineFollow=2"
+FlagIsName = false
+FlagShouldBe = true
+
+[node name="EvAlcineBelow" type="CharacterBody2D" parent="." unique_id=1014923867]
 position = Vector2(1257.85, -652.287)
 motion_mode = 1
-script = ExtResource("3_8qhui")
-speed = 100
-Facing = Vector2(1, 0)
-ID = "Alcine"
-SpawnOnCameraInd = false
+script = ExtResource("19_dpu00")
 CameraIndex = 1
+metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
-[node name="Nav" type="NavigationAgent2D" parent="EvAlcine" unique_id=1759061300]
-
-[node name="Area2D" type="Area2D" parent="EvAlcine" unique_id=19633095]
-
-[node name="SceneShape" type="CollisionShape2D" parent="EvAlcine/Area2D" unique_id=158021912]
-position = Vector2(-50.9991, -5.49469)
-shape = SubResource("RectangleShape2D_e6qhg")
-
-[node name="Bubble" type="AnimatedSprite2D" parent="EvAlcine" unique_id=1102887877]
+[node name="Bubble" type="AnimatedSprite2D" parent="EvAlcineBelow" unique_id=1102887877]
 light_mask = 0
 z_index = 3
 material = ExtResource("5_4nr7e")
@@ -1089,21 +1118,63 @@ position = Vector2(2.99492, -27.001)
 sprite_frames = ExtResource("6_82fx5")
 animation = &"Surprise"
 
-[node name="Glow" type="PointLight2D" parent="EvAlcine" unique_id=587548711]
+[node name="Glow" type="PointLight2D" parent="EvAlcineBelow" unique_id=587548711]
 color = Color(0.498039, 0.768627, 0.768627, 1)
 energy = 0.3
 texture = SubResource("GradientTexture2D_pd21j")
 texture_scale = 2.0
 
-[node name="Sprite" type="AnimatedSprite2D" parent="EvAlcine" unique_id=356809428]
+[node name="Sprite" type="AnimatedSprite2D" parent="EvAlcineBelow" unique_id=356809428]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9DcmF3bGluZ1NsdWRnZU9WLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, 6.10352e-05)
 sprite_frames = ExtResource("4_d61pe")
-animation = &"Scared"
+animation = &"IdleRight"
 offset = Vector2(0.0496826, -5.866)
+
+[node name="HideOnFlag" parent="EvAlcineBelow" unique_id=206159318 instance=ExtResource("23_dpu00")]
+flag = "AlcineFollow>=1"
+
+[node name="EvAlcine" type="CharacterBody2D" parent="." unique_id=594605233]
+position = Vector2(1681, -1069)
+motion_mode = 1
+script = ExtResource("19_dpu00")
+speed = 100
+DefaultState = 6
+ID = "Alcine"
+CameraIndex = 2
+metadata/_custom_type_script = "uid://gfinmw5y4txi"
+
+[node name="Bubble" type="AnimatedSprite2D" parent="EvAlcine" unique_id=1653531886]
+light_mask = 0
+z_index = 3
+material = ExtResource("5_4nr7e")
+position = Vector2(2.99492, -27.001)
+sprite_frames = ExtResource("6_82fx5")
+animation = &"Surprise"
+
+[node name="Glow" type="PointLight2D" parent="EvAlcine" unique_id=1071084265]
+color = Color(0.498039, 0.768627, 0.768627, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_pd21j")
+texture_scale = 2.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="EvAlcine" unique_id=1432633189]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9DcmF3bGluZ1NsdWRnZU9WLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(-0.06, -0.145)
+sprite_frames = ExtResource("4_d61pe")
+animation = &"ScaredTurn1"
+frame = 3
+frame_progress = 1.0
+offset = Vector2(0.0496826, -5.866)
+
+[node name="HideOnFlag" parent="EvAlcine" unique_id=170539596 instance=ExtResource("23_dpu00")]
+flag = "AlcineFollow=4"
 
 [node name="EvAxe" type="Sprite2D" parent="." unique_id=1994878896]
 z_index = 1
@@ -1175,7 +1246,7 @@ position = Vector2(-24.5789, 15.4054)
 rotation = 1.1737
 shape = SubResource("RectangleShape2D_px8hq")
 
-[node name="EvPetrogon" type="AnimatedSprite2D" parent="." unique_id=130907456]
+[node name="EvPterogon" type="AnimatedSprite2D" parent="." unique_id=130907456]
 visible = false
 z_index = 3
 use_parent_material = true
@@ -1184,13 +1255,16 @@ sprite_frames = ExtResource("7_jtxqp")
 animation = &"Fly"
 frame_progress = 0.412924
 
-[node name="Glow" type="PointLight2D" parent="EvPetrogon" unique_id=1416877617]
+[node name="Glow" type="PointLight2D" parent="EvPterogon" unique_id=1416877617]
 light_mask = 16
 color = Color(1, 0.278431, 0.552941, 1)
 energy = 0.3
 range_item_cull_mask = 17
 texture = SubResource("GradientTexture2D_nc5ly")
 texture_scale = 2.0
+
+[node name="ObjectIdentifier" parent="EvPterogon" unique_id=1589410694 instance=ExtResource("28_bhcd2")]
+ID = "Pterogon"
 
 [node name="EvTutorialBag" type="Area2D" parent="." unique_id=1784290421]
 position = Vector2(1407.08, 347.679)
@@ -1314,7 +1388,7 @@ room = "TempleWoods"
 [node name="Transfer3" parent="." unique_id=1593896857 instance=ExtResource("8_grqbv")]
 position = Vector2(1258.84, -705.287)
 Direction = Vector2(0, -1)
-Position = Vector2(1272, -966)
+Position = Vector2(1272, -926)
 room = "TempleWoods"
 ToCamera = 2
 
@@ -1385,7 +1459,6 @@ SlowDown = true
 
 [connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableVines1/AreaBreak" to="BreakableVines1" method="_on_area_break_area_entered"]
-[connection signal="body_entered" from="EvAlcine/Area2D" to="EvAlcine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag2" to="EvTutorialBag2" method="_on_body_entered"]

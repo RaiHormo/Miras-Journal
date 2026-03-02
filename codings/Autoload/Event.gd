@@ -4,6 +4,7 @@ extends Node
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Dictionary[String, NPC]
+var Objects: Dictionary[String, Node2D]
 var Flags: Dictionary[StringName, int]
 var Diary: Dictionary[int, PackedStringArray] = {
 	2: ["boo"],
@@ -36,6 +37,9 @@ func add_char(b:NPC):
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
 	return List.get(ID)
+
+func obj(ID: String) -> Node2D:
+	return Objects.get(ID)
 
 ##Move an [NPC] relative to their current coords
 func move_dir(dir:Vector2=Global.get_direction(), chara:String="P"):
@@ -88,39 +92,85 @@ func jump_to(pos:Vector2, time:float, chara:String = "P", height: float =0.1):
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
+var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>', '<', '>=', '<=']
+
 ## Check if a flag is equal to a given value.[br]
+func check_flag(flag: StringName, value:= 1):
+	if flag in Flags:
+		return Flags.get(flag) == value
+	else: return false
+
+## Evaluate an expression
 ## Additional syntax:[br]
 ## [code]flag + flag[/code] AND[br]
 ## [code]flag || flag[/code] OR[br]
 ## [code]flag = (Number)[/code] alternative to setting the value, useful for event triggers.[br]
 ## [code]day: (Number)[/code] Check if the current day is the given number.[br]
 ## [code]time: (Number)[/code] Check if the current time of day is the given number.[br]
-func check_flag(flag: StringName, value:= 1):
-	if flag.begins_with("!"): return not check_flag(flag.replace("!", ""))
-	if "+" in flag:
-		var split = flag.split("+")
-		for i in split:
-			if not check_flag(i): return false
-		return true
-	if "||" in flag:
-		var split = flag.split("||")
-		for i in split:
-			if check_flag(i): return true
+func f(flag: StringName) -> bool:
+	if flag.is_empty(): return false
+	
+	if not (">" in flag or '<' in flag):
+		flag = flag.replace("=", "==")
+	flag = flag.replace(":", "==")
+	flag = flag.replace("day", "Day")
+	flag = flag.replace("time", "TimeOfDay")
+	flag = flag.replace("+", "&&")
+	
+	var ex = Expression.new()
+	var error = ex.parse(flag, Flags.keys())
+	if error != OK:
+		printerr(flag+":"+ex.get_error_text())
 		return false
-	if "=" in flag:
-		var split = flag.split("=")
-		return check_flag(str(split[0]), int(split[1]))
-	if "day:" in flag:
-		if int(flag.replace("day:", "")) == Day: return true
-		else: return false
-	if "time:" in flag:
-		if int(flag.replace("time:", "")) == TimeOfDay: return true
-		else: return false
-	if Flags.has(flag) and Flags.get(flag) == value: return true
-	else: return false
+	var result = ex.execute(Flags.values(), self, false)
+	#print(flag, " ", result)
+	
+	if result == null: return false
+	return bool(result)
+	
+	#if "+" in flag:
+		#var split = flag.split("+")
+		#for i in split:
+			#if not check_flag(i): return false
+		#return true
+	#if flag.begins_with("!"): return not check_flag(flag.replace("!", ""))
+	#if flag == "true": return true
+	#if flag == "false": return false
+	#if "||" in flag:
+		#var split = flag.split("||")
+		#for i in split:
+			#if check_flag(i): return true
+		#return false
+	#if ">=" in flag:
+		#var split = flag.split(">=")
+		#return check_flag(flag.replace(split[0]+">="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+	#if ">" in flag:
+		#var split = flag.split(">")
+		#return check_flag(flag.replace(split[0]+">"+split[1], str(flag_int(split[0]) > int(split[1]))))
+	#if "<=" in flag:
+		#var split = flag.split("<=")
+		#return check_flag(flag.replace(split[0]+"<="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+	#if "<" in flag:
+		#var split = flag.split("<")
+		#return check_flag(flag.replace(split[0]+"<"+split[1], str(flag_int(split[0]) > int(split[1]))))
+	#if "=" in flag:
+		#var split = flag.split("=")
+		#return check_flag(str(split[0]), int(split[1]))
+	#if "day:" in flag:
+		#if int(flag.replace("day:", "")) == Day: return true
+		#else: return false
+	#if "time:" in flag:
+		#if int(flag.replace("time:", "")) == TimeOfDay: return true
+		#else: return false
+	#if Flags.has(flag) and Flags.get(flag) == value: return true
+	#else: return false
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value:= 1):
+	if "=" in flag:
+		var split = flag.split("=")
+		add_flag(str(split[0]), int(split[1]))
+		return
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
 
@@ -128,13 +178,13 @@ func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
 	print("Removed flag \"", flag, "\"")
 
-## Check if a flag is 0 or 1 with `f("Example")`. It also has some depricated funtionality.
-func f(flag:StringName, state = null) -> bool:
-	if state is int:
-		return f_past(flag, state)
-	elif state is bool:
-		Flags.set(flag, int(state))
-	return check_flag(flag)
+### Check if a flag is 0 or 1 with `f("Example")`. It also has some depricated funtionality.
+#func f(flag:StringName, state = null) -> bool:
+	#if state is int:
+		#return f_past(flag, state)
+	#elif state is bool:
+		#Flags.set(flag, int(state))
+	#return check_flag(flag)
 
 func pop_tutorial(id: String):
 	tutorial = id
@@ -152,6 +202,7 @@ func take_control(keep_ui:= false, keep_followers:= false, idle:= false):
 	if Global.Player.dashing:
 		await Global.Player.stop_dash(false)
 		Global.Player.dashing = false
+	Global.Player.speed = Global.Player.walk_speed
 	Global.Player.dashdir = Vector2.ZERO
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
@@ -267,21 +318,13 @@ func sequence_exists(title: String) -> bool:
 
 func spawn(id: String, pos: Vector2i, dir:= "D", z: int = Global.Area.get_z(), no_collision = true) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
-	var nam = id.split(":", false)
-	match nam.size():
-		1:
-			nam.append(nam[0] + "OV")
-		2:
-			pass
-		0, _:
-			push_error("Invalid spawn id: " + id)
-			return null
 	var sprite_node:= AnimatedSprite2D.new()
 	chara.SpawnOnCameraInd = false
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
-	var sprite = await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
+	var nam = id.split(":")
+	var sprite = await get_ov_sprites(id)
 	if sprite == null: return null
 	sprite_node.sprite_frames = sprite
 	if no_collision: chara.collision(false)
@@ -310,6 +353,18 @@ func no_player():
 			i.queue_free()
 			await get_tree().physics_frame
 	PartyUI.hide_all()
+
+func get_ov_sprites(id: String) -> SpriteFrames:
+	var nam = id.split(":", false)
+	match nam.size():
+		1:
+			nam.append(nam[0] + "OV")
+		2:
+			pass
+		0, _:
+			push_error("Invalid spawn id: " + id)
+			return null
+	return await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 
 func time_transition():
 	if get_tree().root.has_node("Textbox"):
@@ -364,7 +419,7 @@ func condition(con: String):
 		return 0
 
 func setup_time_changes(from: int, to: int):
-	if f("eepy", 1):
+	if f_past("eepy", 1):
 		var eepy = flag_int("eepy")
 		flag_progress("eepy", eepy+to-from)
 		if eepy >= 2: remove_flag("eepy"+str(flag_int("eepy")))

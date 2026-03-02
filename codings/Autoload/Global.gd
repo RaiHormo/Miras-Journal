@@ -490,11 +490,13 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 		await Event.wait(0.1)
 		passive(file, title, extra_game_states)
 		return
+	textbox_open = true
 	var Passive = await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
 	await passive_close
+	textbox_open = false
 
 func portrait(img:String, redraw:=true) -> void:
 	PortraitRedraw = redraw

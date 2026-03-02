@@ -1,5 +1,6 @@
 extends Node
 var game_exists = false
+var inactive:= false
 
 func _ready() -> void:
 	#$TitleScreen.hide()
@@ -36,6 +37,8 @@ func focus():
 	get_window().grab_focus()
 
 func _on_continue_pressed() -> void:
+	if inactive: return
+	inactive = true
 	if get_tree().root.has_node("Options"): return
 	if game_exists:
 		if Input.is_action_pressed("LeftTrigger"):
@@ -53,6 +56,7 @@ func _input(event: InputEvent) -> void:
 		Global.cursor_sound() 
 
 func _on_options_pressed() -> void:
+	if inactive: return
 	if get_tree().root.has_node("Options"): return
 	Global.options()
 	#dismiss_title()
@@ -78,5 +82,6 @@ func you_can_now_play_as(chara: String):
 
 
 func _on_load_pressed() -> void:
+	if inactive: return
 	if get_tree().root.has_node("Options"): return
 	Global.options(1)

@@ -20,7 +20,7 @@ func _ready() -> void:
 func _on_area_break_area_entered(area: Area2D) -> void:
 	if Engine.is_editor_hint(): return
 	set_break()
-	Event.f(name, true)
+	Event.add_flag(name, true)
 	if given_item != "":
 		if broken_anim != "":
 			$Sprite.play(break_anim)

@@ -55,6 +55,7 @@ func _ready():
 		Troop.append(i.duplicate())
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
+	TurnOrder.push_front(Troop)
 	PartyArray.push_back(Party.Leader)
 	$Background.texture = Seq.BattleBack
 	if Seq.BattleBack == null:
@@ -100,7 +101,6 @@ func _ready():
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)
 		$Act.add_child(dub)
-		TurnOrder.push_front(Troop[i])
 		Troop[i].node = dub
 		dub.sprite_frames = await Troop[i].get_BT()
 		dub.material = dub.material.duplicate()
@@ -1105,7 +1105,7 @@ func victory(ignore_seq:= false):
 	$Canvas/TurnOrder.hide()
 	$Canvas/Continue.show()
 	$Canvas/Continue.icon = Global.get_controller().ConfirmIcon
-	if Seq.VictoryBanter != "": await Global.textbox_close
+	if Global.textbox_open: await Global.passive_close
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -1302,8 +1302,12 @@ func remove_state_effect(statename: String, chara: Actor):
 		chara.node.get_node(statename).queue_free()
 
 func get_actor(codename: StringName, unsafe = false) -> Actor:
+	if codename.is_empty(): return null
 	for i in TurnOrder:
 		if i.codename == codename: return i
+	for i in Troop:
+		if i.codename == codename: return i
+	push_warning(codename+" actor not found")
 	return null if unsafe else Party.Leader
 
 func has_actor(codename: StringName) -> bool:

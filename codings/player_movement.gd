@@ -25,6 +25,7 @@ var is_clone: bool = false
 var can_jump:= false
 var cant_bump:= false
 var path: Path2D
+var flame_active:= false
 var local_controllable:= true:
 	set(x):
 		local_controllable = x
@@ -214,7 +215,7 @@ func set_anim(anim:String = "Idle"+Query.get_dir_name(), wait = false, overwrite
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
-	if Event.f(&"FlameActive") and has_anim(anim, %Flame):
+	if flame_active and has_anim(anim, %Flame):
 		used_sprite = %Flame
 	elif has_anim(anim):
 		used_sprite = %Base
@@ -234,7 +235,7 @@ func has_anim(anim: String, node = %Base):
 func hide_other_sprites():
 	for i in $Sprite.get_children():
 		if i == used_sprite: i.show()
-		elif i == %Flame and Event.f(&"FlameActive") and used_sprite != %Flame:
+		elif i == %Flame and flame_active and used_sprite != %Flame:
 			flame_out_of_the_way()
 		else: i.hide()
 
@@ -259,7 +260,8 @@ func activate_flame(animate:=true) -> void:
 
 func check_flame(force:= false) -> void:
 	if not controllable() and not force: return
-	if Event.check_flag(&"FlameActive"):
+	flame_active = Event.check_flag(&"FlameActive")
+	if flame_active:
 		if get_node_or_null("Flame") == null: return
 		if flame.energy == 0:
 			flame.flicker = true
@@ -350,7 +352,7 @@ func controllable():
 	return local_controllable and Global.Controllable
 
 func attack():
-	if not Item.check_item("LightweightAxe", "Key") or not Event.f("HasBag"):
+	if not Item.check_item("LightweightAxe", "Key") or not Event.check_flag("HasBag"):
 		Global.buzzer_sound()
 		return
 	if dashing: await stop_dash()

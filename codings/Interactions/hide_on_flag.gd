@@ -7,6 +7,7 @@ extends Node2D
 
 func _ready() -> void:
 	check()
+	get_parent().show()
 	Global.check_party.connect(check)
 
 func check():
@@ -24,7 +25,7 @@ func check():
 	else:
 		if use_sprite:
 			if $Sprite.animation != "default": $Sprite.play("default")
-		else:
-			get_parent().show()
+		#else:
+			#get_parent().show()
 		for i in get_parent().get_children():
 			if i is CollisionShape2D: i.disabled = false

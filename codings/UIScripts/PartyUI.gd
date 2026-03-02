@@ -612,7 +612,7 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	return await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
 
 func cmd():
-	Event.f("DisableMenus", false)
+	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
 	show_all()
 	if not $CanvasLayer/TextEdit.visible:
@@ -664,9 +664,9 @@ func cmd():
 				Item.remove_item(split[0], split[1])
 		elif $CanvasLayer/TextEdit.text != "":
 			var text = $CanvasLayer/TextEdit.text
-			Event.f(text, Global.toggle(Event.f(text)))
+			Event.add_flag(text, !Event.f(text))
 			Global.toast("Flag \"" + text + "\" set to "
-			+ str(Event.f(text)))
+			+ str(Event.check_flag(text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true
 

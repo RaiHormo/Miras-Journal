@@ -394,7 +394,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qa3v2")
+}],
+"loop": false,
+"name": &"Scared",
+"speed": 4.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dmjw3")
 }, {
@@ -408,8 +413,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_gjjyl")
 }],
 "loop": false,
-"name": &"Scared",
-"speed": 4.0
+"name": &"ScaredTurn1",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -419,7 +424,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_w3bnl")
 }],
 "loop": false,
-"name": &"ScaredTurn",
+"name": &"ScaredTurn2",
 "speed": 8.0
 }, {
 "frames": [{

@@ -5,4 +5,4 @@ extends Area2D
 func _on_body_entered(body):
 	if not Event.f(flag) and body == Global.Player:
 		Event.pop_tutorial(tutorial)
-		Event.f(flag, true)
+		Event.add_flag(flag, true)

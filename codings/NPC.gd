@@ -142,7 +142,7 @@ func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
 		if sprite.frame == 0: rand = randi_range(1,3)
 		else: rand = randi_range(4,6)
 		var sound = terrain + str(rand)
-		print(sprite.animation,sprite.frame)
+		#print(sprite.animation,sprite.frame)
 		if $StdrFootsteps.has_node(sound):
 			$StdrFootsteps.get_node(sound).play()
 
@@ -211,15 +211,17 @@ func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant 
 		BodyState = MOVE
 		direction = to_local(pos).normalized()
 		await Event.wait()
-		if (autostop and is_on_wall()) or stopping or Global.Player.controllable(): break
+		if (autostop and is_on_wall()) or stopping: break
 	direction = Vector2.ZERO
 	BodyState = IDLE
 	if look_dir is String or look_dir != Vector2.ZERO: look_to(look_dir)
 	await Event.wait()
 
-func set_anim(anim: String):
+func set_anim(anim: String, wait = false, overwrite_state = false):
+	if overwrite_state: BodyState = CUSTOM
 	if sprite.sprite_frames.has_animation(anim):
 		sprite.play(anim)
+		if wait: await sprite.animation_finished
 
 func stop_going() -> void:
 	stopping = true
@@ -259,3 +261,17 @@ func attacked():
 func chain_moves(moves: Array[Vector2]):
 	for i in moves:
 		await move_dir(i)
+
+func hop(height: int = 12, time: float = 0.2):
+	BodyState = CUSTOM
+	var t:Tween = create_tween()
+	t.tween_property(self, "position:y", -height, time/2).as_relative()
+	t.tween_property(self, "position:y", height, time/2).as_relative()
+	await t.finished
+	
+func jump_to(position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
+	BodyState = CUSTOM
+	await Global.jump_to_global(self, position, time, height, rumble)
+
+func change_sprite(id: String):
+	get_node("Sprite").sprite_frames = await Event.get_ov_sprites(id)
