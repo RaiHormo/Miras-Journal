@@ -507,7 +507,7 @@ text = "The [i]quick[/i] brown fox jumps over the lazy [b]gods[/b]. This is a pr
 justification_flags = 161
 script = ExtResource("4_rwcjm")
 AudioPlayer = NodePath("../../../AudioStreamPlayer")
-skip_action = &"DialogNext"
+skip_action = &"Dash"
 pause_at_characters = ".?!,"
 skip_pause_at_character_if_followed_by = ")\".?"
 

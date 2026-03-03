@@ -821,7 +821,7 @@ metadata/_edit_group_ = true
 [node name="BreakableGreebOre0" parent="." unique_id=51296909 instance=ExtResource("14_bhjcf")]
 position = Vector2(-94, 29)
 default_anim = "IdleWind"
-given_item = "GreenFragment"
+item_type = "Bti"
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableGreebOre0" unique_id=2016243466]
@@ -881,7 +881,6 @@ LabelText = "Pick up"
 ActionType = "item"
 file = "testbush"
 dialogue_file = "testbush"
-item = "LightweightAxe"
 itemtype = "Key"
 hidesprite = true
 hide_parent = true
@@ -957,7 +956,7 @@ ActionType = "pass_time"
 file = "sleep_home"
 dialogue_file = "sleep_home"
 title = "Sleep"
-item = "Sleep until next the morning. Fully recovers the party's health."
+itemtype = "Bti"
 to_time = 1
 hide_on_flag = &"time:1"
 Height = 6
@@ -1087,7 +1086,7 @@ ActionType = "pass_time"
 file = "waste_time"
 dialogue_file = "waste_time"
 title = "Waste a bit of time"
-item = "Do nothing for a few hours."
+itemtype = "Mat"
 to_time = -1
 to_time_relative = 1
 bubble_always = true

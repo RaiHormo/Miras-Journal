@@ -20,7 +20,6 @@ const walk_speed := 100
 var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
-@onready var used_sprite: AnimatedSprite2D = %Base
 var is_clone: bool = false
 var can_jump:= false
 var cant_bump:= false
@@ -40,6 +39,7 @@ func _ready() -> void:
 	path = Path2D.new()
 	Global.Area.add_child(path)
 	path.curve = Curve2D.new()
+	sprite = %Base
 	if Global.Area == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
@@ -154,7 +154,7 @@ func control_process():
 
 func update_anim_prm() -> void:
 	if get_node_or_null("%Base") == null: return
-	if Footsteps: handle_step_sounds(used_sprite)
+	if Footsteps: handle_step_sounds(sprite)
 	if BodyState == CUSTOM: return
 	if Facing == Vector2.ZERO: return
 	if BodyState == CONTROLLED:
@@ -174,8 +174,8 @@ func update_anim_prm() -> void:
 				move_frames = 0
 					
 			move_frames+=1
-		elif controllable() and ("Walk" in used_sprite.animation or
-		("Dash" in used_sprite.animation and dashdir == Vector2.ZERO)):
+		elif controllable() and ("Walk" in sprite.animation or
+		("Dash" in sprite.animation and dashdir == Vector2.ZERO)):
 			move_frames = 0
 			reset_speed()
 			set_anim(str("Idle"+Query.get_dir_name(Facing)), false, false)
@@ -216,17 +216,17 @@ func set_anim(anim:String = "Idle"+Query.get_dir_name(), wait = false, overwrite
 	if not controllable(): reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
 	if flame_active and has_anim(anim, %Flame):
-		used_sprite = %Flame
+		sprite = %Flame
 	elif has_anim(anim):
-		used_sprite = %Base
+		sprite = %Base
 	else:
 		if wait: await Event.wait()
 		return
 	hide_other_sprites()
-	#print(used_sprite.name, " ", anim)
-	used_sprite.play(anim)
+	#print(sprite.name, " ", anim)
+	sprite.play(anim)
 	if wait:
-		while used_sprite.is_playing() and used_sprite.animation == anim:
+		while sprite.is_playing() and sprite.animation == anim:
 			await get_tree().physics_frame
 
 func has_anim(anim: String, node = %Base):
@@ -234,8 +234,8 @@ func has_anim(anim: String, node = %Base):
 
 func hide_other_sprites():
 	for i in $Sprite.get_children():
-		if i == used_sprite: i.show()
-		elif i == %Flame and flame_active and used_sprite != %Flame:
+		if i == sprite: i.show()
+		elif i == %Flame and flame_active and sprite != %Flame:
 			flame_out_of_the_way()
 		else: i.hide()
 
@@ -290,8 +290,8 @@ func bag_anim() -> void:
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
 func stop_dash(slide = true) -> void:
-	if (BodyState!=CONTROLLED or "Stop" in used_sprite.animation or "Hit" in
-	used_sprite.animation or midair or not dashing): return
+	if (BodyState!=CONTROLLED or "Stop" in sprite.animation or "Hit" in
+	sprite.animation or midair or not dashing): return
 	dashing = false
 	#print(RealVelocity)
 	reset_speed()
@@ -310,7 +310,7 @@ func stop_dash(slide = true) -> void:
 		else:
 			speed = walk_speed
 			if slide:
-				while used_sprite.is_playing() and "Stop" in used_sprite.animation:
+				while sprite.is_playing() and "Stop" in sprite.animation:
 					if direction == Vector2.ZERO: 
 						direction = dashdir * 0.3
 						speed = max(0, speed - 2)
@@ -324,7 +324,7 @@ func stop_dash(slide = true) -> void:
 	dashdir = Vector2.ZERO
 	move_frames = 0
 	speed = walk_speed
-	if "Stop" in used_sprite.animation or "Hit" in used_sprite.animation:
+	if "Stop" in sprite.animation or "Hit" in sprite.animation:
 		set_anim(str("Idle"+Query.get_dir_name()))
 
 func reset_speed() -> void:
@@ -342,7 +342,7 @@ func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	set_anim("Dash"+Query.get_dir_name(dashdir)+"Hit")
 	var mem = local_controllable
 	local_controllable = false
-	if used_sprite.is_playing(): await used_sprite.animation_finished
+	if sprite.is_playing(): await sprite.animation_finished
 	local_controllable = mem
 
 func camera_follow(follow = !$Camera2D.update_position) -> void:
@@ -435,7 +435,7 @@ func dramatic_attack_pause():
 			pause_anim()
 			var timer = get_tree().create_timer(3)
 			while timer.time_left > 0:
-				used_sprite = %Base
+				sprite = %Base
 				hide_other_sprites()
 				%Base.animation = "Attack" + Query.get_dir_name()
 				%Base.frame = 1

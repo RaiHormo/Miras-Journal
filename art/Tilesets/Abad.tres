@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cf22r3hrvrhcb" path="res://art/Tilesets/AbadGround.png" id="3_hqbka"]
 [ext_resource type="Texture2D" uid="uid://lqnkjbt6fgaj" path="res://art/Tilesets/AmberelmBuild.png" id="4_8dla1"]
 [ext_resource type="Texture2D" uid="uid://enc0u6y8cw5w" path="res://art/Tilesets/AbadObj.png" id="4_begsd"]
-[ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="6_0uc7g"]
+[ext_resource type="Texture2D" uid="uid://dv71cvsrwc0iu" path="res://art/Branding/Placeholder-mini.png" id="6_0uc7g"]
 [ext_resource type="Texture2D" uid="uid://bu735drdpamy3" path="res://art/Tilesets/PrysonGround.png" id="6_8dla1"]
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="7_eea3d"]
 [ext_resource type="Texture2D" uid="uid://cx02tfmfv6sxl" path="res://art/Tilesets/BunkerBuild.png" id="9_baio5"]
@@ -2700,6 +2700,7 @@ texture_region_size = Vector2i(24, 24)
 10:18/size_in_atlas = Vector2i(8, 6)
 10:18/0 = 0
 10:18/0/texture_origin = Vector2i(12, 12)
+10:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-84, 24, 12, 42, 42, -6, -54, -18)
 4:17/0 = 0
 4:16/0 = 0
 4:15/0 = 0

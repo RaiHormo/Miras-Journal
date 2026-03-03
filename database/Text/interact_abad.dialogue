@@ -75,7 +75,7 @@ else:
 	Mira.Neutral: The sky here is as strange as ever.
 	Mira.Neutral: Looks like we're near the sea, but it fades into those strange lines.
 	Mira.Neutral: It must be so far from my home...
-	do Event.f("TheSkyAmberelm", true)
+	do Event.add_flag("TheSkyAmberelm", true)
 do Global.Player.camera_follow(true)
 => END
 

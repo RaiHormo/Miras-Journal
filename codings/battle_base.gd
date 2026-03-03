@@ -55,7 +55,7 @@ func _ready():
 		Troop.append(i.duplicate())
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
-	TurnOrder.push_front(Troop)
+	TurnOrder.append_array(Troop)
 	PartyArray.push_back(Party.Leader)
 	$Background.texture = Seq.BattleBack
 	if Seq.BattleBack == null:

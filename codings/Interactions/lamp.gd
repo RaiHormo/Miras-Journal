@@ -3,12 +3,12 @@ extends PointLight2D
 @export var flag: String = ""
 
 func _ready() -> void:
-	if flag != "": Light = Event.f(flag)
+	if flag != "": Light = Event.check_flag(flag)
 	update()
 
 func _on_interactable_action():
 	Light = !Light
-	if flag != "": Event.f(flag, Light)
+	if flag != "": Event.add_flag(flag, Light)
 	update()
 
 func update():

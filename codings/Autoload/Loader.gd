@@ -245,7 +245,7 @@ func transition(dir=Query.get_dir_letter()):
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
-	if Global.textbox_open:
+	if Global.textbox_open and get_tree().root.has_node("Textbox"):
 		await get_tree().root.get_node("Textbox").hide_box()
 		lower_layer()
 	t.kill()

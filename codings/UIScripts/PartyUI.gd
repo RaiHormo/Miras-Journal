@@ -123,7 +123,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("MainMenu"):
 		main_menu()
 	elif (Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
-	and "Idle" in Global.Player.used_sprite.animation) and not Expanded:
+	and "Idle" in Global.Player.sprite.animation) and not Expanded:
 		if Input.is_action_just_pressed("Options"):
 			Global.options(0)
 		elif Input.is_action_just_pressed("SaveManagment"):

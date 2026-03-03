@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 					coord = coord.round()
 					#coord *= 24
 					Global.Player.set_anim("Dash"+Query.get_dir_name(Global.Player.dashdir)+"Loop")
-					Global.Player.used_sprite.frame = 0
+					Global.Player.sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)
 					Global.Player.collision(true)
 					Global.Controllable = true

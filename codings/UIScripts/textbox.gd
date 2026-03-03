@@ -275,16 +275,23 @@ func _on_close() -> void:
 	if self != null: queue_free()
 
 func hide_box():
+	if is_instance_valid(t): t.stop()
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
-	if $Portrait.visible:
-		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.2)
-		t.tween_property($Portrait, "position:x", -100, 0.2)
 	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
 	t.tween_property($Fader, "color", Color(0,0,0,0), 0.5)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
+	if $Portrait.visible:
+		while $Portrait.modulate != Color.WHITE and $Portrait.visible:
+			await Event.wait()
+		t = create_tween()
+		t.set_parallel(true)
+		t.set_ease(Tween.EASE_IN)
+		t.set_trans(Tween.TRANS_CUBIC)
+		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.3)
+		t.tween_property($Portrait, "position:x", -100, 0.3)
 	await t.finished
 	balloon.hide()
 	Global.portrait_clear()
@@ -332,6 +339,9 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		next(dialogue_line.responses[item.get_index()].next_id)
 
 func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed(dialogue_label.skip_action):
+		dialogue_label.visible_ratio = 1
+		dialogue_label.finished_typing.emit()
 	if Input.is_action_just_pressed("Dash") or skip:
 		skip = false
 		var hold_frames := 1
@@ -404,6 +414,7 @@ func draw_portrait() -> void:
 		Global.portrait_clear()
 		$Portrait.show()
 		if Global.PortraitRedraw:
+			if is_instance_valid(t): t.kill()
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
@@ -415,6 +426,7 @@ func draw_portrait() -> void:
 	else:
 		$Balloon/Arrow.hide()
 		if $Portrait.visible:
+			if is_instance_valid(t): t.kill()
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)

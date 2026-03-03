@@ -11,12 +11,12 @@ func _on_entered(body):
 			proceed()
 
 func proceed() -> void:
-	var frame = Global.Player.used_sprite.frame
+	var frame = Global.Player.sprite.frame
 	Global.Player.camera_follow(false)
 	Event.take_control(true, true)
 	Global.Player.collision(false)
 	Global.Player.move_dir(Direction*48, false)
-	Global.Player.used_sprite.frame = frame
+	Global.Player.sprite.frame = frame
 	print(name, " to ", room, " with camera index ", ToCamera)
 	await Loader.travel_to(room, Position, ToCamera)
 

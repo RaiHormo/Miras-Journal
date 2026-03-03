@@ -32,7 +32,7 @@ var IsEnemy: bool = true
 ##Material item that the enemy drops at the end of battle
 @export var DroppedItem: MaterialItem = null
 ##Skill Points the party recives for defeating the enemy at the end of battle
-@export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 0
+@export_range(0, 999, 1, "suffix:SP") var RecivedSP: int = 5
 ##What allies will be summoned when calling for help
 @export var SummonedAllies: Array[Actor]
 @export var CustomPosition: Vector2i = Vector2i.ZERO
@@ -345,7 +345,9 @@ func RenderArtwork() -> Texture:
 
 ##A shadow for the above artwork
 func RenderShadow() -> Texture:
-	return await Loader.load_res("res://UI/Party/"+codename+"Shadow.png")
+	if FileAccess.file_exists("res://UI/Party/"+codename+"Shadow.png"):
+		return await Loader.load_res("res://UI/Party/"+codename+"Shadow.png")
+	else: return null
 
 ##Doodles shown in the party menu
 func PartyPage() -> Texture:

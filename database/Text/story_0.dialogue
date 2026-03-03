@@ -194,7 +194,8 @@ do npc("P").collision(false)
 do jump_to(Player, Vector2(107, 345), 15)
 Mira.Neutral: ...
 Mira.Neutral: Let's just rest here for a bit, I'm exhausted.
-Alcine.Tired: *{{alcine()}} looks tired as well*
+Alcine.Tired: Sheeww...
+{{alcine()}} looks tired as well.
 => END
 
 ~ rest_amberelm
@@ -227,7 +228,7 @@ I guess there is one way we can communicate.
 do picture_clear()
 ...
 I wonder where {{alcine()}} came from... They don't seem to be like any of the other hostile spirits around here.
-Spirits are born off magic and intense emotion... what could be creating all these..?
+Where are all these spirits coming from anyways?
 Placeholder description: Mira makes her fire wings apear for a bit
 I guess we should keep moving forward.
 Mira.Neutral: Come on, let's go {{alcine()}}.

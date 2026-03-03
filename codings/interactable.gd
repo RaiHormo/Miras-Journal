@@ -159,7 +159,6 @@ func vain_check():
 		get_parent().get_node("Sprite").hide()
 
 func check() -> void:
-	var eval_flag = Event.f(show_on_flag)
 	if Engine.is_editor_hint(): return
 	if bubble_always:
 		if not Global.Controllable: disappear(true)
@@ -169,9 +168,9 @@ func check() -> void:
 		return
 	if event_condition != "" and Event.condition(event_condition) == 0 :
 		destroy()
-	if not show_on_flag.is_empty() and not eval_flag:
+	if not show_on_flag.is_empty() and not Event.f(show_on_flag):
 		destroy()
-	if not hide_on_flag.is_empty() and eval_flag:
+	if not hide_on_flag.is_empty() and Event.f(hide_on_flag):
 		destroy()
 	#print(Global.Controllable, CanInteract)
 	if not Global.Controllable and CanInteract:

@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cevshl4prlt7v"]
+
+[ext_resource type="Texture2D" uid="uid://ccvsc2ijqjy7e" path="res://art/BT/CrimsonFlowent/CrimsonFlowentBT.png" id="1_vsl55"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hihgl"]
+atlas = ExtResource("1_vsl55")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tygx8"]
+atlas = ExtResource("1_vsl55")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsl55"]
+atlas = ExtResource("1_vsl55")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ga01"]
+atlas = ExtResource("1_vsl55")
+region = Rect2(40, 40, 40, 40)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hihgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tygx8")
+}],
+"loop": false,
+"name": &"Ability",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsl55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ga01")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}]

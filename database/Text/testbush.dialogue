@@ -11,7 +11,7 @@ Mira.Neutral: Yes, this is [[indeed|in fact]] a bush
 	Feni.Neutral: Are yall serious? This can't be anything but a bush!
 - Scream
 	Mira.OpenMouth: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	if is_in_party("Erinn"):
+	if Query.is_in_party("Erinn"):
 		Erinn: Mira, what are you doing?
 - Talk a lot
 	Mira.Smile: Yeah, sure i can say a *bunch of stuff*.

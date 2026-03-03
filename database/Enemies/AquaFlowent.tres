@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("4_w7ar7")
-FirstName = "AquaFlowent"
+FirstName = "Aqua Flowent"
 MainColor = Color(0.2549783, 0.32222453, 0.7172705, 1)
 PartyIcon = ExtResource("3_w7ar7")
 ActorClass = "Mage"
