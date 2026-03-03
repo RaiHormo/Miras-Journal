@@ -48,7 +48,6 @@ actor = &"Guardian"
 low_hp = 200
 parameter1 = "story_0"
 parameter2 = "stone_guardian_still_standing"
-hold_turn = true
 add_flag = false
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 

@@ -254,12 +254,12 @@ Alcine.Neutral: Mmmo...
 => END
 
 ~ oct0_afternoon
-The sky getting darker now.
-I've really been out here all day...
+Placeholder description: Unfinished cutscene
+The sky getting brighter. I've really been out here all day...
 Placeholder description: Mira looks forward to Alcine goofing around.
 Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
-Their color is nearly oposite to mine...
-But perhaps I could give it a try.
+Their aura color, and thus affinity for magic, is nearly oposite to mine.
+But... perhaps I could give liquid magic a try.
 Placeholder description: Unlocked Complimentary Ability: Fluid Blast
 Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
 => END
@@ -278,6 +278,11 @@ Mira.Neutral: I can still...[wait=2]
 Mira.Neutral: No...
 ~ stone_guardian_my_arm
 Mira.Neutral: I can't... move my arm...
+=> END
+
+~ placeholder_daze
+Placeholder description: A mysterious figure jumps in in front of Mira and blocks the enemy's fatal attack.
+Placeholder description: Mira then faints.
 => END
 
 ~ daze_introduction
@@ -315,7 +320,7 @@ What do I ask?
 	Huh? What does he want to show me?
 	Daze.Neutral: Any other questions?
 - How does he know your name?
-	Mira.Neutral: How did you know my name? Do you know me?
+	Mira.Neutral: How did you know my name? Have we met before?
 	Daze.Neutral: Oh, it's because of this...
 	He picks up a book next to him... wait that's my journal!
 	I quickly take it from him.
@@ -336,11 +341,11 @@ What do I ask?
 	Daze.Neutral: No, you had weakened its Aura shield quite a bit. 
 	Daze.Neutral: Monsters like that are pretty fragile once their control over their physical parts is weakened.
 	Daze.Neutral: Anything else?
-- About Alcine...
+- About {{alcine()}}...
 	Mira.Neutral: Did you happen to see something like a water spirit with spirally aura where you found me?
 	Daze.Neutral: I apologize, but no. Was it important?
 	Mira.Neutral: Quite a bit...
-	I should go back and look for them at some point later.
+	I should go back and look for them later.
 - Ask for some water?
 	Mira.Neutral: You got any water?
 	Daze.Neutral: Here.
@@ -350,8 +355,7 @@ What do I ask?
 	Mira.Neutral: Ahh... I didn't drink anything the whole day yesterday...
 	Daze.Neutral: And you were fighting that thing? You need like a week's worth of rest...
 	Daze.Neutral: I also got some food packed up. Hold on.
-	do Loader.gray_out(1)
-	do Loader.lower_layer()
+	do! Loader.gray_out(1)
 	He gives me some bread wraps he had. It's nothing special but not having eated a whole day makes anything taste amazing.
 	do Loader.ungray.emit()
 	Mira.Neutral: Thank you, I was starving...
@@ -378,7 +382,7 @@ Mira.Neutral: So what's the plan now?
 Daze.Neutral: You stay here and rest now. I want to explore this place further, but let's leave that for tommorow.
 Daze.Neutral: I'll go scout around here for monsters. Just stay here in the camp while I'm away.
 Mira.Neutral: Alright.
-if find_member("Daze").FirstName != "Daze":
+if Query.find_member("Daze").FirstName != "Daze":
 	Mira.Neutral: Oh by the way, I didn't ask. What's your name?
 	if Flags.get("DazeQuestions") < 3:
 		Daze.Neutral: Oh, so you did have more things to ask.

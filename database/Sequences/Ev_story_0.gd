@@ -342,15 +342,20 @@ func amberelm_guardian():
 		Event.time_transition()
 
 func oct0_afternoon():
-	await Global.textbox(name, "oct0_afternoon")
+	await Global.textbox(name, "oct0_afternoon", true)
 	Global.Complimentaries.append("FluidBlast")
+	await Loader.travel_to("Amberelm", Vector2(2218, -132), 2)
+	Loader.save()
 
 func oct0_night():
 	Event.add_flag("BeatStoneGuardian")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "none", false)
-	Event.no_player()
-	Loader.ungray.emit()
+	await Event.no_player()
+	#Loader.detransition()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox(name, "daze_introduction")
+	Item.remove_item("LightweightAxe", &"Key")
+	Global.Party.set_to(["Mira"])
+	Global.Party.Leader.ClutchDmg = false
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))

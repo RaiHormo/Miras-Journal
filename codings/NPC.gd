@@ -219,7 +219,7 @@ func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant 
 
 func set_anim(anim: String, wait = false, overwrite_state = false):
 	if overwrite_state: BodyState = CUSTOM
-	if sprite.sprite_frames.has_animation(anim):
+	if is_instance_valid(sprite) and sprite.sprite_frames.has_animation(anim):
 		sprite.play(anim)
 		if wait: await sprite.animation_finished
 

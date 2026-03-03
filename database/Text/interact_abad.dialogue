@@ -84,14 +84,16 @@ do Global.Player.camera_follow(true)
 => END
 
 ~ amberelm_bench
-if Day == 0 and TimeOfDay == 3:
-	We just rested here, let's move forward for now.
-else:
+if Day == 0 and TimeOfDay == 2:
 	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
 	do Event.progress_by_time(1)
 	if confirm_time_passage("Rest", "Fully restore health."):
 		do Event.time_transition()
 		do heal_party()
+elif Day == 0 and TimeOfDay == 3:
+	We just rested here, let's move forward for now.
+else: 
+	I shouldn't rest here right now.
 => END
 
 ~ rest_camp
@@ -129,18 +131,18 @@ if Query.check_member("Mira") and Query.check_member("Daze"):
 
 ~ daze_camp
 if Day == 1
-	if f("AlcineIsTheLeaderReal", 3):
+	if f_past("AlcineIsTheLeaderReal", 3):
 		Mira.Neutral: {{alcine()}} should be the leader anyways.
 		Daze.Neutral: I have a feeling I would be expelled from the team immediatly.
-	elif f("AlcineIsTheLeaderReal", 1):
-		Daze.Neutral: When did I say I'm the leader in the first place?
+	elif f_past("AlcineIsTheLeaderReal", 1):
+		Daze.Neutral: Who said I'm the leader in the first place?
 		Mira.Neutral: Nobody!
 		Mira.Neutral: Which is why I elect myself as the leader!!
 		Daze.Neutral: What is your command, oh Leader of... uhh...
 		Daze.Neutral: What exactly are you leading again?
 		Mira.Neutral: The Three Lost Souls, bravely adventuring through the mysterious ruins and forests..!
 		Mira.Neutral: ...Yeah, I dunno.
-		if f("AlcineIsTheLeaderReal", 2):
+		if f_past("AlcineIsTheLeaderReal", 2):
 			do add_flag("AlcineIsTheLeaderReal", 3)
 	else:
 		Mira: Hey Daze, how old are you again?
@@ -165,10 +167,10 @@ elif Day == 2:
 
 ~ alcine_camp
 if Day == 1:
-	if f("AlcineIsTheLeaderReal", 2):
+	if f_past("AlcineIsTheLeaderReal", 2):
 		Mira.Neutral: Lead the way!
 		Alcine.Neutral: Whim!
-	elif f("AlcineIsTheLeaderReal", 1):
+	elif f_past("AlcineIsTheLeaderReal", 1):
 		Mira.Neutral: Psst, {{alcine()}}! How old are you?
 		(hide)
 		do npc("AlcineCamp").bubble("Question")

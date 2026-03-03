@@ -17,8 +17,8 @@ class_name EventTripwire
 @export var KickDirection: Vector2
 
 func _on_body_entered(body):
-	if Flag == "" and FlagIsName: Flag = name
-	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player:
+	if Flag.is_empty() and FlagIsName: Flag = name
+	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player and (not FlagIsName or !Event.check_flag(name)):
 		print("Tripwire: ", name)
 		if AddFlag:
 			if FlagIsName: Event.add_flag(name)

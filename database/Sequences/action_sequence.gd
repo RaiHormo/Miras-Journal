@@ -1133,7 +1133,8 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	#Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
 	Global.check_party.emit()
 	await Event.wait(1)
-	alcine.Health = 1
+	Bt.get_actor("Guardian").AttackMultiplier = 10
+	Bt.get_actor("Guardian").MagicMultiplier = 10
 	guardian.NextAction = "Ability"
 	guardian.NextMove = load("res://database/Abilities/Drill.tres")
 	guardian.MainColor = Color(0.688, 0.636, 0.0, 1.0)
@@ -1195,6 +1196,7 @@ func StoneGuardian3():
 	mira.CantDie = false
 	Loader.gray_out(1)
 	await Event.wait(1)
+	await Global.textbox("story_0", "placeholder_daze")
 	Loader.get_node("Can").layer = 3
 	Bt.victory(true)
 	await Loader.battle_end

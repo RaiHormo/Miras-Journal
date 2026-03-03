@@ -475,6 +475,7 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	get_tree().root.add_child(balloon)
 	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
+	Loader.lower_layer()
 	await textbox_close
 	textbox_open = false
 

@@ -60,9 +60,9 @@ var dialogue_line: DialogueLine:
 		if "." in tr(dialogue_line.character, "dialogue"):
 			var redraw: bool = true
 			if Query.member_exists(char_name):
-				if Query.find_member(char_name).FirstName == character_label.text: redraw = false
+				if Query.find_member(char_name).FirstName == character_label.text and Global.PortraitIMG != null: redraw = false
 			else:
-				if character_label.text == char_name: redraw = false
+				if character_label.text == char_name and Global.PortraitIMG != null: redraw = false
 			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
 		if not Query.member_exists(char_name):
 			character_label.text = char_name
@@ -173,6 +173,8 @@ func _ready() -> void:
 	$Hints.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
+	Global.portrait_clear()
+	Global.picture_clear()
 	if Input.is_action_pressed("Dash"): skip = true
 	
 	match Global.Settings.TextSpeed:
@@ -414,7 +416,7 @@ func draw_portrait() -> void:
 		Global.portrait_clear()
 		$Portrait.show()
 		if Global.PortraitRedraw:
-			if is_instance_valid(t): t.kill()
+			#if is_instance_valid(t): t.kill()
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
@@ -426,7 +428,7 @@ func draw_portrait() -> void:
 	else:
 		$Balloon/Arrow.hide()
 		if $Portrait.visible:
-			if is_instance_valid(t): t.kill()
+			#if is_instance_valid(t): t.kill()
 			t=create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)

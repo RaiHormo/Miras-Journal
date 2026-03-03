@@ -7,4 +7,5 @@ script = ExtResource("2_1lbyj")
 Bord1 = Color(0.160784, 0.160784, 0.160784, 1)
 Bord2 = Color(0.160784, 0.160784, 0.160784, 1)
 Bord3 = Color(0.160784, 0.160784, 0.160784, 1)
+AudioFrequency = 10
 PitchVariance = 0.5

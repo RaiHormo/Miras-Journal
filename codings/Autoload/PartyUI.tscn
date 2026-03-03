@@ -1352,6 +1352,7 @@ text = "/clear
 /day
 /time
 /enrestore
+/timetrans
 /cam
 /comp
 /lv

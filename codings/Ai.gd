@@ -125,7 +125,7 @@ func pick_general_ability() -> Ability:
 				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")):
 						return find_ability("Defensive").pick_random()
 			3:
-				if has_type("BigAttack") and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "BigAttack") and Char.Aura > Char.Aura/3:
+				if has_type("BigAttack") and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "BigAttack"):
 					return find_ability("BigAttack").pick_random()
 			4:
 				if has_type("MagBuff") and has_class_in_faction("Mage", Bt.get_ally_faction()):

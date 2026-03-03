@@ -120,7 +120,9 @@ var SpeedBoost: int = 0
 @export_group("Additional parameters")
 @export var DontIdle:= false
 ##If true, the character cannot die unless in very low hp
-@export var ClutchDmg:= false
+@export var ClutchDmg:= false:
+	set(x):
+		pass
 ##Sequence played when the above happens
 @export var SeqOnClutch:= ""
 ##If true, the character cannot die, and will always stay at low hp

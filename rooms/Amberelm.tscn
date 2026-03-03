@@ -1057,6 +1057,16 @@ Flag = "BeatStoneGuardian"
 FlagIsName = false
 ReturnControl = false
 
+[node name="EvStoneGuardianCheckBody" parent="." unique_id=1297631556 instance=ExtResource("30_djhcr")]
+position = Vector2(2565, -136.00002)
+scale = Vector2(1, 3.4)
+TextFile = "story_1"
+TextNode = "destroyed_guardian_event"
+Flag = "day:1+time:2"
+FlagShouldBe = true
+AddFlag = true
+ReturnControl = false
+
 [node name="EvStoneGuardian2" parent="." unique_id=2071850113 instance=ExtResource("30_djhcr")]
 position = Vector2(2388, -146)
 scale = Vector2(1.2, 0.6120001)

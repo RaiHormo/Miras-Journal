@@ -640,6 +640,10 @@ func cmd():
 				Global.add_complimentary(text)
 			elif "/enrestore" in $CanvasLayer/TextEdit.text:
 				Loader.Defeated.clear()
+			elif "/timetrans" in $CanvasLayer/TextEdit.text:
+				Event.ToDay = Event.Day
+				Event.ToTime = Event.TimeOfDay
+				Event.time_transition()
 			elif "/lv " in $CanvasLayer/TextEdit.text:
 				Global.reset_all_members()
 				var text = $CanvasLayer/TextEdit.text.replace("/lv ", "")

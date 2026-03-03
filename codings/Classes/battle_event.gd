@@ -68,7 +68,7 @@ func run() -> void:
 				if not parameter2.is_empty():
 					Global.Bt.get_actor(actor).NextTarget = Global.Bt.get_actor(parameter2)
 			4: Global.Bt.victory()
-	if add_flag: Event.f(flag, !flag_should_be)
+	if add_flag: Event.add_flag(flag, !flag_should_be)
 
 func run_with_await() -> void:
 	match result:

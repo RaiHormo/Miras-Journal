@@ -25,7 +25,7 @@ Mira.Neutral: Yes, this is [[indeed|in fact]] a bush
 	do picture_clear()
 	Mira.Smile: I can hold shift to skip all of it.
 	Also here are some thought sounds.
-	Ok I think that's enough.
+	Mira.Curious: Ok I think that's enough.
 - End
 => END
 

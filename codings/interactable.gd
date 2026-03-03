@@ -300,7 +300,7 @@ func _on_button_pressed() -> void:
 	Global.Player.direction = Vector2.ZERO
 	t = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4,0.4), 0.1).from(Vector2(0.36,0.36))
-	await t.finished
+	await Event.wait(0.1, false)
 	if needs_bag and not Event.f("HasBag"): 
 		Global.toast("A bag is needed to store that.")
 		Event.give_control()

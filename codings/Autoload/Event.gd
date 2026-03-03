@@ -404,7 +404,7 @@ func camera_unlock():
 
 func start_time_events():
 	var seq = Query.get_mmm(Query.get_month(Day)).to_lower()+str(Day)+"_"+Query.to_tod_text(TimeOfDay).to_lower()
-	print(seq)
+	print("Starting event: "+seq)
 	if sequence_exists(seq):
 		sequence(seq)
 	elif not Global.Area.IsDungeon: sequence("wake_home")

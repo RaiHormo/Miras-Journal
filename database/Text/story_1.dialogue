@@ -18,6 +18,9 @@ Maybe I should ask Daze to go back to Amberelm so I can find them.
 set ToTime = 2
 set ToDay = 1
 do time_transition()
+=> END
+
+~ nov1_daytime_0
 do npc("DazeTent").hide()
 Daze seems to have woken up.
 I guess I should get up too...
@@ -51,45 +54,60 @@ Daze.Neutral: Leave it to me.
 => END
 
 ~ daze_enemy_2
-Daze.Neutral: Ms. Levenor, just focus on protecting yourself!
-Mira.Neutral: But I can fight!
+if Query.is_in_party("Daze") and Day == 1:
+	Daze.Neutral: Ms. Levenor, just focus on protecting yourself!
+	Mira.Neutral: But I can fight!
 => END
 
+~ destroyed_guardian_event
+do travel_to("Amberelm", Vector2(2559, -112), 2)
+do no_player()
+do spawn("Mira", Vector2(2559, -124), "U")
+do spawn("Daze", Vector2(2586, -124), "U")
+Mira: Hey, the remains of the Guardian are all here.
+Daze: Guardian?
+Mira: It's a name I just came up with for this thing.
+Daze: I don't think It's guarding anything though. Most monsters are simply enraged spirits that attack with no real purpose.
+Mira: Is that really true though?
+Mira: Look at this thing. These vains aren't there for no purpose.
+Mira: They were finely crafted to connect this part down here to here.
+Mira: And this controls the aura around it to make the rocks float.
+Mira: Which means...
+I break appart a part of the stone, revealing...
+Mira: Does this look naturally made to you?
+Daze: What are you trying to say?
+Mira: This monster is artificial, and nobody would create such a thing if it's not meant to be protecting something.
+Daze: Hm...
+Daze: How do you know all this?
+Mira: I've studied a bit about magical beings.
+Mira: It's a complicated topic, but telling a natural and artificial one appart is not all that hard.
+Mira: I'm surprised you can't tell them appart Mr. Swordsman warrior who fights these things for a living.
+Daze: I don't-[wait=1]\n *sigh...*
+Daze: So you're saying there is something important around here that needs to be protected?
+Mira: Possibly.
+(hide)
+Daze: I think we should take this, it seems to still contain a lot of power.
+Mira: Mhm.
+(hide)
+Mira: Still no traces of {{alcine()}} though... Where did they wander off to?
+do! sequence("where_is_alcine_1")
+=> END
 
 ~ destroyed_guardian
 if Party.Leader.codename == "Alcine":
 	Alcine.Upset: Shwoooom...
-elif f("EvDestroyedGuardian"):
+elif check_flag("EvDestroyedGuardian"):
 	The remains of the Stone Guardian.
 	Daze cut it completely clean.
-else:
-	Mira: Hey, the remains of the Guardian are all here.
-	Daze: Guardian?
-	Mira: It's a name I just came up with for this thing.
-	Daze: I don't think It's guarding anything though. Most monsters are simply enraged spirits that attack with no real purpose.
-	Mira: Is that really true though?
-	Mira: Look at this thing. These vains aren't there for no purpose.
-	Mira: They were finely crafted to connect this part down here to here.
-	Mira: And this controls the aura around it to make the rocks float.
-	Mira: Which means...
-	I break appart a part of the stone, revealing...
-	Mira: Does this look naturally made to you?
-	Daze: What are you trying to say?
-	Mira: This monster is artificial, and nobody would create such a thing if it's not meant to be protecting something.
-	Daze: Hm...
-	Daze: How do you know all this?
-	Mira: I looked into magic beings once when I was bored.
-	Mira: It's a complicated topic, but telling a natural and artificial one appart is not all that hard.
-	Mira: I'm surprised you can't tell them appart Mr. Swordsman warrior who fights these things for a living.
-	Daze: I don't-[wait=1]\n *sigh...*
-	Daze: So you're saying there is something important around here that needs to be protected?
-	Mira: Possibly.
-	(hide)
-	Daze: I think we should take this, it seems to still contain a lot of power.
-	Mira: Mhm.
-	(hide)
-	Mira: Still no traces of {{alcine()}} though... Where did they wander off to?
-	do! sequence("where_is_alcine_1")
+elif Query.is_in_party("Daze"):
+	pass
+elif Event.Day == 0:
+	So this is what remains of the Guardian.
+	It's quite dark, and I can't see it well.
+	But... it feels like this thing is still somehow alive.
+	do npc("P").look_to("R")
+	I should probably go back, this place is incredibly dangerous.
+=> END
 
 ~ amberelm_reunion
 Mira.Neutral: {{alcine()}}!!

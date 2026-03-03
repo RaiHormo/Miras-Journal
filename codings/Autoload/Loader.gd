@@ -45,6 +45,7 @@ func _ready():
 	BAR_UP_POS = $Can/Bars/Up.position
 	BAR_LEFT_POS = $Can/Bars/Left.position
 	BAR_RIGHT_POS = $Can/Bars/Right.position
+	ungray.connect(_on_ungray)
 
 func save(filename:String="Autosave", showicon=true):
 	if !Global.Player or !Global.Area:
@@ -195,7 +196,8 @@ func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, tr
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
 func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Query.get_dir_letter(), controllable:= true):
-	direc = trans
+	if trans != "none":
+		direc = trans
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1: controllable = false
 	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
@@ -239,14 +241,15 @@ func _process(delta):
 
 func transition(dir=Query.get_dir_letter()):
 	if dir == "none": return
+	else: direc = dir
 	Global.Controllable = false
-	direc = dir
 	$Can.show()
 	$Can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
 	if Global.textbox_open and get_tree().root.has_node("Textbox"):
-		await get_tree().root.get_node("Textbox").hide_box()
+		get_tree().root.get_node("Textbox").hide_box()
+		await Event.wait(0.5, false)
 		lower_layer()
 	t.kill()
 	if not is_in_transition():
@@ -267,7 +270,7 @@ func transition(dir=Query.get_dir_letter()):
 				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
 				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
 				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
-		await t.finished
+		await Event.wait(0.3, false)
 	else: pass
 	match dir:
 		"U":
@@ -297,7 +300,7 @@ func done(controllable:= false):
 	if get_tree().root.has_node("MainMenu"): 
 		get_tree().root.get_node("MainMenu").queue_free()
 	var area = ResourceLoader.load_threaded_get(scene[0])
-	if area == null: 
+	if area == null:
 		load_game()
 		return
 	area = area.instantiate()
@@ -584,19 +587,24 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1,
 	await tf.finished
 	fader.queue_free()
 
-func gray_out(amount := 0.8, in_time := 0.3, out_time := 0.3, color: Color = Color.BLACK):
+var fader
+
+func gray_out(amount := 0.8, in_time := 0.3, out_time := 0, color: Color = Color.BLACK):
 	$Can.show()
-	$Can.layer = 9
-	var fader = $Can/Bars/Left.duplicate()
+	$Can.layer = 3
+	fader = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
 	fader.position = Vector2(-134,-189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = color
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate:a", amount, in_time)
-	await ungray
-	tf = create_tween()
-	tf.tween_property(fader, "modulate:a", 0, out_time)
+	if out_time == 0:
+		await ungray
+
+func _on_ungray():
+	var tf = create_tween()
+	tf.tween_property(fader, "modulate:a", 0, 0.3)
 	await tf.finished
 	fader.queue_free()
 

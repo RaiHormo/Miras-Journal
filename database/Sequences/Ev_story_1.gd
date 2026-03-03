@@ -7,6 +7,12 @@ func nov1_morning():
 	Loader.ungray.emit()
 	Event.no_player()
 	await Global.textbox(name, "nov1_morning")
+
+func nov1_daytime():
+	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
+	Event.no_player()
+	Event.npc("DazeTent").hide()
+	await Global.textbox(name, "nov1_daytime_0")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
 	Event.no_player()
 	await Event.spawn("Mira", Vector2(750, -211), "L")
@@ -19,6 +25,8 @@ func nov1_morning():
 func daze_enemy_1():
 	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
 		Global.passive(name, "daze_enemy_1")
+		await Event.camera_move(Event.npc("EnemyFlowent1").position + Vector2(48, 0))
+		Event.npc("EnemyFlowent1").look_to("L")
 		await Event.wait(2)
 		await Event.spawn("Daze", Global.Area.Followers[0].position, "L")
 		Global.Area.Followers[0].dont_follow = true
@@ -36,13 +44,13 @@ func daze_enemy_2():
 	else: Event.give_control()
 
 func where_is_alcine_1():
-	await Loader.transition()
+	await Loader.transition("L")
 	Event.remove_flag("HasBag")
 	Event.add_flag("AlcineAlone")
 	Global.Party.reset_party()
 	Global.Party.Leader = Query.find_member("Alcine")
 	Global.Party.Leader.Controllable = true
-	await Loader.detransition()
+	await Loader.travel_to("WitheredLeaves", Vector2(-976, 167), 1, -1, "")
 	Event.give_control()
 
 func WL_alcine_slide():
@@ -62,8 +70,8 @@ func amberelm_reunion():
 	await Event.wait(0.3)
 	await Global.Player.look_to("L")
 	await Global.Player.bubble("Surprise")
-	await Event.spawn("Mira", Vector2(2224, -157), "SitDown", true, 7)
-	await Event.spawn("Daze", Vector2(2200, -157), "SitDown", true, 7)
+	await Event.spawn("Mira", Vector2(2224, -157), "SitDown", 7, true)
+	await Event.spawn("Daze", Vector2(2200, -157), "SitDown", 7, true)
 	Global.Camera.position = Vector2(2247, -157)
 	await Event.wait(0.3)
 	Global.Player.chain_moves([Vector2.LEFT*2, Vector2.DOWN, Vector2.LEFT*2])
