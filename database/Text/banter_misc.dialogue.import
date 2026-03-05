@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c8hukrldnbpc2"
+path="res://.godot/imported/banter_misc.dialogue-dd90bd618810e93885686996e83bae29.tres"
+
+[deps]
+
+source_file="res://database/Text/banter_misc.dialogue"
+dest_files=["res://.godot/imported/banter_misc.dialogue-dd90bd618810e93885686996e83bae29.tres"]
+
+[params]
+
+defaults=true

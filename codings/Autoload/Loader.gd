@@ -30,10 +30,10 @@ signal battle_end(result: int)
 signal ungray
 var prevent_battles:= false
 
-var BAR_DOWN_POS: Vector2
-var BAR_UP_POS: Vector2
-var BAR_LEFT_POS: Vector2
-var BAR_RIGHT_POS: Vector2
+@onready var BAR_DOWN_POS: Vector2 = $Can/Bars/Down.position
+@onready var BAR_UP_POS = $Can/Bars/Up.position
+@onready var BAR_LEFT_POS = $Can/Bars/Left.position
+@onready var BAR_RIGHT_POS = $Can/Bars/Right.position
 
 func _ready():
 	$Can.hide()
@@ -41,10 +41,6 @@ func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	validate_save("user://Autosave.tres")
-	BAR_DOWN_POS = $Can/Bars/Down.position
-	BAR_UP_POS = $Can/Bars/Up.position
-	BAR_LEFT_POS = $Can/Bars/Left.position
-	BAR_RIGHT_POS = $Can/Bars/Right.position
 	ungray.connect(_on_ungray)
 
 func save(filename:String="Autosave", showicon=true):
@@ -225,73 +221,6 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 			await done(controllable)
 	if z >= 0: Global.Area.handle_z(z)
 
-func _process(delta):
-	if loading == true and !scene.is_empty():
-		status = ResourceLoader.load_threaded_get_status(scene[0], progress)
-		error_handle(status)
-		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			loading = false
-			thread_loaded.emit()
-	if loading_thread == true:
-		status = ResourceLoader.load_threaded_get_status(loaded_resource)
-		error_handle(status)
-		if status == ResourceLoader.THREAD_LOAD_LOADED or load_failed:
-			loading_thread = false
-			thread_loaded.emit()
-
-func transition(dir=Query.get_dir_letter()):
-	if dir == "none": return
-	else: direc = dir
-	Global.Controllable = false
-	$Can.show()
-	$Can.layer = 9
-	$Can/Bars.modulate = Color.WHITE
-	$Can/Bars.self_modulate = Color.WHITE
-	if Global.textbox_open and get_tree().root.has_node("Textbox"):
-		get_tree().root.get_node("Textbox").hide_box()
-		await Event.wait(0.5, false)
-		lower_layer()
-	t.kill()
-	if not is_in_transition():
-		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
-		if Icon.is_playing():
-			t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
-		match dir:
-			"U":
-				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
-			"D":
-				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
-			"R":
-				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
-			"L":
-				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
-			_:
-				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
-				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
-				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
-				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
-		await Event.wait(0.3, false)
-	else: pass
-	match dir:
-		"U":
-			$Can/Bars/Up.position = Vector2(-200,-200)
-			$Can/Bars/Down.position = BAR_DOWN_POS
-		"D":
-			$Can/Bars/Down.position = Vector2(-200,-200)
-			$Can/Bars/Up.position = BAR_UP_POS
-		"R":
-			$Can/Bars/Right.position = Vector2(-200,-200)
-			$Can/Bars/Left.position = BAR_LEFT_POS
-		"L":
-			$Can/Bars/Left.position = Vector2(-200,-200)
-			$Can/Bars/Right.position = BAR_RIGHT_POS
-		_:
-			$Can/Bars/Up.position = Vector2(-200,-200)
-			$Can/Bars/Down.position = Vector2(-200,-200)
-			$Can/Bars/Right.position = Vector2(-200,-200)
-			$Can/Bars/Left.position = Vector2(-200,-200)
-	await Event.wait()
-
 func done(controllable:= false):
 	chased = false
 	var look_dir = Query.get_direction()
@@ -322,11 +251,77 @@ func done(controllable:= false):
 		await Global.Area.go_to_subroom(scene[1], true)
 	if direc != "wait": detransition()
 	Global.get_cam().position_smoothing_enabled = true
-	if controllable: 
+	if controllable:
 		await Event.wait(0.3, false)
 		Event.give_control(false)
 		if Global.Controllable:
 			PartyUI.show_all()
+
+func _process(delta):
+	if loading == true and !scene.is_empty():
+		status = ResourceLoader.load_threaded_get_status(scene[0], progress)
+		error_handle(status)
+		if status == ResourceLoader.THREAD_LOAD_LOADED:
+			loading = false
+			thread_loaded.emit()
+	if loading_thread == true:
+		status = ResourceLoader.load_threaded_get_status(loaded_resource)
+		error_handle(status)
+		if status == ResourceLoader.THREAD_LOAD_LOADED or load_failed:
+			loading_thread = false
+			thread_loaded.emit()
+
+func transition(dir=Query.get_dir_letter()):
+	if dir == "none": return
+	else: direc = dir
+	Global.Controllable = false
+	$Can.show()
+	$Can.layer = 9
+	$Can/Bars.modulate = Color.WHITE
+	$Can/Bars.self_modulate = Color.WHITE
+	if Global.textbox_open and get_tree().root.has_node("Textbox"):
+		#get_tree().root.get_node("Textbox").hide_box()
+		#await Event.wait(0.5, false)
+		lower_layer()
+	t.kill()
+	if not is_in_transition():
+		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
+		if Icon.is_playing():
+			t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
+		match dir:
+			"U":
+				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
+			"D":
+				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+			"R":
+				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+			"L":
+				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+			_:
+				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
+				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+		await t.finished
+	else: pass
+	match dir:
+		"U":
+			$Can/Bars/Up.position = Vector2(-200,-200)
+			$Can/Bars/Down.position = BAR_DOWN_POS
+		"D":
+			$Can/Bars/Down.position = Vector2(-200,-200)
+			$Can/Bars/Up.position = BAR_UP_POS
+		"R":
+			$Can/Bars/Right.position = Vector2(-200,-200)
+			$Can/Bars/Left.position = BAR_LEFT_POS
+		"L":
+			$Can/Bars/Left.position = Vector2(-200,-200)
+			$Can/Bars/Right.position = BAR_RIGHT_POS
+		_:
+			$Can/Bars/Up.position = Vector2(-200,-200)
+			$Can/Bars/Down.position = Vector2(-200,-200)
+			$Can/Bars/Right.position = Vector2(-200,-200)
+			$Can/Bars/Left.position = Vector2(-200,-200)
 
 func detransition(dir = direc):
 	if dir == "none": return
@@ -603,9 +598,11 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0, color: Color = Color
 		await ungray
 
 func _on_ungray():
+	if fader == null: return
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate:a", 0, 0.3)
 	await tf.finished
+	if fader == null: return
 	fader.queue_free()
 
 func validate_save(save: String) -> bool:

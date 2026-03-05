@@ -127,7 +127,7 @@ func update_anim_prm() -> void:
 			sprite.play(str("Idle"+Query.get_dir_name(Facing)))
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
-	if "Idle" in sprite.animation: 
+	if not is_instance_valid(sprite) or "Idle" in sprite.animation: 
 		LastStepFrame = -1
 		return
 	if not has_node("StdrFootsteps") or sprite.frame == LastStepFrame or (LastStepFrame == -1 and move_frames == 0): return
@@ -155,7 +155,8 @@ func check_terrain(terrain:String, layer:=1) -> bool:
 func get_tile(layer:int):
 	return Global.Area.get_tile(Global.Area.local_to_map(global_position), layer)
 
-func move_dir(dir: Vector2, use_coords = true, autostop = false) -> void:
+func move_dir(dir: Variant, use_coords = true, autostop = false) -> void:
+	if dir is String: dir = Query.get_dir_from_letter(dir)
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
 
@@ -260,7 +261,15 @@ func attacked():
 
 func chain_moves(moves: Array[Vector2]):
 	for i in moves:
+		if Loader.InBattle:
+			await Event.wait()
 		await move_dir(i)
+
+func chain_positions(moves: Array[Vector2]):
+	for i in moves:
+		if Loader.InBattle:
+			await Event.wait()
+		await go_to(i)
 
 func hop(height: int = 12, time: float = 0.2):
 	BodyState = CUSTOM

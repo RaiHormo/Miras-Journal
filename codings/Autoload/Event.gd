@@ -68,6 +68,13 @@ func twean_to(pos:Vector2, time:float=1, chara:String="P"):
 	t.tween_property(npc(chara), "global_position", Global.Area.map_to_local(pos), time)
 	await t.finished
 
+func tween(object: Node, property: String, to: Variant, time = 0.3):
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property(object, NodePath(property), to, time)
+	await t.finished
+
 ##Instantly move an [NPC] to the specified coords (ignores all collision)
 func warp_to(pos:Vector2, chara:String="P"):
 	npc(chara).global_position = Global.Area.map_to_local(pos)
@@ -123,47 +130,10 @@ func f(flag: StringName) -> bool:
 		printerr(flag+":"+ex.get_error_text())
 		return false
 	var result = ex.execute(Flags.values(), self, false)
-	#print(flag, " ", result)
+	print(flag, " ", result)
 	
 	if result == null: return false
 	return bool(result)
-	
-	#if "+" in flag:
-		#var split = flag.split("+")
-		#for i in split:
-			#if not check_flag(i): return false
-		#return true
-	#if flag.begins_with("!"): return not check_flag(flag.replace("!", ""))
-	#if flag == "true": return true
-	#if flag == "false": return false
-	#if "||" in flag:
-		#var split = flag.split("||")
-		#for i in split:
-			#if check_flag(i): return true
-		#return false
-	#if ">=" in flag:
-		#var split = flag.split(">=")
-		#return check_flag(flag.replace(split[0]+">="+split[1], str(flag_int(split[0]) >= int(split[1]))))
-	#if ">" in flag:
-		#var split = flag.split(">")
-		#return check_flag(flag.replace(split[0]+">"+split[1], str(flag_int(split[0]) > int(split[1]))))
-	#if "<=" in flag:
-		#var split = flag.split("<=")
-		#return check_flag(flag.replace(split[0]+"<="+split[1], str(flag_int(split[0]) >= int(split[1]))))
-	#if "<" in flag:
-		#var split = flag.split("<")
-		#return check_flag(flag.replace(split[0]+"<"+split[1], str(flag_int(split[0]) > int(split[1]))))
-	#if "=" in flag:
-		#var split = flag.split("=")
-		#return check_flag(str(split[0]), int(split[1]))
-	#if "day:" in flag:
-		#if int(flag.replace("day:", "")) == Day: return true
-		#else: return false
-	#if "time:" in flag:
-		#if int(flag.replace("time:", "")) == TimeOfDay: return true
-		#else: return false
-	#if Flags.has(flag) and Flags.get(flag) == value: return true
-	#else: return false
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value:= 1):
@@ -368,13 +338,16 @@ func get_ov_sprites(id: String) -> SpriteFrames:
 
 func time_transition():
 	if get_tree().root.has_node("Textbox"):
-		await get_tree().root.get_node("Textbox")._on_close()
+		get_tree().root.get_node("Textbox")._on_close()
+		await Event.wait(0.3)
 	await Event.take_control()
 	await Loader.transition()
+	Loader.ungray.emit()
 	await Loader.flip_time(TimeOfDay, ToTime)
 	if Day != ToDay:
 		Day = ToDay
 		Global.toast(Query.get_month_name(Query.get_month(Day))+" "+str(Day)+" cin16")
+		Loader.Defeated.clear()
 	set_time(ToTime)
 	start_time_events()
 	await Loader.detransition()
@@ -398,6 +371,9 @@ func camera_move(to: Vector2, time: float = -1, ease:= Tween.EASE_IN_OUT, trans:
 	else:
 		Global.Camera.position = to
 
+func camera_move_relative(to: Vector2, time: float = -1, ease:= Tween.EASE_IN_OUT, trans:= Tween.TRANS_QUAD):
+	await camera_move(Global.Camera.position + to, time, ease, trans)
+
 func camera_unlock():
 	if is_instance_valid(Global.Player):
 		Global.Player.camera_follow(false)
@@ -408,6 +384,10 @@ func start_time_events():
 	if sequence_exists(seq):
 		sequence(seq)
 	elif not Global.Area.IsDungeon: sequence("wake_home")
+	else: 
+		give_control()
+		Global.passive("banter_misc", "rest_dungeon")
+	Global.check_party.emit()
 
 func condition(con: String):
 	if $Conditions.has_method(con):

@@ -150,6 +150,13 @@ ScenePosition = Vector2(416, -141)
 Events = Array[ExtResource("12_ceufj")]([SubResource("Resource_xovcb")])
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_it168"]
+script = ExtResource("13_ohbkp")
+Enemies = Array[ExtResource("10_vctnq")]([ExtResource("20_ceufj"), ExtResource("21_ohbkp")])
+EscPosition = Vector2i(21, -33)
+ScenePosition = Vector2(253, -843)
+metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
 [sub_resource type="Resource" id="Resource_p063c"]
 script = ExtResource("13_ohbkp")
 Enemies = Array[ExtResource("10_vctnq")]([ExtResource("11_xe12t"), ExtResource("11_xe12t")])
@@ -162,15 +169,6 @@ script = ExtResource("13_ohbkp")
 Enemies = Array[ExtResource("10_vctnq")]([ExtResource("11_xe12t")])
 EscPosition = Vector2i(-41, 11)
 ScenePosition = Vector2(-1193, 405)
-metadata/_custom_type_script = "uid://blx6fs34ughqo"
-
-[sub_resource type="Resource" id="Resource_it168"]
-script = ExtResource("13_ohbkp")
-Enemies = Array[ExtResource("10_vctnq")]([ExtResource("20_ceufj"), ExtResource("21_ohbkp")])
-ScenePosition = Vector2(259, -584)
-CanEscape = false
-VictorySequence = "nov2_mira_dream"
-PartyOverride = ["Daze", "Alcine"]
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
 [sub_resource type="Resource" id="Resource_lemrk"]
@@ -544,6 +542,47 @@ position = Vector2(270, -74)
 
 [node name="ScenePosition" type="Marker2D" parent="EnemyFlowent1" unique_id=1461975637]
 
+[node name="EnemySullish" parent="." unique_id=1560392274 instance=ExtResource("8_5vs6x")]
+z_index = 5
+position = Vector2(253, -843)
+collision_layer = 512
+collision_mask = 512
+BattleSeq = SubResource("Resource_it168")
+patrol_speed = 220
+chase_speed = 220
+speed = 100
+CameraIndex = 0
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
+
+[node name="HomePoints" type="Node2D" parent="EnemySullish" unique_id=61674447]
+
+[node name="0" type="Marker2D" parent="EnemySullish/HomePoints" unique_id=1705039662]
+position = Vector2(-5, 40)
+
+[node name="1" type="Marker2D" parent="EnemySullish/HomePoints" unique_id=2084630404]
+position = Vector2(-85, 1)
+
+[node name="2" type="Marker2D" parent="EnemySullish/HomePoints" unique_id=1039640755]
+position = Vector2(23, -27)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="EnemySullish" unique_id=1564603335]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9DcmF3bGluZ1NsdWRnZU9WLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvc2hlZXRzCm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
+sprite_frames = ExtResource("14_it168")
+animation = &"IdleDown"
+autoplay = "IdleDown"
+offset = Vector2(0.0496826, -5.866)
+
+[node name="EscapePosition" type="Marker2D" parent="EnemySullish" unique_id=661134853]
+position = Vector2(254, 47)
+
+[node name="ScenePosition" type="Marker2D" parent="EnemySullish" unique_id=546540198]
+
 [node name="EnemyFlowent2" parent="." unique_id=1892755106 instance=ExtResource("8_5vs6x")]
 z_index = 5
 position = Vector2(61, 0)
@@ -630,43 +669,12 @@ Flag = "!Day=1"
 AddFlag = true
 ReturnControl = false
 
-[node name="EvNov2Call1" parent="." unique_id=1865659618 instance=ExtResource("15_mqvg4")]
-position = Vector2(807, -167)
-scale = Vector2(1.835803, 0.88678694)
-TextFile = "story_1"
-TextNode = "nov2_call_1"
-Passive = true
-Flag = "day:2+time:2+!EvNov2Call1"
-FlagShouldBe = true
-AddFlag = true
-TakeControl = false
-ReturnControl = false
-
-[node name="EvNov2Call2" parent="." unique_id=339602160 instance=ExtResource("15_mqvg4")]
-position = Vector2(508, -644)
-scale = Vector2(1.835803, 0.88678694)
-TextFile = "story_1"
-TextNode = "nov2_call_2"
-Passive = true
-Flag = "day:2+time:2+!EvNov2Call2"
-FlagShouldBe = true
-AddFlag = true
-TakeControl = false
-ReturnControl = false
-
 [node name="EvDazeEnemy2" parent="." unique_id=475487490 instance=ExtResource("15_mqvg4")]
 position = Vector2(-250, -24)
 scale = Vector2(0.056183375, 1.324671)
 BattleSeq = ExtResource("16_lemrk")
 Flag = "Day=1"
 FlagShouldBe = true
-AddFlag = true
-ReturnControl = false
-
-[node name="EvDazeEnemy3" parent="." unique_id=854970446 instance=ExtResource("15_mqvg4")]
-position = Vector2(316.99997, -842)
-scale = Vector2(0.056183375, 1.324671)
-BattleSeq = SubResource("Resource_it168")
 AddFlag = true
 ReturnControl = false
 

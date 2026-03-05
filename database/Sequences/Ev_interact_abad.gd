@@ -10,7 +10,7 @@ func bag_seq():
 	var bag_ico = preload("res://art/Icons/Items.tres")
 	bag_ico.region = Rect2(90, 90, 18, 18)
 	Item.get_animation(bag_ico, "Flimsy bag", false)
-	Event.f(&"HasBag", true)
+	Event.add_flag(&"HasBag", true)
 	Event.give_control()
 	Global.Player._check_party()
 

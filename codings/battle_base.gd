@@ -728,7 +728,7 @@ func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> 
 	return true
 
 func recover(chara: Actor):
-	battle_msg("recovers", chara)
+	battle_msg("recovers", chara.FirstName)
 	anim("Idle", chara)
 	chara.Health = 10
 	chara.Aura = chara.MaxAura

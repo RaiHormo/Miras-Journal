@@ -105,14 +105,17 @@ func nov2_morning():
 	Event.npc("DazeTent").hide()
 	Event.no_player()
 	await Global.textbox(name, "nov2_morning")
-	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
-	Global.Party.set_to_strarr(["Alcine"])
-	Event.remove_flag("HasBag")
 	Event.remove_flag("InCamp")
-	Event.add_flag("AlcineAlone")
 	Event.add_flag("WLLeftSideOpen")
-	Event.remove_flag("HideDate")
-	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
+	Event.ToDay = 2
+	Event.ToTime = 2
+	await Event.time_transition()
+	#await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D", false)
+	#Global.Party.set_to_strarr(["Alcine"])
+	#Event.remove_flag("HasBag")
+	#Event.add_flag("AlcineAlone")
+	#Event.remove_flag("HideDate")
+	#await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 func nov2_daytime():
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1, -1, "none", false)
@@ -120,11 +123,23 @@ func nov2_daytime():
 	Event.npc("DazeTent").hide()
 	Loader.ungray.emit()
 	await Global.textbox(name, "nov2_daytime")
-	Global.Party.set_to_strarr(["Mira"])
+	Global.Party.set_to_strarr(["Mira", "Alcine", "Daze"])
 	Event.add_flag("HasBag")
 	Event.remove_flag("AlcineAlone")
 	Event.remove_flag("HideDate")
-	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "D")
+	Event.npc("F1").position.x += 24
+	Event.npc("F2").position.y -= 24
+	await Event.take_control(false, true)
+	await Global.textbox(name, "nov2_daytime_party")
+	var path: Array[Vector2] = [Vector2(779, -147), Vector2(289, -144), Vector2(301, -227), Vector2(398, -218), Vector2(527, -754), Vector2(486, -840), Vector2(351, -836)]
+	Event.give_control()
+	Event.npc("F2").speed = 80
+	await Event.npc("F2").chain_positions(path)
+	await Global.passive(name, "right_here")
+	await Event.wait(3)
+	Event.npc("F2").dont_follow = false
+	Event.npc("F2").BodyState = NPC.CONTROLLED
 
 func WL_bunker_switch():
 	await Loader.transition()
@@ -139,7 +154,7 @@ func WL_bunker_switch():
 
 func asteria_boss():
 	await Event.take_control()
-	await Global.textbox(name, "asteria_boss")
+	await Global.textbox(name, "asteria_boss", true)
 	await Event.spawn("Asteria", Vector2(-286, 308), "L")
 	await Event.wait(1)
 	await Loader.start_battle("AsteriaBoss")

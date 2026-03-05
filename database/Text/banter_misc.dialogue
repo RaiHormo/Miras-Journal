@@ -1,0 +1,9 @@
+~ rest_dungeon
+match randi_range(0, 2):
+	when 0:
+		Mira.Neutral: Ahh, I needed that.
+	when 1:
+		Mira.Neutral: All rested!
+	when 2:
+		Mira.Neutral: Much better.
+=> END

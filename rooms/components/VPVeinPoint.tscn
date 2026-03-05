@@ -6,9 +6,6 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4p5qo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wv1qn"]
-size = Vector2(16, 16)
-
 [sub_resource type="Gradient" id="Gradient_0sdct"]
 colors = PackedColorArray(0.381919, 0.0594875, 0.519217, 1, 0.73, 0.2044, 0.2044, 0)
 
@@ -45,8 +42,7 @@ scale_max = 0.5
 scale_over_velocity_max = 19.61
 color_ramp = SubResource("GradientTexture1D_fq0ps")
 
-[node name="VPVainPoint" type="Area2D" unique_id=243513642]
-position = Vector2(438, -46)
+[node name="VPVainPoint" type="Node2D" unique_id=597176728]
 
 [node name="Interactable" parent="." unique_id=68636642 instance=ExtResource("1_sli5j")]
 LabelText = "Enter"
@@ -57,9 +53,6 @@ hide_on_flag = &"DisableVeinet"
 position = Vector2(-4.76837e-07, -4.76837e-07)
 scale = Vector2(11, 10)
 texture = SubResource("PlaceholderTexture2D_4p5qo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854152943]
-shape = SubResource("RectangleShape2D_wv1qn")
 
 [node name="Particle" type="GPUParticles2D" parent="." unique_id=745566607]
 emitting = false

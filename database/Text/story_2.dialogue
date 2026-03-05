@@ -9,7 +9,7 @@ Alcine is resting peacfully in the side of the room.
 (hide)
 do wait(2)
 *Knock Knock*
-set Event.npc("RoomMira").position = Vector2(166, 412)
+set Event.npc("RoomMira").position = Vector2(90, 412)
 do Event.npc("RoomMira").set_anim("SitRight")
 Mira: Who is it?
 do spawn("Daze", Vector2(179, 438), "L")
@@ -32,12 +32,13 @@ Daze.Neutral: Levenor, listen. I didn't mean to blame you.
 Daze.Neutral: I completely understand why you feel this way. 
 Daze.Neutral: I know it firsthand, maybe a bit too well.
 Daze.Neutral: But both you and I, and everyone here, we all share a goal.
-Mira.Neutral: Don't baby me Daze, If it was that simple to exit the realm then the whole village would've done so already!
+Mira.Neutral: So then... you agree with me? That there is a way?
 Daze.Neutral: ...
 Daze seems to quickly glance left and right before looking back at me
 Daze.Neutral: What if I told you I already have a lead?
 do npc("RoomMira").bubble("Surprise")
 Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting there. Okay?
+
 => END
 
 ~ nov3_tavern
@@ -53,7 +54,7 @@ set npc("F1").BodyState = NPC.IDLE
 do! npc("F1").go_to(Vector2(520, 1056))
 do wait(1)
 Asteria.Neutral: Oh there she is!
-Mira.Smile: Hey Asteria! Hey Daze!
+Mira.Upset: Hey... I'm so sorry for yesterday.
 do npc("P").set_anim("SitRight", false, true)
 do jump_to_global(npc("P"), Vector2(516, 1090))
 Mira.Curious: What're you two up to?
@@ -63,7 +64,7 @@ Daze.Neutral: It's surprising just how much variety they have while being self s
 Asteria.Neutral: Right, I don't know where we would be without Esto and the others.
 I look at the menu, checking if there's something that catches my eye.
 .[wait=0.5].[wait=0.5]. ???
-Mira.Angry: You call this variety!? There's NOTHING here but vegetables!
+Mira.Angry: You call this variety!? There's nothing here but vegetables!
 Asteria.Neutral: Huh? What were you looking for?
 (hide)
 do npc("P").bubble("Ellipsis")
@@ -75,7 +76,8 @@ Daze.Neutral: So, growing crops here is much easier and safer. Right?
 Asteria.Curious: The idea of eating animals just sounds disgusting to me...
 Disgusting?! \n...Well I guess it might seem that way to someone who's never had meat.
 Or maybe it's just a Frayse thing?
-Mira.Angry: *sigh* [wait=1]\nWell, do you suggest anything then?
+Mira.Neutral: *sigh* [wait=1]\nWell, do you suggest anything then?
+(hide)
 do transition()
 do detransition()
 Asteria.Curious: So, what was it you wanted to talk about anyways?
@@ -158,6 +160,7 @@ do npc("Asteria").bubble("Sweat")
 Mira.Smile: Alcine, do you want to come too?
 Alcine.Laugh: Whimm!
 Daze.Neutral: It's a plan! We'll meet at the gate by sunset then!
+(hide)
 do transition()
 do detransition()
 Daze.Neutral: It was delicious, Thanks a ton once again Esto... sir.
@@ -180,6 +183,7 @@ I feel so entitled... He's been feeding everyone for free, and all I did was com
 I should show more gratitude.
 Mira.Upset: Well... 
 Mira.Smile: Thank you.
+(hide)
 do transition()
 do Party.set_to(["Mira"])
 After finishing our meal we disbanded, as we would regroup by the gate later. For now I'll go back to my room.

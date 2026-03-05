@@ -149,13 +149,33 @@ Mira: Mmh, I think I'll sleep a bit longer. He's out hunting or something.
 Alcine: Sho?
 Mira: I dunno {{alcine()}}, that guy probably eats monsters for breakfast.
 {{alcine()}} gets out of the tent.
+(hide)
+do! gray_out(1)
+do wait(2)
+I wake up, just to find I'm somewhere else.
+I'm being cheered on by people I do and don't know.
+Someone in front of me... my greatest enemy.
+I charge in with all my might.
 => END
 
 ~ nov2_daytime
+do ungray.emit()
 ...[wait=1]Huh?
 That was a dream?
 ...
 I need to stop sleeping all morning.
+=> END
+
+~ nov2_daytime_party
+Daze.Neutral: Ah, the sleeping princess has awoken.
+Mira.Upset: Mornin'.
+Daze.Neutral: I found a new path to the north, we can go there whenever you're ready.
+Mira.Neutral: North...? I don't have a compass.
+Daze.Neutral: Just follow me then.
+=> END
+
+~ right_here
+Daze.Neutral: It's over here.
 => END
 
 ~ nov2_call_1
@@ -235,6 +255,7 @@ Daze.Neutral: It must be something in here...
 => END
 
 ~ asteria_boss
+Placeholder description: They look at some documents on a table.
 Daze: What language is this...?
 Mira: That's Cyrenian! 
 Mira: My family speaks it, so I can somewhat understand. Although I'm not great at speaking or writing...
@@ -253,6 +274,22 @@ Mira: All these documents seem to have been taken from somewhere in Cyrenia.
 Mira: "pik24"
 Mira: This is... some time before the Sinking.
 Daze: What is-[next=auto]
+Placeholder description: Before he could finish his sentence, something suddenly grabs all of them in the air. A scarf.
+Placeholder description: Someone then walks into the room.
+do next_box("Asteria")
+There you are. I've finally caught you!
+do next_box("Asteria")
+You people, that have kept us caged all these years. Then going playing around like it's no big deal!
+Mira: What in the Depths are you talking about?!
+do next_box("Asteria")
+Don't play dumb! I've seen what you've done!
+{{alcine()}} just slips out of the scarf and gets them out.
+do next_box("Asteria")
+Wha..?
+Mira: Good thinking {{alcine()}}!
+The Frayse girl calls back the scarf
+do next_box("Asteria")
+I won't let you go that easily!
 => END
 
 ~ asteria_boss_2
@@ -261,23 +298,28 @@ Asteria.Neutral: Maybe I should even the playing feild for once!
 => END
 
 ~ asteria_boss_3
+Placeholder description: Time has stopped for everyone but Asteria
 Asteria.Neutral: Huff... Huff...
-Yaru: you're pushing yourself too hard there, star...
+do next_box("Yaru")
+you're pushing yourself too hard there, star...
 Asteria.Neutral: But I have to do this, it's my only chance!
+do next_box("Yaru")
 Yaru: i trust you.
 Placeholder description: Asteria uses a bunch of items and fully heals herself.
 => END
 
 ~ asteria_boss_4
+Placeholder description: Time has stopped for everyone but Asteria
 Asteria.Neutral: Oh, that was close.
 Asteria.Neutral: Sigh... We're nearly out of items.
-Yaru: should i take over?
+do next_box("Yaru")
+should i take over?
 Asteria.Neutral: If you wish.
 => END
 
 ~ asteria_boss_5
 Asteria.Neutral: I can't... go on...
-Asteria.Neutral: I... surrender. [wait=1]Do whatever you want...
+Asteria.Neutral: I... surrender.
 => END
 
 ~ asteria_boss_after
@@ -296,15 +338,15 @@ Daze: You should've let us explain ourselves before attacking.
 Asteria: But the Keepers always disappear before anyone can approach them! 
 Asteria: If I was going to catch them, it had to be an ambush!
 Mira: Who are these Keepers?
-Asteria: Those responsible for this Lost Realm we're trapped in. We call them "Keepers".
+Asteria: Those responsible for this realm.
 Asteria: From time to time, they appear. People say they're our key to freedom, but not many have seen them.
+Mira: Key to freedom..?
 Daze: And do these keepers tend to be teams of Humans, Cyrenians and water blobs...?
 Asteria: I don't know... I just jumped to conclusions because you had access to this place.
 Placeholder description: {{alcine()}} is making Asteria's ears swing around
 do! npc("AsteriaCamp").look_to("R")
 do  npc("AsteriaCamp").bubble("Surprise")
 Asteria.Neutral: Hey-[wait=0.3] Will you quit doing that!
-(hide)
 do transition("R")
 set npc("AlcineCamp").position = Vector2(800, -232)
 do npc("AsteriaCamp").look_to("D")
@@ -388,7 +430,7 @@ Feni.Neutral: Many folks who end up in Abad end up lost and wrecked by monsters.
 Daze.Neutral: Abad would be the name of this place, correct?
 Asteria.Neutral: Yeah, it's what we call this realm.
 Mira.Neutral: So... is there a place for us to stay here?
-Feni.Neutral: Certainly. There should be a few usused rooms at Ernos'.
+Feni.Neutral: Certainly. There should be a few usused rooms at Marcus'.
 Feni.Neutral: Can you take 'em there, dear?
 Asteria.Neutral: Right, follow me.
 (hide)
@@ -409,11 +451,111 @@ do! npc("Mira").look_to("U")
 do! npc("Daze").look_to("L")
 do! npc("Alcine").look_to("U")
 Asteria.Neutral: This is the building.
-Placeholder description: This scene is unfinished, you now have a home here.
+(hide)
 do add_flag("PyrsonHome")
 do Party.set_to_strarr(["Mira"])
-do! travel_to("Pyrson", Vector2(275, 606))
-set ToDay = 2
-set ToTime = 5
+do Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(112, 439), 0, 2, "", false)
+do spawn("Daze", Vector2(153, 474), "U", 0)
+do spawn("Asteria", Vector2(164, 428), "L", 0)
+do spawn("Alcine", Vector2(115, 482), "L", 0)
+do camera_move_relative(Vector2(0, 32))
+do npc("P").look_to("R")
+Mira: So this is [wait=0.5]my room? As in...[wait=0.5] I can stay here?
+Asteria: Right.
+do npc("Asteria").look_to("D")
+Asteria: So... Daze, was it? Your room is upstairs.
+do npc("Asteria").look_to("L")
+Mira: You're just giving us entire rooms? Do you do this to any random person you fight with?
+Asteria: The more people we have in the village, the better.
+Asteria: We're all stuck here together after all.
+Daze: Don't worry Asteria, we'll all get through this.
+do npc("Asteria").look_to("D")
+Daze: You've seen what me and Levenor have done as a team already.
+Daze: I'm sure with your help, and everyone else here, we will all eventuall go home.
+(hide)
+do npc("Asteria").bubble("Question")
+Asteria: Go home?
+Asteria.Curious: You guys know a way around the void?
+do! npc("P").bubble("Question")
+Mira: The void?
+Daze: The weird shimmering darkness I saw near that bunker?
+Asteria: That's right, the thing keeping all of us in Abad!
+(hide)
+do! npc("P").bubble("Surprise")
+do npc("Daze").bubble("Surprise")
+Daze: Keeping you?[next=auto]
+Mira: Abad?
+Mira: What are you talking about?
+(hide)
+do npc("Asteria").bubble("Sweat")
+do npc("Asteria").look_to("L")
+Asteria: I'm so sorry, I didn't know you weren't aware...
+Daze: Asteria... [next=auto]
+Mira: Aware of what???
+Daze: Levenor-
+Asteria: There's...
+(hide)
+Mira: Just say it!
+Asteria: There's no way out!
+(hide)
+do npc("P").bubble("Surprise")
+Mira: Excuse me?
+Asteria: I thought you knew.
+Asteria: The entire realm is surrounded by the void on all sides...
+Asteria: And... [wait=0.5] the people brave enough to have tried to cross it, distort and... [wait=0.5] break apart. [wait=0.5] Perishing soon after...
+Daze: And you're certain of this? Surely you must be mistaken.
+Asteria: I've seen it happen myself...
+Mira.Angry: ...
+Mira.Angry: No.
+(hide)
+do npc("Asteria").bubble("Question")
+Asteria: No?-[next=auto]
+Mira: No.[wait=0.5] There is a way out, there has to be. You've just not actually TRIED to find it.
+do npc("Asteria").bubble("Surprise")
+Asteria.Angry: You think my entire village hasn't already tried to-[next=auto]
+Mira: Your NAIVE village hasn't had the GUTS to actually find out!
+Daze: Levenor, please!
+Mira: NO! I'm not going to stand here and- and- heed some villager's dumb folklore!
+Alcine.Upset: Squee
+Asteria.Angry: Excuse me?
+do npc("Alcine").set_anim("Scared", false, true)
+Mira: You just WANT people trapped in here, in this stupid village so you can stay cozy and have someone make food for you or-
+Mira: Do your chores or clean the houses!
+Mira: I won't stand for it!
+(hide)
+do tween(npc("P").get_node("Flame"), "energy", 1, 1)
+Daze: Levenor calm down! I know this is a lot to take in but this hysteria won't help!
+Mira: Don't call me hysterical DAZE, how can you stay so calm after hearing that?!
+Alcine: Wiieouu!!
+Daze: You're scaring {{alcine()}}!
+Asteria: After everything our village has offered you...
+Mira: [b]You don't know what it's like![/b] You've never REALLY had to flee a hopeless situation!
+Mira: Surrounded on all sides by chaos, and \n*sniffle* [wait=0.5]\nstill made it out!
+Asteria: You don't know what I've been through!
+Mira: YOU DON'T KNOW WHAT [i]I'VE[/i] BEEN THROUGH!!!
+Placeholder description: Mira's wings spread out with rage.
+(hide)
+do npc("P").look_to("L")
+do npc("P").bubble("Ellipsis")
+Mira: Just... leave me by myself for a bit. Okay?
+do npc("Asteria").go_to(Vector2(217, 441))
+do npc("Asteria").hide()
+do npc("Daze").go_to(Vector2(217, 441))
+do npc("Daze").hide()
+...
+do npc("P").go_to(Vector2(160, 441))
+do wait(1)
+I overhear them speaking from upstairs.
+Daze: I'm so sorry for her behavior.
+Asteria: It's fine, she's not the worst newcomer we've had.
+Asteria: I'm just surprised you took it so calmly.
+Asteria: So this is your room...
+(hide)
+do npc("P").move_dir("L")
+do npc("Alcine").look_to("U")
+Mira: I'm sorry you had to witness that {{alcine()}}.
+Mira: I should get some sleep.
+set ToDay = 3
+set ToTime = 1
 do! time_transition()
 => END

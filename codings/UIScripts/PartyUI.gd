@@ -609,7 +609,9 @@ func _on_item_preview_pressed():
 	+ str(Item.get_node("ItemEffect").item.Quantity))
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD = Event.ToTime) -> bool:
-	return await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
+	var awnser = await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
+	if awnser and is_instance_valid(Global.Player): await Loader.save()
+	return awnser
 
 func cmd():
 	Event.add_flag("DisableMenus", false)

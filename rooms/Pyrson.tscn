@@ -1209,17 +1209,17 @@ return_control = false
 
 [node name="ExitScene" type="Node2D" parent="." unique_id=1862870980]
 texture_filter = 1
+metadata/_edit_group_ = true
 
 [node name="Interact" parent="ExitScene" unique_id=1434590101 instance=ExtResource("9_w0u03")]
 texture_filter = 1
 position = Vector2(96, 149)
 LabelText = "Talk"
 file = "story_1"
-dialogue_file = "story_1"
+dialogue_file = "story_2"
 title = "nov3_exit"
 return_control = false
-show_on_flag = &"Nov3_Afternoon"
-hide_on_flag = &"Nov3_WentToSG"
+show_on_flag = &"day:3+time:3"
 hide_parent = true
 
 [node name="CollisionShape2D" parent="ExitScene/Interact" index="0" unique_id=2035817221]
@@ -1269,7 +1269,7 @@ room = "Pyrson"
 ToCamera = 1
 
 [node name="Transfer2" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
-position = Vector2(-15, 826)
+position = Vector2(-2.000001, 826)
 scale = Vector2(0.399999, 1)
 Direction = Vector2(1, 0)
 Position = Vector2(54, 826)

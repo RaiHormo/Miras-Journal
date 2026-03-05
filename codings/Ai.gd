@@ -95,7 +95,7 @@ func choose(ab:Ability, tar:Actor=null) -> void:
 	ai_chosen.emit()
 
 func pick_general_ability() -> Ability:
-	const n = 8
+	const n = 7
 	var r: int
 	var tries:= 0
 	while true:

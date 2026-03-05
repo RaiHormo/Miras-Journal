@@ -83,6 +83,8 @@ func quit() -> void:
 		if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
 			return
 	await Loader.transition("")
+	if Engine.has_singleton("Steam") and UsingSteam:
+		Steam.steamShutdown()
 	get_tree().quit()
 
 func normal_mode():
