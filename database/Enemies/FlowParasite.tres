@@ -11,12 +11,12 @@
 
 [resource]
 script = ExtResource("3_3fqbs")
-FirstName = "Flow Patasite"
+FirstName = "Flow Parasite"
 MainColor = Color(0.258824, 0.392157, 0.541176, 1)
 PartyIcon = ExtResource("3_sinrd")
 ActorClass = "Mage"
 WeaponPower = 10
-RecivedSP = 4
+RecivedSP = 6
 MaxHP = 73
 Attack = 0.4
 Magic = 1.4

@@ -22,6 +22,7 @@ var Followers: Array[CharacterBody2D] = []
 var Layers: Array[TileMapLayer]
 var CurSubRoom: SubRoom = null
 @export var FlameInInd: Array[int]
+@export var BattlebackPosition: Vector2
 
 func _ready():
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")

@@ -3,13 +3,14 @@ class_name BattleSequence
 
 @export var Enemies: Array[Actor]
 @export var AdditionalItems: Array[ItemData]
+@export var UseBackground:= false
 @export var BattleBack: Texture
+@export var ScenePosition: Vector2 = Vector2.ZERO
 @export var Transition: bool = true
 @export var Detransition:bool = false
 @export var ReturnControl: bool = true
 @export var EscPosition: Vector2i
 @export var PositionSameAsPlayer:= false
-@export var ScenePosition: Vector2 = Vector2.ZERO
 @export var CanEscape:= true
 @export var DeleteAttacker:= true
 @export var EntranceSequence:= ""

@@ -408,8 +408,10 @@ func start_battle(stg, advantage := 0):
 	var battle = (await load_res("res://codings/Battle.tscn")).instantiate()
 	if is_instance_valid(Global.Player):
 		Global.Player.hide()
-		#if Global.Player.is_on_wall():
-		Global.Player.position = Seq.ScenePosition
+		if not Seq.UseBackground:
+			Global.Player.position = Seq.ScenePosition
+		elif Seq.ScenePosition == Vector2.ZERO:
+			Seq.ScenePosition = Global.Area.BattlebackPosition
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", true)
 		Global.Player.camera_follow(false)
 	Global.get_cam().position_smoothing_enabled = false
@@ -424,6 +426,7 @@ func start_battle(stg, advantage := 0):
 func end_battle():
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
+		hide_victory_stuff()
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
 		if is_instance_valid(Global.Bt): Global.Bt.queue_free()
@@ -453,9 +456,11 @@ func end_battle():
 	if BattleResult == 2:
 		Global.Player.position = Query.globalize(Seq.EscPosition)
 
-	if is_instance_valid(Attacker) and BattleResult != 1: Attacker.show()
-	if Seq.DeleteAttacker and BattleResult == 1 and Attacker:
-		Attacker.defeat()
+	if is_instance_valid(Attacker):
+		if BattleResult != 1: Attacker.show()
+		if Global.Player.is_on_wall(): Global.Player.position = Attacker.position
+		if Seq.DeleteAttacker and BattleResult == 1:
+			Attacker.defeat()
 
 	Global.Controllable = false
 	battle_bars(0)

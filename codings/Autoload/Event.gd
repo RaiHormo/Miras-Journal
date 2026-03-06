@@ -31,7 +31,7 @@ func _ready():
 ##Character is added to the list of NPCS
 func add_char(b:NPC):
 	if List.has(b.ID) and is_instance_valid(List.get(b.ID)):
-		push_error("Duplicate npc spawned: ", b.ID)
+		push_warning("Duplicate npc spawned: ", b.ID)
 	List.set(b.ID, b)
 
 ##Get the [NPC] node from a [String] ID

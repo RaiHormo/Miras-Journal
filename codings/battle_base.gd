@@ -1113,16 +1113,18 @@ func victory(ignore_seq:= false):
 	$EnemyUI.colapse_root()
 	AwaitVictory = true
 	if is_instance_valid(Global.Player):
-		if Seq.BattleBack == null:
+		if Seq.UseBackground:
+			pass
+		else:
 			Global.Player.global_position = $Act/Actor0.global_position
 			for i in range(1, 4):
 				if Party.check_member(i):
 					Global.Area.Followers[i-1].global_position = $Act.get_node("Actor"+str(i)).global_position
-		Global.Camera.position_smoothing_enabled = false
-		Global.Camera.global_position = $Cam.global_position
-		Global.Camera.enabled = true
-		$Cam.enabled = false
-		Global.Camera.zoom = $Cam.zoom
+			Global.Camera.position_smoothing_enabled = false
+			Global.Camera.global_position = $Cam.global_position
+			Global.Camera.enabled = true
+			$Cam.enabled = false
+			Global.Camera.zoom = $Cam.zoom
 
 func victory_show_items():
 	for i in $Canvas/VictoryItems.get_children():

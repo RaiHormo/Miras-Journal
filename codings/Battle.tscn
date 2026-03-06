@@ -6,14 +6,14 @@
 [ext_resource type="Script" uid="uid://du01545mv070f" path="res://codings/Classes/party_data.gd" id="3_wsnu2"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_e2t6x"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_iwqwt"]
-[ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="5_441cr"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
+[ext_resource type="Texture2D" uid="uid://b4q7l25or0dr8" path="res://art/Backgrounds/ShardGardensUnderground.png" id="8_qr1i0"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
 [ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="10_bwtm7"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
-[ext_resource type="SpriteFrames" uid="uid://bmy72a5ahffgh" path="res://art/BT/StoneGuardian/StoneGuardianBT.tres" id="10_ml8ja"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="11_1ctu6"]
 [ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
 [ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
 [ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
@@ -783,13 +783,13 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_tvi8h"]
+[sub_resource type="Gradient" id="Gradient_qr1i0"]
 interpolation_mode = 2
 interpolation_color_space = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tbe80"]
-gradient = SubResource("Gradient_tvi8h")
+gradient = SubResource("Gradient_qr1i0")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -1891,7 +1891,7 @@ offset_right = 210.0
 offset_bottom = 151.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("5_441cr")
+texture = ExtResource("8_qr1i0")
 expand_mode = 1
 
 [node name="Act" type="Node2D" parent="." unique_id=1447045837]
@@ -1908,8 +1908,9 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_bwtm7")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("10_ml8ja")
-animation = &"Ability"
+sprite_frames = ExtResource("11_1ctu6")
+animation = &"AbilityLoop"
+frame_progress = 0.077139355
 offset = Vector2(0.5, -15.5)
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0" unique_id=721850700]
@@ -1972,10 +1973,12 @@ frame_progress = 0.958692
 [node name="Glow" type="PointLight2D" parent="Act/Actor0" unique_id=885067995]
 light_mask = 16
 z_index = 1
+texture_filter = 2
+color = Color(0.99999994, 0.20086226, 0.02547368, 1)
 energy = 0.0
 range_item_cull_mask = 17
 texture = SubResource("GradientTexture2D_tbe80")
-texture_scale = 2.0
+texture_scale = 3.0
 
 [node name="Effects" type="AnimatedSprite2D" parent="Act" unique_id=1863851345]
 light_mask = 16
