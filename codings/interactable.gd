@@ -146,10 +146,10 @@ func _ready() -> void:
 	Global.check_party.connect(check)
 	do_position()
 	disappear()
-	if ActionType == "vainet": vain_check()
+	if ActionType == "veinet": vein_check()
 
-func vain_check():
-	if Event.f(get_parent().name):
+func vein_check():
+	if Event.check_flag(get_parent().name):
 		get_parent().get_node("Particle").emitting = false
 		LabelText = "Enter"
 		get_parent().get_node("Sprite").show()
@@ -335,16 +335,16 @@ func _on_button_pressed() -> void:
 				Global.confirm_sound()
 				Event.sequence(file)
 		"veinet":
-			if Event.f(get_parent().name):
+			if Event.check_flag(get_parent().name):
 				Global.veinet_map(get_parent().name.replace("VP", ""))
-				Loader.save()
 			else:
 				Event.add_flag(get_parent().name, true)
-				vain_check()
+				vein_check()
 				disappear()
 				await Event.wait(0.3)
 				CanInteract = false
 				appear()
+				Loader.save()
 		"focus_cam":
 			Event.take_control()
 			Global.Player.camera_follow(false)

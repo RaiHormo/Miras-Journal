@@ -6,7 +6,7 @@ var inited:= false
 
 func _ready() -> void:
 	await Event.take_control()
-	await Loader.save()
+	#await Loader.save()
 	get_viewport().gui_focus_changed.connect(focus_change)
 	Global.get_cam().limit_bottom = 999999
 	Global.get_cam().limit_right = 999999

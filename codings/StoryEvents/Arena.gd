@@ -1,7 +1,7 @@
 extends Room
 
 func default():
-	if not Event.f("ArenaRound", 1):
+	if not Event.add_flag("ArenaRound", 1):
 		Global.reset_all_members()
 	Global.Party.reset_party()
 	await Event.wait(0.1)
@@ -13,7 +13,7 @@ func default():
 		await start_round(i)
 
 func start_round(i: int):
-	if Event.f("ArenaRound", i): return
+	if Event.add_flag("ArenaRound", i): return
 	for j in Global.Party.array():
 		if j:
 			j.add_health(int(j.MaxHP/3))

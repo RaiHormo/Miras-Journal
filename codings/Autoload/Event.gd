@@ -103,6 +103,7 @@ var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>',
 
 ## Check if a flag is equal to a given value.[br]
 func check_flag(flag: StringName, value:= 1):
+	flag = flag.replace(" ", "_")
 	if flag in Flags:
 		return Flags.get(flag) == value
 	else: return false
@@ -119,6 +120,7 @@ func f(flag: StringName) -> bool:
 	
 	if not (">" in flag or '<' in flag):
 		flag = flag.replace("=", "==")
+	flag = flag.replace(" ", "_")
 	flag = flag.replace(":", "==")
 	flag = flag.replace("day", "Day")
 	flag = flag.replace("time", "TimeOfDay")
@@ -137,9 +139,13 @@ func f(flag: StringName) -> bool:
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value:= 1):
+	flag = flag.replace(" ", "_")
 	if "=" in flag:
 		var split = flag.split("=")
 		add_flag(str(split[0]), int(split[1]))
+		return
+	if value == 0:
+		remove_flag(flag)
 		return
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
