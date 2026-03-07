@@ -272,7 +272,7 @@ func check_flame(force:= false) -> void:
 			flame.energy = 1.5
 			flame.flicker = true
 	elif get_node_or_null("Flame") and flame.energy != 0:
-		reset_sprite()
+		#reset_sprite()
 		flame.flicker = false
 		flame.energy = 0
 

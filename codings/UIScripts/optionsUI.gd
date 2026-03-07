@@ -854,9 +854,8 @@ func _on_reset() -> void:
 The game will then close.
 You can backup this data by pressing F1 and copying the files.\nProceed?"):
 		var dir:= DirAccess.open("user://")
-		for file in dir.get_files():
-			if not "File" in file:
-				dir.remove(file)
+		dir.remove("Settigns.res")
+		dir.remove("Autosave.tres")
 		for file in dir.get_directories():
 			DirAccess.remove_absolute("user://"+file)
 		get_tree().quit(9)

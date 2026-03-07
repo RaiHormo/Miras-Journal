@@ -18,7 +18,7 @@ elif Event.TimeOfDay == 5:
 	else:
 		do! give_control()
 else:
-	if f("eepy", 1):
+	if add_flag("eepy", 1):
 		I do feel pretty tired... Should I take a quick nap?
 	else:
 		It's my bed.
@@ -31,7 +31,7 @@ else:
 => END
 
 ~ gather_pyrson
-if f("eepy", 1):
+if add_flag("eepy", 1):
 	I don't have the energy to go out right now...
 	do give_control()
 	=> END!
