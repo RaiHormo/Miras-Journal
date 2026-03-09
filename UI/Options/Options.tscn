@@ -293,26 +293,26 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_1vv8p")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6ahs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
 bg_color = Color(0.898039, 0.898039, 0.898039, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 12.0
-expand_margin_top = 8.0
-expand_margin_right = 12.0
-expand_margin_bottom = 8.0
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
 bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 12.0
-expand_margin_top = 8.0
-expand_margin_right = 12.0
-expand_margin_bottom = 8.0
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
 bg_color = Color(0.8627451, 0.8627451, 0.8627451, 1)
@@ -539,6 +539,21 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="Theme" id="Theme_srwa7"]
+Button/colors/font_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_focus_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_hover_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/icon_hover_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/constants/h_separation = 12
+Button/constants/icon_max_width = 32
+Button/font_sizes/font_size = 26
+Button/fonts/font = ExtResource("24_41402")
+Button/styles/disabled = SubResource("StyleBoxFlat_vw3v8")
+Button/styles/focus = SubResource("StyleBoxFlat_clguj")
+Button/styles/hover = SubResource("StyleBoxFlat_clguj")
+Button/styles/normal = SubResource("StyleBoxFlat_j3433")
+Button/styles/pressed = SubResource("StyleBoxFlat_clguj")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qw8o"]
 content_margin_left = 24.0
 content_margin_top = 24.0
@@ -631,7 +646,68 @@ If an enemy was attacking Mira ([color=#e87b33]Orange[/color] aura) with a [colo
 
 The graph works by rotating the lonley X mark to the attacker's color.
 
-In this case, [color=#e87b33]Orange[/color] is in the X area, meaning the attack will not be very effective."])
+In this case, [color=#e87b33]Orange[/color] is in the X area, meaning the attack will not be very effective.", "#HittingWeaknesses
+
+By hitting an enemy's weakness, the enemy will not only take more HP damage, but will also take proportional AP damage. The enemies can also do that to the party.
+
+When an actor's AP bar is empty, they enter the \"Aura Break\" state, in which they're weak to everything. The Actor who caused this will also get a FollowUp.", "#FollowUp
+
+The Actor gets to move again. They can also use a special FollowUp move if they have one.
+
+To get a FollowUp, empty the AP of an enemy by hitting weaknesses.", "#ProtectionStates
+
+[b]Guarding[/b]
+Takes half damage from any attack, and converts that into Aura.
+
+[b]Magic Shield[/b]
+Blocks any magic damage.
+
+[b]Barrier[/b]
+Blocks any weapon damage.
+
+[b]Hue-Shift[/b]
+Temporarily changes the defensive Aura color.
+
+[b]Unbreaking Aura[/b]
+This actor's Aura cannot be damaged.", "#ElementalStates1
+
+[color=%heat][b]Burned[/b][/color]
+Takes light Heat damage every turn. Increased damage from weak hits.
+
+[color=%physical][b]Bound[/b][/color]
+Cannot preform weapon based attacks or escape. Also can't dodge.
+
+[color=%corruption][b]Poisoned[/b][/color]
+Takes increasingly more Corruption damage each turn.
+
+[color=%technical][b]Deflected[/b][/color]
+Cannot use magic abilities, but also takes less damage from weak hits.
+
+[color=%liquid][b]Soaked[/b][/color]
+Can't evade and is more likely to miss. Increased damage from weak hits.
+", "#ElementalStates2
+
+[color=%cold][b]Frozen[/b][/color]
+Cannot move until hit again.
+
+[color=%spiritual][b]Confused[/b][/color]
+Might loose control...
+
+[color=%wind][b]Launched[/b][/color]
+Can't act next turn. Double damage from any attack, quadruple damage from weak hits.
+
+[color=%natural][b]Leeched[/b][/color]
+Damaging this actor will heal whoever inflicted this state.
+
+[color=%electric][b]Zapped[/b][/color]
+Might not be able to act for the next turn. More damage from weak hits.", "#KnockedOut
+
+When HP reaches 0, an actor will be Knocked Out.
+
+They cannot do anything in this state, and if all members of a side are Knocked Out, they lose.
+
+To recover, an ally must heal them. Then they'll have a chance to get up on their turn.
+The more of their allies heal them, the higher the chance."])
 
 [node name="Fader" type="ColorRect" parent="." unique_id=1921882639]
 modulate = Color(1, 1, 1, 0)
@@ -2064,7 +2140,6 @@ combinations.
 "
 
 [node name="ManualPanel" type="Panel" parent="." unique_id=1885979468]
-visible = false
 clip_children = 2
 offset_left = 1335.38
 offset_top = -91.0
@@ -2089,41 +2164,31 @@ expand_mode = 1
 clip_contents = false
 layout_mode = 0
 offset_left = 76.0
-offset_top = 130.0
+offset_top = 125.34
 offset_right = 418.0
-offset_bottom = 810.0
+offset_bottom = 805.33997
 rotation = -0.0633063
 theme = SubResource("Theme_6ne1i")
+scroll_vertical = 88
 script = ExtResource("20_t6ahs")
 metadata/_custom_type_script = "uid://biopjphf2psbr"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ManualPanel/ScrollContainer" unique_id=1665164176]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Introduction" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=158884226]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Introduction"
 
 [node name="Overworld" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=843719272]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -2133,131 +2198,117 @@ text = "Overworld"
 
 [node name="Movement" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=210801917]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Movement"
 
 [node name="Attacking" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=2132282629]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Attacking"
 
 [node name="Battle" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=425545207]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_fonts/font = ExtResource("17_chpua")
 theme_override_font_sizes/font_size = 28
-text = "Battle"
+text = "Battle basics"
 
 [node name="Turns" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=886615942]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Turns"
 
 [node name="WhatIsAura" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=464590659]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "What is Aura?"
 
 [node name="AuraAffinity1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1907099788]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Aura Affinity [1/2]"
 
 [node name="AuraAffinity2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1128534970]
 show_behind_parent = true
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(300, 14.435)
 layout_mode = 2
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_fonts/font = ExtResource("24_41402")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_srwa7")
 text = "Aura Affinity [2/2]"
+
+[node name="HittingWeaknesses" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1163728177]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Hitting Weaknesses"
+
+[node name="FollowUp" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1025291289]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "FollowUp"
+
+[node name="States" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=849319346]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_fonts/font = ExtResource("17_chpua")
+theme_override_font_sizes/font_size = 28
+text = "States"
+
+[node name="ElementalStates1" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1603649767]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Elemental States [1/2]"
+
+[node name="ElementalStates2" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1756152246]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Elemental States [2/2]"
+
+[node name="ProtectionStates" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=2026417680]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Defensive States"
+
+[node name="KnockedOut" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1796078434]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Knocked Out"
 
 [node name="Text" type="PanelContainer" parent="ManualPanel" unique_id=1014152683]
 clip_contents = true
@@ -2265,7 +2316,7 @@ layout_mode = 0
 offset_left = 416.0
 offset_top = 94.0
 offset_right = 1160.0
-offset_bottom = 835.0
+offset_bottom = 857.6698
 rotation = -0.0633063
 theme_override_styles/panel = SubResource("StyleBoxFlat_5qw8o")
 
@@ -2296,20 +2347,23 @@ clip_contents = false
 layout_mode = 0
 offset_left = 115.002
 offset_top = 111.426
-offset_right = 681.002
+offset_right = 421.95465
 offset_bottom = 810.426
 rotation = -0.0633063
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GalleryPanel/ScrollContainer" unique_id=1332204467]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_constants/separation = 32
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="Credits" type="Button" parent="GalleryPanel/ScrollContainer/VBoxContainer" unique_id=1383160212]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+focus_neighbor_top = NodePath(".")
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -2393,6 +2447,7 @@ text = "Arena mode
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
+focus_neighbor_bottom = NodePath(".")
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
 theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
@@ -2583,6 +2638,18 @@ texture = ExtResource("26_375bk")
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity1" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity2" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/AuraAffinity2" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/HittingWeaknesses" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/HittingWeaknesses" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/FollowUp" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/FollowUp" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates1" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates1" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates2" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates2" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/ProtectionStates" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/ProtectionStates" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/KnockedOut" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/KnockedOut" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Credits" to="." method="gallery"]
 [connection signal="pressed" from="GalleryPanel/ScrollContainer/VBoxContainer/Credits" to="." method="_on_credits"]
 [connection signal="focus_entered" from="GalleryPanel/ScrollContainer/VBoxContainer/Website" to="." method="gallery"]

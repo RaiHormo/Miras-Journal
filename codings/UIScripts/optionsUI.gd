@@ -838,7 +838,7 @@ func _manual_entry_select() -> void:
 	if text == "":
 		Global.toast("Entry not found")
 		return
-	text = text.replace("#"+entry, "[b]"+focus.text+"[/b]")
+	text = Colorizer.colorize_explicit(text.replace("#"+entry, "[b]"+focus.text+"[/b]"))
 	$ManualPanel/Text/RichTextLabel.text = text
 
 func _on_upscaledres(toggled_on: bool) -> void:

@@ -190,8 +190,9 @@ func _on_expand(open_ui=0):
 	if get_tree().root.has_node("Options"): return
 	if open_ui != 2: $CanvasLayer/Cursor.show()
 	$CanvasLayer/Cursor.position=CursorPosition[0]
-	if open_ui == 0: WasPaused = false
-	else: WasPaused = get_tree().paused
+	#if open_ui == 0: WasPaused = false
+	#else: 
+	WasPaused = get_tree().paused
 	was_controllable = Global.Controllable
 	get_tree().paused = true
 	Global.Controllable=false
@@ -289,6 +290,7 @@ func expand_panel(Pan:Panel, mem := 0):
 
 func _on_shrink():
 	inactive = true
+	Expanded = false
 	Partybox.show()
 	Global.check_party.emit()
 	t = create_tween()
@@ -315,7 +317,6 @@ func _on_shrink():
 	for i in %Pages.get_children():
 		i.get_node("Render").texture = null
 	await t.finished
-	Expanded = false
 	MemberChoosing = false
 	$CanvasLayer/Back.hide()
 	%Pages.hide()
@@ -742,7 +743,7 @@ func back():
 			$Audio.play()
 			shrink.emit()
 			Global.cancel_sound()
-			await Event.wait(0.1)
+			await Event.wait(0.1, false)
 			Global.Controllable = was_controllable
 			if get_tree().root.has_node("MainMenu"):
 				get_tree().root.get_node("MainMenu").stage = "root"

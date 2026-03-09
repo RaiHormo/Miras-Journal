@@ -308,6 +308,8 @@ func _on_button_pressed() -> void:
 		Global.toast("A bag is needed to store that.")
 		Event.give_control()
 		return
+	if get_tree().root.has_node("Options"):
+		get_tree().root.get_node("Options").queue_free()
 	if proper_pos != Vector2.ZERO:
 			await Event.take_control()
 			Global.Player.collision(false)

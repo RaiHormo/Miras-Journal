@@ -1,7 +1,7 @@
 extends Node
 class_name Colorizer
 
-static var ElementColor: Dictionary = {
+static var ElementColor: Dictionary[String, Color] = {
 	heat = Color.hex(0xff6b50ff), electric = Color.hex(0xfcde42ff), natural = Color.hex(0xd1ff3cff),
 	wind = Color.hex(0x56d741ff), spiritual = Color.hex(0x52f8b5ff), cold = Color.hex(0x52f8b5ff),
 	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc333c3ff),
@@ -13,6 +13,7 @@ static func colorize(str: String) -> String:
 	for i in ElementColor.keys():
 		var elname: String = i
 		#str = colorize_replace(elname, str, i)
+		str = str.replace("[color=%"+i+"]", "[color="+ElementColor.get(i).to_html()+"]")
 		str = colorize_replace(elname.capitalize(), str, i)
 		str = colorize_replace(state_element_verbing(elname), str, i)
 		str = colorize_replace(state_element_verbs(elname), str, i)
@@ -20,10 +21,18 @@ static func colorize(str: String) -> String:
 		str = colorize_replace(state_element_verb(elname), str, i)
 	return str
 
+static func colorize_explicit(str: String) -> String:
+	for elname in ElementColor.keys():
+		if "[color=%"+elname+"]" in str:
+			var color: Color = ElementColor.get(elname)
+			color.v = min(color.v, 0.8)
+			str = str.replace("[color=%"+elname+"]", "[color="+color.to_html()+"]")
+	return str
+
 static func colorize_replace(elname, str: String, i) -> String:
 	if elname in str:
-		var hex: String = "#%02X%02X%02X" % [ElementColor[i].r*255, ElementColor[i].g*255, ElementColor[i].b*255]
-		var hex_out: String = "#%02X%02X%02X" % [ElementColor[i].r*100, ElementColor[i].g*100, ElementColor[i].b*100]
+		var hex: String = ElementColor[i].to_html()
+		var hex_out: String = (ElementColor[i]/3).to_html()
 		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
 	return str
 

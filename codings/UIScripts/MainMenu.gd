@@ -76,6 +76,7 @@ func _ready():
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
 	if duplicated:
+		Cam.position = Global.get_cam().get_screen_center_position()
 		t.tween_property(player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
 		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*2.5, 0.5).from(0.0)
 	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*1.0, 0.5).from(0.0)

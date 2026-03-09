@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/windows.svg-2d72bec27f464c8ea05390b1e66998c4.
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -38,6 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=2
-svg/scale=1.0
+svg/scale=0.4
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false
