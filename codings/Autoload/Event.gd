@@ -10,9 +10,15 @@ var Diary: Dictionary[int, PackedStringArray] = {
 	2: ["boo"],
 	5: ["boo", "bee"]
 }
-var Day: int
+var Day: int:
+	set(x):
+		Day = x
+		add_flag("day", x)
 var Month: String = "November"
-var TimeOfDay:= TOD.DARKHOUR
+var TimeOfDay:= TOD.DARKHOUR:
+	set(x):
+		TimeOfDay = x
+		add_flag("time", x)
 var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping:= true
@@ -106,6 +112,7 @@ func check_flag(flag: StringName, value:= 1):
 	flag = flag.replace(" ", "_")
 	if flag in Flags:
 		return Flags.get(flag) == value
+	if value == 0: return true
 	else: return false
 
 ## Evaluate an expression
@@ -116,26 +123,38 @@ func check_flag(flag: StringName, value:= 1):
 ## [code]day: (Number)[/code] Check if the current day is the given number.[br]
 ## [code]time: (Number)[/code] Check if the current time of day is the given number.[br]
 func f(flag: StringName) -> bool:
-	if flag.is_empty(): return false
-	
-	if not (">" in flag or '<' in flag):
-		flag = flag.replace("=", "==")
-	flag = flag.replace(" ", "_")
-	flag = flag.replace(":", "==")
-	flag = flag.replace("day", "Day")
-	flag = flag.replace("time", "TimeOfDay")
-	flag = flag.replace("+", "&&")
-	
-	var ex = Expression.new()
-	var error = ex.parse(flag, Flags.keys())
-	if error != OK:
-		printerr(flag+":"+ex.get_error_text())
+	if flag == "true": return true
+	if flag == "false": return false
+	if ":" in flag:
+		return f(flag.replace(":", "="))
+	if "+" in flag:
+		var split = flag.split("+")
+		for i in split:
+			if not f(i): return false
+		return true
+	if "||" in flag:
+		var split = flag.split("||")
+		for i in split:
+			if f(i): return true
 		return false
-	var result = ex.execute(Flags.values(), self, false)
-	print(flag, " ", result)
-	
-	if result == null: return false
-	return bool(result)
+	if flag.begins_with("!"): return not f(flag.replace("!", ""))
+	if ">=" in flag:
+		var split = flag.split(">=")
+		return f(flag.replace(split[0]+">="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+	if ">" in flag:
+		var split = flag.split(">")
+		return f(flag.replace(split[0]+">"+split[1], str(flag_int(split[0]) > int(split[1]))))
+	if "<=" in flag:
+		var split = flag.split("<=")
+		return f(flag.replace(split[0]+"<="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+	if "<" in flag:
+		var split = flag.split("<")
+		return f(flag.replace(split[0]+"<"+split[1], str(flag_int(split[0]) > int(split[1]))))
+	if "=" in flag:
+		var split = flag.split("=")
+		return f(flag.replace(split[0]+"="+split[1], str(check_flag(split[0], int(split[1])))))
+	if Flags.has(flag) and Flags.get(flag) == 1: return true
+	else: return false
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value:= 1):
