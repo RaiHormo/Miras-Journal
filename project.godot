@@ -458,7 +458,7 @@ common/physics_interpolation=true
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.054902, 0.054902, 0.054902, 1)
+environment/defaults/default_clear_color=Color(0.072842576, 0.07284265, 0.072842635, 1)
 
 [steam]
 

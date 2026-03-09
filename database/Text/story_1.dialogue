@@ -17,7 +17,7 @@ Maybe I should ask Daze to go back to Amberelm so I can find them.
 (hide)
 set ToTime = 2
 set ToDay = 1
-do time_transition()
+do! time_transition()
 => END
 
 ~ nov1_daytime_0

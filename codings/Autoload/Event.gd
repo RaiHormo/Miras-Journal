@@ -356,7 +356,7 @@ func get_ov_sprites(id: String) -> SpriteFrames:
 func time_transition(location:= Global.Area.codename()):
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox")._on_close()
-		await Event.wait(0.3)
+		#await Event.wait(0.3, false)
 	await Event.take_control()
 	await Loader.transition()
 	Loader.ungray.emit()

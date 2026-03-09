@@ -284,26 +284,24 @@ func transition(dir=Query.get_dir_letter()):
 		#await Event.wait(0.5, false)
 		lower_layer()
 	t.kill()
-	if not is_in_transition():
-		t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
-		if Icon.is_playing():
-			t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
-		match dir:
-			"U":
-				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
-			"D":
-				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
-			"R":
-				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
-			"L":
-				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
-			_:
-				t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
-				t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
-				t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
-				t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
-		await t.finished
-	else: pass
+	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
+	if Icon.is_playing():
+		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
+	match dir:
+		"U":
+			t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
+		"D":
+			t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+		"R":
+			t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+		"L":
+			t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+		_:
+			t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
+			t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+	await Event.wait(0.35, false)
 	match dir:
 		"U":
 			$Can/Bars/Up.position = Vector2(-200,-200)
