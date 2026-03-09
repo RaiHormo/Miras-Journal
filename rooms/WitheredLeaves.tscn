@@ -391,7 +391,6 @@ LabelText = "Talk"
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "alcine_camp"
-focus_position = null
 bubble_always = true
 
 [node name="DazeCamp" parent="." unique_id=1420936725 instance=ExtResource("5_6fdth")]
@@ -413,7 +412,6 @@ LabelText = "Talk"
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "daze_camp"
-focus_position = null
 bubble_always = true
 Height = 10
 
@@ -437,7 +435,6 @@ LabelText = "Talk"
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "asteria_camp"
-focus_position = null
 bubble_always = true
 Height = 10
 
@@ -724,7 +721,6 @@ LabelText = "Rest"
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "rest_camp"
-focus_position = null
 
 [node name="JumpPoint2" parent="." unique_id=61352011 instance=ExtResource("22_5vs6x")]
 position = Vector2(-633, 409)
@@ -817,7 +813,6 @@ ActionType = "event"
 file = "WL_bunker_switch"
 dialogue_file = "WL_bunker_switch"
 return_control = false
-focus_position = null
 hide_on_flag = &"Bunker1Open"
 
 [node name="DoorLocked4" type="StaticBody2D" parent="." unique_id=520288389]
@@ -844,7 +839,6 @@ LabelText = "Force Open"
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "bunker_gate_budge"
-focus_position = null
 hide_on_flag = &"Bunker1Open"
 
 [node name="Transfer2" parent="." unique_id=50807784 instance=ExtResource("3_lemrk")]
@@ -865,7 +859,6 @@ file = "story_1"
 dialogue_file = "story_1"
 title = "vp_tutorial"
 return_control = false
-focus_position = null
 show_on_flag = &"day>1+time>3"
 hide_on_flag = &"VPOldCamp||!AsteriaBoss=5"
 free_on_hide = true

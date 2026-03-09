@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_s4tb4"]
 [ext_resource type="Resource" uid="uid://b28b6eda2u4a" path="res://database/Text/Profiles/AsteriaBox.tres" id="3_tcuxw"]
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
+[ext_resource type="Resource" uid="uid://cci8aukur3fo7" path="res://database/Abilities/Drill.tres" id="6_7hmow"]
+[ext_resource type="Resource" uid="uid://dbs3pn78pvpuc" path="res://database/Abilities/Glimmer.tres" id="6_8xal8"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="7_6lfki"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
 
@@ -45,6 +47,7 @@ SkillPoints = 16
 SkillCurve = SubResource("Curve_7hmow")
 Abilities = Array[ExtResource("1_wfdm5")]([ExtResource("2_qhfgp"), ExtResource("3_5qh1h"), ExtResource("4_j7xb4")])
 StandardAttack = ExtResource("7_75i7m")
+LearnableAbilities = Array[ExtResource("1_wfdm5")]([ExtResource("6_7hmow"), ExtResource("6_8xal8")])
 Offset = Vector2(4, -15)
 Shadow = true
 ShadowOffset = 2

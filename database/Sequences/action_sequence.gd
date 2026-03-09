@@ -207,10 +207,10 @@ func AttackMira(target: Actor):
 			Bt.damage(target, CurrentChar.Attack, true)
 			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	else:
-		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 8, 0)
+		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 3, 0)
 		Bt.anim("Attack2")
 		if not miss:
-			Bt.damage(target)
+			Bt.damage(target, false, false, Query.calc_num()/1.2)
 		else: Bt.miss()
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
@@ -795,6 +795,28 @@ func HeatWave(target: Actor):
 			Bt.damage(target, true, true)
 		elif crit:
 			target.add_state("Burned")
+	Bt.end_turn()
+
+func Thunderstorm(target: Actor):
+	if target == CurrentChar:
+		Bt.focus_cam(CurrentChar)
+		Bt.zoom(6, 0.3)
+		Bt.anim("Cast")
+		await Event.wait(1)
+		Bt.play_sound("WindShort")
+		Bt.move_cam(Vector2(40, 0), 1)
+		Bt.zoom(5, 1)
+		await Event.wait(1)
+		additional_done.emit()
+		await Event.wait(0.3)
+		Bt.anim()
+	else:
+		if not miss:
+			await Bt.shake_actor(target)
+			Bt.screen_shake(10)
+			Bt.play_sound("Attack2", CurrentChar)
+			Bt.damage(target, true, true)
+		target.add_state("Soaked", 5)
 	Bt.end_turn()
 
 func Humidity(target: Actor):

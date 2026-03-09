@@ -43,6 +43,7 @@ func hurt_1():
 	Global.check_party.emit()
 
 func wake_home():
+	Global.Party.reset_party()
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(106, 414))
 	Global.Player.look_to("R")
 	Event.give_control()

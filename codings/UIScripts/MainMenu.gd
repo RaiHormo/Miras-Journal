@@ -201,11 +201,15 @@ func close(give_control=true):
 func move_root():
 	var button : Button = $Rail.get_child(rootIndex).get_child(0)
 	button.grab_focus()
+	$Confirm.show()
+	$Back.show()
 	t=create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	t.tween_property($Rail, "position", $Rail.position, 0)
+	t.tween_property($Confirm, "position:y", 741, 0.3)
+	t.tween_property($Back, "position:y", 741, 0.3)
 	if rootIndex == -1: 
 		$Party.grab_focus()
 		return
@@ -320,6 +324,8 @@ func _root():
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
 	t.tween_property($Ring/Glow, "modulate", Color.WHITE, 0.6).from(Color.TRANSPARENT)
 	t.tween_property($Party, "position", Vector2(274, 28), 0.4)
+	$Confirm.show()
+	$Back.show()
 	PartyUI.darken(false)
 	await t.finished
 	if stage == "inactive-root":
@@ -568,6 +574,12 @@ func _on_party_pressed() -> void:
 		get_viewport().gui_release_focus()
 		PartyUI.expand.emit()
 		stage = "party"
+		t = create_tween().set_parallel().set_ease(Tween.EASE_IN)
+		t.tween_property($Confirm, "position:y", 900, 0.3)
+		t.tween_property($Back, "position:y", 900, 0.3).set_delay(0.04)
+		await t.finished
+		$Confirm.hide()
+		$Back.hide()
 
 
 func _on_party_focus_entered() -> void:

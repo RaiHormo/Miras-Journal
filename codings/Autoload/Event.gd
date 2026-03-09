@@ -123,6 +123,7 @@ func check_flag(flag: StringName, value:= 1):
 ## [code]day: (Number)[/code] Check if the current day is the given number.[br]
 ## [code]time: (Number)[/code] Check if the current time of day is the given number.[br]
 func f(flag: StringName) -> bool:
+	flag = flag.replace(" ", "_")
 	if flag == "true": return true
 	if flag == "false": return false
 	if ":" in flag:

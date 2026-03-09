@@ -3,6 +3,8 @@ var inactive = true
 
 func _ready() -> void:
 	Engine.time_scale = 1
+	Loader.BattleResult = -1
+	Loader.battle_end.emit()
 	Loader.InBattle = false
 	if is_instance_valid(Global.Bt):
 		Global.Bt.queue_free()

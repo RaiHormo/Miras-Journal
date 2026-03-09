@@ -101,11 +101,12 @@ func location_selected():
 	t.tween_property(Global.get_cam(), "position", map_point.global_position, 0.3)
 	await Loader.transition("")
 	hide()
-	print("Veinet: Going to ", foc.get_meta("Room"))
+	var room = foc.get_meta("Room")
+	print("Veinet: Going to ", room)
 	if progress_time:
-		await Event.time_transition(foc.get_meta("Room"))
-	elif not (foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
-		Loader.travel_to(foc.get_meta("Room"), Vector2.ZERO, foc.get_meta("CamID"), -1, "")
+		await Event.time_transition(room)
+	elif foc.name == here or not (foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
+		Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), -1, "")
 	await Global.area_initialized
 	var VP = Global.Area.get_node_or_null("VP"+foc.name)
 	if VP == null: push_error("No such vain point exists: ", foc.name); return

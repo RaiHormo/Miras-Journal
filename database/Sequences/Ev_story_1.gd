@@ -151,6 +151,7 @@ func WL_bunker_switch():
 	await Loader.detransition("U")
 	await Global.textbox(name, "WL_bunker_switch")
 	await Loader.travel_to("WitheredLeaves", Vector2(-275, -986), 0, -1, "U")
+	await Loader.save()
 
 func asteria_boss():
 	await Event.take_control()
@@ -198,6 +199,7 @@ func enter_pyrson():
 	Global.Player.show()
 	Event.teleport_followers()
 	Event.give_control(true)
+	Event.npc("Asteria").speed = 120
 	await Event.npc("Asteria").go_to(Vector2(372, 227), false)
 	await Event.npc("Asteria").move_dir(Vector2.UP)
 	Event.npc("Asteria").queue_free()

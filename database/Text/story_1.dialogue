@@ -299,22 +299,27 @@ Asteria.Neutral: Maybe I should even the playing feild for once!
 
 ~ asteria_boss_3
 Placeholder description: Time has stopped for everyone but Asteria
-Asteria.Neutral: Huff... Huff...
+do next_box("Asteria")
+Huff... Huff...
 do next_box("Yaru")
 you're pushing yourself too hard there, star...
-Asteria.Neutral: But I have to do this, it's my only chance!
+do next_box("Asteria")
+But I have to do this, it's my only chance!
 do next_box("Yaru")
-Yaru: i trust you.
+i trust you.
 Placeholder description: Asteria uses a bunch of items and fully heals herself.
 => END
 
 ~ asteria_boss_4
 Placeholder description: Time has stopped for everyone but Asteria
-Asteria.Neutral: Oh, that was close.
-Asteria.Neutral: Sigh... We're nearly out of items.
+do next_box("Asteria")
+Oh, that was close.
+do next_box("Asteria")
+Sigh... We're nearly out of items.
 do next_box("Yaru")
 should i take over?
-Asteria.Neutral: If you wish.
+do next_box("Asteria")
+If you must.
 => END
 
 ~ asteria_boss_5
@@ -543,14 +548,9 @@ do npc("Asteria").hide()
 do npc("Daze").go_to(Vector2(217, 441))
 do npc("Daze").hide()
 ...
+(hide)
 do npc("P").go_to(Vector2(160, 441))
 do wait(1)
-I overhear them speaking from upstairs.
-Daze: I'm so sorry for her behavior.
-Asteria: It's fine, she's not the worst newcomer we've had.
-Asteria: I'm just surprised you took it so calmly.
-Asteria: So this is your room...
-(hide)
 do npc("P").move_dir("L")
 do npc("Alcine").look_to("U")
 Mira: I'm sorry you had to witness that {{alcine()}}.

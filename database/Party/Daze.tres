@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
 [ext_resource type="AudioStream" uid="uid://mkdu2qbuty2g" path="res://sound/SFX/thonk.ogg" id="5_g4s8f"]
+[ext_resource type="Resource" uid="uid://dyhjcmwjdkepj" path="res://database/Abilities/Thunderstorm.tres" id="7_jt23b"]
 [ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="8_s8hit"]
 [ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
 
@@ -52,6 +53,7 @@ SkillPoints = 21
 SkillCurve = SubResource("Curve_jt23b")
 Abilities = Array[ExtResource("1_3ecv6")]([ExtResource("2_y217q"), ExtResource("2_ps7rl"), ExtResource("3_ssdks")])
 StandardAttack = ExtResource("9_l2o8n")
+LearnableAbilities = Array[ExtResource("1_3ecv6")]([ExtResource("7_jt23b")])
 Offset = Vector2(0, -12)
 Shadow = true
 ShadowOffset = 2
