@@ -137,9 +137,8 @@ Mira.Neutral: We should be safe now.
 Mira.Neutral: If it wasn't for you, I'd be done for.
 Mira.Neutral: We should stick together for now, [wait=0.5]umm...
 Mira.Neutral: Wait, do you have a name?
-Mira.Neutral: (hide)[next]
-do bubble("Question", "Alcine")
-[wait=1] [next=auto]
+(hide)
+do npc("Alcine").bubble("Question")
 Mira.Neutral: Right, you can't talk. But I need to call you something...
 Mira.Neutral: Oh I got it! \nI'll come up with a name and you tell me if you like it, okay?
 => END
@@ -158,35 +157,35 @@ Mira.Neutral: Seems like this is our way out of this forest.
 
 ~ morning
 Mira.Neutral: The sky is getting brighter. [p]Seems like it's early morning.
-[wait=0.3] [next=auto]
+(hide)
 do npc("MiraCut").look_to(Vector2(0, -1))
-[wait=0.1] [next=auto]
 do npc("MiraCut").bubble("Surprise")
-[wait=0.1] [next=auto]
+
 do npc("AlcineCut").look_to(Vector2(0, -1))
 Mira.Neutral: Look {{alcine()}}!
-[wait=0.1] [next=auto]
+(hide)
 do npc("AlcineCut").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
 Mira.Neutral: That looks like a town, doesn't it?
-[wait=0.1] [next=auto]
+(hide)
 do npc("AlcineCut").bubble("Excited")
 Mira.Neutral: Come on let's go! The people there might be able to help us!
 => END
 
 ~ what_happened_here
 Mira.Neutral: What... happened here?
-[wait=0.1] [next=auto]
+(hide)
 do npc("P").go_to(Vector2(6, 15), true)
+do wait(0.3)
 do npc("P").look_to(Vector2(1, 0))
-[wait=0.1] [next=auto]
+do wait(0.3)
 do npc("P").look_to(Vector2(-1, 0))
-[wait=0.1] [next=auto]
+do wait(0.3)
 do npc("P").look_to(Vector2(0, -1))
 Mira.Neutral: It's all... in ruins...
 do take_control()
-[wait=0.1] [next=auto]
+(hide)
 do npc("P").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
-[wait=0.1] [next=auto]
+do wait(0.3)
 do npc("P").camera_follow(false)
 do npc("P").BodyState = NPC.CUSTOM
 do npc("P").set_anim("SitRight")
@@ -232,7 +231,7 @@ Where are all these spirits coming from anyways?
 Placeholder description: Mira makes her fire wings apear for a bit
 I guess we should keep moving forward.
 Mira.Neutral: Come on, let's go {{alcine()}}.
-Alcine.Neutral: Mmmo...
+Alcine.Neutral: Sha...
 #Maybe I could get important information from {{alcine()}} this way.
 #Mira.Neutral: So... I was curious. [p]Before that creature attacked you, how did you end up there?
 #Mira.Neutral: Do you remember anything?

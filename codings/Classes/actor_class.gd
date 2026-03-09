@@ -120,9 +120,7 @@ var SpeedBoost: int = 0
 @export_group("Additional parameters")
 @export var DontIdle:= false
 ##If true, the character cannot die unless in very low hp
-@export var ClutchDmg:= false:
-	set(x):
-		pass
+@export var ClutchDmg:= false
 ##Sequence played when the above happens
 @export var SeqOnClutch:= ""
 ##If true, the character cannot die, and will always stay at low hp
@@ -146,10 +144,10 @@ var AuraDefault: Color = Color.WHITE
 var queue_delete:= false
 
 class log_entry:
-	var turn: int
-	var ability: Ability
-	var target: Actor
-var BattleLog: Array[Object]
+	var turn: int = -1
+	var ability: Ability = Ability.nothing()
+	var target: Actor = null
+var BattleLog: Array[log_entry] = [log_entry.new()]
 
 func set_health(x: int) -> void:
 	Health = x

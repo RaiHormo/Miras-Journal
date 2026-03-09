@@ -172,7 +172,8 @@ func AlcineFollow3():
 	await Global.textbox("story_0", "stay_back")
 	Loader.Attacker = Event.obj("Pterogon")
 	await Event.wait(0.1)
-	Global.Party.Leader.add_health(30)
+	Global.Party.Leader.Health = max (Global.Party.Leader.Health, 30)
+	Global.Party.Leader.ClutchDmg = true
 	Event.flag_progress("AlcineFollow", 3)
 	Loader.start_battle("AlcineFollow1")
 
@@ -193,6 +194,7 @@ func AlcineFollowHelp():
 	Alcine.hide()
 	await Event.wait(0.5, false)
 	await Loader.start_battle("AlcineFollow2")
+	await Event.wait(1)
 	Global.Bt.get_actor("Pterogon", true).Health = hp
 	await Loader.battle_end
 	AlcineFollow4()

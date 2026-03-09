@@ -613,7 +613,6 @@ offset_right = 185.0
 offset_bottom = 64.0
 theme = SubResource("Theme_acgst")
 value = 13.0
-rounded = true
 show_percentage = false
 
 [node name="ApText" type="Label" parent="CanvasLayer/Partybox/Leader/Aura" unique_id=451451156]
@@ -635,7 +634,6 @@ offset_right = 185.0
 offset_bottom = 51.0
 theme = SubResource("Theme_t8etm")
 value = 75.0
-rounded = true
 show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Partybox/Leader/Health" unique_id=1866796359]
@@ -745,7 +743,6 @@ offset_right = 185.0
 offset_bottom = 73.6667
 theme = SubResource("Theme_k7w14")
 value = 13.0
-rounded = true
 show_percentage = false
 
 [node name="ApText" type="Label" parent="CanvasLayer/Partybox/Member1/Aura" unique_id=1709349608]
@@ -767,7 +764,6 @@ offset_right = 185.0
 offset_bottom = 60.6667
 theme = SubResource("Theme_qmrca")
 value = 75.0
-rounded = true
 show_percentage = false
 
 [node name="HpText" type="Label" parent="CanvasLayer/Partybox/Member1/Health" unique_id=1708555157]

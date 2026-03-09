@@ -786,6 +786,7 @@ func move_menu():
 		await get_tree().create_timer(0.1).timeout
 		active = true
 	if stage == &"ability":
+		if foc == null: return
 		if not foc.has_meta("Ability"): return
 		if not foc.has_meta("AbilityGroup"): return
 		active = false
@@ -1119,7 +1120,7 @@ func _on_give_pressed() -> void:
 					target.NextAction = "Item"
 					target.NextMove = item_dat.BattleEffect
 					Item.remove_item(item_dat)
-					Bt.battle_msg("use_on_turn", item_dat.name)
+					Bt.battle_msg("use_on_turn", item_dat.Name)
 				else:
 					Bt.battle_msg("busy")
 				await Event.wait(1)

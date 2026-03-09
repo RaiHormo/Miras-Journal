@@ -94,9 +94,6 @@ func _ready():
 			2: i.Speed = 4
 			3: i.Speed = 2
 		i.IsEnemy = false
-		if PartyArray.size() == 1 and i == Party.Leader:
-			i.ClutchDmg = true
-		else: i.ClutchDmg = false
 	for i in Troop.size():
 		dub = $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)
@@ -119,7 +116,7 @@ func _ready():
 	for i in TurnOrder:
 		sprite_init(i)
 		i.NextAction = ""
-		i.BattleLog.clear()
+		i.BattleLog = [Actor.log_entry.new()]
 		i.load_complimentaries()
 	position_sprites()
 	if is_instance_valid(Loader.Attacker): Loader.Attacker.hide()
@@ -343,6 +340,7 @@ func _on_ai_chosen():
 
 func confirm_next(action_anim = true):
 	if CurrentChar.Controllable: $BattleUI.close()
+	print("Action: ", CurrentChar.NextAction)
 	if CurrentChar.NextMove == CurrentChar.StandardAttack:
 		CurrentChar.NextAction = "Attack"
 	if action_anim:

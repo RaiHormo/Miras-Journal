@@ -18,11 +18,13 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_t20i2"]
 script = ExtResource("3_oponu")
+repeatable = true
 actor = &"Guardian"
 low_hp = 100
 result = 1
 parameter1 = "StoneGuardian2"
 hold_turn = true
+add_flag = false
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_87ic2"]
@@ -35,11 +37,13 @@ metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_yttu5"]
 script = ExtResource("3_oponu")
-flag = &"BeatStoneGuardian"
+repeatable = true
+flag = &"StoneGuardianFinisher"
 flag_should_be = true
 result = 1
 parameter1 = "StoneGuardian3"
 hold_turn = true
+add_flag = false
 metadata/_custom_type_script = "uid://cn75n6xjwndk3"
 
 [sub_resource type="Resource" id="Resource_oponu"]

@@ -825,8 +825,8 @@ func Humidity(target: Actor):
 	Bt.end_turn()
 
 func Gather(target: Actor):
-	await Bt.focus_cam(target)
-	target.add_aura(target.MaxAura)
+	await Bt.focus_cam(CurrentChar)
+	CurrentChar.add_aura(CurrentChar.MaxAura)
 	Bt.end_turn()
 
 func ProtectiveField(target: Actor):
@@ -1108,10 +1108,16 @@ func ArenaGameOver():
 
 func StoneGuardianLoop():
 	if Bt.CurrentChar.codename == "Guardian" and Bt.Turn % 2 == 0 and not Event.f("StoneGuardianFinisher"):
-		Bt.ignore_end_turn = true
-		Bt.callout(load("res://database/Abilities/AnythingGoes.tres"))
-		await AnythingGoes(Bt.get_actor("Guardian"))
-		Bt.ignore_end_turn = false
+		if CurrentChar.BattleLog.back().ability.filename == "Gather":
+			Bt.ignore_end_turn = true
+			Bt.CurrentAbility = load("res://database/Abilities/RockThrow.tres")
+			await RockThrow(Global.Party.Member1)
+			Bt.ignore_end_turn = false
+		else:
+			Bt.ignore_end_turn = true
+			Bt.callout(load("res://database/Abilities/AnythingGoes.tres"))
+			await AnythingGoes(Bt.get_actor("Guardian"))
+			Bt.ignore_end_turn = false
 	if Bt.get_actor("Alcine").Health == 0 and Bt.CurrentChar.codename == "Mira" and Event.f("StoneGuardianFinisher"):
 		Event.add_flag("BeatStoneGuardian")
 
@@ -1135,6 +1141,7 @@ func StoneGuardian1():
 	Bt.end_turn()
 
 func StoneGuardian2(target: Actor = CurrentChar):
+	if not CurrentChar.codename == "Alcine": return
 	Bt.ignore_end_turn = true
 	var guardian = Bt.get_actor("Guardian")
 	var mira = Global.Party.Leader
@@ -1152,22 +1159,24 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	#Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
 	Global.check_party.emit()
 	await Event.wait(1)
-	Bt.get_actor("Guardian").AttackMultiplier = 10
-	Bt.get_actor("Guardian").MagicMultiplier = 10
+	Bt.get_actor("Guardian").AttackMultiplier = 2
+	Bt.get_actor("Guardian").MagicMultiplier = 2
 	guardian.NextAction = "Ability"
 	guardian.NextMove = load("res://database/Abilities/Drill.tres")
 	guardian.MainColor = Color(0.688, 0.636, 0.0, 1.0)
 	if alcine.Health > 0:
 		guardian.NextTarget = alcine
-	else: alcine.get_state("KnockedOut").turns = -1
+	else: 
+		alcine.get_state("KnockedOut").turns = -1
+	Event.add_flag("StoneGuardianFinisher")
 	Bt.ignore_end_turn = false
 	Bt.follow_up_next = false
 	Bt.TurnInd = TurnOrder.find(guardian) -1
-	Event.add_flag("StoneGuardianFinisher")
 	#await Drill(alcine)
 	#Bt.next_turn.emit()
 
 func StoneGuardian3():
+	if Global.Party.Member1.Health > 0: return
 	Bt.ignore_end_turn = true
 	Bt.lock_turn = true
 	var guardian = Bt.get_actor("Guardian")
