@@ -9,7 +9,6 @@
 script = ExtResource("2_t7t58")
 name = "Weapon"
 ActionSequence = &"ItemThrow"
-Type = "BigAttack"
 Damage = 3
 Target = 1
 Callout = false

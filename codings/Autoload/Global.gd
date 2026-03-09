@@ -469,6 +469,7 @@ func give_every_ability():
 func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
 	textbox_kill()
 	textbox_open = true
+	print("Textbox: ", file, " - ", title)
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
 	var Textbox2 = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
@@ -487,10 +488,10 @@ func textbox_kill():
 		await Event.wait()
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+	print("Passive: ", file, " - ", title)
 	if get_node_or_null("/root/Passive"):
 		$"/root/Passive"._on_close()
-		await passive_close
-		await Event.wait(0.1)
+		await Event.wait(0.3)
 		passive(file, title, extra_game_states)
 		return
 	textbox_open = true

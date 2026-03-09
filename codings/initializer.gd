@@ -27,6 +27,7 @@ func _ready() -> void:
 	PartyUI.visible = true
 	$TitleScreen/Error/Hint.text = "Hint: Should have been fine"
 	$TitleScreen/Error.hide()
+	get_viewport().get_window().grab_focus()
 	if game_exists:
 		focus()
 	else: _on_continue_pressed()

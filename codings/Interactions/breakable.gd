@@ -8,7 +8,10 @@ extends StaticBody2D
 		item_type = x
 		given_item = ""
 		notify_property_list_changed()
-@export_enum("Failed to Load") var given_item := ""
+@export_enum("Failed to Load") var given_item := "":
+	set(x):
+		given_item = x
+		notify_property_list_changed()
 @export var decrease_z:= true
 
 func _ready() -> void:
@@ -45,6 +48,12 @@ func _validate_property(property: Dictionary) -> void:
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))
+		var sprite: AnimatedSprite2D = get_node_or_null("Sprite")
+		if "Fragment" in given_item and sprite != null:
+			var color = given_item.replace("Fragment", "")
+			if sprite.sprite_frames.has_animation(color):
+				get_node("Sprite").animation = color
+				default_anim = color
 		property.hint_string = ",".join(items)
 		if get(property.name) != "" and get(property.name) not in items:
 			item_type = ["Con", "Mat", "Bti", "Key"].pick_random()

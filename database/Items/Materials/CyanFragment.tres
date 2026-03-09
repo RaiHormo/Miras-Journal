@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MaterialItem" format=3 uid="uid://v12n1k410kiq"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_ebivl"]
+[ext_resource type="Script" uid="uid://t1a1c2ysd6k1" path="res://codings/Classes/material_class.gd" id="2_7lrui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebivl"]
+atlas = ExtResource("1_ebivl")
+region = Rect2(90, 126, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_7lrui")
+Essence = Color(0.078431375, 0.9098039, 1, 1)
+Name = "Cyan Fragment"
+Description = "A small crystal that contains a pure Cold essence."
+ItemType = "Mat"
+Icon = SubResource("AtlasTexture_ebivl")

@@ -2,6 +2,7 @@ extends CanvasLayer
 var inactive = true
 
 func _ready() -> void:
+	Engine.time_scale = 1
 	Loader.InBattle = false
 	if is_instance_valid(Global.Bt):
 		Global.Bt.queue_free()

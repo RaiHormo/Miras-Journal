@@ -40,6 +40,7 @@ var Length: int = 120:
 @export var event_condition:= ""
 @export var chair_faces: Array[String] = ["U", "D", "L", "R"]
 @export var return_control:= true
+@export var focus_position: Vector2
 @export_category("Flag")
 @export var add_flag: bool = false
 @export var show_on_flag: StringName
@@ -68,6 +69,7 @@ var action_options: Array[String] = [
 		"event_condition", 
 		"chair_faces",
 		"dialogue_file",
+		"focus_position",
 	]
 
 @onready var button:Button
@@ -87,7 +89,7 @@ func setup_action_options():
 			return_control = true
 		"battle": 
 			used_properties = ["file", "return_control"]
-		"event": used_properties = ["event_condition", "title", "return_control"]
+		"event": used_properties = ["event_condition", "file", "return_control"]
 		"pass_time": used_properties = ["event_condition", "to_time", "return_control", "to_time_relative"]
 		"item": 
 			used_properties = ["item", "itemtype"]
@@ -96,7 +98,7 @@ func setup_action_options():
 		"social_link":
 			used_properties = ["dialogue_file", "return_control", "event_condition"]
 		"focus_cam": 
-			used_properties = []
+			used_properties = ["focus_position"]
 			return_control = true
 		"chair": 
 			used_properties = ["chair_faces"]
@@ -141,8 +143,8 @@ func _ready() -> void:
 		return
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
-	check()
 	await Global.area_initialized
+	check()
 	Global.check_party.connect(check)
 	do_position()
 	disappear()
@@ -159,7 +161,8 @@ func vein_check():
 		get_parent().get_node("Sprite").hide()
 
 func check() -> void:
-	if Engine.is_editor_hint(): return
+	if Engine.is_editor_hint() or Loader.InBattle: return
+	if not is_instance_valid(Global.Player): queue_free()
 	if bubble_always:
 		if not Global.Controllable: disappear(true)
 		else: bubble()
@@ -348,7 +351,7 @@ func _on_button_pressed() -> void:
 		"focus_cam":
 			Event.take_control()
 			Global.Player.camera_follow(false)
-			Global.get_cam().position = Vector2(file.to_int(), title.to_int())
+			Global.get_cam().position = focus_position
 			await Event.wait(1)
 			if add_flag: Event.add_flag(hide_on_flag, true)
 			Global.check_party.emit()

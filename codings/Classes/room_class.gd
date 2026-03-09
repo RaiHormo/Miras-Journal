@@ -85,6 +85,7 @@ func _ready():
 		PartyUI.UIvisible = true
 		for i in Global.Area.Followers:
 			i.dont_follow = false
+	name = codename()
 	Global.area_initialized.emit()
 
 func setup_params(tween_zoom = false):
@@ -179,3 +180,6 @@ func get_terrain(coords: Vector2i) -> String:
 			if not terrain.is_empty():
 				return terrain
 	return "Generic"
+
+func codename() -> String:
+	return Name.to_pascal_case()

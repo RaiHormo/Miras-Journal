@@ -52,7 +52,7 @@ func _process(delta):
 		handle_ui()
 	if not Loader.InBattle:
 		if UIvisible != visibly:
-			if UIvisible and not Event.f("DisableMenus") and not disabled:
+			if UIvisible and not Event.check_flag("DisableMenus") and not disabled:
 				if not Global.Settings.AutoHideHUD == 1:
 					show_all()
 			else: hide_all()
@@ -108,7 +108,7 @@ func hide_all(animate = true):
 func _check_party():
 	if not Global.Party: return
 	if not is_instance_valid(Global.Party.Leader): return
-	if Event.f("DisableMenus"): disabled = true
+	if Event.check_flag("DisableMenus"): disabled = true
 	Global.Party = Global.Party
 	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
@@ -496,8 +496,6 @@ func check_member(mem:Actor, node:Panel, ind):
 	var character_label = mem.FirstName
 	var txt_color = mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
-	mem.Health = min(mem.Health, mem.MaxHP)
-	mem.Aura = min(mem.Aura, mem.MaxAura)
 	get_node("%Pages/Page"+str(ind)+"/Label").add_theme_color_override("font_color", txt_color)
 	get_node("%Pages/Page"+str(ind)+"/Label").text = mem.FirstName + " " + mem.LastName
 	t.tween_property(node.get_node("Health"), "value", mem.Health, 1)
@@ -670,7 +668,7 @@ func cmd():
 				Item.remove_item(split[0], split[1])
 		elif $CanvasLayer/TextEdit.text != "":
 			var text = $CanvasLayer/TextEdit.text
-			Event.add_flag(text, !Event.f(text))
+			Event.add_flag(text, !Event.check_flag(text))
 			Global.toast("Flag \"" + text + "\" set to "
 			+ str(Event.check_flag(text)))
 		$CanvasLayer/TextEdit.hide()
@@ -686,12 +684,12 @@ func party_menu():
 			Global.confirm_sound()
 
 func main_menu():
-	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.f("DisableMenus"):
+	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.check_flag("DisableMenus"):
 		if Global.Player.move_frames > -10:
 			await Event.wait(0.3, false)
 			if Global.Controllable: main_menu()
 			return
-		if Event.f("HasBag"):
+		if Event.check_flag("HasBag"):
 			Global.ui_sound("Menu")
 			Global.Player.bag_anim()
 			Global.Controllable = false

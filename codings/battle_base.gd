@@ -786,7 +786,6 @@ func death(target:Actor):
 	if target == null or target.has_state("KnockedOut"): return
 	lock_turn = true
 	clear_states(target)
-	if CurrentChar != target: CurrentChar.add_aura(target.Aura)
 	if CurrentChar != target:
 		CurrentChar.add_aura(target.Aura)
 	target.set_aura(0)
@@ -884,6 +883,7 @@ func hp_sort(a:Actor, b:Actor):
 	return a.Health < b.Health
 
 func anim(animation: String = "", chara: Actor = CurrentChar):
+	if chara.node == null: return
 	if chara.FlipH:
 		chara.node.flip_h = true
 	if not is_instance_valid(chara):
@@ -1310,7 +1310,7 @@ func get_actor(codename: StringName, unsafe = false) -> Actor:
 	for i in Troop:
 		if i.codename == codename: return i
 	push_warning(codename+" actor not found")
-	return null if unsafe else Party.Leader
+	return null if unsafe else Party.Leader.duplicate()
 
 func has_actor(codename: StringName) -> bool:
 	return not get_actor(codename, true) == null

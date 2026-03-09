@@ -98,20 +98,19 @@ func _check_party():
 	$EnemyFocus/Health.max_value = CurEnemy.MaxHP
 	$EnemyFocus/Aura.max_value = CurEnemy.MaxAura
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
-	if CurEnemy!=get_parent().CurrentChar and lock == false and get_parent().Action:
+	if CurEnemy != get_parent().CurrentChar and lock == false and get_parent().Action:
 		lock = true
-		remap($EnemyFocus/Health.value, 0, $EnemyFocus/Health.max_value, 0, CurEnemy.MaxHP)
-		remap($EnemyFocus/Aura.value, 0, $EnemyFocus/Aura.max_value, 0, CurEnemy.MaxAura)
+		if is_instance_valid(t): t.kill()
 		t = create_tween()
 		t.set_parallel(true)
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUAD)
 		t.tween_property($EnemyFocus/Health, "value", CurEnemy.Health, 0.3)
-		if CurEnemy.Health == 0: t.tween_property($EnemyFocus/Aura, "value", 0, 0.3)
+		if CurEnemy.Health == 0: t.tween_property($EnemyFocus/Aura, "value", 0, 0.4)
 		else: t.tween_property($EnemyFocus/Aura, "value", CurEnemy.Aura, 0.3)
 		await t.finished
 		lock = false
-	else:
+	elif not lock:
 		$EnemyFocus/Health.value = CurEnemy.Health
 		$EnemyFocus/Aura.value = CurEnemy.Aura
 	$EnemyFocus/Icon.texture = CurEnemy.PartyIcon

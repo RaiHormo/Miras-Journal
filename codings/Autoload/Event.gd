@@ -154,14 +154,6 @@ func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)
 	print("Removed flag \"", flag, "\"")
 
-### Check if a flag is 0 or 1 with `f("Example")`. It also has some depricated funtionality.
-#func f(flag:StringName, state = null) -> bool:
-	#if state is int:
-		#return f_past(flag, state)
-	#elif state is bool:
-		#Flags.set(flag, int(state))
-	#return check_flag(flag)
-
 func pop_tutorial(id: String):
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
@@ -342,7 +334,7 @@ func get_ov_sprites(id: String) -> SpriteFrames:
 			return null
 	return await Loader.load_res("res://art/OV/"+nam[0]+"/"+nam[1]+".tres")
 
-func time_transition():
+func time_transition(location:= Global.Area.codename()):
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox")._on_close()
 		await Event.wait(0.3)
@@ -355,8 +347,7 @@ func time_transition():
 		Global.toast(Query.get_month_name(Query.get_month(Day))+" "+str(Day)+" cin16")
 		Loader.Defeated.clear()
 	set_time(ToTime)
-	start_time_events()
-	await Loader.detransition()
+	await start_time_events(location)
 
 func zoom(val: float, maintain = false):
 	Global.Camera.zoom = Vector2(val, val)
@@ -384,16 +375,25 @@ func camera_unlock():
 	if is_instance_valid(Global.Player):
 		Global.Player.camera_follow(false)
 
-func start_time_events():
+func start_time_events(location: String):
 	var seq = Query.get_mmm(Query.get_month(Day)).to_lower()+str(Day)+"_"+Query.to_tod_text(TimeOfDay).to_lower()
-	print("Starting event: "+seq)
 	if sequence_exists(seq):
-		sequence(seq)
-	elif not Global.Area.IsDungeon: sequence("wake_home")
-	else: 
-		give_control()
-		Global.passive("banter_misc", "rest_dungeon")
+		print("Starting event: "+seq)
+		await sequence(seq)
+	else:
+		match location:
+			"Pyrson":
+				if Global.Area.IsDungeon:
+					await sequence("return_home_pyrson")
+				else:
+					await sequence("wake_home")
+			"Dungeon":
+				Global.passive("banter_misc", "rest_dungeon")
+				give_control()
+			_:
+				give_control()
 	Global.check_party.emit()
+	Loader.detransition()
 
 func condition(con: String):
 	if $Conditions.has_method(con):

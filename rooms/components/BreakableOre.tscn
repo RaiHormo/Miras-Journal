@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d0r3jc40ijx6l"]
+
+[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="1_ne460"]
+[ext_resource type="Texture2D" uid="uid://bii5famys2rlf" path="res://art/Icons/Editor/breakable.png" id="2_ffjdc"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_byxc6"]
+[ext_resource type="SpriteFrames" uid="uid://dl7sfqr2p5pj8" path="res://art/OV/Objects/BreakableOreSprite.tres" id="4_ffjdc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bd8qp"]
+size = Vector2(18, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8q2"]
+size = Vector2(20, 18)
+
+[node name="BreakableDBOre0" type="StaticBody2D" unique_id=201224244]
+script = ExtResource("1_ne460")
+default_anim = "Cyan"
+item_type = "Mat"
+given_item = "CyanFragment"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1962511091]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_bd8qp")
+debug_color = Color(0.91, 0.5096, 0.52962, 0.239216)
+
+[node name="AreaBreak" type="Area2D" parent="." unique_id=720273437]
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaBreak" unique_id=728173527]
+position = Vector2(1.19209e-07, 2)
+shape = SubResource("RectangleShape2D_cl8q2")
+debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=49571557]
+light_mask = 0
+z_index = 10
+z_as_relative = false
+position = Vector2(-1.19209e-07, 2)
+scale = Vector2(0.271667, 0.271667)
+texture = ExtResource("2_ffjdc")
+script = ExtResource("3_byxc6")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1313460454]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+y_sort_enabled = true
+texture_filter = 1
+sprite_frames = ExtResource("4_ffjdc")
+animation = &"Cyan"
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://art/OV/Objects/breakable.ase",
+"source_uid": 4490690155513412830
+}
+metadata/_aseprite_wizard_source_file_hash_ = "1ebb117bf681b7f116a6073f5966ae79"
+
+[connection signal="area_entered" from="AreaBreak" to="." method="_on_area_break_area_entered"]

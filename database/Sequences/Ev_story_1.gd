@@ -183,6 +183,7 @@ func nov2_evening():
 
 func enter_pyrson():
 	await Loader.travel_to("Pyrson", Vector2(0,0), 0, -1, "R", false)
+	Event.remove_flag("InCamp")
 	Global.Player.hide()
 	Global.Player.camera_follow(false)
 	Loader.ungray.emit()

@@ -337,6 +337,7 @@ expand_icon = true
 metadata/Room = "Pyrson"
 metadata/CamID = 0
 metadata/IsDungeon = false
+metadata/TimePassOverwrite = true
 
 [node name="ShardGardens" type="Label" parent="Container/Scroller/LocationList" unique_id=985562043]
 light_mask = 0

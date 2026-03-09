@@ -168,6 +168,23 @@ func end_turn_checks():
 	var chara = CurrentChar
 	Bt.remove_queued_states(chara)
 
+func Default(target: Actor):
+	Bt.zoom(5)
+	Bt.focus_cam(CurrentChar)
+	Bt.anim("Cast")
+	await Event.wait(0.3)
+	Bt.focus_cam(target)
+	if Bt.CurrentAbility.Damage != Ability.D.NONE:
+		if miss: Bt.miss()
+		else:
+			await Bt.damage(target, true, true)
+		if crit: await Bt.damage(target, true, true)
+	if Bt.CurrentAbility.InflictsState != "":
+		await target.add_state(Bt.CurrentAbility.InflictsState)
+	await Event.wait(0.4)
+	Bt.anim()
+	Bt.end_turn()
+
 #region Attacks
 func AttackMira(target: Actor):
 	Bt.zoom()
@@ -903,12 +920,14 @@ func ItemCure(target: Actor):
 func ItemThrow(target: Actor):
 	Bt.zoom(5.5)
 	Bt.focus_cam(CurrentChar, 0.2)
-	Bt.anim("Cast")
+	Bt.anim("Throw")
 	await Event.wait(0.3)
 	Bt.focus_cam(target)
 	Bt.play_effect("Hit", target)
 	Bt.screen_shake()
 	Bt.damage(target, false, true, Query.calc_num(), true, false, true)
+	if Bt.CurrentAbility.InflictsState != "":
+		await target.add_state(Bt.CurrentAbility.InflictsState)
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
@@ -1269,6 +1288,15 @@ func AsteriaBossFollowup():
 	else:
 		asteria.Health += 15
 
+func nov2_mira_dream():
+	Loader.gray_out(1)
+	await Event.wait(0.7)
+	Event.ToDay = 2
+	Event.ToTime = 2
+	Loader.ungray.emit()
+	Event.time_transition()
+	Bt.end_battle()
+
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader
 	Bt.initial = mira.node.position
@@ -1292,19 +1320,8 @@ func LazuliteHeartBoss1():
 	Bt.no_misses = true
 	Bt.end_turn()
 
-func nov2_mira_dream():
-	Loader.gray_out(1)
-	await Event.wait(0.7)
-	Event.ToDay = 2
-	Event.ToTime = 2
-	Loader.ungray.emit()
-	Event.time_transition()
-	Bt.end_battle()
-
 func LazuliteHeartBoss2():
-	Bt.death(Bt.get_actor("LHLeft"))
-	Bt.death(Bt.get_actor("LHRight"))
-	await Global.passive("story_2", "lazulite_heart_3")
+	await Global.textbox("story_2", "lazulite_heart_3")
 	Loader.gray_out(1, 0.5, 1, Color.WHITE)
 	await Event.wait(1)
 	Bt.victory(true)

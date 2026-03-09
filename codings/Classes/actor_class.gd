@@ -3,8 +3,8 @@ extends Resource
 class_name Actor
 
 @export_subgroup("Current")
-@export_range(0, 9999) var Health: int
-@export_range(0, 9999) var Aura: int
+@export_range(0, 9999) var Health: int: set = set_health
+@export_range(0, 9999) var Aura: int: set = set_aura
 
 @export_category("Info")
 ##Displayed name of the character
@@ -151,25 +151,23 @@ class log_entry:
 	var target: Actor
 var BattleLog: Array[Object]
 
-func set_health(x):
+func set_health(x: int) -> void:
 	Health = x
-	if Health > MaxHP: Health = MaxHP
-	Global.check_party.emit()
+	Health = clampi(Health, 0, MaxHP)
 
 func add_health(x):
+	if x == 0: return
 	Health += x
-	if Health > MaxHP: Health = MaxHP
+	print(FirstName+" gains ", x, " Health")
 	Global.check_party.emit()
 
-func set_aura(x):
+func set_aura(x: int) -> void:
 	Aura = x
-	if Aura > MaxAura: Aura = MaxAura
-	Global.check_party.emit()
+	Aura = clampi(Aura, 0, MaxAura)
 
 func add_aura(x: int):
+	if x == 0: return
 	Aura += x
-	if Aura < 0: Aura = 0
-	if Aura > MaxAura: Aura = MaxAura
 	print(FirstName+" gains ", x, " AP")
 	Global.check_party.emit()
 
@@ -403,7 +401,9 @@ func level_up_to(lv: int):
 
 func find_learnable() -> Ability:
 	var learnable = null
-	for i in LearnableAbilities:
+	var learnables = LearnableAbilities.duplicate()
+	learnables.reverse()
+	for i in learnables:
 		if not i in Abilities:
 			learnable = i
 			continue

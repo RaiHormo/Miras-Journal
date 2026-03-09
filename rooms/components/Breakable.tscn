@@ -10,7 +10,7 @@ size = Vector2(18, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8q2"]
 size = Vector2(20, 18)
 
-[node name="Breakable" type="StaticBody2D" unique_id=201224244]
+[node name="BreakableDB0" type="StaticBody2D" unique_id=201224244]
 script = ExtResource("1_avy7v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1962511091]

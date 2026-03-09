@@ -50,3 +50,21 @@ func nov3_enterSG():
 	Event.add_flag("Nov3_WentToSG")
 	await Event.wait(2)
 	Global.passive(name, "very_shiny")
+
+func sg_bunker_entrance():
+	if Event.f("DefeatedLazuliteHeart"):
+		await Event.take_control()
+		await Global.textbox(name, "enter_bunker_2")
+		Event.give_control()
+	else:
+		await Event.take_control()
+		await Global.Player.bubble("Surprise")
+		await Loader.start_battle("LazuliteHeartBoss")
+		await Loader.battle_end
+		print("battle done")
+		Loader.ungray.emit()
+		await Global.textbox(name, "lazulite_heart_after")
+		Loader.white_fadeout(0.5, 0.3, 0.5)
+		Event.add_flag("DefeatedLazuliteHeart")
+		Event.progress_by_time(1)
+		Event.time_transition()

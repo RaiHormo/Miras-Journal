@@ -46,3 +46,10 @@ func wake_home():
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(106, 414))
 	Global.Player.look_to("R")
 	Event.give_control()
+
+func return_home_pyrson():
+	Global.Party.reset_party()
+	Global.heal_party()
+	await Loader.travel_to("Pyrson", Vector2(97, 157))
+	await Global.textbox("interact_pyrson", "return_home_pyrson")
+	Event.give_control()

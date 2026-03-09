@@ -841,12 +841,11 @@ func _manual_entry_select() -> void:
 	text = text.replace("#"+entry, "[b]"+focus.text+"[/b]")
 	$ManualPanel/Text/RichTextLabel.text = text
 
-
 func _on_upscaledres(toggled_on: bool) -> void:
 	Global.Settings.UpscaledRes = toggled_on
 	confirm()
 	load_settings()
-	
+
 func _on_reset() -> void:
 	stage = "inactive"
 	Global.confirm()
@@ -862,7 +861,7 @@ You can backup this data by pressing F1 and copying the files.\nProceed?"):
 	else:
 		$GalleryPanel/ScrollContainer/VBoxContainer/ResetGame.grab_focus()
 		stage = "gallery"
-	
+
 func _on_credit_scroll(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_up"):
 		$GalleryPanel/Credits.scroll_by(-100)
@@ -871,18 +870,15 @@ func _on_credit_scroll(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_left"):
 		$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
 
-
 func _on_controller_vibration(toggled_on: bool) -> void:
 	Global.Settings.ControllerVibration = toggled_on
 	confirm()
 	load_settings()
 
-
 func _blur_effect(toggled_on: bool) -> void:
 	Global.Settings.BlurEffect = toggled_on
 	confirm()
 	load_settings()
-
 
 func rename_alcine() -> void:
 	stage = "popup"

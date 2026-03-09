@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MaterialItem" format=3 uid="uid://cshkuekyv537y"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_g18r2"]
+[ext_resource type="Script" uid="uid://t1a1c2ysd6k1" path="res://codings/Classes/material_class.gd" id="2_m00q0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g18r2"]
+atlas = ExtResource("1_g18r2")
+region = Rect2(0, 126, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_m00q0")
+Essence = Color(0.99607843, 0.38431373, 0.20392157, 1)
+Name = "Orange Fragment"
+Description = "A small crystal that contains a pure Heat essence."
+ItemType = "Mat"
+Icon = SubResource("AtlasTexture_g18r2")

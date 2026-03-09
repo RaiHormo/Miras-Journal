@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Ability" format=3 uid="uid://dyhjcmwjdkepj"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_3vkgf"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_i7bcs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7bcs"]
+resource_local_to_scene = true
+atlas = ExtResource("1_3vkgf")
+region = Rect2(162, 0, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_i7bcs")
+name = "Thunderstorm"
+description = "Deal medium Electric damage to random enemies and make them all soaked."
+Icon = SubResource("AtlasTexture_i7bcs")
+Type = "BigAttack"
+InflictsState = "Soaked"
+AuraCost = 19
+Damage = 2
+Target = 2
+WheelColor = Color(0.9882353, 0.87058824, 0.25882354, 1)
+SucessChance = 0.6
+DmgVarience = true
+metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

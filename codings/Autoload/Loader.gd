@@ -342,6 +342,7 @@ func detransition(dir = direc):
 	await Event.wait(0.4, false)
 	if Global.Camera != null:
 		Global.get_cam().position_smoothing_enabled = true
+	Global.check_party.emit()
 	#Global.ready_window()
 
 func restore_bars(dir: String = ""):
@@ -427,6 +428,7 @@ func end_battle():
 	PartyUI._on_shrink()
 	if Seq.Detransition or BattleResult!= 1:
 		hide_victory_stuff()
+		Global.Bt.zoom(4)
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
 		if is_instance_valid(Global.Bt): Global.Bt.queue_free()
@@ -458,8 +460,8 @@ func end_battle():
 
 	if is_instance_valid(Attacker):
 		if BattleResult != 1: Attacker.show()
-		if Global.Player.is_on_wall(): Global.Player.position = Attacker.position
 		if Seq.DeleteAttacker and BattleResult == 1:
+			if Global.Player.is_on_wall(): Global.Player.position = Attacker.position
 			Attacker.defeat()
 
 	Global.Controllable = false

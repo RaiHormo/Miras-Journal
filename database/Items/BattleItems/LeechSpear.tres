@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://ceul3ae6qnat8"]
+
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="1_svhm5"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="2_2utmj"]
+[ext_resource type="Script" uid="uid://bw7ek8s0r2iwu" path="res://codings/Classes/ability.gd" id="2_gruww"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="3_mkben"]
+
+[sub_resource type="Resource" id="Resource_gruww"]
+script = ExtResource("2_gruww")
+name = "Weapon"
+ActionSequence = &"ItemThrow"
+InflictsState = "Leeched"
+Damage = 1
+Target = 1
+Callout = false
+CritChance = 0.2
+DmgVarience = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2utmj"]
+resource_local_to_scene = true
+atlas = ExtResource("3_mkben")
+region = Rect2(36, 36, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_2utmj")
+Description = "Deals slight damage and Leeches the target"
+ItemType = "Bti"
+Icon = SubResource("AtlasTexture_2utmj")
+Use = 4
+UsedInBattle = true
+OvTarget = 1
+BattleEffect = SubResource("Resource_gruww")
+metadata/_custom_type_script = "uid://b1asade5rjus"

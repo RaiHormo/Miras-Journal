@@ -51,11 +51,11 @@ Mira.Neutral: That's it! I can use [outline_size=12][outline_color=#6c3e18][colo
 
 ~ what_this
 Phew, that was scary...
-do get_node("/root/Battle/Act/Actor0").hide()
-set Global.Player.position = get_node("/root/Battle/Act/Actor0").global_position
+do Party.Leader.node.hide()
+set Global.Player.position = Party.Leader.node.global_position
 do Global.Player.show()
 Hm, what's that?
-do Global.Player.move_dir(Vector2(2, 0), true, false)
+do Global.Player.go_to(Vector2(1494, 434))
 do Event.wait(0.1)
 set Global.Player.BodyState = NPC.CUSTOM
 #do Global.Player.set_anim("PickUpRight", true, true)
@@ -63,7 +63,7 @@ do Item.add_item("WhiteSlime", "Mat")
 do Event.wait(1)
 This slime seems to contain some of that monster's essence.
 do Global.Player.set_anim("IdleRight")
-set get_node("/root/Battle/Act/Actor0").global_position = Global.Player.position
+set Party.Leader.node.global_position = Global.Player.position
 I feel like it might prove useful.
 => END
 

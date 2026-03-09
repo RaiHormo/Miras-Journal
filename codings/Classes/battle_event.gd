@@ -14,7 +14,7 @@ class_name  BattleEvent
 @export var low_hp: int = -1
 @export var low_ap: int = -1
 @export_group("Result")
-@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory") var result = 0
+@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory", "Defeat Others") var result = 0
 ##Used as text file for dialog, function name for call function, move type for force move
 @export var parameter1: String = ""
 ##Used as node name for dialog
@@ -35,12 +35,12 @@ func check() -> bool:
 		return false
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
-	if low_hp != -1 and low_hp > 0:
+	if low_hp != -1 and low_hp >= 0:
 		if actor == &"" or actore == null: 
 			push_warning("The event refrences "+actor+" who is not present")
 			return false
-		if actore.Health > low_hp: return false
-	if low_ap != -1 and low_ap > 0:
+		if actore.Health >= low_hp: return false
+	if low_ap != -1 and low_ap >= 0:
 		if actor == &"" or actore == null: 
 			push_warning("The event refrences "+actor+" who is not present")
 			return false
@@ -54,21 +54,34 @@ func run() -> void:
 	if ran_this_turn: return
 	else: ran_this_turn = true
 	if !Global.Bt: return
-	print("Running event ", resource_name)
+	print("Running event type ", result)
 	if hold_turn: await run_with_await()
 	else:
 		match result:
 			0: Global.passive(parameter1, parameter2)
-			1: Global.Bt.get_node("Act").call(parameter1)
+			1: 
+				print("Call seq: ", parameter1)
+				Global.Bt.get_node("Act").call(parameter1)
 			2: Global.textbox(parameter1, parameter2)
 			3:
 				if parameter1 == "": parameter1 = "Ability"
-				Global.Bt.get_actor(actor).NextAction = parameter1
-				Global.Bt.get_actor(actor).NextMove = resource
+				var actor_data = Global.Bt.get_actor(actor)
+				actor_data.NextAction = parameter1
+				actor_data.NextMove = resource
+				print("Forcing ", resource.name, " on ", actor)
 				if not parameter2.is_empty():
-					Global.Bt.get_actor(actor).NextTarget = Global.Bt.get_actor(parameter2)
-			4: Global.Bt.victory()
-	if add_flag: Event.add_flag(flag, !flag_should_be)
+					actor_data.NextTarget = Global.Bt.get_actor(parameter2)
+			4: 
+				print("Event means win")
+				Global.Bt.victory()
+			5:
+				print("Defeating everyone but ", actor)
+				var actor_data = Global.Bt.get_actor(actor, true)
+				if actor_data != null and actor_data.IsEnemy:
+					for i in Global.Bt.Troop:
+						if actor_data != i:
+							Global.Bt.death(i)
+	if add_flag and flag != "": Event.add_flag(flag, !flag_should_be)
 
 func run_with_await() -> void:
 	match result:

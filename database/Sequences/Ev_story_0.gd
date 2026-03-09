@@ -356,6 +356,8 @@ func oct0_night():
 	await Event.spawn("Daze", Vector2(660, -211), "R")
 	await Global.textbox(name, "daze_introduction")
 	Item.remove_item("LightweightAxe", &"Key")
+	Event.add_flag("DisableVeinet")
+	Event.remove_flag("HideDate")
 	Global.Party.set_to(["Mira"])
 	Global.Party.Leader.ClutchDmg = false
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
