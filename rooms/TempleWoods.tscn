@@ -835,7 +835,7 @@ gizmo_extents = 100.0
 position = Vector2(1250, -635)
 scale = Vector2(1.3199999, 1)
 EventName = "AlcineFollow1"
-Flag = "day=0+!AlcineFollow"
+Flag = "day=0+AlcineFollow<1"
 FlagIsName = false
 FlagShouldBe = true
 

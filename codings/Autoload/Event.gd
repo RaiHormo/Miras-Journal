@@ -141,19 +141,19 @@ func f(flag: StringName) -> bool:
 	if flag.begins_with("!"): return not f(flag.replace("!", ""))
 	if ">=" in flag:
 		var split = flag.split(">=")
-		return f(flag.replace(split[0]+">="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+		return f(flag.replace(split[0]+">="+split[1], str(flag_int(split[0]) >= flag_int(split[1]))))
 	if ">" in flag:
 		var split = flag.split(">")
-		return f(flag.replace(split[0]+">"+split[1], str(flag_int(split[0]) > int(split[1]))))
+		return f(flag.replace(split[0]+">"+split[1], str(flag_int(split[0]) > flag_int(split[1]))))
 	if "<=" in flag:
 		var split = flag.split("<=")
-		return f(flag.replace(split[0]+"<="+split[1], str(flag_int(split[0]) >= int(split[1]))))
+		return f(flag.replace(split[0]+"<="+split[1], str(flag_int(split[0]) <= flag_int(split[1]))))
 	if "<" in flag:
 		var split = flag.split("<")
-		return f(flag.replace(split[0]+"<"+split[1], str(flag_int(split[0]) > int(split[1]))))
+		return f(flag.replace(split[0]+"<"+split[1], str(flag_int(split[0]) < flag_int(split[1]))))
 	if "=" in flag:
 		var split = flag.split("=")
-		return f(flag.replace(split[0]+"="+split[1], str(check_flag(split[0], int(split[1])))))
+		return f(flag.replace(split[0]+"="+split[1], str(check_flag(split[0], flag_int(split[1])))))
 	if Flags.has(flag) and Flags.get(flag) == 1: return true
 	else: return false
 
