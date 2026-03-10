@@ -151,6 +151,7 @@ func _on_focus_changed(control:Control):
 func close(give_control=true):
 	$AnimationPlayer.speed_scale = 2
 	$AnimationPlayer.play_backwards("open")
+	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
 	stage = "inactive"
 	get_tree().paused = false
 	if t: t.kill()

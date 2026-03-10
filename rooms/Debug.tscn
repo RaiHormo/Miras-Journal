@@ -20,11 +20,11 @@
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
 [ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
-[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="20_3hgx6"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="20_8b40e"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="21_pty4k"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="23_5somt"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="25_osbeo"]
+[ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="26_5vm5p"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="26_ucpyn"]
 [ext_resource type="PackedScene" uid="uid://d0r3jc40ijx6l" path="res://rooms/components/BreakableOre.tscn" id="27_5vm5p"]
 
@@ -232,39 +232,6 @@ width = 32
 height = 32
 fill_to = Vector2(1, 0.773504)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo8dh"]
-size = Vector2(28.9997, 11.0009)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmjyx"]
-size = Vector2(26.0002, 79.341)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_84w4r"]
-atlas = ExtResource("21_pty4k")
-region = Rect2(28, 0, 28, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_061vs"]
-atlas = ExtResource("21_pty4k")
-region = Rect2(0, 0, 28, 72)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tk5ci"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84w4r")
-}],
-"loop": true,
-"name": &"break",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_061vs")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtdj1"]
 atlas = ExtResource("8_xyolw")
 region = Rect2(0, 18, 18, 18)
@@ -289,6 +256,57 @@ size = Vector2(21, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8txd"]
+atlas = ExtResource("21_pty4k")
+region = Rect2(56, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3j3j"]
+atlas = ExtResource("21_pty4k")
+region = Rect2(84, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbvu1"]
+atlas = ExtResource("21_pty4k")
+region = Rect2(112, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q7ov"]
+atlas = ExtResource("21_pty4k")
+region = Rect2(0, 0, 28, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va2q4"]
+atlas = ExtResource("21_pty4k")
+region = Rect2(28, 0, 28, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_35d7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8txd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3j3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbvu1")
+}],
+"loop": false,
+"name": &"break",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2q7ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va2q4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arkuh"]
+size = Vector2(26.0002, 79.341)
 
 [node name="Area" type="Node2D" unique_id=1799317089]
 y_sort_enabled = true
@@ -565,34 +583,6 @@ Colors = Array[Color]([Color(0.839216, 0.803922, 0.690196, 1), Color(0.839216, 0
 Energy = Array[float]([0.8, 0.3, 0.5, 0.8, 0.8])
 metadata/_edit_group_ = true
 
-[node name="BreakableVinesDB" type="StaticBody2D" parent="." unique_id=609743797]
-position = Vector2(-117, 52)
-script = ExtResource("20_3hgx6")
-metadata/_edit_group_ = true
-
-[node name="AreaBreak" type="Area2D" parent="BreakableVinesDB" unique_id=1007460960]
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB/AreaBreak" unique_id=994554866]
-position = Vector2(1.61475, 5.84274)
-shape = SubResource("RectangleShape2D_wo8dh")
-debug_color = Color(0.980392, 0, 0.388235, 0.419608)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVinesDB" unique_id=1419837000]
-use_parent_material = true
-position = Vector2(6.10352e-05, 6.17029)
-shape = SubResource("RectangleShape2D_kmjyx")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVinesDB" unique_id=1740790505]
-y_sort_enabled = true
-texture_filter = 1
-use_parent_material = true
-position = Vector2(4.57764e-05, 5.72205e-06)
-sprite_frames = SubResource("SpriteFrames_tk5ci")
-animation = &"break"
-autoplay = "default"
-
 [node name="EvAxe" type="Sprite2D" parent="." unique_id=1481103296]
 use_parent_material = true
 position = Vector2(-42, 19)
@@ -836,7 +826,24 @@ metadata/_edit_group_ = true
 position = Vector2(-95, 18)
 default_anim = "Green"
 given_item = "GreenFragment"
+broken = false
 
-[connection signal="area_entered" from="BreakableVinesDB/AreaBreak" to="BreakableVinesDB" method="_on_area_break_area_entered"]
+[node name="BreakableDBVines0" parent="." unique_id=1480765203 instance=ExtResource("26_5vm5p")]
+position = Vector2(-136, 62)
+broken = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableDBVines0" unique_id=1274830836]
+y_sort_enabled = true
+texture_filter = 1
+use_parent_material = true
+position = Vector2(1.000061, -3)
+sprite_frames = SubResource("SpriteFrames_35d7e")
+autoplay = "default"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BreakableDBVines0" unique_id=2101131018]
+use_parent_material = true
+position = Vector2(1.000061, 3.170288)
+shape = SubResource("RectangleShape2D_arkuh")
+
 [connection signal="action" from="IteractLamp" to="IteractLamp/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]

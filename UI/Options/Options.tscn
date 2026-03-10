@@ -292,29 +292,7 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_1vv8p")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6ahs"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
-content_margin_left = 0.0
-content_margin_top = 16.0
-content_margin_right = 0.0
-content_margin_bottom = 16.0
-bg_color = Color(0.898039, 0.898039, 0.898039, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
-content_margin_left = 0.0
-content_margin_top = 16.0
-content_margin_right = 0.0
-content_margin_bottom = 16.0
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxw83"]
 bg_color = Color(0.8627451, 0.8627451, 0.8627451, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -324,6 +302,51 @@ expand_margin_left = 12.0
 expand_margin_top = 8.0
 expand_margin_right = 12.0
 expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lf0p4"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 12.0
+expand_margin_top = 8.0
+expand_margin_right = 12.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaiib"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 12.0
+expand_margin_top = 8.0
+expand_margin_right = 12.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="Theme" id="Theme_63pqu"]
+Button/colors/font_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_disabled_color = Color(0.36862746, 0.36862746, 0.36862746, 0.5019608)
+Button/colors/font_focus_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_hover_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_hover_pressed_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/colors/font_pressed_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
+Button/constants/h_separation = 12
+Button/constants/icon_max_width = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_fxw83")
+Button/styles/focus = SubResource("StyleBoxFlat_lf0p4")
+Button/styles/hover = SubResource("StyleBoxFlat_lf0p4")
+Button/styles/normal = SubResource("StyleBoxFlat_gaiib")
+Button/styles/pressed = null
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cttb0"]
 
@@ -503,6 +526,39 @@ action = &"ui_text_newline"
 
 [sub_resource type="Shortcut" id="Shortcut_siagc"]
 events = [SubResource("InputEventAction_t6ahs")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3433"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(0.898039, 0.898039, 0.898039, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clguj"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw3v8"]
+bg_color = Color(0.8627451, 0.8627451, 0.8627451, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 12.0
+expand_margin_top = 8.0
+expand_margin_right = 12.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqfss"]
 
@@ -936,7 +992,6 @@ theme_override_font_sizes/font_size = 42
 text = "12:23:02"
 
 [node name="SavePanel" type="Panel" parent="." unique_id=2111716590]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
@@ -976,18 +1031,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_right = NodePath("../NewGame")
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_disabled_color = Color(0.37, 0.37, 0.37, 0.5019608)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vw3v8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_63pqu")
 text = "Save to new file"
 
 [node name="NewGame" type="Button" parent="SavePanel/ScrollContainer/Files/New" unique_id=110506252]
@@ -996,16 +1040,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../NewFile")
 mouse_filter = 1
-theme_override_colors/font_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_focus_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_pressed_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_colors/font_hover_color = Color(0.309804, 0.309804, 0.309804, 1)
-theme_override_constants/h_separation = 12
-theme_override_constants/icon_max_width = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_63pqu")
 text = "New game"
 
 [node name="File0" type="PanelContainer" parent="SavePanel/ScrollContainer/Files" unique_id=285207809]
@@ -1138,10 +1173,7 @@ show_percentage = false
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_j3433")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_clguj")
-theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
+theme = SubResource("Theme_63pqu")
 
 [node name="Buttons" type="HBoxContainer" parent="SavePanel" unique_id=411527066]
 custom_minimum_size = Vector2(300, 0)
@@ -1226,6 +1258,7 @@ theme_override_font_sizes/font_size = 28
 text = "Hold the button down to confirm"
 
 [node name="FileNaming" type="Panel" parent="SavePanel" unique_id=1393713984]
+visible = false
 layout_mode = 0
 offset_left = 77.35503
 offset_top = 187.73245
@@ -2140,6 +2173,7 @@ combinations.
 "
 
 [node name="ManualPanel" type="Panel" parent="." unique_id=1885979468]
+visible = false
 clip_children = 2
 offset_left = 1335.38
 offset_top = -91.0
@@ -2334,6 +2368,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="GalleryPanel" type="Panel" parent="." unique_id=426410032]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -2499,7 +2534,7 @@ Co-writer, General Advisor & Maker of Squiggly line shaders:
 [b]Cone[/b]
 
 Playtesting and QA:
-[b]Cone, ManaRelicGames, Ifti, jedsu, Gensun[/b]
+[b]Cone, ManaRelicGames, Ifti, jedsu, Gensun, River[/b]
 
 Software used:
 [b]Godot engine[/b]

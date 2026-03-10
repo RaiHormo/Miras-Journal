@@ -13,12 +13,14 @@ extends StaticBody2D
 		given_item = x
 		notify_property_list_changed()
 @export var decrease_z:= true
+@export var broken:= false
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	if get_node_or_null("Sprite") == null: return
 	$Sprite.play(default_anim)
 	if Event.f(name): set_break()
+	if has_node("Pack"): $Pack.hide()
 
 func _on_area_break_area_entered(area: Area2D) -> void:
 	if Engine.is_editor_hint(): return
@@ -31,8 +33,11 @@ func _on_area_break_area_entered(area: Area2D) -> void:
 		Item.add_item(given_item, item_type, true, false)
 
 func set_break():
+	disappear()
+	broken = true
 	$Sprite.play(broken_anim)
-	$CollisionShape2D.set_deferred("disabled", true)
+	collision_layer = 0
+	collision_mask = 0
 	$AreaBreak.queue_free()
 	if decrease_z: z_index -= 1
 
@@ -58,3 +63,42 @@ func _validate_property(property: Dictionary) -> void:
 		if get(property.name) != "" and get(property.name) not in items:
 			item_type = ["Con", "Mat", "Bti", "Key"].pick_random()
 			notify_property_list_changed()
+
+func _on_area_prompt_area_entered(area: Area2D) -> void:
+	if broken: return
+	if Loader.InBattle or not Global.Controllable or not is_instance_valid(Global.Player): return
+	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
+		appear()
+
+func _on_area_prompt_area_exited(area: Area2D) -> void:
+	if broken: return
+	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
+		disappear()
+
+func appear():
+	if broken: return
+	$Pack/Button/Icon.texture = Global.get_controller().OVAttack
+	if to_local(Global.Player.position).x <= 0:
+		$Pack/Button.scale.x = 1
+		$Pack/Button/Label.scale.x = 1
+		$Pack/Button/Icon.scale.x = 1
+	else:
+		$Pack/Button.scale.x = -1
+		$Pack/Button/Icon.scale.x = -1
+		$Pack/Button/Label.scale.x = -1
+	$Pack.show()
+	$Pack/AnimationPlayer.play("Appear")
+	await Event.wait(0.2)
+	if not Global.Player.get_node_or_null("DirectionMarker/Finder") in $AreaPrompt.get_overlapping_areas():
+		disappear()
+		return
+	$Pack/AnimationPlayer.play("Idle")
+
+func disappear():
+	if broken: return
+	$Pack/AnimationPlayer.play("Disappear")
+
+func _on_button_pressed() -> void:
+	disappear()
+	Input.action_press("OVAttack")
+	Input.action_release("OVAttack")

@@ -66,13 +66,41 @@ func new_game() -> void:
 	Global.Controllable = true
 	Event.pop_tutorial("walk")
 	
+	
+func bag_seq():
+	Global.Party.Leader.OV = "Bag"
+	Global.Player.BodyState = NPC.CUSTOM
+	Global.Player.direction = Vector2.ZERO
+	await Global.Player.set_anim("BagGet", true)
+	Global.Player.set_anim("IdleRight")
+	Global.item_sound()
+	var bag_ico = preload("res://art/Icons/Items.tres")
+	bag_ico.region = Rect2(90, 90, 18, 18)
+	Item.get_animation(bag_ico, "Flimsy bag", false)
+	Event.add_flag(&"HasBag", true)
+	Event.give_control()
+	Global.Player._check_party()
+
+func axe_seq():
+	Item.add_item("LightweightAxe", &"Key")
+	Event.pop_tutorial("ov_attack")
+	Loader.save()
 
 func first_battle():
-	Loader.save()
 	Loader.gray_out(1)
 	Event.add_flag("EvFirstBattle")
 	#await Global.Player.move_dir(Vector2.RIGHT)
 	await Loader.travel_to("TempleWoods", Vector2(1220, 461), 1)
+	Global.Player.camera_follow(false)
+	Event.camera_move(Vector2(1446, -605), 0)
+	Loader.ungray.emit()
+	Event.camera_move(Vector2(1486, -300), 6, Tween.EASE_IN_OUT, Tween.TRANS_LINEAR)
+	await Event.wait(1)
+	Global.location_name("Temple Woods")
+	await Event.wait(5)
+	Event.camera_move(Vector2(1558, 218), 0)
+	await Event.camera_move(Vector2(1429, 450), 8, Tween.EASE_OUT)
+	Loader.gray_out(1)
 	Loader.start_battle("FirstBattle")
 	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false

@@ -16,7 +16,7 @@ func use(item_data: ItemData, battle_target: Actor = null):
 				await PartyUI.choose_member()
 				return
 			ItemData.U.INSPECT:
-				await Global.textbox("item_inspect", item.Parameter)
+				await Global.textbox("inspect_item", item.Parameter)
 		if prevfoc != null: prevfoc.grab_focus()
 		Engine.time_scale = 1
 		$/root/MainMenu.stage = "item"

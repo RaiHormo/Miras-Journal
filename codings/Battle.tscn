@@ -798,7 +798,7 @@ fill_to = Vector2(0.867521, 0.948718)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
 shader = ExtResource("18_toppc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luhdo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ctu6"]
 content_margin_left = 6.0
 bg_color = Color(0.768627, 0.768627, 0.768627, 1)
 border_width_left = 12
@@ -811,7 +811,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0qjo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neihi"]
 content_margin_left = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
@@ -824,7 +824,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7fjd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pkcd"]
 content_margin_left = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
@@ -846,12 +846,12 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
-Button/styles/disabled = SubResource("StyleBoxFlat_luhdo")
-Button/styles/focus = SubResource("StyleBoxFlat_e0qjo")
-Button/styles/hover = SubResource("StyleBoxFlat_l7fjd")
-Button/styles/normal = SubResource("StyleBoxFlat_e0qjo")
-Button/styles/pressed = SubResource("StyleBoxFlat_e0qjo")
-Panel/styles/panel = SubResource("StyleBoxFlat_e0qjo")
+Button/styles/disabled = SubResource("StyleBoxFlat_1ctu6")
+Button/styles/focus = SubResource("StyleBoxFlat_neihi")
+Button/styles/hover = SubResource("StyleBoxFlat_8pkcd")
+Button/styles/normal = SubResource("StyleBoxFlat_neihi")
+Button/styles/pressed = SubResource("StyleBoxFlat_neihi")
+Panel/styles/panel = SubResource("StyleBoxFlat_neihi")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b0ek"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -2016,7 +2016,6 @@ grow_vertical = 2
 script = ExtResource("19_mhp3h")
 
 [node name="CommandMenu" type="Control" parent="BattleUI" unique_id=1627208994]
-visible = false
 light_mask = 0
 anchors_preset = 0
 offset_left = 81.0
@@ -2778,6 +2777,7 @@ libraries/ = SubResource("AnimationLibrary_j7n1p")
 autoplay = &"arrows"
 
 [node name="Inventory" type="Panel" parent="BattleUI" unique_id=40897737]
+visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true

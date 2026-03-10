@@ -202,12 +202,6 @@ fill = 1
 fill_from = Vector2(0.474359, 0.688034)
 fill_to = Vector2(0.628205, 0.183761)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbt1u"]
-size = Vector2(28.9997, 11.0009)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mwwj"]
-size = Vector2(26.0002, 79.341)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_u8txd"]
 atlas = ExtResource("25_d0236")
 region = Rect2(56, 0, 28, 72)
@@ -255,6 +249,12 @@ animations = [{
 "name": &"default",
 "speed": 1.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mwwj"]
+size = Vector2(26.0002, 79.341)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbt1u"]
+size = Vector2(28.9997, 11.0009)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqoxn"]
 shader = ExtResource("14_negri")
@@ -491,6 +491,7 @@ position = Vector2(1141.01, 21.7394)
 default_anim = "Purple"
 item_type = "Mat"
 given_item = "PurpleFragment"
+broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre0" unique_id=1069926924]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
@@ -505,6 +506,7 @@ position = Vector2(1546.89, -469.353)
 default_anim = "Purple"
 item_type = "Mat"
 given_item = "PurpleFragment"
+broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre1" unique_id=1355919699]
 z_index = 1
@@ -535,34 +537,27 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "c694d92e52cab359d9febc7442867d84"
 
 [node name="BreakableTWCyan0" parent="." unique_id=201224244 instance=ExtResource("9_2y4jd")]
+z_index = 1
 position = Vector2(589, 538)
+broken = false
 
-[node name="BreakableVines0" type="StaticBody2D" parent="." unique_id=1261659782]
-position = Vector2(689, 497)
-script = ExtResource("24_iq5im")
-
-[node name="AreaBreak" type="Area2D" parent="BreakableVines0" unique_id=862631576]
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines0/AreaBreak" unique_id=1518707480]
-position = Vector2(1.61475, 5.84274)
-shape = SubResource("RectangleShape2D_gbt1u")
-debug_color = Color(0.980392, 0, 0.388235, 0.419608)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines0" unique_id=2088177348]
-use_parent_material = true
-position = Vector2(6.10352e-05, 6.17029)
-shape = SubResource("RectangleShape2D_1mwwj")
+[node name="BreakableVines0" parent="." unique_id=957306366 instance=ExtResource("31_svxf2")]
+position = Vector2(688, 500)
+broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableVines0" unique_id=443066674]
 y_sort_enabled = true
 texture_filter = 1
 use_parent_material = true
-position = Vector2(4.57764e-05, 5.72205e-06)
+position = Vector2(1.000061, -3)
 sprite_frames = SubResource("SpriteFrames_5kqrr")
 autoplay = "default"
 frame_progress = 0.708336
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BreakableVines0" unique_id=2088177348]
+use_parent_material = true
+position = Vector2(1.000061, 3.170288)
+shape = SubResource("RectangleShape2D_1mwwj")
 
 [node name="BreakableVines1" type="StaticBody2D" parent="." unique_id=246253792]
 position = Vector2(1579, 211)
@@ -957,7 +952,6 @@ ActionType = "event"
 file = "axe_seq"
 dialogue_file = "axe_seq"
 itemtype = "Key"
-focus_position = null
 add_flag = true
 hide_on_flag = &"PickedUpAxe"
 needs_bag = true
@@ -986,7 +980,6 @@ ActionType = "event"
 file = "bag_seq"
 dialogue_file = "bag_seq"
 return_control = false
-focus_position = null
 add_flag = true
 hide_on_flag = &"HasBag"
 proper_pos = Vector2(100, 406)
@@ -1059,7 +1052,6 @@ collision_mask = 257
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "skeleton"
-focus_position = null
 
 [node name="CollisionShape2D" parent="InteractSkeleton" index="0" unique_id=2035817221]
 position = Vector2(2.00228, 9.99954)
@@ -1072,7 +1064,6 @@ collision_mask = 257
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "statue_legs"
-focus_position = null
 Height = 15
 
 [node name="InteractSymbol" parent="." unique_id=756593628 instance=ExtResource("21_hylag")]
@@ -1082,7 +1073,6 @@ collision_mask = 257
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "symbol"
-focus_position = null
 proper_pos = Vector2(1410, -444)
 proper_face = Vector2(1, 0)
 
@@ -1220,7 +1210,6 @@ TakeControl = false
 ReturnControl = false
 SlowDown = true
 
-[connection signal="area_entered" from="BreakableVines0/AreaBreak" to="BreakableVines0" method="_on_area_break_area_entered"]
 [connection signal="area_entered" from="BreakableVines1/AreaBreak" to="BreakableVines1" method="_on_area_break_area_entered"]
 [connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]

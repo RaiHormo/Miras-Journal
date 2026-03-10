@@ -1,23 +1,5 @@
 extends Node
 
-func bag_seq():
-	Global.Party.Leader.OV = "Bag"
-	Global.Player.BodyState = NPC.CUSTOM
-	Global.Player.direction = Vector2.ZERO
-	await Global.Player.set_anim("BagGet", true)
-	Global.Player.set_anim("IdleRight")
-	Global.item_sound()
-	var bag_ico = preload("res://art/Icons/Items.tres")
-	bag_ico.region = Rect2(90, 90, 18, 18)
-	Item.get_animation(bag_ico, "Flimsy bag", false)
-	Event.add_flag(&"HasBag", true)
-	Event.give_control()
-	Global.Player._check_party()
-
-func axe_seq():
-	Item.add_item("LightweightAxe", &"Key")
-	Event.pop_tutorial("ov_attack")
-
 func sleep_home():
 	await Event.take_control()
 	Event.set_time(Event.TOD.MORNING)

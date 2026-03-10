@@ -99,8 +99,6 @@ if Party.Leader.codename == "Alcine":
 elif check_flag("EvDestroyedGuardian"):
 	The remains of the Stone Guardian.
 	Daze cut it completely clean.
-elif Query.is_in_party("Daze"):
-	pass
 elif Event.Day == 0:
 	So this is what remains of the Guardian.
 	It's quite dark, and I can't see it well.

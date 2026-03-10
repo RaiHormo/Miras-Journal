@@ -100,8 +100,12 @@ Button/styles/pressed = SubResource("StyleBoxFlat_xhyn7")
 [sub_resource type="InputEventAction" id="InputEventAction_5etnr"]
 action = &"DialogNext"
 
+[sub_resource type="InputEventAction" id="InputEventAction_yev0x"]
+action = &"Dash"
+pressed = true
+
 [sub_resource type="Shortcut" id="Shortcut_yev0x"]
-events = [SubResource("InputEventAction_5etnr")]
+events = [SubResource("InputEventAction_5etnr"), SubResource("InputEventAction_yev0x")]
 
 [node name="Control" type="CanvasLayer" unique_id=903447602]
 process_mode = 3

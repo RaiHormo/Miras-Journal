@@ -4,6 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bii5famys2rlf" path="res://art/Icons/Editor/breakable.png" id="2_ffjdc"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_byxc6"]
 [ext_resource type="SpriteFrames" uid="uid://dl7sfqr2p5pj8" path="res://art/OV/Objects/BreakableOreSprite.tres" id="4_ffjdc"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="5_h5o8j"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_n1ujq"]
+[ext_resource type="Texture2D" uid="uid://cxj1gsicsxtup" path="res://UI/MenuTextures/PointedButton.png" id="7_ej4ih"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="8_kv0b5"]
+[ext_resource type="Texture2D" uid="uid://go0w78ky48hk" path="res://UI/Input/ZR.png" id="9_q7mwt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bd8qp"]
 size = Vector2(18, 16)
@@ -11,11 +16,310 @@ size = Vector2(18, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cl8q2"]
 size = Vector2(20, 18)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvnn2"]
+radius = 15.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ng2pu"]
+shader = ExtResource("5_h5o8j")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luhdo"]
+content_margin_left = 6.0
+bg_color = Color(0.768627, 0.768627, 0.768627, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.768627, 0.768627, 0.768627, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0qjo"]
+content_margin_left = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7fjd"]
+content_margin_left = 6.0
+bg_color = Color(0.894118, 0.894118, 0.894118, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(0.894118, 0.894118, 0.894118, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="Theme" id="Theme_wci1a"]
+default_font = ExtResource("6_n1ujq")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/styles/disabled = SubResource("StyleBoxFlat_luhdo")
+Button/styles/focus = SubResource("StyleBoxFlat_e0qjo")
+Button/styles/hover = SubResource("StyleBoxFlat_l7fjd")
+Button/styles/normal = SubResource("StyleBoxFlat_e0qjo")
+Button/styles/pressed = SubResource("StyleBoxFlat_e0qjo")
+Panel/styles/panel = SubResource("StyleBoxFlat_e0qjo")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvurl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="FontVariation" id="FontVariation_ltsnj"]
+base_font = ExtResource("8_kv0b5")
+variation_embolden = 0.2
+spacing_bottom = -5
+
+[sub_resource type="Animation" id="Animation_a60p5"]
+resource_name = "Appear"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(2.9281707, 0.31864014, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.7, 0.7), Vector2(0.75, 0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Button:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bblfd"]
+resource_name = "Disappear"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.06666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 2.639016, 1),
+"update": 0,
+"values": [Vector2(0.7, 0.7), Vector2(0.7, 0.7), Vector2(0.75, 0.75), Vector2(0.6, 0.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Button:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.6981317007977318]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(4.4382772, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_o6fxk"]
+resource_name = "Idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.5),
+"transitions": PackedFloat32Array(1.1486986, 0.999999, 0.34151125),
+"update": 0,
+"values": [0.0, -0.05235987755982989, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(3.363585, 0.6597539, 3.8637457, 0.2679432),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(0.7, 0.7), Vector2(0.75, 0.75), Vector2(0.75, 0.75)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mqhpg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k3epx"]
+_data = {
+&"Appear": SubResource("Animation_a60p5"),
+&"Disappear": SubResource("Animation_bblfd"),
+&"Idle": SubResource("Animation_o6fxk"),
+&"RESET": SubResource("Animation_mqhpg")
+}
+
 [node name="BreakableDBOre0" type="StaticBody2D" unique_id=201224244]
+process_mode = 3
 script = ExtResource("1_ne460")
 default_anim = "Cyan"
 item_type = "Mat"
 given_item = "CyanFragment"
+broken = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1962511091]
 position = Vector2(0, 2)
@@ -27,9 +331,17 @@ collision_layer = 512
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaBreak" unique_id=728173527]
-position = Vector2(1.19209e-07, 2)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_cl8q2")
 debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
+[node name="AreaPrompt" type="Area2D" parent="." unique_id=409159828]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPrompt" unique_id=630077113]
+shape = SubResource("CircleShape2D_gvnn2")
+debug_color = Color(0.98, 0, 0.3920001, 0.13333334)
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=49571557]
 light_mask = 0
@@ -64,4 +376,76 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "1ebb117bf681b7f116a6073f5966ae79"
 
+[node name="Pack" type="CanvasGroup" parent="." unique_id=1305564336]
+scale = Vector2(0.75, 0.75)
+
+[node name="Button" type="Button" parent="Pack" unique_id=2132274624]
+visibility_layer = 1024
+z_index = 12
+z_as_relative = false
+material = SubResource("ShaderMaterial_ng2pu")
+offset_left = 36.164
+offset_top = -42.0
+offset_right = 53.397564
+offset_bottom = -11.042328
+pivot_offset = Vector2(-36, 42)
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme = SubResource("Theme_wci1a")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_lvurl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lvurl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lvurl")
+text_overrun_behavior = 1
+expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Pack/Button" unique_id=1473093992]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 0
+offset_left = -40.833332
+offset_top = 36.833336
+offset_right = 159.59044
+offset_bottom = 163.84909
+rotation = -0.92788166
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_ej4ih")
+expand_mode = 1
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Pack/Button" unique_id=341655889]
+light_mask = 0
+layout_mode = 0
+offset_left = -21.740671
+offset_top = 20.692854
+offset_right = 2.3260765
+offset_bottom = 30.882767
+rotation = -0.47689527
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_ltsnj")
+theme_override_font_sizes/font_size = 9
+text = "Break"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon" type="TextureRect" parent="Pack/Button" unique_id=1870396000]
+light_mask = 0
+layout_mode = 0
+offset_left = 0.72518605
+offset_top = 8.181992
+offset_right = 15.427384
+offset_bottom = 22.88419
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("9_q7mwt")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pack" unique_id=1385543668]
+libraries/ = SubResource("AnimationLibrary_k3epx")
+next/Appear = &"Idle"
+
 [connection signal="area_entered" from="AreaBreak" to="." method="_on_area_break_area_entered"]
+[connection signal="area_entered" from="AreaPrompt" to="." method="_on_area_prompt_area_entered"]
+[connection signal="area_exited" from="AreaPrompt" to="." method="_on_area_prompt_area_exited"]

@@ -168,8 +168,8 @@ func update_anim_prm() -> void:
 			else:
 				speed = min(walk_speed, speed)
 				set_anim(str("Walk"+Query.get_dir_name(Facing)), false, false)
-				for i in $Sprite.get_children():
-					i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
+				#for i in $Sprite.get_children():
+					#i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 			if move_frames < 0: 
 				move_frames = 0
 					
@@ -190,7 +190,7 @@ func update_anim_prm() -> void:
 			else:
 				set_anim(str("Walk"+Query.get_dir_name(Facing)), false, false)
 		else:
-			if RealVelocity == Vector2.ZERO:
+			if RealVelocity == Vector2.ZERO and not is_on_wall():
 				position = round(position)
 			set_anim(str("Idle"+Query.get_dir_name(Facing)), false, false)
 
@@ -359,6 +359,7 @@ func attack():
 	reset_speed()
 	speed = 40
 	local_controllable = false
+	$DirectionMarker/Finder/Shape.disabled = true
 	$Attack/AttackPreview.collision_layer = collision_layer
 	$Attack/AttackPreview.collision_mask = collision_mask
 	$Attack/AttackPreview/CollisionShape2D.disabled = false
@@ -410,6 +411,7 @@ func attack():
 	$Audio.play()
 	await set_anim(anim, true)
 	local_controllable = true
+	$DirectionMarker/Finder/Shape.disabled = false
 	if Input.is_action_pressed("OVAttack"): attack()
 	else:
 		attacking = false
