@@ -491,7 +491,6 @@ position = Vector2(1141.01, 21.7394)
 default_anim = "Purple"
 item_type = "Mat"
 given_item = "PurpleFragment"
-broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre0" unique_id=1069926924]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL2JyZWFrYWJsZS5hc2UKbGF5ZXJ8PQpvcF9leHB8PWZhbHNlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PUJyZWFrYWJsZU9yZQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
@@ -506,7 +505,6 @@ position = Vector2(1546.89, -469.353)
 default_anim = "Purple"
 item_type = "Mat"
 given_item = "PurpleFragment"
-broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakablePurpleOre1" unique_id=1355919699]
 z_index = 1
@@ -539,11 +537,9 @@ metadata/_aseprite_wizard_source_file_hash_ = "c694d92e52cab359d9febc7442867d84"
 [node name="BreakableTWCyan0" parent="." unique_id=201224244 instance=ExtResource("9_2y4jd")]
 z_index = 1
 position = Vector2(589, 538)
-broken = false
 
 [node name="BreakableVines0" parent="." unique_id=957306366 instance=ExtResource("31_svxf2")]
 position = Vector2(688, 500)
-broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableVines0" unique_id=443066674]
 y_sort_enabled = true
@@ -927,7 +923,7 @@ frame_progress = 1.0
 offset = Vector2(0.0496826, -5.866)
 
 [node name="HideOnFlag" parent="EvAlcine" unique_id=170539596 instance=ExtResource("23_dpu00")]
-flag = "AlcineFollow=4"
+flag = "AlcineFollow>=4"
 
 [node name="EvAxe" type="Sprite2D" parent="." unique_id=1994878896]
 z_index = 1

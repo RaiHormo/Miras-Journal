@@ -91,6 +91,7 @@ func first_battle():
 	Event.add_flag("EvFirstBattle")
 	#await Global.Player.move_dir(Vector2.RIGHT)
 	await Loader.travel_to("TempleWoods", Vector2(1220, 461), 1)
+	await Event.wait(0.5)
 	Global.Player.camera_follow(false)
 	Event.camera_move(Vector2(1446, -605), 0)
 	Loader.ungray.emit()

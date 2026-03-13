@@ -3950,3 +3950,4 @@ texture = ExtResource("55_qr1i0")
 [connection signal="pressed" from="Canvas/Give" to="BattleUI" method="_on_give_pressed"]
 [connection signal="pressed" from="Canvas/TurnOrder" to="BattleUI" method="turn_order"]
 [connection signal="pressed" from="Canvas/TurnOrder/Options" to="BattleUI" method="_on_options_pressed"]
+[connection signal="pressed" from="Canvas/Continue" to="." method="end_battle"]

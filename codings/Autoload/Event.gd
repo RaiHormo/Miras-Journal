@@ -230,6 +230,7 @@ func give_control(camera_follow:= false, bring_followers:= true):
 	Global.check_party.emit()
 
 func flag_int(str: String) -> int:
+	if str.is_valid_int(): return int(str)
 	if Flags.has(str) and Flags.get(str) is int:
 		return Flags.get(str)
 	else: return 0

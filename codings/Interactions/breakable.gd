@@ -96,6 +96,7 @@ func appear():
 
 func disappear():
 	if broken: return
+	if get_node_or_null("Pack/AnimationPlayer") == null: return
 	$Pack/AnimationPlayer.play("Disappear")
 
 func _on_button_pressed() -> void:
