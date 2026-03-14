@@ -43,7 +43,7 @@ signal textbox_close
 signal passive_close
 signal player_ready
 signal controller_changed
-const AppID = 4059970
+var AppID = 4059970
 var UsingSteam:= false
 var PlayerName: String = "Local"
 var SteamInputDevice
@@ -99,6 +99,14 @@ func init_steam():
 	OS.set_environment("SteamGameId", str(AppID))
 	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
 	print("Did Steam initialize?: %s " % initialize_response)
+	if not Steam.isSubscribed():
+		if AppID == 4059970:
+			print("The user doesn't own the game, testing playtest")
+			AppID = 4063790
+			init_steam()
+			return
+		elif AppID == 4063790:
+			print("The user doesn't own playtest either, fuckin hell")
 	#Steam.inputInit()
 	#Steam.enableDeviceCallbacks()
 	#SteamInput.init()
