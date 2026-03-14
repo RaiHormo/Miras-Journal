@@ -313,6 +313,10 @@ _data = {
 process_mode = 3
 script = ExtResource("1_avy7v")
 
+[node name="CollisionShapeDef" type="CollisionShape2D" parent="." unique_id=1150045384]
+shape = SubResource("RectangleShape2D_cl8q2")
+debug_color = Color(0.980392, 0, 0.388235, 0.419608)
+
 [node name="AreaBreak" type="Area2D" parent="." unique_id=720273437]
 collision_layer = 512
 collision_mask = 512

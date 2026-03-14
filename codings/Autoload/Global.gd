@@ -432,7 +432,7 @@ func heal_party() -> void:
 		i.full_heal()
 
 func add_test_state(chara: Actor):
-	for i in DirAccess.get_files_at("res://database/States/"):
+	for i in ResourceLoader.list_directory("res://database/States/"):
 		var state: String = i.replace(".tres", "")
 		var ab: Ability = load("res://database/Abilities/Debug/TestState.tres").duplicate()
 		ab.name += state
@@ -454,7 +454,7 @@ func add_complimentary(ability: String):
 func init_party(party:PartyData) -> void:
 	Members.clear()
 	if !is_instance_valid(party): party = PartyData.new()
-	for i in DirAccess.get_files_at("res://database/Party"):
+	for i in ResourceLoader.list_directory("res://database/Party"):
 		var file = load("res://database/Party/"+ i)
 		if file is Actor:
 			Members.append(file.duplicate())
@@ -467,7 +467,7 @@ func unlock_all_abilities():
 			mem.Abilities.append(ab)
 
 func give_every_ability():
-	for i in DirAccess.get_files_at("res://database/Abilities/"):
+	for i in ResourceLoader.list_directory("res://database/Abilities/"):
 		var ab: Ability = load("res://database/Abilities/"+i).duplicate()
 		Party.Leader.Abilities.append(ab)
 #endregion
@@ -517,6 +517,7 @@ func portrait(img:String, redraw:=true) -> void:
 
 func portrait_clear() -> void:
 	HasPortrait=false
+	PortraitIMG = null
 
 func fade_txt_background(alpha := 0.8):
 	var t = create_tween()

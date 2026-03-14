@@ -315,6 +315,8 @@ _data = {
 
 [node name="BreakableDBOre0" type="StaticBody2D" unique_id=201224244]
 process_mode = 3
+collision_layer = 15
+collision_mask = 15
 script = ExtResource("1_ne460")
 default_anim = "Cyan"
 item_type = "Mat"

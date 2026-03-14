@@ -550,7 +550,7 @@ sprite_frames = SubResource("SpriteFrames_5kqrr")
 autoplay = "default"
 frame_progress = 0.708336
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BreakableVines0" unique_id=2088177348]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BreakableVines0" unique_id=2088177348]
 use_parent_material = true
 position = Vector2(1.000061, 3.170288)
 shape = SubResource("RectangleShape2D_1mwwj")
@@ -884,7 +884,7 @@ animation = &"IdleRight"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="HideOnFlag" parent="EvAlcineBelow" unique_id=206159318 instance=ExtResource("23_dpu00")]
-flag = "AlcineFollow>=1"
+flag = "day>0||AlcineFollow>=1"
 
 [node name="EvAlcine" type="CharacterBody2D" parent="." unique_id=594605233]
 position = Vector2(1681, -1069)
@@ -917,13 +917,11 @@ y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-0.06, -0.145)
 sprite_frames = ExtResource("4_d61pe")
-animation = &"ScaredTurn1"
-frame = 3
-frame_progress = 1.0
+animation = &"Scared"
 offset = Vector2(0.0496826, -5.866)
 
 [node name="HideOnFlag" parent="EvAlcine" unique_id=170539596 instance=ExtResource("23_dpu00")]
-flag = "AlcineFollow>=4"
+flag = "AlcineFollow>=4||day>0"
 
 [node name="EvAxe" type="Sprite2D" parent="." unique_id=1994878896]
 z_index = 1

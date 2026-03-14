@@ -21,6 +21,7 @@ config/custom_user_dir_name="miras-journal"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.6", "Mobile")
+run/low_processor_mode=true
 run/load_shell_environment=true
 boot_splash/bg_color=Color(0.054902, 0.054902, 0.054902, 1)
 boot_splash/image="uid://cvnuw1n43hcfj"
@@ -80,7 +81,6 @@ window/stretch/mode="canvas_items"
 [editor]
 
 naming/scene_name_casing=1
-export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 

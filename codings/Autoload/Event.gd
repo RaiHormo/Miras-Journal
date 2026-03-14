@@ -158,17 +158,17 @@ func f(flag: StringName) -> bool:
 	else: return false
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
-func add_flag(flag: StringName, value:= 1):
+func add_flag(flag: StringName, value:= 1) -> bool:
 	flag = flag.replace(" ", "_")
 	if "=" in flag:
 		var split = flag.split("=")
-		add_flag(str(split[0]), int(split[1]))
-		return
+		return add_flag(str(split[0]), int(split[1]))
 	if value == 0:
 		remove_flag(flag)
-		return
+		return 0
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
+	return value
 
 func remove_flag(flag: StringName):
 	if flag in Flags: Flags.erase(flag)

@@ -670,8 +670,9 @@ func cmd():
 		elif $CanvasLayer/TextEdit.text != "":
 			var text = $CanvasLayer/TextEdit.text
 			Event.add_flag(text, !Event.check_flag(text))
-			Global.toast("Flag \"" + text + "\" set to "
-			+ str(Event.check_flag(text)))
+			if not "=" in text:
+				Global.toast("Flag \"" + text + "\" set to "
+				+ str(Event.flag_int(text)))
 		$CanvasLayer/TextEdit.hide()
 		Global.Controllable = true
 
