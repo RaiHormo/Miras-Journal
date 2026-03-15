@@ -51,11 +51,8 @@ var UserID: int
 #endregion
 
 #region System
-func _init():
-	init_user()
-	#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "0x28de/0x11ff")
-
 func _ready() -> void:
+	init_user()
 	StartTime=Time.get_unix_time_from_system()
 	add_child(Audio)
 	Audio.volume_db = -5
@@ -128,10 +125,16 @@ func init_user():
 		if FileAccess.file_exists("user://last_user_id.txt"):
 			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
 			print("Using last used user ID, ", UserID)
-	var last_id_write = FileAccess.open("user://last_user_id.txt", FileAccess.WRITE)
-	last_id_write.store_string(str(UserID))
+	var last_id: FileAccess = FileAccess.open("user://last_user_id.txt", FileAccess.READ_WRITE)
 	if not DirAccess.dir_exists_absolute("user://"+str(UserID)):
+		print("Creating user folder for ", UserID)
 		DirAccess.make_dir_absolute("user://"+str(UserID))
+	if int(last_id.get_as_text()) == 0 and UserID != 0:
+		print("Migrating from local to account")
+		for i in DirAccess.get_files_at("user://0"):
+			if not FileAccess.file_exists("user://"+str(UserID)+"/"+i):
+				DirAccess.copy_absolute("user://0/"+i, "user://"+str(UserID)+"/"+i)
+	last_id.store_string(str(UserID))
 	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/"+str(UserID))
 
 func game_over():
