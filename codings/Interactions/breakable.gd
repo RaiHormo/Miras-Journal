@@ -14,12 +14,14 @@ extends StaticBody2D
 		notify_property_list_changed()
 @export var decrease_z:= true
 @export var broken:= false
+@export var not_actually_breakable:= false
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	if get_node_or_null("Sprite") == null: return
-	$Sprite.play(default_anim)
-	if Event.f(name): set_break()
+	if has_node("Sprite"):
+		$Sprite.play(default_anim)
+	if Event.check_flag(name): set_break()
 	if has_node("Pack"): $Pack.hide()
 
 func _on_area_break_area_entered(area: Area2D) -> void:
@@ -28,14 +30,17 @@ func _on_area_break_area_entered(area: Area2D) -> void:
 	Event.add_flag(name, true)
 	if given_item != "":
 		if broken_anim != "":
-			$Sprite.play(break_anim)
+			if has_node("Sprite"):
+				$Sprite.play(break_anim)
 			Global.rumble(1, 0.3, 0.2)
 		Item.add_item(given_item, item_type, true, false)
 
 func set_break():
+	if not_actually_breakable: return
 	disappear()
 	broken = true
-	$Sprite.play(broken_anim)
+	if has_node("Sprite"):
+		$Sprite.play(broken_anim)
 	collision_layer = 0
 	collision_mask = 0
 	$AreaBreak.queue_free()

@@ -142,6 +142,7 @@ func _on_finder_body_entered(body):
 func _on_catch_area_body_entered(body):
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and (not Global.Player.attacking or Global.Player.winding_attack)):
 		#print(Global.Player.attacking)
+		$EnemyStrike.disappear()
 		Global.Player.winding_attack = false
 		await Event.take_control(false, false, false)
 		Global.Player.dashdir = Query.get_direction(Global.Player.to_local(global_position))
@@ -170,5 +171,5 @@ func attacked():
 	if PinRange: begin_battle()
 	else: begin_battle(1)
 
-func _on_catch_area_area_entered(area: Area2D) -> void:
+func _on_strike_area_entered(area: Area2D) -> void:
 	if area.name == "Attack": attacked()

@@ -2,6 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" uid="uid://5yrkrnrtwy6e" path="res://codings/wandering_enemy.gd" id="2_2fny2"]
+[ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="4_5o7d6"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="4_iawkj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
@@ -24,12 +25,14 @@ radius = 15.0
 [node name="EnemyDefault1" type="CharacterBody2D" unique_id=1560392274]
 y_sort_enabled = true
 material = ExtResource("1_blols")
-collision_layer = 513
-collision_mask = 513
 motion_mode = 1
 script = ExtResource("2_2fny2")
 speed = 20
 CameraIndex = 1
+step_frames = Dictionary[String, PackedInt32Array]({
+"Loop": PackedInt32Array(0, 1),
+"Walk": PackedInt32Array(0, 2)
+})
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1263598701]
 shape = SubResource("CircleShape2D_7bu4m")
@@ -54,8 +57,8 @@ shape = SubResource("ConvexPolygonShape2D_288op")
 debug_color = Color(0.721569, 0.415686, 0.635294, 0.419608)
 
 [node name="CatchArea" type="Area2D" parent="." unique_id=1738597946]
-collision_layer = 767
-collision_mask = 767
+collision_layer = 255
+collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CatchArea" unique_id=131481431]
 position = Vector2(0, 4.76837e-07)
@@ -88,6 +91,35 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="EnemyStrike" parent="." unique_id=201224244 instance=ExtResource("4_5o7d6")]
+decrease_z = false
+not_actually_breakable = true
+
+[node name="CollisionShapeDef" parent="EnemyStrike" index="0" unique_id=1150045384]
+disabled = true
+
+[node name="Pack" parent="EnemyStrike" index="4" unique_id=358615117]
+position = Vector2(0, -4)
+
+[node name="TextureRect" parent="EnemyStrike/Pack/Button" parent_id_path=PackedInt32Array(201224244, 1771172719) index="0" unique_id=833065494]
+layout_mode = 1
+anchors_preset = -1
+
+[node name="Label" parent="EnemyStrike/Pack/Button" parent_id_path=PackedInt32Array(201224244, 1771172719) index="1" unique_id=920542592]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.045501746
+anchor_top = -0.0008459169
+anchor_right = -0.006543189
+anchor_bottom = -0.0008459169
+text = "Strike"
+
+[node name="AnimationPlayer" parent="EnemyStrike/Pack" index="1" unique_id=24022576]
+autoplay = &"Disappear"
+
 [connection signal="body_entered" from="DirectionMarker/Finder" to="." method="_on_finder_body_entered"]
 [connection signal="area_entered" from="CatchArea" to="." method="_on_catch_area_area_entered"]
 [connection signal="body_entered" from="CatchArea" to="." method="_on_catch_area_body_entered"]
+[connection signal="area_entered" from="EnemyStrike/AreaBreak" to="." method="_on_strike_area_entered"]
+
+[editable path="EnemyStrike"]

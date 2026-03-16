@@ -26,7 +26,6 @@
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="21_hylag"]
 [ext_resource type="Script" uid="uid://dmasgg87jbfvd" path="res://codings/Interactions/pop_tutorial.gd" id="23_5qp58"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="23_dpu00"]
-[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="24_iq5im"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="26_k6j3t"]
 [ext_resource type="PackedScene" uid="uid://dltu4a3f82ic4" path="res://rooms/components/ObjectIdentifier.tscn" id="28_bhcd2"]
@@ -252,9 +251,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mwwj"]
 size = Vector2(26.0002, 79.341)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbt1u"]
-size = Vector2(28.9997, 11.0009)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqoxn"]
 shader = ExtResource("14_negri")
@@ -555,32 +551,23 @@ use_parent_material = true
 position = Vector2(1.000061, 3.170288)
 shape = SubResource("RectangleShape2D_1mwwj")
 
-[node name="BreakableVines1" type="StaticBody2D" parent="." unique_id=246253792]
-position = Vector2(1579, 211)
-script = ExtResource("24_iq5im")
+[node name="BreakableVines1" parent="." unique_id=134361166 instance=ExtResource("31_svxf2")]
+z_index = 1
+position = Vector2(1544, 215)
 
-[node name="AreaBreak" type="Area2D" parent="BreakableVines1" unique_id=1466952213]
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines1/AreaBreak" unique_id=1592992468]
-position = Vector2(1.61475, 5.84274)
-shape = SubResource("RectangleShape2D_gbt1u")
-debug_color = Color(0.980392, 0, 0.388235, 0.419608)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableVines1" unique_id=67450677]
-use_parent_material = true
-position = Vector2(6.10352e-05, 6.17029)
-shape = SubResource("RectangleShape2D_1mwwj")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVines1" unique_id=939323170]
+[node name="Sprite" type="AnimatedSprite2D" parent="BreakableVines1" unique_id=1397303365]
 y_sort_enabled = true
 texture_filter = 1
 use_parent_material = true
-position = Vector2(4.57764e-05, 5.72205e-06)
+position = Vector2(1.000061, -3)
 sprite_frames = SubResource("SpriteFrames_5kqrr")
 autoplay = "default"
-frame_progress = 0.562652
+frame_progress = 0.708336
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BreakableVines1" unique_id=1729836525]
+use_parent_material = true
+position = Vector2(1.000061, 3.170288)
+shape = SubResource("RectangleShape2D_1mwwj")
 
 [node name="EffectFirefly" type="Marker2D" parent="." unique_id=1824969598]
 process_mode = 3
@@ -1204,7 +1191,6 @@ TakeControl = false
 ReturnControl = false
 SlowDown = true
 
-[connection signal="area_entered" from="BreakableVines1/AreaBreak" to="BreakableVines1" method="_on_area_break_area_entered"]
 [connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag2" to="EvTutorialBag2" method="_on_body_entered"]

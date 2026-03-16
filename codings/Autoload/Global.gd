@@ -96,27 +96,29 @@ func init_steam():
 	OS.set_environment("SteamGameId", str(AppID))
 	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
 	print("Did Steam initialize?: %s " % initialize_response)
-	if not Steam.isSubscribed():
-		if AppID == 4059970:
-			print("The user doesn't own the game, testing playtest")
-			AppID = 4063790
-			init_steam()
-			return
-		elif AppID == 4063790:
-			print("The user doesn't own playtest either, fuckin hell")
 	#Steam.inputInit()
 	#Steam.enableDeviceCallbacks()
 	#SteamInput.init()
-	if initialize_response.get("status") == 0:
-		print("Running with Steam")
-		UsingSteam = true
-		UserID = Steam.getSteamID32(Steam.getSteamID())
-		PlayerName = Steam.getPersonaName()
-		print("User: ", PlayerName, " ", UserID)
-		#if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
-			#Settings.ControlSchemeEnum = 7
-			#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
-		#print(Steam.getFriendPersonaName(Steam.getSteamID()))
+	match initialize_response.get("status"):
+		0:
+			print("Running with Steam")
+			UsingSteam = true
+			UserID = Steam.getSteamID32(Steam.getSteamID())
+			PlayerName = Steam.getPersonaName()
+			print("User: ", PlayerName, " ", UserID)
+			#if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
+				#Settings.ControlSchemeEnum = 7
+				#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
+			#print(Steam.getFriendPersonaName(Steam.getSteamID()))
+		1:
+			if not Steam.isSubscribed():
+				if AppID == 4059970:
+					print("The user doesn't own the game, testing playtest")
+					AppID = 4063790
+					init_steam()
+					return
+				elif AppID == 4063790:
+					print("The user doesn't own playtest either, fuckin hell")
 
 func init_user():
 	UserID = 0
