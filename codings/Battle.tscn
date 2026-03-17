@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="6_ik7qm"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
-[ext_resource type="Texture2D" uid="uid://b4q7l25or0dr8" path="res://art/Backgrounds/ShardGardensUnderground.png" id="8_qr1i0"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
 [ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="10_bwtm7"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
@@ -1891,7 +1890,6 @@ offset_right = 210.0
 offset_bottom = 151.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("8_qr1i0")
 expand_mode = 1
 
 [node name="Act" type="Node2D" parent="." unique_id=1447045837]

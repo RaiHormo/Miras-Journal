@@ -88,8 +88,8 @@ if Day == 0 and TimeOfDay == 2:
 	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
 	do Event.progress_by_time(1)
 	if confirm_time_passage("Rest", "Fully restore health."):
-		do Event.time_transition()
 		do heal_party()
+		do! Event.time_transition()
 elif Day == 0 and TimeOfDay == 3:
 	We just rested here, let's move forward for now.
 else: 
@@ -109,8 +109,8 @@ else:
 	It's the tent.
 	do progress_by_time(1)
 	if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
-		do time_transition()
 		do heal_party()
+		do! time_transition()
 => END
 
 ~ WL_void

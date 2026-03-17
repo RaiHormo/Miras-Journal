@@ -106,8 +106,7 @@ func location_selected():
 	if progress_time:
 		await Event.time_transition(room)
 	elif foc.name == here or not (foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
-		Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), -1, "")
-	await Global.area_initialized
+		await Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), -1, "")
 	var VP = Global.Area.get_node_or_null("VP"+foc.name)
 	if VP == null: push_error("No such vain point exists: ", foc.name); return
 	Global.Player.global_position = VP.global_position + Vector2(0, 24)

@@ -26,6 +26,7 @@ else:
 		do Loader.transition("")
 		do Event.progress_by_time(1)
 		do Event.time_transition()
+		do remove_flag("eepy")
 	else:
 		do! give_control()
 => END

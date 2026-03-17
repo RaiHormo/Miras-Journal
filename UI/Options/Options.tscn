@@ -346,7 +346,7 @@ Button/styles/disabled = SubResource("StyleBoxFlat_fxw83")
 Button/styles/focus = SubResource("StyleBoxFlat_lf0p4")
 Button/styles/hover = SubResource("StyleBoxFlat_lf0p4")
 Button/styles/normal = SubResource("StyleBoxFlat_gaiib")
-Button/styles/pressed = null
+Button/styles/pressed = SubResource("StyleBoxFlat_lf0p4")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cttb0"]
 

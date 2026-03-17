@@ -3,6 +3,7 @@ extends Node
 func sleep_home():
 	await Event.take_control()
 	Event.set_time(Event.TOD.MORNING)
+	Event.remove_flag("eepy")
 	#await Event.next_day
 	#Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(178, 482), 0, 2, "")
 

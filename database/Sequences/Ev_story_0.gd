@@ -382,11 +382,11 @@ func oct0_afternoon():
 
 func oct0_night():
 	Event.add_flag("BeatStoneGuardian")
-	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, "none", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
 	await Event.no_player()
 	#Loader.detransition()
-	await Event.spawn("Mira", Vector2(750, -211), "L")
-	await Event.spawn("Daze", Vector2(660, -211), "R")
+	await Event.spawn("Mira", Vector2(770, -211), "L")
+	await Event.spawn("Daze", Vector2(670, -211), "R")
 	await Global.textbox(name, "daze_introduction")
 	Item.remove_item("LightweightAxe", &"Key")
 	Event.add_flag("DisableVeinet")

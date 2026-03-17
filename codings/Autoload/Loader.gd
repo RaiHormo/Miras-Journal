@@ -640,24 +640,24 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	tod.icon = await  Query.to_tod_icon(from)
 	tod.show()
 	PartyUI.hide_all(false)
-	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	t.tween_property(tod, "scale", Vector2(1, 1), 0.3)
-	t.tween_property(tod, "modulate", Color.WHITE, 0.3)
+	var tf = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
+	tf.tween_property(tod, "scale", Vector2(1, 1), 0.3)
+	tf.tween_property(tod, "modulate", Color.WHITE, 0.3)
 	get_tree().paused = false
-	await t.finished
+	await tf.finished
 	await Event.wait(0.3, false)
-	t = create_tween()
-	t.tween_property(tod, "scale:x", 0, 0.1)
-	await t.finished
+	tf = create_tween()
+	tf.tween_property(tod, "scale:x", 0, 0.1)
+	await tf.finished
 	tod.text = Query.to_tod_text(to)
 	tod.icon = await Query.to_tod_icon(to)
-	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	t.tween_property(tod, "scale:x", 1, 0.3)
+	tf = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tf.tween_property(tod, "scale:x", 1, 0.3)
 	await Event.wait(0.6, false)
-	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	t.tween_property(tod, "scale", Vector2(0.6, 0.6), 0.3)
-	t.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)
-	await t.finished
+	tf = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_parallel()
+	tf.tween_property(tod, "scale", Vector2(0.6, 0.6), 0.3)
+	tf.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)
+	await tf.finished
 	tod.hide()
 
 func lower_layer():

@@ -768,22 +768,18 @@ debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 position = Vector2(-322, 82)
 default_anim = "Red"
 given_item = "RedFragment"
-broken = false
 
 [node name="BreakableSGOre1" parent="." unique_id=440600241 instance=ExtResource("39_ggbak")]
 y_sort_enabled = true
 position = Vector2(-586, -249)
-broken = false
 
 [node name="BreakableSGOre2" parent="." unique_id=1216582050 instance=ExtResource("39_ggbak")]
 position = Vector2(-421, 443)
 default_anim = "Orange"
 given_item = "OrangeFragment"
-broken = false
 
 [node name="BreakableWallSG" parent="." unique_id=453057714 instance=ExtResource("8_pg846")]
 position = Vector2(-491.84552, 561.34406)
-broken = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWallSG" unique_id=508372240]
 use_parent_material = true
@@ -802,7 +798,6 @@ autoplay = "default"
 
 [node name="BreakableWallSG2" parent="." unique_id=1313048973 instance=ExtResource("8_pg846")]
 position = Vector2(-395.43985, 324.32758)
-broken = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWallSG2" unique_id=1795629118]
 use_parent_material = true
@@ -820,7 +815,6 @@ autoplay = "default"
 
 [node name="BreakableWallSG3" parent="." unique_id=635503168 instance=ExtResource("8_pg846")]
 position = Vector2(-109, 468)
-broken = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWallSG3" unique_id=260382645]
 use_parent_material = true
@@ -840,9 +834,8 @@ autoplay = "default"
 [node name="BreakableWallSG4" parent="." unique_id=1700109562 instance=ExtResource("8_pg846")]
 position = Vector2(-468, -236)
 decrease_z = false
-broken = false
 
-[node name="AreaBreak" parent="BreakableWallSG4" index="0" unique_id=720273437]
+[node name="AreaBreak" parent="BreakableWallSG4" index="1" unique_id=720273437]
 position = Vector2(0, 5)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableWallSG4" unique_id=1365100790]
@@ -857,7 +850,6 @@ autoplay = "default"
 [node name="BreakableWallSG5" parent="." unique_id=1606913205 instance=ExtResource("8_pg846")]
 position = Vector2(-183, -171)
 decrease_z = false
-broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableWallSG5" unique_id=1223528084]
 y_sort_enabled = true
@@ -951,10 +943,6 @@ chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG1" unique_id=2138604952]
@@ -989,10 +977,6 @@ BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG10" unique_id=2003674837]
@@ -1029,10 +1013,6 @@ chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG2" unique_id=181928769]
@@ -1069,10 +1049,6 @@ chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG3" unique_id=764794876]
@@ -1105,10 +1081,6 @@ BattleSeq = SubResource("Resource_lmpvr")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG4" unique_id=961417351]
@@ -1142,10 +1114,6 @@ chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
 CameraIndex = 2
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG5" unique_id=1292102762]
@@ -1180,10 +1148,6 @@ BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG6" unique_id=258531717]
@@ -1218,10 +1182,6 @@ BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG7" unique_id=1253908807]
@@ -1255,10 +1215,6 @@ BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG8" unique_id=1417479069]
@@ -1290,10 +1246,6 @@ BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
 Facing = Vector2(0, 1)
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG9" unique_id=1013045367]

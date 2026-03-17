@@ -428,6 +428,6 @@ func condition(con: String):
 func setup_time_changes(from: int, to: int):
 	if f_past("eepy", 1):
 		var eepy = flag_int("eepy")
-		flag_progress("eepy", eepy+to-from)
-		if eepy >= 2: remove_flag("eepy"+str(flag_int("eepy")))
+		add_flag("eepy", eepy+to-from)
+		if eepy >= 2 or TimeOfDay == TOD.MORNING: remove_flag("eepy")
 		

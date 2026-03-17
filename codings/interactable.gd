@@ -169,11 +169,9 @@ func check() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		disappear(true)
 		return
-	if event_condition != "" and Event.condition(event_condition) == 0 :
+	if event_condition != "" and Event.condition(event_condition) == 0:
 		destroy()
-	if not show_on_flag.is_empty() and not Event.f(show_on_flag):
-		destroy()
-	if not hide_on_flag.is_empty() and Event.f(hide_on_flag):
+	if not check_flag():
 		destroy()
 	#print(Global.Controllable, CanInteract)
 	if not Global.Controllable and CanInteract:
@@ -183,7 +181,14 @@ func check() -> void:
 		appear()
 		CanInteract = true
 
-func player_is_near():
+func check_flag() -> bool:
+	if not show_on_flag.is_empty() and not Event.f(show_on_flag):
+		return false
+	if not hide_on_flag.is_empty() and Event.f(hide_on_flag):
+		return false
+	return true
+
+func player_is_near() -> bool:
 	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract
 
 func destroy():
@@ -299,6 +304,7 @@ func do_position():
 			$Pack/Arrow.flip_h = false
 
 func _on_button_pressed() -> void:
+	if not check_flag(): return
 	Global.Controllable = false
 	Global.Player.direction = Vector2.ZERO
 	t = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)

@@ -514,10 +514,6 @@ patrol_speed = 220
 chase_speed = 220
 speed = 100
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent1" unique_id=776446670]
 
@@ -552,10 +548,6 @@ patrol_speed = 220
 chase_speed = 220
 speed = 100
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemySullish" unique_id=61674447]
 
@@ -593,10 +585,6 @@ patrol_speed = 100
 chase_speed = 220
 speed = 100
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent2" unique_id=763906550]
 
@@ -633,10 +621,6 @@ BattleSeq = SubResource("Resource_ofsxd")
 patrol_speed = 80
 chase_speed = 200
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent3" unique_id=431234657]
 

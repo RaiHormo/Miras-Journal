@@ -1198,7 +1198,8 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	#Bt.next_turn.emit()
 
 func StoneGuardian3():
-	if Global.Party.Member1.Health > 0: return
+	if Global.Party.Member1.Health > 0:
+		await Bt.death(Bt.get_actor("Alcine"))
 	Bt.ignore_end_turn = true
 	Bt.lock_turn = true
 	var guardian = Bt.get_actor("Guardian")
