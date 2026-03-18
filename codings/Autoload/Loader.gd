@@ -3,19 +3,16 @@ extends Control
 const SaveVersion = 7
 
 @export var scene: Array[String] = []
+@export var direc: String
 var status
 var progress = []
 var loading = false
 var loading_thread = false
 var load_failed = false
-@export var direc: String
-@onready var t: Tween
 var Seq: BattleSequence
 var InBattle = false
-signal thread_loaded
 var loaded_resource
 var traveled_pos
-@onready var Icon = $Can/Icon
 var BattleResult = 0
 var chased = false
 var Attacker: Node2D
@@ -25,10 +22,14 @@ var Preview: Texture
 var BtAdvantage = 0
 var data: SaveFile
 var SaveFiles: Array[SaveFile]
+var prevent_battles := false
 signal battle_start
 signal battle_end(result: int)
 signal ungray
-var prevent_battles := false
+signal thread_loaded
+
+@onready var t: Tween
+@onready var Icon = $Can/Icon
 
 @onready var BAR_DOWN_POS: Vector2 = $Can/Bars/Down.position
 @onready var BAR_UP_POS = $Can/Bars/Up.position

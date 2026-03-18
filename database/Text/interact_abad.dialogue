@@ -1,8 +1,12 @@
 import "res://database/Text/reserved_date.dialogue" as reserved_date
 
 ~ vein_point_idk
-Particles seem to be coming out of this crack in the ground.
-I'm not sure what this is.
+if Query.is_in_party("Daze"):
+	Mira.Neutral: Any idea what these are?
+	Daze.Neutral: I'm not quite sure... [p]They seem to be around everywhere.
+else:
+	Particles seem to be coming out of this crack in the ground.
+	I'm not sure what this is.
 => END
 
 ~ skeleton
@@ -62,7 +66,6 @@ These wires seem sturdy.
 I should be able to get to the other side with enough speed.
 => END
 
-
 ~ the_sky
 do Global.Player.camera_follow(false)
 do Global.Player.look_to(Vector2(0, -1))
@@ -84,32 +87,26 @@ do Global.Player.camera_follow(true)
 
 ~ amberelm_bench
 if date_is_reserved():
-	=>< {{get_reserved_date_dialog()}}
-elif Day == 0 and TimeOfDay == 2:
+	=> {{get_reserved_date_dialog()}}
+if Party.Member1 == null:
+	Should I sit here for a bit?
+else:
 	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
-	do Event.progress_by_time(1)
-	if confirm_time_passage("Rest", "Fully restore health."):
-		do heal_party()
-		do! Event.time_transition()
-elif Day == 0 and TimeOfDay == 3:
-	We just rested here, let's move forward for now.
-else: 
-	I shouldn't rest here right now.
+do Event.progress_by_time(1)
+if confirm_time_passage("Rest", "Fully restore health."):
+	(hide)
+	do heal_party()
+	do! Event.time_transition()
 => END
 
 ~ rest_camp
 if f("AlcineAlone"):
 	Alcine.Neutral: Shwooo?
-elif date_is_reserved():
+	=> END
+It's the tent.
+if date_is_reserved():
 	=>< {{get_reserved_date_dialog()}}
-elif Event.TimeOfDay == 2 and Event.Day == 1:
-	I'm all rested, let's go find {{alcine()}}.
-elif Event.TimeOfDay > 2 and Event.Day == 2:
-	It's the tent.\nBut now is not the time to sleep.
-elif Event.TimeOfDay == 3 and Event.Day == 2:
-	I don't need any more rest now.
 else:
-	It's the tent.
 	do progress_by_time(1)
 	if PartyUI.confirm_time_passage("Rest", "Stay in the camp for a while. Restores all Health."):
 		do heal_party()

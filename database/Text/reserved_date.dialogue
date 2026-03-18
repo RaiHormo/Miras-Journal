@@ -1,6 +1,18 @@
 ~ default
 Not right now.
 
+~ oct0_evening
+We just rested here, let's move forward for now.
+=> END
+
+~ nov2_daytime
+I'm all rested, let's go find {{alcine()}}.
+=> END
+
+~ nov2_night
+Now is not the time to sleep.
+=> END
+
 ~ nov3_daytime
 Not right now, I need to meet the others at the tavern.
 => END
