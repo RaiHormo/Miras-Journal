@@ -1,8 +1,8 @@
 extends Resource
-class_name  BattleEvent
+class_name BattleEvent
 
 @export_group("Condition")
-@export var repeatable:= false
+@export var repeatable := false
 ##Check this flag
 @export var flag: StringName = &""
 @export var flag_should_be: bool = false
@@ -36,19 +36,20 @@ func check() -> bool:
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
 	if low_hp != -1 and low_hp >= 0:
-		if actor == &"" or actore == null: 
-			push_warning("The event refrences "+actor+" who is not present")
+		if actor == &"" or actore == null:
+			push_warning("The event refrences " + actor + " who is not present")
 			return false
 		if actore.Health >= low_hp: return false
 	if low_ap != -1 and low_ap >= 0:
-		if actor == &"" or actore == null: 
-			push_warning("The event refrences "+actor+" who is not present")
+		if actor == &"" or actore == null:
+			push_warning("The event refrences " + actor + " who is not present")
 			return false
 		if actore.Aura > low_ap: return false
-	if low_hp ==  0:
+	if low_hp == 0:
 		if actore != null and not actore.has_state("KnockedOut"):
 			return false
 	return true
+
 
 func run() -> void:
 	if ran_this_turn: return
@@ -59,7 +60,7 @@ func run() -> void:
 	else:
 		match result:
 			0: Global.passive(parameter1, parameter2)
-			1: 
+			1:
 				print("Call seq: ", parameter1)
 				Global.Bt.get_node("Act").call(parameter1)
 			2: Global.textbox(parameter1, parameter2)
@@ -71,7 +72,7 @@ func run() -> void:
 				print("Forcing ", resource.name, " on ", actor)
 				if not parameter2.is_empty():
 					actor_data.NextTarget = Global.Bt.get_actor(parameter2)
-			4: 
+			4:
 				print("Event means win")
 				Global.Bt.victory()
 			5:
@@ -82,6 +83,7 @@ func run() -> void:
 						if actor_data != i:
 							Global.Bt.death(i)
 	if add_flag and flag != "": Event.add_flag(flag, !flag_should_be)
+
 
 func run_with_await() -> void:
 	match result:

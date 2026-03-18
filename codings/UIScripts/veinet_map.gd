@@ -2,7 +2,8 @@ extends Control
 
 var here: String
 var foc: Control = null
-var inited:= false
+var inited := false
+
 
 func _ready() -> void:
 	await Event.take_control()
@@ -14,7 +15,7 @@ func _ready() -> void:
 	Global.get_cam().limit_top = -999999
 	for i in $Container/Scroller/LocationList.get_children():
 		#if i is Button: i.pressed.connect(location_selected)
-		if not Event.f("VP"+i.name):
+		if not Event.f("VP" + i.name):
 			if i is Button: i.hide()
 	$Container/Scroller/LocationList/Gate.show()
 	var label: Label
@@ -26,12 +27,13 @@ func _ready() -> void:
 	await Event.wait(0.3, false)
 	if foc is Button: foc.grab_focus()
 
+
 func focus_place(place: String = here):
 	if not inited:
 		here = place
 		Global.Player.camera_follow(false)
 		Global.get_cam().position_smoothing_enabled = false
-		position = Global.get_cam().global_position - (size/2)
+		position = Global.get_cam().global_position - (size / 2)
 		$Container.global_position.x = 1300
 		var t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -40,7 +42,7 @@ func focus_place(place: String = here):
 		show()
 		t.tween_property(self, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
 		t.tween_property(Global.get_cam(), "zoom", Vector2.ONE, 0.5)
-		t.tween_property(Global.get_cam(), "position", position + (size/2), 0.5)
+		t.tween_property(Global.get_cam(), "position", position + (size / 2), 0.5)
 		t.tween_property($Container, "position:x", 898, 0.3).set_delay(0.3)
 		inited = true
 	else: Global.cursor_sound()
@@ -56,6 +58,7 @@ func focus_place(place: String = here):
 	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
+
 func focus_change(node: Control):
 	if not inited: return
 	foc = node
@@ -66,6 +69,7 @@ func focus_change(node: Control):
 		node.icon = preload("res://UI/Map/marker.png")
 	for i in $Container/Scroller/LocationList.get_children():
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
+
 
 func location_selected():
 	if not inited: return
@@ -81,7 +85,7 @@ func location_selected():
 			message = "Head into a dungeon. Time will pass when returning."
 		if not await PartyUI.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(2)):
 			inited = true
-			foc =  prev_foc
+			foc = prev_foc
 			PartyUI.hide_all()
 			focus_place(here)
 			return
@@ -89,7 +93,7 @@ func location_selected():
 			Event.progress_by_time(2)
 			progress_time = true
 			Event.add_flag("eepy1")
-	foc =  prev_foc
+	foc = prev_foc
 	Global.confirm_sound()
 	Event.remove_flag("FlameActive")
 	Event.remove_flag("FreeTravelOnce")
@@ -105,13 +109,14 @@ func location_selected():
 	print("Veinet: Going to ", room)
 	if progress_time:
 		await Event.time_transition(room)
-	elif foc.name == here or not (foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
+	elif foc.name == here or not(foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
 		await Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), -1, "")
-	var VP = Global.Area.get_node_or_null("VP"+foc.name)
+	var VP = Global.Area.get_node_or_null("VP" + foc.name)
 	if VP == null: push_error("No such vain point exists: ", foc.name); return
 	Global.Player.global_position = VP.global_position + Vector2(0, 24)
 	Loader.save()
 	queue_free()
+
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):

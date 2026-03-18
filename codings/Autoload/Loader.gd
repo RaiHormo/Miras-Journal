@@ -8,7 +8,7 @@ var progress = []
 var loading = false
 var loading_thread = false
 var load_failed = false
-@export var direc : String
+@export var direc: String
 @onready var t: Tween
 var Seq: BattleSequence
 var InBattle = false
@@ -19,8 +19,8 @@ var traveled_pos
 var BattleResult = 0
 var chased = false
 var Attacker: Node2D
-var CamZoom:Vector2 = Vector2(4,4)
-var Defeated:Array
+var CamZoom: Vector2 = Vector2(4, 4)
+var Defeated: Array
 var Preview: Texture
 var BtAdvantage = 0
 var data: SaveFile
@@ -28,12 +28,13 @@ var SaveFiles: Array[SaveFile]
 signal battle_start
 signal battle_end(result: int)
 signal ungray
-var prevent_battles:= false
+var prevent_battles := false
 
 @onready var BAR_DOWN_POS: Vector2 = $Can/Bars/Down.position
 @onready var BAR_UP_POS = $Can/Bars/Up.position
 @onready var BAR_LEFT_POS = $Can/Bars/Left.position
 @onready var BAR_RIGHT_POS = $Can/Bars/Right.position
+
 
 func _ready():
 	$Can.hide()
@@ -43,11 +44,12 @@ func _ready():
 	validate_save("user://Autosave.tres")
 	ungray.connect(_on_ungray)
 
-func save(filename:String="Autosave", showicon=true):
+
+func save(filename: String = "Autosave", showicon = true):
 	if !Global.Player or !Global.Area:
 		OS.alert("Cannot save right now")
 		return
-	print("Saving to user://"+filename+".tres")
+	print("Saving to user://" + filename + ".tres")
 	if showicon:
 		icon_save()
 	Global.save_settings()
@@ -71,20 +73,21 @@ func save(filename:String="Autosave", showicon=true):
 	data.Diary = Event.Diary
 
 	data.RoomPath = Global.Area.scene_file_path
-	if Global.Area.CurSubRoom != null: 
+	if Global.Area.CurSubRoom != null:
 		data.RoomPath += ";" + Global.Area.CurSubRoom.name
 		data.RoomName = Global.Area.CurSubRoom.Title
 	else:
 		data.RoomName = Global.Area.Name
 	data.Day = Event.Day
 	data.TimeOfDay = Event.TimeOfDay
-	ResourceSaver.save(data, "user://"+filename+".tres")
+	ResourceSaver.save(data, "user://" + filename + ".tres")
 	Preview = (await data.preview())
 
-func load_game(filename:String="Autosave", sound:= true, predefined:= false, close_first:= true, transition_after_done = true):
+
+func load_game(filename: String = "Autosave", sound := true, predefined := false, close_first := true, transition_after_done = true):
 	if sound: Global.ui_sound("Load")
-	if filename=="File0": filename = "Autosave"
-	var filepath = "res://database/IncludedSaves/"+filename+".tres" if predefined else "user://"+filename+".tres"
+	if filename == "File0": filename = "Autosave"
+	var filepath = "res://database/IncludedSaves/" + filename + ".tres" if predefined else "user://" + filename + ".tres"
 	if not FileAccess.file_exists(filepath): await save()
 	print("Loading " + filepath)
 	if is_instance_valid(Global.Bt): Global.Bt.free()
@@ -116,10 +119,10 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	Event.TimeOfDay = data.TimeOfDay as Event.TOD
 	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
-	
+
 	var temp_members: Array[Actor]
 	for mem_dict in data.Members:
-		var mem: Actor = (await Loader.load_res("res://database/Party/"+mem_dict.get("codename")+".tres")).duplicate()
+		var mem: Actor = (await Loader.load_res("res://database/Party/" + mem_dict.get("codename") + ".tres")).duplicate()
 		await mem.load_from_dict(mem_dict)
 		temp_members.append(mem)
 	if temp_members < Global.Members:
@@ -131,14 +134,14 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 			if not exists: temp_members.append(j)
 	PartyUI.LevelupChain.clear()
 	Global.Members = temp_members
-	
+
 	print("Current party: ", data.Party)
 	Global.Party.set_to_strarr(data.Party)
-	for mem in Global.Members: 
+	for mem in Global.Members:
 		mem.reset_static_info()
 		mem.Health = min(mem.Health, mem.MaxHP)
 		mem.Aura = min(mem.Aura, mem.MaxAura)
-	
+
 	if !data:
 		OS.alert("This save file doen't exist", "WHERE FILE")
 	if !data.RoomPath:
@@ -166,10 +169,11 @@ func load_game(filename:String="Autosave", sound:= true, predefined:= false, clo
 	await Event.wait()
 	if (chased or Loader.InBattle) and is_instance_valid(Attacker):
 		print("Too close to an enemy, auto escape")
-		Global.Player.position = Attacker.BattleSeq.EscPosition *24
+		Global.Player.position = Attacker.BattleSeq.EscPosition * 24
 		Global.refresh()
 	#await Event.wait(1)
 	prevent_battles = false
+
 
 func load_res(path: String) -> Resource:
 	load_failed = false
@@ -180,7 +184,7 @@ func load_res(path: String) -> Resource:
 	loaded_resource = path
 	if ResourceLoader.exists(path):
 		ResourceLoader.call_deferred(&"load_threaded_request", path, "", true)
-	else: push_error("Resource "+ path+ " not found")
+	else: push_error("Resource " + path + " not found")
 	loading_thread = true
 	await thread_loaded
 	if Global.ProcessFrame - frame > 1:
@@ -188,10 +192,12 @@ func load_res(path: String) -> Resource:
 	#if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
-func travel_to_coords(sc, pos:Vector2=Vector2.ZERO, camera_ind:int=0, z:= -1, trans=Query.get_dir_letter()):
+
+func travel_to_coords(sc, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans = Query.get_dir_letter()):
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
-func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1, trans = Query.get_dir_letter(), controllable:= true):
+
+func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans = Query.get_dir_letter(), controllable := true):
 	if trans != "none":
 		direc = trans
 	##Pass Z < -1 for a shortcut to controllable
@@ -221,12 +227,13 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 			await travel_done(controllable)
 	if z >= 0: Global.Area.handle_z(z)
 
-func travel_done(controllable:= false):
+
+func travel_done(controllable := false):
 	chased = false
 	var look_dir = Query.get_direction()
 	if Global.Area: Global.Area.queue_free()
 	Event.List.clear()
-	if get_tree().root.has_node("MainMenu"): 
+	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").queue_free()
 	var area = ResourceLoader.load_threaded_get(scene[0])
 	if area == null:
@@ -258,6 +265,7 @@ func travel_done(controllable:= false):
 			await PartyUI.show_all(false, false)
 			PartyUI._on_shrink(true)
 
+
 func _process(delta):
 	if loading == true and !scene.is_empty():
 		status = ResourceLoader.load_threaded_get_status(scene[0], progress)
@@ -272,7 +280,8 @@ func _process(delta):
 			loading_thread = false
 			thread_loaded.emit()
 
-func transition(dir=Query.get_dir_letter()):
+
+func transition(dir = Query.get_dir_letter()):
 	if dir == "none": return
 	else: direc = dir
 	Global.Controllable = false
@@ -290,37 +299,38 @@ func transition(dir=Query.get_dir_letter()):
 		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
 	match dir:
 		"U":
-			t.tween_property($Can/Bars/Down, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Down, "position", Vector2(-200, -200), 0.3)
 		"D":
-			t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Up, "position", Vector2(-200, -200), 0.3)
 		"R":
-			t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Left, "position", Vector2(-200, -200), 0.3)
 		"L":
-			t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Right, "position", Vector2(-200, -200), 0.3)
 		_:
-			t.tween_property($Can/Bars/Down, "position", Vector2(-200,-126), 0.3)
-			t.tween_property($Can/Bars/Up, "position", Vector2(-200,-200), 0.3)
-			t.tween_property($Can/Bars/Left, "position", Vector2(-200,-200), 0.3)
-			t.tween_property($Can/Bars/Right, "position", Vector2(-200,-200), 0.3)
+			t.tween_property($Can/Bars/Down, "position", Vector2(-200, -126), 0.3)
+			t.tween_property($Can/Bars/Up, "position", Vector2(-200, -200), 0.3)
+			t.tween_property($Can/Bars/Left, "position", Vector2(-200, -200), 0.3)
+			t.tween_property($Can/Bars/Right, "position", Vector2(-200, -200), 0.3)
 	await Event.wait(0.35, false)
 	match dir:
 		"U":
-			$Can/Bars/Up.position = Vector2(-200,-200)
+			$Can/Bars/Up.position = Vector2(-200, -200)
 			$Can/Bars/Down.position = BAR_DOWN_POS
 		"D":
-			$Can/Bars/Down.position = Vector2(-200,-200)
+			$Can/Bars/Down.position = Vector2(-200, -200)
 			$Can/Bars/Up.position = BAR_UP_POS
 		"R":
-			$Can/Bars/Right.position = Vector2(-200,-200)
+			$Can/Bars/Right.position = Vector2(-200, -200)
 			$Can/Bars/Left.position = BAR_LEFT_POS
 		"L":
-			$Can/Bars/Left.position = Vector2(-200,-200)
+			$Can/Bars/Left.position = Vector2(-200, -200)
 			$Can/Bars/Right.position = BAR_RIGHT_POS
 		_:
-			$Can/Bars/Up.position = Vector2(-200,-200)
-			$Can/Bars/Down.position = Vector2(-200,-200)
-			$Can/Bars/Right.position = Vector2(-200,-200)
-			$Can/Bars/Left.position = Vector2(-200,-200)
+			$Can/Bars/Up.position = Vector2(-200, -200)
+			$Can/Bars/Down.position = Vector2(-200, -200)
+			$Can/Bars/Right.position = Vector2(-200, -200)
+			$Can/Bars/Left.position = Vector2(-200, -200)
+
 
 func detransition(dir = direc):
 	if dir == "none": return
@@ -333,10 +343,10 @@ func detransition(dir = direc):
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can/Bars.self_modulate = Color.WHITE
-	t.tween_property($Can/Bars/Down, "position", BAR_DOWN_POS, 0.4)#.from(Vector2(-235,-126))
-	t.tween_property($Can/Bars/Up, "position", BAR_UP_POS, 0.4)#.from(Vector2(-156,-126))
-	t.tween_property($Can/Bars/Left, "position", BAR_LEFT_POS, 0.4)#.from(Vector2(-200,-204))
-	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)#.from(Vector2(-200,-177))
+	t.tween_property($Can/Bars/Down, "position", BAR_DOWN_POS, 0.4)  #.from(Vector2(-235,-126))
+	t.tween_property($Can/Bars/Up, "position", BAR_UP_POS, 0.4)  #.from(Vector2(-156,-126))
+	t.tween_property($Can/Bars/Left, "position", BAR_LEFT_POS, 0.4)  #.from(Vector2(-200,-204))
+	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4)  #.from(Vector2(-200,-177))
 	dismiss_load_icon()
 	await Event.wait(0.4, false)
 	if Global.Camera != null:
@@ -344,19 +354,22 @@ func detransition(dir = direc):
 	Global.check_party.emit()
 	#Global.ready_window()
 
+
 func restore_bars(dir: String = ""):
 	$Can/Bars/Down.global_position = BAR_DOWN_POS
 	$Can/Bars/Up.global_position = BAR_UP_POS
 	$Can/Bars/Left.global_position = BAR_LEFT_POS
 	$Can/Bars/Right.global_position = BAR_RIGHT_POS
 
+
 func is_in_transition():
-	return not (
+	return not(
 		$Can/Bars/Down.global_position == BAR_DOWN_POS and
 		$Can/Bars/Up.global_position == BAR_UP_POS and
 		$Can/Bars/Left.global_position == BAR_LEFT_POS and
 		$Can/Bars/Right.global_position == BAR_RIGHT_POS
 	)
+
 
 func dismiss_load_icon():
 	if Icon.is_playing():
@@ -364,11 +377,12 @@ func dismiss_load_icon():
 	t = create_tween()
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 
+
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg, advantage := 0):
 	if get_node_or_null("/root/Battle") or InBattle: return
 	if stg is String:
-		Seq = await load_res("res://database/BattleSeq/"+ stg +".tres")
+		Seq = await load_res("res://database/BattleSeq/" + stg + ".tres")
 	elif stg is BattleSequence:
 		Seq = stg
 	else:
@@ -397,12 +411,12 @@ func start_battle(stg, advantage := 0):
 			t.set_trans(Tween.TRANS_QUART)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_parallel()
-			t.tween_property(Global.get_cam(), "zoom", Vector2(1,1), 0.3).as_relative()
-			t.tween_property(Global.get_cam(), "zoom", Vector2(2,2), 1).as_relative()
+			t.tween_property(Global.get_cam(), "zoom", Vector2(1, 1), 0.3).as_relative()
+			t.tween_property(Global.get_cam(), "zoom", Vector2(2, 2), 1).as_relative()
 			#if advantage == 1: t.tween_property(Global.get_cam(), "global_position", Attacker.global_position, 0.4)
 			await Event.wait(0.8, false)
 		var tr = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tr.tween_property(Global.get_cam(), "zoom", Vector2(8,8), 0.5)
+		tr.tween_property(Global.get_cam(), "zoom", Vector2(8, 8), 0.5)
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
 	var battle = (await load_res("uid://chjrhe4gw1iu6")).instantiate()
@@ -423,16 +437,17 @@ func start_battle(stg, advantage := 0):
 			i.global_position = Global.Player.position
 	#InBattle = true
 
+
 func end_battle():
 	PartyUI._on_shrink()
-	if Seq.Detransition or BattleResult!= 1:
+	if Seq.Detransition or BattleResult != 1:
 		hide_victory_stuff()
 		Global.Bt.zoom(4)
 		Loader.battle_bars(4)
 		await get_tree().create_timer(0.5).timeout
 		if is_instance_valid(Global.Bt): Global.Bt.queue_free()
 	else:
-		t=create_tween()
+		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_parallel()
@@ -470,13 +485,14 @@ func end_battle():
 		Global.Player.get_node("DirectionMarker/Finder/Shape").set_deferred("disabled", false)
 		if Event.f(&"FlameActive"): await Global.Player.activate_flame()
 	if Seq.ReturnControl:
-		PartyUI.UIvisible=true
+		PartyUI.UIvisible = true
 		Event.give_control(true)
 	PartyUI._on_shrink()
 
+
 func icon_save():
 	if Icon.is_playing(): return
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can.show()
@@ -484,15 +500,16 @@ func icon_save():
 	#.from(Vector2(1181, 900))
 	Icon.play("Save")
 	await Icon.animation_finished
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 	#$Can.hide()
 
+
 func icon_load():
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	$Can.show()
@@ -501,12 +518,13 @@ func icon_load():
 	Icon.play("Load")
 	await ungray
 	Icon.play("Close")
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
 	$Can.hide()
+
 
 func hide_victory_stuff():
 	t = create_tween()
@@ -517,14 +535,15 @@ func hide_victory_stuff():
 		if i.name != "DottedBack":
 			t.tween_property(i, "position:x", i.position.x + 500, 0.3)
 			t.tween_property(i, "modulate", Color.TRANSPARENT, 0.3)
-	t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188,0.188,0.188,0), 0.5)
+	t.tween_property(Global.Bt.get_node("Canvas/DottedBack"), "modulate", Color(0.188, 0.188, 0.188, 0), 0.5)
+
 
 func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 	if is_instance_valid(t):
 		t.kill()
 	$Can.layer = 1
 	$Can.show()
-	t=create_tween()
+	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(ease)
 	t.set_trans(Tween.TRANS_QUART)
@@ -534,24 +553,25 @@ func battle_bars(x: int, time: float = 0.5, ease := Tween.EASE_IN_OUT):
 			t.tween_property($Can/Bars/Down, "global_position", BAR_DOWN_POS, time)
 			t.tween_property($Can/Bars/Up, "global_position", BAR_UP_POS, time)
 		1:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,700), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-1050), time)
-			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.5), time)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235, 700), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156, -1050), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1, 1, 1, 0.5), time)
 		2:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,600), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-900), time)
-			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.7), time)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235, 600), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156, -900), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1, 1, 1, 0.7), time)
 		3:
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,550), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-850), time)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235, 550), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156, -850), time)
 			#t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,0.7), time*2)
 		4:
 			#t.tween_property(Global.get_cam(), "zoom", CamZoom + Vector2(3,3), time)
-			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235,133), time)
-			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156,-400), time)
-			t.tween_property($Can/Bars, "self_modulate", Color(1,1,1,1), time/2)
+			t.tween_property($Can/Bars/Down, "global_position", Vector2(-235, 133), time)
+			t.tween_property($Can/Bars/Up, "global_position", Vector2(-156, -400), time)
+			t.tween_property($Can/Bars, "self_modulate", Color(1, 1, 1, 1), time / 2)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
+
 
 func error_handle(res):
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
@@ -561,25 +581,27 @@ func error_handle(res):
 		if loading:
 			loading = false
 			OS.alert("The room failed to load.")
-		
+
 	#if res == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		#OS.alert("THE RESOURCE "+loaded_resource+" DOESN'T EXIST YOU IDIOT!")
 		#load_failed = true
 		#loading_thread = false
 
+
 func chase_mode():
 	CamZoom = Global.get_cam().zoom
 	chased = true
 
-func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1, opacity: float = 1):
+
+func white_fadeout(out_time: float = 7, wait_time: float = 2, in_time: float = 0.1, opacity: float = 1):
 	$Can.show()
-	var fader:ColorRect = $Can/Bars/Left.duplicate()
+	var fader: ColorRect = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
-	fader.position = Vector2(-134,-189)
+	fader.position = Vector2(-134, -189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = Color.WHITE
 	var tf = create_tween()
-	tf.tween_property(fader, "modulate", Color(1,1,1,opacity), in_time)
+	tf.tween_property(fader, "modulate", Color(1, 1, 1, opacity), in_time)
 	await tf.finished
 	await Event.wait(wait_time, false)
 	$Can.show()
@@ -590,18 +612,20 @@ func white_fadeout(out_time:float = 7, wait_time:float = 2, in_time:float = 0.1,
 
 var fader
 
+
 func gray_out(amount := 0.8, in_time := 0.3, out_time := 0, color: Color = Color.BLACK):
 	$Can.show()
 	$Can.layer = 3
 	fader = $Can/Bars/Left.duplicate()
 	$Can.add_child(fader)
-	fader.position = Vector2(-134,-189)
+	fader.position = Vector2(-134, -189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = color
 	var tf = create_tween()
 	tf.tween_property(fader, "modulate:a", amount, in_time)
 	if out_time == 0:
 		await ungray
+
 
 func _on_ungray():
 	if fader == null: return
@@ -610,6 +634,7 @@ func _on_ungray():
 	await tf.finished
 	if fader == null: return
 	fader.queue_free()
+
 
 func validate_save(save: String) -> bool:
 	if FileAccess.file_exists(save):
@@ -627,18 +652,20 @@ func validate_save(save: String) -> bool:
 			return false
 	else: return false
 
+
 func flash_attacker():
 	if not is_instance_valid(Attacker): return
 	t = create_tween()
 	t.tween_property(Attacker.get_node("Flash"), "energy", 10, 0.1)
 	t.tween_property(Attacker.get_node("Flash"), "energy", 0, 1)
 
+
 func flip_time(from: Event.TOD, to: Event.TOD):
 	var tod = $Can/TimeOfDay
 	tod.modulate = Color.TRANSPARENT
 	tod.scale = Vector2(0.6, 0.6)
 	tod.text = Query.to_tod_text(from)
-	tod.icon = await  Query.to_tod_icon(from)
+	tod.icon = await Query.to_tod_icon(from)
 	tod.show()
 	PartyUI.hide_all(false)
 	var tf = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
@@ -660,6 +687,7 @@ func flip_time(from: Event.TOD, to: Event.TOD):
 	tf.tween_property(tod, "modulate", Color.TRANSPARENT, 0.3)
 	await tf.finished
 	tod.hide()
+
 
 func lower_layer():
 	$Can.layer = 3

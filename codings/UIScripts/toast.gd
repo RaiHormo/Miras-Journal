@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+
 func _ready() -> void:
 	$BoxContainer.modulate.a = 0
 	var t = create_tween()
@@ -9,7 +10,7 @@ func _ready() -> void:
 	t.tween_property($BoxContainer, "scale", Vector2(1, 1), 0.2).from(Vector2(0.1, 0.8))
 	t.tween_property($BoxContainer, "modulate:a", 1, 0.2)
 	await Event.wait(3, false)
-	t= create_tween()
+	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_BACK)

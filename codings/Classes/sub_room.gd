@@ -2,12 +2,13 @@ extends Node2D
 class_name SubRoom
 
 @export var Title: String
-@export var lock_cam:= true
+@export var lock_cam := true
 @export var cam_pos: Vector2
 @export var cam_zoom: float = 4
 @export var cant_dash_inside = true
 var Layers: Array[TileMapLayer]
 var t
+
 
 func _ready() -> void:
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
@@ -18,20 +19,21 @@ func _ready() -> void:
 			Layers.append(i)
 			i.collision_enabled = false
 
-func transition(time:= 0.3):
+
+func transition(time := 0.3):
 	Global.Area.CurSubRoom = self
 	show()
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_parallel()
-	t.tween_property(self, "modulate", Color.WHITE,time)
+	t.tween_property(self, "modulate", Color.WHITE, time)
 	Global.Area.fade()
 	Global.Player.z_index = z_index
 	Event.teleport_followers()
 	if cant_dash_inside: Global.Player.can_dash = false
 	if lock_cam:
 		Global.Player.camera_follow(false)
-		Global.get_cam().position  = cam_pos
+		Global.get_cam().position = cam_pos
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), time)
@@ -40,6 +42,7 @@ func transition(time:= 0.3):
 	for i in Layers:
 		i.material = preload("res://codings/Shaders/Pixelart.tres")
 		i.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+
 
 func detransition():
 	Global.Area.CurSubRoom = null
@@ -56,6 +59,7 @@ func detransition():
 		Event.take_control(true, true)
 		await transition()
 		Event.give_control(false)
+
 
 func fade_out():
 	if is_instance_valid(t): t.kill()

@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var response_template: Button = null
 @onready var Portrait: TextureRect = $Balloon/Margin/Portrait
 var currun = false
-@onready var t :Tween
+@onready var t: Tween
 var prev_char := ""
 
 ## The dialogue resource
@@ -34,11 +34,11 @@ var dialogue_line: DialogueLine:
 		dialogue_line = next_dialogue_line
 
 		if dialogue_line.text == "(hide)": hide_box()
-		
+
 		var char_name = tr(dialogue_line.character, "dialogue")
 		while "." in char_name:
 			#print(char_name)
-			char_name = char_name.erase(char_name.length()-1)
+			char_name = char_name.erase(char_name.length() - 1)
 		if "." in tr(dialogue_line.character, "dialogue"):
 			var redraw: bool = true
 			if prev_char == char_name: redraw = false
@@ -50,17 +50,17 @@ var dialogue_line: DialogueLine:
 
 		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		#character_label.text = tr(dialogue_line.character, "dialogue")
-		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
+		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		var mem = await Global.match_profile(char_name)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
+		var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
 		bord2.border_color = mem.Bord2
 		$Balloon/Panel2/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
+		var bord3: StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		var inner:StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
+		var inner: StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
 		inner.bg_color = mem.Inner
 		$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
 		dialogue_line.text = dialogue_line.text.replace("/*", "[color=Gray]*")
@@ -89,7 +89,7 @@ var dialogue_line: DialogueLine:
 				item.show()
 
 				responses_menu.add_child(item)
-				t.tween_property(responses_menu, "position", Vector2(832 ,318), 1).from(Vector2(2000, 318))
+				t.tween_property(responses_menu, "position", Vector2(832, 318), 1).from(Vector2(2000, 318))
 		# Show our balloon
 		draw_portrait()
 		dialogue_label.text = ""
@@ -100,8 +100,8 @@ var dialogue_line: DialogueLine:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Balloon, "modulate", Color(1,1,1,1), 0.3).from(Color(0,0,0,0))
-			t.tween_property($Balloon, "scale", Vector2(1,1), 0.3).from(Vector2(0.7,0.2))
+			t.tween_property($Balloon, "modulate", Color(1, 1, 1, 1), 0.3).from(Color(0, 0, 0, 0))
+			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.3).from(Vector2(0.7, 0.2))
 #		else:
 #			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
 		will_hide_balloon = false
@@ -125,14 +125,13 @@ var dialogue_line: DialogueLine:
 
 
 func _ready() -> void:
-#	response_template.hide()
+	#	response_template.hide()
 	Portrait.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
 
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").close.connect(_on_close)
-
 
 
 ## Start some dialogue
@@ -153,26 +152,27 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 func next(next_id: String) -> void:
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
 
-
-
 ### Signals
+
 
 func _on_close() -> void:
 	await hide_box()
 	Global.passive_close.emit()
 	if self != null: queue_free()
 
+
 func hide_box():
-	t=create_tween()
+	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
-	t.tween_property(Portrait, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
+	t.tween_property(Portrait, "modulate", Color(0, 0, 0, 0), 0.2)
+	t.tween_property(balloon, "modulate", Color(0, 0, 0, 0), 0.2)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	await t.finished
 	Portrait.hide()
 	balloon.hide()
+
 
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
@@ -181,6 +181,7 @@ func _on_mutated(_mutation: Dictionary) -> void:
 		if will_hide_balloon:
 			will_hide_balloon = false)
 
+
 func draw_portrait():
 	#await get_tree().create_timer(0.2).timeout
 	if Global.HasPortrait:
@@ -188,19 +189,19 @@ func draw_portrait():
 		Global.portrait_clear()
 		Portrait.show()
 		if Global.PortraitRedraw:
-			t=create_tween()
+			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_CUBIC)
-			t.tween_property(Portrait, "modulate", Color(1,1,1,1), 0.3).from(Color(0,0,0,0))
+			t.tween_property(Portrait, "modulate", Color(1, 1, 1, 1), 0.3).from(Color(0, 0, 0, 0))
 			#t.tween_property(Portrait, "position", Vector2(-55, 389), 0.3).from(Vector2(-200, 389))
 	else:
 		if Portrait.visible:
-			t=create_tween()
+			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_CUBIC)
-			t.tween_property(Portrait, "modulate", Color(0,0,0,0), 0.2)
+			t.tween_property(Portrait, "modulate", Color(0, 0, 0, 0), 0.2)
 			#t.tween_property(Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
 		Portrait.hide()

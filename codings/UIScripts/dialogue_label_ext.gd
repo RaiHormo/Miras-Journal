@@ -5,18 +5,20 @@ var varience
 @export var AudioPlayer: AudioStreamPlayer
 var count: int = 0
 
+
 func type_out_with_sound(sound, freq, vari) -> void:
 	AudioPlayer.stream = sound
 	soundfreq = freq
 	varience = vari
-	count = soundfreq-1
+	count = soundfreq - 1
 	if get_parent().get_parent().get_parent().name != "Passive":
 		match Global.Settings.TextSpeed:
 			1: soundfreq *= 2
-			2: 
+			2:
 				soundfreq *= 10
 				sound(randf_range(0, 12))
 	type_out()
+
 
 func _on_spoke(letter: String, letter_index: int, speed: float) -> void:
 	count += 1
@@ -24,14 +26,16 @@ func _on_spoke(letter: String, letter_index: int, speed: float) -> void:
 		var letter_pitch = find_pitch(letter)
 		sound(letter_pitch)
 
+
 func sound(letter_pitch: float):
 	if letter_pitch != 0:
-		AudioPlayer.pitch_scale = remap(letter_pitch, 0, 12, -varience, varience)/10 + 1
+		AudioPlayer.pitch_scale = remap(letter_pitch, 0, 12, -varience, varience) / 10 + 1
 		AudioPlayer.play()
 		count = 0
 	else: count -= 1
 
-func find_pitch(letter:String, repeat := true) -> float:
+
+func find_pitch(letter: String, repeat := true) -> float:
 	match letter:
 		"e": return 12.02
 		"t": return 9.1

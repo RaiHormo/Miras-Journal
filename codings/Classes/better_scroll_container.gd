@@ -2,22 +2,25 @@ extends ScrollContainer
 class_name BetterScrollContainer
 var t: Tween
 var target = 0
-@export var better_follow_focus:= true
+@export var better_follow_focus := true
+
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(scroll_to_focus)
+
 
 func scroll_to_focus(foc: Control):
 	if foc.get_parent() != get_child(0):
 		if foc.get_parent() is not Control: return
 		foc = foc.get_parent()
 		if foc.get_parent() != get_child(0): return
-	scroll_to(int(foc.position.y - size.y/2))
+	scroll_to(int(foc.position.y - size.y / 2))
 	if better_follow_focus:
-		if foc.get_parent() != get_child(0): 
+		if foc.get_parent() != get_child(0):
 			foc = foc.get_parent()
 			if foc.get_parent() != get_child(0): return
-		scroll_to(int(foc.position.y - size.y/2))
+		scroll_to(int(foc.position.y - size.y / 2))
+
 
 func scroll_to(to: int, axis: StringName = &"v"):
 	if is_instance_valid(t): t.kill()
@@ -28,8 +31,9 @@ func scroll_to(to: int, axis: StringName = &"v"):
 		property = "scroll_horizontal"
 	t.tween_property(self, property, to, 0.3)
 
+
 func scroll_by(amount: int, axis: StringName = &"v"):
 	var property = "scroll_vertical"
 	if axis == &"h":
 		property = "scroll_horizontal"
-	scroll_to(get(property)+amount)
+	scroll_to(get(property) + amount)

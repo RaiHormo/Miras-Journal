@@ -2,11 +2,11 @@ extends Node2D
 class_name Room
 
 @export var Name: String = "???"
-@export var IsDungeon:= true
+@export var IsDungeon := true
 @export var SpawnPlayer = true
 @export var SpawnPath: Node = self
 ##In tilemap coords
-@export var SpawnPos: Vector2 = Vector2(0,0)
+@export var SpawnPos: Vector2 = Vector2(0, 0)
 @export var SpawnZ: Array[int] = [1]
 @export_flags_2d_physics var SpawnLayers := 1
 ##[x]: left [y]: top [z]: right [w]: bottom
@@ -14,15 +14,16 @@ class_name Room
 @export var CameraZooms: Array[float] = [1]
 var overwrite_zoom: float = 0
 var Stairs: Array[Stair]
-enum {LEFT=0, TOP=1, RIGHT=2, BOTTOM=3}
+enum { LEFT = 0, TOP = 1, RIGHT = 2, BOTTOM = 3 }
 ##[0]: left [1]: top [2]: right [3]: bottom
-var Size:Vector2
+var Size: Vector2
 var Cam = Camera2D.new()
 var Followers: Array[CharacterBody2D] = []
 var Layers: Array[TileMapLayer]
 var CurSubRoom: SubRoom = null
 @export var FlameInInd: Array[int]
 @export var BattlebackPosition: Vector2
+
 
 func _ready():
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
@@ -52,7 +53,7 @@ func _ready():
 		var Player = preload("uid://sql6r7jv7fjq").instantiate()
 		SpawnPath.add_child(Player)
 		var dist = 30
-		for i in range(1,4):
+		for i in range(1, 4):
 			var follower = preload("uid://da22xhcxygcjl").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
@@ -63,7 +64,7 @@ func _ready():
 				#1: follower.offset = 6
 				#2: follower.offset = -6
 				#3: follower.offset = 0
-			dist += round(30+dist/4)
+			dist += round(30 + dist / 4)
 		move_child(Player, 0)
 	Global.Area = self
 	await Global.player_ready
@@ -88,6 +89,7 @@ func _ready():
 	name = codename()
 	Global.area_initialized.emit()
 
+
 func setup_params(tween_zoom = false):
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
@@ -97,7 +99,7 @@ func setup_params(tween_zoom = false):
 	if overwrite_zoom > 0:
 		zoom = Vector2(overwrite_zoom, overwrite_zoom)
 	if overwrite_zoom == 0 and Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
-		zoom = Vector2(CameraZooms[Global.CameraInd]*4, CameraZooms[Global.CameraInd]*4)
+		zoom = Vector2(CameraZooms[Global.CameraInd] * 4, CameraZooms[Global.CameraInd] * 4)
 	elif CurSubRoom is SubRoom:
 		zoom = Vector2(CurSubRoom.cam_zoom, CurSubRoom.cam_zoom)
 	if tween_zoom:
@@ -108,8 +110,10 @@ func setup_params(tween_zoom = false):
 	else:
 		Cam.zoom = zoom
 
+
 func default():
 	pass
+
 
 func handle_z(z := -1):
 	if z == -1: z = SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
@@ -123,17 +127,21 @@ func handle_z(z := -1):
 		if i.zDown == Global.Player.z_index:
 			i.go_down()
 
+
 func get_z() -> int:
 	if is_instance_valid(Global.Player): return Global.Player.z_index
 	else: return SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
 
+
 func map_to_local(vec: Vector2i) -> Vector2:
 	return Layers[0].map_to_local(vec)
+
 
 func local_to_map(vec: Vector2) -> Vector2i:
 	return Layers[0].local_to_map(vec)
 
 var t
+
 
 func fade():
 	if is_instance_valid(t): t.kill()
@@ -145,6 +153,7 @@ func fade():
 	for i in Layers:
 		i.hide()
 
+
 func unfade():
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
@@ -153,22 +162,27 @@ func unfade():
 		i.show()
 	t.tween_property($SubRoomBg, "modulate", Color.TRANSPARENT, 0.3)
 
+
 func _physics_process(delta: float) -> void:
 	if has_node("SubRoomBg") and CurSubRoom != null:
 		$SubRoomBg.position = Cam.position
 
+
 func go_to_subroom(subroom: String, fast = false):
-	for i in get_children(): 
+	for i in get_children():
 		if is_instance_valid(i) and i.name == subroom and i is SubRoom:
 			await i.transition(0)
+
 
 func get_layers() -> Array[TileMapLayer]:
 	return Layers if CurSubRoom == null else CurSubRoom.Layers
 
+
 func get_tile(pos: Vector2, layer: int = 1):
 	var tilemap = get_layers()[layer]
 	tilemap.get_cell_tile_data(pos)
-	
+
+
 func get_terrain(coords: Vector2i) -> String:
 	var layers: Array[TileMapLayer] = get_layers().duplicate()
 	layers.reverse()
@@ -180,6 +194,7 @@ func get_terrain(coords: Vector2i) -> String:
 			if not terrain.is_empty():
 				return terrain
 	return "Generic"
+
 
 func codename() -> String:
 	return Name.to_pascal_case()

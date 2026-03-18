@@ -1,6 +1,6 @@
 #region Variables
 extends Node
-var Controllable : bool = true:
+var Controllable: bool = true:
 	set(x):
 		Controllable = x
 var Audio := AudioStreamPlayer.new()
@@ -19,19 +19,19 @@ var Area: Room
 var Camera: Camera2D:
 	get:
 		return get_cam()
-var CameraInd:= 0
+var CameraInd := 0
 var Settings: Setting
 var Lights: Array[Light2D] = []
 var device: String = ""
 var ProcessFrame := 0
-var LastInput:= 0
+var LastInput := 0
 var AltConfirm: bool
-var StartTime:= 0.0
-var FirstStartTime:= 0.0
-var PlayTime:= 0.0
-var SaveTime:= 0.0
+var StartTime := 0.0
+var FirstStartTime := 0.0
+var PlayTime := 0.0
+var SaveTime := 0.0
 var HasPortrait := false
-var textbox_open:= false
+var textbox_open := false
 var PortraitRedraw := true
 var ArbData0 = null
 var Complimentaries: Array[String]
@@ -44,22 +44,23 @@ signal passive_close
 signal player_ready
 signal controller_changed
 var AppID = 4059970
-var UsingSteam:= false
+var UsingSteam := false
 var PlayerName: String = "Local"
 var SteamInputDevice
 var UserID: int
 #endregion
 
+
 #region System
 func _ready() -> void:
 	init_user()
-	StartTime=Time.get_unix_time_from_system()
+	StartTime = Time.get_unix_time_from_system()
 	add_child(Audio)
 	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
-	
+
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
@@ -73,8 +74,8 @@ func quit() -> void:
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
 	if not Loader.InBattle and is_instance_valid(Player) and is_instance_valid(Area) and (
-		Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options")): 
-		Loader.icon_save()
+		Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options")):
+			Loader.icon_save()
 		await Loader.save()
 	elif is_instance_valid(Area):
 		if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
@@ -84,9 +85,11 @@ func quit() -> void:
 		Steam.steamShutdown()
 	get_tree().quit()
 
+
 func normal_mode():
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
+
 
 func init_steam():
 	if not Engine.has_singleton("Steam"):
@@ -120,6 +123,7 @@ func init_steam():
 				elif AppID == 4063790:
 					print("The user doesn't own playtest either, fuckin hell")
 
+
 func init_user():
 	UserID = 0
 	init_steam()
@@ -128,23 +132,26 @@ func init_user():
 			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
 			print("Using last used user ID, ", UserID)
 	var last_id: FileAccess = FileAccess.open("user://last_user_id.txt", FileAccess.READ_WRITE)
-	if not DirAccess.dir_exists_absolute("user://"+str(UserID)):
+	if not DirAccess.dir_exists_absolute("user://" + str(UserID)):
 		print("Creating user folder for ", UserID)
-		DirAccess.make_dir_absolute("user://"+str(UserID))
+		DirAccess.make_dir_absolute("user://" + str(UserID))
 	if int(last_id.get_as_text()) == 0 and UserID != 0:
 		print("Migrating from local to account")
 		for i in DirAccess.get_files_at("user://0"):
-			if not FileAccess.file_exists("user://"+str(UserID)+"/"+i):
-				DirAccess.copy_absolute("user://0/"+i, "user://"+str(UserID)+"/"+i)
+			if not FileAccess.file_exists("user://" + str(UserID) + "/" + i):
+				DirAccess.copy_absolute("user://0/" + i, "user://" + str(UserID) + "/" + i)
 	last_id.store_string(str(UserID))
-	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/"+str(UserID))
+	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/" + str(UserID))
+
 
 func game_over():
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
 
+
 func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		quit()
+
 
 ##Focus the window, used as a workaround to a wayland problem
 func ready_window() -> void:
@@ -152,17 +159,19 @@ func ready_window() -> void:
 		await Event.wait(0.5)
 		return
 
+
 func _process(delta: float) -> void:
-	ProcessFrame+=1
+	ProcessFrame += 1
 	if ProcessFrame % 100:
 		#if Settings.FPS == 0:
 			#Engine.set_physics_ticks_per_second(int(DisplayServer.screen_get_refresh_rate()))
 		#else:
 			#Engine.set_physics_ticks_per_second(Settings.FPS)
 		Engine.max_fps = Settings.FPS
-	#if UsingSteam: 
+	#if UsingSteam:
 		#Steam.run_callbacks()
 		#Steam.runFrame()
+
 
 func options(submenu = 0):
 	if get_tree().root.has_node("Options"): return
@@ -180,18 +189,21 @@ func options(submenu = 0):
 			opt.manual()
 	get_tree().root.add_child(opt)
 
+
 func title_screen():
 	if not get_tree().root.has_node("Initializer"):
 		var init = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
 		get_tree().root.add_child(init)
 	else: get_tree().root.get_node("Initializer").focus()
 
-func member_details(chara: Actor, menu:= 0):
+
+func member_details(chara: Actor, menu := 0):
 	if chara == null: return
 	var dub = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
 	get_tree().root.add_child(dub)
 	#await Event.wait()
 	dub.draw_character(chara, menu)
+
 
 func complimentary_ui(chara: Actor):
 	if chara == null: return
@@ -200,28 +212,34 @@ func complimentary_ui(chara: Actor):
 	await Event.wait()
 	dub.draw_character(chara)
 
+
 func next_day_ui():
 	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
+
 
 func alcine_naming():
 	var scene = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
 	get_tree().root.add_child(scene)
 	await scene.start()
 
+
 func veinet_map(cur: String):
 	var Map = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 
+
 static func alcine() -> String:
 	return Query.find_member("Alcine").FirstName
 
-func nodes_of_type(node: Node, className : String, result : Array) -> void:
+
+func nodes_of_type(node: Node, className: String, result: Array) -> void:
 	if !node: return
 	if node.is_class(className):
 		if node and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
 	for child in node.get_children():
 		await nodes_of_type(child, className, result)
+
 
 func intro_effect(ref: Node):
 	#if get_tree().root.has_node("IntroEffect"): return
@@ -234,6 +252,7 @@ func intro_effect(ref: Node):
 
 #region Controller
 
+
 func get_controller() -> ControlScheme:
 	if !Settings: return preload("res://UI/Input/None.tres")
 	if not Settings.ControlSchemeAuto:
@@ -245,7 +264,7 @@ func get_controller() -> ControlScheme:
 		return preload("res://UI/Input/Keyboard.tres")
 	#elif device == "Touch":
 		#return preload("res://UI/Input/None.tres")
-	elif "Nintendo" in device or "Pro Controller" in device or  "GameCube" in device:
+	elif "Nintendo" in device or "Pro Controller" in device or "GameCube" in device:
 		return preload("res://UI/Input/Nintendo.tres")
 	elif "XInput" in device or "360" in device:
 		return preload("res://UI/Input/Generic.tres")
@@ -260,10 +279,11 @@ func get_controller() -> ControlScheme:
 	else:
 		return preload("res://UI/Input/Generic.tres")
 
+
 func _input(event: InputEvent) -> void:
-	if LastInput==ProcessFrame: return
+	if LastInput == ProcessFrame: return
 	var prev_dev = device
-	if event is InputEventJoypadMotion  and event.axis_value < 0.5: return
+	if event is InputEventJoypadMotion and event.axis_value < 0.5: return
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		return
@@ -289,20 +309,23 @@ func _input(event: InputEvent) -> void:
 	#if "Steam" in device:
 		#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "28de:11ff")
 		#var steam_controllers = Steam.getConnectedControllers()
-	if prev_dev != device and prev_dev != "": 
+	if prev_dev != device and prev_dev != "":
 		controller_changed.emit()
-		toast("Using "+ device)
-	LastInput=ProcessFrame
+		toast("Using " + device)
+	LastInput = ProcessFrame
 	var is_fullscreen = get_window().mode == Window.MODE_FULLSCREEN
 	if is_fullscreen != Settings.Fullscreen:
 		fullscreen(is_fullscreen)
 	#print(device)
 
+
 func cancel() -> String:
 	return "ui_cancel"
 
+
 func confirm() -> String:
 	return "ui_accept"
+
 
 func rumble(strong: float, weak: float, duration: float, delay: float = 0):
 	if Settings.ControllerVibration:
@@ -310,6 +333,7 @@ func rumble(strong: float, weak: float, duration: float, delay: float = 0):
 		Input.start_joy_vibration(0, strong, weak, duration)
 		await Event.wait(duration, false)
 		Input.stop_joy_vibration(0)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Fullscreen"):
@@ -326,10 +350,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 #region Settings
 
+
 func refresh():
 	await Loader.save()
 	Loader.load_game()
-	print(Input.should_ignore_device(0x28de, 0x11ff))
+	print(Input.should_ignore_device(0x28de0, 0x11ff))
+
 
 func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	if !Settings: await init_settings()
@@ -353,12 +379,14 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	get_window().grab_focus()
 	save_settings()
 
+
 func reset_settings() -> void:
 	Settings = Setting.new()
 	ResourceSaver.save(Settings, "user://Settings.res")
 	if OS.get_environment("STEAMDECK") == "1":
 		Settings.ControlSchemeAuto = false
 		Settings.ControlSchemeEnum = 7
+
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.res"):
@@ -374,6 +402,7 @@ func init_settings() -> void:
 	if not is_instance_valid(Settings):
 		OS.alert("Something is wrong with the settings file or user folder")
 	apply_settings()
+
 
 func apply_settings():
 	if Settings.Fullscreen:
@@ -397,17 +426,25 @@ func apply_settings():
 		Settings.PlayerName = PlayerName
 	else: PlayerName = Settings.PlayerName
 
+
 func get_playtime() -> int:
 	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime
 	return int(PlayTime)
+
 
 func save_settings() -> void:
 	ResourceSaver.save(Settings, "user://Settings.res")
 #endregion
 
+
+
+
+
+
+
 #region UI Sounds
-func cursor_sound(dont_force:= false) -> void:
-	if not (dont_force and Audio.playing):
+func cursor_sound(dont_force := false) -> void:
+	if not(dont_force and Audio.playing):
 		Audio.stream = preload("res://sound/SFX/cursor.wav")
 		Audio.play()
 func buzzer_sound() -> void:
@@ -422,18 +459,21 @@ func cancel_sound() -> void:
 func item_sound() -> void:
 	Audio.stream = preload("res://sound/SFX/item.ogg")
 	Audio.play()
-func ui_sound(string:String) -> void:
-	Audio.stream = await Loader.load_res("res://sound/SFX/"+string+".ogg")
+func ui_sound(string: String) -> void:
+	Audio.stream = await Loader.load_res("res://sound/SFX/" + string + ".ogg")
 	Audio.play()
 #endregion
+
 
 #region Party Checks
 func get_party() -> PartyData:
 	return Global.Party
 
+
 func heal_party() -> void:
 	for i in Members:
 		i.full_heal()
+
 
 func add_test_state(chara: Actor):
 	for i in ResourceLoader.list_directory("res://database/States/"):
@@ -443,42 +483,48 @@ func add_test_state(chara: Actor):
 		ab.InflictsState = state
 		chara.Abilities.append(ab)
 
+
 func reset_all_members() -> void:
 	init_party(Party)
 	for i in range(-1, Members.size() - 1):
-		Members[i] = load("res://database/Party/"+ Members[i].codename +".tres").duplicate(true)
+		Members[i] = load("res://database/Party/" + Members[i].codename + ".tres").duplicate(true)
 	Party.set_to_party(Party)
 
 ##Alias for find_member()
+
 
 func add_complimentary(ability: String):
 	if ability not in Global.Complimentaries:
 		Global.Complimentaries.append(ability)
 
-func init_party(party:PartyData) -> void:
+
+func init_party(party: PartyData) -> void:
 	Members.clear()
 	if !is_instance_valid(party): party = PartyData.new()
 	for i in ResourceLoader.list_directory("res://database/Party"):
-		var file = load("res://database/Party/"+ i)
+		var file = load("res://database/Party/" + i)
 		if file is Actor:
 			Members.append(file.duplicate())
 	Party = PartyData.new()
 	Party.set_to_party(party)
+
 
 func unlock_all_abilities():
 	for mem in Members:
 		for ab in mem.LearnableAbilities:
 			mem.Abilities.append(ab)
 
+
 func give_every_ability():
 	for i in ResourceLoader.list_directory("res://database/Abilities/"):
-		var ab: Ability = load("res://database/Abilities/"+i).duplicate()
+		var ab: Ability = load("res://database/Abilities/" + i).duplicate()
 		Party.Leader.Abilities.append(ab)
 #endregion
 
 #region Textbox Managment
 
-func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_states: Array = []) -> void:
+
+func textbox(file: String, title: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
 	textbox_kill()
 	textbox_open = true
 	print("Textbox: ", file, " - ", title)
@@ -494,10 +540,12 @@ func textbox(file: String, title: String = "0", fade_bg:= false, extra_game_stat
 	await textbox_close
 	textbox_open = false
 
+
 func textbox_kill():
-	if get_tree().root.has_node("Textbox"): 
+	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox").queue_free()
 		await Event.wait()
+
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
 	print("Passive: ", file, " - ", title)
@@ -514,54 +562,64 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 	await passive_close
 	textbox_open = false
 
-func portrait(img:String, redraw:=true) -> void:
+
+func portrait(img: String, redraw := true) -> void:
 	PortraitRedraw = redraw
-	HasPortrait=true
+	HasPortrait = true
 	PortraitIMG = await Loader.load_res("res://art/Portraits/" + img + ".png")
 
+
 func portrait_clear() -> void:
-	HasPortrait=false
+	HasPortrait = false
 	PortraitIMG = null
+
 
 func fade_txt_background(alpha := 0.8):
 	var t = create_tween()
 	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
 
-func next_box(profile:String) -> void:
+
+func next_box(profile: String) -> void:
 	get_tree().root.get_node("Textbox").next_box = profile
+
 
 func picture(img: String):
 	get_tree().root.get_node("Textbox").picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
 
+
 func picture_clear():
 	get_tree().root.get_node("Textbox").picture = null
 
+
 func no_nametag():
 	get_tree().root.get_node("Textbox").no_nametag = true
+
 
 func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
 		await Event.wait()
-	print("Toast: "+ string)
+	print("Toast: " + string)
 	var tost = (preload("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child.call_deferred(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
 		tost.get_node("BoxContainer/Toast/Label").text = string
 
+
 func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
 	if get_node_or_null("/root/Warning"):
 		$/root/Warning.free()
 		await Event.wait()
 	await Event.wait()
-	print("Warn: "+ text)
+	print("Warn: " + text)
 	var tost = (preload("res://UI/Misc/Warning.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
 		return await tost.ask_for_confirm(text, label, awnser, color)
 	else: return false
+
 
 func location_name(string: String) -> void:
 	if get_node_or_null("/root/LocationName"):
@@ -573,8 +631,9 @@ func location_name(string: String) -> void:
 	if is_instance_valid(tost):
 		tost.get_node("Label").text = string
 
+
 #Match profile
-func match_profile(named:String) -> TextProfile:
+func match_profile(named: String) -> TextProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
 		return preload("res://database/Text/Profiles/DefaultBox.tres")
 	else:
@@ -582,63 +641,70 @@ func match_profile(named:String) -> TextProfile:
 
 #endregion
 
-func toggle(boo:bool) -> bool:
+
+func toggle(boo: bool) -> bool:
 	return not boo
+
 
 #region Quick Actions
 func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
 	await jump_to_global(character, Area.to_global(position), time, height)
 
+
 func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
 	if character == Player and rumble:
-		Global.rumble(0, abs(height)/3, 0.06)
-	var t:Tween = create_tween()
+		Global.rumble(0, abs(height) / 3, 0.06)
+	var t: Tween = create_tween()
 	var start = character.global_position
-	var jump_distance : float = start.distance_to(position)
-	var jump_height : float = jump_distance * height #will need tweaking
+	var jump_distance: float = start.distance_to(position)
+	var jump_height: float = jump_distance * height  #will need tweaking
 	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time = jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
+	var jump_time = jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	if character == Player and rumble:
-		Global.rumble(0, abs(height)/2, 0.06)
+		Global.rumble(0, abs(height) / 2, 0.06)
 	anim_done.emit()
+
 
 func get_cam() -> Camera2D:
 	if !is_instance_valid(Area): return null
 	return Global.Area.Cam
 
-func heal_in_overworld(target:Actor, ab: Ability):
+
+func heal_in_overworld(target: Actor, ab: Ability):
 	print(ArbData0, " healed")
-	var amount:= int(max(Query.calc_num(ab), target.MaxHP*((Query.calc_num(ab)*target.Magic)*0.02)))
+	var amount := int(max(Query.calc_num(ab), target.MaxHP * ((Query.calc_num(ab) * target.Magic) * 0.02)))
 	target.add_health(amount)
 	check_party.emit()
 
-func screen_shake(amount:float = 15, times:float = 7, ShakeDuration:float = 0.2):
+
+func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2):
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	var dur = ShakeDuration/times
-	var am  = amount
+	var dur = ShakeDuration / times
+	var am = amount
 	for i in range(0, times):
-		am = am - (amount/times)
+		am = am - (amount / times)
 		t.tween_property(Camera, "offset",
-		Vector2(randi_range(-am,am), randi_range(-am,am)), dur).as_relative()
+		Vector2(randi_range(-am, am), randi_range(-am, am)), dur).as_relative()
 		t.tween_property(Camera, "offset", Vector2.ZERO, dur)
 	await t.finished
 
-func node_shake(node: Node, amount:= 10, repeat:= randi_range(4,8), time = 0.04):
+
+func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time = 0.04):
 	if not is_instance_valid(node): return
 	ArbData0 = amount
 	var tw = create_tween()
 	tw.set_ease(Tween.EASE_OUT)
 	tw.set_trans(Tween.TRANS_CUBIC)
-	tw.tween_property(self, "ArbData0", 0, (repeat*time)*4)
+	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
 	for i in repeat:
 		amount = ArbData0
 		var t = create_tween()
 		t.tween_property(node, "position:x", amount, time).as_relative()
-		t.tween_property(node, "position:x", -amount*2, time*2).as_relative()
+		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		await t.finished
 #endregion

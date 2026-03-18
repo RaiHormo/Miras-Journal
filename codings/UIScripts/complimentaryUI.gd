@@ -2,11 +2,13 @@ extends CanvasLayer
 
 var chara: Actor
 var slots: int
-var setting:= false
+var setting := false
 var active_slot: int = 0
+
 
 func _init() -> void:
 	hide()
+
 
 func draw_character(character: Actor):
 	chara = character
@@ -14,14 +16,14 @@ func draw_character(character: Actor):
 	#Global.Complimentaries = ["FluidBlast", "RedShift", "Dispel"]
 	#chara.SkillLevel = 10
 	#chara.ComplimentaryList = {"FluidBlast":1, "RedShift":1}
-	
-	slots = chara.SkillLevel/10 + 1
+
+	slots = chara.SkillLevel / 10 + 1
 	await chara.load_complimentaries()
 	await fetch_equiped_abilities()
 	await fetch_all_abilities()
-	for i in slots-1:
-		var grd =  $Background.get_child(0).duplicate()
-		grd.set_meta("rate",  randf_range(-0.1, 0.1))
+	for i in slots - 1:
+		var grd = $Background.get_child(0).duplicate()
+		grd.set_meta("rate", randf_range(-0.1, 0.1))
 		$Background.add_child(grd)
 		grd.rotation_degrees = randf_range(0, 360)
 	for i in $Background.get_children(): i.modulate = Color.TRANSPARENT
@@ -31,14 +33,14 @@ func draw_character(character: Actor):
 	show()
 	%Equipped.get_child(0).grab_focus()
 	Global.confirm_sound()
-	
+
 	var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	t.tween_property($Title, "modulate", Color.WHITE, 0.9).from(Color.TRANSPARENT)
-	t.tween_property($Title, "scale", Vector2.ONE, 0.9).from(Vector2(0.8,0.8))
+	t.tween_property($Title, "scale", Vector2.ONE, 0.9).from(Vector2(0.8, 0.8))
 	t.tween_property($Desc, "modulate", Color.WHITE, 0.8).from(Color.TRANSPARENT)
-	t.tween_property($Desc, "scale", Vector2.ONE, 0.8).from(Vector2(0.8,0.8))
+	t.tween_property($Desc, "scale", Vector2.ONE, 0.8).from(Vector2(0.8, 0.8))
 	t.tween_property($Equipped, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Equipped, "scale", Vector2(1.3, 1.3), 0.5).from(Vector2(1.7,1.7))
+	t.tween_property($Equipped, "scale", Vector2(1.3, 1.3), 0.5).from(Vector2(1.7, 1.7))
 	t.tween_property($Sines, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
 	t.tween_property($Sines, "scale", Vector2(1, 1), 0.5).from(Vector2(1.5, 1.5))
 
@@ -63,6 +65,7 @@ func fetch_all_abilities():
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
 
+
 func fetch_equiped_abilities():
 	await chara.load_complimentaries()
 	while chara.Complimentaries.size() > slots:
@@ -80,6 +83,7 @@ func fetch_equiped_abilities():
 		j += 1
 	update_equipped()
 
+
 func update_equipped():
 	for dub in $Equipped.get_children():
 		if dub.has_meta("Ability"):
@@ -93,6 +97,7 @@ func update_equipped():
 			else:
 				dub.get_child(0).hide()
 			dub.name = "Item" + str(dub.get_index(true))
+
 
 func refresh():
 	$Set.icon = Global.get_controller().ConfirmIcon
@@ -116,7 +121,7 @@ func refresh():
 
 func _on_list_focus_entered() -> void:
 	Global.cursor_sound()
-	var ab:Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
+	var ab: Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
 	if not is_instance_valid(ab): return
 	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
 		%Wheel.show()
@@ -127,12 +132,13 @@ func _on_list_focus_entered() -> void:
 	%AttackTitle.text = ab.name
 	%AttackTitle/RichTextLabel.text = Colorizer.colorize(ab.description)
 
+
 func _on_equipped_focus_entered() -> void:
 	#refresh()
 	Global.cursor_sound()
 	var foc = get_viewport().gui_get_focus_owner()
 	if foc.has_meta("Ability"):
-		var ab:Ability = foc.get_meta("Ability")
+		var ab: Ability = foc.get_meta("Ability")
 		if not is_instance_valid(ab): return
 		if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
 			$Desc/Wheel.show()
@@ -142,12 +148,14 @@ func _on_equipped_focus_entered() -> void:
 		else: $Desc/Wheel.hide()
 		$Desc/RichTextLabel.text = Colorizer.colorize(ab.description)
 	else:
-		$Desc/RichTextLabel.text = "This slot is empty.\n\nPress [img width=48]"+Global.get_controller().ConfirmIcon.resource_path+"[/img] to equip one of the available Complimentary abilities to this slot."
+		$Desc/RichTextLabel.text = "This slot is empty.\n\nPress [img width=48]" + Global.get_controller().ConfirmIcon.resource_path + "[/img] to equip one of the available Complimentary abilities to this slot."
 		$Desc/Wheel.hide()
+
 
 func _process(delta: float) -> void:
 	for i: TextureRect in $Background.get_children():
 		i.rotation_degrees += i.get_meta("rate")
+
 
 func _on_back_pressed() -> void:
 	if $AbilityPanel.visible:
@@ -158,14 +166,14 @@ func _on_back_pressed() -> void:
 			get_tree().root.get_node("MemberDetails").fetch_abilities(chara)
 			get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
 		Global.cancel_sound()
-		
+
 		var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 		t.tween_property($Title, "modulate", Color.TRANSPARENT, 0.3)
-		t.tween_property($Title, "scale", Vector2(0.8,0.8), 0.3)
+		t.tween_property($Title, "scale", Vector2(0.8, 0.8), 0.3)
 		t.tween_property($Desc, "modulate", Color.TRANSPARENT, 0.3)
-		t.tween_property($Desc, "scale", Vector2(0.8,0.8), 0.3)
+		t.tween_property($Desc, "scale", Vector2(0.8, 0.8), 0.3)
 		t.tween_property($Equipped, "modulate", Color.TRANSPARENT, 0.3)
-		t.tween_property($Equipped, "scale", Vector2(2,2), 0.3)
+		t.tween_property($Equipped, "scale", Vector2(2, 2), 0.3)
 		t.tween_property($Sines, "modulate", Color.TRANSPARENT, 0.3)
 		t.tween_property($Sines, "scale", Vector2(1.5, 1.5), 0.3)
 		t.tween_property($Background, "modulate", Color.TRANSPARENT, 0.3)
@@ -173,11 +181,13 @@ func _on_back_pressed() -> void:
 		get_tree().root.get_node("MemberDetails").inactive = false
 		queue_free()
 
+
 func set_ability(slot: int):
 	active_slot = slot
 	$AbilityPanel.show()
 	refresh()
 	%AbilityList.get_child(0).grab_focus()
+
 
 func _set_pressed():
 	if $AbilityPanel.visible:
@@ -185,11 +195,13 @@ func _set_pressed():
 	else:
 		_on_slot_pressed()
 
+
 func _on_slot_pressed() -> void:
 	var foc = get_viewport().gui_get_focus_owner()
 	await fetch_all_abilities()
 	set_ability(foc.get_index())
 	Global.confirm_sound()
+
 
 func _list_ability_pressed():
 	var foc = get_viewport().gui_get_focus_owner()
@@ -204,7 +216,7 @@ func _list_ability_pressed():
 		else: chara.ComplimentaryList.set(ab.filename, 1)
 		if prev_ab != null:
 			chara.ComplimentaryList.set(prev_ab.filename, -abs(chara.ComplimentaryList.get(prev_ab.filename)))
-	
+
 		slot.set_meta("Ability", ab)
 		update_equipped()
 		await chara.load_complimentaries()

@@ -5,10 +5,12 @@ signal closed
 var working_chara: Actor
 var learnable: Ability
 
+
 func _ready() -> void:
 	$ChooseUpgrade/Continue.hide()
 	$ChooseUpgrade/Cursor/Cont/Button.hide()
 	hide()
+
 
 func levelup(chara: Actor):
 	working_chara = chara
@@ -41,7 +43,7 @@ func levelup(chara: Actor):
 	$ChooseUpgrade/HPCont/HPBox/HPText.text = str(chara.MaxHP)
 	$ChooseUpgrade/APCont/APBox/APText.text = str(chara.MaxAura)
 	$ChooseUpgrade/Cursor.modulate = Color.TRANSPARENT
-	var hbox:StyleBoxFlat = $ChooseUpgrade/HPCont/HPBox/Health.get_theme_stylebox("fill")
+	var hbox: StyleBoxFlat = $ChooseUpgrade/HPCont/HPBox/Health.get_theme_stylebox("fill")
 	hbox.bg_color = chara.MainColor
 	$ChooseUpgrade/HPCont/HPBox/Health.add_theme_stylebox_override("fill", hbox.duplicate())
 	var abox = $ChooseUpgrade/APCont/APBox/Aura.get_theme_stylebox("fill")
@@ -95,6 +97,7 @@ func levelup(chara: Actor):
 	t.tween_property($ChooseUpgrade/Cursor, "modulate", Color.WHITE, 0.2)
 	index = 0
 
+
 func level_cutin(chara: Actor):
 	PartyUI.hide_all()
 	scale.y = 0.1
@@ -113,6 +116,7 @@ func level_cutin(chara: Actor):
 	t.tween_property($Line1/NameChain, "position:x", -800, 10).from(0)
 	t.tween_property($Line1/NameChain2, "position:x", 2300, 10).from(1400)
 
+
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_down"):
 		index += 1
@@ -122,6 +126,7 @@ func _input(event: InputEvent) -> void:
 		index -= 1
 		if index == -1: index = 2
 		move_menu()
+
 
 func move_menu():
 	Global.cursor_sound()
@@ -146,10 +151,12 @@ func move_menu():
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property($ChooseUpgrade/Cursor, "position:y", ypos, 0.1)
 
+
 func find_learnable():
 	learnable = working_chara.find_learnable()
 
-var count:int
+var count: int
+
 
 func _confirm():
 	$ChooseUpgrade/Cursor.hide()
@@ -211,7 +218,7 @@ func _confirm():
 			t.set_parallel()
 			t.tween_property($ChooseUpgrade/NewAb, "self_modulate", Color(10, 10, 10, 1), 2)
 			t.tween_property($ChooseUpgrade/NewAb/Hbox, "modulate", Color.TRANSPARENT, 2)
-			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.8,1.8), 2)
+			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.8, 1.8), 2)
 			await t.finished
 			working_chara.Abilities.append(learnable)
 			$ChooseUpgrade/NewAb/Hbox/Icon.texture = learnable.Icon
@@ -220,7 +227,7 @@ func _confirm():
 			t.set_parallel()
 			t.tween_property($ChooseUpgrade/NewAb, "self_modulate", Color.WHITE, 0.1)
 			t.tween_property($ChooseUpgrade/NewAb/Hbox, "modulate", Color.WHITE, 0.1)
-			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.5,1.5), 0.1)
+			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.5, 1.5), 0.1)
 			await Event.wait(1, false)
 			$ChooseUpgrade/Desc.text = Colorizer.colorize(learnable.description)
 			t = create_tween()
@@ -232,6 +239,7 @@ func _confirm():
 			await t.finished
 	$ChooseUpgrade/Continue.icon = Global.get_controller().ConfirmIcon
 	$ChooseUpgrade/Continue.show()
+
 
 func close():
 	var t = create_tween()

@@ -3,12 +3,14 @@ extends CanvasLayer
 @export var DiaryEntries: Dictionary[StringName, String]
 var stage: String
 
+
 func _ready() -> void:
 	$Close.icon = Global.get_controller().CancelIcon
 	$Select.icon = Global.get_controller().ConfirmIcon
 	load_entries()
 	diary_load_day_list()
 	root()
+
 
 func root():
 	stage = "root"
@@ -29,6 +31,7 @@ func root():
 		t.tween_property(get_tree().root.get_node("MainMenu"), "offset:x", 0, 0.5)
 		t.tween_property(Global.Camera, "offset:x", 100, 0.5)
 
+
 func diary() -> void:
 	stage = "diary"
 	$Journal.hide()
@@ -45,21 +48,24 @@ func diary() -> void:
 		t.tween_property(Global.Camera, "offset:x", 150, 0.5)
 	$List/List.get_children()[-1].grab_focus()
 
+
 func add_test_entries():
 	Event.Diary = {
 	2: ["boo"],
 	5: ["boo", "bee"]
 }
 
+
 func diary_load_day_list():
 	if Event.Diary.is_empty(): add_test_entries()
 	for i in Event.Diary:
-		var dub =  $List/List/Listing0.duplicate()
+		var dub = $List/List/Listing0.duplicate()
 		dub.name = str(i)
 		dub.text = Query.get_mmm(Query.get_month(i)) + " " + str(i)
 		$List/List.add_child(dub)
 		dub.show()
 	$List/List/Listing0.queue_free()
+
 
 func diary_focus(day: int):
 	%TextL.text = ""
@@ -76,10 +82,12 @@ func diary_focus(day: int):
 			%TextL.text = prev_text
 			%TextR.text += DiaryEntries.get(i)
 
+
 func close():
 	if get_tree().root.get_node_or_null("MainMenu") != null:
 		get_tree().root.get_node_or_null("MainMenu")._root()
 	queue_free()
+
 
 func _on_back_pressed() -> void:
 	Global.cancel_sound()
@@ -89,12 +97,14 @@ func _on_back_pressed() -> void:
 		"diary":
 			root()
 
+
 func _input(event: InputEvent) -> void:
 	$Close.icon = Global.get_controller().CancelIcon
 	$Select.icon = Global.get_controller().ConfirmIcon
 
+
 func load_entries():
-	var file =  FileAccess.open("res://database/Text/Journal/Diary.json", FileAccess.READ)
+	var file = FileAccess.open("res://database/Text/Journal/Diary.json", FileAccess.READ)
 	var json: Array = JSON.parse_string(file.get_as_text())
 	for i in json:
 		DiaryEntries.set(i[0], i[1])

@@ -1,5 +1,6 @@
 extends Node
 
+
 func nov3_morning():
 	Item.add_item("LightweightAxe", "Key", false, false)
 	Event.add_flag("LampInMirasRoom", false)
@@ -17,6 +18,7 @@ func nov3_morning():
 	Event.time_transition()
 	#await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 
+
 func nov3_afternoon():
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	Event.no_player()
@@ -28,6 +30,7 @@ func nov3_afternoon():
 	await Global.textbox(name, "nov3_afternoon", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.Facing = Vector2.RIGHT
+
 
 func nov3_enterSG():
 	await Loader.travel_to("ShardGardens", Vector2(26, 84), 0, -1, "", false)
@@ -50,6 +53,7 @@ func nov3_enterSG():
 	Event.add_flag("Nov3_WentToSG")
 	await Event.wait(2)
 	Global.passive(name, "very_shiny")
+
 
 func sg_bunker_entrance():
 	if Event.f("DefeatedLazuliteHeart"):

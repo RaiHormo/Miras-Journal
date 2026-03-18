@@ -8,13 +8,13 @@ class_name Setting
 @export_category("Input")
 @export var ControlSchemeAuto: bool = true
 @export var ControlSchemeEnum: int = 0
-@export var ControlSchemeOverride:ControlScheme = null
-@export var ControllerVibration:= true
+@export var ControlSchemeOverride: ControlScheme = null
+@export var ControllerVibration := true
 @export var LastUsedDevice: String = "Keyboard"
 @export_category("Display")
-@export var Fullscreen:= false
-@export var UpscaledRes:= true
-@export var HighResTextures:= false
+@export var Fullscreen := false
+@export var UpscaledRes := true
+@export var HighResTextures := false
 @export var FPS: int = 0
 @export var VSync: bool = true
 @export var GlowEffect: bool = true

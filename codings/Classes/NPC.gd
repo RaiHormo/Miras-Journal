@@ -2,12 +2,12 @@ extends CharacterBody2D
 class_name NPC
 ##An extension of [CharacterBody2D] designed for this game. Provides basic movment and interaction.
 
-enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
+enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 
 ##Speed of movment
 @export var speed = 80
 ##Used to control the direction of the next movment
-@export var direction : Vector2 = Vector2.ZERO
+@export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
 @export var Facing: Vector2 = Vector2.ZERO
 ##0: Idle, Not moving[br]
@@ -15,30 +15,30 @@ enum {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
 ##3: Controlled, excludive to [Mira]
 ##5: Custom
-var BodyState:= IDLE:
+var BodyState := IDLE:
 	set(x):
 		#if x != BodyState:
 			#print(ID+"'s body state set to ", x)
 		BodyState = x
 		if BodyState == MOVE:
 			pass
-@export var DefaultState:= 0
-var RealVelocity:= Vector2.ZERO
-var PrevPosition:= Vector2.ZERO
+@export var DefaultState := 0
+var RealVelocity := Vector2.ZERO
+var PrevPosition := Vector2.ZERO
 ##Coordinates on the [TileMap]
-var coords:Vector2 = Vector2.ZERO
+var coords: Vector2 = Vector2.ZERO
 ##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
 @export var ID: String = ""
 var DefaultPos := Vector2.ZERO
 @export var no_collision: bool = false
-@export var Nav:NavigationAgent2D
+@export var Nav: NavigationAgent2D
 @export var SpawnOnCameraInd := true
 @export var CameraIndex: int = 0
-var stopping:= false
-@export var Footsteps:= true
-var LastStepFrame:= -1
+var stopping := false
+@export var Footsteps := true
+var LastStepFrame := -1
 ##How many frames the character has been moving
-var move_frames:= 0
+var move_frames := 0
 @export var Shadow: Node2D
 @export var sprite: AnimatedSprite2D
 var minimum_movment: float = 0.2
@@ -46,6 +46,7 @@ var minimum_movment: float = 0.2
 	"Walk": [0, 2],
 	"Loop": [0, 1],
 }
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
@@ -63,18 +64,23 @@ func _ready() -> void:
 	DefaultPos = global_position
 	default()
 
+
 func default_id() -> String:
 	return name
+
 
 func default() -> void:
 	pass
 
+
 func extended_process() -> void:
 	pass
+
 
 func control_process() -> void:
 	OS.alert("Only Mira can be set to 'Controlled'")
 	BodyState = IDLE
+
 
 func _physics_process(delta) -> void:
 	#move_and_collide(Vector2.ZERO)
@@ -89,7 +95,7 @@ func _physics_process(delta) -> void:
 	match BodyState:
 		MOVE, CHASE:
 			velocity = direction * speed
-			move_and_collide(velocity*delta)
+			move_and_collide(velocity * delta)
 		IDLE:
 			direction = Vector2.ZERO
 			position = round(position)
@@ -98,7 +104,7 @@ func _physics_process(delta) -> void:
 			control_process()
 		CUSTOM:
 			velocity = direction * speed
-			move_and_collide(velocity*delta)
+			move_and_collide(velocity * delta)
 		NONE: return
 	if direction.length() > 0.2:
 		if get_node_or_null("DirectionMarker"):
@@ -106,10 +112,12 @@ func _physics_process(delta) -> void:
 		if direction.length() > 0.05: Facing = Query.get_direction(direction)
 	update_anim_prm()
 
+
 func set_dir_marker(vec: Vector2 = direction):
 	vec = vec.normalized()
-	$DirectionMarker.global_position=global_position + vec * 10
+	$DirectionMarker.global_position = global_position + vec * 10
 	$DirectionMarker.rotation = direction.angle()
+
 
 func update_anim_prm() -> void:
 	if sprite.sprite_frames == null: return
@@ -119,46 +127,51 @@ func update_anim_prm() -> void:
 	if Facing == Vector2.ZERO: return
 	if RealVelocity.length() > minimum_movment:
 		#BodyState = MOVE
-		if str("Walk"+Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Walk"+Query.get_dir_name(Facing)))
+		if str("Walk" + Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Walk" + Query.get_dir_name(Facing)))
 	else:
 		#BodyState = IDLE
-		if str("Idle"+Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Idle"+Query.get_dir_name(Facing)))
+		if str("Idle" + Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Idle" + Query.get_dir_name(Facing)))
+
 
 func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
-	if not is_instance_valid(sprite) or "Idle" in sprite.animation: 
+	if not is_instance_valid(sprite) or "Idle" in sprite.animation:
 		LastStepFrame = -1
 		return
 	if not has_node("StdrFootsteps") or sprite.frame == LastStepFrame or (LastStepFrame == -1 and move_frames == 0): return
 	LastStepFrame = sprite.frame
 	var frames: PackedInt32Array
-	for i in step_frames: 
+	for i in step_frames:
 		if i in sprite.animation: frames = step_frames.get(i)
 	if frames.has(sprite.frame):
 		var terrain = Global.Area.get_terrain(coords)
 		if "Generic" == terrain: return
 		var rand: int
-		if sprite.frame == 0: rand = randi_range(1,3)
-		else: rand = randi_range(4,6)
+		if sprite.frame == 0: rand = randi_range(1, 3)
+		else: rand = randi_range(4, 6)
 		var sound = terrain + str(rand)
 		#print(sprite.animation,sprite.frame)
 		if $StdrFootsteps.has_node(sound):
 			$StdrFootsteps.get_node(sound).play()
 
-func check_terrain(terrain:String, layer:=1) -> bool:
+
+func check_terrain(terrain: String, layer := 1) -> bool:
 	if get_tile(layer):
 		if get_tile(layer).get_custom_data("TerrainType") == terrain:
 			return true
 	return false
 
-func get_tile(layer:int):
+
+func get_tile(layer: int):
 	return Global.Area.get_tile(Global.Area.local_to_map(global_position), layer)
+
 
 func move_dir(dir: Variant, use_coords = true, autostop = false) -> void:
 	if dir is String: dir = Query.get_dir_from_letter(dir)
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
+
 
 func look_to(dir: Variant):
 	if dir is String: dir = Query.get_dir_from_letter(dir)
@@ -169,7 +182,8 @@ func look_to(dir: Variant):
 	BodyState = IDLE
 	Facing = dir
 
-func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
+
+func pathfind_to(pos: Vector2, exact = true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: await Event.take_control()
 	#await stop_going()
@@ -180,13 +194,13 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 		await Event.wait()
 		direction = to_local(Nav.get_next_path_position()).normalized()
 		#print(not Global.Area.local_to_map(global_position) == Vector2i(pos), not Nav.is_target_reached(), BodyState)
-		if Nav == null or ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count()>0) and autostop) or stopping:
+		if Nav == null or ((not Nav.is_target_reachable() or is_on_wall() or get_slide_collision_count() > 0) and autostop) or stopping:
 			BodyState = IDLE
 			return
 	if Global.Area.map_to_local(pos) != global_position and Global.Area.local_to_map(global_position) == Vector2i(pos) and exact:
 		#print("finished")
 		var t = create_tween()
-		t.tween_property(self, "global_position", Global.Area.map_to_local(pos), Nav.distance_to_target()/speed)
+		t.tween_property(self, "global_position", Global.Area.map_to_local(pos), Nav.distance_to_target() / speed)
 		await t.finished
 	BodyState = IDLE
 	position = Vector2i(position)
@@ -195,12 +209,13 @@ func pathfind_to(pos:Vector2,  exact=true, autostop = true, look_dir: Vector2 = 
 	if look_dir != Vector2.ZERO:
 		await look_to(look_dir)
 
+
 ##Move towards a specific position until arriving.
 ##if use_coords is true it will use TileMap coordinates instead of a global position.
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
+func go_to(pos: Vector2, use_coords = false, autostop = false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
 	if self is Mira and Global.Player.controllable(): return
 	await stop_going()
 	if use_coords: pos = Query.globalize(pos)
@@ -218,46 +233,57 @@ func go_to(pos:Vector2, use_coords = false, autostop = false, look_dir: Variant 
 	if look_dir is String or look_dir != Vector2.ZERO: look_to(look_dir)
 	await Event.wait()
 
+
 func set_anim(anim: String, wait = false, overwrite_state = false):
 	if overwrite_state: BodyState = CUSTOM
 	if is_instance_valid(sprite) and sprite.sprite_frames.has_animation(anim):
 		sprite.play(anim)
 		if wait: await sprite.animation_finished
 
+
 func stop_going() -> void:
 	stopping = true
 	await Event.wait()
 	stopping = false
 
+
 func defeat() -> void:
 	Loader.Defeated.append(ID)
 	queue_free()
+
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("DebugD"):
 		go_to(get_global_mouse_position(), false)
 
+
 func wall_in_front() -> bool:
 	if is_on_wall() and Query.get_direction(get_wall_normal()) == Query.get_direction(): return true
 	else: return false
 
-func bubble(stri:String) -> void:
+
+func bubble(stri: String) -> void:
 	$Bubble.play(stri)
 	await $Bubble.animation_finished
+
 
 func shade(opacity: float = 0.8) -> void:
 	var t = create_tween()
 	t.tween_property(sprite, "modulate", Color(opacity, opacity, opacity, 1), 0.3)
 
+
 func unshade() -> void:
 	var t = create_tween()
 	t.tween_property(sprite, "modulate", Color.WHITE, 0.3)
 
+
 func collision(tog: bool = $CollisionShape2D.disabled):
 	$CollisionShape2D.set_deferred("disabled", not tog)
 
+
 func attacked():
 	pass
+
 
 func chain_moves(moves: Array[Vector2]):
 	for i in moves:
@@ -265,22 +291,26 @@ func chain_moves(moves: Array[Vector2]):
 			await Event.wait()
 		await move_dir(i)
 
+
 func chain_positions(moves: Array[Vector2]):
 	for i in moves:
 		if Loader.InBattle:
 			await Event.wait()
 		await go_to(i)
 
+
 func hop(height: int = 12, time: float = 0.2):
 	BodyState = CUSTOM
-	var t:Tween = create_tween()
-	t.tween_property(self, "position:y", -height, time/2).as_relative()
-	t.tween_property(self, "position:y", height, time/2).as_relative()
+	var t: Tween = create_tween()
+	t.tween_property(self, "position:y", -height, time / 2).as_relative()
+	t.tween_property(self, "position:y", height, time / 2).as_relative()
 	await t.finished
-	
+
+
 func jump_to(position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
 	BodyState = CUSTOM
 	await Global.jump_to_global(self, position, time, height, rumble)
+
 
 func change_sprite(id: String):
 	get_node("Sprite").sprite_frames = await Event.get_ov_sprites(id)

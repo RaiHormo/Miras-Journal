@@ -1,14 +1,14 @@
 extends NPC
 class_name Follower
 
-var oposite : Vector2
+var oposite: Vector2
 var moving: bool
 var target: Vector2
 var dir: Vector2
-var player_jumped:= false
+var player_jumped := false
 
-@export var member : int
-@export var distance : int = 30
+@export var member: int
+@export var distance: int = 30
 #@onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false:
 	set(x):
@@ -19,16 +19,17 @@ var player_jumped:= false
 var path: Path2D
 var follow: PathFollow2D
 
+
 func default():
 	hide()
 	Global.check_party.connect(update)
 	await Event.wait()
-	oposite = (Query.get_direction() * Vector2(-1,-1)) * 150
-	set_anim("Idle"+Query.get_dir_name())
+	oposite = (Query.get_direction() * Vector2(-1, -1)) * 150
+	set_anim("Idle" + Query.get_dir_name())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()
-	follow.name = name+"Path"
+	follow.name = name + "Path"
 	path.add_child(follow)
 	follow.cubic_interp = true
 	update()
@@ -37,8 +38,10 @@ func default():
 	position = follow.global_position
 	BodyState = CONTROLLED
 
+
 func default_id() -> String:
-	return "F"+str(member)
+	return "F" + str(member)
+
 
 func control_process() -> void:
 	if not is_instance_valid(Global.Player): return
@@ -58,40 +61,40 @@ func control_process() -> void:
 		collision_layer = Global.Player.collision_layer
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
-		$Glow.energy = member_info().GlowDef/2
-		var oldposition=global_position
+		$Glow.energy = member_info().GlowDef / 2
+		var oldposition = global_position
 		var player_dist = to_local(Global.Player.position).length()
-		target = round((follow.global_position + Global.PlayerDir.rotated(PI/2)*offset))
+		target = round((follow.global_position + Global.PlayerDir.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
 		if to_local(target).length() < 6: direction = Vector2.ZERO
 		var path_dist = floor(path.curve.get_baked_length() - follow.progress)
 		#if Loader.chased:
 			#$CollisionShape2D.disabled = true
 		if false:
-			if player_dist > distance+80:
+			if player_dist > distance + 80:
 				jump_to_player()
 				player_jumped = false
-			elif player_dist < distance and Global.Player.move_frames/10 > distance:
+			elif player_dist < distance and Global.Player.move_frames / 10 > distance:
 				player_jumped = false
 		else:
-			follow.progress = round(lerpf(follow.progress, max(float(path.curve.get_baked_length() -distance), 0), 0.5))
+			follow.progress = round(lerpf(follow.progress, max(float(path.curve.get_baked_length() - distance), 0), 0.5))
 			if player_dist > 180:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
 				update_anim_prm()
-				oposite = (Query.get_direction() * Vector2(-1,-1))
+				oposite = (Query.get_direction() * Vector2(-1, -1))
 				velocity = oposite * 150
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
-		speed = max(50, Global.Player.speed*(to_local(target).length()/40))
-		if floor(player_dist/5) < floor(distance/5):
+		speed = max(50, Global.Player.speed * (to_local(target).length() / 40))
+		if floor(player_dist / 5) < floor(distance / 5):
 			speed /= 2
 		velocity = speed * direction
-		if (global_position-oldposition).length() > 0.1:
+		if (global_position - oldposition).length() > 0.1:
 			moving = true
-			RealVelocity=global_position-oldposition
+			RealVelocity = global_position - oldposition
 		else:
-			moving =false
+			moving = false
 	else:
 		hide()
 		#$CollisionShape2D.disabled = true
@@ -101,7 +104,6 @@ func control_process() -> void:
 	#nav_agent.set_target_position(target)
 	#if not nav_agent.is_target_reachable():
 		#nav_agent.set_target_position(Global.Player.position)
-
 
 #func update_anim_prm() -> void:
 	#if not Query.check_member(member): return
@@ -139,6 +141,7 @@ func control_process() -> void:
 		#elif dir == Vector2.DOWN:
 			#sprite.play("WalkDown")
 
+
 func jump_to_player(speed = 2):
 	if not is_instance_valid(Global.Player): return
 	if Global.Player.dashing: return
@@ -150,15 +153,19 @@ func jump_to_player(speed = 2):
 		#await Global.jump_to_global(self, new_pos, speed, 0.3)
 	position = new_pos
 
+
 func _on_timer_timeout():
 	if Global.Party.check_member(member):
 		update_anim_prm()
 
+
 func member_info() -> Actor:
 	return Global.Party.get_member(member)
 
+
 func attacked():
-	Global.jump_to(self, position-Vector2(Query.get_direction()*24), 5, 0.5)
+	Global.jump_to(self, position - Vector2(Query.get_direction() * 24), 5, 0.5)
+
 
 func update():
 	var mem = member_info()

@@ -38,7 +38,7 @@ var game_action_set
 var current_action_set
 
 # Store the resulting handles for each action.
-var actions = {}
+var actions = { }
 
 
 ## Call this after calling `Steam.inputInit()` and `Steam.enableDeviceCallbacks()`
@@ -46,14 +46,17 @@ func init() -> void:
 	Steam.input_device_connected.connect(_on_steam_input_device_connected)
 	Steam.input_device_disconnected.connect(_on_steam_input_device_disconnected)
 
+
 func _on_steam_input_device_connected(input_handle: int) -> void:
 	if not got_handles:
 		get_handles()
 	Steam.activateActionSet(input_handle, current_action_set)
 	print("Device connected %s" % str(input_handle))
 
+
 func _on_steam_input_device_disconnected(input_handle: int) -> void:
 	print("Device disconnected %s" % str(input_handle))
+
 
 func get_handles() -> void:
 	got_handles = true
@@ -61,9 +64,10 @@ func get_handles() -> void:
 	current_action_set = game_action_set
 	get_action_handles(action_names)
 
+
 func get_action_handles(action_names: Dictionary) -> void:
 	for action in action_names.keys():
-	# If true, analog
+		# If true, analog
 		if action_names[action]:
 			actions[action] = Steam.getAnalogActionHandle(action)
 		else:

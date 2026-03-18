@@ -1,12 +1,14 @@
 extends CanvasLayer
-var stability_menu:= false
+var stability_menu := false
 var actor: Actor
-var inactive:= false
+var inactive := false
+
 
 func _ready():
 	hide()
 
-func draw_character(chara: Actor, menu:= 0):
+
+func draw_character(chara: Actor, menu := 0):
 	if Global.Complimentaries.is_empty():
 		$AbilityPanel/Complimentary.disabled = true
 		$AbilityPanel/Border1/Scroller/AbilityList/CompTxt.hide()
@@ -32,20 +34,20 @@ func draw_character(chara: Actor, menu:= 0):
 
 	$StatPanel/HPAura/HPText.add_theme_color_override("font_color", chara.MainColor)
 	$StatPanel/HPAura/APText.add_theme_color_override("font_color", chara.SecondaryColor)
-	var hbox:StyleBoxFlat = $StatPanel/HPAura/Health.get_theme_stylebox("fill")
+	var hbox: StyleBoxFlat = $StatPanel/HPAura/Health.get_theme_stylebox("fill")
 	hbox.bg_color = chara.MainColor
 	$StatPanel/HPAura/Health.add_theme_stylebox_override("fill", hbox.duplicate())
 	var abox = $StatPanel/HPAura/Aura.get_theme_stylebox("fill")
 	abox.bg_color = chara.SecondaryColor
 	$StatPanel/HPAura/Aura.add_theme_stylebox_override("fill", abox.duplicate())
 	if chara.BoxProfile != null:
-		var bord1:StyleBoxFlat = $StatPanel/Border1.get_theme_stylebox("panel")
+		var bord1: StyleBoxFlat = $StatPanel/Border1.get_theme_stylebox("panel")
 		bord1.border_color = chara.BoxProfile.Bord1
 		$StatPanel/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-		var bord2:StyleBoxFlat = $StatPanel/Border1/Border2.get_theme_stylebox("panel")
+		var bord2: StyleBoxFlat = $StatPanel/Border1/Border2.get_theme_stylebox("panel")
 		bord2.border_color = chara.BoxProfile.Bord2
 		$StatPanel/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-		var bord3:StyleBoxFlat = $StatPanel/Border1/Border2/Border3.get_theme_stylebox("panel")
+		var bord3: StyleBoxFlat = $StatPanel/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = chara.BoxProfile.Bord3
 		$StatPanel/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
@@ -63,14 +65,14 @@ func draw_character(chara: Actor, menu:= 0):
 	$StatPanel/StatBars/Magic.value = chara.Magic
 	$StatPanel/Weapon/WeaponName.text = chara.Weapon
 	$StatPanel/Weapon/Icon.texture = chara.StandardAttack.Icon
-	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: "+ Query.get_power_rating(chara.WeaponPower)
+	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: " + Query.get_power_rating(chara.WeaponPower)
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
 	$Render.texture = await Loader.load_res(chara.RenderArtwork) if not chara.RenderArtwork.is_empty() else null
 	$Render/Shadow.texture = await chara.RenderShadow()
-	$Render.global_position = PartyUI.get_node("CanvasLayer/Pages/Page"+str(PartyUI.focus)+"/Render").global_position
-	
+	$Render.global_position = PartyUI.get_node("CanvasLayer/Pages/Page" + str(PartyUI.focus) + "/Render").global_position
+
 	fetch_abilities(chara)
 
 	for i in $Line1/NameChain.get_children():
@@ -97,7 +99,7 @@ func draw_character(chara: Actor, menu:= 0):
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	#t.tween_property($Render, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-	PartyUI.get_node("CanvasLayer/Pages/Page"+str(PartyUI.focus)+"/Render").hide()
+	PartyUI.get_node("CanvasLayer/Pages/Page" + str(PartyUI.focus) + "/Render").hide()
 	t.tween_property($Render, "global_position", Vector2(587, -2), 0.8)
 	t.tween_property($Render/Shadow, "modulate:a", 0.4, 0.6)
 	t.tween_property($Render, "scale", Vector2(0.245, 0.245), 0.8).from(Vector2(0.215, 0.215))
@@ -110,7 +112,8 @@ func draw_character(chara: Actor, menu:= 0):
 	$Abilities.show()
 	$Back.show()
 
-func swap_mode(stability:= false):
+
+func swap_mode(stability := false):
 	Global.ui_sound("swap")
 	stability_menu = stability
 	match stability_menu:
@@ -152,6 +155,7 @@ func swap_mode(stability:= false):
 			$Abilities.icon = Global.get_controller().CommandIcon
 			$AbilityPanel/Complimentary.icon = Global.get_controller().ConfirmIcon
 
+
 func _on_back_pressed():
 	if inactive: return
 	Global.cancel_sound()
@@ -167,6 +171,7 @@ func _on_back_pressed():
 	PartyUI.close_submenu()
 	await Event.wait(0.1, false)
 	queue_free()
+
 
 func fetch_abilities(chara: Actor):
 	var Abilities = chara.get_abilities()
@@ -188,18 +193,20 @@ func fetch_abilities(chara: Actor):
 			dub.get_child(0).hide()
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
-	%AbilityList.move_child(%AbilityList/CompTxt, chara.Abilities.size()+3)
+	%AbilityList.move_child(%AbilityList/CompTxt, chara.Abilities.size() + 3)
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
+
 
 func _on_abilities_pressed() -> void:
 	if inactive: return
 	swap_mode(!stability_menu)
 
+
 func _on_ab_focus_entered() -> void:
 	if get_viewport().gui_get_focus_owner().get_index() == 1:
 		$AbilityPanel/Border1/Scroller.scroll_vertical = 0
 	if $AbilityPanel.scale == Vector2.ONE: Global.cursor_sound()
-	var ab:Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
+	var ab: Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
 	if not is_instance_valid(ab): return
 	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
 		$AbilityPanel/AttackTitle/Wheel.show()
@@ -211,23 +218,25 @@ func _on_ab_focus_entered() -> void:
 	#$AbilityPanel/AttackTitle.icon = ab.Icon
 	$AbilityPanel/AttackTitle/RichTextLabel.text = Colorizer.colorize(ab.description)
 
+
 func _on_complimentary() -> void:
 	inactive = true
 	Global.complimentary_ui(actor)
+
 
 func _input(event: InputEvent) -> void:
 	if not inactive and actor in Global.Party.array():
 		if event.is_action_pressed("RightTrigger"):
 			var next_char: Actor
-			if Global.Party.array().size() > Global.Party.array().find(actor)+1:
-				next_char = Global.Party.array()[Global.Party.array().find(actor)+1]
+			if Global.Party.array().size() > Global.Party.array().find(actor) + 1:
+				next_char = Global.Party.array()[Global.Party.array().find(actor) + 1]
 			else:
 				next_char = Global.Party.Leader
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()
 		elif event.is_action_pressed("LeftTrigger"):
-			var next_char = Global.Party.array()[Global.Party.array().find(actor)-1]
+			var next_char = Global.Party.array()[Global.Party.array().find(actor) - 1]
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()

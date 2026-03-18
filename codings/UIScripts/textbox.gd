@@ -10,8 +10,8 @@ var mem: TextProfile
 var next_box: String = ""
 var currun = false
 var picture: Texture2D = null
-var no_nametag:= false
-@onready var t :Tween
+var no_nametag := false
+@onready var t: Tween
 const hold_time = 30
 var skip = false
 const small_text_size = 24
@@ -56,7 +56,7 @@ var dialogue_line: DialogueLine:
 		no_nametag = false
 		while "." in char_name:
 			#print(char_name)
-			char_name = char_name.erase(char_name.length()-1)
+			char_name = char_name.erase(char_name.length() - 1)
 		if "." in tr(dialogue_line.character, "dialogue"):
 			var redraw: bool = true
 			if Query.member_exists(char_name):
@@ -67,31 +67,31 @@ var dialogue_line: DialogueLine:
 		if not Query.member_exists(char_name):
 			character_label.text = char_name
 		else: character_label.text = Query.find_member(char_name).FirstName
-		if character_label.text.is_empty(): 
+		if character_label.text.is_empty():
 			$Balloon/Panel.hide()
-		else: 
+		else:
 			$Balloon/Panel.show()
 			$Balloon/Panel.size.x = 1
-		
+
 		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
 		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
-		dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]"%[small_text_size])
+		dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]" % [small_text_size])
 		dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
 
-		var bord1:StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
+		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		if next_box == "": next_box = char_name
 		mem = await Global.match_profile(next_box)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-		var bord2:StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
+		var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
 		bord2.border_color = mem.Bord2
 		$Balloon/Panel2/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-		var bord3:StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
+		var bord3: StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.Bord3
 		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		var inner:StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
+		var inner: StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
 		inner.bg_color = mem.Inner
-		var nametag:StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
+		var nametag: StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
 		nametag.bg_color = mem.TextColor
 		$Balloon/Panel.add_theme_stylebox_override("panel", nametag.duplicate())
 		$Balloon/Panel/CharacterLabel.add_theme_color_override("font_color", mem.Inner)
@@ -136,13 +136,13 @@ var dialogue_line: DialogueLine:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_EXPO)
-			t.tween_property($Balloon, "modulate", Color(1,1,1,1), 0.4).from(Color(0,0,0,0))
-			t.tween_property($Balloon, "scale", Vector2(1,1), 0.4).from(Vector2(0.7,0.2))
+			t.tween_property($Balloon, "modulate", Color(1, 1, 1, 1), 0.4).from(Color(0, 0, 0, 0))
+			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.4).from(Vector2(0.7, 0.2))
 		else:
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.95,0.95))
+			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
 		will_hide_balloon = false
 
 		dialogue_label.modulate.a = 1
@@ -176,7 +176,7 @@ func _ready() -> void:
 	Global.portrait_clear()
 	Global.picture_clear()
 	if Input.is_action_pressed("Dash"): skip = true
-	
+
 	match Global.Settings.TextSpeed:
 		1:
 			dialogue_label.seconds_per_step = 0.01
@@ -186,6 +186,7 @@ func _ready() -> void:
 			dialogue_label.seconds_per_pause_step = 0.05
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
+
 
 ## Start some dialogue
 func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
@@ -205,7 +206,6 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 func next(next_id: String) -> void:
 	next_box = ""
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
-
 
 ### Helpers
 
@@ -253,7 +253,6 @@ func get_responses() -> Array:
 
 	return items
 
-
 #func handle_resize() -> void:
 #	if not is_instance_valid(margin):
 #		call_deferred("handle_resize")
@@ -265,8 +264,8 @@ func get_responses() -> Array:
 #	var viewport_size = balloon.get_viewport_rect().size
 #	balloon.global_position = Vector2((viewport_size.x - balloon.size.x) * 0.5, viewport_size.y - balloon.size.y)
 
-
 ### Signals
+
 
 func _on_close() -> void:
 	await hide_box()
@@ -276,14 +275,15 @@ func _on_close() -> void:
 	Global.textbox_close.emit()
 	if self != null: queue_free()
 
+
 func hide_box():
 	if is_instance_valid(t): t.stop()
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_CUBIC)
-	t.tween_property(balloon, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property($Fader, "color", Color(0,0,0,0), 0.5)
+	t.tween_property(balloon, "modulate", Color(0, 0, 0, 0), 0.2)
+	t.tween_property($Fader, "color", Color(0, 0, 0, 0), 0.5)
 	t.tween_property(balloon, "scale", Vector2(0.9, 0.5), 0.2)
 	if $Portrait.visible:
 		while $Portrait.modulate != Color.WHITE and $Portrait.visible:
@@ -292,7 +292,7 @@ func hide_box():
 		t.set_parallel(true)
 		t.set_ease(Tween.EASE_IN)
 		t.set_trans(Tween.TRANS_CUBIC)
-		t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.3)
+		t.tween_property($Portrait, "modulate", Color(0, 0, 0, 0), 0.3)
 		t.tween_property($Portrait, "position:x", -100, 0.3)
 	await t.finished
 	balloon.hide()
@@ -301,6 +301,7 @@ func hide_box():
 	Global.PortraitRedraw = true
 	character_label.text = " "
 
+
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
 	will_hide_balloon = true
@@ -308,10 +309,12 @@ func _on_mutated(_mutation: Dictionary) -> void:
 		if will_hide_balloon:
 			will_hide_balloon = false)
 
+
 func _on_response_mouse_entered(item: Control) -> void:
 	if "Disallowed" in item.name: return
 
 	item.grab_focus()
+
 
 func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	if "Disallowed" in item.name:
@@ -340,6 +343,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		if item == null or item.get_index() == -1: return
 		next(dialogue_line.responses[item.get_index()].next_id)
 
+
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(dialogue_label.skip_action):
 		dialogue_label.visible_ratio = 1
@@ -358,7 +362,7 @@ func _input(event: InputEvent) -> void:
 			await Event.wait()
 			if hold_frames > hold_time and get_viewport().gui_get_focus_owner() == balloon:
 				Engine.time_scale = 4
-				var ev:= InputEventAction.new()
+				var ev := InputEventAction.new()
 				ev.action = &"DialogNext"
 				ev.pressed = true
 				Input.parse_input_event(ev)
@@ -368,7 +372,7 @@ func _input(event: InputEvent) -> void:
 		dialogue_label.seconds_per_step = prev_a
 		dialogue_label.seconds_per_pause_step = prev_b
 		return
-	
+
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
@@ -376,7 +380,7 @@ func _input(event: InputEvent) -> void:
 	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 	if event is InputEventKey or event is InputEventJoypadButton:
-		if event.is_pressed() and not event.is_action("DialogNext") and not (
+		if event.is_pressed() and not event.is_action("DialogNext") and not(
 			event.is_action(&"ui_left") or
 			event.is_action(&"ui_right") or
 			event.is_action(&"ui_up") or
@@ -396,12 +400,14 @@ func _input(event: InputEvent) -> void:
 			await t.finished
 			$Hints.hide()
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
+
 
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
@@ -417,31 +423,33 @@ func draw_portrait() -> void:
 		$Portrait.show()
 		if Global.PortraitRedraw:
 			#if is_instance_valid(t): t.kill()
-			t=create_tween()
+			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUINT)
 			t.tween_property($Balloon, "position:x", 160, 0.5)
-			t.tween_property($Portrait, "modulate", Color(1,1,1,1), 0.8).from(Color(0,0,0,0))
+			t.tween_property($Portrait, "modulate", Color(1, 1, 1, 1), 0.8).from(Color(0, 0, 0, 0))
 			t.tween_property($Portrait, "position:x", 0, 0.8).from(-200)
 			t.tween_property($Portrait/Shadow, "position", Vector2(-131, 150), 1).from(Vector2(0, 0))
 	else:
 		$Balloon/Arrow.hide()
 		if $Portrait.visible:
 			#if is_instance_valid(t): t.kill()
-			t=create_tween()
+			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUAD)
 			t.tween_property($Balloon, "position:x", 0, 0.5)
 			t.tween_property($Portrait/Shadow, "position", Vector2(0, 0), 0.2)
-			t.tween_property($Portrait, "modulate", Color(0,0,0,0), 0.3)
+			t.tween_property($Portrait, "modulate", Color(0, 0, 0, 0), 0.3)
 			t.tween_property($Portrait, "position:x", -200, 0.3)
 			await t.finished
 		$Portrait.hide()
 
+
 func _on_button_focus_entered() -> void:
 	Global.cursor_sound()
+
 
 func animate_responces():
 	await dialogue_label.finished_typing

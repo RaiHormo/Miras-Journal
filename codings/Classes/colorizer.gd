@@ -7,13 +7,14 @@ static var ElementColor: Dictionary[String, Color] = {
 	liquid = Color.hex(0x57a0f9ff), technical = Color.hex(0x7f17ffff), corruption = Color.hex(0xc333c3ff),
 	physical = Color.hex(0xd3446dff),
 
-	attack = Color.hex(0xdf3737ff), magic = Color.hex(0x5a68dfff), defence = Color.hex(0x40f178ff)}
+	attack = Color.hex(0xdf3737ff), magic = Color.hex(0x5a68dfff), defence = Color.hex(0x40f178ff) }
+
 
 static func colorize(str: String) -> String:
 	for i in ElementColor.keys():
 		var elname: String = i
 		#str = colorize_replace(elname, str, i)
-		str = str.replace("[color=%"+i+"]", "[color="+ElementColor.get(i).to_html()+"]")
+		str = str.replace("[color=%" + i + "]", "[color=" + ElementColor.get(i).to_html() + "]")
 		str = colorize_replace(elname.capitalize(), str, i)
 		str = colorize_replace(state_element_verbing(elname), str, i)
 		str = colorize_replace(state_element_verbs(elname), str, i)
@@ -21,20 +22,23 @@ static func colorize(str: String) -> String:
 		str = colorize_replace(state_element_verb(elname), str, i)
 	return str
 
+
 static func colorize_explicit(str: String) -> String:
 	for elname in ElementColor.keys():
-		if "[color=%"+elname+"]" in str:
+		if "[color=%" + elname + "]" in str:
 			var color: Color = ElementColor.get(elname)
 			color.v = min(color.v, 0.8)
-			str = str.replace("[color=%"+elname+"]", "[color="+color.to_html()+"]")
+			str = str.replace("[color=%" + elname + "]", "[color=" + color.to_html() + "]")
 	return str
+
 
 static func colorize_replace(elname, str: String, i) -> String:
 	if elname in str:
 		var hex: String = ElementColor[i].to_html()
-		var hex_out: String = (ElementColor[i]/3).to_html()
+		var hex_out: String = (ElementColor[i] / 3).to_html()
 		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
 	return str
+
 
 static func state_element_verb(str: String) -> String:
 	match str:
@@ -52,6 +56,7 @@ static func state_element_verb(str: String) -> String:
 		"attack": return "knock out"
 		"magic": return "Aura break"
 	return str
+
 
 static func state_element_verbs(str: String) -> String:
 	match str:
@@ -71,6 +76,7 @@ static func state_element_verbs(str: String) -> String:
 		"magic": return "breaks their Aura"
 	return str
 
+
 static func state_element_verbed(str: String) -> String:
 	match str:
 		"heat": return "burned"
@@ -88,6 +94,7 @@ static func state_element_verbed(str: String) -> String:
 		"attack": return "knocked out"
 		"magic": return "Aura broken"
 	return str
+
 
 static func state_element_verbing(str: String) -> String:
 	match str:

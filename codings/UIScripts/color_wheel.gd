@@ -1,14 +1,16 @@
 extends Control
 class_name Wheel
-@export var color:Color
-var affinity:Affinity
-var tar_aff:Affinity
+@export var color: Color
+var affinity: Affinity
+var tar_aff: Affinity
 var relation_ico = null
 var t: Tween
+
 
 func _input(event):
 	if event.is_action_pressed("DebugC"):
 		draw_wheel()
+
 
 func draw_wheel():
 	if color.s != 0:
@@ -37,18 +39,21 @@ func draw_wheel():
 		$NeturalIcon1.rotation_degrees = avrage_dg($Rangeweak.rotation_degrees, $Rangenear2.rotation_degrees)
 		$NeturalIcon2.rotation_degrees = avrage_dg($Rangenear1.rotation_degrees, $Rangeresist.rotation_degrees)
 		$ColorIndicator.rotation_degrees = affinity.hue
-		var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
+		var IndicatorPanel: StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
 		IndicatorPanel.bg_color = color
 
+
 func avrage_dg(d1, d2):
-	if d1<d2: return ((359 + d1) + d2)/2
-	else: return (d1 + d2)/2
+	if d1 < d2: return ((359 + d1) + d2) / 2
+	else: return (d1 + d2) / 2
+
 
 func show_atk_color(clr: Color):
 	color = clr
 	draw_wheel()
 	await Event.wait()
 	draw_wheel()
+
 
 func show_trg_color(clr: Color):
 	if affinity == null: return
@@ -57,7 +62,7 @@ func show_trg_color(clr: Color):
 	t.set_trans(Tween.TRANS_CUBIC)
 	tar_aff = Query.get_affinity(clr)
 	t.tween_property($ColorIndicator, "rotation_degrees", tar_aff.hue, 0.3)
-	var IndicatorPanel :StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel").duplicate()
+	var IndicatorPanel: StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel").duplicate()
 	IndicatorPanel.bg_color = tar_aff.color
 	$ColorIndicator.add_theme_stylebox_override("panel", IndicatorPanel)
 	relation_ico = null
@@ -71,11 +76,12 @@ func show_trg_color(clr: Color):
 	if relation_ico != null:
 		blink_icon(relation_ico)
 
+
 func blink_icon(icon: TextureRect):
 	while icon == relation_ico and Global.Bt.get_node("BattleUI").stage == "target":
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_SINE)
-		t.tween_property(relation_ico, "modulate", Color(1,1,1,0.4), 0.3).from(Color(1,1,1,1))
-		t.tween_property(relation_ico, "modulate", Color(1,1,1,1), 0.3).from(Color(1,1,1,0.4))
+		t.tween_property(relation_ico, "modulate", Color(1, 1, 1, 0.4), 0.3).from(Color(1, 1, 1, 1))
+		t.tween_property(relation_ico, "modulate", Color(1, 1, 1, 1), 0.3).from(Color(1, 1, 1, 0.4))
 		await t.finished

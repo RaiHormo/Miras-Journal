@@ -1,19 +1,22 @@
 extends CanvasLayer
 
+
 func _ready():
 	if Global.device == "Touch": return
 	call(Event.tutorial)
 	$Border2.hide()
 	$Border2/Control/Next.icon = Global.get_controller().ConfirmIcon
 
+
 func pop_down():
-	var t= create_tween()
+	var t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Border1, "position", Vector2(0, 622), 0.3).from(Vector2(-200, 622))
 	t.tween_property($Border1, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	await t.finished
+
 
 func dash():
 	%Text.text = "[center]Hold [img height=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
@@ -28,6 +31,7 @@ func dash():
 	await close()
 	queue_free()
 
+
 func ov_attack():
 	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
 	await pop_down()
@@ -36,6 +40,7 @@ func ov_attack():
 	await Event.wait(3)
 	await close()
 	queue_free()
+
 
 func party():
 	%Text.text = "[center]Press [img]" + (Global.get_controller().Select).resource_path + "[/img] to check on your party.[/center]"
@@ -47,6 +52,7 @@ func party():
 	await close()
 	queue_free()
 
+
 func bag():
 	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
 	Loader.save()
@@ -57,6 +63,7 @@ func bag():
 	await close()
 	queue_free()
 
+
 func walk():
 	if Global.device == "Keyboard":
 		%Text.text = "[center]Use the arrow keys to walk.[/center]"
@@ -65,6 +72,7 @@ func walk():
 	await Event.wait(4)
 	await close()
 	queue_free()
+
 
 func ability():
 	await Event.wait(0.1, false)
@@ -76,6 +84,7 @@ func ability():
 	$Border2/Text.text = "Press [img width=48]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
 	await Global.Bt.get_node("BattleUI").ability
 	queue_free()
+
 
 func aura1():
 	await Event.wait(0.5, false)
@@ -89,6 +98,7 @@ func aura1():
 	await await_next()
 	Global.Bt.lock_turn = false
 	queue_free()
+
 
 func aura2():
 	await Event.wait(1, false)
@@ -109,6 +119,7 @@ func aura2():
 	Global.Bt.lock_turn = false
 	queue_free()
 
+
 func aura3():
 	await Event.wait(1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
@@ -123,10 +134,12 @@ func aura3():
 	Global.Bt.lock_turn = false
 	queue_free()
 
-func await_input(input:= "DialogNext"):
+
+func await_input(input := "DialogNext"):
 	while Input.is_action_pressed(input): await Event.wait()
 	while not Input.is_action_pressed(input): await Event.wait()
 	Global.confirm_sound()
+
 
 func await_next():
 	print("boing")
@@ -134,8 +147,9 @@ func await_next():
 	print("boing2")
 	Global.confirm_sound()
 
+
 func close():
-	var t= create_tween()
+	var t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)

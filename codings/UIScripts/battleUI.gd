@@ -4,8 +4,8 @@ var CurrentChar: Actor
 var Party: PartyData
 var Troop: Array[Actor]
 @onready var Cam = $"../Cam"
-@onready var t= Tween
-@onready var tr= Tween
+@onready var t = Tween
+@onready var tr = Tween
 var active: bool
 var stage: StringName
 signal root
@@ -13,26 +13,27 @@ signal ability
 signal attack
 signal command
 signal item
-signal ability_returned(ab :Ability, tar: Actor)
+signal ability_returned(ab: Ability, tar: Actor)
 signal targeted
-signal targetFoc(ind :Actor)
+signal targetFoc(ind: Actor)
 signal analyze
 signal rooted
-var target : Actor
-var LastTarget : Actor
+var target: Actor
+var LastTarget: Actor
 var TargetIndex: int
 var tweendone := true
 var MenuIndex := 0
 var Abilities: Array[Ability]
 var PrevStage := &"root"
 var TargetFaction: Array[Actor]
-var foc:Control
-var analyzing:= false
-@onready var Bt :Battle = get_parent()
-var disable_attack:= false
-var disable_ability:= false
-var disable_item:= false
-var disable_command:= false
+var foc: Control
+var analyzing := false
+@onready var Bt: Battle = get_parent()
+var disable_attack := false
+var disable_ability := false
+var disable_item := false
+var disable_command := false
+
 
 func _ready():
 	t = create_tween()
@@ -48,12 +49,14 @@ func _ready():
 	$"../Canvas/TurnOrderPop".hide()
 	$"../Canvas/DottedBack".hide()
 
+
 func _process(delta):
 	#$BaseRing/Ring2.rotation += 0.001
 	if "target" in stage:
 		$BaseRing/Ring2.rotation += 0.001
 	if CurrentChar and CurrentChar.has_state("Confused"):
 		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
+
 
 func _on_battle_get_control():
 	if Bt.Troop.is_empty():
@@ -78,7 +81,6 @@ func _on_battle_get_control():
 	stage = &"root"
 	PrevStage = &"proot"
 
-
 	$Ability.add_theme_constant_override("icon_max_width", 0)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
@@ -99,12 +101,12 @@ func _on_battle_get_control():
 		#$BaseRing/Ring1.texture = preload("res://UI/Battle/MiraRing1.png")
 		#$BaseRing/Ring2.texture = preload("res://UI/Battle/MiraRing2.png")
 	Abilities = CurrentChar.get_abilities()
-	
+
 	$Attack.disabled = false
 	$Ability.disabled = false
 	$Command.disabled = false
 	$Item.disabled = false
-	
+
 	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
 	if CurrentChar.has_state("Bound"):
 		$Attack.disabled = true
@@ -117,13 +119,13 @@ func _on_battle_get_control():
 	if CurrentChar.BoxProfile != null:
 		var mem = CurrentChar
 		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
-		var bord1:StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
+		var bord1: StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
 		bord1.border_color = mem.BoxProfile.Bord1
 		$Inventory/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-		var bord2:StyleBoxFlat = $Inventory/Border1/Border2.get_theme_stylebox("panel")
+		var bord2: StyleBoxFlat = $Inventory/Border1/Border2.get_theme_stylebox("panel")
 		bord2.border_color = mem.BoxProfile.Bord2
 		$Inventory/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-		var bord3:StyleBoxFlat = $Inventory/Border1/Border2/Border3.get_theme_stylebox("panel")
+		var bord3: StyleBoxFlat = $Inventory/Border1/Border2/Border3.get_theme_stylebox("panel")
 		bord3.border_color = mem.BoxProfile.Bord3
 		$Inventory/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
@@ -137,36 +139,36 @@ func _on_battle_get_control():
 		bord3.border_color = mem.BoxProfile.Bord3
 		$AbilityUI.add_theme_stylebox_override("panel", bord3.duplicate())
 
-
 	fetch_abilities()
 	fetch_inventory()
-	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
-	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
-	t.tween_property($Ability, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Item, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Command, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Attack, "modulate", Color(1,1,1,1), 0.5).from(Color.TRANSPARENT)
-	t.tween_property($Ability, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
-	t.tween_property($Attack, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
-	t.tween_property($Item, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
-	t.tween_property($Command, "size", Vector2(33,33), 0.5).from(Vector2(31,33))
+	t.tween_property(Cam, "position", Vector2(0, 0), 0.5)
+	t.tween_property(Cam, "zoom", Vector2(4, 4), 0.5)
+	t.tween_property($Ability, "modulate", Color(1, 1, 1, 1), 0.5).from(Color.TRANSPARENT)
+	t.tween_property($Item, "modulate", Color(1, 1, 1, 1), 0.5).from(Color.TRANSPARENT)
+	t.tween_property($Command, "modulate", Color(1, 1, 1, 1), 0.5).from(Color.TRANSPARENT)
+	t.tween_property($Attack, "modulate", Color(1, 1, 1, 1), 0.5).from(Color.TRANSPARENT)
+	t.tween_property($Ability, "size", Vector2(33, 33), 0.5).from(Vector2(31, 33))
+	t.tween_property($Attack, "size", Vector2(33, 33), 0.5).from(Vector2(31, 33))
+	t.tween_property($Item, "size", Vector2(33, 33), 0.5).from(Vector2(31, 33))
+	t.tween_property($Command, "size", Vector2(33, 33), 0.5).from(Vector2(31, 33))
 	t.tween_property(self, "rotation_degrees", -720, 0.5).from(360)
-	t.tween_property(self, "scale", Vector2(1,1), 0.5).from(Vector2(0.25,0.25))
-	$BaseRing.scale= Vector2(0.25,0.25)
-	$BaseRing/Ring2.scale = Vector2(1,1)
+	t.tween_property(self, "scale", Vector2(1, 1), 0.5).from(Vector2(0.25, 0.25))
+	$BaseRing.scale = Vector2(0.25, 0.25)
+	$BaseRing/Ring2.scale = Vector2(1, 1)
 #	$Ability.size = Vector2(33, 33)
 #	$Item.size= Vector2(33, 33)
 #	$Command.size = Vector2(33, 33)
 #	$Attack.size = Vector2(33, 33)
-	$Ability.position = Vector2(17,-15)
-	$Item.position= Vector2(-56,-15)
-	$Command.position = Vector2(-18,-51)
-	$Attack.position = Vector2(-18,20)
+	$Ability.position = Vector2(17, -15)
+	$Item.position = Vector2(-56, -15)
+	$Command.position = Vector2(-18, -51)
+	$Attack.position = Vector2(-18, 20)
 	await t.finished
 	root.emit()
 
+
 func _input(event: InputEvent) -> void:
-	if Global.LastInput==Global.ProcessFrame: return
+	if Global.LastInput == Global.ProcessFrame: return
 	if active:
 		match stage:
 			&"root", &"pre_root":
@@ -196,17 +198,17 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
 			&"target":
-	#			if Input.is_action_just_pressed(Global.confirm()):
+				#			if Input.is_action_just_pressed(Global.confirm()):
 	#				_on_confirm_pressed()
-				if Input.is_action_just_pressed(Global.cancel()):
-	#				if PrevStage != stage:
-							Global.cancel_sound()
+			if Input.is_action_just_pressed(Global.cancel()):
+				#				if PrevStage != stage:
+						Global.cancel_sound()
 							emit_signal(PrevStage)
 				if Input.is_action_just_pressed("ui_down") and active:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
 						return
-					if TargetIndex!=TargetFaction.size() -1:
+					if TargetIndex != TargetFaction.size() - 1:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
@@ -216,10 +218,10 @@ func _input(event: InputEvent) -> void:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
 						return
-					if TargetIndex!=0:
+					if TargetIndex != 0:
 						TargetIndex -= 1
 					else:
-						TargetIndex = TargetFaction.size() -1
+						TargetIndex = TargetFaction.size() - 1
 					Global.cursor_sound()
 					move_menu()
 			&"ability":
@@ -231,17 +233,17 @@ func _input(event: InputEvent) -> void:
 					if %AbilityList.get_child_count() == 1:
 						Global.buzzer_sound()
 						return
-					if MenuIndex!= 0:
+					if MenuIndex != 0:
 						MenuIndex -= 1
 					else:
-						MenuIndex = %AbilityList.get_child_count() -1
+						MenuIndex = %AbilityList.get_child_count() - 1
 					Global.cursor_sound()
 					move_menu()
 				if Input.is_action_just_pressed("ui_down") and active:
 					if %AbilityList.get_child_count() == 1:
 						Global.buzzer_sound()
 						return
-					if MenuIndex!=%AbilityList.get_child_count() -1:
+					if MenuIndex != %AbilityList.get_child_count() - 1:
 						MenuIndex += 1
 					else:
 						MenuIndex = 0
@@ -250,13 +252,13 @@ func _input(event: InputEvent) -> void:
 				var ab = foc.get_meta("Ability")
 				var abgroup = foc.get_meta("AbilityGroup")
 				if Input.is_action_just_pressed("ui_right") and active:
-					if abgroup.find(ab)+1 < abgroup.size():
-						foc.set_meta("Ability", abgroup[abgroup.find(ab)+1])
+					if abgroup.find(ab) + 1 < abgroup.size():
+						foc.set_meta("Ability", abgroup[abgroup.find(ab) + 1])
 						move_menu()
 						Global.cursor_sound()
 				if Input.is_action_just_pressed("ui_left") and active:
 					if abgroup.find(ab) != 0:
-						foc.set_meta("Ability", abgroup[abgroup.find(ab)-1])
+						foc.set_meta("Ability", abgroup[abgroup.find(ab) - 1])
 						move_menu()
 						Global.cursor_sound()
 			&"command":
@@ -280,7 +282,7 @@ func _input(event: InputEvent) -> void:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
 						return
-					if TargetIndex!=TargetFaction.size() -1:
+					if TargetIndex != TargetFaction.size() - 1:
 						TargetIndex += 1
 					else:
 						TargetIndex = 0
@@ -290,12 +292,13 @@ func _input(event: InputEvent) -> void:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
 						return
-					if TargetIndex!=0:
+					if TargetIndex != 0:
 						TargetIndex -= 1
 					else:
-						TargetIndex = TargetFaction.size() -1
+						TargetIndex = TargetFaction.size() - 1
 					Global.cursor_sound()
 					move_menu()
+
 
 func _on_root():
 	if is_instance_valid(foc):
@@ -312,48 +315,48 @@ func _on_root():
 	PartyUI.battle_state()
 	Bt.get_node("EnemyUI").all_enemy_ui()
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
-	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
-	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
+	t.tween_property($DescPaper, "scale", Vector2(0.1, 0.1), 0.3)
+	t.tween_property($DescPaper, "modulate", Color(0, 0, 0, 0), 0.2)
+	t.tween_property($BaseRing, "position", Vector2(-200, -200), 0.3)
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
 	$Item.icon = Global.get_controller().ItemIcon
 	$Command.icon = Global.get_controller().CommandIcon
-	t.tween_property($Ability, "size", Vector2(115,33), 0.3)
-	t.tween_property($Item, "size", Vector2(99,33), 0.3)
-	t.tween_property($Ability, "modulate", Color(1,1,1,1), 0.5)
-	t.tween_property($Item, "modulate", Color(1,1,1,1), 0.5)
-	t.tween_property($Command, "modulate", Color(1,1,1,1), 0.5)
-	t.tween_property($Attack, "modulate", Color(1,1,1,1), 0.5)
-	t.tween_property($Command, "size", Vector2(138,33), 0.3)
-	t.tween_property($Attack, "size", Vector2(115,33), 0.3)
-	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
-	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
-	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
-	t.tween_property($Ability, "position", Vector2(6,-15), 0.3)
-	t.tween_property($Attack, "position", Vector2(-30,20), 0.3)
-	t.tween_property($Item, "position", Vector2(-66,-15), 0.3)
-	t.tween_property($Command, "position", Vector2(-36,-51), 0.3)
+	t.tween_property($Ability, "size", Vector2(115, 33), 0.3)
+	t.tween_property($Item, "size", Vector2(99, 33), 0.3)
+	t.tween_property($Ability, "modulate", Color(1, 1, 1, 1), 0.5)
+	t.tween_property($Item, "modulate", Color(1, 1, 1, 1), 0.5)
+	t.tween_property($Command, "modulate", Color(1, 1, 1, 1), 0.5)
+	t.tween_property($Attack, "modulate", Color(1, 1, 1, 1), 0.5)
+	t.tween_property($Command, "size", Vector2(138, 33), 0.3)
+	t.tween_property($Attack, "size", Vector2(115, 33), 0.3)
+	t.tween_property($AbilityUI, "modulate", Color(0, 0, 0, 0), 0.3)
+	t.tween_property($AbilityUI, "position", Vector2(12, -140), 0.3)
+	t.tween_property($AbilityUI, "size", Vector2(100, 5), 0.3)
+	t.tween_property($Ability, "position", Vector2(6, -15), 0.3)
+	t.tween_property($Attack, "position", Vector2(-30, 20), 0.3)
+	t.tween_property($Item, "position", Vector2(-66, -15), 0.3)
+	t.tween_property($Command, "position", Vector2(-36, -51), 0.3)
 	$Ability.add_theme_constant_override("icon_max_width", 0)
 	t.tween_property($CommandMenu/Escape, "rotation_degrees", -180, 0.3)
 	t.tween_property($CommandMenu, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", -600, 0.3).as_relative()
-	t.tween_property(Cam, "position", Vector2(0,0), 0.5)
-	t.tween_property(Cam, "zoom", Vector2(4,4), 0.5)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1,1), 0.3)
-	t.tween_property($BaseRing/Ring2, "position", Vector2(0,0), 0.3)
-	t.tween_property(self, "scale", Vector2(1,1), 0.3)
+	t.tween_property(Cam, "position", Vector2(0, 0), 0.5)
+	t.tween_property(Cam, "zoom", Vector2(4, 4), 0.5)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1, 1), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2(0, 0), 0.3)
+	t.tween_property(self, "scale", Vector2(1, 1), 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.5)
-	t.tween_property($BaseRing, "scale", Vector2(0.25,0.25), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(0.25, 0.25), 0.3)
 	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
-	t.tween_property($Inventory, "modulate", Color(0,0,0,0), 0.3)
+	t.tween_property($Inventory, "modulate", Color(0, 0, 0, 0), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
 	Bt.get_node("Canvas/TurnOrder/Options").icon = Global.get_controller().Start
 	Bt.get_node("Canvas/TurnOrder").show()
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,742), 0.4)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 742), 0.4)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", -40, 0.4)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 850, 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position:y", 850, 0.4)
@@ -375,19 +378,21 @@ func _on_root():
 		$Inventory.hide()
 	rooted.emit()
 
+
 func _on_attack():
 	Global.confirm_sound()
-	stage="attack"
-	PrevStage="root"
+	stage = "attack"
+	PrevStage = "root"
 	CurrentChar.NextAction = "attack"
 	active = false
 	CurrentChar.NextMove = CurrentChar.StandardAttack
 	get_target(Bt.get_oposing_faction())
 	#await targeted
 
+
 func _on_ability():
 	if CurrentChar.Abilities.is_empty(): return
-	active= false
+	active = false
 	stage = &"ability"
 	PrevStage = &"root"
 	$"../Canvas/Confirm".show()
@@ -412,35 +417,35 @@ func _on_ability():
 	$Ability.add_theme_constant_override("icon_max_width", 1)
 	$Ability.icon = null
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
-	t.tween_property(self, "scale", Vector2(1,1), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(self, "scale", Vector2(1, 1), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.4)
 	t.tween_property($"../Canvas/Confirm", "position",
-	Vector2(31,742), 0.4).from(Vector2(31,850))
-	t.tween_property($"../Canvas/Back", "position", Vector2(210,742), 0.3).from(Vector2(210,850))
-	t.tween_property($Ability, "size", Vector2(115,33), 0.3)
+	Vector2(31, 742), 0.4).from(Vector2(31, 850))
+	t.tween_property($"../Canvas/Back", "position", Vector2(210, 742), 0.3).from(Vector2(210, 850))
+	t.tween_property($Ability, "size", Vector2(115, 33), 0.3)
 	t.tween_property($Ability, "modulate", Color.WHITE, 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
-	t.tween_property($AbilityUI, "modulate", Color(1,1,1,1), 0.1)
+	t.tween_property($AbilityUI, "modulate", Color(1, 1, 1, 1), 0.1)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
-	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(80,0), 0.3)
-	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
+	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(80, 0), 0.3)
+	t.tween_property(Cam, "zoom", Vector2(4.5, 4.5), 0.5)
 	t.set_ease(Tween.EASE_OUT)
-	t.tween_property($AbilityUI, "size", Vector2(300,444), 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.1,1.1), 0.3)
-	t.tween_property($BaseRing, "scale", Vector2(0.7,0.7), 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-220,-180), 0.3)
-	t.tween_property($AbilityUI, "position", Vector2(20,-160), 0.3)
-	t.tween_property($Ability, "position", Vector2(43,-59), 0.3)
+	t.tween_property($AbilityUI, "size", Vector2(300, 444), 0.3)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.1, 1.1), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(0.7, 0.7), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-220, -180), 0.3)
+	t.tween_property($AbilityUI, "position", Vector2(20, -160), 0.3)
+	t.tween_property($Ability, "position", Vector2(43, -59), 0.3)
 	CurrentChar.NextAction = "ability"
-	t.tween_property($DescPaper, "scale", Vector2(0.17,0.17), 0.4)
+	t.tween_property($DescPaper, "scale", Vector2(0.17, 0.17), 0.4)
 	t.tween_property($DescPaper, "rotation_degrees", 0, 0.4)
-	t.tween_property($DescPaper, "modulate", Color(1,1,1,1), 0.3)
-	t.tween_property($Attack, "position", Vector2(-20,90), 0.3).as_relative()
-	t.tween_property($Item, "position", Vector2(-90,10), 0.3).as_relative()
-	t.tween_property($Command, "position", Vector2(-20,-60), 0.3).as_relative()
+	t.tween_property($DescPaper, "modulate", Color(1, 1, 1, 1), 0.3)
+	t.tween_property($Attack, "position", Vector2(-20, 90), 0.3).as_relative()
+	t.tween_property($Item, "position", Vector2(-90, 10), 0.3).as_relative()
+	t.tween_property($Command, "position", Vector2(-20, -60), 0.3).as_relative()
 	$Ability.focus_mode = 0
-	if get_node_or_null("%AbilityList/Item"+str(MenuIndex)) == null:
+	if get_node_or_null("%AbilityList/Item" + str(MenuIndex)) == null:
 		MenuIndex = 0
 	%AbilityList.get_child(MenuIndex).grab_focus()
 	$AbilityUI/Margin/Scroller.scroll_vertical = 0
@@ -468,7 +473,7 @@ func _on_ability():
 
 func _on_command():
 	stage = &"inactive"
-	PrevStage= &"root"
+	PrevStage = &"root"
 	if stage == "pre_root":
 		await rooted
 		print("delay command")
@@ -485,27 +490,27 @@ func _on_command():
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	Global.confirm_sound()
-	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-30, 0), 0.3)
-	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(-30, 0), 0.3)
+	t.tween_property(Cam, "zoom", Vector2(5.5, 5.5), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position",
 	Vector2(31, 742), 0.3).from(Vector2(31, 850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,-33), 0.2)
-	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
-	t.tween_property($Item, "size", Vector2(33,33), 0.2)
-	t.tween_property($Command, "size", Vector2(33,33), 0.2)
+	t.tween_property($Ability, "size", Vector2(33, -33), 0.2)
+	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
-	t.tween_property(self, "scale", Vector2(1,1), 0.3)
+	t.tween_property(self, "scale", Vector2(1, 1), 0.3)
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.4,1.4), 0.3)
-	t.tween_property($BaseRing, "scale", Vector2(0.6,0.6), 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-160,-200), 0.3)
-	t.tween_property($BaseRing/Ring2, "position", Vector2(50,-20), 0.3)
-	t.tween_property($CommandMenu/CmdBack, "modulate",Color.WHITE, 0.3).from(Color.TRANSPARENT)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.4, 1.4), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(0.6, 0.6), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-160, -200), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2(50, -20), 0.3)
+	t.tween_property($CommandMenu/CmdBack, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	analyzing = false
@@ -517,8 +522,8 @@ func _on_command():
 	$CommandMenu/Strategize.icon = Global.get_controller().ItemIcon
 	$CommandMenu.modulate = Color.WHITE
 	if not Bt.Seq.CanEscape:
-		$CommandMenu/Escape.modulate = Color(1,1,1,0.6)
-	else: $CommandMenu/Escape.modulate = Color(1,1,1,1)
+		$CommandMenu/Escape.modulate = Color(1, 1, 1, 0.6)
+	else: $CommandMenu/Escape.modulate = Color(1, 1, 1, 1)
 	$CommandMenu.show()
 	await Event.wait()
 	stage = &"command"
@@ -551,27 +556,27 @@ func _on_item() -> void:
 	Bt.get_node("EnemyUI").colapse_root()
 	t.tween_property(self, "position", CurrentChar.node.position, 0.3)
 	t.tween_property(self, "rotation_degrees", -720, 0.1)
-	t.tween_property(self, "scale", Vector2(1,1), 0.3)
-	t.tween_property(Cam, "position", CurrentChar.node.position +Vector2(-80, 0), 0.3)
-	t.tween_property(Cam, "zoom", Vector2(5.5,5.5), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(self, "scale", Vector2(1, 1), 0.3)
+	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(-80, 0), 0.3)
+	t.tween_property(Cam, "zoom", Vector2(5.5, 5.5), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
 	t.tween_property($"../Canvas/Confirm", "position", Vector2(30, 742), 0.3).from(Vector2(30, 850))
 	t.tween_property($"../Canvas/Back", "position", Vector2(210, 742), 0.4).from(Vector2(210, 850))
-	t.tween_property($"../Canvas/Give", "position", Vector2(380,742), 0.5).from(Vector2(380,850))
+	t.tween_property($"../Canvas/Give", "position", Vector2(380, 742), 0.5).from(Vector2(380, 850))
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.3).from(Color.WHITE)
 	t.tween_property($Inventory, "scale", Vector2(0.21, 0.21), 0.3).from(Vector2(0.1, 0.1))
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,-33), 0.2)
-	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
-	t.tween_property($Item, "size", Vector2(33,33), 0.2)
-	t.tween_property($Command, "size", Vector2(33,33), 0.2)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.9,0.9), 0.3)
-	t.tween_property($BaseRing/Ring2, "position", Vector2(160,0), 0.3)
-	t.tween_property($BaseRing, "scale", Vector2(1.1,1.1), 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-320,-200), 0.3)
+	t.tween_property($Ability, "size", Vector2(33, -33), 0.2)
+	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.9, 0.9), 0.3)
+	t.tween_property($BaseRing/Ring2, "position", Vector2(160, 0), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(1.1, 1.1), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-320, -200), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1360, 550), 0.3)
 	$Item.hide()
 	$Ability.hide()
@@ -585,8 +590,9 @@ func _on_item() -> void:
 	await t.finished
 	stage = &"item"
 
+
 func close():
-	active=false
+	active = false
 	while stage == "pre_target": await Event.wait()
 	stage = &"inactive"
 	t.kill()
@@ -598,30 +604,30 @@ func close():
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,33), 0.2)
-	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
-	t.tween_property($Item, "size", Vector2(33,33), 0.2)
-	t.tween_property($Command, "size", Vector2(33,33), 0.2)
+	t.tween_property($Ability, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
 
 	$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
 	$Item.icon = Global.get_controller().ItemIcon
 	$Command.icon = Global.get_controller().CommandIcon
 
-	t.tween_property($BaseRing, "scale", Vector2(0.01,0.01), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(0.01, 0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "position", Vector2.ZERO, 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.01,0.01), 0.3)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(0.01, 0.01), 0.3)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", +600, 0.3).as_relative()
-	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-200, -200), 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
-	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
-	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
-	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
-	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
+	t.tween_property($DescPaper, "scale", Vector2(0.1, 0.1), 0.3)
+	t.tween_property($DescPaper, "modulate", Color(0, 0, 0, 0), 0.2)
+	t.tween_property($AbilityUI, "modulate", Color(0, 0, 0, 0), 0.3)
+	t.tween_property($AbilityUI, "position", Vector2(12, -140), 0.3)
+	t.tween_property($AbilityUI, "size", Vector2(100, 5), 0.3)
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.4)
 	$RankSwap.hide()
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(1350, 550), 0.3)
@@ -632,6 +638,10 @@ func close():
 	await t.finished
 	hide()
 
+
+
+
+
 func _on_ability_pressed():
 	if stage == &"root": ability.emit()
 func _on_attack_pressed():
@@ -641,8 +651,9 @@ func _on_item_pressed():
 func _on_command_pressed():
 	if "root" in stage: command.emit()
 
-func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
-	if faction.is_empty(): 
+
+func get_target(faction: Array[Actor], ab = CurrentChar.NextMove):
+	if faction.is_empty():
 		return
 	if Bt.Action: return
 	if is_instance_valid(foc):
@@ -692,50 +703,50 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33,33), 0.2)
-	t.tween_property($Attack, "size", Vector2(33,33), 0.2)
-	t.tween_property($Item, "size", Vector2(33,33), 0.2)
-	t.tween_property($Command, "size", Vector2(33,33), 0.2)
+	t.tween_property($Ability, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
+	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
 #	t.tween_property(self, "rotation_degrees", 360, 0.2)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31,900), 0.3)
+	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
 	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y",
 	742, 0.3)
 	t.tween_property(Bt.get_node("Canvas/Back"), "position:y",
 	742, 0.4)
 
-	t.tween_property(self, "scale", Vector2(0.7,0.7), 0.3)
-	t.tween_property($BaseRing, "scale", Vector2(0.2,0.2), 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.2,1.2), 0.4)
+	t.tween_property(self, "scale", Vector2(0.7, 0.7), 0.3)
+	t.tween_property($BaseRing, "scale", Vector2(0.2, 0.2), 0.3)
+	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.2, 1.2), 0.4)
 	t.tween_property($BaseRing/Ring2, "rotation_degrees", +600, 0.3).as_relative()
 	t.tween_property($BaseRing/Ring2, "position", Vector2.ZERO, 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-200,-200), 0.3)
+	t.tween_property($BaseRing, "position", Vector2(-200, -200), 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
-	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
-	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
-	t.tween_property($AbilityUI, "modulate", Color(0,0,0,0), 0.3)
-	t.tween_property($CommandMenu, "modulate", Color(0,0,0,0), 0.3)
-	t.tween_property($AbilityUI, "position", Vector2(12,-140), 0.3)
-	t.tween_property($AbilityUI, "size", Vector2(100,5), 0.3)
+	t.tween_property($DescPaper, "scale", Vector2(0.1, 0.1), 0.3)
+	t.tween_property($DescPaper, "modulate", Color(0, 0, 0, 0), 0.2)
+	t.tween_property($AbilityUI, "modulate", Color(0, 0, 0, 0), 0.3)
+	t.tween_property($CommandMenu, "modulate", Color(0, 0, 0, 0), 0.3)
+	t.tween_property($AbilityUI, "position", Vector2(12, -140), 0.3)
+	t.tween_property($AbilityUI, "size", Vector2(100, 5), 0.3)
 	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 
-	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371,850), 0.3)
+	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371, 850), 0.3)
 	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
 	$"../Canvas/AttackTitle".show()
-	
+
 	if LastTarget == null or not LastTarget in faction:
 		LastTarget = faction[0]
 		TargetIndex = 0
 	target = LastTarget
-	if (TargetIndex >= faction.size() -1 or
+	if (TargetIndex >= faction.size() - 1 or
 	Bt.is_valid_target(faction[TargetIndex]) or faction[TargetIndex].node == null):
 		TargetIndex = 0
 	target = faction[TargetIndex]
 	t.tween_property(self, "position", target.node.position, 0.3)
-	t.tween_property(Cam, "zoom", Vector2(4.5,4.5), 0.5)
+	t.tween_property(Cam, "zoom", Vector2(4.5, 4.5), 0.5)
 	t.tween_property(Cam, "position", Vector2(target.node.position.x,
-	target.node.position.y /4), 0.5)
+	target.node.position.y / 4), 0.5)
 	emit_signal('targetFoc', faction[TargetIndex])
 	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
 	PartyUI.show_all()
@@ -746,19 +757,21 @@ func get_target(faction:Array[Actor], ab = CurrentChar.NextMove):
 		tr = create_tween()
 		tr.set_ease(Tween.EASE_IN_OUT)
 		tr.set_trans(Tween.TRANS_SINE)
-		tr.tween_property($BaseRing/Ring2, "scale", -Vector2(0.1,0.1), 0.7).as_relative()
+		tr.tween_property($BaseRing/Ring2, "scale", -Vector2(0.1, 0.1), 0.7).as_relative()
 		if stage != "target": return
-		tr.tween_property($BaseRing/Ring2, "scale", Vector2(0.1,0.1), 0.7).as_relative()
+		tr.tween_property($BaseRing/Ring2, "scale", Vector2(0.1, 0.1), 0.7).as_relative()
 		await tr.finished
 
-func _on_ability_returned(ab:Ability, tar):
+
+func _on_ability_returned(ab: Ability, tar):
 	close()
+
 
 func move_menu():
 	await Event.wait()
 	var foc = get_viewport().gui_get_focus_owner()
 	if stage == &"target" or stage == &"pre_target":
-		active= false
+		active = false
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
 		t.set_trans(Tween.TRANS_CUBIC)
@@ -769,7 +782,7 @@ func move_menu():
 			return
 		t.set_parallel()
 		t.tween_property(Cam, "position", Vector2(target.node.position.x,
-		target.node.position.y /4), 0.5)
+		target.node.position.y / 4), 0.5)
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', TargetFaction[TargetIndex])
@@ -798,7 +811,7 @@ func move_menu():
 		if abgroup.find(ab) == 0:
 			$RankSwap/Left.hide()
 		else: $RankSwap/Left.show()
-		if abgroup.find(ab) == abgroup.size()-1:
+		if abgroup.find(ab) == abgroup.size() - 1:
 			$RankSwap/Right.hide()
 		else: $RankSwap/Right.show()
 		if not %AbilityList.get_child(MenuIndex).has_focus():
@@ -810,7 +823,7 @@ func move_menu():
 			t.tween_property($AbilityUI/Margin/Scroller, "scroll_vertical", 0, 0.2)
 		if MenuIndex >= 6:
 			t.tween_property($AbilityUI/Margin/Scroller,
-			"scroll_vertical", 80 + (MenuIndex-6) *70, 0.2)
+			"scroll_vertical", 80 + (MenuIndex - 6) * 70, 0.2)
 		#print(MenuIndex)
 		$DescPaper/Desc.text = Colorizer.colorize(ab.description)
 		var color: Color = ab.WheelColor
@@ -834,19 +847,21 @@ func move_menu():
 			(CurrentChar.has_state("Bound") and ab.Damage == Ability.D.WEAPON)
 		):
 			if ab.AuraCost > CurrentChar.Aura:
-				foc.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+				foc.get_node("Label").add_theme_color_override("font_color", Color(1, 0.25, 0.32, 0.5))
 			foc.disabled = true
 		else:
 			foc.disabled = false
 			foc.get_node("Label").remove_theme_color_override("font_color")
-	active= true
+	active = true
 	tweendone = true
+
 
 func _on_battle_next_turn():
 	if CurrentChar == null: return
 	if not Bt.CurrentChar.Controllable:
 		hide()
 		active = false
+
 
 func _on_targeted():
 	if analyzing:
@@ -860,22 +875,24 @@ func _on_targeted():
 		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
-		var proper_tar:Actor = TargetFaction[TargetIndex]
+		var proper_tar: Actor = TargetFaction[TargetIndex]
 		TargetFaction = Bt.get_any_faction()
-		TargetIndex = randi_range(0, TargetFaction.size()-1)
+		TargetIndex = randi_range(0, TargetFaction.size() - 1)
 		while TargetFaction[TargetIndex] == proper_tar:
-			TargetIndex = randi_range(0, TargetFaction.size()-1)
+			TargetIndex = randi_range(0, TargetFaction.size() - 1)
 		CurrentChar.NextTarget = TargetFaction[TargetIndex]
 		await move_menu()
 		Bt.confusion_msg()
 	emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
 	close()
 
+
 func _on_back_pressed():
 	Global.cancel_sound()
 	emit_signal(PrevStage)
 
-func _on_focus_changed(control:Control):
+
+func _on_focus_changed(control: Control):
 	foc = control
 	if control is Button:
 		MenuIndex = control.get_index()
@@ -884,27 +901,29 @@ func _on_focus_changed(control:Control):
 			if stage == &"item": Global.cursor_sound()
 			focus_item(control)
 
+
 func _on_ability_entry():
 	if active:
 		active = false
 		Global.confirm_sound()
-		var ab:Ability = %AbilityList.get_child(MenuIndex).get_meta("Ability")
+		var ab: Ability = %AbilityList.get_child(MenuIndex).get_meta("Ability")
 		match ab.Target:
 			Ability.T.ONE_ENEMY:
-				PrevStage="ability"
+				PrevStage = "ability"
 				stage = &"target"
 				get_target(Bt.get_oposing_faction())
 			Ability.T.ONE_ALLY:
-				PrevStage="ability"
+				PrevStage = "ability"
 				stage = &"target"
 				get_target(Bt.get_ally_faction(CurrentChar, !ab.CanTargetDead))
 			Ability.T.ANY:
-				PrevStage="ability"
+				PrevStage = "ability"
 				stage = &"target"
 				get_target(Bt.get_any_faction(!ab.CanTargetDead))
 			_:
 				emit_signal("ability_returned", ab, CurrentChar)
 				close()
+
 
 func _on_confirm_pressed():
 	if active:
@@ -934,6 +953,7 @@ func _on_confirm_pressed():
 					get_target(Bt.get_oposing_faction())
 				Global.confirm_sound()
 
+
 func turn_order():
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -954,10 +974,12 @@ func turn_order():
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(-468, 40), 0.3)
 
+
 func _on_escape():
 	if stage == &"command":
 		stage = &"inactive"
 		Bt.escape()
+
 
 func _on_show_wheel_pressed():
 	Global.confirm_sound()
@@ -981,6 +1003,7 @@ func _on_show_wheel_pressed():
 		t.tween_property($DescPaper/ShowWheel/Wheel, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		t.tween_property($DescPaper/ShowWheel, "position:x", 520, 0.3)
 
+
 func fetch_inventory():
 	await Item.verify_inventory()
 	for i in $Inventory/Margin/Consumables/Grid.get_children():
@@ -988,19 +1011,19 @@ func fetch_inventory():
 	for i in $Inventory/Margin/BattleItems/Grid.get_children():
 		i.free()
 	for item in Item.ConInv: if item.UsedInBattle:
-		var dub =  $Inventory/Item.duplicate()
+		var dub = $Inventory/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
-		if item.Quantity>1:
+		if item.Quantity > 1:
 			dub.text = str(item.Quantity)
 		else: dub.text = ""
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
 	for item in Item.BtiInv:
-		var dub =  $Inventory/Item.duplicate()
+		var dub = $Inventory/Item.duplicate()
 		dub.icon = item.Icon
 		dub.set_meta("ItemData", item)
-		if item.Quantity>1:
+		if item.Quantity > 1:
 			dub.text = str(item.Quantity)
 		else: dub.text = ""
 		$Inventory/Margin/BattleItems/Grid.add_child(dub)
@@ -1019,12 +1042,13 @@ func fetch_inventory():
 		$Item.disabled = true
 		return
 
+
 func fetch_abilities():
 	for n in %AbilityList.get_children():
 		%AbilityList.remove_child(n)
 		n.queue_free()
 	for i in CurrentChar.groupped_abilities():
-			var dub = %Ab0.duplicate()
+		var dub = %Ab0.duplicate()
 			dub.show()
 			%AbilityList.add_child(dub)
 			dub.set_meta("AbilityGroup", i)
@@ -1037,9 +1061,10 @@ func fetch_abilities():
 			(CurrentChar.has_state("Bound") and i.get_meta("Ability").Damage == Ability.D.WEAPON)
 		):
 			if i.get_meta("Ability").AuraCost > CurrentChar.Aura:
-				i.get_node("Label").add_theme_color_override("font_color", Color(1,0.25,0.32,0.5))
+				i.get_node("Label").add_theme_color_override("font_color", Color(1, 0.25, 0.32, 0.5))
 			i.disabled = true
 			%AbilityList.get_children().push_back(i)
+
 
 func update_ab(dub: Button):
 	var ab: Ability = dub.get_meta("Ability")
@@ -1053,7 +1078,8 @@ func update_ab(dub: Button):
 	dub.name = "Item" + str(dub.get_index(true))
 	dub.set_meta("Ability", ab)
 
-func _on_b_ibutton_pressed(tog:bool) -> void:
+
+func _on_b_ibutton_pressed(tog: bool) -> void:
 	if "item" in stage:
 		if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
 		if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
@@ -1063,7 +1089,8 @@ func _on_b_ibutton_pressed(tog:bool) -> void:
 	$Inventory/Cbutton.set_pressed_no_signal(false)
 	$Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
 
-func _on_cbutton_pressed(tog:bool) -> void:
+
+func _on_cbutton_pressed(tog: bool) -> void:
 	if "item" in stage:
 		if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
 		if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
@@ -1072,13 +1099,14 @@ func _on_cbutton_pressed(tog:bool) -> void:
 	$Inventory/BIbutton.set_pressed_no_signal(false)
 	$Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
 
-func focus_item(node:Button):
+
+func focus_item(node: Button):
 	if not node.get_parent() is GridContainer: return
-	var item:ItemData = node.get_meta("ItemData")
+	var item: ItemData = node.get_meta("ItemData")
 	$Inventory/DescPaper/Title.text = item.Name
 	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item.Description)
 	$Inventory/DescPaper/Art.texture = item.Artwork
-	if item.Quantity>1:
+	if item.Quantity > 1:
 		$Inventory/DescPaper/Amount.text = str(item.Quantity) + " in bag"
 		$Inventory/DescPaper/Amount.show()
 	else:
@@ -1091,6 +1119,7 @@ func focus_item(node:Button):
 	else:
 		$"../Canvas/Confirm".show()
 		$"../Canvas/Confirm".text = "Use"
+
 
 func _on_give_pressed() -> void:
 	if stage == "item":
@@ -1125,6 +1154,7 @@ func _on_give_pressed() -> void:
 					Bt.battle_msg("busy")
 				await Event.wait(1)
 				_on_battle_get_control()
+
 
 func _analyze() -> void:
 	analyzing = true

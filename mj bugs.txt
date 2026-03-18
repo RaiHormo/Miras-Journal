@@ -1,5 +1,3 @@
 item give broken
 improve jump points
-leader gets mira wings
-vp activate before it's suppoosed to
 rest when you're not supposed to

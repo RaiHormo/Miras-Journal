@@ -1,12 +1,12 @@
 extends Resource
 class_name SaveFile
 
-@export var Name: String="Autosave"
+@export var Name: String = "Autosave"
 #@export var Datetime: Dictionary
 @export var Party: Array[StringName] = [&"Mira", &"", &"", &""]
 @export var RoomPath: String
 @export var RoomName: String = "???"
-@export var Position:Vector2
+@export var Position: Vector2
 @export var Camera: int = 0
 @export var Z: int = 1
 @export var Members: Array[Dictionary]
@@ -23,6 +23,7 @@ class_name SaveFile
 @export var TimeOfDay: int
 @export var version = 0
 @export var checksum: String
+
 
 func preview() -> Texture:
 	match Party:

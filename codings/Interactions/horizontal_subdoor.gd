@@ -2,7 +2,8 @@ extends Area2D
 
 @export var LeftSubarea: SubRoom = null
 @export var RightSubarea: SubRoom = null
-var busy:= false
+var busy := false
+
 
 func _on_body_exited(body: Node2D) -> void:
 	if body == Global.Player and not busy:

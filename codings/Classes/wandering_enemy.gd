@@ -14,6 +14,7 @@ var homepoints: Array[Vector2]
 var PinRange = false
 var CurHomepoint: Vector2 = Vector2.ZERO
 
+
 func add_nodes():
 	if get_node_or_null("HomePoints") == null:
 		var homepoints = Node2D.new()
@@ -30,7 +31,7 @@ func add_nodes():
 		sprite.sprite_frames = preload("res://art/OV/Enemies/GenericEnemy.tres")
 		add_child(sprite)
 		sprite.owner = $".."
-	var esc_marker: Marker2D =  get_node_or_null("EscapePosition")
+	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
 	if esc_marker == null:
 		esc_marker = Marker2D.new()
 		esc_marker.name = "EscapePosition"
@@ -43,9 +44,10 @@ func add_nodes():
 		add_child(scn_marker)
 		scn_marker.owner = $".."
 	if BattleSeq != null:
-		esc_marker.global_position = BattleSeq.EscPosition*24
+		esc_marker.global_position = BattleSeq.EscPosition * 24
 		scn_marker.global_position = BattleSeq.ScenePosition
 		scn_marker.gizmo_extents = 100
+
 
 func set_positions():
 	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
@@ -53,7 +55,8 @@ func set_positions():
 		BattleSeq.ScenePosition = scn_marker.global_position
 	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
 	if esc_marker != null and BattleSeq != null:
-		BattleSeq.EscPosition = Vector2i(esc_marker.global_position/24)
+		BattleSeq.EscPosition = Vector2i(esc_marker.global_position / 24)
+
 
 func default():
 	Nav = $Nav
@@ -68,10 +71,12 @@ func default():
 		add_collision_exception_with(i)
 	patrol()
 
+
 func patrol():
 	stopping = false
 	Loader.chased = false
 	PinRange = false
+
 
 func extended_process():
 	if self.get_path in Loader.Defeated:
@@ -85,7 +90,7 @@ func extended_process():
 			BodyState = CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)
-				if  tmr.time_left < 2 and Nav.is_target_reachable():
+				if tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.start(2)
 			if Query.get_direction(to_local(Nav.get_next_path_position())) != -Query.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
@@ -100,8 +105,8 @@ func extended_process():
 		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
 			if is_on_wall():
 				Global.jump_to_global(self, CurHomepoint)
-			if round(position/24) == round(CurHomepoint/24):
-				tmr.start(randf_range(0,3))
+			if round(position / 24) == round(CurHomepoint / 24):
+				tmr.start(randf_range(0, 3))
 				CurHomepoint = Vector2.ZERO
 				BodyState = IDLE
 			else:
@@ -139,6 +144,7 @@ func _on_finder_body_entered(body):
 		tmr.start(give_up_after)
 		PinRange = true
 
+
 func _on_catch_area_body_entered(body):
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and (not Global.Player.attacking or Global.Player.winding_attack)):
 		#print(Global.Player.attacking)
@@ -152,6 +158,7 @@ func _on_catch_area_body_entered(body):
 		Global.intro_effect(Global.Player)
 		begin_battle(2)
 
+
 func begin_battle(advatage := 0):
 	Loader.Attacker = self
 	Global.Player.dramatic_attack_pause()
@@ -159,17 +166,19 @@ func begin_battle(advatage := 0):
 	await Loader.start_battle(BattleSeq, advatage)
 	global_position = DefaultPos
 
+
 func attacked():
 	if Global.Player.winding_attack: return
 	BodyState = NONE
 	set_anim("Hit")
-	var to_pos = position + Query.get_direction()*12
+	var to_pos = position + Query.get_direction() * 12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
 	Global.intro_effect(self)
 	if PinRange: begin_battle()
 	else: begin_battle(1)
+
 
 func _on_strike_area_entered(area: Area2D) -> void:
 	if area.name == "Attack": attacked()
