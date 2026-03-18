@@ -5,12 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="3_0w5t4"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="4_uui7p"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="5_00dms"]
-[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="5_dcjai"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/Interactions/tod_light.gd" id="5_dcjai"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="6_pmuyc"]
 [ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Interactions/lamp.gd" id="7_bbmkb"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_xyolw"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_adhpg"]
-[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="10_yq8yv"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="10_yq8yv"]
 [ext_resource type="SpriteFrames" uid="uid://cdivfw54bkye1" path="res://art/OV/Erinn/ErinnOV.tres" id="11_78rf1"]
 [ext_resource type="PackedScene" uid="uid://cr3hn08s615pf" path="res://rooms/components/NPC.tscn" id="12_toobe"]
 [ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Objects/Harold.png" id="12_xx0e1"]
@@ -826,11 +826,9 @@ metadata/_edit_group_ = true
 position = Vector2(-95, 18)
 default_anim = "Green"
 given_item = "GreenFragment"
-broken = false
 
 [node name="BreakableDBVines0" parent="." unique_id=1480765203 instance=ExtResource("26_5vm5p")]
 position = Vector2(-136, 62)
-broken = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableDBVines0" unique_id=1274830836]
 y_sort_enabled = true

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cr3hn08s615pf"]
 
-[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="1_dnwjs"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="1_dnwjs"]
 [ext_resource type="Texture2D" uid="uid://d1tcv45k4skug" path="res://art/Icons/Editor/npc.png" id="2_n2ikt"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_a0g5d"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_xha1c"]

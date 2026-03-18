@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="3_r8nk5"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="4_ujeyr"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="6_fhj74"]
-[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="7_4o7ma"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/Interactions/tod_light.gd" id="7_4o7ma"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="7_kvb7h"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="8_hjqnr"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="8_pg846"]

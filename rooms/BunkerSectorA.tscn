@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_41bk5"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="3_2g6ay"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="4_4n5ci"]
-[ext_resource type="Texture2D" uid="uid://clrnml0wm77tj" path="res://art/Branding/Placeholder-mini.png" id="5_2g6ay"]
+[ext_resource type="Texture2D" uid="uid://dv71cvsrwc0iu" path="res://art/Branding/Placeholder-mini.png" id="5_2g6ay"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="6_2g6ay"]
-[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="6_plrt1"]
-[ext_resource type="Script" uid="uid://cvp04cgsljoib" path="res://codings/Interactions/path_hider.gd" id="7_4n5ci"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="6_plrt1"]
+[ext_resource type="Script" uid="uid://cvp04cgsljoib" path="res://codings/Components/path_hider.gd" id="7_4n5ci"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="8_jy425"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jy425"]

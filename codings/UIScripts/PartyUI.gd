@@ -40,7 +40,7 @@ var was_controllable = false
 var def_pos_partybox: Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
 
 @onready var Partybox = %Partybox
-@onready var t :Tween
+@onready var t: Tween
 
 func _ready():
 	$CanvasLayer.hide()
@@ -56,13 +56,9 @@ func _ready():
 		var box = %Partybox/Member1.duplicate()
 		box.name = "Member"+str(i)
 		Partybox.add_child(box)
-	if not Loader.InBattle:
-		UIvisible = true
-		disabled = false
-		shrink.emit()
+	UIvisible = false
 	Global.check_party.connect(_check_party)
 	Global.check_party.emit()
-	hide_all()
 
 func _process(delta):
 	## Hide the hud when disabled
@@ -85,26 +81,37 @@ func _process(delta):
 				hide_all()
 				$IdleTimer.start(3)
 
-func show_all(except_date = false):
+## Shows the Partyboxes
+func show_all(except_date:= false, animate:= true):
 	if disabled: return
 	if is_instance_valid(Global.Player) and Global.Settings.AutoHideHUD == 1 and Global.Player.move_frames > 0: return
 	if not UIvisible: UIvisible = true
 	inactive = false
-	#Partybox.queue_sort()
 	$CanvasLayer.show()
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.set_parallel()
-	t.tween_property(Partybox.get_node("Leader"), "position:x", 0, 0.2)
+	# Animate the date UI in, except_date prevents this
 	if not Loader.InBattle and not except_date:
-		t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+		if animate:
+			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+			t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+		else: $CanvasLayer/CalendarBase.position.y = 0
 		$IdleTimer.start(5)
+	
+	# Iterate through the boxes
 	for i in range(0, 4):
-		if i != 0: t.tween_property(Partybox.get_child(i), "position:x", -70, 0.2).set_delay(0.05)
+		# The Leader gets position 0 since its bigger
+		var pos = 0 if i == 0 else -70
+		## Animate or set the X position always
+		if animate:
+			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+			t.tween_property(Partybox.get_child(i), "position:x", pos, 0.2)
+			await Event.wait(0.03)
+		else: Partybox.get_child(i).position.x = pos
+		## Animate or set the X position when in battle
 		if Loader.InBattle and def_pos_partybox[i] != Vector2.ONE:
+			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
+## Hides the partyboxes
 func hide_all(animate = true):
 	if UIvisible: UIvisible = false
 	if animate:
@@ -113,11 +120,11 @@ func hide_all(animate = true):
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_parallel()
 		for i in range(0, 4):
-			t.tween_property(Partybox.get_child(i), "position:x", -300, 0.3)
+			t.tween_property(Partybox.get_child(i), "position:x", -250, 0.3)
 		t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	else:
 		for i in range(0, 4):
-			Partybox.get_child(i).position.x = -300
+			Partybox.get_child(i).position.x = -250
 
 func _check_party():
 	if not Global.Party: return
@@ -301,7 +308,7 @@ func expand_panel(Pan:Panel, mem := 0):
 	#if mem != 0:
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
 
-func _on_shrink():
+func _on_shrink(hurry_up:= false):
 	inactive = true
 	Expanded = false
 	Partybox.show()
@@ -324,9 +331,9 @@ func _on_shrink():
 	t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
 	darken(false)
 	if !UIvisible or disabled: hide_all(); return
-	shrink_panel(Partybox.get_node("Leader"), 0)
+	shrink_panel(Partybox.get_node("Leader"), 0, 0.0 if hurry_up else 0.4)
 	for i in range(1, 4):
-		shrink_panel(Partybox.get_node("Member"+str(i)), i)
+		shrink_panel(Partybox.get_node("Member"+str(i)), i, 0.0 if hurry_up else 0.4)
 	for i in %Pages.get_children():
 		i.get_node("Render").texture = null
 		i.get_node("Render/Shadow").texture = null
@@ -339,7 +346,7 @@ func _on_shrink():
 	inactive = false
 	Global.check_party.emit()
 
-func shrink_panel(Pan:Panel, mem = 0,):
+func shrink_panel(Pan:Panel, mem = 0, time:= 0.4):
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
@@ -359,24 +366,24 @@ func shrink_panel(Pan:Panel, mem = 0,):
 		au_pos = Vector2(86,30)
 		bar_size = Vector2(124,22)
 		nam_pos = Vector2(82, 3)
-	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), 0.4)
-	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
-	t.tween_property(Pan.get_node("Health"), "size", bar_size, 0.4)
-	t.tween_property(Pan.get_node("Aura"), "size", bar_size, 0.4)
+	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09,0.09), time)
+	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, time)
+	t.tween_property(Pan.get_node("Health"), "size", bar_size, time)
+	t.tween_property(Pan.get_node("Aura"), "size", bar_size, time)
 	Pan.get_node("Name").show()
 	Pan.get_node("Level").show()
 	Pan.get_node("Health/HpText").show()
 	Pan.get_node("Aura/ApText").show()
-	t.tween_property(Pan.get_node("Level/ExpBar"), "modulate", Color.TRANSPARENT, 0.4)
-	t.tween_property(Pan.get_node("Name"), "modulate", Color.TRANSPARENT, 0.4)
-	t.tween_property(Pan.get_node("Name"), "position", nam_pos, 0.4)
-	t.tween_property(Pan.get_node("Level"), "position", lv_pos, 0.4)
-	t.tween_property(Pan.get_node("Health"), "position", hp_pos, 0.4)
-	t.tween_property(Pan.get_node("Aura"), "position", au_pos, 0.4)
-	t.tween_property(Pan.get_node("Health/HpText"), "modulate", Color.TRANSPARENT, 0.4)
-	t.tween_property(Pan.get_node("Aura/ApText"), "modulate", Color.TRANSPARENT, 0.4)
+	t.tween_property(Pan.get_node("Level/ExpBar"), "modulate", Color.TRANSPARENT, time)
+	t.tween_property(Pan.get_node("Name"), "modulate", Color.TRANSPARENT, time)
+	t.tween_property(Pan.get_node("Name"), "position", nam_pos, time)
+	t.tween_property(Pan.get_node("Level"), "position", lv_pos, time)
+	t.tween_property(Pan.get_node("Health"), "position", hp_pos, time)
+	t.tween_property(Pan.get_node("Aura"), "position", au_pos, time)
+	t.tween_property(Pan.get_node("Health/HpText"), "modulate", Color.TRANSPARENT, time)
+	t.tween_property(Pan.get_node("Aura/ApText"), "modulate", Color.TRANSPARENT, time)
 	if mem != 0 and UIvisible:
-		t.tween_property(Pan, "position:x", -70, 0.4)
+		t.tween_property(Pan, "position:x", -70, time)
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
 
 func handle_ui():

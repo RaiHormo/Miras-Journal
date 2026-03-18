@@ -9,7 +9,7 @@ func start():
 	get_tree().paused = false
 	PartyUI.Expanded = false
 	show()
-	$TextureRect.texture = await Query.find_member("Alcine").RenderArtwork()
+	$TextureRect.texture = await Loader.load_res(Query.find_member("Alcine").RenderArtwork)
 	$Error.hide()
 	$TextEdit.grab_focus()
 	$TextEdit.set_caret_column(10)

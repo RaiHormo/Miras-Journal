@@ -49,11 +49,11 @@ func _ready():
 		Cam.limit_top = (CameraLimits[Global.CameraInd])[TOP]
 		Cam.limit_bottom = (CameraLimits[Global.CameraInd])[BOTTOM]
 	if SpawnPlayer:
-		var Player = preload("res://codings/Mira.tscn").instantiate()
+		var Player = preload("uid://sql6r7jv7fjq").instantiate()
 		SpawnPath.add_child(Player)
 		var dist = 30
 		for i in range(1,4):
-			var follower = preload("res://codings/Follower.tscn").instantiate()
+			var follower = preload("uid://da22xhcxygcjl").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
 			follower.distance = dist

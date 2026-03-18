@@ -169,7 +169,7 @@ func options(submenu = 0):
 	var control = Controllable
 	#var init = get_tree().root.get_node_or_null("Initializer")
 	#if init != null: init.queue_free()
-	var opt = (await Loader.load_res("res://UI/Options/Options.tscn")).instantiate()
+	var opt = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
 	Controllable = control
 	match submenu:
 		1:
@@ -182,13 +182,13 @@ func options(submenu = 0):
 
 func title_screen():
 	if not get_tree().root.has_node("Initializer"):
-		var init = (await Loader.load_res("res://codings/Initializer.tscn")).instantiate()
+		var init = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
 		get_tree().root.add_child(init)
 	else: get_tree().root.get_node("Initializer").focus()
 
 func member_details(chara: Actor, menu:= 0):
 	if chara == null: return
-	var dub = (await Loader.load_res("res://UI/MemberDetails/MemberDetails.tscn")).instantiate()
+	var dub = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
 	get_tree().root.add_child(dub)
 	#await Event.wait()
 	dub.draw_character(chara, menu)
@@ -204,13 +204,12 @@ func next_day_ui():
 	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
 
 func alcine_naming():
-	var scene = (await Loader.load_res("res://UI/Misc/AlcineNaming.tscn")).instantiate()
+	var scene = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
 	get_tree().root.add_child(scene)
 	await scene.start()
-	
 
 func veinet_map(cur: String):
-	var Map = (await Loader.load_res("res://UI/Map/VeinetMap.tscn")).instantiate()
+	var Map = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c0dgn2l164lj0"]
 
-[ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/StoryEvents/AlcineNaming.gd" id="1_lh7uy"]
+[ext_resource type="Script" uid="uid://s5sulxysn307" path="res://codings/UIScripts/alcine_namingUI.gd" id="1_lh7uy"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="2_exujk"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_yq4b6"]
 [ext_resource type="Texture2D" uid="uid://b6e2vcb7sglq0" path="res://art/Renders/Alcine_low.png" id="4_dvfyj"]

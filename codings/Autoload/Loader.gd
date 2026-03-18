@@ -207,21 +207,21 @@ func travel_to(sc: String, pos: Vector2=Vector2.ZERO, camera_ind: int=0, z := -1
 	if scene[0] != "":
 		ResourceLoader.load_threaded_request(scene[0])
 	await transition(trans)
-	PartyUI.hide_all()
+	PartyUI.hide_all(false)
 	get_tree().paused = true
 	status = ResourceLoader.load_threaded_get_status(scene[0], progress)
 	await Event.wait()
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		await done(controllable)
+		await travel_done(controllable)
 	else:
 		Icon.play("Load")
 		loading = true
 		await thread_loaded
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			await done(controllable)
+			await travel_done(controllable)
 	if z >= 0: Global.Area.handle_z(z)
 
-func done(controllable:= false):
+func travel_done(controllable:= false):
 	chased = false
 	var look_dir = Query.get_direction()
 	if Global.Area: Global.Area.queue_free()
@@ -255,7 +255,8 @@ func done(controllable:= false):
 		await Event.wait(0.3, false)
 		Event.give_control(false)
 		if Global.Controllable:
-			PartyUI.show_all()
+			await PartyUI.show_all(false, false)
+			PartyUI._on_shrink(true)
 
 func _process(delta):
 	if loading == true and !scene.is_empty():
@@ -404,7 +405,7 @@ func start_battle(stg, advantage := 0):
 		tr.tween_property(Global.get_cam(), "zoom", Vector2(8,8), 0.5)
 		await battle_bars(4, 0.5, Tween.EASE_IN)
 	#Engine.time_scale = 1
-	var battle = (await load_res("res://codings/Battle.tscn")).instantiate()
+	var battle = (await load_res("uid://chjrhe4gw1iu6")).instantiate()
 	if is_instance_valid(Global.Player):
 		Global.Player.hide()
 		if not Seq.UseBackground:

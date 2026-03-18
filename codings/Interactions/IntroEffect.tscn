@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://jrg5p2oev3io"]
 
-[ext_resource type="Script" uid="uid://foqvcpbe6ksq" path="res://codings/intro_effect.gd" id="1_e0tlv"]
+[ext_resource type="Script" uid="uid://foqvcpbe6ksq" path="res://codings/Interactions/intro_effect.gd" id="1_e0tlv"]
 [ext_resource type="Texture2D" uid="uid://diciesnv8261h" path="res://art/Effects/IntroHit.png" id="1_pcghd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2pad"]

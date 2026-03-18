@@ -16,10 +16,10 @@
 [ext_resource type="Resource" uid="uid://c81ribbmkkgh8" path="res://database/BattleSeq/SludgeBattle2.tres" id="14_hs8tf"]
 [ext_resource type="Shader" uid="uid://bhjbs475mqw1x" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
 [ext_resource type="Script" uid="uid://b5amxyenq4bwh" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
-[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="16_0acit"]
+[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Components/event_tripwire.gd" id="16_0acit"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]
-[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="19_dpu00"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="19_dpu00"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="19_vwt3b"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="20_bwh8w"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="21_e7y1u"]
@@ -645,10 +645,6 @@ texture_scale = 4.94
 position = Vector2(1365.05, 222.688)
 BattleSeq = ExtResource("11_1cjwu")
 ID = "CS1"
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1" unique_id=739350443]
 
@@ -692,10 +688,6 @@ gizmo_extents = 100.0
 position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
 ID = "CS3"
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2" unique_id=421879962]
 
@@ -738,10 +730,6 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge3" parent="." unique_id=1347610146 instance=ExtResource("10_rx6j2")]
 position = Vector2(1638.08, 368.626)
 BattleSeq = ExtResource("13_812cc")
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3" unique_id=2002211728]
 
@@ -780,10 +768,6 @@ gizmo_extents = 100.0
 position = Vector2(1257.89, -491.287)
 BattleSeq = ExtResource("21_e7y1u")
 ID = "CS5"
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4" unique_id=1500271890]
 

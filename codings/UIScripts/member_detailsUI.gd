@@ -67,7 +67,7 @@ func draw_character(chara: Actor, menu:= 0):
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
-	$Render.texture = await Loader.load_res(chara.RenderArtwork)
+	$Render.texture = await Loader.load_res(chara.RenderArtwork) if not chara.RenderArtwork.is_empty() else null
 	$Render/Shadow.texture = await chara.RenderShadow()
 	$Render.global_position = PartyUI.get_node("CanvasLayer/Pages/Page"+str(PartyUI.focus)+"/Render").global_position
 	

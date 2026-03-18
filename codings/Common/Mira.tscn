@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://sql6r7jv7fjq"]
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
-[ext_resource type="Script" uid="uid://d0udqc2dg3nk0" path="res://codings/player_movement.gd" id="2_d6ige"]
+[ext_resource type="Script" uid="uid://d0udqc2dg3nk0" path="res://codings/Common/player_movement.gd" id="2_d6ige"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_rei3u"]
 [ext_resource type="Texture2D" uid="uid://cslhxxrst7p4j" path="res://art/OV/Mira/FlameWalk.png" id="5_4ul0y"]
 [ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="5_xllow"]
 [ext_resource type="Texture2D" uid="uid://s2cr0s33rn4w" path="res://art/OV/Mira/ReachOut.png" id="6_q0j1b"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="10_dxclp"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="11_buww2"]
-[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="12_1md4f"]
+[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/Interactions/flickering_light.gd" id="12_1md4f"]
 [ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/Sets/FootstepsSoundSet.tscn" id="13_av38v"]
 [ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="14_kgs5v"]
 

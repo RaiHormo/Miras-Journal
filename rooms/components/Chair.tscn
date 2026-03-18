@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8bbhsb53enf5"]
 
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="1_jheuy"]
-[ext_resource type="Script" uid="uid://bqc5j84u1fasr" path="res://codings/interactable.gd" id="2_e1r3o"]
+[ext_resource type="Script" uid="uid://bqc5j84u1fasr" path="res://codings/Interactions/interactable.gd" id="2_e1r3o"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="3_nd8k5"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_ebl3n"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_hupws"]

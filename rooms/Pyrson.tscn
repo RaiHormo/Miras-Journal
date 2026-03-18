@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_prfhr"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
-[ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/sub_room.gd" id="3_aq7mb"]
+[ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/Classes/sub_room.gd" id="3_aq7mb"]
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="3_pivbf"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="4_e3kpk"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="5_xdx5l"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="6_dtjwe"]
 [ext_resource type="Script" uid="uid://cocwxyol67r1a" path="res://codings/Interactions/open_door.gd" id="7_akxl2"]
 [ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="8_3nvdu"]
-[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/flickering_light.gd" id="8_uh3bf"]
+[ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/Interactions/flickering_light.gd" id="8_uh3bf"]
 [ext_resource type="PackedScene" uid="uid://4qj3e07t5fsi" path="res://rooms/components/LeftRightDoor.tscn" id="9_ak30l"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="9_w0u03"]
-[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Interactions/lamp.gd" id="10_4xvqm"]
-[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="12_7noep"]
+[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Components/lamp.gd" id="10_4xvqm"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/Interactions/tod_light.gd" id="12_7noep"]
 [ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="12_ejpht"]
 [ext_resource type="PackedScene" uid="uid://dp3b7p474e3t7" path="res://rooms/components/StairsH.tscn" id="14_y8h7v"]
-[ext_resource type="Script" uid="uid://bk204ee71jvcx" path="res://codings/Interactions/slope.gd" id="15_3swys"]
+[ext_resource type="Script" uid="uid://bk204ee71jvcx" path="res://codings/Components/slope.gd" id="15_3swys"]
 [ext_resource type="PackedScene" uid="uid://cr3hn08s615pf" path="res://rooms/components/NPC.tscn" id="16_s1pqb"]
 [ext_resource type="SpriteFrames" uid="uid://dhrbelc32bn2p" path="res://art/OV/Maple/MapleOV.tres" id="17_585ds"]
 [ext_resource type="PackedScene" uid="uid://vgsferl0deam" path="res://rooms/components/JumpPointV.tscn" id="18_26sn0"]
@@ -24,14 +24,14 @@
 [ext_resource type="SpriteFrames" uid="uid://cb76smqxxpbjr" path="res://art/OV/Linde/LindeOV.tres" id="20_taf6h"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="20_xjbvj"]
 [ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="21_4lmea"]
-[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="21_p415d"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="21_p415d"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="22_ejpht"]
 [ext_resource type="SpriteFrames" uid="uid://djjv4h63ww5or" path="res://art/OV/Asteria/AsteriaOV.tres" id="23_taf6h"]
 [ext_resource type="SpriteFrames" uid="uid://diybsgyevylva" path="res://art/OV/Alcine/AlcineOV.tres" id="24_4lmea"]
-[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="24_u5udm"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="24_u5udm"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="26_vxpye"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="28_prfhr"]
-[ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="31_vm6kc"]
+[ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Components/hide_on_flag.gd" id="31_vm6kc"]
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="32_b46i6"]
 [ext_resource type="PackedScene" uid="uid://8bbhsb53enf5" path="res://rooms/components/Chair.tscn" id="33_u6p7b"]
 
@@ -394,15 +394,15 @@ size = Vector2(176, 35)
 resource_local_to_scene = true
 size = Vector2(176, 35)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bc5"]
+resource_local_to_scene = true
+size = Vector2(36, 123)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7edst"]
 resource_local_to_scene = true
 size = Vector2(36, 123)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sk1io"]
-resource_local_to_scene = true
-size = Vector2(36, 123)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bc5"]
 resource_local_to_scene = true
 size = Vector2(113.5, 35)
 
@@ -1028,7 +1028,7 @@ RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint4" index="0" unique_id=1228440326]
 position = Vector2(0, -15.5)
-shape = SubResource("RectangleShape2D_7edst")
+shape = SubResource("RectangleShape2D_n1bc5")
 
 [node name="JumpPoint5" parent="." unique_id=1067210165 instance=ExtResource("19_lkhnc")]
 position = Vector2(508, 689)
@@ -1039,7 +1039,7 @@ RelativePositions = true
 
 [node name="CollisionShape2D" parent="JumpPoint5" index="0" unique_id=1228440326]
 position = Vector2(0, -7)
-shape = SubResource("RectangleShape2D_sk1io")
+shape = SubResource("RectangleShape2D_7edst")
 
 [node name="JumpPoint6" parent="." unique_id=1544791297 instance=ExtResource("18_26sn0")]
 z_index = 2
@@ -1056,7 +1056,7 @@ to_layers = 3
 
 [node name="CollisionShape2D" parent="JumpPoint6" index="0" unique_id=1635772224]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_n1bc5")
+shape = SubResource("RectangleShape2D_sk1io")
 
 [node name="Ladder" parent="." unique_id=812423330 instance=ExtResource("20_xjbvj")]
 position = Vector2(587, 469)

@@ -1,73 +1,73 @@
 [gd_scene format=3 uid="uid://chjrhe4gw1iu6"]
 
-[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_dmrw5"]
-[ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/battle_base.gd" id="2_xgmkj"]
-[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="3_a2upk"]
-[ext_resource type="Script" uid="uid://du01545mv070f" path="res://codings/Classes/party_data.gd" id="3_wsnu2"]
-[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="4_e2t6x"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_iwqwt"]
-[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_abqw1"]
-[ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="6_ik7qm"]
-[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="8_gbira"]
-[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="9_ys1vd"]
-[ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="10_bwtm7"]
-[ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="10_fbnnf"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="11_1ctu6"]
-[ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="11_hdgtq"]
-[ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="12_psgeu"]
-[ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="12_qdwnr"]
-[ext_resource type="Texture2D" uid="uid://crwwdtjec0io0" path="res://art/Effects/LeechLoop.png" id="13_4rp3s"]
-[ext_resource type="Texture2D" uid="uid://dicy817p4d7wj" path="res://art/Effects/Bound.png" id="14_1p7y0"]
-[ext_resource type="Texture2D" uid="uid://5h12v45srwn2" path="res://art/Effects/MagUpLoop.png" id="14_amob5"]
-[ext_resource type="SpriteFrames" uid="uid://5k4mw47d473r" path="res://art/Effects/BattleEffects.tres" id="14_o6mu3"]
-[ext_resource type="Texture2D" uid="uid://bpupiov04pw47" path="res://art/Effects/Frozen.png" id="16_1ro04"]
-[ext_resource type="Script" uid="uid://8iagu3karx4e" path="res://codings/Ai.gd" id="17_5kmxv"]
-[ext_resource type="Texture2D" uid="uid://de17ji4n8ubww" path="res://art/Effects/DefUpLoop.png" id="17_wjkt5"]
-[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="18_toppc"]
-[ext_resource type="Texture2D" uid="uid://njcmmd3a1lr3" path="res://art/Effects/Zapped.png" id="19_edmvp"]
-[ext_resource type="Script" uid="uid://b3yotcu3olkxe" path="res://codings/UIScripts/battleUI.gd" id="19_mhp3h"]
-[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="20_ei4ea"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="21_bxskg"]
-[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="22_wtv1c"]
-[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="23_8x6w2"]
-[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="24_2n7m0"]
-[ext_resource type="Texture2D" uid="uid://cpky7bvi6uvm1" path="res://UI/Battle/EscapeButton.png" id="26_samhe"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="27_7ghwb"]
-[ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="27_edmvp"]
-[ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="29_7ycgm"]
-[ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="30_g1vxc"]
-[ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="32_ebvy8"]
-[ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/color_wheel.gd" id="33_5y8r5"]
-[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="33_jy6my"]
-[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="34_mbmoj"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="35_7gyy2"]
-[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="36_wspte"]
-[ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="37_rnoys"]
-[ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="38_6wdco"]
-[ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="39_e8j71"]
-[ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="40_0qwln"]
-[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="41_70b84"]
-[ext_resource type="Script" uid="uid://b1l6pqqbr4og6" path="res://codings/UIScripts/enemyUI.gd" id="42_kdm6a"]
-[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="43_0t5yi"]
-[ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="44_v5pth"]
-[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="50_ml8ja"]
-[ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="53_qq3md"]
-[ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="54_qr1i0"]
-[ext_resource type="Texture2D" uid="uid://cmxeir5at8m3f" path="res://art/Pictures/Cutin_Mira.png" id="55_qr1i0"]
+[ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/Common/battle_base.gd" id="1_mokeb"]
+[ext_resource type="Script" uid="uid://du01545mv070f" path="res://codings/Classes/party_data.gd" id="2_2q88m"]
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="3_0enhy"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_oqv1o"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_w2v4w"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="6_2l3e4"]
+[ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="7_ef2go"]
+[ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="8_7y1ke"]
+[ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="9_owm6w"]
+[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="10_wglog"]
+[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="11_utluu"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="12_2samf"]
+[ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="13_8eb6f"]
+[ext_resource type="Texture2D" uid="uid://dicy817p4d7wj" path="res://art/Effects/Bound.png" id="14_w8rgh"]
+[ext_resource type="Texture2D" uid="uid://bs01w8qv78yva" path="res://art/Effects/Burned.png" id="15_x87cc"]
+[ext_resource type="Texture2D" uid="uid://boaeqng02prcd" path="res://art/Effects/Confused.png" id="16_3bi8h"]
+[ext_resource type="Texture2D" uid="uid://de17ji4n8ubww" path="res://art/Effects/DefUpLoop.png" id="17_h3c55"]
+[ext_resource type="Texture2D" uid="uid://bpupiov04pw47" path="res://art/Effects/Frozen.png" id="18_evukb"]
+[ext_resource type="Texture2D" uid="uid://crwwdtjec0io0" path="res://art/Effects/LeechLoop.png" id="19_6kydo"]
+[ext_resource type="Texture2D" uid="uid://5h12v45srwn2" path="res://art/Effects/MagUpLoop.png" id="20_6c4nk"]
+[ext_resource type="Texture2D" uid="uid://u4ue2qh0m3aj" path="res://art/Effects/PoisonedLoop.png" id="21_0l3gh"]
+[ext_resource type="Texture2D" uid="uid://njcmmd3a1lr3" path="res://art/Effects/Zapped.png" id="22_nk13j"]
+[ext_resource type="SpriteFrames" uid="uid://5k4mw47d473r" path="res://art/Effects/BattleEffects.tres" id="23_s11xn"]
+[ext_resource type="Script" uid="uid://8iagu3karx4e" path="res://codings/Common/Ai.gd" id="24_vu4cw"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="25_7jovc"]
+[ext_resource type="Script" uid="uid://b3yotcu3olkxe" path="res://codings/UIScripts/battleUI.gd" id="26_2prty"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="27_l4up5"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="28_8sw5x"]
+[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="29_0ae34"]
+[ext_resource type="Texture2D" uid="uid://dsmyxdlom85ws" path="res://UI/Input/ZL.png" id="30_mjfmt"]
+[ext_resource type="Texture2D" uid="uid://cpky7bvi6uvm1" path="res://UI/Battle/EscapeButton.png" id="31_ph8jg"]
+[ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="32_rt1ad"]
+[ext_resource type="Texture2D" uid="uid://bplsrwsdkhe1f" path="res://UI/Battle/BaseRing.png" id="33_r7cdc"]
+[ext_resource type="Script" uid="uid://b1eqdri2uk1ho" path="res://codings/UIScripts/color_wheel.gd" id="34_dhkk1"]
+[ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="35_xabbi"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="36_bvqsk"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="37_0bkog"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="38_hjhmh"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="39_k80j2"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="40_xhs3h"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="41_ctn83"]
+[ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="42_gfcom"]
+[ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="43_15et0"]
+[ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="44_hti1b"]
+[ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="45_sxqe5"]
+[ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="46_oks1v"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="47_mpk6a"]
+[ext_resource type="Script" uid="uid://b1l6pqqbr4og6" path="res://codings/UIScripts/enemyUI.gd" id="48_vinwk"]
+[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="49_6bxle"]
+[ext_resource type="Texture2D" uid="uid://budghnw4lgtg4" path="res://art/Icons/Enemies/Object.png" id="50_b2exn"]
+[ext_resource type="Texture2D" uid="uid://dkmfv7lb5ne4v" path="res://art/Icons/Party/Asteria.png" id="51_4015b"]
+[ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="52_sp5cj"]
+[ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="53_j3dnr"]
+[ext_resource type="Texture2D" uid="uid://cmxeir5at8m3f" path="res://art/Pictures/Cutin_Mira.png" id="54_qjfeq"]
 
 [sub_resource type="Resource" id="Resource_y6axd"]
-script = ExtResource("3_wsnu2")
+script = ExtResource("2_2q88m")
 
 [sub_resource type="Resource" id="Resource_bnt1k"]
-script = ExtResource("4_e2t6x")
+script = ExtResource("6_2l3e4")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bwtm7"]
-shader = ExtResource("10_bwtm7")
+shader = ExtResource("9_owm6w")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_enabled = false
 
 [sub_resource type="Theme" id="Theme_ap0qn"]
-default_font = ExtResource("9_ys1vd")
+default_font = ExtResource("12_2samf")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 30
@@ -103,355 +103,355 @@ anim_speed_min = 8.9
 anim_speed_max = 11.61
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu65q"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(0, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rs20d"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(58, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qnm31"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(116, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wkv2a"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(232, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0j3v"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(290, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rom8a"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(348, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qgnfs"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(406, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_534fv"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(464, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ix0b3"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(522, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m7bra"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(580, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdara"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(638, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3d6r4"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(696, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cef4v"]
-atlas = ExtResource("10_fbnnf")
+atlas = ExtResource("13_8eb6f")
 region = Rect2(754, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5vyp"]
-atlas = ExtResource("14_1p7y0")
+atlas = ExtResource("14_w8rgh")
 region = Rect2(0, 0, 32, 42)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ut4c"]
-atlas = ExtResource("14_1p7y0")
+atlas = ExtResource("14_w8rgh")
 region = Rect2(32, 0, 32, 42)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_klu7i"]
-atlas = ExtResource("14_1p7y0")
+atlas = ExtResource("14_w8rgh")
 region = Rect2(64, 0, 32, 42)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r5ani"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(0, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhbv0"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(57, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npbre"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(114, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6h7r"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(171, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1vff"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(228, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gdxw1"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(285, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e73g2"]
-atlas = ExtResource("11_hdgtq")
+atlas = ExtResource("15_x87cc")
 region = Rect2(342, 0, 57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hyp6t"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(0, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2d60e"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(54, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bi048"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(108, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_psslf"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(162, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5iyc"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(216, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xccjj"]
-atlas = ExtResource("12_qdwnr")
+atlas = ExtResource("16_3bi8h")
 region = Rect2(270, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r1seu"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(0, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u0wh1"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(58, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpv0d"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(116, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xtf8q"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(174, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_olbw4"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(232, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_871mv"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(290, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nqys6"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(348, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_046qv"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(406, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydfy5"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(464, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ar43r"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(522, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8t1fj"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(580, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_afbxg"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(638, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ir0m"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(696, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_do05l"]
-atlas = ExtResource("17_wjkt5")
+atlas = ExtResource("17_h3c55")
 region = Rect2(754, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8pkcd"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(0, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ru12"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(58, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqrwi"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(116, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ills6"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(174, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvesh"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(232, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8l676"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(290, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1lf0o"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(348, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fyavh"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(406, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ls3cn"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(464, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qyfbx"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(522, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3s8c"]
-atlas = ExtResource("16_1ro04")
+atlas = ExtResource("18_evukb")
 region = Rect2(580, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mimj"]
-atlas = ExtResource("13_4rp3s")
+atlas = ExtResource("19_6kydo")
 region = Rect2(0, 0, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yfv4i"]
-atlas = ExtResource("13_4rp3s")
+atlas = ExtResource("19_6kydo")
 region = Rect2(48, 0, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtqgw"]
-atlas = ExtResource("13_4rp3s")
+atlas = ExtResource("19_6kydo")
 region = Rect2(96, 0, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rs7o"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(0, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jln2x"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(58, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cn7il"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(174, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmtko"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(290, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ed20p"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(406, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxuxe"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(464, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x1seb"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(522, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wye3c"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(580, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nd2bo"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(638, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_28rl0"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(696, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_23aa0"]
-atlas = ExtResource("14_amob5")
+atlas = ExtResource("20_6c4nk")
 region = Rect2(754, 0, 58, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q2m4w"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(0, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pr2p3"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(54, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ti1rx"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(108, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dmhcj"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(162, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jx4w"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(216, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tdbte"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(270, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_drncd"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(324, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8miy6"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(378, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ws2rk"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(432, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2qukr"]
-atlas = ExtResource("12_psgeu")
+atlas = ExtResource("21_0l3gh")
 region = Rect2(486, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ro04"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(0, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1p7y0"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(54, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5y8r5"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(108, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjkt5"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(162, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ml8ja"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(216, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bwtm7"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(270, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qq3md"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(324, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qr1i0"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(378, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ctu6"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(432, 0, 54, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_neihi"]
-atlas = ExtResource("19_edmvp")
+atlas = ExtResource("22_nk13j")
 region = Rect2(486, 0, 54, 54)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdhds"]
@@ -795,7 +795,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.867521, 0.948718)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nmg3k"]
-shader = ExtResource("18_toppc")
+shader = ExtResource("25_7jovc")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ctu6"]
 content_margin_left = 6.0
@@ -837,7 +837,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_4kcni"]
-default_font = ExtResource("21_bxskg")
+default_font = ExtResource("27_l4up5")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -856,7 +856,7 @@ Panel/styles/panel = SubResource("StyleBoxFlat_neihi")
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ryg6s"]
-shader = ExtResource("29_7ycgm")
+shader = ExtResource("32_rt1ad")
 shader_parameter/circle_size = 0.725
 shader_parameter/circle_thickness = 0.07
 shader_parameter/sine_freq = 0.0
@@ -864,7 +864,7 @@ shader_parameter/sine_amp = 0.03
 shader_parameter/sine_phase = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65pvt"]
-shader = ExtResource("29_7ycgm")
+shader = ExtResource("32_rt1ad")
 shader_parameter/circle_size = 0.725
 shader_parameter/circle_thickness = 0.016
 shader_parameter/sine_freq = 0.0
@@ -879,7 +879,7 @@ colors = PackedColorArray(0.243137, 0.203922, 0.172549, 1)
 gradient = SubResource("Gradient_pa1vt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3xpp0"]
-shader = ExtResource("29_7ycgm")
+shader = ExtResource("32_rt1ad")
 shader_parameter/circle_size = 0.725
 shader_parameter/circle_thickness = 0.013
 shader_parameter/sine_freq = 20.0
@@ -894,7 +894,7 @@ colors = PackedColorArray(0.890196, 0.576471, 0.431373, 1)
 gradient = SubResource("Gradient_pbqtd")
 
 [sub_resource type="FontVariation" id="FontVariation_i0gd3"]
-base_font = ExtResource("33_jy6my")
+base_font = ExtResource("36_bvqsk")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e6n8g"]
@@ -902,7 +902,7 @@ default_font = SubResource("FontVariation_i0gd3")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_0xfmp"]
-base_font = ExtResource("33_jy6my")
+base_font = ExtResource("36_bvqsk")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
@@ -915,7 +915,7 @@ RichTextLabel/constants/line_separation = 15
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_4tyuc"]
-default_font = ExtResource("33_jy6my")
+default_font = ExtResource("36_bvqsk")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
@@ -989,7 +989,7 @@ VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_qr1i0")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5y8r5"]
 
 [sub_resource type="Theme" id="Theme_t7ro7"]
-default_font = ExtResource("21_bxskg")
+default_font = ExtResource("27_l4up5")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.505882, 0.505882, 0.505882, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -1022,12 +1022,12 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_g1u0r"]
-default_font = ExtResource("21_bxskg")
+default_font = ExtResource("27_l4up5")
 Label/colors/font_color = Color(0.537255, 0.537255, 0.537255, 1)
 Label/font_sizes/font_size = 28
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lhc1k"]
-atlas = ExtResource("35_7gyy2")
+atlas = ExtResource("39_k80j2")
 region = Rect2(0, 0, 18, 18)
 filter_clip = true
 
@@ -1104,7 +1104,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="FontVariation" id="FontVariation_kjo3a"]
-base_font = ExtResource("27_7ghwb")
+base_font = ExtResource("41_ctn83")
 variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -45
@@ -1274,7 +1274,7 @@ action = &"RightTrigger"
 events = [SubResource("InputEventAction_1e1px")]
 
 [sub_resource type="FontVariation" id="FontVariation_j8f6m"]
-base_font = ExtResource("33_jy6my")
+base_font = ExtResource("36_bvqsk")
 spacing_top = 8
 
 [sub_resource type="Theme" id="Theme_e2gdg"]
@@ -1282,7 +1282,7 @@ default_font = SubResource("FontVariation_j8f6m")
 Label/colors/font_color = Color(0.7, 0.378933, 0.252, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_4crsw"]
-base_font = ExtResource("33_jy6my")
+base_font = ExtResource("36_bvqsk")
 variation_embolden = 0.5
 spacing_glyph = -1
 spacing_space = 1
@@ -1295,7 +1295,7 @@ RichTextLabel/constants/line_separation = 15
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="Theme" id="Theme_noiys"]
-default_font = ExtResource("33_jy6my")
+default_font = ExtResource("36_bvqsk")
 Label/colors/font_color = Color(0.356863, 0.368627, 0.529412, 1)
 Label/font_sizes/font_size = 42
 RichTextLabel/colors/default_color = Color(0.435294, 0.32549, 0.34902, 1)
@@ -1303,7 +1303,7 @@ RichTextLabel/constants/line_separation = 5
 RichTextLabel/font_sizes/normal_font_size = 37
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ojm6j"]
-shader = ExtResource("18_toppc")
+shader = ExtResource("25_7jovc")
 
 [sub_resource type="FontVariation" id="FontVariation_8vtio"]
 variation_embolden = 0.41
@@ -1534,14 +1534,14 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_wq83d")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_nkyqb")
 
 [sub_resource type="Theme" id="Theme_2lgx1"]
-default_font = ExtResource("33_jy6my")
+default_font = ExtResource("36_bvqsk")
 Label/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/constants/outline_size = 7
 Label/font_sizes/font_size = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_cas1x"]
-font = ExtResource("33_jy6my")
+font = ExtResource("36_bvqsk")
 outline_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsc7l"]
@@ -1639,11 +1639,11 @@ corner_radius_bottom_left = 24
 [sub_resource type="Theme" id="Theme_xkd1q"]
 TooltipLabel/colors/font_color = Color(0, 0, 0, 1)
 TooltipLabel/font_sizes/font_size = 24
-TooltipLabel/fonts/font = ExtResource("33_jy6my")
+TooltipLabel/fonts/font = ExtResource("36_bvqsk")
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_cv0u6")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtoyd"]
-atlas = ExtResource("35_7gyy2")
+atlas = ExtResource("39_k80j2")
 region = Rect2(162, 18, 18, 18)
 filter_clip = true
 
@@ -1690,7 +1690,7 @@ corner_radius_bottom_left = 24
 expand_margin_top = 18.0
 
 [sub_resource type="FontVariation" id="FontVariation_g3phn"]
-base_font = ExtResource("33_jy6my")
+base_font = ExtResource("36_bvqsk")
 
 [sub_resource type="InputEventAction" id="InputEventAction_oi6bj"]
 action = &"ui_accept"
@@ -1705,7 +1705,7 @@ action = &"BtItem"
 events = [SubResource("InputEventAction_iu7xp")]
 
 [sub_resource type="FontVariation" id="FontVariation_sc4xk"]
-base_font = ExtResource("27_7ghwb")
+base_font = ExtResource("41_ctn83")
 variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -8
@@ -1744,7 +1744,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_5tvnb"]
-default_font = ExtResource("21_bxskg")
+default_font = ExtResource("27_l4up5")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -1760,7 +1760,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_h4lmp")
 Panel/styles/panel = SubResource("StyleBoxFlat_h4lmp")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxtaj"]
-atlas = ExtResource("35_7gyy2")
+atlas = ExtResource("39_k80j2")
 region = Rect2(72, 18, 18, 18)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ft4c"]
@@ -1853,7 +1853,7 @@ z_index = 3
 z_as_relative = false
 y_sort_enabled = true
 texture_filter = 2
-script = ExtResource("2_xgmkj")
+script = ExtResource("1_mokeb")
 BattleText = Dictionary[String, String]({
 "busy": "[insert] is busy.",
 "confusion_hit_ally": "[cur] hits an ally in confusion!",
@@ -1883,7 +1883,7 @@ Seq = SubResource("Resource_bnt1k")
 [node name="Background" type="TextureRect" parent="." unique_id=1543652970]
 light_mask = 16
 z_index = -1
-material = ExtResource("1_dmrw5")
+material = ExtResource("7_ef2go")
 offset_left = -210.0
 offset_top = -149.0
 offset_right = 210.0
@@ -1898,7 +1898,7 @@ visibility_layer = 16
 y_sort_enabled = true
 texture_filter = 1
 use_parent_material = true
-script = ExtResource("6_ik7qm")
+script = ExtResource("8_7y1ke")
 
 [node name="Actor0" type="AnimatedSprite2D" parent="Act" unique_id=1675625572]
 light_mask = 16
@@ -1906,7 +1906,7 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_bwtm7")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("11_1ctu6")
+sprite_frames = ExtResource("10_wglog")
 animation = &"AbilityLoop"
 frame_progress = 0.077139355
 offset = Vector2(0.5, -15.5)
@@ -1915,9 +1915,9 @@ offset = Vector2(0.5, -15.5)
 show_behind_parent = true
 light_mask = 16
 z_index = -1
-material = ExtResource("1_dmrw5")
+material = ExtResource("7_ef2go")
 position = Vector2(0, 3)
-texture = ExtResource("8_gbira")
+texture = ExtResource("11_utluu")
 offset = Vector2(0, 4)
 
 [node name="Nums" type="Label" parent="Act/Actor0" unique_id=1752888550]
@@ -1961,7 +1961,7 @@ process_material = SubResource("ParticleProcessMaterial_ht7eu")
 [node name="State" type="AnimatedSprite2D" parent="Act/Actor0" unique_id=889654675]
 light_mask = 16
 z_index = 1
-material = ExtResource("1_dmrw5")
+material = ExtResource("7_ef2go")
 position = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_wdhds")
 animation = &"DefenceUp"
@@ -1981,9 +1981,9 @@ texture_scale = 3.0
 [node name="Effects" type="AnimatedSprite2D" parent="Act" unique_id=1863851345]
 light_mask = 16
 z_index = 5
-material = ExtResource("1_dmrw5")
+material = ExtResource("7_ef2go")
 position = Vector2(-60, -39)
-sprite_frames = ExtResource("14_o6mu3")
+sprite_frames = ExtResource("23_s11xn")
 animation = &"Drill"
 
 [node name="Cam" type="Camera2D" parent="." unique_id=71352168]
@@ -1993,7 +1993,7 @@ limit_smoothed = true
 position_smoothing_speed = 20.0
 
 [node name="AI" type="Node" parent="." unique_id=1881764654]
-script = ExtResource("17_5kmxv")
+script = ExtResource("24_vu4cw")
 
 [node name="BattleUI" type="Control" parent="." unique_id=185173348]
 z_index = 10
@@ -2011,7 +2011,7 @@ offset_right = -61.0
 offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("19_mhp3h")
+script = ExtResource("26_2prty")
 
 [node name="CommandMenu" type="Control" parent="BattleUI" unique_id=1627208994]
 light_mask = 0
@@ -2049,7 +2049,7 @@ focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 text = "Analyze"
-icon = ExtResource("22_wtv1c")
+icon = ExtResource("28_8sw5x")
 expand_icon = true
 
 [node name="Swap" type="Button" parent="BattleUI/CommandMenu" unique_id=2068333761]
@@ -2070,7 +2070,7 @@ focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 text = "Swap"
-icon = ExtResource("23_8x6w2")
+icon = ExtResource("29_0ae34")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -2094,7 +2094,7 @@ theme_override_font_sizes/font_size = 15
 disabled = true
 text = "Strategize
 "
-icon = ExtResource("23_8x6w2")
+icon = ExtResource("29_0ae34")
 expand_icon = true
 
 [node name="Escape" type="Button" parent="BattleUI/CommandMenu" unique_id=1717281525]
@@ -2118,7 +2118,7 @@ theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_8b0ek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8b0ek")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8b0ek")
-icon = ExtResource("27_edmvp")
+icon = ExtResource("30_mjfmt")
 text_overrun_behavior = 1
 expand_icon = true
 metadata/_edit_use_anchors_ = true
@@ -2133,7 +2133,7 @@ offset_right = 416.507
 offset_bottom = 219.534
 rotation = 0.27361
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("26_samhe")
+texture = ExtResource("31_ph8jg")
 
 [node name="Label" type="Label" parent="BattleUI/CommandMenu/Escape" unique_id=1346337101]
 light_mask = 0
@@ -2146,7 +2146,7 @@ rotation = -0.24525
 scale = Vector2(0.988627, 1.08387)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("21_bxskg")
+theme_override_fonts/font = ExtResource("27_l4up5")
 theme_override_font_sizes/font_size = 14
 text = "Escape"
 
@@ -2167,7 +2167,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(200, 200)
-texture = ExtResource("30_g1vxc")
+texture = ExtResource("33_r7cdc")
 
 [node name="Ring1" type="TextureRect" parent="BattleUI/BaseRing" unique_id=614700733]
 light_mask = 0
@@ -2177,7 +2177,7 @@ offset_right = 400.0
 offset_bottom = 400.0
 pivot_offset = Vector2(200, 200)
 texture = SubResource("GradientTexture1D_b4gte")
-script = ExtResource("33_5y8r5")
+script = ExtResource("34_dhkk1")
 
 [node name="Ring2" type="TextureRect" parent="BattleUI/BaseRing" unique_id=1431885871]
 light_mask = 0
@@ -2198,7 +2198,7 @@ offset_bottom = 248.0
 rotation = 0.18675
 scale = Vector2(0.17, 0.17)
 pivot_offset = Vector2(-0.000183105, 317.647)
-texture = ExtResource("32_ebvy8")
+texture = ExtResource("35_xabbi")
 
 [node name="Title" type="Label" parent="BattleUI/DescPaper" unique_id=1278579315]
 use_parent_material = true
@@ -2257,9 +2257,9 @@ theme_override_font_sizes/font_size = 15
 action_mode = 0
 shortcut = SubResource("Shortcut_loao7")
 text = "Show wheel"
-icon = ExtResource("24_2n7m0")
+icon = ExtResource("37_0bkog")
 
-[node name="Wheel" parent="BattleUI/DescPaper/ShowWheel" unique_id=1346881085 instance=ExtResource("34_mbmoj")]
+[node name="Wheel" parent="BattleUI/DescPaper/ShowWheel" unique_id=1346881085 instance=ExtResource("38_hjhmh")]
 visible = false
 layout_mode = 0
 offset_left = -602.354
@@ -2735,7 +2735,7 @@ offset_top = 3.0
 offset_right = -6.0
 offset_bottom = 13.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_ei4ea")
+texture = ExtResource("40_xhs3h")
 expand_mode = 1
 
 [node name="Bg" type="Panel" parent="BattleUI/RankSwap/Left" unique_id=1540836794]
@@ -2756,7 +2756,7 @@ offset_top = 4.0
 offset_right = 82.2944
 offset_bottom = 14.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_ei4ea")
+texture = ExtResource("40_xhs3h")
 expand_mode = 1
 flip_h = true
 
@@ -2808,7 +2808,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_tnxnm")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
-icon = ExtResource("36_wspte")
+icon = ExtResource("42_gfcom")
 alignment = 2
 icon_alignment = 1
 expand_icon = true
@@ -2823,7 +2823,7 @@ offset_bottom = 523.0
 theme = SubResource("Theme_dgr6n")
 theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_colors/font_unselected_color = Color(0.368627, 0.368627, 0.368627, 1)
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 27
 theme_override_styles/panel = SubResource("StyleBoxFlat_qr46u")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_6vorb")
@@ -2863,7 +2863,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_54u86")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
-icon = ExtResource("36_wspte")
+icon = ExtResource("42_gfcom")
 alignment = 2
 icon_alignment = 1
 expand_icon = true
@@ -2882,7 +2882,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
 theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
-icon = ExtResource("36_wspte")
+icon = ExtResource("42_gfcom")
 alignment = 2
 icon_alignment = 1
 expand_icon = true
@@ -2901,7 +2901,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
 theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
-icon = ExtResource("36_wspte")
+icon = ExtResource("42_gfcom")
 alignment = 2
 icon_alignment = 1
 expand_icon = true
@@ -2920,7 +2920,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
 theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
 theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
 text = "3"
-icon = ExtResource("36_wspte")
+icon = ExtResource("42_gfcom")
 alignment = 2
 icon_alignment = 1
 expand_icon = true
@@ -2954,7 +2954,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.111197, 0.111197, 0.111197, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.154876, 0.154876, 0.154876, 1)
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_wrwr7")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_x10m0")
@@ -2965,7 +2965,7 @@ toggle_mode = true
 action_mode = 0
 shortcut = SubResource("Shortcut_5o8yt")
 text = "Battle items"
-icon = ExtResource("37_rnoys")
+icon = ExtResource("43_15et0")
 expand_icon = true
 
 [node name="Cbutton" type="Button" parent="BattleUI/Inventory" unique_id=1541943967]
@@ -2980,7 +2980,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.109804, 0.109804, 0.109804, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.109804, 0.109804, 0.109804, 1)
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_1s3iy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mk32q")
@@ -2992,7 +2992,7 @@ button_pressed = true
 action_mode = 0
 shortcut = SubResource("Shortcut_66som")
 text = "Consumables"
-icon = ExtResource("38_6wdco")
+icon = ExtResource("44_hti1b")
 icon_alignment = 2
 expand_icon = true
 
@@ -3002,7 +3002,7 @@ show_behind_parent = true
 light_mask = 0
 position = Vector2(39.8699, 257.851)
 scale = Vector2(0.7, 0.899713)
-texture = ExtResource("39_e8j71")
+texture = ExtResource("45_sxqe5")
 flip_h = true
 
 [node name="DottedBack2" type="Sprite2D" parent="BattleUI/Inventory" unique_id=1897827750]
@@ -3011,7 +3011,7 @@ show_behind_parent = true
 light_mask = 0
 position = Vector2(-729.57, 257.289)
 scale = Vector2(-0.485233, -0.898616)
-texture = ExtResource("39_e8j71")
+texture = ExtResource("45_sxqe5")
 flip_h = true
 
 [node name="DescPaper" type="TextureRect" parent="BattleUI/Inventory" unique_id=44987799]
@@ -3026,7 +3026,7 @@ offset_bottom = 620.079
 rotation = 0.0518777
 scale = Vector2(0.524035, 0.524035)
 pivot_offset = Vector2(-0.000183105, 317.647)
-texture = ExtResource("32_ebvy8")
+texture = ExtResource("35_xabbi")
 flip_h = true
 
 [node name="Title" type="Label" parent="BattleUI/Inventory/DescPaper" unique_id=2113033823]
@@ -3096,7 +3096,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_7vvpc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lhbro")
 theme_override_styles/focus = SubResource("StyleBoxFlat_lhbro")
 text = "Show Wheel"
-icon = ExtResource("24_2n7m0")
+icon = ExtResource("37_0bkog")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3109,7 +3109,7 @@ offset_right = 1387.52
 offset_bottom = 980.591
 rotation = -0.0531199
 scale = Vector2(0.381942, 0.381942)
-texture = ExtResource("40_0qwln")
+texture = ExtResource("46_oks1v")
 
 [node name="Border1" type="PanelContainer" parent="BattleUI/Inventory" unique_id=1901926094]
 light_mask = 0
@@ -3151,7 +3151,7 @@ focus_mode = 0
 theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 text = "Ability"
-icon = ExtResource("22_wtv1c")
+icon = ExtResource("28_8sw5x")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3172,7 +3172,7 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 text = "Attack
 "
-icon = ExtResource("41_70b84")
+icon = ExtResource("47_mpk6a")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3193,7 +3193,7 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 shortcut_in_tooltip = false
 text = "Item"
-icon = ExtResource("23_8x6w2")
+icon = ExtResource("29_0ae34")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3214,13 +3214,13 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 shortcut_in_tooltip = false
 text = "Command"
-icon = ExtResource("24_2n7m0")
+icon = ExtResource("37_0bkog")
 text_overrun_behavior = 1
 expand_icon = true
 
 [node name="EnemyUI" type="CanvasLayer" parent="." unique_id=1218219876]
 layer = 2
-script = ExtResource("42_kdm6a")
+script = ExtResource("48_vinwk")
 
 [node name="EnemyFocus" type="Panel" parent="EnemyUI" unique_id=826857972]
 visible = false
@@ -3237,7 +3237,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_86gc4")
 texture_filter = 2
 position = Vector2(40, 43)
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("43_0t5yi")
+texture = ExtResource("49_6bxle")
 
 [node name="Aura" type="ProgressBar" parent="EnemyUI/EnemyFocus" unique_id=883745386]
 z_index = 1
@@ -3363,7 +3363,7 @@ offset_left = 10.3333
 offset_top = 17.7955
 offset_right = 129.333
 offset_bottom = 38.7955
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 20
 text = "White"
 horizontal_alignment = 1
@@ -3374,7 +3374,7 @@ visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 0
 offset_right = 40.0
-texture = ExtResource("50_ml8ja")
+texture = ExtResource("50_b2exn")
 expand_mode = 1
 stretch_mode = 4
 
@@ -3420,7 +3420,7 @@ layout_mode = 2
 [node name="Icon" type="TextureRect" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp" unique_id=716424961]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-texture = ExtResource("50_ml8ja")
+texture = ExtResource("50_b2exn")
 expand_mode = 1
 stretch_mode = 4
 
@@ -3438,7 +3438,7 @@ show_percentage = false
 [node name="Name" type="Label" parent="EnemyUI/AllEnemies/OtherEnemies/Margin/VBox/Temp" unique_id=1282728469]
 visible = false
 layout_mode = 2
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 20
 text = "White"
 horizontal_alignment = 1
@@ -3462,7 +3462,7 @@ offset_top = -8.0
 offset_right = 1609.1211
 offset_bottom = 1016.0
 scale = Vector2(0.688708, 0.8)
-texture = ExtResource("39_e8j71")
+texture = ExtResource("45_sxqe5")
 expand_mode = 1
 
 [node name="Callout" type="Label" parent="Canvas" unique_id=1464272626]
@@ -3512,7 +3512,7 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_o1kt8")
 text = "Confirm"
-icon = ExtResource("22_wtv1c")
+icon = ExtResource("28_8sw5x")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3534,7 +3534,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 text = "Back"
-icon = ExtResource("41_70b84")
+icon = ExtResource("47_mpk6a")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3557,7 +3557,7 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_rsmsp")
 text = "Give"
-icon = ExtResource("23_8x6w2")
+icon = ExtResource("29_0ae34")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3623,14 +3623,14 @@ use_parent_material = true
 custom_minimum_size = Vector2(18, 36)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("20_ei4ea")
+texture = ExtResource("40_xhs3h")
 expand_mode = 1
 flip_h = true
 
 [node name="Icon" type="TextureRect" parent="Canvas/TurnOrderPop/Margin/List/Char" unique_id=869777039]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("44_v5pth")
+texture = ExtResource("51_4015b")
 expand_mode = 1
 
 [node name="Name" type="Label" parent="Canvas/TurnOrderPop/Margin/List/Char" unique_id=1540801094]
@@ -3653,7 +3653,7 @@ theme = SubResource("Theme_4kcni")
 theme_override_font_sizes/font_size = 15
 action_mode = 0
 text = "Turn Order"
-icon = ExtResource("53_qq3md")
+icon = ExtResource("52_sp5cj")
 expand_icon = true
 
 [node name="Options" type="Button" parent="Canvas/TurnOrder" unique_id=613395301]
@@ -3671,7 +3671,7 @@ theme_override_font_sizes/font_size = 15
 action_mode = 0
 shortcut = SubResource("Shortcut_qtf0t")
 text = "Options"
-icon = ExtResource("54_qr1i0")
+icon = ExtResource("53_j3dnr")
 expand_icon = true
 
 [node name="Continue" type="Button" parent="Canvas" unique_id=77002511]
@@ -3691,7 +3691,7 @@ theme_override_font_sizes/font_size = 15
 action_mode = 0
 text = "Continue
 "
-icon = ExtResource("22_wtv1c")
+icon = ExtResource("28_8sw5x")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -3762,7 +3762,7 @@ theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "When you attack everyone you know and love will die. This deals 9999999999 damage to all targets"
 
-[node name="Wheel" parent="Canvas/AttackTitle" unique_id=1946168779 instance=ExtResource("34_mbmoj")]
+[node name="Wheel" parent="Canvas/AttackTitle" unique_id=1946168779 instance=ExtResource("38_hjhmh")]
 visible = false
 layout_mode = 0
 offset_left = -318.249
@@ -3791,7 +3791,7 @@ alignment = 1
 [node name="Plus" type="Label" parent="Canvas/SPGain/VBoxContainer" unique_id=339714358]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_fonts/font = ExtResource("36_bvqsk")
 theme_override_font_sizes/font_size = 48
 text = "+"
 horizontal_alignment = 2
@@ -3800,7 +3800,7 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_fonts/font = ExtResource("36_bvqsk")
 theme_override_font_sizes/font_size = 42
 text = "0"
 horizontal_alignment = 1
@@ -3808,7 +3808,7 @@ horizontal_alignment = 1
 [node name="Text" type="Label" parent="Canvas/SPGain/VBoxContainer" unique_id=1920172912]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.388235, 0.388235, 0.388235, 1)
-theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_fonts/font = ExtResource("36_bvqsk")
 theme_override_font_sizes/font_size = 26
 text = " Skill Points"
 vertical_alignment = 1
@@ -3824,7 +3824,7 @@ theme_override_constants/separation = 24
 
 [node name="Text" type="Label" parent="Canvas/VictoryItems" unique_id=1321546098]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("27_7ghwb")
+theme_override_fonts/font = ExtResource("41_ctn83")
 theme_override_font_sizes/font_size = 42
 text = "Obtained items:"
 horizontal_alignment = 2
@@ -3842,15 +3842,15 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Icon" type="TextureRect" parent="Canvas/VictoryItems/ItemTemp/Hbox" unique_id=1878887984]
-material = ExtResource("1_dmrw5")
+material = ExtResource("7_ef2go")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("36_wspte")
+texture = ExtResource("42_gfcom")
 
 [node name="ItemName" type="Label" parent="Canvas/VictoryItems/ItemTemp/Hbox" unique_id=1644703804]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_fonts/font = ExtResource("36_bvqsk")
 theme_override_font_sizes/font_size = 38
 text = "Item name"
 vertical_alignment = 1
@@ -3859,7 +3859,7 @@ vertical_alignment = 1
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.584314, 0.584314, 0.584314, 1)
-theme_override_fonts/font = ExtResource("33_jy6my")
+theme_override_fonts/font = ExtResource("36_bvqsk")
 theme_override_font_sizes/font_size = 38
 text = "x2"
 vertical_alignment = 1
@@ -3883,7 +3883,7 @@ offset_top = 600.0
 offset_right = 2280.0
 offset_bottom = 751.0001
 pivot_offset = Vector2(0.50787354, 1.3183594)
-theme_override_fonts/font = ExtResource("9_ys1vd")
+theme_override_fonts/font = ExtResource("12_2samf")
 theme_override_font_sizes/font_size = 150
 text = "FOLLOW UP"
 horizontal_alignment = 2
@@ -3904,7 +3904,7 @@ offset_left = -3.0
 offset_top = -147.0
 offset_right = 1399.6666
 offset_bottom = 379.0
-texture = ExtResource("55_qr1i0")
+texture = ExtResource("54_qjfeq")
 
 [connection signal="GetControl" from="." to="BattleUI" method="_on_battle_get_control"]
 [connection signal="check_party" from="." to="EnemyUI" method="_check_party"]

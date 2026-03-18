@@ -4,10 +4,10 @@
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_xvot3"]
 [ext_resource type="Script" uid="uid://be12pgltbhfwt" path="res://codings/Interactions/shade.gd" id="4_dwguh"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="5_3ycob"]
-[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/tod_light.gd" id="5_b87t5"]
+[ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/Interactions/tod_light.gd" id="5_b87t5"]
 [ext_resource type="Texture2D" uid="uid://i8rst2uerw8" path="res://art/Backgrounds/AbadParallax1.png" id="6_gki33"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="7_q8qii"]
-[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/NPC.gd" id="8_spg60"]
+[ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="8_spg60"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="10_45tma"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="10_bma1q"]
 [ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="10_rs8em"]
@@ -566,10 +566,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_dejne")
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook1" unique_id=676713038]
 
@@ -607,10 +603,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_gb67y")
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook2" unique_id=713731077]
 
@@ -645,10 +637,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_icl6y")
 CameraIndex = 0
-step_frames = Dictionary[String, PackedInt32Array]({
-"Loop": PackedInt32Array(0, 1),
-"Walk": PackedInt32Array(0, 2)
-})
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook3" unique_id=1659952057]
 
