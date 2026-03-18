@@ -163,6 +163,8 @@ func vein_check():
 		get_parent().get_node("Particle").emitting = true
 		LabelText = "Open"
 		get_parent().get_node("Sprite").hide()
+	if Event.check_flag("DisableVeinet"):
+		LabelText = "Inspect"
 
 
 func check() -> void:
@@ -330,6 +332,8 @@ func _on_button_pressed() -> void:
 		return
 	if get_tree().root.has_node("Options"):
 		get_tree().root.get_node("Options").queue_free()
+	if proper_face == Vector2.ZERO:
+		Global.Player.look_to(Query.get_direction(to_local(Global.Player.position) * -1))
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
@@ -360,7 +364,10 @@ func _on_button_pressed() -> void:
 				Global.confirm_sound()
 				Event.sequence(file)
 		"veinet":
-			if Event.check_flag(get_parent().name):
+			await Event.take_control(false, false, true)
+			if Event.check_flag("DisableVeinet"):
+				await Global.textbox("interact_abad", "vein_point_idk")
+			elif Event.check_flag(get_parent().name):
 				Global.veinet_map(get_parent().name.replace("VP", ""))
 			else:
 				Event.add_flag(get_parent().name, true)

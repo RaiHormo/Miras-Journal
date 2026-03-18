@@ -23,7 +23,7 @@
 [ext_resource type="Resource" uid="uid://c4vpbxeag0n74" path="res://database/Enemies/Steelkee.tres" id="16_0o4df"]
 [ext_resource type="Resource" uid="uid://gk43qq3jxxgn" path="res://database/Enemies/CrimsonFlowent.tres" id="17_dejne"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="17_fac0c"]
-[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Interactions/event_tripwire.gd" id="19_5avo1"]
+[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Components/event_tripwire.gd" id="19_5avo1"]
 [ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="20_lxyok"]
 [ext_resource type="Texture2D" uid="uid://exhrdcludfxg" path="res://art/OV/Objects/Crate.png" id="21_02kmm"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="22_wfemh"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://dc01c6q7ceiwc" path="res://art/OV/Objects/GuardianDestroyed.png" id="30_ylfhl"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="31_ylfhl"]
 [ext_resource type="PackedScene" uid="uid://d0r3jc40ijx6l" path="res://rooms/components/BreakableOre.tscn" id="35_icl6y"]
+[ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="35_yh834"]
 
 [sub_resource type="Gradient" id="Gradient_auwcy"]
 offsets = PackedFloat32Array(1)
@@ -1057,6 +1058,10 @@ add_flag = true
 position = Vector2(227, 675)
 default_anim = "Green"
 given_item = "GreenFragment"
+
+[node name="VPEntrance" parent="." unique_id=597176728 instance=ExtResource("35_yh834")]
+z_index = 3
+position = Vector2(0, 408)
 
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]

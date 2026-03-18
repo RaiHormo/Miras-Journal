@@ -1,6 +1,11 @@
+import "res://database/Text/reserved_date.dialogue" as reserved_date
+
 ~ sleep_home
 do progress_by_time(1)
-if Event.TimeOfDay == 1:
+if date_is_reserved():
+	=>< {{get_reserved_date_dialog()}}
+	do! give_control()
+elif Event.TimeOfDay == 1:
 	I just got up... should I go back to bed?
 	if confirm_time_passage("Rest", "Will make me feel less tired."):
 		do Loader.transition("")
@@ -32,6 +37,7 @@ else:
 => END
 
 ~ gather_pyrson
+do remove_flag("InCamp")
 if f_past("eepy", 1):
 	I don't have the energy to go out right now...
 	do give_control()
@@ -41,29 +47,33 @@ if Day == 2:
 	I... should probably not enter it myself right now, I'd get completely lost.
 	do give_control()
 	=> END!
-[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
-- Gather allies
-	(hide)
-	do transition("L")
-	do Party.add("Alcine")
-	do Party.add("Asteria")
-	do Party.add("Daze")
-	do zoom(5)
-	do wait(0.3, false)
-	set npc("F1").position = Global.Player.position + Vector2(24, 0)
-	set npc("F2").position = Global.Player.position + Vector2(24, 24)
-	set npc("F3").position = Global.Player.position + Vector2(0, 24)
-	do npc("F1").show()
-	do npc("F2").show()
-	do npc("F3").show()
-	do PartyUI.hide_all()
-	do detransition()
-	Ok, let's go.
-	do Global.veinet_map("Gate")
-- Go alone
-	do Party.reset_party()
-	do Global.veinet_map("Gate")
-- Don't go
+elif date_is_reserved():
+	=>< {{get_reserved_date_dialog()}}
+	do give_control()
+else:
+	[[Should I gather the others?|Should I bring anyone else?|Let's call the others first.|Time to head out.]]
+	- Gather allies
+		(hide)
+		do transition("L")
+		do Party.add("Alcine")
+		do Party.add("Asteria")
+		do Party.add("Daze")
+		do zoom(5)
+		do wait(0.3, false)
+		set npc("F1").position = Global.Player.position + Vector2(24, 0)
+		set npc("F2").position = Global.Player.position + Vector2(24, 24)
+		set npc("F3").position = Global.Player.position + Vector2(0, 24)
+		do npc("F1").show()
+		do npc("F2").show()
+		do npc("F3").show()
+		do PartyUI.hide_all()
+		do detransition()
+		Ok, let's go.
+		do Global.veinet_map("Gate")
+	- Go alone
+		do Party.reset_party()
+		do Global.veinet_map("Gate")
+	- Don't go
 	do give_control()
 => END
 

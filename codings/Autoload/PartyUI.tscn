@@ -1277,7 +1277,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": ""
 }
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer" unique_id=784429027]
+[node name="TextEdit" type="LineEdit" parent="CanvasLayer" unique_id=66999055]
 visible = false
 offset_left = 10.0
 offset_top = 699.0
@@ -1394,4 +1394,5 @@ one_shot = true
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/UseTime" to="CanvasLayer/CalendarBase" method="use_time"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]
 [connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]
+[connection signal="text_submitted" from="CanvasLayer/TextEdit" to="." method="cmd"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

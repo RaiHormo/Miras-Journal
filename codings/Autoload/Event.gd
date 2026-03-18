@@ -210,9 +210,6 @@ func take_control(keep_ui := false, keep_followers := false, idle := false):
 	Global.Player.dashdir = Vector2.ZERO
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
-	if idle:
-		Global.Player.BodyState = NPC.IDLE
-		Global.Player.set_anim()
 	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
 	if not keep_followers:
@@ -223,6 +220,9 @@ func take_control(keep_ui := false, keep_followers := false, idle := false):
 		Global.Controllable = false
 		Global.Player.position = pos
 		Global.check_party.emit()
+		if idle:
+			Global.Player.BodyState = NPC.IDLE
+			Global.Player.set_anim()
 
 
 func give_control(camera_follow := false, bring_followers := true):
@@ -388,6 +388,8 @@ func get_ov_sprites(id: String) -> SpriteFrames:
 	return await Loader.load_res("res://art/OV/" + nam[0] + "/" + nam[1] + ".tres")
 
 
+## Take the current value of ToDay and ToTime, and begin a proper transition to that time.
+## Never run this from a dialogue file without do!
 func time_transition(location := Global.Area.codename()):
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox")._on_close()
@@ -404,11 +406,14 @@ func time_transition(location := Global.Area.codename()):
 	await start_time_events(location)
 
 
+## Abstraction for setting the camera zoom
 func zoom(val: float, maintain = false):
 	Global.Camera.zoom = Vector2(val, val)
 	if maintain: Global.Area.overwrite_zoom = val
 
 
+## An abstraction for setting the camera's position
+## Set time to -1 to not use a tween but smoothing, set it to 0 to move it instantly
 func camera_move(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
 	camera_unlock()
 	if time > 0:
@@ -425,17 +430,21 @@ func camera_move(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans
 		Global.Camera.position = to
 
 
+## Move the camera by adding to its current position
 func camera_move_relative(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
 	await camera_move(Global.Camera.position + to, time, ease, trans)
 
 
+## Make the camera not follow the player
 func camera_unlock():
 	if is_instance_valid(Global.Player):
 		Global.Player.camera_follow(false)
 
 
+## Start any events specified for this day and time
+## These could be in any Ev script
 func start_time_events(location: String):
-	var seq = Query.get_mmm(Query.get_month(Day)).to_lower() + str(Day) + "_" + Query.to_tod_text(TimeOfDay).to_lower()
+	var seq = get_date_identifier()
 	if sequence_exists(seq):
 		print("Starting event: " + seq)
 		await sequence(seq)
@@ -455,7 +464,14 @@ func start_time_events(location: String):
 	Loader.detransition()
 
 
-func condition(con: String):
+#TODO Make this adapt to diffrent months
+## Get an id for the current date, such as "nov1_morning"
+func get_date_identifier(day := Day, time := TimeOfDay) -> String:
+	return Query.get_mmm(Query.get_month(day)).to_lower() + str(day) + "_" + Query.to_tod_text(time).to_lower()
+
+
+## Run a condition script and return the number
+func condition(con: String) -> int:
 	if $Conditions.has_method(con):
 		var res = $Conditions.call(con)
 		#print("Condition "+ con+" ", res)
@@ -465,8 +481,26 @@ func condition(con: String):
 		return 0
 
 
+## Change any parameters from the time change
 func setup_time_changes(from: int, to: int):
 	if f_past("eepy", 1):
 		var eepy = flag_int("eepy")
 		add_flag("eepy", eepy + to - from)
 		if eepy >= 2 or TimeOfDay == TOD.MORNING: remove_flag("eepy")
+
+
+## Checks if the current date is in reserved_date.dialogue
+## Meaning you shouldn't be able to progress out of it normally
+func date_is_reserved() -> bool:
+	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
+	var date := get_date_identifier()
+	if date in dialogue.get_titles(): return true
+	else: return false
+
+
+func get_reserved_date_dialog() -> String:
+	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
+	var date := get_date_identifier()
+	var title: String = "default"
+	if date in dialogue.get_titles(): title = date
+	return "reserved_date/" + title

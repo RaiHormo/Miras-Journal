@@ -19,10 +19,12 @@ class_name SaveFile
 @export var Inventory: Array[String]
 @export var Flags: Dictionary[StringName, int]
 @export var Diary: Dictionary[int, PackedStringArray]
-@export var Day: int
-@export var TimeOfDay: int
 @export var version = 0
 @export var checksum: String
+
+## Depricated
+var Day: int
+var TimeOfDay: int
 
 
 func preview() -> Texture:
@@ -31,3 +33,23 @@ func preview() -> Texture:
 			return await Loader.load_res("res://art/Previews/2.png")
 		_:
 			return await Loader.load_res("res://art/Previews/1.png")
+
+
+func migrate() -> SaveFile:
+	var migratable := true
+	match version:
+		6:
+			Flags.set("day", Day)
+			Flags.set("time", TimeOfDay)
+			version = 7
+		_:
+			migratable = false
+	if migratable == false:
+		print("File cannot be migrated")
+		return null
+	if version != Loader.SaveVersion:
+		print("more conversions need to be done")
+		return migrate()
+	else:
+		print("Success!")
+		return self as SaveFile

@@ -1,9 +1,8 @@
-~ getting_dark
-...It's getting a little dark.
-(hide)
-do Player.activate_flame()
-do Event.wait(0.5)
-This should help.
+import "res://database/Text/reserved_date.dialogue" as reserved_date
+
+~ vein_point_idk
+Particles seem to be coming out of this crack in the ground.
+I'm not sure what this is.
 => END
 
 ~ skeleton
@@ -46,7 +45,7 @@ else:
 => END
 
 ~ amberelm_sign
-It's a broken sign with Cyrenian writing on it
+It's a broken sign with Cyrenian writing on it.
 "Amberelm town"
 => END
 
@@ -84,7 +83,9 @@ do Global.Player.camera_follow(true)
 => END
 
 ~ amberelm_bench
-if Day == 0 and TimeOfDay == 2:
+if date_is_reserved():
+	=>< {{get_reserved_date_dialog()}}
+elif Day == 0 and TimeOfDay == 2:
 	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
 	do Event.progress_by_time(1)
 	if confirm_time_passage("Rest", "Fully restore health."):
@@ -99,6 +100,8 @@ else:
 ~ rest_camp
 if f("AlcineAlone"):
 	Alcine.Neutral: Shwooo?
+elif date_is_reserved():
+	=>< {{get_reserved_date_dialog()}}
 elif Event.TimeOfDay == 2 and Event.Day == 1:
 	I'm all rested, let's go find {{alcine()}}.
 elif Event.TimeOfDay > 2 and Event.Day == 2:

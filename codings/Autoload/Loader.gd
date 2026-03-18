@@ -1,6 +1,6 @@
 extends Control
 
-const SaveVersion = 6
+const SaveVersion = 7
 
 @export var scene: Array[String] = []
 var status
@@ -78,8 +78,6 @@ func save(filename: String = "Autosave", showicon = true):
 		data.RoomName = Global.Area.CurSubRoom.Title
 	else:
 		data.RoomName = Global.Area.Name
-	data.Day = Event.Day
-	data.TimeOfDay = Event.TimeOfDay
 	ResourceSaver.save(data, "user://" + filename + ".tres")
 	Preview = (await data.preview())
 
@@ -115,8 +113,8 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	Event.Flags = data.Flags.duplicate()
 	Event.Diary = data.Diary
 	print("Flags loaded: ", Event.Flags)
-	Event.Day = data.Day
-	Event.TimeOfDay = data.TimeOfDay as Event.TOD
+	Event.Day = Event.Flags.get("day")
+	Event.TimeOfDay = Event.Flags.get("time") as Event.TOD
 	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
 
@@ -638,14 +636,22 @@ func _on_ungray():
 
 func validate_save(save: String) -> bool:
 	if FileAccess.file_exists(save):
-		var file = load(save)
+		var file: SaveFile = load(save)
 		if is_instance_valid(file):
 			if file.version == SaveVersion:
 				return true
 			else:
-				Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game...", "ERROR", ["Okay fine"])
-				Global.options(1)
-				return false
+				# To read resource properties not in the current class, i need to load it as a config file
+				print("!!! THE SAVE IS FROM AN INCOMPATIBLE VERSION")
+				print("attempting to migrate from ", file.version)
+				file = file.migrate()
+				if file != null:
+					ResourceSaver.save(file, save)
+					return true
+				else:
+					Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game...", "ERROR", ["Okay fine"])
+					Global.options(1)
+					return false
 		else:
 			Global.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
 			Global.options(1)

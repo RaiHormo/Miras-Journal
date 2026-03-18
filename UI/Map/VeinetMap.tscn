@@ -240,7 +240,7 @@ offset_bottom = 818.0
 texture = ExtResource("2_8kw10")
 expand_mode = 1
 
-[node name="Amberelm" type="Marker2D" parent="Map" unique_id=1098013337]
+[node name="Entrance" type="Marker2D" parent="Map" unique_id=1098013337]
 light_mask = 0
 position = Vector2(174, 284)
 

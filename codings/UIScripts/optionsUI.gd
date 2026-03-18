@@ -462,13 +462,28 @@ func file_sort(a: Control, b: Control):
 func draw_file(file: SaveFile, node: Control):
 	var panel = node.get_child(0)
 	node.set_meta("sort", -1)
-	if file == null or file.version != Loader.SaveVersion:
+	# Set default parameters
+	for i in range(0, 4):
+		panel.get_node("Party/Icon" + str(i)).texture = null
+	panel.get_node("Time/Playtime").text = "???"
+	panel.get_node("SavedDate").text = ""
+	# Check for invalid states
+	if file == null:
 		node.get_node("Info/FileName").text = "Unloadable data"
 		panel.get_node("Date/Month").text = "Please"
 		panel.get_node("Date/Day").text = "Delete"
 		panel.get_node("Location").text = "Now"
 		return
+	elif file.version != Loader.SaveVersion:
+		node.get_node("Info/FileName").text = file.Name
+		panel.get_node("Date/Month").text = "Old"
+		panel.get_node("Date/Day").text = "Version"
+		panel.get_node("Location").text = "Load to migrate"
+		return
+	# Set time for sorting
 	node.set_meta("sort", file.SavedTime)
+
+	#Now load in everything
 	node.get_node("Info/FileName").text = file.Name
 	panel.get_node("Date/Day").text = str(file.Day)
 	if file.Day <= 30 and file.Day > 0:

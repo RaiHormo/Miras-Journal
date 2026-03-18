@@ -145,8 +145,10 @@ func _check_party():
 
 
 func _input(ev):
-	if (Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
-	and "Idle" in Global.Player.sprite.animation) and not Expanded:
+	if (
+		(Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
+		and "Idle" in Global.Player.sprite.animation) and not Expanded and not $CanvasLayer/TextEdit.visible
+	):
 		if Input.is_action_just_pressed("Options"):
 			Global.options(0)
 		elif Input.is_action_just_pressed("SaveManagment"):
@@ -664,63 +666,63 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	return awnser
 
 
-func cmd():
+func cmd(cmd_text = ""):
 	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
 	show_all()
 	if not $CanvasLayer/TextEdit.visible:
+		await Event.take_control(true)
 		print(Event.Flags)
 		$CanvasLayer/TextEdit/RichTextLabel.text = str(Event.Flags).replace(",", "\n")
 		$CanvasLayer/TextEdit.show()
 		$CanvasLayer/TextEdit.grab_focus()
 		$CanvasLayer/TextEdit.set_deferred("text", "")
-		Global.Controllable = false
 	else:
-		if $CanvasLayer/TextEdit.text.begins_with("/"):
-			if "/clear" in $CanvasLayer/TextEdit.text:
+		if cmd_text.begins_with("/"):
+			if "/clear" in cmd_text:
 				Event.Flags.clear()
 				Loader.Defeated.clear()
-			elif "/cam" in $CanvasLayer/TextEdit.text:
+			elif "/cam" in cmd_text:
 				Global.Player.camera_follow()
-			elif "/day " in $CanvasLayer/TextEdit.text:
-				var text = $CanvasLayer/TextEdit.text.replace("/day ", "")
+			elif "/day " in cmd_text:
+				var text = cmd_text.replace("/day ", "")
 				Event.Day = int(text)
-			elif "/time " in $CanvasLayer/TextEdit.text:
-				var text = $CanvasLayer/TextEdit.text.replace("/time ", "")
+			elif "/time " in cmd_text:
+				var text = cmd_text.replace("/time ", "")
 				Event.TimeOfDay = text as Event.TOD
-			elif "/comp " in $CanvasLayer/TextEdit.text:
-				var text = $CanvasLayer/TextEdit.text.replace("/comp ", "")
+			elif "/comp " in cmd_text:
+				var text = cmd_text.replace("/comp ", "")
 				Global.add_complimentary(text)
-			elif "/enrestore" in $CanvasLayer/TextEdit.text:
+			elif "/enrestore" in cmd_text:
 				Loader.Defeated.clear()
-			elif "/timetrans" in $CanvasLayer/TextEdit.text:
+			elif "/timetrans" in cmd_text:
 				Event.ToDay = Event.Day
 				Event.ToTime = Event.TimeOfDay
 				Event.time_transition()
-			elif "/lv " in $CanvasLayer/TextEdit.text:
+			elif "/lv " in cmd_text:
 				Global.reset_all_members()
-				var text = $CanvasLayer/TextEdit.text.replace("/lv ", "")
+				var text = cmd_text.replace("/lv ", "")
 				for i in Global.Party.array():
 					if i != null:
 						i.level_up_to(int(text))
 				Global.heal_party()
 				Global.check_party.emit()
-			elif "/item " in $CanvasLayer/TextEdit.text:
-				var text: String = $CanvasLayer/TextEdit.text.replace("/item ", "")
+			elif "/item " in cmd_text:
+				var text: String = cmd_text.replace("/item ", "")
 				var split = text.split(":")
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
 				Item.add_item(split[0], split[1])
-			elif "/itemrm " in $CanvasLayer/TextEdit.text:
-				var text: String = $CanvasLayer/TextEdit.text.replace("/itemrm ", "")
+			elif "/itemrm " in cmd_text:
+				var text: String = cmd_text.replace("/itemrm ", "")
 				var split = text.split(":")
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
 				Item.remove_item(split[0], split[1])
-		elif $CanvasLayer/TextEdit.text != "":
-			var text = $CanvasLayer/TextEdit.text
+		elif cmd_text != "":
+			var text = cmd_text
 			Event.add_flag(text, !Event.check_flag(text))
 			if not "=" in text:
 				Global.toast("Flag \"" + text + "\" set to "

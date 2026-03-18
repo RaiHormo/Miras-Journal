@@ -245,7 +245,7 @@ func nodes_of_type(node: Node, className: String, result: Array) -> void:
 
 func intro_effect(ref: Node):
 	#if get_tree().root.has_node("IntroEffect"): return
-	var node = (await Loader.load_res("res://codings/IntroEffect.tscn")).instantiate()
+	var node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
 	get_tree().root.add_child(node)
 	node.ref = ref
 	node.animate()

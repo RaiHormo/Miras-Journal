@@ -67,6 +67,14 @@ set Party.Leader.node.global_position = Global.Player.position
 I feel like it might prove useful.
 => END
 
+~ getting_dark
+...It's getting a little dark.
+(hide)
+do Player.activate_flame()
+do Event.wait(0.5)
+This should help.
+=> END
+
 ~ hey_wait
 Mira.OpenMouth: Hey wait![next=2]
 => END
@@ -286,11 +294,11 @@ Placeholder description: Mira then faints.
 
 ~ daze_introduction
 I open my eyes and see im somewhere else. Is this a tent?
-I get up and look around. My clothes are all ripped and i have a bandage on my left arm.
+I get up and look around. My clothes are all ripped and I have a bandage on my left arm.
 Ow, it hurts quite a bit to move it around.
 set Query.find_member("Daze").FirstName = ""
 Daze.Neutral: Oh Ms. Levenor, you're finally up!
-I'm not that sure what to say, and i just stare silent for a bit. 
+I'm not that sure what to say, and I just stare silent for a bit. 
 After a bit of hesitation I go to sit on the other side of the campfire.
 Mira.Neutral: I have so many questions...
 Daze.Neutral: Ask away.

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="1_sli5j"]
 [ext_resource type="Texture2D" uid="uid://cuodplc4cg1gg" path="res://art/Icons/Editor/vp.png" id="2_focdk"]
-[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_7tadi"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_7tadi"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4p5qo"]
 
@@ -47,7 +47,6 @@ color_ramp = SubResource("GradientTexture1D_fq0ps")
 [node name="Interactable" parent="." unique_id=68636642 instance=ExtResource("1_sli5j")]
 LabelText = "Enter"
 ActionType = "veinet"
-hide_on_flag = &"DisableVeinet"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1825868405]
 position = Vector2(-4.76837e-07, -4.76837e-07)
