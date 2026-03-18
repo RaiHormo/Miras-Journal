@@ -3,12 +3,14 @@ extends Node2D
 @export var flag: String = ""
 @export var hide_if: bool = true
 @export var use_sprite = false
-@export var free_instead:= false
+@export var free_instead := false
+
 
 func _ready() -> void:
 	check()
 	get_parent().show()
 	Global.check_party.connect(check)
+
 
 func check():
 	if get_node_or_null("Sprite") != null: use_sprite = true

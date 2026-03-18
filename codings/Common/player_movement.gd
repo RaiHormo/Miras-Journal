@@ -105,14 +105,15 @@ func control_process():
 	if controllable():
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
-		if (Input.is_action_pressed("Dash")) and Query.get_direction(
-			direction) != dashdir * Vector2(-1, -1) and direction != Vector2.ZERO and can_dash:
-				if dashing:
-					if dashdir.y == 0:
-						direction.y /= 1.2
-				if dashdir.x == 0:
-					direction.x /= 1.2
-				speed = min(speed * 1.005, 350)
+		if ((Input.is_action_pressed("Dash")) and Query.get_direction(
+			direction) != dashdir * Vector2(-1, -1) and direction != Vector2.ZERO and can_dash
+		):
+			if dashing:
+				if dashdir.y == 0:
+					direction.y /= 1.2
+			if dashdir.x == 0:
+				direction.x /= 1.2
+			speed = min(speed * 1.005, 350)
 			if not dashing:
 				if undashable:
 					reset_speed()

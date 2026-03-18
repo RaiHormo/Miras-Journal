@@ -16,6 +16,7 @@ class_name EventTripwire
 @export var SlowDown: bool = false
 @export var KickDirection: Vector2
 
+
 func _on_body_entered(body):
 	if Flag.is_empty() and FlagIsName: Flag = name
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player and (not FlagIsName or !Event.check_flag(name)):
@@ -38,10 +39,11 @@ func _on_body_entered(body):
 			else:
 				await Global.textbox(TextFile, TextNode)
 		elif BattleSeq != null: Loader.start_battle(BattleSeq)
-		if SlowDown: 
+		if SlowDown:
 			Global.Player.speed = Global.Player.walk_speed
 			Global.Player.can_dash = true
 		if ReturnControl: Event.give_control(true)
+
 
 func kick():
 	print("kick!")

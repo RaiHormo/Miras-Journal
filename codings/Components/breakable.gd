@@ -12,9 +12,10 @@ extends StaticBody2D
 	set(x):
 		given_item = x
 		notify_property_list_changed()
-@export var decrease_z:= true
-@export var broken:= false
-@export var not_actually_breakable:= false
+@export var decrease_z := true
+@export var broken := false
+@export var not_actually_breakable := false
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
@@ -23,6 +24,7 @@ func _ready() -> void:
 		$Sprite.play(default_anim)
 	if Event.check_flag(name): set_break()
 	if has_node("Pack"): $Pack.hide()
+
 
 func _on_area_break_area_entered(area: Area2D) -> void:
 	if Engine.is_editor_hint(): return
@@ -35,6 +37,7 @@ func _on_area_break_area_entered(area: Area2D) -> void:
 			Global.rumble(1, 0.3, 0.2)
 		Item.add_item(given_item, item_type, true, false)
 
+
 func set_break():
 	if not_actually_breakable: return
 	disappear()
@@ -46,6 +49,7 @@ func set_break():
 	$AreaBreak.queue_free()
 	if decrease_z: z_index -= 1
 
+
 func _validate_property(property: Dictionary) -> void:
 	if property.name == "given_item" and Engine.is_editor_hint():
 		var type: String
@@ -54,7 +58,7 @@ func _validate_property(property: Dictionary) -> void:
 			"Bti": type = "BattleItems"
 			"Mat": type = "Materials"
 			"Key": type = "KeyItems"
-		var files = DirAccess.get_files_at("res://database/Items/"+type)
+		var files = DirAccess.get_files_at("res://database/Items/" + type)
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))
@@ -65,9 +69,10 @@ func _validate_property(property: Dictionary) -> void:
 				get_node("Sprite").animation = color
 				default_anim = color
 		property.hint_string = ",".join(items)
-		if get(property.name) != "" and get(property.name) not in items:
+		if get(property.name) != "" and get(property.name)not in items:
 			item_type = ["Con", "Mat", "Bti", "Key"].pick_random()
 			notify_property_list_changed()
+
 
 func _on_area_prompt_area_entered(area: Area2D) -> void:
 	if broken: return
@@ -76,10 +81,12 @@ func _on_area_prompt_area_entered(area: Area2D) -> void:
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
 		appear()
 
+
 func _on_area_prompt_area_exited(area: Area2D) -> void:
 	if broken: return
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
 		disappear()
+
 
 func appear():
 	if broken: return
@@ -100,10 +107,12 @@ func appear():
 		return
 	$Pack/AnimationPlayer.play("Idle")
 
+
 func disappear():
 	if broken: return
 	if get_node_or_null("Pack/AnimationPlayer") == null: return
 	$Pack/AnimationPlayer.play("Disappear")
+
 
 func _on_button_pressed() -> void:
 	disappear()

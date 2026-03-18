@@ -1,6 +1,7 @@
 extends Area2D
 @export var angle: float = 0.75
 
+
 func _physics_process(delta: float) -> void:
 	for body in get_overlapping_bodies():
 		if body is NPC:

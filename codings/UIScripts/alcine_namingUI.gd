@@ -2,8 +2,10 @@ extends CanvasLayer
 signal enter
 var txt: String = ''
 
+
 func _ready() -> void:
 	hide()
+
 
 func start():
 	get_tree().paused = false
@@ -15,6 +17,7 @@ func start():
 	$TextEdit.set_caret_column(10)
 	await enter
 	queue_free()
+
 
 func _on_text_edit_text_changed(text: String) -> void:
 	if "\n" in text:
@@ -29,6 +32,7 @@ func _on_text_edit_text_changed(text: String) -> void:
 	else:
 		$Error.hide()
 	txt = $TextEdit.text
+
 
 func on_confirm(text: String) -> void:
 	$TextEdit.text = $TextEdit.text.dedent()
@@ -96,6 +100,7 @@ func on_confirm(text: String) -> void:
 		Global.textbox("naming", "what_about")
 	await get_tree().process_frame
 	$TextEdit.set_caret_column(14)
+
 
 func check_for_symbols():
 	var res = false

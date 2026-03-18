@@ -73,9 +73,11 @@ func quit() -> void:
 		get_tree().root.get_node("Options").close()
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
-	if not Loader.InBattle and is_instance_valid(Player) and is_instance_valid(Area) and (
-		Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options")):
-			Loader.icon_save()
+	if (
+		not Loader.InBattle and is_instance_valid(Player) and is_instance_valid(Area) and (
+		Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options"))
+	):
+		Loader.icon_save()
 		await Loader.save()
 	elif is_instance_valid(Area):
 		if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):

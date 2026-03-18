@@ -1,20 +1,21 @@
 extends CanvasLayer
 var stage = "root"
-var rootIndex =1
+var rootIndex = 1
 var t: Tween
-var prevRootIndex =1
+var prevRootIndex = 1
 var prevPos: Vector2
 var zoom
 var z: int
-@onready var Cam:Camera2D = Global.get_cam()
-@onready var CamPrev:Camera2D = Global.get_cam().duplicate()
+@onready var Cam: Camera2D = Global.get_cam()
+@onready var CamPrev: Camera2D = Global.get_cam().duplicate()
 @onready var Fader
-var PrevCtrl:Control = null
-var KeyInv :Array[ItemData]
+var PrevCtrl: Control = null
+var KeyInv: Array[ItemData]
 var player: Mira
 var duplicated := false
-var focused_item:ItemData = null
+var focused_item: ItemData = null
 var cam_follow: bool
+
 
 func _ready():
 	hide()
@@ -57,14 +58,14 @@ func _ready():
 	stage = "pre_root"
 	zoom = Global.get_cam().zoom
 	prevPos = player.global_position
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6).from(Vector2(1.5, 1.5))
 	t.tween_property(Cam, "offset", Vector2(0, (-11 + zoom.y)), 0.5)
-	t.tween_property($Confirm, "position", Vector2(31,742), 0.3).from(Vector2(31,850))
-	t.tween_property($Back, "position", Vector2(210,742), 0.4).from(Vector2(210,850))
+	t.tween_property($Confirm, "position", Vector2(31, 742), 0.3).from(Vector2(31, 850))
+	t.tween_property($Back, "position", Vector2(210, 742), 0.4).from(Vector2(210, 850))
 	t.tween_property($Party, "position", Vector2(274, 28), 0.4).from(Vector2(274, -50))
 	player.get_node("%Shadow").z_index = -1
 	PartyUI.show_all()
@@ -74,19 +75,19 @@ func _ready():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
 	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
-	t.tween_property(Fader, "modulate", Color(0,0,0,0.6), 0.5)
+	t.tween_property(Fader, "modulate", Color(0, 0, 0, 0.6), 0.5)
 	if duplicated:
 		Cam.position = Global.get_cam().get_screen_center_position()
 		t.tween_property(player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
-		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*2.5, 0.5).from(0.0)
-	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect)*1.0, 0.5).from(0.0)
+		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 2.5, 0.5).from(0.0)
+	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 1.0, 0.5).from(0.0)
 	get_inventory()
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	$Inventory.hide()
 	#$Rail.hide()
 	$AnimationPlayer.play("open")
-	rootIndex=1
+	rootIndex = 1
 	move_root()
 	show()
 	get_tree().paused = true
@@ -94,7 +95,7 @@ func _ready():
 	#player.bag_anim()
 	stage = "root"
 	await Event.wait(0.3, false)
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
@@ -107,8 +108,9 @@ func _ready():
 
 var input_frame
 
+
 func _input(event):
-	if Global.LastInput==Global.ProcessFrame: return
+	if Global.LastInput == Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	$Party.icon = Global.get_controller().Select
@@ -138,7 +140,8 @@ func _input(event):
 		"item":
 			pass
 
-func _on_focus_changed(control:Control):
+
+func _on_focus_changed(control: Control):
 	if stage == "item":
 		if PrevCtrl == control or control == null:
 			#Global.buzzer_sound()
@@ -148,19 +151,20 @@ func _on_focus_changed(control:Control):
 			if control is Button: focus_item(control)
 	PrevCtrl = control
 
-func close(give_control=true):
+
+func close(give_control = true):
 	$AnimationPlayer.speed_scale = 2
 	$AnimationPlayer.play_backwards("open")
 	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
 	stage = "inactive"
 	get_tree().paused = false
 	if t: t.kill()
-	t=create_tween()
+	t = create_tween()
 	Global.Area.get_node("Mira").set_anim()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
-	t.tween_property(Cam, "offset", Vector2(0 ,0), 0.3)
+	t.tween_property(Cam, "offset", Vector2(0, 0), 0.3)
 	t.tween_property($Rail/JournalFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/QuestFollow, "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property($Rail/OptionsFollow, "modulate", Color.TRANSPARENT, 0.3)
@@ -179,14 +183,14 @@ func close(give_control=true):
 	t.tween_property(player, "global_position", prevPos, 0.5)
 	t.tween_property($Confirm, "position:y", 850, 0.4)
 	t.tween_property($Back, "position:y", 850, 0.3)
-	t.tween_property(Fader, "modulate", Color(0,0,0,0), 0.5)
+	t.tween_property(Fader, "modulate", Color(0, 0, 0, 0), 0.5)
 	t.tween_property($Ring, "scale", Vector2(1.6, 1.6), 0.3)
 	t.tween_property($Ring/Glow, "modulate", Color.TRANSPARENT, 0.3)
 	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	Cam.position = CamPrev.position
 	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
 	if not duplicated: Global.Area.handle_z(z)
-	else: t.tween_property(player, "modulate", Color(0,0,0,0), 0.5)
+	else: t.tween_property(player, "modulate", Color(0, 0, 0, 0), 0.5)
 	if is_instance_valid(player):
 		player.get_node("%Shadow").z_index = 0
 	await t.finished
@@ -200,39 +204,40 @@ func close(give_control=true):
 	if is_instance_valid(Fader): Fader.hide()
 	queue_free()
 
+
 func move_root():
-	var button : Button = $Rail.get_child(rootIndex).get_child(0)
+	var button: Button = $Rail.get_child(rootIndex).get_child(0)
 	button.grab_focus()
 	$Confirm.show()
 	$Back.show()
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.set_parallel()
 	t.tween_property($Rail, "position", $Rail.position, 0)
 	t.tween_property($Confirm, "position:y", 741, 0.3)
 	t.tween_property($Back, "position:y", 741, 0.3)
-	if rootIndex == -1: 
+	if rootIndex == -1:
 		$Party.grab_focus()
 		return
-	if rootIndex > prevRootIndex: 
+	if rootIndex > prevRootIndex:
 		$AnimationPlayer.stop(true)
 		$AnimationPlayer.play("tick_down")
-	elif rootIndex < prevRootIndex: 
+	elif rootIndex < prevRootIndex:
 		$AnimationPlayer.stop(true)
 		$AnimationPlayer.play("tick_up")
 		t.set_trans(Tween.TRANS_BACK)
-	if rootIndex==0:
+	if rootIndex == 0:
 		if $Rail/JournalFollow/JournalButton.disabled:
 			Global.buzzer_sound()
 			rootIndex = 1
 			move_root()
 			return
 		t.tween_property($Base/Clip, "rotation_degrees", 19.5, 0.3)
-		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1.2,1.2), 0.3)
-		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1.2, 1.2), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1, 1), 0.3)
 		t.tween_property($Rail/JournalFollow, "progress", 540, 0.3)
 		t.tween_property($Rail/ItemFollow, "progress", 660, 0.3)
 		t.tween_property($Rail/QuestFollow, "progress", 770, 0.3)
@@ -241,13 +246,13 @@ func move_root():
 		t.tween_property($Rail/ItemFollow, "rotation_degrees", 5, 0.3)
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 25, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 35, 0.3)
-	if rootIndex==1:
+	if rootIndex == 1:
 		if prevRootIndex != 1:
 			t.tween_property($Base/Clip, "rotation_degrees", 0, 0.3)
-		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1.2,1.2), 0.3)
-		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1.2, 1.2), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1, 1), 0.3)
 		t.tween_property($Rail/JournalFollow, "progress", 460, 0.3)
 		t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
 		t.tween_property($Rail/QuestFollow, "progress", 709, 0.3)
@@ -256,12 +261,12 @@ func move_root():
 		t.tween_property($Rail/ItemFollow, "rotation_degrees", 0, 0.3)
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 15, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 25, 0.3)
-	if rootIndex==2:
+	if rootIndex == 2:
 		t.tween_property($Base/Clip, "rotation_degrees", -19, 0.3)
-		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1.2,1.2), 0.3)
-		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1,1), 0.3)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1.2, 1.2), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1, 1), 0.3)
 		t.tween_property($Rail/JournalFollow, "progress", 380, 0.3)
 		t.tween_property($Rail/ItemFollow, "progress", 490, 0.3)
 		t.tween_property($Rail/QuestFollow, "progress", 590, 0.3)
@@ -270,12 +275,12 @@ func move_root():
 		t.tween_property($Rail/ItemFollow, "rotation_degrees", -10, 0.3)
 		t.tween_property($Rail/QuestFollow, "rotation_degrees", 0, 0.3)
 		t.tween_property($Rail/OptionsFollow, "rotation_degrees", 15, 0.3)
-	if rootIndex==3:
+	if rootIndex == 3:
 		t.tween_property($Base/Clip, "rotation_degrees", -39, 0.3)
-		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1,1), 0.3)
-		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1.2,1.2), 0.3)
+		t.tween_property($Rail/JournalFollow/JournalButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/ItemFollow/ItemButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/QuestFollow/QuestButton, "scale", Vector2(1, 1), 0.3)
+		t.tween_property($Rail/OptionsFollow/OptionsButton, "scale", Vector2(1.2, 1.2), 0.3)
 		t.tween_property($Rail/JournalFollow, "progress", 300, 0.3)
 		t.tween_property($Rail/ItemFollow, "progress", 420, 0.3)
 		t.tween_property($Rail/QuestFollow, "progress", 540, 0.3)
@@ -287,31 +292,32 @@ func move_root():
 	await t.finished
 	prevRootIndex = rootIndex
 
+
 func _root():
 	show()
 	t.kill()
 	if stage != "root":
-		stage="inactive-root"
+		stage = "inactive-root"
 	$Confirm.text = "Select"
 	$Back.text = "Close"
 	$Confirm.show()
 	$Back.show()
 	PartyUI.UIvisible = true
 	$Confirm.disabled = false
-	t=create_tween()
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	t.tween_property($Base, "modulate", Color.WHITE, 0.5)
 	t.tween_property($Rail, "modulate", Color.WHITE, 0.5)
 	t.tween_property($DescPaper, "rotation_degrees", -75, 0.3)
-	t.tween_property($DescPaper, "scale", Vector2(0.1,0.1), 0.3)
-	t.tween_property($DescPaper, "modulate", Color(0,0,0,0), 0.2)
+	t.tween_property($DescPaper, "scale", Vector2(0.1, 0.1), 0.3)
+	t.tween_property($DescPaper, "modulate", Color(0, 0, 0, 0), 0.2)
 	for i in $Rail.get_children():
 		t.tween_property(i.get_child(0), "size:x", 190, 0.3)
 		t.tween_property(i.get_child(0), "position", Vector2(-90, -30), 0.3).from(Vector2(-90, -130))
 		t.tween_property(i, "modulate", Color.WHITE, 0.3)
-		i.z_index=0
+		i.z_index = 0
 		i.get_child(0).toggle_mode = false
 	move_root()
 	t.set_trans(Tween.TRANS_QUART)
@@ -320,8 +326,8 @@ func _root():
 	t.tween_property($Inventory, "position", (Vector2(803, 400)), 0.3)
 	t.tween_property(Cam, "offset:x", 0, 0.8)
 	t.tween_property($DottedBack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Base, "position", Vector2(643 ,421), 0.8)
-	t.tween_property($Rail, "position", Vector2(458 ,235), 0.8).from(Vector2(0 ,235))
+	t.tween_property($Base, "position", Vector2(643, 421), 0.8)
+	t.tween_property($Rail, "position", Vector2(458, 235), 0.8).from(Vector2(0, 235))
 	t.tween_property($Ring, "position", Vector2(-162, -388), 0.8)
 	t.tween_property($Ring, "scale", Vector2.ONE, 0.6)
 	t.tween_property($Ring/Glow, "modulate", Color.WHITE, 0.6).from(Color.TRANSPARENT)
@@ -331,14 +337,15 @@ func _root():
 	PartyUI.darken(false)
 	await t.finished
 	if stage == "inactive-root":
-		stage="root"
+		stage = "root"
+
 
 func _journal():
 	if stage == "inactive": return
 	if rootIndex != 0:
 		rootIndex = 0
 		move_root()
-	stage="journal"
+	stage = "journal"
 	Global.confirm_sound()
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
 	$Rail/JournalFollow/JournalButton.toggle_mode = true
@@ -361,14 +368,15 @@ func _journal():
 	t.tween_property($Rail/QuestFollow, "progress", 587, 0.3)
 	t.tween_property($Rail/OptionsFollow, "progress", 587, 0.3)
 	t.tween_property(Cam, "offset:x", 100, 0.6)
-	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
-	t.tween_property($Ring, "position", Vector2(-500 ,0), 0.6).as_relative()
+	t.tween_property($Base, "position", Vector2(-500, 0), 0.6).as_relative()
+	t.tween_property($Ring, "position", Vector2(-500, 0), 0.6).as_relative()
 	t.tween_property($Party, "position", Vector2(-200, 28), 0.4)
 	var journalui: CanvasLayer = (await Loader.load_res("res://UI/Journal/JournalUI.tscn")).instantiate()
 	$Confirm.hide()
 	$Back.hide()
 	get_tree().root.add_child(journalui)
 	PartyUI.hide_all()
+
 
 func _item():
 	if stage == "inactive": return
@@ -380,8 +388,8 @@ func _item():
 	$Back.text = "Back"
 	t.kill()
 	#stage="inacive"
-	stage="item"
-	t=create_tween()
+	stage = "item"
+	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
@@ -391,7 +399,7 @@ func _item():
 	t.tween_property($Rail/ItemFollow, "progress", 587, 0.3)
 	t.tween_property($Rail/ItemFollow, "rotation_degrees", 0, 0.3)
 	t.tween_property($DescPaper, "rotation_degrees", 0, 0.4).from(-30)
-	t.tween_property($DescPaper, "scale", Vector2(0.7,0.7), 0.4)
+	t.tween_property($DescPaper, "scale", Vector2(0.7, 0.7), 0.4)
 	t.tween_property($DescPaper, "modulate", Color.WHITE, 0.4)
 	t.tween_property($Inventory, "modulate", Color.WHITE, 0.1)
 	t.tween_property($DottedBack, "modulate", Color(0.67, 0.67, 0.62, 0.2), 0.4)
@@ -413,8 +421,8 @@ func _item():
 	t.tween_property($Inventory, "size", Vector2(547, 549), 0.3).from(Vector2.ZERO)
 	t.tween_property($Inventory, "position", Vector2(241, 123), 0.3).from(Vector2(803, 446))
 	t.tween_property(Cam, "offset:x", 100, 0.6)
-	t.tween_property($Base, "position", Vector2(-500 ,0), 0.6).as_relative()
-	t.tween_property($Ring, "position", Vector2(-500 ,0), 0.6).as_relative()
+	t.tween_property($Base, "position", Vector2(-500, 0), 0.6).as_relative()
+	t.tween_property($Ring, "position", Vector2(-500, 0), 0.6).as_relative()
 	if not Item.KeyInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
 		focus_item($Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0))
@@ -424,25 +432,24 @@ func _item():
 	$Rail/ItemFollow/ItemButton.position = Vector2(-500, -340)
 
 
-
 func _quest():
 	if stage == "inactive": return
-	if rootIndex!=2:
+	if rootIndex != 2:
 		rootIndex = 2
 		move_root()
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 func _options():
 	if stage != "root": return
-	if rootIndex!=3:
+	if rootIndex != 3:
 		rootIndex = 3
 		move_root()
-	stage="options"
-	PartyUI.UIvisible=false
+	stage = "options"
+	PartyUI.UIvisible = false
 	get_tree().root.add_child((await Loader.load_res("res://UI/Options/Options.tscn")).instantiate())
 	Global.confirm_sound()
-	t=create_tween()
+	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -458,12 +465,14 @@ func _options():
 	await t.finished
 	hide()
 
+
 func _on_confirm_button_down():
 	if stage == "item":
 		if PrevCtrl == null or not PrevCtrl.has_meta("ItemData"): return
 		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
 			Item.use(PrevCtrl.get_meta("ItemData"))
 			Global.confirm_sound()
+
 
 func _on_back_button_down():
 	if stage != "inactive": Global.cancel_sound()
@@ -498,6 +507,7 @@ func _on_back_button_down():
 			PartyUI.UIvisible = false
 			PartyUI.MemberChoosing = false
 
+
 func get_inventory():
 	if Item.KeyInv.is_empty(): return
 	await Item.verify_inventory()
@@ -530,19 +540,21 @@ func get_inventory():
 	for item in Item.BtiInv:
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/BattleItems)
 
+
 func make_slot(item: ItemData, grid: GridContainer):
-	var dub =  $Inventory/Item.duplicate()
+	var dub = $Inventory/Item.duplicate()
 	dub.icon = item.Icon
 	dub.set_meta("ItemData", item)
-	if item.Quantity>1:
+	if item.Quantity > 1:
 		dub.text = str(item.Quantity)
 	else: dub.text = ""
 	grid.add_child(dub)
 	dub.show()
 
-func focus_item(node:Button):
+
+func focus_item(node: Button):
 	if not node.get_parent() is GridContainer: return
-	var item:ItemData = node.get_meta("ItemData")
+	var item: ItemData = node.get_meta("ItemData")
 	focused_item = item
 	$DescPaper/Title.text = item.Name
 	$DescPaper/Desc.text = Colorizer.colorize(item.Description)
@@ -554,7 +566,7 @@ func focus_item(node:Button):
 		$DescPaper/Wheel.color = item.BattleEffect.WheelColor
 		$DescPaper/Wheel.draw_wheel()
 	else: $DescPaper/Wheel.hide()
-	if item.Quantity>1:
+	if item.Quantity > 1:
 		if item.QuantityMeansUses:
 			$DescPaper/Amount.text = str(item.Quantity) + " uses remain"
 		else:
@@ -570,6 +582,7 @@ func focus_item(node:Button):
 	else:
 		$Confirm.disabled = false
 		$Confirm.text = "Use"
+
 
 func _on_party_pressed() -> void:
 	if stage == "root":

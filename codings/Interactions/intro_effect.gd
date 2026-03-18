@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var ref: Node2D
 
+
 func animate():
 	$Sprite.play("Hit")
 	#var t = create_tween().set_ease(Tween.EASE_OUT)

@@ -10,12 +10,10 @@ class_name ControlScheme
 @export var Start: Texture
 @export var Select: Texture
 @export var Dash: Texture
-@export var R:Texture
-@export var RZ:Texture
-@export var L:Texture
-@export var LZ:Texture
-@export var Menu:Texture
-@export var OVAttack:Texture
+@export var R: Texture
+@export var RZ: Texture
+@export var L: Texture
+@export var LZ: Texture
+@export var Menu: Texture
+@export var OVAttack: Texture
 @export var AltConfirm: bool
-
-

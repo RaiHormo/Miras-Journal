@@ -1,6 +1,7 @@
 extends CanvasLayer
 @onready var label: Label = $Label
 
+
 func _ready() -> void:
 	label.modulate = Color.TRANSPARENT
 	var t = create_tween()

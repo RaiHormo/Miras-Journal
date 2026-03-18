@@ -14,11 +14,12 @@ var crit
 signal states_handled
 signal additional_done
 
+
 func play(nam, tar):
 	TurnOrder = get_parent().TurnOrder
 	CurrentChar = get_parent().CurrentChar
 	Party = get_parent().Party
-	Bt.Action=true
+	Bt.Action = true
 	CurrentChar.node.z_index = 1
 	Loader.battle_bars(2)
 	t = create_tween()
@@ -32,6 +33,7 @@ func play(nam, tar):
 		roll_rng(tar)
 		call(nam, tar)
 
+
 ## To make an AOE action sequence there needs to be a conditional for if the target is the CurrentChar.
 ## After the current char does their stuff, the additional_done signal needs to be emmited for the rest of the targets to act
 func play_aoe(nam):
@@ -40,7 +42,7 @@ func play_aoe(nam):
 		roll_rng(CurrentChar)
 		call(nam, CurrentChar)
 		await additional_done
-	var fact =  Bt.get_target_faction().duplicate()
+	var fact = Bt.get_target_faction().duplicate()
 	var required_returns = fact.size()
 	if Bt.CurrentAbility.AOE_AdditionalSeq: required_returns += 1
 	if CurrentChar in fact:
@@ -54,14 +56,16 @@ func play_aoe(nam):
 	while Bt.aoe_returns != required_returns: await Event.wait()
 	Bt.end_turn(true)
 
+
 func roll_rng(tar: Actor):
 	miss = false
 	crit = false
 	if not tar.CantDodge or tar.has_state("Bound") or tar.has_state("Soaked"):
-		if randf_range(0,1)>Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
-	if randf_range(0,1)<Bt.CurrentAbility.CritChance and not Bt.no_crits and not miss: crit = true
+		if randf_range(0, 1) > Bt.CurrentAbility.SucessChance and not Bt.no_misses: miss = true
+	if randf_range(0, 1) < Bt.CurrentAbility.CritChance and not Bt.no_crits and not miss: crit = true
 
 ################################################
+
 
 func handle_states():
 	var chara = Bt.CurrentChar
@@ -145,7 +149,7 @@ func handle_states():
 						chara.remove_state(state)
 						chara.NextTarget = null
 				"Zapped":
-					if randi_range(0,6) > 1:
+					if randi_range(0, 6) > 1:
 						Bt.focus_cam(chara)
 						Bt.battle_msg("shock")
 						chara.NextAction = "Attack"
@@ -164,9 +168,11 @@ func handle_states():
 	chara.DamageRecivedThisTurn = 0
 	states_handled.emit()
 
+
 func end_turn_checks():
 	var chara = CurrentChar
 	Bt.remove_queued_states(chara)
+
 
 func Default(target: Actor):
 	Bt.zoom(5)
@@ -184,6 +190,7 @@ func Default(target: Actor):
 	await Event.wait(0.4)
 	Bt.anim()
 	Bt.end_turn()
+
 
 #region Attacks
 func AttackMira(target: Actor):
@@ -210,12 +217,13 @@ func AttackMira(target: Actor):
 		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 3, 0)
 		Bt.anim("Attack2")
 		if not miss:
-			Bt.damage(target, false, false, Query.calc_num()/1.2)
+			Bt.damage(target, false, false, Query.calc_num() / 1.2)
 		else: Bt.miss()
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	Bt.anim("Idle")
 	Bt.end_turn()
+
 
 func JumpAttack(target: Actor):
 	Bt.zoom(5)
@@ -235,18 +243,19 @@ func JumpAttack(target: Actor):
 	Bt.anim("Idle")
 	Bt.end_turn()
 
+
 func AttackAlcine(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	await Event.wait(0.2)
-	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57),0), 0.4, Tween.EASE_OUT)
+	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-57), 0), 0.4, Tween.EASE_OUT)
 	if not miss:
 		Bt.damage(target)
 		Bt.screen_shake(8, 5, 0.1)
 		Bt.anim("Attack2")
-		Bt.move(target, target.node.position + Vector2(Bt.offsetize(-10),0), 0.3, Tween.EASE_OUT)
-		Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-70),0), 0.3, Tween.EASE_OUT)
+		Bt.move(target, target.node.position + Vector2(Bt.offsetize(-10), 0), 0.3, Tween.EASE_OUT)
+		Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-70), 0), 0.3, Tween.EASE_OUT)
 		await Event.wait(0.6)
 		if crit:
 			Bt.damage(target, CurrentChar.Magic, true)
@@ -255,13 +264,14 @@ func AttackAlcine(target: Actor):
 		else:
 			Bt.damage(target, CurrentChar.Attack, false)
 			Bt.screen_shake(10, 7, 0.3)
-		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10),0), 0.5, Tween.EASE_OUT)
+		Bt.move(target, target.node.position + Vector2(Bt.offsetize(10), 0), 0.5, Tween.EASE_OUT)
 		await CurrentChar.node.animation_finished
 	else: Bt.miss()
 	Bt.anim("Idle")
 	await Event.wait(0.3)
 	Bt.return_cur()
 	Bt.end_turn()
+
 
 func AttackDaze(target: Actor):
 	Bt.zoom(5)
@@ -289,6 +299,7 @@ func AttackDaze(target: Actor):
 	Bt.anim("Idle")
 	Bt.end_turn()
 
+
 func AttackAsteria(target: Actor):
 	Bt.zoom()
 	Bt.anim("Attack1")
@@ -313,7 +324,7 @@ func AttackAsteria(target: Actor):
 		$Scarf1.play("Scarf3")
 		await Event.wait(0.6)
 		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target, CurrentChar.Attack*2, true)
+		Bt.damage(target, CurrentChar.Attack * 2, true)
 		Bt.screen_shake()
 		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
 	else:
@@ -323,18 +334,22 @@ func AttackAsteria(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func Nothing(target: Actor):
 	Bt.end_turn()
 
+
 func Pass(target: Actor):
-	target.add_aura(round(target.MaxAura*0.25))
+	target.add_aura(round(target.MaxAura * 0.25))
 	Bt.end_turn()
+
 
 func TestState(target: Actor):
 	Bt.focus_cam(target)
 	target.add_state(Bt.CurrentAbility.InflictsState)
 	await Event.wait(1)
 	Bt.end_turn()
+
 
 func StickAttack(target: Actor):
 	Bt.zoom()
@@ -352,6 +367,7 @@ func StickAttack(target: Actor):
 	Bt.return_cur()
 	Bt.anim()
 	Bt.end_turn()
+
 
 func WarpAttack(target: Actor):
 	Bt.zoom()
@@ -378,6 +394,7 @@ func WarpAttack(target: Actor):
 	await temp.node.animation_finished
 	Bt.anim("Idle", temp)
 
+
 func RemoteAttack(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(CurrentChar, 0.5, 30)
@@ -396,6 +413,7 @@ func RemoteAttack(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func CloseupAttack(target: Actor):
 	Bt.zoom()
 	Bt.focus_cam(target)
@@ -413,6 +431,7 @@ func CloseupAttack(target: Actor):
 	Bt.return_cur()
 	Bt.anim()
 	Bt.end_turn()
+
 
 func AOEAttack(target: Actor):
 	if target == CurrentChar:
@@ -435,6 +454,7 @@ func AOEAttack(target: Actor):
 			Bt.play_effect("SimpleHit", target)
 			Bt.screen_shake(18)
 	Bt.end_turn()
+
 
 func CrystalHeal(target: Actor):
 	if Bt.get_ally_faction().size() > 1:
@@ -461,6 +481,7 @@ func CrystalHeal(target: Actor):
 
 ################################################
 
+
 #region Abilities
 func Guard(target: Actor):
 	Bt.zoom()
@@ -469,6 +490,7 @@ func Guard(target: Actor):
 	await CurrentChar.add_state("Guarding")
 	await Event.wait(0.5)
 	Bt.end_turn()
+
 
 func PhantomGuard(target: Actor):
 	Bt.zoom()
@@ -480,6 +502,7 @@ func PhantomGuard(target: Actor):
 	await Event.wait(0.5)
 	Bt.end_turn()
 
+
 func SoothingSpray(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(target, 1)
@@ -487,6 +510,7 @@ func SoothingSpray(target: Actor):
 	await Bt.anim("Cast")
 	Bt.anim()
 	Bt.end_turn()
+
 
 func SoothingRain(target: Actor):
 	if target == CurrentChar:
@@ -499,6 +523,7 @@ func SoothingRain(target: Actor):
 		Bt.stat_change("Mag", 0.5, target)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func FlameSpark(target: Actor):
 	Bt.zoom(5)
@@ -519,6 +544,7 @@ func FlameSpark(target: Actor):
 	Bt.anim("Idle")
 	Bt.end_turn()
 
+
 func RagingFire(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3, 20)
@@ -538,6 +564,7 @@ func RagingFire(target: Actor):
 	Bt.anim("Idle")
 	Bt.end_turn()
 
+
 func Summon(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(CurrentChar, 0.3, 0)
@@ -554,6 +581,7 @@ func Summon(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func SoulTap(target: Actor):
 	Bt.zoom(6)
 	Bt.focus_cam(target, 1)
@@ -567,6 +595,7 @@ func SoulTap(target: Actor):
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func Needle(target: Actor):
 	Bt.zoom(5)
@@ -582,6 +611,7 @@ func Needle(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func AttackUp3(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -590,6 +620,7 @@ func AttackUp3(target: Actor):
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func AttackUpNext(target: Actor):
 	Bt.anim("Cast", CurrentChar)
@@ -600,6 +631,7 @@ func AttackUpNext(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func MagicUp3(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -609,6 +641,7 @@ func MagicUp3(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func DefenceUp3(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -617,6 +650,7 @@ func DefenceUp3(target: Actor):
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func ToxicSplash(target: Actor):
 	Bt.anim("Cast", CurrentChar)
@@ -630,6 +664,7 @@ func ToxicSplash(target: Actor):
 	if crit: await target.add_state("Poisoned")
 	Bt.anim()
 	Bt.end_turn()
+
 
 func IcyDrizzle(target: Actor):
 	if target == CurrentChar:
@@ -646,16 +681,17 @@ func IcyDrizzle(target: Actor):
 		Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
 		await Event.wait(0.3)
 		if not miss:
-			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num()/2)
+			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num() / 2)
 			Bt.screen_shake(5)
 		roll_rng(target)
 		if not miss:
 			Bt.play_effect("Iceicle", target, Vector2(randi_range(-10, 10), randi_range(-10, 10)))
 			await Event.wait(randf_range(0, 0.5))
-			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num()/2)
+			Bt.damage(target, CurrentChar.Magic, true, Query.calc_num() / 2)
 			Bt.screen_shake(5)
 			if crit: await target.add_state("Frozen")
 	Bt.end_turn()
+
 
 func LeechSeeds(target: Actor):
 	Bt.anim("Cast", CurrentChar)
@@ -670,6 +706,7 @@ func LeechSeeds(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func SmallShock(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -683,6 +720,7 @@ func SmallShock(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func FluidBlast(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
@@ -694,6 +732,7 @@ func FluidBlast(target: Actor):
 	if crit: await target.add_state("Soaked")
 	Bt.anim()
 	Bt.end_turn()
+
 
 func StaticSaber(target: Actor):
 	if not is_instance_valid(target): return
@@ -710,17 +749,19 @@ func StaticSaber(target: Actor):
 	Bt.return_cur()
 	Bt.end_turn()
 
+
 func RedShift(target: Actor):
 	Bt.anim("Cast", CurrentChar)
 	Bt.zoom(6)
 	Bt.focus_cam(target, 1)
 	Bt.play_effect("ToxicSplash", target)
 	await Event.wait(0.8)
-	Bt.damage(target, true, true, Query.calc_num()+(Query.calc_num()*target.States.size()))
+	Bt.damage(target, true, true, Query.calc_num() + (Query.calc_num() * target.States.size()))
 	Bt.screen_shake(8, 5, 0.1)
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func Tighten(target: Actor):
 	Bt.anim("Cast", CurrentChar)
@@ -735,6 +776,7 @@ func Tighten(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func AnythingGoes(target: Actor):
 	Bt.zoom()
 	await Bt.focus_cam(target, 0.5, 0)
@@ -742,6 +784,7 @@ func AnythingGoes(target: Actor):
 	await Bt.aura_overwrite(target, Color(randf_range(0.2, 0.8), randf_range(0.2, 0.8), randf_range(0.2, 0.8)), -1)
 	await Event.wait(1.5)
 	Bt.end_turn()
+
 
 func Drill(target: Actor):
 	Bt.zoom(5)
@@ -753,7 +796,7 @@ func Drill(target: Actor):
 	$Drill.material.set_shader_parameter("new_color", CurrentChar.MainColor)
 	await Event.wait(0.8)
 	t = create_tween()
-	t.tween_property($Drill, "position", target.node.position+Vector2(32, 0), 0.1)
+	t.tween_property($Drill, "position", target.node.position + Vector2(32, 0), 0.1)
 	await Event.wait(0.1)
 	Bt.screen_shake(5)
 	Bt.shake_actor(target)
@@ -763,12 +806,14 @@ func Drill(target: Actor):
 	await Event.wait(0.5)
 	Bt.end_turn()
 
+
 func Crusher(target: Actor):
 	Bt.zoom(5)
 	Bt.focus_cam(target)
 	Bt.screen_shake()
 	await Bt.damage(target, true, true)
 	Bt.end_turn()
+
 
 func HeatWave(target: Actor):
 	if target == CurrentChar:
@@ -797,6 +842,7 @@ func HeatWave(target: Actor):
 			target.add_state("Burned")
 	Bt.end_turn()
 
+
 func Thunderstorm(target: Actor):
 	if target == CurrentChar:
 		Bt.focus_cam(CurrentChar)
@@ -818,6 +864,7 @@ func Thunderstorm(target: Actor):
 			Bt.damage(target, true, true)
 		target.add_state("Soaked", 5)
 	Bt.end_turn()
+
 
 func Humidity(target: Actor):
 	if target == CurrentChar:
@@ -846,10 +893,12 @@ func Humidity(target: Actor):
 			target.add_state("Soaked")
 	Bt.end_turn()
 
+
 func Gather(target: Actor):
 	await Bt.focus_cam(CurrentChar)
 	CurrentChar.add_aura(CurrentChar.MaxAura)
 	Bt.end_turn()
+
 
 func ProtectiveField(target: Actor):
 	Bt.anim("Cast")
@@ -858,6 +907,7 @@ func ProtectiveField(target: Actor):
 	Bt.anim("Guard")
 	Bt.anim()
 	Bt.end_turn()
+
 
 func Attention(target: Actor):
 	Bt.zoom()
@@ -870,11 +920,13 @@ func Attention(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func SturdyGuard(target: Actor):
 	Bt.focus_cam(target)
 	Bt.anim("Guard")
 	await target.add_state("Barrier", 1)
 	Bt.end_turn()
+
 
 func RockThrow(target: Actor):
 	Bt.zoom()
@@ -887,6 +939,7 @@ func RockThrow(target: Actor):
 		Bt.play_effect("SimpleHit", target)
 		await Bt.damage(target, false, true)
 	Bt.end_turn()
+
 
 func Dispel(target: Actor):
 	Bt.zoom()
@@ -905,6 +958,7 @@ func Dispel(target: Actor):
 
 ################################################
 
+
 #region Items
 func Drink(target: Actor):
 	Bt.focus_cam(CurrentChar, 0.3)
@@ -917,6 +971,7 @@ func Drink(target: Actor):
 	Bt.anim()
 	Bt.end_turn()
 
+
 func Eat(target: Actor):
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
@@ -926,6 +981,7 @@ func Eat(target: Actor):
 	await Bt.anim("Cast")
 	await Event.wait(1)
 	Bt.end_turn()
+
 
 func ItemCure(target: Actor):
 	Bt.focus_cam(CurrentChar, 0.3)
@@ -938,6 +994,7 @@ func ItemCure(target: Actor):
 	await Event.wait(1)
 	Bt.anim()
 	Bt.end_turn()
+
 
 func ItemThrow(target: Actor):
 	Bt.zoom(5.5)
@@ -957,6 +1014,7 @@ func ItemThrow(target: Actor):
 
 ################################################
 
+
 #region Death sequences
 func FlyAway(chara: Actor):
 	Bt.lock_turn = true
@@ -972,6 +1030,7 @@ func FlyAway(chara: Actor):
 #endregion
 
 ################################################
+
 
 #region Battle events
 func FirstBattle1():
@@ -1014,6 +1073,7 @@ func FirstBattle1():
 	Bt.get_actor("Mira").DontIdle = true
 	Bt.end_turn()
 
+
 func FirstBattle2(target: Actor):
 	await Bt.move(Bt.Troop[0], Vector2(30, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(20, 0), 1, Tween.EASE_OUT)
@@ -1036,7 +1096,7 @@ func FirstBattle2(target: Actor):
 	await Event.wait(2)
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
-		Bt.damage(target, CurrentChar.Attack, false, randi_range(1,5), false)
+		Bt.damage(target, CurrentChar.Attack, false, randi_range(1, 5), false)
 		await Event.wait(0.5)
 	await Event.wait(1.8)
 	target.Aura = 6
@@ -1048,7 +1108,7 @@ func FirstBattle2(target: Actor):
 	Global.passive("story_0", "my_aura")
 	await Event.wait(6)
 	Bt.zoom(5, 3)
-	Bt.move_cam(Vector2(-15,0), 3)
+	Bt.move_cam(Vector2(-15, 0), 3)
 	Bt.anim()
 	CurrentChar.node.position.x = 60
 	CurrentChar.node.show()
@@ -1064,11 +1124,13 @@ func FirstBattle2(target: Actor):
 	Event.pop_tutorial("ability")
 	Bt.end_turn()
 
+
 func FirstBattle22():
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura1")
 	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
 	Bt.get_actor("CrawlingSludge").NextMove = preload("res://database/Abilities/InnerFocus.tres")
+
 
 func FirstBattle3():
 	Bt.get_actor("Mira").Abilities[0].disabled = false
@@ -1077,11 +1139,13 @@ func FirstBattle3():
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura2")
 
+
 func FirstBattle4():
 	$"../BattleUI".disable_attack = false
 	Bt.get_actor("Mira").Aura = max(7, Bt.get_actor("Mira").Aura)
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura3")
+
 
 func FirstBattle5():
 	Bt.focus_cam(Global.Party.Leader)
@@ -1098,6 +1162,7 @@ func FirstBattle5():
 	Bt.ObtainedItems.clear()
 	Bt.victory(true)
 
+
 func AlcineWoods1():
 	if Bt.get_actor("Mira").Health == 0: return
 	Event.flag_progress("AlcineFollow4", 4)
@@ -1106,12 +1171,13 @@ func AlcineWoods1():
 	await Global.passive("story_0", "going_nowhere")
 	Event.sequence("AlcineFollowHelp")
 
+
 func AlcineWoods2():
 	for i in Bt.TurnOrder:
 		Bt.anim("Idle", i)
 	Global.Bt.get_actor("Alcine").node.global_position = Vector2(1660, -1068)
 	Bt.focus_cam(Bt.get_actor("Alcine"))
-	Bt.get_actor("Alcine").SpeedBoost =+ 10
+	Bt.get_actor("Alcine").SpeedBoost = +10
 	Bt.TurnOrder.sort_custom(Bt.speed_sort)
 	Bt.get_actor("Alcine").NextAction = "Ability"
 	Bt.get_actor("Alcine").NextMove = preload("res://database/Abilities/SoothingSpray.tres")
@@ -1121,12 +1187,15 @@ func AlcineWoods2():
 	PartyUI.battle_state(true)
 	Bt.end_turn()
 
+
 func AlcineWoods3():
 	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
 	await Global.passive("story_0", "amazing")
 
+
 func ArenaGameOver():
 	Global.textbox("testbush", "arena_over")
+
 
 func StoneGuardianLoop():
 	if Bt.CurrentChar.codename == "Guardian" and Bt.Turn % 2 == 0 and not Event.f("StoneGuardianFinisher"):
@@ -1142,6 +1211,7 @@ func StoneGuardianLoop():
 			Bt.ignore_end_turn = false
 	if Bt.get_actor("Alcine").Health == 0 and Bt.CurrentChar.codename == "Mira" and Event.f("StoneGuardianFinisher"):
 		Event.add_flag("BeatStoneGuardian")
+
 
 func StoneGuardian1():
 	var guardian = Bt.get_actor("Guardian")
@@ -1161,6 +1231,7 @@ func StoneGuardian1():
 	Event.remove_flag("StoneGuardianFinisher")
 	Event.remove_flag("BeatStoneGuardian")
 	Bt.end_turn()
+
 
 func StoneGuardian2(target: Actor = CurrentChar):
 	if not CurrentChar.codename == "Alcine": return
@@ -1188,14 +1259,15 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	guardian.MainColor = Color(0.688, 0.636, 0.0, 1.0)
 	if alcine.Health > 0:
 		guardian.NextTarget = alcine
-	else: 
+	else:
 		alcine.get_state("KnockedOut").turns = -1
 	Event.add_flag("StoneGuardianFinisher")
 	Bt.ignore_end_turn = false
 	Bt.follow_up_next = false
-	Bt.TurnInd = TurnOrder.find(guardian) -1
+	Bt.TurnInd = TurnOrder.find(guardian) - 1
 	#await Drill(alcine)
 	#Bt.next_turn.emit()
+
 
 func StoneGuardian3():
 	if Global.Party.Member1.Health > 0:
@@ -1253,6 +1325,7 @@ func StoneGuardian3():
 	await Loader.battle_end
 	Event.add_flag("BeatStoneGuardian")
 
+
 func AsteriaBoss2():
 	await Global.passive("story_1", "asteria_boss_2")
 	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[0])
@@ -1263,6 +1336,7 @@ func AsteriaBoss2():
 	for i in Bt.Troop: Bt.sprite_init(i)
 	Bt.get_actor("Asteria").add_health(90)
 	Event.add_flag("AsteriaBoss", 2)
+
 
 func AsteriaBoss3():
 	var asteria = Bt.get_actor("Asteria")
@@ -1277,7 +1351,7 @@ func AsteriaBoss3():
 		if Bt.has_actor("Bird") or Bt.has_actor("Bird"):
 			asteria.Health = asteria.MaxHP
 			for i in Bt.Troop:
-				match randi_range(0,3):
+				match randi_range(0, 3):
 					0: i.Health += 20
 					1: Bt.stat_change("Mag", 2, i)
 					2: Bt.stat_change("Def", 2, i)
@@ -1302,6 +1376,7 @@ func AsteriaBoss3():
 		Event.add_flag("AsteriaBoss", 5)
 		Bt.victory()
 
+
 func AsteriaBossFollowup():
 	await Bt.cut_in("Asteria")
 	var asteria = Bt.get_actor("Asteria")
@@ -1312,13 +1387,14 @@ func AsteriaBossFollowup():
 	await Event.wait(0.5)
 	if Event.flag_int("AsteriaBoss") < 4:
 		for i in Bt.Troop:
-			match randi_range(0,3):
+			match randi_range(0, 3):
 				0: i.Health += 20
 				1: Bt.stat_change("Mag", 2, i)
 				2: Bt.stat_change("Def", 2, i)
 				3: Bt.stat_change("Atk", 2, i)
 	else:
 		asteria.Health += 15
+
 
 func nov2_mira_dream():
 	Loader.gray_out(1)
@@ -1328,6 +1404,7 @@ func nov2_mira_dream():
 	Loader.ungray.emit()
 	Event.time_transition()
 	Bt.end_battle()
+
 
 func LazuliteHeartBoss1():
 	var mira = Global.Party.Leader
@@ -1351,6 +1428,7 @@ func LazuliteHeartBoss1():
 	alcine.NextTarget = Bt.get_actor("LHRight")
 	Bt.no_misses = true
 	Bt.end_turn()
+
 
 func LazuliteHeartBoss2():
 	await Global.textbox("story_2", "lazulite_heart_3")

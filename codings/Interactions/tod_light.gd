@@ -12,10 +12,12 @@ const defmoon = Color(0.9, 0.8, 0.5)
 	0.5, 0, 0.2, 0.8, 1
 	]
 
+
 func _ready() -> void:
 	Global.check_party.connect(update)
 
+
 func update():
-	if Event.TimeOfDay == Event.TOD.DARKHOUR or Event.TimeOfDay>5: return
-	energy = Energy[Event.TimeOfDay-1]
-	color = Colors[Event.TimeOfDay-1]
+	if Event.TimeOfDay == Event.TOD.DARKHOUR or Event.TimeOfDay > 5: return
+	energy = Energy[Event.TimeOfDay - 1]
+	color = Colors[Event.TimeOfDay - 1]

@@ -1,7 +1,8 @@
 extends Node
-@onready var Bt :Battle = get_parent()
-var Char :Actor
+@onready var Bt: Battle = get_parent()
+var Char: Actor
 signal ai_chosen
+
 
 func ai() -> void:
 	Char = Bt.CurrentChar
@@ -26,7 +27,7 @@ func ai() -> void:
 			choose(find_ability("Summon").pick_random())
 		elif check_for_finishers() and not Char.IsEnemy:
 			print("I can finish off")
-		elif has_type("BigAttack") and ((states_in_faction("", Bt.get_oposing_faction()) != null and Char.Aura > Char.MaxAura/2) or Char.has_state("AtkUp") or Char.has_state("MagUp")):
+		elif has_type("BigAttack") and ((states_in_faction("", Bt.get_oposing_faction()) != null and Char.Aura > Char.MaxAura / 2) or Char.has_state("AtkUp") or Char.has_state("MagUp")):
 			print("Chance for a big attack")
 			choose(find_ability("BigAttack").pick_random(), states_in_faction("", Bt.get_oposing_faction()))
 		elif has_type("Curse") and randi_range(0, 1) == 1 and (Char.BattleLog.is_empty() or Char.BattleLog.back().ability.Type != "Curse") and check_for_curses():
@@ -43,15 +44,16 @@ func ai() -> void:
 			"Attack":
 				choose(Char.NextMove, Char.NextTarget)
 
+
 #Finds an ability of a certain type
-func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
+func find_ability(type: String, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
 	#print("Chosing a ", type, " ability")
-	var AblilityList:Array[Ability] = Char.Abilities.duplicate()
+	var AblilityList: Array[Ability] = Char.Abilities.duplicate()
 	if Char.StandardAttack == null: OS.alert(Char.FirstName + " has no standard attack.")
 	AblilityList.append(Char.StandardAttack)
 	for i: Ability in AblilityList.duplicate():
 		if not is_instance_valid(i): AblilityList.erase(i)
-	var Choices:Array[Ability] = []
+	var Choices: Array[Ability] = []
 	if Char.NextTarget != null:
 		if Char.NextTarget.IsEnemy == Char.IsEnemy:
 			targets = Ability.T.ONE_ALLY
@@ -59,7 +61,7 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 			targets = Ability.T.ONE_ENEMY
 	for i in AblilityList:
 		if i == null: continue
-		if (i.Type == type and (targets == Ability.T.ANY or i.Target == Ability.T.ANY or i.Target == targets)) and not (
+		if (i.Type == type and (targets == Ability.T.ANY or i.Target == Ability.T.ANY or i.Target == targets)) and not(
 		Char.has_state("Bound") and i.Damage == Ability.D.WEAPON):
 			if (i.AuraCost == 0 or i.AuraCost < Char.Aura) and i.HPCost < Char.Health:
 				Choices.append(i)
@@ -67,37 +69,40 @@ func find_ability(type:String, targets: Ability.T = Ability.T.ANY) -> Array[Abil
 			else: print("Not enough resources")
 	return Choices
 
+
 #Checks if they have an ability of a certain type
-func has_type(type:String, targets: Ability.T = Ability.T.ANY) -> bool:
+func has_type(type: String, targets: Ability.T = Ability.T.ANY) -> bool:
 	#print("checking if i have a ", type)
 	if not find_ability(type, targets).is_empty():
 		return true
 	else:
 		return false
 
-func choose(ab:Ability, tar:Actor=null) -> void:
+
+func choose(ab: Ability, tar: Actor = null) -> void:
 	if ab == null: Bt.end_turn(); return
-	if Char.NextTarget==null and tar==null:
+	if Char.NextTarget == null and tar == null:
 		Char.NextTarget = Bt.random_target(ab)
 	if ab.Target == Ability.T.SELF:
 		tar = Char
-	elif Char.NextTarget==null:
+	elif Char.NextTarget == null:
 		Char.NextTarget = tar
 	if Char.NextAction == "":
 		if ab == Char.StandardAttack:
 			Char.NextAction = "Attack"
 		else:
 			Char.NextAction = "Ability"
-		Char.NextMove=ab
+		Char.NextMove = ab
 	if Char.has_state("Confused") and (ab.Target == Ability.T.ONE_ENEMY or ab.Target == Ability.T.ONE_ALLY or ab.Target == Ability.T.ANY):
 		Char.NextTarget = Bt.TurnOrder.pick_random()
 		Bt.confusion_msg()
 	ai_chosen.emit()
 
+
 func pick_general_ability() -> Ability:
 	const n = 7
 	var r: int
-	var tries:= 0
+	var tries := 0
 	while true:
 		if Char.has_state("KnockedOut") or Char.node == null or Char.Health == 0:
 			Bt.death(Char)
@@ -121,8 +126,9 @@ func pick_general_ability() -> Ability:
 			2:
 				if has_type("Defensive"):
 					if ((Char.Health < Char.MaxHP * 0.6 or Char.Aura < Char.MaxAura * 0.6) or
-				(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
-				and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")):
+						(has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction()))
+						and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "Defensive")
+					):
 						return find_ability("Defensive").pick_random()
 			3:
 				if has_type("BigAttack") and (not Char.BattleLog.is_empty() and Char.BattleLog.back().ability.Type != "BigAttack"):
@@ -164,13 +170,15 @@ func pick_general_ability() -> Ability:
 					return find_ability("CheapAttack").pick_random()
 	return null
 
+
 func has_class_in_faction(type: String, faction: Array[Actor]) -> bool:
-	print("Checking if there's a "+ type)
+	print("Checking if there's a " + type)
 	for i in faction:
 		if i.ActorClass == type:
 			return true
 	"There's not"
 	return false
+
 
 func get_class_in_faction(type: String, faction: Array[Actor]) -> Array[Actor]:
 	var rtn: Array[Actor] = []
@@ -179,21 +187,23 @@ func get_class_in_faction(type: String, faction: Array[Actor]) -> Array[Actor]:
 			rtn.append(i)
 	return rtn
 
+
 func check_for_curses() -> bool:
 	for i in find_ability("Curse"):
 		if i.InflictsState == "": OS.alert(i.name + "is missing an InflictedState parameter")
 		var inflicted = Bt.filter_actors_by_state(Bt.get_oposing_faction(), i.InflictsState)
 		if randi_range(0, inflicted.size()) == 0:
 			if inflicted.size() < Bt.get_oposing_faction().size():
-				for j in range(0, Bt.get_oposing_faction().size()*2):
+				for j in range(0, Bt.get_oposing_faction().size() * 2):
 					var tar: Actor = Bt.get_oposing_faction().pick_random()
-					if (not tar.has_state(i.InflictsState) 
+					if (not tar.has_state(i.InflictsState)
 					and (not i.InflictsState == "Aggro" or tar.StandardAttack.Target == Ability.T.ONE_ENEMY)):
 						choose(i, tar)
 						return true
 	return false
 
-func states_in_faction(state:String, faction: Array[Actor]) -> Actor:
+
+func states_in_faction(state: String, faction: Array[Actor]) -> Actor:
 	var sorted = faction.duplicate()
 	sorted.sort_custom(func(a, b): return a.States.size() > b.States.size())
 	for i in faction:
@@ -205,6 +215,7 @@ func states_in_faction(state:String, faction: Array[Actor]) -> Actor:
 	if sorted.is_empty():
 		return null
 	else: return sorted[0]
+
 
 func check_for_finishers():
 	for i in Bt.get_oposing_faction():

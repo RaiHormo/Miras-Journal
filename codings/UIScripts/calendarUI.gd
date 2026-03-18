@@ -3,24 +3,26 @@ extends TextureRect
 var time_pass_id: String
 signal chosen_time_pass(awnser: bool)
 
+
 func _ready() -> void:
 	Global.check_party.connect(_check_party)
 	hide_prompt()
 
+
 func _check_party():
-	if Event.f("HideDate"): 
+	if Event.f("HideDate"):
 		$Date/Day.add_theme_font_size_override("font_size", 150)
 		$Date/Month.text = "Unknown"
 		$Date/Day.text = "Date"
 		if not $Action.visible: hide()
-	else: 
-		$Date/Day.add_theme_font_size_override("font_size", 265) 
+	else:
+		$Date/Day.add_theme_font_size_override("font_size", 265)
 		show()
 	$Container/TimeOfDay.text = Query.to_tod_text(Event.TimeOfDay)
 	$Date/Day.text = Query.get_date_day(Event.Day)
 	$Date/Month.text = Query.get_month_name(Query.get_month(Event.Day))
 	$Container/TimeOfDay.icon = await Query.to_tod_icon(Event.TimeOfDay)
-	
+
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
 	Global.check_party.emit()
@@ -48,21 +50,25 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	$Action/Nevermind.grab_focus()
 	return await chosen_time_pass
 
+
 func hide_prompt() -> void:
 	$Action.hide()
 	$Future.hide()
 	$Arrow.hide()
 	await PartyUI.darken(false)
 
+
 func _on_nevermind_pressed() -> void:
 	Global.cancel_sound()
 	await hide_prompt()
 	chosen_time_pass.emit(false)
 
+
 func use_time() -> void:
 	Global.confirm_sound()
 	hide_prompt()
 	chosen_time_pass.emit(true)
+
 
 func _cursor() -> void:
 	Global.cursor_sound()

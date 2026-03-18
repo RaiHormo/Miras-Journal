@@ -1,14 +1,15 @@
 extends Node2D
-var active:= false
+var active := false
 var time: float = 8
 var height: float = 0.5
 var varience: float
 
-@export var enable_stairs:= false
+@export var enable_stairs := false
 @export_flags_2d_physics var LayersUp := 1
 @export_flags_2d_physics var LayersDown := 1
 @export var zUp := 0
 @export var zDown := 0
+
 
 func _physics_process(delta: float) -> void:
 	if active:
@@ -22,7 +23,7 @@ func _physics_process(delta: float) -> void:
 		Global.Player.set_anim("IdleUp")
 		if Input.is_action_pressed("ui_down"):
 			Global.rumble(0.2, 0, 0.1)
-			Global.Player.direction = Vector2.DOWN *1.5
+			Global.Player.direction = Vector2.DOWN * 1.5
 		elif Input.is_action_pressed("ui_up"):
 			Global.Player.direction = Vector2.UP * varience * 1.5
 			if varience == 1: Global.rumble(0.05, 0, 0.1)
@@ -48,12 +49,14 @@ func _physics_process(delta: float) -> void:
 			Event.give_control()
 			#Event.teleport_followers()
 
+
 func climb_down():
 	#Global.Player.path.curve.clear_points()
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
 	await Global.jump_to_global(Global.Player, $Start1.global_position, time, height)
 	active = true
+
 
 func climb_up():
 	#Global.Player.path.curve.clear_points()

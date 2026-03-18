@@ -121,30 +121,31 @@ var SpeedBoost: int = 0
 @export var MaterialOverride: Material = null
 
 @export_group("Additional parameters")
-@export var DontIdle:= false
+@export var DontIdle := false
 ##If true, the character cannot die unless in very low hp
-@export var ClutchDmg:= false
+@export var ClutchDmg := false
 ##Sequence played when the above happens
-@export var SeqOnClutch:= ""
+@export var SeqOnClutch := ""
 ##If true, the character cannot die, and will always stay at low hp
-@export var DeathDialog:= ""
-@export var CantDie:= false
-@export var IgnoreStates:= false
-@export var CantDodge:= false
-@export var CantAttack:= false
+@export var DeathDialog := ""
+@export var CantDie := false
+@export var IgnoreStates := false
+@export var CantDodge := false
+@export var CantAttack := false
 
 var NextAction: String = ""
 var NextMove: Resource = null:
-		set(x):
-			NextMove = x
-			if x is not Ability and x != null:
-				pass
+	set(x):
+		NextMove = x
+		if x is not Ability and x != null:
+			pass
 var NextTarget: Actor = null
 var node: AnimatedSprite2D
 var States: Array[State]
 var DamageRecivedThisTurn: int = 0
 var AuraDefault: Color = Color.WHITE
-var queue_delete:= false
+var queue_delete := false
+
 
 class log_entry:
 	var turn: int = -1
@@ -152,36 +153,43 @@ class log_entry:
 	var target: Actor = null
 var BattleLog: Array[log_entry] = [log_entry.new()]
 
+
 func set_health(x: int) -> void:
 	Health = x
 	Health = clampi(Health, 0, MaxHP)
 
+
 func add_health(x):
 	if x == 0: return
 	Health += x
-	print(FirstName+" gains ", x, " Health")
+	print(FirstName + " gains ", x, " Health")
 	Global.check_party.emit()
+
 
 func set_aura(x: int) -> void:
 	Aura = x
 	Aura = clampi(Aura, 0, MaxAura)
 
+
 func add_aura(x: int):
 	if x == 0: return
 	Aura += x
-	print(FirstName+" gains ", x, " AP")
+	print(FirstName + " gains ", x, " AP")
 	Global.check_party.emit()
+
 
 func add_SP(x):
 	SkillPoints += x
 
-func damage(dmg: int, limiter:= false):
+
+func damage(dmg: int, limiter := false):
 	var hp = Health - dmg
 	if hp <= 0:
 		if limiter or CantDie or (ClutchDmg and Health > 15):
 			hp = min(Health, randf_range(1, 5))
 		else: hp = 0
 	Health = hp
+
 
 func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 	var atk_stat: float
@@ -193,8 +201,9 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 		else:
 			atk_stat = E.Attack * E.AttackMultiplier
 			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
-	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)"% [pow, atk_stat, Defence, DefenceMultiplier])
-	return int(max(((pow * atk_stat) / ((Defence*2 * DefenceMultiplier) + 0.3)), 1))
+	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)" % [pow, atk_stat, Defence, DefenceMultiplier])
+	return int(max(((pow * atk_stat) / ((Defence * 2 * DefenceMultiplier) + 0.3)), 1))
+
 
 func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect = true) -> State:
 	var state: State
@@ -202,9 +211,9 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 		state = x
 		state.filename = state.resource_name.replace(".tres", "")
 	else:
-		state = (await Loader.load_res("res://database/States/"+ x +".tres")).duplicate()
+		state = (await Loader.load_res("res://database/States/" + x + ".tres")).duplicate()
 		state.filename = x
-	print(FirstName + " recived state "+ state.name)
+	print(FirstName + " recived state " + state.name)
 	if not state.is_stat_change and state.name != "Guarding":
 		if IgnoreStates:
 			print("But had the IgnoreStates poperty")
@@ -233,15 +242,17 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 			await Global.Bt.play_effect(state.name, self)
 	return state
 
+
 func remove_state(x):
 	var state: State
 	if x is State:
 		state = x
 	else: state = get_state(x)
 	if state == null: return
-	print(FirstName,"'s ", state.name, " state was removed")
+	print(FirstName, "'s ", state.name, " state was removed")
 	Global.Bt.remove_state_effect(state.name, self)
 	States.erase(state)
+
 
 func has_state(x: String) -> bool:
 	#x = x.capitalize()
@@ -250,15 +261,18 @@ func has_state(x: String) -> bool:
 			return true
 	return false
 
-func get_state(x:String) -> State:
+
+func get_state(x: String) -> State:
 	for i in States:
 		if i.filename == x or i.name == x:
 			return i
 	return null
 
+
 func full_heal():
 	Health = MaxHP
 	Aura = MaxAura
+
 
 func save_to_dict() -> Dictionary:
 	var dict: Dictionary = {
@@ -285,8 +299,9 @@ func save_to_dict() -> Dictionary:
 	}
 	return dict
 
+
 func load_from_dict(dict: Dictionary):
-	for prop in get_property_list(): 
+	for prop in get_property_list():
 		var key = prop.get("name")
 		if dict.has(key):
 			set(key, dict.get(key))
@@ -294,11 +309,12 @@ func load_from_dict(dict: Dictionary):
 		Abilities.clear()
 		for i in dict.get("AbilitiesList"):
 			if i != "":
-				var ab: Ability = await Loader.load_res("res://database/Abilities/"+ i+".tres")
+				var ab: Ability = await Loader.load_res("res://database/Abilities/" + i + ".tres")
 				if ab not in Abilities: Abilities.append(ab)
 
+
 func reset_static_info():
-	var og: Actor = load("res://database/Party/"+codename+".tres")
+	var og: Actor = load("res://database/Party/" + codename + ".tres")
 	Attack = og.Attack
 	Defence = og.Defence
 	Magic = og.Magic
@@ -307,22 +323,26 @@ func reset_static_info():
 	LearnableAbilities = og.LearnableAbilities
 	PartyPage = og.PartyPage
 
+
 func get_ability_list() -> Array[String]:
-		var ab_list: Array[String]
-		for i in Abilities:
-			var ab_name = i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
-			if not ab_name.is_empty():
-				ab_list.append(ab_name)
-		return ab_list
+	var ab_list: Array[String]
+	for i in Abilities:
+		var ab_name = i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
+		if not ab_name.is_empty():
+			ab_list.append(ab_name)
+	return ab_list
+
 
 func is_fully_healed() -> bool:
 	return Health >= MaxHP
 
-func get_abilities(include_compl:= true, include_attack:= false) -> Array[Ability]:
-	var rtn:= Abilities.duplicate()
+
+func get_abilities(include_compl := true, include_attack := false) -> Array[Ability]:
+	var rtn := Abilities.duplicate()
 	if include_attack: rtn.append(StandardAttack)
 	if include_compl: rtn.append_array(Complimentaries)
 	return rtn
+
 
 func groupped_abilities() -> Array[Array]:
 	var rtn: Array[Array]
@@ -338,47 +358,54 @@ func groupped_abilities() -> Array[Array]:
 			rtn.append([i])
 	return rtn
 
+
 ##A shadow for the above artwork
 func RenderShadow() -> Texture:
 	var render_name: String = RenderArtwork.split("/")[-1].replace(".png", "")
-	if FileAccess.file_exists("res://UI/Party/"+render_name+"Shadow.png"):
-		return await Loader.load_res("res://UI/Party/"+render_name+"Shadow.png")
+	if FileAccess.file_exists("res://UI/Party/" + render_name + "Shadow.png"):
+		return await Loader.load_res("res://UI/Party/" + render_name + "Shadow.png")
 	else: return null
+
 
 func has_ability(ab: String):
 	for i in Abilities:
 		if i.name == ab: return true
 	return false
 
+
 func skill_points_for(level: int) -> int:
 	return int(SkillCurve.sample(level))
 
+
 func get_OV() -> SpriteFrames:
-	var path = "res://art/OV/"+codename+"/"+codename+"OV"+OV+".tres"
+	var path = "res://art/OV/" + codename + "/" + codename + "OV" + OV + ".tres"
 	if not ResourceLoader.exists(path):
 		if OV != "":
 			OV = ""
-			push_warning("Couldn't find "+path+", using fallback")
+			push_warning("Couldn't find " + path + ", using fallback")
 			return await get_BT()
-		else: OS.alert("Invalid OV path, "+ path)
+		else: OS.alert("Invalid OV path, " + path)
 	return await Loader.load_res(path)
-	
+
+
 func get_BT() -> SpriteFrames:
 	var path: String
-	if "/" in BT: path = "res://art/BT/"+BT+".tres"
-	else: path = "res://art/BT/"+codename+"/"+codename+"BT"+BT+".tres"
+	if "/" in BT: path = "res://art/BT/" + BT + ".tres"
+	else: path = "res://art/BT/" + codename + "/" + codename + "BT" + BT + ".tres"
 	if not ResourceLoader.exists(path):
 		if BT != "":
 			BT = ""
 			return await get_BT()
-		else: OS.alert("Invalid BT path, "+ path)
+		else: OS.alert("Invalid BT path, " + path)
 	return await Loader.load_res(path)
+
 
 func load_complimentaries():
 	Complimentaries = []
 	for i in ComplimentaryList:
 		if ComplimentaryList.get(i) > 0:
 			Complimentaries.append(await Query.get_ability(i))
+
 
 func level_up_to(lv: int):
 	while SkillLevel < lv:
@@ -391,6 +418,7 @@ func level_up_to(lv: int):
 			2: Abilities.append(learnable)
 		SkillLevel += 1
 
+
 func find_learnable() -> Ability:
 	var learnable = null
 	var learnables = LearnableAbilities.duplicate()
@@ -400,6 +428,7 @@ func find_learnable() -> Ability:
 			learnable = i
 			continue
 	return learnable
+
 
 func get_pronoun(str: String = "they") -> String:
 	return Query.get_pronoun(str, Pronouns)

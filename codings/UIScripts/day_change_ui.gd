@@ -8,6 +8,7 @@ func _ready() -> void:
 	$DayCurrent.text = str(Event.Day)
 	$Buttons/NextDay.grab_focus()
 
+
 func _on_next_day_pressed() -> void:
 	Global.confirm_sound()
 	$Buttons.hide()
@@ -19,13 +20,16 @@ func _on_next_day_pressed() -> void:
 	Event.next_day.emit()
 	queue_free()
 
+
 func _on_options_pressed() -> void:
 	Global.confirm_sound()
 	Global.options()
 
+
 func _on_quit_pressed() -> void:
 	Global.confirm_sound()
 	Global.quit()
+
 
 func _cursor() -> void:
 	Global.cursor_sound()

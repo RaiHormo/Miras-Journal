@@ -198,12 +198,9 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
 			&"target":
-				#			if Input.is_action_just_pressed(Global.confirm()):
-	#				_on_confirm_pressed()
-			if Input.is_action_just_pressed(Global.cancel()):
-				#				if PrevStage != stage:
-						Global.cancel_sound()
-							emit_signal(PrevStage)
+				if Input.is_action_just_pressed(Global.cancel()):
+					Global.cancel_sound()
+					emit_signal(PrevStage)
 				if Input.is_action_just_pressed("ui_down") and active:
 					if TargetFaction.size() == 1:
 						Global.buzzer_sound()
@@ -1049,12 +1046,12 @@ func fetch_abilities():
 		n.queue_free()
 	for i in CurrentChar.groupped_abilities():
 		var dub = %Ab0.duplicate()
-			dub.show()
-			%AbilityList.add_child(dub)
-			dub.set_meta("AbilityGroup", i)
-			var ab = i[0]
-			dub.set_meta("Ability", ab)
-			update_ab(dub)
+		dub.show()
+		%AbilityList.add_child(dub)
+		dub.set_meta("AbilityGroup", i)
+		var ab = i[0]
+		dub.set_meta("Ability", ab)
+		update_ab(dub)
 	for i in %AbilityList.get_children():
 		if (
 			i.get_meta("Ability").AuraCost > CurrentChar.Aura or i.get_meta("Ability").disabled or
