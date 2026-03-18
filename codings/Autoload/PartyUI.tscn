@@ -556,7 +556,6 @@ offset_bottom = 0.199951
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nullq")
-CursorPosition = Array[Vector2]([Vector2(385, 55), Vector2(385, 236), Vector2(385, 426), Vector2(385, 615)])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1483732302]
 layer = 2

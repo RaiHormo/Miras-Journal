@@ -1,28 +1,46 @@
 extends Control
-#class_name Global.PartyUI
 
-#@export var Global.Party: Global.PartyData = Global.Party
-@export var Expanded: bool = false
-@export var CursorPosition: Array[Vector2]
+
 signal expand(i)
 signal shrink
+
+## Are the party boxes in the expanded state?
+var Expanded: bool = false
 var held = false
+## Currently focused box
 var focus : int = 0
-var UIvisible = false
-var Tempvis = true
-var visibly=false
+## If the HUD should be visible
+var UIvisible: bool = false:
+	set(value):
+		if UIvisible == value: return # Prevents running if the state hasn't changed
+		UIvisible = value
+		
+		# Run show_all or hide_all when this variable changes
+		if not Loader.InBattle:
+			if UIvisible and not Event.check_flag("DisableMenus") and not disabled:
+				if Global.Settings.AutoHideHUD != 1:
+					show_all()
+			else: 
+				hide_all()
 var inactive = false
-@onready var t :Tween
+## To remember if it should or shouldn't unpause the game after exiting
 var WasPaused = false
+## The state where a member is being chosen from the menu to use an item
 var MemberChoosing = false
-@onready var Partybox = %Partybox
-var disabled = true
+## Actors to level up when preform_levelups runs
 var LevelupChain: Array[String] = []
+## Prevent the party ui from appearing at all
+var disabled = true
+## A submenu (like the stats screen) is open
 var submenu_opened := false
 var line_to_be_used: String
 var nametag_to_be_used: String
 var was_controllable = false
-var def_pos_partybox:Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
+## Where each partybox should be placed
+var def_pos_partybox: Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
+
+@onready var Partybox = %Partybox
+@onready var t :Tween
 
 func _ready():
 	$CanvasLayer.hide()
@@ -47,16 +65,14 @@ func _ready():
 	hide_all()
 
 func _process(delta):
-	if disabled: UIvisible = false
+	## Hide the hud when disabled
+	if disabled and UIvisible: UIvisible = false
+	
+	## Run code for the party menu when expanded
 	if Expanded and not submenu_opened:
 		handle_ui()
+		
 	if not Loader.InBattle:
-		if UIvisible != visibly:
-			if UIvisible and not Event.check_flag("DisableMenus") and not disabled:
-				if not Global.Settings.AutoHideHUD == 1:
-					show_all()
-			else: hide_all()
-		visibly = UIvisible
 		if not Global.Controllable:
 			$CanvasLayer/VirtualJoystick.hide()
 
@@ -72,8 +88,7 @@ func _process(delta):
 func show_all(except_date = false):
 	if disabled: return
 	if is_instance_valid(Global.Player) and Global.Settings.AutoHideHUD == 1 and Global.Player.move_frames > 0: return
-	UIvisible = true
-	visibly = true
+	if not UIvisible: UIvisible = true
 	inactive = false
 	#Partybox.queue_sort()
 	$CanvasLayer.show()
@@ -91,8 +106,7 @@ func show_all(except_date = false):
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
 func hide_all(animate = true):
-	UIvisible = false
-	visibly = false
+	if UIvisible: UIvisible = false
 	if animate:
 		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -109,7 +123,6 @@ func _check_party():
 	if not Global.Party: return
 	if not is_instance_valid(Global.Party.Leader): return
 	if Event.check_flag("DisableMenus"): disabled = true
-	Global.Party = Global.Party
 	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
@@ -189,7 +202,7 @@ func _on_expand(open_ui=0):
 		await show_all(true)
 	if get_tree().root.has_node("Options"): return
 	if open_ui != 2: $CanvasLayer/Cursor.show()
-	$CanvasLayer/Cursor.position=CursorPosition[0]
+	$CanvasLayer/Cursor.position = get_cursor_pos(0)
 	#if open_ui == 0: WasPaused = false
 	#else: 
 	WasPaused = get_tree().paused
@@ -316,6 +329,8 @@ func _on_shrink():
 		shrink_panel(Partybox.get_node("Member"+str(i)), i)
 	for i in %Pages.get_children():
 		i.get_node("Render").texture = null
+		i.get_node("Render/Shadow").texture = null
+		i.get_node("AuraDoodle").texture = null
 	await t.finished
 	MemberChoosing = false
 	$CanvasLayer/Back.hide()
@@ -394,7 +409,7 @@ func focus_now():
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
-	t.tween_property($CanvasLayer/Cursor, "position", CursorPosition[focus], 0.1)
+	t.tween_property($CanvasLayer/Cursor, "position", get_cursor_pos(focus), 0.1)
 	#await get_tree().create_timer(0.3).timeout
 	if MemberChoosing: return
 	if focus == 0: $CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
@@ -433,7 +448,6 @@ func battle_state(from:= false):
 	if not Loader.InBattle: $CanvasLayer.hide(); return
 	$CanvasLayer.show()
 	$CanvasLayer/Cursor.hide()
-	visibly=true
 	Partybox.scale = Vector2(1.25, 1.25)
 	if from: hide_all()
 	for i in range(0, 4):
@@ -468,9 +482,12 @@ func battle_state(from:= false):
 
 func save_box_positions():
 	for i in range(0, 4): 
-		var box = Partybox.get_child(i)
+		var box: Control = Partybox.get_child(i)
 		if i == 0 or box.position.y > 100:
 			def_pos_partybox[i] = box.position
+
+func get_cursor_pos(index: int) -> Vector2:
+	return Vector2(400, %Partybox.get_child(index).global_position.y + 50)
 
 func _on_battle_ui_root():
 	battle_state()
@@ -493,7 +510,7 @@ func check_member(mem:Actor, node:Panel, ind):
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
-	if visibly and not Expanded: node.position.y = def_pos_partybox[ind].y
+	if UIvisible and not Expanded: node.position.y = def_pos_partybox[ind].y
 	var character_label = mem.FirstName
 	var txt_color = mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
@@ -511,12 +528,15 @@ func check_member(mem:Actor, node:Panel, ind):
 	node.get_node("Aura/ApText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
 	if Expanded:
-		if get_node("%Pages/Page"+str(ind)+"/Render").texture == null:
-			get_node("%Pages/Page"+str(ind)+"/Render").texture = await mem.RenderArtwork()
+		# Loads render
+		if get_node("%Pages/Page"+str(ind)+"/Render").texture == null and mem.RenderArtwork != null:
+			get_node("%Pages/Page"+str(ind)+"/Render").texture = await Loader.load_res(mem.RenderArtwork)
+		# Loads Aura doodle
+		if get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture == null and mem.PartyPage != null:
+			get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = await Loader.load_res(mem.PartyPage)
+		# Loads Shadow
 		if get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture == null:
 			get_node("%Pages/Page"+str(ind)+"/Render/Shadow").texture = await mem.RenderShadow()
-		if get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture == null:
-			get_node("%Pages/Page"+str(ind)+"/AuraDoodle").texture = await mem.PartyPage()
 	await check_for_levelups(mem, node)
 
 func check_for_levelups(mem:Actor, node:Panel):

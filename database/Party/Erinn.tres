@@ -23,6 +23,7 @@ Pronouns = "he"
 SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)
 BoxProfile = ExtResource("1_vkgex")
 LastName = "Levenor"
+RenderArtwork = "uid://dfuq3a5bdug03"
 MaxHP = 85
 MaxAura = 90
 Attack = 0.5

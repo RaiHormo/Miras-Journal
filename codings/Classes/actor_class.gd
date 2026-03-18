@@ -46,7 +46,10 @@ var IsEnemy: bool = true
 @export var LastName: String = ""
 ##Used in the details menu, purely cosmetic
 @export var Weapon: String
-@export var PartyPageName: String = ""
+##Doodles shown in the party menu
+@export_file("*.png") var PartyPage: String
+##Artwork shown in the party menu
+@export_file("*.png") var RenderArtwork: String
 ##Whether the actor is controlled by the player or the AI
 @export var Controllable: bool = false
 @export_range(1, 9999, 1, "suffix:HP") var HpOnSLvUp: int = 25
@@ -302,7 +305,7 @@ func reset_static_info():
 	SoundSet = og.SoundSet
 	SoundSet = og.SoundSet
 	LearnableAbilities = og.LearnableAbilities
-	PartyPageName = og.PartyPageName
+	PartyPage = og.PartyPage
 
 func get_ability_list() -> Array[String]:
 		var ab_list: Array[String]
@@ -335,21 +338,12 @@ func groupped_abilities() -> Array[Array]:
 			rtn.append([i])
 	return rtn
 
-##Artwork shown in the party menu
-func RenderArtwork() -> Texture:
-	if ResourceLoader.exists("res://art/Renders/"+codename+".png"):
-		return await Loader.load_res("res://art/Renders/"+codename+".png")
-	else: return null
-
 ##A shadow for the above artwork
 func RenderShadow() -> Texture:
-	if FileAccess.file_exists("res://UI/Party/"+codename+"Shadow.png"):
-		return await Loader.load_res("res://UI/Party/"+codename+"Shadow.png")
+	var render_name: String = RenderArtwork.split("/")[-1].replace(".png", "")
+	if FileAccess.file_exists("res://UI/Party/"+render_name+"Shadow.png"):
+		return await Loader.load_res("res://UI/Party/"+render_name+"Shadow.png")
 	else: return null
-
-##Doodles shown in the party menu
-func PartyPage() -> Texture:
-	return await Loader.load_res("res://art/Journal/Auras/"+PartyPageName+".png")
 
 func has_ability(ab: String):
 	for i in Abilities:
