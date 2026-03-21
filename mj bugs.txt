@@ -1,3 +1,0 @@
-item give broken
-improve jump points
-rest when you're not supposed to

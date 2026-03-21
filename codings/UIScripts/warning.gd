@@ -38,7 +38,7 @@ func ask_for_confirm(text: String, label: String = "WARNING", awnser: Array[Stri
 
 func _on_no_pressed() -> void:
 	if not active: return
-	Global.confirm_sound()
+	Global.cancel_sound()
 	value = 0
 	response.emit()
 
@@ -61,4 +61,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action("ui_cancel"):
 		_on_no_pressed()
 	get_viewport().set_input_as_handled()
-	if Global.Controllable: _on_no_pressed()
+	if is_instance_valid(Global.Player) and Global.Controllable: _on_no_pressed()

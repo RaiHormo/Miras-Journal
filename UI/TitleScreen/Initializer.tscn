@@ -169,10 +169,10 @@ text = "Development Build"
 horizontal_alignment = 1
 
 [node name="Menu" type="VBoxContainer" parent="TitleScreen" unique_id=228424843]
-offset_left = 798.0
-offset_top = 529.0
-offset_right = 1093.0
-offset_bottom = 633.0
+offset_left = 797.0
+offset_top = 493.0
+offset_right = 1092.0
+offset_bottom = 653.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
@@ -203,6 +203,20 @@ size_flags_stretch_ratio = 0.0
 theme = SubResource("Theme_a4ygc")
 shortcut_in_tooltip = false
 text = "Load File"
+expand_icon = true
+
+[node name="New" type="Button" parent="TitleScreen/Menu" unique_id=1988064456]
+visibility_layer = 1024
+material = SubResource("ShaderMaterial_nvmut")
+custom_minimum_size = Vector2(180, 48)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_a4ygc")
+shortcut_in_tooltip = false
+text = "New Game"
 expand_icon = true
 
 [node name="Options" type="Button" parent="TitleScreen" unique_id=575261858]
@@ -279,4 +293,5 @@ autowrap_mode = 3
 
 [connection signal="pressed" from="TitleScreen/Menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/New" to="." method="_on_new_pressed"]
 [connection signal="pressed" from="TitleScreen/Options" to="." method="_on_options_pressed"]

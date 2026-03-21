@@ -385,6 +385,11 @@ else:
 	do screen_shake(10, 5, 0.2)
 	do Event.wait(2)
 	do Player.camera_follow(true)
+	Mira.Shocked: E- End of content!?
+	Daze.Neutral: Seems this is as far as we're going today.
+	Asteria.Neutral: Thank you so much for playing!
+	Alcine.Laugh: Wheeeaaa!
+	do! sequence("demo_credits")
+=> END
 	Daze.Neutral: 'Grats, now we can't test out any of our theories...
 	Mira.Neutral: Whoops.
-=> END

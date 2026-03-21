@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://b5kjfb6jx3s8g"]
+
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="1_8o78o"]
+[ext_resource type="Script" uid="uid://bnc7yohnasva7" path="res://codings/UIScripts/credits_roll.gd" id="1_bnatt"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_bnatt"]
+
+[node name="CreditsRoll" type="CanvasLayer" unique_id=1670143297]
+script = ExtResource("1_bnatt")
+
+[node name="Canvas" type="ColorRect" parent="." unique_id=1174373282]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="RichTextLabel" parent="." unique_id=832118841]
+offset_top = 800.0
+offset_right = 1277.0
+offset_bottom = 2154.0
+theme_override_constants/paragraph_separation = 10
+theme_override_fonts/normal_font = ExtResource("1_8o78o")
+theme_override_fonts/bold_font = ExtResource("2_bnatt")
+theme_override_fonts/bold_italics_font = ExtResource("2_bnatt")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 34
+theme_override_font_sizes/bold_italics_font_size = 34
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[b]Created by Iris Hormoviti (RaiDev)[/b]
+All rights reserved
+
+Art, concept, programming, the vast majority of the game:
+[b]Iris[/b]
+
+Co-writer, General Advisor & Maker of Squiggly line shaders: 
+[b]Cone[/b]
+
+Playtesting and QA:
+[b]Cone, ManaRelicGames, Ifti, jedsu, Gensun, River, Minty, PanosPlays, Oso[/b]
+
+Software used:
+[b]Godot Engine[/b]
+[b]Aseprite[/b]
+[b]Krita[/b]
+[b]Obsidian[/b]
+
+Plugins used:
+- [b]Dialogue Manager[/b]
+	by Nathan Hoad
+- [b]SmoothScroll[/b]
+	by SpyrexDEs
+- [b]Aseprite Wizard[/b]
+	by Vinicius Gerevini
+- [b]MouseCoordinates[/b] (Forked)
+	by CrayonApe
+- [b]Scene Tree Sorter[/b] (Forked)
+	by phinix-dev
+- [b]pretty.gd[/b]
+	by poeticAndroid
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1

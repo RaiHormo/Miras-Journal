@@ -30,6 +30,7 @@ func new_game() -> void:
 	Event.add_flag("day", 0)
 	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
+	get_tree().paused = false
 	await Global.area_initialized
 	await Event.take_control()
 	if Input.is_action_pressed("Dash"):
@@ -50,18 +51,33 @@ func new_game() -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
-	t.tween_property(Global.Area.get_node("GetUp"), "position", Vector2(100, 512), 0.2).from(Vector2(120, 512))
-	t.tween_property(Global.Area.get_node("GetUp"), "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
-	t.tween_property(Global.Area.get_node("GetUp"), "size", Vector2(120, 33), 0.2).from(Vector2(41, 33))
-	Global.Area.get_node("GetUp").show()
-	await Global.Area.get_node("GetUp").pressed
+	var getup: Button = Global.Area.get_node("GetUp")
+	var options: Button = Global.Area.get_node("Options")
+	getup.show()
+	options.show()
+	options.position = Vector2(15, 600)
+	t.tween_property(getup, "position", Vector2(100, 512), 0.2).from(Vector2(120, 512))
+	t.tween_property(getup, "modulate", Color.WHITE, 0.2).from(Color.TRANSPARENT)
+	t.tween_property(getup, "size", Vector2(120, 33), 0.2).from(Vector2(41, 33))
+	t.tween_property(options, "position", Vector2(15, 583), 0.3).set_delay(1.5)
+	while not getup.button_pressed or get_tree().root.has_node("Options"):
+		if not is_instance_valid(getup): return
+		options.icon = Global.get_controller().Start
+		if options.button_pressed and not get_tree().root.has_node("Options"):
+			await Global.options()
+			options.button_pressed = false
+		await Event.wait()
+		if not is_instance_valid(getup): return
+	getup.button_pressed = false
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	PartyUI.disabled = true
-	t.tween_property(Global.Area.get_node("GetUp"), "size", Vector2(41, 33), 0.1)
-	t.tween_property(Global.Area.get_node("GetUp"), "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(options, "position", Vector2(15, 600), 0.3)
+	t.tween_property(getup, "size", Vector2(41, 33), 0.1)
+	t.tween_property(getup, "modulate", Color.TRANSPARENT, 0.1)
+	t.tween_property(options, "modulate", Color.TRANSPARENT, 0.1)
 	t.tween_property(Global.Camera, "zoom", Vector2(5, 5), 5)
 	t.tween_property(Global.Player.get_node("%Shadow"), "modulate", Color.WHITE, 3).from(Color.TRANSPARENT).set_delay(3)
 	await Global.Player.set_anim("GetUp", true)

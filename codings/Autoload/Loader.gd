@@ -650,7 +650,7 @@ func validate_save(save: String) -> bool:
 					ResourceSaver.save(file, save)
 					return true
 				else:
-					Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game...", "ERROR", ["Okay fine"])
+					Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
 					Global.options(1)
 					return false
 		else:

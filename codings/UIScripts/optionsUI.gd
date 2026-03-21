@@ -474,11 +474,17 @@ func draw_file(file: SaveFile, node: Control):
 		panel.get_node("Date/Day").text = "Delete"
 		panel.get_node("Location").text = "Now"
 		return
-	elif file.version != Loader.SaveVersion:
+	elif file.version < Loader.SaveVersion:
 		node.get_node("Info/FileName").text = file.Name
 		panel.get_node("Date/Month").text = "Old"
 		panel.get_node("Date/Day").text = "Version"
 		panel.get_node("Location").text = "Load to migrate"
+		return
+	elif file.version > Loader.SaveVersion:
+		node.get_node("Info/FileName").text = file.Name
+		panel.get_node("Date/Month").text = "Newer"
+		panel.get_node("Date/Day").text = "Version"
+		panel.get_node("Location").text = "Please update the game"
 		return
 	# Set time for sorting
 	node.set_meta("sort", file.SavedTime)
@@ -840,7 +846,7 @@ func _gloweffect(toggle: bool) -> void:
 
 func _new_game() -> void:
 	stage = "popup"
-	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Autosave data will be overwritten. If you want to keep that autosave data, save it into a new file.", "NEW GAME", ["Cancel", "Overwrite"]):
+	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		was_controllable = false
 		close(true)
 		Event.sequence("new_game")
@@ -857,6 +863,9 @@ func _arena_mode() -> void:
 
 func _on_credits() -> void:
 	Global.confirm_sound()
+	var file := FileAccess.open("res://credits.txt", FileAccess.READ)
+	var text: String = file.get_as_text()
+	$GalleryPanel/Credits/RichTextLabel.text = text
 	$GalleryPanel/Credits.grab_focus()
 	$GalleryPanel/Credits.scroll_vertical = 0
 	t = create_tween()

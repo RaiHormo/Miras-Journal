@@ -3,7 +3,9 @@
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/OV/Alcine/AlcineOV1.tres" id="4_d61pe"]
+[ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="4_e7y1u"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="5_4nr7e"]
+[ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="5_e7y1u"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="6_82fx5"]
 [ext_resource type="SpriteFrames" uid="uid://mwhyswnc7c2h" path="res://art/BT/Pterogon/PterogonBT.tres" id="7_jtxqp"]
 [ext_resource type="SpriteFrames" uid="uid://dl7sfqr2p5pj8" path="res://art/OV/Objects/BreakableOreSprite.tres" id="8_e7y1u"]
@@ -20,7 +22,6 @@
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="19_dpu00"]
-[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="19_vwt3b"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="20_bwh8w"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="21_e7y1u"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="21_hylag"]
@@ -98,18 +99,31 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
-[sub_resource type="InputEventKey" id="InputEventKey_2nyou"]
+[sub_resource type="InputEventKey" id="InputEventKey_e7y1u"]
 device = -1
-keycode = 65
-unicode = 65
+keycode = 88
+unicode = 120
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_tobb4"]
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_2y4jd"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_oeh8p"]
 button_index = 1
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_2q7ov"]
+button_index = 3
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_va2q4"]
+button_index = 2
+
 [sub_resource type="Shortcut" id="Shortcut_uqen8"]
-events = [SubResource("InputEventKey_2nyou"), SubResource("InputEventJoypadButton_tobb4"), SubResource("InputEventJoypadButton_oeh8p")]
+events = [SubResource("InputEventKey_e7y1u"), SubResource("InputEventJoypadButton_2y4jd"), SubResource("InputEventJoypadButton_oeh8p"), SubResource("InputEventJoypadButton_2q7ov"), SubResource("InputEventJoypadButton_va2q4")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_e7y1u"]
+action = &"Options"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_2y4jd"]
+events = [SubResource("InputEventAction_e7y1u")]
 
 [sub_resource type="Gradient" id="Gradient_u8h16"]
 offsets = PackedFloat32Array(0.00414938, 1)
@@ -336,6 +350,7 @@ CameraZooms = Array[float]([1.25, 1.0, 1.1])
 FlameInInd = Array[int]([2])
 
 [node name="GetUp" type="Button" parent="." unique_id=240859851]
+visible = false
 modulate = Color(1, 1, 1, 0)
 visibility_layer = 1024
 z_index = 9
@@ -359,10 +374,43 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_mqvjw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mqvjw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_gvxt0")
 theme_override_styles/focus = SubResource("StyleBoxFlat_gvxt0")
+toggle_mode = true
 shortcut = SubResource("Shortcut_uqen8")
 text = "Get up"
-icon = ExtResource("19_vwt3b")
+icon = ExtResource("4_e7y1u")
 text_overrun_behavior = 1
+expand_icon = true
+
+[node name="Options" type="Button" parent="." unique_id=2126590192]
+visible = false
+visibility_layer = 1024
+z_index = 9
+material = SubResource("ShaderMaterial_llchn")
+layout_direction = 1
+offset_left = 15.0
+offset_top = 600.0
+offset_right = 158.66888
+offset_bottom = 633.0
+scale = Vector2(0.311428, 0.311428)
+pivot_offset = Vector2(19.2536, 14.8241)
+size_flags_stretch_ratio = 0.0
+focus_mode = 1
+theme = SubResource("Theme_m14l1")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mqvjw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mqvjw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gvxt0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gvxt0")
+toggle_mode = true
+action_mode = 0
+shortcut = SubResource("Shortcut_2y4jd")
+shortcut_in_tooltip = false
+text = "Options"
+icon = ExtResource("5_e7y1u")
 expand_icon = true
 
 [node name="EditorLight" type="DirectionalLight2D" parent="." unique_id=1697322324]
@@ -924,19 +972,19 @@ hidesprite = true
 hide_parent = true
 free_on_hide = true
 
-[node name="EvAxe2" type="Sprite2D" parent="." unique_id=1289465666]
+[node name="EvBag" type="Sprite2D" parent="." unique_id=1289465666]
 use_parent_material = true
 position = Vector2(121, 406)
 texture = SubResource("AtlasTexture_b05s0")
 
-[node name="Body" type="StaticBody2D" parent="EvAxe2" unique_id=433419773]
+[node name="Body" type="StaticBody2D" parent="EvBag" unique_id=433419773]
 
-[node name="Collision" type="CollisionShape2D" parent="EvAxe2/Body" unique_id=138708939]
+[node name="Collision" type="CollisionShape2D" parent="EvBag/Body" unique_id=138708939]
 z_index = 1
 position = Vector2(-1.00154, -0.0015564)
 shape = SubResource("RectangleShape2D_bv7fr")
 
-[node name="PickUp" parent="EvAxe2" unique_id=221512208 instance=ExtResource("21_hylag")]
+[node name="PickUp" parent="EvBag" unique_id=221512208 instance=ExtResource("21_hylag")]
 position = Vector2(-0.999969, 0.00745392)
 collision_layer = 257
 collision_mask = 257
@@ -946,7 +994,7 @@ file = "bag_seq"
 dialogue_file = "bag_seq"
 return_control = false
 add_flag = true
-hide_on_flag = &"HasBag"
+hide_on_flag = &"HasBag||day>0"
 proper_pos = Vector2(100, 406)
 proper_face = Vector2(1, 0)
 hidesprite = true

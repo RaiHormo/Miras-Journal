@@ -198,7 +198,7 @@ func check_flag() -> bool:
 
 
 func player_is_near() -> bool:
-	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas() and not CanInteract
+	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
 
 
 func destroy():
@@ -272,14 +272,10 @@ func bubble():
 
 
 func _input(event: InputEvent) -> void:
-	if (
-		is_instance_valid(Global.Player)
-		and Global.Controllable
-		and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
-		and not get_tree().root.has_node("Textbox")
-	):
+	if Global.Controllable and player_is_near():
 		if Input.is_action_just_pressed("ui_accept") and CanInteract:
 			_on_button_pressed()
+		else: appear()
 
 
 func do_position():

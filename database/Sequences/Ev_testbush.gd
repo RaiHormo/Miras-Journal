@@ -16,3 +16,7 @@ func waste_time():
 	await Event.time_transition()
 	Loader.detransition()
 	Event.give_control()
+
+
+func demo_credits():
+	pass
