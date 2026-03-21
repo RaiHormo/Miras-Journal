@@ -176,9 +176,6 @@ func add_flag(flag: StringName, value := 1) -> bool:
 	if "=" in flag:
 		var split = flag.split("=")
 		return add_flag(str(split[0]), int(split[1]))
-	if value == 0:
-		remove_flag(flag)
-		return 0
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
 	return value

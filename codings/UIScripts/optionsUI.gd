@@ -485,10 +485,10 @@ func draw_file(file: SaveFile, node: Control):
 
 	#Now load in everything
 	node.get_node("Info/FileName").text = file.Name
-	panel.get_node("Date/Day").text = str(file.Day)
-	if file.Day <= 30 and file.Day > 0:
+	panel.get_node("Date/Day").text = str(file.Flags.get("day"))
+	if file.Flags.get("day") <= 30 and file.Flags.get("day") > 0:
 		panel.get_node("Date/Month").text = "November"
-	elif file.Day == 0:
+	elif file.Flags.get("day") == 0:
 		panel.get_node("Date/Month").text = "Date"
 		panel.get_node("Date/Day").text = "Unknown"
 	else:
