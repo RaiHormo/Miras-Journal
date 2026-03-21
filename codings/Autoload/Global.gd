@@ -133,11 +133,14 @@ func init_user():
 		if FileAccess.file_exists("user://last_user_id.txt"):
 			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
 			print("Using last used user ID, ", UserID)
-	var last_id: FileAccess = FileAccess.open("user://last_user_id.txt", FileAccess.READ_WRITE)
 	if not DirAccess.dir_exists_absolute("user://" + str(UserID)):
 		print("Creating user folder for ", UserID)
 		DirAccess.make_dir_absolute("user://" + str(UserID))
-	if int(last_id.get_as_text()) == 0 and UserID != 0:
+	var last_id: FileAccess = FileAccess.open("user://last_user_id.txt", FileAccess.READ_WRITE)
+	if last_id == null:
+		push_error(error_string(FileAccess.get_open_error()))
+		return
+	if FileAccess.file_exists("user://" + str(UserID)) and int(last_id.get_as_text()) == 0 and UserID != 0:
 		print("Migrating from local to account")
 		for i in DirAccess.get_files_at("user://0"):
 			if not FileAccess.file_exists("user://" + str(UserID) + "/" + i):

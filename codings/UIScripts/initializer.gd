@@ -32,7 +32,7 @@ func _ready() -> void:
 	get_viewport().get_window().grab_focus()
 	if game_exists:
 		focus()
-	else: _on_continue_pressed()
+	else: _on_new_pressed()
 
 
 func focus():
