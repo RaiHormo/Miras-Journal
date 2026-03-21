@@ -5,11 +5,11 @@ Not right now.
 We just rested here, let's move forward for now.
 => END
 
-~ nov2_daytime
+~ nov1_evening
 I'm all rested, let's go find {{alcine()}}.
 => END
 
-~ nov2_night
+~ nov2_evening
 Now is not the time to sleep.
 => END
 

@@ -956,8 +956,9 @@ free_on_hide = true
 [node name="EvFlameActive" type="Area2D" parent="." unique_id=869247540]
 position = Vector2(1538.99, -56.3515)
 script = ExtResource("16_0acit")
-EventName = "TWflame"
-Flag = "TWflame"
+TextFile = "story_0"
+TextNode = "getting_dark"
+AddFlag = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EvFlameActive" unique_id=1329602546]
 position = Vector2(-24.5789, 15.4054)

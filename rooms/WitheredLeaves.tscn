@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://ubrl1l3wlpgo" path="res://art/OV/Objects/CastSwitch.png" id="18_6fdth"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="19_3p2gw"]
 [ext_resource type="Resource" uid="uid://cod3sfmno6veq" path="res://database/Enemies/Skullish.tres" id="20_ceufj"]
-[ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Interactions/hide_on_flag.gd" id="20_nxfet"]
+[ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Components/hide_on_flag.gd" id="20_nxfet"]
 [ext_resource type="Texture2D" uid="uid://ct33ao2bh7eoj" path="res://art/OV/Objects/SGGate.png" id="21_5vs6x"]
 [ext_resource type="Resource" uid="uid://c4vpbxeag0n74" path="res://database/Enemies/Steelkee.tres" id="21_ohbkp"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="22_5vs6x"]
@@ -838,7 +838,7 @@ position = Vector2(931, -169)
 
 [node name="VPTutorial" parent="." unique_id=1760939469 instance=ExtResource("4_d8pup")]
 position = Vector2(931, -169)
-LabelText = "Open"
+LabelText = "Stab Ground"
 file = "story_1"
 dialogue_file = "story_1"
 title = "vp_tutorial"

@@ -21,7 +21,6 @@ CustomPosition = Vector2i(82, 48)
 MaxAura = 40
 Attack = 0.2
 Magic = 1.5
-Defence = 1.3
 Speed = 6.0
 Abilities = Array[ExtResource("1_stamu")]([ExtResource("3_wbo3k"), ExtResource("4_7xn8o"), ExtResource("4_mbsok")])
 StandardAttack = ExtResource("5_pfxhc")

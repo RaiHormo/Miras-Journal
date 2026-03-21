@@ -112,14 +112,19 @@ What was different about me compared to everyone else who's tried entering?
 	Asteria.Neutral: What kind of item are we talking about?
 	Mira.Neutral: Well, the most likely thing would be...
 	I show them the Cyan Guardian Orb.
-	Daze.Neutral: That's... from the rock monster!
-	Mira.Neutral: The Guardian?
+	Daze.Neutral: That's... from the Guardian!
 	Asteria.Neutral: Are you talking about one of the three-eyed ones!?
 	Mira.Neutral: Yeah, it did have three-
 	do! npc("Asteria").bubble("Surprise")
 	Asteria.Angry: YOU TWO WENT AGAINST ONE OF THOSE!!!???
-	Mira.OpenMouth: Oh yeah I almost died to one, and Daze cut it in half. 
+	Mira.OpenMouth: Oh yeah I almost died to one, and Daze cut it in half.
 	Asteria.Neutral: [small]I have no words for you two.
+	Asteria.Neutral: ...Why do you call it a Guardian?
+	Daze.Neutral: Because she likes naming things.
+	Mira.Neutral: 'Cause it's clearly made to guard something!!
+	Asteria.Neutral: It sounds stupid...
+	Mira.Neutral: Maybe it's this orb it was trying to guard! The Guardian Orb!!!
+	Asteria.Neutral: *Sigh...*
 	do add_flag("TavernTheory", 2)
 - You're a Cyrenian
 	Mira.Curious: Could it be because I'm a Cyrenian?
@@ -163,6 +168,7 @@ Daze.Neutral: It's a plan! We'll meet at the gate by sunset then!
 (hide)
 do transition()
 do detransition()
+Placeholder description: Esto, the owner of the place is next to them.
 Daze.Neutral: It was delicious, Thanks a ton once again Esto... sir.
 Mira.Upset: Eh, it was okay...
 Mira.Upset: Um, how much does this all cost? I'm kind of strapped for money.

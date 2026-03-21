@@ -25,7 +25,9 @@ func new_game() -> void:
 	Global.Party.reset_party()
 	Global.reset_all_members()
 	Event.TimeOfDay = Event.TOD.NIGHT
+	Event.add_flag("time", Event.TOD.NIGHT)
 	Event.Day = 0
+	Event.add_flag("day", 0)
 	Loader.white_fadeout()
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
 	await Global.area_initialized
@@ -110,15 +112,6 @@ func first_battle():
 	Loader.start_battle("FirstBattle")
 	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
-
-
-func TWflame():
-	await Event.take_control()
-	Global.Player.set_anim("IdleRight")
-	await Global.textbox("interact_abad", "getting_dark")
-	Event.give_control()
-	Event.add_flag("TWflame")
-	Loader.save()
 
 
 func AlcineFollow1():

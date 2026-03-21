@@ -114,8 +114,8 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	Event.Flags = data.Flags.duplicate()
 	Event.Diary = data.Diary
 	print("Flags loaded: ", Event.Flags)
-	Event.Day = Event.Flags.get("day")
-	Event.TimeOfDay = Event.Flags.get("time") as Event.TOD
+	Event.Day = Event.flag_int("day")
+	Event.TimeOfDay = Event.flag_int("time") as Event.TOD
 	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
 

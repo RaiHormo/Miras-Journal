@@ -565,9 +565,9 @@ func end_turn(confirm_aoe := false):
 		#print(i.Speed+i.SpeedBoost, " - ", i.FirstName)
 	while lock_turn:
 		await Event.wait()
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.1).timeout
 	$Act.end_turn_checks()
-	if CurrentChar.node:
+	if is_instance_valid(CurrentChar.node):
 		CurrentChar.node.z_index = 0
 	for i in TurnOrder:
 		if i.queue_delete:

@@ -573,7 +573,6 @@ func portrait(img: String, redraw := true) -> void:
 
 func portrait_clear() -> void:
 	HasPortrait = false
-	PortraitIMG = null
 
 
 func fade_txt_background(alpha := 0.8):

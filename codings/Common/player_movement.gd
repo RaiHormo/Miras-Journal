@@ -203,8 +203,8 @@ func update_anim_prm() -> void:
 ##Item pickup animation
 func _on_pickup() -> void:
 	await Event.take_control(true, true)
-	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true, false)
-	else: await set_anim("PickUpRight", true, false)
+	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true, true)
+	else: await set_anim("PickUpRight", true, true)
 	Event.give_control()
 	set_anim()
 

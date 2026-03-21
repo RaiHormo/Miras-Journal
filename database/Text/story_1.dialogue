@@ -204,7 +204,7 @@ Mira: Wait.
 do npc("Daze").look_to("R")
 do npc("Alcine").look_to("R")
 do npc("Daze").bubble("Question")
-I use my aura to reveal cast lines around.
+Placeholder description: Mira uses her aura to reveal hidden lines that are used for creating magic spells.
 set Camera.position = Vector2(-180, -1010)
 (hide)
 Mira: This mechanism has a ton of cast lines leading that way.
@@ -408,8 +408,8 @@ Asteria.Neutral: Follow me if you'd like.
 => END
 
 ~ nov2_town_hall
-do spawn("Feni", Vector2(381, 130), "D", 0)
-do spawn("Asteria", Vector2(368, 150), "U", 0)
+do spawn("Feni", Vector2(381, 130), "D", 3)
+do spawn("Asteria", Vector2(368, 150), "U", 3)
 do! npc("P").go_to(Vector2(368, 184), false, false, "U")
 do! npc("F2").go_to(Vector2(390, 184), false, false, "U")
 do! npc("F1").go_to(Vector2(350, 190), false, false, "U")
@@ -508,14 +508,14 @@ Asteria: The entire realm is surrounded by the void on all sides...
 Asteria: And... [wait=0.5] the people brave enough to have tried to cross it, distort and... [wait=0.5] break apart. [wait=0.5] Perishing soon after...
 Daze: And you're certain of this? Surely you must be mistaken.
 Asteria: I've seen it happen myself...
-Mira.Angry: ...
-Mira.Angry: No.
+Mira: ...
+Mira: No.
 (hide)
 do npc("Asteria").bubble("Question")
 Asteria: No?-[next=auto]
 Mira: No.[wait=0.5] There is a way out, there has to be. You've just not actually TRIED to find it.
 do npc("Asteria").bubble("Surprise")
-Asteria.Angry: You think my entire village hasn't already tried to-[next=auto]
+Asteria: You think my entire village hasn't already tried to-[next=auto]
 Mira: Your NAIVE village hasn't had the GUTS to actually find out!
 Daze: Levenor, please!
 Mira: NO! I'm not going to stand here and- and- heed some villager's dumb folklore!
@@ -551,7 +551,7 @@ do npc("P").go_to(Vector2(160, 441))
 do wait(1)
 do npc("P").move_dir("L")
 do npc("Alcine").look_to("U")
-Mira: I'm sorry you had to witness that {{alcine()}}.
+Mira: I'm sorry {{alcine()}}...
 Mira: I should get some sleep.
 set ToDay = 3
 set ToTime = 1

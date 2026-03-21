@@ -68,11 +68,13 @@ I feel like it might prove useful.
 => END
 
 ~ getting_dark
+do npc("P").set_anim("IdleRight")
 ...It's getting a little dark.
 (hide)
 do Player.activate_flame()
 do Event.wait(0.5)
 This should help.
+do! save()
 => END
 
 ~ hey_wait
@@ -298,6 +300,7 @@ I get up and look around. My clothes are all ripped and I have a bandage on my l
 Ow, it hurts quite a bit to move it around.
 set Query.find_member("Daze").FirstName = ""
 Daze.Neutral: Oh Ms. Levenor, you're finally up!
+A human..?
 I'm not that sure what to say, and I just stare silent for a bit. 
 After a bit of hesitation I go to sit on the other side of the campfire.
 Mira.Neutral: I have so many questions...
