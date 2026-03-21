@@ -52,7 +52,20 @@ func on_confirm(text: String) -> void:
 	elif check_for_symbols():
 		$Error.text = "I shouldn't include symbols"
 		$Error.show()
-	elif "fuck" in txt or "shit" in txt or "ass" in txt or "cunt" in txt or "butt" in txt or "nigg" in txt or "faggot" in txt or "tranny" in txt:
+	elif (
+		"fuck" in txt
+		or "shit" in txt
+		or "ass" == txt
+		or "cunt" in txt
+		or "butt" == txt
+		or "nigg" in txt
+		or "faggot" in txt
+		or "tranny" in txt
+		or "boobs" in txt
+		or "breasts" == txt
+		or "fart" in txt
+		or "malaka" in txt
+	):
 		$Error.text = "No."
 		$Error.show()
 	elif "mira" == txt or "levenor" == txt:

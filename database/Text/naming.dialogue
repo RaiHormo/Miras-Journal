@@ -38,10 +38,12 @@ elif alcine() == "Alcaine":
 	I wonder.
 elif alcine() == "Alcohol":
 	I'm not drunk.
-elif alcine() == "Gaster":
+elif alcine() == "Gaster" or alcine() == "WD Gaster":
 	I don't speak hands.
 elif alcine() == "Luigi":
 	Respectable.
+elif alcine() == "Tails":
+	Miles Prower.
 elif alcine() == "Rai" or alcine() == "Raidev" or alcine() == "RaiDev":
 	SECRET DEVELOPER MODE ACTIVATED! Or something...
 elif alcine() == "Lol" or alcine() == "Lmao" or alcine() == "Www" or alcine() == "Lmfao" or alcine() == "Haha" or alcine() == "Hehe":
