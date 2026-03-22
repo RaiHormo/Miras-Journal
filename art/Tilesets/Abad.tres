@@ -3181,6 +3181,12 @@ texture_region_size = Vector2i(24, 24)
 16:22/size_in_atlas = Vector2i(1, 2)
 16:22/0 = 0
 16:22/0/texture_origin = Vector2i(0, -12)
+17:33/size_in_atlas = Vector2i(3, 3)
+17:33/animation_frame_0/duration = 1.0
+17:33/animation_frame_1/duration = 1.0
+17:33/0 = 0
+17:33/0/texture_origin = Vector2i(0, 16)
+17:33/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 20, 32, 12, 36, 0, 32, -12, 20, -20, 0, -24, -20, -20, -32, -12, -36, 0, -32, 12, -20, 20)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xw0yv"]
 texture = ExtResource("9_baio5")
