@@ -198,6 +198,7 @@ func check_flag() -> bool:
 
 
 func player_is_near() -> bool:
+	if not is_instance_valid(Global.Player): return false
 	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
 
 

@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="2_bnatt"]
 
 [node name="CreditsRoll" type="CanvasLayer" unique_id=1670143297]
+layer = 10
 script = ExtResource("1_bnatt")
 
 [node name="Canvas" type="ColorRect" parent="." unique_id=1174373282]

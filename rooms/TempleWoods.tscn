@@ -993,8 +993,8 @@ ActionType = "event"
 file = "bag_seq"
 dialogue_file = "bag_seq"
 return_control = false
-add_flag = true
-hide_on_flag = &"HasBag||day>0"
+show_on_flag = &"day=0"
+hide_on_flag = &"HasBag"
 proper_pos = Vector2(100, 406)
 proper_face = Vector2(1, 0)
 hidesprite = true
@@ -1137,33 +1137,29 @@ navigation_polygon = SubResource("NavigationPolygon_ovn4b")
 use_edge_connections = false
 navigation_layers = 2
 
-[node name="Transfer" parent="." unique_id=746488469 instance=ExtResource("8_grqbv")]
-position = Vector2(792, 512)
+[node name="TransferStartRight" parent="." unique_id=746488469 instance=ExtResource("8_grqbv")]
+position = Vector2(809.00006, 500.00003)
 scale = Vector2(0.96, 1.21)
 Direction = Vector2(1, 0)
-Position = Vector2(1220, 461)
-room = "TempleWoods"
+room = "TempleWoods;LakesideLeft"
 ToCamera = 1
 
-[node name="Transfer2" parent="." unique_id=1381750076 instance=ExtResource("8_grqbv")]
-position = Vector2(1143.11, 461.739)
+[node name="TransferLakesideLeft" parent="." unique_id=1381750076 instance=ExtResource("8_grqbv")]
+position = Vector2(999.99994, 446)
 scale = Vector2(1.1, 1)
 Direction = Vector2(-1, 0)
-Position = Vector2(687, 506)
-room = "TempleWoods"
+room = "TempleWoods;StartRight"
 
-[node name="Transfer3" parent="." unique_id=1593896857 instance=ExtResource("8_grqbv")]
-position = Vector2(1258.84, -705.287)
+[node name="TransferTempleUp" parent="." unique_id=1593896857 instance=ExtResource("8_grqbv")]
+position = Vector2(1260, -715)
 Direction = Vector2(0, -1)
-Position = Vector2(1272, -926)
-room = "TempleWoods"
+room = "TempleWoods;RoadDown"
 ToCamera = 2
 
-[node name="Transfer4" parent="." unique_id=1572370546 instance=ExtResource("8_grqbv")]
+[node name="TransferRoadDown" parent="." unique_id=1572370546 instance=ExtResource("8_grqbv")]
 position = Vector2(1257.8, -864.287)
 Direction = Vector2(0, 1)
-Position = Vector2(1254, -640)
-room = "TempleWoods"
+room = "TempleWoods;TempleUp"
 ToCamera = 1
 
 [node name="Transfer5" parent="." unique_id=1811557795 instance=ExtResource("8_grqbv")]
@@ -1212,6 +1208,7 @@ ReturnControl = false
 position = Vector2(729, 512)
 scale = Vector2(1, 1.72)
 EventName = "first_battle"
+ReturnControl = false
 
 [node name="EvAmbWoodsBridge" parent="." unique_id=200704634 instance=ExtResource("36_2q7ov")]
 position = Vector2(1956, -1318)

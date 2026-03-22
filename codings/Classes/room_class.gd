@@ -168,10 +168,17 @@ func _physics_process(delta: float) -> void:
 		$SubRoomBg.position = Cam.position
 
 
-func go_to_subroom(subroom: String, fast = false):
+func go_to_subroom(subroom: String, fast = false) -> Vector2:
 	for i in get_children():
-		if is_instance_valid(i) and i.name == subroom and i is SubRoom:
+		if not is_instance_valid(i): continue
+		if i is SubRoom and i.name == subroom:
 			await i.transition(0)
+			return i.cam_pos
+		elif i is TransferZone and i.name == "Transfer" + subroom:
+			return i.position - (i.Direction * i.scale) * 80
+		elif i is Marker2D and i.name == "Mark" + subroom:
+			return i.position
+	return Vector2.ZERO
 
 
 func get_layers() -> Array[TileMapLayer]:

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://ccm0r6n0e8q8e"]
 
-[ext_resource type="Script" uid="uid://cdd13as58x5on" path="res://codings/transfer_zone.gd" id="1_6swgh"]
+[ext_resource type="Script" uid="uid://cdd13as58x5on" path="res://codings/Components/transfer_zone.gd" id="1_6swgh"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="2_as2d5"]
 [ext_resource type="Texture2D" uid="uid://bnv6qqf87t008" path="res://art/Icons/Editor/transfer.png" id="3_2ktml"]
-[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="4_f1rhf"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="4_f1rhf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr85b"]
-size = Vector2(92.4443, 84.0007)
+size = Vector2(80, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8txy"]
 size = Vector2(39, 85)
@@ -18,7 +18,6 @@ collision_mask = 15
 script = ExtResource("1_6swgh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1520553016]
-position = Vector2(-0.116028, 0.174988)
 shape = SubResource("RectangleShape2D_vr85b")
 debug_color = Color(0.294118, 0.611765, 0.427451, 0.419608)
 
@@ -47,7 +46,6 @@ texture = ExtResource("2_as2d5")
 [node name="Icon" type="Sprite2D" parent="." unique_id=1381932208]
 light_mask = 0
 z_index = 10
-position = Vector2(27.884, 0.174984)
 scale = Vector2(0.351786, 0.351786)
 texture = ExtResource("3_2ktml")
 script = ExtResource("4_f1rhf")

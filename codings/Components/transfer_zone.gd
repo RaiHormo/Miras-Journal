@@ -1,4 +1,5 @@
 extends Area2D
+class_name TransferZone
 @export var Direction: Vector2
 @export var Position := Vector2.ZERO
 @export var room: String
@@ -15,7 +16,7 @@ func _on_entered(body):
 func proceed() -> void:
 	var frame = Global.Player.sprite.frame
 	Global.Player.camera_follow(false)
-	Event.take_control(true, true)
+	await Event.take_control(true, true)
 	Global.Player.collision(false)
 	Global.Player.move_dir(Direction * 48, false)
 	Global.Player.sprite.frame = frame

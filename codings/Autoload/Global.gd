@@ -196,6 +196,7 @@ func options(submenu = 0):
 
 
 func title_screen():
+	if Global.Area != null: Global.Area.queue_free()
 	if not get_tree().root.has_node("Initializer"):
 		var init = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
 		get_tree().root.add_child(init)

@@ -196,6 +196,7 @@ func travel_to_coords(sc, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z :=
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
 
+## Takes the player to a specific room. Use ";" to specify a subroom, a marker or a transfer point
 func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans = Query.get_dir_letter(), controllable := true):
 	if trans != "none":
 		direc = trans
@@ -245,16 +246,17 @@ func travel_done(controllable := false):
 	Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
 	Global.Camera.position_smoothing_enabled = false
 	Global.lights_loaded.emit()
+	get_tree().paused = false
+	if scene.size() > 1:
+		var new_pos = await Global.Area.go_to_subroom(scene[1], true)
+		if new_pos != Vector2.ZERO and traveled_pos == Vector2.ZERO: traveled_pos = new_pos
 	if traveled_pos != Vector2.ZERO:
 		Global.Player.collision(false)
 		Global.Player.global_position = traveled_pos
 	for i in Global.Area.Followers:
 		i.position = traveled_pos
-	get_tree().paused = false
 	if controllable:
 		await Global.Player.look_to(look_dir)
-	if scene.size() > 1:
-		await Global.Area.go_to_subroom(scene[1], true)
 	if direc != "wait": detransition()
 	Global.get_cam().position_smoothing_enabled = true
 	if controllable:

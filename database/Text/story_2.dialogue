@@ -389,7 +389,8 @@ else:
 	Daze.Neutral: Seems this is as far as we're going today.
 	Asteria.Neutral: Thank you so much for playing!
 	Alcine.Laugh: Wheeeaaa!
-	do! sequence("demo_credits")
+	do Loader.save()
+	do! Event.sequence("demo_credits")
 => END
 	Daze.Neutral: 'Grats, now we can't test out any of our theories...
 	Mira.Neutral: Whoops.

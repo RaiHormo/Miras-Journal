@@ -13,9 +13,9 @@
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
 
 [sub_resource type="Curve" id="Curve_7hmow"]
-_limits = [0.0, 500.0, 7.0, 50.0]
+_limits = [0.0, 500.0, 1.0, 50.0]
 bake_resolution = 50
-_data = [Vector2(7, 84.5508), -3.47912, -3.47912, 0, 0, Vector2(9.74468, 46.5668), 43.9126, 43.9126, 0, 0, Vector2(16.0658, 181.885), -36.9382, -36.9382, 0, 0, Vector2(50, 500), 0.0, 0.0, 0, 0]
+_data = [Vector2(6.9558015, 155.67572), -3.47912, 7.3003993, 0, 0, Vector2(11.422653, 173.24329), 43.9126, 43.9126, 0, 0, Vector2(16.0658, 181.885), -36.9382, -36.9382, 0, 0, Vector2(50, 500), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [resource]

@@ -4,6 +4,7 @@ var index: int = 0
 signal closed
 var working_chara: Actor
 var learnable: Ability
+var active := false
 
 
 func _ready() -> void:
@@ -96,6 +97,7 @@ func levelup(chara: Actor):
 		"size:x", 190, 0.3).from(1)
 	t.tween_property($ChooseUpgrade/Cursor, "modulate", Color.WHITE, 0.2)
 	index = 0
+	active = true
 
 
 func level_cutin(chara: Actor):
@@ -118,6 +120,7 @@ func level_cutin(chara: Actor):
 
 
 func _input(event: InputEvent) -> void:
+	if not active: return
 	if Input.is_action_just_pressed("ui_down"):
 		index += 1
 		if index == 3: index = 0
@@ -159,6 +162,8 @@ var count: int
 
 
 func _confirm():
+	if not active: return
+	active = false
 	$ChooseUpgrade/Cursor.hide()
 	var t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -216,9 +221,9 @@ func _confirm():
 			t.set_ease(Tween.EASE_IN)
 			t.set_trans(Tween.TRANS_QUART)
 			t.set_parallel()
-			t.tween_property($ChooseUpgrade/NewAb, "self_modulate", Color(10, 10, 10, 1), 2)
-			t.tween_property($ChooseUpgrade/NewAb/Hbox, "modulate", Color.TRANSPARENT, 2)
-			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.8, 1.8), 2)
+			t.tween_property($ChooseUpgrade/NewAb, "self_modulate", Color(10, 10, 10, 1), 1.5)
+			t.tween_property($ChooseUpgrade/NewAb/Hbox, "modulate", Color.TRANSPARENT, 1.5)
+			t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.8, 1.8), 1.5)
 			await t.finished
 			working_chara.Abilities.append(learnable)
 			$ChooseUpgrade/NewAb/Hbox/Icon.texture = learnable.Icon

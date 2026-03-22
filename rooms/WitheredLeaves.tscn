@@ -707,8 +707,8 @@ dialogue_file = "interact_abad"
 title = "rest_camp"
 
 [node name="JumpPoint2" parent="." unique_id=61352011 instance=ExtResource("22_5vs6x")]
-position = Vector2(-633, 409)
-scale = Vector2(1.56, 1)
+position = Vector2(-636, 408.00003)
+scale = Vector2(1.4841181, 1.8685038)
 
 [node name="MiraTent" parent="." unique_id=1656300425 instance=ExtResource("5_6fdth")]
 position = Vector2(-91, -383)

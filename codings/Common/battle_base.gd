@@ -616,8 +616,8 @@ overwrite_color: Color = Color.WHITE) -> int:
 		CurrentChar.get_state("AtkUp").QueueRemove = true
 		print("Weapon attack, so AtkUp will be removed")
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg / 2)
-	if elemental and not target.has_state("UnbreakingAura"):
-		var base_dmg := int((dmg * target.Defence * 2 * target.DefenceMultiplier) / (target.Magic * target.MagicMultiplier))
+	if elemental:
+		var base_dmg := int(dmg * target.Defence * 2 * target.DefenceMultiplier)
 		var aur_dmg = relation_to_aura_dmg(relation, base_dmg)
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
 		target.add_aura(-aur_dmg)

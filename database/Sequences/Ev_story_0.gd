@@ -108,12 +108,12 @@ func axe_seq():
 
 
 func first_battle():
-	Event.add_flag("EvFirstBattle")
-	#await Global.Player.move_dir(Vector2.RIGHT)
+	Global.Player.move_dir(Vector2.RIGHT * 2)
 	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, -1, "R", false)
 	await Event.wait(0.2)
 	Loader.gray_out(1)
 	await Event.wait(0.5)
+	Event.take_control()
 	Global.Player.camera_follow(false)
 	Event.camera_move(Vector2(1446, -605), 0)
 	Loader.ungray.emit()
@@ -126,6 +126,7 @@ func first_battle():
 	await Event.camera_move(Vector2(1429, 450), 4, Tween.EASE_OUT)
 	Loader.gray_out(1)
 	Loader.start_battle("FirstBattle")
+	Event.add_flag("EvFirstBattle")
 	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
 

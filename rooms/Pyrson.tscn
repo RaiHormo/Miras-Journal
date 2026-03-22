@@ -35,6 +35,210 @@
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="32_b46i6"]
 [ext_resource type="PackedScene" uid="uid://8bbhsb53enf5" path="res://rooms/components/Chair.tscn" id="33_u6p7b"]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lb215"]
+polygon = PackedVector2Array(-23.3345, -16.617, 24.0416, -17.3241, 24.7487, 30.052, -22.6274, 31.1127)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p6jmr"]
+polygon = PackedVector2Array(-11.5, -14.5, 12.5, -14.5, 12, 0, -12, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ak30l"]
+texture = ExtResource("6_dtjwe")
+texture_region_size = Vector2i(24, 24)
+1:0/size_in_atlas = Vector2i(1, 2)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(-24, -12)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+5:2/0 = 0
+7:4/size_in_atlas = Vector2i(1, 3)
+7:4/0 = 0
+8:4/size_in_atlas = Vector2i(1, 3)
+8:4/0 = 0
+9:4/0 = 0
+0:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+9:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+0:6/size_in_atlas = Vector2i(1, 2)
+0:6/0 = 0
+0:6/0/texture_origin = Vector2i(0, 12)
+1:6/0 = 0
+5:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+10:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -6, 12, -6, 12, 12, -12, 12)
+11:6/0 = 0
+12:6/0 = 0
+13:6/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/size_in_atlas = Vector2i(2, 2)
+3:7/0 = 0
+3:7/0/texture_origin = Vector2i(0, 12)
+3:7/0/y_sort_origin = -13
+3:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -36, 24, -36, 24, 0, -24, 0)
+9:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+12:7/0/y_sort_origin = -1
+12:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 0, 6, 0, 6, 6, 0, 6, -6, 6)
+0:8/0 = 0
+0:8/0/texture_origin = Vector2i(0, -6)
+0:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+1:8/size_in_atlas = Vector2i(1, 3)
+1:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+2:4/size_in_atlas = Vector2i(2, 3)
+2:4/0 = 0
+2:4/0/y_sort_origin = 15
+2:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lb215")
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, 20, 24, 19.5, 24, 30, -24, 30)
+9:8/size_in_atlas = Vector2i(1, 2)
+9:8/0 = 0
+10:8/size_in_atlas = Vector2i(2, 2)
+10:8/0 = 0
+10:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7, -1, 6.5, -1, 6.5, 7, -6.5, 7)
+8:7/size_in_atlas = Vector2i(1, 2)
+8:7/0 = 0
+8:7/0/y_sort_origin = 5
+8:7/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_p6jmr")
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 12, 6, 12, 17, -12, 17)
+0:11/size_in_atlas = Vector2i(1, 2)
+0:11/0 = 0
+0:11/0/texture_origin = Vector2i(1, 4)
+0:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -20, 12, -20, 12, 8, -12, 8)
+1:11/size_in_atlas = Vector2i(1, 2)
+1:11/0 = 0
+1:11/0/texture_origin = Vector2i(0, -2)
+1:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 28, -12, 28)
+2:10/size_in_atlas = Vector2i(1, 3)
+2:10/0 = 0
+2:10/0/texture_origin = Vector2i(0, -23)
+2:10/0/y_sort_origin = 24
+2:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 60, 12, 60, 12, 20, -4, 20)
+3:11/size_in_atlas = Vector2i(3, 2)
+3:11/0 = 0
+3:11/0/texture_origin = Vector2i(-23, -2)
+3:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 16, 40, 16, 40, 0, -12, 0)
+5:10/size_in_atlas = Vector2i(3, 1)
+5:10/0 = 0
+5:10/0/texture_origin = Vector2i(-20, -12)
+6:12/0 = 0
+6:12/0/texture_origin = Vector2i(0, -2)
+6:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 8, -8, 8)
+4:10/0 = 0
+4:10/0/texture_origin = Vector2i(0, 12)
+4:10/0/y_sort_origin = -12
+4:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 12, -4, 12, -16, -4, -16)
+6:11/0 = 0
+6:11/0/texture_origin = Vector2i(0, 20)
+8:10/size_in_atlas = Vector2i(2, 2)
+8:10/0 = 0
+8:10/0/texture_origin = Vector2i(-12, 12)
+8:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -4, -12, -4, 0, 32, 0, 32, -20, 36, -20, 36, 12, -12, 12)
+0:0/0 = 0
+0:1/0 = 0
+1:2/0 = 0
+1:2/0/y_sort_origin = -24
+10:10/size_in_atlas = Vector2i(2, 2)
+10:10/0 = 0
+10:10/0/texture_origin = Vector2i(12, -5)
+10:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -12, 12, -12, 12, 28, -24, 28)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+5:4/size_in_atlas = Vector2i(1, 2)
+5:4/0 = 0
+5:4/0/texture_origin = Vector2i(0, 12)
+2:2/0 = 0
+11:12/size_in_atlas = Vector2i(1, 2)
+11:12/0 = 0
+11:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, -12, 24, 12, 24, 12, 0)
+12:12/size_in_atlas = Vector2i(1, 2)
+12:12/0 = 0
+12:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, 12, 0, 12, 24, -12, 24)
+13:13/0 = 0
+13:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+14:13/0 = 0
+14:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+14:12/0 = 0
+14:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+13:12/0 = 0
+13:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+13:11/0 = 0
+13:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+14:11/0 = 0
+14:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[sub_resource type="TileSet" id="TileSet_ak30l"]
+tile_size = Vector2i(24, 24)
+occlusion_layer_0/light_mask = 3
+occlusion_layer_0/sdf_collision = true
+physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 3
+custom_data_layer_0/name = "TerrainType"
+custom_data_layer_0/type = 4
+sources/3 = SubResource("TileSetAtlasSource_ak30l")
+
+[sub_resource type="Gradient" id="Gradient_desij"]
+offsets = PackedFloat32Array(0, 0.28125, 0.735577, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8125, 0.8125, 0.8125, 1, 0.22, 0.22, 0.22, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_57jec"]
+gradient = SubResource("Gradient_desij")
+fill = 1
+fill_from = Vector2(0.495726, 0.517949)
+fill_to = Vector2(0.505983, 0)
+
+[sub_resource type="Gradient" id="Gradient_i7xjy"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bvyet"]
+gradient = SubResource("Gradient_i7xjy")
+fill = 1
+fill_from = Vector2(0.512821, 0.42906)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_taf6h"]
+size = Vector2(10, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ig8e"]
+size = Vector2(41, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4a3rh"]
+size = Vector2(21, 148)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prfhr"]
+radius = 40.05
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djywu"]
 texture = ExtResource("4_e3kpk")
 texture_region_size = Vector2i(24, 24)
@@ -158,12 +362,6 @@ texture_region_size = Vector2i(24, 24)
 3:1/0 = 0
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
 3:0/0 = 0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lb215"]
-polygon = PackedVector2Array(-23.3345, -16.617, 24.0416, -17.3241, 24.7487, 30.052, -22.6274, 31.1127)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p6jmr"]
-polygon = PackedVector2Array(-11.5, -14.5, 12.5, -14.5, 12, 0, -12, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_spamq"]
 texture = ExtResource("6_dtjwe")
@@ -333,38 +531,6 @@ sources/1 = SubResource("TileSetAtlasSource_u78hp")
 sources/3 = SubResource("TileSetAtlasSource_spamq")
 sources/0 = SubResource("TileSetAtlasSource_djywu")
 
-[sub_resource type="Gradient" id="Gradient_desij"]
-offsets = PackedFloat32Array(0, 0.28125, 0.735577, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.8125, 0.8125, 0.8125, 1, 0.22, 0.22, 0.22, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_57jec"]
-gradient = SubResource("Gradient_desij")
-fill = 1
-fill_from = Vector2(0.495726, 0.517949)
-fill_to = Vector2(0.505983, 0)
-
-[sub_resource type="Gradient" id="Gradient_i7xjy"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bvyet"]
-gradient = SubResource("Gradient_i7xjy")
-fill = 1
-fill_from = Vector2(0.512821, 0.42906)
-fill_to = Vector2(1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_taf6h"]
-size = Vector2(10, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ig8e"]
-size = Vector2(41, 14)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4a3rh"]
-size = Vector2(21, 148)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_prfhr"]
-radius = 40.05
-
 [sub_resource type="Gradient" id="Gradient_3bxch"]
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0.239234, 1)
@@ -420,7 +586,7 @@ size = Vector2(97.5528, 20)
 
 [sub_resource type="Gradient" id="Gradient_2oe0j"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.0509804, 0.0509804, 0.0509804, 1)
+colors = PackedColorArray(0.05, 0.05, 0.05, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ae0d8"]
 gradient = SubResource("Gradient_2oe0j")
@@ -442,7 +608,7 @@ metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
 [node name="0-Border" type="TileMapLayer" parent="." unique_id=2132148132]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD///f/AwAAAAIAAAD///j/AwAAAAIAAAD///n/AwAAAAIAAAD///r/AwAAAAIAAAAAAPr/AwAAAAIAAAAAAPv/AwAAAAIAAAD///v/AwAAAAIAAAABAPv/AwAAAAIAAAACAPv/AwAAAAIAAAADAPv/AwAAAAIAAAAEAPv/AwAAAAIAAAAFAPv/AwAAAAIAAAAGAPv/AwAAAAIAAAAHAPv/AwAAAAIAAAAIAPv/AwAAAAIAAAAJAPv/AwAAAAIAAAAKAPv/AwAAAAIAAAALAPv/AwAAAAIAAAALAPr/AwAAAAIAAAALAPn/AwAAAAIAAAALAPj/AwAAAAIAAAALAPf/AwAAAAIAAAALAPb/AwAAAAIAAAALAPX/AwAAAAIAAAAKAPX/AwAAAAIAAAAJAPX/AwAAAAIAAAAIAPX/AwAAAAIAAAAHAPX/AwAAAAIAAAAGAPX/AwAAAAIAAAAFAPX/AwAAAAIAAAAEAPX/AwAAAAIAAAADAPX/AwAAAAIAAAACAPX/AwAAAAIAAAABAPX/AwAAAAIAAAAAAPX/AwAAAAIAAAD///X/AwAAAAIAAAA=")
-tile_set = SubResource("TileSet_dw7lm")
+tile_set = SubResource("TileSet_ak30l")
 script = ExtResource("24_u5udm")
 hide_instead = true
 
@@ -1329,20 +1495,18 @@ ToSubarea = NodePath("../TownHall")
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6we5s")
 
-[node name="Transfer" parent="." unique_id=113743635 instance=ExtResource("28_prfhr")]
+[node name="TransferLindeAlleyR" parent="." unique_id=113743635 instance=ExtResource("28_prfhr")]
 position = Vector2(13, 827)
 scale = Vector2(0.599999, 1)
 Direction = Vector2(-1, 0)
-Position = Vector2(-60, 823)
-room = "Pyrson"
+room = "Pyrson;LindeAlleyL"
 ToCamera = 1
 
-[node name="Transfer2" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
+[node name="TransferLindeAlleyL" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
 position = Vector2(-2, 826)
 scale = Vector2(0.399999, 1)
 Direction = Vector2(1, 0)
-Position = Vector2(54, 826)
-room = "Pyrson"
+room = "Pyrson;LindeAlleyR"
 
 [node name="VPGate" parent="." unique_id=1839372317 instance=ExtResource("3_pivbf")]
 position = Vector2(79, 127)
