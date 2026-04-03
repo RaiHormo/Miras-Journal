@@ -74,17 +74,6 @@ func handle_states():
 		if state.turns > -1:
 			state.turns -= 1
 			if state.turns == 0:
-				match state.filename:
-					"Guarding", "MagicShield":
-						Bt.outline_remove(chara)
-					"AtkUp": chara.AttackMultiplier -= state.parameter
-					"DefUp": chara.DefenceMultiplier -= state.parameter
-					"MagUp": chara.MagicMultiplier -= state.parameter
-					"AuraOverwrite":
-						chara.MainColor = chara.AuraDefault
-						Bt.outline_remove(chara)
-					"KnockedOut":
-						Bt.recover(chara)
 				state.QueueRemove = true
 				Bt.anim("", chara)
 		if not state.QueueRemove:
@@ -576,6 +565,7 @@ func Summon(target: Actor):
 	else:
 		Loader.white_fadeout(1, 0.5, 0.5)
 		await Event.wait(0.5)
+		#FIXME
 		Bt.add_to_troop(CurrentChar.SummonedAllies.pick_random())
 		await Event.wait(1)
 	Bt.anim()

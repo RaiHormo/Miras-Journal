@@ -78,6 +78,8 @@ Where to go?
 ~ greetings
 Mira.Neutral: Hello everyone! This is a passive textbox of sorts.
 Mira.OpenMouth: I can still move while saying this.
+(hide)
+Mira.OpenMouth: boo
 => END
 
 ~ add_to_party

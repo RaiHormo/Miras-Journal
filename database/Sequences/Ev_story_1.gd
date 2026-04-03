@@ -179,14 +179,16 @@ func asteria_boss():
 		Event.take_control()
 		Event.npc("F1").move_dir(Vector2(1, 0))
 		await Global.textbox(name, "asteria_boss_after")
-		Event.ToDay = 2
-		Event.ToTime = 4
-		Event.add_flag("InCamp")
-		Event.time_transition()
+		asteria_joins()
 
 
-func nov2_evening():
+func asteria_joins():
+	Event.add_flag("InCamp")
 	Global.Party.set_to_strarr(["Mira"])
+	if Event.TimeOfDay != Event.TOD.EVENING:
+		Event.ToDay = 2
+		Event.ToTime = Event.TOD.EVENING
+		await Event.time_transition()
 	await Loader.travel_to("WitheredLeaves", Vector2(774, -202), 0, -1, "R", false)
 	Event.npc("AlcineCamp").position = Vector2(746, -232)
 	Event.npc("P").look_to("L")

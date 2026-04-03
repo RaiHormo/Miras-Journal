@@ -113,7 +113,7 @@ Alcine.Happy: Mewaaa!!
 Daze.Neutral: So this is the {{alcine()}} you were talking about.
 do! npc("P").bubble("Question")
 Alcine.Neutral: Mwwoo?
-Mira.Neutral: Oh {{alcine()}}, this is Daze. He saved me from that big rock monster.
+Mira.Neutral: Oh {{alcine()}}, this is Daze. He saved us from that big rock monster!
 do npc("P").move_dir(Vector2.RIGHT)
 Alcine.Upset: Sheww...
 do! npc("Mira").bubble("Question")
@@ -407,6 +407,7 @@ Asteria.Neutral: Maybe first... I should inform my mother that you're here.
 Asteria.Neutral: Follow me if you'd like.
 => END
 
+#FIXME
 ~ nov2_town_hall
 do spawn("Feni", Vector2(381, 130), "D", 3)
 do spawn("Asteria", Vector2(368, 150), "U", 3)
@@ -433,7 +434,7 @@ Feni.Neutral: Many folks who end up in Abad end up lost and wrecked by monsters.
 Daze.Neutral: Abad would be the name of this place, correct?
 Asteria.Neutral: Yeah, it's what we call this realm.
 Mira.Neutral: So... is there a place for us to stay here?
-Feni.Neutral: Certainly. There should be a few usused rooms at Marcus'.
+Feni.Neutral: Certainly. There should be a few unused rooms at Marcus'.
 Feni.Neutral: Can you take 'em there, dear?
 Asteria.Neutral: Right, follow me.
 (hide)
@@ -473,8 +474,8 @@ Asteria: The more people we have in the village, the better.
 Asteria: We're all stuck here together after all.
 Daze: Don't worry Asteria, we'll all get through this.
 do npc("Asteria").look_to("D")
-Daze: You've seen what me and Levenor have done as a team already.
-Daze: I'm sure with your help, and everyone else here, we will all eventuall go home.
+Daze: You've seen what we've done as a team already.
+Daze: I'm sure with your help, and everyone else here, we will all eventually go home.
 (hide)
 do npc("Asteria").bubble("Question")
 Asteria: Go home?
@@ -485,10 +486,7 @@ Daze: The weird shimmering darkness I saw near that bunker?
 Asteria: That's right, the thing keeping all of us in Abad!
 (hide)
 do! npc("P").bubble("Surprise")
-do npc("Daze").bubble("Surprise")
-Daze: Keeping you?[next=auto]
-Mira: Abad?
-Mira: What are you talking about?
+Mira: Keeping you? What are you talking about?
 (hide)
 do npc("Asteria").bubble("Sweat")
 do npc("Asteria").look_to("L")
@@ -516,19 +514,18 @@ Asteria: No?-[next=auto]
 Mira: No.[wait=0.5] There is a way out, there has to be. You've just not actually TRIED to find it.
 do npc("Asteria").bubble("Surprise")
 Asteria: You think my entire village hasn't already tried to-[next=auto]
-Mira: Your NAIVE village hasn't had the GUTS to actually find out!
 Daze: Levenor, please!
-Mira: NO! I'm not going to stand here and- and- heed some villager's dumb folklore!
+Mira: NO! I'm not going to stand here and- and- take in some villager's dumb folklore!
 Alcine.Upset: Squee
 Asteria.Angry: Excuse me?
 do npc("Alcine").set_anim("Scared", false, true)
-Mira: You just WANT people trapped in here, in this stupid village so you can stay cozy and have someone make food for you or-
+Mira: You just want people trapped in here, and have someone make food for you or-
 Mira: Do your chores or clean the houses!
 Mira: I won't stand for it!
 (hide)
 do tween(npc("P").get_node("Flame"), "energy", 1, 1)
 Daze: Levenor calm down! I know this is a lot to take in but this hysteria won't help!
-Mira: Don't call me hysterical DAZE, how can you stay so calm after hearing that?!
+Mira: Hysteria? How can you stay so calm after hearing that?!
 Alcine: Wiieouu!!
 Daze: You're scaring {{alcine()}}!
 Asteria: After everything our village has offered you...

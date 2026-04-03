@@ -11,12 +11,9 @@ do wait(2)
 *Knock Knock*
 set Event.npc("RoomMira").position = Vector2(90, 412)
 do Event.npc("RoomMira").set_anim("SitRight")
-Mira: Who is it?
+Mira: Come in.
 do spawn("Daze", Vector2(179, 438), "L")
 the door creaks open as Daze enters the room.
-Mira.Neutral: ...
-Daze.Neutral: ...
-We both look at each other with the same uneasy look, a tense atmosphere runs through the room
 Daze.Neutral: Hey...
 Daze.Neutral: How are you doing?
 Mira.Neutral: I'm... okay.
@@ -53,17 +50,21 @@ do wait(1)
 set npc("F1").BodyState = NPC.IDLE
 do! npc("F1").go_to(Vector2(520, 1056))
 do wait(1)
-Asteria.Neutral: Oh there she is!
-Mira.Upset: Hey... I'm so sorry for yesterday.
+Mira.Neutral: I'm here.
+Mira.Neutral: Oh, Asteria
+Asteria.Neutral: ...
 do npc("P").set_anim("SitRight", false, true)
 do jump_to_global(npc("P"), Vector2(516, 1090))
+Mira.Upset: ...I'm so sorry for yesterday.
+Asteria.Neutral: It's fine... your reaction was understandable.
 Mira.Curious: What're you two up to?
-Asteria.Neutral: Oh not much, he was just saying we should wait for you. Apparently it's about something important.
-Asteria.Neutral: Right now we were just wondering what to order.
+Asteria.Neutral: Mot much, he was just saying we should wait for you. Apparently it's about something important.
+Asteria.Neutral: Right now we're just wondering what to order.
 Daze.Neutral: It's surprising just how much variety they have while being self sustaining!
 Asteria.Neutral: Right, I don't know where we would be without Esto and the others.
 I look at the menu, checking if there's something that catches my eye.
-.[wait=0.5].[wait=0.5]. ???
+.[wait=0.5].[wait=0.5].
+do! npc("P").bubble("Surprise")
 Mira.Angry: You call this variety!? There's nothing here but vegetables!
 Asteria.Neutral: Huh? What were you looking for?
 (hide)
@@ -74,16 +75,16 @@ Mira.Upset: [small]Yeah...[/small]
 Daze.Neutral: It must be dangerous most people to wander out of the village for hunting, with monsters lurking eveywhere.
 Daze.Neutral: So, growing crops here is much easier and safer. Right?
 Asteria.Curious: The idea of eating animals just sounds disgusting to me...
-Disgusting?! \n...Well I guess it might seem that way to someone who's never had meat.
+Disgusting?! [p]...Well I guess it might seem that way to someone who's never had meat.
 Or maybe it's just a Frayse thing?
-Mira.Neutral: *sigh* [wait=1]\nWell, do you suggest anything then?
+Mira.Neutral: *sigh* [wait=1][p]Well, do you suggest anything then?
 (hide)
 do transition()
 do detransition()
 Asteria.Curious: So, what was it you wanted to talk about anyways?
 Daze.Neutral: Ms. Versea, you said something intriguing yesterday.
 Daze.Neutral: You've been here for all this time and have never seen that bunker open, correct?
-Asteria.Neutral: hm...
+Asteria.Neutral: Right.
 Daze.Neutral: Which brings the question, what did we do differently that hasn't been done before all this time?
 Mira.Upset: All I did was touch that pillar looking thing.
 Asteria.Neutral: That can't be it, everyone's tried that before and it never did anything.
@@ -298,13 +299,30 @@ else:
 ~ sg_find_bunker
 do Player.camera_follow(false)
 set Camera.position += Vector2(0, -120)
-Asteria.Neutral: This is it.
-Mira.Neutral: What's the deal with all the crystals?
-Asteria.Neutral: I think they're all magical constructs. Like those gates we went through.
-Mira.Neutral: How do you know?
-Asteria.Neutral: They melted when no energy was holding them together. Most magical things do that.
-Daze.Neutral: These ones don't seem to be blocking the way though.
-Mira.Neutral: Let's go in then!
+if Party.check_member(3):
+	Asteria.Neutral: This is it.
+	Mira.Neutral: What's the deal with all the crystals?
+	Asteria.Neutral: I think they're all magical constructs. Like those gates we went through.
+	Mira.Neutral: How do you know?
+	Asteria.Neutral: They melted when no energy was holding them together. Most magical things do that.
+	Daze.Neutral: These ones don't seem to be blocking the way though.
+	Mira.Neutral: Let's go in then!
+else:
+	This must be the bunker.
+	I should come back here with the others another time, this seems quite dangerous
+	do npc("P").move_dir("D")
+	do remove_flag("EvSGfindBunker")
+do Player.camera_follow(true)
+=> END
+
+~ lazulite_warning
+All of the cast lines are gathering into the big crystal here.
+I don't know what will happen if I touch this... Should I do it?
+- Touch it
+	do! sequence("lazulite_boss")
+- Do not
+	do npc("P").move_dir("D")
+	do! give_control()
 => END
 
 ~ lazulite_heart_intro

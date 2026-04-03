@@ -22,6 +22,6 @@ Damage = 2
 Target = 2
 AOE_AdditionalSeq = false
 WheelColor = Color(0.321569, 0.972549, 0.709804, 1)
-CritChance = 0.85
+CritChance = 0.6
 RecoverAura = true
 metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

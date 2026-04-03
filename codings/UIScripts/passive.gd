@@ -33,9 +33,14 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
-		if dialogue_line.text == "(hide)": hide_box()
-
 		var char_name = tr(dialogue_line.character, "dialogue")
+
+		if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
+			await hide_box()
+			next(dialogue_line.next_id)
+			char_name = ""
+			return
+
 		while "." in char_name:
 			#print(char_name)
 			char_name = char_name.erase(char_name.length() - 1)

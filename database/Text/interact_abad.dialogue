@@ -142,19 +142,22 @@ if Day == 1
 		Mira.Neutral: Which is why I elect myself as the leader!!
 		Daze.Neutral: What is your command, oh Leader of... uhh...
 		Daze.Neutral: What exactly are you leading again?
-		Mira.Neutral: The Three Lost Souls, bravely adventuring through the mysterious ruins and forests..!
+		Mira.Neutral: [i]The Three Lost Souls, bravely adventuring through the mysterious ruins and forests..![/i]
 		Mira.Neutral: ...Yeah, I dunno.
 		if f_past("AlcineIsTheLeaderReal", 2):
 			do add_flag("AlcineIsTheLeaderReal", 3)
 	else:
-		Mira: Hey Daze, how old are you again?
-		Daze: 18, why?
-		Mira: WHAT!?
-		Mira: That makes me the oldest one here! I should be the leader!!!
+		Mira.Neutral: Hey Daze, how old are you again?
+		Daze.Neutral: 18, why?
+		Mira.Neutral: WHAT!?
+		Mira.Neutral: That makes me the oldest one here! I should be the leader!!!
 		(hide)
 		Daze looks down at me with a straight face, making it clear that he's a whole head taller than me.
 		He proceeds to pat my head.
 		Daze: That's cute.
+		Daze.Neutral: Though I don't think you're getting anywhere with that broken arm of yours.
+		Mira.Neutral: Exactly! A leader can just stay behind and give commands!
+		Daze.Neutral: Or... get ambushed from behind.
 		do add_flag("AlcineIsTheLeaderReal", 1)
 elif Day == 2:
 	Daze.Neutral: Shelter in a place like this, huh?

@@ -510,7 +510,7 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor):
 func battle_msg(id: String, insert = "MISSING", insert2 = "MISSING2") -> String:
 	var text = BattleText[id]
 	text = text.replace("[cur]", CurrentChar.FirstName)
-	text = text.replace("[tar]", CurrentChar.FirstName)
+	text = text.replace("[tar]", CurrentTarget.FirstName)
 	text = text.replace("[insert]", insert)
 	text = text.replace("[insert2]", insert2)
 	text = text.replace("[cur_themself]", CurrentChar.get_pronoun("themself"))
@@ -1372,8 +1372,20 @@ func add_state_effect(state: State, chara: Actor):
 
 func remove_state_effect(statename: String, chara: Actor):
 	if chara.node == null: return
+	var state = await Query.get_state(statename)
 	if chara.node.get_node_or_null(statename):
 		chara.node.get_node(statename).queue_free()
+	match statename:
+		"Guarding", "MagicShield":
+			outline_remove(chara)
+		"AtkUp": chara.AttackMultiplier -= state.parameter
+		"DefUp": chara.DefenceMultiplier -= state.parameter
+		"MagUp": chara.MagicMultiplier -= state.parameter
+		"AuraOverwrite":
+			chara.MainColor = chara.AuraDefault
+			outline_remove(chara)
+		"KnockedOut":
+			recover(chara)
 
 
 func get_actor(codename: StringName, unsafe = false) -> Actor:

@@ -60,15 +60,22 @@ func sg_bunker_entrance():
 		await Event.take_control()
 		await Global.textbox(name, "enter_bunker_2")
 		Event.give_control()
-	else:
+	elif Global.Party.check_member(3):
 		await Event.take_control()
-		await Global.Player.bubble("Surprise")
-		await Loader.start_battle("LazuliteHeartBoss")
-		await Loader.battle_end
-		print("battle done")
-		Loader.ungray.emit()
-		await Global.textbox(name, "lazulite_heart_after")
-		Loader.white_fadeout(0.5, 0.3, 0.5)
-		Event.add_flag("DefeatedLazuliteHeart")
-		Event.progress_by_time(1)
-		Event.time_transition()
+		Global.textbox(name, "lazulite_warning")
+	else:
+		await Global.textbox(name, "sg_find_bunker")
+		await Event.give_control()
+
+
+func lazulite_boss():
+	await Global.Player.bubble("Surprise")
+	await Loader.start_battle("LazuliteHeartBoss")
+	await Loader.battle_end
+	print("battle done")
+	Loader.ungray.emit()
+	await Global.textbox(name, "lazulite_heart_after")
+	Loader.white_fadeout(0.5, 0.3, 0.5)
+	Event.add_flag("DefeatedLazuliteHeart")
+	Event.progress_by_time(1)
+	Event.time_transition()
