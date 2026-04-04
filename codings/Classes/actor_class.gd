@@ -250,7 +250,7 @@ func remove_state(x):
 	else: state = get_state(x)
 	if state == null: return
 	print(FirstName, "'s ", state.name, " state was removed")
-	Global.Bt.remove_state_effect(state.name, self)
+	Global.Bt.remove_state_effect(state.filename, self)
 	States.erase(state)
 
 

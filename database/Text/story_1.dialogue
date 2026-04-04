@@ -298,7 +298,7 @@ Asteria.Neutral: Maybe I should even the playing feild for once!
 ~ asteria_boss_3
 Placeholder description: Time has stopped for everyone but Asteria
 do next_box("Asteria")
-Huff... Huff...
+*Huff... Huff...*
 do next_box("Yaru")
 you're pushing yourself too hard there, star...
 do next_box("Asteria")
@@ -311,13 +311,13 @@ Placeholder description: Asteria uses a bunch of items and fully heals herself.
 ~ asteria_boss_4
 Placeholder description: Time has stopped for everyone but Asteria
 do next_box("Asteria")
-Oh, that was close.
+Oh- *huff*, that was close.
 do next_box("Asteria")
-Sigh... We're nearly out of items.
+We're... nearly out of items.
 do next_box("Yaru")
 should i take over?
 do next_box("Asteria")
-If you must.
+Yes... PLEASE..!
 => END
 
 ~ asteria_boss_5
@@ -511,14 +511,15 @@ Mira: No.
 (hide)
 do npc("Asteria").bubble("Question")
 Asteria: No?-[next=auto]
-Mira: No.[wait=0.5] There is a way out, there has to be. You've just not actually TRIED to find it.
+Mira: No.[wait=0.5] There is a way out, there has to be!
 do npc("Asteria").bubble("Surprise")
 Asteria: You think my entire village hasn't already tried to-[next=auto]
 Daze: Levenor, please!
 Mira: NO! I'm not going to stand here and- and- take in some villager's dumb folklore!
-Alcine.Upset: Squee
+Alcine.Upset: Squee...
 Asteria.Angry: Excuse me?
 do npc("Alcine").set_anim("Scared", false, true)
+Mira: What about the Keepers you mentioned?! That they're the key to freedom?!
 Mira: You just want people trapped in here, and have someone make food for you or-
 Mira: Do your chores or clean the houses!
 Mira: I won't stand for it!
@@ -528,7 +529,7 @@ Daze: Levenor calm down! I know this is a lot to take in but this hysteria won't
 Mira: Hysteria? How can you stay so calm after hearing that?!
 Alcine: Wiieouu!!
 Daze: You're scaring {{alcine()}}!
-Asteria: After everything our village has offered you...
+Asteria: After everything we've offered you...
 Mira: [b]You don't know what it's like![/b] You've never REALLY had to flee a hopeless situation!
 Mira: Surrounded on all sides by chaos, and \n*sniffle* [wait=0.5]\nstill made it out!
 Asteria: You don't know what I've been through!

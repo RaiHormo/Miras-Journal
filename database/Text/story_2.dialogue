@@ -158,6 +158,7 @@ Asteria.Neutral: Yeah there are a few, but... The only one I can remember is in 
 Mira.Neutral: Dangerous?
 Asteria.Neutral: That place is infested, it's basically a monster nest!
 Daze.Neutral: Nothing I haven't dealt with before, especially with your help it shouldn't be a problem.
+Daze.Neutral: Perhaps those bunkers might lead us to those Keepers you mentioned.
 Asteria.Curious: I can take you there if you wish, but...
 do! npc("P").bubble("Excited")
 Mira.Smile: We're going!
