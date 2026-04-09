@@ -1,11 +1,9 @@
 item give broken
 improve jump points
 make upper amberelm look better
-add fountain to pyrson
 box out of bounds in amberelm
 add something to the sign in amberelm
 amberelm enemies off screen
-asteria battle states swap
 softlock during transfers
 wizard guy
-dispel broken
+revive system

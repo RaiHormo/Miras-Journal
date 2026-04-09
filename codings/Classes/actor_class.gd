@@ -2,6 +2,8 @@ extends Resource
 
 class_name Actor
 
+## Represents every character in a battle, as well as all party member data in general.
+
 @export_subgroup("Current")
 @export_range(0, 9999) var Health: int: set = set_health
 @export_range(0, 9999) var Aura: int: set = set_aura

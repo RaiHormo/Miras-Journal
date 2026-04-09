@@ -14,6 +14,7 @@ MainColor = Color(0.3618105, 0.5630479, 0, 1)
 PartyIcon = ExtResource("2_af8c6")
 ActorClass = "Mage"
 codename = &"Bird"
+CustomPosition = Vector2i(35, -30)
 MaxHP = 50
 Attack = 0.8
 Magic = 2.0

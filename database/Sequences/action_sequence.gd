@@ -1319,8 +1319,6 @@ func StoneGuardian3():
 func AsteriaBoss2():
 	await Global.passive("story_1", "asteria_boss_2")
 	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[0])
-	Bt.Troop.erase(Bt.get_actor("Asteria"))
-	Bt.Troop.push_back(Bt.get_actor("Asteria"))
 	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[1])
 	Bt.position_sprites()
 	for i in Bt.Troop: Bt.sprite_init(i)
