@@ -107,17 +107,17 @@ func _physics_process(delta: float) -> void:
 			move_and_collide(velocity * delta)
 		NONE: return
 	if direction.length() > 0.2:
-		var dir_marker:Marker2D = get_node_or_null("DirectionMarker")
+		var dir_marker: Marker2D = get_node_or_null("DirectionMarker")
 		if dir_marker:
 			set_dir_marker(direction, dir_marker)
 		if direction.length() > 0.05: Facing = Query.get_direction(direction)
 	update_anim_prm()
 
 
-func set_dir_marker(vec: Vector2 = direction, dir_marker:Marker2D = null) -> void:
+func set_dir_marker(vec: Vector2 = direction, dir_marker: Marker2D = null) -> void:
 	vec = vec.normalized()
 	if not dir_marker:
-		dir_marker = $DirectionMarker	#maintain compat just in case this function is used elsewhere
+		dir_marker = $DirectionMarker  #maintain compat just in case this function is used elsewhere
 	dir_marker.global_position = global_position + vec * 10
 	dir_marker.rotation = direction.angle()
 
