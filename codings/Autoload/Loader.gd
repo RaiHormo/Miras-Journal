@@ -150,7 +150,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	Item.load_inventory(data.Inventory)
 	PartyUI._check_party()
 	print("Loading room ", data.RoomName, " in camera ID ", data.Camera, " and Z index ", data.Z)
-	await Item.verify_inventory()
+	Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
 	if $/root.get_node_or_null("Options"):
@@ -333,7 +333,7 @@ func transition(dir := Query.get_dir_letter()) -> void:
 			$Can/Bars/Left.position = Vector2(-200, -200)
 
 
-func detransition(dir = direc) -> void:
+func detransition(dir := direc) -> void:
 	if dir == "none": return
 	#Engine.time_scale = 0.1
 	if Global.Camera != null:
@@ -574,7 +574,7 @@ func battle_bars(x: int, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void
 	await t.finished
 
 
-func error_handle(res) -> void:
+func error_handle(res: ResourceLoader.ThreadLoadStatus) -> void:
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
 		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
@@ -630,7 +630,7 @@ func gray_out(amount := 0.8, in_time := 0.3, out_time := 0, color: Color = Color
 
 func _on_ungray() -> void:
 	if fader == null: return
-	var tf = create_tween()
+	var tf := create_tween()
 	tf.tween_property(fader, "modulate:a", 0, 0.3)
 	await tf.finished
 	if fader == null: return
