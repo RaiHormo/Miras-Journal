@@ -4,8 +4,7 @@ extends Control
 @export var MatInv: Array[ItemData]
 @export var BtiInv: Array[ItemData]
 var item: ItemData
-var ind
-@onready var panel = $Can/Panel
+@onready var panel: Panel = $Can/Panel
 @onready var obtained: Label = $Can/Panel/HBoxContainer/Label/Obtained
 @onready var t: Tween
 signal pickup
@@ -15,18 +14,18 @@ signal return_member(mem: Actor)
 @onready var border: PanelContainer = $Can/Panel/HBoxContainer/Label/Border
 
 
-func _ready():
+func _ready() -> void:
 	panel.hide()
 
 
-func get_animation(icon, named, pickup_anim := true):
+func get_animation(icon: Texture2D, named: String, pickup_anim := true) -> void:
 	if is_instance_valid(t): t.kill()
 	Global.item_sound()
 	if pickup_anim: pickup.emit()
 	label.text = named
 	Dicon.texture = icon
 	await get_tree().create_timer(0.1).timeout
-	var panel_size = label.get_theme_font("font").get_string_size(named, 0, -1, 32).x + 70
+	var panel_size := label.get_theme_font("font").get_string_size(named, 0, -1, 32).x + 70
 	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_CHAR
 	panel.size.x = 69
 	await Event.wait()
@@ -66,7 +65,7 @@ func get_animation(icon, named, pickup_anim := true):
 	panel.hide()
 
 
-func add_item(ItemName, type: StringName = &"", animate := true, player_animate := true, quantity := -1):
+func add_item(ItemName: Variant, type: StringName = &"", animate := true, player_animate := true, quantity := -1) -> void:
 	if ItemName is String and ItemName == "":
 		Global.toast("You got absolutely nothing!!!")
 		return
@@ -76,7 +75,7 @@ func add_item(ItemName, type: StringName = &"", animate := true, player_animate 
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 		return
 	var inv: Array[ItemData] = get_inv(type)
-	var amount = item.AmountOnAdd if quantity == -1 else quantity
+	var amount := item.AmountOnAdd if quantity == -1 else quantity
 	if not check_item(ItemName, type):
 		item.Quantity = amount
 		inv.append(item)
@@ -88,7 +87,7 @@ func add_item(ItemName, type: StringName = &"", animate := true, player_animate 
 	if animate: get_animation(item.Icon, item.Name, player_animate)
 
 
-func remove_item(ItemName, type: StringName = &""):
+func remove_item(ItemName: Variant, type: StringName = &"") -> void:
 	item = get_item(ItemName, type)
 	if type == &"": type = find_type(item)
 	if item == null:
@@ -102,7 +101,7 @@ func remove_item(ItemName, type: StringName = &""):
 	overwrite_inv(inv, type)
 
 
-func check_item(ItemName, type):
+func check_item(ItemName: Variant, type: StringName = &"") -> bool:
 	item = get_item(ItemName, type)
 	if item == null: OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	if item in get_inv(type): return true
@@ -120,7 +119,7 @@ func get_inv(type: String) -> Array[ItemData]:
 			return []
 
 
-func overwrite_inv(inv: Array, type: StringName):
+func overwrite_inv(inv: Array, type: StringName) -> void:
 	match type:
 		&"Key": KeyInv = inv
 		&"Con": ConInv = inv
@@ -128,21 +127,22 @@ func overwrite_inv(inv: Array, type: StringName):
 		&"Bti": BtiInv = inv
 
 
-func get_folder(type: StringName):
+func get_folder(type: StringName) -> String:
 	match type:
 		&"Key": return "KeyItems"
 		&"Con": return "Consumables"
 		&"Mat": return "Materials"
 		&"Bti": return "BattleItems"
+		_: return ""
 
 
-func use(iteme: ItemData):
+func use(iteme: ItemData) -> void:
 	item = iteme
 	$ItemEffect.use(iteme)
 
 
-func get_item(iteme, type: StringName = &"") -> ItemData:
-	var ritem = null
+func get_item(iteme: Variant, type: StringName = &"") -> ItemData:
+	var ritem: Variant = null  #???? this feels wrong.
 	if type == &"": type = find_type(iteme)
 	if iteme is String:
 		for i in get_inv(type):
@@ -168,7 +168,7 @@ func get_item(iteme, type: StringName = &"") -> ItemData:
 	return ritem
 
 
-func find_filename(iteme: ItemData, type: String = ""):
+func find_filename(iteme: ItemData, type: String = "") -> void:
 	iteme.filename = iteme.Name.to_pascal_case()
 	#if type == "": type = find_type(iteme)
 	#for file in DirAccess.get_files_at("res://database/Items/" + get_folder(type)):
@@ -177,7 +177,7 @@ func find_filename(iteme: ItemData, type: String = ""):
 			#if ritem.Name == iteme.Name: iteme.filename = file.erase(file.length()-5, 5)
 
 
-func verify_inventory():
+func verify_inventory() -> void:
 	for i in combined_inv():
 		if i.filename == "Invalid filename": find_filename(i)
 		if i.ItemType == "": i.ItemType = find_type(i)
@@ -197,7 +197,7 @@ func find_type(iteme: ItemData) -> StringName:
 
 
 func combined_inv() -> Array[ItemData]:
-	var rtn = KeyInv.duplicate()
+	var rtn := KeyInv.duplicate()
 	rtn.append_array(MatInv)
 	rtn.append_array(ConInv)
 	rtn.append_array(BtiInv)
@@ -208,16 +208,16 @@ func combined_inv() -> Array[ItemData]:
 func save_to_strings() -> Array[String]:
 	var rtn: Array[String]
 	for aitem in combined_inv():
-		for i in abs(aitem.Quantity):
+		for i: int in abs(aitem.Quantity):
 			rtn.append(aitem.filename + ":" + find_type(aitem))
 	return rtn
 
 
-func load_inventory(data: Array[String]):
+func load_inventory(data: Array[String]) -> void:
 	KeyInv.clear()
 	MatInv.clear()
 	BtiInv.clear()
 	ConInv.clear()
 	for i in data:
-		var aitem = i.split(":", false)
+		var aitem := i.split(":", false)
 		add_item(aitem[0], aitem[1], false, false, 1)
