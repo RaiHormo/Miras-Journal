@@ -128,7 +128,7 @@ func check_flag(flag: StringName, value := 1):
 	else: return false
 
 
-## Evaluate an expression
+## Evaluate an expression with flags
 ## Additional syntax:[br]
 ## [code]flag + flag[/code] AND[br]
 ## [code]flag || flag[/code] OR[br]
@@ -136,39 +136,94 @@ func check_flag(flag: StringName, value := 1):
 ## [code]day: (Number)[/code] Check if the current day is the given number.[br]
 ## [code]time: (Number)[/code] Check if the current time of day is the given number.[br]
 func f(flag: StringName) -> bool:
+	# Replace spaces with underscores, a flag cannot contain spaces
 	flag = flag.replace(" ", "_")
-	if flag == "true": return true
-	if flag == "false": return false
+
+	# "true" and "false" when left by themselves will always return that
+	if flag == "true":
+		return true
+	if flag == "false":
+		return false
+
+	# ":" is an alias for "="
 	if ":" in flag:
 		return f(flag.replace(":", "="))
+
+	# For AND expression
 	if "+" in flag:
+		# Recursively call this function for each expression,
+		# and return false if any of them is false
 		var split = flag.split("+")
 		for i in split:
 			if not f(i): return false
 		return true
+
+	# For OR expression
 	if "||" in flag:
+		# Recursively call this function for each expression,
+		# and return true if any of them is true
 		var split = flag.split("||")
 		for i in split:
 			if f(i): return true
 		return false
-	if flag.begins_with("!"): return not f(flag.replace("!", ""))
+
+	# For comparasion expressions
+	# Splits the expression in two, split[0] for the left and split[1] for the right,
+	# then replaces the expression with a string of its result (true or false).
+
+	# For greater or equal expression
 	if ">=" in flag:
 		var split = flag.split(">=")
-		return f(flag.replace(split[0] + ">=" + split[1], str(flag_int(split[0]) >= flag_int(split[1]))))
+		return f(
+			flag.replace(split[0] + ">=" + split[1], str(flag_int(split[0]) >= flag_int(split[1])))
+		)
+	# For greater expression
 	if ">" in flag:
 		var split = flag.split(">")
-		return f(flag.replace(split[0] + ">" + split[1], str(flag_int(split[0]) > flag_int(split[1]))))
+		return f(
+			flag.replace(split[0] + ">" + split[1], str(flag_int(split[0]) > flag_int(split[1])))
+		)
+	# For less or equal expression
 	if "<=" in flag:
 		var split = flag.split("<=")
-		return f(flag.replace(split[0] + "<=" + split[1], str(flag_int(split[0]) <= flag_int(split[1]))))
+		return f(
+			flag.replace(split[0] + "<=" + split[1], str(flag_int(split[0]) <= flag_int(split[1])))
+		)
+	# For lesser expression
 	if "<" in flag:
 		var split = flag.split("<")
-		return f(flag.replace(split[0] + "<" + split[1], str(flag_int(split[0]) < flag_int(split[1]))))
+		return f(
+			flag.replace(split[0] + "<" + split[1], str(flag_int(split[0]) < flag_int(split[1])))
+		)
+	# For not equals expression
+	if "!=" in flag:
+		var split = flag.split("=")
+		return f(
+			flag.replace(
+				split[0] + "!=" + split[1],
+				str(flag_int(split[0]) != flag_int(split[1]))
+			)
+		)
+	# For equals expression
 	if "=" in flag:
 		var split = flag.split("=")
-		return f(flag.replace(split[0] + "=" + split[1], str(check_flag(split[0], flag_int(split[1])))))
-	if Flags.has(flag) and Flags.get(flag) == 1: return true
-	else: return false
+		return f(
+			flag.replace(
+				split[0] + "=" + split[1],
+				str(flag_int(split[0]) == flag_int(split[1]))
+			)
+		)
+
+	# For NOT Expression
+	# Will only run when the flag is by itself, and simply flips the result
+	if flag.begins_with("!"):
+		return not f(flag.replace("!", ""))
+
+	# If just a flag is left, just return if this flag exists and is greater than 0
+	if Flags.has(flag) and Flags.get(flag) == 1:
+		return true
+	else:
+		return false
 
 
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
@@ -245,6 +300,7 @@ func give_control(camera_follow := false, bring_followers := true):
 	Global.check_party.emit()
 
 
+## Return the int value of a flag, or returns a nuber if given just a number
 func flag_int(string: String) -> int:
 	if string.is_valid_int(): return int(string)
 	if Flags.has(string) and Flags.get(string) is int:
@@ -252,33 +308,21 @@ func flag_int(string: String) -> int:
 	else: return 0
 
 
+## Set the flag's value to max(current value, given value)
 func flag_progress(stri: String, to := 1):
 	if to == 0: remove_flag(stri)
 	else:
 		Flags.set(stri, max(flag_int(stri), to))
 
 
+## Check if the flag is equal or greater than the given value
 func f_past(string: String, has_passed := 9) -> bool:
 	if flag_int(string) >= has_passed:
 		return true
 	else: return false
 
 
-#FIXME
-func skip_cutscene():
-	if is_instance_valid(CutsceneHandler) and CutsceneHandler.has_method(&"skip"):
-		await Loader.transition("")
-		CutsceneHandler.skip()
-		await Event.wait()
-		var dub = CutsceneHandler.duplicate()
-		CutsceneHandler.free()
-		if is_instance_valid(Global.Area): Global.Area.add_child(dub)
-		await Event.wait()
-		dub.skip()
-		Loader.detransition()
-		CutsceneHandler = dub
-
-
+## Show a given bubble animation above a given npc's head
 func bubble(animation: String, on_npc: String) -> void:
 	npc(on_npc).bubble(animation)
 

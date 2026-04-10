@@ -1,0 +1,85 @@
+[
+
+
+"#Introduction
+
+Welcome to the Manual!
+
+Just note that whenever Controller inputs are shown, the order is always: 
+Nintendo, Xbox, PlayStation
+
+Press M on the keyboard to open this manual at any time",
+
+
+"#Movement
+
+Keyboard:
+Walk around with the Arrow Keys
+Dash with  [img]res://UI/Input/Shift.png[/img]
+Interact with [img]res://UI/Input/Z.png[/img] / Enter / Space
+Open the menu with [img]res://UI/Input/C.png[/img]
+
+Controller:
+Walk with the D-Pad or Left Stick
+Dash with [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/⸋.png[/img]
+Interact with [img]res://UI/Input/A.png[/img] / [img]res://UI/Input/X.png[/img]
+Open the menu with [img]res://UI/Input/X.png[/img] / [img]res://UI/Input/Y.png[/img] / [img]res://UI/Input/Δ.png[/img]
+
+With the dash you can get around quickly, but only at one direction at a time. While dashing, you can also jump above certain gaps or obstacles.",
+
+
+"#Attacking\n\nKeyboard: [img]res://UI/Input/X.png[/img]\nController: [img]res://UI/Input/ZR.png[/img] / [img]res://UI/Input/RT.png[/img] / [img]res://UI/Input/R2.png[/img]\n\nWhile exploring a dungeon, attack to break certain objects or obstacles to get items, or find hidden paths.\n\nYou can also attack an enemy in the overworld to gain an advantage in battle. If the enemy hasn't noticed you, the enemy troops takes damage, and your party will go first. \nIf you run into the enemy however, the enemy troop will always strike first.",
+
+
+"#Turns\n\nEach actor gets their own turn to act. \nTurns might be scattered between the party and the enemies, but the turns will always loop on the same order within a battle. \n\nThe party will always go in their order on the menu, while diffrent types of enemies will go in certain diffrent orders.\n\nYou can view the Turn Order at any time in battle by pressing [img]res://UI/Input/Tab.png[/img] on keyboard or [img]res://UI/Input/-.png[/img] / [img]res://UI/Input/◲.png[/img] / [img]UI/Input/⏍.png[/img] / [img]res://UI/Input/Select.png[/img] on controller.",
+
+
+"#WhatIsAura\n\nThe medium between mind and matter. It protects one from magic and allows them to cast it. All living things have one, and it can take diffrent forms and colors.\n\nColors are important, as they determine what type of magic it can cast, as well as it's strengths and weaknesses.\n[img height=240]res://art/Journal/Manual/WhatIsAura.png[/img]\n\nYou can easily tell an actor's aura color from its HUD color or when its aura takes form when casting magic.",
+
+
+"#AuraAffinity1\n\nSo how do different aura colors interact with each other? \nLet's take an [color=e87b33]Orange[/color] attack for example. The graph will look something like this:\n[img height=240]res://art/Journal/Manual/AuraAffinity1.png[/img]\n\nThis means that the attack will be more effective against a [color=#25b078]Cyan[/color] enemy.\n[right][img height=150]res://art/Journal/Manual/AuraAffinity2.png[/img]",
+
+
+"#AuraAffinity2\n\nIf an enemy was attacking Mira ([color=#e87b33]Orange[/color] aura) with a [color=#269468]Cyan[/color] attack, the graph would look like this.\n[img height=240]res://art/Journal/Manual/AuraAffinity3.png[/img]\n\nThe graph works by rotating the lonley X mark to the attacker's color.\n\nIn this case, [color=#e87b33]Orange[/color] is in the X area, meaning the attack will not be very effective.",
+
+
+"#HittingWeaknesses\n\nBy hitting an enemy's weakness, the enemy will not only take more HP damage, but will also take proportional AP damage. The enemies can also do that to the party.\n\nWhen an actor's AP bar is empty, they enter the \"Aura Break\" state, in which they're weak to everything. The Actor who caused this will also get a FollowUp.",
+
+
+"#FollowUp\n\nThe Actor gets to move again. They can also use a special FollowUp move if they have one.\n\nTo get a FollowUp, empty the AP of an enemy by hitting weaknesses.",
+
+
+"#ProtectionStates\n\n[b]Guarding[/b]\nTakes half damage from any attack, and converts that into Aura.\n\n[b]Magic Shield[/b]\nBlocks any magic damage.\n\n[b]Barrier[/b]\nBlocks any weapon damage.\n\n[b]Hue-Shift[/b]\nTemporarily changes the defensive Aura color.\n\n[b]Unbreaking Aura[/b]\nThis actor's Aura cannot be damaged.",
+
+
+"#ElementalStates1\n\n[color=%heat][b]Burned[/b][/color]\nTakes light Heat damage every turn. Increased damage from weak hits.\n\n[color=%physical][b]Bound[/b][/color]\nCannot preform weapon based attacks or escape. Also can't dodge.\n\n[color=%corruption][b]Poisoned[/b][/color]\nTakes increasingly more Corruption damage each turn.\n\n[color=%technical][b]Deflected[/b][/color]\nCannot use magic abilities, but also takes less damage from weak hits.\n\n[color=%liquid][b]Soaked[/b][/color]\nCan't evade and is more likely to miss. Increased damage from weak hits.\n",
+
+
+"#ElementalStates2
+
+[color=%cold][b]Frozen[/b][/color]
+Cannot move until hit again.
+
+[color=%spiritual][b]Confused[/b][/color]
+Might loose control...
+
+[color=%wind][b]Launched[/b][/color]
+Can't act next turn. Double damage from any attack, quadruple damage from weak hits.
+
+[color=%natural][b]Leeched[/b][/color]
+Damaging this actor will heal whoever inflicted this state.
+
+[color=%electric][b]Zapped[/b][/color]
+Might not be able to act for the next turn. More damage from weak hits.",
+
+
+"#KnockedOut
+
+When HP reaches 0, an actor will be Knocked Out.
+
+They cannot do anything in this state, and if all members of a side are Knocked Out, they lose.
+
+To recover, an ally must heal them. Then they'll have a chance to get up on their turn.
+The more HP, the higher the chance."
+
+]

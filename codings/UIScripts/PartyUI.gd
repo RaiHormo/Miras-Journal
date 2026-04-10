@@ -865,3 +865,11 @@ func _on_partybox_sort_children() -> void:
 		for i in range(1, 4):
 			Partybox.get_child(i).position.x = -70
 		save_box_positions()
+
+
+func _on_revive_flash_timer_timeout(source: Timer) -> void:
+	var panel: Panel = source.get_parent()
+	var healthbar: ProgressBar = panel.get_node("Health")
+	t = create_tween()
+	healthbar.modulate.a = 0
+	t.tween_property(healthbar, "modulate:a", 1, 0.3)

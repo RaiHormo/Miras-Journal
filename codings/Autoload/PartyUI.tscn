@@ -715,6 +715,8 @@ offset_right = 267.0
 offset_bottom = 113.0
 theme = SubResource("Theme_6a77a")
 
+[node name="ReviveFlashTimer" type="Timer" parent="CanvasLayer/Partybox/Leader" unique_id=480818068]
+
 [node name="Member1" type="Panel" parent="CanvasLayer/Partybox" unique_id=2122788177]
 texture_filter = 2
 custom_minimum_size = Vector2(222, 110)
@@ -842,6 +844,8 @@ theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
 show_percentage = false
+
+[node name="ReviveFlashTimer" type="Timer" parent="CanvasLayer/Partybox/Member1" unique_id=2003087288]
 
 [node name="Cursor" type="TextureRect" parent="CanvasLayer" unique_id=930544962]
 self_modulate = Color(0.909804, 0.909804, 0.909804, 1)
@@ -1384,6 +1388,7 @@ one_shot = true
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="sort_children" from="CanvasLayer/Partybox" to="." method="_on_partybox_sort_children"]
+[connection signal="timeout" from="CanvasLayer/Partybox/Leader/ReviveFlashTimer" to="." method="_on_revive_flash_timer_timeout" flags=18]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Abilities" to="." method="abilities"]

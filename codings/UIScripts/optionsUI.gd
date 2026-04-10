@@ -10,7 +10,7 @@ var cant_save := false
 var save_files_loaded := false
 var no_main := false
 
-@export_multiline var Tutorials: Array[String]
+var Tutorials: Array
 
 
 func _ready():
@@ -34,6 +34,7 @@ func _ready():
 		cant_save = true
 	Loader.detransition("")
 	show()
+
 	$Silhouette.texture = Loader.Preview
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
@@ -296,6 +297,11 @@ func manual() -> void:
 	$MainButtons/Manual.toggle_mode = true
 	$MainButtons/Manual.button_pressed = true
 	stage = "manual"
+
+	DisplayServer.clipboard_set(JSON.stringify(JSON.from_native(Tutorials), "\n"))
+	var file := FileAccess.open("res://database/Text/Journal/Tutorials.json", FileAccess.READ)
+	Tutorials = JSON.parse_string(file.get_as_text())
+
 	t = create_tween().set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT).set_parallel()
 	$ManualPanel/ScrollContainer.scroll_horizontal = 0
 	$MainButtons/Manual.z_index = 1

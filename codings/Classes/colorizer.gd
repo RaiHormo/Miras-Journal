@@ -25,7 +25,7 @@ static func colorize(string: String) -> String:
 
 static func colorize_explicit(stri: String) -> String:
 	for elname in ElementColor.keys():
-		if "[color=%" + elname + "]" in str:
+		if "[color=%" + elname + "]" in stri:
 			var color: Color = ElementColor.get(elname)
 			color.v = min(color.v, 0.8)
 			stri = stri.replace("[color=%" + elname + "]", "[color=" + color.to_html() + "]")

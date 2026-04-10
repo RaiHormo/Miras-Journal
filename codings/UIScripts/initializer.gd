@@ -57,7 +57,9 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down") and get_viewport().gui_get_focus_owner().get_parent() == $TitleScreen/Menu:
 		Global.cursor_sound()
 		await get_tree().physics_frame
-		focused = get_viewport().gui_get_focus_owner().get_index()
+		var foc: Control = get_viewport().gui_get_focus_owner()
+		if foc.get_parent() == $TitleScreen/Menu:
+			focused = foc.get_index()
 
 
 func _on_options_pressed() -> void:

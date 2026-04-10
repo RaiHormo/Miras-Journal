@@ -10,7 +10,7 @@ size = Vector2(68.0005, 23)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_534el"]
 size = Vector2(18, 12)
 
-[node name="JumpPoint2" type="Area2D" unique_id=2144299483 node_paths=PackedStringArray("target", "timer")]
+[node name="JumpPoint" type="Area2D" unique_id=2144299483 node_paths=PackedStringArray("target", "timer")]
 script = ExtResource("1_3et4f")
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
 jump_am = 3
