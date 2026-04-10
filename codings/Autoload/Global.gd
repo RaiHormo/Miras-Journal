@@ -535,9 +535,9 @@ func textbox(file: String, title: String = "0", fade_bg := false, extra_game_sta
 	print("Textbox: ", file, " - ", title)
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
+	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	var balloon: Node = Textbox2.instantiate()
 	var text: DialogueResource = await Loader.load_res("res://database/Text/" + file + ".dialogue")
-	var Textbox2 := await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	get_tree().root.add_child(balloon)
 	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
@@ -560,7 +560,7 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 		passive(file, title, extra_game_states)
 		return
 	textbox_open = true
-	var Passive := await Loader.load_res("res://UI/Textbox/Passive.tscn")
+	var Passive: PackedScene = await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(

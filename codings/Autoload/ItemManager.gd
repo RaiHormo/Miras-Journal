@@ -4,7 +4,7 @@ extends Control
 @export var MatInv: Array[ItemData]
 @export var BtiInv: Array[ItemData]
 var item: ItemData
-@onready var panel: Panel = $Can/Panel
+@onready var panel: PanelContainer = $Can/Panel
 @onready var obtained: Label = $Can/Panel/HBoxContainer/Label/Obtained
 @onready var t: Tween
 signal pickup

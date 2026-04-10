@@ -508,7 +508,7 @@ func _on_back_button_down():
 
 func get_inventory():
 	if Item.KeyInv.is_empty(): return
-	await Item.verify_inventory()
+	Item.verify_inventory()
 
 	if Item.ConInv.is_empty():
 		$Inventory/Margin/Scroller/Vbox/Consumables.visible = !Item.ConInv.is_empty()
