@@ -367,7 +367,7 @@ func teleport_followers() -> void:
 func sequence(title: String) -> Node:
 	for i in sequences.get_children():
 		if i.has_method(title):
-			return i.call(title)
+			return await i.call(title)
 	OS.alert(title + " is not a valid event")
 	return null
 

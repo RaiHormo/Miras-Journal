@@ -17,7 +17,7 @@ class_name EventTripwire
 @export var KickDirection: Vector2
 
 
-func _on_body_entered(body):
+func _on_body_entered(body: Node2D) -> void:
 	if Flag.is_empty() and FlagIsName: Flag = name
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player and (not FlagIsName or !Event.check_flag(name)):
 		print("Tripwire: ", name)
@@ -45,7 +45,7 @@ func _on_body_entered(body):
 		if ReturnControl: Event.give_control(true)
 
 
-func kick():
+func kick() -> void:
 	print("kick!")
 	Global.Player.look_to(KickDirection)
 	while Global.Player in get_overlapping_bodies():

@@ -535,9 +535,9 @@ func textbox(file: String, title: String = "0", fade_bg := false, extra_game_sta
 	print("Textbox: ", file, " - ", title)
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
-	var Textbox2 := await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
+	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	var balloon: Node = Textbox2.instantiate()
-	var text := await Loader.load_res("res://database/Text/" + file + ".dialogue")
+	var text: DialogueResource = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
 	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
@@ -560,10 +560,14 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 		passive(file, title, extra_game_states)
 		return
 	textbox_open = true
-	var Passive := await Loader.load_res("res://UI/Textbox/Passive.tscn")
+	var Passive: PackedScene = await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
-	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
+	balloon.start(
+		await Loader.load_res("res://database/Text/" + file + ".dialogue") as DialogueResource,
+		title,
+		extra_game_states
+	)
 	await passive_close
 	textbox_open = false
 
@@ -692,7 +696,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	for i in range(0, times):
 		am = am - (amount / times)
 		t.tween_property(Camera, "offset",
-		Vector2(randi_range(-am, am), randi_range(-am, am)), dur).as_relative()
+		Vector2(randf_range(-am, am), randf_range(-am, am)), dur).as_relative()
 		t.tween_property(Camera, "offset", Vector2.ZERO, dur)
 	await t.finished
 

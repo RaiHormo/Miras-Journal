@@ -417,7 +417,7 @@ func _on_button_pressed() -> void:
 			Event.add_flag(hide_on_flag, true)
 		else: Event.add_flag(name, true)
 	if return_control:
-		await Event.give_control(false)
+		Event.give_control(false)
 	if hidesprite:
 		if is_instance_valid(collision): collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
