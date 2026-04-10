@@ -323,6 +323,21 @@ func f_past(string: String, has_passed := 9) -> bool:
 	else: return false
 
 
+#FIXME -- how
+func skip_cutscene() -> void:
+	if is_instance_valid(CutsceneHandler) and CutsceneHandler.has_method(&"skip"):
+		await Loader.transition("")
+		CutsceneHandler.skip()
+		await Event.wait()
+		var dub := CutsceneHandler.duplicate()
+		CutsceneHandler.free()
+		if is_instance_valid(Global.Area): Global.Area.add_child(dub)
+		await Event.wait()
+		dub.skip()
+		Loader.detransition()
+		CutsceneHandler = dub
+
+
 ## Show a given bubble animation above a given npc's head
 func bubble(animation: String, on_npc: String) -> void:
 	npc(on_npc).bubble(animation)

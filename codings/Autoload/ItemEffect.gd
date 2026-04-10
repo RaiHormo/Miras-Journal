@@ -2,12 +2,12 @@ extends Node
 var item: ItemData
 
 
-func use(item_data: ItemData, battle_target: Actor = null):
+func use(item_data: ItemData, battle_target: Actor = null) -> void:
 	item = item_data
 	if not Loader.InBattle:
 		if get_node_or_null("/root/MainMenu") == null: return
 		$/root/MainMenu.stage = "using_item"
-		var prevfoc = get_viewport().gui_get_focus_owner()
+		var prevfoc := get_viewport().gui_get_focus_owner()
 		get_viewport().gui_release_focus()
 		match item.Use:
 			ItemData.U.CUSTOM:
@@ -25,7 +25,7 @@ func use(item_data: ItemData, battle_target: Actor = null):
 		battle_target.NextMove = item.BattleEffect
 
 
-func _on_item_manager_return_member(mem: Actor):
+func _on_item_manager_return_member(mem: Actor) -> void:
 	if item.Use == ItemData.U.HEALING:
 		mem.add_health(float(item.Parameter))
 	#PartyUI._on_shrink()
