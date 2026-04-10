@@ -33,7 +33,7 @@ var SaveTime := 0.0
 var HasPortrait := false
 var textbox_open := false
 var PortraitRedraw := true
-var ArbData0 = null
+var ArbData0: Variant = null
 var Complimentaries: Array[String]
 signal lights_loaded
 signal check_party
@@ -43,10 +43,9 @@ signal textbox_close
 signal passive_close
 signal player_ready
 signal controller_changed
-var AppID = 4059970
+var AppID := 4059970
 var UsingSteam := false
 var PlayerName: String = "Local"
-var SteamInputDevice
 var UserID: int
 #endregion
 
@@ -88,15 +87,15 @@ func quit() -> void:
 	get_tree().quit()
 
 
-func normal_mode():
+func normal_mode() -> void:
 	Area.queue_free()
 	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
 
 
-func init_steam():
+func init_steam() -> void:
 	if not Engine.has_singleton("Steam"):
 		return
-	var steam = Engine.get_singleton("Steam")
+	var steam := Engine.get_singleton("Steam")
 	OS.set_environment("SteamAppId", str(AppID))
 	OS.set_environment("SteamGameId", str(AppID))
 	var initialize_response: Dictionary = steam.steamInitEx(AppID)
@@ -126,7 +125,7 @@ func init_steam():
 					print("The user doesn't own playtest either, fuckin hell")
 
 
-func init_user():
+func init_user() -> void:
 	UserID = 0
 	init_steam()
 	if UserID == 0:
@@ -149,11 +148,11 @@ func init_user():
 	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/" + str(UserID))
 
 
-func game_over():
+func game_over() -> void:
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
 
 
-func _notification(what) -> void:
+func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		quit()
 
@@ -178,12 +177,12 @@ func _process(delta: float) -> void:
 		#Steam.runFrame()
 
 
-func options(submenu = 0):
+func options(submenu := 0) -> void:
 	if get_tree().root.has_node("Options"): return
-	var control = Controllable
+	var control := Controllable
 	#var init = get_tree().root.get_node_or_null("Initializer")
 	#if init != null: init.queue_free()
-	var opt = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
+	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()  #Im not sure about this one
 	Controllable = control
 	match submenu:
 		1:
@@ -195,42 +194,42 @@ func options(submenu = 0):
 	get_tree().root.add_child(opt)
 
 
-func title_screen():
+func title_screen() -> void:
 	if Global.Area != null: Global.Area.queue_free()
 	if not get_tree().root.has_node("Initializer"):
-		var init = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
+		var init: Node = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
 		get_tree().root.add_child(init)
 	else: get_tree().root.get_node("Initializer").focus()
 
 
-func member_details(chara: Actor, menu := 0):
+func member_details(chara: Actor, menu := 0) -> void:
 	if chara == null: return
-	var dub = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
+	var dub: Node = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
 	get_tree().root.add_child(dub)
 	#await Event.wait()
 	dub.draw_character(chara, menu)
 
 
-func complimentary_ui(chara: Actor):
+func complimentary_ui(chara: Actor) -> void:
 	if chara == null: return
-	var dub = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
+	var dub: Node = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
 	get_tree().root.add_child(dub)
 	await Event.wait()
 	dub.draw_character(chara)
 
 
-func next_day_ui():
+func next_day_ui() -> void:
 	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
 
 
-func alcine_naming():
-	var scene = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
+func alcine_naming() -> void:
+	var scene: Node = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
 	get_tree().root.add_child(scene)
 	await scene.start()
 
 
-func veinet_map(cur: String):
-	var Map = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
+func veinet_map(cur: String) -> void:
+	var Map: Node = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
 	get_tree().root.add_child(Map)
 	Map.focus_place(cur)
 
@@ -247,9 +246,9 @@ func nodes_of_type(node: Node, className: String, result: Array) -> void:
 		await nodes_of_type(child, className, result)
 
 
-func intro_effect(ref: Node):
+func intro_effect(ref: Node) -> void:
 	#if get_tree().root.has_node("IntroEffect"): return
-	var node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
+	var node: Node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
 	get_tree().root.add_child(node)
 	node.ref = ref
 	node.animate()
@@ -288,7 +287,7 @@ func get_controller() -> ControlScheme:
 
 func _input(event: InputEvent) -> void:
 	if LastInput == ProcessFrame: return
-	var prev_dev = device
+	var prev_dev := device
 	if event is InputEventJoypadMotion and event.axis_value < 0.5: return
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -319,7 +318,7 @@ func _input(event: InputEvent) -> void:
 		controller_changed.emit()
 		toast("Using " + device)
 	LastInput = ProcessFrame
-	var is_fullscreen = get_window().mode == Window.MODE_FULLSCREEN
+	var is_fullscreen := get_window().mode == Window.MODE_FULLSCREEN
 	if is_fullscreen != Settings.Fullscreen:
 		fullscreen(is_fullscreen)
 	#print(device)
@@ -333,7 +332,7 @@ func confirm() -> String:
 	return "ui_accept"
 
 
-func rumble(strong: float, weak: float, duration: float, delay: float = 0):
+func rumble(strong: float, weak: float, duration: float, delay: float = 0) -> void:
 	if Settings.ControllerVibration:
 		if delay != 0: await Event.wait(delay, false)
 		Input.start_joy_vibration(0, strong, weak, duration)
@@ -357,7 +356,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #region Settings
 
 
-func refresh():
+func refresh() -> void:
 	await Loader.save()
 	Loader.load_game()
 	print(Input.should_ignore_device(0x28de0, 0x11ff))
@@ -410,7 +409,7 @@ func init_settings() -> void:
 	apply_settings()
 
 
-func apply_settings():
+func apply_settings() -> void:
 	if Settings.Fullscreen:
 		fullscreen(true)
 	if Settings.GlowEffect:
@@ -481,7 +480,7 @@ func heal_party() -> void:
 		i.full_heal()
 
 
-func add_test_state(chara: Actor):
+func add_test_state(chara: Actor) -> void:
 	for i in ResourceLoader.list_directory("res://database/States/"):
 		var state: String = i.replace(".tres", "")
 		var ab: Ability = load("res://database/Abilities/Debug/TestState.tres").duplicate()
@@ -499,7 +498,7 @@ func reset_all_members() -> void:
 ##Alias for find_member()
 
 
-func add_complimentary(ability: String):
+func add_complimentary(ability: String) -> void:
 	if ability not in Global.Complimentaries:
 		Global.Complimentaries.append(ability)
 
@@ -508,20 +507,20 @@ func init_party(party: PartyData) -> void:
 	Members.clear()
 	if !is_instance_valid(party): party = PartyData.new()
 	for i in ResourceLoader.list_directory("res://database/Party"):
-		var file = load("res://database/Party/" + i)
+		var file: Resource = load("res://database/Party/" + i)
 		if file is Actor:
 			Members.append(file.duplicate())
 	Party = PartyData.new()
 	Party.set_to_party(party)
 
 
-func unlock_all_abilities():
+func unlock_all_abilities() -> void:
 	for mem in Members:
 		for ab in mem.LearnableAbilities:
 			mem.Abilities.append(ab)
 
 
-func give_every_ability():
+func give_every_ability() -> void:
 	for i in ResourceLoader.list_directory("res://database/Abilities/"):
 		var ab: Ability = load("res://database/Abilities/" + i).duplicate()
 		Party.Leader.Abilities.append(ab)
@@ -536,9 +535,9 @@ func textbox(file: String, title: String = "0", fade_bg := false, extra_game_sta
 	print("Textbox: ", file, " - ", title)
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
-	var Textbox2 = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
+	var Textbox2 := await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	var balloon: Node = Textbox2.instantiate()
-	var text = await Loader.load_res("res://database/Text/" + file + ".dialogue")
+	var text := await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	get_tree().root.add_child(balloon)
 	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
 	if fade_bg: fade_txt_background()
@@ -547,7 +546,7 @@ func textbox(file: String, title: String = "0", fade_bg := false, extra_game_sta
 	textbox_open = false
 
 
-func textbox_kill():
+func textbox_kill() -> void:
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox").queue_free()
 		await Event.wait()
@@ -561,7 +560,7 @@ func passive(file: String, title: String = "0", extra_game_states: Array = []) -
 		passive(file, title, extra_game_states)
 		return
 	textbox_open = true
-	var Passive = await Loader.load_res("res://UI/Textbox/Passive.tscn")
+	var Passive := await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var balloon: Node = Passive.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(await Loader.load_res("res://database/Text/" + file + ".dialogue"), title, extra_game_states)
@@ -579,7 +578,7 @@ func portrait_clear() -> void:
 	HasPortrait = false
 
 
-func fade_txt_background(alpha := 0.8):
+func fade_txt_background(alpha := 0.8) -> void:
 	var t := create_tween()
 	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
 
@@ -588,15 +587,15 @@ func next_box(profile: String) -> void:
 	get_tree().root.get_node("Textbox").next_box = profile
 
 
-func picture(img: String):
+func picture(img: String) -> void:
 	get_tree().root.get_node("Textbox").picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
 
 
-func picture_clear():
+func picture_clear() -> void:
 	get_tree().root.get_node("Textbox").picture = null
 
 
-func no_nametag():
+func no_nametag() -> void:
 	get_tree().root.get_node("Textbox").no_nametag = true
 
 
@@ -605,7 +604,7 @@ func toast(string: String) -> void:
 		$/root/Toast.free()
 		await Event.wait()
 	print("Toast: " + string)
-	var tost = (preload("res://UI/Misc/Toast.tscn")).instantiate()
+	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child.call_deferred(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
@@ -618,7 +617,7 @@ func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["
 		await Event.wait()
 	await Event.wait()
 	print("Warn: " + text)
-	var tost = (preload("res://UI/Misc/Warning.tscn")).instantiate()
+	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
@@ -630,7 +629,7 @@ func location_name(string: String) -> void:
 	if get_node_or_null("/root/LocationName"):
 		$/root/LocationName.free()
 		await Event.wait()
-	var tost = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
+	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
@@ -656,15 +655,15 @@ func jump_to(character: Node, position: Vector2i, time: float = 5, height: float
 	await jump_to_global(character, Area.to_global(position), time, height)
 
 
-func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, vibrate = true) -> void:
+func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
 	if character == Player and vibrate:
 		Global.rumble(0, abs(height) / 3, 0.06)
 	var t: Tween = create_tween()
-	var start = character.global_position
+	var start: Vector2 = character.global_position
 	var jump_distance: float = start.distance_to(position)
 	var jump_height: float = jump_distance * height  #will need tweaking
-	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time = jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
+	var midpoint := start.lerp(position, 0.5) + Vector2.UP * jump_height
+	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	if character == Player and vibrate:
@@ -677,19 +676,19 @@ func get_cam() -> Camera2D:
 	return Global.Area.Cam
 
 
-func heal_in_overworld(target: Actor, ab: Ability):
+func heal_in_overworld(target: Actor, ab: Ability) -> void:
 	print(ArbData0, " healed")
 	var amount := int(max(Query.calc_num(ab), target.MaxHP * ((Query.calc_num(ab) * target.Magic) * 0.02)))
 	target.add_health(amount)
 	check_party.emit()
 
 
-func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2):
+func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2) -> void:
 	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	var dur = ShakeDuration / times
-	var am = amount
+	var dur := ShakeDuration / times
+	var am := amount
 	for i in range(0, times):
 		am = am - (amount / times)
 		t.tween_property(Camera, "offset",
@@ -698,10 +697,10 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	await t.finished
 
 
-func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time = 0.04):
+func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
 	ArbData0 = amount
-	var tw = create_tween()
+	var tw := create_tween()
 	tw.set_ease(Tween.EASE_OUT)
 	tw.set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)

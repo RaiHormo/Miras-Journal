@@ -30,12 +30,12 @@ signal next_day
 enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5 }
 
 
-func _ready():
+func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
 
 ##Character is added to the list of NPCS
-func add_char(b: NPC):
+func add_char(b: NPC) -> void:
 	if List.has(b.ID) and is_instance_valid(List.get(b.ID)):
 		push_warning("Duplicate npc spawned: ", b.ID)
 		if is_instance_valid(List.get(b.ID)): return
@@ -52,12 +52,12 @@ func obj(ID: String) -> Node2D:
 
 
 ##Move an [NPC] relative to their current coords
-func move_dir(dir: Vector2 = Global.get_direction(), chara: String = "P"):
+func move_dir(dir: Vector2 = Global.get_direction(), chara: String = "P") -> void:
 	await npc(chara).move_dir(dir)
 
 
 ##Move an [NPC] to the specified coords
-func move_to(pos: Vector2 = Global.get_direction(), chara: String = "P"):
+func move_to(pos: Vector2 = Global.get_direction(), chara: String = "P") -> void:
 	await npc(chara).go_to(pos)
 
 
@@ -74,7 +74,7 @@ func wait(time: float = 0, pausable := true) -> void:
 
 
 ##Tween an [NPC] to the specified coords (ignores all collision)
-func twean_to(pos: Vector2, time: float = 1, chara: String = "P"):
+func twean_to(pos: Vector2, time: float = 1, chara: String = "P") -> void:
 	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -82,7 +82,7 @@ func twean_to(pos: Vector2, time: float = 1, chara: String = "P"):
 	await t.finished
 
 
-func tween(object: Node, property: String, to: Variant, time = 0.3):
+func tween(object: Node, property: String, to: Variant, time := 0.3) -> void:
 	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -91,28 +91,29 @@ func tween(object: Node, property: String, to: Variant, time = 0.3):
 
 
 ##Instantly move an [NPC] to the specified coords (ignores all collision)
-func warp_to(pos: Vector2, chara: String = "P"):
+func warp_to(pos: Vector2, chara: String = "P") -> void:
 	npc(chara).global_position = Global.Area.map_to_local(pos)
 
 
 ##Used for jump calculations
 func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
+	#All of these are Vector2, and they're positions and stuff but the variable names are cryptic
+	var q0 := p0.lerp(p1, ti)
+	var q1 := p1.lerp(p2, ti)
+	var r := q0.lerp(q1, ti)
 
 	target.global_position = r
 
 
 ##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
-func jump_to(pos: Vector2, time: float, chara: String = "P", height: float = 0.1):
+func jump_to(pos: Vector2, time: float, chara: String = "P", height: float = 0.1) -> void:
 	var t: Tween = create_tween()
-	var position = Global.Area.map_to_local(pos)
-	var start = npc(chara).global_position
+	var position := Global.Area.map_to_local(pos)
+	var start: Vector2 = npc(chara).global_position
 	var jump_distance: float = start.distance_to(position)
 	var jump_height: float = jump_distance * height  #will need tweaking
-	var midpoint = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time = jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
+	var midpoint: Vector2 = start.lerp(position, 0.5) + Vector2.UP * jump_height
+	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
 
@@ -120,7 +121,7 @@ var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>',
 
 
 ## Check if a flag is equal to a given value.[br]
-func check_flag(flag: StringName, value := 1):
+func check_flag(flag: StringName, value := 1) -> bool:
 	flag = flag.replace(" ", "_")
 	if flag in Flags:
 		return Flags.get(flag) == value
@@ -230,28 +231,28 @@ func f(flag: StringName) -> bool:
 func add_flag(flag: StringName, value := 1) -> bool:
 	flag = flag.replace(" ", "_")
 	if "=" in flag:
-		var split = flag.split("=")
+		var split := flag.split("=")
 		return add_flag(str(split[0]), int(split[1]))
 	Flags.set(flag, value)
 	print("Set flag \"", flag, "\" to ", value)
 	return value
 
 
-func remove_flag(flag: StringName):
+func remove_flag(flag: StringName) -> void:
 	if flag in Flags: Flags.erase(flag)
 	print("Removed flag \"", flag, "\"")
 
 
-func pop_tutorial(id: String):
+func pop_tutorial(id: String) -> void:
 	tutorial = id
 	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
 
 
-func take_control(keep_ui := false, keep_followers := false, idle := false):
+func take_control(keep_ui := false, keep_followers := false, idle := false) -> void:
 	if not is_instance_valid(Global.Player):
 		Global.Controllable = false
 		return
-	var pos = Global.Player.position
+	var pos := Global.Player.position
 	print("Taking control")
 	Global.Controllable = false
 	await wait()
@@ -278,7 +279,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false):
 			Global.Player.set_anim()
 
 
-func give_control(camera_follow := false, bring_followers := true):
+func give_control(camera_follow := false, bring_followers := true) -> void:
 	if Global.Player == null: return
 	print("Giving control")
 	if get_tree().root.has_node("Warning"):
@@ -309,7 +310,7 @@ func flag_int(string: String) -> int:
 
 
 ## Set the flag's value to max(current value, given value)
-func flag_progress(stri: String, to := 1):
+func flag_progress(stri: String, to := 1) -> void:
 	if to == 0: remove_flag(stri)
 	else:
 		Flags.set(stri, max(flag_int(stri), to))
@@ -328,20 +329,20 @@ func bubble(animation: String, on_npc: String) -> void:
 
 
 ## Sets up a time change. Run time_transition() to properly move time
-func progress_by_time(amount: int):
+func progress_by_time(amount: int) -> void:
 	ToDay = get_day_progress_from_now(amount)
 	ToTime = get_time_progress_from_now(amount)
 
 
-func get_time_progress_from_now(amount: int):
-	var toad = TimeOfDay as int
+func get_time_progress_from_now(amount: int) -> TOD:
+	var toad := TimeOfDay as int
 	toad += amount
 	toad = wrapi(toad, 1, 6)
 	return toad as TOD
 
 
-func get_day_progress_from_now(amount: int):
-	var toad = TimeOfDay as int
+func get_day_progress_from_now(amount: int) -> int:
+	var toad := TimeOfDay as int
 	print(toad)
 	toad += amount
 	if toad > 5:
@@ -349,13 +350,13 @@ func get_day_progress_from_now(amount: int):
 	else: return Day
 
 
-func set_time(tod: TOD):
+func set_time(tod: TOD) -> void:
 	setup_time_changes(TimeOfDay, (ToDay - Day) * 5 + ToTime)
 	TimeOfDay = tod
 	time_changed.emit()
 
 
-func teleport_followers():
+func teleport_followers() -> void:
 	#for i in Global.Area.Followers:
 		#i.jump_to_player()
 	Global.Player.path.curve.clear_points()
@@ -363,11 +364,12 @@ func teleport_followers():
 	Global.Player.path.curve.add_point(Global.PlayerPos)
 
 
-func sequence(title: String):
+func sequence(title: String) -> Node:
 	for i in sequences.get_children():
 		if i.has_method(title):
 			return i.call(title)
 	OS.alert(title + " is not a valid event")
+	return null
 
 
 func sequence_exists(title: String) -> bool:
@@ -377,15 +379,15 @@ func sequence_exists(title: String) -> bool:
 	return false
 
 
-func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), no_collision = true) -> NPC:
+func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), no_collision := true) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var sprite_node := AnimatedSprite2D.new()
 	chara.SpawnOnCameraInd = false
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
-	var nam = id.split(":")
-	var sprite = await get_ov_sprites(id)
+	var nam := id.split(":")
+	var sprite := await get_ov_sprites(id)
 	if sprite == null: return null
 	sprite_node.sprite_frames = sprite
 	if no_collision: chara.collision(false)
@@ -407,7 +409,7 @@ func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), 
 	return chara
 
 
-func no_player():
+func no_player() -> void:
 	Global.Controllable = false
 	if is_instance_valid(Global.Player):
 		Global.Player.queue_free()
@@ -418,7 +420,7 @@ func no_player():
 
 
 func get_ov_sprites(id: String) -> SpriteFrames:
-	var nam = id.split(":", false)
+	var nam := id.split(":", false)
 	match nam.size():
 		1:
 			nam.append(nam[0] + "OV")
@@ -432,7 +434,7 @@ func get_ov_sprites(id: String) -> SpriteFrames:
 
 ## Take the current value of ToDay and ToTime, and begin a proper transition to that time.
 ## Never run this from a dialogue file without do!
-func time_transition(location := Global.Area.codename()):
+func time_transition(location := Global.Area.codename()) -> void:
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox")._on_close()
 		#await Event.wait(0.3, false)
@@ -449,14 +451,14 @@ func time_transition(location := Global.Area.codename()):
 
 
 ## Abstraction for setting the camera zoom
-func zoom(val: float, maintain = false):
+func zoom(val: float, maintain := false) -> void:
 	Global.Camera.zoom = Vector2(val, val)
 	if maintain: Global.Area.overwrite_zoom = val
 
 
 ## An abstraction for setting the camera's position
 ## Set time to -1 to not use a tween but smoothing, set it to 0 to move it instantly
-func camera_move(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
+func camera_move(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD) -> void:
 	camera_unlock()
 	if time > 0:
 		Global.Camera.position_smoothing_enabled = false
@@ -473,20 +475,20 @@ func camera_move(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, tra
 
 
 ## Move the camera by adding to its current position
-func camera_move_relative(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
+func camera_move_relative(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD) -> void:
 	await camera_move(Global.Camera.position + to, time, easing, trans)
 
 
 ## Make the camera not follow the player
-func camera_unlock():
+func camera_unlock() -> void:
 	if is_instance_valid(Global.Player):
 		Global.Player.camera_follow(false)
 
 
 ## Start any events specified for this day and time
 ## These could be in any Ev script
-func start_time_events(location: String):
-	var seq = get_date_identifier()
+func start_time_events(location: String) -> void:
+	var seq := get_date_identifier()
 	if sequence_exists(seq):
 		print("Starting event: " + seq)
 		await sequence(seq)
@@ -515,7 +517,7 @@ func get_date_identifier(day := Day, time := TimeOfDay) -> String:
 ## Run a condition script and return the number
 func condition(con: String) -> int:
 	if $Conditions.has_method(con):
-		var res = $Conditions.call(con)
+		var res: int = $Conditions.call(con)  #I'm guessing it's supposed to be an int here
 		#print("Condition "+ con+" ", res)
 		return res
 	else:
@@ -524,9 +526,9 @@ func condition(con: String) -> int:
 
 
 ## Change any parameters from the time change
-func setup_time_changes(from: int, to: int):
+func setup_time_changes(from: int, to: int) -> void:
 	if f_past("eepy", 1):
-		var eepy = flag_int("eepy")
+		var eepy := flag_int("eepy")
 		add_flag("eepy", eepy + to - from)
 		if eepy >= 2 or TimeOfDay == TOD.MORNING: remove_flag("eepy")
 
