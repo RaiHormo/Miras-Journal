@@ -238,23 +238,19 @@ static func get_member_name(n: int) -> String:
 
 
 static func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
+	if target.has_method("is_on_wall") and target.is_on_wall(): return
+	else: target.position = _calc_qbezier(ti,p0,p1,p2)
+
+
+static func global_quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
+	target.global_position = _calc_qbezier(ti,p0,p1,p2)
+
+static func _calc_qbezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	#Once again, these are all vector2s but named cryptically
 	var q0 := p0.lerp(p1, ti)
 	var q1 := p1.lerp(p2, ti)
 	var r := q0.lerp(q1, ti)
-
-	if target.has_method("is_on_wall") and target.is_on_wall(): return
-	else: target.position = r
-
-
-static func global_quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	#Once again, these are all vector2s but named cryptically. and again
-	var q0 := p0.lerp(p1, ti)
-	var q1 := p1.lerp(p2, ti)
-	var r := q0.lerp(q1, ti)
-
-	target.global_position = r
-
+	return r
 
 #Finds an ability of a certain type
 static func find_abilities(Char: Actor, type: String, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
