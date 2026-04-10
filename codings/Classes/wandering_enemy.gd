@@ -17,20 +17,20 @@ var CurHomepoint: Vector2 = Vector2.ZERO
 
 func add_nodes():
 	if get_node_or_null("HomePoints") == null:
-		var homepoints = Node2D.new()
-		homepoints.name = "HomePoints"
-		add_child(homepoints)
-		homepoints.owner = $".."
+		var this_homepoints := Node2D.new()
+		this_homepoints.name = "HomePoints"
+		add_child(this_homepoints)
+		this_homepoints.owner = $".."
 		var marker = Marker2D.new()
 		marker.name = "1"
-		homepoints.add_child(marker)
+		this_homepoints.add_child(marker)
 		marker.owner = $".."
 	if get_node_or_null("Sprite") == null:
-		var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
-		sprite.name = "Sprite"
-		sprite.sprite_frames = preload("res://art/OV/Enemies/GenericEnemy.tres")
-		add_child(sprite)
-		sprite.owner = $".."
+		var this_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+		this_sprite.name = "Sprite"
+		this_sprite.sprite_frames = preload("res://art/OV/Enemies/GenericEnemy.tres")
+		add_child(this_sprite)
+		this_sprite.owner = $".."
 	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
 	if esc_marker == null:
 		esc_marker = Marker2D.new()
