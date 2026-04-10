@@ -237,13 +237,19 @@ static func get_member_name(n: int) -> String:
 		return "Null"
 
 
+## This is a private function.... In a helper library... that's literally never referenced.
+## What does it do? Why is it called quad bezier but checks if the target is on the wall?
+## Are you calling this private func from somewhere else?? Then it's not private!
+## And if you are, explain what it does! Why is it checking "on wall" ???
+## This shouldve just been part of the "global" functin with like a flag if anything!
 static func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
 	if target.has_method("is_on_wall") and target.is_on_wall(): return
-	else: target.position = _calc_qbezier(ti,p0,p1,p2)
+	else: target.position = _calc_qbezier(ti, p0, p1, p2)
 
 
 static func global_quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	target.global_position = _calc_qbezier(ti,p0,p1,p2)
+	target.global_position = _calc_qbezier(ti, p0, p1, p2)
+
 
 static func _calc_qbezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2) -> Vector2:
 	#Once again, these are all vector2s but named cryptically
@@ -251,6 +257,7 @@ static func _calc_qbezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2) -> V
 	var q1 := p1.lerp(p2, ti)
 	var r := q0.lerp(q1, ti)
 	return r
+
 
 #Finds an ability of a certain type
 static func find_abilities(Char: Actor, type: String, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
