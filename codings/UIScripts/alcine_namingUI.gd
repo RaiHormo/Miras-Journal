@@ -7,7 +7,7 @@ func _ready() -> void:
 	hide()
 
 
-func start():
+func start() -> void:
 	get_tree().paused = false
 	PartyUI.Expanded = false
 	show()
@@ -115,8 +115,8 @@ func on_confirm(text: String) -> void:
 	$TextEdit.set_caret_column(14)
 
 
-func check_for_symbols():
-	var res = false
+func check_for_symbols() -> bool:
+	var res := false
 	for i in txt:
 		if !(i.is_valid_identifier() or i == " ") or i == "_":
 			res = true

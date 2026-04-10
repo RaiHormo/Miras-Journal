@@ -1015,7 +1015,7 @@ func move(
 #int(max(Query.calc_num(), target.MaxHP*((Query.calc_num()*CurrentChar.Magic)*0.02)))
 func heal(
 	target: Actor,
-	amount: int = Query.calc_num() * CurrentChar.Magic * CurrentChar.MagicMultiplier
+	amount: int = Query.calc_num() * int(CurrentChar.Magic * CurrentChar.MagicMultiplier)
 ) -> void:
 	if CurrentAbility.DmgVarience:
 		amount = round(amount * randf_range(1, 1.5))

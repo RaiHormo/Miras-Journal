@@ -1,7 +1,7 @@
 extends Node
 
 
-func nov3_morning():
+func nov3_morning() -> void:
 	Item.add_item("LightweightAxe", "Key", false, false)
 	Event.add_flag("LampInMirasRoom", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
@@ -19,7 +19,7 @@ func nov3_morning():
 	#await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 
 
-func nov3_afternoon():
+func nov3_afternoon() -> void:
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	Event.no_player()
 	Event.npc("RoomMira").BodyState = NPC.CUSTOM
@@ -32,7 +32,7 @@ func nov3_afternoon():
 	Global.Player.Facing = Vector2.RIGHT
 
 
-func nov3_enterSG():
+func nov3_enterSG() -> void:
 	await Loader.travel_to("ShardGardens", Vector2(26, 84), 0, -1, "", false)
 	Global.heal_party()
 	Global.Party.reset_party()
@@ -55,7 +55,7 @@ func nov3_enterSG():
 	Global.passive(name, "very_shiny")
 
 
-func sg_bunker_entrance():
+func sg_bunker_entrance() -> void:
 	if Event.f("DefeatedLazuliteHeart"):
 		await Event.take_control()
 		await Global.textbox(name, "enter_bunker_2")
@@ -65,10 +65,10 @@ func sg_bunker_entrance():
 		Global.textbox(name, "lazulite_warning")
 	else:
 		await Global.textbox(name, "sg_find_bunker")
-		await Event.give_control()
+		Event.give_control()
 
 
-func lazulite_boss():
+func lazulite_boss() -> void:
 	await Global.Player.bubble("Surprise")
 	await Loader.start_battle("LazuliteHeartBoss")
 	await Loader.battle_end

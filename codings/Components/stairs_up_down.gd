@@ -20,7 +20,7 @@ func _on_body_entered(body: Node2D) -> void:
 		go(dir)
 
 
-func go(dir: Vector2):
+func go(dir: Vector2) -> void:
 	if Swap: dir *= -1
 	if left_right_mode:
 		dir.y = 0
@@ -45,13 +45,13 @@ func _on_body_exited(body: Node2D) -> void:
 		go(dir * -1)
 
 
-func go_up():
+func go_up() -> void:
 	Global.Player.collision_layer = LayersUp
 	Global.Player.collision_mask = LayersUp
 	Global.Player.z_index = zUp
 
 
-func go_down():
+func go_down() -> void:
 	Global.Player.collision_layer = LayersDown
 	Global.Player.collision_mask = LayersDown
 	Global.Player.z_index = zDown

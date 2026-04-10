@@ -94,7 +94,7 @@ func _check_party():
 	for i in $EnemyFocus/States.get_children():
 		if i.name != "State": i.queue_free()
 	for i in CurEnemy.States:
-		var dub = $EnemyFocus/States/State.duplicate()
+		var dub: Control = $EnemyFocus/States/State.duplicate()
 		dub.texture = i.icon
 		dub.show()
 		dub.tooltip_text = i.name + "\n" + i.Description

@@ -13,7 +13,7 @@ func _ready() -> void:
 	hide()
 
 
-func levelup(chara: Actor):
+func levelup(chara: Actor) -> void:
 	working_chara = chara
 	find_learnable()
 	$ChooseUpgrade/Continue.hide()
@@ -47,7 +47,7 @@ func levelup(chara: Actor):
 	var hbox: StyleBoxFlat = $ChooseUpgrade/HPCont/HPBox/Health.get_theme_stylebox("fill")
 	hbox.bg_color = chara.MainColor
 	$ChooseUpgrade/HPCont/HPBox/Health.add_theme_stylebox_override("fill", hbox.duplicate())
-	var abox = $ChooseUpgrade/APCont/APBox/Aura.get_theme_stylebox("fill")
+	var abox: StyleBoxFlat = $ChooseUpgrade/APCont/APBox/Aura.get_theme_stylebox("fill")
 	abox.bg_color = chara.SecondaryColor
 	$ChooseUpgrade/APCont/APBox/Aura.add_theme_stylebox_override("fill", abox.duplicate())
 	$ChooseUpgrade/HPCont/HPBox/Health.value = chara.MaxHP
@@ -100,7 +100,7 @@ func levelup(chara: Actor):
 	active = true
 
 
-func level_cutin(chara: Actor):
+func level_cutin(chara: Actor) -> void:
 	PartyUI.hide_all()
 	scale.y = 0.1
 	for i in $Line1/NameChain.get_children():
@@ -131,7 +131,7 @@ func _input(event: InputEvent) -> void:
 		move_menu()
 
 
-func move_menu():
+func move_menu() -> void:
 	Global.cursor_sound()
 	var ypos: int
 	match index:
@@ -155,13 +155,13 @@ func move_menu():
 	t.tween_property($ChooseUpgrade/Cursor, "position:y", ypos, 0.1)
 
 
-func find_learnable():
+func find_learnable() -> void:
 	learnable = working_chara.find_learnable()
 
 var count: int
 
 
-func _confirm():
+func _confirm() -> void:
 	if not active: return
 	active = false
 	$ChooseUpgrade/Cursor.hide()
@@ -246,7 +246,7 @@ func _confirm():
 	$ChooseUpgrade/Continue.show()
 
 
-func close():
+func close() -> void:
 	var t := create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUINT)

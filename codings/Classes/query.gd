@@ -313,8 +313,8 @@ static func replace_occurence(from: String, what: String, forwhat: String, occur
 
 static func get_affinity(attacker: Color) -> Affinity:
 	var aff := Affinity.new()
-	var pres := roundf(remap(attacker.s, 0, 1, 10, 75))
-	var hue := roundf(remap(attacker.h, 0, 1, 0, 359))
+	var pres := roundi(remap(attacker.s, 0, 1, 10, 75))
+	var hue := roundi(remap(attacker.h, 0, 1, 0, 359))
 	#print(in_360(hue-pres/4)," ", in_360(hue+pres/4))
 	aff.hue = hue
 	aff.color = attacker

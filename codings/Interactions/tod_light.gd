@@ -17,7 +17,7 @@ func _ready() -> void:
 	Global.check_party.connect(update)
 
 
-func update():
+func update() -> void:
 	if Event.TimeOfDay == Event.TOD.DARKHOUR or Event.TimeOfDay > 5: return
 	energy = Energy[Event.TimeOfDay - 1]
 	color = Colors[Event.TimeOfDay - 1]

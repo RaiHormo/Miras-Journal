@@ -1,7 +1,7 @@
 extends Node
 
 
-func nov1_morning():
+func nov1_morning() -> void:
 	Loader.gray_out(1)
 	await Global.textbox(name, "nov1_dream")
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
@@ -10,7 +10,7 @@ func nov1_morning():
 	Global.textbox(name, "nov1_morning")
 
 
-func nov1_daytime():
+func nov1_daytime() -> void:
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
 	Event.no_player()
 	Event.npc("DazeTent").hide()
@@ -25,7 +25,7 @@ func nov1_daytime():
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 
-func daze_enemy_1():
+func daze_enemy_1() -> void:
 	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
 		Global.passive(name, "daze_enemy_1")
 		await Event.camera_move(Event.npc("EnemyFlowent1").position + Vector2(48, 0))
@@ -36,19 +36,19 @@ func daze_enemy_1():
 		Global.Area.Followers[0].hide()
 		Event.npc("Daze").speed = 150
 		await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
-		await Event.npc("EnemyFlowent1").attacked()
+		Event.npc("EnemyFlowent1").attacked()
 		Event.npc("Daze").hide()
 	else: Event.give_control()
 
 
-func daze_enemy_2():
+func daze_enemy_2() -> void:
 	if Event.Day == 1 and Query.check_member("Mira") and Query.check_member("Daze"):
 		await Event.npc("P").bubble("Surprise")
 		Loader.start_battle("SkritcherRootDaze", 2)
 	else: Event.give_control()
 
 
-func where_is_alcine_1():
+func where_is_alcine_1() -> void:
 	await Loader.transition("L")
 	Event.remove_flag("HasBag")
 	Event.add_flag("AlcineAlone")
@@ -59,7 +59,7 @@ func where_is_alcine_1():
 	Event.give_control()
 
 
-func WL_alcine_slide():
+func WL_alcine_slide() -> void:
 	await Event.take_control()
 	Global.Player.collision(false)
 	Global.Player.set_anim("IdleDown")
@@ -71,7 +71,7 @@ func WL_alcine_slide():
 	Event.give_control()
 
 
-func amberelm_reunion():
+func amberelm_reunion() -> void:
 	Global.Player.camera_follow(false)
 	await Event.take_control()
 	await Event.wait(0.3)
@@ -96,7 +96,7 @@ func amberelm_reunion():
 	await Event.time_transition()
 
 
-func nov1_night():
+func nov1_night() -> void:
 	Event.add_flag("InCamp")
 	Event.add_flag("HasBag")
 	Query.find_member("Mira").OV = "Bag"
@@ -107,7 +107,7 @@ func nov1_night():
 	Loader.save()
 
 
-func nov2_morning():
+func nov2_morning() -> void:
 	Loader.gray_out(1)
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)
 	Loader.ungray.emit()
@@ -127,7 +127,7 @@ func nov2_morning():
 	#await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 
-func nov2_daytime():
+func nov2_daytime() -> void:
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1, -1, "none", false)
 	Event.no_player()
 	Event.npc("DazeTent").hide()
@@ -152,7 +152,7 @@ func nov2_daytime():
 	Event.npc("F2").BodyState = NPC.CONTROLLED
 
 
-func WL_bunker_switch():
+func WL_bunker_switch() -> void:
 	await Loader.transition()
 	await Loader.travel_to("WitheredLeaves", Vector2(-250, -1010), 0, -1, "none", false)
 	await Event.no_player()
@@ -165,7 +165,7 @@ func WL_bunker_switch():
 	await Loader.save()
 
 
-func asteria_boss():
+func asteria_boss() -> void:
 	await Event.take_control()
 	await Global.textbox(name, "asteria_boss", true)
 	await Event.spawn("Asteria", Vector2(-286, 308), "L")
@@ -182,7 +182,7 @@ func asteria_boss():
 		asteria_joins()
 
 
-func asteria_joins():
+func asteria_joins() -> void:
 	Event.add_flag("InCamp")
 	Global.Party.set_to_strarr(["Mira"])
 	if Event.TimeOfDay != Event.TOD.EVENING:
@@ -198,7 +198,7 @@ func asteria_joins():
 	Loader.save()
 
 
-func enter_pyrson():
+func enter_pyrson() -> void:
 	await Loader.travel_to("Pyrson", Vector2(0, 0), 0, -1, "R", false)
 	Event.remove_flag("InCamp")
 	Global.Player.hide()

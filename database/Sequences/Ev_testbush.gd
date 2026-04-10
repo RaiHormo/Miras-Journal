@@ -1,7 +1,7 @@
 extends Node
 
 
-func jump_playtest():
+func jump_playtest() -> void:
 	await Global.textbox("testbush", "jump_playtest")
 	Event.Day = 3
 	Event.ToTime = Event.TOD.AFTERNOON
@@ -9,7 +9,7 @@ func jump_playtest():
 	Event.time_transition()
 
 
-func waste_time():
+func waste_time() -> void:
 	await Event.take_control()
 	await Loader.transition("")
 	Event.progress_by_time(1)
@@ -18,7 +18,7 @@ func waste_time():
 	Event.give_control()
 
 
-func demo_credits():
+func demo_credits() -> void:
 	await Event.take_control()
 	var scene: PackedScene = await Loader.load_res("res://UI/Misc/CreditsRoll.tscn")
 	get_tree().root.add_child(scene.instantiate())

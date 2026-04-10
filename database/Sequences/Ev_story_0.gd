@@ -86,14 +86,14 @@ func new_game() -> void:
 	Event.pop_tutorial("walk")
 
 
-func bag_seq():
+func bag_seq() -> void:
 	Global.Party.Leader.OV = "Bag"
 	Global.Player.BodyState = NPC.CUSTOM
 	Global.Player.direction = Vector2.ZERO
 	await Global.Player.set_anim("BagGet", true)
 	Global.Player.set_anim("IdleRight")
 	Global.item_sound()
-	var bag_ico = preload("res://art/Icons/Items.tres")
+	var bag_ico: Texture = preload("res://art/Icons/Items.tres")
 	bag_ico.region = Rect2(90, 90, 18, 18)
 	Item.get_animation(bag_ico, "Flimsy bag", false)
 	Event.add_flag(&"HasBag", true)
@@ -101,13 +101,13 @@ func bag_seq():
 	Global.Player._check_party()
 
 
-func axe_seq():
+func axe_seq() -> void:
 	Item.add_item("LightweightAxe", &"Key")
 	Event.pop_tutorial("ov_attack")
 	Loader.save()
 
 
-func first_battle():
+func first_battle() -> void:
 	Global.Player.move_dir(Vector2.RIGHT * 2)
 	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, -1, "R", false)
 	await Event.wait(0.2)
@@ -131,8 +131,8 @@ func first_battle():
 	PartyUI.disabled = false
 
 
-func AlcineFollow1():
-	var Alcine = Event.npc("EvAlcineBelow")
+func AlcineFollow1() -> void:
+	var Alcine: NPC = Event.npc("EvAlcineBelow")
 	Alcine.show()
 	Alcine.BodyState = NPC.IDLE
 	await Event.take_control()
@@ -143,11 +143,11 @@ func AlcineFollow1():
 	await Alcine.move_dir(Vector2.UP * 5)
 	await Global.textbox("story_0", "was_that_a")
 	Event.flag_progress("AlcineFollow", 1)
-	await Event.give_control(true)
+	Event.give_control(true)
 
 
-func AlcineFollow2():
-	var Alcine = Event.npc("Alcine")
+func AlcineFollow2() -> void:
+	var Alcine: NPC = Event.npc("Alcine")
 	Event.flag_progress("AlcineFollow", 2)
 	Event.obj("Pterogon").hide()
 	Alcine.position = Vector2(1282, -990)
@@ -162,8 +162,8 @@ func AlcineFollow2():
 	Loader.save()
 
 
-func AlcineFollow3():
-	var Alcine = Event.npc("Alcine")
+func AlcineFollow3() -> void:
+	var Alcine: NPC = Event.npc("Alcine")
 	await Event.take_control()
 	Global.Party.Leader.ClutchDmg = true
 	Global.Player.set_anim("IdleRight")
@@ -226,8 +226,8 @@ func AlcineFollow3():
 	Loader.start_battle("AlcineFollow1")
 
 
-func AlcineFollowHelp():
-	var Alcine = Event.npc("Alcine")
+func AlcineFollowHelp() -> void:
+	var Alcine: NPC = Event.npc("Alcine")
 	Alcine.set_anim("IdleRight")
 	await Alcine.bubble("Surprise")
 	#PartyUI.disabled = true
@@ -249,8 +249,8 @@ func AlcineFollowHelp():
 	AlcineFollow4()
 
 
-func AlcineFollow4():
-	var Alcine = Event.npc("Alcine")
+func AlcineFollow4() -> void:
+	var Alcine: NPC = Event.npc("Alcine")
 	Global.check_party.emit()
 	Event.take_control()
 	while Loader.InBattle: await Event.wait(0.1)
@@ -291,7 +291,7 @@ func AlcineFollow4():
 	Loader.save()
 
 
-func enter_amberelm():
+func enter_amberelm() -> void:
 	Global.Player.move_dir(Vector2(0, -2))
 	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, "U", false)
 	var mira: NPC = Global.Area.get_node("EvEntranceCutscene/MiraCut")
@@ -318,7 +318,7 @@ func enter_amberelm():
 	Event.add_flag("EnterAmberelm")
 
 
-func enter_amberelm_2():
+func enter_amberelm_2() -> void:
 	await Event.take_control()
 	Global.Player.camera_follow(false)
 	var t := create_tween()
@@ -343,7 +343,7 @@ func enter_amberelm_2():
 	Global.Player.set_anim("IdleRight")
 
 
-func rest_amberelm():
+func rest_amberelm() -> void:
 	Event.progress_by_time(1)
 	if await PartyUI.confirm_time_passage("Rest", "Fully recover Health."):
 		await Loader.save()
@@ -351,8 +351,8 @@ func rest_amberelm():
 		Global.check_party.emit()
 		get_tree().paused = false
 		Global.Area.Followers[0].hide()
-		var mira = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), "D", true, 8)
-		var alcine = await Event.spawn("Alcine", Vector2(100, 340), "D", true, 8)
+		var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), "D", true, 8)
+		var alcine: NPC = await Event.spawn("Alcine", Vector2(100, 340), "D", true, 8)
 		mira.BodyState = NPC.NONE
 		alcine.BodyState = NPC.NONE
 		mira.set_anim("SitDown")
@@ -372,13 +372,13 @@ func rest_amberelm():
 	else: Event.give_control()
 
 
-func oct0_daytime():
+func oct0_daytime() -> void:
 	Event.no_player()
 	await Loader.detransition()
 	await Loader.transition("R")
 	Global.get_cam().zoom = Vector2(4, 4)
-	var mira = Event.npc("Mira")
-	var alcine = Event.npc("Alcine")
+	var mira: NPC = Event.npc("Mira")
+	var alcine: NPC = Event.npc("Alcine")
 	mira.set_anim("SitDown")
 	alcine.set_anim("IdleDown")
 	await Global.textbox(name, "wake_amberelm", true)
@@ -387,7 +387,7 @@ func oct0_daytime():
 	Loader.save()
 
 
-func amberelm_guardian():
+func amberelm_guardian() -> void:
 	Loader.start_battle("StoneGuardianBoss")
 	await Loader.battle_end
 	if Loader.BattleResult == 1:
@@ -399,14 +399,14 @@ func amberelm_guardian():
 		Event.time_transition()
 
 
-func oct0_afternoon():
+func oct0_afternoon() -> void:
 	await Global.textbox(name, "oct0_afternoon", true)
 	Global.Complimentaries.append("FluidBlast")
 	await Loader.travel_to("Amberelm", Vector2(2218, -132), 2)
 	Loader.save()
 
 
-func oct0_night():
+func oct0_night() -> void:
 	Event.add_flag("BeatStoneGuardian")
 	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
 	await Event.no_player()
