@@ -161,7 +161,7 @@ func set_health(x: int) -> void:
 	Health = clampi(Health, 0, MaxHP)
 
 
-func add_health(x):
+func add_health(x: int) -> void:
 	if x == 0: return
 	Health += x
 	print(FirstName + " gains ", x, " Health")
@@ -173,19 +173,19 @@ func set_aura(x: int) -> void:
 	Aura = clampi(Aura, 0, MaxAura)
 
 
-func add_aura(x: int):
+func add_aura(x: int) -> void:
 	if x == 0: return
 	Aura += x
 	print(FirstName + " gains ", x, " AP")
 	Global.check_party.emit()
 
 
-func add_SP(x):
+func add_SP(x: int) -> void:
 	SkillPoints += x
 
 
-func damage(dmg: int, limiter := false):
-	var hp = Health - dmg
+func damage(dmg: int, limiter := false) -> void:
+	var hp := Health - dmg
 	if hp <= 0:
 		if limiter or CantDie or (ClutchDmg and Health > 15):
 			hp = min(Health, randf_range(1, 5))
@@ -207,7 +207,7 @@ func calc_dmg(power: float, is_magic: bool, E: Actor = null) -> int:
 	return int(max(((power * atk_stat) / ((Defence * 2 * DefenceMultiplier) + 0.3)), 1))
 
 
-func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect = true) -> State:
+func add_state(x: Variant, turns := -1, inflicter: Actor = Global.Bt.CurrentChar, effect := true) -> State:
 	var state: State
 	if x is State:
 		state = x
@@ -221,7 +221,7 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 			print("But had the IgnoreStates poperty")
 			return null
 	if has_state(state.name) and !state.is_stat_change:
-		var prev_state = get_state(state.name)
+		var prev_state := get_state(state.name)
 		if state.turns != -1:
 			if state.filename != "KnockedOut":
 				prev_state.turns += state.turns
@@ -245,7 +245,7 @@ func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect =
 	return state
 
 
-func remove_state(x):
+func remove_state(x: Variant) -> void:
 	var state: State
 	if x is State:
 		state = x
@@ -271,7 +271,7 @@ func get_state(x: String) -> State:
 	return null
 
 
-func full_heal():
+func full_heal() -> void:
 	Health = MaxHP
 	Aura = MaxAura
 
@@ -302,20 +302,20 @@ func save_to_dict() -> Dictionary:
 	return dict
 
 
-func load_from_dict(dict: Dictionary):
+func load_from_dict(dict: Dictionary) -> void:
 	for prop in get_property_list():
-		var key = prop.get("name")
+		var key: String = prop.get("name")
 		if dict.has(key):
 			set(key, dict.get(key))
 	if dict.has("AbilitiesList"):
 		Abilities.clear()
-		for i in dict.get("AbilitiesList"):
+		for i: String in dict.get("AbilitiesList"):
 			if i != "":
 				var ab: Ability = await Loader.load_res("res://database/Abilities/" + i + ".tres")
 				if ab not in Abilities: Abilities.append(ab)
 
 
-func reset_static_info():
+func reset_static_info() -> void:
 	var og: Actor = load("res://database/Party/" + codename + ".tres")
 	Attack = og.Attack
 	Defence = og.Defence
@@ -329,7 +329,7 @@ func reset_static_info():
 func get_ability_list() -> Array[String]:
 	var ab_list: Array[String]
 	for i in Abilities:
-		var ab_name = i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
+		var ab_name := i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
 		if not ab_name.is_empty():
 			ab_list.append(ab_name)
 	return ab_list
@@ -349,7 +349,7 @@ func get_abilities(include_compl := true, include_attack := false) -> Array[Abil
 func groupped_abilities() -> Array[Array]:
 	var rtn: Array[Array]
 	for i in get_abilities():
-		var found = false
+		var found := false
 		if i.Group != "":
 			for j in rtn:
 				if j[0].Group == i.Group:
@@ -369,7 +369,7 @@ func RenderShadow() -> Texture:
 	else: return null
 
 
-func has_ability(ab: String):
+func has_ability(ab: String) -> bool:
 	for i in Abilities:
 		if i.name == ab: return true
 	return false
@@ -380,7 +380,7 @@ func skill_points_for(level: int) -> int:
 
 
 func get_OV() -> SpriteFrames:
-	var path = "res://art/OV/" + codename + "/" + codename + "OV" + OV + ".tres"
+	var path: String = "res://art/OV/" + codename + "/" + codename + "OV" + OV + ".tres"
 	if not ResourceLoader.exists(path):
 		if OV != "":
 			OV = ""
@@ -402,17 +402,17 @@ func get_BT() -> SpriteFrames:
 	return await Loader.load_res(path)
 
 
-func load_complimentaries():
+func load_complimentaries() -> void:
 	Complimentaries = []
 	for i in ComplimentaryList:
 		if ComplimentaryList.get(i) > 0:
 			Complimentaries.append(await Query.get_ability(i))
 
 
-func level_up_to(lv: int):
+func level_up_to(lv: int) -> void:
 	while SkillLevel < lv:
-		var learnable = find_learnable()
-		var rand = randi_range(0, 2)
+		var learnable := find_learnable()
+		var rand := randi_range(0, 2)
 		if learnable == null: rand = randi_range(0, 1)
 		match rand:
 			0: MaxHP += HpOnSLvUp
@@ -422,10 +422,10 @@ func level_up_to(lv: int):
 
 
 func find_learnable() -> Ability:
-	var learnable = null
-	var learnables = LearnableAbilities.duplicate()
+	var learnable: Ability = null
+	var learnables := LearnableAbilities.duplicate()
 	learnables.reverse()
-	for i in learnables:
+	for i: Ability in learnables:
 		if not i in Abilities:
 			learnable = i
 			continue
