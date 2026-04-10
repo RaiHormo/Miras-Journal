@@ -7,7 +7,7 @@ signal ai_chosen
 func ai() -> void:
 	Char = Bt.CurrentChar
 	if Char.has_state("KnockedOut") or Char.Health == 0: Bt.end_turn(); return
-	var HpSortedAllies = Bt.get_ally_faction(Char).duplicate()
+	var HpSortedAllies := Bt.get_ally_faction(Char).duplicate()
 	HpSortedAllies.sort_custom(Bt.hp_sort)
 	#for i in HpSortedAllies:
 		#print(i.FirstName, " - ", i.Health)
@@ -99,6 +99,7 @@ func choose(ab: Ability, tar: Actor = null) -> void:
 	ai_chosen.emit()
 
 
+##FIXME do not use magic numbers, don't loop over the same list at random, don't handle decision logic in the rng function
 func pick_general_ability() -> Ability:
 	const n = 7
 	var r: int
@@ -111,7 +112,7 @@ func pick_general_ability() -> Ability:
 		if tries > 99:
 			print("The AI got stuck in an infinite loop")
 			return Char.StandardAttack
-		var atk_chance = 0
+		var atk_chance := 0
 		if Char.ActorClass == "Attacker": atk_chance = -1
 		r = randi_range(atk_chance, n)
 		match r:
@@ -151,7 +152,7 @@ func pick_general_ability() -> Ability:
 					print(tar.FirstName, " is a bad target")
 			6:
 				if has_type("Aggro") and (has_class_in_faction("Attacker", Bt.get_oposing_faction()) or has_class_in_faction("Boss", Bt.get_oposing_faction())):
-					var targets = get_class_in_faction("Attacker", Bt.get_oposing_faction()).duplicate()
+					var targets := get_class_in_faction("Attacker", Bt.get_oposing_faction()).duplicate()
 					targets.append_array(get_class_in_faction("Boss", Bt.get_oposing_faction()))
 					var tar: Actor = targets.pick_random()
 					print("Found ", tar.FirstName)
@@ -161,8 +162,8 @@ func pick_general_ability() -> Ability:
 					print(tar.FirstName, " is a bad target")
 			7:
 				if has_type("Curse"):
-					var ab = find_ability("Curse").pick_random()
-					var targets = Bt.filter_actors_by_state(Bt.get_oposing_faction(), ab.InflictsState)
+					var ab: Ability = find_ability("Curse").pick_random()
+					var targets := Bt.filter_actors_by_state(Bt.get_oposing_faction(), ab.InflictsState)
 					if not targets.is_empty():
 						return ab
 			_:
@@ -191,7 +192,7 @@ func get_class_in_faction(type: String, faction: Array[Actor]) -> Array[Actor]:
 func check_for_curses() -> bool:
 	for i in find_ability("Curse"):
 		if i.InflictsState == "": OS.alert(i.name + "is missing an InflictedState parameter")
-		var inflicted = Bt.filter_actors_by_state(Bt.get_oposing_faction(), i.InflictsState)
+		var inflicted := Bt.filter_actors_by_state(Bt.get_oposing_faction(), i.InflictsState)
 		if randi_range(0, inflicted.size()) == 0:
 			if inflicted.size() < Bt.get_oposing_faction().size():
 				for j in range(0, Bt.get_oposing_faction().size() * 2):
@@ -204,8 +205,8 @@ func check_for_curses() -> bool:
 
 
 func states_in_faction(state: String, faction: Array[Actor]) -> Actor:
-	var sorted = faction.duplicate()
-	sorted.sort_custom(func(a, b): return a.States.size() > b.States.size())
+	var sorted := faction.duplicate()
+	sorted.sort_custom(func(a: Actor, b: Actor) -> bool: return a.States.size() > b.States.size())
 	for i in faction:
 		if i.States.is_empty():
 			sorted.erase(i)
@@ -217,7 +218,7 @@ func states_in_faction(state: String, faction: Array[Actor]) -> Actor:
 	else: return sorted[0]
 
 
-func check_for_finishers():
+func check_for_finishers() -> bool:
 	for i in Bt.get_oposing_faction():
 		if i.Health <= Char.WeaponPower * Char.Attack * Char.AttackMultiplier:
 			choose(Char.StandardAttack, i)
