@@ -315,9 +315,6 @@ func _on_next_turn() -> void:
 			else:
 				end_turn()
 				return
-		else:
-			print("Character is knocked out, skip turn")
-			lock_turn = false
 	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
 	else: $EnemyUI.all_enemy_ui()
 	$Act.handle_states()
@@ -763,7 +760,7 @@ func is_valid_target(target: Actor, ability: Ability = CurrentChar.NextMove) -> 
 func recover(chara: Actor) -> void:
 	battle_msg("recovers", chara.FirstName)
 	anim("Idle", chara)
-	chara.Health = 10
+	chara.Health = max(10, chara.Health)
 	chara.Aura = chara.MaxAura
 
 
@@ -1027,9 +1024,6 @@ func heal(
 	$BattleUI.targetFoc.emit(target)
 	check_party.emit()
 	PartyUI._check_party()
-	if target.has_state("KnockedOut"):
-		target.remove_state("KnockedOut")
-		target.add_aura(amount)
 	pop_aura(target)
 	pop_num(target, "+" + str(amount))
 

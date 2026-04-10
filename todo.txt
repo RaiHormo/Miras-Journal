@@ -6,5 +6,5 @@ add something to the sign in amberelm
 amberelm enemies off screen
 softlock during transfers
 wizard guy
-revive system
 properly implement journal
+add confirmation for AOE

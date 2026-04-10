@@ -1856,6 +1856,7 @@ texture_filter = 2
 script = ExtResource("1_mokeb")
 BattleText = Dictionary[String, String]({
 "busy": "[insert] is busy.",
+"cant_recover": "[cur] can't get up.",
 "confusion_hit_ally": "[cur] hits an ally in confusion!",
 "confusion_hit_self": "[cur] hits [cur_themself] in Confusion!",
 "confusion_lose_control": "[cur] loses control in Confusion!",
