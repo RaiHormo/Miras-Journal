@@ -2,7 +2,7 @@ extends Node
 class_name Query
 
 
-static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> Vector2:
+static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero := false) -> Vector2:
 	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
 	if abs(v.x) > abs(v.y):
 		if v.x > 0:
@@ -16,7 +16,7 @@ static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> 
 			return Vector2.UP
 
 
-static func str_length(string: String):
+static func str_length(string: String) -> int:
 	return string.length()
 
 
@@ -115,7 +115,7 @@ static func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
 	else: return "Center"
 
 
-static func in_360(nm) -> int:
+static func in_360(nm: int) -> int:
 	return wrapi(nm, 0, 359)
 
 
@@ -132,7 +132,7 @@ static func find_member(Name: StringName) -> Actor:
 	return null
 
 
-static func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null):
+static func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null) -> int:
 	var base: int
 	match ab.Damage:
 		Ability.D.NONE: base = 0
@@ -150,7 +150,7 @@ static func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null
 static func get_complimentaries() -> Array[Ability]:
 	var rtn: Array[Ability]
 	for i in Global.Complimentaries:
-		var ability = await get_ability(i)
+		var ability := await get_ability(i)
 		if ability != null:
 			rtn.append(ability)
 		else: push_error("The complimentary Ability ", i, " is invalid")
@@ -181,21 +181,21 @@ static func to_tod_icon(x: Event.TOD) -> Texture:
 	else: return null
 
 
-static func range_360(n1, n2) -> Array:
+static func range_360(n1: int, n2: int) -> Array[int]:
 	if n2 > 359:
-		var range1 = range(n1, 359)
-		var range2 = range(0, n2 - 359)
+		var range1 := range(n1, 359)
+		var range2 := range(0, n2 - 359)
 		range1.append_array(range2)
 		return range1
 	elif n1 < 0:
-		var range1 = range(0, n2)
-		var range2 = range(359 + n1, 359)
+		var range1 := range(0, n2)
+		var range2 := range(359 + n1, 359)
 		range2.append_array(range1)
 		return range2
 	else: return range(n1, n2)
 
 
-static func make_array_unique(arr: Array):
+static func make_array_unique(arr: Array) -> void:
 	for i in range(-1, arr.size() - 1):
 		arr[i] = arr[i].duplicate()
 
@@ -205,7 +205,7 @@ static func mem(Name: StringName) -> Actor:
 
 
 static func number_of_party_members() -> int:
-	var num = 0
+	var num := 0
 	if check_member(0):
 		num += 1
 	if check_member(1):
@@ -238,18 +238,20 @@ static func get_member_name(n: int) -> String:
 
 
 static func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
+	#Once again, these are all vector2s but named cryptically
+	var q0 := p0.lerp(p1, ti)
+	var q1 := p1.lerp(p2, ti)
+	var r := q0.lerp(q1, ti)
 
 	if target.has_method("is_on_wall") and target.is_on_wall(): return
 	else: target.position = r
 
 
 static func global_quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	var q0 = p0.lerp(p1, ti)
-	var q1 = p1.lerp(p2, ti)
-	var r = q0.lerp(q1, ti)
+	#Once again, these are all vector2s but named cryptically. and again
+	var q0 := p0.lerp(p1, ti)
+	var q1 := p1.lerp(p2, ti)
+	var r := q0.lerp(q1, ti)
 
 	target.global_position = r
 
@@ -280,7 +282,7 @@ static func is_everyone_fully_healed() -> bool:
 	return true
 
 
-static func is_mem_healed(chara: Actor):
+static func is_mem_healed(chara: Actor) -> bool:
 	if !is_instance_valid(chara): return true
 	return chara.is_fully_healed()
 
@@ -298,8 +300,8 @@ static func is_in_party(n: String) -> bool:
 		return false
 
 
-static func replace_occurence(from: String, what: String, forwhat: String, occurence = 1):
-	var idx = -1
+static func replace_occurence(from: String, what: String, forwhat: String, occurence := 1) -> String:
+	var idx := -1
 	for i in occurence:
 		idx = from.find(what, idx + 1)
 	if idx == -1: return from
@@ -307,9 +309,9 @@ static func replace_occurence(from: String, what: String, forwhat: String, occur
 
 
 static func get_affinity(attacker: Color) -> Affinity:
-	var aff = Affinity.new()
-	var pres = round(remap(attacker.s, 0, 1, 10, 75))
-	var hue = round(remap(attacker.h, 0, 1, 0, 359))
+	var aff := Affinity.new()
+	var pres := roundf(remap(attacker.s, 0, 1, 10, 75))
+	var hue := roundf(remap(attacker.h, 0, 1, 0, 359))
 	#print(in_360(hue-pres/4)," ", in_360(hue+pres/4))
 	aff.hue = hue
 	aff.color = attacker
@@ -341,7 +343,7 @@ static func get_power_rating(power: int) -> String:
 	return "Illegal"
 
 
-static func get_pronoun(form: String = "they", gender = "they") -> String:
+static func get_pronoun(form: String = "they", gender: String = "they") -> String:
 	match form:
 		"they":
 			match gender:
