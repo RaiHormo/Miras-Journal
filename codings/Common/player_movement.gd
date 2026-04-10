@@ -86,7 +86,7 @@ func extended_process() -> void:
 			BodyState = CUSTOM
 
 
-func control_process():
+func control_process() -> void:
 	if first_frame:
 		if Engine.time_scale > 1: Engine.time_scale = 1
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
@@ -166,7 +166,7 @@ func update_anim_prm() -> void:
 		if (abs(RealVelocity.length()) > 1 and controllable()):
 			if dashing:
 				reset_speed()
-				var dir_name = Query.get_dir_name(dashdir)
+				var dir_name := Query.get_dir_name(dashdir)
 				if has_anim("Dash" + dir_name + "Loop"):
 					set_anim("Dash" + dir_name + "Loop", false, false)
 				else: set_anim("Walk" + dir_name, false, false)
@@ -218,7 +218,7 @@ func _check_party() -> void:
 
 
 ##Sets the animation for all sprite layers
-func set_anim(anim: String = "Idle" + Query.get_dir_name(), wait = false, overwrite_bodystate = false) -> void:
+func set_anim(anim: String = "Idle" + Query.get_dir_name(), wait := false, overwrite_bodystate := false) -> void:
 	#print(anim)
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
@@ -238,11 +238,11 @@ func set_anim(anim: String = "Idle" + Query.get_dir_name(), wait = false, overwr
 			await get_tree().physics_frame
 
 
-func has_anim(anim: String, node = %Base):
+func has_anim(anim: String, node: AnimatedSprite2D = %Base) -> bool:
 	return anim in node.sprite_frames.get_animation_names()
 
 
-func hide_other_sprites():
+func hide_other_sprites() -> void:
 	for i in $Sprite.get_children():
 		if i == sprite: i.show()
 		elif i == %Flame and flame_active and sprite != %Flame:
@@ -250,7 +250,7 @@ func hide_other_sprites():
 		else: i.hide()
 
 
-func flame_out_of_the_way():
+func flame_out_of_the_way() -> void:
 	if "Flame"not in %Flame.animation:
 		%Flame.show()
 		%Flame.play("FlameGo")
@@ -290,7 +290,7 @@ func check_flame(force := false) -> void:
 		flame.energy = 0
 
 
-func reset_sprite():
+func reset_sprite() -> void:
 	_check_party()
 
 
@@ -305,7 +305,7 @@ func bag_anim() -> void:
 
 
 ##Handles the animation when the dash is stopped, either doing the slide or hit one depending on the wall in front of her
-func stop_dash(slide = true) -> void:
+func stop_dash(slide := true) -> void:
 	if (BodyState != CONTROLLED or "Stop" in sprite.animation or "Hit" in
 	sprite.animation or midair or not dashing): return
 	dashing = false
@@ -358,21 +358,21 @@ func bump(dir: Vector2 = Vector2.ZERO) -> void:
 	if dir == Vector2.ZERO: dir = dashdir
 	Global.jump_to_global(self, global_position - dir * 15, 15, 0.5, false)
 	set_anim("Dash" + Query.get_dir_name(dashdir) + "Hit")
-	var mem = local_controllable
+	var mem := local_controllable
 	local_controllable = false
 	if sprite.is_playing(): await sprite.animation_finished
 	local_controllable = mem
 
 
-func camera_follow(follow = !$Camera2D.update_position) -> void:
+func camera_follow(follow: bool = !$Camera2D.update_position) -> void:
 	$Camera2D.update_position = follow
 
 
-func controllable():
+func controllable() -> bool:
 	return local_controllable and Global.Controllable
 
 
-func attack():
+func attack() -> void:
 	if not Item.check_item("LightweightAxe", "Key") or not Event.check_flag("HasBag"):
 		Global.buzzer_sound()
 		return
@@ -408,22 +408,22 @@ func attack():
 		await get_tree().physics_frame
 	winding_attack = false
 	$Attack/CollisionShape2D.disabled = false
-	var hits = false
+	var hits := false
 	BodyState = CUSTOM
 	direction = Vector2.ZERO
 	await get_tree().physics_frame
-	for i in $Attack/AttackPreview.get_overlapping_bodies():
+	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		#print(i)
 		if not(i is NPC or i is Follower or i is Mira):
 			hits = true
 	#print("pt1: " + str(hits))
-	for i in $Attack.get_overlapping_bodies():
+	for i: Node2D in $Attack.get_overlapping_bodies():
 		#print(i)
 		if (i is NPC or i is Follower) and not i is Mira:
 			hits = false
 	#print("pt2: " + str(hits))
-	var audio = preload("res://sound/SFX/Swing.ogg")
-	var anim = "Attack" + Query.get_dir_name()
+	var audio := preload("res://sound/SFX/Swing.ogg")
+	var anim := "Attack" + Query.get_dir_name()
 	if hits:
 		anim = "Attack" + Query.get_dir_name() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
@@ -442,15 +442,15 @@ func attack():
 		$Attack/AttackPreview/CollisionShape2D.disabled = true
 
 
-func check_before_attack():
+func check_before_attack() -> void:
 	%Base.frame = 1
 	$Attack.rotation = Query.get_direction().angle()
-	for i in $Attack/AttackPreview.get_overlapping_bodies():
+	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		if i is NPC or i is Follower:
 			i.attacked()
 
 
-func dramatic_attack_pause():
+func dramatic_attack_pause() -> void:
 	while not controllable():
 		local_controllable = false
 		BodyState = CUSTOM
@@ -458,7 +458,7 @@ func dramatic_attack_pause():
 		if attacking:
 			set_anim("Attack" + Query.get_dir_name())
 			pause_anim()
-			var timer = get_tree().create_timer(3)
+			var timer := get_tree().create_timer(3)
 			while timer.time_left > 0:
 				sprite = %Base
 				hide_other_sprites()
@@ -477,13 +477,13 @@ func _on_open_menu_pressed() -> void:
 		PartyUI.main_menu()
 
 
-func remove_light(node: Node2D = $Sprite):
+func remove_light(node: Node2D = $Sprite) -> void:
 	for i in node.get_children():
 		i.light_mask = 0
 		remove_light(i)
 
 
-func pause_anim(node: Node2D = $Sprite):
+func pause_anim(node: Node2D = $Sprite) -> void:
 	for i in node.get_children():
 		if i is AnimatedSprite2D:
 			i.pause()

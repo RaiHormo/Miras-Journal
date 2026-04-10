@@ -78,7 +78,7 @@ func _ready() -> void:
 	for i in range(1, 4):
 		if Query.check_member(i):
 			var member := Party.array()[i]
-			var dub = $Act/Actor0.duplicate()
+			var dub := $Act/Actor0.duplicate()
 			dub.name = "Actor" + str(i)
 			$Act.add_child(dub)
 			member.node = dub
@@ -95,7 +95,7 @@ func _ready() -> void:
 			3: i.Speed = 2
 		i.IsEnemy = false
 	for i in Troop.size():
-		var dub = $Act/Actor0.duplicate()
+		var dub := $Act/Actor0.duplicate()
 		dub.name = "Enemy" + str(i)
 		$Act.add_child(dub)
 		Troop[i].node = dub
@@ -1198,7 +1198,7 @@ func victory_show_items() -> void:
 			var dub: PanelContainer = $Canvas/VictoryItems/ItemTemp.duplicate()
 			dub.get_node("Hbox/ItemName").text = i.Name
 			dub.get_node("Hbox/Icon").texture = i.Icon
-			await Item.find_filename(i)
+			Item.find_filename(i)
 			Item.add_item(i, &"", false)
 			dub.show()
 			$Canvas/VictoryItems.add_child(dub)

@@ -20,7 +20,7 @@ var path: Path2D
 var follow: PathFollow2D
 
 
-func default():
+func default() -> void:
 	hide()
 	Global.check_party.connect(update)
 	await Event.wait()
@@ -62,8 +62,8 @@ func control_process() -> void:
 		collision_mask = Global.Player.collision_mask
 		$Glow.color = member_info().MainColor
 		$Glow.energy = member_info().GlowDef / 2
-		var oldposition = global_position
-		var player_dist = to_local(Global.Player.position).length()
+		var oldposition := global_position
+		var player_dist := to_local(Global.Player.position).length()
 		target = round((follow.global_position + Global.PlayerDir.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
 		if to_local(target).length() < 6: direction = Vector2.ZERO
@@ -142,11 +142,11 @@ func control_process() -> void:
 			#sprite.play("WalkDown")
 
 
-func jump_to_player(_speed = 2) -> void:
+func jump_to_player(_speed := 2) -> void:
 	if not is_instance_valid(Global.Player): return
 	if Global.Player.dashing: return
 	var _prev_pos := position
-	var new_pos = Global.Player.position
+	var new_pos := Global.Player.position
 	#new_pos.x += offset
 	#if member == 3: new_pos.y -= 24
 	#if speed > 0:
@@ -154,7 +154,7 @@ func jump_to_player(_speed = 2) -> void:
 	position = new_pos
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	if Global.Party.check_member(member):
 		update_anim_prm()
 
@@ -163,11 +163,11 @@ func member_info() -> Actor:
 	return Global.Party.get_member(member)
 
 
-func attacked():
+func attacked() -> void:
 	Global.jump_to(self, position - Vector2(Query.get_direction() * 24), 5, 0.5)
 
 
-func update():
-	var mem = member_info()
+func update() -> void:
+	var mem := member_info()
 	if mem != null and sprite.sprite_frames.resource_path != member_info().OV:
 		sprite.sprite_frames = await member_info().get_OV()
