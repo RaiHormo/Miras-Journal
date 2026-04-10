@@ -19,7 +19,7 @@ class_name SaveFile
 @export var Inventory: Array[String]
 @export var Flags: Dictionary[StringName, int]
 @export var Diary: Dictionary[int, PackedStringArray]
-@export var version = 0
+@export var version := 0
 @export var checksum: String
 
 ## Depricated

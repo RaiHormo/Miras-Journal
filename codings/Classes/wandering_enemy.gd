@@ -4,24 +4,24 @@ extends NPC
 @export_tool_button("Add Homepoints and Sprites", "Add") var add_node_button: Callable = add_nodes
 @export_tool_button("Apply positions", "CheckBox") var set_positions_button: Callable = set_positions
 @export var BattleSeq: BattleSequence
-@export var Defeated = false
+@export var Defeated := false
 @export var give_up_after := 3
-@export var patrol_speed = 20
-@export var chase_speed = 40
+@export var patrol_speed := 20
+@export var chase_speed := 40
 @onready var tmr: Timer = $Timer
-var lock = false
+var lock := false
 var homepoints: Array[Vector2]
-var PinRange = false
+var PinRange := false
 var CurHomepoint: Vector2 = Vector2.ZERO
 
 
-func add_nodes():
+func add_nodes() -> void:
 	if get_node_or_null("HomePoints") == null:
 		var this_homepoints := Node2D.new()
 		this_homepoints.name = "HomePoints"
 		add_child(this_homepoints)
 		this_homepoints.owner = $".."
-		var marker = Marker2D.new()
+		var marker := Marker2D.new()
 		marker.name = "1"
 		this_homepoints.add_child(marker)
 		marker.owner = $".."
@@ -49,7 +49,7 @@ func add_nodes():
 		scn_marker.gizmo_extents = 100
 
 
-func set_positions():
+func set_positions() -> void:
 	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
 	if scn_marker != null and BattleSeq != null:
 		BattleSeq.ScenePosition = scn_marker.global_position
@@ -58,12 +58,12 @@ func set_positions():
 		BattleSeq.EscPosition = Vector2i(esc_marker.global_position / 24)
 
 
-func default():
+func default() -> void:
 	Nav = $Nav
 	if ID == "": ID = name
 	if ID in Loader.Defeated: queue_free()
-	Loader.battle_start.connect(func(): hide())
-	Loader.battle_end.connect(func(): show())
+	Loader.battle_start.connect(func() -> void: hide())  #this is really ugly but it's typed now.
+	Loader.battle_end.connect(func() -> void: show())
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
 			homepoints.append(i.global_position)
@@ -72,13 +72,14 @@ func default():
 	patrol()
 
 
-func patrol():
+func patrol() -> void:
 	stopping = false
 	Loader.chased = false
 	PinRange = false
 
 
-func extended_process():
+func extended_process() -> void:
+	var Collision: CollisionShape2D = $Collision
 	if self.get_path in Loader.Defeated:
 		hide()
 		$CatchArea/CollisionShape2D.set_deferred("disabled", true)
@@ -86,7 +87,7 @@ func extended_process():
 	if PinRange and tmr:
 		stopping = true
 		if tmr.time_left != 0:
-			$Collision.set_deferred("disabled", false)
+			Collision.set_deferred("disabled", false)
 			BodyState = CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)
@@ -111,7 +112,7 @@ func extended_process():
 				BodyState = IDLE
 			else:
 				show()
-				$Collision.set_deferred("disabled", true)
+				Collision.set_deferred("disabled", true)
 				speed = patrol_speed
 				BodyState = MOVE
 				if CurHomepoint == Vector2.ZERO:
@@ -119,7 +120,7 @@ func extended_process():
 				direction = to_local(CurHomepoint).normalized()
 
 
-func _on_finder_body_entered(body):
+func _on_finder_body_entered(body: Node2D) -> void:
 	if body == Global.Player and not PinRange and not Loader.chased and not Loader.InBattle:
 		Nav.set_target_position(Global.Player.position)
 		if not Nav.is_target_reachable(): return
@@ -145,7 +146,7 @@ func _on_finder_body_entered(body):
 		PinRange = true
 
 
-func _on_catch_area_body_entered(body):
+func _on_catch_area_body_entered(body: Node2D) -> void:
 	if (body == Global.Player and (not lock) and (not Loader.InBattle) and (not Global.Player.attacking or Global.Player.winding_attack)):
 		#print(Global.Player.attacking)
 		$EnemyStrike.disappear()
@@ -159,7 +160,7 @@ func _on_catch_area_body_entered(body):
 		begin_battle(2)
 
 
-func begin_battle(advatage := 0):
+func begin_battle(advatage := 0) -> void:
 	Loader.Attacker = self
 	Global.Player.dramatic_attack_pause()
 	Global.rumble(1, 1, 0.2)
@@ -167,11 +168,11 @@ func begin_battle(advatage := 0):
 	global_position = DefaultPos
 
 
-func attacked():
+func attacked() -> void:
 	if Global.Player.winding_attack: return
 	BodyState = NONE
 	set_anim("Hit")
-	var to_pos = position + Query.get_direction() * 12
+	var to_pos := position + Query.get_direction() * 12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
