@@ -1,5 +1,5 @@
 extends CanvasLayer
-var inactive = true
+var inactive := true
 
 
 func _ready() -> void:
@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func retry() -> void:
 	if inactive: return
-	var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	$AnimationPlayer.pause()
 	t.tween_property($Options/Load, "modulate:a", 0, 0.3)
 	t.tween_property($Options/Quit, "modulate:a", 0, 0.3)

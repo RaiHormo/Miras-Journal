@@ -193,7 +193,7 @@ func damage(dmg: int, limiter := false):
 	Health = hp
 
 
-func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
+func calc_dmg(power: float, is_magic: bool, E: Actor = null) -> int:
 	var atk_stat: float
 	if E == null: atk_stat = 1
 	else:
@@ -203,8 +203,8 @@ func calc_dmg(pow, is_magic: bool, E: Actor = null) -> int:
 		else:
 			atk_stat = E.Attack * E.AttackMultiplier
 			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
-	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)" % [pow, atk_stat, Defence, DefenceMultiplier])
-	return int(max(((pow * atk_stat) / ((Defence * 2 * DefenceMultiplier) + 0.3)), 1))
+	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)" % [power, atk_stat, Defence, DefenceMultiplier])
+	return int(max(((power * atk_stat) / ((Defence * 2 * DefenceMultiplier) + 0.3)), 1))
 
 
 func add_state(x, turns = -1, inflicter: Actor = Global.Bt.CurrentChar, effect = true) -> State:
@@ -432,5 +432,5 @@ func find_learnable() -> Ability:
 	return learnable
 
 
-func get_pronoun(str: String = "they") -> String:
-	return Query.get_pronoun(str, Pronouns)
+func get_pronoun(string: String = "they") -> String:
+	return Query.get_pronoun(string, Pronouns)

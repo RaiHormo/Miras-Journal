@@ -7,14 +7,14 @@ class_name PartyData
 @export var Member3: Actor = null
 
 
-func reset_party():
+func reset_party() -> void:
 	Leader = Query.find_member("Mira")
 	Member1 = null
 	Member2 = null
 	Member3 = null
 
 
-func check_member(n) -> bool:
+func check_member(n: int) -> bool:
 	if n == 0 and Leader != null:
 		return true
 	if n == 1 and Member1 != null:
@@ -27,14 +27,14 @@ func check_member(n) -> bool:
 		return false
 
 
-func make_unique():
+func make_unique() -> void:
 	if Leader != null: Leader = Leader.duplicate()
 	if Member1 != null: Member1 = Member1.duplicate()
 	if Member2 != null: Member2 = Member2.duplicate()
 	if Member3 != null: Member3 = Member1.duplicate()
 
 
-func set_to_party(p: PartyData):
+func set_to_party(p: PartyData) -> void:
 	Leader = Query.find_member(p.Leader.codename)
 	if p.Member1 != null: Member1 = Query.find_member(p.Member1.codename)
 	else: Member1 = null
@@ -44,7 +44,7 @@ func set_to_party(p: PartyData):
 	else: Member3 = null
 
 
-func set_to(p: PackedStringArray):
+func set_to(p: PackedStringArray) -> void:
 	if p.is_empty(): p = [&"Mira", &"", &"", &""]
 	while p.size() < 4: p.append(&"")
 	Leader = Query.find_member(p[0])
@@ -58,7 +58,7 @@ func set_to(p: PackedStringArray):
 
 
 ## For backwards compatibility
-func set_to_strarr(p: PackedStringArray):
+func set_to_strarr(p: PackedStringArray) -> void:
 	set_to(p)
 
 
@@ -80,7 +80,7 @@ func get_member(num: int) -> Actor:
 	return null
 
 
-func overwrite_member(num: int, actor: Actor):
+func overwrite_member(num: int, actor: Actor) -> void:
 	match num:
 		0: Leader = actor
 		1: Member1 = actor
@@ -88,7 +88,7 @@ func overwrite_member(num: int, actor: Actor):
 		3: Member3 = actor
 
 
-func add(member: String):
+func add(member: String) -> void:
 	overwrite_member(Query.number_of_party_members(), Query.find_member(member))
 	Global.check_party.emit()
 	print(member, " joins the party at position ", Query.number_of_party_members())
@@ -103,7 +103,7 @@ func member_name(x: int) -> String:
 	return "Nobody"
 
 
-func has_member(mem: String):
+func has_member(mem: String) -> bool:
 	for i in array():
 		if i != null and i.codename == mem: return true
 	return false

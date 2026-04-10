@@ -7,7 +7,7 @@ var cam_pos = Vector2.ZERO
 
 
 func zoom(factor: float, time: float = 0.3):
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Camera, "zoom", Vector2(factor * 4, factor * 4), time)

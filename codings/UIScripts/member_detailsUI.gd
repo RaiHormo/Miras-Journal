@@ -94,7 +94,7 @@ func draw_character(chara: Actor, menu := 0):
 
 	swap_mode()
 	show()
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -118,7 +118,7 @@ func swap_mode(stability := false):
 	stability_menu = stability
 	match stability_menu:
 		false:
-			var t = create_tween()
+			var t := create_tween()
 			t.set_parallel()
 			t.tween_property($AbilityPanel, "scale:x", 0, 0.1)
 			t.tween_property($AbilityPanel, "position:x", 300, 0.1)
@@ -135,7 +135,7 @@ func swap_mode(stability := false):
 			$Abilities.shortcut.events[0].action = "BtItem"
 			$Abilities.icon = Global.get_controller().ItemIcon
 		true:
-			var t = create_tween()
+			var t := create_tween()
 			t.set_parallel()
 			t.tween_property($StatPanel, "scale:x", 0, 0.1)
 			t.tween_property($StatPanel, "position:x", 300, 0.1)
@@ -159,7 +159,7 @@ func swap_mode(stability := false):
 func _on_back_pressed():
 	if inactive: return
 	Global.cancel_sound()
-	var t = create_tween()
+	var t := create_tween()
 	t.tween_property(self, "offset:x", -3500, 0.2)
 	await Event.wait(0.1, false)
 	$Fade.hide()

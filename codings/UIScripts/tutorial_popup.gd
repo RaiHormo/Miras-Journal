@@ -9,7 +9,7 @@ func _ready():
 
 
 func pop_down():
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
@@ -149,7 +149,7 @@ func await_next():
 
 
 func close():
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)

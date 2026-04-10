@@ -3,7 +3,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	$BoxContainer.modulate.a = 0
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)

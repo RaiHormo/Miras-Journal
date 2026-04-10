@@ -35,7 +35,7 @@ func focus_place(place: String = here):
 		Global.get_cam().position_smoothing_enabled = false
 		position = Global.get_cam().global_position - (size / 2)
 		$Container.global_position.x = 1300
-		var t = create_tween()
+		var t := create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUINT)
 		t.set_parallel()
@@ -99,7 +99,7 @@ func location_selected():
 	Event.remove_flag("FreeTravelOnce")
 	var map_point = $Map.get_node_or_null(str(foc.name))
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.tween_property(Global.get_cam(), "zoom", Vector2(4, 4), 0.3)
 	t.tween_property(Global.get_cam(), "position", map_point.global_position, 0.3)

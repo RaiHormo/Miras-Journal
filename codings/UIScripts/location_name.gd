@@ -4,7 +4,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	label.modulate = Color.TRANSPARENT
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_QUART)

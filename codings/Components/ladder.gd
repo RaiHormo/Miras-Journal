@@ -14,10 +14,10 @@ var varience: float
 func _physics_process(delta: float) -> void:
 	if active:
 		if varience == 0:
-			var t = create_tween()
+			var t := create_tween()
 			t.tween_property(self, "varience", 1, 0.2)
 		if varience == 1:
-			var t = create_tween()
+			var t := create_tween()
 			t.tween_property(self, "varience", 0, 0.2)
 		Global.Player.BodyState = NPC.CUSTOM
 		Global.Player.set_anim("IdleUp")

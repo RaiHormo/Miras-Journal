@@ -16,8 +16,8 @@ static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero = false) -> 
 			return Vector2.UP
 
 
-static func str_length(str: String):
-	return str.length()
+static func str_length(string: String):
+	return string.length()
 
 
 static func get_mmm(month: int) -> String:

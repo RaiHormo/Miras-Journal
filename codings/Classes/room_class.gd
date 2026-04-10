@@ -3,7 +3,7 @@ class_name Room
 
 @export var Name: String = "???"
 @export var IsDungeon := true
-@export var SpawnPlayer = true
+@export var SpawnPlayer := true
 @export var SpawnPath: Node = self
 ##In tilemap coords
 @export var SpawnPos: Vector2 = Vector2(0, 0)
@@ -17,7 +17,7 @@ var Stairs: Array[Stair]
 enum { LEFT = 0, TOP = 1, RIGHT = 2, BOTTOM = 3 }
 ##[0]: left [1]: top [2]: right [3]: bottom
 var Size: Vector2
-var Cam = Camera2D.new()
+var Cam := Camera2D.new()
 var Followers: Array[CharacterBody2D] = []
 var Layers: Array[TileMapLayer]
 var CurSubRoom: SubRoom = null
@@ -25,7 +25,7 @@ var CurSubRoom: SubRoom = null
 @export var BattlebackPosition: Vector2
 
 
-func _ready():
+func _ready() -> void:
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -45,16 +45,16 @@ func _ready():
 		Cam.limit_top = -10000000
 		Cam.limit_bottom = 10000000
 	else:
-		Cam.limit_left = (CameraLimits[Global.CameraInd])[LEFT]
-		Cam.limit_right = (CameraLimits[Global.CameraInd])[RIGHT]
-		Cam.limit_top = (CameraLimits[Global.CameraInd])[TOP]
-		Cam.limit_bottom = (CameraLimits[Global.CameraInd])[BOTTOM]
+		Cam.limit_left = int((CameraLimits[Global.CameraInd])[LEFT])
+		Cam.limit_right = int((CameraLimits[Global.CameraInd])[RIGHT])
+		Cam.limit_top = int((CameraLimits[Global.CameraInd])[TOP])
+		Cam.limit_bottom = int((CameraLimits[Global.CameraInd])[BOTTOM])
 	if SpawnPlayer:
-		var Player = preload("uid://sql6r7jv7fjq").instantiate()
+		var Player := preload("uid://sql6r7jv7fjq").instantiate()
 		SpawnPath.add_child(Player)
-		var dist = 30
+		var dist := 30
 		for i in range(1, 4):
-			var follower = preload("uid://da22xhcxygcjl").instantiate()
+			var follower := preload("uid://da22xhcxygcjl").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
 			follower.distance = dist
@@ -90,12 +90,12 @@ func _ready():
 	Global.area_initialized.emit()
 
 
-func setup_params(tween_zoom = false):
+func setup_params(tween_zoom := false) -> void:
 	Cam.limit_smoothed = true
 	Cam.position_smoothing_enabled = true
 	Cam.position_smoothing_speed = 10
 	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
-	var zoom = Vector2(4, 4)
+	var zoom := Vector2(4, 4)
 	if overwrite_zoom > 0:
 		zoom = Vector2(overwrite_zoom, overwrite_zoom)
 	if overwrite_zoom == 0 and Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
@@ -103,7 +103,7 @@ func setup_params(tween_zoom = false):
 	elif CurSubRoom is SubRoom:
 		zoom = Vector2(CurSubRoom.cam_zoom, CurSubRoom.cam_zoom)
 	if tween_zoom:
-		var t = create_tween()
+		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property(Cam, "zoom", zoom, 0.3)
@@ -111,11 +111,11 @@ func setup_params(tween_zoom = false):
 		Cam.zoom = zoom
 
 
-func default():
+func default() -> void:
 	pass
 
 
-func handle_z(z := -1):
+func handle_z(z := -1) -> void:
 	if z == -1: z = SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
 	Global.Player.z_index = z
 	for i in get_children():
@@ -140,10 +140,10 @@ func map_to_local(vec: Vector2i) -> Vector2:
 func local_to_map(vec: Vector2) -> Vector2i:
 	return Layers[0].local_to_map(vec)
 
-var t
+var t: Tween
 
 
-func fade():
+func fade() -> void:
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
@@ -154,7 +154,7 @@ func fade():
 		i.hide()
 
 
-func unfade():
+func unfade() -> void:
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	for i in Layers:
@@ -168,7 +168,7 @@ func _physics_process(delta: float) -> void:
 		$SubRoomBg.position = Cam.position
 
 
-func go_to_subroom(subroom: String, fast = false) -> Vector2:
+func go_to_subroom(subroom: String, fast := false) -> Vector2:
 	for i in get_children():
 		if not is_instance_valid(i): continue
 		if i is SubRoom and i.name == subroom:
@@ -185,16 +185,16 @@ func get_layers() -> Array[TileMapLayer]:
 	return Layers if CurSubRoom == null else CurSubRoom.Layers
 
 
-func get_tile(pos: Vector2, layer: int = 1):
-	var tilemap = get_layers()[layer]
-	tilemap.get_cell_tile_data(pos)
+func get_tile(pos: Vector2, layer: int = 1) -> TileData:
+	var tilemap := get_layers()[layer]
+	return tilemap.get_cell_tile_data(pos)
 
 
 func get_terrain(coords: Vector2i) -> String:
 	var layers: Array[TileMapLayer] = get_layers().duplicate()
 	layers.reverse()
 	for i in layers:
-		var data = i.get_cell_tile_data(coords)
+		var data := i.get_cell_tile_data(coords)
 		if is_instance_valid(data) and data.has_custom_data("TerrainType"):
 			var terrain: String = data.get_custom_data("TerrainType")
 			#print(i, terrain, terrain)

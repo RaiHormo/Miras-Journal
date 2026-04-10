@@ -207,9 +207,9 @@ func combined_inv() -> Array[ItemData]:
 
 func save_to_strings() -> Array[String]:
 	var rtn: Array[String]
-	for item in combined_inv():
-		for i in abs(item.Quantity):
-			rtn.append(item.filename + ":" + find_type(item))
+	for aitem in combined_inv():
+		for i in abs(aitem.Quantity):
+			rtn.append(aitem.filename + ":" + find_type(aitem))
 	return rtn
 
 
@@ -219,5 +219,5 @@ func load_inventory(data: Array[String]):
 	BtiInv.clear()
 	ConInv.clear()
 	for i in data:
-		var item = i.split(":", false)
-		add_item(item[0], item[1], false, false, 1)
+		var aitem = i.split(":", false)
+		add_item(aitem[0], aitem[1], false, false, 1)

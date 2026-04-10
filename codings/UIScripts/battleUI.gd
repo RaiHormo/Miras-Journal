@@ -5,7 +5,7 @@ var Party: PartyData
 var Troop: Array[Actor]
 @onready var Cam = $"../Cam"
 @onready var t = Tween
-@onready var tr = Tween
+@onready var trw = Tween
 var active: bool
 var stage: StringName
 signal root
@@ -38,8 +38,8 @@ var disable_command := false
 func _ready():
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
-	tr = create_tween()
-	tr.tween_property(self, "position", position, 0)
+	trw = create_tween()
+	trw.tween_property(self, "position", position, 0)
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	#t = create_tween()
 	hide()
@@ -302,7 +302,7 @@ func _on_root():
 		foc.hide()
 		foc.show()
 	t.kill()
-	tr.kill()
+	trw.kill()
 	t = create_tween()
 	t.set_ease(Tween.EASE_IN_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -751,13 +751,13 @@ func get_target(faction: Array[Actor], ab = CurrentChar.NextMove):
 	if stage == &"inactive": return
 	stage = &"target"
 	while stage == &"target":
-		tr = create_tween()
-		tr.set_ease(Tween.EASE_IN_OUT)
-		tr.set_trans(Tween.TRANS_SINE)
-		tr.tween_property($BaseRing/Ring2, "scale", -Vector2(0.1, 0.1), 0.7).as_relative()
+		trw = create_tween()
+		trw.set_ease(Tween.EASE_IN_OUT)
+		trw.set_trans(Tween.TRANS_SINE)
+		trw.tween_property($BaseRing/Ring2, "scale", -Vector2(0.1, 0.1), 0.7).as_relative()
 		if stage != "target": return
-		tr.tween_property($BaseRing/Ring2, "scale", Vector2(0.1, 0.1), 0.7).as_relative()
-		await tr.finished
+		trw.tween_property($BaseRing/Ring2, "scale", Vector2(0.1, 0.1), 0.7).as_relative()
+		await trw.finished
 
 
 func _on_ability_returned(ab: Ability, tar):
@@ -766,7 +766,7 @@ func _on_ability_returned(ab: Ability, tar):
 
 func move_menu():
 	await Event.wait()
-	var foc = get_viewport().gui_get_focus_owner()
+	foc = get_viewport().gui_get_focus_owner()
 	if stage == &"target" or stage == &"pre_target":
 		active = false
 		t = create_tween()
@@ -936,17 +936,17 @@ func _on_confirm_pressed():
 		if stage == &"item":
 			if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").UsedInBattle:
-				var item: ItemData = foc.get_meta("ItemData")
+				var aitem: ItemData = foc.get_meta("ItemData")
 				CurrentChar.NextTarget = CurrentChar
-				item.BattleEffect.name = item.Name
-				item.BattleEffect.description = item.Description
-				item.BattleEffect.Icon = item.Icon
-				item.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
+				aitem.BattleEffect.name = aitem.Name
+				aitem.BattleEffect.description = aitem.Description
+				aitem.BattleEffect.Icon = aitem.Icon
+				aitem.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
 				PrevStage = &"item"
-				if item.BattleEffect.Target == Ability.T.SELF:
-					ability_returned.emit(item.BattleEffect, CurrentChar)
-				if item.BattleEffect.Target == Ability.T.ONE_ENEMY:
-					CurrentChar.NextMove = item.BattleEffect
+				if aitem.BattleEffect.Target == Ability.T.SELF:
+					ability_returned.emit(aitem.BattleEffect, CurrentChar)
+				if aitem.BattleEffect.Target == Ability.T.ONE_ENEMY:
+					CurrentChar.NextMove = aitem.BattleEffect
 					get_target(Bt.get_oposing_faction())
 				Global.confirm_sound()
 
@@ -1007,21 +1007,21 @@ func fetch_inventory():
 		i.free()
 	for i in $Inventory/Margin/BattleItems/Grid.get_children():
 		i.free()
-	for item in Item.ConInv: if item.UsedInBattle:
+	for aitem in Item.ConInv: if aitem.UsedInBattle:
 		var dub = $Inventory/Item.duplicate()
-		dub.icon = item.Icon
+		dub.icon = aitem.Icon
 		dub.set_meta("ItemData", item)
-		if item.Quantity > 1:
-			dub.text = str(item.Quantity)
+		if aitem.Quantity > 1:
+			dub.text = str(aitem.Quantity)
 		else: dub.text = ""
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
-	for item in Item.BtiInv:
+	for aitem in Item.BtiInv:
 		var dub = $Inventory/Item.duplicate()
-		dub.icon = item.Icon
+		dub.icon = aitem.Icon
 		dub.set_meta("ItemData", item)
-		if item.Quantity > 1:
-			dub.text = str(item.Quantity)
+		if aitem.Quantity > 1:
+			dub.text = str(aitem.Quantity)
 		else: dub.text = ""
 		$Inventory/Margin/BattleItems/Grid.add_child(dub)
 		dub.show()
@@ -1099,18 +1099,18 @@ func _on_cbutton_pressed(tog: bool) -> void:
 
 func focus_item(node: Button):
 	if not node.get_parent() is GridContainer: return
-	var item: ItemData = node.get_meta("ItemData")
-	$Inventory/DescPaper/Title.text = item.Name
-	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item.Description)
-	$Inventory/DescPaper/Art.texture = item.Artwork
-	if item.Quantity > 1:
-		$Inventory/DescPaper/Amount.text = str(item.Quantity) + " in bag"
+	var item_data: ItemData = node.get_meta("ItemData")
+	$Inventory/DescPaper/Title.text = item_data.Name
+	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item_data.Description)
+	$Inventory/DescPaper/Art.texture = item_data.Artwork
+	if item_data.Quantity > 1:
+		$Inventory/DescPaper/Amount.text = str(item_data.Quantity) + " in bag"
 		$Inventory/DescPaper/Amount.show()
 	else:
 		$Inventory/DescPaper/Amount.hide()
-	if not item.UsedInBattle:
+	if not item_data.UsedInBattle:
 		$"../Canvas/Confirm".hide()
-	elif item.Use == ItemData.U.INSPECT:
+	elif item_data.Use == ItemData.U.INSPECT:
 		$"../Canvas/Confirm".show()
 		$"../Canvas/Confirm".text = "Inspect"
 	else:
@@ -1132,7 +1132,7 @@ func _on_give_pressed() -> void:
 			await Event.wait()
 		if PrevStage == "root": return
 		if PrevStage == "targeted":
-			var target: Actor = TargetFaction[TargetIndex]
+			target = TargetFaction[TargetIndex]
 			if target == CurrentChar:
 				Item.remove_item(item_dat)
 				CurrentChar.NextAction = "Item"

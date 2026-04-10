@@ -14,7 +14,7 @@ var undashable := false
 ##Direction of the dash
 var dashdir: Vector2 = Vector2.ZERO
 ##Use flame to light up the enviroment
-@export var can_dash = true
+@export var can_dash := true
 const dash_speed := 200
 const walk_speed := 100
 var first_frame := true
@@ -32,7 +32,8 @@ var local_controllable := true:
 
 func _ready() -> void:
 	collision(false)
-	ID = "P"
+	if is_clone: ID = "MenuPlayer"
+	else: ID = "P"
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
 	Global.check_party.connect(_check_party)
@@ -145,7 +146,6 @@ func control_process():
 		if RealVelocity != Vector2.ZERO:
 			if RealVelocity.x == 0: position.x = roundf(position.x)
 			if RealVelocity.y == 0: position.y = roundf(position.y)
-		var old_position = global_position
 		if direction.length() > 0.1:
 			move_and_slide()
 		if Input.is_action_just_pressed("OVAttack") and controllable():

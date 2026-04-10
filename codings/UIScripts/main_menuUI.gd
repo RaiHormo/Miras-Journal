@@ -31,8 +31,8 @@ func _ready():
 	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
 		duplicated = true
 		player = Global.Player.duplicate()
-		Global.Area.add_child(player)
 		player.is_clone = true
+		Global.Area.add_child(player)
 		await Event.wait()
 		player.remove_light()
 		player.collision_layer = 0
@@ -137,8 +137,6 @@ func _input(event):
 					prevRootIndex = rootIndex
 					rootIndex += 1
 					move_root()
-		"item":
-			pass
 
 
 func _on_focus_changed(control: Control):
@@ -341,7 +339,7 @@ func _root():
 
 
 func _journal():
-	if stage == "inactive": return
+	if stage == "inactive" or stage == "journal": return
 	if rootIndex != 0:
 		rootIndex = 0
 		move_root()
@@ -599,11 +597,11 @@ func _on_party_pressed() -> void:
 
 func _on_party_focus_entered() -> void:
 	Global.cursor_sound()
-	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	t.tween_property($Party, "scale", Vector2(1.8, 1.8), 0.3)
 
 
 func _on_party_focus_exited() -> void:
 	Global.ui_sound("shrink")
-	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property($Party, "scale", Vector2(1.4, 1.4), 0.3)

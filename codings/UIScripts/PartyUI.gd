@@ -538,7 +538,6 @@ func check_member(mem: Actor, node: Panel, ind):
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
 	if UIvisible and not Expanded: node.position.y = def_pos_partybox[ind].y
-	var character_label = mem.FirstName
 	var txt_color = mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
 	get_node("%Pages/Page" + str(ind) + "/Label").add_theme_color_override("font_color", txt_color)

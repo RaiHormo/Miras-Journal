@@ -31,7 +31,6 @@ func call_events():
 
 
 func check_events() -> bool:
-	var rtn = false
 	for i in Events:
 		if i.check(): return true
 	return false

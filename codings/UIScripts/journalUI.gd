@@ -21,7 +21,7 @@ func root():
 	$RootMenu.show()
 	$List.hide()
 	$RootMenu/Diary.grab_focus()
-	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
+	var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
 	t.tween_property($Close, "position:x", 200, 0.3)
 	t.tween_property($Journal, "position", Vector2(600, 0), 1).from(Vector2(600, 2000))
 	t.tween_property($RootMenu, "modulate", Color.WHITE, 0.6).from(Color.TRANSPARENT)
@@ -40,7 +40,7 @@ func diary() -> void:
 	$Pages.show()
 	$List.show()
 	$Select.hide()
-	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
+	var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
 	t.tween_property($Close, "position:x", 320, 0.5).set_ease(Tween.EASE_OUT)
 	t.tween_property($List, "position:x", 0, 0.5).from(-300)
 	if get_tree().root.get_node_or_null("MainMenu") != null:

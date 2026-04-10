@@ -55,7 +55,7 @@ func levelup(chara: Actor):
 	$ChooseUpgrade/Desc.modulate = Color.TRANSPARENT
 	level_cutin(chara)
 	await Event.wait(2, false)
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -109,7 +109,7 @@ func level_cutin(chara: Actor):
 	for i in $Line1/NameChain2.get_children():
 		i.text = (chara.FirstName + " " + chara.LastName + " ").to_upper()
 		i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
-	var t = create_tween()
+	var t := create_tween()
 	show()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -149,7 +149,7 @@ func move_menu():
 				index = 0
 				move_menu()
 				return
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property($ChooseUpgrade/Cursor, "position:y", ypos, 0.1)
@@ -165,7 +165,7 @@ func _confirm():
 	if not active: return
 	active = false
 	$ChooseUpgrade/Cursor.hide()
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
@@ -247,7 +247,7 @@ func _confirm():
 
 
 func close():
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property(self, "scale:y", 0, 0.3)

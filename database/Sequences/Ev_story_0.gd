@@ -40,7 +40,7 @@ func new_game() -> void:
 	Global.Player.set_anim("OnFloor")
 	Global.Player.get_node("%Shadow").modulate = Color.TRANSPARENT
 	Global.Player._check_party()
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	PartyUI.UIvisible = false
@@ -168,7 +168,7 @@ func AlcineFollow3():
 	Global.Party.Leader.ClutchDmg = true
 	Global.Player.set_anim("IdleRight")
 	Global.Player.camera_follow(false)
-	var t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	t.tween_property(Global.get_cam(), "position:x", 1650, 1)
 	Alcine.set_anim("Scared")
 	await t.finished
@@ -321,7 +321,7 @@ func enter_amberelm():
 func enter_amberelm_2():
 	await Event.take_control()
 	Global.Player.camera_follow(false)
-	var t = create_tween()
+	var t := create_tween()
 	Global.Player.set_anim("IdleUp")
 	t.tween_property(Global.get_cam(), "position", Vector2(150, 252), 7)
 	await Event.wait(1)

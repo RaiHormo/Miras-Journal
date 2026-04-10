@@ -67,7 +67,7 @@ func control_process() -> void:
 		target = round((follow.global_position + Global.PlayerDir.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
 		if to_local(target).length() < 6: direction = Vector2.ZERO
-		var path_dist = floor(path.curve.get_baked_length() - follow.progress)
+		#var path_dist = floor(path.curve.get_baked_length() - follow.progress)
 		#if Loader.chased:
 			#$CollisionShape2D.disabled = true
 		if false:
@@ -142,10 +142,10 @@ func control_process() -> void:
 			#sprite.play("WalkDown")
 
 
-func jump_to_player(speed = 2):
+func jump_to_player(_speed = 2) -> void:
 	if not is_instance_valid(Global.Player): return
 	if Global.Player.dashing: return
-	var prev_pos = position
+	var _prev_pos := position
 	var new_pos = Global.Player.position
 	#new_pos.x += offset
 	#if member == 3: new_pos.y -= 24

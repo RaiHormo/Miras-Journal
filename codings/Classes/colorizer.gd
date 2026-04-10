@@ -10,38 +10,38 @@ static var ElementColor: Dictionary[String, Color] = {
 	attack = Color.hex(0xdf3737ff), magic = Color.hex(0x5a68dfff), defence = Color.hex(0x40f178ff) }
 
 
-static func colorize(str: String) -> String:
+static func colorize(string: String) -> String:
 	for i in ElementColor.keys():
 		var elname: String = i
 		#str = colorize_replace(elname, str, i)
-		str = str.replace("[color=%" + i + "]", "[color=" + ElementColor.get(i).to_html() + "]")
-		str = colorize_replace(elname.capitalize(), str, i)
-		str = colorize_replace(state_element_verbing(elname), str, i)
-		str = colorize_replace(state_element_verbs(elname), str, i)
-		str = colorize_replace(state_element_verbed(elname), str, i)
-		str = colorize_replace(state_element_verb(elname), str, i)
-	return str
+		string = string.replace("[color=%" + i + "]", "[color=" + ElementColor.get(i).to_html() + "]")
+		string = colorize_replace(elname.capitalize(), string, i)
+		string = colorize_replace(state_element_verbing(elname), string, i)
+		string = colorize_replace(state_element_verbs(elname), string, i)
+		string = colorize_replace(state_element_verbed(elname), string, i)
+		string = colorize_replace(state_element_verb(elname), string, i)
+	return string
 
 
-static func colorize_explicit(str: String) -> String:
+static func colorize_explicit(stri: String) -> String:
 	for elname in ElementColor.keys():
 		if "[color=%" + elname + "]" in str:
 			var color: Color = ElementColor.get(elname)
 			color.v = min(color.v, 0.8)
-			str = str.replace("[color=%" + elname + "]", "[color=" + color.to_html() + "]")
-	return str
+			stri = stri.replace("[color=%" + elname + "]", "[color=" + color.to_html() + "]")
+	return stri
 
 
-static func colorize_replace(elname, str: String, i) -> String:
-	if elname in str:
+static func colorize_replace(elname, stri: String, i) -> String:
+	if elname in stri:
 		var hex: String = ElementColor[i].to_html()
 		var hex_out: String = (ElementColor[i] / 3).to_html()
-		return str.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
-	return str
+		return stri.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
+	return stri
 
 
-static func state_element_verb(str: String) -> String:
-	match str:
+static func state_element_verb(string: String) -> String:
+	match string:
 		"heat": return "burn"
 		"wind": return "launch"
 		"corruption": return "poison"
@@ -55,11 +55,11 @@ static func state_element_verb(str: String) -> String:
 		"defence": return "guard"
 		"attack": return "knock out"
 		"magic": return "Aura break"
-	return str
+	return string
 
 
-static func state_element_verbs(str: String) -> String:
-	match str:
+static func state_element_verbs(string: String) -> String:
+	match string:
 		"heat": return "burns"
 		"wind": return "launches"
 		"corruption": return "poisons"
@@ -74,11 +74,11 @@ static func state_element_verbs(str: String) -> String:
 		"defence": return "guards"
 		"attack": return "knocks out"
 		"magic": return "breaks their Aura"
-	return str
+	return string
 
 
-static func state_element_verbed(str: String) -> String:
-	match str:
+static func state_element_verbed(string: String) -> String:
+	match string:
 		"heat": return "burned"
 		"wind": return "launched"
 		"corruption": return "poisoned"
@@ -93,11 +93,11 @@ static func state_element_verbed(str: String) -> String:
 		"defence": return "guarded"
 		"attack": return "knocked out"
 		"magic": return "Aura broken"
-	return str
+	return string
 
 
-static func state_element_verbing(str: String) -> String:
-	match str:
+static func state_element_verbing(string: String) -> String:
+	match string:
 		"heat": return "burning"
 		"wind": return "launching"
 		"corruption": return "poisoning"
@@ -112,4 +112,4 @@ static func state_element_verbing(str: String) -> String:
 		"defence": return "guarding"
 		"attack": return "knocking out"
 		"magic": return "breaking their Aura"
-	return str
+	return string

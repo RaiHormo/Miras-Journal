@@ -14,7 +14,7 @@ var filename: String = "Invalid filename"
 enum U { NONE, INSPECT, CUSTOM, HEALING, SPELL, STATE_HEAL, BUFF_ATK, DEBUFF_ATK }
 @export_group("Uses")
 @export var Use: U
-@export var UsedInBattle = false
+@export var UsedInBattle := false
 enum T { SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES }
 @export var OvTarget: T = T.ONE_ALLY
 @export var BattleEffect: Ability

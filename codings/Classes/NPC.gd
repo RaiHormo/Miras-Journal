@@ -135,16 +135,16 @@ func update_anim_prm() -> void:
 			sprite.play(str("Idle" + Query.get_dir_name(Facing)))
 
 
-func handle_step_sounds(sprite: AnimatedSprite2D) -> void:
-	if not is_instance_valid(sprite) or "Idle" in sprite.animation:
+func handle_step_sounds(for_sprite: AnimatedSprite2D) -> void:
+	if not is_instance_valid(for_sprite) or "Idle" in for_sprite.animation:
 		LastStepFrame = -1
 		return
-	if not has_node("StdrFootsteps") or sprite.frame == LastStepFrame or (LastStepFrame == -1 and move_frames == 0): return
-	LastStepFrame = sprite.frame
+	if not has_node("StdrFootsteps") or for_sprite.frame == LastStepFrame or (LastStepFrame == -1 and move_frames == 0): return
+	LastStepFrame = for_sprite.frame
 	var frames: PackedInt32Array
 	for i in step_frames:
-		if i in sprite.animation: frames = step_frames.get(i)
-	if frames.has(sprite.frame):
+		if i in for_sprite.animation: frames = step_frames.get(i)
+	if frames.has(for_sprite.frame):
 		var terrain = Global.Area.get_terrain(coords)
 		if "Generic" == terrain: return
 		var rand: int
@@ -163,17 +163,17 @@ func check_terrain(terrain: String, layer := 1) -> bool:
 	return false
 
 
-func get_tile(layer: int):
+func get_tile(layer: int) -> TileData:
 	return Global.Area.get_tile(Global.Area.local_to_map(global_position), layer)
 
 
-func move_dir(dir: Variant, use_coords = true, autostop = false) -> void:
+func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
 	if dir is String: dir = Query.get_dir_from_letter(dir)
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
 
 
-func look_to(dir: Variant):
+func look_to(dir: Variant) -> void:
 	if dir is String: dir = Query.get_dir_from_letter(dir)
 	BodyState = MOVE
 	Facing = dir
@@ -183,7 +183,7 @@ func look_to(dir: Variant):
 	Facing = dir
 
 
-func pathfind_to(pos: Vector2, exact = true, autostop = true, look_dir: Vector2 = Vector2.ZERO) -> void:
+func pathfind_to(pos: Vector2, exact := true, autostop := true, look_dir: Vector2 = Vector2.ZERO) -> void:
 	if Nav == null: return
 	if self is Mira and Global.Controllable: await Event.take_control()
 	#await stop_going()
@@ -199,7 +199,7 @@ func pathfind_to(pos: Vector2, exact = true, autostop = true, look_dir: Vector2 
 			return
 	if Global.Area.map_to_local(pos) != global_position and Global.Area.local_to_map(global_position) == Vector2i(pos) and exact:
 		#print("finished")
-		var t = create_tween()
+		var t := create_tween()
 		t.tween_property(self, "global_position", Global.Area.map_to_local(pos), Nav.distance_to_target() / speed)
 		await t.finished
 	BodyState = IDLE
@@ -268,12 +268,12 @@ func bubble(stri: String) -> void:
 
 
 func shade(opacity: float = 0.8) -> void:
-	var t = create_tween()
+	var t := create_tween()
 	t.tween_property(sprite, "modulate", Color(opacity, opacity, opacity, 1), 0.3)
 
 
 func unshade() -> void:
-	var t = create_tween()
+	var t := create_tween()
 	t.tween_property(sprite, "modulate", Color.WHITE, 0.3)
 
 
@@ -307,9 +307,9 @@ func hop(height: int = 12, time: float = 0.2):
 	await t.finished
 
 
-func jump_to(position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
+func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
 	BodyState = CUSTOM
-	await Global.jump_to_global(self, position, time, height, rumble)
+	await Global.jump_to_global(self, to_position, time, height, rumble)
 
 
 func change_sprite(id: String):

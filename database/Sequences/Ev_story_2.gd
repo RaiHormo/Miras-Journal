@@ -42,7 +42,7 @@ func nov3_enterSG():
 	Global.Player.camera_follow(false)
 	Global.location_name("Shard Gardens")
 	Global.Camera.position = Vector2(663, 241)
-	var t = create_tween().set_ease(Tween.EASE_IN_OUT)
+	var t := create_tween().set_ease(Tween.EASE_IN_OUT)
 	t.tween_property(Global.Camera, "position", Vector2(190, 84), 6)
 	await Event.wait(4)
 	Global.Player.collision(false)

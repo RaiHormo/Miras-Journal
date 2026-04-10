@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func ask_for_confirm(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
-	var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property($Bg, "modulate", Color(1, 1, 1, 0.8), 0.5).from(Color.TRANSPARENT)
 	t.tween_property($Panel, "scale:y", 1, 0.3).from(0)
 	show()

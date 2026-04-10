@@ -34,7 +34,7 @@ func draw_character(character: Actor):
 	%Equipped.get_child(0).grab_focus()
 	Global.confirm_sound()
 
-	var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	t.tween_property($Title, "modulate", Color.WHITE, 0.9).from(Color.TRANSPARENT)
 	t.tween_property($Title, "scale", Vector2.ONE, 0.9).from(Vector2(0.8, 0.8))
 	t.tween_property($Desc, "modulate", Color.WHITE, 0.8).from(Color.TRANSPARENT)
@@ -107,7 +107,7 @@ func refresh():
 		if i.get_meta("Ability") in chara.Complimentaries:
 			i.disabled = true
 		else: i.disabled = false
-	var t = create_tween().set_parallel().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUART)
+	var t := create_tween().set_parallel().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUART)
 	t.tween_property($Background, "self_modulate", chara.MainColor, 0.3)
 	for i in $Background.get_child_count():
 		if chara.Complimentaries.size() <= i:
@@ -167,7 +167,7 @@ func _on_back_pressed() -> void:
 			get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
 		Global.cancel_sound()
 
-		var t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+		var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 		t.tween_property($Title, "modulate", Color.TRANSPARENT, 0.3)
 		t.tween_property($Title, "scale", Vector2(0.8, 0.8), 0.3)
 		t.tween_property($Desc, "modulate", Color.TRANSPARENT, 0.3)

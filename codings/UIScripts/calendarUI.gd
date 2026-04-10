@@ -31,7 +31,7 @@ func confirm_time_passage(title: String, description: String, to_time: Event.TOD
 	get_tree().paused = true
 	PartyUI.show_all()
 	PartyUI.darken()
-	var t = create_tween()
+	var t := create_tween()
 	t.set_parallel()
 	t.set_trans(Tween.TRANS_QUART)
 	$Action.modulate = Color.TRANSPARENT

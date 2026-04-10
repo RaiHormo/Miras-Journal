@@ -4,8 +4,8 @@ extends Node
 func sl_maple_1():
 	await Loader.travel_to("Pyrson", Vector2(362, 778), 0, -1, "wait")
 	Event.no_player()
-	var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), "R")
-	var maple: NPC = await Event.spawn("Maple", Vector2(350, 778), "L")
+	await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), "R")
+	await Event.spawn("Maple", Vector2(350, 778), "L")
 	Event.zoom(5)
 	Loader.detransition("")
 	await Event.wait(1)

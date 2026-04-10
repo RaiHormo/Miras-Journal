@@ -5,9 +5,9 @@ class_name SubRoom
 @export var lock_cam := true
 @export var cam_pos: Vector2
 @export var cam_zoom: float = 4
-@export var cant_dash_inside = true
+@export var cant_dash_inside := true
 var Layers: Array[TileMapLayer]
-var t
+var t: Tween
 
 
 func _ready() -> void:
@@ -20,7 +20,7 @@ func _ready() -> void:
 			i.collision_enabled = false
 
 
-func transition(time := 0.3):
+func transition(time := 0.3) -> void:
 	Global.Area.CurSubRoom = self
 	show()
 	if is_instance_valid(t): t.kill()
@@ -44,7 +44,7 @@ func transition(time := 0.3):
 		i.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 
 
-func detransition():
+func detransition() -> void:
 	Global.Area.CurSubRoom = null
 	Global.Area.unfade()
 	Global.Area.setup_params(true)
@@ -61,7 +61,7 @@ func detransition():
 		Event.give_control(false)
 
 
-func fade_out():
+func fade_out() -> void:
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.tween_property(self, "modulate", Color.TRANSPARENT, 0.2)

@@ -96,10 +96,10 @@ func normal_mode():
 func init_steam():
 	if not Engine.has_singleton("Steam"):
 		return
-	var Steam = Engine.get_singleton("Steam")
+	var steam = Engine.get_singleton("Steam")
 	OS.set_environment("SteamAppId", str(AppID))
 	OS.set_environment("SteamGameId", str(AppID))
-	var initialize_response: Dictionary = Steam.steamInitEx(AppID)
+	var initialize_response: Dictionary = steam.steamInitEx(AppID)
 	print("Did Steam initialize?: %s " % initialize_response)
 	#Steam.inputInit()
 	#Steam.enableDeviceCallbacks()
@@ -108,15 +108,15 @@ func init_steam():
 		0:
 			print("Running with Steam")
 			UsingSteam = true
-			UserID = Steam.getSteamID32(Steam.getSteamID())
-			PlayerName = Steam.getPersonaName()
+			UserID = steam.getSteamID32(steam.getSteamID())
+			PlayerName = steam.getPersonaName()
 			print("User: ", PlayerName, " ", UserID)
 			#if Steam.isSteamRunningOnSteamDeck() and Settings.ControlSchemeEnum == 0:
 				#Settings.ControlSchemeEnum = 7
 				#Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
 			#print(Steam.getFriendPersonaName(Steam.getSteamID()))
 		1:
-			if not Steam.isSubscribed():
+			if not steam.isSubscribed():
 				if AppID == 4059970:
 					print("The user doesn't own the game, testing playtest")
 					AppID = 4063790
@@ -580,7 +580,7 @@ func portrait_clear() -> void:
 
 
 func fade_txt_background(alpha := 0.8):
-	var t = create_tween()
+	var t := create_tween()
 	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
 
 
@@ -656,8 +656,8 @@ func jump_to(character: Node, position: Vector2i, time: float = 5, height: float
 	await jump_to_global(character, Area.to_global(position), time, height)
 
 
-func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
-	if character == Player and rumble:
+func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, vibrate = true) -> void:
+	if character == Player and vibrate:
 		Global.rumble(0, abs(height) / 3, 0.06)
 	var t: Tween = create_tween()
 	var start = character.global_position
@@ -667,7 +667,7 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	var jump_time = jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
-	if character == Player and rumble:
+	if character == Player and vibrate:
 		Global.rumble(0, abs(height) / 2, 0.06)
 	anim_done.emit()
 
@@ -685,7 +685,7 @@ func heal_in_overworld(target: Actor, ab: Ability):
 
 
 func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2):
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	var dur = ShakeDuration / times
@@ -707,7 +707,7 @@ func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time = 0.
 	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
 	for i in repeat:
 		amount = ArbData0
-		var t = create_tween()
+		var t := create_tween()
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
 		t.tween_property(node, "position:x", amount, time).as_relative()

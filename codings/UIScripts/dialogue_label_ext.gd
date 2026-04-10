@@ -16,7 +16,7 @@ func type_out_with_sound(sound, freq, vari) -> void:
 			1: soundfreq *= 2
 			2:
 				soundfreq *= 10
-				sound(randf_range(0, 12))
+				play_sound(randf_range(0, 12))
 	type_out()
 
 
@@ -24,10 +24,10 @@ func _on_spoke(letter: String, letter_index: int, speed: float) -> void:
 	count += 1
 	if count >= soundfreq:
 		var letter_pitch = find_pitch(letter)
-		sound(letter_pitch)
+		play_sound(letter_pitch)
 
 
-func sound(letter_pitch: float):
+func play_sound(letter_pitch: float):
 	if letter_pitch != 0:
 		AudioPlayer.pitch_scale = remap(letter_pitch, 0, 12, -varience, varience) / 10 + 1
 		AudioPlayer.play()

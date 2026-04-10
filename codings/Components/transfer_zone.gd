@@ -7,14 +7,14 @@ class_name TransferZone
 @export var lock_camera := true
 
 
-func _on_entered(body):
+func _on_entered(body: Node2D) -> void:
 	if body == Global.Player:
 		if Global.Controllable or Global.Player.dashing or Global.Player.attacking:
 			proceed()
 
 
 func proceed() -> void:
-	var frame = Global.Player.sprite.frame
+	var frame := Global.Player.sprite.frame
 	Global.Player.camera_follow(false)
 	await Event.take_control(true, true)
 	Global.Player.collision(false)
@@ -24,11 +24,11 @@ func proceed() -> void:
 	await Loader.travel_to(room, Position, ToCamera)
 
 
-func _on_preview_exited(body):
+func _on_preview_exited(body: Node2D) -> void:
 	if body == Global.Player: $Cursor.hide()
 
 
-func _on_preview_entered(body):
+func _on_preview_entered(body: Node2D) -> void:
 	if body == Global.Player: $Cursor.hide()
 
 

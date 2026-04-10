@@ -38,6 +38,7 @@ func _ready():
 func add_char(b: NPC):
 	if List.has(b.ID) and is_instance_valid(List.get(b.ID)):
 		push_warning("Duplicate npc spawned: ", b.ID)
+		if is_instance_valid(List.get(b.ID)): return
 	List.set(b.ID, b)
 
 
@@ -74,7 +75,7 @@ func wait(time: float = 0, pausable := true) -> void:
 
 ##Tween an [NPC] to the specified coords (ignores all collision)
 func twean_to(pos: Vector2, time: float = 1, chara: String = "P"):
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(npc(chara), "global_position", Global.Area.map_to_local(pos), time)
@@ -82,7 +83,7 @@ func twean_to(pos: Vector2, time: float = 1, chara: String = "P"):
 
 
 func tween(object: Node, property: String, to: Variant, time = 0.3):
-	var t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property(object, NodePath(property), to, time)
@@ -244,10 +245,10 @@ func give_control(camera_follow := false, bring_followers := true):
 	Global.check_party.emit()
 
 
-func flag_int(str: String) -> int:
-	if str.is_valid_int(): return int(str)
-	if Flags.has(str) and Flags.get(str) is int:
-		return Flags.get(str)
+func flag_int(string: String) -> int:
+	if string.is_valid_int(): return int(string)
+	if Flags.has(string) and Flags.get(string) is int:
+		return Flags.get(string)
 	else: return 0
 
 
@@ -257,8 +258,8 @@ func flag_progress(stri: String, to := 1):
 		Flags.set(stri, max(flag_int(stri), to))
 
 
-func f_past(str: String, has_passed := 9) -> bool:
-	if flag_int(str) >= has_passed:
+func f_past(string: String, has_passed := 9) -> bool:
+	if flag_int(string) >= has_passed:
 		return true
 	else: return false
 
@@ -278,8 +279,8 @@ func skip_cutscene():
 		CutsceneHandler = dub
 
 
-func bubble(anim: String, npc: String):
-	npc(npc).bubble(anim)
+func bubble(animation: String, on_npc: String) -> void:
+	npc(on_npc).bubble(animation)
 
 
 ## Sets up a time change. Run time_transition() to properly move time
@@ -411,11 +412,11 @@ func zoom(val: float, maintain = false):
 
 ## An abstraction for setting the camera's position
 ## Set time to -1 to not use a tween but smoothing, set it to 0 to move it instantly
-func camera_move(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
+func camera_move(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
 	camera_unlock()
 	if time > 0:
 		Global.Camera.position_smoothing_enabled = false
-		var t = create_tween().set_ease(ease).set_trans(trans).set_parallel()
+		var t := create_tween().set_ease(easing).set_trans(trans).set_parallel()
 		t.tween_property(Global.Camera, "position", to, time)
 		await t.finished
 		Global.Camera.position_smoothing_enabled = true
@@ -428,8 +429,8 @@ func camera_move(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans
 
 
 ## Move the camera by adding to its current position
-func camera_move_relative(to: Vector2, time: float = -1, ease := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
-	await camera_move(Global.Camera.position + to, time, ease, trans)
+func camera_move_relative(to: Vector2, time: float = -1, easing := Tween.EASE_IN_OUT, trans := Tween.TRANS_QUAD):
+	await camera_move(Global.Camera.position + to, time, easing, trans)
 
 
 ## Make the camera not follow the player

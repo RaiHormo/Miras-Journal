@@ -410,7 +410,6 @@ func load_settings():
 	%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
 	%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
 	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
-	var setting = await Loader.load_res("user://Settings.res")
 
 
 func load_save_files():
@@ -571,7 +570,6 @@ func _on_save_delete() -> void:
 func _on_save_overwrite() -> void:
 	if stage != "save_managment": return
 	var panel = focus.get_parent()
-	var index = focus.get_index()
 	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
@@ -614,7 +612,6 @@ func _on_save_load() -> void:
 	if not panel is PanelContainer:
 		$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
 		return
-	var index = focus.get_index()
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 5

@@ -9,6 +9,8 @@ class_name JumpPoint
 @export var to_z: int = -1
 @export_flags_2d_physics var to_layers := 0
 var busy: bool = false
+@export var target: Sprite2D
+@export var timer: Timer
 
 
 func _ready() -> void:
@@ -27,9 +29,9 @@ func _physics_process(delta: float) -> void:
 				if ((jump_dirs.is_empty() or Global.Player.dashdir in jump_dirs) and Global.Player.dashdir == Query.get_direction(to_local(Global.Player.position) * -1 * jump_dirs[0])):
 					busy = true
 					#Global.Player.cant_bump = true
-					var t = create_tween()
+					var t := create_tween()
 					t.tween_property(Global.Player.get_node("Shadow"), "modulate:a", remap(height, 0, 0.5, 1, 0), 0.1)
-					var prev_z = Global.Player.z_index
+					var prev_z := Global.Player.z_index
 					Global.Player.BodyState = NPC.NONE
 					Global.Player.z_index += 10
 					Global.Controllable = false
@@ -63,6 +65,22 @@ func _physics_process(delta: float) -> void:
 						i.player_jumped = true
 					busy = false
 					Event.teleport_followers()
+			elif Global.Player.can_jump and not timer.is_stopped():
+				timer.start()
+
+
+func _on_timer_timeout() -> void:
+	jump_target_effect(position)
+
+
+func jump_target_effect(pos: Vector2) -> void:
+	var dub := target.duplicate()
+	dub.position = pos
+	dub.show()
+	var t := create_tween().set_parallel()
+	t.tween_property(dub, "scale", 2, 0.5)
+	await t.finished
+	dub.queue_free()
 
 
 func _on_body_exited(body: Node2D) -> void:

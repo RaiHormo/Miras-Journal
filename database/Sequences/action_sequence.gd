@@ -121,7 +121,7 @@ func handle_states():
 							Bt.damage(chara, true, true, 4, false, true, true, Colorizer.ElementColor.get("natural"))
 						var dmg = chara.DamageRecivedThisTurn
 						await $LeechGrab1.animation_finished
-						var t = create_tween()
+						t = create_tween()
 						t.set_ease(Tween.EASE_OUT)
 						t.set_trans(Tween.TRANS_QUART)
 						$LeechGrab1.play("LeechGrab2")
@@ -461,7 +461,7 @@ func CrystalHeal(target: Actor):
 		Bt.anim("Attack2")
 		await Event.wait(0.5)
 		Bt.focus_cam(CurrentChar)
-		await Bt.heal(target, CurrentChar.WeaponPower)
+		Bt.heal(target, CurrentChar.WeaponPower)
 		await Event.wait(0.5)
 		Bt.death(CurrentChar)
 		CurrentChar.node.hide()
@@ -1227,8 +1227,8 @@ func StoneGuardian2(target: Actor = CurrentChar):
 	if not CurrentChar.codename == "Alcine": return
 	Bt.ignore_end_turn = true
 	var guardian = Bt.get_actor("Guardian")
-	var mira = Global.Party.Leader
-	var alcine = Global.Party.Member1
+	#var mira := Global.Party.Leader
+	var alcine := Global.Party.Member1
 	Bt.CurrentChar = guardian
 	CurrentChar = guardian
 	#if mira.Health > 0:

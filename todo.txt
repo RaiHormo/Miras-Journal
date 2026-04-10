@@ -7,3 +7,4 @@ amberelm enemies off screen
 softlock during transfers
 wizard guy
 revive system
+properly implement journal
