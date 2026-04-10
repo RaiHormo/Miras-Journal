@@ -5,7 +5,7 @@ class_name NPC
 enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 
 ##Speed of movment
-@export var speed = 80
+@export var speed := 80
 ##Used to control the direction of the next movment
 @export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
@@ -82,7 +82,7 @@ func control_process() -> void:
 	BodyState = IDLE
 
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	#move_and_collide(Vector2.ZERO)
 	if Engine.is_editor_hint(): return
 	if get_tree().paused or Loader.InBattle:
@@ -107,16 +107,19 @@ func _physics_process(delta) -> void:
 			move_and_collide(velocity * delta)
 		NONE: return
 	if direction.length() > 0.2:
-		if get_node_or_null("DirectionMarker"):
-			set_dir_marker(direction)
+		var dir_marker:Marker2D = get_node_or_null("DirectionMarker")
+		if dir_marker:
+			set_dir_marker(direction, dir_marker)
 		if direction.length() > 0.05: Facing = Query.get_direction(direction)
 	update_anim_prm()
 
 
-func set_dir_marker(vec: Vector2 = direction):
+func set_dir_marker(vec: Vector2 = direction, dir_marker:Marker2D = null) -> void:
 	vec = vec.normalized()
-	$DirectionMarker.global_position = global_position + vec * 10
-	$DirectionMarker.rotation = direction.angle()
+	if not dir_marker:
+		dir_marker = $DirectionMarker	#maintain compat just in case this function is used elsewhere
+	dir_marker.global_position = global_position + vec * 10
+	dir_marker.rotation = direction.angle()
 
 
 func update_anim_prm() -> void:
@@ -145,12 +148,12 @@ func handle_step_sounds(for_sprite: AnimatedSprite2D) -> void:
 	for i in step_frames:
 		if i in for_sprite.animation: frames = step_frames.get(i)
 	if frames.has(for_sprite.frame):
-		var terrain = Global.Area.get_terrain(coords)
+		var terrain := Global.Area.get_terrain(coords)
 		if "Generic" == terrain: return
 		var rand: int
 		if sprite.frame == 0: rand = randi_range(1, 3)
 		else: rand = randi_range(4, 6)
-		var sound = terrain + str(rand)
+		var sound := terrain + str(rand)
 		#print(sprite.animation,sprite.frame)
 		if $StdrFootsteps.has_node(sound):
 			$StdrFootsteps.get_node(sound).play()
@@ -215,7 +218,7 @@ func pathfind_to(pos: Vector2, exact := true, autostop := true, look_dir: Vector
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos: Vector2, use_coords = false, autostop = false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
+func go_to(pos: Vector2, use_coords := false, autostop := false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
 	if self is Mira and Global.Player.controllable(): return
 	await stop_going()
 	if use_coords: pos = Query.globalize(pos)
@@ -234,7 +237,7 @@ func go_to(pos: Vector2, use_coords = false, autostop = false, look_dir: Variant
 	await Event.wait()
 
 
-func set_anim(anim: String, wait = false, overwrite_state = false):
+func set_anim(anim: String, wait := false, overwrite_state := false) -> void:
 	if overwrite_state: BodyState = CUSTOM
 	if is_instance_valid(sprite) and sprite.sprite_frames.has_animation(anim):
 		sprite.play(anim)
@@ -277,29 +280,30 @@ func unshade() -> void:
 	t.tween_property(sprite, "modulate", Color.WHITE, 0.3)
 
 
-func collision(tog: bool = $CollisionShape2D.disabled):
+func collision(tog: bool = $CollisionShape2D.disabled) -> void:
 	$CollisionShape2D.set_deferred("disabled", not tog)
 
 
-func attacked():
+#FIXME
+func attacked() -> void:
 	pass
 
 
-func chain_moves(moves: Array[Vector2]):
+func chain_moves(moves: Array[Vector2]) -> void:
 	for i in moves:
 		if Loader.InBattle:
 			await Event.wait()
 		await move_dir(i)
 
 
-func chain_positions(moves: Array[Vector2]):
+func chain_positions(moves: Array[Vector2]) -> void:
 	for i in moves:
 		if Loader.InBattle:
 			await Event.wait()
 		await go_to(i)
 
 
-func hop(height: int = 12, time: float = 0.2):
+func hop(height: int = 12, time: float = 0.2) -> void:
 	BodyState = CUSTOM
 	var t: Tween = create_tween()
 	t.tween_property(self, "position:y", -height, time / 2).as_relative()
@@ -307,10 +311,10 @@ func hop(height: int = 12, time: float = 0.2):
 	await t.finished
 
 
-func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble = true) -> void:
+func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble := true) -> void:
 	BodyState = CUSTOM
 	await Global.jump_to_global(self, to_position, time, height, rumble)
 
 
-func change_sprite(id: String):
+func change_sprite(id: String) -> void:
 	get_node("Sprite").sprite_frames = await Event.get_ov_sprites(id)
