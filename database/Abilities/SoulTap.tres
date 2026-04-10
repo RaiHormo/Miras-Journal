@@ -14,6 +14,7 @@ name = "Soul Tap"
 description = "Deals slight Spiritual damage"
 Icon = SubResource("AtlasTexture_58tg3")
 ActionSequence = &"SoulTap"
+Types = Array[int]([1])
 InflictsState = "Confused"
 AuraCost = 3
 Damage = 1

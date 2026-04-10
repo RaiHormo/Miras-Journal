@@ -14,6 +14,7 @@ name = "Toxic Splash"
 description = "Deals slight Corruption damage, with a chance of poisoning the target."
 Icon = SubResource("AtlasTexture_jd2xk")
 ActionSequence = &"ToxicSplash"
+Types = Array[int]([4, 1])
 InflictsState = "Poisoned"
 AuraCost = 5
 Damage = 1

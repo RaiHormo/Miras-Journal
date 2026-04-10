@@ -14,6 +14,7 @@ name = "AOE Attack"
 description = "Weapon damage to all enemies. Chance to miss for each one."
 Icon = SubResource("AtlasTexture_hfqm4")
 ActionSequence = &"AOEAttack"
+Types = Array[int]([1])
 Damage = 6
 Target = 2
 ColorSameAsActor = true

@@ -8,6 +8,7 @@ script = ExtResource("2_h54ts")
 name = "Dispel"
 description = "Remove one random state from any target."
 ActionSequence = &"Dispel"
+Types = Array[int]([17])
 Group = "Linde"
 InflictsState = "Dispel"
 AuraCost = 10

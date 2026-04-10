@@ -15,7 +15,7 @@ description = "Chance of soaking each enemy.
 Deals a bit Liquid damage to already soaked enemies."
 Icon = SubResource("AtlasTexture_g1hb7")
 ActionSequence = &"Humidity"
-Type = "BigAttack"
+Types = Array[int]([2])
 InflictsState = "Soaked"
 AuraCost = 12
 Damage = 1

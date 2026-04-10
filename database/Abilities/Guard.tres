@@ -14,5 +14,5 @@ name = "Aura Guard"
 description = "The user protects themself for a turn. If hit while the guard is up they gain AP."
 Icon = SubResource("AtlasTexture_my8qp")
 ActionSequence = &"Guard"
-Type = "Defensive"
+Types = Array[int]([3])
 ColorSameAsActor = true

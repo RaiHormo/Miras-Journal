@@ -14,6 +14,6 @@ name = "Summon"
 description = "Chance to summon a new ally into battle"
 Icon = SubResource("AtlasTexture_rm0qg")
 ActionSequence = &"Summon"
-Type = "Summon"
+Types = Array[int]([6])
 AuraCost = 5
 SucessChance = 0.5

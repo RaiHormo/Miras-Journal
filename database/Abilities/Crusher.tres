@@ -15,6 +15,7 @@ name = "Crusher"
 description = "Medium Technical damage to one target."
 Icon = SubResource("AtlasTexture_nflkd")
 ActionSequence = &"Crusher"
+Types = Array[int]([1])
 Group = "TechnicalAttack"
 AuraCost = 5
 Damage = 2

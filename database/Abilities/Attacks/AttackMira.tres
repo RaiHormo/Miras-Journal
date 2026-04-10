@@ -14,6 +14,7 @@ name = "Axe Swing"
 description = "A fairly reliable attack that deals damage with a low chance of missing."
 Icon = SubResource("AtlasTexture_ibuoa")
 ActionSequence = &"AttackMira"
+Types = Array[int]([1])
 Damage = 6
 Target = 1
 ColorSameAsActor = true

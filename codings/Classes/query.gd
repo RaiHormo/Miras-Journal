@@ -182,17 +182,10 @@ static func to_tod_icon(x: Event.TOD) -> Texture:
 
 
 static func range_360(n1: int, n2: int) -> Array[int]:
-	if n2 > 359:
-		var range1 := range(n1, 359)
-		var range2 := range(0, n2 - 359)
-		range1.append_array(range2)
-		return range1
-	elif n1 < 0:
-		var range1 := range(0, n2)
-		var range2 := range(359 + n1, 359)
-		range2.append_array(range1)
-		return range2
-	else: return range(n1, n2)
+	var result: Array[int] = []
+	for i in range(n2 - n1):
+		result.append(posmod(n1 + i, 360))
+	return result
 
 
 static func make_array_unique(arr: Array) -> void:

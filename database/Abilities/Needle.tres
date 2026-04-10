@@ -14,6 +14,7 @@ name = "Needle"
 description = "Deals slight Physical damage, with a very low chance of missing."
 Icon = SubResource("AtlasTexture_4gp2s")
 ActionSequence = &"Needle"
+Types = Array[int]([1])
 AuraCost = 2
 Damage = 1
 Target = 1

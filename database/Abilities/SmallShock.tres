@@ -14,6 +14,7 @@ name = "Small Shock"
 description = "Deals slight Electric damage, with a chance of zapping the target. Small chance to miss"
 Icon = SubResource("AtlasTexture_hj84y")
 ActionSequence = &"SmallShock"
+Types = Array[int]([1, 4])
 InflictsState = "Zapped"
 AuraCost = 5
 Damage = 1

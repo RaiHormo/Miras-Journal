@@ -14,6 +14,7 @@ name = "Close-up Attack"
 description = "Deals damage to one target with a low chance of missing."
 Icon = SubResource("AtlasTexture_q46ei")
 ActionSequence = &"CloseupAttack"
+Types = Array[int]([1])
 Damage = 6
 Target = 1
 ColorSameAsActor = true

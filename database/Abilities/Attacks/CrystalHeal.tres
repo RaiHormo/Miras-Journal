@@ -14,5 +14,6 @@ name = "Crystal Heal"
 description = "Heals an ally and destroys the user."
 Icon = SubResource("AtlasTexture_2k873")
 ActionSequence = &"CrystalHeal"
+Types = Array[int]([1])
 Callout = false
 metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

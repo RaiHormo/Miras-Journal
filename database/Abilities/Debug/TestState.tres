@@ -9,7 +9,7 @@ name = "Inflict "
 description = "This one exists for testing purposes. 
 Inflicts said state."
 ActionSequence = &"TestState"
-Type = "Curse"
+Types = Array[int]([4])
 Group = "TestState"
 Target = 5
 metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

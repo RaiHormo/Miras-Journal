@@ -15,5 +15,6 @@ name = "Anything Goes"
 description = "Hue-Shift to a random color."
 Icon = SubResource("AtlasTexture_v3k0o")
 ActionSequence = &"AnythingGoes"
+Types = Array[int]([16])
 InflictsState = "AuraOverwrite"
 metadata/_custom_type_script = "uid://bw7ek8s0r2iwu"

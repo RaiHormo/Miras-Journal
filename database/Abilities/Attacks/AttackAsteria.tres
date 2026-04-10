@@ -14,6 +14,7 @@ name = "Scarf Slice"
 description = "The part that hurts is the magic surrounding it. Hits 3 times, each can miss or be critical."
 Icon = SubResource("AtlasTexture_lnv5i")
 ActionSequence = &"AttackAsteria"
+Types = Array[int]([1])
 Damage = 6
 Target = 1
 WheelColor = Color(0.878431, 0.45098, 0.854902, 1)
