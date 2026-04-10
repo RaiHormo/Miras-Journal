@@ -154,7 +154,7 @@ func f(flag: StringName) -> bool:
 	if "+" in flag:
 		# Recursively call this function for each expression,
 		# and return false if any of them is false
-		var split = flag.split("+")
+		var split := flag.split("+")
 		for i in split:
 			if not f(i): return false
 		return true
@@ -163,7 +163,7 @@ func f(flag: StringName) -> bool:
 	if "||" in flag:
 		# Recursively call this function for each expression,
 		# and return true if any of them is true
-		var split = flag.split("||")
+		var split := flag.split("||")
 		for i in split:
 			if f(i): return true
 		return false
@@ -174,31 +174,31 @@ func f(flag: StringName) -> bool:
 
 	# For greater or equal expression
 	if ">=" in flag:
-		var split = flag.split(">=")
+		var split := flag.split(">=")
 		return f(
 			flag.replace(split[0] + ">=" + split[1], str(flag_int(split[0]) >= flag_int(split[1])))
 		)
 	# For greater expression
 	if ">" in flag:
-		var split = flag.split(">")
+		var split := flag.split(">")
 		return f(
 			flag.replace(split[0] + ">" + split[1], str(flag_int(split[0]) > flag_int(split[1])))
 		)
 	# For less or equal expression
 	if "<=" in flag:
-		var split = flag.split("<=")
+		var split := flag.split("<=")
 		return f(
 			flag.replace(split[0] + "<=" + split[1], str(flag_int(split[0]) <= flag_int(split[1])))
 		)
 	# For lesser expression
 	if "<" in flag:
-		var split = flag.split("<")
+		var split := flag.split("<")
 		return f(
 			flag.replace(split[0] + "<" + split[1], str(flag_int(split[0]) < flag_int(split[1])))
 		)
 	# For not equals expression
 	if "!=" in flag:
-		var split = flag.split("=")
+		var split := flag.split("=")
 		return f(
 			flag.replace(
 				split[0] + "!=" + split[1],
@@ -207,7 +207,7 @@ func f(flag: StringName) -> bool:
 		)
 	# For equals expression
 	if "=" in flag:
-		var split = flag.split("=")
+		var split := flag.split("=")
 		return f(
 			flag.replace(
 				split[0] + "=" + split[1],
