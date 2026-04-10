@@ -11,7 +11,7 @@ static var ElementColor: Dictionary[String, Color] = {
 
 
 static func colorize(string: String) -> String:
-	for i in ElementColor.keys():
+	for i: String in ElementColor.keys():
 		var elname: String = i
 		#str = colorize_replace(elname, str, i)
 		string = string.replace("[color=%" + i + "]", "[color=" + ElementColor.get(i).to_html() + "]")
@@ -24,7 +24,7 @@ static func colorize(string: String) -> String:
 
 
 static func colorize_explicit(stri: String) -> String:
-	for elname in ElementColor.keys():
+	for elname: String in ElementColor.keys():
 		if "[color=%" + elname + "]" in stri:
 			var color: Color = ElementColor.get(elname)
 			color.v = min(color.v, 0.8)
@@ -32,7 +32,7 @@ static func colorize_explicit(stri: String) -> String:
 	return stri
 
 
-static func colorize_replace(elname, stri: String, i) -> String:
+static func colorize_replace(elname: String, stri: String, i: String) -> String:
 	if elname in stri:
 		var hex: String = ElementColor[i].to_html()
 		var hex_out: String = (ElementColor[i] / 3).to_html()

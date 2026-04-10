@@ -14,7 +14,7 @@ class_name BattleEvent
 @export var low_hp: int = -1
 @export var low_ap: int = -1
 @export_group("Result")
-@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory", "Defeat Others") var result = 0
+@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory", "Defeat Others") var result := 0
 ##Used as text file for dialog, function name for call function, move type for force move
 @export var parameter1: String = ""
 ##Used as node name for dialog
@@ -28,7 +28,7 @@ var ran_this_turn := false
 
 
 func check() -> bool:
-	var actore = Global.Bt.get_actor(actor)
+	var actore := Global.Bt.get_actor(actor)
 	if ran_this_turn: return false
 	if not is_instance_valid(Global.Bt): return false
 	if not flag.is_empty() and Event.check_flag(flag) != flag_should_be:
@@ -66,7 +66,7 @@ func run() -> void:
 			2: Global.textbox(parameter1, parameter2)
 			3:
 				if parameter1 == "": parameter1 = "Ability"
-				var actor_data = Global.Bt.get_actor(actor)
+				var actor_data := Global.Bt.get_actor(actor)
 				actor_data.NextAction = parameter1
 				actor_data.NextMove = resource
 				print("Forcing ", resource.name, " on ", actor)
@@ -77,7 +77,7 @@ func run() -> void:
 				Global.Bt.victory()
 			5:
 				print("Defeating everyone but ", actor)
-				var actor_data = Global.Bt.get_actor(actor, true)
+				var actor_data := Global.Bt.get_actor(actor, true)
 				if actor_data != null and actor_data.IsEnemy:
 					for i in Global.Bt.Troop:
 						if actor_data != i:

@@ -24,7 +24,7 @@ class_name BattleSequence
 @export var Events: Array[BattleEvent] = []
 
 
-func call_events():
+func call_events() -> void:
 	for i in Events:
 		if i.check():
 			await i.run()
@@ -36,7 +36,7 @@ func check_events() -> bool:
 	return false
 
 
-func reset_events(force := false):
+func reset_events(force := false) -> void:
 	for i in Events:
 		if i == null:
 			push_error("There's a null battle event, you better remove that")

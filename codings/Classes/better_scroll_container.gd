@@ -9,7 +9,7 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(scroll_to_focus)
 
 
-func scroll_to_focus(foc: Control):
+func scroll_to_focus(foc: Control) -> void:
 	if foc.get_parent() != get_child(0):
 		if foc.get_parent() is not Control: return
 		foc = foc.get_parent()
@@ -22,7 +22,7 @@ func scroll_to_focus(foc: Control):
 		scroll_to(int(foc.position.y - size.y / 2))
 
 
-func scroll_to(to: int, axis: StringName = &"v"):
+func scroll_to(to: int, axis: StringName = &"v") -> void:
 	if is_instance_valid(t): t.kill()
 	to = max(0, to)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -32,8 +32,8 @@ func scroll_to(to: int, axis: StringName = &"v"):
 	t.tween_property(self, property, to, 0.3)
 
 
-func scroll_by(amount: int, axis: StringName = &"v"):
-	var property = "scroll_vertical"
+func scroll_by(amount: int, axis: StringName = &"v") -> void:
+	var property := "scroll_vertical"
 	if axis == &"h":
 		property = "scroll_horizontal"
 	scroll_to(get(property) + amount)
