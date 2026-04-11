@@ -3,24 +3,24 @@ class_name Ability
 
 ## Ability type
 enum TP {
-	Unset = 0,
-	CheapAttack = 1,
-	BigAttack = 2,
-	Defensive = 3,
-	Curse = 4,
-	Healing = 5,
-	Summon = 6,
-	Aggro = 7,
-	AtkBuff = 8,
-	MagBuff = 9,
-	DefBuff = 10,
-	AtkNerf = 11,
-	MagNerf = 12,
-	DefNerf = 13,
-	SpeedChange = 14,
-	FollowUp = 15,
-	ColorChange = 16,
-	StateRecovery = 17,
+	UNSET = 0,
+	CHEAP_ATTACK = 1,
+	BIG_ATTACK = 2,
+	DEFENSIVE = 3,
+	CURSE = 4,
+	HEALING = 5,
+	SUMMON = 6,
+	AGGRO = 7,
+	ATK_BUFF = 8,
+	MAG_BUFF = 9,
+	DEF_BUFF = 10,
+	ATK_NERF = 11,
+	MAG_NERF = 12,
+	DEF_NERF = 13,
+	SPEED_CHANGE = 14,
+	FOLLOW_UP = 15,
+	COLOR_CHANGE = 16,
+	STATE_RECOVERY = 17,
 }
 
 ## Damage type
@@ -33,7 +33,7 @@ enum T { SELF = 0, ONE_ENEMY = 1, AOE_ENEMIES = 2, ONE_ALLY = 3, AOE_ALLIES = 4,
 @export_multiline var description: String
 @export var Icon: Texture = preload("res://art/Icons/Items.tres")
 @export var ActionSequence: StringName = &"Default"
-@export var Types: Array[TP] = [TP.Unset]
+@export var Types: Array[TP] = [TP.UNSET]
 @export var Group: String = ""
 @export var InflictsState: String = ""
 @export var AuraCost: int
