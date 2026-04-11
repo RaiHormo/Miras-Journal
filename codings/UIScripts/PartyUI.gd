@@ -1,11 +1,11 @@
 extends Control
 
-signal expand(i)
+signal expand(i: int)
 signal shrink
 
 ## Are the party boxes in the expanded state?
 var Expanded: bool = false
-var held = false
+var held := false
 ## Currently focused box
 var focus: int = 0
 ## If the HUD should be visible
@@ -21,39 +21,39 @@ var UIvisible: bool = false:
 					show_all()
 			else:
 				hide_all()
-var inactive = false
+var inactive := false
 ## To remember if it should or shouldn't unpause the game after exiting
-var WasPaused = false
+var WasPaused := false
 ## The state where a member is being chosen from the menu to use an item
-var MemberChoosing = false
+var MemberChoosing := false
 ## Actors to level up when preform_levelups runs
 var LevelupChain: Array[String] = []
 ## Prevent the party ui from appearing at all
-var disabled = true
+var disabled := true
 ## A submenu (like the stats screen) is open
 var submenu_opened := false
 var line_to_be_used: String
 var nametag_to_be_used: String
-var was_controllable = false
+var was_controllable := false
 ## Where each partybox should be placed
 var def_pos_partybox: Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
 
-@onready var Partybox = %Partybox
+@onready var Partybox: VBoxContainer = %Partybox
 @onready var t: Tween
 
 
-func _ready():
+func _ready() -> void:
 	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
 	$CanvasLayer/Cursor.hide()
 	for i in range(1, 4):
-		var page = %Pages/Page0.duplicate()
+		var page: TextureRect = %Pages/Page0.duplicate()
 		page.name = "Page" + str(i)
 		page.z_index = 3 - i
 		%Pages.add_child(page)
 	%Partybox/Member1.show()
 	for i in range(2, 4):
-		var box = %Partybox/Member1.duplicate()
+		var box: Panel = %Partybox/Member1.duplicate()
 		box.name = "Member" + str(i)
 		Partybox.add_child(box)
 	UIvisible = false
@@ -61,7 +61,7 @@ func _ready():
 	Global.check_party.emit()
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	## Hide the hud when disabled
 	if disabled and UIvisible: UIvisible = false
 
@@ -84,7 +84,7 @@ func _process(delta):
 
 
 ## Shows the Partyboxes
-func show_all(except_date := false, animate := true):
+func show_all(except_date := false, animate := true) -> void:
 	if disabled: return
 	if is_instance_valid(Global.Player) and Global.Settings.AutoHideHUD == 1 and Global.Player.move_frames > 0: return
 	if not UIvisible: UIvisible = true
@@ -101,7 +101,7 @@ func show_all(except_date := false, animate := true):
 	# Iterate through the boxes
 	for i in range(0, 4):
 		# The Leader gets position 0 since its bigger
-		var pos = 0 if i == 0 else -70
+		var pos: int = 0 if i == 0 else -70
 		## Animate or set the X position always
 		if animate:
 			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -115,7 +115,7 @@ func show_all(except_date := false, animate := true):
 
 
 ## Hides the partyboxes
-func hide_all(animate = true):
+func hide_all(animate := true) -> void:
 	if UIvisible: UIvisible = false
 	if animate:
 		t = create_tween()
@@ -130,7 +130,7 @@ func hide_all(animate = true):
 			Partybox.get_child(i).position.x = -250
 
 
-func _check_party():
+func _check_party() -> void:
 	if not Global.Party: return
 	if not is_instance_valid(Global.Party.Leader): return
 	if Event.check_flag("DisableMenus"): disabled = true
@@ -144,7 +144,7 @@ func _check_party():
 			Partybox.get_node("Member" + str(i)).hide()
 
 
-func _input(ev):
+func _input(event: InputEvent) -> void:
 	if (
 		(Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
 		and "Idle" in Global.Player.sprite.animation) and not Expanded and not $CanvasLayer/TextEdit.visible
@@ -189,7 +189,7 @@ func _input(ev):
 		#Global.check_party.emit()
 
 
-func darken(toggle := true):
+func darken(toggle := true) -> void:
 	#print(toggle)
 	t = create_tween().set_parallel()
 	if toggle:
@@ -207,7 +207,7 @@ func darken(toggle := true):
 			darken(false)
 
 
-func _on_expand(open_ui = 0):
+func _on_expand(open_ui := 0) -> void:
 	#Engine.time_scale = 0.1
 	Global.check_party.emit()
 	inactive = true
@@ -275,17 +275,17 @@ func _on_expand(open_ui = 0):
 	inactive = false
 
 
-func expand_panel(Pan: Panel, mem := 0):
+func expand_panel(Pan: Panel, mem := 0) -> void:
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	#values if not leader
-	var icon_pos = Vector2(37, 50)
-	var lv_pos = Vector2(140, 80)
-	var hp_pos = Vector2(75, 41)
-	var au_pos = Vector2(75, 46)
-	var nam_pos = Vector2(81, 14)
+	var icon_pos := Vector2(37, 50)
+	var lv_pos := Vector2(140, 80)
+	var hp_pos := Vector2(75, 41)
+	var au_pos := Vector2(75, 46)
+	var nam_pos := Vector2(81, 14)
 	#values if leader
 	if mem == 0:
 		icon_pos = Vector2(37, 45)
@@ -319,7 +319,7 @@ func expand_panel(Pan: Panel, mem := 0):
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 60, 0.4)
 
 
-func _on_shrink(hurry_up := false):
+func _on_shrink(hurry_up := false) -> void:
 	inactive = true
 	Expanded = false
 	Partybox.show()
@@ -358,18 +358,18 @@ func _on_shrink(hurry_up := false):
 	Global.check_party.emit()
 
 
-func shrink_panel(Pan: Panel, mem = 0, time := 0.4):
+func shrink_panel(Pan: Panel, mem := 0, time := 0.4) -> void:
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)
 	#values if not leader
-	var icon_pos = Vector2(114, 54)
-	var lv_pos = Vector2(160, 76)
-	var hp_pos = Vector2(159, 30)
-	var au_pos = Vector2(159, 43)
-	var bar_size = Vector2(54, 22)
-	var nam_pos = Vector2(150, 14)
+	var icon_pos := Vector2(114, 54)
+	var lv_pos := Vector2(160, 76)
+	var hp_pos := Vector2(159, 30)
+	var au_pos := Vector2(159, 43)
+	var bar_size := Vector2(54, 22)
+	var nam_pos := Vector2(150, 14)
 	#values if leader
 	if mem == 0:
 		icon_pos = Vector2(44, 44)
@@ -399,7 +399,7 @@ func shrink_panel(Pan: Panel, mem = 0, time := 0.4):
 		#t.tween_property(Pan, "position:y", CursorPosition[mem].y - 120, 0.4)
 
 
-func handle_ui():
+func handle_ui() -> void:
 	if disabled or !UIvisible: Expanded = false; return
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus + 1):
@@ -423,7 +423,7 @@ func handle_ui():
 			Global.buzzer_sound()
 
 
-func focus_now():
+func focus_now() -> void:
 	inactive = true
 	t.kill()
 	t = create_tween()
@@ -466,7 +466,7 @@ func focus_now():
 	inactive = false
 
 
-func battle_state(from := false):
+func battle_state(from := false) -> void:
 	if not Loader.InBattle: $CanvasLayer.hide(); return
 	$CanvasLayer.show()
 	$CanvasLayer/Cursor.hide()
@@ -503,7 +503,7 @@ func battle_state(from := false):
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
 
-func save_box_positions():
+func save_box_positions() -> void:
 	for i in range(0, 4):
 		var box: Control = Partybox.get_child(i)
 		if i == 0 or box.position.y > 100:
@@ -514,11 +514,11 @@ func get_cursor_pos(index: int) -> Vector2:
 	return Vector2(400, %Partybox.get_child(index).global_position.y + 50)
 
 
-func _on_battle_ui_root():
+func _on_battle_ui_root() -> void:
 	battle_state()
 
 
-func only_current():
+func only_current() -> void:
 	t = create_tween()
 	t.set_parallel(true)
 	for i in range(0, 4):
@@ -530,7 +530,7 @@ func only_current():
 			t.tween_property(Partybox.get_child(i), "position:x", -400, 0.2)
 
 
-func check_member(mem: Actor, node: Panel, ind):
+func check_member(mem: Actor, node: Panel, ind: int) -> void:
 	if not is_instance_valid(mem): return
 	t = create_tween()
 	t.set_parallel()
@@ -538,7 +538,7 @@ func check_member(mem: Actor, node: Panel, ind):
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
 	if UIvisible and not Expanded: node.position.y = def_pos_partybox[ind].y
-	var txt_color = mem.MainColor
+	var txt_color := mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
 	get_node("%Pages/Page" + str(ind) + "/Label").add_theme_color_override("font_color", txt_color)
 	get_node("%Pages/Page" + str(ind) + "/Label").text = mem.FirstName + " " + mem.LastName
@@ -566,7 +566,7 @@ func check_member(mem: Actor, node: Panel, ind):
 	await check_for_levelups(mem, node)
 
 
-func check_for_levelups(mem: Actor, node: Panel):
+func check_for_levelups(mem: Actor, node: Panel) -> void:
 	if mem.SkillCurve == null: return
 	t = create_tween()
 	t.set_parallel()
@@ -597,22 +597,22 @@ func check_for_levelups(mem: Actor, node: Panel):
 func make_shadow(texture: Texture2D) -> Texture2D:
 	var old_image := texture.get_image()  #// Gets the image from the old texture.
 	var old_size := old_image.get_size()  #// Gets the size of the image as a Vector2i
-	var image = old_image.duplicate()
+	var image := old_image.duplicate()
 	#// Gets a new image, identical to the old one.
 	#// Resizes the image, to one fifth of the original. Tweak this a lot depending on use, obviously.
 	image.resize(old_size.x / 20, old_size.y / 20)
 	#// We make a new ImageTexture (similar to any other StandardTexture2D) from our image and...
-	var new_texture = ImageTexture.create_from_image(image)
+	var new_texture := ImageTexture.create_from_image(image)
 	return new_texture  #// Set it as out texture.
 
 
-func draw_bar(mem: Actor, node: Panel):
+func draw_bar(mem: Actor, node: Panel) -> void:
 	node.get_node("Health/HpText").add_theme_color_override("font_color", mem.AuraDefault if mem.has_state("AuraOverwrite") else mem.MainColor)
 	node.get_node("Aura/ApText").add_theme_color_override("font_color", mem.SecondaryColor)
 	var hbox: StyleBoxFlat = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = mem.AuraDefault if mem.has_state("AuraOverwrite") else mem.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
-	var abox = node.get_node("Aura").get_theme_stylebox("fill")
+	var abox: StyleBoxFlat = node.get_node("Aura").get_theme_stylebox("fill")
 	abox.bg_color = mem.SecondaryColor
 	node.get_node("Aura").add_theme_stylebox_override("fill", abox.duplicate())
 	var bord1: StyleBoxFlat = node.get_node("Border1").get_theme_stylebox("panel")
@@ -626,7 +626,7 @@ func draw_bar(mem: Actor, node: Panel):
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 
-func choose_member():
+func choose_member() -> void:
 	if not Item.get_node("ItemEffect").item: return
 	_on_expand(1)
 	UIvisible = true
@@ -648,7 +648,7 @@ func choose_member():
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 
 
-func _on_item_preview_pressed():
+func _on_item_preview_pressed() -> void:
 	if (Item.get_node("ItemEffect").item.Quantity != 0 and
 	Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP):
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
@@ -660,12 +660,12 @@ func _on_item_preview_pressed():
 
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD = Event.ToTime) -> bool:
-	var awnser = await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
+	var awnser: bool = await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
 	if awnser and is_instance_valid(Global.Player): await Loader.save()
 	return awnser
 
 
-func cmd(cmd_text = ""):
+func cmd(cmd_text := "") -> void:
 	Event.add_flag("DisableMenus", false)
 	PartyUI.disabled = false
 	show_all()
@@ -684,13 +684,13 @@ func cmd(cmd_text = ""):
 			elif "/cam" in cmd_text:
 				Global.Player.camera_follow()
 			elif "/day " in cmd_text:
-				var text = cmd_text.replace("/day ", "")
+				var text := cmd_text.replace("/day ", "")
 				Event.Day = int(text)
 			elif "/time " in cmd_text:
-				var text = cmd_text.replace("/time ", "")
-				Event.TimeOfDay = text as Event.TOD
+				var text := cmd_text.replace("/time ", "")
+				Event.TimeOfDay = text.to_int() as Event.TOD
 			elif "/comp " in cmd_text:
-				var text = cmd_text.replace("/comp ", "")
+				var text := cmd_text.replace("/comp ", "")
 				Global.add_complimentary(text)
 			elif "/enrestore" in cmd_text:
 				Loader.Defeated.clear()
@@ -700,7 +700,7 @@ func cmd(cmd_text = ""):
 				Event.time_transition()
 			elif "/lv " in cmd_text:
 				Global.reset_all_members()
-				var text = cmd_text.replace("/lv ", "")
+				var text := cmd_text.replace("/lv ", "")
 				for i in Global.Party.array():
 					if i != null:
 						i.level_up_to(int(text))
@@ -708,20 +708,20 @@ func cmd(cmd_text = ""):
 				Global.check_party.emit()
 			elif "/item " in cmd_text:
 				var text: String = cmd_text.replace("/item ", "")
-				var split = text.split(":")
+				var split := text.split(":")
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
 				Item.add_item(split[0], split[1])
 			elif "/itemrm " in cmd_text:
 				var text: String = cmd_text.replace("/itemrm ", "")
-				var split = text.split(":")
+				var split := text.split(":")
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
 				Item.remove_item(split[0], split[1])
 		elif cmd_text != "":
-			var text = cmd_text
+			var text := cmd_text
 			Event.add_flag(text, !Event.check_flag(text))
 			if not "=" in text:
 				Global.toast("Flag \"" + text + "\" set to "
@@ -730,7 +730,7 @@ func cmd(cmd_text = ""):
 		Global.Controllable = true
 
 
-func party_menu():
+func party_menu() -> void:
 	if Loader.InBattle == false and is_instance_valid(Global.Player) and not Global.Player.dashing and not MemberChoosing and Global.Controllable and not inactive:
 		if disabled:
 			Global.buzzer_sound()
@@ -740,7 +740,7 @@ func party_menu():
 			Global.confirm_sound()
 
 
-func main_menu():
+func main_menu() -> void:
 	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.check_flag("DisableMenus"):
 		if Global.Player.move_frames > -10:
 			await Event.wait(0.3, false)
@@ -751,7 +751,7 @@ func main_menu():
 			Global.Player.bag_anim()
 			Global.Controllable = false
 			get_tree().paused = true
-			var menu = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
+			var menu: PackedScene = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
 			if get_tree().root.get_node_or_null("Options") == null:
 				get_tree().root.add_child(menu.instantiate())
 			else:
@@ -762,7 +762,7 @@ func main_menu():
 	elif Global.Controllable: Global.buzzer_sound()
 
 
-func cycle_states(chara: Actor, rect: TextureRect, reclude := true):
+func cycle_states(chara: Actor, rect: TextureRect, reclude := true) -> void:
 	if chara.States.is_empty(): rect.texture = null
 	elif chara.States.size() == 1: rect.texture = chara.States[0].icon
 	else:
@@ -774,7 +774,7 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude := true):
 	rect.show()
 
 
-func details():
+func details() -> void:
 	if Expanded and not submenu_opened:
 		await Global.member_details(Global.Party.array()[focus])
 		submenu_opened = true
@@ -796,7 +796,7 @@ func abilities() -> void:
 		Partybox.hide()
 
 
-func back():
+func back() -> void:
 	if not MemberChoosing and Expanded and not inactive and not Loader.InBattle:
 		if not submenu_opened:
 			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
@@ -810,7 +810,7 @@ func back():
 				get_tree().root.get_node("MainMenu").move_root()
 
 
-func close_submenu():
+func close_submenu() -> void:
 	Partybox.show()
 	get_node("CanvasLayer/Pages/Page" + str(focus) + "/Render").show()
 	$CanvasLayer/Back.show()
@@ -824,7 +824,7 @@ func talk() -> void:
 	var dialog: DialogueResource
 	dialog = load("res://database/Text/talk_" + Global.Party.array()[focus].codename.to_lower() + ".dialogue")
 	if not dialog: Global.buzzer_sound(); return
-	var key = "d" + str(Event.Day) + "_" + str(Event.flag_int(Global.Party.array()[focus].codename + "Talk"))
+	var key: String = "d" + str(Event.Day) + "_" + str(Event.flag_int(Global.Party.array()[focus].codename + "Talk"))
 	if not key in dialog.get_titles(): key = "error"
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
 	nametag_to_be_used = (await dialog.get_next_dialogue_line(key)).character
@@ -833,12 +833,12 @@ func talk() -> void:
 	close_submenu()
 
 
-func preform_levelups():
+func preform_levelups() -> void:
 	var scenepack: PackedScene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn"))
 	if Global.Bt: Loader.hide_victory_stuff()
 	for i in LevelupChain:
 		var mem: Actor = Query.find_member(i.split(":", false)[0])
-		var scene = scenepack.instantiate()
+		var scene: Node = scenepack.instantiate()
 		get_tree().root.add_child(scene)
 		await Event.wait()
 		scene.get_node("Levelup").levelup(mem)
@@ -855,7 +855,7 @@ func _on_idle_timer_timeout() -> void:
 			show_all()
 
 
-func hit_partybox(x: int, am: int, rep: int):
+func hit_partybox(x: int, am: int, rep: int) -> void:
 	print(am, " ", rep)
 	Global.node_shake(%Partybox.get_child(x), am, rep)
 

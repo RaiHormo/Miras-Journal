@@ -8,12 +8,12 @@ class_name Textbox
 @onready var response_template: Button = $Balloon/Responses/Button.duplicate(0)
 var mem: TextProfile
 var next_box: String = ""
-var currun = false
+var currun := false
 var picture: Texture2D = null
 var no_nametag := false
 @onready var t: Tween
 const hold_time = 30
-var skip = false
+var skip := false
 const small_text_size = 24
 
 ## The dialogue resource
@@ -44,7 +44,7 @@ var dialogue_line: DialogueLine:
 			child.queue_free()
 
 		dialogue_line = next_dialogue_line
-		var char_name = tr(dialogue_line.character, "dialogue")
+		var char_name := tr(dialogue_line.character, "dialogue")
 
 		if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
 			await hide_box()
@@ -113,7 +113,7 @@ var dialogue_line: DialogueLine:
 		responses_menu.modulate.a = 0
 		#await t.finished
 		if dialogue_line.responses.size() > 0:
-			for response in dialogue_line.responses:
+			for response: DialogueResponse in dialogue_line.responses:
 				# Duplicate the template so we can grab the fonts, sizing, etc
 				var item: Button = response_template.duplicate(0)
 				item.name = "Response%d" % responses_menu.get_child_count()
@@ -156,7 +156,7 @@ var dialogue_line: DialogueLine:
 			responses_menu.modulate.a = 1
 			configure_menu()
 		elif dialogue_line.time != "":
-			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
+			var time := dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
@@ -215,7 +215,7 @@ func next(next_id: String) -> void:
 func configure_menu() -> void:
 	balloon.focus_mode = Control.FOCUS_NONE
 
-	var items = get_responses()
+	var items := get_responses()
 	for i in items.size():
 		var item: Control = items[i]
 
@@ -277,7 +277,7 @@ func _on_close() -> void:
 	if self != null: queue_free()
 
 
-func hide_box():
+func hide_box() -> void:
 	if is_instance_valid(t): t.stop()
 	t = create_tween()
 	t.set_parallel(true)
@@ -307,7 +307,7 @@ func hide_box():
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
 	will_hide_balloon = true
-	get_tree().create_timer(0.1).timeout.connect(func():
+	get_tree().create_timer(0.1).timeout.connect(func() -> void:
 		if will_hide_balloon:
 			will_hide_balloon = false)
 
@@ -357,8 +357,8 @@ func _input(event: InputEvent) -> void:
 		t.set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
 		#if Input.is_action_just_pressed("Dash") or skip:
-		var prev_a = dialogue_label.seconds_per_step
-		var prev_b = dialogue_label.seconds_per_pause_step
+		var prev_a: float = dialogue_label.seconds_per_step
+		var prev_b: float = dialogue_label.seconds_per_pause_step
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
 			await Event.wait()
@@ -417,7 +417,7 @@ func draw_portrait() -> void:
 		if dialogue_line.text.begins_with("[color=") and dialogue_line.text.ends_with("[/color]"):
 			$Balloon/Arrow.hide()
 		else: $Balloon/Arrow.show()
-		var pan = $Balloon/Arrow.get_theme_stylebox("panel")
+		var pan: StyleBoxFlat = $Balloon/Arrow.get_theme_stylebox("panel")
 		pan.bg_color = mem.Bord1
 		$Portrait.texture = Global.PortraitIMG
 		$Portrait/Shadow.texture = $Portrait.texture
@@ -453,7 +453,7 @@ func _on_button_focus_entered() -> void:
 	Global.cursor_sound()
 
 
-func animate_responces():
+func animate_responces() -> void:
 	await dialogue_label.finished_typing
 	Engine.time_scale = 1
 	for i in responses_menu.get_children():

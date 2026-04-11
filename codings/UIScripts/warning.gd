@@ -1,7 +1,7 @@
 extends CanvasLayer
 signal response
 var value: int = 0
-var active = false
+var active := false
 
 
 func _ready() -> void:
