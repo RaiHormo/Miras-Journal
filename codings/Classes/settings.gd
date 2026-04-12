@@ -14,6 +14,7 @@ class_name Setting
 @export_category("Display")
 @export var Fullscreen := false
 @export var UpscaledRes := true
+@export var UpscaleFactor: float = 1.0
 @export var HighResTextures := false
 @export var FPS: int = 0
 @export var VSync: bool = true

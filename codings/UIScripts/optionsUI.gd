@@ -401,6 +401,11 @@ func load_settings():
 		30: %SettingsVbox/FPS/MenuBar.selected = 1
 		60: %SettingsVbox/FPS/MenuBar.selected = 2
 		144: %SettingsVbox/FPS/MenuBar.selected = 3
+	match Global.Settings.UpscaleFactor:
+		0.5: %SettingsVbox/UpscaleFactor/MenuBar.selected = 0
+		1.0: %SettingsVbox/UpscaleFactor/MenuBar.selected = 1
+		1.5: %SettingsVbox/UpscaleFactor/MenuBar.selected = 2
+		2.0: %SettingsVbox/UpscaleFactor/MenuBar.selected = 3
 
 	%SettingsVbox/ControlPreview/A.set_deferred("texture", Global.get_controller().AbilityIcon)
 	%SettingsVbox/ControlPreview/B.set_deferred("texture", Global.get_controller().AttackIcon)
@@ -831,6 +836,16 @@ func _debug_mode(toggled_on: bool) -> void:
 func _fps(index: int) -> void:
 	Global.Settings.FPS = %SettingsVbox/FPS/MenuBar.get_selected_id()
 	confirm()
+
+
+func _upscale_factor(index: int) -> void:
+	match index:
+		0: Global.Settings.UpscaleFactor = 0.5
+		1: Global.Settings.UpscaleFactor = 1
+		2: Global.Settings.UpscaleFactor = 1.5
+		3: Global.Settings.UpscaleFactor = 2.0
+	confirm()
+	Global.apply_settings()
 
 
 func _vsync(toggle: bool) -> void:

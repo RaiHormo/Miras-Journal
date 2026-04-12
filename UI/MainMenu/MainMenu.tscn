@@ -554,10 +554,15 @@ script = ExtResource("1_5tx7f")
 
 [node name="Ring" type="TextureRect" parent="." unique_id=17972559]
 material = SubResource("ShaderMaterial_gki4e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -186.0
 offset_top = -394.0
-offset_right = 1463.0
-offset_bottom = 1255.0
+offset_right = 183.0
+offset_bottom = 455.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(806, 806)
 texture = SubResource("GradientTexture1D_6e4y7")
 
@@ -584,10 +589,13 @@ texture = SubResource("GradientTexture2D_rqg3q")
 modulate = Color(1, 1, 1, 0.2)
 show_behind_parent = true
 light_mask = 0
+anchors_preset = -1
+anchor_right = 1.1240001
+anchor_bottom = 1.014
 offset_left = 322.0
 offset_top = -8.0
-offset_right = 1718.0
-offset_bottom = 1016.0
+offset_right = 279.2799
+offset_bottom = 204.79993
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_w0qna")
 

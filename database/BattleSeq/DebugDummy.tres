@@ -7,14 +7,6 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_56w6l"]
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_a1d4h"]
 
-[sub_resource type="Resource" id="Resource_5vx4i"]
-script = ExtResource("5_a1d4h")
-actor = &"Mira"
-low_hp = 20
-parameter1 = "testbush"
-parameter2 = "mira_hp_low"
-add_flag = false
-
 [sub_resource type="Resource" id="Resource_wpf26"]
 script = ExtResource("5_a1d4h")
 flag = &"DebugBattle"
@@ -26,4 +18,4 @@ parameter2 = "debug_battle_begin"
 script = ExtResource("1_tyx4l")
 Enemies = Array[ExtResource("3_56w6l")]([ExtResource("2_tb6xv")])
 BattleBack = ExtResource("1_03qle")
-Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_5vx4i"), SubResource("Resource_wpf26")])
+Events = Array[ExtResource("5_a1d4h")]([SubResource("Resource_wpf26")])

@@ -1389,6 +1389,7 @@ one_shot = true
 [connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="sort_children" from="CanvasLayer/Partybox" to="." method="_on_partybox_sort_children"]
 [connection signal="timeout" from="CanvasLayer/Partybox/Leader/ReviveFlashTimer" to="." method="_on_revive_flash_timer_timeout" flags=18]
+[connection signal="timeout" from="CanvasLayer/Partybox/Member1/ReviveFlashTimer" to="." method="_on_revive_flash_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Abilities" to="." method="abilities"]

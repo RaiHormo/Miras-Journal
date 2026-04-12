@@ -146,13 +146,15 @@ func handle_states() -> void:
 						await Bt.shake_actor(chara)
 				"KnockedOut":
 					if chara.Health > 0:
-						var revive_chance: float = float(chara.Health) / float(chara.MaxHP)
-						print("Revive chance: %d / %d = %f " % [chara.Health, chara.MaxHP, revive_chance])
+						var saving_throw := randf()
+						var revive_chance: float = chara.health_ratio()
+						print("Revive chance: %d / %d = %.2f " % [chara.Health, chara.MaxHP, revive_chance])
+						print("Saving throw: %.2f" % [saving_throw])
 						if revive_chance == 0.0:
 							print("Character is knocked out, skip turn")
 							chara.NextAction = "Attack"
 							chara.NextMove = Ability.nothing()
-						elif randf() <= (revive_chance):
+						elif saving_throw <= (revive_chance):
 							chara.remove_state(state)
 						else:
 							Bt.focus_cam(chara, 0.5, 10)

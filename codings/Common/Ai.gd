@@ -153,6 +153,9 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 					score += 0.3
 				if Char.Aura < Char.MaxAura * 0.6:
 					score += 0.4
+			_:
+				# Just keep a high enough chance on unkown type things
+				score = max(score, 0.5)
 
 	return score
 
@@ -165,17 +168,18 @@ func get_ability_score_modifiers(ab: Ability) -> float:
 	if total_cost > 0:
 		var penalty: float = (total_cost / float(Char.Aura)) * 0.3
 		score -= penalty
-		print(" - Cost penalty: %.2f" % [penalty])
+		print(" - Cost penalty: -%.2f" % [penalty])
 
 	# More likely to use aura recovery when low on AP
 	if ab.RecoverAura and not Char.Aura == Char.MaxAura:
 		var bonus: float = (1 - Char.aura_ratio()) / 2
 		score += bonus
-		print(" - Recovery bonus: %.2f" % [bonus])
+		print(" - Recovery bonus: +%.2f" % [bonus])
 
 	# Discourage spamming the same thing
 	if Char.BattleLog.back().ability == ab:
-		score -= 0.2
+		score -= 0.3
+		print(" - Avoid using the same thing again: -0.3")
 
 	return score
 
