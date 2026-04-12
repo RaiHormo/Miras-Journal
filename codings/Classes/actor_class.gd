@@ -434,3 +434,23 @@ func find_learnable() -> Ability:
 
 func get_pronoun(string: String = "they") -> String:
 	return Query.get_pronoun(string, Pronouns)
+
+
+func get_attack() -> float:
+	return Attack * AttackMultiplier
+
+
+func get_magic() -> float:
+	return Magic * MagicMultiplier
+
+
+func get_defence() -> float:
+	return Defence * DefenceMultiplier
+
+
+func health_ratio() -> float:
+	return (float(Health) / float(MaxHP))
+
+
+func aura_ratio() -> float:
+	return (float(Aura) / float(MaxAura))

@@ -1348,10 +1348,6 @@ func stat_name(stat: StringName) -> String:
 		_: return "Stat"
 
 
-func health_precentage(chara: Actor) -> float:
-	return (float(chara.Health) / float(chara.MaxHP) * 100)
-
-
 func on_state_add(state: State, chara: Actor, effect := true) -> void:
 	if chara.Health != 0:
 		add_state_effect(state, chara)

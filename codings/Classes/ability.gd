@@ -69,5 +69,9 @@ func is_aoe() -> bool:
 	else: return false
 
 
+func is_magic() -> bool:
+	return WheelColor == Color.WHITE
+
+
 static func nothing() -> Ability:
 	return ResourceLoader.load("res://database/Abilities/Nothing.tres")

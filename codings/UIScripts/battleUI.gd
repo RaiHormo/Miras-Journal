@@ -1002,7 +1002,7 @@ func _on_show_wheel_pressed():
 
 
 func fetch_inventory():
-	await Item.verify_inventory()
+	Item.verify_inventory()
 	for i in $Inventory/Margin/Consumables/Grid.get_children():
 		i.free()
 	for i in $Inventory/Margin/BattleItems/Grid.get_children():

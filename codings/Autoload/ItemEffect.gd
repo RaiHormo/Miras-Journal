@@ -27,7 +27,7 @@ func use(item_data: ItemData, battle_target: Actor = null) -> void:
 
 func _on_item_manager_return_member(mem: Actor) -> void:
 	if item.Use == ItemData.U.HEALING:
-		mem.add_health(float(item.Parameter))
+		mem.add_health(int(item.Parameter))
 	#PartyUI._on_shrink()
 	PartyUI._check_party()
 	Item.remove_item(item, "Con")

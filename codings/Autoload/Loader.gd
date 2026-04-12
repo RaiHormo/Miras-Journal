@@ -187,7 +187,7 @@ func load_res(path: String) -> Resource:
 	loading_thread = true
 	await thread_loaded
 	if Global.ProcessFrame - frame > 1:
-		print("Loaded resource ", path, " in ", Global.ProcessFrame - frame, " frames")
+		print("Loaded resource ", path.get_file(), " in ", Global.ProcessFrame - frame, " frames")
 	#if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
