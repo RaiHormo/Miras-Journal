@@ -55,7 +55,7 @@ var _touch_index: int = -1
 @onready var _base := $Base
 @onready var _tip := $Base/Tip
 
-@onready var _base_radius = _base.size * _base.get_global_transform_with_canvas().get_scale() / 2
+@onready var _base_radius: Vector2 = _base.size * _base.get_global_transform_with_canvas().get_scale() / 2
 
 @onready var _base_default_position: Vector2 = _base.position
 @onready var _tip_default_position: Vector2 = _tip.position
@@ -145,14 +145,14 @@ func _update_joystick(touch_position: Vector2) -> void:
 			_update_input_action(action_up, -output.y)
 
 
-func _update_input_action(action: String, value: float):
+func _update_input_action(action: String, value: float) -> void:
 	if value > InputMap.action_get_deadzone(action):
 		Input.action_press(action, value)
 	elif Input.is_action_pressed(action):
 		Input.action_release(action)
 
 
-func _reset():
+func _reset() -> void:
 	is_pressed = false
 	output = Vector2.ZERO
 	_touch_index = -1
@@ -160,6 +160,6 @@ func _reset():
 	_base.position = _base_default_position
 	_tip.position = _tip_default_position
 	if use_input_actions:
-		for action in [action_left, action_right, action_down, action_up]:
+		for action: String in [action_left, action_right, action_down, action_up]:
 			if Input.is_action_pressed(action) or Input.is_action_just_pressed(action):
 				Input.action_release(action)

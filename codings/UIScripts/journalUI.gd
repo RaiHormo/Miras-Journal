@@ -12,7 +12,7 @@ func _ready() -> void:
 	root()
 
 
-func root():
+func root() -> void:
 	stage = "root"
 	$Pages.hide()
 	$Journal.show()
@@ -49,17 +49,17 @@ func diary() -> void:
 	$List/List.get_children()[-1].grab_focus()
 
 
-func add_test_entries():
+func add_test_entries() -> void:
 	Event.Diary = {
 	2: ["boo"],
 	5: ["boo", "bee"]
 }
 
 
-func diary_load_day_list():
+func diary_load_day_list() -> void:
 	if Event.Diary.is_empty(): add_test_entries()
 	for i in Event.Diary:
-		var dub = $List/List/Listing0.duplicate()
+		var dub: Button = $List/List/Listing0.duplicate()
 		dub.name = str(i)
 		dub.text = Query.get_mmm(Query.get_month(i)) + " " + str(i)
 		$List/List.add_child(dub)
@@ -67,13 +67,13 @@ func diary_load_day_list():
 	$List/List/Listing0.queue_free()
 
 
-func diary_focus(day: int):
+func diary_focus(day: int) -> void:
 	%TextL.text = ""
 	%TextR.text = ""
-	var page = 0
+	var page := 0
 	var text: String = Query.get_month_name(Query.get_month(day)) + " " + Query.get_date_day(day) + "\n\n"
 	for i in Event.Diary[day]:
-		var prev_text = text
+		var prev_text := text
 		text += DiaryEntries.get(i)
 		text += "\n~~~~~~\n"
 		%TextL.text = text
@@ -83,7 +83,7 @@ func diary_focus(day: int):
 			%TextR.text += DiaryEntries.get(i)
 
 
-func close():
+func close() -> void:
 	if get_tree().root.get_node_or_null("MainMenu") != null:
 		get_tree().root.get_node_or_null("MainMenu")._root()
 	queue_free()
@@ -103,15 +103,15 @@ func _input(event: InputEvent) -> void:
 	$Select.icon = Global.get_controller().ConfirmIcon
 
 
-func load_entries():
-	var file = FileAccess.open("res://database/Text/Journal/Diary.json", FileAccess.READ)
+func load_entries() -> void:
+	var file := FileAccess.open("res://database/Text/Journal/Diary.json", FileAccess.READ)
 	var json: Array = JSON.parse_string(file.get_as_text())
-	for i in json:
+	for i: Array in json:
 		DiaryEntries.set(i[0], i[1])
 	print(DiaryEntries)
 	file.close()
 
 
 func diary_focus_button() -> void:
-	var foc = get_viewport().gui_get_focus_owner()
+	var foc := get_viewport().gui_get_focus_owner()
 	diary_focus(int(foc.name))

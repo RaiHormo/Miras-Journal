@@ -3,9 +3,9 @@ var TurnOrder: Array[Actor]
 var CurrentChar: Actor
 var Party: PartyData
 var Troop: Array[Actor]
-@onready var Cam = $"../Cam"
-@onready var t = Tween
-@onready var trw = Tween
+@onready var Cam: Camera2D = $"../Cam"
+@onready var t: Tween
+@onready var trw: Tween
 var active: bool
 var stage: StringName
 signal root
@@ -35,7 +35,7 @@ var disable_item := false
 var disable_command := false
 
 
-func _ready():
+func _ready() -> void:
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
 	trw = create_tween()
@@ -50,7 +50,7 @@ func _ready():
 	$"../Canvas/DottedBack".hide()
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	#$BaseRing/Ring2.rotation += 0.001
 	if "target" in stage:
 		$BaseRing/Ring2.rotation += 0.001
@@ -58,7 +58,7 @@ func _process(delta):
 		$BaseRing.pivot_offset = Vector2(200 + randf_range(-1, 1), 200 + randf_range(-1, 1))
 
 
-func _on_battle_get_control():
+func _on_battle_get_control() -> void:
 	if Bt.Troop.is_empty():
 		close()
 		Bt.victory()
@@ -117,7 +117,7 @@ func _on_battle_get_control():
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
 	if CurrentChar.BoxProfile != null:
-		var mem = CurrentChar
+		var mem := CurrentChar
 		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
 		var bord1: StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
 		bord1.border_color = mem.BoxProfile.Bord1
@@ -246,8 +246,8 @@ func _input(event: InputEvent) -> void:
 						MenuIndex = 0
 					Global.cursor_sound()
 					move_menu()
-				var ab = foc.get_meta("Ability")
-				var abgroup = foc.get_meta("AbilityGroup")
+				var ab: Ability = foc.get_meta("Ability")
+				var abgroup: Array[Ability] = foc.get_meta("AbilityGroup")
 				if Input.is_action_just_pressed("ui_right") and active:
 					if abgroup.find(ab) + 1 < abgroup.size():
 						foc.set_meta("Ability", abgroup[abgroup.find(ab) + 1])
@@ -297,7 +297,7 @@ func _input(event: InputEvent) -> void:
 					move_menu()
 
 
-func _on_root():
+func _on_root() -> void:
 	if is_instance_valid(foc):
 		foc.hide()
 		foc.show()
@@ -376,7 +376,7 @@ func _on_root():
 	rooted.emit()
 
 
-func _on_attack():
+func _on_attack() -> void:
 	Global.confirm_sound()
 	stage = "attack"
 	PrevStage = "root"
@@ -387,7 +387,7 @@ func _on_attack():
 	#await targeted
 
 
-func _on_ability():
+func _on_ability() -> void:
 	if CurrentChar.Abilities.is_empty(): return
 	active = false
 	stage = &"ability"
@@ -468,7 +468,7 @@ func _on_ability():
 	t.tween_property($RankSwap, "modulate", Color.WHITE, 0.2)
 
 
-func _on_command():
+func _on_command() -> void:
 	stage = &"inactive"
 	PrevStage = &"root"
 	if stage == "pre_root":
@@ -588,7 +588,7 @@ func _on_item() -> void:
 	stage = &"item"
 
 
-func close():
+func close() -> void:
 	active = false
 	while stage == "pre_target": await Event.wait()
 	stage = &"inactive"
@@ -639,17 +639,17 @@ func close():
 
 
 
-func _on_ability_pressed():
+func _on_ability_pressed() -> void:
 	if stage == &"root": ability.emit()
-func _on_attack_pressed():
+func _on_attack_pressed() -> void:
 	attack.emit()
-func _on_item_pressed():
+func _on_item_pressed() -> void:
 	item.emit()
-func _on_command_pressed():
+func _on_command_pressed() -> void:
 	if "root" in stage: command.emit()
 
 
-func get_target(faction: Array[Actor], ab = CurrentChar.NextMove):
+func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	if faction.is_empty():
 		return
 	if Bt.Action: return
@@ -760,11 +760,11 @@ func get_target(faction: Array[Actor], ab = CurrentChar.NextMove):
 		await trw.finished
 
 
-func _on_ability_returned(ab: Ability, tar):
+func _on_ability_returned(ab: Ability, tar: Actor) -> void:
 	close()
 
 
-func move_menu():
+func move_menu() -> void:
 	await Event.wait()
 	foc = get_viewport().gui_get_focus_owner()
 	if stage == &"target" or stage == &"pre_target":
@@ -783,7 +783,7 @@ func move_menu():
 		t.tween_property(self, "position", target.node.position, 0.3)
 		LastTarget = target
 		emit_signal('targetFoc', TargetFaction[TargetIndex])
-		var wheel = $"../Canvas/AttackTitle/Wheel"
+		var wheel: Wheel = $"../Canvas/AttackTitle/Wheel"
 		if analyzing:
 			wheel.show_atk_color(target.MainColor)
 			await Event.wait()
@@ -853,14 +853,14 @@ func move_menu():
 	tweendone = true
 
 
-func _on_battle_next_turn():
+func _on_battle_next_turn() -> void:
 	if CurrentChar == null: return
 	if not Bt.CurrentChar.Controllable:
 		hide()
 		active = false
 
 
-func _on_targeted():
+func _on_targeted() -> void:
 	if analyzing:
 		Global.member_details(CurrentChar.NextTarget)
 		stage = "analyze"
@@ -884,12 +884,12 @@ func _on_targeted():
 	close()
 
 
-func _on_back_pressed():
+func _on_back_pressed() -> void:
 	Global.cancel_sound()
 	emit_signal(PrevStage)
 
 
-func _on_focus_changed(control: Control):
+func _on_focus_changed(control: Control) -> void:
 	foc = control
 	if control is Button:
 		MenuIndex = control.get_index()
@@ -899,7 +899,7 @@ func _on_focus_changed(control: Control):
 			focus_item(control)
 
 
-func _on_ability_entry():
+func _on_ability_entry() -> void:
 	if active:
 		active = false
 		Global.confirm_sound()
@@ -922,7 +922,7 @@ func _on_ability_entry():
 				close()
 
 
-func _on_confirm_pressed():
+func _on_confirm_pressed() -> void:
 	if active:
 		if stage == &"pre_target":
 			active = false
@@ -951,7 +951,7 @@ func _on_confirm_pressed():
 				Global.confirm_sound()
 
 
-func turn_order():
+func turn_order() -> void:
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_CUBIC)
@@ -972,13 +972,13 @@ func turn_order():
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(-468, 40), 0.3)
 
 
-func _on_escape():
+func _on_escape() -> void:
 	if stage == &"command":
 		stage = &"inactive"
 		Bt.escape()
 
 
-func _on_show_wheel_pressed():
+func _on_show_wheel_pressed() -> void:
 	Global.confirm_sound()
 	t.kill()
 	t = create_tween()
@@ -1001,14 +1001,14 @@ func _on_show_wheel_pressed():
 		t.tween_property($DescPaper/ShowWheel, "position:x", 520, 0.3)
 
 
-func fetch_inventory():
+func fetch_inventory() -> void:
 	Item.verify_inventory()
 	for i in $Inventory/Margin/Consumables/Grid.get_children():
 		i.free()
 	for i in $Inventory/Margin/BattleItems/Grid.get_children():
 		i.free()
 	for aitem in Item.ConInv: if aitem.UsedInBattle:
-		var dub = $Inventory/Item.duplicate()
+		var dub: Control = $Inventory/Item.duplicate()
 		dub.icon = aitem.Icon
 		dub.set_meta("ItemData", item)
 		if aitem.Quantity > 1:
@@ -1017,7 +1017,7 @@ func fetch_inventory():
 		$Inventory/Margin/Consumables/Grid.add_child(dub)
 		dub.show()
 	for aitem in Item.BtiInv:
-		var dub = $Inventory/Item.duplicate()
+		var dub: Control = $Inventory/Item.duplicate()
 		dub.icon = aitem.Icon
 		dub.set_meta("ItemData", item)
 		if aitem.Quantity > 1:
@@ -1040,16 +1040,16 @@ func fetch_inventory():
 		return
 
 
-func fetch_abilities():
+func fetch_abilities() -> void:
 	for n in %AbilityList.get_children():
 		%AbilityList.remove_child(n)
 		n.queue_free()
 	for i in CurrentChar.groupped_abilities():
-		var dub = %Ab0.duplicate()
+		var dub: Button = %Ab0.duplicate()
 		dub.show()
 		%AbilityList.add_child(dub)
 		dub.set_meta("AbilityGroup", i)
-		var ab = i[0]
+		var ab: Ability = i[0]
 		dub.set_meta("Ability", ab)
 		update_ab(dub)
 	for i in %AbilityList.get_children():
@@ -1063,7 +1063,7 @@ func fetch_abilities():
 			%AbilityList.get_children().push_back(i)
 
 
-func update_ab(dub: Button):
+func update_ab(dub: Button) -> void:
 	var ab: Ability = dub.get_meta("Ability")
 	dub.text = ab.name
 	dub.get_node("Icon").texture = ab.Icon
@@ -1097,7 +1097,7 @@ func _on_cbutton_pressed(tog: bool) -> void:
 	$Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
 
 
-func focus_item(node: Button):
+func focus_item(node: Button) -> void:
 	if not node.get_parent() is GridContainer: return
 	var item_data: ItemData = node.get_meta("ItemData")
 	$Inventory/DescPaper/Title.text = item_data.Name

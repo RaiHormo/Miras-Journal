@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			#Event.teleport_followers()
 
 
-func climb_down():
+func climb_down() -> void:
 	#Global.Player.path.curve.clear_points()
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
@@ -58,7 +58,7 @@ func climb_down():
 	active = true
 
 
-func climb_up():
+func climb_up() -> void:
 	#Global.Player.path.curve.clear_points()
 	Global.Player.collision(false)
 	await Event.take_control(true, true)

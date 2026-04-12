@@ -10,7 +10,7 @@ func _init() -> void:
 	hide()
 
 
-func draw_character(character: Actor):
+func draw_character(character: Actor) -> void:
 	chara = character
 	##Test
 	#Global.Complimentaries = ["FluidBlast", "RedShift", "Dispel"]
@@ -22,7 +22,7 @@ func draw_character(character: Actor):
 	await fetch_equiped_abilities()
 	await fetch_all_abilities()
 	for i in slots - 1:
-		var grd = $Background.get_child(0).duplicate()
+		var grd: TextureRect = $Background.get_child(0).duplicate()
 		grd.set_meta("rate", randf_range(-0.1, 0.1))
 		$Background.add_child(grd)
 		grd.rotation_degrees = randf_range(0, 360)
@@ -45,14 +45,14 @@ func draw_character(character: Actor):
 	t.tween_property($Sines, "scale", Vector2(1, 1), 0.5).from(Vector2(1.5, 1.5))
 
 
-func fetch_all_abilities():
-	var Abilities = await Query.get_complimentaries()
+func fetch_all_abilities() -> void:
+	var Abilities := await Query.get_complimentaries()
 	for n in %AbilityList.get_children():
 		if n is Button:
 			%AbilityList.remove_child(n)
 			n.queue_free()
 	for i in Abilities:
-		var dub = %Ab0.duplicate()
+		var dub: Button = %Ab0.duplicate()
 		dub.show()
 		%AbilityList.add_child(dub)
 		dub.text = i.name
@@ -66,28 +66,28 @@ func fetch_all_abilities():
 		dub.set_meta("Ability", i)
 
 
-func fetch_equiped_abilities():
+func fetch_equiped_abilities() -> void:
 	await chara.load_complimentaries()
 	while chara.Complimentaries.size() > slots:
 		chara.Complimentaries.remove_at(-1)
-	var Abilities = chara.Complimentaries
+	var Abilities := chara.Complimentaries
 	while slots > %Equipped.get_child_count():
-		var dub = %Slot0.duplicate()
+		var dub: Button = %Slot0.duplicate()
 		dub.show()
 		%Equipped.add_child(dub)
 		dub.disabled = true
-	var j = 0
+	var j := 0
 	for i in Abilities:
-		var dub = $Equipped.get_child(j)
+		var dub: Button = $Equipped.get_child(j)
 		dub.set_meta("Ability", i)
 		j += 1
 	update_equipped()
 
 
-func update_equipped():
+func update_equipped() -> void:
 	for dub in $Equipped.get_children():
 		if dub.has_meta("Ability"):
-			var i = dub.get_meta("Ability")
+			var i: Ability = dub.get_meta("Ability")
 			dub.disabled = false
 			dub.text = i.name
 			dub.get_node("Icon").texture = i.Icon
@@ -99,7 +99,7 @@ func update_equipped():
 			dub.name = "Item" + str(dub.get_index(true))
 
 
-func refresh():
+func refresh() -> void:
 	$Set.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
 	for i in %AbilityList.get_children():
@@ -113,7 +113,7 @@ func refresh():
 		if chara.Complimentaries.size() <= i:
 			t.tween_property($Background.get_child(i), "modulate", Color.TRANSPARENT, 1)
 		else:
-			var color = chara.Complimentaries[i].WheelColor
+			var color := chara.Complimentaries[i].WheelColor
 			if chara.Complimentaries[i].WheelColor == Color.WHITE: color.a = 0.3
 			else: color.a = 0.6
 			t.tween_property($Background.get_child(i), "modulate", color, randf_range(0.5, 3))
@@ -136,7 +136,7 @@ func _on_list_focus_entered() -> void:
 func _on_equipped_focus_entered() -> void:
 	#refresh()
 	Global.cursor_sound()
-	var foc = get_viewport().gui_get_focus_owner()
+	var foc := get_viewport().gui_get_focus_owner()
 	if foc.has_meta("Ability"):
 		var ab: Ability = foc.get_meta("Ability")
 		if not is_instance_valid(ab): return
@@ -182,14 +182,14 @@ func _on_back_pressed() -> void:
 		queue_free()
 
 
-func set_ability(slot: int):
+func set_ability(slot: int) -> void:
 	active_slot = slot
 	$AbilityPanel.show()
 	refresh()
 	%AbilityList.get_child(0).grab_focus()
 
 
-func _set_pressed():
+func _set_pressed() -> void:
 	if $AbilityPanel.visible:
 		_list_ability_pressed()
 	else:
@@ -197,19 +197,19 @@ func _set_pressed():
 
 
 func _on_slot_pressed() -> void:
-	var foc = get_viewport().gui_get_focus_owner()
+	var foc := get_viewport().gui_get_focus_owner()
 	await fetch_all_abilities()
 	set_ability(foc.get_index())
 	Global.confirm_sound()
 
 
-func _list_ability_pressed():
-	var foc = get_viewport().gui_get_focus_owner()
+func _list_ability_pressed() -> void:
+	var foc := get_viewport().gui_get_focus_owner()
 	if foc.disabled:
 		Global.buzzer_sound()
 	else:
 		var ab: Ability = foc.get_meta("Ability")
-		var slot = $Equipped.get_child(active_slot)
+		var slot: Button = $Equipped.get_child(active_slot)
 		var prev_ab: Ability = slot.get_meta("Ability") if slot.has_meta("Ability") and slot.get_meta("Ability") != null else null
 		if ab.filename in chara.ComplimentaryList:
 			chara.ComplimentaryList.set(ab.filename, abs(chara.ComplimentaryList.get(ab.filename)))

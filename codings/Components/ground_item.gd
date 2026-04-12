@@ -24,7 +24,7 @@ func _validate_property(property: Dictionary) -> void:
 			"Bti": type = "BattleItems"
 			"Mat": type = "Materials"
 			"Key": type = "KeyItems"
-		var files = DirAccess.get_files_at("res://database/Items/" + type)
+		var files := DirAccess.get_files_at("res://database/Items/" + type)
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))

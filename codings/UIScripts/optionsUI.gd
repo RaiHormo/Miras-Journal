@@ -1,8 +1,8 @@
 extends CanvasLayer
 var t: Tween
-var stage = "inactive"
+var stage := "inactive"
 var focus: Control
-var mainIndex = 0
+var mainIndex := 0
 signal loaded
 var was_controllable: bool
 var was_paused: bool
@@ -13,7 +13,7 @@ var no_main := false
 var Tutorials: Array
 
 
-func _ready():
+func _ready() -> void:
 	hide()
 	if $/root.get_node_or_null("MainMenu") and $/root/MainMenu.stage != "options":
 		$/root/MainMenu._on_back_button_down()
@@ -84,7 +84,7 @@ func _ready():
 	loaded.emit()
 
 
-func set_no_main():
+func set_no_main() -> void:
 	no_main = true
 	for i in $MainButtons.get_children():
 		i.hide()
@@ -95,9 +95,9 @@ func set_no_main():
 	#$Background.hide()
 
 
-func siilhouette():
+func siilhouette() -> void:
 	$Silhouette.texture = Loader.Preview
-	var ts = create_tween()
+	var ts := create_tween()
 	ts.set_trans(Tween.TRANS_QUART)
 	ts.set_ease(Tween.EASE_OUT)
 	ts.tween_property($Silhouette, "position", Vector2(0, -39), 1).from(Vector2(-1000, -39))
@@ -106,12 +106,12 @@ func siilhouette():
 	#load_save_files()
 
 
-func _physics_process(delta):
+func tick() -> void:
 	var playtime: Dictionary = Time.get_time_dict_from_unix_time(Global.get_playtime())
 	$Timer/HSplitContainer/Label.text = "%02d:%02d:%02d" % [playtime.hour, playtime.minute, playtime.second]
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if Global.LastInput == Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
@@ -120,7 +120,7 @@ func _input(event):
 #		_on_back_pressed()
 
 
-func _on_back_pressed():
+func _on_back_pressed() -> void:
 	Global.cancel_sound()
 	match stage:
 		"main":
@@ -132,7 +132,7 @@ func _on_back_pressed():
 			Global.cancel_sound()
 
 
-func close(force = false):
+func close(force := false) -> void:
 	Global.check_party.emit()
 	if force:
 		queue_free()
@@ -177,7 +177,7 @@ func close(force = false):
 	queue_free()
 
 
-func main():
+func main() -> void:
 	if stage == "closing": return
 	if no_main:
 		close()
@@ -219,7 +219,7 @@ func main():
 		$MainButtons.get_child(mainIndex).grab_focus()
 
 
-func game_settings():
+func game_settings() -> void:
 	if stage == "game_settings": return
 	if stage != "main": await loaded
 	$MainButtons/GameSettings.toggle_mode = true
@@ -324,7 +324,7 @@ func manual() -> void:
 	stage = "manual"
 
 
-func gallery():
+func gallery() -> void:
 	if stage == "gallery": return
 	if stage != "main": await loaded
 	$MainButtons/Gallery.toggle_mode = true
@@ -347,7 +347,7 @@ func gallery():
 	$GalleryPanel.show()
 
 
-func _on_focus_changed(control: Control):
+func _on_focus_changed(control: Control) -> void:
 	Global.cursor_sound(true)
 	focus = control
 	if stage == "main" and control.get_parent() == $MainButtons:
@@ -373,7 +373,7 @@ func _on_focus_changed(control: Control):
 		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
 
 
-func load_settings():
+func load_settings() -> void:
 	Global.save_settings()
 	Global.apply_settings()
 	%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
@@ -423,7 +423,7 @@ func load_settings():
 	%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
 
 
-func load_save_files():
+func load_save_files() -> void:
 	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
 	if ResourceLoader.exists("user://Autosave.tres"):
@@ -432,10 +432,10 @@ func load_save_files():
 		%Files/File0.hide()
 		Global.toast("There is nothing saved, you can start a new game.")
 	Loader.SaveFiles.clear()
-	var files = DirAccess.get_files_at("user://")
+	var files := DirAccess.get_files_at("user://")
 	for i in files:
 		if ".tres" in i and not "Autosave" in i:
-			var data = await Loader.load_res("user://" + i)
+			var data: SaveFile = await Loader.load_res("user://" + i)
 			if data is SaveFile:
 				#Loader.SaveFiles.append(data)
 				var newpanel: PanelContainer = null
@@ -448,7 +448,7 @@ func load_save_files():
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
 				draw_file(data, newpanel)
-	var sorted = %Files.get_children()
+	var sorted := %Files.get_children()
 	sorted.sort_custom(file_sort)
 	for i in %Files.get_children():
 		%Files.remove_child(i)
@@ -465,12 +465,12 @@ func load_save_files():
 	save_files_loaded = true
 
 
-func file_sort(a: Control, b: Control):
+func file_sort(a: Control, b: Control) -> bool:
 	return not(not a.has_meta("sort") or not b.has_meta("sort")) and a.get_meta("sort") > b.get_meta("sort")
 
 
-func draw_file(file: SaveFile, node: Control):
-	var panel = node.get_child(0)
+func draw_file(file: SaveFile, node: Control) -> void:
+	var panel: Control = node.get_child(0)
 	node.set_meta("sort", -1)
 	# Set default parameters
 	for i in range(0, 4):
@@ -524,19 +524,19 @@ func draw_file(file: SaveFile, node: Control):
 	panel.get_parent().get_node("ProgressBar").value = 0
 
 
-func hold_down():
+func hold_down() -> void:
 	if $SavePanel/Toast.modulate != Color.TRANSPARENT: return
 	t = create_tween()
 	t.tween_property($SavePanel/Toast, "modulate:a", 1, 0.3)
 	await Event.wait(2, false)
-	var t2 = create_tween()
+	var t2 := create_tween()
 	t2.tween_property($SavePanel/Toast, "modulate:a", 0, 1)
 
 
 func _on_save_delete() -> void:
 	if stage != "save_managment": return
-	var panel = focus.get_parent()
-	var index = focus.get_index()
+	var panel := focus.get_parent()
+	var index := focus.get_index()
 	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
@@ -557,7 +557,7 @@ func _on_save_delete() -> void:
 		else:
 			print("Deleting user://" + panel.name + ".tres")
 			DirAccess.remove_absolute("user://" + panel.name + ".tres")
-		var t2 = create_tween()
+		var t2 := create_tween()
 		t2.tween_property(panel, "modulate:a", 0, 0.5)
 		await t2.finished
 		await load_save_files()
@@ -580,7 +580,7 @@ func _on_save_delete() -> void:
 
 func _on_save_overwrite() -> void:
 	if stage != "save_managment": return
-	var panel = focus.get_parent()
+	var panel := focus.get_parent()
 	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
@@ -616,9 +616,9 @@ func _on_save_overwrite() -> void:
 
 func _on_save_load() -> void:
 	if stage != "save_managment" or not is_instance_valid(focus): return
-	var panel = focus.get_parent()
+	var panel := focus.get_parent()
 	if "New" in panel.name: return
-	var filename = panel.name
+	var filename := panel.name
 	if panel.name == "File0": filename = "Autosave"
 	if not panel is PanelContainer:
 		$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
@@ -651,10 +651,10 @@ func _new_file() -> void:
 	#Loader.gray_out()
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
-	var i = 1
+	var i := 1
 	while FileAccess.file_exists("user://File" + str(i) + ".tres"):
 		i += 1
-	var filename = await name_file("File" + str(i))
+	var filename := await name_file("File" + str(i))
 	Loader.icon_save()
 	await Loader.save(filename, false)
 	await load_save_files()
@@ -665,9 +665,9 @@ func _new_file() -> void:
 	stage = "save_managment"
 
 
-func name_file(default: String):
+func name_file(default: String) -> String:
 	$SavePanel/FileNaming.show()
-	var line = $SavePanel/FileNaming/VBoxContainer/Label2
+	var line: Label = $SavePanel/FileNaming/VBoxContainer/Label2
 	line.grab_focus()
 	line.text = ""
 	line.placeholder_text = default
@@ -678,7 +678,7 @@ func name_file(default: String):
 	return line.text
 
 
-func _on_control_scheme(index):
+func _on_control_scheme(index: int) -> void:
 	Global.confirm_sound()
 	Global.Settings.ControlSchemeAuto = false
 	Global.Settings.ControlSchemeEnum = %SettingsVbox/ControlScheme/MenuBar.get_selected_id()
@@ -705,7 +705,7 @@ func _on_control_scheme(index):
 	load_settings()
 
 
-func _on_fullscreen(tog: bool):
+func _on_fullscreen(tog: bool) -> void:
 	if tog != Global.Settings.Fullscreen:
 		Global.fullscreen(tog)
 		Global.confirm_sound()
@@ -713,7 +713,7 @@ func _on_fullscreen(tog: bool):
 		load_settings()
 
 
-func _on_quit():
+func _on_quit() -> void:
 	stage = "quit"
 	var text: String
 	if is_instance_valid(Global.Area):
@@ -721,7 +721,7 @@ func _on_quit():
 		if cant_save:
 			text = "Quit the game?\nYour progress cannot be saved right now, so it might be lost."
 	else: text = "Quit the game?"
-	var awnser = await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
+	var awnser := await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
 	match awnser:
 		2:
 			if not cant_save and is_instance_valid(Global.Area):
@@ -742,7 +742,7 @@ func _on_quit():
 			$MainButtons/Quit.grab_focus()
 
 
-func _on_master_volume(value: float):
+func _on_master_volume(value: float) -> void:
 	Global.Settings.MasterVolume = value / 10
 	if Global.Settings.MasterVolume == -30:
 		Global.Settings.MasterVolume = -80
@@ -762,7 +762,7 @@ func _on_EnvSFX_volume(value: float) -> void:
 	Global.save_settings()
 
 
-func _on_volume_reset():
+func _on_volume_reset() -> void:
 	Global.Settings.MasterVolume = 0
 	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
 	Global.Settings.EnvSFXVolume = 0
@@ -772,26 +772,26 @@ func _on_volume_reset():
 	Global.confirm_sound()
 
 
-func confirm():
+func confirm() -> void:
 	if stage == "game_settings":
 		Global.confirm_sound()
 
 
-func cursor(i):
+func cursor(i: int) -> void:
 	if stage == "game_settings":
 		Global.cursor_sound()
 		load_settings()
 
 
-func _on_brightness(value):
+func _on_brightness(value: float) -> void:
 	World.environment.adjustment_brightness = max(value, 0.3)
 
 
-func _on_contrast(value):
+func _on_contrast(value: float) -> void:
 	World.environment.adjustment_contrast = max(value, 0.3)
 
 
-func _on_saturation(value):
+func _on_saturation(value: float) -> void:
 	World.environment.adjustment_saturation = value
 
 
@@ -916,7 +916,7 @@ func _manual_entry_select() -> void:
 	if not is_instance_valid(focus): return
 	var entry: String = focus.name
 	var text: String = ""
-	for i in Tutorials:
+	for i: String in Tutorials:
 		if i.begins_with("#" + entry):
 			text = i
 			break

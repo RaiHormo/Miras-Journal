@@ -1,12 +1,12 @@
 @tool
 extends DialogueLabel
-var soundfreq
-var varience
+var soundfreq: int
+var varience: float
 @export var AudioPlayer: AudioStreamPlayer
 var count: int = 0
 
 
-func type_out_with_sound(sound, freq, vari) -> void:
+func type_out_with_sound(sound: AudioStream, freq: int, vari: float) -> void:
 	AudioPlayer.stream = sound
 	soundfreq = freq
 	varience = vari
@@ -23,11 +23,11 @@ func type_out_with_sound(sound, freq, vari) -> void:
 func _on_spoke(letter: String, letter_index: int, speed: float) -> void:
 	count += 1
 	if count >= soundfreq:
-		var letter_pitch = find_pitch(letter)
+		var letter_pitch := find_pitch(letter)
 		play_sound(letter_pitch)
 
 
-func play_sound(letter_pitch: float):
+func play_sound(letter_pitch: float) -> void:
 	if letter_pitch != 0:
 		AudioPlayer.pitch_scale = remap(letter_pitch, 0, 12, -varience, varience) / 10 + 1
 		AudioPlayer.play()

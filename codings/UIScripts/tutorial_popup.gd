@@ -1,14 +1,14 @@
 extends CanvasLayer
 
 
-func _ready():
+func _ready() -> void:
 	if Global.device == "Touch": return
 	call(Event.tutorial)
 	$Border2.hide()
 	$Border2/Control/Next.icon = Global.get_controller().ConfirmIcon
 
 
-func pop_down():
+func pop_down() -> void:
 	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -18,7 +18,7 @@ func pop_down():
 	await t.finished
 
 
-func dash():
+func dash() -> void:
 	%Text.text = "[center]Hold [img height=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("Dash"):
@@ -32,7 +32,7 @@ func dash():
 	queue_free()
 
 
-func ov_attack():
+func ov_attack() -> void:
 	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("OVAttack"):
@@ -42,7 +42,7 @@ func ov_attack():
 	queue_free()
 
 
-func party():
+func party() -> void:
 	%Text.text = "[center]Press [img]" + (Global.get_controller().Select).resource_path + "[/img] to check on your party.[/center]"
 	await pop_down()
 	await Event.wait(2)
@@ -53,7 +53,7 @@ func party():
 	queue_free()
 
 
-func bag():
+func bag() -> void:
 	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
 	Loader.save()
 	await pop_down()
@@ -64,7 +64,7 @@ func bag():
 	queue_free()
 
 
-func walk():
+func walk() -> void:
 	if Global.device == "Keyboard":
 		%Text.text = "[center]Use the arrow keys to walk.[/center]"
 	else: %Text.text = "[center]Use the left stick or D-Pad to walk.[/center]"
@@ -74,7 +74,7 @@ func walk():
 	queue_free()
 
 
-func ability():
+func ability() -> void:
 	await Event.wait(0.1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
 	$Border2.show()
@@ -86,7 +86,7 @@ func ability():
 	queue_free()
 
 
-func aura1():
+func aura1() -> void:
 	await Event.wait(0.5, false)
 	$Border2.show()
 	$Border2.position = Vector2(290, 15)
@@ -100,7 +100,7 @@ func aura1():
 	queue_free()
 
 
-func aura2():
+func aura2() -> void:
 	await Event.wait(1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
 	$Border2.show()
@@ -120,7 +120,7 @@ func aura2():
 	queue_free()
 
 
-func aura3():
+func aura3() -> void:
 	await Event.wait(1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
 	$Border2.show()
@@ -135,20 +135,20 @@ func aura3():
 	queue_free()
 
 
-func await_input(input := "DialogNext"):
+func await_input(input := "DialogNext") -> void:
 	while Input.is_action_pressed(input): await Event.wait()
 	while not Input.is_action_pressed(input): await Event.wait()
 	Global.confirm_sound()
 
 
-func await_next():
+func await_next() -> void:
 	print("boing")
 	await $Border2/Control/Next.pressed
 	print("boing2")
 	Global.confirm_sound()
 
 
-func close():
+func close() -> void:
 	var t := create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)

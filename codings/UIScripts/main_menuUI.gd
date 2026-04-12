@@ -1,14 +1,14 @@
 extends CanvasLayer
-var stage = "root"
-var rootIndex = 1
+var stage := "root"
+var rootIndex := 1
 var t: Tween
-var prevRootIndex = 1
+var prevRootIndex := 1
 var prevPos: Vector2
-var zoom
+var zoom: Vector2
 var z: int
 @onready var Cam: Camera2D = Global.get_cam()
 @onready var CamPrev: Camera2D = Global.get_cam().duplicate()
-@onready var Fader
+@onready var Fader: Control
 var PrevCtrl: Control = null
 var KeyInv: Array[ItemData]
 var player: Mira
@@ -17,7 +17,7 @@ var focused_item: ItemData = null
 var cam_follow: bool
 
 
-func _ready():
+func _ready() -> void:
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 	if not Event.f(&"HasBag") or Event.f("DisableMenus"):
@@ -106,10 +106,10 @@ func _ready():
 			t.tween_property(i.get_child(0), "position:x", -45, 0.5).as_relative()
 	await t.finished
 
-var input_frame
+var input_frame: int
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if Global.LastInput == Global.ProcessFrame: return
 	$Confirm.icon = Global.get_controller().ConfirmIcon
 	$Back.icon = Global.get_controller().CancelIcon
@@ -139,7 +139,7 @@ func _input(event):
 					move_root()
 
 
-func _on_focus_changed(control: Control):
+func _on_focus_changed(control: Control) -> void:
 	if stage == "item":
 		if PrevCtrl == control or control == null:
 			#Global.buzzer_sound()
@@ -150,7 +150,7 @@ func _on_focus_changed(control: Control):
 	PrevCtrl = control
 
 
-func close(give_control = true):
+func close(give_control := true) -> void:
 	$AnimationPlayer.speed_scale = 2
 	$AnimationPlayer.play_backwards("open")
 	Global.Player.get_node("DirectionMarker/Finder/Shape").disabled = false
@@ -203,7 +203,7 @@ func close(give_control = true):
 	queue_free()
 
 
-func move_root():
+func move_root() -> void:
 	var button: Button = $Rail.get_child(rootIndex).get_child(0)
 	button.grab_focus()
 	$Confirm.show()
@@ -291,7 +291,7 @@ func move_root():
 	prevRootIndex = rootIndex
 
 
-func _root():
+func _root() -> void:
 	show()
 	t.kill()
 	if stage != "root":
@@ -338,7 +338,7 @@ func _root():
 		stage = "root"
 
 
-func _journal():
+func _journal() -> void:
 	if stage == "inactive" or stage == "journal": return
 	if rootIndex != 0:
 		rootIndex = 0
@@ -376,7 +376,7 @@ func _journal():
 	PartyUI.hide_all()
 
 
-func _item():
+func _item() -> void:
 	if stage == "inactive": return
 	rootIndex = 1
 	move_root()
@@ -430,7 +430,7 @@ func _item():
 	$Rail/ItemFollow/ItemButton.position = Vector2(-500, -340)
 
 
-func _quest():
+func _quest() -> void:
 	if stage == "inactive": return
 	if rootIndex != 2:
 		rootIndex = 2
@@ -438,7 +438,7 @@ func _quest():
 	pass  # Replace with function body.
 
 
-func _options():
+func _options() -> void:
 	if stage != "root": return
 	if rootIndex != 3:
 		rootIndex = 3
@@ -464,7 +464,7 @@ func _options():
 	hide()
 
 
-func _on_confirm_button_down():
+func _on_confirm_button_down() -> void:
 	if stage == "item":
 		if PrevCtrl == null or not PrevCtrl.has_meta("ItemData"): return
 		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
@@ -472,7 +472,7 @@ func _on_confirm_button_down():
 			Global.confirm_sound()
 
 
-func _on_back_button_down():
+func _on_back_button_down() -> void:
 	if stage != "inactive": Global.cancel_sound()
 	match stage:
 		"root", "inactive-root":
@@ -492,7 +492,7 @@ func _on_back_button_down():
 				$Confirm.show()
 		"choose_member":
 			if not PartyUI.Expanded: return
-			await get_inventory()
+			get_inventory()
 			await PartyUI._on_shrink()
 			await Event.wait()
 			stage = "item"
@@ -506,7 +506,7 @@ func _on_back_button_down():
 			PartyUI.MemberChoosing = false
 
 
-func get_inventory():
+func get_inventory() -> void:
 	if Item.KeyInv.is_empty(): return
 	Item.verify_inventory()
 
@@ -539,8 +539,8 @@ func get_inventory():
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/BattleItems)
 
 
-func make_slot(item: ItemData, grid: GridContainer):
-	var dub = $Inventory/Item.duplicate()
+func make_slot(item: ItemData, grid: GridContainer) -> void:
+	var dub: Button = $Inventory/Item.duplicate()
 	dub.icon = item.Icon
 	dub.set_meta("ItemData", item)
 	if item.Quantity > 1:
@@ -550,7 +550,7 @@ func make_slot(item: ItemData, grid: GridContainer):
 	dub.show()
 
 
-func focus_item(node: Button):
+func focus_item(node: Button) -> void:
 	if not node.get_parent() is GridContainer: return
 	var item: ItemData = node.get_meta("ItemData")
 	focused_item = item

@@ -35,19 +35,20 @@ func _on_text_edit_text_changed(text: String) -> void:
 
 
 func on_confirm(text: String) -> void:
-	$TextEdit.text = $TextEdit.text.dedent()
-	if $TextEdit.text != "":
-		$TextEdit.text[0].to_upper()
+	var textedit: LineEdit = $TextEdit
+	textedit.text = textedit.text.dedent()
+	if textedit.text != "":
+		textedit.text[0].to_upper()
 	await Event.wait(0.03)
-	$TextEdit.set_caret_column(20)
-	txt = $TextEdit.text
+	textedit.set_caret_column(20)
+	txt = textedit.text
 	txt = txt.to_lower()
 	if txt.length() > 10: return
 	elif txt.length() == 1:
 		$Error.text = "Let's try to be a little more creative."
 		$Error.show()
 	elif txt.length() == 0:
-		$TextEdit.text = "Alcine"
+		textedit.text = "Alcine"
 		on_confirm("Alcine")
 	elif check_for_symbols():
 		$Error.text = "I shouldn't include symbols"
@@ -63,6 +64,8 @@ func on_confirm(text: String) -> void:
 		or "tranny" in txt
 		or "boobs" in txt
 		or "breasts" == txt
+		or "poop" == txt
+		or "poo" == txt
 		or "fart" in txt
 		or "malaka" in txt
 	):
@@ -109,10 +112,11 @@ func on_confirm(text: String) -> void:
 		$Error.text = "Seriously? I think i can do better than this."
 		$Error.show()
 	else:
+		textedit.release_focus()
 		Query.find_member("Alcine").FirstName = txt.capitalize()
 		Global.textbox("naming", "what_about")
 	await get_tree().process_frame
-	$TextEdit.set_caret_column(14)
+	textedit.set_caret_column(14)
 
 
 func check_for_symbols() -> bool:

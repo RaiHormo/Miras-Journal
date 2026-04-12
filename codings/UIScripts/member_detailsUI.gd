@@ -4,11 +4,11 @@ var actor: Actor
 var inactive := false
 
 
-func _ready():
+func _ready() -> void:
 	hide()
 
 
-func draw_character(chara: Actor, menu := 0):
+func draw_character(chara: Actor, menu := 0) -> void:
 	if Global.Complimentaries.is_empty():
 		$AbilityPanel/Complimentary.disabled = true
 		$AbilityPanel/Border1/Scroller/AbilityList/CompTxt.hide()
@@ -37,7 +37,7 @@ func draw_character(chara: Actor, menu := 0):
 	var hbox: StyleBoxFlat = $StatPanel/HPAura/Health.get_theme_stylebox("fill")
 	hbox.bg_color = chara.MainColor
 	$StatPanel/HPAura/Health.add_theme_stylebox_override("fill", hbox.duplicate())
-	var abox = $StatPanel/HPAura/Aura.get_theme_stylebox("fill")
+	var abox: StyleBoxFlat = $StatPanel/HPAura/Aura.get_theme_stylebox("fill")
 	abox.bg_color = chara.SecondaryColor
 	$StatPanel/HPAura/Aura.add_theme_stylebox_override("fill", abox.duplicate())
 	if chara.BoxProfile != null:
@@ -113,7 +113,7 @@ func draw_character(chara: Actor, menu := 0):
 	$Back.show()
 
 
-func swap_mode(stability := false):
+func swap_mode(stability := false) -> void:
 	Global.ui_sound("swap")
 	stability_menu = stability
 	match stability_menu:
@@ -156,7 +156,7 @@ func swap_mode(stability := false):
 			$AbilityPanel/Complimentary.icon = Global.get_controller().ConfirmIcon
 
 
-func _on_back_pressed():
+func _on_back_pressed() -> void:
 	if inactive: return
 	Global.cancel_sound()
 	var t := create_tween()
@@ -173,15 +173,15 @@ func _on_back_pressed():
 	queue_free()
 
 
-func fetch_abilities(chara: Actor):
-	var Abilities = chara.get_abilities()
+func fetch_abilities(chara: Actor) -> void:
+	var Abilities := chara.get_abilities()
 	Abilities.push_front(chara.StandardAttack)
 	for n in %AbilityList.get_children():
 		if n is Button:
 			%AbilityList.remove_child(n)
 			n.queue_free()
-	for i in Abilities:
-		var dub = %Ab0.duplicate()
+	for i: Ability in Abilities:
+		var dub: Control = %Ab0.duplicate()
 		dub.show()
 		%AbilityList.add_child(dub)
 		dub.text = i.name
@@ -236,7 +236,7 @@ func _input(event: InputEvent) -> void:
 				Global.member_details(next_char, stability_menu)
 				queue_free()
 		elif event.is_action_pressed("LeftTrigger"):
-			var next_char = Global.Party.array()[Global.Party.array().find(actor) - 1]
+			var next_char := Global.Party.array()[Global.Party.array().find(actor) - 1]
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()

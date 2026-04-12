@@ -1,7 +1,7 @@
 extends ScrollContainer
 class_name BetterScrollContainer
 var t: Tween
-var target = 0
+var target := 0
 @export var better_follow_focus := true
 
 
@@ -26,7 +26,7 @@ func scroll_to(to: int, axis: StringName = &"v") -> void:
 	if is_instance_valid(t): t.kill()
 	to = max(0, to)
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	var property = "scroll_vertical"
+	var property := "scroll_vertical"
 	if axis == &"h":
 		property = "scroll_horizontal"
 	t.tween_property(self, property, to, 0.3)

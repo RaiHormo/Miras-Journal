@@ -38,7 +38,7 @@ func _on_area_break_area_entered(area: Area2D) -> void:
 		Item.add_item(given_item, item_type, true, false)
 
 
-func set_break():
+func set_break() -> void:
 	if not_actually_breakable: return
 	disappear()
 	broken = true
@@ -58,13 +58,13 @@ func _validate_property(property: Dictionary) -> void:
 			"Bti": type = "BattleItems"
 			"Mat": type = "Materials"
 			"Key": type = "KeyItems"
-		var files = DirAccess.get_files_at("res://database/Items/" + type)
+		var files: PackedStringArray = DirAccess.get_files_at("res://database/Items/" + type)
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))
 		var sprite: AnimatedSprite2D = get_node_or_null("Sprite")
 		if "Fragment" in given_item and sprite != null:
-			var color = given_item.replace("Fragment", "")
+			var color := given_item.replace("Fragment", "")
 			if sprite.sprite_frames.has_animation(color):
 				get_node("Sprite").animation = color
 				default_anim = color
@@ -88,7 +88,7 @@ func _on_area_prompt_area_exited(area: Area2D) -> void:
 		disappear()
 
 
-func appear():
+func appear() -> void:
 	if broken: return
 	$Pack/Button/Icon.texture = Global.get_controller().OVAttack
 	if to_local(Global.Player.position).x <= 0:
@@ -108,7 +108,7 @@ func appear():
 	$Pack/AnimationPlayer.play("Idle")
 
 
-func disappear():
+func disappear() -> void:
 	if broken: return
 	if get_node_or_null("Pack/AnimationPlayer") == null: return
 	$Pack/AnimationPlayer.play("Disappear")

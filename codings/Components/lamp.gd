@@ -8,13 +8,13 @@ func _ready() -> void:
 	update()
 
 
-func _on_interactable_action():
+func _on_interactable_action() -> void:
 	Light = !Light
 	if flag != "": Event.add_flag(flag, Light)
 	update()
 
 
-func update():
+func update() -> void:
 	var t := create_tween()
 	if Light:
 		t.tween_property(self, "energy", 1, 0.5)

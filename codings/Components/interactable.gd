@@ -80,7 +80,7 @@ var t: Tween
 var animating := false
 
 
-func setup_action_options():
+func setup_action_options() -> void:
 	if dialogue_file.is_empty(): dialogue_file = file
 	match ActionType:
 		"text":
@@ -116,7 +116,7 @@ func _validate_property(property: Dictionary) -> void:
 	match ActionType:
 		"text", "social_link":
 			if property.name == "dialogue_file":
-				var files = DirAccess.get_files_at("res://database/Text/")
+				var files := DirAccess.get_files_at("res://database/Text/")
 				var files_filtered: Array[String]
 				for i in files:
 					if not i.ends_with(".import"):
@@ -130,7 +130,7 @@ func _validate_property(property: Dictionary) -> void:
 			"Bti": type = "BattleItems"
 			"Mat": type = "Materials"
 			"Key": type = "KeyItems"
-		var files = DirAccess.get_files_at("res://database/Items/" + type)
+		var files := DirAccess.get_files_at("res://database/Items/" + type)
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))
@@ -154,7 +154,7 @@ func _ready() -> void:
 	if ActionType == "veinet": vein_check()
 
 
-func vein_check():
+func vein_check() -> void:
 	if Event.check_flag(get_parent().name):
 		get_parent().get_node("Particle").emitting = false
 		LabelText = "Enter"
@@ -202,7 +202,7 @@ func player_is_near() -> bool:
 	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
 
 
-func destroy():
+func destroy() -> void:
 	if hide_parent:
 		get_parent().hide()
 		get_parent().scale = Vector2.ZERO
@@ -214,7 +214,7 @@ func destroy():
 		scale = Vector2.ZERO
 
 
-func appear():
+func appear() -> void:
 	if not CanInteract and not animating:
 		animating = true
 		do_position()
@@ -241,7 +241,7 @@ func appear():
 			CanInteract = false
 
 
-func disappear(also_hide_bubble := false):
+func disappear(also_hide_bubble := false) -> void:
 	if not animating:
 		animating = true
 		if bubble_always and not also_hide_bubble:
@@ -259,7 +259,7 @@ func disappear(also_hide_bubble := false):
 		animating = false
 
 
-func bubble():
+func bubble() -> void:
 	pack.show()
 	if is_instance_valid(t): t.kill()
 	t = create_tween().set_parallel()
@@ -279,11 +279,11 @@ func _input(event: InputEvent) -> void:
 		else: appear()
 
 
-func do_position():
+func do_position() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	var dir = Query.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
+	var dir := Query.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
 		Vector2.UP:
@@ -386,17 +386,17 @@ func _on_button_pressed() -> void:
 			Global.Player.camera_follow(true)
 		"social_link":
 			await Event.take_control(false)
-			var rank = Event.condition(event_condition)
+			var rank := Event.condition(event_condition)
 			if rank == 0:
 				Global.toast("Something went wrong with the event condition")
 			disappear(true)
 			await Global.textbox(dialogue_file, "rank" + str(rank) + "_prepare")
 		"chair":
 			await Event.take_control()
-			var face = Query.get_direction()
+			var face := Query.get_direction()
 			if not chair_faces.is_empty() and not Query.get_dir_letter() in chair_faces:
 				face = Query.get_dir_from_letter(chair_faces[0])
-			var pos = Global.Player.position
+			var pos := Global.Player.position
 			Global.Player.BodyState = NPC.NONE
 			Global.Player.collision(false)
 			Global.Player.set_anim("Sit" + Query.get_dir_name(face))

@@ -9,7 +9,7 @@ func _ready() -> void:
 	hide_prompt()
 
 
-func _check_party():
+func _check_party() -> void:
 	if Event.f("HideDate"):
 		$Date/Day.add_theme_font_size_override("font_size", 150)
 		$Date/Month.text = "Unknown"

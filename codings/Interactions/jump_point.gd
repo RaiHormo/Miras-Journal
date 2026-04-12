@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 						i.player_jumped = true
 					busy = false
 					Event.teleport_followers()
-			elif Global.Player.can_jump and not timer.is_stopped():
+			elif Global.Player.can_jump and is_instance_valid(timer) and not timer.is_stopped():
 				timer.start()
 
 

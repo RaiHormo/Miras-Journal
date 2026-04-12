@@ -3,16 +3,16 @@ class_name Wheel
 @export var color: Color
 var affinity: Affinity
 var tar_aff: Affinity
-var relation_ico = null
+var relation_ico: TextureRect = null
 var t: Tween
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("DebugC"):
 		draw_wheel()
 
 
-func draw_wheel():
+func draw_wheel() -> void:
 	if color.s != 0:
 		affinity = Query.get_affinity(color)
 		$Rangenear1.rotation_degrees = affinity.near_range[0]
@@ -43,19 +43,19 @@ func draw_wheel():
 		IndicatorPanel.bg_color = color
 
 
-func avrage_dg(d1, d2):
+func avrage_dg(d1: float, d2: float) -> float:
 	if d1 < d2: return ((359 + d1) + d2) / 2
 	else: return (d1 + d2) / 2
 
 
-func show_atk_color(clr: Color):
+func show_atk_color(clr: Color) -> void:
 	color = clr
 	draw_wheel()
 	await Event.wait()
 	draw_wheel()
 
 
-func show_trg_color(clr: Color):
+func show_trg_color(clr: Color) -> void:
 	if affinity == null: return
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -77,7 +77,7 @@ func show_trg_color(clr: Color):
 		blink_icon(relation_ico)
 
 
-func blink_icon(icon: TextureRect):
+func blink_icon(icon: TextureRect) -> void:
 	while icon == relation_ico and Global.Bt.get_node("BattleUI").stage == "target":
 		t = create_tween()
 		t.set_ease(Tween.EASE_IN_OUT)
