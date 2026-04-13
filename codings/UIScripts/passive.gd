@@ -6,7 +6,7 @@ extends CanvasLayer
 @onready var responses_menu: VBoxContainer = null
 @onready var response_template: Button = null
 @onready var Portrait: TextureRect = $Balloon/Margin/Portrait
-var currun = false
+var currun := false
 @onready var t: Tween
 var prev_char := ""
 
@@ -33,7 +33,7 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 
-		var char_name = tr(dialogue_line.character, "dialogue")
+		var char_name := tr(dialogue_line.character, "dialogue")
 
 		if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
 			await hide_box()
@@ -56,7 +56,7 @@ var dialogue_line: DialogueLine:
 		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
 		#character_label.text = tr(dialogue_line.character, "dialogue")
 		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem = await Global.match_profile(char_name)
+		var mem := await Global.match_profile(char_name)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -83,7 +83,7 @@ var dialogue_line: DialogueLine:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUAD)
-			for response in dialogue_line.responses:
+			for response: DialogueResponse in dialogue_line.responses:
 				# Duplicate the template so we can grab the fonts, sizing, etc
 				var item: Button = response_template.duplicate(0)
 				item.name = "Response%d" % responses_menu.get_child_count()
@@ -114,15 +114,15 @@ var dialogue_line: DialogueLine:
 		dialogue_label.modulate.a = 1
 		#await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
-			var prof = await Global.match_profile(char_name)
+			var prof := await Global.match_profile(char_name)
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		if dialogue_line.time != "":
-			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
+			var time := dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
-			var time = dialogue_line.text.length() * 0.02 + 1
+			var time := dialogue_line.text.length() * 0.02 + 1
 			await get_tree().create_timer(max(time, 2)).timeout
 			next(dialogue_line.next_id)
 	get:
@@ -166,7 +166,7 @@ func _on_close() -> void:
 	if self != null: queue_free()
 
 
-func hide_box():
+func hide_box() -> void:
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_IN)
@@ -182,12 +182,14 @@ func hide_box():
 func _on_mutated(_mutation: Dictionary) -> void:
 	is_waiting_for_input = false
 	will_hide_balloon = true
-	get_tree().create_timer(0.1).timeout.connect(func():
-		if will_hide_balloon:
-			will_hide_balloon = false)
+	get_tree().create_timer(0.1).timeout.connect(
+		func() -> void:
+			if will_hide_balloon:
+				will_hide_balloon = false
+	)
 
 
-func draw_portrait():
+func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
 	if Global.HasPortrait:
 		Portrait.texture = Global.PortraitIMG

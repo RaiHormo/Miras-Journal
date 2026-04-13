@@ -458,6 +458,7 @@ common/physics_interpolation=true
 
 rendering_device/pipeline_cache/enable=false
 textures/vram_compression/import_etc2_astc=true
+shader_compiler/shader_cache/enabled=false
 anti_aliasing/quality/use_debanding=true
 environment/defaults/default_clear_color=Color(0.072842576, 0.07284265, 0.072842635, 1)
 

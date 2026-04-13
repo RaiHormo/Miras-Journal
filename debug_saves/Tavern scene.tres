@@ -1,0 +1,174 @@
+[gd_resource type="Resource" script_class="SaveFile" format=3]
+
+[ext_resource type="Script" path="res://codings/Classes/save_class.gd" id="1_hq4er"]
+
+[resource]
+script = ExtResource("1_hq4er")
+Name = "Tavern scene"
+RoomPath = "res://rooms/Pyrson.tscn"
+RoomName = "Pyrson"
+Position = Vector2(504.33325, 829)
+Z = 0
+Members = Array[Dictionary]([{
+"AbilitiesList": Array[String](["Guard", "SoothingSpray", "IcyDrizzle"]),
+"Aura": 15,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": true,
+"FirstName": "Alcine",
+"Health": 60,
+"IgnoreStates": false,
+"LastName": "",
+"MaxAura": 15,
+"MaxHP": 60,
+"OV": "",
+"SkillLevel": 2,
+"SkillPoints": 10,
+"Weapon": "Arms?",
+"WeaponPower": 14,
+"codename": &"Alcine"
+}, {
+"AbilitiesList": Array[String](["PhantomGuard", "Tighten", "RedShift"]),
+"Aura": 47,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": false,
+"FirstName": "Asteria",
+"Health": 90,
+"IgnoreStates": false,
+"LastName": "Versea",
+"MaxAura": 47,
+"MaxHP": 90,
+"OV": "",
+"SkillLevel": 7,
+"SkillPoints": 16,
+"Weapon": "Possessed Scarf",
+"WeaponPower": 16,
+"codename": &"Asteria"
+}, {
+"AbilitiesList": Array[String](["Guard", "Attention", "StaticSaber"]),
+"Aura": 24,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": false,
+"FirstName": "Daze",
+"Health": 130,
+"IgnoreStates": false,
+"LastName": "",
+"MaxAura": 24,
+"MaxHP": 130,
+"OV": "",
+"SkillLevel": 14,
+"SkillPoints": 54,
+"Weapon": "Gold-trimmed Katana",
+"WeaponPower": 30,
+"codename": &"Daze"
+}, {
+"AbilitiesList": Array[String]([]),
+"Aura": 90,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": false,
+"FirstName": "Erinn",
+"Health": 85,
+"IgnoreStates": false,
+"LastName": "Levenor",
+"MaxAura": 90,
+"MaxHP": 85,
+"OV": "res://art/OV/Erinn/ErinnOV.tres",
+"SkillLevel": 1,
+"SkillPoints": 0,
+"Weapon": "",
+"WeaponPower": 24,
+"codename": &"Erinn"
+}, {
+"AbilitiesList": Array[String](["Guard", "FlameSpark", "HeatWave"]),
+"Aura": 20,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({
+"FluidBlast": 1
+}),
+"Controllable": true,
+"FirstName": "Mira",
+"Health": 100,
+"IgnoreStates": false,
+"LastName": "Levenor",
+"MaxAura": 20,
+"MaxHP": 100,
+"OV": "Bag",
+"SkillLevel": 2,
+"SkillPoints": 28,
+"Weapon": "Lightweight Axe",
+"WeaponPower": 15,
+"codename": &"Mira"
+}])
+Complimentaries = Array[String](["FluidBlast"])
+StartTime = 1774043227.769998
+SavedTime = 1774052828.806751
+PlayTime = 1580.0
+Inventory = Array[String](["Wallet:Key", "PenCase:Key", "FoldedPaper:Key", "LightweightAxe:Key", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "RustySword:Bti", "RustySword:Bti", "SharpRock:Bti"])
+Flags = Dictionary[StringName, int]({
+&"AlcineFollow": 4,
+&"AlcineFollow4": 4,
+&"AlcineIsTheLeaderReal": 1,
+&"AsteriaBoss": 5,
+&"BeatStoneGuardian": 1,
+&"BreakableVines0": 1,
+&"Bunker1Open": 1,
+&"CrateAmb1": 1,
+&"DashTutorial0": 1,
+&"DazeQuestions": 0,
+&"EnterAmberelm": 1,
+&"EnteredAmberelm3": 1,
+&"EvAmbWoodsBridge": 1,
+&"EvDazeEnemy2": 1,
+&"EvDazeEnemy4": 1,
+&"EvDestroyedGuardian": 1,
+&"EvFirstBattle": 1,
+&"EvFlameActive": 1,
+&"EvLostSpiritRed": 1,
+&"EvMetalicGate": 1,
+&"EvNov2TownHall": 1,
+&"EvRestAmberelm": 1,
+&"EvStoneGuardianCheckBody": 1,
+&"FirstBattle": 3,
+&"HasBag": 1,
+&"ItemRustySword1": 1,
+&"ItemSharpRock2": 1,
+&"Nov3_WentToSG": 1,
+&"PickedUpAxe": 1,
+&"PyrsonHome": 1,
+&"Started": 1,
+&"StoneGuardianFinisher": 1,
+&"TavernTheory": 2,
+&"TutorialBag": 1,
+&"VPOldCamp": 1,
+&"VPPlains": 1,
+&"VeinetDisabled": 1,
+&"WLDoor1a": 1,
+&"WLDoor1b": 1,
+&"WLLeftSideOpen": 1,
+&"day": 3,
+&"eepy1": 1,
+&"time": 2
+})
+Diary = Dictionary[int, PackedStringArray]({
+2: PackedStringArray("boo"),
+5: PackedStringArray("boo", "bee")
+})
+version = 7

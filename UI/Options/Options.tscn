@@ -1681,8 +1681,7 @@ mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
 theme_override_font_sizes/font_size = 32
-text = "Set a custom resolution to scale to.
-The game's base resolution is 1280x800."
+text = "The game's base resolution is 1280x800."
 
 [node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1158978083]
 layout_mode = 2

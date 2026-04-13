@@ -1,0 +1,196 @@
+[gd_resource type="Resource" script_class="SaveFile" format=3]
+
+[ext_resource type="Script" path="res://codings/Classes/save_class.gd" id="1_0d8lm"]
+
+[resource]
+script = ExtResource("1_0d8lm")
+Name = "test thund"
+Party = Array[StringName]([&"Mira", &"Alcine", &"Asteria", &"Daze"])
+RoomPath = "res://rooms/ShardGardens.tscn"
+RoomName = "Shard gardens"
+Position = Vector2(564, 900)
+Z = 0
+Members = Array[Dictionary]([{
+"AbilitiesList": Array[String](["Guard", "SoothingSpray"]),
+"Aura": 9,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({
+"FluidBlast": 1
+}),
+"Controllable": true,
+"FirstName": "Pluey",
+"Health": 45,
+"IgnoreStates": false,
+"LastName": "",
+"MaxAura": 15,
+"MaxHP": 75,
+"OV": "",
+"SkillLevel": 2,
+"SkillPoints": 65,
+"Weapon": "Arms?",
+"WeaponPower": 14,
+"codename": &"Alcine"
+}, {
+"AbilitiesList": Array[String](["PhantomGuard", "Tighten", "RedShift"]),
+"Aura": 16,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": true,
+"FirstName": "Asteria",
+"Health": 25,
+"IgnoreStates": false,
+"LastName": "Versea",
+"MaxAura": 47,
+"MaxHP": 90,
+"OV": "",
+"SkillLevel": 7,
+"SkillPoints": 39,
+"Weapon": "Possessed Scarf",
+"WeaponPower": 16,
+"codename": &"Asteria"
+}, {
+"AbilitiesList": Array[String](["Guard", "Attention", "StaticSaber"]),
+"Aura": 5,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({
+"FluidBlast": 1,
+"Thunderstorm": 1
+}),
+"Controllable": true,
+"FirstName": "Daze",
+"Health": 124,
+"IgnoreStates": false,
+"LastName": "",
+"MaxAura": 28,
+"MaxHP": 150,
+"OV": "",
+"SkillLevel": 19,
+"SkillPoints": 1,
+"Weapon": "Gold-trimmed Katana",
+"WeaponPower": 30,
+"codename": &"Daze"
+}, {
+"AbilitiesList": Array[String]([]),
+"Aura": 90,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({}),
+"Controllable": false,
+"FirstName": "Erinn",
+"Health": 85,
+"IgnoreStates": false,
+"LastName": "Levenor",
+"MaxAura": 90,
+"MaxHP": 85,
+"OV": "res://art/OV/Erinn/ErinnOV.tres",
+"SkillLevel": 1,
+"SkillPoints": 0,
+"Weapon": "",
+"WeaponPower": 24,
+"codename": &"Erinn"
+}, {
+"AbilitiesList": Array[String](["Guard", "FlameSpark", "HeatWave", "Preparations", "PitchIn"]),
+"Aura": 5,
+"CantAttack": false,
+"CantDie": false,
+"CantDodge": false,
+"ClutchDmg": false,
+"ComplimentaryList": Dictionary[String, int]({
+"FluidBlast": 1
+}),
+"Controllable": true,
+"FirstName": "Mira",
+"Health": 33,
+"IgnoreStates": false,
+"LastName": "Levenor",
+"MaxAura": 20,
+"MaxHP": 100,
+"OV": "Bag",
+"SkillLevel": 4,
+"SkillPoints": 12,
+"Weapon": "Lightweight Axe",
+"WeaponPower": 15,
+"codename": &"Mira"
+}])
+Complimentaries = Array[String](["FluidBlast", "Thunderstorm"])
+Defeated = ["EnemySG1", "EnemySG2"]
+StartTime = 1773014079.152903
+SavedTime = 1773062617.799657
+PlayTime = 3406.0
+Inventory = Array[String](["Wallet:Key", "PenCase:Key", "FoldedPaper:Key", "LightweightAxe:Key", "CyanFragment:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "PurpleFragment:Mat", "PurpleFragment:Mat", "LifeLave:Con", "LifeLave:Con", "SmallPotion:Con", "SharpRock:Bti", "SharpRock:Bti"])
+Flags = Dictionary[StringName, int]({
+&"AlcineFollow": 4,
+&"AlcineFollow4": 4,
+&"AlcineIsTheLeaderReal": 2,
+&"AsteriaBoss": 5,
+&"BeatStoneGuardian": 1,
+&"BreakablePurpleOre0": 1,
+&"BreakablePurpleOre1": 1,
+&"BreakableTWCyan0": 1,
+&"BreakableVines0": 1,
+&"BreakableVines1": 1,
+&"Bunker1Open": 1,
+&"CrateAmb1": 1,
+&"CrateAmb2": 1,
+&"CrateAmb3": 1,
+&"DashTutorial0": 1,
+&"DazeQuestions": 0,
+&"EnteredAmberelm3": 1,
+&"EvAmbWoodsBridge": 1,
+&"EvDazeEnemy1": 1,
+&"EvDazeEnemy2": 1,
+&"EvDazeEnemy4": 1,
+&"EvFirstBattle": 1,
+&"EvLostSpiritRed": 1,
+&"EvMetalicGate": 1,
+&"EvNov2TownHall": 1,
+&"EvRestAmberelm": 1,
+&"EvStoneGuardianCheckBody": 1,
+&"EvWLVoidMira": 1,
+&"FirstBattle": 3,
+&"HasBag": 1,
+&"ItemDefault2": 1,
+&"ItemDefault3": 1,
+&"ItemLifeLave1": 1,
+&"ItemLifeLave2": 1,
+&"ItemRustySword1": 1,
+&"ItemSharpRock1": 1,
+&"ItemSharpRock2": 1,
+&"ItemStrangeFruit1": 1,
+&"ItemStrangeFruit4": 1,
+&"ItemStrangeFruit7": 1,
+&"LookedAtSkeleton": 1,
+&"LookedAtStatue": 1,
+&"LookedAtTempleSymbol": 3,
+&"Nov3_WentToSG": 1,
+&"PickedUpAxe": 1,
+&"PyrsonHome": 1,
+&"Started": 1,
+&"StoneGuardianFinisher": 1,
+&"TWflame": 1,
+&"TavernTheory": 1,
+&"TutorialBag": 1,
+&"VPOldCamp": 1,
+&"VeinetDisabled": 1,
+&"WLDoor1a": 1,
+&"WLDoor1b": 1,
+&"WLLeftSideOpen": 1,
+&"day": 3,
+&"time": 3
+})
+Diary = Dictionary[int, PackedStringArray]({
+2: PackedStringArray("boo"),
+5: PackedStringArray("boo", "bee")
+})
+version = 7

@@ -1,6 +1,6 @@
 extends Node
 
-@export var ID = ""
+@export var ID := ""
 
 
 func _ready() -> void:

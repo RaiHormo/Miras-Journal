@@ -2,22 +2,22 @@ extends CanvasLayer
 @onready var Troop: Array[Actor] = get_parent().Troop
 @onready var CurEnemy: Actor
 var t: Tween
-var lock = false
+var lock := false
 
 
-func _ready():
+func _ready() -> void:
 	$AllEnemies.show()
 	$EnemyFocus.hide()
 	$AllEnemies.position.x = 1300
 
 
-func all_enemy_ui(from := false):
+func all_enemy_ui(from := false) -> void:
 	lock = false
 	Troop = get_parent().Troop
 	$AllEnemies.show()
 	if from:
 		$AllEnemies.position.x = 1300
-	var tw = create_tween()
+	var tw := create_tween()
 	tw.set_trans(Tween.TRANS_QUART)
 	tw.set_ease(Tween.EASE_OUT)
 	tw.tween_property($AllEnemies, "position:x", 1081, 0.2)
@@ -45,7 +45,7 @@ func all_enemy_ui(from := false):
 		_check_party()
 
 
-func _on_battle_ui_target_foc(cur: Actor):
+func _on_battle_ui_target_foc(cur: Actor) -> void:
 	CurEnemy = cur
 	_check_party()
 	$AllEnemies.hide()
@@ -60,13 +60,13 @@ func _on_battle_ui_target_foc(cur: Actor):
 	$EnemyFocus/Health/HpText.text = str(CurEnemy.Health)
 
 
-func find_box(enemy: Actor):
+func find_box(enemy: Actor) -> Control:
 	if enemy.HealthBar:
 		for i in $AllEnemies.get_children():
 			if i.has_meta("enemy") and i.get_meta("enemy") == enemy:
 				return i
 		#Didn't find one, make one instead
-		var panel = $AllEnemies/Temp.duplicate()
+		var panel: Panel = $AllEnemies/Temp.duplicate()
 		panel.name = "Enemy" + str(Troop.find(enemy))
 		$AllEnemies.add_child(panel)
 		make_box(enemy, panel)
@@ -76,14 +76,14 @@ func find_box(enemy: Actor):
 			if i.has_meta("enemy") and i.get_meta("enemy") == enemy:
 				return i
 			#Didn't find one, make one instead
-		var panel = $AllEnemies/OtherEnemies/Margin/VBox/Temp.duplicate()
+		var panel: Control = $AllEnemies/OtherEnemies/Margin/VBox/Temp.duplicate()
 		panel.name = "Enemy" + str(Troop.find(enemy))
 		$AllEnemies/OtherEnemies/Margin/VBox.add_child(panel)
 		make_box(enemy, panel)
 		return panel
 
 
-func _check_party():
+func _check_party() -> void:
 	PartyUI._check_party()
 	Troop = get_parent().Troop
 	if t: t.stop()
@@ -123,7 +123,7 @@ func _check_party():
 		#make_box(Troop[0], $AllEnemies/Enemy0)
 
 
-func check_panel(chara: Actor, panel: Control):
+func check_panel(chara: Actor, panel: Control) -> void:
 	if panel == null: return
 	if chara.FirstName.length() > 16: panel.get_node("Name").add_theme_font_size_override("font_size", 12)
 	elif chara.FirstName.length() > 12: panel.get_node("Name").add_theme_font_size_override("font_size", 14)
@@ -141,13 +141,13 @@ func check_panel(chara: Actor, panel: Control):
 	color_box(chara, panel)
 
 
-func _on_battle_ui_ability():
+func _on_battle_ui_ability() -> void:
 	if $"../BattleUI/DescPaper/ShowWheel/Wheel".visible:
 		colapse_root()
 	$EnemyFocus.hide()
 
 
-func colapse_root():
+func colapse_root() -> void:
 	t = create_tween()
 	t.tween_property($AllEnemies, "position:x", 1300, 0.1)
 
@@ -157,7 +157,7 @@ func colapse_root():
 #	pass
 
 
-func make_box(en: Actor, node: Control):
+func make_box(en: Actor, node: Control) -> void:
 	#node.show()
 	node.set_meta("enemy", en)
 	node.get_node("Icon").texture = en.PartyIcon
@@ -165,12 +165,12 @@ func make_box(en: Actor, node: Control):
 	color_box(en, node)
 
 
-func color_box(en: Actor, node: Control):
-	var hbox = node.get_node("Health").get_theme_stylebox("fill")
+func color_box(en: Actor, node: Control) -> void:
+	var hbox: StyleBoxFlat = node.get_node("Health").get_theme_stylebox("fill")
 	hbox.bg_color = en.MainColor
 	node.get_node("Health").add_theme_stylebox_override("fill", hbox.duplicate())
 	if node.get_node_or_null("Aura"):
-		var abox = node.get_node("Aura").get_theme_stylebox("fill")
+		var abox: StyleBoxFlat = node.get_node("Aura").get_theme_stylebox("fill")
 		if en.SecondaryColor == Color.BLACK:
 			en.SecondaryColor = en.MainColor
 			en.SecondaryColor.h += 0.83

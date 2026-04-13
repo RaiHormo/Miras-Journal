@@ -592,6 +592,21 @@ func SoulTap(target: Actor) -> void:
 	Bt.focus_cam(target, 1)
 	Bt.anim("Cast", CurrentChar)
 	Bt.play_effect("SoulTap", target)
+	await Event.wait(0.8)
+	if crit: target.add_state("Confused")
+	await Bt.shake_actor(target, 1, 2)
+	Bt.screen_shake(5, 2, 0.1)
+	Bt.damage(target, true, true)
+	await Event.wait(0.5)
+	Bt.anim()
+	Bt.end_turn()
+
+
+func SoulGrasp(target: Actor) -> void:
+	Bt.zoom(6)
+	Bt.focus_cam(target, 1)
+	Bt.anim("Cast", CurrentChar)
+	Bt.play_effect("SoulTap", target)
 	await Event.wait(1)
 	if crit: target.add_state("Confused")
 	await Bt.shake_actor(target, 1)
@@ -968,8 +983,8 @@ func Dispel(target: Actor) -> void:
 func Drink(target: Actor) -> void:
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	print(Bt.CurrentAbility.Type)
-	if Bt.CurrentAbility.Type == "Healing":
+	print(Bt.CurrentAbility.Types)
+	if Bt.CurrentAbility.Types[0] == Ability.TP.HEALING:
 		Bt.heal(CurrentChar, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
 	await Event.wait(1)
@@ -980,8 +995,8 @@ func Drink(target: Actor) -> void:
 func Eat(target: Actor) -> void:
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
-	print(Bt.CurrentAbility.Type)
-	if Bt.CurrentAbility.Type == "Healing":
+	print(Bt.CurrentAbility.Types)
+	if Bt.CurrentAbility.Types[0] == Ability.TP.HEALING:
 		Bt.heal(CurrentChar, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
 	await Event.wait(1)

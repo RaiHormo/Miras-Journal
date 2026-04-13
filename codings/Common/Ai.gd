@@ -37,7 +37,7 @@ func ai() -> void:
 			continue
 
 		var valid_targets := get_valid_targets(ability)
-		var score_modifier = get_ability_score_modifiers(ability)
+		var score_modifier := get_ability_score_modifiers(ability)
 
 		if ability.is_aoe():
 			# For AOE Abilities, scores are added up, then devided by the number of targets
@@ -94,7 +94,7 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 		match type:
 			Ability.TP.HEALING:
 				if is_ally(tar):
-					var hp_pct = tar.health_ratio()
+					var hp_pct := tar.health_ratio()
 					# Scales up as HP gets lower
 					if hp_pct <= 0.9:
 						score += (1 - hp_pct)

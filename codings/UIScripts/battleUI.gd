@@ -247,7 +247,7 @@ func _input(event: InputEvent) -> void:
 					Global.cursor_sound()
 					move_menu()
 				var ab: Ability = foc.get_meta("Ability")
-				var abgroup: Array[Ability] = foc.get_meta("AbilityGroup")
+				var abgroup: Array = foc.get_meta("AbilityGroup")
 				if Input.is_action_just_pressed("ui_right") and active:
 					if abgroup.find(ab) + 1 < abgroup.size():
 						foc.set_meta("Ability", abgroup[abgroup.find(ab) + 1])
@@ -1010,7 +1010,7 @@ func fetch_inventory() -> void:
 	for aitem in Item.ConInv: if aitem.UsedInBattle:
 		var dub: Control = $Inventory/Item.duplicate()
 		dub.icon = aitem.Icon
-		dub.set_meta("ItemData", item)
+		dub.set_meta("ItemData", aitem)
 		if aitem.Quantity > 1:
 			dub.text = str(aitem.Quantity)
 		else: dub.text = ""
@@ -1019,7 +1019,7 @@ func fetch_inventory() -> void:
 	for aitem in Item.BtiInv:
 		var dub: Control = $Inventory/Item.duplicate()
 		dub.icon = aitem.Icon
-		dub.set_meta("ItemData", item)
+		dub.set_meta("ItemData", aitem)
 		if aitem.Quantity > 1:
 			dub.text = str(aitem.Quantity)
 		else: dub.text = ""
@@ -1099,6 +1099,7 @@ func _on_cbutton_pressed(tog: bool) -> void:
 
 func focus_item(node: Button) -> void:
 	if not node.get_parent() is GridContainer: return
+	if not node.has_meta("ItemData"): return
 	var item_data: ItemData = node.get_meta("ItemData")
 	$Inventory/DescPaper/Title.text = item_data.Name
 	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item_data.Description)

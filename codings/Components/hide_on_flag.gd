@@ -2,7 +2,7 @@ extends Node2D
 
 @export var flag: String = ""
 @export var hide_if: bool = true
-@export var use_sprite = false
+@export var use_sprite := false
 @export var free_instead := false
 
 
@@ -12,7 +12,7 @@ func _ready() -> void:
 	Global.check_party.connect(check)
 
 
-func check():
+func check() -> void:
 	if get_node_or_null("Sprite") != null: use_sprite = true
 	if flag == "": return
 	if Event.f(flag) == hide_if:

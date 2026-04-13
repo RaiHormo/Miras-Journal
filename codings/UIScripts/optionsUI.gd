@@ -55,6 +55,7 @@ func _ready() -> void:
 		"Windows": platform_icon = preload("res://UI/Misc/Platforms/windows.svg")
 		"Linux": platform_icon = preload("res://UI/Misc/Platforms/linux.svg")
 		"Android": platform_icon = preload("res://UI/Misc/Platforms/android.svg")
+		"macOS": platform_icon = preload("res://UI/Misc/Platforms/macos.svg")
 		_: platform_icon = preload("res://UI/Misc/Platforms/LoggedOut.svg")
 	$Background/Info/Platform.texture = platform_icon
 	$SavePanel/FileNaming.hide()
@@ -667,7 +668,7 @@ func _new_file() -> void:
 
 func name_file(default: String) -> String:
 	$SavePanel/FileNaming.show()
-	var line: Label = $SavePanel/FileNaming/VBoxContainer/Label2
+	var line: LineEdit = $SavePanel/FileNaming/VBoxContainer/Label2
 	line.grab_focus()
 	line.text = ""
 	line.placeholder_text = default
