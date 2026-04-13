@@ -9,7 +9,7 @@ var was_paused: bool
 var cant_save := false
 var save_files_loaded := false
 var no_main := false
-
+var main_button_positions: Dictionary[String, Vector2]
 var Tutorials: Array
 
 
@@ -29,13 +29,19 @@ func _ready() -> void:
 			return
 		get_tree().root.get_node_or_null("Battle/BattleUI").stage = "options"
 		cant_save = true
+
+	# Get current main button positions
+	for button: Button in %MainButtons.get_children():
+		main_button_positions.set(button.name, button.position - Vector2(700, 0))
 	$MainButtons/SaveManagment.grab_focus()
+
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area):
 		cant_save = true
 	Loader.detransition("")
 	show()
 
 	$Silhouette.texture = Loader.Preview
+	tick()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
 	Global.Controllable = false
@@ -72,14 +78,17 @@ func _ready() -> void:
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
 	siilhouette()
 	Global.confirm_sound()
+
+	# Move the main buttons
 	for button in $MainButtons.get_children():
 		#button.size.x=0
 		button.z_index = 0
 		t = create_tween()
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_ease(Tween.EASE_OUT)
-		t.tween_property(button, "position:x", -700, 0.3).as_relative()
+		t.tween_property(button, "position", main_button_positions[button.name], 0.3)
 		await get_tree().create_timer(0.05).timeout
+
 	await t.finished
 	stage = "main"
 	loaded.emit()
@@ -190,12 +199,6 @@ func main() -> void:
 	t.set_parallel()
 	$MainButtons.get_child(mainIndex).grab_focus()
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5)
-	t.tween_property($MainButtons/GameSettings, "position:x", 729, 0.5)
-	t.tween_property($MainButtons/SaveManagment, "position", Vector2(663, 52), 0.5)
-	t.tween_property($MainButtons/Gallery, "position", Vector2(887, 491), 0.5)
-	t.tween_property($MainButtons/Manual, "position", Vector2(846, 343), 0.5)
-	t.tween_property($MainButtons/Quit, "position", Vector2(932, 633), 0.5)
-	t.tween_property($MainButtons/Manual, "rotation_degrees", 0, 0.5)
 	t.tween_property($Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 3.0, 1)
 	t.tween_property($Fader, "modulate", Color(0, 0, 0, 0.4), 1)
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5)
@@ -206,6 +209,10 @@ func main() -> void:
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($Back, "position:x", 207.0, 0.5)
 	t.tween_property($Confirm, "position:x", 26, 0.5)
+
+	for button: Button in %MainButtons.get_children():
+		t.tween_property(button, "position", main_button_positions[button.name], 0.5)
+
 	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
 		i.z_index = 0

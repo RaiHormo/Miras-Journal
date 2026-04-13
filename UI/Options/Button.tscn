@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://di64f0lsahyfu"]
+
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="1_gfkuk"]
+[ext_resource type="Script" uid="uid://qbtxdhaufw75" path="res://codings/UIScripts/glowing_button.gd" id="2_o1g4w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg2m8"]
+content_margin_left = 32.0
+content_margin_top = 12.0
+content_margin_right = 32.0
+content_margin_bottom = 12.0
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqfss"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6ahs"]
+content_margin_left = 32.0
+content_margin_top = 0.0
+content_margin_right = 32.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 12
+border_width_top = 5
+border_width_right = 13
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[sub_resource type="Theme" id="Theme_o6i8h"]
+default_font = ExtResource("1_gfkuk")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
+Button/font_sizes/font_size = 32
+Button/styles/disabled = SubResource("StyleBoxFlat_gg2m8")
+Button/styles/focus = SubResource("StyleBoxFlat_nqfss")
+Button/styles/hover = SubResource("StyleBoxFlat_t6ahs")
+Button/styles/normal = SubResource("StyleBoxFlat_gg2m8")
+Button/styles/pressed = SubResource("StyleBoxFlat_t6ahs")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfkuk"]
+content_margin_left = 11.0
+content_margin_right = 32.0
+bg_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+
+[node name="Button" type="Button" unique_id=716470933]
+offset_right = 178.0
+offset_bottom = 64.0
+pivot_offset_ratio = Vector2(0, 0.5)
+theme = SubResource("Theme_o6i8h")
+text = "Button"
+script = ExtResource("2_o1g4w")
+theme_color = Color(0.8901961, 0.5764706, 0.43137255, 1)
+
+[node name="Glow" type="Panel" parent="." unique_id=1497087256]
+visible = false
+show_behind_parent = true
+layout_mode = 0
+offset_right = 178.0
+offset_bottom = 64.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfkuk")
+
+[node name="Timer" type="Timer" parent="." unique_id=1779238914]
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

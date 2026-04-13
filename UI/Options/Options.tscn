@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ban3yhsivavgk" path="res://UI/Misc/Platforms/LoggedOut.svg" id="5_srwa7"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="6_d2agy"]
 [ext_resource type="Texture2D" uid="uid://kujjyrvil8do" path="res://UI/Misc/Platforms/android.svg" id="6_srwa7"]
+[ext_resource type="PackedScene" uid="uid://di64f0lsahyfu" path="res://UI/Options/Button.tscn" id="7_5qw8o"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="7_xdp6q"]
 [ext_resource type="Texture2D" uid="uid://30fjbtopqs22" path="res://UI/MenuTextures/toggle_on.svg" id="8_nqfss"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="8_pum06"]
@@ -39,66 +40,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_0ss3e")
 shader_parameter/lod = 0.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg2m8"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqfss"]
-content_margin_left = 11.0
-content_margin_right = 32.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6ahs"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 12
-border_width_top = 5
-border_width_right = 13
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
-
-[sub_resource type="Theme" id="Theme_o6i8h"]
-default_font = ExtResource("5_80sd8")
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxFlat_gg2m8")
-Button/styles/focus = SubResource("StyleBoxFlat_nqfss")
-Button/styles/hover = SubResource("StyleBoxFlat_t6ahs")
-Button/styles/normal = SubResource("StyleBoxFlat_gg2m8")
-Button/styles/pressed = SubResource("StyleBoxFlat_t6ahs")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgmdv"]
 content_margin_left = 11.0
@@ -736,6 +677,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="MainButtons" type="Control" parent="." unique_id=322398056]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -743,109 +685,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SaveManagment" type="Button" parent="MainButtons" unique_id=858771662]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.580469
-anchor_top = 0.12125
-anchor_right = 0.696875
-anchor_bottom = 0.13
-offset_left = 620.0
-offset_top = -45.0
-offset_right = 832.0
-offset_bottom = 15.0
+[node name="SaveManagment" parent="MainButtons" unique_id=716470933 instance=ExtResource("7_5qw8o")]
+layout_mode = 0
+offset_left = 1362.0
+offset_top = 62.0
+offset_right = 1702.0
+offset_bottom = 126.0
 scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(30, 30)
-focus_neighbor_bottom = NodePath("../GameSettings")
-focus_next = NodePath("../GameSettings")
-theme = SubResource("Theme_o6i8h")
-text = "Save Management"
-metadata/_edit_use_anchors_ = true
+text = "Save Managment"
+theme_color = Color(0.25145325, 0.67154324, 0.42753023, 1)
 
-[node name="GameSettings" type="Button" parent="MainButtons" unique_id=361318790]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.641406
-anchor_top = 0.30125
-anchor_right = 0.717969
-anchor_bottom = 0.31
-offset_left = 608.0
-offset_top = -45.0
-offset_right = 798.0
-offset_bottom = 15.0
+[node name="GameSettings" parent="MainButtons" unique_id=466527549 instance=ExtResource("7_5qw8o")]
+layout_mode = 0
+offset_left = 1416.0
+offset_top = 198.0
+offset_right = 1720.0
+offset_bottom = 262.0
 scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(30, 30)
-focus_neighbor_top = NodePath("../SaveManagment")
-focus_neighbor_bottom = NodePath("../Manual")
-focus_next = NodePath("../Manual")
-focus_previous = NodePath("../SaveManagment")
-theme = SubResource("Theme_o6i8h")
 text = "Game Settings"
-metadata/_edit_use_anchors_ = true
+theme_color = Color(0.5046495, 0.29969653, 0.88087386, 1)
 
-[node name="Manual" type="Button" parent="MainButtons" unique_id=348587204]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.730469
-anchor_top = 0.48125
-anchor_right = 0.739844
-anchor_bottom = 0.49
-offset_left = 611.0
-offset_top = -42.0
-offset_right = 801.0
-offset_bottom = 18.0
+[node name="Manual" parent="MainButtons" unique_id=1371218540 instance=ExtResource("7_5qw8o")]
+layout_mode = 0
+offset_left = 1528.0
+offset_top = 346.0
+offset_right = 1729.3334
+offset_bottom = 410.0
 scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(30, 30)
-focus_neighbor_top = NodePath("../GameSettings")
-focus_neighbor_bottom = NodePath("../Gallery")
-focus_next = NodePath("../Gallery")
-focus_previous = NodePath("../GameSettings")
-theme = SubResource("Theme_o6i8h")
-text = "Manual"
-metadata/_edit_use_anchors_ = true
+text = "Manuals"
+theme_color = Color(0.8237475, 0.6255797, 0.31959465, 1)
 
-[node name="Gallery" type="Button" parent="MainButtons" unique_id=976111043]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.739062
-anchor_top = 0.66375
-anchor_right = 0.739062
-anchor_bottom = 0.6725
-offset_left = 641.001
-offset_top = -40.0
-offset_right = 832.001
-offset_bottom = 20.0
+[node name="Gallery" parent="MainButtons" unique_id=1984814241 instance=ExtResource("7_5qw8o")]
+layout_mode = 0
+offset_left = 1568.5
+offset_top = 490.0
+offset_right = 1735.5
+offset_bottom = 554.0
 scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(30, 30)
-focus_neighbor_top = NodePath("../Manual")
-focus_neighbor_bottom = NodePath("../Quit")
-focus_next = NodePath("../Quit")
-focus_previous = NodePath("../Manual")
-focus_mode = 1
-theme = SubResource("Theme_o6i8h")
 text = "Extras"
-metadata/_edit_use_anchors_ = true
+theme_color = Color(0.1175795, 0.4523369, 0.79537284, 1)
 
-[node name="Quit" type="Button" parent="MainButtons" unique_id=487484617]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.710156
-anchor_top = 0.8475
-anchor_right = 0.710156
-anchor_bottom = 0.85625
-offset_left = 723.0
-offset_top = -45.0
-offset_right = 866.0
-offset_bottom = 15.0
+[node name="Quit" parent="MainButtons" unique_id=1905898559 instance=ExtResource("7_5qw8o")]
+layout_mode = 0
+offset_left = 1602.5001
+offset_top = 632.0
+offset_right = 1737.5001
+offset_bottom = 696.0
 scale = Vector2(1.5, 1.5)
-pivot_offset = Vector2(30, 30)
-focus_neighbor_top = NodePath("../Gallery")
-focus_previous = NodePath("../Gallery")
-theme = SubResource("Theme_o6i8h")
 text = "Quit
 "
-icon_alignment = 2
-metadata/_edit_use_anchors_ = true
+theme_color = Color(0.80832976, 0.24041322, 0.29360002, 1)
 
 [node name="Timer" type="PanelContainer" parent="." unique_id=1390562438]
 offset_left = 27.0
@@ -1243,6 +1132,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
 [node name="SidePanel" type="Panel" parent="." unique_id=1391057141]
+visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0

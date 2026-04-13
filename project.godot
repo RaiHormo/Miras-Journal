@@ -92,6 +92,7 @@ folder_colors={
 "res://art/": "pink",
 "res://codings/": "blue",
 "res://database/": "yellow",
+"res://debug_saves/": "purple",
 "res://rooms/": "orange",
 "res://sound/": "red"
 }
