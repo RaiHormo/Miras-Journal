@@ -1,7 +1,7 @@
 extends CanvasLayer
 signal enter
 var txt: String = ''
-var word_list: Dictionary
+var word_list: Dictionary = load("res://database/Text/Misc/BannedNamingWords.json").data
 
 @onready var textbox: LineEdit = $TextEdit
 @onready var response: Label = $Error
@@ -14,7 +14,6 @@ func _ready() -> void:
 func start() -> void:
 	get_tree().paused = false
 	PartyUI.Expanded = false
-	word_list = load("res://database/Data-renameMe/words.json").data
 	show()
 	$TextureRect.texture = await Loader.load_res(Query.find_member("Alcine").RenderArtwork)
 	response.hide()
@@ -62,19 +61,19 @@ func on_confirm(text: String) -> void:
 		word_list["unallowed_in"].any(func(word: String) -> bool: return word in txt)
 		or
 		word_list["unallowed_equal"].any(func(word: String) -> bool: return word == txt)
-		):
+	):
 		response.text = "No."
 		response.show()
-	elif (	#check if input matches a key in the responses_equal KVP
+	elif (  #check if input matches a key in the responses_equal KVP
 		txt in word_list["responses_equal"]
-		):
+	):
 		response.text = word_list["responses_equal"][txt]
 		response.show()
-	elif(	#checks if the keys contain the word in the input
-		word_list["responses_in"].keys().any(func(k:String) -> bool: return k in txt)
+	elif (  #checks if the keys contain the word in the input
+		word_list["responses_in"].keys().any(func(k: String) -> bool: return k in txt)
 		):
-		#necessary evil to find WHICH key we hit that contains our word
-		for key in word_list["responses_in"]:
+			#necessary evil to find WHICH key we hit that contains our word
+		for key: String in word_list["responses_in"]:
 			if key in txt:
 				response.text = word_list["responses_in"][key]
 				response.show()

@@ -8,14 +8,15 @@
 	"tranny",
 	"boobs",
 	"fart",
-    "malaka"
+	"malaka",
+	"butt" 
   ],
   "unallowed_equal": [
 	"ass",
-	"butt",
 	"breasts",
 	"poop",
-    "poo"
+	"poo",
+	"no"
   ],
   "responses_equal": {
 	"mira": "That's a little egotistical...",
@@ -38,14 +39,14 @@
 	"spirit": "That was just placeholder...",
 	"piss": "That is an absolutely terrible name, why would I ever even consider it for a creature like this?",
 	"pissed": "I'm absolutely pissed that I'm even going down this thought process, oh how can I be so cruel.",
-	"pissing": "It is a terrible fate that has fallen upon me."
-  },
-  "responses_in": {
-	"enowme": "...",
+	"pissing": "It is a terrible fate that has fallen upon me.",
 	"enowmi": "You think you're clever, huh?",
 	"enomi": "You think you're clever, huh?",
 	"eknowme": "You think you're clever, huh?",
-	"enowm": "You think you're clever, huh?",
+	"enowm": "You think you're clever, huh?"
+  },
+  "responses_in": {
+	"enowme": "...",
 	"aaa": "Seriously? I think i can do better than this."
   }
 }
