@@ -581,9 +581,10 @@ func _on_item() -> void:
 	$Attack.hide()
 	PartyUI.only_current()
 
-	match $Inventory/Margin.current_tab:
-		0: $Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
-		1: $Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
+	if %BIbutton.disabled:
+		%Consumables.get_child(0).grab_focus()
+	else:
+		%BattleItems.get_child(0).grab_focus()
 	await t.finished
 	stage = &"item"
 
@@ -1003,38 +1004,30 @@ func _on_show_wheel_pressed() -> void:
 
 func fetch_inventory() -> void:
 	Item.verify_inventory()
-	for i in $Inventory/Margin/Consumables/Grid.get_children():
-		i.free()
-	for i in $Inventory/Margin/BattleItems/Grid.get_children():
-		i.free()
-	for aitem in Item.ConInv: if aitem.UsedInBattle:
-		var dub: Control = $Inventory/Item.duplicate()
-		dub.icon = aitem.Icon
-		dub.set_meta("ItemData", aitem)
-		if aitem.Quantity > 1:
-			dub.text = str(aitem.Quantity)
-		else: dub.text = ""
-		$Inventory/Margin/Consumables/Grid.add_child(dub)
-		dub.show()
-	for aitem in Item.BtiInv:
-		var dub: Control = $Inventory/Item.duplicate()
-		dub.icon = aitem.Icon
-		dub.set_meta("ItemData", aitem)
-		if aitem.Quantity > 1:
-			dub.text = str(aitem.Quantity)
-		else: dub.text = ""
-		$Inventory/Margin/BattleItems/Grid.add_child(dub)
-		dub.show()
+	var inventory_grid: Dictionary[String, GridContainer] = {
+		"con": %Consumables,
+		"bti": %BattleItems,
+	}
+	for inv in inventory_grid:
+		for i in inventory_grid[inv].get_children():
+			i.free()
+		for aitem in Item.get_inv(inv):
+			if aitem.UsedInBattle:
+				var dub: Control = %Item.duplicate()
+				dub.icon = aitem.Icon
+				dub.set_meta("ItemData", aitem)
+				if aitem.Quantity > 1:
+					dub.text = str(aitem.Quantity)
+				else: dub.text = ""
+				inventory_grid[inv].add_child(dub)
+				dub.show()
+
 	await Event.wait()
-	if $Inventory/Margin/Consumables/Grid.get_children().is_empty():
+
+	if inventory_grid["bti"].get_children().is_empty():
 		$Inventory/Cbutton.disabled = true
-		$Inventory/Margin.current_tab = 0
-	elif $Inventory/Margin/BattleItems/Grid.get_children().is_empty():
+	if inventory_grid["con"].get_children().is_empty():
 		$Inventory/BIbutton.disabled = true
-		$Inventory/Margin.current_tab = 1
-	else:
-		$Inventory/Margin.current_tab = 0
-		_on_b_ibutton_pressed(true)
 	if $Inventory/Cbutton.disabled and $Inventory/BIbutton.disabled:
 		$Item.disabled = true
 		return
@@ -1078,23 +1071,18 @@ func update_ab(dub: Button) -> void:
 
 func _on_b_ibutton_pressed(tog: bool) -> void:
 	if "item" in stage:
-		if $Inventory/BIbutton.disabled: Global.buzzer_sound(); return
-		if $Inventory/Margin.current_tab == 1: Global.confirm_sound()
-	$Inventory/Cbutton.button_pressed = false
-	$Inventory/Margin.current_tab = 0
-	$Inventory/BIbutton.set_pressed_no_signal(true)
-	$Inventory/Cbutton.set_pressed_no_signal(false)
-	$Inventory/Margin/BattleItems/Grid.get_child(0).grab_focus()
+		if %BIbutton.disabled:
+			Global.buzzer_sound(); return
+		else:
+			%BattleItems.get_child(0).grab_focus()
 
 
 func _on_cbutton_pressed(tog: bool) -> void:
 	if "item" in stage:
-		if $Inventory/Margin.current_tab == 0: Global.confirm_sound()
-		if $Inventory/Cbutton.disabled: Global.buzzer_sound(); return
-	$Inventory/Margin.current_tab = 1
-	$Inventory/Cbutton.set_pressed_no_signal(true)
-	$Inventory/BIbutton.set_pressed_no_signal(false)
-	$Inventory/Margin/Consumables/Grid.get_child(0).grab_focus()
+		if %Cbutton.disabled:
+			Global.buzzer_sound(); return
+		else:
+			%Consumables.get_child(0).grab_focus()
 
 
 func focus_item(node: Button) -> void:
@@ -1117,6 +1105,9 @@ func focus_item(node: Button) -> void:
 	else:
 		$"../Canvas/Confirm".show()
 		$"../Canvas/Confirm".text = "Use"
+
+	%BIbutton.set_pressed_no_signal(node.get_parent() == %BattleItems)
+	%Cbutton.set_pressed_no_signal(node.get_parent() == %Consumables)
 
 
 func _on_give_pressed() -> void:

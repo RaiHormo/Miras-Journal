@@ -43,6 +43,7 @@
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="41_ctn83"]
 [ext_resource type="Texture2D" uid="uid://cj2ohe8qn3uph" path="res://art/Icons/Items.tres" id="42_gfcom"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="43_15et0"]
+[ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="43_q1as1"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="44_hti1b"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="45_sxqe5"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="46_oks1v"]
@@ -1178,23 +1179,6 @@ content_margin_right = 12.0
 content_margin_bottom = 12.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vorb"]
-bg_color = Color(0.894118, 0.894118, 0.894118, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-expand_margin_left = 8.0
-expand_margin_top = 2.0
-expand_margin_right = 8.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtsua"]
-bg_color = Color(0.12549, 0.12549, 0.12549, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-expand_margin_left = 12.0
-expand_margin_top = 4.0
-expand_margin_right = 12.0
-expand_margin_bottom = 2.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54u86"]
 bg_color = Color(0.101961, 0.101961, 0.101961, 0.529412)
 border_width_left = 9
@@ -2015,6 +1999,7 @@ grow_vertical = 2
 script = ExtResource("26_2prty")
 
 [node name="CommandMenu" type="Control" parent="BattleUI" unique_id=1627208994]
+visible = false
 light_mask = 0
 anchors_preset = 0
 offset_left = 81.0
@@ -2776,7 +2761,6 @@ libraries/ = SubResource("AnimationLibrary_j7n1p")
 autoplay = &"arrows"
 
 [node name="Inventory" type="Panel" parent="BattleUI" unique_id=40897737]
-visible = false
 light_mask = 0
 z_index = 4
 use_parent_material = true
@@ -2790,6 +2774,7 @@ pivot_offset = Vector2(465.351, 259.974)
 theme_override_styles/panel = SubResource("StyleBoxFlat_inmoa")
 
 [node name="Item" type="Button" parent="BattleUI/Inventory" unique_id=1580591017]
+unique_name_in_owner = true
 visible = false
 light_mask = 0
 texture_filter = 1
@@ -2814,7 +2799,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Margin" type="TabContainer" parent="BattleUI/Inventory" unique_id=1336038201]
+[node name="ScrollContainer" type="ScrollContainer" parent="BattleUI/Inventory" unique_id=773951449]
 light_mask = 0
 layout_mode = 0
 offset_left = 8.0
@@ -2822,25 +2807,26 @@ offset_top = 8.0
 offset_right = 444.0
 offset_bottom = 523.0
 theme = SubResource("Theme_dgr6n")
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_unselected_color = Color(0.368627, 0.368627, 0.368627, 1)
-theme_override_fonts/font = ExtResource("41_ctn83")
-theme_override_font_sizes/font_size = 27
 theme_override_styles/panel = SubResource("StyleBoxFlat_qr46u")
-theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_6vorb")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_qtsua")
-tab_alignment = 1
-current_tab = 0
-tabs_visible = false
+script = ExtResource("43_q1as1")
+metadata/_custom_type_script = "uid://biopjphf2psbr"
 
-[node name="BattleItems" type="ScrollContainer" parent="BattleUI/Inventory/Margin" unique_id=607030875]
+[node name="Items" type="VBoxContainer" parent="BattleUI/Inventory/ScrollContainer" unique_id=1420145610]
 light_mask = 0
 use_parent_material = true
-clip_contents = false
 layout_mode = 2
-metadata/_tab_index = 0
+theme_override_constants/separation = 8
 
-[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/BattleItems" unique_id=154631886]
+[node name="BtiLabel" type="Label" parent="BattleUI/Inventory/ScrollContainer/Items" unique_id=1444057317]
+light_mask = 0
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.47058824)
+theme_override_fonts/font = ExtResource("36_bvqsk")
+theme_override_font_sizes/font_size = 24
+text = "Battle items"
+
+[node name="BattleItems" type="GridContainer" parent="BattleUI/Inventory/ScrollContainer/Items" unique_id=154631886]
+unique_name_in_owner = true
 light_mask = 0
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -2849,7 +2835,7 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 4
 
-[node name="Item2" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=616432876]
+[node name="Item2" type="Button" parent="BattleUI/Inventory/ScrollContainer/Items/BattleItems" unique_id=616432876]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2869,7 +2855,7 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Item3" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=378795564]
+[node name="Item3" type="Button" parent="BattleUI/Inventory/ScrollContainer/Items/BattleItems" unique_id=378795564]
 light_mask = 0
 texture_filter = 1
 custom_minimum_size = Vector2(90, 90)
@@ -2888,53 +2874,16 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="Item4" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=1925929881]
+[node name="ConLabel" type="Label" parent="BattleUI/Inventory/ScrollContainer/Items" unique_id=1052589997]
 light_mask = 0
-texture_filter = 1
-custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 14
-theme_override_fonts/font = SubResource("FontVariation_kjo3a")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
-theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
-theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
-text = "3"
-icon = ExtResource("42_gfcom")
-alignment = 2
-icon_alignment = 1
-expand_icon = true
+theme_override_colors/font_color = Color(1, 1, 1, 0.47058824)
+theme_override_fonts/font = ExtResource("36_bvqsk")
+theme_override_font_sizes/font_size = 24
+text = "Consumables"
 
-[node name="Item5" type="Button" parent="BattleUI/Inventory/Margin/BattleItems/Grid" unique_id=834980850]
-light_mask = 0
-texture_filter = 1
-custom_minimum_size = Vector2(90, 90)
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 14
-theme_override_fonts/font = SubResource("FontVariation_kjo3a")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
-theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
-theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
-text = "3"
-icon = ExtResource("42_gfcom")
-alignment = 2
-icon_alignment = 1
-expand_icon = true
-
-[node name="Consumables" type="ScrollContainer" parent="BattleUI/Inventory/Margin" unique_id=322803905]
-visible = false
-light_mask = 0
-use_parent_material = true
-clip_contents = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="Grid" type="GridContainer" parent="BattleUI/Inventory/Margin/Consumables" unique_id=235337847]
+[node name="Consumables" type="GridContainer" parent="BattleUI/Inventory/ScrollContainer/Items" unique_id=235337847]
+unique_name_in_owner = true
 light_mask = 0
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -2943,7 +2892,46 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 14
 columns = 4
 
+[node name="Item4" type="Button" parent="BattleUI/Inventory/ScrollContainer/Items/Consumables" unique_id=1925929881]
+light_mask = 0
+texture_filter = 1
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = SubResource("FontVariation_kjo3a")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
+theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
+text = "3"
+icon = ExtResource("42_gfcom")
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Item5" type="Button" parent="BattleUI/Inventory/ScrollContainer/Items/Consumables" unique_id=834980850]
+light_mask = 0
+texture_filter = 1
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = SubResource("FontVariation_kjo3a")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3vbgo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6og6b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m5tir")
+theme_override_styles/focus = SubResource("StyleBoxFlat_6og6b")
+text = "3"
+icon = ExtResource("42_gfcom")
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="BIbutton" type="Button" parent="BattleUI/Inventory" unique_id=1521159781]
+unique_name_in_owner = true
 light_mask = 0
 layout_mode = 0
 offset_left = 31.5498
@@ -2970,6 +2958,7 @@ icon = ExtResource("43_15et0")
 expand_icon = true
 
 [node name="Cbutton" type="Button" parent="BattleUI/Inventory" unique_id=1541943967]
+unique_name_in_owner = true
 light_mask = 0
 layout_mode = 0
 offset_left = 227.55

@@ -109,6 +109,7 @@ func check_item(ItemName: Variant, type: StringName = &"") -> bool:
 
 
 func get_inv(type: String) -> Array[ItemData]:
+	type = type.capitalize()
 	match type:
 		&"Key": return KeyInv
 		&"Con": return ConInv
@@ -120,6 +121,7 @@ func get_inv(type: String) -> Array[ItemData]:
 
 
 func overwrite_inv(inv: Array, type: StringName) -> void:
+	type = type.capitalize()
 	match type:
 		&"Key": KeyInv = inv
 		&"Con": ConInv = inv

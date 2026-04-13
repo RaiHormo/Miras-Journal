@@ -984,11 +984,11 @@ func Drink(target: Actor) -> void:
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
 	print(Bt.CurrentAbility.Types)
-	if Bt.CurrentAbility.Types[0] == Ability.TP.HEALING:
+	if Ability.TP.HEALING in Bt.CurrentAbility.Types:
 		Bt.heal(CurrentChar, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
 	await Event.wait(1)
-	Bt.anim()
+	Bt.anim("", CurrentChar)
 	Bt.end_turn()
 
 
@@ -996,10 +996,11 @@ func Eat(target: Actor) -> void:
 	Bt.focus_cam(CurrentChar, 0.3)
 	Bt.zoom(5.5)
 	print(Bt.CurrentAbility.Types)
-	if Bt.CurrentAbility.Types[0] == Ability.TP.HEALING:
+	if Ability.TP.HEALING in Bt.CurrentAbility.Types:
 		Bt.heal(CurrentChar, int(Bt.CurrentAbility.Parameter))
 	await Bt.anim("Cast")
 	await Event.wait(1)
+	Bt.anim("", CurrentChar)
 	Bt.end_turn()
 
 
