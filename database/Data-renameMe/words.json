@@ -1,0 +1,51 @@
+{
+  "unallowed_in": [
+	"fuck",
+	"shit",
+	"cunt",
+	"nigg",
+	"faggot",
+	"tranny",
+	"boobs",
+	"fart",
+    "malaka"
+  ],
+  "unallowed_equal": [
+	"ass",
+	"butt",
+	"breasts",
+	"poop",
+    "poo"
+  ],
+  "responses_equal": {
+	"mira": "That's a little egotistical...",
+	"levenor": "That's a little egotistical...",
+	"daze": "I feel like I shouldn't choose that name.",
+	"asteria": "I feel like I shouldn't choose that name.",
+	"versea": "I feel like I shouldn't choose that name.",
+	"feni": "I feel like I shouldn't choose that name.",
+	"kai": "I feel like I shouldn't choose that name.",
+	"maple": "I feel like I shouldn't choose that name.",
+	"anemythe": "I feel like I shouldn't choose that name.",
+	"noreen": "I feel like I shouldn't choose that name.",
+	"daroca": "I feel like I shouldn't choose that name.",
+	"reshame": "I feel like I shouldn't choose that name.",
+	"yaru": "I feel like I shouldn't choose that name.",
+	"guardian": "I need to keep that for something greater.",
+	"erinn": "Name them after my cousin?\n Why?",
+	"erin": "It's spelled with two Ns,\n and no.",
+	"brent": "What does he have to do with this?!",
+	"spirit": "That was just placeholder...",
+	"piss": "That is an absolutely terrible name, why would I ever even consider it for a creature like this?",
+	"pissed": "I'm absolutely pissed that I'm even going down this thought process, oh how can I be so cruel.",
+	"pissing": "It is a terrible fate that has fallen upon me."
+  },
+  "responses_in": {
+	"enowme": "...",
+	"enowmi": "You think you're clever, huh?",
+	"enomi": "You think you're clever, huh?",
+	"eknowme": "You think you're clever, huh?",
+	"enowm": "You think you're clever, huh?",
+	"aaa": "Seriously? I think i can do better than this."
+  }
+}

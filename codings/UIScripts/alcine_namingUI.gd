@@ -1,6 +1,10 @@
 extends CanvasLayer
 signal enter
 var txt: String = ''
+var word_list: Dictionary
+
+@onready var textbox: LineEdit = $TextEdit
+@onready var response: Label = $Error
 
 
 func _ready() -> void:
@@ -10,32 +14,33 @@ func _ready() -> void:
 func start() -> void:
 	get_tree().paused = false
 	PartyUI.Expanded = false
+	word_list = load("res://database/Data-renameMe/words.json").data
 	show()
 	$TextureRect.texture = await Loader.load_res(Query.find_member("Alcine").RenderArtwork)
-	$Error.hide()
-	$TextEdit.grab_focus()
-	$TextEdit.set_caret_column(10)
+	response.hide()
+	textbox.grab_focus()
+	textbox.set_caret_column(10)
 	await enter
 	queue_free()
 
 
 func _on_text_edit_text_changed(text: String) -> void:
 	if "\n" in text:
-		$TextEdit.text = text.replace("\n", "")
+		textbox.text = text.replace("\n", "")
 		return
 	if text.length() > 10:
-		$Error.text = "Bit too long, isn't it?"
-		$Error.show()
+		response.text = "Bit too long, isn't it?"
+		response.show()
 		if text.length() > 10 and text.length() > txt.length():
-			$TextEdit.text = txt
-			$TextEdit.set_caret_column(20)
+			textbox.text = txt
+			textbox.set_caret_column(20)
 	else:
-		$Error.hide()
-	txt = $TextEdit.text
+		response.hide()
+	txt = textbox.text
 
 
 func on_confirm(text: String) -> void:
-	var textedit: LineEdit = $TextEdit
+	var textedit: LineEdit = textbox
 	textedit.text = textedit.text.dedent()
 	if textedit.text != "":
 		textedit.text[0].to_upper()
@@ -43,74 +48,36 @@ func on_confirm(text: String) -> void:
 	textedit.set_caret_column(20)
 	txt = textedit.text
 	txt = txt.to_lower()
-	if txt.length() > 10: return
+	if txt.length() > 10: return  #shouldn't this give a response?
 	elif txt.length() == 1:
-		$Error.text = "Let's try to be a little more creative."
-		$Error.show()
+		response.text = "Let's try to be a little more creative."
+		response.show()
 	elif txt.length() == 0:
 		textedit.text = "Alcine"
 		on_confirm("Alcine")
 	elif check_for_symbols():
-		$Error.text = "I shouldn't include symbols"
-		$Error.show()
-	elif (
-		"fuck" in txt
-		or "shit" in txt
-		or "ass" == txt
-		or "cunt" in txt
-		or "butt" == txt
-		or "nigg" in txt
-		or "faggot" in txt
-		or "tranny" in txt
-		or "boobs" in txt
-		or "breasts" == txt
-		or "poop" == txt
-		or "poo" == txt
-		or "fart" in txt
-		or "malaka" in txt
-	):
-		$Error.text = "No."
-		$Error.show()
-	elif "mira" == txt or "levenor" == txt:
-		$Error.text = "That's a little egotistical..."
-		$Error.show()
-	elif ("daze" == txt or "asteria" == txt or "versea" == txt or
-	"feni" == txt or "kai" == txt or "maple" == txt or "anemythe" == txt or "noreen" == txt or "daroca" == txt or "reshanne" in txt or "yaru" == txt):
-		$Error.text = "I feel like I shouldn't choose that name."
-		$Error.show()
-	elif ("guardian" == txt):
-		$Error.text = "I need to keep that for something greater."
-		$Error.show()
-	elif "erinn" == txt:
-		$Error.text = "Name them after my cousin?\n Why?"
-		$Error.show()
-	elif "erin" == txt:
-		$Error.text = "It's spelled with two Ns,\n and no."
-		$Error.show()
-	elif "brent" == txt:
-		$Error.text = "What does he have to do with this?!"
-		$Error.show()
-	elif "enowme" in txt:
-		$Error.text = "..."
-		$Error.show()
-	elif "spirit" == txt:
-		$Error.text = "That was just placeholder..."
-		$Error.show()
-	elif "enowmi" in txt or "enomi" in txt or "eknowme" in txt or "enowm" in txt:
-		$Error.text = "You think you're clever, huh?"
-		$Error.show()
-	elif txt == "piss":
-		$Error.text = "That is an absolutely terrible name, why would I ever even consider it for a creature like this?"
-		$Error.show()
-	elif txt == "pissed":
-		$Error.text = "I'm absolutely pissed that I'm even going down this thought process, oh how can I be so cruel."
-		$Error.show()
-	elif txt == "pissing":
-		$Error.text = "It is a terrible fate that has fallen upon me."
-		$Error.show()
-	elif "aaa" in txt:
-		$Error.text = "Seriously? I think i can do better than this."
-		$Error.show()
+		response.text = "I shouldn't include symbols"
+		response.show()
+	elif (  #check for banned words. The dictionary includes two top-level arrays
+		word_list["unallowed_in"].any(func(word: String) -> bool: return word in txt)
+		or
+		word_list["unallowed_equal"].any(func(word: String) -> bool: return word == txt)
+		):
+		response.text = "No."
+		response.show()
+	elif (	#check if input matches a key in the responses_equal KVP
+		txt in word_list["responses_equal"]
+		):
+		response.text = word_list["responses_equal"][txt]
+		response.show()
+	elif(	#checks if the keys contain the word in the input
+		word_list["responses_in"].keys().any(func(k:String) -> bool: return k in txt)
+		):
+		#necessary evil to find WHICH key we hit that contains our word
+		for key in word_list["responses_in"]:
+			if key in txt:
+				response.text = word_list["responses_in"][key]
+				response.show()
 	else:
 		textedit.release_focus()
 		Query.find_member("Alcine").FirstName = txt.capitalize()
