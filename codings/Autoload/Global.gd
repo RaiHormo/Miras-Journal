@@ -410,7 +410,7 @@ func init_settings() -> void:
 
 
 func apply_settings() -> void:
-	const base_res := Vector2(1280, 800)
+	#const base_res := Vector2(1280, 800)
 	if Settings.Fullscreen:
 		fullscreen(true)
 	if Settings.GlowEffect:
@@ -418,10 +418,10 @@ func apply_settings() -> void:
 	else: World.environment.glow_enabled = false
 	if Settings.UpscaledRes:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
-	else:
-		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
-		get_window().content_scale_size = base_res * Settings.UpscaleFactor
-		get_window().content_scale_factor = Settings.UpscaleFactor
+	#else:
+		#get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+		#get_window().content_scale_size = base_res * Settings.UpscaleFactor
+		#get_window().content_scale_factor = Settings.UpscaleFactor
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
 	AudioServer.set_bus_volume_db(2, Settings.EnvSFXVolume)

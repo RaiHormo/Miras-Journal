@@ -1,6 +1,7 @@
 extends Control
 
 const SaveVersion = 7
+var AreaSpawnPath: NodePath = "/root"
 
 @export var scene: Array[String] = []
 @export var direc: String
@@ -58,8 +59,10 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 	data.Name = filename
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.FirstStartTime
-	data.Z = (Global.Player.z_index if !get_tree().root.get_node_or_null("MainMenu")
-		else $"/root/MainMenu".z)
+	data.Z = (
+		Global.Player.z_index if not get_tree().root.has_node("MainMenu")
+		else get_tree().root.get_node("MainMenu").z
+	)
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
@@ -240,7 +243,7 @@ func travel_done(controllable := false) -> void:
 		load_game()
 		return
 	var area := area_packed.instantiate()
-	$/root.add_child(area)
+	get_node(AreaSpawnPath).add_child(area)
 	await Global.area_initialized
 	Global.Lights.clear()
 	Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
@@ -354,6 +357,7 @@ func detransition(dir := direc) -> void:
 		Global.get_cam().position_smoothing_enabled = true
 	Global.check_party.emit()
 	#Global.ready_window()
+	$Can.hide()
 
 
 func restore_bars(dir: String = "") -> void:
@@ -381,7 +385,7 @@ func dismiss_load_icon() -> void:
 
 ##Starts the specified battle. Advantage: 0 for Neutual, 1 for Player, 2 for enemy
 func start_battle(stg: Variant, advantage := 0) -> void:
-	if get_node_or_null("/root/Battle") or InBattle: return
+	if get_tree().root.get_node_or_null("Battle") or InBattle: return
 	if stg is String:
 		Seq = await load_res("res://database/BattleSeq/" + stg + ".tres")
 	elif stg is BattleSequence:

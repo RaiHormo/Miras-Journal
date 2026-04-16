@@ -72,7 +72,7 @@ editor/wrap_long_lines=true
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
-window/size/initial_position_type=3
+window/size/initial_position_type=4
 window/stretch/mode="canvas_items"
 window/handheld/orientation=4
 
