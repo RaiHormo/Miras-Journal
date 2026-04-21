@@ -1,10 +1,9 @@
 item give broken
-improve jump points
 make upper amberelm look better
 box out of bounds in amberelm
 add something to the sign in amberelm
-amberelm enemies off screen
 softlock during transfers
 wizard guy
 properly implement journal
 add confirmation for AOE
+improve targeting system

@@ -373,8 +373,11 @@ func _input(event: InputEvent) -> void:
 				hold_frames > hold_time and
 				dialogue_line.responses.is_empty()
 			):
-				if is_instance_valid(await resource.get_next_dialogue_line(dialogue_line.id)):
-					next(dialogue_line.next_id)
+				var action := InputEventAction.new()
+				action.action = &"DialogNext"
+				action.pressed = true
+				Input.parse_input_event(action)
+				dialogue_label.visible_ratio = max(0.99, dialogue_label.visible_ratio)
 		Engine.time_scale = 1
 		return
 

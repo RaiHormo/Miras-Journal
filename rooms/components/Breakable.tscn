@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d0xlx8uwtl3tj"]
 
-[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Interactions/breakable.gd" id="1_avy7v"]
+[ext_resource type="Script" uid="uid://neylk1v5dlnt" path="res://codings/Components/breakable.gd" id="1_avy7v"]
 [ext_resource type="Texture2D" uid="uid://bii5famys2rlf" path="res://art/Icons/Editor/breakable.png" id="2_sacr6"]
-[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Interactions/editor_only.gd" id="3_8gdfr"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_8gdfr"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="5_mqhpg"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="6_bblfd"]
 [ext_resource type="Texture2D" uid="uid://cxj1gsicsxtup" path="res://UI/MenuTextures/PointedButton.png" id="6_mqhpg"]
