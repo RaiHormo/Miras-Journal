@@ -32,141 +32,13 @@ var will_hide_balloon: bool = false
 var dialogue_line: DialogueLine:
 	set(next_dialogue_line):
 		is_waiting_for_input = false
-		$Balloon/Panel2/InputIndicator.hide()
 
 		if not is_instance_valid(next_dialogue_line):
 			_on_close()
 			return
 
-		# Remove any previous responses
-		for child in responses_menu.get_children():
-			responses_menu.remove_child(child)
-			child.queue_free()
-
 		dialogue_line = next_dialogue_line
-		var char_name := tr(dialogue_line.character, "dialogue")
-
-		if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
-			await hide_box()
-			next(dialogue_line.next_id)
-			char_name = ""
-			return
-
-		$Balloon/Panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
-		no_nametag = false
-		while "." in char_name:
-			#print(char_name)
-			char_name = char_name.erase(char_name.length() - 1)
-		if "." in tr(dialogue_line.character, "dialogue"):
-			var redraw: bool = true
-			if Query.member_exists(char_name):
-				if Query.find_member(char_name).FirstName == character_label.text and Global.PortraitIMG != null:
-					redraw = false
-			else:
-				if character_label.text == char_name and Global.PortraitIMG != null: redraw = false
-			Global.portrait(dialogue_line.character.replace(".", ""), redraw)
-		if not Query.member_exists(char_name):
-			character_label.text = char_name
-		else: character_label.text = Query.find_member(char_name).FirstName
-		if character_label.text.is_empty():
-			$Balloon/Panel.hide()
-		else:
-			$Balloon/Panel.show()
-			$Balloon/Panel.size.x = 1
-
-		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
-		dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
-		dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]" % [small_text_size])
-		dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
-
-		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		if next_box == "": next_box = char_name
-		mem = await Global.match_profile(next_box)
-		bord1.border_color = mem.Bord1
-		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-		var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
-		bord2.border_color = mem.Bord2
-		$Balloon/Panel2/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-		var bord3: StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
-		bord3.border_color = mem.Bord3
-		$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-		var inner: StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
-		inner.bg_color = mem.Inner
-		var nametag: StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
-		nametag.bg_color = mem.TextColor
-		$Balloon/Panel.add_theme_stylebox_override("panel", nametag.duplicate())
-		$Balloon/Panel/CharacterLabel.add_theme_color_override("font_color", mem.Inner)
-		$Balloon/Panel2/InputIndicator.modulate = mem.TextColor
-		$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
-		$PictureFrame/Picture.texture = picture
-
-		var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
-		glow_bord.draw_center = true
-		glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
-		glow_bord.border_color = Color.TRANSPARENT
-
-		dialogue_label.modulate.a = 0
-		#dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
-		dialogue_label.dialogue_line = dialogue_line
-
-		# Show any responses we have
-		responses_menu.modulate.a = 0
-		#await t.finished
-		if dialogue_line.responses.size() > 0:
-			for response: DialogueResponse in dialogue_line.responses:
-				# Duplicate the template so we can grab the fonts, sizing, etc
-				var item: Button = response_template.duplicate(0)
-				item.name = "Response%d" % responses_menu.get_child_count()
-				if not response.is_allowed:
-					item.name = String(item.name) + "Disallowed"
-					item.modulate.a = 0.4
-				item.text = response.text
-				item.show()
-
-				responses_menu.add_child(item)
-				item.connect("focus_entered", _on_button_focus_entered)
-				item.modulate = Color.TRANSPARENT
-			animate_responces()
-		# Show our balloon
-		draw_portrait()
-		dialogue_label.text = ""
-
-		if not balloon.visible and dialogue_line.text != " ":
-			balloon.show()
-			t = create_tween()
-			t.set_parallel(true)
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_EXPO)
-			t.tween_property($Balloon, "modulate", Color(1, 1, 1, 1), 0.4).from(Color(0, 0, 0, 0))
-			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.4).from(Vector2(0.7, 0.2))
-		else:
-			t = create_tween()
-			t.set_ease(Tween.EASE_OUT)
-			t.set_trans(Tween.TRANS_BACK)
-			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
-		will_hide_balloon = false
-
-		dialogue_label.modulate.a = 1
-		await get_tree().create_timer(0.1).timeout
-		dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
-		await dialogue_label.finished_typing
-
-		# Wait for input
-		if dialogue_line.responses.size() > 0:
-			responses_menu.modulate.a = 1
-			configure_menu()
-		elif dialogue_line.time != "":
-			var time := dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
-			await get_tree().create_timer(time).timeout
-			next(dialogue_line.next_id)
-		else:
-			is_waiting_for_input = true
-			$Balloon/Panel2/InputIndicator.show()
-			balloon.focus_mode = Control.FOCUS_ALL
-			balloon.grab_focus()
-	get:
-		return dialogue_line
-
+		show_dialog_line()
 
 func _ready() -> void:
 	response_template.hide()
@@ -207,6 +79,136 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 func next(next_id: String) -> void:
 	next_box = ""
 	self.dialogue_line = await resource.get_next_dialogue_line(next_id, temporary_game_states)
+
+
+## Draw the textbox, called automatically
+func show_dialog_line() -> void:
+	var char_name := tr(dialogue_line.character, "dialogue")
+
+	# Remove any previous responses
+	for child in responses_menu.get_children():
+		responses_menu.remove_child(child)
+		child.queue_free()
+
+	if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
+		await hide_box()
+		next(dialogue_line.next_id)
+		char_name = ""
+		return
+
+	$Balloon/Panel2/InputIndicator.hide()
+	$Balloon/Panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
+	no_nametag = false
+	while "." in char_name:
+		#print(char_name)
+		char_name = char_name.erase(char_name.length() - 1)
+	if "." in tr(dialogue_line.character, "dialogue"):
+		var redraw: bool = true
+		if Query.member_exists(char_name):
+			if Query.find_member(char_name).FirstName == character_label.text and Global.PortraitIMG != null:
+				redraw = false
+		else:
+			if character_label.text == char_name and Global.PortraitIMG != null: redraw = false
+		Global.portrait(dialogue_line.character.replace(".", ""), redraw)
+	if not Query.member_exists(char_name):
+		character_label.text = char_name
+	else: character_label.text = Query.find_member(char_name).FirstName
+	if character_label.text.is_empty():
+		$Balloon/Panel.hide()
+	else:
+		$Balloon/Panel.show()
+		$Balloon/Panel.size.x = 1
+
+	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
+	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
+	dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]" % [small_text_size])
+	dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
+
+	var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
+	if next_box == "": next_box = char_name
+	mem = await Global.match_profile(next_box)
+	bord1.border_color = mem.Bord1
+	$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
+	var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
+	bord2.border_color = mem.Bord2
+	$Balloon/Panel2/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
+	var bord3: StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
+	bord3.border_color = mem.Bord3
+	$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
+	var inner: StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
+	inner.bg_color = mem.Inner
+	var nametag: StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
+	nametag.bg_color = mem.TextColor
+	$Balloon/Panel.add_theme_stylebox_override("panel", nametag.duplicate())
+	$Balloon/Panel/CharacterLabel.add_theme_color_override("font_color", mem.Inner)
+	$Balloon/Panel2/InputIndicator.modulate = mem.TextColor
+	$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
+	$PictureFrame/Picture.texture = picture
+
+	var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
+	glow_bord.draw_center = true
+	glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
+	glow_bord.border_color = Color.TRANSPARENT
+
+	dialogue_label.modulate.a = 0
+	#dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
+	dialogue_label.dialogue_line = dialogue_line
+
+	# Show any responses we have
+	responses_menu.modulate.a = 0
+	#await t.finished
+	if dialogue_line.responses.size() > 0:
+		for response: DialogueResponse in dialogue_line.responses:
+			# Duplicate the template so we can grab the fonts, sizing, etc
+			var item: Button = response_template.duplicate(0)
+			item.name = "Response%d" % responses_menu.get_child_count()
+			if not response.is_allowed:
+				item.name = String(item.name) + "Disallowed"
+				item.modulate.a = 0.4
+			item.text = response.text
+			item.show()
+
+			responses_menu.add_child(item)
+			item.connect("focus_entered", _on_button_focus_entered)
+			item.modulate = Color.TRANSPARENT
+		animate_responces()
+	# Show our balloon
+	draw_portrait()
+	dialogue_label.text = ""
+
+	if not balloon.visible and dialogue_line.text != " ":
+		balloon.show()
+		t = create_tween()
+		t.set_parallel(true)
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_EXPO)
+		t.tween_property($Balloon, "modulate", Color(1, 1, 1, 1), 0.4).from(Color(0, 0, 0, 0))
+		t.tween_property($Balloon, "scale", Vector2(1, 1), 0.4).from(Vector2(0.7, 0.2))
+	else:
+		t = create_tween()
+		t.set_ease(Tween.EASE_OUT)
+		t.set_trans(Tween.TRANS_BACK)
+		t.tween_property($Balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
+	will_hide_balloon = false
+
+	dialogue_label.modulate.a = 1
+	await get_tree().create_timer(0.1).timeout
+	dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
+	await dialogue_label.finished_typing
+
+	# Wait for input
+	if dialogue_line.responses.size() > 0:
+		responses_menu.modulate.a = 1
+		configure_menu()
+	elif dialogue_line.time != "":
+		var time := dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
+		await get_tree().create_timer(time).timeout
+		next(dialogue_line.next_id)
+	else:
+		is_waiting_for_input = true
+		$Balloon/Panel2/InputIndicator.show()
+		balloon.focus_mode = Control.FOCUS_ALL
+		balloon.grab_focus()
 
 ### Helpers
 

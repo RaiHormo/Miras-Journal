@@ -212,6 +212,7 @@ func main() -> void:
 
 	for button: Button in %MainButtons.get_children():
 		t.tween_property(button, "position", main_button_positions[button.name], 0.5)
+		t.tween_property(button, "rotation", 0, 0.5)
 
 	await Event.wait(0.2, false)
 	for i in $MainButtons.get_children():
@@ -288,7 +289,6 @@ func save_managment() -> void:
 	t.tween_property($Confirm, "position:x", -200, 0.5)
 	Global.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
-	await t.finished
 	if not save_files_loaded:
 		await load_save_files()
 		if stage != "save_managment": return
@@ -313,7 +313,7 @@ func manual() -> void:
 	t = create_tween().set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT).set_parallel()
 	$ManualPanel/ScrollContainer.scroll_horizontal = 0
 	$MainButtons/Manual.z_index = 1
-	t.tween_property($MainButtons/Manual, "position", Vector2(40, 280), 0.5)
+	t.tween_property($MainButtons/Manual, "position", Vector2(70, 280), 0.5)
 	t.tween_property($MainButtons/Manual, "rotation_degrees", -90, 0.5)
 	for i in $MainButtons.get_children():
 		if i != $MainButtons/Manual: t.tween_property(i, "position:x", 850, 0.5)
@@ -434,15 +434,11 @@ func load_settings() -> void:
 func load_save_files() -> void:
 	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
-	if ResourceLoader.exists("user://Autosave.tres"):
-		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
-	else:
-		%Files/File0.hide()
-		Global.toast("There is nothing saved, you can start a new game.")
 	Loader.SaveFiles.clear()
+	%Files/File0/Info/SavedDate.text = ""
 	var files := DirAccess.get_files_at("user://")
 	for i in files:
-		if ".tres" in i and not "Autosave" in i:
+		if i.ends_with(".tres") and "Autosave.tres" != i:
 			var data: SaveFile = await Loader.load_res("user://" + i)
 			if data is SaveFile:
 				#Loader.SaveFiles.append(data)
@@ -456,6 +452,11 @@ func load_save_files() -> void:
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
 				draw_file(data, newpanel)
+	if ResourceLoader.exists("user://Autosave.tres"):
+		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
+	else:
+		%Files/File0.hide()
+		Global.toast("No Autosave data found.")
 	var sorted := %Files.get_children()
 	sorted.sort_custom(file_sort)
 	for i in %Files.get_children():

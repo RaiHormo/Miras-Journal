@@ -764,7 +764,6 @@ text = "12:23:02"
 autostart = true
 
 [node name="SavePanel" type="Panel" parent="." unique_id=2111716590]
-visible = false
 offset_left = 1330.0
 offset_top = -63.0
 offset_right = 2362.0
