@@ -1,6 +1,8 @@
 extends Button
+class_name WaveButton
 
 var focused := false
+@export var enable_waves := true
 @export var theme_color: Color = Color.html("#e3936e")
 @onready var glow: Panel = $Glow
 @onready var timer: Timer = $Timer
@@ -17,8 +19,10 @@ func _ready() -> void:
 
 
 func _on_focus_entered() -> void:
+	if focused: return
 	focused = true
-	wave()
+	if enable_waves:
+		wave()
 	timer.start(1)
 
 
@@ -28,6 +32,8 @@ func _on_focus_exited() -> void:
 
 
 func wave() -> void:
+	if not enable_waves: return
+
 	var this := glow.duplicate()
 	this.size = size
 	this.show()

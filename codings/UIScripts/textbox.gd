@@ -1,11 +1,15 @@
 extends CanvasLayer
 class_name Textbox
 
-@onready var balloon: ColorRect = $Balloon
-@onready var character_label: Label = $Balloon/Panel/CharacterLabel
-@onready var dialogue_label := $Balloon/Panel2/DialogueLabel
+@onready var balloon: Control = $Balloon
+@onready var character_label: Label = %CharacterLabel
+@onready var character_panel: PanelContainer = $Balloon/CharacterPanel
+@onready var dialogue_label := %DialogueLabel
 @onready var responses_menu: VBoxContainer = $Balloon/Responses
-@onready var response_template: Button = $Balloon/Responses/Button.duplicate(0)
+@onready var response_template: Button = $Balloon/Responses/Button.duplicate()
+@onready var input_indicator: TextureRect = %InputIndicator
+@onready var container: PanelContainer = $Balloon/Container
+
 var mem: TextProfile
 var next_box: String = ""
 var currun := false
@@ -39,6 +43,7 @@ var dialogue_line: DialogueLine:
 
 		dialogue_line = next_dialogue_line
 		show_dialog_line()
+
 
 func _ready() -> void:
 	response_template.hide()
@@ -96,8 +101,8 @@ func show_dialog_line() -> void:
 		char_name = ""
 		return
 
-	$Balloon/Panel2/InputIndicator.hide()
-	$Balloon/Panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
+	input_indicator.hide()
+	character_panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
 	no_nametag = false
 	while "." in char_name:
 		#print(char_name)
@@ -114,41 +119,20 @@ func show_dialog_line() -> void:
 		character_label.text = char_name
 	else: character_label.text = Query.find_member(char_name).FirstName
 	if character_label.text.is_empty():
-		$Balloon/Panel.hide()
+		character_panel.hide()
 	else:
-		$Balloon/Panel.show()
-		$Balloon/Panel.size.x = 1
+		character_panel.show()
+		character_panel.size.x = 1
+
+	if next_box == "": next_box = char_name
+	mem = await Global.match_profile(next_box)
 
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
 	dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]" % [small_text_size])
 	dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
-
-	var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-	if next_box == "": next_box = char_name
-	mem = await Global.match_profile(next_box)
-	bord1.border_color = mem.Bord1
-	$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
-	var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
-	bord2.border_color = mem.Bord2
-	$Balloon/Panel2/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
-	var bord3: StyleBoxFlat = $Balloon/Panel2/Border1/Border2/Border3.get_theme_stylebox("panel")
-	bord3.border_color = mem.Bord3
-	$Balloon/Panel2/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
-	var inner: StyleBoxFlat = $Balloon/Panel2.get_theme_stylebox("panel")
-	inner.bg_color = mem.Inner
-	var nametag: StyleBoxFlat = $Balloon/Panel.get_theme_stylebox("panel")
-	nametag.bg_color = mem.TextColor
-	$Balloon/Panel.add_theme_stylebox_override("panel", nametag.duplicate())
-	$Balloon/Panel/CharacterLabel.add_theme_color_override("font_color", mem.Inner)
-	$Balloon/Panel2/InputIndicator.modulate = mem.TextColor
-	$Balloon/Panel2/DialogueLabel.add_theme_color_override("default_color", mem.TextColor)
+	set_colors()
 	$PictureFrame/Picture.texture = picture
-
-	var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
-	glow_bord.draw_center = true
-	glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
-	glow_bord.border_color = Color.TRANSPARENT
 
 	dialogue_label.modulate.a = 0
 	#dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
@@ -160,7 +144,7 @@ func show_dialog_line() -> void:
 	if dialogue_line.responses.size() > 0:
 		for response: DialogueResponse in dialogue_line.responses:
 			# Duplicate the template so we can grab the fonts, sizing, etc
-			var item: Button = response_template.duplicate(0)
+			var item: Button = response_template.duplicate()
 			item.name = "Response%d" % responses_menu.get_child_count()
 			if not response.is_allowed:
 				item.name = String(item.name) + "Disallowed"
@@ -176,24 +160,29 @@ func show_dialog_line() -> void:
 	draw_portrait()
 	dialogue_label.text = ""
 
+	dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
+	await get_tree().process_frame
+
+	var new_size: Vector2 = container.size
+	new_size.y = max(dialogue_label.get_minimum_size().y + 18, 100)
+
 	if not balloon.visible and dialogue_line.text != " ":
 		balloon.show()
-		t = create_tween()
-		t.set_parallel(true)
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_EXPO)
-		t.tween_property($Balloon, "modulate", Color(1, 1, 1, 1), 0.4).from(Color(0, 0, 0, 0))
-		t.tween_property($Balloon, "scale", Vector2(1, 1), 0.4).from(Vector2(0.7, 0.2))
+		t = create_tween().set_parallel(true).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		t.tween_property(balloon, "modulate", Color(1, 1, 1, 1), 0.4).from(Color(0, 0, 0, 0))
+		t.tween_property(balloon, "scale", Vector2(1, 1), 0.4).from(Vector2(0.7, 0.2))
+		container.size = new_size
 	else:
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_BACK)
-		t.tween_property($Balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
+		t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		t.tween_property(balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
+		t.tween_property(container, "size", new_size, 0.2)
 	will_hide_balloon = false
 
 	dialogue_label.modulate.a = 1
-	await get_tree().create_timer(0.1).timeout
-	dialogue_label.type_out_with_sound(mem.TextSound, mem.AudioFrequency, mem.PitchVariance)
+
+	$Balloon/Glow.size = new_size
+	$Balloon/Glow2.size = new_size
+
 	await dialogue_label.finished_typing
 
 	# Wait for input
@@ -206,11 +195,36 @@ func show_dialog_line() -> void:
 		next(dialogue_line.next_id)
 	else:
 		is_waiting_for_input = true
-		$Balloon/Panel2/InputIndicator.show()
+		input_indicator.show()
 		balloon.focus_mode = Control.FOCUS_ALL
 		balloon.grab_focus()
 
 ### Helpers
+
+
+func set_colors() -> void:
+	var bord1: StyleBoxFlat = %Border1.get_theme_stylebox("panel")
+	bord1.border_color = mem.Bord1
+	%Border1.add_theme_stylebox_override("panel", bord1.duplicate())
+	var bord2: StyleBoxFlat = %Border2.get_theme_stylebox("panel")
+	bord2.border_color = mem.Bord2
+	%Border2.add_theme_stylebox_override("panel", bord2.duplicate())
+	var bord3: StyleBoxFlat = %Border3.get_theme_stylebox("panel")
+	bord3.border_color = mem.Bord3
+	%Border3.add_theme_stylebox_override("panel", bord3.duplicate())
+	var inner: StyleBoxFlat = $Balloon/Container.get_theme_stylebox("panel")
+	inner.bg_color = mem.Inner
+	var nametag: StyleBoxFlat = character_panel.get_theme_stylebox("panel")
+	nametag.bg_color = mem.TextColor
+	character_panel.add_theme_stylebox_override("panel", nametag.duplicate())
+	character_panel.add_theme_color_override("font_color", mem.Inner)
+	input_indicator.modulate = mem.TextColor
+	dialogue_label.add_theme_color_override("default_color", mem.TextColor)
+
+	var glow_bord: StyleBoxFlat = $Balloon/Glow.get_theme_stylebox("panel")
+	glow_bord.draw_center = true
+	glow_bord.bg_color = mem.Bord1 + Color(-0.15, -0.15, -0.15)
+	glow_bord.border_color = Color.TRANSPARENT
 
 
 # Set up keyboard movement and signals for the response menu
@@ -256,21 +270,11 @@ func get_responses() -> Array:
 
 	return items
 
-#func handle_resize() -> void:
-#	if not is_instance_valid(margin):
-#		call_deferred("handle_resize")
-#		return
-#
-#	balloon.custom_minimum_size.y = margin.size.y
-	# Force a resize on only the height
-#	balloon.size.y = 0
-#	var viewport_size = balloon.get_viewport_rect().size
-#	balloon.global_position = Vector2((viewport_size.x - balloon.size.x) * 0.5, viewport_size.y - balloon.size.y)
-
 ### Signals
 
 
 func _on_close() -> void:
+	Input.action_release("Dash")
 	await hide_box()
 	$Portrait.hide()
 	Engine.time_scale = 1
@@ -326,6 +330,8 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
 		Global.confirm_sound()
+	elif event.is_action_pressed("ui_cancel"):
+		responses_menu.get_children().back().grab_focus()
 	elif event.is_action_pressed("DialogNext") and item in get_responses():
 		Global.confirm_sound()
 		item.release_focus()
@@ -349,32 +355,27 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed(dialogue_label.skip_action):
-		dialogue_label.visible_ratio = 1
-		dialogue_label.finished_typing.emit()
+	# Typing skip
+	if Input.is_action_just_pressed(dialogue_label.skip_action) and dialogue_label.is_typing:
+		dialogue_label.visible_ratio = 0.99
+
+	# Fast forward
 	if Input.is_action_just_pressed("Dash") or skip:
 		skip = false
 		var hold_frames := 1
-		t = create_tween()
-		t.set_trans(Tween.TRANS_QUART)
+		t = create_tween().set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
-		#if Input.is_action_just_pressed("Dash") or skip:
-		var prev_a: float = dialogue_label.seconds_per_step
-		var prev_b: float = dialogue_label.seconds_per_pause_step
 		while Input.is_action_pressed("Dash"):
 			hold_frames += 1
 			await Event.wait()
-			if hold_frames > hold_time and get_viewport().gui_get_focus_owner() == balloon:
-				Engine.time_scale = 4
-				var ev := InputEventAction.new()
-				ev.action = &"DialogNext"
-				ev.pressed = true
-				Input.parse_input_event(ev)
-				dialogue_label.seconds_per_step = 0
-				dialogue_label.seconds_per_pause_step = 0
+			Engine.time_scale = 4
+			if (
+				hold_frames > hold_time and
+				dialogue_line.responses.is_empty()
+			):
+				if is_instance_valid(await resource.get_next_dialogue_line(dialogue_line.id)):
+					next(dialogue_line.next_id)
 		Engine.time_scale = 1
-		dialogue_label.seconds_per_step = prev_a
-		dialogue_label.seconds_per_pause_step = prev_b
 		return
 
 	if not is_waiting_for_input: return
@@ -404,13 +405,12 @@ func _input(event: InputEvent) -> void:
 			await t.finished
 			$Hints.hide()
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not is_waiting_for_input: return
-	if dialogue_line.responses.size() > 0: return
-
-	# When there are no response options the balloon itself is the clickable thing
-	get_viewport().set_input_as_handled()
+#func _unhandled_input(event: InputEvent) -> void:
+	#if not is_waiting_for_input: return
+	#if dialogue_line.responses.size() > 0: return
+#
+	## When there are no response options the balloon itself is the clickable thing
+	#get_viewport().set_input_as_handled()
 
 
 func draw_portrait() -> void:
@@ -431,7 +431,7 @@ func draw_portrait() -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUINT)
-			t.tween_property($Balloon, "position:x", 160, 0.5)
+			t.tween_property(balloon, "position:x", 160, 0.5)
 			t.tween_property($Portrait, "modulate", Color(1, 1, 1, 1), 0.8).from(Color(0, 0, 0, 0))
 			t.tween_property($Portrait, "position:x", 0, 0.8).from(-200)
 			t.tween_property($Portrait/Shadow, "position", Vector2(-131, 150), 1).from(Vector2(0, 0))
@@ -443,7 +443,7 @@ func draw_portrait() -> void:
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUAD)
-			t.tween_property($Balloon, "position:x", 0, 0.5)
+			t.tween_property(balloon, "position:x", 0, 0.5)
 			t.tween_property($Portrait/Shadow, "position", Vector2(0, 0), 0.2)
 			t.tween_property($Portrait, "modulate", Color(0, 0, 0, 0), 0.3)
 			t.tween_property($Portrait, "position:x", -200, 0.3)

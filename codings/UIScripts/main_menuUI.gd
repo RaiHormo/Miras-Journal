@@ -100,10 +100,11 @@ func _ready() -> void:
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_parallel()
 	$Rail.show()
-	for i in $Rail.get_children():
-		#if not i.get_child(0).disabled:
-			t.tween_property(i.get_child(0), "size:x", 200, 0.5)
-			t.tween_property(i.get_child(0), "position:x", -45, 0.5).as_relative()
+	for i: PathFollow2D in $Rail.get_children():
+		var button: WaveButton = i.get_child(0)
+		t.tween_property(button, "size:x", 200, 0.5)
+		t.tween_property(button, "position:x", -45, 0.5).as_relative()
+		button.enable_waves = true
 	await t.finished
 
 var input_frame: int

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="5_ilv5n"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="6_b6i07"]
 [ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="6_emlrx"]
+[ext_resource type="PackedScene" uid="uid://di64f0lsahyfu" path="res://UI/Options/Button.tscn" id="6_hvgpy"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="6_pyltt"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
@@ -267,54 +268,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 10, 1, 197, -90.9699, 29.7536, 90.9699, -29.7536, 109, 30, -82.9405, -116.087, 82.9405, 116.087, 347, 97, 86.129, -25.7953, -86.129, 25.7953, 241, 374, 0, 0, 0, 0, 98, 353)
 }
 point_count = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4ivt"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 29
-corner_radius_top_right = 29
-corner_radius_bottom_right = 29
-corner_radius_bottom_left = 29
-corner_detail = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6vv6"]
-content_margin_left = 32.0
-content_margin_top = 0.0
-content_margin_right = 32.0
-content_margin_bottom = 0.0
-bg_color = Color(1, 1, 1, 1)
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 29
-corner_radius_top_right = 29
-corner_radius_bottom_right = 29
-corner_radius_bottom_left = 29
-corner_detail = 12
-
-[sub_resource type="FontVariation" id="FontVariation_00tn1"]
-base_font = ExtResource("4_pkqpv")
-spacing_bottom = -2
-
-[sub_resource type="Theme" id="Theme_o6i8h"]
-default_font = SubResource("FontVariation_00tn1")
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/colors/font_pressed_color = Color(0.890196, 0.576471, 0.431373, 1)
-Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxFlat_h4ivt")
-Button/styles/focus = SubResource("StyleBoxFlat_a6vv6")
-Button/styles/hover = SubResource("StyleBoxFlat_a6vv6")
-Button/styles/normal = SubResource("StyleBoxFlat_h4ivt")
-Button/styles/pressed = SubResource("StyleBoxFlat_a6vv6")
 
 [sub_resource type="FontVariation" id="FontVariation_4a8fb"]
 base_font = ExtResource("6_pyltt")
@@ -717,55 +670,44 @@ position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="JournalButton" type="Button" parent="Rail/JournalFollow" unique_id=1474927484]
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 100.0
-offset_bottom = 30.0
-pivot_offset = Vector2(30, 30)
-focus_mode = 1
-theme = SubResource("Theme_o6i8h")
+[node name="JournalButton" parent="Rail/JournalFollow" unique_id=716470933 instance=ExtResource("6_hvgpy")]
+offset_left = 135.99402
+offset_top = -318.32068
+offset_right = 317.99402
+offset_bottom = -254.32068
+pivot_offset = Vector2(24, 0)
 text = "Journal"
 text_overrun_behavior = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
 
 [node name="ItemFollow" type="PathFollow2D" parent="Rail" unique_id=1258354772]
 position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="ItemButton" type="Button" parent="Rail/ItemFollow" unique_id=1668579956]
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 100.0
-offset_bottom = 30.0
-pivot_offset = Vector2(31.8671, 30.1991)
-focus_mode = 1
-theme = SubResource("Theme_o6i8h")
+[node name="ItemButton" parent="Rail/ItemFollow" unique_id=1309291339 instance=ExtResource("6_hvgpy")]
+offset_left = 187.52307
+offset_top = -212.285
+offset_right = 369.52307
+offset_bottom = -148.285
+pivot_offset = Vector2(24, 0)
 text = "Item"
 text_overrun_behavior = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
+enable_waves = false
 
 [node name="QuestFollow" type="PathFollow2D" parent="Rail" unique_id=1535710853]
 position = Vector2(119.416595, 365.912)
 progress = 950.0
 rotates = false
 
-[node name="QuestButton" type="Button" parent="Rail/QuestFollow" unique_id=1446805233]
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 100.0
-offset_bottom = 30.0
-pivot_offset = Vector2(31.8671, 30.1991)
-focus_mode = 1
-theme = SubResource("Theme_o6i8h")
+[node name="QuestButton" parent="Rail/QuestFollow" unique_id=1498250143 instance=ExtResource("6_hvgpy")]
+offset_left = 152.66003
+offset_top = -108.34784
+offset_right = 334.66003
+offset_bottom = -44.34784
+pivot_offset = Vector2(24, 0)
 disabled = true
 text = "Quest"
 text_overrun_behavior = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
 
 [node name="OptionsFollow" type="PathFollow2D" parent="Rail" unique_id=236104955]
 position = Vector2(119.416595, 365.912)
@@ -773,18 +715,14 @@ rotation = -6.28319
 progress = 950.0
 rotates = false
 
-[node name="OptionsButton" type="Button" parent="Rail/OptionsFollow" unique_id=1991239420]
-offset_left = -89.416504
-offset_top = -29.912413
-offset_right = 110.583496
-offset_bottom = 30.087587
-pivot_offset = Vector2(31.8671, 30.1991)
-focus_mode = 1
-theme = SubResource("Theme_o6i8h")
+[node name="OptionsButton" parent="Rail/OptionsFollow" unique_id=1210441819 instance=ExtResource("6_hvgpy")]
+offset_left = 68.48462
+offset_top = -27.395304
+offset_right = 265.35913
+offset_bottom = 36.6047
+pivot_offset = Vector2(24, 0)
 text = "Options"
 text_overrun_behavior = 1
-clip_text = true
-metadata/_edit_use_anchors_ = true
 
 [node name="DescPaper" type="TextureRect" parent="." unique_id=1712763501]
 visible = false
