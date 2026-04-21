@@ -451,6 +451,7 @@ func load_save_files() -> void:
 					newpanel = %Files/File0.duplicate()
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
+				newpanel.hide()
 				draw_file(data, newpanel)
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
@@ -463,6 +464,7 @@ func load_save_files() -> void:
 		%Files.remove_child(i)
 	for i in sorted:
 		%Files.add_child(i)
+		i.show()
 	%Files.move_child(%Files/File0, 0)
 	%Files.move_child(%Files/New, 0)
 	#%Files/File0/Info/FileName.text = "Autosave"
