@@ -980,15 +980,13 @@ func focus_cam(chara: Actor, time: float = 0.5, offset: Variant = 30) -> void:
 		move_cam(Vector2(chara.node.position.x, chara.node.position.y / 2) + Vector2(offsetize(offset.x, chara), offset.y), time)
 
 
-func move_cam(pos: Vector2, time: float = 0.5) -> void:
-	if Input.is_action_pressed("Dash"):
+func move_cam(pos: Vector2, time: float = -1) -> void:
+	if Input.is_action_pressed("Dash") or time == 0:
 		$Cam.position_smoothing_enabled = false
 	else:
 		$Cam.position_smoothing_enabled = true
-	if time > 0.5:
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_CUBIC)
+	if time > 0:
+		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		t.tween_property($Cam, "position", pos, time)
 	else:
 		$Cam.position = pos

@@ -18,9 +18,8 @@ signal targeted
 signal targetFoc(ind: Actor)
 signal analyze
 signal rooted
-var target: Actor
+var CurrentTarget: Actor
 var LastTarget: Actor
-var TargetIndex: int
 var tweendone := true
 var MenuIndex := 0
 var Abilities: Array[Ability]
@@ -197,30 +196,18 @@ func _input(event: InputEvent) -> void:
 					turn_order()
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
-			&"target":
+			&"target", &"pre_target":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
 				if Input.is_action_just_pressed("ui_down") and active:
-					if TargetFaction.size() == 1:
-						Global.buzzer_sound()
-						return
-					if TargetIndex != TargetFaction.size() - 1:
-						TargetIndex += 1
-					else:
-						TargetIndex = 0
-					Global.cursor_sound()
-					move_menu()
+					move_target(Vector2.DOWN)
 				if Input.is_action_just_pressed("ui_up") and active:
-					if TargetFaction.size() == 1:
-						Global.buzzer_sound()
-						return
-					if TargetIndex != 0:
-						TargetIndex -= 1
-					else:
-						TargetIndex = TargetFaction.size() - 1
-					Global.cursor_sound()
-					move_menu()
+					move_target(Vector2.UP)
+				if Input.is_action_just_pressed("ui_left") and active:
+					move_target(Vector2.LEFT)
+				if Input.is_action_just_pressed("ui_right") and active:
+					move_target(Vector2.RIGHT)
 			&"ability":
 				if Input.is_action_just_pressed(Global.cancel()):
 					Bt.anim()
@@ -274,27 +261,6 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed(Global.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
-			&"pre_target":
-				if Input.is_action_just_pressed("ui_down") and active:
-					if TargetFaction.size() == 1:
-						Global.buzzer_sound()
-						return
-					if TargetIndex != TargetFaction.size() - 1:
-						TargetIndex += 1
-					else:
-						TargetIndex = 0
-					Global.cursor_sound()
-					move_menu()
-				if Input.is_action_just_pressed("ui_up") and active:
-					if TargetFaction.size() == 1:
-						Global.buzzer_sound()
-						return
-					if TargetIndex != 0:
-						TargetIndex -= 1
-					else:
-						TargetIndex = TargetFaction.size() - 1
-					Global.cursor_sound()
-					move_menu()
 
 
 func _on_root() -> void:
@@ -651,9 +617,9 @@ func _on_command_pressed() -> void:
 
 
 func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
-	if faction.is_empty():
-		return
+	if faction.is_empty(): return
 	if Bt.Action: return
+
 	if is_instance_valid(foc):
 		foc.hide()
 		foc.show()
@@ -661,22 +627,31 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 		close()
 		Bt.victory()
 		return
+
 	CurrentChar.NextMove = ab
 	active = true
+
 	stage = &"pre_target"
 	TargetFaction = faction
+	var canvas: CanvasLayer = Bt.get_node("Canvas")
 	if CurrentChar.NextTarget != null and CurrentChar.NextTarget in faction and not analyzing:
 		stage = &"inactive"
 		close()
 		emit_signal("ability_returned", ab, CurrentChar.NextTarget)
 		return
-	Bt.get_node("Canvas/Confirm").show()
-	Bt.get_node("Canvas/Back").show()
-	Bt.get_node("Canvas/Confirm").text = "Target"
-	Bt.get_node("Canvas/Back").text = "Cancel"
-	Bt.get_node("Canvas/Confirm").icon = Global.get_controller().ConfirmIcon
-	Bt.get_node("Canvas/Back").icon = Global.get_controller().CancelIcon
-	var wheel: Wheel = $"../Canvas/AttackTitle/Wheel"
+
+	var back: Button = canvas.get_node("Back")
+	var confirm: Button = canvas.get_node("Confirm")
+	var attack_title: Button = canvas.get_node("AttackTitle")
+	var wheel: Wheel = attack_title.get_node("Wheel")
+
+	back.show()
+	back.text = "Cancel"
+	back.icon = Global.get_controller().CancelIcon
+	confirm.show()
+	confirm.text = "Target"
+	confirm.icon = Global.get_controller().ConfirmIcon
+
 	if ab != null:
 		wheel.show_atk_color(ab.WheelColor)
 		if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
@@ -685,18 +660,23 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 			wheel.show_atk_color(ab.WheelColor)
 		else:
 			wheel.hide()
-		$"../Canvas/AttackTitle/RichTextLabel".text = Colorizer.colorize(ab.description)
-		$"../Canvas/AttackTitle".text = ab.name
-		$"../Canvas/AttackTitle".icon = ab.Icon
+		attack_title.get_node("RichTextLabel").text = Colorizer.colorize(ab.description)
+		attack_title.text = ab.name
+		attack_title.icon = ab.Icon
+
 	if analyzing:
 		wheel.show()
 		wheel.show_atk_color(CurrentChar.MainColor)
 		move_menu()
+
+	if LastTarget == null or not LastTarget in faction:
+		LastTarget = CurrentTarget
+	CurrentTarget = LastTarget
+	if (CurrentTarget not in faction):
+		CurrentTarget = faction[0]
+
 	t.kill()
-	t = create_tween()
-	t.set_ease(Tween.EASE_IN_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
-	t.set_parallel()
+	t = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
 	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
@@ -705,12 +685,10 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
 	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
 	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
-#	t.tween_property(self, "rotation_degrees", 360, 0.2)
+
 	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y",
-	742, 0.3)
-	t.tween_property(Bt.get_node("Canvas/Back"), "position:y",
-	742, 0.4)
+	t.tween_property(Bt.get_node("Canvas/Confirm"), "position:y", 742, 0.3)
+	t.tween_property(Bt.get_node("Canvas/Back"), "position:y", 742, 0.4)
 
 	t.tween_property(self, "scale", Vector2(0.7, 0.7), 0.3)
 	t.tween_property($BaseRing, "scale", Vector2(0.2, 0.2), 0.3)
@@ -725,30 +703,25 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	t.tween_property($CommandMenu, "modulate", Color(0, 0, 0, 0), 0.3)
 	t.tween_property($AbilityUI, "position", Vector2(12, -140), 0.3)
 	t.tween_property($AbilityUI, "size", Vector2(100, 5), 0.3)
-	$RankSwap.hide()
 	t.tween_property($Inventory, "scale", Vector2(0.1, 0.1), 0.3)
 	t.tween_property($Inventory, "modulate", Color.TRANSPARENT, 0.3)
 
-	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371, 850), 0.3)
-	t.tween_property($"../Canvas/AttackTitle", "position", Vector2(840, 550), 0.5)
-	$"../Canvas/AttackTitle".show()
-
-	if LastTarget == null or not LastTarget in faction:
-		LastTarget = faction[0]
-		TargetIndex = 0
-	target = LastTarget
-	if (TargetIndex >= faction.size() - 1 or
-	Bt.is_valid_target(faction[TargetIndex]) or faction[TargetIndex].node == null):
-		TargetIndex = 0
-	target = faction[TargetIndex]
-	t.tween_property(self, "position", target.node.position, 0.3)
+	t.tween_property(self, "position", CurrentTarget.node.position, 0.3)
 	t.tween_property(Cam, "zoom", Vector2(4.5, 4.5), 0.5)
-	t.tween_property(Cam, "position", Vector2(target.node.position.x,
-	target.node.position.y / 4), 0.5)
-	emit_signal('targetFoc', faction[TargetIndex])
-	$"../Canvas/AttackTitle/Wheel".show_trg_color(target.MainColor)
+	t.tween_property(Cam, "position", Vector2(CurrentTarget.node.position.x, CurrentTarget.node.position.y / 4), 0.5)
+
+	t.tween_property(Bt.get_node("Canvas/Give"), "position", Vector2(371, 850), 0.3)
+	t.tween_property(attack_title, "position", Vector2(840, 550), 0.5)
+
+	$RankSwap.hide()
+	attack_title.show()
+
+	emit_signal('targetFoc', CurrentTarget)
+	wheel.show_trg_color(CurrentTarget.MainColor)
 	PartyUI.show_all()
+
 	await t.finished
+
 	if stage == &"inactive": return
 	stage = &"target"
 	while stage == &"target":
@@ -769,31 +742,39 @@ func move_menu() -> void:
 	await Event.wait()
 	foc = get_viewport().gui_get_focus_owner()
 	if stage == &"target" or stage == &"pre_target":
+		if LastTarget == CurrentTarget: return
 		active = false
-		t = create_tween()
-		t.set_ease(Tween.EASE_IN_OUT)
-		t.set_trans(Tween.TRANS_CUBIC)
-		target = TargetFaction[TargetIndex]
-		if target.node == null:
+
+		if CurrentTarget.node == null:
 			Bt.fix_enemy_node_issues()
 			move_menu()
 			return
-		t.set_parallel()
-		t.tween_property(Cam, "position", Vector2(target.node.position.x,
-		target.node.position.y / 4), 0.5)
-		t.tween_property(self, "position", target.node.position, 0.3)
-		LastTarget = target
-		emit_signal('targetFoc', TargetFaction[TargetIndex])
+
+		Global.cursor_sound()
+		Bt.move_cam(Vector2(CurrentTarget.node.position.x, CurrentTarget.node.position.y / 4), 0.5)
+		t = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		t.tween_property(self, "position", CurrentTarget.node.position, 0.3)
+
+		LastTarget = CurrentTarget
+		emit_signal('targetFoc', CurrentTarget)
+
 		var wheel: Wheel = $"../Canvas/AttackTitle/Wheel"
+
 		if analyzing:
-			wheel.show_atk_color(target.MainColor)
+			wheel.show_atk_color(CurrentTarget.MainColor)
 			await Event.wait()
-			wheel.show_trg_color(target.MainColor)
-			$"../Canvas/AttackTitle/RichTextLabel".text = "HP: %d		AP: %d\nAttack: %.1f \nDefence: %.1f \nMagic: %.1f " % [target.MaxHP, target.MaxAura, target.Attack, target.Defence, target.Magic]
-			$"../Canvas/AttackTitle".icon = target.PartyIcon
-			$"../Canvas/AttackTitle".text = target.FirstName
+			wheel.show_trg_color(CurrentTarget.MainColor)
+			$"../Canvas/AttackTitle/RichTextLabel".text = "HP: %d		AP: %d\nAttack: %.1f \nDefence: %.1f \nMagic: %.1f " % [
+				CurrentTarget.MaxHP,
+				CurrentTarget.MaxAura,
+				CurrentTarget.Attack,
+				CurrentTarget.Defence,
+				CurrentTarget.Magic
+			]
+			$"../Canvas/AttackTitle".icon = CurrentTarget.PartyIcon
+			$"../Canvas/AttackTitle".text = CurrentTarget.FirstName
 		else:
-			wheel.show_trg_color(target.MainColor)
+			wheel.show_trg_color(CurrentTarget.MainColor)
 		await get_tree().create_timer(0.1).timeout
 		active = true
 	if stage == &"ability":
@@ -854,6 +835,27 @@ func move_menu() -> void:
 	tweendone = true
 
 
+func move_target(direction: Vector2) -> void:
+	var best_target: Actor = CurrentTarget
+	var closest_distance := INF
+
+	for tar in TargetFaction:
+		if tar == CurrentTarget: continue
+
+		var distance_from_current := tar.node.position - CurrentTarget.node.position
+		var dot := distance_from_current.normalized().dot(direction)
+
+		# Dot product > 0.5 means the CurrentTarget is within a 45-degree cone in that direction
+		if dot > 0.4:
+			var dist := distance_from_current.length()
+			if dist < closest_distance:
+				closest_distance = dist
+				best_target = tar
+
+	CurrentTarget = best_target
+	move_menu()
+
+
 func _on_battle_next_turn() -> void:
 	if CurrentChar == null: return
 	if not Bt.CurrentChar.Controllable:
@@ -870,15 +872,15 @@ func _on_targeted() -> void:
 	PrevStage = "targeted"
 	if CurrentChar.NextMove == null: return
 	if CurrentChar.NextTarget == null or CurrentChar.NextTarget not in TargetFaction:
-		CurrentChar.NextTarget = TargetFaction[TargetIndex]
+		CurrentChar.NextTarget = CurrentTarget
 	#stage = "inactive"
 	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
-		var proper_tar: Actor = TargetFaction[TargetIndex]
+		var proper_tar: Actor = CurrentTarget
 		TargetFaction = Bt.get_any_faction()
-		TargetIndex = randi_range(0, TargetFaction.size() - 1)
-		while TargetFaction[TargetIndex] == proper_tar:
-			TargetIndex = randi_range(0, TargetFaction.size() - 1)
-		CurrentChar.NextTarget = TargetFaction[TargetIndex]
+		CurrentTarget = TargetFaction.pick_random()
+		while CurrentTarget == proper_tar:
+			CurrentTarget = TargetFaction.pick_random()
+		CurrentChar.NextTarget = CurrentTarget
 		await move_menu()
 		Bt.confusion_msg()
 	emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
@@ -932,7 +934,7 @@ func _on_confirm_pressed() -> void:
 			targeted.emit()
 		if stage == &"target":
 			Global.confirm_sound()
-			CurrentChar.NextTarget = TargetFaction[TargetIndex]
+			CurrentChar.NextTarget = CurrentTarget
 			targeted.emit()
 		if stage == &"item":
 			if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
@@ -953,21 +955,17 @@ func _on_confirm_pressed() -> void:
 
 
 func turn_order() -> void:
-	t = create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
-	t.set_parallel()
 	Bt.get_node("Canvas/TurnOrderPop").show()
+	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", 0, 0.2)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.WHITE, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(52, 40), 0.3)
+
 	while (Input.is_action_pressed("PartyMenu") or Bt.get_node("Canvas/TurnOrder").button_pressed):
 		Bt.turn_ui_check()
 		await Event.wait()
-	t = create_tween()
-	t.set_ease(Tween.EASE_IN)
-	t.set_trans(Tween.TRANS_CUBIC)
-	t.set_parallel()
+
+	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	t.tween_property(Bt.get_node("Canvas/TurnOrder/Options"), "position:y", -40, 0.2)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "modulate", Color.TRANSPARENT, 0.3)
 	t.tween_property(Bt.get_node("Canvas/TurnOrderPop"), "position", Vector2(-468, 40), 0.3)
@@ -1124,19 +1122,18 @@ func _on_give_pressed() -> void:
 			await Event.wait()
 		if PrevStage == "root": return
 		if PrevStage == "targeted":
-			target = TargetFaction[TargetIndex]
-			if target == CurrentChar:
+			if CurrentTarget == CurrentChar:
 				Item.remove_item(item_dat)
 				CurrentChar.NextAction = "Item"
 				CurrentChar.NextMove = item_dat.BattleEffect
 				targeted.emit()
 				return
-			if target != null:
+			if CurrentTarget != null:
 				close()
-				Bt.CurrentTarget = target
-				if target.NextAction == "":
-					target.NextAction = "Item"
-					target.NextMove = item_dat.BattleEffect
+				Bt.CurrentTarget = CurrentTarget
+				if CurrentTarget.NextAction == "":
+					CurrentTarget.NextAction = "Item"
+					CurrentTarget.NextMove = item_dat.BattleEffect
 					Item.remove_item(item_dat)
 					Bt.battle_msg("use_on_turn", item_dat.Name)
 				else:

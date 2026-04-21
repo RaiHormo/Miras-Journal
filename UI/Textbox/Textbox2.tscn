@@ -526,20 +526,6 @@ text = "Char"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Margin" type="MarginContainer" parent="Balloon" unique_id=1020631918]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 119.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 10
-metadata/_edit_layout_mode = 1
-
 [node name="Portrait" type="TextureRect" parent="." unique_id=1769315632]
 visible = false
 offset_top = 340.0
