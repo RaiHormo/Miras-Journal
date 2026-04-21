@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="5_00dms"]
 [ext_resource type="Script" uid="uid://01da3iwdlren" path="res://codings/Interactions/tod_light.gd" id="5_dcjai"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="6_pmuyc"]
-[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Interactions/lamp.gd" id="7_bbmkb"]
+[ext_resource type="Script" uid="uid://5j8ao51a8t4p" path="res://codings/Components/lamp.gd" id="7_bbmkb"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="8_xyolw"]
 [ext_resource type="Texture2D" uid="uid://4gl4yxfq1f8t" path="res://art/BT/Dummy/Idle.png" id="9_adhpg"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="10_yq8yv"]
@@ -16,15 +16,14 @@
 [ext_resource type="Texture2D" uid="uid://c05rdatesxgtl" path="res://art/OV/Objects/Harold.png" id="12_xx0e1"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="13_b8v1n"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="16_35d7e"]
-[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="16_e25m3"]
 [ext_resource type="SpriteFrames" uid="uid://b4iv6g76q0x8r" path="res://art/OV/Daze/DazeOV.tres" id="17_en1a7"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="18_wmbgr"]
 [ext_resource type="SpriteFrames" uid="uid://b4rkebw16wimp" path="res://art/OV/Asteria/AsteriaOV2.tres" id="19_tuy8d"]
-[ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="20_8b40e"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="21_pty4k"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="23_5somt"]
 [ext_resource type="PackedScene" uid="uid://ccm0r6n0e8q8e" path="res://rooms/components/Transfer.tscn" id="25_osbeo"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="26_5vm5p"]
+[ext_resource type="PackedScene" uid="uid://b2k3mbup5ml3p" path="res://rooms/components/JumpPointHV.tscn" id="26_12esp"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="26_ucpyn"]
 [ext_resource type="PackedScene" uid="uid://d0r3jc40ijx6l" path="res://rooms/components/BreakableOre.tscn" id="27_5vm5p"]
 
@@ -250,9 +249,6 @@ use_hdr = true
 fill = 1
 fill_from = Vector2(0.504274, 0.491453)
 fill_to = Vector2(0.115385, 0.867521)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3whwc"]
-size = Vector2(21, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxoxl"]
 size = Vector2(12.5, 14)
@@ -723,21 +719,6 @@ shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_tk2xs")
 script = ExtResource("7_bbmkb")
 
-[node name="JumpPoint1" type="Area2D" parent="." unique_id=113983416]
-position = Vector2(61, 36)
-script = ExtResource("16_e25m3")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1" unique_id=696609099]
-position = Vector2(-1.49998, -1)
-shape = SubResource("RectangleShape2D_3whwc")
-debug_color = Color(0.752941, 0.458824, 0, 0.419608)
-
-[node name="JumpPoint2" parent="." unique_id=2034951050 instance=ExtResource("20_8b40e")]
-jump_am = 2
-
 [node name="Ladder1" parent="." unique_id=1338487090 instance=ExtResource("23_5somt")]
 position = Vector2(136, -30)
 metadata/_edit_group_ = true
@@ -843,5 +824,7 @@ use_parent_material = true
 position = Vector2(1.000061, 3.170288)
 shape = SubResource("RectangleShape2D_arkuh")
 
+[node name="JumpPoint" parent="." unique_id=2144299483 instance=ExtResource("26_12esp")]
+position = Vector2(61, 37)
+
 [connection signal="action" from="IteractLamp" to="IteractLamp/PointLight2D" method="_on_interactable_action"]
-[connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]

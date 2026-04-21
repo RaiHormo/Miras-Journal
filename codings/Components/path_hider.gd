@@ -1,5 +1,7 @@
 extends Area2D
 
+var t: Tween
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,15 +14,17 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body == Global.Player:
+		if is_instance_valid(t): t.kill()
 		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		use_parent_material = false
-		var t := create_tween()
+		t = create_tween()
 		t.tween_property(self, "modulate", Color.TRANSPARENT, 0.5)
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body == Global.Player:
-		var t := create_tween()
+		if is_instance_valid(t): t.kill()
+		t = create_tween()
 		t.tween_property(self, "modulate", Color.WHITE, 0.5)
 		await t.finished
 		if modulate == Color.WHITE:

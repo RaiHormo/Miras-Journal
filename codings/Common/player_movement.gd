@@ -21,7 +21,7 @@ var first_frame := true
 @onready var flame: PointLight2D = $Flame
 var attacking := false
 var is_clone: bool = false
-var can_jump := false
+var jump_points: Array[JumpPoint]
 var cant_bump := false
 var path: Path2D
 var flame_active := false
@@ -99,7 +99,7 @@ func control_process() -> void:
 	undashable = false
 	if is_on_wall():
 		if round(get_wall_normal()) * -1 == Query.get_direction(direction):
-			if can_jump and Input.is_action_pressed("Dash"):
+			if not jump_points.is_empty() and Input.is_action_pressed("Dash"):
 				position -= direction * 6
 			else:
 				undashable = true
@@ -186,7 +186,7 @@ func update_anim_prm() -> void:
 			set_anim(str("Idle" + Query.get_dir_name(Facing)), false, false)
 		else:
 			move_frames -= 1
-		if direction.length() > RealVelocity.length() and dashing and not can_jump:
+		if direction.length() > RealVelocity.length() and dashing and jump_points.is_empty():
 			stop_dash()
 	else:
 		if RealVelocity.length() > 1:

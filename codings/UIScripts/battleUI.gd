@@ -581,10 +581,10 @@ func _on_item() -> void:
 	$Attack.hide()
 	PartyUI.only_current()
 
-	if %BIbutton.disabled:
-		%Consumables.get_child(0).grab_focus()
-	else:
+	if not %BIbutton.disabled:
 		%BattleItems.get_child(0).grab_focus()
+	elif not %Cbutton.disabled:
+		%Consumables.get_child(0).grab_focus()
 	await t.finished
 	stage = &"item"
 

@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="7_kvb7h"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="8_hjqnr"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="8_pg846"]
-[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="8_sf87x"]
 [ext_resource type="Texture2D" uid="uid://i83opbcfgob" path="res://art/OV/Objects/BunkerDoor.png" id="13_ggbak"]
 [ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="14_ybpd3"]
 [ext_resource type="Resource" uid="uid://dndjx0ile1qpr" path="res://database/Enemies/BurstParasite.tres" id="15_3lgvi"]
@@ -251,7 +250,7 @@ size = Vector2(206, 87)
 size = Vector2(89, 201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ubql"]
-size = Vector2(38.75, 33)
+size = Vector2(38.75, 51.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd27v"]
 size = Vector2(21.5347, 189.925)
@@ -260,7 +259,7 @@ size = Vector2(21.5347, 189.925)
 size = Vector2(108, 87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nk1vc"]
-size = Vector2(79.5, 87)
+size = Vector2(83.75, 87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nrut7"]
 size = Vector2(14, 48)
@@ -324,6 +323,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7h8m"]
+size = Vector2(11, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd3du"]
 size = Vector2(55.453, 21.0225)
@@ -568,21 +570,6 @@ metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thjc7"]
 size = Vector2(73, 39.0001)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2xxo"]
-size = Vector2(39.75, 83.9062)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggbak"]
-size = Vector2(39.75, 62.964)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbrh4"]
-size = Vector2(75, 38.25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvbr8"]
-size = Vector2(83, 43.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4fo8"]
-size = Vector2(57, 63.5)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pimpf"]
 vertices = PackedVector2Array(198, 754, 184.64063, 754, 187.29688, 748.2031, 224, 749.3594, 224, 754, 584, 734.0781, 584, 776, 581.2031, 776, 581.2031, 767.60156, 518.1875, 734.4297, 546.7969, 767.60156, 517.85156, 758.2969, 507.7422, 758, 546.7969, 776, 198, 776, 230, 758, 230, 754, 514, 470, 508.1797, 470, 510.39844, 465.53906, 518.5, 462, 446, 666, 656.0625, 666, 640.15625, 703.4922, 607.7578, 706, 490, 706, 386.03125, 703.8672, 346, 710.1172, 346, 573.02344, 370.03906, 573.02344, 442, 658, 376.7422, 510, 433.22656, 510, 442, 538, 442, 566.6719, 439.84375, 566.5781, 364.67188, 513.9922, 745.6797, 262, 746.0703, 274, 738, 274, 714, 262, 742.9922, 178, 743.7578, 202, 738, 202, 730, 182, 441.21094, 633.2031, 442, 633.1797, 738, 148.8125, 738, 150, 718, 150, 721.1094, 144.59375, 738, 226, 730, 226, 718, 178, 686, 182, 634, 254, 686, 226, 714, 226, 690, 274, 634, 298, 738, 294, 722, 294, 722, 274, 690, 310, 718, 310, 718, 346, 634, 333.64063, 623.4531, 312.54688, 738, 346, 738, 366, 718, 366, 682, 490, 682, 538, 586, 538, 586, 494, 601.22656, 438, 622.8906, 432.59375, 446, 658, 454.89063, 504.59375, 463.45313, 487.4375, 466.35156, 486, 470, 486, 470, 514, 610, 305.8203, 610, 298, 718, 394, 749.9219, 394, 751.97656, 458.45313, 747.8672, 490, 634, 410.35938, 490, 715.1094, 466.40625, 716.9297, 542, 538, 514, 514, 542, 494, 529.22656, 462, 634.35156, 126, 709.64844, 126, 712.53906, 127.4375, 634, 170.35938, 634, 126.171875, 571.78906, 443.21094, 572.6406, 438, 550.8906, 456.59375, 555.6797, 446.97656, 606.1875, 254, 603.59375, 248.79688, 612.35156, 195.21094, 622.8906, 192.59375, -518, 326, -530.9922, 326, -532.8828, 325.6172, -525.64844, 322, -494, 322, -368.85156, 634, -360.64063, 645.7578, -446, 649.28125, -394, 634, -446, 590, -416.3125, 612, -370, 346, -372.47656, 346, -370.9375, 337.53125, -370, 302, -373.35156, 302, -514, 652.09375, -518, 652.4219, -518, 614, -514, 566, -470, 350, -417.5625, 319.42188, -414, 319.2578, -414, 322, -418.71875, 339.3672, -438, 351.79688, -443.3828, 373, -442, 383.65625, -442, 394.53906, -451.27344, 394.21875, -374.90625, 317.64063, -418, 542, -470, 538, -436.0078, 447.0703, -414, 447.02344, -414, 519.2578, -414.54688, 542, -438, 373, -402.35938, 614, -394, 614, -527, 614, -527, 603, -542, 603, -542, 566.78125, -523.8906, 565.28125, -523.4375, 560.89844, -518, 558.1797, -474.28125, 545, -470, 566, -518, 545, -503.0078, 346, -518, 346, -482.9922, 350, -418.3203, 302, -494, 302, -474.07813, 538, -418, 606.1875, -378, 322, -378, 317.7578, -458.9922, 590, -470, 587.78906, -418.96875, 347.9922, -416.15625, 607.10156, -442, 426.3203, -442, 438.1797, -437.9922, 440.17188, -406.35156, 612, 737.21875, 571.9375, 571.1719, 571, 571.1797, 571, 712, 518, 744.2422, 518, 712, 562, 515.2578, 570, 472, 568.03906, 472, 566, 706, 566, 706, 562, -274, 457.85938, -274, 460.39063, -278, 460.28906, -278, 446, -262.14063, 446, -274, 422, -226, 446, -226, 461.6172, -230, 461.52344, -230, 457.85938, -241.85938, 446, -347, 499.78906, -375.78906, 499.20313, -374.60156, 442, -350, 442, -347, 435.20313, -350, 423, -302.6328, 423, -290.52344, 427.96094, -285.8672, 446, -278, 418, -274, 418, -182, 422, -182, 442, -192.99219, 442, -212.70313, 445.9297, -214.20313, 446, -302, 414.1797, -302, 398, -278, 398, -302.9297, 414.64063, -106.61719, 202, -207.36719, 202, -206.59375, 182, -107.4375, 182, -422, -34, -434.9922, -34, -442, -35.398438, -442, -127.72656, -390, -126.63281, -394, -106, -390, -106, -394, -65.82031, -378.35938, -58, -250, -58, -250, -14, -422, -14, -226, -108.71875, -226, -82, -230, -82, -230, -110, -226.15625, -110, -106, -217.46875, -162, -215.50781, -161.15625, -224.03125, -106, -298, -202, -298, -191.00781, -230, -288.9922, -230, -230, -298, -322, -226, -322, -156.75781, -374, -160.96875, -374, -226, -230, -303.4922, -202, -304.4297, -374, -254, -374, -298, -309.0078, -226, -378, -226, -378, -254, -446, -327.84375, -510.5625, -327.10938, -505.71094, -442, -446, -370, -306.03125, -442, -303.6328, -374, -310, -374, -310, -398, -342, -398, -342, -374, -383.9297, -374, -439.5703, -378.8828, -442, -374, -442, -370, -439.77344, -374)
@@ -901,7 +888,6 @@ tile_map_data = PackedByteArray("AAAUABAAAgARAA4AAAASAA8AAgARAA4AAAAQABAAAgARAA4
 tile_set = ExtResource("2_jg387")
 
 [node name="Cover1" type="Area2D" parent="." unique_id=1260157979]
-visible = false
 z_index = 1
 use_parent_material = true
 script = ExtResource("3_bw084")
@@ -926,7 +912,7 @@ shape = SubResource("RectangleShape2D_qw3gk")
 debug_color = Color(0.691822, 0.439815, 0.617756, 0.42)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Cover1" unique_id=1214816771]
-position = Vector2(-109, 476)
+position = Vector2(-109, 466.75)
 shape = SubResource("RectangleShape2D_8ubql")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Cover1" unique_id=551253431]
@@ -941,7 +927,7 @@ shape = SubResource("RectangleShape2D_ybpd3")
 debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="Cover1" unique_id=812274451]
-position = Vector2(-436, -245)
+position = Vector2(-438.125, -245)
 shape = SubResource("RectangleShape2D_nk1vc")
 debug_color = Color(0.661949, 0.495265, 0.3822, 0.42)
 
@@ -1013,11 +999,10 @@ animation = &"break"
 autoplay = "default"
 
 [node name="BreakableWallSG4" parent="." unique_id=1700109562 instance=ExtResource("8_pg846")]
-position = Vector2(-468, -236)
+position = Vector2(-468, -242)
+collision_layer = 15
+collision_mask = 15
 decrease_z = false
-
-[node name="AreaBreak" parent="BreakableWallSG4" index="1" unique_id=720273437]
-position = Vector2(0, 5)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="BreakableWallSG4" unique_id=1365100790]
 y_sort_enabled = true
@@ -1027,6 +1012,10 @@ position = Vector2(1.52588e-05, 3)
 sprite_frames = SubResource("SpriteFrames_mgap8")
 animation = &"break"
 autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableWallSG4" unique_id=1806236332]
+position = Vector2(-0.5, 10.5)
+shape = SubResource("RectangleShape2D_a7h8m")
 
 [node name="BreakableWallSG5" parent="." unique_id=1606913205 instance=ExtResource("8_pg846")]
 position = Vector2(-183, -171)
@@ -1556,30 +1545,6 @@ item_name = "StrangeFruit"
 position = Vector2(-91, 512)
 item_name = "SmallPotion"
 
-[node name="JumpPoint1" type="Area2D" parent="." unique_id=1494212073]
-position = Vector2(-104, 384)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1" unique_id=473887385]
-position = Vector2(2, -3)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint10" type="Area2D" parent="." unique_id=1246860633]
-position = Vector2(-56, -992)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint10" unique_id=422761947]
-position = Vector2(8, 0)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
 [node name="JumpPoint11" parent="." unique_id=1044978229 instance=ExtResource("34_avv3b")]
 position = Vector2(-588, -954)
 
@@ -1595,117 +1560,13 @@ position = Vector2(-803, -942)
 [node name="JumpPoint15" parent="." unique_id=232804024 instance=ExtResource("34_avv3b")]
 position = Vector2(-513, -948)
 
-[node name="JumpPoint16" type="Area2D" parent="." unique_id=2066354685]
-position = Vector2(-12, -909)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint16" unique_id=921106460]
-position = Vector2(-11, 0)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint17" type="Area2D" parent="." unique_id=1891874321]
-position = Vector2(93, -911)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint17" unique_id=380167833]
-position = Vector2(7, 0)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint18" type="Area2D" parent="." unique_id=266244859]
-position = Vector2(-840, -992)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint18" unique_id=231898469]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
 [node name="JumpPoint19" parent="." unique_id=1166859554 instance=ExtResource("34_avv3b")]
 position = Vector2(190, -947)
 scale = Vector2(1.88, 1)
 
-[node name="JumpPoint19" parent="JumpPoint19" unique_id=685608068 instance=ExtResource("34_avv3b")]
-position = Vector2(229.182, -940.472)
-scale = Vector2(1.88, 1)
-jump_am = 4
-
-[node name="JumpPoint2" type="Area2D" parent="." unique_id=482731237]
-position = Vector2(-108, 241)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint2" unique_id=893625209]
-position = Vector2(-11, 0)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint21" type="Area2D" parent="." unique_id=917508256]
-position = Vector2(241, -997)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint21" unique_id=1895081751]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
 [node name="JumpPoint22" parent="." unique_id=422097778 instance=ExtResource("34_avv3b")]
 position = Vector2(290, -925)
 scale = Vector2(1.88, 1)
-
-[node name="JumpPoint19" parent="JumpPoint22" unique_id=250811629 instance=ExtResource("34_avv3b")]
-position = Vector2(229.182, -940.472)
-scale = Vector2(1.88, 1)
-jump_am = 4
-
-[node name="JumpPoint23" type="Area2D" parent="." unique_id=739455091]
-position = Vector2(337, -899)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint23" unique_id=1105634945]
-shape = SubResource("RectangleShape2D_ggbak")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint3" type="Area2D" parent="." unique_id=395180084]
-position = Vector2(-144, 420)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint3" unique_id=312601854]
-position = Vector2(2, 8)
-shape = SubResource("RectangleShape2D_nbrh4")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint4" type="Area2D" parent="." unique_id=119103096]
-position = Vector2(-263, 193)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint4" unique_id=1576958718]
-shape = SubResource("RectangleShape2D_vvbr8")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
 
 [node name="JumpPoint5" parent="." unique_id=53393851 instance=ExtResource("33_iqaea")]
 position = Vector2(-491, -298)
@@ -1713,43 +1574,14 @@ jump_dirs = Array[Vector2]([Vector2(0, 1)])
 height = 1.0
 
 [node name="JumpPoint6" parent="." unique_id=527590548 instance=ExtResource("34_avv3b")]
-position = Vector2(-459, -123)
+position = Vector2(-458.09613, -129.72061)
+scale = Vector2(1.0578103, 2.016095)
 jump_dirs = Array[Vector2]([Vector2(1, 0)])
 jump_am_v = 1
 height = 0.8
 
-[node name="CollisionShape2D" parent="JumpPoint6" index="0" unique_id=1228440326]
-position = Vector2(-1, -11.25)
-shape = SubResource("RectangleShape2D_k4fo8")
-
 [node name="JumpPoint7" parent="." unique_id=1228342681 instance=ExtResource("34_avv3b")]
 position = Vector2(780, 672)
-jump_am = 2
-
-[node name="JumpPoint8" type="Area2D" parent="." unique_id=1331315561]
-position = Vector2(-552, -904)
-scale = Vector2(0.88, 0.72)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint8" unique_id=721438459]
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
-
-[node name="JumpPoint9" type="Area2D" parent="." unique_id=1281130147]
-position = Vector2(-446, -985)
-script = ExtResource("8_sf87x")
-jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint9" unique_id=1859530210]
-position = Vector2(-2, 0)
-scale = Vector2(1.79999, 1)
-shape = SubResource("RectangleShape2D_l2xxo")
-debug_color = Color(0.753018, 0.457521, 7.70092e-07, 0.42)
 
 [node name="Ladder1" parent="." unique_id=619055194 instance=ExtResource("8_hjqnr")]
 position = Vector2(565, 763)
@@ -2159,24 +1991,62 @@ metadata/_edit_group_ = true
 position = Vector2(438, 59)
 metadata/_edit_group_ = true
 
+[node name="JumpPoint" parent="." unique_id=1339488981 instance=ExtResource("33_iqaea")]
+position = Vector2(-551.19763, -901.83777)
+scale = Vector2(1.2823389, 1)
+
+[node name="JumpPoint8" parent="." unique_id=566654417 instance=ExtResource("33_iqaea")]
+position = Vector2(-839.0326, -992.34015)
+scale = Vector2(1.3527347, 1)
+
+[node name="JumpPoint9" parent="." unique_id=756788395 instance=ExtResource("33_iqaea")]
+position = Vector2(-442.0349, -995.13916)
+scale = Vector2(2.1720288, 0.89287)
+
+[node name="JumpPoint10" parent="." unique_id=1083924144 instance=ExtResource("33_iqaea")]
+position = Vector2(-45.100952, -995.46204)
+scale = Vector2(1.6220312, 1)
+
+[node name="JumpPoint16" parent="." unique_id=363175318 instance=ExtResource("33_iqaea")]
+position = Vector2(-21.81018, -911.31476)
+scale = Vector2(1.397188, 1)
+
+[node name="JumpPoint17" parent="." unique_id=1086772376 instance=ExtResource("33_iqaea")]
+position = Vector2(339.5722, -897.3802)
+
+[node name="JumpPoint18" parent="." unique_id=1205315268 instance=ExtResource("33_iqaea")]
+position = Vector2(240.39868, -993.95935)
+scale = Vector2(1.2503126, 1)
+
+[node name="JumpPoint20" parent="." unique_id=45058381 instance=ExtResource("33_iqaea")]
+position = Vector2(102.30354, -900.01855)
+scale = Vector2(1.2503126, 1)
+
+[node name="JumpPoint2" parent="." unique_id=1949786305 instance=ExtResource("33_iqaea")]
+position = Vector2(-94.182556, 379.78714)
+scale = Vector2(1.6275, 1.6275)
+jump_am = 3
+
+[node name="JumpPoint4" parent="." unique_id=841572020 instance=ExtResource("33_iqaea")]
+position = Vector2(-113.59909, 241.85225)
+scale = Vector2(1.6275, 1.6275)
+jump_am = 3
+
+[node name="JumpPoint3" parent="." unique_id=2144299483 instance=ExtResource("34_avv3b")]
+position = Vector2(-141.15765, 427.35995)
+scale = Vector2(1.5432818, 1.3376563)
+jump_am = 3
+
+[node name="JumpPoint21" parent="." unique_id=502651178 instance=ExtResource("34_avv3b")]
+position = Vector2(-262.43573, 190.90715)
+scale = Vector2(1.5432818, 1.3376563)
+jump_am = 3
+
 [connection signal="body_entered" from="EvKick" to="EvKick" method="_on_body_entered"]
-[connection signal="body_entered" from="JumpPoint10" to="JumpPoint10" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint16" to="JumpPoint16" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint17" to="JumpPoint17" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint18" to="JumpPoint18" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint2" to="JumpPoint2" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint21" to="JumpPoint21" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint23" to="JumpPoint23" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint3" to="JumpPoint3" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint4" to="JumpPoint4" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint8" to="JumpPoint8" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint9" to="JumpPoint9" method="_on_entered"]
 [connection signal="action" from="SwitchBridge1/SGBridge1" to="DoorLocked1/HideOnFlag" method="check"]
 [connection signal="action" from="SwitchCast1/SGDoor1" to="DoorLocked1/HideOnFlag" method="check"]
 
-[editable path="BreakableWallSG4"]
 [editable path="BreakableWallSG5"]
-[editable path="JumpPoint6"]
 [editable path="Ladder2"]
 [editable path="Ladder3"]
 [editable path="Shard1"]

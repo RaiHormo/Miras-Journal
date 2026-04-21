@@ -35,6 +35,15 @@
 [ext_resource type="Texture2D" uid="uid://dlag315pv85pe" path="res://art/Tilesets/PyrsonBuild.png" id="32_b46i6"]
 [ext_resource type="PackedScene" uid="uid://8bbhsb53enf5" path="res://rooms/components/Chair.tscn" id="33_u6p7b"]
 
+[sub_resource type="Gradient" id="Gradient_2oe0j"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.05, 0.05, 0.05, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ae0d8"]
+gradient = SubResource("Gradient_2oe0j")
+width = 500
+height = 500
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lb215"]
 polygon = PackedVector2Array(-23.3345, -16.617, 24.0416, -17.3241, 24.7487, 30.052, -22.6274, 31.1127)
 
@@ -555,26 +564,6 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xmoor"]
 radius = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak30l"]
-resource_local_to_scene = true
-size = Vector2(176, 35)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ygg4"]
-resource_local_to_scene = true
-size = Vector2(176, 35)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bc5"]
-resource_local_to_scene = true
-size = Vector2(36, 123)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7edst"]
-resource_local_to_scene = true
-size = Vector2(36, 123)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sk1io"]
-resource_local_to_scene = true
-size = Vector2(113.5, 35)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5udm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nlfpl"]
@@ -587,15 +576,6 @@ region = Rect2(360, 168, 96, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66y4c"]
 size = Vector2(97.5528, 20)
 
-[sub_resource type="Gradient" id="Gradient_2oe0j"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.05, 0.05, 0.05, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ae0d8"]
-gradient = SubResource("Gradient_2oe0j")
-width = 500
-height = 500
-
 [node name="Pyrson" type="Node2D" unique_id=2132881020]
 y_sort_enabled = true
 texture_filter = 1
@@ -607,6 +587,15 @@ SpawnZ = Array[int]([0, 0, 1, 3])
 CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1765), Vector4(-10000, 0, 100, 886), Vector4(-100, -300, 300, -100), Vector4(0, 0, 0, 0)])
 CameraZooms = Array[float]([0.75, 1.25, 1.0, 1.0])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
+
+[node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
+modulate = Color(1, 1, 1, 0)
+light_mask = 0
+z_index = 1
+texture_filter = 2
+position = Vector2(267, 658)
+scale = Vector2(2.678, 2.919)
+texture = SubResource("GradientTexture2D_ae0d8")
 
 [node name="0-Border" type="TileMapLayer" parent="." unique_id=2132148132]
 y_sort_enabled = true
@@ -1178,65 +1167,36 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="JumpPoint2" parent="." unique_id=356783486 instance=ExtResource("18_26sn0")]
-position = Vector2(519, 620)
+position = Vector2(427, 621)
+scale = Vector2(7.1910887, 0.678125)
 jump_am = 0
 time = 4
 height = 0.3
 RelativePositions = true
 
-[node name="CollisionShape2D" parent="JumpPoint2" index="0" unique_id=1635772224]
-position = Vector2(-98, 0.5)
-shape = SubResource("RectangleShape2D_ak30l")
-
-[node name="JumpPoint3" parent="." unique_id=1171829062 instance=ExtResource("18_26sn0")]
-position = Vector2(510, 743)
+[node name="JumpPoint3" parent="." unique_id=1339488981 instance=ExtResource("18_26sn0")]
+position = Vector2(427, 737)
+scale = Vector2(7.1910887, 0.678125)
 jump_am = 0
 time = 4
 height = 0.3
 RelativePositions = true
-
-[node name="CollisionShape2D" parent="JumpPoint3" index="0" unique_id=1635772224]
-position = Vector2(-88.5, 0.5)
-shape = SubResource("RectangleShape2D_4ygg4")
 
 [node name="JumpPoint4" parent="." unique_id=1075103516 instance=ExtResource("19_lkhnc")]
-position = Vector2(335, 697)
+position = Vector2(333.00003, 679)
+scale = Vector2(0.6, 5)
 jump_am = 0
 time = 4
 height = 0.3
 RelativePositions = true
 
-[node name="CollisionShape2D" parent="JumpPoint4" index="0" unique_id=1228440326]
-position = Vector2(0, -15.5)
-shape = SubResource("RectangleShape2D_n1bc5")
-
-[node name="JumpPoint5" parent="." unique_id=1067210165 instance=ExtResource("19_lkhnc")]
-position = Vector2(508, 689)
+[node name="JumpPoint5" parent="." unique_id=2144299483 instance=ExtResource("19_lkhnc")]
+position = Vector2(507, 679.00006)
+scale = Vector2(0.6, 5)
 jump_am = 0
 time = 4
 height = 0.3
 RelativePositions = true
-
-[node name="CollisionShape2D" parent="JumpPoint5" index="0" unique_id=1228440326]
-position = Vector2(0, -7)
-shape = SubResource("RectangleShape2D_7edst")
-
-[node name="JumpPoint6" parent="." unique_id=1544791297 instance=ExtResource("18_26sn0")]
-z_index = 2
-position = Vector2(107, 881)
-collision_layer = 12
-collision_mask = 12
-jump_dirs = Array[Vector2]([Vector2(0, -1)])
-jump_am = 1
-jump_am_v = 1
-time = 4
-RelativePositions = true
-to_z = 0
-to_layers = 3
-
-[node name="CollisionShape2D" parent="JumpPoint6" index="0" unique_id=1635772224]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_sk1io")
 
 [node name="Ladder" parent="." unique_id=812423330 instance=ExtResource("20_xjbvj")]
 position = Vector2(587, 469)
@@ -1413,15 +1373,6 @@ shape = SubResource("RectangleShape2D_66y4c")
 [node name="Stairs1" parent="." unique_id=1395634390 instance=ExtResource("14_y8h7v")]
 position = Vector2(322, 885)
 
-[node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
-modulate = Color(1, 1, 1, 0)
-light_mask = 0
-z_index = 1
-texture_filter = 2
-position = Vector2(267, 658)
-scale = Vector2(2.678, 2.919)
-texture = SubResource("GradientTexture2D_ae0d8")
-
 [node name="TownHall" type="Node2D" parent="." unique_id=486572569]
 z_index = 2
 y_sort_enabled = true
@@ -1532,6 +1483,18 @@ dialogue_file = "interact_pyrson"
 title = "gather_pyrson"
 return_control = false
 
+[node name="JumpPoint" parent="." unique_id=1819482414 instance=ExtResource("18_26sn0")]
+z_index = 3
+position = Vector2(132, 863)
+scale = Vector2(3.385155, 0.6720362)
+collision_layer = 14
+collision_mask = 14
+jump_dirs = Array[Vector2]([Vector2(0, -1)])
+jump_am = 3
+jump_am_v = 1
+to_z = 0
+to_layers = 3
+
 [connection signal="action" from="HomeBuilding/Lamp3" to="HomeBuilding/Lamp3/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_entered"]
 [connection signal="body_exited" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_exited"]
@@ -1550,10 +1513,5 @@ return_control = false
 [editable path="ExitScene/Interact"]
 [editable path="HomeBuilding-MyRoom/Lamp2"]
 [editable path="HomeBuilding-MyRoom/Sleep"]
-[editable path="JumpPoint2"]
-[editable path="JumpPoint3"]
-[editable path="JumpPoint4"]
-[editable path="JumpPoint5"]
-[editable path="JumpPoint6"]
 [editable path="Ladder"]
 [editable path="VPGate"]

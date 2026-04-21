@@ -3,25 +3,22 @@
 [ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="1_60q8a"]
 [ext_resource type="Texture2D" uid="uid://dtw2ihtvn34ge" path="res://art/Icons/Editor/jump.png" id="2_a6ca7"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_n84ch"]
+[ext_resource type="Texture2D" uid="uid://bmii71t0l2om1" path="res://UI/MenuTextures/Oval.svg" id="4_amo58"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ht2m"]
 size = Vector2(24, 66)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3diyv"]
-size = Vector2(18, 12)
-
-[node name="JumpPoint" type="Area2D" unique_id=1339488981 node_paths=PackedStringArray("target", "timer")]
+[node name="JumpPoint" type="Area2D" unique_id=1339488981]
 script = ExtResource("1_60q8a")
 jump_dirs = Array[Vector2]([Vector2(0, 1), Vector2(0, -1)])
-jump_am = 3
-target = NodePath("Target")
-timer = NodePath("Timer")
+jump_am = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1635772224]
+light_mask = 0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_2ht2m")
-debug_color = Color(0.752941, 0.458824, 0, 0.419608)
+debug_color = Color(0.75, 0.4625, 0, 0.11372549)
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=2036745360]
 light_mask = 0
@@ -31,10 +28,18 @@ scale = Vector2(0.31, 0.31)
 texture = ExtResource("2_a6ca7")
 script = ExtResource("3_n84ch")
 
-[node name="Target" type="Sprite2D" parent="." unique_id=822835535]
+[node name="Target" type="TextureRect" parent="." unique_id=1171437625]
 visible = false
-position = Vector2(44, 0)
-texture = SubResource("PlaceholderTexture2D_3diyv")
+offset_left = -13.0
+offset_top = 35.0
+offset_right = 10.0
+offset_bottom = 50.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_amo58")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Timer" type="Timer" parent="." unique_id=459698838]
 wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

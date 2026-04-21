@@ -24,7 +24,6 @@
 [ext_resource type="Resource" uid="uid://gk43qq3jxxgn" path="res://database/Enemies/CrimsonFlowent.tres" id="17_dejne"]
 [ext_resource type="Resource" uid="uid://dhcj1318p3b4g" path="res://database/Enemies/CrawlingSludge.tres" id="17_fac0c"]
 [ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Components/event_tripwire.gd" id="19_5avo1"]
-[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="20_lxyok"]
 [ext_resource type="Texture2D" uid="uid://exhrdcludfxg" path="res://art/OV/Objects/Crate.png" id="21_02kmm"]
 [ext_resource type="PackedScene" uid="uid://usn8pirw8kjc" path="res://rooms/components/WanderingEnemy.tscn" id="22_wfemh"]
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
@@ -35,6 +34,8 @@
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="31_ylfhl"]
 [ext_resource type="PackedScene" uid="uid://d0r3jc40ijx6l" path="res://rooms/components/BreakableOre.tscn" id="35_icl6y"]
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="35_yh834"]
+[ext_resource type="PackedScene" uid="uid://b2k3mbup5ml3p" path="res://rooms/components/JumpPointHV.tscn" id="36_yh834"]
+[ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="37_mrqc6"]
 
 [sub_resource type="Gradient" id="Gradient_auwcy"]
 offsets = PackedFloat32Array(1)
@@ -167,12 +168,6 @@ size = Vector2(78, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylfhl"]
 size = Vector2(70, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s71jc"]
-size = Vector2(150, 39.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4a3if"]
-size = Vector2(134.5, 30)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5agys"]
 vertices = PackedVector2Array(1402, 442, 1402, 419.64844, 1538, 440.5703, 1538, 530, 1294, 530, 1294, 442, 524, 328, 649.97656, 335.47656, 660.3906, 419.6172, 556.6172, 399.9375, 472, 328, 472, 405.34375, 568.6094, 237.03125, 652.71094, 238.78906, 524, 253.03125, 1166, 154, 1166, 278, 1114, 278, 1114, 254, 1018, 154, 1018, 254)
@@ -358,12 +353,12 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAD7/w8AAgALAAUAAAD7/xAAAgALAAUAAAD7/xEAAgALAAUAAAD8/w8AAgALAAUAAAD8/xAAAgALAAUAAAD8/xEAAgALAAUAAAD9/w8AAgALAAUAAAD9/xAAAgALAAUAAAD9/xEAAgALAAUAAAD+/w8AAgAKAAUAABD+/xAAAgAKAAUAABD+/xEAAgAKAAUAABAOABAAAwAEAAMAAAAHAA8AAwAIAAMAAAADAA4AAwAAAAUAAAAOAAsAAgAKAAUAABANAAsAAgAKAAUAAAANAAoAAgAKAAUAAAANAAkAAgAKAAUAAAANAAgAAgAKAAUAAAANAAcAAgAKAAUAAAAOAAoAAgAKAAUAABAOAAkAAgAKAAUAABAOAAgAAgAKAAUAABAOAAcAAgAKAAUAABAKAAkAAwAKAAcAAAAOAAwAAwAPAAwAAAD8/wIAAAAOAAQAAAD9/wIAAAAOAAEAAAD+/wIAAAAOAAEAAAD//wIAAAAOAAEAAAAAAAIAAAAPAAEAAAABAAgAAAANAAEAAAACAAgAAAAOAAEAAAADAAgAAAAOAAEAAAAEAAgAAAAPAAEAAAAFAAIAAAANAAEAAAAGAAIAAAAOAAEAAAAHAAIAAAAOAAEAAAAIAAIAAAAOAAEAAAAJAAIAAAAOAAEAAAAKAAIAAAAOAAEAAAALAAIAAAAOAAEAAAAMAAIAAAAOAAEAAAANAAIAAAAOAAEAAAAOAAIAAAAPAAEAAAD8/wMAAAAMAAEAAAD8/wQAAAAMAAEAAAD8/wUAAAAMAAEAAAD8/wYAAAAMAAEAAAD8/wcAAAAMAAEAAAD8/wgAAAAMAAEAAAD8/wkAAAAMAAEAAAD8/woAAAAMAAEAAAD8/wsAAAAMAAEAAAD8/wwAAAAMAAEAAAD8/w0AAAANAAQAAAD7/wIAAAANAAEAAAD8/w4AAAALAAIAAAD+/w4AAAANAAMAAAABAAQAAwAAAA0AAAAPAAYAAwAAAA0AAAAUAAgABAAPAAgAAAA=")
 tile_set = ExtResource("1_xvot3")
 
-[node name="BgParallax" type="Parallax2D" parent="." unique_id=570332440]
-visible = false
-repeat_size = Vector2(215, 0)
-limit_begin = Vector2(0, -10000000)
+[node name="BgParallaxBackground" type="ParallaxBackground" parent="." unique_id=1206721553]
 
-[node name="Sprite2D" type="Sprite2D" parent="BgParallax" unique_id=1596535683]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="BgParallaxBackground" unique_id=2036673329]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="BgParallaxBackground/ParallaxLayer" unique_id=1340084467]
 texture_filter = 1
 position = Vector2(107, 95)
 texture = ExtResource("6_gki33")
@@ -849,45 +844,6 @@ title = "day10_gap"
 itemtype = ""
 Height = 5
 
-[node name="JumpPoint1" type="Area2D" parent="." unique_id=1529145191]
-z_index = 7
-position = Vector2(75, 85)
-collision_mask = 15
-script = ExtResource("20_lxyok")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 4
-height = -0.2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint1" unique_id=1304692225]
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_s71jc")
-
-[node name="JumpPoint3" type="Area2D" parent="." unique_id=224815168]
-z_index = 7
-position = Vector2(415, 134)
-collision_mask = 15
-script = ExtResource("20_lxyok")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 4
-height = -0.2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint3" unique_id=1813389644]
-position = Vector2(-1, 16)
-shape = SubResource("RectangleShape2D_4a3if")
-
-[node name="JumpPoint4" type="Area2D" parent="." unique_id=1680685906]
-z_index = 7
-position = Vector2(962, 209)
-collision_mask = 15
-script = ExtResource("20_lxyok")
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
-jump_am = 4
-height = -0.2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPoint4" unique_id=309009590]
-position = Vector2(-1, 16)
-shape = SubResource("RectangleShape2D_4a3if")
-
 [node name="Ladder1" parent="." unique_id=475790957 instance=ExtResource("25_vddgi")]
 
 [node name="End1" parent="Ladder1" index="0" unique_id=1730241983]
@@ -1001,16 +957,6 @@ Position = Vector2(1955, -1580)
 room = "TempleWoods"
 ToCamera = 2
 
-[node name="BgParallaxBackground" type="ParallaxBackground" parent="." unique_id=1206721553]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="BgParallaxBackground" unique_id=2036673329]
-motion_scale = Vector2(0.1, 0.1)
-
-[node name="Sprite2D" type="Sprite2D" parent="BgParallaxBackground/ParallaxLayer" unique_id=1340084467]
-texture_filter = 1
-position = Vector2(107, 95)
-texture = ExtResource("6_gki33")
-
 [node name="Transfer3" parent="." unique_id=2033391315 instance=ExtResource("7_q8qii")]
 position = Vector2(3010, -139)
 Direction = Vector2(1, 0)
@@ -1063,6 +1009,36 @@ given_item = "GreenFragment"
 z_index = 3
 position = Vector2(0, 408)
 
+[node name="JumpPoint" parent="." unique_id=2144299483 instance=ExtResource("36_yh834")]
+position = Vector2(204, 690)
+
+[node name="JumpPoint3" parent="." unique_id=1535942294 instance=ExtResource("36_yh834")]
+position = Vector2(133, 611)
+
+[node name="JumpPoint4" parent="." unique_id=376343726 instance=ExtResource("36_yh834")]
+position = Vector2(37, 522)
+
+[node name="JumpPoint2" parent="." unique_id=808480496 instance=ExtResource("37_mrqc6")]
+z_index = 7
+position = Vector2(72, 100)
+scale = Vector2(2.3, 1.36)
+jump_am = 4
+height = -0.2
+
+[node name="JumpPoint5" parent="." unique_id=742260674 instance=ExtResource("37_mrqc6")]
+z_index = 7
+position = Vector2(410.00003, 152)
+scale = Vector2(2.3, 1.2240001)
+jump_am = 4
+height = -0.2
+
+[node name="JumpPoint6" parent="." unique_id=348566539 instance=ExtResource("37_mrqc6")]
+z_index = 7
+position = Vector2(960, 225)
+scale = Vector2(2.3, 1.2240001)
+jump_am = 4
+height = -0.2
+
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]
 [connection signal="body_entered" from="EffectUnderthouse" to="EffectUnderthouse" method="_on_body_entered"]
@@ -1070,9 +1046,6 @@ position = Vector2(0, 408)
 [connection signal="body_entered" from="EffectUndertree" to="EffectUndertree" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectUndertree" to="EffectUndertree" method="_on_body_exited"]
 [connection signal="body_entered" from="EvSplash" to="EvSplash" method="_on_body_entered"]
-[connection signal="body_entered" from="JumpPoint1" to="JumpPoint1" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint3" to="JumpPoint3" method="_on_entered"]
-[connection signal="body_entered" from="JumpPoint4" to="JumpPoint4" method="_on_entered"]
 
 [editable path="EvRestTree"]
 [editable path="InteractSign"]

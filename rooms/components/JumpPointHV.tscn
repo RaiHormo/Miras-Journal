@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b2k3mbup5ml3p"]
+
+[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="1_ul3x3"]
+[ext_resource type="Texture2D" uid="uid://dtw2ihtvn34ge" path="res://art/Icons/Editor/jump.png" id="2_vuday"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_urrj5"]
+[ext_resource type="Texture2D" uid="uid://bmii71t0l2om1" path="res://UI/MenuTextures/Oval.svg" id="4_noxa5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnwxw"]
+size = Vector2(68.0005, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ul3x3"]
+size = Vector2(26, 68)
+
+[node name="JumpPoint" type="Area2D" unique_id=2144299483]
+script = ExtResource("1_ul3x3")
+jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)])
+jump_am = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1228440326]
+shape = SubResource("RectangleShape2D_hnwxw")
+debug_color = Color(0.75, 0.4625, 0, 0.11372549)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1659860092]
+shape = SubResource("RectangleShape2D_ul3x3")
+debug_color = Color(0.75, 0.4625, 0, 0.11372549)
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=2107096588]
+light_mask = 0
+z_index = 10
+position = Vector2(-0.999999, 1.43051e-06)
+scale = Vector2(0.31, 0.31)
+texture = ExtResource("2_vuday")
+script = ExtResource("3_urrj5")
+
+[node name="Target" type="TextureRect" parent="." unique_id=1921600765]
+visible = false
+offset_left = 37.0
+offset_top = -6.0
+offset_right = 55.4
+offset_bottom = 6.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_noxa5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Timer" type="Timer" parent="." unique_id=1739993335]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

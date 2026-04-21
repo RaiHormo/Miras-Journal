@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://dltu4a3f82ic4" path="res://rooms/components/ObjectIdentifier.tscn" id="28_bhcd2"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="31_svxf2"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="35_2q7ov"]
+[ext_resource type="PackedScene" uid="uid://b2k3mbup5ml3p" path="res://rooms/components/JumpPointHV.tscn" id="35_2y4jd"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="36_2q7ov"]
 [ext_resource type="PackedScene" uid="uid://vgsferl0deam" path="res://rooms/components/JumpPointV.tscn" id="36_va2q4"]
 
@@ -1176,25 +1177,32 @@ scale = Vector2(1.1, 1.8)
 position = Vector2(420, 259)
 scale = Vector2(1.1, 1.8)
 
-[node name="JumpPoint4" parent="." unique_id=677738486 instance=ExtResource("36_va2q4")]
-position = Vector2(517, 396)
-jump_am = 2
+[node name="JumpPoint10" parent="." unique_id=1779788680 instance=ExtResource("36_va2q4")]
+position = Vector2(1237, 259)
 
 [node name="JumpPoint8" parent="." unique_id=615443879 instance=ExtResource("36_va2q4")]
-position = Vector2(512, 300)
-jump_am = 2
+position = Vector2(517, 300)
 
 [node name="JumpPoint5" parent="." unique_id=861036950 instance=ExtResource("36_va2q4")]
 position = Vector2(1499, -55)
-jump_am = 2
 
 [node name="JumpPoint6" parent="." unique_id=205629706 instance=ExtResource("35_2q7ov")]
 position = Vector2(1574, -995)
-jump_am = 2
+
+[node name="JumpPoint18" parent="." unique_id=720068502 instance=ExtResource("35_2q7ov")]
+position = Vector2(1718, -993)
+
+[node name="JumpPoint19" parent="." unique_id=1658902006 instance=ExtResource("35_2q7ov")]
+position = Vector2(1694, -1015)
+
+[node name="JumpPoint20" parent="." unique_id=411292461 instance=ExtResource("35_2q7ov")]
+position = Vector2(1525, -1089)
 
 [node name="JumpPoint7" parent="." unique_id=200651858 instance=ExtResource("36_va2q4")]
 position = Vector2(1525, -968)
-jump_am = 2
+
+[node name="JumpPoint15" parent="." unique_id=915577915 instance=ExtResource("36_va2q4")]
+position = Vector2(1386, -1041)
 
 [node name="EnteredAmberelm2" parent="." unique_id=413285406 instance=ExtResource("36_2q7ov")]
 z_index = 1
@@ -1220,6 +1228,27 @@ AddFlag = true
 TakeControl = false
 ReturnControl = false
 SlowDown = true
+
+[node name="JumpPoint14" parent="." unique_id=1075157110 instance=ExtResource("35_2y4jd")]
+position = Vector2(1477, -947)
+
+[node name="JumpPoint16" parent="." unique_id=2144299483 instance=ExtResource("35_2y4jd")]
+position = Vector2(1284, -1041)
+
+[node name="JumpPoint" parent="." unique_id=1887903906 instance=ExtResource("35_2y4jd")]
+position = Vector2(1164, -204)
+
+[node name="JumpPoint11" parent="." unique_id=1768312667 instance=ExtResource("35_2y4jd")]
+position = Vector2(1670, 235)
+
+[node name="JumpPoint4" parent="." unique_id=922066174 instance=ExtResource("35_2y4jd")]
+position = Vector2(517, 397)
+
+[node name="JumpPoint9" parent="." unique_id=1176668282 instance=ExtResource("35_2y4jd")]
+position = Vector2(565, 422)
+
+[node name="JumpPoint12" parent="." unique_id=1954544906 instance=ExtResource("35_2y4jd")]
+position = Vector2(1141, 115)
 
 [connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
 [connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]
