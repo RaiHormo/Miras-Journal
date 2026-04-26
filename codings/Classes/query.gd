@@ -366,3 +366,7 @@ static func get_pronoun(form: String = "they", gender: String = "they") -> Strin
 				"it": return "itself"
 				"they": return "themself"
 	return form
+
+
+static func world_to_canvas(pos: Vector2, from: CanvasItem = Global.Area) -> Vector2:
+	return Global.get_viewport().get_screen_transform() * from.get_global_transform_with_canvas() * pos

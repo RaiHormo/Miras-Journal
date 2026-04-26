@@ -1,6 +1,7 @@
 extends CanvasLayer
 @onready var Troop: Array[Actor] = get_parent().Troop
 @onready var CurEnemy: Actor
+@onready var Bt: Battle = $".."
 var t: Tween
 var lock := false
 
@@ -142,7 +143,7 @@ func check_panel(chara: Actor, panel: Control) -> void:
 
 
 func _on_battle_ui_ability() -> void:
-	if $"../BattleUI/DescPaper/ShowWheel/Wheel".visible:
+	if Bt.ui.get_node("DescPaper/ShowWheel/Wheel").visible:
 		colapse_root()
 	$EnemyFocus.hide()
 

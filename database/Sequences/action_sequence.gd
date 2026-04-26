@@ -5,8 +5,8 @@ var CurrentChar: Actor
 var Party: PartyData
 var Troop: Array[Actor]
 var Turn: int
-@onready var Cam: Camera2D = get_parent().get_child(2)
 @onready var Bt: Battle = get_parent()
+@onready var Cam: Camera2D = Bt.cam
 @onready var t: Tween
 #var target:Actor
 var miss: bool

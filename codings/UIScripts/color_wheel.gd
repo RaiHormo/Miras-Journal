@@ -72,7 +72,7 @@ func show_trg_color(clr: Color) -> void:
 	elif tar_aff.hue in affinity.weak_range: relation_ico = $WeakIcon
 	elif tar_aff.hue in affinity.resist_range: relation_ico = $ResistIcon
 	elif tar_aff.hue in affinity.near_range: relation_ico = $NearIcon
-	if Global.Bt.get_node("BattleUI").stage != "target": await Event.wait(0.3)
+	if Global.Bt.ui.stage != "target": await Event.wait(0.3)
 	if relation_ico != null:
 		blink_icon(relation_ico)
 

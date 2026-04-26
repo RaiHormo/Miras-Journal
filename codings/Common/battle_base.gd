@@ -1,5 +1,6 @@
 extends Node2D
 class_name Battle
+
 @export var BattleText: Dictionary[String, String]
 @export var Party: PartyData
 @export var Seq: BattleSequence = Loader.Seq
@@ -8,13 +9,12 @@ class_name Battle
 @export var Turn: int = 0
 @onready var CurrentChar: Actor
 @export var TurnInd: int = -1
-signal GetControl
 @onready var t: Tween
+@onready var ui: Control = $BattleUI
+@onready var cam: Camera2D = $Cam
+@onready var canvas: CanvasLayer = $Canvas
+
 var initial: Vector2
-signal next_turn
-signal check_party
-signal anim_done
-signal take_dmg
 var CurrentAbility: Ability
 var PartyArray: Array[Actor] = []
 var Action: bool
@@ -32,13 +32,19 @@ var follow_up_next := false
 var aoe_returns := 0
 var ignore_end_turn := false
 
+signal GetControl
+signal next_turn
+signal check_party
+signal anim_done
+signal take_dmg
+
 
 func _ready() -> void:
 	Loader.battle_start.emit()
 	Global.Bt = self
 	get_tree().paused = false
 	Global.Controllable = false
-	$Cam.make_current()
+	cam.make_current()
 	Loader.InBattle = true
 	Action = true
 	TurnInd = -1
@@ -64,8 +70,8 @@ func _ready() -> void:
 		Seq.ScenePosition = Global.Player.global_position + Vector2(45, 0)
 	global_position = Seq.ScenePosition
 	global_position = Vector2i(global_position)
-	$Cam.global_position = Global.Camera.global_position
-	$Cam.zoom = Global.Camera.zoom
+	cam.global_position = Global.Camera.global_position
+	cam.zoom = Global.Camera.zoom
 	$Canvas/Cutin.hide()
 	$Act/Actor0.sprite_frames = await Party.Leader.get_BT()
 	$Act/Actor0.animation = &"Entrance"
@@ -241,7 +247,7 @@ func position_sprites() -> void:
 func entrance() -> void:
 	Action = true
 	Global.Controllable = false
-	$Cam.position_smoothing_enabled = false
+	cam.position_smoothing_enabled = false
 	if Seq.Transition:
 		Loader.battle_bars(3)
 		if Seq.EntranceBanter != "":
@@ -250,17 +256,17 @@ func entrance() -> void:
 			else:
 				Global.textbox("banter_entrance", Seq.EntranceBanter)
 				while Global.textbox_open:
-					if $Cam.position.x > -30: $Cam.position.x -= 0.03
+					if cam.position.x > -30: cam.position.x -= 0.03
 					await Event.wait()
 		elif Seq.EntranceSequence == "":
-			$Cam.zoom = Vector2(4, 4)
-			$Cam.position = Vector2(90, 10)
+			cam.zoom = Vector2(4, 4)
+			cam.position = Vector2(90, 10)
 			t = create_tween()
 			t.set_ease(Tween.EASE_IN_OUT)
 			t.set_trans(Tween.TRANS_QUART)
-			t.tween_property($Cam, "zoom", Vector2(5.5, 5.5), 0.5)
-			t.parallel().tween_property($Cam, "position", Vector2(90, 0), 0.5)
-			t.tween_property($Cam, "position", Vector2(-50, 0), 0.5).set_delay(0.5)
+			t.tween_property(cam, "zoom", Vector2(5.5, 5.5), 0.5)
+			t.parallel().tween_property(cam, "position", Vector2(90, 0), 0.5)
+			t.tween_property(cam, "position", Vector2(-50, 0), 0.5).set_delay(0.5)
 			await Event.wait(0.3, false)
 			$EnemyUI.all_enemy_ui(true)
 			if Loader.BtAdvantage == 1:
@@ -348,7 +354,7 @@ func _on_ai_chosen() -> void:
 
 
 func confirm_next(action_anim := true) -> void:
-	if CurrentChar.Controllable: $BattleUI.close()
+	if CurrentChar.Controllable: ui.close()
 	print("Action: ", CurrentChar.NextAction)
 	if CurrentChar.NextMove == CurrentChar.StandardAttack:
 		CurrentChar.NextAction = "Attack"
@@ -359,8 +365,8 @@ func confirm_next(action_anim := true) -> void:
 				tl.set_ease(Tween.EASE_OUT)
 				tl.set_trans(Tween.TRANS_QUART)
 				focus_cam(CurrentChar)
-				#tl.tween_property($Cam, "zoom", Vector2(5,5), 0.3)
-				tl.parallel().tween_property($Cam, "zoom", Vector2(5.5, 5.5), 0.3)
+				#tl.tween_property(cam, "zoom", Vector2(5,5), 0.3)
+				tl.parallel().tween_property(cam, "zoom", Vector2(5.5, 5.5), 0.3)
 				callout(CurrentChar.NextMove)
 				var timer := get_tree().create_timer(0.5)
 				await anim("Ability")
@@ -376,11 +382,11 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("DebugV"):
 		for i in Troop:
 			death(i)
-		$BattleUI.close()
+		ui.close()
 		victory()
 	if Input.is_action_pressed("Dash") and Action:
 		Engine.time_scale = 8
-		$Cam.position_smoothing_enabled = false
+		cam.position_smoothing_enabled = false
 	elif Input.is_action_just_released("Dash"):
 		Engine.time_scale = 1
 	if AwaitVictory:
@@ -388,12 +394,12 @@ func _input(event: InputEvent) -> void:
 			end_battle()
 	if Input.is_action_just_pressed("DebugF"):
 		print(relation_to_dmg_modifier(color_relation(CurrentChar.MainColor,
-		$BattleUI.target.MainColor)))
+		ui.target.MainColor)))
 
 
 func _on_battle_ui_ability() -> void:
 	if CurrentChar.node == null: return
-	if $BattleUI.PrevStage == "root":
+	if ui.PrevStage == "root":
 		play_sound("Ability", CurrentChar)
 		await anim("Ability")
 	if CurrentChar.node.animation == "Ability": anim("AbilityLoop")
@@ -484,12 +490,12 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 						return
 				CurrentTarget = get_ally_faction(CurrentTarget)[i - 1]
 		if tar.IsEnemy:
-			$BattleUI.emit_signal("targetFoc", tar)
+			ui.emit_signal("targetFoc", tar)
 	elif ab.Target == 0:
 		if CurrentChar.IsEnemy:
-			$BattleUI.emit_signal("targetFoc", CurrentChar)
+			ui.emit_signal("targetFoc", CurrentChar)
 	if CurrentChar.IsEnemy:
-		$BattleUI.emit_signal("targetFoc", CurrentChar)
+		ui.emit_signal("targetFoc", CurrentChar)
 	elif ab.Target == 2: $EnemyUI.all_enemy_ui()
 	if ab.ActionSequence != &"":
 		CurrentChar.add_aura(-CurrentAbility.AuraCost)
@@ -690,9 +696,9 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 		am = am - (amount / times)
 		#print(am)
 		#print(amount, " / ", times, " = ",amount/times)
-		t.tween_property($Cam, "offset",
+		t.tween_property(cam, "offset",
 		Vector2(randf_range(-am, am), randf_range(-am, am)), dur).as_relative()
-		t.tween_property($Cam, "offset", Vector2.ZERO, dur)
+		t.tween_property(cam, "offset", Vector2.ZERO, dur)
 	await t.finished
 
 
@@ -982,16 +988,24 @@ func focus_cam(chara: Actor, time: float = 0.5, offset: Variant = 30) -> void:
 
 func move_cam(pos: Vector2, time: float = -1) -> void:
 	if Input.is_action_pressed("Dash") or time == 0:
-		$Cam.position_smoothing_enabled = false
+		cam.position_smoothing_enabled = false
 	else:
-		$Cam.position_smoothing_enabled = true
+		cam.position_smoothing_enabled = true
 	if time > 0:
 		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		t.tween_property($Cam, "position", pos, time)
+		t.tween_property(cam, "position", pos, time)
 	else:
-		$Cam.position = pos
+		cam.position = pos
 
 	await Event.wait(time)
+
+
+func zoom(am: float = 5, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void:
+	var tc := create_tween()
+	tc.set_ease(easing)
+	tc.set_trans(Tween.TRANS_CUBIC)
+	tc.tween_property(cam, "zoom", Vector2(am, am), time)
+	await tc.finished
 
 
 func move(
@@ -1019,7 +1033,7 @@ func heal(
 		amount = round(amount * randf_range(1, 1.5))
 	amount = min(amount, target.MaxHP - target.Health)
 	target.add_health(amount)
-	$BattleUI.targetFoc.emit(target)
+	ui.targetFoc.emit(target)
 	check_party.emit()
 	PartyUI._check_party()
 	pop_aura(target)
@@ -1057,7 +1071,7 @@ func game_over() -> void:
 func end_battle() -> void:
 	AwaitVictory = false
 	reset_all()
-	$Canvas/Continue.hide()
+	canvas.get_node("Continue").hide()
 	await PartyUI.preform_levelups()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
 	await Loader.end_battle()
@@ -1156,8 +1170,8 @@ func victory(ignore_seq := false) -> void:
 	Vector2(260, 50), 2).from(Vector2(1000, 50))
 	t.tween_property($Canvas/VictoryText, "modulate",
 	Color.WHITE, 2).from(Color.TRANSPARENT)
-	t.tween_property($Cam, "position", Vector2(-20, 0), 1)
-	t.tween_property($Cam, "zoom", Vector2(5, 5), 1)
+	t.tween_property(cam, "position", Vector2(-20, 0), 1)
+	t.tween_property(cam, "zoom", Vector2(5, 5), 1)
 	ObtainedItems.append_array(Seq.AdditionalItems)
 	if totalSP != 0: await victory_count_sp()
 	if not ObtainedItems.is_empty(): victory_show_items()
@@ -1180,10 +1194,10 @@ func victory(ignore_seq := false) -> void:
 				if Party.check_member(i):
 					Global.Area.Followers[i - 1].global_position = $Act.get_node("Actor" + str(i)).global_position
 			Global.Camera.position_smoothing_enabled = false
-			Global.Camera.global_position = $Cam.global_position
+			Global.Camera.global_position = cam.global_position
 			Global.Camera.enabled = true
-			$Cam.enabled = false
-			Global.Camera.zoom = $Cam.zoom
+			cam.enabled = false
+			Global.Camera.zoom = cam.zoom
 
 
 func victory_show_items() -> void:
@@ -1293,14 +1307,6 @@ func relation_to_aura_dmg(relation: String, dmg: int) -> int:
 	if relation == "op": return int(dmg * CurrentChar.MainColor.v)
 	elif relation == "wk": return int(dmg * (CurrentChar.MainColor.v / 2))
 	else: return 0
-
-
-func zoom(am: float = 5, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void:
-	var tc := create_tween()
-	tc.set_ease(easing)
-	tc.set_trans(Tween.TRANS_QUART)
-	tc.tween_property($Cam, "zoom", Vector2(am, am), time)
-	await tc.finished
 
 
 func _on_battle_ui_item() -> void:
