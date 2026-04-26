@@ -433,6 +433,7 @@ func apply_settings() -> void:
 	if UsingSteam:
 		Settings.PlayerName = PlayerName
 	else: PlayerName = Settings.PlayerName
+	Global.save_settings()
 
 
 func get_playtime() -> int:

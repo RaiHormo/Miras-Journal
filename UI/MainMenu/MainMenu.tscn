@@ -15,6 +15,7 @@
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_fk5rv"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_tp8ni"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="11_ogd2p"]
+[ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="12_4qf4k"]
 [ext_resource type="Shader" uid="uid://b2y0ohbm60i2y" path="res://UI/Battle/Sinewave.gdshader" id="15_nebe1"]
 [ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="16_4qf4k"]
 
@@ -822,7 +823,6 @@ offset_bottom = 321.29
 scale = Vector2(0.395651, 0.395651)
 
 [node name="Inventory" type="PanelContainer" parent="." unique_id=545507572]
-visible = false
 use_parent_material = true
 offset_left = 241.0
 offset_top = 96.0
@@ -851,12 +851,13 @@ theme_override_constants/margin_top = 46
 theme_override_constants/margin_right = -11
 theme_override_constants/margin_bottom = 14
 
-[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin" unique_id=1103036096]
+[node name="Scroller" type="ScrollContainer" parent="Inventory/Margin" unique_id=2056921732]
 use_parent_material = true
 clip_contents = false
 layout_mode = 2
-follow_focus = true
 horizontal_scroll_mode = 0
+script = ExtResource("12_4qf4k")
+metadata/_custom_type_script = "uid://biopjphf2psbr"
 
 [node name="Vbox" type="VBoxContainer" parent="Inventory/Margin/Scroller" unique_id=392401587]
 layout_mode = 2

@@ -14,12 +14,12 @@ func scroll_to_focus(foc: Control) -> void:
 		if foc.get_parent() is not Control: return
 		foc = foc.get_parent()
 		if foc.get_parent() != get_child(0): return
-	scroll_to(int(foc.position.y - size.y / 2))
+	#scroll_to(int(foc.position.y - size.y / 2))
 	if better_follow_focus:
 		if foc.get_parent() != get_child(0):
 			foc = foc.get_parent()
 			if foc.get_parent() != get_child(0): return
-		scroll_to(int(foc.position.y - size.y / 2))
+		scroll_to(int(foc.position.y - size.y / 3))
 
 
 func scroll_to(to: int, axis: StringName = &"v") -> void:

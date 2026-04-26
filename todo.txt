@@ -6,4 +6,4 @@ softlock during transfers
 wizard guy
 properly implement journal
 add confirmation for AOE
-improve targeting system
+port battleui to animation player

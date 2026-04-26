@@ -2256,7 +2256,6 @@ scale = Vector2(0.234695, 0.234695)
 color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI" unique_id=1811911615]
-visible = false
 use_parent_material = true
 layout_mode = 0
 offset_left = 11.0
