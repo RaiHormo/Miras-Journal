@@ -51,7 +51,6 @@ var follow_up_next := false
 ## Counts turn ends for each AOE ability sequence
 ## The turn ends after all targets have returned
 var aoe_returns := 0
-var t: Tween
 
 @onready var ui: Control = $BattleUI
 @onready var cam: Camera2D = $Cam
@@ -165,7 +164,7 @@ func sprite_init(i: Actor) -> void:
 		i.node.get_child(0).hide()
 	if i.IsEnemy: i.node.get_node("Glow").energy = i.GlowDef
 	else:
-		t = create_tween()
+		var t := create_tween()
 		t.tween_property(i.node.get_node("Glow"), "energy", i.GlowDef, 1)
 	i.node.get_node("Glow").color = i.MainColor
 	if i.MaterialOverride != null:
@@ -284,7 +283,7 @@ func entrance() -> void:
 		elif Seq.EntranceSequence == "":
 			cam.zoom = Vector2(4, 4)
 			cam.position = Vector2(90, 10)
-			t = create_tween()
+			var t := create_tween()
 			t.set_ease(Tween.EASE_IN_OUT)
 			t.set_trans(Tween.TRANS_QUART)
 			t.tween_property(cam, "zoom", Vector2(5.5, 5.5), 0.5)
@@ -384,16 +383,18 @@ func confirm_next(action_anim := true) -> void:
 	if action_anim:
 		match CurrentChar.NextAction:
 			"Ability":
-				var tl := create_tween()
-				tl.set_ease(Tween.EASE_OUT)
-				tl.set_trans(Tween.TRANS_QUART)
 				focus_cam(CurrentChar)
-				#tl.tween_property(cam, "zoom", Vector2(5,5), 0.3)
-				tl.parallel().tween_property(cam, "zoom", Vector2(5.5, 5.5), 0.3)
+				zoom(5.5)
 				callout(CurrentChar.NextMove)
 				var timer := get_tree().create_timer(0.5)
 				await anim("Ability")
 				if timer.time_left != 0: await timer.timeout
+			"Item":
+				focus_cam(CurrentChar)
+				zoom(5.5)
+				var pos := CurrentChar.node.get_global_transform_with_canvas().origin
+				Item.use_animation(CurrentChar.NextMove.Icon, CurrentChar.NextMove.name, pos)
+				await Event.wait(2)
 	if CurrentChar.NextTarget == null:
 		CurrentChar.NextTarget = random_target(CurrentChar.NextMove)
 	_on_battle_ui_ability_returned(CurrentChar.NextMove, CurrentChar.NextTarget)
@@ -552,7 +553,7 @@ func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> Strin
 
 func jump_to_target(
 character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5) -> void:
-	t = create_tween()
+	var t := create_tween()
 	var target := tar.node.position + offset
 	var start := character.node.position
 	var jump_distance: float = start.distance_to(target)
@@ -705,14 +706,14 @@ func outline(target: Actor, color: Color = target.MainColor) -> void:
 
 func outline_remove(target: Actor, time := 0.5) -> void:
 	if target.node.material.get_shader_parameter("outline_enabled") != null:
-		t = create_tween()
+		var t := create_tween()
 		t.tween_property(target.node.material, "shader_parameter/outline_color", Color.TRANSPARENT, time)
 		await t.finished
 		target.node.material.set_shader_parameter("outline_enabled", false)
 
 
 func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2) -> void:
-	t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	var dur := ShakeDuration / times
@@ -752,7 +753,7 @@ func cut_in(image: String = CurrentChar.codename) -> void:
 	var img: Texture = await Loader.load_res("res://art/Pictures/Cutin_" + image + ".png")
 	$Canvas/Cutin/Texture.texture = img
 	$Canvas/Cutin.show()
-	t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	t.tween_property($Canvas/Cutin, "size:y", 380, 0.3).from(0)
 	t.tween_property($Canvas/Cutin, "position:y", 185, 0.3).from(400)
 	t.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
@@ -956,6 +957,8 @@ func get_any_faction(filter_out_dead := true) -> Array[Actor]:
 func hp_sort(a: Actor, b: Actor) -> bool:
 	return a.Health < b.Health
 
+var t_glow: Tween
+
 
 func anim(animation: String = "", chara: Actor = CurrentChar) -> void:
 	if chara.node == null: return
@@ -974,19 +977,27 @@ func anim(animation: String = "", chara: Actor = CurrentChar) -> void:
 	if animation not in chara.node.sprite_frames.get_animation_names():
 		return
 	if animation in chara.GlowAnims and chara.GlowSpecial != 0:
-		t = create_tween()
+		t_glow = create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor
-		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 0.3)
+		t_glow.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowSpecial, 0.3)
 	elif chara.node.animation in chara.GlowAnims and chara.GlowSpecial != 0:
-		t.kill()
-		t = create_tween()
+		if is_instance_valid(t_glow):
+			t_glow.kill()
+		t_glow = create_tween()
 		chara.node.get_node("Glow").color = chara.MainColor
-		t.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
+		t_glow.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
 	print("Animation: ", animation)
 	while chara.node and chara.node.is_playing() and chara.node.animation == animation:
 		await Event.wait()
+
+
+func glow(amount: float = 1, time: float = 1, chara: Actor = CurrentChar) -> void:
+	if is_instance_valid(t_glow):
+		t_glow.kill()
+	t_glow = create_tween()
+	t_glow.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
 
 
 func pixel_perfectize(chara: Actor, xy: int = 0) -> void:
@@ -997,12 +1008,6 @@ func pixel_perfectize(chara: Actor, xy: int = 0) -> void:
 		chara.node.offset[xy] = chara.Offset[xy]
 	else: chara.node.offset[xy] = chara.Offset[xy] + 0.5
 	if xy == 0: pixel_perfectize(chara, 1)
-
-
-func glow(amount: float = 1, time: float = 1, chara: Actor = CurrentChar) -> void:
-	t.kill()
-	t = create_tween()
-	t.tween_property(chara.node.get_node("Glow"), "energy", amount, time)
 
 
 func focus_cam(chara: Actor, time: float = 0.5, offset: Variant = 30) -> void:
@@ -1035,7 +1040,7 @@ var t_zoom: Tween
 
 func zoom(am: float = 5, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void:
 	if is_instance_valid(t_zoom):
-		t.kill()
+		t_zoom.kill()
 	t_zoom = create_tween()
 	t_zoom.set_ease(easing)
 	t_zoom.set_trans(Tween.TRANS_CUBIC)
@@ -1137,7 +1142,7 @@ func victory_anim(chara: Actor) -> void:
 
 func victory_count_sp() -> void:
 	await Event.wait(0.7, false)
-	t = create_tween()
+	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
@@ -1185,8 +1190,7 @@ func victory(ignore_seq := false) -> void:
 	check_party.emit()
 	$EnemyUI.colapse_root()
 	reset_all()
-	t.kill()
-	t = create_tween()
+	var t := create_tween()
 	$Canvas/VictoryText.text = Seq.VictoryText
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -1262,7 +1266,7 @@ func victory_show_items() -> void:
 		if count > 1: i.get_node("Hbox/Count").show()
 	for i in $Canvas/VictoryItems.get_children():
 		if !(i == $Canvas/VictoryItems/ItemTemp or i == null):
-			t = create_tween()
+			var t := create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUINT)
 			t.set_parallel()
@@ -1352,7 +1356,7 @@ func _on_battle_ui_item() -> void:
 func shake_actor(chara := CurrentTarget, amount := 2, repeat := 5, time := 0.03) -> void:
 	if not is_instance_valid(chara.node): return
 	for i in repeat:
-		t = create_tween()
+		var t := create_tween()
 		t.tween_property(chara.node, "position:x", amount, time).as_relative()
 		t.tween_property(chara.node, "position:x", -amount * 2, time * 2).as_relative()
 		t.tween_property(chara.node, "position:x", amount, time).as_relative()
@@ -1513,14 +1517,14 @@ func follow_up_text() -> void:
 	if CurrentChar.IsEnemy:
 		$Canvas/FollowUp.rotation_degrees = 15
 		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
-		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+		var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 100, 0.5)
 		t.set_ease(Tween.EASE_IN)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)
 	else:
 		$Canvas/FollowUp.rotation_degrees = -15
 		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
-		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+		var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 450, 0.5)
 		t.set_ease(Tween.EASE_IN)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)

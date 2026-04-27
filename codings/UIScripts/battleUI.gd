@@ -164,10 +164,9 @@ func _input(event: InputEvent) -> void:
 					ability.emit()
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
-			&"target", &"pre_target":
+			&"target":
 				if Input.is_action_just_pressed(Global.cancel()):
-					Global.cancel_sound()
-					emit_signal(PrevStage)
+					_on_back_pressed()
 				if Input.is_action_just_pressed("ui_down") and active:
 					move_target(Vector2.DOWN)
 				if Input.is_action_just_pressed("ui_up") and active:
@@ -309,7 +308,7 @@ func _on_ability() -> void:
 
 	canvas.get_node("Confirm").text = "Confirm"
 	canvas.get_node("Back").text = "Back"
-	CurrentChar.NextAction = "ability"
+	CurrentChar.NextAction = "Ability"
 
 	PartyUI.only_current()
 	Global.confirm_sound()
@@ -323,7 +322,6 @@ func _on_ability() -> void:
 
 	animation.play("ability")
 
-	CurrentChar.NextAction = "ability"
 	$Ability.focus_mode = 0
 
 	if get_node_or_null("%AbilityList/Item" + str(MenuIndex)) == null:
@@ -353,7 +351,7 @@ func _on_command() -> void:
 	PrevStage = &"root"
 
 	Bt.get_node("Canvas/Back").text = "Back"
-	CurrentChar.NextAction = "command"
+	CurrentChar.NextAction = "Command"
 	analyzing = false
 	animation.play("command")
 
@@ -386,7 +384,6 @@ func _on_item() -> void:
 	CurrentChar.NextTarget = null
 	$Item.icon = null
 	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
-	CurrentChar.NextAction = "item"
 	move_to(CurrentChar.node.position)
 	animation.play("item")
 	Global.confirm_sound()
@@ -407,11 +404,11 @@ func _on_item() -> void:
 
 func close() -> void:
 	active = false
-	while stage == "pre_target": await Event.wait()
+	if stage == "target" and animation.is_playing() and animation.assigned_animation == "target":
+		await animation.animation_changed
+	PartyUI.battle_state()
 	stage = &"inactive"
 	animation.play("close")
-	PartyUI.battle_state()
-	hide()
 
 
 func show_aoe_indicator(chara: Actor) -> void:
@@ -425,7 +422,7 @@ func show_aoe_indicator(chara: Actor) -> void:
 		dub.scale = Vector2(0.17, 0.17)
 		dub.position = Vector2.ZERO - dub.get_combined_pivot_offset()
 		chara.node.add_child(dub)
-		while stage == "target" or stage == "pre_target":
+		while stage == "target":
 			await Event.wait()
 		dub.queue_free()
 
@@ -450,6 +447,7 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	if faction.is_empty(): return
 	if Bt.Action: return
 
+	active = true
 	if is_instance_valid(foc):
 		foc.hide()
 		foc.show()
@@ -459,14 +457,13 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 		return
 
 	CurrentChar.NextMove = ab
-	active = true
+	stage = &"target"
 
-	stage = &"pre_target"
 	TargetFaction = faction
 	if CurrentChar.NextTarget != null and CurrentChar.NextTarget in faction and not analyzing:
 		stage = &"inactive"
 		close()
-		emit_signal("ability_returned", ab, CurrentChar.NextTarget)
+		Bt.confirm_next()
 		return
 
 	var back: Button = canvas.get_node("Back")
@@ -481,7 +478,7 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 
 	if ab != null:
 		wheel.show_atk_color(ab.WheelColor)
-		if (CurrentChar.NextAction == "ability" and ab.WheelColor.s > 0
+		if (CurrentChar.NextAction != "Attack" and ab.WheelColor.s > 0
 		and ab.Damage != Ability.D.NONE):
 			wheel.show()
 			wheel.show_atk_color(ab.WheelColor)
@@ -512,9 +509,6 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	wheel.show_trg_color(CurrentTarget.MainColor)
 	PartyUI.show_all()
 
-	if stage == &"inactive": return
-	stage = &"target"
-
 
 func get_target_pos(tar: Actor) -> Vector2:
 	return Vector2(tar.node.position.x, tar.node.position.y / 4)
@@ -527,7 +521,7 @@ func _on_ability_returned(ab: Ability, tar: Actor) -> void:
 func move_menu() -> void:
 	await Event.wait()
 	foc = get_viewport().gui_get_focus_owner()
-	if stage == &"target" or stage == &"pre_target":
+	if stage == &"target":
 		if LastTarget == CurrentTarget: return
 		active = false
 
@@ -665,7 +659,7 @@ func _on_targeted() -> void:
 			CurrentChar.NextTarget = CurrentTarget
 			await move_menu()
 			Bt.confusion_msg()
-		emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
+		Bt.confirm_next(false)
 		close()
 
 
@@ -717,37 +711,39 @@ func _on_ability_entry() -> void:
 					show_aoe_indicator(i)
 				get_target(fact)
 			_:
-				emit_signal("ability_returned", ab, CurrentChar)
+				CurrentChar.NextTarget = CurrentChar
+				CurrentChar.NextMove = ab
+				Bt.confirm_next(false)
 				close()
 
 
 func _on_confirm_pressed() -> void:
 	if active:
-		if stage == &"pre_target":
-			active = false
-			Global.confirm_sound()
-			#while stage != "target": await Event.wait()
-			targeted.emit()
 		if stage == &"target":
 			Global.confirm_sound()
 			CurrentChar.NextTarget = CurrentTarget
 			targeted.emit()
 		if stage == &"item":
-			if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
-			elif foc is Button and foc.get_meta("ItemData").UsedInBattle:
-				var aitem: ItemData = foc.get_meta("ItemData")
-				aitem.BattleEffect.name = aitem.Name
-				aitem.BattleEffect.description = aitem.Description
-				aitem.BattleEffect.Icon = aitem.Icon
-				aitem.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
-				PrevStage = &"item"
-				if aitem.BattleEffect.Target == Ability.T.SELF or aitem.BattleEffect.Target == Ability.T.ONE_ALLY:
-					CurrentChar.NextMove = aitem.BattleEffect
-					get_target([CurrentChar])
-				if aitem.BattleEffect.Target == Ability.T.ONE_ENEMY:
-					CurrentChar.NextMove = aitem.BattleEffect
-					get_target(Bt.get_oposing_faction())
-				Global.confirm_sound()
+			Global.confirm_sound()
+			use_item()
+
+
+func use_item() -> void:
+	if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
+	elif foc is Button and foc.get_meta("ItemData").UsedInBattle:
+		var aitem: ItemData = foc.get_meta("ItemData")
+		aitem.BattleEffect.name = aitem.Name
+		aitem.BattleEffect.description = aitem.Description
+		aitem.BattleEffect.Icon = aitem.Icon
+		aitem.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
+		PrevStage = &"item"
+		CurrentChar.NextAction = "Item"
+		if aitem.BattleEffect.Target == Ability.T.SELF or aitem.BattleEffect.Target == Ability.T.ONE_ALLY:
+			CurrentChar.NextMove = aitem.BattleEffect
+			get_target([CurrentChar])
+		if aitem.BattleEffect.Target == Ability.T.ONE_ENEMY:
+			CurrentChar.NextMove = aitem.BattleEffect
+			get_target(Bt.get_oposing_faction())
 
 
 func turn_order() -> void:

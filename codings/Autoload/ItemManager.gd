@@ -65,6 +65,45 @@ func get_animation(icon: Texture2D, named: String, pickup_anim := true) -> void:
 	panel.hide()
 
 
+func use_animation(icon: Texture2D, named: String, pos: Vector2) -> void:
+	if is_instance_valid(t): t.kill()
+	label.text = named
+	Dicon.texture = icon
+	var panel_size := label.get_theme_font("font").get_string_size(named, 0, -1, 32).x + 70
+	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_CHAR
+	panel.size.x = 69
+	await Event.wait()
+	if is_instance_valid(t): t.kill()
+	panel.show()
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	obtained.self_modulate = Color.TRANSPARENT
+	panel.self_modulate = Color.TRANSPARENT
+	border.modulate = Color.TRANSPARENT
+	t.tween_property(panel, "position", pos + Vector2(-100, -200), 0.8).from(pos)
+	t.tween_property(panel, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
+	t.tween_property(panel, "self_modulate", Color.WHITE, 0.8).from(Color.TRANSPARENT).set_delay(0.2)
+	t.tween_property(panel, "position:x", -panel_size / 2, 0.5).set_delay(0.3).as_relative()
+	t.tween_property(panel, "size:x", panel_size, 0.5).set_delay(0.3)
+	t.set_trans(Tween.TRANS_BACK)
+	t.tween_property(panel, "scale", Vector2.ONE, 0.5).from(Vector2(0.9, 0.9))
+	#t.tween_property(border, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT).set_delay(0.6)
+	#t.tween_property(border, "size", Vector2(panel_size + 42, 76), 2).from(Vector2(panel_size + 30, 64)).set_delay(0.6)
+	await get_tree().create_timer(2).timeout
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_IN)
+	t.set_trans(Tween.TRANS_QUART)
+	t.tween_property(panel, "position", Vector2(54, -100), 0.5).as_relative()
+	t.tween_property(panel, "modulate", Color(0, 0, 0, 0), 0.4)
+	t.tween_property(panel, "scale", Vector2(0.3, 0.75), 0.5)
+	Global.check_party.emit()
+	await t.finished
+	panel.hide()
+
+
 func add_item(ItemName: Variant, type: StringName = &"", animate := true, player_animate := true, quantity := -1) -> void:
 	if ItemName is String and ItemName == "":
 		Global.toast("You got absolutely nothing!!!")

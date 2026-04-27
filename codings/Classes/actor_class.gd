@@ -136,7 +136,7 @@ var SpeedBoost: int = 0
 @export var CantAttack := false
 
 var NextAction: String = ""
-var NextMove: Resource = null:
+var NextMove: Ability = null:
 	set(x):
 		NextMove = x
 		if x is not Ability and x != null:

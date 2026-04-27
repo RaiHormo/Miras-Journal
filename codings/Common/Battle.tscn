@@ -863,7 +863,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(-84, 116)]
+"values": [Vector2(-84, 120)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -1811,7 +1811,7 @@ tracks/26/keys = {
 
 [sub_resource type="Animation" id="Animation_pusi6"]
 resource_name = "close"
-length = 0.3
+length = 0.5
 capture_included = true
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1820,7 +1820,7 @@ tracks/0/path = NodePath("../BattleUI:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(0, 0)]
@@ -1832,7 +1832,7 @@ tracks/1/path = NodePath("../BattleUI:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Color(1, 1, 1, 0)]
@@ -1844,7 +1844,7 @@ tracks/2/path = NodePath("../BattleUI/BaseRing:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [-5.235987755982989, 0.0]
@@ -1856,7 +1856,7 @@ tracks/3/path = NodePath("TurnOrder:position")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(10, 900)]
@@ -1868,7 +1868,7 @@ tracks/4/path = NodePath("TurnOrder/Options:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(0, 0)]
@@ -1880,7 +1880,7 @@ tracks/5/path = NodePath("Back:position:y")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.23333333),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [810.0]
@@ -1892,7 +1892,7 @@ tracks/6/path = NodePath("Confirm:position:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.16666667),
+"times": PackedFloat32Array(0.33333334),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [810.0]
@@ -1904,7 +1904,7 @@ tracks/7/path = NodePath("Give:position:y")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [810.0]
@@ -1916,7 +1916,7 @@ tracks/8/path = NodePath("AttackTitle:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(1350, 536)]
@@ -1931,6 +1931,18 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../BattleUI:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
 "values": [false]
 }
 
@@ -2252,7 +2264,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0.7),
 "transitions": PackedFloat32Array(-2),
 "update": 0,
-"values": [Vector2(-26, 125)]
+"values": [Vector2(-26, 120)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -3222,7 +3234,9 @@ corner_radius_bottom_left = 26
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neihi"]
 content_margin_left = 8.0
+content_margin_top = 6.0
 content_margin_right = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 12
 border_width_top = 5
@@ -3236,7 +3250,9 @@ corner_radius_bottom_left = 26
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pkcd"]
 content_margin_left = 8.0
+content_margin_top = 6.0
 content_margin_right = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.894118, 0.894118, 0.894118, 1)
 border_width_left = 12
 border_width_top = 5
@@ -4426,6 +4442,7 @@ script = ExtResource("26_2prty")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI" unique_id=577349075]
 root_node = NodePath("../../Canvas")
 libraries/ = SubResource("AnimationLibrary_4wnfp")
+autoplay = &"RESET"
 playback_auto_capture_transition_type = 7
 next/get_control = &"RESET"
 next/target = &"target_idle"
@@ -5279,9 +5296,9 @@ visibility_layer = 1024
 material = SubResource("ShaderMaterial_nmg3k")
 layout_mode = 0
 offset_left = -84.0
-offset_top = 116.0
+offset_top = 120.0
 offset_right = 81.0
-offset_bottom = 164.0
+offset_bottom = 168.0
 pivot_offset = Vector2(24, 0)
 pivot_offset_ratio = Vector2(0, 0.5)
 size_flags_stretch_ratio = 0.0

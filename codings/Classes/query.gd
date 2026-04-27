@@ -259,7 +259,7 @@ static func find_abilities(Char: Actor, type: String, ignore_cost := false, targ
 	AblilityList.push_front(Char.StandardAttack)
 	var Choices: Array[Ability] = []
 	for i in AblilityList:
-		if (i.Type == type and (targets == Ability.T.ANY or i.Target == targets)):
+		if (type in i.Types and (targets == Ability.T.ANY or i.Target == targets)):
 			if ((i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health) or ignore_cost:
 				Choices.push_front(i)
 				print(i.name, " AP: ", i.AuraCost, " Targets: ", i.Target)
