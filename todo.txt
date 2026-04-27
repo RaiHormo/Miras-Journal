@@ -1,8 +1,6 @@
-item give broken
 make upper amberelm look better
 box out of bounds in amberelm
 add something to the sign in amberelm
 softlock during transfers
 wizard guy
 properly implement journal
-fix command menu in the new system

@@ -1,7 +1,6 @@
 extends Control
 
 @onready var Bt: Battle = $".."
-@onready var Cam: Camera2D = $"../Cam"
 @onready var canvas: CanvasLayer = $"../Canvas"
 @onready var t: Tween
 @onready var trw: Tween
@@ -130,8 +129,8 @@ func _on_battle_get_control() -> void:
 	fetch_abilities()
 	fetch_inventory()
 
-	Bt.move_cam(Vector2(0, 0))
-	Bt.zoom(4)
+	Bt.move_cam(Vector2(0, 0), 0.5)
+	Bt.zoom(4, 0.5)
 	animation.play("get_control")
 	stage = "root"
 
@@ -163,10 +162,6 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("BtAbility") and not $Ability.disabled:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					ability.emit()
-				if Input.is_action_just_pressed("Options"):
-					Global.options()
-				if Input.is_action_just_pressed("PartyMenu"):
-					turn_order()
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
 			&"target", &"pre_target":
@@ -206,7 +201,7 @@ func _input(event: InputEvent) -> void:
 						MenuIndex = 0
 					Global.cursor_sound()
 					move_menu()
-				if foc == null: return
+				if foc == null or not foc.has_meta("Ability"): return
 				var ab: Ability = foc.get_meta("Ability")
 				var abgroup: Array = foc.get_meta("AbilityGroup")
 				if Input.is_action_just_pressed("ui_right") and active:
@@ -238,9 +233,11 @@ func _input(event: InputEvent) -> void:
 
 
 func set_controller_icons() -> void:
-	$Ability.icon = Global.get_controller().AbilityIcon
+	if stage != "ability":
+		$Ability.icon = Global.get_controller().AbilityIcon
 	$Attack.icon = Global.get_controller().AttackIcon
-	$Item.icon = Global.get_controller().ItemIcon
+	if stage != "item":
+		$Item.icon = Global.get_controller().ItemIcon
 	$Command.icon = Global.get_controller().CommandIcon
 	canvas.get_node("Confirm").icon = Global.get_controller().ConfirmIcon
 	canvas.get_node("Back").icon = Global.get_controller().CancelIcon
@@ -271,6 +268,8 @@ func _on_root() -> void:
 	set_controller_icons()
 	Bt.get_node("EnemyUI").all_enemy_ui()
 	$RankSwap.hide()
+	$RankSwap/Left.hide()
+	$RankSwap/Right.hide()
 
 	animation.play("RESET")
 	Bt.move_cam(Vector2.ZERO, 0.3)
@@ -298,11 +297,9 @@ func _on_attack() -> void:
 	Global.confirm_sound()
 	stage = "attack"
 	PrevStage = "root"
-	CurrentChar.NextAction = "attack"
-	active = false
+	CurrentChar.NextAction = "Attack"
 	CurrentChar.NextMove = CurrentChar.StandardAttack
 	get_target(Bt.get_oposing_faction())
-	#await targeted
 
 
 func _on_ability() -> void:
@@ -354,11 +351,6 @@ func _on_ability() -> void:
 func _on_command() -> void:
 	stage = &"inactive"
 	PrevStage = &"root"
-	#if stage == "pre_root":
-		#await rooted
-		#print("delay command")
-		#command.emit()
-		#return
 
 	Bt.get_node("Canvas/Back").text = "Back"
 	CurrentChar.NextAction = "command"
@@ -370,10 +362,12 @@ func _on_command() -> void:
 	move_to(CurrentChar.node.position)
 	Bt.zoom(5.5, 0.3)
 	Bt.move_cam(CurrentChar.node.position + Vector2(-30, 0), 0.3)
+
 	if not Bt.Seq.CanEscape:
 		$CommandMenu/Escape.modulate = Color(1, 1, 1, 0.6)
-	else: $CommandMenu/Escape.modulate = Color(1, 1, 1, 1)
-	$CommandMenu.show()
+	else:
+		$CommandMenu/Escape.modulate = Color(1, 1, 1, 1)
+
 	await Event.wait()
 	stage = &"command"
 
@@ -383,13 +377,13 @@ func _on_item() -> void:
 	stage = &"pre_item"
 	if Item.ConInv.is_empty() and Item.BtiInv.is_empty(): $Item.disabled = true; return
 
-	Bt.get_node("Canvas/Back").show()
 	Bt.get_node("Canvas/Back").text = "Back"
-	Bt.get_node("Canvas/Give").show()
 	Bt.get_node("Canvas/Give").text = "Give"
-	Bt.get_node("Canvas/Confirm").show()
 	Bt.get_node("Canvas/Confirm").text = "Use"
 
+	CurrentChar.NextAction = "Item"
+	CurrentChar.NextMove = null
+	CurrentChar.NextTarget = null
 	$Item.icon = null
 	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
 	CurrentChar.NextAction = "item"
@@ -404,9 +398,9 @@ func _on_item() -> void:
 
 	await get_tree().physics_frame
 
-	if not %BIbutton.disabled:
+	if not not %BattleItems.get_children().is_empty():
 		%BattleItems.get_child(0).grab_focus()
-	elif not %Cbutton.disabled:
+	elif not %Consumables.get_children().is_empty():
 		%Consumables.get_child(0).grab_focus()
 	stage = &"item"
 
@@ -497,22 +491,22 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 		attack_title.text = ab.name
 		attack_title.icon = ab.Icon
 
-	if analyzing:
-		wheel.show()
-		wheel.show_atk_color(CurrentChar.MainColor)
-		move_menu()
-
 	if LastTarget == null or not LastTarget in faction:
 		LastTarget = CurrentTarget
 	CurrentTarget = LastTarget
 	if (CurrentTarget not in faction):
 		CurrentTarget = faction[0]
 
+	if analyzing:
+		wheel.show()
+		wheel.show_atk_color(CurrentTarget.MainColor)
+		move_menu()
+
 	animation.play("target")
 
 	move_to(CurrentTarget.node.position)
 	Bt.move_cam(get_target_pos(CurrentTarget), 0.5)
-	Bt.zoom(4.5, 0.5)
+	Bt.zoom(4.5, 0.6)
 
 	emit_signal('targetFoc', CurrentTarget)
 	wheel.show_trg_color(CurrentTarget.MainColor)
@@ -654,23 +648,25 @@ func _on_targeted() -> void:
 		Global.member_details(CurrentChar.NextTarget)
 		stage = "analyze"
 		PrevStage = "analyze"
-		return
-	PrevStage = "targeted"
-	if CurrentChar.NextMove == null: return
-	if CurrentChar.NextTarget == null or CurrentChar.NextTarget not in TargetFaction:
-		CurrentChar.NextTarget = CurrentTarget
-	#stage = "inactive"
-	if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
-		var proper_tar: Actor = CurrentTarget
-		TargetFaction = Bt.get_any_faction()
-		CurrentTarget = TargetFaction.pick_random()
-		while CurrentTarget == proper_tar:
+	elif CurrentChar.NextAction == "ItemGive":
+		give_item(given_item)
+	else:
+		PrevStage = "targeted"
+		if CurrentChar.NextMove == null: return
+		if CurrentChar.NextTarget == null or CurrentChar.NextTarget not in TargetFaction:
+			CurrentChar.NextTarget = CurrentTarget
+		#stage = "inactive"
+		if CurrentChar.has_state("Confused") and randi_range(0, 5) > 0:
+			var proper_tar: Actor = CurrentTarget
+			TargetFaction = Bt.get_any_faction()
 			CurrentTarget = TargetFaction.pick_random()
-		CurrentChar.NextTarget = CurrentTarget
-		await move_menu()
-		Bt.confusion_msg()
-	emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
-	close()
+			while CurrentTarget == proper_tar:
+				CurrentTarget = TargetFaction.pick_random()
+			CurrentChar.NextTarget = CurrentTarget
+			await move_menu()
+			Bt.confusion_msg()
+		emit_signal("ability_returned", CurrentChar.NextMove, CurrentChar.NextTarget)
+		close()
 
 
 func _on_back_pressed() -> void:
@@ -740,14 +736,14 @@ func _on_confirm_pressed() -> void:
 			if foc == null or !foc.has_meta("ItemData") or foc.get_meta("ItemData") == null: return
 			elif foc is Button and foc.get_meta("ItemData").UsedInBattle:
 				var aitem: ItemData = foc.get_meta("ItemData")
-				CurrentChar.NextTarget = CurrentChar
 				aitem.BattleEffect.name = aitem.Name
 				aitem.BattleEffect.description = aitem.Description
 				aitem.BattleEffect.Icon = aitem.Icon
 				aitem.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
 				PrevStage = &"item"
-				if aitem.BattleEffect.Target == Ability.T.SELF:
-					ability_returned.emit(aitem.BattleEffect, CurrentChar)
+				if aitem.BattleEffect.Target == Ability.T.SELF or aitem.BattleEffect.Target == Ability.T.ONE_ALLY:
+					CurrentChar.NextMove = aitem.BattleEffect
+					get_target([CurrentChar])
 				if aitem.BattleEffect.Target == Ability.T.ONE_ENEMY:
 					CurrentChar.NextMove = aitem.BattleEffect
 					get_target(Bt.get_oposing_faction())
@@ -822,9 +818,9 @@ func fetch_inventory() -> void:
 	await Event.wait()
 
 	if inventory_grid["bti"].get_children().is_empty():
-		$Inventory/Cbutton.disabled = true
-	if inventory_grid["con"].get_children().is_empty():
 		$Inventory/BIbutton.disabled = true
+	if inventory_grid["con"].get_children().is_empty():
+		$Inventory/Cbutton.disabled = true
 	if $Inventory/Cbutton.disabled and $Inventory/BIbutton.disabled:
 		$Item.disabled = true
 		return
@@ -906,40 +902,49 @@ func focus_item(node: Button) -> void:
 	%BIbutton.set_pressed_no_signal(node.get_parent() == %BattleItems)
 	%Cbutton.set_pressed_no_signal(node.get_parent() == %Consumables)
 
+var given_item: ItemData
+
 
 func _on_give_pressed() -> void:
 	if stage == "item":
+		if foc == null or not foc.has_meta("ItemData"):
+			return
 		Global.confirm_sound()
 		CurrentChar.NextMove = null
-		if foc == null: return
+		CurrentChar.NextAction = "ItemGive"
 		var item_dat: ItemData = foc.get_meta("ItemData")
 		item_dat.BattleEffect.name = item_dat.Name
 		item_dat.BattleEffect.description = item_dat.Description
 		item_dat.BattleEffect.Icon = item_dat.Icon
 		PrevStage = &"item"
-		get_target(Bt.get_ally_faction(), item_dat.BattleEffect)
-		while stage == "pre_target" or stage == "target" and not PrevStage == "targeted":
-			await Event.wait()
-		if PrevStage == "root": return
-		if PrevStage == "targeted":
-			if CurrentTarget == CurrentChar:
-				Item.remove_item(item_dat)
-				CurrentChar.NextAction = "Item"
-				CurrentChar.NextMove = item_dat.BattleEffect
-				targeted.emit()
-				return
-			if CurrentTarget != null:
-				close()
-				Bt.CurrentTarget = CurrentTarget
-				if CurrentTarget.NextAction == "":
-					CurrentTarget.NextAction = "Item"
-					CurrentTarget.NextMove = item_dat.BattleEffect
-					Item.remove_item(item_dat)
-					Bt.battle_msg("use_on_turn", item_dat.Name)
-				else:
-					Bt.battle_msg("busy")
-				await Event.wait(1)
-				_on_battle_get_control()
+		given_item = item_dat
+
+		var faction := Bt.get_ally_faction().duplicate()
+		faction.erase(CurrentChar)
+		get_target(faction, item_dat.BattleEffect)
+
+
+func give_item(item_dat: ItemData = given_item) -> void:
+	if PrevStage == "root": return
+	if CurrentTarget != null:
+		Bt.CurrentTarget = CurrentTarget
+		if CurrentTarget.NextAction == "":
+			close()
+			Bt.focus_cam(CurrentTarget)
+			Bt.zoom(5)
+			CurrentTarget.NextAction = "Item"
+			CurrentTarget.NextMove = item_dat.BattleEffect
+			Item.remove_item(item_dat)
+			Bt.battle_msg("use_on_turn", item_dat.Name)
+			await Event.wait(1)
+			fetch_inventory()
+			root.emit()
+			Global.ui_sound("expand")
+			CurrentChar.NextAction = ""
+			CurrentChar.NextMove = null
+			CurrentChar.NextTarget = null
+		else:
+			Bt.battle_msg("busy", CurrentTarget.FirstName)
 
 
 func _analyze() -> void:
@@ -950,4 +955,5 @@ func _analyze() -> void:
 
 
 func _on_options_pressed() -> void:
-	Input.action_press("Options")
+	if stage == "root":
+		Global.options()

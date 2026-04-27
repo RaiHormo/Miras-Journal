@@ -1,36 +1,61 @@
 extends Node2D
 class_name Battle
 
+## Used for battle messages
 @export var BattleText: Dictionary[String, String]
-@export var Party: PartyData
-@export var Seq: BattleSequence = Loader.Seq
-@export var Troop: Array[Actor]
-@export var TurnOrder: Array[Actor]
-@export var Turn: int = 0
-@onready var CurrentChar: Actor
-@export var TurnInd: int = -1
-@onready var t: Tween
+## shortcut to Global.Party, use Party.array() to access it as an array
+var Party: PartyData
+## Battle sequence of this battle
+var Seq: BattleSequence = Loader.Seq
+## Array of the enemies of this battle.
+## Enemies can be added or removed throughout
+var Troop: Array[Actor]
+## All actors in this battle, ordered by their speed
+var TurnOrder: Array[Actor]
+## The current turn
+var Turn: int = 0
+## Index of the current actor in the turn order
+var TurnInd: int = -1
+## The character whoose turn it is
+var CurrentChar: Actor
+## Currently targeted actor
+var CurrentTarget: Actor
+## The ability currently being used
+var CurrentAbility: Ability
+## If the player is currently selecting something (false)
+## Or they're watching things happen (true)
+var Action: bool
+## True after the victory screen is shown,
+## and is waiting for the player to continue
+var AwaitVictory := false
+## Used for the SP counting in the victory screen
+var count_sp: int
+## SP that will be earned after winning
+var totalSP: int = 0
+## Items to be earned after winning
+var ObtainedItems: Array[ItemData] = []
+## The position of the CurrentChar at the start of this turn
+var initial: Vector2
+## Is the callout text on screen
+var callout_onscreen := false
+## The turn will not end when requested, but will once this is false
+var lock_turn := false
+## The turn will not end when requested
+var ignore_end_turn := false
+## Prevent critical hits
+var no_crits := false
+## Prevent missing
+var no_misses := false
+## The next turn a followup will be preformed
+var follow_up_next := false
+## Counts turn ends for each AOE ability sequence
+## The turn ends after all targets have returned
+var aoe_returns := 0
+var t: Tween
+
 @onready var ui: Control = $BattleUI
 @onready var cam: Camera2D = $Cam
 @onready var canvas: CanvasLayer = $Canvas
-
-var initial: Vector2
-var CurrentAbility: Ability
-var PartyArray: Array[Actor] = []
-var Action: bool
-var CurrentTarget: Actor
-var CurrentTargets: Array[Actor]
-var AwaitVictory := false
-var count_sp: int
-var totalSP: int = 0
-var ObtainedItems: Array[ItemData] = []
-var callout_onscreen := false
-var lock_turn := false
-var no_crits := false
-var no_misses := false
-var follow_up_next := false
-var aoe_returns := 0
-var ignore_end_turn := false
 
 signal GetControl
 signal next_turn
@@ -62,7 +87,6 @@ func _ready() -> void:
 	Party.Leader.node = $Act/Actor0
 	TurnOrder.push_front(Party.Leader)
 	TurnOrder.append_array(Troop)
-	PartyArray.push_back(Party.Leader)
 	$Background.texture = Seq.BattleBack
 	if Seq.BattleBack == null:
 		$Act/Actor0.light_mask = 1
@@ -90,11 +114,10 @@ func _ready() -> void:
 			member.node = dub
 			dub.sprite_frames = await member.get_BT()
 			TurnOrder.push_front(member)
-			PartyArray.push_back(member)
 			dub.material = dub.material.duplicate()
 			dub.add_child(member.SoundSet.instantiate())
-	for i in PartyArray:
-		match PartyArray.find(i):
+	for i in Party.array():
+		match Party.array().find(i):
 			0: i.Speed = 8
 			1: i.Speed = 6
 			2: i.Speed = 4
@@ -273,7 +296,7 @@ func entrance() -> void:
 				for i in Troop: damage(i, 1, false, 24 / Troop.size())
 			await Event.wait(0.5, false)
 	if Seq.EntranceSequence == "":
-		for i in PartyArray:
+		for i in Party.array():
 			entrance_anim(i)
 	Loader.battle_bars(2)
 	await Event.wait(0.5, false)
@@ -506,9 +529,9 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 		end_turn()
 		return
 
-###################################################
 
-
+## Used for showing toasts. These can be set in BattleText from the editor.
+## Certain strings are replaced, as seen below
 func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> String:
 	var text := BattleText[id]
 	text = text.replace("[cur]", CurrentChar.FirstName)
@@ -519,6 +542,10 @@ func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> Strin
 	text = text.replace("[cur_they]", CurrentChar.get_pronoun("they"))
 	text = text.replace("[cur_them]", CurrentChar.get_pronoun("them"))
 	text = text.replace("[cur_their]", CurrentChar.get_pronoun("their"))
+	text = text.replace("[tar_themself]", CurrentTarget.get_pronoun("themself"))
+	text = text.replace("[tar_they]", CurrentTarget.get_pronoun("they"))
+	text = text.replace("[tar_them]", CurrentTarget.get_pronoun("them"))
+	text = text.replace("[tar_their]", CurrentTarget.get_pronoun("their"))
 	await Global.toast(text)
 	return text
 
@@ -833,7 +860,7 @@ func death(target: Actor) -> void:
 		totalSP += target.RecivedSP
 		if target.DroppedItem: ObtainedItems.append(target.DroppedItem)
 	anim("KnockOut", target)
-	if not target.IsEnemy and filter_dead(PartyArray).size() < 1:
+	if not target.IsEnemy and filter_dead(Party.array()).size() < 1:
 		await Event.wait(0.2)
 		get_tree().paused = true
 		CurrentChar.node.pause()
@@ -898,14 +925,14 @@ func slowmo(timescale := 0.5, time := 1.0) -> void:
 func get_ally_faction(act: Actor = CurrentChar, filter_out_dead := true) -> Array[Actor]:
 	var rtn: Array[Actor]
 	if act.IsEnemy: rtn = Troop
-	else: rtn = PartyArray
+	else: rtn = Party.array()
 	if filter_out_dead: rtn = filter_dead(rtn)
 	return rtn
 
 
 func get_oposing_faction(act: Actor = CurrentChar, filter_out_dead := true) -> Array[Actor]:
 	var rtn: Array[Actor]
-	if act.IsEnemy: rtn = PartyArray
+	if act.IsEnemy: rtn = Party.array()
 	else: rtn = Troop
 	if filter_out_dead: rtn = filter_dead(rtn)
 	return rtn
@@ -920,7 +947,7 @@ func get_target_faction(ab := CurrentAbility) -> Array[Actor]:
 
 func get_any_faction(filter_out_dead := true) -> Array[Actor]:
 	var rtn: Array[Actor]
-	rtn.append_array(PartyArray)
+	rtn.append_array(Party.array())
 	rtn.append_array(Troop)
 	if filter_out_dead: rtn = filter_dead(rtn)
 	return rtn
@@ -985,6 +1012,8 @@ func focus_cam(chara: Actor, time: float = 0.5, offset: Variant = 30) -> void:
 	elif offset is Vector2:
 		move_cam(Vector2(chara.node.position.x, chara.node.position.y / 2) + Vector2(offsetize(offset.x, chara), offset.y), time)
 
+var t_move_cam: Tween
+
 
 func move_cam(pos: Vector2, time: float = -1) -> void:
 	if Input.is_action_pressed("Dash") or time == 0:
@@ -992,20 +1021,26 @@ func move_cam(pos: Vector2, time: float = -1) -> void:
 	else:
 		cam.position_smoothing_enabled = true
 	if time > 0:
-		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		t.tween_property(cam, "position", pos, time)
+		if is_instance_valid(t_move_cam):
+			t_move_cam.kill()
+		t_move_cam = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		t_move_cam.tween_property(cam, "position", pos, time)
 	else:
 		cam.position = pos
 
 	await Event.wait(time)
 
+var t_zoom: Tween
+
 
 func zoom(am: float = 5, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void:
-	var tc := create_tween()
-	tc.set_ease(easing)
-	tc.set_trans(Tween.TRANS_CUBIC)
-	tc.tween_property(cam, "zoom", Vector2(am, am), time)
-	await tc.finished
+	if is_instance_valid(t_zoom):
+		t.kill()
+	t_zoom = create_tween()
+	t_zoom.set_ease(easing)
+	t_zoom.set_trans(Tween.TRANS_CUBIC)
+	t_zoom.tween_property(cam, "zoom", Vector2(am, am), time)
+	await t_zoom.finished
 
 
 func move(
@@ -1113,7 +1148,7 @@ func victory_count_sp() -> void:
 	t.tween_property($Canvas/SPGain, "size:x", 260, 0.5).from(1)
 	t.tween_property($Canvas/SPGain/VBoxContainer/Text,
 		"custom_minimum_size:x", 140, 0.5).from(1)
-	for i in PartyArray:
+	for i in Party.array():
 		i.add_SP(totalSP)
 	PartyUI._check_party()
 	await Event.wait(0.5, false)
@@ -1145,7 +1180,7 @@ func victory(ignore_seq := false) -> void:
 		Global.passive("banter_victory", Seq.VictoryBanter)
 	$Canvas.layer = 1
 	Loader.BattleResult = 1
-	for i in PartyArray:
+	for i in Party.array():
 		victory_anim(i)
 	check_party.emit()
 	$EnemyUI.colapse_root()

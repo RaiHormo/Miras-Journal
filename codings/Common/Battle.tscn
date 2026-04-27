@@ -1,11 +1,6 @@
 [gd_scene format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/Common/battle_base.gd" id="1_mokeb"]
-[ext_resource type="Script" uid="uid://du01545mv070f" path="res://codings/Classes/party_data.gd" id="2_2q88m"]
-[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="3_0enhy"]
-[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="4_oqv1o"]
-[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="5_w2v4w"]
-[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="6_2l3e4"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="7_ef2go"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="8_4wnfp"]
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="8_7y1ke"]
@@ -58,12 +53,6 @@
 [ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="52_sp5cj"]
 [ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="53_j3dnr"]
 [ext_resource type="Texture2D" uid="uid://cmxeir5at8m3f" path="res://art/Pictures/Cutin_Mira.png" id="54_qjfeq"]
-
-[sub_resource type="Resource" id="Resource_y6axd"]
-script = ExtResource("2_2q88m")
-
-[sub_resource type="Resource" id="Resource_bnt1k"]
-script = ExtResource("6_2l3e4")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bwtm7"]
 shader = ExtResource("9_owm6w")
@@ -3177,6 +3166,18 @@ tracks/33/keys = {
 "update": 2,
 "values": [false]
 }
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("Give:position")
+tracks/34/interp = 2
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(332, 820)]
+}
 
 [sub_resource type="Animation" id="Animation_veevk"]
 resource_name = "target_idle"
@@ -4117,12 +4118,18 @@ variation_embolden = 0.3
 spacing_glyph = 1
 spacing_bottom = -8
 
-[sub_resource type="InputEventAction" id="InputEventAction_sm70d"]
+[sub_resource type="InputEventAction" id="InputEventAction_pusi6"]
 action = &"PartyMenu"
 pressed = true
 
+[sub_resource type="Shortcut" id="Shortcut_xmfje"]
+events = [SubResource("InputEventAction_pusi6")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_xmfje"]
+action = &"Options"
+
 [sub_resource type="Shortcut" id="Shortcut_qtf0t"]
-events = [SubResource("InputEventAction_sm70d")]
+events = [SubResource("InputEventAction_xmfje")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4lmp"]
 content_margin_left = 6.0
@@ -4285,8 +4292,6 @@ BattleText = Dictionary[String, String]({
 "summon_no_friends": "But [cur] has no friends.",
 "use_on_turn": "[tar] will use the [insert] on [tar_their] turn."
 })
-Party = SubResource("Resource_y6axd")
-Seq = SubResource("Resource_bnt1k")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1543652970]
 light_mask = 16
@@ -5751,6 +5756,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 focus_mode = 0
 theme = SubResource("Theme_4kcni")
 action_mode = 0
+shortcut = SubResource("Shortcut_xmfje")
 text = "Turn Order"
 icon = ExtResource("52_sp5cj")
 expand_icon = true
