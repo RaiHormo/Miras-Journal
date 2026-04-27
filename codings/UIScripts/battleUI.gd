@@ -65,12 +65,12 @@ func _on_battle_get_control() -> void:
 		Bt.death(Bt.CurrentChar)
 		Bt.next_turn.emit()
 		return
+
 	Global.ui_sound("GetControl")
 	active = true
 	Loader.battle_bars(1)
 	PartyUI.battle_state()
 	Bt.Action = false
-	show()
 	stage = &"root"
 	PrevStage = &"proot"
 	set_controller_icons()
@@ -134,7 +134,6 @@ func _on_battle_get_control() -> void:
 	Bt.zoom(4)
 	animation.play("get_control")
 	stage = "root"
-	#root.emit()
 
 
 func move_to(pos: Vector2 = Vector2.ZERO, time := 0.3) -> void:
@@ -147,6 +146,7 @@ func move_to(pos: Vector2 = Vector2.ZERO, time := 0.3) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Global.LastInput == Global.ProcessFrame: return
+	set_controller_icons()
 	if active:
 		match stage:
 			&"root", &"pre_root":
@@ -244,6 +244,7 @@ func set_controller_icons() -> void:
 	$Command.icon = Global.get_controller().CommandIcon
 	canvas.get_node("Confirm").icon = Global.get_controller().ConfirmIcon
 	canvas.get_node("Back").icon = Global.get_controller().CancelIcon
+	canvas.get_node("Give").icon = Global.get_controller().ItemIcon
 	$DescPaper/ShowWheel.icon = Global.get_controller().CommandIcon
 	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
 	Bt.get_node("Canvas/TurnOrder/Options").icon = Global.get_controller().Start
@@ -353,48 +354,22 @@ func _on_ability() -> void:
 func _on_command() -> void:
 	stage = &"inactive"
 	PrevStage = &"root"
-	if stage == "pre_root":
-		await rooted
-		print("delay command")
-		command.emit()
-		return
-	Bt.get_node("Canvas/Back").show()
+	#if stage == "pre_root":
+		#await rooted
+		#print("delay command")
+		#command.emit()
+		#return
+
 	Bt.get_node("Canvas/Back").text = "Back"
 	CurrentChar.NextAction = "command"
-	if is_instance_valid(t): t.kill()
-	move_to(CurrentChar.node.position)
-	t = create_tween()
-	t.set_parallel()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	t.set_parallel()
-	Global.confirm_sound()
-	t.tween_property(Cam, "position", CurrentChar.node.position + Vector2(-30, 0), 0.3)
-	t.tween_property(Cam, "zoom", Vector2(5.5, 5.5), 0.3)
-	t.tween_property(Bt.get_node("Canvas/TurnOrder"), "position", Vector2(31, 900), 0.3)
-	t.tween_property(Bt.get_node("Canvas/Back"), "position",
-	Vector2(31, 742), 0.3).from(Vector2(31, 850))
-	t.tween_property($Ability, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Item, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Command, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Attack, "modulate", Color.TRANSPARENT, 0.2)
-	t.tween_property($Ability, "size", Vector2(33, -33), 0.2)
-	t.tween_property($Attack, "size", Vector2(33, 33), 0.2)
-	t.tween_property($Item, "size", Vector2(33, 33), 0.2)
-	t.tween_property($Command, "size", Vector2(33, 33), 0.2)
-	t.tween_property(self, "rotation_degrees", -720, 0.1)
-	t.tween_property(self, "scale", Vector2(1, 1), 0.3)
-	t.tween_property($BaseRing/Ring2, "scale", Vector2(1.4, 1.4), 0.3)
-	t.tween_property($BaseRing, "scale", Vector2(0.6, 0.6), 0.3)
-	t.tween_property($BaseRing, "position", Vector2(-160, -200), 0.3)
-	t.tween_property($BaseRing/Ring2, "position", Vector2(50, -20), 0.3)
-	t.tween_property($CommandMenu/CmdBack, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
-	t.tween_property($CommandMenu/CmdBack, "rotation_degrees", 12, 0.5).from(120)
 	analyzing = false
-	$CommandMenu/Escape.show()
-	t.tween_property($CommandMenu/Escape,
-	"rotation_degrees", 0, 0.3).from(-180)
-	$CommandMenu.modulate = Color.WHITE
+	animation.play("command")
+
+	Global.confirm_sound()
+
+	move_to(CurrentChar.node.position)
+	Bt.zoom(5.5, 0.3)
+	Bt.move_cam(CurrentChar.node.position + Vector2(-30, 0), 0.3)
 	if not Bt.Seq.CanEscape:
 		$CommandMenu/Escape.modulate = Color(1, 1, 1, 0.6)
 	else: $CommandMenu/Escape.modulate = Color(1, 1, 1, 1)
@@ -428,6 +403,7 @@ func _on_item() -> void:
 	PartyUI.only_current()
 
 	await get_tree().physics_frame
+
 	if not %BIbutton.disabled:
 		%BattleItems.get_child(0).grab_focus()
 	elif not %Cbutton.disabled:
