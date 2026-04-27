@@ -5,5 +5,4 @@ add something to the sign in amberelm
 softlock during transfers
 wizard guy
 properly implement journal
-add confirmation for AOE
-port battleui to animation player
+fix command menu in the new system

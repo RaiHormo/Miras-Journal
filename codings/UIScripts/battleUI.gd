@@ -45,6 +45,7 @@ func _ready() -> void:
 	$AbilityUI.hide()
 	$DescPaper.hide()
 	$CommandMenu.hide()
+	$RankSwap.hide()
 	canvas.get_node("TurnOrder").hide()
 	canvas.get_node("TurnOrderPop").hide()
 	canvas.get_node("DottedBack").hide()
@@ -87,6 +88,7 @@ func _on_battle_get_control() -> void:
 	Party = Bt.Party
 	Abilities = CurrentChar.get_abilities()
 	move_to(CurrentChar.node.position, 0)
+	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
 
 	$Attack.disabled = false
 	$Ability.disabled = false
@@ -283,6 +285,7 @@ func _on_root() -> void:
 	$Item.show()
 	$Command.show()
 	$Ability.show()
+	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
 	if stage == "root":
 		$DescPaper.hide()
 		$CommandMenu.hide()
@@ -314,6 +317,8 @@ func _on_ability() -> void:
 	Global.confirm_sound()
 
 	$Ability.icon = null
+	$RankSwap/Left.hide()
+	$RankSwap/Right.hide()
 	move_to(CurrentChar.node.position)
 	Bt.zoom(4.5, 0.5, Tween.EASE_IN_OUT)
 	Bt.move_cam(CurrentChar.node.position + Vector2(80, 0), 0.5)
@@ -340,9 +345,9 @@ func _on_ability() -> void:
 		$DescPaper/Cost.hide()
 	$DescPaper/Title.text = Abilities[foc.get_index()].name
 	CurrentChar.NextMove = CurrentChar.get_abilities()[foc.get_index()]
-	$RankSwap.modulate = Color.TRANSPARENT
+	await animation.animation_finished
+	move_menu()
 	$RankSwap.show()
-	$RankSwap.global_position = foc.global_position + $RankSwap.get_combined_pivot_offset()
 
 
 func _on_command() -> void:
@@ -411,6 +416,7 @@ func _on_item() -> void:
 	Bt.get_node("Canvas/Confirm").text = "Use"
 
 	$Item.icon = null
+	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
 	CurrentChar.NextAction = "item"
 	move_to(CurrentChar.node.position)
 	animation.play("item")
@@ -438,15 +444,34 @@ func close() -> void:
 	hide()
 
 
-
+func show_aoe_indicator(chara: Actor) -> void:
+	var dub: TextureRect = $BaseRing/Ring2.duplicate()
+	if char != null:
+		dub.material = dub.material.duplicate()
+		dub.set_instance_shader_parameter("circle_thickness", 0.04)
+		var texture: GradientTexture1D = dub.texture.duplicate(true)
+		texture.gradient.colors[0].v = texture.gradient.colors[0].v - 0.4
+		dub.texture = texture
+		dub.scale = Vector2(0.17, 0.17)
+		dub.position = Vector2.ZERO - dub.get_combined_pivot_offset()
+		chara.node.add_child(dub)
+		while stage == "target" or stage == "pre_target":
+			await Event.wait()
+		dub.queue_free()
 
 
 func _on_ability_pressed() -> void:
 	if stage == &"root": ability.emit()
+
+
 func _on_attack_pressed() -> void:
 	attack.emit()
+
+
 func _on_item_pressed() -> void:
 	item.emit()
+
+
 func _on_command_pressed() -> void:
 	if "root" in stage: command.emit()
 
@@ -510,7 +535,7 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	animation.play("target")
 
 	move_to(CurrentTarget.node.position)
-	Bt.move_cam(Vector2(CurrentTarget.node.position.x, CurrentTarget.node.position.y / 4), 0.5)
+	Bt.move_cam(get_target_pos(CurrentTarget), 0.5)
 	Bt.zoom(4.5, 0.5)
 
 	emit_signal('targetFoc', CurrentTarget)
@@ -519,6 +544,10 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 
 	if stage == &"inactive": return
 	stage = &"target"
+
+
+func get_target_pos(tar: Actor) -> Vector2:
+	return Vector2(tar.node.position.x, tar.node.position.y / 4)
 
 
 func _on_ability_returned(ab: Ability, tar: Actor) -> void:
@@ -538,11 +567,10 @@ func move_menu() -> void:
 			return
 
 		Global.cursor_sound()
-		Bt.move_cam(Vector2(CurrentTarget.node.position.x, CurrentTarget.node.position.y / 4), 0.5)
-		t = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		move_to(CurrentChar.node.position)
 
+		Bt.move_cam(Vector2(CurrentTarget.node.position.x, CurrentTarget.node.position.y / 4), 0.5)
 		LastTarget = CurrentTarget
+		move_to(CurrentTarget.node.position)
 		emit_signal('targetFoc', CurrentTarget)
 
 		var wheel: Wheel = canvas.get_node("AttackTitle/Wheel")
@@ -574,12 +602,16 @@ func move_menu() -> void:
 		var abgroup: Array = foc.get_meta("AbilityGroup")
 		var ab: Ability = foc.get_meta("Ability")
 		update_ab(foc)
+
 		if abgroup.find(ab) == 0:
 			$RankSwap/Left.hide()
-		else: $RankSwap/Left.show()
+		else:
+			$RankSwap/Left.show()
 		if abgroup.find(ab) == abgroup.size() - 1:
 			$RankSwap/Right.hide()
-		else: $RankSwap/Right.show()
+		else:
+			$RankSwap/Right.show()
+
 		if not %AbilityList.get_child(MenuIndex).has_focus():
 			%AbilityList.get_child(MenuIndex).grab_focus()
 		$DescPaper/Desc.text = Colorizer.colorize(ab.description)
@@ -698,6 +730,20 @@ func _on_ability_entry() -> void:
 				PrevStage = "ability"
 				stage = &"target"
 				get_target(Bt.get_any_faction(!ab.CanTargetDead))
+			Ability.T.AOE_ALLIES:
+				PrevStage = "ability"
+				stage = &"target"
+				var fact := Bt.get_ally_faction(CurrentChar, !ab.CanTargetDead)
+				for i in fact:
+					show_aoe_indicator(i)
+				get_target(fact)
+			Ability.T.AOE_ENEMIES:
+				PrevStage = "ability"
+				stage = &"target"
+				var fact := Bt.get_oposing_faction(CurrentChar, !ab.CanTargetDead)
+				for i in fact:
+					show_aoe_indicator(i)
+				get_target(fact)
 			_:
 				emit_signal("ability_returned", ab, CurrentChar)
 				close()
