@@ -18,7 +18,9 @@ extends StaticBody2D
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint(): return
+	if Engine.is_editor_hint():
+		$Pack.hide()
+		return
 	if get_node_or_null("Sprite") == null: return
 	if has_node("Sprite"):
 		$Sprite.play(default_anim)
