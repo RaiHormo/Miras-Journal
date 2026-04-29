@@ -53,6 +53,16 @@ It's a broken sign with Cyrenian writing on it.
 "Amberelm town"
 => END
 
+~ amberelm_sign_storage
+if check_flag("AmberelmSignStorage"):
+	"Storage Area"
+else:
+	There's cyrenian writing on this sign.
+	It says...[wait=0.5] "Saving"...[wait=0.5] "point"?
+	Oh![wait=0.5][p]It's "Storage Area".
+	do add_flag("AmberelmSignStorage")
+=> END
+
 ~ broken_bridge
 This bridge is broken. [p]We should find another way to get there.
 => END

@@ -1,5 +1,4 @@
-make upper amberelm look better
-box out of bounds in amberelm
-add something to the sign in amberelm
 wizard guy
 properly implement journal
+climbing animation
+jump anim for the others

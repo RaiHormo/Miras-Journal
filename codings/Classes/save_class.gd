@@ -2,7 +2,6 @@ extends Resource
 class_name SaveFile
 
 @export var Name: String = "Autosave"
-#@export var Datetime: Dictionary
 @export var Party: Array[StringName] = [&"Mira", &"", &"", &""]
 @export var RoomPath: String
 @export var RoomName: String = "???"

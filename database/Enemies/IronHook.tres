@@ -14,7 +14,6 @@ FirstName = "Iron Hook"
 MainColor = Color(0.482353, 0.431373, 0.556863, 1)
 PartyIcon = ExtResource("2_ix1hr")
 ActorClass = "Attacker"
-WeaponPower = 18
 RecivedSP = 6
 MaxHP = 47
 MaxAura = 31

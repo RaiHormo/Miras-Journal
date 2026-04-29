@@ -565,8 +565,9 @@ func _on_battle_ui_root() -> void:
 func only_current() -> void:
 	t = create_tween()
 	t.set_parallel(true)
-	for i in range(0, 4):
-		if Global.Party.array()[i] == Global.Bt.CurrentChar:
+	for member in Global.Party.array():
+		var i := Global.Party.member_index(member)
+		if member == Global.Bt.CurrentChar:
 			t.tween_property(Partybox.get_child(i), "position:x", 0 if i == 0 else -70, 0.2)
 			if Global.Bt.CurrentChar != Global.Party.Leader:
 				t.tween_property(Partybox.get_child(i), "position:y", 20, 0.2)

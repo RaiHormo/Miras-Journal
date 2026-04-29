@@ -80,6 +80,10 @@ func get_member(num: int) -> Actor:
 	return null
 
 
+func member_index(mem: Actor) -> int:
+	return array(true).find(mem)
+
+
 func overwrite_member(num: int, actor: Actor) -> void:
 	match num:
 		0: Leader = actor
@@ -94,8 +98,15 @@ func add(member: String) -> void:
 	print(member, " joins the party at position ", Query.number_of_party_members())
 
 
-func array() -> Array[Actor]:
-	return [Leader, Member1, Member2, Member3]
+func array(fill_in := false) -> Array[Actor]:
+	if fill_in:
+		return [Leader, Member1, Member2, Member3]
+	else:
+		var arr: Array[Actor] = [Leader]
+		if check_member(1): arr.append(Member1)
+		if check_member(2): arr.append(Member2)
+		if check_member(3): arr.append(Member3)
+		return arr
 
 
 func member_name(x: int) -> String:

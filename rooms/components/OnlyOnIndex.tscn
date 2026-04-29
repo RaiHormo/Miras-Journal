@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dpcbc8mm4abg2"]
+
+[ext_resource type="Script" uid="uid://j44tpxtqqftm" path="res://codings/Components/only_on_index.gd" id="1_838rk"]
+
+[node name="OnlyOnIndex" type="Node2D" unique_id=206159318]
+script = ExtResource("1_838rk")
