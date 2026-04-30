@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://bfq3utqkblsep" path="res://UI/Battle/Description.png" id="35_xabbi"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="36_bvqsk"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="37_0bkog"]
+[ext_resource type="PackedScene" uid="uid://di64f0lsahyfu" path="res://UI/Options/Button.tscn" id="37_q1as1"]
 [ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="38_hjhmh"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="39_k80j2"]
 [ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="40_xhs3h"]
@@ -923,36 +924,36 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../BattleUI/AbilityUI:size")
+tracks/11/path = NodePath("../BattleUI/AbilityUI:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(200, 20)]
+"values": [false]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../BattleUI/AbilityUI:visible")
+tracks/12/path = NodePath("../BattleUI/BaseRing/Ring2:scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [false]
+"values": [Vector2(1, 1)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("../BattleUI/BaseRing/Ring2:scale")
+tracks/13/path = NodePath("../BattleUI/BaseRing:scale")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -964,115 +965,115 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("../BattleUI/BaseRing:scale")
+tracks/14/path = NodePath("../BattleUI/AbilityUI:position")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(1, 1)]
+"values": [Vector2(70, -140)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("../BattleUI/AbilityUI:position")
+tracks/15/path = NodePath("../BattleUI/Attack:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(69.708, -20.878)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("../BattleUI/Attack:modulate")
+tracks/16/path = NodePath("../BattleUI/DescPaper:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Color(1, 1, 1, 1)]
+"values": [false]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("../BattleUI/DescPaper:visible")
+tracks/17/path = NodePath("../BattleUI/DescPaper:position")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [false]
+"values": [Vector2(102, -264)]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("../BattleUI/DescPaper:position")
+tracks/18/path = NodePath("../BattleUI/DescPaper:rotation")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(102, -264)]
+"values": [-0.3490658503988659]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("../BattleUI/DescPaper:rotation")
+tracks/19/path = NodePath("../BattleUI/DescPaper:scale")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [-0.6981317007977318]
+"values": [Vector2(0.5, 0.5)]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("../BattleUI/DescPaper:scale")
+tracks/20/path = NodePath("../BattleUI/DescPaper:modulate")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(0.5, 0.5)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("../BattleUI/DescPaper:modulate")
+tracks/21/path = NodePath("../BattleUI/BaseRing:position")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(-200, -200)]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("../BattleUI/BaseRing:position")
+tracks/22/path = NodePath("../BattleUI/Ability:visible")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(-200, -200)]
+"update": 1,
+"values": [true]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("../BattleUI/Ability:visible")
+tracks/23/path = NodePath("../BattleUI/Item:visible")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -1084,7 +1085,7 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("../BattleUI/Item:visible")
+tracks/24/path = NodePath("../BattleUI/Command:visible")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
@@ -1096,19 +1097,19 @@ tracks/24/keys = {
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("../BattleUI/Command:visible")
+tracks/25/path = NodePath("../BattleUI/Ability:modulate")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("../BattleUI/Ability:modulate")
+tracks/26/path = NodePath("../BattleUI/Command:modulate")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
@@ -1120,175 +1121,175 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("../BattleUI/Command:modulate")
+tracks/27/path = NodePath("../BattleUI/Item:modulate")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 2,
 "values": [Color(1, 1, 1, 1)]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("../BattleUI/Item:modulate")
+tracks/28/path = NodePath("../BattleUI/Inventory:modulate")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 2,
+"update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("../BattleUI/Inventory:modulate")
+tracks/29/path = NodePath("../BattleUI/BaseRing:rotation")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
 }
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("../BattleUI/BaseRing:rotation")
+tracks/30/path = NodePath("../BattleUI:modulate")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/31/type = "value"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("../BattleUI:modulate")
+tracks/31/path = NodePath("../BattleUI:visible")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [true]
 }
 tracks/32/type = "value"
 tracks/32/imported = false
 tracks/32/enabled = true
-tracks/32/path = NodePath("../BattleUI:visible")
+tracks/32/path = NodePath("../BattleUI/Inventory:visible")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/33/type = "value"
 tracks/33/imported = false
 tracks/33/enabled = true
-tracks/33/path = NodePath("../BattleUI/Inventory:visible")
+tracks/33/path = NodePath("../BattleUI/BaseRing/Ring2:position")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/34/type = "value"
-tracks/34/imported = false
-tracks/34/enabled = true
-tracks/34/path = NodePath("../BattleUI/BaseRing/Ring2:position")
-tracks/34/interp = 1
-tracks/34/loop_wrap = true
-tracks/34/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/35/type = "value"
-tracks/35/imported = false
-tracks/35/enabled = true
-tracks/35/path = NodePath("../BattleUI/Inventory:scale")
-tracks/35/interp = 1
-tracks/35/loop_wrap = true
-tracks/35/keys = {
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("../BattleUI/Inventory:scale")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("TurnOrder:position")
+tracks/35/interp = 2
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(15, 740)]
+}
 tracks/36/type = "value"
 tracks/36/imported = false
 tracks/36/enabled = true
-tracks/36/path = NodePath("TurnOrder:position")
+tracks/36/path = NodePath("TurnOrder/Options:position")
 tracks/36/interp = 2
 tracks/36/loop_wrap = true
 tracks/36/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(15, 740)]
+"values": [Vector2(0, -60)]
 }
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("TurnOrder/Options:position")
+tracks/37/path = NodePath("Confirm:position")
 tracks/37/interp = 2
 tracks/37/loop_wrap = true
 tracks/37/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(0, -60)]
+"values": [Vector2(10, 810)]
 }
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("Confirm:position")
+tracks/38/path = NodePath("Back:position")
 tracks/38/interp = 2
 tracks/38/loop_wrap = true
 tracks/38/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(10, 810)]
+"values": [Vector2(170, 810)]
 }
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Back:position")
+tracks/39/path = NodePath("Give:position")
 tracks/39/interp = 2
 tracks/39/loop_wrap = true
 tracks/39/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(170, 810)]
+"values": [Vector2(332, 810)]
 }
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("Give:position")
-tracks/40/interp = 2
+tracks/40/path = NodePath("Back:position:y")
+tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(332, 810)]
+"values": [810.0]
 }
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("Back:position:y")
+tracks/41/path = NodePath("Confirm:position:y")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
@@ -1300,7 +1301,7 @@ tracks/41/keys = {
 tracks/42/type = "value"
 tracks/42/imported = false
 tracks/42/enabled = true
-tracks/42/path = NodePath("Confirm:position:y")
+tracks/42/path = NodePath("Give:position:y")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
@@ -1312,43 +1313,43 @@ tracks/42/keys = {
 tracks/43/type = "value"
 tracks/43/imported = false
 tracks/43/enabled = true
-tracks/43/path = NodePath("Give:position:y")
+tracks/43/path = NodePath("AttackTitle:position")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [810.0]
+"values": [Vector2(1350, 536)]
 }
 tracks/44/type = "value"
 tracks/44/imported = false
 tracks/44/enabled = true
-tracks/44/path = NodePath("AttackTitle:position")
+tracks/44/path = NodePath("TurnOrder:visible")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
 tracks/44/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(1350, 536)]
-}
-tracks/45/type = "value"
-tracks/45/imported = false
-tracks/45/enabled = true
-tracks/45/path = NodePath("TurnOrder:visible")
-tracks/45/interp = 1
-tracks/45/loop_wrap = true
-tracks/45/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
+tracks/45/type = "value"
+tracks/45/imported = false
+tracks/45/enabled = true
+tracks/45/path = NodePath("Back:visible")
+tracks/45/interp = 1
+tracks/45/loop_wrap = true
+tracks/45/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [true]
+}
 tracks/46/type = "value"
 tracks/46/imported = false
 tracks/46/enabled = true
-tracks/46/path = NodePath("Back:visible")
+tracks/46/path = NodePath("Confirm:visible")
 tracks/46/interp = 1
 tracks/46/loop_wrap = true
 tracks/46/keys = {
@@ -1360,7 +1361,7 @@ tracks/46/keys = {
 tracks/47/type = "value"
 tracks/47/imported = false
 tracks/47/enabled = true
-tracks/47/path = NodePath("Confirm:visible")
+tracks/47/path = NodePath("Give:visible")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
@@ -1372,46 +1373,22 @@ tracks/47/keys = {
 tracks/48/type = "value"
 tracks/48/imported = false
 tracks/48/enabled = true
-tracks/48/path = NodePath("Give:visible")
+tracks/48/path = NodePath("AttackTitle:visible")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [true]
-}
-tracks/49/type = "value"
-tracks/49/imported = false
-tracks/49/enabled = true
-tracks/49/path = NodePath("../BattleUI/RankSwap:visible")
-tracks/49/interp = 1
-tracks/49/loop_wrap = true
-tracks/49/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/50/type = "value"
-tracks/50/imported = false
-tracks/50/enabled = true
-tracks/50/path = NodePath("AttackTitle:visible")
-tracks/50/interp = 1
-tracks/50/loop_wrap = true
-tracks/50/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/51/type = "method"
-tracks/51/imported = false
-tracks/51/enabled = true
-tracks/51/path = NodePath("../BattleUI/BaseRing/Ring2")
-tracks/51/interp = 1
-tracks/51/loop_wrap = true
-tracks/51/keys = {
+tracks/49/type = "method"
+tracks/49/imported = false
+tracks/49/enabled = true
+tracks/49/path = NodePath("../BattleUI/BaseRing/Ring2")
+tracks/49/interp = 1
+tracks/49/loop_wrap = true
+tracks/49/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1419,65 +1396,77 @@ tracks/51/keys = {
 "method": &"set_instance_shader_parameter"
 }]
 }
+tracks/50/type = "value"
+tracks/50/imported = false
+tracks/50/enabled = true
+tracks/50/path = NodePath("../BattleUI/CommandMenu:visible")
+tracks/50/interp = 1
+tracks/50/loop_wrap = true
+tracks/50/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [false]
+}
+tracks/51/type = "value"
+tracks/51/imported = false
+tracks/51/enabled = true
+tracks/51/path = NodePath("../BattleUI/CommandMenu:modulate")
+tracks/51/interp = 1
+tracks/51/loop_wrap = true
+tracks/51/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Color(1, 1, 1, 0)]
+}
 tracks/52/type = "value"
 tracks/52/imported = false
 tracks/52/enabled = true
-tracks/52/path = NodePath("../BattleUI/CommandMenu:visible")
+tracks/52/path = NodePath("../BattleUI/CommandMenu/Escape:rotation")
 tracks/52/interp = 1
 tracks/52/loop_wrap = true
 tracks/52/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [false]
+"values": [-2.0943951023931953]
 }
 tracks/53/type = "value"
 tracks/53/imported = false
 tracks/53/enabled = true
-tracks/53/path = NodePath("../BattleUI/CommandMenu:modulate")
+tracks/53/path = NodePath("../BattleUI/CommandMenu/CmdBack:rotation")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Color(1, 1, 1, 0)]
+"values": [0.20944]
 }
 tracks/54/type = "value"
 tracks/54/imported = false
 tracks/54/enabled = true
-tracks/54/path = NodePath("../BattleUI/CommandMenu/Escape:rotation")
+tracks/54/path = NodePath("../BattleUI/CommandMenu/CmdBack:position")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [-2.0943951023931953]
+"values": [Vector2(-83.8007, 105.927)]
 }
 tracks/55/type = "value"
 tracks/55/imported = false
 tracks/55/enabled = true
-tracks/55/path = NodePath("../BattleUI/CommandMenu/CmdBack:rotation")
+tracks/55/path = NodePath("../BattleUI/AbilityUI:scale")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [0.20944]
-}
-tracks/56/type = "value"
-tracks/56/imported = false
-tracks/56/enabled = true
-tracks/56/path = NodePath("../BattleUI/CommandMenu/CmdBack:position")
-tracks/56/interp = 1
-tracks/56/loop_wrap = true
-tracks/56/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(-83.8007, 105.927)]
+"values": [Vector2(0.3, 0.3)]
 }
 
 [sub_resource type="Animation" id="Animation_y0u2e"]
@@ -1499,271 +1488,271 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BattleUI/AbilityUI:size")
+tracks/1/path = NodePath("../BattleUI/AbilityUI:visible")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 2,
-"values": [Vector2(200, 20), Vector2(300, 444)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../BattleUI/AbilityUI:visible")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(0.5),
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../BattleUI/BaseRing/Ring2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(1.1, 1.1)]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../BattleUI/BaseRing/Ring2:scale")
+tracks/3/path = NodePath("../BattleUI/BaseRing:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(1.1, 1.1)]
+"values": [Vector2(3, 3)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../BattleUI/BaseRing:scale")
-tracks/4/interp = 1
+tracks/4/path = NodePath("../BattleUI/Ability:position")
+tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(3, 3)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../BattleUI/Ability:position")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.23333333),
+"times": PackedFloat32Array(0, 0.26666668),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 2,
 "values": [Vector2(85, -20), Vector2(190, -175)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../BattleUI/AbilityUI:position")
-tracks/6/interp = 2
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../BattleUI/AbilityUI:position")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(50, -5), Vector2(125, -150)]
+"values": [Vector2(100, -140), Vector2(125, -150)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../BattleUI/Attack:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(-200, 460)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../BattleUI/Attack:position")
+tracks/7/path = NodePath("../BattleUI/Attack:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(-200, 460)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../BattleUI/Attack:modulate")
-tracks/8/interp = 1
+tracks/8/path = NodePath("../BattleUI/DescPaper:visible")
+tracks/8/interp = 2
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../BattleUI/DescPaper:visible")
-tracks/9/interp = 2
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../BattleUI/DescPaper:position")
-tracks/10/interp = 2
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../BattleUI/DescPaper:position")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(382.032, -105)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../BattleUI/DescPaper:rotation")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.6981317007977318, 0.0]
+}
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../BattleUI/DescPaper:rotation")
+tracks/11/path = NodePath("../BattleUI/DescPaper:scale")
 tracks/11/interp = 2
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0.1, 0.3),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [-0.6981317007977318, 0.0]
+"values": [Vector2(0.5, 0.5), Vector2(0.7, 0.7)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../BattleUI/DescPaper:scale")
+tracks/12/path = NodePath("../BattleUI/DescPaper:modulate")
 tracks/12/interp = 2
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0.1, 0.3),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.7, 0.7)]
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("../BattleUI/DescPaper:modulate")
-tracks/13/interp = 2
+tracks/13/path = NodePath("../BattleUI/BaseRing:position")
+tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0.1, 0.3),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("../BattleUI/BaseRing:position")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-360, -150)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../BattleUI/Item:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(-676.895, 13.351)]
+}
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("../BattleUI/Item:position")
+tracks/15/path = NodePath("../BattleUI/Item:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(-676.895, 13.351)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("../BattleUI/Item:modulate")
+tracks/16/path = NodePath("../BattleUI/Command:position")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(-250.354, -401.205)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("../BattleUI/Command:position")
+tracks/17/path = NodePath("../BattleUI/Command:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(-250.354, -401.205)]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("../BattleUI/Command:modulate")
+tracks/18/path = NodePath("../BattleUI/Ability:modulate")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("../BattleUI/Ability:modulate")
+tracks/19/path = NodePath("../BattleUI/Ability:size")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 2,
+"values": [Vector2(170, 42)]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("../BattleUI/Ability:size")
-tracks/20/interp = 1
+tracks/20/path = NodePath("TurnOrder:position")
+tracks/20/interp = 2
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [Vector2(170, 42)]
+"values": [Vector2(10, 900)]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("TurnOrder:position")
-tracks/21/interp = 2
+tracks/21/path = NodePath("TurnOrder/Options:position")
+tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(10, 900)]
-}
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("TurnOrder/Options:position")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Back:position:y")
+tracks/22/interp = 2
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [740.0]
+}
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("Back:position:y")
+tracks/23/path = NodePath("Confirm:position:y")
 tracks/23/interp = 2
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -1775,38 +1764,26 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("Confirm:position:y")
-tracks/24/interp = 2
+tracks/24/path = NodePath("AttackTitle:position")
+tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [740.0]
+"values": [Vector2(1350, 536)]
 }
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("AttackTitle:position")
-tracks/25/interp = 1
+tracks/25/path = NodePath("../BattleUI/AbilityUI:scale")
+tracks/25/interp = 2
 tracks/25/loop_wrap = true
 tracks/25/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(1350, 536)]
-}
-tracks/26/type = "value"
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/path = NodePath("../BattleUI/RankSwap:visible")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pusi6"]
@@ -1924,22 +1901,10 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("../BattleUI/RankSwap:visible")
+tracks/9/path = NodePath("../BattleUI:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../BattleUI:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 2,
@@ -2999,95 +2964,95 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("../BattleUI/AbilityUI:size")
+tracks/19/path = NodePath("../BattleUI/DescPaper:scale")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(200, 400)]
-}
-tracks/20/type = "value"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("../BattleUI/DescPaper:scale")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
 "times": PackedFloat32Array(0.16666667),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(0.5, 0.5)]
 }
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("../BattleUI/AbilityUI:position")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("../BattleUI/AbilityUI:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(-100, -200)]
 }
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("../BattleUI/DescPaper:modulate")
-tracks/22/interp = 1
-tracks/22/loop_wrap = false
-tracks/22/keys = {
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("../BattleUI/DescPaper:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = false
+tracks/21/keys = {
 "times": PackedFloat32Array(0.16666667),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Color(1, 1, 1, 0)]
 }
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("../BattleUI/DescPaper:position")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("../BattleUI/DescPaper:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
 "times": PackedFloat32Array(0.16666667),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(100, -200)]
 }
-tracks/24/type = "value"
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/path = NodePath("../BattleUI/BaseRing/Ring2:position")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/keys = {
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("../BattleUI/BaseRing/Ring2:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("TurnOrder:position")
-tracks/25/interp = 2
-tracks/25/loop_wrap = true
-tracks/25/keys = {
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("TurnOrder:position")
+tracks/24/interp = 2
+tracks/24/loop_wrap = true
+tracks/24/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(10, 900)]
 }
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Confirm:position:y")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.23333333),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [740.0]
+}
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("Confirm:position:y")
+tracks/26/path = NodePath("Back:position:y")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
-"times": PackedFloat32Array(0.23333333),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [740.0]
@@ -3095,58 +3060,34 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("Back:position:y")
+tracks/27/path = NodePath("AttackTitle:position")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
-"values": [740.0]
+"values": [Vector2(840, 536)]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("AttackTitle:position")
+tracks/28/path = NodePath("AttackTitle:visible")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(840, 536)]
-}
-tracks/29/type = "value"
-tracks/29/imported = false
-tracks/29/enabled = true
-tracks/29/path = NodePath("../BattleUI/RankSwap:visible")
-tracks/29/interp = 1
-tracks/29/loop_wrap = true
-tracks/29/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/30/type = "value"
-tracks/30/imported = false
-tracks/30/enabled = true
-tracks/30/path = NodePath("AttackTitle:visible")
-tracks/30/interp = 1
-tracks/30/loop_wrap = true
-tracks/30/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/31/type = "method"
-tracks/31/imported = false
-tracks/31/enabled = true
-tracks/31/path = NodePath("../BattleUI/BaseRing/Ring2")
-tracks/31/interp = 1
-tracks/31/loop_wrap = true
-tracks/31/keys = {
+tracks/29/type = "method"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("../BattleUI/BaseRing/Ring2")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -3154,37 +3095,37 @@ tracks/31/keys = {
 "method": &"set_instance_shader_parameter"
 }]
 }
-tracks/32/type = "value"
-tracks/32/imported = false
-tracks/32/enabled = true
-tracks/32/path = NodePath("../BattleUI/CommandMenu:modulate")
-tracks/32/interp = 1
-tracks/32/loop_wrap = true
-tracks/32/keys = {
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("../BattleUI/CommandMenu:modulate")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Color(1, 1, 1, 0)]
 }
-tracks/33/type = "value"
-tracks/33/imported = false
-tracks/33/enabled = true
-tracks/33/path = NodePath("../BattleUI/CommandMenu:visible")
-tracks/33/interp = 1
-tracks/33/loop_wrap = true
-tracks/33/keys = {
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("../BattleUI/CommandMenu:visible")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [false]
 }
-tracks/34/type = "value"
-tracks/34/imported = false
-tracks/34/enabled = true
-tracks/34/path = NodePath("Give:position")
-tracks/34/interp = 2
-tracks/34/loop_wrap = true
-tracks/34/keys = {
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("Give:position")
+tracks/32/interp = 2
+tracks/32/loop_wrap = true
+tracks/32/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 2,
@@ -3498,7 +3439,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(297.663, 4)]
+"values": [Vector2(300, 4)]
 }
 
 [sub_resource type="Animation" id="Animation_fnubh"]
@@ -3527,7 +3468,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.133333, 0.46666697),
 "transitions": PackedFloat32Array(2.82843, 1, 4.00001),
 "update": 0,
-"values": [Vector2(300, 0), Vector2(305, 0), Vector2(300, 0)]
+"values": [Vector2(310, 0), Vector2(315, 0), Vector2(310, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j7n1p"]
@@ -4632,7 +4573,7 @@ offset_left = 102.0
 offset_top = -264.0
 offset_right = 771.00073
 offset_bottom = 248.0
-rotation = -0.6981317
+rotation = -0.34906584
 scale = Vector2(0.5, 0.5)
 pivot_offset_ratio = Vector2(0, 0.7)
 texture = ExtResource("35_xabbi")
@@ -4708,12 +4649,14 @@ color = Color(1, 0, 0.356863, 1)
 
 [node name="AbilityUI" type="PanelContainer" parent="BattleUI" unique_id=1811911615]
 visible = false
+modulate = Color(1, 1, 1, 0)
 use_parent_material = true
 layout_mode = 0
-offset_left = 69.708
-offset_top = -20.878
-offset_right = 269.708
-offset_bottom = 23.122
+offset_left = 70.0
+offset_top = -140.0
+offset_right = 370.0
+offset_bottom = 304.0
+scale = Vector2(0.3, 0.3)
 pivot_offset = Vector2(22.75, 158)
 theme_override_styles/panel = SubResource("StyleBoxFlat_misl1")
 
@@ -4740,6 +4683,7 @@ theme_override_constants/margin_bottom = 14
 [node name="Scroller" type="ScrollContainer" parent="BattleUI/AbilityUI/Margin" unique_id=638357214]
 light_mask = 0
 use_parent_material = true
+clip_contents = false
 layout_mode = 2
 theme = SubResource("Theme_1ctu6")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5y8r5")
@@ -4754,9 +4698,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Node" type="Node" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1069917452]
-
-[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=1043433494]
+[node name="Ab0" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList" unique_id=716470933 instance=ExtResource("37_q1as1")]
 texture_filter = 2
 use_parent_material = true
 custom_minimum_size = Vector2(0, 50)
@@ -4765,19 +4707,18 @@ focus_mode = 1
 mouse_filter = 1
 theme = SubResource("Theme_t7ro7")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_b6nlv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2oa10")
-text = "Ability Name"
 alignment = 0
 autowrap_mode = 2
 expand_icon = true
+font_focused_color = false
 
-[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=1885720603]
+[node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=608693546]
 use_parent_material = true
 layout_mode = 0
 offset_left = 211.0
@@ -4790,7 +4731,7 @@ text = "5"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=1961327499]
+[node name="Icon" type="TextureRect" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=1470106902]
 light_mask = 0
 texture_filter = 1
 layout_mode = 0
@@ -4800,7 +4741,67 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="Ab0" type="Button" parent="BattleUI/AbilityUI/Margin/Scroller" unique_id=1916926879]
+[node name="RankSwap" type="Control" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" unique_id=223776131]
+visible = false
+light_mask = 0
+anchors_preset = 0
+offset_right = 272.0
+offset_bottom = 44.0
+pivot_offset = Vector2(1, 1)
+mouse_filter = 2
+
+[node name="Left" type="TextureButton" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0/RankSwap" unique_id=1850075260]
+visible = false
+light_mask = 0
+layout_mode = 0
+offset_left = -45.0
+offset_top = 3.0
+offset_right = -25.0
+offset_bottom = 47.0
+focus_mode = 0
+texture_normal = ExtResource("40_xhs3h")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Bg" type="Panel" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0/RankSwap/Left" unique_id=1540836794]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 0
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 44.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
+
+[node name="Right" type="TextureButton" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0/RankSwap" unique_id=233584199]
+visible = false
+light_mask = 0
+layout_mode = 0
+offset_left = 300.0
+offset_top = 4.0
+offset_right = 319.99997
+offset_bottom = 48.0
+focus_mode = 0
+texture_normal = ExtResource("40_xhs3h")
+ignore_texture_size = true
+stretch_mode = 4
+flip_h = true
+
+[node name="Bg" type="Panel" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0/RankSwap/Right" unique_id=1560234342]
+show_behind_parent = true
+light_mask = 0
+layout_mode = 0
+offset_left = -24.0
+offset_top = -12.0
+offset_right = 40.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0/RankSwap" unique_id=449098572]
+libraries/ = SubResource("AnimationLibrary_j7n1p")
+autoplay = &"RESET"
+
+[node name="Ab0" parent="BattleUI/AbilityUI/Margin/Scroller" unique_id=131621532 instance=ExtResource("37_q1as1")]
 unique_name_in_owner = true
 visible = false
 texture_filter = 2
@@ -4811,17 +4812,16 @@ focus_mode = 1
 mouse_filter = 1
 theme = SubResource("Theme_t7ro7")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/icon_max_width = 32
 theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBoxFlat_b6nlv")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2oa10")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_b6nlv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_2oa10")
-text = "Ability Name"
 alignment = 0
 autowrap_mode = 2
 expand_icon = true
+font_focused_color = false
 
 [node name="Label" type="Label" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0" unique_id=195546793]
 use_parent_material = true
@@ -4846,18 +4846,15 @@ offset_right = 52.75
 offset_bottom = 46.0
 texture = SubResource("AtlasTexture_lhc1k")
 
-[node name="RankSwap" type="Control" parent="BattleUI" unique_id=223776131]
-visible = false
+[node name="RankSwap" type="Control" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0" unique_id=1748216015]
 light_mask = 0
 anchors_preset = 0
-offset_left = 136.0
-offset_top = -60.0
-offset_right = 408.0
-offset_bottom = -16.0
-pivot_offset = Vector2(1, 1)
+offset_top = 4.0
+offset_right = 272.0
+offset_bottom = 48.0
 mouse_filter = 2
 
-[node name="Left" type="TextureButton" parent="BattleUI/RankSwap" unique_id=1850075260]
+[node name="Left" type="TextureButton" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0/RankSwap" unique_id=1247663381]
 light_mask = 0
 layout_mode = 0
 offset_left = -45.0
@@ -4869,7 +4866,7 @@ texture_normal = ExtResource("40_xhs3h")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Left" unique_id=1540836794]
+[node name="Bg" type="Panel" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0/RankSwap/Left" unique_id=1707823320]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -4879,12 +4876,12 @@ offset_right = 44.0
 offset_bottom = 52.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
 
-[node name="Right" type="TextureButton" parent="BattleUI/RankSwap" unique_id=233584199]
+[node name="Right" type="TextureButton" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0/RankSwap" unique_id=978391957]
 light_mask = 0
 layout_mode = 0
-offset_left = 297.663
+offset_left = 300.0
 offset_top = 4.0
-offset_right = 317.66296
+offset_right = 319.99997
 offset_bottom = 48.0
 focus_mode = 0
 texture_normal = ExtResource("40_xhs3h")
@@ -4892,7 +4889,7 @@ ignore_texture_size = true
 stretch_mode = 4
 flip_h = true
 
-[node name="Bg" type="Panel" parent="BattleUI/RankSwap/Right" unique_id=1560234342]
+[node name="Bg" type="Panel" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0/RankSwap/Right" unique_id=94152328]
 show_behind_parent = true
 light_mask = 0
 layout_mode = 0
@@ -4902,7 +4899,7 @@ offset_right = 40.0
 offset_bottom = 52.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_65vtl")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/RankSwap" unique_id=449098572]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/AbilityUI/Margin/Scroller/Ab0/RankSwap" unique_id=647606391]
 libraries/ = SubResource("AnimationLibrary_j7n1p")
 autoplay = &"arrows"
 
@@ -6046,7 +6043,6 @@ texture = ExtResource("54_qjfeq")
 [connection signal="targetFoc" from="BattleUI" to="EnemyUI" method="_on_battle_ui_target_foc"]
 [connection signal="targeted" from="BattleUI" to="BattleUI" method="_on_targeted"]
 [connection signal="pressed" from="BattleUI/DescPaper/ShowWheel" to="BattleUI" method="_on_show_wheel_pressed"]
-[connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/AbilityList/Ab0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="pressed" from="BattleUI/AbilityUI/Margin/Scroller/Ab0" to="BattleUI" method="_on_ability_entry"]
 [connection signal="toggled" from="BattleUI/Inventory/BIbutton" to="BattleUI" method="_on_b_ibutton_pressed"]
 [connection signal="toggled" from="BattleUI/Inventory/Cbutton" to="BattleUI" method="_on_cbutton_pressed"]

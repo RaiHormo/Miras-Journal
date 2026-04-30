@@ -35,7 +35,9 @@ static func colorize_explicit(stri: String) -> String:
 static func colorize_replace(elname: String, stri: String, i: String) -> String:
 	if elname in stri:
 		var hex: String = ElementColor[i].to_html()
-		var hex_out: String = (ElementColor[i] / 3).to_html()
+		var out_color := (ElementColor[i] / 3)
+		out_color.a = 1
+		var hex_out: String = out_color.to_html()
 		return stri.replacen(elname, "[outline_size=12][outline_color=" + hex_out + "][color=" + hex + "]" + elname + "[/color][/outline_color][/outline_size]")
 	return stri
 

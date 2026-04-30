@@ -44,7 +44,6 @@ func _ready() -> void:
 	$AbilityUI.hide()
 	$DescPaper.hide()
 	$CommandMenu.hide()
-	$RankSwap.hide()
 	canvas.get_node("TurnOrder").hide()
 	canvas.get_node("TurnOrderPop").hide()
 	canvas.get_node("DottedBack").hide()
@@ -71,7 +70,7 @@ func _on_battle_get_control() -> void:
 	PartyUI.battle_state()
 	Bt.Action = false
 	stage = &"root"
-	PrevStage = &"proot"
+	PrevStage = &"root"
 	set_controller_icons()
 
 	$Ability.add_theme_constant_override("icon_max_width", 0)
@@ -266,9 +265,6 @@ func _on_root() -> void:
 	PartyUI.battle_state()
 	set_controller_icons()
 	Bt.get_node("EnemyUI").all_enemy_ui()
-	$RankSwap.hide()
-	$RankSwap/Left.hide()
-	$RankSwap/Right.hide()
 
 	animation.play("RESET")
 	Bt.move_cam(Vector2.ZERO, 0.3)
@@ -280,11 +276,16 @@ func _on_root() -> void:
 	tweendone = false
 	active = true
 	analyzing = false
+
 	$Attack.show()
 	$Item.show()
 	$Command.show()
 	$Ability.show()
 	$Item.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
+	$Ability.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
+	$Command.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
+	$Attack.mouse_filter = MouseFilter.MOUSE_FILTER_STOP
+
 	if stage == "root":
 		$DescPaper.hide()
 		$CommandMenu.hide()
@@ -314,8 +315,6 @@ func _on_ability() -> void:
 	Global.confirm_sound()
 
 	$Ability.icon = null
-	$RankSwap/Left.hide()
-	$RankSwap/Right.hide()
 	move_to(CurrentChar.node.position)
 	Bt.zoom(4.5, 0.5, Tween.EASE_IN_OUT)
 	Bt.move_cam(CurrentChar.node.position + Vector2(80, 0), 0.5)
@@ -323,6 +322,7 @@ func _on_ability() -> void:
 	animation.play("ability")
 
 	$Ability.focus_mode = 0
+	$Ability.mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
 
 	if get_node_or_null("%AbilityList/Item" + str(MenuIndex)) == null:
 		MenuIndex = 0
@@ -343,7 +343,6 @@ func _on_ability() -> void:
 	CurrentChar.NextMove = CurrentChar.get_abilities()[foc.get_index()]
 	await animation.animation_finished
 	move_menu()
-	$RankSwap.show()
 
 
 func _on_command() -> void:
@@ -428,7 +427,7 @@ func show_aoe_indicator(chara: Actor) -> void:
 
 
 func _on_ability_pressed() -> void:
-	if stage == &"root": ability.emit()
+	ability.emit()
 
 
 func _on_attack_pressed() -> void:
@@ -440,7 +439,7 @@ func _on_item_pressed() -> void:
 
 
 func _on_command_pressed() -> void:
-	if "root" in stage: command.emit()
+	command.emit()
 
 
 func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
@@ -562,19 +561,18 @@ func move_menu() -> void:
 		if not foc.has_meta("AbilityGroup"): return
 		active = false
 		if not is_instance_valid(foc): return
-		$RankSwap.global_position = foc.global_position + $RankSwap.get_combined_pivot_offset()
 		var abgroup: Array = foc.get_meta("AbilityGroup")
 		var ab: Ability = foc.get_meta("Ability")
 		update_ab(foc)
 
-		if abgroup.find(ab) == 0:
-			$RankSwap/Left.hide()
+		var rankswap: Control = foc.get_node("RankSwap")
+		if rankswap != null:
+			if abgroup.size() == 1:
+				rankswap.get_node("AnimationPlayer").play("arrows")
+			rankswap.get_node("Left").visible = (abgroup.find(ab) != 0)
+			rankswap.get_node("Right").visible = (abgroup.find(ab) != abgroup.size() - 1)
 		else:
-			$RankSwap/Left.show()
-		if abgroup.find(ab) == abgroup.size() - 1:
-			$RankSwap/Right.hide()
-		else:
-			$RankSwap/Right.show()
+			pass
 
 		if not %AbilityList.get_child(MenuIndex).has_focus():
 			%AbilityList.get_child(MenuIndex).grab_focus()
@@ -669,7 +667,15 @@ func _on_back_pressed() -> void:
 
 
 func _on_focus_changed(control: Control) -> void:
+	# Existing foc unfocus actions
+	if is_instance_valid(foc):
+		# Hide rankswap buttons on an ability button when losing focus
+		if foc.has_node("RankSwap"):
+			foc.get_node("RankSwap/Left").hide()
+			foc.get_node("RankSwap/Right").hide()
+
 	foc = control
+	# New foc actions
 	if control is Button:
 		MenuIndex = control.get_index()
 		move_menu()
@@ -833,6 +839,9 @@ func fetch_abilities() -> void:
 		dub.set_meta("AbilityGroup", i)
 		var ab: Ability = i[0]
 		dub.set_meta("Ability", ab)
+		var rankswap: Control = dub.get_node("RankSwap")
+		rankswap.get_node("Left").hide()
+		rankswap.get_node("Right").hide()
 		update_ab(dub)
 	for i in %AbilityList.get_children():
 		if (
@@ -848,10 +857,16 @@ func fetch_abilities() -> void:
 func update_ab(dub: Button) -> void:
 	var ab: Ability = dub.get_meta("Ability")
 	dub.text = ab.name
+	if dub is WaveButton:
+		if ab.ColorSameAsActor:
+			dub.theme_color = CurrentChar.MainColor
+		else:
+			dub.theme_color = ab.WheelColor
 	dub.get_node("Icon").texture = ab.Icon
+	var label: Label = dub.get_node("Label")
 	if ab.AuraCost != 0:
-		dub.get_child(0).text = str(ab.AuraCost)
-		dub.get_child(0).show()
+		label.text = str(ab.AuraCost)
+		label.show()
 	else:
 		dub.get_child(0).hide()
 	dub.name = "Item" + str(dub.get_index(true))
