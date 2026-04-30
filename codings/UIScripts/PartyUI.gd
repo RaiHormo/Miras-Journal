@@ -368,12 +368,13 @@ func _on_shrink(hurry_up := false) -> void:
 	Expanded = false
 	Partybox.show()
 	Global.check_party.emit()
+	if not hurry_up:
+		get_tree().paused = WasPaused
 	t = create_tween()
 	t.set_parallel(true)
-	get_tree().paused = WasPaused
 	t.set_ease(Tween.EASE_OUT)
-	focus = 0
 	t.set_trans(Tween.TRANS_BACK)
+	focus = 0
 	#Pages
 	#$CanvasLayer/Cursor.position=CursorPosition[0]
 	for i in %Pages.get_children():

@@ -290,7 +290,6 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
-	Global.Player.local_controllable = true
 	if camera_follow: Global.Player.camera_follow(true)
 	get_tree().paused = false
 	if bring_followers:
@@ -298,6 +297,7 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 			i.dont_follow = false
 		#Event.teleport_followers()
 	Global.Area.setup_params(true)
+	Global.Player.local_controllable = true
 	Global.check_party.emit()
 
 

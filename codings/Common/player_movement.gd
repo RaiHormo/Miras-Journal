@@ -269,6 +269,7 @@ func activate_flame(animate := true) -> void:
 		BodyState = NONE
 		await set_anim("FlameActive", true)
 		set_anim("IdleRight")
+		local_controllable = true
 
 
 func check_flame(force := false) -> void:
@@ -309,12 +310,7 @@ func stop_dash(slide := true) -> void:
 	if (BodyState != CONTROLLED or "Stop" in sprite.animation or "Hit" in
 	sprite.animation or midair or not dashing): return
 	dashing = false
-	#print(RealVelocity)
 	reset_speed()
-	#for i in Global.Area.Layers.size():
-		#if ((Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2)!= null and Global.Area.Layers[i].get_cell_tile_data(coords+dashdir*2).get_collision_polygons_count(0)>0) or
-			#Global.Area.Layers[i].get_cell_tile_data(coords)!= null and Global.Area.Layers[i].get_cell_tile_data(coords).get_collision_polygons_count(0)>0):
-			#slide = false
 	if (undashable and Query.get_direction() == dashdir) and move_frames > 5:
 		speed = walk_speed
 		await bump()

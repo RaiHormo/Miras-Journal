@@ -264,10 +264,9 @@ func travel_done(controllable := false) -> void:
 	Global.get_cam().position_smoothing_enabled = true
 	if controllable:
 		await Event.wait(0.3, false)
+		await PartyUI.show_all(false, false)
+		PartyUI._on_shrink(true)
 		Event.give_control(false)
-		if Global.Controllable:
-			await PartyUI.show_all(false, false)
-			PartyUI._on_shrink(true)
 
 
 func _process(_delta: float) -> void:
