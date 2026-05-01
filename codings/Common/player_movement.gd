@@ -385,12 +385,23 @@ func attack() -> void:
 	await Event.wait()
 	check_before_attack()
 	$Attack.rotation = Query.get_direction().angle()
-	await set_anim("Attack" + Query.get_dir_name() + "Windup", true)
+	if RealVelocity.length() > 1:
+		set_anim("Attack" + Query.get_dir_name() + "Walk")
+		await Event.wait(0.4)
+	else:
+		await set_anim("Attack" + Query.get_dir_name() + "Windup", true)
 	winding_attack = true
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
-		if direction != Vector2.ZERO: Global.PlayerDir = direction
-		set_anim("Attack" + Query.get_dir_name() + "Windup")
+		if direction != Vector2.ZERO:
+			Global.PlayerDir = direction
+			var mation := "Attack" + Query.get_dir_name() + "Walk"
+			if sprite.animation != mation:
+				set_anim(mation)
+		else:
+			var mation := "Attack" + Query.get_dir_name() + "Windup"
+			sprite.animation = mation
+			sprite.frame = 1
 		check_before_attack()
 		if not winding_attack:
 			attacking = false
@@ -439,7 +450,6 @@ func attack() -> void:
 
 
 func check_before_attack() -> void:
-	%Base.frame = 1
 	$Attack.rotation = Query.get_direction().angle()
 	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		if i is NPC or i is Follower:

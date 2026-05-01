@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_srkwi"]
 [ext_resource type="Script" uid="uid://d0udqc2dg3nk0" path="res://codings/Common/player_movement.gd" id="2_d6ige"]
-[ext_resource type="SpriteFrames" uid="uid://doam5hhftuw4e" path="res://art/OV/Mira/MiraOV.tres" id="3_rei3u"]
+[ext_resource type="SpriteFrames" uid="uid://cad11u5nsdi8q" path="res://art/OV/Mira/MiraOVBag.tres" id="4_4h6w5"]
 [ext_resource type="Texture2D" uid="uid://cslhxxrst7p4j" path="res://art/OV/Mira/FlameWalk.png" id="5_4ul0y"]
 [ext_resource type="Texture2D" uid="uid://cbwc1u4rx67jv" path="res://art/OV/Mira/FlameActive.png" id="5_xllow"]
 [ext_resource type="Texture2D" uid="uid://s2cr0s33rn4w" path="res://art/OV/Mira/ReachOut.png" id="6_q0j1b"]
@@ -686,9 +686,11 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
-sprite_frames = ExtResource("3_rei3u")
-animation = &"DashLeftLoop"
+sprite_frames = ExtResource("4_4h6w5")
+animation = &"AttackDownWalk"
 autoplay = "IdleDown"
+frame = 1
+frame_progress = 1.0
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",
