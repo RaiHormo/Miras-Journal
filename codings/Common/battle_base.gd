@@ -78,7 +78,10 @@ func _ready() -> void:
 		return
 	CurrentChar = Global.Party.Leader
 	CurrentAbility = Global.Party.Leader.StandardAttack
-	Seq = Loader.Seq.duplicate()
+	if Loader.Seq == null:
+		Seq = load("res://database/BattleSeq/DebugDummy.tres")
+	else:
+		Seq = Loader.Seq.duplicate()
 	Seq.reset_events(true)
 	Party = Global.Party
 	for i in Seq.Enemies:
@@ -93,8 +96,9 @@ func _ready() -> void:
 		Seq.ScenePosition = Global.Player.global_position + Vector2(45, 0)
 	global_position = Seq.ScenePosition
 	global_position = Vector2i(global_position)
-	cam.global_position = Global.Camera.global_position
-	cam.zoom = Global.Camera.zoom
+	if Global.Camera != null:
+		cam.global_position = Global.Camera.global_position
+		cam.zoom = Global.Camera.zoom
 	$Canvas/Cutin.hide()
 	$Act/Actor0.sprite_frames = await Party.Leader.get_BT()
 	$Act/Actor0.animation = &"Entrance"

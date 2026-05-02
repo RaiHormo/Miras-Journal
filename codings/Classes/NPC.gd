@@ -318,3 +318,12 @@ func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble 
 
 func change_sprite(id: String) -> void:
 	get_node("Sprite").sprite_frames = await Event.get_ov_sprites(id)
+
+
+## Toggles the shadow
+func shadow(toggle: bool, off_alpha: float = 0) -> void:
+	var t := create_tween()
+	if toggle:
+		t.tween_property(get_node("Shadow"), "modulate:a", 1, 0.1)
+	else:
+		t.tween_property(get_node("Shadow"), "modulate:a", off_alpha, 0.1)

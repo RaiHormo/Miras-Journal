@@ -687,10 +687,9 @@ light_mask = 3
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = ExtResource("4_4h6w5")
-animation = &"AttackDownWalk"
+animation = &"Climb"
 autoplay = "IdleDown"
-frame = 1
-frame_progress = 1.0
+frame_progress = 0.8663298
 metadata/_aseprite_wizard_config_ = {
 "layer": "Base",
 "o_ex_p": "",

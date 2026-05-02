@@ -286,6 +286,14 @@ region = Rect2(128, 384, 32, 32)
 atlas = ExtResource("1_cnn7p")
 region = Rect2(160, 384, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlyen"]
+atlas = ExtResource("1_ulfu1")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dffi7"]
+atlas = ExtResource("1_ulfu1")
+region = Rect2(32, 480, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vy2py"]
 atlas = ExtResource("4_sv8sg")
 region = Rect2(0, 640, 64, 64)
@@ -1200,6 +1208,17 @@ animations = [{
 "loop": false,
 "name": &"BagOpen",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlyen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dffi7")
+}],
+"loop": true,
+"name": &"Climb",
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 0.5,

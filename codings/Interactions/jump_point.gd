@@ -60,8 +60,7 @@ func _physics_process(delta: float) -> void:
 					busy = true
 
 					# Fade the player's shadow
-					var t := create_tween()
-					t.tween_property(Global.Player.get_node("Shadow"), "modulate:a", remap(height, 0, 0.5, 1, 0), 0.1)
+					Global.Player.shadow(false, remap(height, 0, 0.5, 1, 0))
 
 					for i in waves:
 						if is_instance_valid(i):
@@ -94,8 +93,7 @@ func _physics_process(delta: float) -> void:
 					Global.Player.move_frames = 0
 
 					# Show shadow again
-					t = create_tween()
-					t.tween_property(Global.Player.get_node("Shadow"), "modulate", Color.WHITE, 0.2)
+					Global.Player.shadow(true)
 
 					prints("Jump!", name)
 

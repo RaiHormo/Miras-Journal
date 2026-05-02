@@ -20,7 +20,9 @@ func _physics_process(delta: float) -> void:
 			var t := create_tween()
 			t.tween_property(self, "varience", 0, 0.2)
 		Global.Player.BodyState = NPC.CUSTOM
-		Global.Player.set_anim("IdleUp")
+
+		Global.Player.set_anim("Climb")
+
 		if Input.is_action_pressed("ui_down"):
 			Global.rumble(0.2, 0, 0.1)
 			Global.Player.direction = Vector2.DOWN * 1.5
@@ -28,13 +30,17 @@ func _physics_process(delta: float) -> void:
 			Global.Player.direction = Vector2.UP * varience * 1.5
 			if varience == 1: Global.rumble(0.05, 0, 0.1)
 			if varience == 0: Global.rumble(0, 0.05, 0.1)
-		else: Global.Player.direction = Vector2.ZERO
+		else:
+			Global.Player.direction = Vector2.ZERO
+			Global.Player.sprite.pause()
 		if Global.Player.position.y < $Start1.global_position.y and Global.Player.Facing == Vector2.UP:
 			if enable_stairs:
 				Global.Player.z_index = zUp
 				Global.Player.collision_layer = LayersUp
 				Global.Player.collision_mask = LayersUp
 			active = false
+			Global.Player.set_anim("IdleUp")
+			Global.Player.shadow(true)
 			await Global.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
@@ -44,7 +50,9 @@ func _physics_process(delta: float) -> void:
 				Global.Player.collision_layer = LayersDown
 				Global.Player.collision_mask = LayersDown
 			active = false
+			Global.Player.set_anim("IdleDown")
 			Global.Player.look_to(Vector2.DOWN)
+			Global.Player.shadow(true)
 			await Global.jump_to_global(Global.Player, $End2.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
@@ -55,6 +63,7 @@ func climb_down() -> void:
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
 	await Global.jump_to_global(Global.Player, $Start1.global_position, time, height)
+	Global.Player.shadow(false)
 	active = true
 
 
@@ -63,4 +72,5 @@ func climb_up() -> void:
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
 	await Global.jump_to_global(Global.Player, $Start2.global_position, time, height)
+	Global.Player.shadow(false)
 	active = true

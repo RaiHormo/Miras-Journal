@@ -393,7 +393,7 @@ func attack() -> void:
 	winding_attack = true
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
-		if direction != Vector2.ZERO:
+		if direction != Vector2.ZERO and RealVelocity.length() > 0.1:
 			Global.PlayerDir = direction
 			var mation := "Attack" + Query.get_dir_name() + "Walk"
 			if sprite.animation != mation:
