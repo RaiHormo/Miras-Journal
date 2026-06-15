@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://bb6pyk4s77qvo"]
+
+[ext_resource type="Script" uid="uid://bjb747gou4fbo" path="res://addons/godotsteam/editor/updates/confirmation.gd" id="1_fskym"]
+[ext_resource type="Texture2D" uid="uid://dhn3vkdxvetbn" path="res://addons/godotsteam/editor/ui/steam.svg" id="1_xklt4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cnr4s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjufo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fskym"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ql43"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.3372549, 0.61960787, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apu4b"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bi3ss"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnr4s"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjufo"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.3372549, 0.61960787, 1, 1)
+
+[sub_resource type="Theme" id="Theme_cnr4s"]
+AcceptDialog/constants/title_height = 0
+AcceptDialog/styles/embedded_border = SubResource("StyleBoxEmpty_cnr4s")
+AcceptDialog/styles/embedded_unfocused_border = SubResource("StyleBoxEmpty_jjufo")
+AcceptDialog/styles/panel = SubResource("StyleBoxEmpty_fskym")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_0ql43")
+Button/styles/normal = SubResource("StyleBoxFlat_apu4b")
+Button/styles/pressed = SubResource("StyleBoxFlat_bi3ss")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_cnr4s")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_jjufo")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fskym"]
+bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
+border_width_bottom = 3
+border_color = Color(0.3372549, 0.61960787, 1, 1)
+
+[node name="Confirmation" type="ConfirmationDialog" unique_id=1649782113]
+transparent_bg = true
+oversampling_override = 1.0
+title = "Updating GodotSteam"
+initial_position = 1
+size = Vector2i(450, 330)
+visible = true
+wrap_controls = false
+unresizable = true
+borderless = true
+min_size = Vector2i(450, 200)
+keep_title_visible = false
+content_scale_mode = 1
+theme = SubResource("Theme_cnr4s")
+ok_button_text = "Continue"
+dialog_hide_on_ok = false
+dialog_close_on_escape = false
+script = ExtResource("1_fskym")
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=336687509]
+custom_minimum_size = Vector2(450, 330)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -165.0
+offset_right = 225.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_fskym")
+metadata/_edit_lock_ = true
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=598549467]
+custom_minimum_size = Vector2(450, 330)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_edit_lock_ = true
+
+[node name="VFrame" type="VBoxContainer" parent="Panel/Margin" unique_id=7442794]
+layout_mode = 2
+theme_override_constants/separation = 15
+metadata/_edit_lock_ = true
+
+[node name="HFrame" type="HBoxContainer" parent="Panel/Margin/VFrame" unique_id=1314013334]
+layout_mode = 2
+theme_override_constants/separation = 15
+metadata/_edit_lock_ = true
+
+[node name="Icon" type="TextureRect" parent="Panel/Margin/VFrame/HFrame" unique_id=521288466]
+custom_minimum_size = Vector2(26, 30)
+layout_mode = 2
+texture = ExtResource("1_xklt4")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="VersionTitle" type="Label" parent="Panel/Margin/VFrame/HFrame" unique_id=906249057]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(275, 30)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 18
+text = "Downloading GodotSteam 99.99"
+metadata/_edit_lock_ = true
+
+[node name="Message" type="Label" parent="Panel/Margin/VFrame" unique_id=345793881]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(315, 85)
+layout_mode = 2
+size_flags_vertical = 0
+text = "You are about to update plug-in version to %s.  The editor will restart at the end of this process."
+autowrap_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="Downloading" type="ProgressBar" parent="Panel/Margin/VFrame" unique_id=1922739661]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+step = 1.0
+value = 50.0
+metadata/_edit_lock_ = true
+
+[node name="Options" type="HBoxContainer" parent="Panel/Margin/VFrame" unique_id=2126576529]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 15
+alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="Continue" type="Button" parent="Panel/Margin/VFrame/Options" unique_id=851000998]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+metadata/_edit_lock_ = true
+
+[node name="Cancel" type="Button" parent="Panel/Margin/VFrame/Options" unique_id=1895267580]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+metadata/_edit_lock_ = true

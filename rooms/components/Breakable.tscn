@@ -309,9 +309,10 @@ _data = {
 &"RESET": SubResource("Animation_mqhpg")
 }
 
-[node name="BreakableDB0" type="StaticBody2D" unique_id=201224244]
+[node name="BreakableDB0" type="StaticBody2D" unique_id=528624781]
 process_mode = 3
 script = ExtResource("1_avy7v")
+metadata/_custom_type_script = "uid://neylk1v5dlnt"
 metadata/_edit_group_ = true
 
 [node name="CollisionShapeDef" type="CollisionShape2D" parent="." unique_id=1150045384]

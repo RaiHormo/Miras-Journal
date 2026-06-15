@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://d2cju0uv5rmjr" path="res://UI/MenuTextures/radio_enabled.png" id="9_xvg8c"]
 [ext_resource type="Texture2D" uid="uid://btup6lcmt8k28" path="res://UI/MenuTextures/radio_disabled.png" id="10_bx0nk"]
 [ext_resource type="Texture2D" uid="uid://b10ixw0ybj06y" path="res://UI/MenuTextures/grabber_unfocused.png" id="11_ojav3"]
-[ext_resource type="Texture2D" uid="uid://ok3qu6mijrxf" path="res://UI/MenuTextures/grabber.png" id="11_wuq6k"]
+[ext_resource type="Texture2D" uid="uid://bfbdvjkpc0gvr" path="res://UI/MenuTextures/grabber.svg" id="11_wuq6k"]
 [ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="17_chpua"]
 [ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="20_t6ahs"]
 [ext_resource type="Texture2D" uid="uid://3r3bkkn5s1g7" path="res://UI/Input/L.png" id="21_282ro"]

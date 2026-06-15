@@ -1,3 +1,5 @@
+@icon("res://art/Icons/Editor/ladder.png")
+class_name Ladder
 extends Node2D
 var active := false
 var time: float = 8

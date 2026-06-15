@@ -1,4 +1,7 @@
 @tool
+@icon("res://art/Icons/Editor/breakable.png")
+class_name Breakable
+
 extends StaticBody2D
 @export var default_anim: String = "default"
 @export var break_anim: String = "break"

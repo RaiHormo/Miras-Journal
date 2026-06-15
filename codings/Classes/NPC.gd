@@ -1,5 +1,6 @@
-extends CharacterBody2D
+@icon("res://art/Icons/Editor/npc.png")
 class_name NPC
+extends CharacterBody2D
 ##An extension of [CharacterBody2D] designed for this game. Provides basic movment and interaction.
 
 enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }

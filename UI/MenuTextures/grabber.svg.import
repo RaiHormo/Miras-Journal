@@ -2,29 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ok3qu6mijrxf"
-path.s3tc="res://.godot/imported/grabber.png-df5d30a3d232c333ded486e543f17f45.s3tc.ctex"
-path.etc2="res://.godot/imported/grabber.png-df5d30a3d232c333ded486e543f17f45.etc2.ctex"
+uid="uid://bfbdvjkpc0gvr"
+path="res://.godot/imported/grabber.svg-8cda28d7ea1340e7081ad914e91c0217.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/MenuTextures/grabber.png"
-dest_files=["res://.godot/imported/grabber.png-df5d30a3d232c333ded486e543f17f45.s3tc.ctex", "res://.godot/imported/grabber.png-df5d30a3d232c333ded486e543f17f45.etc2.ctex"]
+source_file="res://UI/MenuTextures/grabber.svg"
+dest_files=["res://.godot/imported/grabber.svg-8cda28d7ea1340e7081ad914e91c0217.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -39,4 +37,7 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=2
+svg/scale=3.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
