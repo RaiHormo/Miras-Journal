@@ -1,9 +1,9 @@
 extends CanvasLayer
+class_name TutorialPopup
 
 
-func _ready() -> void:
-	if Global.device == "Touch": return
-	call(Event.tutorial)
+func start(id: String) -> void:
+	call(id)
 	$Border2.hide()
 	$Border2/Control/Next.icon = Global.get_controller().ConfirmIcon
 

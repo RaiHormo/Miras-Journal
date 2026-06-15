@@ -120,8 +120,9 @@ func add_item(ItemName: Variant, type: StringName = &"", animate := true, player
 		if i.filename == item.filename:
 			i.Quantity += amount
 	overwrite_inv(inv, type)
-	print("Added item ", item.Name, " of type ", type)
-	if animate: get_animation(item.Icon, item.Name, player_animate)
+	if animate:
+		print_rich("[color=cyan]Added item ", item.Name, " of type ", type)
+		get_animation(item.Icon, item.Name, player_animate)
 
 
 func remove_item(ItemName: Variant, type: StringName = &"") -> void:
@@ -131,7 +132,7 @@ func remove_item(ItemName: Variant, type: StringName = &"") -> void:
 		OS.alert("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
 	var inv: Array[ItemData] = get_inv(type)
 	item.Quantity -= 1
-	print("Item ", item.Name, " removed")
+	print_rich("[color=cyan]Item ", item.Name, " removed")
 	if item.Quantity <= 0:
 		item.Quantity = 0
 		inv.erase(item)
@@ -257,6 +258,7 @@ func load_inventory(data: Array[String]) -> void:
 	MatInv.clear()
 	BtiInv.clear()
 	ConInv.clear()
+	print_rich("[color=cyan]Inventory: ", data)
 	for i in data:
 		var aitem := i.split(":", false)
 		add_item(aitem[0], aitem[1], false, false, 1)

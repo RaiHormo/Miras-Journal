@@ -7,7 +7,6 @@
 
 [node name="Ladder" type="Node2D" unique_id=1416195350]
 z_index = 8
-position = Vector2(493, 207)
 script = ExtResource("1_i5v3q")
 metadata/_custom_type_script = "uid://bsbkg084xt4ln"
 

@@ -113,14 +113,12 @@ metadata/_edit_group_ = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9PYmplY3RzL0l0ZW1TcGFya2xlLmFzZXByaXRlCmxheWVyfD0Kb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvT2JqZWN0cwpvX25hbWV8PVNwYXJrbGVzCm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
 light_mask = 0
 texture_filter = 1
-position = Vector2(0.6875, 12.9102)
 sprite_frames = SubResource("SpriteFrames_t6ikl")
 autoplay = "default"
-frame = 4
+frame = 3
 offset = Vector2(0.5, 0.5)
 
 [node name="Interactable" parent="." unique_id=1703852966 instance=ExtResource("3_uqxwf")]
-position = Vector2(0.6875, 12.9102)
 LabelText = "Search"
 ActionType = "item"
 add_flag = true
@@ -130,13 +128,16 @@ needs_bag = true
 hidesprite = true
 hide_parent = true
 
+[node name="CollisionShape2D" parent="Interactable" index="0" unique_id=2035817221]
+debug_color = Color(0.13281694, 0.64641684, 1.92523e-07, 0.07058824)
+
 [node name="Icon" parent="Interactable" index="2" unique_id=1758546671]
 visible = false
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=1942093357]
 light_mask = 0
 z_index = 10
-position = Vector2(-0.3125, 12.9102)
+position = Vector2(-1.3125, -0.08976269)
 scale = Vector2(0.285, 0.264273)
 texture = ExtResource("4_8ehb8")
 script = ExtResource("5_sru6s")

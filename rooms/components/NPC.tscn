@@ -14,7 +14,6 @@ radius = 7.0
 z_index = 1
 y_sort_enabled = true
 use_parent_material = true
-position = Vector2(0, 70)
 motion_mode = 1
 script = ExtResource("1_dnwjs")
 metadata/_edit_group_ = true

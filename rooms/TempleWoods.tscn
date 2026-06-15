@@ -18,14 +18,12 @@
 [ext_resource type="Resource" uid="uid://c81ribbmkkgh8" path="res://database/BattleSeq/SludgeBattle2.tres" id="14_hs8tf"]
 [ext_resource type="Shader" uid="uid://bhjbs475mqw1x" path="res://codings/Shaders/Glow.gdshader" id="14_negri"]
 [ext_resource type="Script" uid="uid://b5amxyenq4bwh" path="res://codings/Interactions/firefly.gd" id="15_71knk"]
-[ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Components/event_tripwire.gd" id="16_0acit"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="17_a4d1y"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="18_ghd11"]
 [ext_resource type="Script" uid="uid://gfinmw5y4txi" path="res://codings/Classes/NPC.gd" id="19_dpu00"]
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="20_bwh8w"]
 [ext_resource type="Resource" uid="uid://dv24x1ivfytn7" path="res://database/BattleSeq/SludgeBattle4.tres" id="21_e7y1u"]
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="21_hylag"]
-[ext_resource type="Script" uid="uid://dmasgg87jbfvd" path="res://codings/Interactions/pop_tutorial.gd" id="23_5qp58"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="23_dpu00"]
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="26_k6j3t"]
@@ -248,7 +246,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lbvu1")
 }],
-"loop": false,
+"loop": 0,
 "name": &"break",
 "speed": 8.0
 }, {
@@ -259,7 +257,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_va2q4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 1.0
 }]
@@ -311,9 +309,6 @@ region = Rect2(90, 90, 18, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bv7fr"]
 size = Vector2(16.0003, 15.9995)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_px8hq"]
-size = Vector2(185.211, 136.455)
-
 [sub_resource type="Gradient" id="Gradient_yb76s"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
@@ -323,9 +318,6 @@ use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.852941, 0.894118)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gy6qp"]
-size = Vector2(251.023, 41.9917)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wjino"]
 radius = 24.0207
@@ -356,7 +348,6 @@ modulate = Color(1, 1, 1, 0)
 visibility_layer = 1024
 z_index = 9
 material = SubResource("ShaderMaterial_llchn")
-layout_direction = 1
 offset_left = 100.0
 offset_top = 512.0
 offset_right = 215.0
@@ -364,6 +355,7 @@ offset_bottom = 545.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 1
 theme = SubResource("Theme_m14l1")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -387,7 +379,6 @@ visible = false
 visibility_layer = 1024
 z_index = 9
 material = SubResource("ShaderMaterial_llchn")
-layout_direction = 1
 offset_left = 15.0
 offset_top = 600.0
 offset_right = 158.66888
@@ -395,6 +386,7 @@ offset_bottom = 633.0
 scale = Vector2(0.311428, 0.311428)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 1
 theme = SubResource("Theme_m14l1")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -630,7 +622,6 @@ use_parent_material = true
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.277537, 0.265918)
 color = Color(1, 0.654902, 0.4, 0.964706)
-energy = 0.0
 texture = SubResource("GradientTexture2D_5n2mj")
 texture_scale = 4.94
 
@@ -849,28 +840,28 @@ gizmo_extents = 100.0
 
 [node name="EvAlcineFollow1" parent="." unique_id=1297631556 instance=ExtResource("36_2q7ov")]
 position = Vector2(1250, -635)
-scale = Vector2(1.3199999, 1)
-EventName = "AlcineFollow1"
+TriggerSize = Vector2i(50, 50)
 Flag = "day=0+AlcineFollow<1"
 FlagIsName = false
 FlagShouldBe = true
+EventName = "AlcineFollow1"
 
 [node name="EvAlcineFollow2" parent="." unique_id=554411234 instance=ExtResource("36_2q7ov")]
 position = Vector2(1268, -925.00006)
-scale = Vector2(1.3199999, 0.52)
-EventName = "AlcineFollow2"
+TriggerSize = Vector2i(50, 31)
 Flag = "day=0+AlcineFollow=1"
 FlagIsName = false
 FlagShouldBe = true
+EventName = "AlcineFollow2"
 
 [node name="EvAlcineFollow3" parent="." unique_id=73391420 instance=ExtResource("36_2q7ov")]
 z_index = 1
 position = Vector2(1573, -1073)
-scale = Vector2(1.8799999, 1.0799999)
-EventName = "AlcineFollow3"
+TriggerSize = Vector2i(68, 59)
 Flag = "day=0+AlcineFollow=2"
 FlagIsName = false
 FlagShouldBe = true
+EventName = "AlcineFollow3"
 
 [node name="EvAlcineBelow" type="CharacterBody2D" parent="." unique_id=1014923867]
 position = Vector2(1257.85, -652.287)
@@ -1002,17 +993,15 @@ hidesprite = true
 hide_parent = true
 free_on_hide = true
 
-[node name="EvFlameActive" type="Area2D" parent="." unique_id=869247540]
-position = Vector2(1538.99, -56.3515)
-script = ExtResource("16_0acit")
+[node name="EvFlameActive" parent="." unique_id=1901921073 instance=ExtResource("36_2q7ov")]
+position = Vector2(1535, -35.00006)
+rotation = -0.53980017
+scale = Vector2(2.0800018, 2.0800018)
+TriggerSize = Vector2i(50, 50)
+AddFlag = true
+ShowTextbox = true
 TextFile = "story_0"
 TextNode = "getting_dark"
-AddFlag = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvFlameActive" unique_id=1329602546]
-position = Vector2(-24.5789, 15.4054)
-rotation = 1.1737
-shape = SubResource("RectangleShape2D_px8hq")
 
 [node name="EvPterogon" type="AnimatedSprite2D" parent="." unique_id=130907456]
 visible = false
@@ -1034,31 +1023,19 @@ texture_scale = 2.0
 [node name="ObjectIdentifier" parent="EvPterogon" unique_id=1589410694 instance=ExtResource("28_bhcd2")]
 ID = "Pterogon"
 
-[node name="EvTutorialBag" type="Area2D" parent="." unique_id=1784290421]
-position = Vector2(1407.08, 347.679)
-collision_layer = 15
-collision_mask = 15
-script = ExtResource("23_5qp58")
-flag = "TutorialBag"
-tutorial = "bag"
+[node name="EvTutorialBag" parent="." unique_id=1019876011 instance=ExtResource("36_2q7ov")]
+position = Vector2(1423, 373)
+TriggerSize = Vector2i(158, 50)
+AddFlag = true
+PopTutorial = true
+TutorialName = "bag"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvTutorialBag" unique_id=217852379]
-position = Vector2(29.0056, 24.9934)
-shape = SubResource("RectangleShape2D_gy6qp")
-debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
-
-[node name="EvTutorialBag2" type="Area2D" parent="." unique_id=657212625]
-position = Vector2(117.057, 250.973)
-collision_layer = 15
-collision_mask = 15
-script = ExtResource("23_5qp58")
-flag = "DashTutorial0"
-tutorial = "dash"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EvTutorialBag2" unique_id=1388871724]
-position = Vector2(0.488701, 23.4993)
-shape = SubResource("RectangleShape2D_gy6qp")
-debug_color = Color(0.698039, 0.490196, 0.211765, 0.419608)
+[node name="EvDashTutorial" parent="." unique_id=1415250702 instance=ExtResource("36_2q7ov")]
+position = Vector2(105, 277)
+TriggerSize = Vector2i(76, 41)
+AddFlag = true
+PopTutorial = true
+TutorialName = "dash"
 
 [node name="InteractSkeleton" parent="." unique_id=397892722 instance=ExtResource("21_hylag")]
 position = Vector2(1233.99, -52.2818)
@@ -1171,11 +1148,11 @@ room = "Amberelm"
 
 [node name="JumpPoint2" parent="." unique_id=452634626 instance=ExtResource("35_2q7ov")]
 position = Vector2(276, 261)
-scale = Vector2(1.1, 1.8)
+trigger_size = Vector2i(4, 2)
 
 [node name="JumpPoint3" parent="." unique_id=485256740 instance=ExtResource("35_2q7ov")]
 position = Vector2(420, 259)
-scale = Vector2(1.1, 1.8)
+trigger_size = Vector2i(4, 2)
 
 [node name="JumpPoint10" parent="." unique_id=1779788680 instance=ExtResource("36_va2q4")]
 position = Vector2(1237, 259)
@@ -1207,26 +1184,27 @@ position = Vector2(1386, -1041)
 [node name="EnteredAmberelm2" parent="." unique_id=413285406 instance=ExtResource("36_2q7ov")]
 z_index = 1
 position = Vector2(1956.0001, -1758)
-scale = Vector2(1.68, 1)
-EventName = "enter_amberelm"
+TriggerSize = Vector2i(79, 50)
 Flag = "EnterAmberelm"
 ReturnControl = false
+EventName = "enter_amberelm"
 
 [node name="EvFirstBattle" parent="." unique_id=1834140387 instance=ExtResource("36_2q7ov")]
 position = Vector2(729, 512)
-scale = Vector2(1, 1.72)
-EventName = "first_battle"
+TriggerSize = Vector2i(50, 87)
 ReturnControl = false
+PlayEvent = true
+EventName = "first_battle"
 
 [node name="EvAmbWoodsBridge" parent="." unique_id=200704634 instance=ExtResource("36_2q7ov")]
 position = Vector2(1956, -1318)
-scale = Vector2(1.83992, 1)
-TextFile = "story_0"
-TextNode = "a_bridge"
-Passive = true
+TriggerSize = Vector2i(76, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
+TextFile = "story_0"
+TextNode = "a_bridge"
+Passive = true
 SlowDown = true
 
 [node name="JumpPoint14" parent="." unique_id=1075157110 instance=ExtResource("35_2y4jd")]
@@ -1249,10 +1227,6 @@ position = Vector2(565, 422)
 
 [node name="JumpPoint12" parent="." unique_id=1954544906 instance=ExtResource("35_2y4jd")]
 position = Vector2(1141, 115)
-
-[connection signal="body_entered" from="EvFlameActive" to="EvFlameActive" method="_on_body_entered"]
-[connection signal="body_entered" from="EvTutorialBag" to="EvTutorialBag" method="_on_body_entered"]
-[connection signal="body_entered" from="EvTutorialBag2" to="EvTutorialBag2" method="_on_body_entered"]
 
 [editable path="EvAxe/PickUp"]
 [editable path="InteractSkeleton"]

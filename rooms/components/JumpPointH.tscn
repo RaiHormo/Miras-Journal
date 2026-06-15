@@ -5,18 +5,19 @@
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_4a6f6"]
 [ext_resource type="Texture2D" uid="uid://bmii71t0l2om1" path="res://UI/MenuTextures/Oval.svg" id="4_i285a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnwxw"]
-size = Vector2(68.0005, 23)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i285a"]
+size = Vector2(72, 24)
 
 [node name="JumpPoint" type="Area2D" unique_id=2144299483]
 script = ExtResource("1_3et4f")
+trigger_size = Vector2i(3, 1)
 jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0)])
 jump_am = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1228440326]
 light_mask = 0
-shape = SubResource("RectangleShape2D_hnwxw")
+shape = SubResource("RectangleShape2D_i285a")
 debug_color = Color(0.75, 0.4625, 0, 0.17254902)
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=2107096588]

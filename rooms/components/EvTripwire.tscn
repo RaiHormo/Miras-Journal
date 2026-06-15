@@ -4,26 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://bg733cd5il7yl" path="res://art/Icons/Editor/event_tripwire.png" id="2_1sx2q"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_o58ld"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fj50"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1sx2q"]
 size = Vector2(50, 50)
 
 [node name="EvTripwire0" type="Area2D" unique_id=1901921073]
 collision_mask = 15
 script = ExtResource("1_3fj50")
+TriggerSize = Vector2(50, 50)
 metadata/_custom_type_script = "uid://b2qf7ggvy4inm"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=624211629]
-rotation = 1.57079
-shape = SubResource("RectangleShape2D_3fj50")
+shape = SubResource("RectangleShape2D_1sx2q")
 debug_color = Color(0.612989, 0.359674, 1, 0.42)
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=482570356]
 light_mask = 0
 z_index = 10
 z_as_relative = false
-position = Vector2(-1.19209e-07, 2)
-scale = Vector2(0.271667, 0.271667)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_1sx2q")
 script = ExtResource("3_o58ld")
 

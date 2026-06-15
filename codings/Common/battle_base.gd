@@ -335,7 +335,7 @@ func _on_next_turn() -> void:
 		_on_next_turn()
 		return
 	print("-------------------------------------------------")
-	print("Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
+	print_rich("[color=cornflower-blue]Turn: ", Turn, " - Index: ", TurnInd, " - Name: ", CurrentChar.FirstName)
 	initial = CurrentChar.node.position
 	if CurrentChar.has_state("Knocked Out"):
 		if CurrentChar.IsEnemy:
@@ -366,12 +366,12 @@ func make_move() -> void:
 	if check_for_victory(): return
 	if CurrentChar.NextAction == "":
 		if CurrentChar.Controllable:
-			print("Control")
+			print_rich("[color=cornflower-blue]Control")
 			GetControl.emit()
 		else:
 			$AI.ai()
 	else:
-		print("Forced move")
+		print_rich("[color=cornflower-blue]Forced move")
 		confirm_next()
 
 
@@ -381,7 +381,7 @@ func _on_ai_chosen() -> void:
 
 func confirm_next(action_anim := true) -> void:
 	if CurrentChar.Controllable: ui.close()
-	print("Action: ", CurrentChar.NextAction)
+	print_rich("[color=cornflower-blue]Action: ", CurrentChar.NextAction)
 	if CurrentChar.NextMove == CurrentChar.StandardAttack:
 		CurrentChar.NextAction = "Attack"
 	if action_anim:
@@ -462,7 +462,7 @@ func callout(ab: Ability = CurrentAbility) -> void:
 	tc.parallel().tween_property(
 		$Canvas/Callout, "modulate", Color.WHITE, 2).from(Color.TRANSPARENT)
 	#await tc.finished
-	#print("call")
+	#print_rich("[color=cornflower-blue]call")
 	tc.set_ease(Tween.EASE_IN)
 	if CurrentChar.Controllable:
 		tc.tween_property(
@@ -477,9 +477,9 @@ func callout(ab: Ability = CurrentAbility) -> void:
 
 func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 	if not is_instance_valid(tar): return
-	print("Using ", ab.name, " on ", tar.FirstName)
+	print_rich("[color=cornflower-blue]Using ", ab.name, " on ", tar.FirstName)
 	for i in CurrentChar.BattleLog: if i.turn == Turn:
-		print("Double turn detected, aborting")
+		print_rich("[color=cornflower-blue]Double turn detected, aborting")
 		return
 	var log_entry := Actor.log_entry.new()
 	log_entry.ability = ab; log_entry.target = tar; log_entry.turn = Turn
@@ -631,7 +631,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		el_mod = relation_to_dmg_modifier(relation)
 	if target.has_state("Guarding"):
 		el_mod = 1
-	print("Attack power: ", x, " * ", el_mod)
+	print_rich("[color=cornflower-blue]Attack power: ", x, " * ", el_mod)
 	var attacker: Actor = null if ignore_stats else CurrentChar
 	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
 	for i in target.States:
@@ -652,7 +652,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 	str(dmg) + " damage to " + target.FirstName)
 	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
 		CurrentChar.get_state("AtkUp").QueueRemove = true
-		print("Weapon attack, so AtkUp will be removed")
+		print_rich("[color=cornflower-blue]Weapon attack, so AtkUp will be removed")
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg / 2)
 	if elemental:
 		var base_dmg := int(dmg * target.Defence * 2 * target.DefenceMultiplier)
@@ -736,7 +736,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 
 func play_effect(stri: String, tar: Variant, offset := Vector2.ZERO, flip_on_player_use := false, dont_free := false) -> void:
 	if $Act/Effects.sprite_frames.has_animation(stri):
-		print("Playing effect ", stri)
+		print_rich("[color=cornflower-blue]Playing effect ", stri)
 		if tar is not Vector2:
 			if tar is Actor and is_instance_valid(tar) and is_instance_valid(tar.node): tar = tar.node.position
 			else:
@@ -992,7 +992,7 @@ func anim(animation: String = "", chara: Actor = CurrentChar) -> void:
 		t_glow.tween_property(chara.node.get_node("Glow"), "energy", chara.GlowDef, 0.3)
 	chara.node.play(animation)
 	pixel_perfectize(chara)
-	print("Animation: ", animation)
+	print_rich("[color=cornflower-blue]Animation: ", animation)
 	while chara.node and chara.node.is_playing() and chara.node.animation == animation:
 		await Event.wait()
 
@@ -1100,13 +1100,13 @@ func pop_aura(target: Actor, time: float = 0.5) -> void:
 
 
 func escape() -> void:
-	print("Escaped")
+	print_rich("[color=cornflower-blue]Escaped")
 	Loader.BattleResult = 2
 	end_battle()
 
 
 func game_over() -> void:
-	print("Game over")
+	print_rich("[color=cornflower-blue]Game over")
 	if Seq.DefeatSequence == "":
 		Global.game_over()
 	else: $Act.call(Seq.DefeatSequence)
@@ -1180,7 +1180,7 @@ func victory_count_sp() -> void:
 
 
 func victory(ignore_seq := false) -> void:
-	print("Victory!")
+	print_rich("[color=cornflower-blue]Victory!")
 	Action = true
 	if Seq.VictorySequence != "" and not ignore_seq:
 		$Act.call(Seq.VictorySequence)
@@ -1346,7 +1346,7 @@ func relation_to_dmg_modifier(relation: String) -> float:
 
 
 func relation_to_aura_dmg(relation: String, dmg: int) -> int:
-	print("Color value: ", CurrentChar.MainColor.v)
+	print_rich("[color=cornflower-blue]Color value: ", CurrentChar.MainColor.v)
 	if relation == "op": return int(dmg * CurrentChar.MainColor.v)
 	elif relation == "wk": return int(dmg * (CurrentChar.MainColor.v / 2))
 	else: return 0
@@ -1456,14 +1456,14 @@ func has_actor(codename: StringName) -> bool:
 
 
 func random_target(ab: Ability) -> Actor:
-	if ab.Target != Ability.T.SELF: print("Target decided randomly")
+	if ab.Target != Ability.T.SELF: print_rich("[color=cornflower-blue]Target decided randomly")
 	match ab.Target:
 		Ability.T.SELF, Ability.T.AOE_ENEMIES, Ability.T.AOE_ALLIES:
 			return CurrentChar
 		Ability.T.ONE_ENEMY:
 			return get_oposing_faction(CurrentChar).pick_random()
 		Ability.T.ONE_ALLY:
-			print("a")
+			print_rich("[color=cornflower-blue]a")
 			return get_ally_faction(CurrentChar).pick_random()
 	return null
 

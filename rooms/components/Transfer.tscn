@@ -12,7 +12,6 @@ size = Vector2(80, 80)
 size = Vector2(39, 85)
 
 [node name="Transfer" type="Area2D" unique_id=1550411866]
-position = Vector2(766.116, 508.825)
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("1_6swgh")

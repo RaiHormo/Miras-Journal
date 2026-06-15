@@ -1,5 +1,6 @@
 extends Node2D
 
+## Instead of freeing the parent node, hide it
 @export var hide_instead := false
 
 

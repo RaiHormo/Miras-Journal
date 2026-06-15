@@ -4,6 +4,20 @@ extends Area2D
 class_name Interactable
 
 signal action()
+
+## Size of the trigger to activate the bubble
+@export var trigger_size := 12:
+	set(x):
+		trigger_size = x
+
+		for coll in get_children():
+			if coll is CollisionShape2D:
+				coll.shape = coll.shape.duplicate()
+				if coll.shape is RectangleShape2D:
+					coll.shape.size = Vector2(x, x)
+				elif coll.shape is CircleShape2D:
+					coll.shape.radius = x
+
 ## The label shown on the bubble
 @export var LabelText: String = "Inspect"
 ## The mode of the interactable

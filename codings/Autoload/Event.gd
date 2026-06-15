@@ -15,7 +15,6 @@ var TimeOfDay := TOD.DARKHOUR:
 	set(x):
 		TimeOfDay = x
 		add_flag("time", x)
-var tutorial: String
 var CutsceneHandler: Node = null
 var allow_skipping := true
 var ToTime := TOD.DARKHOUR
@@ -231,18 +230,19 @@ func add_flag(flag: StringName, value := 1) -> bool:
 		var split := flag.split("=")
 		return add_flag(str(split[0]), int(split[1]))
 	Flags.set(flag, value)
-	print("Set flag \"", flag, "\" to ", value)
+	print_rich("[color=purple]Set flag \"", flag, "\" to ", value)
 	return value
 
 
 func remove_flag(flag: StringName) -> void:
 	if flag in Flags: Flags.erase(flag)
-	print("Removed flag \"", flag, "\"")
+	print_rich("[color=purple]Removed flag \"", flag, "\"")
 
 
 func pop_tutorial(id: String) -> void:
-	tutorial = id
-	get_tree().root.add_child(preload("res://UI/Tutorials/TutorialPopup.tscn").instantiate())
+	var tutorial: TutorialPopup = (await Loader.load_res("res://UI/Tutorials/TutorialPopup.tscn")).instantiate()
+	get_tree().root.add_child(tutorial)
+	tutorial.start(id)
 
 
 func take_control(keep_ui := false, keep_followers := false, idle := false) -> void:
@@ -250,7 +250,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 		Global.Controllable = false
 		return
 	var pos := Global.Player.position
-	print("Taking control")
+	print_rich("[color=purple]Taking control")
 	Global.Controllable = false
 	await wait()
 	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return
@@ -278,7 +278,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 
 func give_control(camera_follow := false, bring_followers := true) -> void:
 	if Global.Player == null: return
-	print("Giving control")
+	print_rich("[color=purple]Giving control")
 	if get_tree().root.has_node("Warning"):
 		get_tree().root.get_node("Warning").queue_free()
 	#if get_tree().root.has_node("MainMenu"):
@@ -397,7 +397,7 @@ func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), 
 	else:
 		Global.Area.CurSubRoom.add_child.call_deferred(chara)
 		chara.position -= Global.Area.CurSubRoom.position
-	print("Spawned: ", chara.ID)
+	print_rich("[color=purple]Spawned: ", chara.ID)
 	if dir.length() > 1:
 		chara.BodyState = NPC.CUSTOM
 		chara.set_anim(dir)
@@ -487,7 +487,7 @@ func camera_unlock() -> void:
 func start_time_events(location: String) -> void:
 	var seq := get_date_identifier()
 	if sequence_exists(seq):
-		print("Starting event: " + seq)
+		print_rich("[color=purple]Starting event: " + seq)
 		await sequence(seq)
 	else:
 		match location:
@@ -515,7 +515,7 @@ func get_date_identifier(day := Day, time := TimeOfDay) -> String:
 func condition(con: String) -> int:
 	if $Conditions.has_method(con):
 		var res: int = $Conditions.call(con)  #I'm guessing it's supposed to be an int here
-		#print("Condition "+ con+" ", res)
+		#print_rich("[color=purple]Condition "+ con+" ", res)
 		return res
 	else:
 		push_error(con + " condition is not valid");

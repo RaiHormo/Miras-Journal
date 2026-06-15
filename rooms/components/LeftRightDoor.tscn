@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://4qj3e07t5fsi"]
 
 [ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="1_3f8s0"]
+[ext_resource type="Texture2D" uid="uid://kf4doig02njb" path="res://art/Icons/Editor/door.png" id="2_8eypp"]
+[ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_g2wtr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6we5s"]
 size = Vector2(2, 23)
@@ -12,6 +14,15 @@ script = ExtResource("1_3f8s0")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_6we5s")
 debug_color = Color(0.34915262, 0.60495996, 0.39291275, 0.41960785)
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1752096413]
+light_mask = 0
+z_index = 10
+z_as_relative = false
+position = Vector2(-7.1054274e-15, 1.1920929e-07)
+scale = Vector2(0.271667, 0.271667)
+texture = ExtResource("2_8eypp")
+script = ExtResource("3_g2wtr")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

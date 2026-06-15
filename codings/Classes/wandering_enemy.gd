@@ -1,4 +1,5 @@
 @tool
+@icon("res://art/Icons/Editor/enemy.png")
 extends NPC
 
 @export_tool_button("Add Homepoints and Sprites", "Add") var add_node_button: Callable = add_nodes

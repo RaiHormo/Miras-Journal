@@ -51,7 +51,7 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 	if !Global.Player or !Global.Area:
 		OS.alert("Cannot save right now")
 		return
-	print("Saving to user://" + filename + ".tres")
+	print_rich("[color=green]Saving to user://" + filename + ".tres")
 	if showicon:
 		icon_save()
 	Global.save_settings()
@@ -91,7 +91,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	if filename == "File0": filename = "Autosave"
 	var filepath := "res://database/IncludedSaves/" + filename + ".tres" if predefined else "user://" + filename + ".tres"
 	if not FileAccess.file_exists(filepath): await save()
-	print("Loading " + filepath)
+	print_rich("[color=green]Loading ", filepath, "\n")
 	if is_instance_valid(Global.Bt): Global.Bt.free()
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
@@ -116,10 +116,9 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	PartyUI.disabled = false
 	Event.Flags = data.Flags.duplicate()
 	Event.Diary = data.Diary
-	print("Flags loaded: ", Event.Flags)
+	print_rich("[color=green]Flags loaded: ", Event.Flags)
 	Event.Day = Event.flag_int("day")
 	Event.TimeOfDay = Event.flag_int("time") as Event.TOD
-	print("Date ID loaded: ", Event.Day)
 	get_tree().paused = true
 
 	var temp_members: Array[Actor]
@@ -137,7 +136,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	PartyUI.LevelupChain.clear()
 	Global.Members = temp_members
 
-	print("Current party: ", data.Party)
+	print_rich("[color=green]Current party: ", data.Party)
 	Global.Party.set_to_strarr(data.Party)
 	for mem in Global.Members:
 		mem.reset_static_info()
@@ -152,7 +151,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	await Global.area_initialized
 	Item.load_inventory(data.Inventory)
 	PartyUI._check_party()
-	print("Loading room ", data.RoomName, " in camera ID ", data.Camera, " and Z index ", data.Z)
+
 	Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
@@ -167,10 +166,10 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		await Event.take_control()
 		dismiss_load_icon()
 	Preview = (await data.preview())
-	print("File loaded!\n-------------------------")
+	print_rich("[color=green]File loaded!\n-------------------------")
 	await Event.wait()
 	if (chased or Loader.InBattle) and is_instance_valid(Attacker):
-		print("Too close to an enemy, auto escape")
+		print_rich("[color=green]Too close to an enemy, auto escape")
 		Global.Player.position = Attacker.BattleSeq.EscPosition * 24
 		Global.refresh()
 	#await Event.wait(1)
@@ -190,7 +189,7 @@ func load_res(path: String) -> Resource:
 	loading_thread = true
 	await thread_loaded
 	if Global.ProcessFrame - frame > 1:
-		print("Loaded resource ", path.get_file(), " in ", Global.ProcessFrame - frame, " frames")
+		print_rich("[color=#555555]\tLoaded resource: ", path.get_file(), "\t in ", Global.ProcessFrame - frame, " frames")
 	#if load_failed: return null
 	return ResourceLoader.load_threaded_get(path)
 
@@ -204,7 +203,13 @@ func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z :
 	direc = trans
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1: controllable = false
-	print("Traveling to room \"", sc, "\" in camera ID ", camera_ind, " and Z index ", z)
+
+	print_rich("[color=green]",
+		"\nTraveling to room: ", sc.get_file().get_basename(),
+		"\n\tCamera ID: ", camera_ind,
+		"\n\tZ index: ", z, "\n"
+	)
+
 	if t.is_running(): await t.finished
 	traveled_pos = pos
 	Global.CameraInd = camera_ind
@@ -404,7 +409,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 	#Engine.time_scale = 0.1
 	PartyUI.hide_all()
 	Global.Controllable = false
-	print("Battle start!")
+	print_rich("[color=green]Battle start!")
 	get_tree().paused = true
 	CamZoom = Global.get_cam().zoom
 	if Seq.Transition:
@@ -646,8 +651,8 @@ func validate_save(savefile: String) -> bool:
 				return true
 			else:
 				# To read resource properties not in the current class, i need to load it as a config file
-				print("!!! THE SAVE IS FROM AN INCOMPATIBLE VERSION")
-				print("attempting to migrate from ", file.version)
+				print_rich("[color=green]!!! THE SAVE IS FROM AN INCOMPATIBLE VERSION")
+				print_rich("[color=green]attempting to migrate from ", file.version)
 				file = file.migrate()
 				if file != null:
 					ResourceSaver.save(file, savefile)

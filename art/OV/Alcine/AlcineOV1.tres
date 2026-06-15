@@ -241,7 +241,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a1omw")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Hug",
 "speed": 0.5
 }, {
@@ -285,7 +285,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v4kne")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleDown",
 "speed": 4.0
 }, {
@@ -314,7 +314,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oi3cs")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleLeft",
 "speed": 4.0
 }, {
@@ -343,7 +343,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sw4gm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleRight",
 "speed": 4.0
 }, {
@@ -387,7 +387,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f7jeh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleUp",
 "speed": 4.0
 }, {
@@ -395,7 +395,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qa3v2")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Scared",
 "speed": 4.0
 }, {
@@ -412,7 +412,7 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_gjjyl")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ScaredTurn1",
 "speed": 5.0
 }, {
@@ -423,7 +423,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w3bnl")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ScaredTurn2",
 "speed": 8.0
 }, {
@@ -440,7 +440,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s8xtx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkDown",
 "speed": 6.0
 }, {
@@ -457,7 +457,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aeufq")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkLeft",
 "speed": 6.0
 }, {
@@ -474,7 +474,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ywu4k")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkRight",
 "speed": 6.0
 }, {
@@ -491,7 +491,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tcfe8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkUp",
 "speed": 6.0
 }]

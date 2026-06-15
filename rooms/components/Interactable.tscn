@@ -12,8 +12,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]
 shader = ExtResource("1_s7gua")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7h34c"]
-radius = 12.0416
+[sub_resource type="CircleShape2D" id="CircleShape2D_tykot"]
+radius = 12.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iklx"]
 content_margin_left = 8.0
@@ -84,7 +84,7 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2035817221]
 position = Vector2(-3.8147e-06, -3.8147e-06)
-shape = SubResource("CircleShape2D_7h34c")
+shape = SubResource("CircleShape2D_tykot")
 debug_color = Color(0.745, 0.337, 0.804, 0.072)
 
 [node name="Pack" type="CanvasGroup" parent="." unique_id=1040141046]
@@ -150,7 +150,7 @@ expand_mode = 1
 light_mask = 0
 z_index = 10
 z_as_relative = false
-position = Vector2(-1.19209e-07, 2)
+position = Vector2(-7.1054274e-15, -14.999998)
 scale = Vector2(0.271667, 0.271667)
 texture = ExtResource("7_tykot")
 script = ExtResource("8_ibccg")

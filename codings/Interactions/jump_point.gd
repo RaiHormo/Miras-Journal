@@ -1,6 +1,16 @@
+@tool
 @icon("res://art/Icons/Editor/jump.png")
 class_name JumpPoint
 extends Area2D
+
+@export var trigger_size := Vector2i(1, 1):
+	set(x):
+		trigger_size = x
+
+		for coll in get_children():
+			if coll is CollisionShape2D:
+				coll.shape = coll.shape.duplicate()
+				coll.shape.size = x * 24
 
 ## Directions where jumping is allowed in Vector2
 @export var jump_dirs: Array[Vector2]

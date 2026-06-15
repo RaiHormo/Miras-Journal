@@ -101,28 +101,28 @@ func init_steam() -> void:
 	OS.set_environment("SteamAppId", str(AppID))
 	OS.set_environment("SteamGameId", str(AppID))
 	var initialize_response: Dictionary = steam.steamInitEx(AppID)
-	print("Did Steam initialize?: %s " % initialize_response)
+	print_rich("[color=orange]Did Steam initialize?: %s " % initialize_response)
 	#Steam.inputInit()
 	#Steam.enableDeviceCallbacks()
 	#SteamInput.init()
 	if initialize_response.get("status") == 0:
-		print("Running with Steam")
+		print_rich("[color=orange]Running with Steam")
 		UsingSteam = true
 		UserID = steam.getSteamID32(steam.getSteamID())
 		PlayerName = steam.getPersonaName()
-		print("User: ", PlayerName, " ", UserID)
+		print_rich("[color=orange]User: ", PlayerName, " ", UserID)
 	elif (
 		initialize_response.get("status") == 1 and
 		initialize_response.get("verbal") != "Could not determine Steam client install directory."
 	):
 		if not steam.isSubscribed():
 			if AppID == 4059970:
-				print("The user doesn't own the game, testing playtest")
+				print_rich("[color=orange]The user doesn't own the game, testing playtest")
 				AppID = 4063790
 				init_steam()
 				return
 			elif AppID == 4063790:
-				print("The user doesn't own playtest either, running locally")
+				print_rich("[color=orange]The user doesn't own playtest either, running locally")
 
 
 func init_user() -> void:
@@ -133,18 +133,18 @@ func init_user() -> void:
 	if UserID == 0:
 		if FileAccess.file_exists("user://last_user_id.txt"):
 			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
-			print("Using last used user ID, ", UserID)
+			print_rich("[color=orange]Using last used user ID, ", UserID)
 
 	# Create a user folder if it doesn't exist
 	if not DirAccess.dir_exists_absolute("user://" + str(UserID)):
-		print("Creating user folder for ", UserID)
+		print_rich("[color=orange]Creating user folder for ", UserID)
 		DirAccess.make_dir_absolute("user://" + str(UserID))
 
 	# If there's an ID now but, the previous one was 0, migrate the save data
 	if FileAccess.file_exists("user://last_user_id.txt"):
 		var last_id: int = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
 		if FileAccess.file_exists("user://" + str(UserID)) and last_id == 0 and UserID != 0:
-			print("Migrating from local to account")
+			print_rich("[color=orange]Migrating from local to account")
 			for i in DirAccess.get_files_at("user://0"):
 				if not FileAccess.file_exists("user://" + str(UserID) + "/" + i):
 					DirAccess.copy_absolute("user://0/" + i, "user://" + str(UserID) + "/" + i)
@@ -393,22 +393,22 @@ func customize_default_settings() -> void:
 		if OS.get_environment("STEAMDECK") == "1" or steam.isSteamRunningOnSteamDeck():
 			Settings.ControlSchemeEnum = 7
 			Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
-			print("Running on Steam Deck, setting control scheme")
+			print_rich("[color=orange]Running on Steam Deck, setting control scheme")
 		if steam.isSteamInBigPictureMode():
 			fullscreen(true)
-			print("Running on Big Picture, enabling fullscreen")
+			print_rich("[color=orange]Running on Big Picture, enabling fullscreen")
 	if OS.get_name() == "macOS":
 		Settings.UpscaledRes = false
 
 
 func init_settings() -> void:
 	if not ResourceLoader.exists("user://Settings.res"):
-		print("No settings found, initializing...")
+		print_rich("[color=orange]No settings found, initializing...")
 		reset_settings()
 		await Event.wait()
 	Settings = ResourceLoader.load("user://Settings.res")
 	if not is_instance_valid(Settings):
-		print("Settings file is invalid, settings will be restored to default")
+		print_rich("[color=orange]Settings file is invalid, settings will be restored to default")
 		reset_settings()
 		await Event.wait()
 		Settings = load("user://Settings.res")
@@ -453,7 +453,7 @@ func get_playtime() -> int:
 
 func save_settings() -> void:
 	ResourceSaver.save(Settings, "user://Settings.res")
-	print("Settings saved")
+	print_rich("[color=orange]Settings saved")
 #endregion
 
 
@@ -547,7 +547,7 @@ func give_every_ability() -> void:
 func textbox(file: String, title: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
 	textbox_kill()
 	textbox_open = true
-	print("Textbox: ", file, " - ", title)
+	print_rich("[color=orange]Textbox: ", file, " - ", title)
 	for i in get_tree().root.get_children():
 		if i is Textbox: i.queue_free()
 	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
@@ -568,7 +568,7 @@ func textbox_kill() -> void:
 
 
 func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	print("Passive: ", file, " - ", title)
+	print_rich("[color=orange]Passive: ", file, " - ", title)
 	if get_node_or_null("/root/Passive"):
 		$"/root/Passive"._on_close()
 		await Event.wait(0.3)
@@ -622,7 +622,7 @@ func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
 		await Event.wait()
-	print("Toast: " + string)
+	print_rich("[color=orange]Toast: " + string)
 	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child.call_deferred(tost)
 	await Event.wait()
@@ -635,7 +635,7 @@ func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["
 		$/root/Warning.free()
 		await Event.wait()
 	await Event.wait()
-	print("Warn: " + text)
+	print_rich("[color=orange]Warn: " + text)
 	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()

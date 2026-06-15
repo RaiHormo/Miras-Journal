@@ -97,23 +97,22 @@ func show_all(except_date := false, animate := true) -> void:
 		else: $CanvasLayer/CalendarBase.position.y = 0
 		$IdleTimer.start(5)
 
-	var offset := -70
-	if Loader.InBattle: offset = -60
-
 	# Iterate through the boxes
 	for i in range(0, 4):
 		var box: Panel = Partybox.get_child(i)
-		print(i)
 		# The Leader gets position 0 since its bigger
+
+		var offset := -70
 		if i == 0:
-			box.offset_transform_position.x = 0
+			offset = 0
+		elif Loader.InBattle: offset = -60
+
+		if animate:
+			var tl := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+			tl.tween_property(box, "offset_transform_position:x", offset, 0.2)
+			await Event.wait(0.03, false)
 		else:
-			if animate:
-				var tl := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
-				tl.tween_property(box, "offset_transform_position:x", offset, 0.2)
-				await Event.wait(0.03, false)
-			else:
-				box.offset_transform_position.x = offset
+			box.offset_transform_position.x = offset
 		## Animate or set the X position when in battle
 		if Loader.InBattle and def_pos_partybox[i] != Vector2.ONE:
 			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
