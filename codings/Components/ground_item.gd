@@ -1,4 +1,6 @@
 @tool
+@icon("res://art/Icons/Editor/item.png")
+class_name GroundItem
 extends Node2D
 
 @export_enum("Con", "Mat", "Bti", "Key") var item_type := "Con":

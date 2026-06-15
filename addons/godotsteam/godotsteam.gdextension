@@ -26,3 +26,4 @@ linux.x86_32 = { "res://addons/godotsteam/linux32/libsteam_api.so": "" }
 macos.universal = { "res://addons/godotsteam/osx/libsteam_api.dylib": "" }
 windows.x86_64 = { "res://addons/godotsteam/win64/steam_api64.dll": "" }
 windows.x86_32 = { "res://addons/godotsteam/win32/steam_api.dll": "" }
+

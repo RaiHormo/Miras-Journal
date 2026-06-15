@@ -48,6 +48,9 @@ color_ramp = SubResource("GradientTexture1D_fq0ps")
 LabelText = "Enter"
 ActionType = "veinet"
 
+[node name="Icon" parent="Interactable" index="2" unique_id=1758546671]
+visible = false
+
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1825868405]
 position = Vector2(-4.76837e-07, -4.76837e-07)
 scale = Vector2(11, 10)
@@ -67,3 +70,5 @@ position = Vector2(1.04904e-05, -9.53674e-07)
 scale = Vector2(0.269226, 0.269226)
 texture = ExtResource("2_focdk")
 script = ExtResource("3_7tadi")
+
+[editable path="Interactable"]

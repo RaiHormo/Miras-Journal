@@ -1,3 +1,4 @@
+@icon("res://art/Icons/Editor/event_tripwire.png")
 extends Area2D
 class_name EventTripwire
 

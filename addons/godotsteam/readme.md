@@ -28,10 +28,10 @@ Current Build
 ---
 You can [download pre-compiled versions of this repo here](https://codeberg.org/godotsteam/godotsteam/releases).
 
-**Version 4.17.1 Changes**
+**Version 4.19.1 Changes**
 
-- Changed: SCsub and config.py for ARM64 and Android
-- Fixed: potential crash in disconnect_peer; thanks to ***bearlikelion***
+- Changed: commented out possible issue with removing dock node
+- Fixed: in-editor docs error, thanks to ***evanwang0***
 
 [You can read more change-logs here](https://godotsteam.com/changelog/gdextension/).
 
@@ -58,8 +58,9 @@ GodotSteam Version | Broken Compatibility
 4.11 | setLeaderboardDetailsMax removed
 4.13 | getItemDefinitionProperty return a dictionary, html_needs_paint key 'bgra' changed to 'rbga'
 4.14 | Removed first argument for stat request in steamInit and steamInitEx, steamInit returns intended bool value
-4.16 | Variety of small break points, refer to [4.16 changelog for details](https://godotsteam.com/changelog/godot4/)
+4.16 | Variety of small break points, refer to [4.16 changelog for details](https://godotsteam.com/changelog/godot4/#version-416)
 4.17 | Windows projects using Steam SDK 1.63 are meant to work with Proton 11 or Experimental on Linux / Steam Deck.
+4.19 | Lots of changes to Voice functions, refer to [4.19 changelog for details](https://godotsteam.com/changelog/godot4/#version-419)
 
 
 Known Issues
@@ -77,9 +78,16 @@ Alternatively, you can just [download the pre-compiled versions in our Releases 
 
 Usage
 ---
+Once the plug-in is added to your project, the Steam class should be available and ready to go. Enabling the plug-in in the ProjectSettings only affects the Steamworks dock and not the actual functionality.
+
 Do not use the GDExtension version of GodotSteam with any of the module versions whether it be our pre-compiled versions or ones you compile.  They are not compatible with each other.
 
 When exporting with the GDExtension version, please use the normal Godot Engine templates instead of our GodotSteam templates or you will have a lot of issues.
+
+
+No LLM Policy / No "AI" Policy
+---
+No LLMs are allowed to be used for issues, patches, or pull-requests.  They will be closed or rejected and the submitter may be blocked from future submissions.
 
 
 License

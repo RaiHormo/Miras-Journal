@@ -1,5 +1,6 @@
-extends Area2D
+@icon("res://art/Icons/Editor/transfer.png")
 class_name TransferZone
+extends Area2D
 @export var Direction: Vector2
 @export var Position := Vector2.ZERO
 @export var room: String

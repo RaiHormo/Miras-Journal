@@ -11,11 +11,12 @@ size = Vector2(80, 80)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8txy"]
 size = Vector2(39, 85)
 
-[node name="Transfer" type="Area2D" unique_id=1658848307]
+[node name="Transfer" type="Area2D" unique_id=1550411866]
 position = Vector2(766.116, 508.825)
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("1_6swgh")
+metadata/_custom_type_script = "uid://cdd13as58x5on"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1520553016]
 shape = SubResource("RectangleShape2D_vr85b")

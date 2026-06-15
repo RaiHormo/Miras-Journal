@@ -1,5 +1,6 @@
-extends Area2D
+@icon("res://art/Icons/Editor/jump.png")
 class_name JumpPoint
+extends Area2D
 
 ## Directions where jumping is allowed in Vector2
 @export var jump_dirs: Array[Vector2]
