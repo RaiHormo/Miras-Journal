@@ -34,12 +34,22 @@ extends Area2D
 
 var busy: bool = false
 var waves: Array[TextureRect]
+## 1: Horizontal, 2: Vertical
+var dir_mode: int = -1
 
 
 func _ready() -> void:
 	body_exited.connect(_on_body_exited)
 	if target != null:
 		target.hide()
+
+	for i in jump_dirs:
+		if dir_mode == -1:
+			if i.x == 0: dir_mode = 2
+			elif i.y == 0: dir_mode = 1
+		else:
+			if i.x == 0 and dir_mode == 1: dir_mode = 0
+			elif i.y == 0 and dir_mode == 2: dir_mode = 0
 
 
 func _physics_process(delta: float) -> void:
@@ -52,7 +62,12 @@ func _physics_process(delta: float) -> void:
 
 			# Add this object to the player's jump_points
 			var player_face := Global.Player.Facing
-			var player_side := Query.get_direction((to_local(body.position)))
+
+			var local_player_pos := to_local(body.position)
+			if dir_mode == 1: local_player_pos.y = 0
+			elif dir_mode == 2: local_player_pos.x = 0
+
+			var player_side := Query.get_direction(local_player_pos)
 			var can_jump := false
 			for dir in jump_dirs:
 				if player_face == dir and dir == -player_side:
@@ -130,7 +145,7 @@ func get_target_coords(face := Global.Player.Facing) -> Vector2:
 
 	coord += (jump_am * 24) * face + Vector2(0, jump_am_v * 24)
 	coord = coord.round()
-	print(coord)
+	#print(coord)
 	return coord
 
 

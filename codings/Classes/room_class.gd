@@ -178,6 +178,7 @@ func go_to_subroom(subroom: String, fast := false) -> Vector2:
 			return i.position - (i.Direction * i.scale) * 80
 		elif i is Marker2D and i.name == "Mark" + subroom:
 			return i.position
+	push_warning("Subroom not found: ", subroom)
 	return Vector2.ZERO
 
 

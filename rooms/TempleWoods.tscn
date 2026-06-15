@@ -1119,32 +1119,42 @@ navigation_layers = 2
 position = Vector2(809.00006, 500.00003)
 scale = Vector2(0.96, 1.21)
 Direction = Vector2(1, 0)
-room = "TempleWoods;LakesideLeft"
+room = "TempleWoods"
+subroom = "LakesideLeft"
 ToCamera = 1
+UseExactPosition = false
 
 [node name="TransferLakesideLeft" parent="." unique_id=1381750076 instance=ExtResource("8_grqbv")]
 position = Vector2(999.99994, 446)
 scale = Vector2(1.1, 1)
 Direction = Vector2(-1, 0)
-room = "TempleWoods;StartRight"
+room = "TempleWoods"
+subroom = "StartRight"
+UseExactPosition = false
 
 [node name="TransferTempleUp" parent="." unique_id=1593896857 instance=ExtResource("8_grqbv")]
 position = Vector2(1260, -715)
 Direction = Vector2(0, -1)
-room = "TempleWoods;RoadDown"
+room = "TempleWoods"
+subroom = "RoadDown"
 ToCamera = 2
+UseExactPosition = false
 
 [node name="TransferRoadDown" parent="." unique_id=1572370546 instance=ExtResource("8_grqbv")]
 position = Vector2(1257.8, -864.287)
 Direction = Vector2(0, 1)
-room = "TempleWoods;TempleUp"
+room = "TempleWoods"
+subroom = "TempleUp"
 ToCamera = 1
+UseExactPosition = false
 
-[node name="Transfer5" parent="." unique_id=1811557795 instance=ExtResource("8_grqbv")]
+[node name="TransferToAmberelm" parent="." unique_id=1811557795 instance=ExtResource("8_grqbv")]
 z_index = 1
 position = Vector2(1956, -1786)
 Direction = Vector2(0, -1)
 room = "Amberelm"
+subroom = "ToWoods"
+UseExactPosition = false
 
 [node name="JumpPoint2" parent="." unique_id=452634626 instance=ExtResource("35_2q7ov")]
 position = Vector2(276, 261)

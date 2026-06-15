@@ -980,9 +980,9 @@ shape = SubResource("RectangleShape2D_6we5s")
 [node name="Transfer" parent="HomeBuilding" unique_id=1658848307 instance=ExtResource("28_prfhr")]
 position = Vector2(320, 411)
 scale = Vector2(0.21302, 0.27264)
-Position = Vector2(750, -524)
 room = "Pyrson;HomeBuilding-UpperFloor"
 ToCamera = 3
+Position = Vector2(750, -524)
 
 [node name="HomeBuilding-DazeRoom" type="Node2D" parent="." unique_id=1562588733]
 z_index = 2
@@ -1130,8 +1130,8 @@ shape = SubResource("RectangleShape2D_6we5s")
 [node name="Transfer" parent="HomeBuilding-UpperFloor" unique_id=797416010 instance=ExtResource("28_prfhr")]
 position = Vector2(780, -516)
 scale = Vector2(0.21302, 0.27264)
-Position = Vector2(296, 414)
 room = "Pyrson;HomeBuilding"
+Position = Vector2(296, 414)
 
 [node name="HomeBuildingDoor" type="Area2D" parent="." unique_id=1930868321 node_paths=PackedStringArray("ToSubarea")]
 visible = false
@@ -1383,9 +1383,8 @@ RightSubarea = NodePath("../../TownHall-Bedroom")
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="EvNov2TownHall" parent="TownHall" unique_id=18392500 instance=ExtResource("26_vxpye")]
-position = Vector2(374, 203)
-scale = Vector2(1, 0.3600012)
-TriggerSize = Vector2i(50, 50)
+position = Vector2(373, 203)
+TriggerSize = Vector2i(26, 24)
 Flag = "day:2+time:4"
 FlagIsName = false
 FlagShouldBe = true
@@ -1393,19 +1392,21 @@ ReturnControl = false
 TextFile = "story_1"
 TextNode = "nov2_town_hall"
 
-[node name="Transfer" parent="TownHall" unique_id=681761258 instance=ExtResource("28_prfhr")]
-position = Vector2(330, 131)
-scale = Vector2(0.21302, 0.27264)
-Position = Vector2(14, -226)
+[node name="TransferBasementEntrance" parent="TownHall" unique_id=681761258 instance=ExtResource("28_prfhr")]
+position = Vector2(323, 131)
+trigger_size = Vector2i(28, 24)
 room = "Pyrson"
+subroom = "BasementExit"
 ToCamera = 2
+Position = Vector2(14, -226)
 
-[node name="Transfer2" parent="TownHall" unique_id=283717807 instance=ExtResource("28_prfhr")]
+[node name="TransferBasementExit" parent="TownHall" unique_id=283717807 instance=ExtResource("28_prfhr")]
 position = Vector2(-15, -228)
-scale = Vector2(0.37302, 0.27264)
+trigger_size = Vector2i(28, 27)
 Direction = Vector2(-1, 0)
+room = "Pyrson"
+subroom = "TownHall"
 Position = Vector2(367, 130)
-room = "Pyrson;TownHall"
 
 [node name="TownHall-Bedroom" type="Node2D" parent="." unique_id=118423871]
 z_index = 2
@@ -1442,14 +1443,16 @@ shape = SubResource("RectangleShape2D_6we5s")
 position = Vector2(13, 827)
 scale = Vector2(0.599999, 1)
 Direction = Vector2(-1, 0)
-room = "Pyrson;LindeAlleyL"
+room = "Pyrson"
+subroom = "LindeAlleyL"
 ToCamera = 1
 
 [node name="TransferLindeAlleyL" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
 position = Vector2(-2, 826)
 scale = Vector2(0.399999, 1)
 Direction = Vector2(1, 0)
-room = "Pyrson;LindeAlleyR"
+room = "Pyrson"
+subroom = "LindeAlleyR"
 
 [node name="VPGate" parent="." unique_id=1839372317 instance=ExtResource("3_pivbf")]
 position = Vector2(79, 127)

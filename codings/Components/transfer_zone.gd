@@ -13,10 +13,30 @@ extends Area2D
 				coll.shape.size = x
 
 @export var Direction: Vector2
-@export var Position := Vector2.ZERO
-@export var room: String
-@export var ToCamera: int = 0
 @export var lock_camera := true
+
+@export_category("Transfer To")
+@export_enum("Debug") var room: String
+@export var subroom: String
+@export var ToCamera: int = 0
+
+@export_group("Use Exact Position")
+## Use an exact position. Alternatively, specify a subroom
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var UseExactPosition := false
+@export var Position := Vector2.ZERO
+
+
+func _validate_property(property: Dictionary) -> void:
+	if not Engine.is_editor_hint(): return
+
+	match property.name:
+		"room":
+			var files := DirAccess.get_files_at("res://rooms")
+			var files_filtered: Array[String]
+			for i in files:
+				if i.ends_with(".tscn"):
+					files_filtered.append(i.replace(".tscn", ""))
+			property.hint_string = ",".join(files_filtered)
 
 
 func _on_entered(body: Node2D) -> void:
@@ -33,7 +53,10 @@ func proceed() -> void:
 	Global.Player.move_dir(Direction * 48, false)
 	Global.Player.sprite.frame = frame
 	#print(name, " to ", room, " with camera index ", ToCamera)
-	await Loader.travel_to(room, Position, ToCamera)
+
+	var room_string: String = room + ";" + subroom
+
+	await Loader.travel_to(room_string, Position, ToCamera)
 
 
 func _on_preview_exited(body: Node2D) -> void:
