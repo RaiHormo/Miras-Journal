@@ -1,5 +1,11 @@
 extends Node
-## This Autoload handles the movment of [NPC] nodes and provides useful functions for scripting cutscenes
+## This Autoload handles the movment of [NPC] nodes and 
+## provides useful functions for scripting cutscenes
+
+signal time_changed
+signal next_day
+
+enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5 }
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Dictionary[String, NPC]
@@ -19,11 +25,9 @@ var CutsceneHandler: Node = null
 var allow_skipping := true
 var ToTime := TOD.DARKHOUR
 var ToDay: int
-signal time_changed
-signal next_day
-@onready var sequences: Node = $Sequences
+var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>', '<', '>=', '<=']
 
-enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5 }
+@onready var sequences: Node = $Sequences
 
 
 func _ready() -> void:
@@ -34,7 +38,8 @@ func _ready() -> void:
 func add_char(b: NPC) -> void:
 	if List.has(b.ID) and is_instance_valid(List.get(b.ID)):
 		push_warning("Duplicate npc spawned: ", b.ID)
-		if is_instance_valid(List.get(b.ID)): return
+		if is_instance_valid(List.get(b.ID)):
+			return
 	List.set(b.ID, b)
 
 
@@ -91,29 +96,17 @@ func warp_to(pos: Vector2, chara: String = "P") -> void:
 	npc(chara).global_position = Global.Area.map_to_local(pos)
 
 
-##Used for jump calculations
-func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	#All of these are Vector2, and they're positions and stuff but the variable names are cryptic
-	var q0 := p0.lerp(p1, ti)
-	var q1 := p1.lerp(p2, ti)
-	var r := q0.lerp(q1, ti)
-
-	target.global_position = r
-
-
 ##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
 func jump_to(pos: Vector2, time: float, chara: String = "P", height: float = 0.1) -> void:
 	var t: Tween = create_tween()
 	var position := Global.Area.map_to_local(pos)
 	var start: Vector2 = npc(chara).global_position
 	var jump_distance: float = start.distance_to(position)
-	var jump_height: float = jump_distance * height  #will need tweaking
+	var jump_height: float = jump_distance * height #will need tweaking
 	var midpoint: Vector2 = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
+	var jump_time := jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
 	await t.finished
-
-var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>', '<', '>=', '<=']
 
 
 ## Check if a flag is equal to a given value.[br]
@@ -121,8 +114,10 @@ func check_flag(flag: StringName, value := 1) -> bool:
 	flag = flag.replace(" ", "_")
 	if flag in Flags:
 		return Flags.get(flag) == value
-	if value == 0: return true
-	else: return false
+	if value == 0:
+		return true
+	else:
+		return false
 
 
 ## Evaluate an expression with flags
@@ -152,7 +147,8 @@ func f(flag: StringName) -> bool:
 		# and return false if any of them is false
 		var split := flag.split("+")
 		for i in split:
-			if not f(i): return false
+			if not f(i):
+				return false
 		return true
 
 	# For OR expression
@@ -161,7 +157,8 @@ func f(flag: StringName) -> bool:
 		# and return true if any of them is true
 		var split := flag.split("||")
 		for i in split:
-			if f(i): return true
+			if f(i):
+				return true
 		return false
 
 	# For comparasion expressions
@@ -172,25 +169,25 @@ func f(flag: StringName) -> bool:
 	if ">=" in flag:
 		var split := flag.split(">=")
 		return f(
-			flag.replace(split[0] + ">=" + split[1], str(flag_int(split[0]) >= flag_int(split[1])))
+			flag.replace(split[0] + ">=" + split[1], str(flag_int(split[0]) >= flag_int(split[1]))),
 		)
 	# For greater expression
 	if ">" in flag:
 		var split := flag.split(">")
 		return f(
-			flag.replace(split[0] + ">" + split[1], str(flag_int(split[0]) > flag_int(split[1])))
+			flag.replace(split[0] + ">" + split[1], str(flag_int(split[0]) > flag_int(split[1]))),
 		)
 	# For less or equal expression
 	if "<=" in flag:
 		var split := flag.split("<=")
 		return f(
-			flag.replace(split[0] + "<=" + split[1], str(flag_int(split[0]) <= flag_int(split[1])))
+			flag.replace(split[0] + "<=" + split[1], str(flag_int(split[0]) <= flag_int(split[1]))),
 		)
 	# For lesser expression
 	if "<" in flag:
 		var split := flag.split("<")
 		return f(
-			flag.replace(split[0] + "<" + split[1], str(flag_int(split[0]) < flag_int(split[1])))
+			flag.replace(split[0] + "<" + split[1], str(flag_int(split[0]) < flag_int(split[1]))),
 		)
 	# For not equals expression
 	if "!=" in flag:
@@ -198,8 +195,8 @@ func f(flag: StringName) -> bool:
 		return f(
 			flag.replace(
 				split[0] + "!=" + split[1],
-				str(flag_int(split[0]) != flag_int(split[1]))
-			)
+				str(flag_int(split[0]) != flag_int(split[1])),
+			),
 		)
 	# For equals expression
 	if "=" in flag:
@@ -207,8 +204,8 @@ func f(flag: StringName) -> bool:
 		return f(
 			flag.replace(
 				split[0] + "=" + split[1],
-				str(flag_int(split[0]) == flag_int(split[1]))
-			)
+				str(flag_int(split[0]) == flag_int(split[1])),
+			),
 		)
 
 	# For NOT Expression
@@ -235,7 +232,8 @@ func add_flag(flag: StringName, value := 1) -> bool:
 
 
 func remove_flag(flag: StringName) -> void:
-	if flag in Flags: Flags.erase(flag)
+	if flag in Flags:
+		Flags.erase(flag)
 	print_rich("[color=purple]Removed flag \"", flag, "\"")
 
 
@@ -253,7 +251,8 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 	print_rich("[color=purple]Taking control")
 	Global.Controllable = false
 	await wait()
-	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area): return
+	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area):
+		return
 	if Global.Player.dashing:
 		await Global.Player.stop_dash(false)
 		Global.Player.dashing = false
@@ -277,17 +276,19 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 
 
 func give_control(camera_follow := false, bring_followers := true) -> void:
-	if Global.Player == null: return
+	if Global.Player == null:
+		return
 	print_rich("[color=purple]Giving control")
 	if get_tree().root.has_node("Warning"):
 		get_tree().root.get_node("Warning").queue_free()
 	#if get_tree().root.has_node("MainMenu"):
-		#get_tree().root.get_node("MainMenu").close()
+	#get_tree().root.get_node("MainMenu").close()
 	Global.Player.direction = Vector2.ZERO
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
-	if camera_follow: Global.Player.camera_follow(true)
+	if camera_follow:
+		Global.Player.camera_follow(true)
 	get_tree().paused = false
 	if bring_followers:
 		for i in Global.Area.Followers:
@@ -300,15 +301,18 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 
 ## Return the int value of a flag, or returns a nuber if given just a number
 func flag_int(string: String) -> int:
-	if string.is_valid_int(): return int(string)
+	if string.is_valid_int():
+		return int(string)
 	if Flags.has(string) and Flags.get(string) is int:
 		return Flags.get(string)
-	else: return 0
+	else:
+		return 0
 
 
 ## Set the flag's value to max(current value, given value)
 func flag_progress(stri: String, to := 1) -> void:
-	if to == 0: remove_flag(stri)
+	if to == 0:
+		remove_flag(stri)
 	else:
 		Flags.set(stri, max(flag_int(stri), to))
 
@@ -317,7 +321,8 @@ func flag_progress(stri: String, to := 1) -> void:
 func f_past(string: String, has_passed := 9) -> bool:
 	if flag_int(string) >= has_passed:
 		return true
-	else: return false
+	else:
+		return false
 
 
 ## Show a given bubble animation above a given npc's head
@@ -344,7 +349,8 @@ func get_day_progress_from_now(amount: int) -> int:
 	toad += amount
 	if toad > 5:
 		return Day + 1
-	else: return Day
+	else:
+		return Day
 
 
 func set_time(tod: TOD) -> void:
@@ -355,7 +361,7 @@ func set_time(tod: TOD) -> void:
 
 func teleport_followers() -> void:
 	#for i in Global.Area.Followers:
-		#i.jump_to_player()
+	#i.jump_to_player()
 	Global.Player.path.curve.clear_points()
 	Global.Player.path.curve.add_point(Global.PlayerPos)
 	Global.Player.path.curve.add_point(Global.PlayerPos)
@@ -385,9 +391,11 @@ func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), 
 	sprite_node.use_parent_material = true
 	var nam := id.split(":")
 	var sprite := await get_ov_sprites(id)
-	if sprite == null: return null
+	if sprite == null:
+		return null
 	sprite_node.sprite_frames = sprite
-	if no_collision: chara.collision(false)
+	if no_collision:
+		chara.collision(false)
 	chara.name = nam[0]
 	chara.ID = nam[0]
 	chara.position = pos
@@ -450,7 +458,8 @@ func time_transition(location := Global.Area.codename()) -> void:
 ## Abstraction for setting the camera zoom
 func zoom(val: float, maintain := false) -> void:
 	Global.Camera.zoom = Vector2(val, val)
-	if maintain: Global.Area.overwrite_zoom = val
+	if maintain:
+		Global.Area.overwrite_zoom = val
 
 
 ## An abstraction for setting the camera's position
@@ -514,11 +523,11 @@ func get_date_identifier(day := Day, time := TimeOfDay) -> String:
 ## Run a condition script and return the number
 func condition(con: String) -> int:
 	if $Conditions.has_method(con):
-		var res: int = $Conditions.call(con)  #I'm guessing it's supposed to be an int here
+		var res: int = $Conditions.call(con) #I'm guessing it's supposed to be an int here
 		#print_rich("[color=purple]Condition "+ con+" ", res)
 		return res
 	else:
-		push_error(con + " condition is not valid");
+		push_error(con + " condition is not valid")
 		return 0
 
 
@@ -527,7 +536,8 @@ func setup_time_changes(from: int, to: int) -> void:
 	if f_past("eepy", 1):
 		var eepy := flag_int("eepy")
 		add_flag("eepy", eepy + to - from)
-		if eepy >= 2 or TimeOfDay == TOD.MORNING: remove_flag("eepy")
+		if eepy >= 2 or TimeOfDay == TOD.MORNING:
+			remove_flag("eepy")
 
 
 ## Checks if the current date is in reserved_date.dialogue
@@ -535,15 +545,18 @@ func setup_time_changes(from: int, to: int) -> void:
 func date_is_reserved() -> bool:
 	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
 	var date := get_date_identifier()
-	if date in dialogue.get_titles(): return true
-	else: return false
+	if date in dialogue.get_titles():
+		return true
+	else:
+		return false
 
 
 func get_reserved_date_dialog() -> String:
 	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
 	var date := get_date_identifier()
 	var title: String = "default"
-	if date in dialogue.get_titles(): title = date
+	if date in dialogue.get_titles():
+		title = date
 	return "reserved_date/" + title
 
 
@@ -552,3 +565,13 @@ func add_to_diary(what: String, to_day: int = Day) -> void:
 		Diary.get(to_day).append(what)
 	else:
 		Diary.set(to_day, [what])
+
+
+##Used for jump calculations
+func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
+	#All of these are Vector2, and they're positions and stuff but the variable names are cryptic
+	var q0 := p0.lerp(p1, ti)
+	var q1 := p1.lerp(p2, ti)
+	var r := q0.lerp(q1, ti)
+
+	target.global_position = r

@@ -9,11 +9,13 @@ extends NPC
 @export var give_up_after := 3
 @export var patrol_speed := 20
 @export var chase_speed := 40
-@onready var tmr: Timer = $Timer
+
 var lock := false
 var homepoints: Array[Vector2]
 var PinRange := false
 var CurHomepoint: Vector2 = Vector2.ZERO
+
+@onready var tmr: Timer = $Timer
 
 
 func add_nodes() -> void:
@@ -61,9 +63,11 @@ func set_positions() -> void:
 
 func default() -> void:
 	Nav = $Nav
-	if ID == "": ID = name
-	if ID in Loader.Defeated: queue_free()
-	Loader.battle_start.connect(func() -> void: hide())  #this is really ugly but it's typed now.
+	if ID == "":
+		ID = name
+	if ID in Loader.Defeated:
+		queue_free()
+	Loader.battle_start.connect(func() -> void: hide()) #this is really ugly but it's typed now.
 	Loader.battle_end.connect(func() -> void: show())
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
@@ -97,7 +101,8 @@ func extended_process() -> void:
 			if Query.get_direction(to_local(Nav.get_next_path_position())) != -Query.get_direction(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
-			if not Loader.InBattle: Loader.battle_bars(0)
+			if not Loader.InBattle:
+				Loader.battle_bars(0)
 			patrol()
 			if Loader.Attacker == self:
 				Loader.Attacker = null
@@ -121,10 +126,35 @@ func extended_process() -> void:
 				direction = to_local(CurHomepoint).normalized()
 
 
+func begin_battle(advatage := 0) -> void:
+	Loader.Attacker = self
+	Global.Player.dramatic_attack_pause()
+	Global.rumble(1, 1, 0.2)
+	await Loader.start_battle(BattleSeq, advatage)
+	global_position = DefaultPos
+
+
+func attacked() -> void:
+	if Global.Player.winding_attack:
+		return
+	BodyState = NONE
+	set_anim("Hit")
+	var to_pos := position + Query.get_direction() * 12
+	Global.jump_to_global(self, to_pos, 25, 1)
+	Global.Player.camera_follow(false)
+	Global.Camera.position = to_pos
+	Global.intro_effect(self)
+	if PinRange:
+		begin_battle()
+	else:
+		begin_battle(1)
+
+
 func _on_finder_body_entered(body: Node2D) -> void:
 	if body == Global.Player and not PinRange and not Loader.chased and not Loader.InBattle:
 		Nav.set_target_position(Global.Player.position)
-		if not Nav.is_target_reachable(): return
+		if not Nav.is_target_reachable():
+			return
 		stopping = true
 		Loader.chase_mode()
 		Loader.battle_bars(1)
@@ -140,8 +170,8 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		set_dir_marker(to_local(Global.Player.global_position))
 		await Event.wait()
 		#if not Global.Player in $DirectionMarker/Finder.get_overlapping_bodies() or not Nav.is_target_reachable():
-			#$Bubble.play("Ellipsis")
-			#patrol()
+		#$Bubble.play("Ellipsis")
+		#patrol()
 		BodyState = MOVE
 		tmr.start(give_up_after)
 		PinRange = true
@@ -161,26 +191,6 @@ func _on_catch_area_body_entered(body: Node2D) -> void:
 		begin_battle(2)
 
 
-func begin_battle(advatage := 0) -> void:
-	Loader.Attacker = self
-	Global.Player.dramatic_attack_pause()
-	Global.rumble(1, 1, 0.2)
-	await Loader.start_battle(BattleSeq, advatage)
-	global_position = DefaultPos
-
-
-func attacked() -> void:
-	if Global.Player.winding_attack: return
-	BodyState = NONE
-	set_anim("Hit")
-	var to_pos := position + Query.get_direction() * 12
-	Global.jump_to_global(self, to_pos, 25, 1)
-	Global.Player.camera_follow(false)
-	Global.Camera.position = to_pos
-	Global.intro_effect(self)
-	if PinRange: begin_battle()
-	else: begin_battle(1)
-
-
 func _on_strike_area_entered(area: Area2D) -> void:
-	if area.name == "Attack": attacked()
+	if area.name == "Attack":
+		attacked()

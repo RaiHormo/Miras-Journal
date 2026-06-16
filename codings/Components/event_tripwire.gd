@@ -1,7 +1,7 @@
 @tool
 @icon("res://art/Icons/Editor/event_tripwire.png")
-extends Area2D
 class_name EventTripwire
+extends Area2D
 
 @export var TriggerSize := Vector2i(50, 50):
 	set(x):
@@ -10,7 +10,6 @@ class_name EventTripwire
 		if coll != null:
 			coll.shape = coll.shape.duplicate()
 			coll.shape.size = x
-
 @export_category("Flags")
 ## Flag expression in order for this event to trigger
 @export var Flag: String
@@ -20,15 +19,12 @@ class_name EventTripwire
 @export var FlagShouldBe: bool
 ## If FlagIsname is on, it will be added as the flag regardless of what is set in the flag
 @export var AddFlag: bool = false
-
 @export_category("Player Control")
 ## When this event is triggered, the player won't have control
 @export var TakeControl: bool = true
 ## Return control after the event has finished
 @export var ReturnControl: bool = true
-
 @export_category("Result")
-
 @export_group("Play Event Sequence")
 ## Play an event sequence when the event is triggered
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var PlayEvent: bool = false
@@ -36,7 +32,6 @@ class_name EventTripwire
 @export var EventName: String
 ## Waits for the event to finish
 @export var AwaitEvent: bool = false
-
 @export_group("Show Textbox")
 ## Open a textbox when the event is triggered
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var ShowTextbox := false
@@ -45,17 +40,14 @@ class_name EventTripwire
 @export var TextNode: String
 ## Open the passive textbox instead of the normal one
 @export var Passive: bool = false
-
 @export_group("Start Battle")
 ## When entering this tripwire, start a battle immediatly
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var StartBattle := false
 @export var BattleSeq: BattleSequence
-
 @export_group("Pop Tutorial")
 ## Show a tutorial popup
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var PopTutorial := false
 @export var TutorialName: String
-
 @export_group("Alter Movment")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var AlterMovement := false
 ## While the event lasts, the player walks slower
@@ -65,7 +57,8 @@ class_name EventTripwire
 
 
 func _validate_property(property: Dictionary) -> void:
-	if not Engine.is_editor_hint(): return
+	if not Engine.is_editor_hint():
+		return
 
 	match property.name:
 		"TextFile":
@@ -77,13 +70,23 @@ func _validate_property(property: Dictionary) -> void:
 			property.hint_string = ",".join(files_filtered)
 
 
+func kick() -> void:
+	print("kick!")
+	Global.Player.look_to(KickDirection)
+	while Global.Player in get_overlapping_bodies():
+		await Global.Player.move_dir(KickDirection)
+
+
 func _on_body_entered(body: Node2D) -> void:
-	if Flag.is_empty() and FlagIsName: Flag = name
+	if Flag.is_empty() and FlagIsName:
+		Flag = name
 	if (Event.f(Flag) == FlagShouldBe or Flag == "") and body == Global.Player and (not FlagIsName or !Event.check_flag(name)):
 		print("Tripwire: ", name)
 		if AddFlag:
-			if FlagIsName: Event.add_flag(name)
-			else: Event.add_flag(Flag)
+			if FlagIsName:
+				Event.add_flag(name)
+			else:
+				Event.add_flag(Flag)
 		if SlowDown:
 			await Event.take_control()
 			Event.give_control(true)
@@ -93,7 +96,8 @@ func _on_body_entered(body: Node2D) -> void:
 		if not TutorialName.is_empty():
 			Event.pop_tutorial(TutorialName)
 
-		if TakeControl: await Event.take_control(false, true, true)
+		if TakeControl:
+			await Event.take_control(false, true, true)
 
 		if KickDirection != Vector2.ZERO:
 			kick()
@@ -109,15 +113,10 @@ func _on_body_entered(body: Node2D) -> void:
 				await Global.passive(TextFile, TextNode)
 			else:
 				await Global.textbox(TextFile, TextNode)
-		elif BattleSeq != null: Loader.start_battle(BattleSeq)
+		elif BattleSeq != null:
+			Loader.start_battle(BattleSeq)
 		if SlowDown:
 			Global.Player.speed = Global.Player.walk_speed
 			Global.Player.can_dash = true
-		if ReturnControl: Event.give_control(true)
-
-
-func kick() -> void:
-	print("kick!")
-	Global.Player.look_to(KickDirection)
-	while Global.Player in get_overlapping_bodies():
-		await Global.Player.move_dir(KickDirection)
+		if ReturnControl:
+			Event.give_control(true)

@@ -11,7 +11,6 @@ extends Area2D
 			if coll is CollisionShape2D:
 				coll.shape = coll.shape.duplicate()
 				coll.shape.size = x * 24
-
 ## Directions where jumping is allowed in Vector2
 @export var jump_dirs: Array[Vector2]
 ## Number of tiles to jump (24px)
@@ -29,13 +28,13 @@ extends Area2D
 ## If not 0, change the player's layers
 @export_flags_2d_physics var to_layers := 0
 
-@onready var target: TextureRect = $Target
-@onready var timer: Timer = $Timer
-
 var busy: bool = false
 var waves: Array[TextureRect]
 ## 1: Horizontal, 2: Vertical
 var dir_mode: int = -1
+
+@onready var target: TextureRect = $Target
+@onready var timer: Timer = $Timer
 
 
 func _ready() -> void:
@@ -45,15 +44,20 @@ func _ready() -> void:
 
 	for i in jump_dirs:
 		if dir_mode == -1:
-			if i.x == 0: dir_mode = 2
-			elif i.y == 0: dir_mode = 1
+			if i.x == 0:
+				dir_mode = 2
+			elif i.y == 0:
+				dir_mode = 1
 		else:
-			if i.x == 0 and dir_mode == 1: dir_mode = 0
-			elif i.y == 0 and dir_mode == 2: dir_mode = 0
+			if i.x == 0 and dir_mode == 1:
+				dir_mode = 0
+			elif i.y == 0 and dir_mode == 2:
+				dir_mode = 0
 
 
 func _physics_process(delta: float) -> void:
-	if busy: return
+	if busy:
+		return
 	for body in get_overlapping_bodies():
 		if body == Global.Player:
 			if jump_dirs.is_empty():
@@ -64,8 +68,10 @@ func _physics_process(delta: float) -> void:
 			var player_face := Global.Player.Facing
 
 			var local_player_pos := to_local(body.position)
-			if dir_mode == 1: local_player_pos.y = 0
-			elif dir_mode == 2: local_player_pos.x = 0
+			if dir_mode == 1:
+				local_player_pos.y = 0
+			elif dir_mode == 2:
+				local_player_pos.x = 0
 
 			var player_side := Query.get_direction(local_player_pos)
 			var can_jump := false
@@ -80,8 +86,8 @@ func _physics_process(delta: float) -> void:
 
 			if Global.Player.dashing and Global.Controllable:
 				if (
-					Global.Player.dashdir in jump_dirs and
-					Global.Player.dashdir == player_side * -1
+						Global.Player.dashdir in jump_dirs and
+						Global.Player.dashdir == player_side * -1
 				):
 					busy = true
 
@@ -149,12 +155,6 @@ func get_target_coords(face := Global.Player.Facing) -> Vector2:
 	return coord
 
 
-func _on_timer_timeout() -> void:
-	if self in Global.Player.jump_points and Global.Controllable:
-		var pos: Vector2 = to_local(get_target_coords())
-		jump_target_effect(pos)
-
-
 func jump_target_effect(pos: Vector2) -> void:
 	var dub := target.duplicate()
 	pos -= dub.get_combined_pivot_offset()
@@ -172,16 +172,23 @@ func jump_target_effect(pos: Vector2) -> void:
 		dub.queue_free()
 
 
-func _on_body_exited(body: Node2D) -> void:
-	if body == Global.Player:
-		Global.Player.jump_points.erase(self)
-		timer.stop()
-
-
 func wave_go_away(wave: TextureRect) -> void:
-	if not is_instance_valid(wave): return
+	if not is_instance_valid(wave):
+		return
 	var t := create_tween()
 	t.tween_property(wave, "modulate:a", 0, 0.2)
 	await t.finished
 	if is_instance_valid(wave):
 		wave.queue_free()
+
+
+func _on_timer_timeout() -> void:
+	if self in Global.Player.jump_points and Global.Controllable:
+		var pos: Vector2 = to_local(get_target_coords())
+		jump_target_effect(pos)
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if body == Global.Player:
+		Global.Player.jump_points.erase(self)
+		timer.stop()
