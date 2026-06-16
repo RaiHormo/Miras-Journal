@@ -122,7 +122,7 @@ func appear() -> void:
 	$Pack.show()
 	$Pack/AnimationPlayer.play("Appear")
 	await Event.wait(0.2)
-	if not Global.Player.has_node("DirectionMarker/Finder") in $AreaPrompt.get_overlapping_areas():
+	if not Global.Player.get_node("DirectionMarker/Finder") in $AreaPrompt.get_overlapping_areas():
 		disappear()
 		return
 	$Pack/AnimationPlayer.play("Idle")

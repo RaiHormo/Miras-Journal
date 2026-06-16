@@ -116,7 +116,9 @@ func default() -> void:
 
 
 func handle_z(z := -1) -> void:
+	if not is_instance_valid(Global.Player): return
 	if z == -1: z = SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
+	
 	Global.Player.z_index = z
 	for i in get_children():
 		if i is Stair and i not in Stairs:
@@ -169,7 +171,11 @@ func _physics_process(delta: float) -> void:
 
 
 func go_to_subroom(subroom: String, fast := false) -> Vector2:
-	for i in get_children():
+	var search_nodes := get_children()
+	if has_node(^"Transfers"):
+		search_nodes.append_array(get_node(^"Transfers").get_children())
+		
+	for i in search_nodes:
 		if not is_instance_valid(i): continue
 		if i is SubRoom and i.name == subroom:
 			await i.transition(0)

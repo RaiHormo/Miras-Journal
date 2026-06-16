@@ -1,3 +1,4 @@
+@icon("res://art/Icons/Enemies/Object.png")
 extends Node2D
 class_name SubRoom
 

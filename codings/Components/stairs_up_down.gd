@@ -1,3 +1,4 @@
+@icon("res://art/Icons/Editor/stairs.png")
 extends Area2D
 class_name Stair
 

@@ -384,7 +384,10 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 func reset_settings() -> void:
 	Settings = Setting.new()
 	customize_default_settings()
-	ResourceSaver.save(Settings, "user://Settings.res")
+	var error: Error = ResourceSaver.save(Settings, "user://Settings.res")
+	if error != OK:
+		printerr(error_string(error))
+		#OS.alert("Cannot write to save data directory: "+error_string(error))
 
 
 func customize_default_settings() -> void:

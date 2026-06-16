@@ -1,4 +1,6 @@
+@icon("res://art/Icons/Editor/door.png")
 extends Area2D
+class_name OpenDoor
 
 @export var ToSubarea: SubRoom = null
 
