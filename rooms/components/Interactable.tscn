@@ -6,7 +6,7 @@
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_ipu4p"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_je23j"]
 [ext_resource type="Texture2D" uid="uid://f4g4drrcns48" path="res://UI/MenuTextures/dots.svg" id="6_t8kem"]
-[ext_resource type="Texture2D" uid="uid://be71ghcuespbb" path="res://art/Icons/Editor/Interactable.png" id="7_tykot"]
+[ext_resource type="Texture2D" uid="uid://ndx57y4ut1s2" path="res://art/Icons/Editor/interactable.png" id="7_tykot"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="8_ibccg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]

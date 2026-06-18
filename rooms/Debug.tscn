@@ -311,6 +311,7 @@ script = ExtResource("5_00dms")
 Name = "Debug room"
 
 [node name="Labels" type="Control" parent="." unique_id=797296850]
+modulate = Color(1, 1, 1, 0.32941177)
 light_mask = 0
 z_index = 2
 layout_mode = 3
@@ -657,9 +658,10 @@ Height = 16
 
 [node name="EvKick" parent="." unique_id=1509469914 instance=ExtResource("16_35d7e")]
 position = Vector2(-191, 60)
+TriggerSize = Vector2i(50, 50)
+Flag = "HasBag"
 TextFile = "interactions"
 TextNode = "kick_debug"
-Flag = "HasBag"
 KickDirection = Vector2(1, 0)
 
 [node name="InteractBush" parent="." unique_id=1801924940 instance=ExtResource("6_pmuyc")]
