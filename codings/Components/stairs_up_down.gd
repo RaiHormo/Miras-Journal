@@ -25,14 +25,14 @@ func go(dir: Vector2) -> void:
 	if Swap: dir *= -1
 	if left_right_mode:
 		dir.y = 0
-		dir = Query.get_direction(dir)
+		dir = Direction.snap_vector(dir)
 		if dir == Vector2.RIGHT:
 			go_up()
 		elif dir == Vector2.LEFT:
 			go_down()
 	else:
 		dir.x = 0
-		dir = Query.get_direction(dir)
+		dir = Direction.snap_vector(dir)
 		if dir == Vector2.UP:
 			go_up()
 		elif dir == Vector2.DOWN:

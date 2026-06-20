@@ -12,7 +12,7 @@ extends Area2D
 				coll.shape = coll.shape.duplicate()
 				coll.shape.size = x
 
-@export var Direction: Vector2
+@export var direction: Vector2
 @export var lock_camera := true
 
 @export_category("Transfer To")
@@ -50,7 +50,7 @@ func proceed() -> void:
 	Global.Player.camera_follow(false)
 	await Event.take_control(true, true)
 	Global.Player.collision(false)
-	Global.Player.move_dir(Direction * 48, false)
+	Global.Player.move_dir(direction * 48, false)
 	Global.Player.sprite.frame = frame
 	#print(name, " to ", room, " with camera index ", ToCamera)
 
@@ -68,6 +68,6 @@ func _on_preview_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body == Global.Player and Query.get_direction(to_local(body.position)) == Direction:
-		body.position = position - Direction * 48
+	if body == Global.Player and Direction.snap_vector(to_local(body.position)) == direction:
+		body.position = position - direction * 48
 		_on_entered(body)

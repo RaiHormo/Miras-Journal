@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 				return
 
 			# Add this object to the player's jump_points
-			var player_face := Global.Player.Facing
+			var player_face := Global.Player.Facing.vector
 
 			var local_player_pos := to_local(body.position)
 			if dir_mode == 1:
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			elif dir_mode == 2:
 				local_player_pos.x = 0
 
-			var player_side := Query.get_direction(local_player_pos)
+			var player_side := Direction.snap_vector(local_player_pos)
 			var can_jump := false
 			for dir in jump_dirs:
 				if player_face == dir and dir == -player_side:
@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 					if player_face.y == 0:
 						coord.y -= 8
 
-					Global.Player.set_anim("Dash" + Query.get_dir_name(Global.Player.dashdir) + "Loop")
+					Global.Player.set_anim("Dash" + Direction.get_name_from_vector(Global.Player.dashdir) + "Loop")
 					Global.Player.sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)
 
@@ -142,7 +142,7 @@ func _physics_process(delta: float) -> void:
 				timer.stop()
 
 
-func get_target_coords(face := Global.Player.Facing) -> Vector2:
+func get_target_coords(face := Global.Player.Facing.vector) -> Vector2:
 	var coord: Vector2
 	if RelativePositions:
 		coord = Global.Player.position + face * 24

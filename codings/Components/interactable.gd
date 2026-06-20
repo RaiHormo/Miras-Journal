@@ -298,7 +298,7 @@ func do_position() -> void:
 	if Loader.InBattle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
-	var dir := Query.get_direction(to_local(Global.Player.position + Vector2(0, Height - offset)))
+	var dir := Direction.snap_vector(to_local(Global.Player.position + Vector2(0, Height - offset)))
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
 		Vector2.UP:
@@ -346,7 +346,7 @@ func _on_button_pressed() -> void:
 	if get_tree().root.has_node("Options"):
 		get_tree().root.get_node("Options").queue_free()
 	if proper_face == Vector2.ZERO:
-		Global.Player.look_to(Query.get_direction(to_local(Global.Player.position) * -1))
+		Global.Player.look_to(Direction.snap_vector(to_local(Global.Player.position) * -1))
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
@@ -408,7 +408,7 @@ func _on_button_pressed() -> void:
 			await Global.textbox(dialogue_file, "rank" + str(rank) + "_prepare")
 		"chair":
 			await Event.take_control()
-			var face := Query.get_direction()
+			var face := Direction.snap_vector()
 			if not chair_faces.is_empty() and not Query.get_dir_letter() in chair_faces:
 				face = Query.get_dir_from_letter(chair_faces[0])
 			var pos := Global.Player.position
@@ -425,7 +425,7 @@ func _on_button_pressed() -> void:
 			if sound != null:
 				sound.pitch_scale = 0.8
 				sound.play()
-			Global.Player.look_to(Query.get_direction(to_local(pos)))
+			Global.Player.look_to(Direction.snap_vector(to_local(pos)))
 			await Global.jump_to_global(Global.Player, pos)
 	if add_flag:
 		if hide_on_flag != "":

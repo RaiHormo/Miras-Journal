@@ -382,7 +382,7 @@ func sequence_exists(title: String) -> bool:
 	return false
 
 
-func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), no_collision := true) -> NPC:
+func spawn(id: String, pos: Vector2i, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_collision := true) -> NPC:
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var sprite_node := AnimatedSprite2D.new()
 	chara.SpawnOnCameraInd = false
@@ -406,11 +406,13 @@ func spawn(id: String, pos: Vector2i, dir := "D", z: int = Global.Area.get_z(), 
 		Global.Area.CurSubRoom.add_child.call_deferred(chara)
 		chara.position -= Global.Area.CurSubRoom.position
 	print_rich("[color=purple]Spawned: ", chara.ID)
-	if dir.length() > 1:
-		chara.BodyState = NPC.CUSTOM
-		chara.set_anim(dir)
-	else:
-		await chara.look_to(Query.get_dir_from_letter(dir))
+	if animation is Direction:
+		await chara.look_to(animation)
+	elif animation is String:
+		if animation.length() == 1:
+			await chara.look_to(Direction.from_letter(animation))
+		else:
+			chara.set_anim(animation)
 	return chara
 
 

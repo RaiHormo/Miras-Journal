@@ -36,7 +36,7 @@ func new_game() -> void:
 
 	# Now start the transition
 	Loader.white_fadeout(7, 1, 0, 1)
-	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, "none", false)
+	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, null, false)
 	get_tree().paused = false
 	await Global.area_initialized
 	# Skip intro shortcut
@@ -115,7 +115,7 @@ func axe_seq() -> void:
 
 func first_battle() -> void:
 	Global.Player.move_dir(Vector2.RIGHT * 2)
-	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, -1, "R", false)
+	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, -1, Direction.RIGHT, false)
 	await Event.wait(0.2)
 	Loader.gray_out(1)
 	await Event.wait(0.5)
@@ -280,7 +280,7 @@ func AlcineFollow4() -> void:
 	await Global.textbox("story_0", "got_through_that")
 	await Global.alcine_naming()
 	await Global.textbox("story_0", "use_name")
-	await Loader.transition("R")
+	await Loader.transition(Direction.RIGHT)
 	Event.flag_progress("AlcineFollow", 4)
 	Alcine.hide()
 	Global.get_cam().zoom = Vector2(4, 4)
@@ -299,7 +299,7 @@ func AlcineFollow4() -> void:
 
 func enter_amberelm() -> void:
 	Global.Player.move_dir(Vector2(0, -2))
-	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, "U", false)
+	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, Direction.UP, false)
 	var mira: NPC = Global.Area.get_node("EvEntranceCutscene/MiraCut")
 	var alcine: NPC = Global.Area.get_node("EvEntranceCutscene/AlcineCut")
 	mira.speed = 50
@@ -320,7 +320,7 @@ func enter_amberelm() -> void:
 	mira.move_dir(Vector2.UP * 5)
 	alcine.chain_moves([Vector2.RIGHT, Vector2.UP * 5])
 	await Event.wait(0.8)
-	Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, "U")
+	Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, Direction.UP)
 	Event.add_flag("EnterAmberelm")
 
 
@@ -342,7 +342,7 @@ func enter_amberelm_2() -> void:
 	Global.Area.Followers[0].position = Global.Player.position + Vector2(0, 24)
 	Loader.ungray.emit()
 	await Global.textbox(name, "what_happened_here")
-	await Loader.transition("R")
+	await Loader.transition(Direction.RIGHT)
 	Global.Player.position = Vector2(150, 345)
 	Loader.detransition()
 	Event.give_control(true)
@@ -357,8 +357,8 @@ func rest_amberelm() -> void:
 		Global.check_party.emit()
 		get_tree().paused = false
 		Global.Area.Followers[0].hide()
-		var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), "D", true, 8)
-		var alcine: NPC = await Event.spawn("Alcine", Vector2(100, 340), "D", true, 8)
+		var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), Direction.DOWN, true, 8)
+		var alcine: NPC = await Event.spawn("Alcine", Vector2(100, 340), Direction.DOWN, true, 8)
 		mira.BodyState = NPC.NONE
 		alcine.BodyState = NPC.NONE
 		mira.set_anim("SitDown")
@@ -368,7 +368,7 @@ func rest_amberelm() -> void:
 		Global.get_cam().position = Vector2(85, 360)
 		await Event.wait(1)
 		await Global.textbox(name, "rest_amberelm", true)
-		await Loader.transition("")
+		await Loader.transition(Direction.CENTER)
 		await Event.wait(1)
 		Global.heal_party()
 		Event.ToDay = 0
@@ -381,7 +381,7 @@ func rest_amberelm() -> void:
 func oct0_daytime() -> void:
 	Event.no_player()
 	await Loader.detransition()
-	await Loader.transition("R")
+	await Loader.transition(Direction.RIGHT)
 	Global.get_cam().zoom = Vector2(4, 4)
 	var mira: NPC = Event.npc("Mira")
 	var alcine: NPC = Event.npc("Alcine")
@@ -417,8 +417,8 @@ func oct0_night() -> void:
 	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
 	await Event.no_player()
 	#Loader.detransition()
-	await Event.spawn("Mira", Vector2(770, -211), "L")
-	await Event.spawn("Daze", Vector2(670, -211), "R")
+	await Event.spawn("Mira", Vector2(770, -211), Direction.LEFT)
+	await Event.spawn("Daze", Vector2(670, -211), Direction.RIGHT)
 	await Global.textbox(name, "daze_introduction")
 	Item.remove_item("LightweightAxe", &"Key")
 	Event.add_flag("DisableVeinet")

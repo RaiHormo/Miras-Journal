@@ -98,7 +98,7 @@ func extended_process() -> void:
 				Nav.set_target_position(Global.Player.position)
 				if tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.start(2)
-			if Query.get_direction(to_local(Nav.get_next_path_position())) != -Query.get_direction(direction):
+			if Direction.snap_vector(to_local(Nav.get_next_path_position())) != -Direction.snap_vector(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
 			if not Loader.InBattle:
@@ -139,7 +139,7 @@ func attacked() -> void:
 		return
 	BodyState = NONE
 	set_anim("Hit")
-	var to_pos := position + Query.get_direction() * 12
+	var to_pos := position + Direction.snap_vector() * 12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
@@ -163,9 +163,9 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
 		Loader.Attacker = self
-		look_to(Query.get_direction(to_local(Global.Player.global_position)))
+		look_to(Direction.snap_vector(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
-		look_to(Query.get_direction(to_local(Global.Player.global_position)))
+		look_to(Direction.snap_vector(to_local(Global.Player.global_position)))
 		speed = chase_speed
 		set_dir_marker(to_local(Global.Player.global_position))
 		await Event.wait()
@@ -183,10 +183,10 @@ func _on_catch_area_body_entered(body: Node2D) -> void:
 		$EnemyStrike.disappear()
 		Global.Player.winding_attack = false
 		await Event.take_control(false, false, false)
-		Global.Player.dashdir = Query.get_direction(Global.Player.to_local(global_position))
+		Global.Player.dashdir = Direction.snap_vector(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		Facing = Query.get_direction(to_local(Global.PlayerPos))
+		Facing = Direction.snap_vector(to_local(Global.PlayerPos))
 		Global.intro_effect(Global.Player)
 		begin_battle(2)
 

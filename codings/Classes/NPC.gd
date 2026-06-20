@@ -10,7 +10,7 @@ enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 ##Used to control the direction of the next movment
 @export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
-@export var Facing: Vector2 = Vector2.ZERO
+@export var Facing: Direction = Direction.CENTER
 ##0: Idle, Not moving[br]
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
@@ -111,7 +111,7 @@ func _physics_process(delta: float) -> void:
 		var dir_marker: Marker2D = get_node_or_null("DirectionMarker")
 		if dir_marker:
 			set_dir_marker(direction, dir_marker)
-		if direction.length() > 0.05: Facing = Query.get_direction(direction)
+		if direction.length() > 0.05: Facing.vector = direction
 	update_anim_prm()
 
 
@@ -128,15 +128,15 @@ func update_anim_prm() -> void:
 	if Footsteps: handle_step_sounds(sprite)
 	if BodyState == IDLE and not sprite.is_playing(): sprite.play()
 	if BodyState == CUSTOM: return
-	if Facing == Vector2.ZERO: return
+	if Facing.vector == Vector2.ZERO: return
 	if RealVelocity.length() > minimum_movment:
 		#BodyState = MOVE
-		if str("Walk" + Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Walk" + Query.get_dir_name(Facing)))
+		if str("Walk" + Facing.get_name()) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Walk" + Facing.get_name()))
 	else:
 		#BodyState = IDLE
-		if str("Idle" + Query.get_dir_name(Facing)) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Idle" + Query.get_dir_name(Facing)))
+		if str("Idle" + Facing.get_name()) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Idle" + Facing.get_name()))
 
 
 func handle_step_sounds(for_sprite: AnimatedSprite2D) -> void:
@@ -172,19 +172,21 @@ func get_tile(layer: int) -> TileData:
 
 
 func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
-	if dir is String: dir = Query.get_dir_from_letter(dir)
+	if dir is String: dir = Direction.from_letter(dir)
+	if dir is Direction: dir = dir.vector
 	if use_coords: await go_to(coords + dir, use_coords, autostop)
 	else: await go_to(position + dir, use_coords, autostop)
 
 
 func look_to(dir: Variant) -> void:
-	if dir is String: dir = Query.get_dir_from_letter(dir)
+	if dir is String: dir = Direction.from_letter(dir)
+	if dir is Direction: dir = dir.vector
 	BodyState = MOVE
-	Facing = dir
+	Facing.vector = dir
 	direction = dir
 	await Event.wait()
 	BodyState = IDLE
-	Facing = dir
+	Facing.vector = dir
 
 
 func pathfind_to(pos: Vector2, exact := true, autostop := true, look_dir: Vector2 = Vector2.ZERO) -> void:
@@ -262,7 +264,7 @@ func _input(event: InputEvent) -> void:
 
 
 func wall_in_front() -> bool:
-	if is_on_wall() and Query.get_direction(get_wall_normal()) == Query.get_direction(): return true
+	if is_on_wall() and Direction.from(get_wall_normal()).equals(Facing): return true
 	else: return false
 
 

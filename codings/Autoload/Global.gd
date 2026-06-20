@@ -9,12 +9,6 @@ var Members: Array[Actor]
 var Bt: Battle = null
 var PortraitIMG: Texture
 var Player: Mira
-var PlayerDir: Vector2:
-	get:
-		if is_instance_valid(Player):
-			return Player.Facing
-		else: return Vector2.RIGHT
-var PlayerPos: Vector2
 var Area: Room
 var Camera: Camera2D:
 	get:
@@ -82,7 +76,7 @@ func quit(save_first := true) -> void:
 		elif is_instance_valid(Area):
 			if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
 				return
-		await Loader.transition("")
+		await Loader.transition(Direction.CENTER)
 		if Engine.has_singleton("Steam") and UsingSteam:
 			Steam.steamShutdown()
 		Global.save_settings()

@@ -9,7 +9,6 @@ var player_jumped := false
 
 @export var member: int
 @export var distance: int = 30
-#@onready var nav_agent = $NavigationAgent2D as NavigationAgent2D
 @export var dont_follow := false:
 	set(x):
 		dont_follow = x
@@ -24,8 +23,8 @@ func default() -> void:
 	hide()
 	Global.check_party.connect(update)
 	await Event.wait()
-	oposite = (Query.get_direction() * Vector2(-1, -1)) * 150
-	set_anim("Idle" + Query.get_dir_name())
+	oposite = (Global.Player.Facing.vector * Vector2(-1, -1)) * 150
+	set_anim("Idle" + Global.Player.Facing.get_name())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()
@@ -82,7 +81,7 @@ func control_process() -> void:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
 				update_anim_prm()
-				oposite = (Query.get_direction() * Vector2(-1, -1))
+				oposite = (Global.Player.Facing.vector * Vector2(-1, -1))
 				velocity = oposite * 150
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
@@ -97,50 +96,6 @@ func control_process() -> void:
 			moving = false
 	else:
 		hide()
-		#$CollisionShape2D.disabled = true
-
-#func makepath() -> void:
-	#target = Global.Player.position + (Global.PlayerDir.rotated(PI/2)*offset)
-	#nav_agent.set_target_position(target)
-	#if not nav_agent.is_target_reachable():
-		#nav_agent.set_target_position(Global.Player.position)
-
-#func update_anim_prm() -> void:
-	#if not Query.check_member(member): return
-	#if sprite.sprite_frames.resource_path != member_info().OV:
-		#sprite.sprite_frames = await member_info().get_OV()
-	#if sprite.animation != "default":
-		#if member_info().Shadow:
-			#sprite.get_node("Shadow").position.y = sprite.sprite_frames.get_frame_texture(sprite.animation, 0).get_size().y - 32 - member_info().ShadowOffset
-			##print(sprite/Shadow.position.y)
-			#sprite.get_node("Shadow").show()
-		#else: sprite.get_node("Shadow").hide()
-	#if RealVelocity.x == RealVelocity.y:
-		#pass
-	#elif not moving:
-		#if Global.Player.move_frames < randi_range(-100, -2000):
-			#dir = Query.get_direction(to_local(Global.Player.position))
-		#if RealVelocity.length() == 0:
-			#position = round(position)
-		#if dir == Vector2.RIGHT:
-			#sprite.play("IdleRight")
-		#elif dir == Vector2.LEFT:
-			#sprite.play("IdleLeft")
-		#elif dir == Vector2.UP:
-			#sprite.play("IdleUp")
-		#elif dir == Vector2.DOWN:
-			#sprite.play("IdleDown")
-	#else:
-		#dir = Query.get_direction(RealVelocity)
-		#if dir == Vector2.RIGHT:
-			#sprite.play("WalkRight")
-		#elif dir == Vector2.LEFT:
-			#sprite.play("WalkLeft")
-		#elif dir == Vector2.UP:
-			#sprite.play("WalkUp")
-		#elif dir == Vector2.DOWN:
-			#sprite.play("WalkDown")
-
 
 func jump_to_player(_speed := 2) -> void:
 	if not is_instance_valid(Global.Player): return
@@ -164,7 +119,7 @@ func member_info() -> Actor:
 
 
 func attacked() -> void:
-	Global.jump_to(self, position - Vector2(Query.get_direction() * 24), 5, 0.5)
+	Global.jump_to(self, position - Vector2(Global.Player.Facing.vector * 24), 5, 0.5)
 
 
 func update() -> void:

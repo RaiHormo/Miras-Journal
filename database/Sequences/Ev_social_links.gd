@@ -4,10 +4,10 @@ extends Node
 func sl_maple_1() -> void:
 	await Loader.travel_to("Pyrson", Vector2(362, 778), 0, -1, "wait")
 	Event.no_player()
-	await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), "R")
-	await Event.spawn("Maple", Vector2(350, 778), "L")
+	await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), Direction.RIGHT)
+	await Event.spawn("Maple", Vector2(350, 778), Direction.LEFT)
 	Event.zoom(5)
-	Loader.detransition("")
+	Loader.detransition()
 	await Event.wait(1)
 	await Global.textbox("sl_maple", "rank1_1")
 	Event.progress_by_time(1)
@@ -17,11 +17,11 @@ func sl_maple_1() -> void:
 func sl_asteria_1() -> void:
 	await Loader.travel_to("Pyrson", Vector2(490, 680), 0, -1, "wait")
 	Event.no_player()
-	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(506, 680), "R")
+	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(506, 680), Direction.RIGHT)
 	var asteria: NPC = Event.npc("AsteriaPlaza")
 	asteria.position = Vector2(506, 640)
-	asteria.look_to("R")
-	await Loader.detransition("")
+	asteria.look_to(Direction.RIGHT)
+	await Loader.detransition()
 	mira.BodyState = NPC.CUSTOM
 	mira.set_anim("SitRight")
 	asteria.set_anim("IdleRight")

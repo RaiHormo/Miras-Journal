@@ -2,18 +2,7 @@ extends Node
 class_name Query
 
 
-static func get_direction(v: Vector2 = Global.PlayerDir, allow_zero := false) -> Vector2:
-	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
-	if abs(v.x) > abs(v.y):
-		if v.x > 0:
-			return Vector2.RIGHT
-		else:
-			return Vector2.LEFT
-	else:
-		if v.y > 0:
-			return Vector2.DOWN
-		else:
-			return Vector2.UP
+
 
 
 static func str_length(string: String) -> int:
@@ -64,33 +53,6 @@ static func get_date_day(day: int) -> String:
 	return str(wrapi(day, 1, 32))
 
 
-static func get_dir_letter(d: Vector2 = Global.PlayerDir) -> String:
-	match get_direction(d):
-		Vector2.RIGHT:
-			return "R"
-		Vector2.LEFT:
-			return "L"
-		Vector2.UP:
-			return "U"
-		Vector2.DOWN:
-			return "D"
-		_: return "C"
-
-
-static func get_dir_from_letter(d: String) -> Vector2:
-	match d:
-		"R", "Right":
-			return Vector2.RIGHT
-		"L", "Left":
-			return Vector2.LEFT
-		"U", "Up":
-			return Vector2.UP
-		"D", "Down":
-			return Vector2.DOWN
-		_:
-			return Vector2.ZERO
-
-
 static func tilemapize(pos: Vector2) -> Vector2:
 	return Global.Area.local_to_map(pos)
 
@@ -101,18 +63,6 @@ static func globalize(coords: Vector2i) -> Vector2:
 
 static func get_state(stat: StringName) -> State:
 	return await Loader.load_res("res://database/States/" + stat + ".tres")
-
-
-static func get_dir_name(d: Vector2 = Global.PlayerDir) -> String:
-	if get_direction(d) == Vector2.RIGHT:
-		return "Right"
-	elif get_direction(d) == Vector2.LEFT:
-		return "Left"
-	elif get_direction(d) == Vector2.UP:
-		return "Up"
-	elif get_direction(d) == Vector2.DOWN:
-		return "Down"
-	else: return "Center"
 
 
 static func in_360(nm: int) -> int:

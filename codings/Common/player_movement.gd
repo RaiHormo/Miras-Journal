@@ -56,7 +56,7 @@ func _ready() -> void:
 				if "Camera" in i.name: i.enabled = false
 			$Camera2D.remote_path = cam.get_path()
 			cam.enabled = true
-	set_anim("Idle" + str(Query.get_dir_name(Query.get_direction())))
+	set_anim("Idle" + Facing.get_name())
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	local_controllable = true
@@ -72,8 +72,8 @@ func extended_process() -> void:
 		if RealVelocity.length() > 350:
 			path.curve.clear_points()
 		if path.curve.point_count < 2:
-			path.curve.add_point(position - Facing)
-			path.curve.add_point(position - Facing * 2)
+			path.curve.add_point(position - Facing.vector)
+			path.curve.add_point(position - Facing.vector * 2)
 		path.curve.set_point_position(path.curve.point_count - 1, position)
 		if (path.curve.get_point_position(path.curve.point_count - 1) - path.curve.get_point_position(path.curve.point_count - 2)).length() > 24:
 			path.curve.add_point(position.round())
@@ -98,7 +98,7 @@ func control_process() -> void:
 	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
 	undashable = false
 	if is_on_wall():
-		if round(get_wall_normal()) * -1 == Query.get_direction(direction):
+		if round(get_wall_normal()) * -1 == Direction.snap_vector(direction):
 			if not jump_points.is_empty() and Input.is_action_pressed("Dash"):
 				position -= direction * 6
 			else:
@@ -106,8 +106,10 @@ func control_process() -> void:
 	if controllable():
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
-		if ((Input.is_action_pressed("Dash")) and Query.get_direction(
-			direction) != dashdir * Vector2(-1, -1) and direction != Vector2.ZERO and can_dash
+		if (
+			(Input.is_action_pressed("Dash")) and 
+			not Direction.from(direction).is_vector(dashdir * Vector2(-1, -1)) 
+			and direction != Vector2.ZERO and can_dash
 		):
 			if dashing:
 				if dashdir.y == 0:
@@ -118,11 +120,11 @@ func control_process() -> void:
 			if not dashing:
 				if undashable:
 					reset_speed()
-					await set_anim("Deny" + Query.get_dir_name(Global.PlayerDir), true)
+					await set_anim("Deny" + Facing.get_name(), true)
 					set_anim()
 					return
 				else:
-					dashdir = Query.get_direction(direction)
+					dashdir = Direction.snap_vector(direction)
 					dashing = true
 					local_controllable = false
 					BodyState = CUSTOM
@@ -132,13 +134,10 @@ func control_process() -> void:
 						local_controllable = true
 					if speed < dash_speed:
 						speed = dash_speed
-			elif Query.get_direction(direction.normalized()) != dashdir:
+			elif Direction.snap_vector(direction.normalized()) != dashdir:
 				stop_dash()
 		elif dashing:
 			stop_dash()
-		if direction != Vector2.ZERO:
-			Global.PlayerDir = direction
-			Global.PlayerPos = global_position
 		if dashing:
 			velocity = ((dashdir + direction).normalized() * speed)
 		else:
@@ -161,18 +160,19 @@ func update_anim_prm() -> void:
 	if get_node_or_null("%Base") == null: return
 	if Footsteps: handle_step_sounds(sprite)
 	if BodyState == CUSTOM: return
-	if Facing == Vector2.ZERO: return
+	if Facing.is_vector(Vector2.ZERO): return
 	if BodyState == CONTROLLED:
+		var dir_name := Facing.get_name()
 		if (abs(RealVelocity.length()) > 1 and controllable()):
 			if dashing:
 				reset_speed()
-				var dir_name := Query.get_dir_name(dashdir)
-				if has_anim("Dash" + dir_name + "Loop"):
-					set_anim("Dash" + dir_name + "Loop", false, false)
-				else: set_anim("Walk" + dir_name, false, false)
+				var dash_dir_name := Direction.from(dashdir).get_name()
+				if has_anim("Dash" + dash_dir_name + "Loop"):
+					set_anim("Dash" + dash_dir_name + "Loop", false, false)
+				else: set_anim("Walk" + dash_dir_name, false, false)
 			else:
 				speed = min(walk_speed, speed)
-				set_anim(str("Walk" + Query.get_dir_name(Facing)), false, false)
+				set_anim(str("Walk" + dir_name), false, false)
 				#for i in $Sprite.get_children():
 					#i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
 			if move_frames < 0:
@@ -183,27 +183,28 @@ func update_anim_prm() -> void:
 		("Dash" in sprite.animation and dashdir == Vector2.ZERO)):
 			move_frames = 0
 			reset_speed()
-			set_anim(str("Idle" + Query.get_dir_name(Facing)), false, false)
+			set_anim(str("Idle" + dir_name), false, false)
 		else:
 			move_frames -= 1
 		if direction.length() > RealVelocity.length() and dashing and jump_points.is_empty():
 			stop_dash()
 	else:
+		var dir_name := Facing.get_name()
 		if RealVelocity.length() > 1:
 			if dashing:
-				set_anim("Dash" + Query.get_dir_name(dashdir) + "Stop", false, false)
+				set_anim("Dash" + dir_name + "Stop", false, false)
 			else:
-				set_anim(str("Walk" + Query.get_dir_name(Facing)), false, false)
+				set_anim(str("Walk" + dir_name), false, false)
 		else:
 			if RealVelocity == Vector2.ZERO and not is_on_wall():
 				position = round(position)
-			set_anim(str("Idle" + Query.get_dir_name(Facing)), false, false)
+			set_anim(str("Idle" + dir_name), false, false)
 
 
 ##Item pickup animation
 func _on_pickup() -> void:
 	await Event.take_control(true, true)
-	if Query.get_direction() == Vector2.LEFT: await set_anim("PickUpLeft", true, true)
+	if Facing.equals(Direction.LEFT): await set_anim("PickUpLeft", true, true)
 	else: await set_anim("PickUpRight", true, true)
 	Event.give_control()
 	set_anim()
@@ -218,7 +219,7 @@ func _check_party() -> void:
 
 
 ##Sets the animation for all sprite layers
-func set_anim(anim: String = "Idle" + Query.get_dir_name(), wait := false, overwrite_bodystate := false) -> void:
+func set_anim(anim: String = "Idle" + Facing.get_name(), wait := false, overwrite_bodystate := false) -> void:
 	#print(anim)
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
@@ -311,13 +312,18 @@ func stop_dash(slide := true) -> void:
 	sprite.animation or midair or not dashing): return
 	dashing = false
 	reset_speed()
-	if (undashable and Query.get_direction() == dashdir) and move_frames > 5:
+	if (undashable and Direction.snap_vector(direction) == dashdir) and move_frames > 5:
 		speed = walk_speed
 		await bump()
 	else:
-		set_anim("Dash" + Query.get_dir_name(dashdir) + "Stop")
+		set_anim("Dash" + Direction.from(dashdir).get_name() + "Stop")
 		local_controllable = false
-		if Input.is_action_pressed("Dash") and Query.get_direction(direction) != dashdir and direction != Vector2.ZERO and not Query.get_direction(direction, true) == -dashdir:
+		if (
+			Input.is_action_pressed("Dash") and 
+			Direction.snap_vector(direction) != dashdir and 
+			direction != Vector2.ZERO and 
+			not Direction.snap_vector(direction) == -dashdir
+		):
 			await get_tree().create_timer(0.1).timeout
 		else:
 			speed = walk_speed
@@ -337,7 +343,7 @@ func stop_dash(slide := true) -> void:
 	move_frames = 0
 	speed = walk_speed
 	if "Stop" in sprite.animation or "Hit" in sprite.animation:
-		set_anim(str("Idle" + Query.get_dir_name()))
+		set_anim(str("Idle" + Direction.get_name_from_vector(dashdir)))
 
 
 func reset_speed() -> void:
@@ -347,13 +353,14 @@ func reset_speed() -> void:
 
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
-	if cant_bump or not has_anim("Dash" + Query.get_dir_name(dir) + "Hit"): return
+	var dir_name := Direction.get_name_from_vector(dir)
+	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
 	Global.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
 	if dir == Vector2.ZERO: dir = dashdir
 	Global.jump_to_global(self, global_position - dir * 15, 15, 0.5, false)
-	set_anim("Dash" + Query.get_dir_name(dashdir) + "Hit")
+	set_anim("Dash" + dir_name + "Hit")
 	var mem := local_controllable
 	local_controllable = false
 	if sprite.is_playing(): await sprite.animation_finished
@@ -384,22 +391,23 @@ func attack() -> void:
 	attacking = true
 	await Event.wait()
 	check_before_attack()
-	$Attack.rotation = Query.get_direction().angle()
+	var dir_name := Facing.get_name()
+	$Attack.rotation = Facing.angle()
 	if RealVelocity.length() > 1:
-		set_anim("Attack" + Query.get_dir_name() + "Walk")
+		set_anim("Attack" + dir_name + "Walk")
 		await Event.wait(0.4)
 	else:
-		await set_anim("Attack" + Query.get_dir_name() + "Windup", true)
+		await set_anim("Attack" + dir_name + "Windup", true)
 	winding_attack = true
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 		if direction != Vector2.ZERO and RealVelocity.length() > 0.1:
 			Global.PlayerDir = direction
-			var mation := "Attack" + Query.get_dir_name() + "Walk"
+			var mation := "Attack" + dir_name + "Walk"
 			if sprite.animation != mation:
 				set_anim(mation)
 		else:
-			var mation := "Attack" + Query.get_dir_name() + "Windup"
+			var mation := "Attack" + dir_name + "Windup"
 			sprite.animation = mation
 			sprite.frame = 1
 		check_before_attack()
@@ -430,9 +438,9 @@ func attack() -> void:
 			hits = false
 	#print("pt2: " + str(hits))
 	var audio := preload("res://sound/SFX/Swing.ogg")
-	var anim := "Attack" + Query.get_dir_name()
+	var anim := "Attack" + Facing.get_name()
 	if hits:
-		anim = "Attack" + Query.get_dir_name() + "Hit"
+		anim = "Attack" + Facing.get_name() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
 		Global.rumble(0.3, 0.3, 0.1, 0.1)
 	$Audio.stream = audio
@@ -450,7 +458,7 @@ func attack() -> void:
 
 
 func check_before_attack() -> void:
-	$Attack.rotation = Query.get_direction().angle()
+	$Attack.rotation = Facing.vector.angle()
 	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		if i is NPC or i is Follower:
 			i.attacked()
@@ -462,18 +470,18 @@ func dramatic_attack_pause() -> void:
 		BodyState = CUSTOM
 		#print(attacking)
 		if attacking:
-			set_anim("Attack" + Query.get_dir_name())
+			set_anim("Attack" + Facing.get_name())
 			pause_anim()
 			var timer := get_tree().create_timer(3)
 			while timer.time_left > 0:
 				sprite = %Base
 				hide_other_sprites()
-				%Base.animation = "Attack" + Query.get_dir_name()
+				%Base.animation = "Attack" + Facing.get_name()
 				%Base.frame = 1
 				await Event.wait()
 			set_anim()
 		else:
-			set_anim("Dash" + Query.get_dir_name() + "Hit")
+			set_anim("Dash" + Facing.get_name() + "Hit")
 			pause_anim()
 		await Event.wait()
 

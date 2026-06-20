@@ -11,7 +11,7 @@ func jump_playtest() -> void:
 
 func waste_time() -> void:
 	await Event.take_control()
-	await Loader.transition("")
+	await Loader.transition()
 	Event.progress_by_time(1)
 	await Event.time_transition()
 	Loader.detransition()

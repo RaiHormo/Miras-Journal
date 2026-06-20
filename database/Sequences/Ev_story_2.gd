@@ -29,7 +29,7 @@ func nov3_afternoon() -> void:
 	await Event.wait(2)
 	await Global.textbox(name, "nov3_afternoon", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
-	Global.Player.Facing = Vector2.RIGHT
+	Global.Player.look_to(Direction.RIGHT)
 
 
 func nov3_enterSG() -> void:

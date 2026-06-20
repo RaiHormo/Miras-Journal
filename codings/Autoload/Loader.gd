@@ -8,7 +8,7 @@ signal thread_loaded
 const SaveVersion = 7
 
 @export var scene: Array[String] = []
-@export var direc: String
+@export var direc: Direction
 
 var AreaSpawnPath: NodePath = "/root"
 var status: ResourceLoader.ThreadLoadStatus
@@ -117,7 +117,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	t = create_tween()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2).from(Vector2(1181, 900))
 	Icon.play("Load")
-	await transition("")
+	await transition(Direction.CENTER)
 	if get_tree().root.has_node("Initializer"):
 		get_tree().root.get_node("Initializer").queue_free()
 	if not validate_save(filepath):
@@ -170,7 +170,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		OS.alert("This save file doen't exist", "WHERE FILE")
 	if !data.RoomPath:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
-	travel_to(data.RoomPath, data.Position, data.Camera, data.Z, "")
+	travel_to(data.RoomPath, data.Position, data.Camera, data.Z, Direction.CENTER)
 	await Global.area_initialized
 	Item.load_inventory(data.Inventory)
 	PartyUI._check_party()
@@ -218,12 +218,13 @@ func load_res(path: String) -> Resource:
 	return ResourceLoader.load_threaded_get(path)
 
 
-func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans := Query.get_dir_letter()) -> void:
+func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans := Global.Player.Facing) -> void:
 	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
 
 
 ## Takes the player to a specific room. Use ";" to specify a subroom, a marker or a transfer point
-func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans := Query.get_dir_letter(), controllable := true) -> void:
+func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans: Variant = Global.Player.Facing, controllable := true) -> void:
+	if trans is String: trans = Direction.from_letter(trans)
 	direc = trans
 	##Pass Z < -1 for a shortcut to controllable
 	if z < -1:
@@ -269,7 +270,9 @@ func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z :
 
 func travel_done(controllable := false) -> void:
 	chased = false
-	var look_dir := Query.get_direction()
+	var look_dir: Direction = direc
+	if is_instance_valid(Global.Player):
+		look_dir = Global.Player.Facing
 	if Global.Area:
 		Global.Area.queue_free()
 	Event.List.clear()
@@ -298,7 +301,7 @@ func travel_done(controllable := false) -> void:
 		i.position = traveled_pos
 	if controllable:
 		await Global.Player.look_to(look_dir)
-	if direc != "wait" and direc != "none":
+	if direc != null:
 		detransition()
 	Global.get_cam().position_smoothing_enabled = true
 	if controllable:
@@ -308,8 +311,8 @@ func travel_done(controllable := false) -> void:
 		Event.give_control(false)
 
 
-func transition(dir := Query.get_dir_letter()) -> void:
-	if dir == "none":
+func transition(dir := Global.Player.Facing) -> void:
+	if dir == null:
 		return
 	else:
 		direc = dir
@@ -326,7 +329,7 @@ func transition(dir := Query.get_dir_letter()) -> void:
 	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()
 	if Icon.is_playing():
 		t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
-	match dir:
+	match dir.get_letter():
 		"U":
 			t.tween_property($Can/Bars/Down, "position", Vector2(-200, -200), 0.3)
 		"D":
@@ -341,7 +344,7 @@ func transition(dir := Query.get_dir_letter()) -> void:
 			t.tween_property($Can/Bars/Left, "position", Vector2(-200, -200), 0.3)
 			t.tween_property($Can/Bars/Right, "position", Vector2(-200, -200), 0.3)
 	await Event.wait(0.35, false)
-	match dir:
+	match dir.get_letter():
 		"U":
 			$Can/Bars/Up.position = Vector2(-200, -200)
 			$Can/Bars/Down.position = BAR_DOWN_POS
@@ -362,7 +365,7 @@ func transition(dir := Query.get_dir_letter()) -> void:
 
 
 func detransition(dir := direc) -> void:
-	if dir == "none":
+	if dir == null:
 		return
 	#Engine.time_scale = 0.1
 	if Global.Camera != null:
