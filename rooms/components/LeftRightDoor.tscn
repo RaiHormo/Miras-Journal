@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4qj3e07t5fsi"]
 
 [ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="1_3f8s0"]
-[ext_resource type="Texture2D" uid="uid://kf4doig02njb" path="res://art/Icons/Editor/door.png" id="2_8eypp"]
+[ext_resource type="Texture2D" uid="uid://wa72awy5ljsy" path="res://art/Icons/Editor/door.png" id="2_8eypp"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_g2wtr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6we5s"]

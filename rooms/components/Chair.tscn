@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_hupws"]
 [ext_resource type="Texture2D" uid="uid://f4g4drrcns48" path="res://UI/MenuTextures/dots.svg" id="6_2m81j"]
 [ext_resource type="AudioStream" uid="uid://dnuefrj84xyk6" path="res://sound/SFX/Jump.ogg" id="7_e1r3o"]
-[ext_resource type="Texture2D" uid="uid://bvysof3ou2elu" path="res://art/Icons/Editor/chair.png" id="8_ebl3n"]
+[ext_resource type="Texture2D" uid="uid://c4hrbd80f5i3k" path="res://art/Icons/Editor/chair.png" id="8_ebl3n"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="9_hupws"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbnbg"]

@@ -28,7 +28,7 @@ func _ready() -> void:
 	if foc is Button: foc.grab_focus()
 
 
-func focus_place(place: String = here):
+func focus_place(place: String = here) -> void:
 	if not inited:
 		here = place
 		Global.Player.camera_follow(false)
@@ -59,7 +59,7 @@ func focus_place(place: String = here):
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
 
-func focus_change(node: Control):
+func focus_change(node: Control) -> void:
 	if not inited: return
 	foc = node
 	for i in $Container/Scroller/LocationList.get_children():
@@ -71,12 +71,12 @@ func focus_change(node: Control):
 		if i is Button and i.name == here: i.icon = preload("res://UI/Map/here.png")
 
 
-func location_selected():
+func location_selected() -> void:
 	if not inited: return
 	inited = false
 
-	var progress_time = false
-	var prev_foc = foc
+	var progress_time := false
+	var prev_foc := foc
 	if foc.get_meta("IsDungeon", true) != Global.Area.IsDungeon and not Event.f("FreeTravelOnce"):
 		var message: String
 		if Global.Area.IsDungeon:
@@ -97,21 +97,21 @@ func location_selected():
 	Global.confirm_sound()
 	Event.remove_flag("FlameActive")
 	Event.remove_flag("FreeTravelOnce")
-	var map_point = $Map.get_node_or_null(str(foc.name))
+	var map_point := $Map.get_node_or_null(str(foc.name))
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
 	var t := create_tween()
 	t.set_parallel()
 	t.tween_property(Global.get_cam(), "zoom", Vector2(4, 4), 0.3)
 	t.tween_property(Global.get_cam(), "position", map_point.global_position, 0.3)
-	await Loader.transition("")
+	await Loader.transition(Direction.CENTER)
 	hide()
-	var room = foc.get_meta("Room")
+	var room: String = foc.get_meta("Room")
 	print("Veinet: Going to ", room)
 	if progress_time:
 		await Event.time_transition(room)
 	elif foc.name == here or not(foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
 		await Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), -1, "")
-	var VP = Global.Area.get_node_or_null("VP" + foc.name)
+	var VP := Global.Area.get_node_or_null("VP" + foc.name)
 	if VP == null: push_error("No such vain point exists: ", foc.name); return
 	Global.Player.global_position = VP.global_position + Vector2(0, 24)
 	Loader.save()

@@ -27,7 +27,7 @@ func retry() -> void:
 	await t.finished
 	$AnimationPlayer.play("Rewind")
 	await Event.wait(0.8)
-	await Loader.transition("none")
+	await Loader.transition(null)
 	await Loader.load_game()
 	queue_free()
 

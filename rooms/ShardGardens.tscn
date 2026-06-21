@@ -278,7 +278,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_31qpo")
 }],
-"loop": false,
+"loop": 0,
 "name": &"break",
 "speed": 5.0
 }, {
@@ -286,7 +286,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bt4g3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }]
@@ -311,7 +311,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kd1sn")
 }],
-"loop": true,
+"loop": 1,
 "name": &"break",
 "speed": 5.0
 }, {
@@ -319,7 +319,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pa88x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -380,7 +380,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lpbgp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -415,7 +415,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iihaj")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hide",
 "speed": 6.0
 }]
@@ -461,7 +461,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lj216")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -487,7 +487,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e642t")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hide",
 "speed": 6.0
 }]
@@ -630,7 +630,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n6psl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"1",
 "speed": 2.0
 }, {
@@ -644,7 +644,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_41yyw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"2",
 "speed": 2.0
 }, {
@@ -658,7 +658,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xjnw0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"3",
 "speed": 2.0
 }]
@@ -694,7 +694,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1f5t1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 2.0
 }, {
@@ -702,7 +702,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_geoof")
 }],
-"loop": true,
+"loop": 1,
 "name": &"off",
 "speed": 5.0
 }]
@@ -1111,9 +1111,7 @@ position = Vector2(637, 507)
 BattleSeq = SubResource("Resource_xtlyj")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
 CameraIndex = 0
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG1" unique_id=2138604952]
 
@@ -1146,8 +1144,6 @@ position = Vector2(-304, -44)
 BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG10" unique_id=2003674837]
 
@@ -1181,9 +1177,7 @@ position = Vector2(410, 655)
 BattleSeq = SubResource("Resource_a7h8m")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
 CameraIndex = 0
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG2" unique_id=181928769]
 
@@ -1217,9 +1211,7 @@ position = Vector2(271, 759)
 BattleSeq = SubResource("Resource_ggbak")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
 CameraIndex = 0
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG3" unique_id=764794876]
 
@@ -1250,8 +1242,6 @@ position = Vector2(-456, 434)
 BattleSeq = SubResource("Resource_lmpvr")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG4" unique_id=961417351]
 
@@ -1282,9 +1272,7 @@ position = Vector2(-378, -783)
 BattleSeq = SubResource("Resource_qvrxi")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
 CameraIndex = 2
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG5" unique_id=1292102762]
 
@@ -1317,8 +1305,6 @@ position = Vector2(-275, 429)
 BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG6" unique_id=258531717]
 
@@ -1351,8 +1337,6 @@ position = Vector2(-161, 190)
 BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG7" unique_id=1253908807]
 
@@ -1384,8 +1368,6 @@ position = Vector2(-418, -405)
 BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG8" unique_id=1417479069]
 
@@ -1415,8 +1397,6 @@ position = Vector2(-342, -235)
 BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
-Facing = Vector2(0, 1)
-metadata/_edit_group_ = true
 
 [node name="HomePoints" type="Node2D" parent="EnemySG9" unique_id=1013045367]
 
@@ -1448,22 +1428,24 @@ position = Vector2(32, -29)
 [node name="EvBlockedPath1" parent="." unique_id=450112031 instance=ExtResource("26_yhh0x")]
 position = Vector2(-334, 613)
 scale = Vector2(1.06845, 0.443152)
-TextFile = "interact_abad"
-TextNode = "blocked_path_sg1"
-Passive = true
+TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
+TextFile = "interact_abad"
+TextNode = "blocked_path_sg1"
+Passive = true
 
 [node name="EvBlockedPath2" parent="." unique_id=113802291 instance=ExtResource("26_yhh0x")]
 position = Vector2(-216, -301)
 scale = Vector2(1.06845, 0.443152)
-TextFile = "interact_abad"
-TextNode = "blocked_path_sg2"
-Passive = true
+TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
+TextFile = "interact_abad"
+TextNode = "blocked_path_sg2"
+Passive = true
 
 [node name="EvBunkerPanel" parent="." unique_id=124207418 instance=ExtResource("20_pu5uh")]
 position = Vector2(396, -1377)
@@ -1475,19 +1457,21 @@ itemtype = ""
 
 [node name="EvCastLines" parent="." unique_id=1299527673 instance=ExtResource("26_yhh0x")]
 position = Vector2(-143, -26)
+TriggerSize = Vector2i(50, 50)
+AddFlag = true
 TextFile = "story_2"
 TextNode = "cast_lines_sg"
-AddFlag = true
 
 [node name="EvJumpReminder" parent="." unique_id=1221608906 instance=ExtResource("26_yhh0x")]
 position = Vector2(-182, 432)
 scale = Vector2(0.504117, 0.648075)
-TextFile = "interact_abad"
-TextNode = "sg_jump_reminder"
-Passive = true
+TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
+TextFile = "interact_abad"
+TextNode = "sg_jump_reminder"
+Passive = true
 
 [node name="EvKick" type="Area2D" parent="." unique_id=706077465]
 position = Vector2(61, 82)
@@ -1505,9 +1489,10 @@ shape = SubResource("RectangleShape2D_thjc7")
 [node name="EvSGfindBunker" parent="." unique_id=1389759721 instance=ExtResource("26_yhh0x")]
 position = Vector2(315, -1282)
 scale = Vector2(4.71253, 0.310116)
+TriggerSize = Vector2i(50, 50)
+AddFlag = true
 TextFile = "story_2"
 TextNode = "sg_find_bunker"
-AddFlag = true
 
 [node name="GroundItem" parent="." unique_id=1792744607 instance=ExtResource("7_kvb7h")]
 position = Vector2(-255, -160)
@@ -1637,9 +1622,10 @@ metadata/_edit_group_ = true
 z_index = -1
 use_parent_material = true
 position = Vector2(299, 108)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard1" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1655,9 +1641,10 @@ frame_progress = 0.48911
 z_index = -1
 use_parent_material = true
 position = Vector2(590, 900)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard10" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1673,9 +1660,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(663, 757)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard11" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1691,9 +1679,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(400, 34)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard12" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1709,9 +1698,10 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(397, 140)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard13" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1727,9 +1717,10 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(636, 332)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard14" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1745,9 +1736,10 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(563, 203)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard2" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1763,9 +1755,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(516, 35)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard3" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1781,9 +1774,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(708, 231)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard4" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1799,9 +1793,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(682, 323)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard5" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1817,9 +1812,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(589, 540)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard6" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1835,9 +1831,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(393, 544)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard7" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1853,9 +1850,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(518, 707)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard8" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1871,9 +1869,10 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(636, 854)
-EventName = "hurt_1"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
+EventName = "hurt_1"
 
 [node name="CollisionShape2D" parent="Shard9" index="0" unique_id=624211629]
 shape = SubResource("RectangleShape2D_xtlyj")
@@ -1960,25 +1959,22 @@ shape = SubResource("RectangleShape2D_hrf2i")
 [node name="Transfer2" parent="." unique_id=1525700929 instance=ExtResource("30_ekhkx")]
 position = Vector2(29, 622)
 scale = Vector2(1.1, 1)
-Direction = Vector2(-1, 0)
-Position = Vector2(-150, 622)
 room = "ShardGardens"
 ToCamera = 1
+Position = Vector2(-150, 622)
 metadata/_edit_group_ = true
 
 [node name="Transfer3" parent="." unique_id=306323026 instance=ExtResource("30_ekhkx")]
 position = Vector2(-216, -537)
-Direction = Vector2(0, -1)
-Position = Vector2(-216, -680)
 room = "ShardGardens"
 ToCamera = 2
+Position = Vector2(-216, -680)
 
 [node name="Transfer4" parent="." unique_id=2008668618 instance=ExtResource("30_ekhkx")]
 position = Vector2(-216, -588)
-Direction = Vector2(0, 1)
-Position = Vector2(-217, -468)
 room = "ShardGardens"
 ToCamera = 1
+Position = Vector2(-217, -468)
 
 [node name="VPDeep Underground" parent="." unique_id=1060252777 instance=ExtResource("3_r8nk5")]
 position = Vector2(-105, -190)

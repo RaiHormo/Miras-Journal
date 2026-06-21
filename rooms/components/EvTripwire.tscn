@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://vddf6k6h8067"]
 
 [ext_resource type="Script" uid="uid://b2qf7ggvy4inm" path="res://codings/Components/event_tripwire.gd" id="1_3fj50"]
-[ext_resource type="Texture2D" uid="uid://bg733cd5il7yl" path="res://art/Icons/Editor/event_tripwire.png" id="2_1sx2q"]
+[ext_resource type="Texture2D" uid="uid://c2npaqalkxvd1" path="res://art/Icons/Editor/event_tripwire.png" id="2_1sx2q"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_o58ld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1sx2q"]
@@ -10,7 +10,6 @@ size = Vector2(50, 50)
 [node name="EvTripwire0" type="Area2D" unique_id=1901921073]
 collision_mask = 15
 script = ExtResource("1_3fj50")
-TriggerSize = Vector2(50, 50)
 metadata/_custom_type_script = "uid://b2qf7ggvy4inm"
 metadata/_edit_group_ = true
 
