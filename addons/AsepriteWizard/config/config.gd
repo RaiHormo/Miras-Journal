@@ -46,7 +46,7 @@ var _editor_settings: EditorSettings = EditorInterface.get_editor_settings()
 ######################################################
 
 func default_command() -> String:
-	match OS.get_name():
+	match OS.to_string():
 		"Windows":
 			return "C:\\\\Steam\\steamapps\\common\\Aseprite\\aseprite.exe"
 		"macOS":

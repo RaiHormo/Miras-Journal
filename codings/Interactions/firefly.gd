@@ -5,6 +5,8 @@ var t: Tween
 
 
 func _process(_delta: float) -> void:
+	if not Global.Player: return
+	
 	if not moving:
 		moving = true
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()

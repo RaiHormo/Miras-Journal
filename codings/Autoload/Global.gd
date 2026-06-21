@@ -6,13 +6,19 @@ var Controllable: bool = true:
 var Audio := AudioStreamPlayer.new()
 var Party: PartyData
 var Members: Array[Actor]
-var Bt: Battle = null
 var PortraitIMG: Texture
-var Player: Mira
+
+var Bt: Battle = null
+var Player: Mira:
+	get():
+		if is_instance_valid(Player):
+			return Player
+		return null
 var Area: Room
 var Camera: Camera2D:
 	get:
 		return get_cam()
+
 var CameraInd := 0
 var Settings: Setting
 var Lights: Array[Light2D] = []
@@ -366,7 +372,7 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	else:
 		Settings.Fullscreen = false
 		get_window().mode = Window.MODE_WINDOWED
-		#if OS.get_name() == "Linux":
+		#if OS.to_string() == "Linux":
 			#get_window().size = Vector2i(1280,800)
 			#await get_tree().create_timer(0.03).timeout
 			#get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
@@ -394,7 +400,7 @@ func customize_default_settings() -> void:
 		if steam.isSteamInBigPictureMode():
 			fullscreen(true)
 			print_rich("[color=orange]Running on Big Picture, enabling fullscreen")
-	if OS.get_name() == "macOS":
+	if OS.to_string() == "macOS":
 		Settings.UpscaledRes = false
 
 

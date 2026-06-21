@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://ybwrn4o07krl" path="res://art/OV/Objects/VinesBlockingTheWay.png" id="25_d0236"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="26_k6j3t"]
 [ext_resource type="PackedScene" uid="uid://dltu4a3f82ic4" path="res://rooms/components/ObjectIdentifier.tscn" id="28_bhcd2"]
+[ext_resource type="Script" uid="uid://bhw57f1k8vvrj" path="res://codings/Classes/direction.gd" id="28_e7y1u"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="31_svxf2"]
 [ext_resource type="PackedScene" uid="uid://c2p687bjfd64q" path="res://rooms/components/JumpPointH.tscn" id="35_2q7ov"]
 [ext_resource type="PackedScene" uid="uid://b2k3mbup5ml3p" path="res://rooms/components/JumpPointHV.tscn" id="35_2y4jd"]
@@ -321,6 +322,10 @@ fill_to = Vector2(0.852941, 0.894118)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wjino"]
 radius = 24.0207
+
+[sub_resource type="Resource" id="Resource_2q7ov"]
+script = ExtResource("28_e7y1u")
+way = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ovn4b"]
 vertices = PackedVector2Array(1661, 283, 1640.9297, 283, 1664.5234, 257.3203, 1696.8906, 252.9375, 1699, 255.60938, 1699, 269, 1613, 389, 1613, 341, 1661, 341, 1674.6484, 375.15625, 1605.4766, 403, 1600.1719, 389.85156, 1600.2422, 389, 1613, 403, 1709.5078, 269, 1716.3516, 277.71094, 1723.4688, 317.65625, 1690.1016, 332.9297, 1633.8984, 427, 1615.1563, 427, 1613, 421.64844, 1517, 269, 1590.4531, 269, 1589.4688, 279.04688, 1549.1484, 283, 1531, 283, 1517, 286.14063, 1531, 284.77344, 1261.7031, -532.5703, 1231.6094, -522.03125, 1165.1719, -538.1719, 1236.0781, -579.2031, 1264.5625, -577.5781, 1150.0078, -381.7422, 1124.1797, -395.03906, 1161.2422, -406.22656, 1132.5234, -329.25, 1180.9219, -364.9375, 1148.4531, -309.3672, 1384.9063, -604.22656, 1441.2891, -594.6875, 1458.0391, -575.9375, 1432.1563, -575, 1397.6875, -575, 1323.25, -592.8281, 1383.4297, -573.21094, 1357.4766, -572.2578, 1219.7891, -213.07813, 1193.8906, -168.40625, 1175.1094, -187.1875, 1175.9766, -199.49219, 1352.2266, -569.3125, 1345.1797, -568.4297, 1306.2813, -557.9375, 1345.0391, -565.27344, 1337.8125, -561.1875, 1315, -293, 1315, -282.20313, 1274.4766, -290.9297, 1218.1406, -368.67188, 1254.8125, -258.1328, 1171.5469, -227.14844, 1283.6328, -519.4219, 1338.8828, -511.1875, 1338.8984, -428.5078, 1330.2969, -403, 1337.8438, -403, 1336.9063, -380.3125, 1329.3828, -364.6797, 1337.4609, -364.6797, 1338.4375, -417.64844, 1331.9688, -417.96094, 1237.4609, -430.9375, 1246.6406, -466.54688, 1329.3828, -348.45313, 1338.0938, -346.6875, 1338.8906, -323.97656, 1328.7891, -293, 1224.3906, -480.70313, 1227.5625, -419.0703, 1163.0625, -252.35938, 1138.5938, -274.84375, 1162.0781, -233.78125, 1315, 283, 1315, 303.32813, 1297.0313, 274.39063, 1301, 245, 1541, 197, 1541, 187.35156, 1549.4531, 199.22656, 1507, 163, 1507, 197, 1493, 178.10938, 1493, 163, 1498.2422, 149, 1517.9531, 154.95313, 1523.6797, 163, 1483, 149, 1459, 163, 1214.7813, 248.03906, 1189.4297, 188.35938, 1243.4531, 185.65625, 1267, 223, 1267, 245, 1301, 223, 1459, 179.46875, 1483, 235, 1483, 283, 1459, 283, 1435, 365, 1504.5, 365, 1504.2266, 372.2422, 1409.1875, 384.6172, 1459, 307, 1435, 307, 1349, 283, 1349, 355, 1325, 355, 1325, 341, 1349, 341, 1594.7109, 224.79688, 1593.7266, 235, 1571.6016, 215.03125, 1280.9766, 164.89844, 1291, 166.38281, 1291, 173, 1349, 374.1797, 1325, 173, 1325, 165.25, 1383.6172, 153.67188, 1432.6172, 151.64844, 1477.7578, 142.79688, 1483, 144.38281, 1242.5313, 298.0625, 1226.3516, 287.53906)
@@ -1000,30 +1005,29 @@ TutorialName = "bag"
 [node name="Transfers" type="Node" parent="." unique_id=1850034220]
 
 [node name="TransferLakesideLeft" parent="Transfers" unique_id=1381750076 instance=ExtResource("8_grqbv")]
-position = Vector2(1000, 446)
+position = Vector2(1000, 440)
 scale = Vector2(1.1, 1)
-Direction = Vector2(-1, 0)
 room = "TempleWoods"
 subroom = "StartRight"
 
 [node name="TransferRoadDown" parent="Transfers" unique_id=1572370546 instance=ExtResource("8_grqbv")]
 position = Vector2(1258, -864)
-Direction = Vector2(0, 1)
+_direction = 2
 room = "TempleWoods"
 subroom = "TempleUp"
 ToCamera = 1
 
 [node name="TransferStartRight" parent="Transfers" unique_id=746488469 instance=ExtResource("8_grqbv")]
-position = Vector2(809, 500)
-scale = Vector2(0.96, 1.21)
-Direction = Vector2(1, 0)
+position = Vector2(810, 498)
+trigger_size = Vector2i(80, 114)
+_direction = 4
 room = "TempleWoods"
 subroom = "LakesideLeft"
 ToCamera = 1
 
 [node name="TransferTempleUp" parent="Transfers" unique_id=1593896857 instance=ExtResource("8_grqbv")]
 position = Vector2(1260, -715)
-Direction = Vector2(0, -1)
+_direction = 1
 room = "TempleWoods"
 subroom = "RoadDown"
 ToCamera = 2
@@ -1031,7 +1035,7 @@ ToCamera = 2
 [node name="TransferToAmberelm" parent="Transfers" unique_id=1811557795 instance=ExtResource("8_grqbv")]
 z_index = 1
 position = Vector2(1956, -1786)
-Direction = Vector2(0, -1)
+_direction = 1
 room = "Amberelm"
 subroom = "ToWoods"
 
@@ -1071,6 +1075,7 @@ proper_face = Vector2(1, 0)
 [node name="EnemyCrawlingSludge1" parent="." unique_id=80482356 instance=ExtResource("10_rx6j2")]
 position = Vector2(1365, 223)
 BattleSeq = ExtResource("11_1cjwu")
+Facing = SubResource("Resource_2q7ov")
 ID = "CS1"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1" unique_id=739350443]
@@ -1114,6 +1119,7 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge2" parent="." unique_id=1918852949 instance=ExtResource("10_rx6j2")]
 position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
+Facing = SubResource("Resource_2q7ov")
 ID = "CS3"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2" unique_id=421879962]
@@ -1157,6 +1163,7 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge3" parent="." unique_id=1347610146 instance=ExtResource("10_rx6j2")]
 position = Vector2(1638, 369)
 BattleSeq = ExtResource("13_812cc")
+Facing = SubResource("Resource_2q7ov")
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3" unique_id=2002211728]
 
@@ -1194,6 +1201,7 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge4" parent="." unique_id=28278289 instance=ExtResource("10_rx6j2")]
 position = Vector2(1258, -491)
 BattleSeq = ExtResource("21_e7y1u")
+Facing = SubResource("Resource_2q7ov")
 ID = "CS5"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4" unique_id=1500271890]

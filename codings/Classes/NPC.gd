@@ -131,12 +131,12 @@ func update_anim_prm() -> void:
 	if Facing.vector == Vector2.ZERO: return
 	if RealVelocity.length() > minimum_movment:
 		#BodyState = MOVE
-		if str("Walk" + Facing.get_name()) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Walk" + Facing.get_name()))
+		if str("Walk" + Facing.to_string()) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Walk" + Facing.to_string()))
 	else:
 		#BodyState = IDLE
-		if str("Idle" + Facing.get_name()) in sprite.sprite_frames.get_animation_names():
-			sprite.play(str("Idle" + Facing.get_name()))
+		if str("Idle" + Facing.to_string()) in sprite.sprite_frames.get_animation_names():
+			sprite.play(str("Idle" + Facing.to_string()))
 
 
 func handle_step_sounds(for_sprite: AnimatedSprite2D) -> void:

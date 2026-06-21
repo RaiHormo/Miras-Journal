@@ -351,10 +351,10 @@ hide_instead = true
 
 [node name="Transfer" parent="." unique_id=1059405184 instance=ExtResource("6_2g6ay")]
 position = Vector2(36, 708)
-scale = Vector2(1.3051578, 1)
-Direction = Vector2(0, 1)
-Position = Vector2(-203, -1080)
+trigger_size = Vector2i(120, 80)
+_direction = 2
 room = "WitheredLeaves"
+subroom = "Bunker"
 
 [node name="Cover1" type="Area2D" parent="." unique_id=1932830924]
 z_index = 1
@@ -465,21 +465,21 @@ scale = Vector2(2.09375, 2.5937502)
 texture = SubResource("GradientTexture2D_plrt1")
 flip_h = true
 
-[node name="Transfer2" parent="." unique_id=437674590 instance=ExtResource("6_2g6ay")]
+[node name="TransferBossEntry" parent="." unique_id=437674590 instance=ExtResource("6_2g6ay")]
 position = Vector2(308, 348)
-Direction = Vector2(-1, 0)
-Position = Vector2(-250, 304)
 room = "BunkerSectorA"
+subroom = "BossExit"
 ToCamera = 1
 
-[node name="Transfer3" parent="." unique_id=1044282198 instance=ExtResource("6_2g6ay")]
+[node name="TransferBossExit" parent="." unique_id=1044282198 instance=ExtResource("6_2g6ay")]
 position = Vector2(-193, 299)
-Direction = Vector2(1, 0)
-Position = Vector2(369, 347)
+_direction = 4
 room = "BunkerSectorA"
+subroom = "BossEntry"
 
 [node name="EvTripwire0" parent="." unique_id=1509055698 instance=ExtResource("8_jy425")]
 position = Vector2(-406, 305)
-EventName = "asteria_boss"
+TriggerSize = Vector2i(50, 50)
 Flag = "AsteriaBoss=5"
 FlagIsName = false
+EventName = "asteria_boss"

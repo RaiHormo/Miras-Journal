@@ -92,7 +92,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lpbgp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -127,7 +127,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iihaj")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hide",
 "speed": 6.0
 }]
@@ -228,7 +228,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1f5t1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 2.0
 }, {
@@ -236,7 +236,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_geoof")
 }],
-"loop": true,
+"loop": 1,
 "name": &"off",
 "speed": 5.0
 }]
@@ -294,7 +294,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lj216")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -320,7 +320,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e642t")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hide",
 "speed": 6.0
 }]
@@ -646,45 +646,49 @@ position = Vector2(209, -125)
 
 [node name="EvDazeEnemy1" parent="." unique_id=2007210965 instance=ExtResource("15_mqvg4")]
 position = Vector2(496, -137)
-scale = Vector2(0.23703033, 1.1509435)
-EventName = "daze_enemy_1"
-Passive = true
+TriggerSize = Vector2i(11, 95)
 Flag = "!day=1"
 AddFlag = true
 ReturnControl = false
+PlayEvent = true
+EventName = "daze_enemy_1"
 
 [node name="EvDazeEnemy2" parent="." unique_id=475487490 instance=ExtResource("15_mqvg4")]
 position = Vector2(-250, -24)
-scale = Vector2(0.056183375, 1.324671)
-BattleSeq = ExtResource("16_lemrk")
+TriggerSize = Vector2i(6, 100)
 Flag = "day=1"
 FlagShouldBe = true
 AddFlag = true
 ReturnControl = false
+StartBattle = true
+BattleSeq = ExtResource("16_lemrk")
 
 [node name="EvDazeEnemy4" parent="." unique_id=809219924 instance=ExtResource("15_mqvg4")]
 position = Vector2(-36, -585)
-scale = Vector2(0.056183375, 1.324671)
-BattleSeq = ExtResource("22_it168")
+TriggerSize = Vector2i(13, 29)
 AddFlag = true
 ReturnControl = false
+StartBattle = true
+BattleSeq = ExtResource("22_it168")
 
 [node name="EvLostSpiritRed" parent="." unique_id=1140443618 instance=ExtResource("15_mqvg4")]
-position = Vector2(-369, 489)
-scale = Vector2(0.056183375, 1.324671)
-BattleSeq = SubResource("Resource_lemrk")
+position = Vector2(-371, 496)
+TriggerSize = Vector2i(10, 63)
 AddFlag = true
 ReturnControl = false
+BattleSeq = SubResource("Resource_lemrk")
 
 [node name="EvTripwire0" parent="." unique_id=1903024655 instance=ExtResource("15_mqvg4")]
 position = Vector2(-467, 265)
+TriggerSize = Vector2i(50, 50)
 EventName = "WL_alcine_slide"
 
 [node name="EvWLVoidMira" parent="." unique_id=1300572210 instance=ExtResource("15_mqvg4")]
 position = Vector2(1025, -1714)
 scale = Vector2(16.552042, 0.9619772)
-EventName = "WL_void"
+TriggerSize = Vector2i(50, 50)
 TakeControl = false
+EventName = "WL_void"
 
 [node name="Flame" type="PointLight2D" parent="." unique_id=1861159934]
 texture_filter = 2
@@ -777,19 +781,19 @@ focus_position = Vector2(-675, 413)
 add_flag = true
 hide_on_flag = &"WLDoor1a"
 
-[node name="Transfer" parent="." unique_id=1439515348 instance=ExtResource("3_lemrk")]
+[node name="TransferToAmberelm" parent="." unique_id=1439515348 instance=ExtResource("3_lemrk")]
 position = Vector2(-510, -87)
-Direction = Vector2(-1, 0)
-Position = Vector2(2938, -138)
 room = "Amberelm"
+subroom = "ToLeaves"
 ToCamera = 2
 
 [node name="EvMetalicGate" parent="." unique_id=241315403 instance=ExtResource("15_mqvg4")]
 position = Vector2(-208, -976)
-scale = Vector2(4.7596893, 0.484375)
+TriggerSize = Vector2i(226, 50)
+AddFlag = true
+ShowTextbox = true
 TextFile = "story_1"
 TextNode = "metalic_gate"
-AddFlag = true
 
 [node name="WLBunkerSwitch" parent="." unique_id=743108280 instance=ExtResource("4_d8pup")]
 position = Vector2(-275, -1010)
@@ -825,13 +829,13 @@ dialogue_file = "interact_abad"
 title = "bunker_gate_budge"
 hide_on_flag = &"Bunker1Open"
 
-[node name="Transfer2" parent="." unique_id=50807784 instance=ExtResource("3_lemrk")]
+[node name="TransferBunker" parent="." unique_id=50807784 instance=ExtResource("3_lemrk")]
 z_index = 1
 position = Vector2(-205, -1146)
-scale = Vector2(1.3051578, 1)
-Direction = Vector2(0, -1)
-Position = Vector2(35, 647)
+trigger_size = Vector2i(119, 80)
+_direction = 1
 room = "BunkerSectorA"
+subroom = "EntryA"
 
 [node name="VPOldCamp" parent="." unique_id=849801462 instance=ExtResource("30_fci10")]
 position = Vector2(931, -169)

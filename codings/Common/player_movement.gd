@@ -56,7 +56,7 @@ func _ready() -> void:
 				if "Camera" in i.name: i.enabled = false
 			$Camera2D.remote_path = cam.get_path()
 			cam.enabled = true
-	set_anim("Idle" + Facing.get_name())
+	set_anim("Idle" + Facing.to_string())
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	local_controllable = true
@@ -120,7 +120,7 @@ func control_process() -> void:
 			if not dashing:
 				if undashable:
 					reset_speed()
-					await set_anim("Deny" + Facing.get_name(), true)
+					await set_anim("Deny" + Facing.to_string(), true)
 					set_anim()
 					return
 				else:
@@ -162,25 +162,25 @@ func update_anim_prm() -> void:
 	if BodyState == CUSTOM: return
 	if Facing.is_vector(Vector2.ZERO): return
 	if BodyState == CONTROLLED:
-		var dir_name := Facing.get_name()
+		var dir_name: String = Facing.to_string()
 		if (abs(RealVelocity.length()) > 1 and controllable()):
 			if dashing:
 				reset_speed()
-				var dash_dir_name := Direction.from(dashdir).get_name()
+				var dash_dir_name := Direction.from(dashdir).to_string()
 				if has_anim("Dash" + dash_dir_name + "Loop"):
 					set_anim("Dash" + dash_dir_name + "Loop", false, false)
 				else: set_anim("Walk" + dash_dir_name, false, false)
 			else:
 				speed = min(walk_speed, speed)
 				set_anim(str("Walk" + dir_name), false, false)
-				#for i in $Sprite.get_children():
-					#i.speed_scale = min(max((RealVelocity.length() * get_physics_process_delta_time()), 0.3), 1)
+			
 			if move_frames < 0:
 				move_frames = 0
-
 			move_frames += 1
-		elif controllable() and ("Walk" in sprite.animation or
-		("Dash" in sprite.animation and dashdir == Vector2.ZERO)):
+		elif (
+			controllable() and 
+			("Walk" in sprite.animation or ("Dash" in sprite.animation and dashdir == Vector2.ZERO))
+		):
 			move_frames = 0
 			reset_speed()
 			set_anim(str("Idle" + dir_name), false, false)
@@ -189,7 +189,7 @@ func update_anim_prm() -> void:
 		if direction.length() > RealVelocity.length() and dashing and jump_points.is_empty():
 			stop_dash()
 	else:
-		var dir_name := Facing.get_name()
+		var dir_name := Facing.to_string()
 		if RealVelocity.length() > 1:
 			if dashing:
 				set_anim("Dash" + dir_name + "Stop", false, false)
@@ -219,8 +219,7 @@ func _check_party() -> void:
 
 
 ##Sets the animation for all sprite layers
-func set_anim(anim: String = "Idle" + Facing.get_name(), wait := false, overwrite_bodystate := false) -> void:
-	#print(anim)
+func set_anim(anim: String = "Idle" + Facing.to_string(), wait := false, overwrite_bodystate := false) -> void:
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
 	if overwrite_bodystate: BodyState = CUSTOM
@@ -316,7 +315,7 @@ func stop_dash(slide := true) -> void:
 		speed = walk_speed
 		await bump()
 	else:
-		set_anim("Dash" + Direction.from(dashdir).get_name() + "Stop")
+		set_anim("Dash" + Direction.from(dashdir).to_string() + "Stop")
 		local_controllable = false
 		if (
 			Input.is_action_pressed("Dash") and 
@@ -343,7 +342,7 @@ func stop_dash(slide := true) -> void:
 	move_frames = 0
 	speed = walk_speed
 	if "Stop" in sprite.animation or "Hit" in sprite.animation:
-		set_anim(str("Idle" + Direction.get_name_from_vector(dashdir)))
+		set_anim(str("Idle" + Direction.vector_to_string(dashdir)))
 
 
 func reset_speed() -> void:
@@ -353,7 +352,7 @@ func reset_speed() -> void:
 
 
 func bump(dir: Vector2 = Vector2.ZERO) -> void:
-	var dir_name := Direction.get_name_from_vector(dir)
+	var dir_name := Direction.vector_to_string(dir)
 	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
 	Global.rumble(0.7, 0.3, 0.08)
@@ -391,8 +390,8 @@ func attack() -> void:
 	attacking = true
 	await Event.wait()
 	check_before_attack()
-	var dir_name := Facing.get_name()
-	$Attack.rotation = Facing.angle()
+	var dir_name := Facing.to_string()
+	$Attack.rotation = Facing.vector.angle()
 	if RealVelocity.length() > 1:
 		set_anim("Attack" + dir_name + "Walk")
 		await Event.wait(0.4)
@@ -438,9 +437,9 @@ func attack() -> void:
 			hits = false
 	#print("pt2: " + str(hits))
 	var audio := preload("res://sound/SFX/Swing.ogg")
-	var anim := "Attack" + Facing.get_name()
+	var anim := "Attack" + Facing.to_string()
 	if hits:
-		anim = "Attack" + Facing.get_name() + "Hit"
+		anim = "Attack" + Facing.to_string() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
 		Global.rumble(0.3, 0.3, 0.1, 0.1)
 	$Audio.stream = audio
@@ -470,18 +469,18 @@ func dramatic_attack_pause() -> void:
 		BodyState = CUSTOM
 		#print(attacking)
 		if attacking:
-			set_anim("Attack" + Facing.get_name())
+			set_anim("Attack" + Facing.to_string())
 			pause_anim()
 			var timer := get_tree().create_timer(3)
 			while timer.time_left > 0:
 				sprite = %Base
 				hide_other_sprites()
-				%Base.animation = "Attack" + Facing.get_name()
+				%Base.animation = "Attack" + Facing.to_string()
 				%Base.frame = 1
 				await Event.wait()
 			set_anim()
 		else:
-			set_anim("Dash" + Facing.get_name() + "Hit")
+			set_anim("Dash" + Facing.to_string() + "Hit")
 			pause_anim()
 		await Event.wait()
 

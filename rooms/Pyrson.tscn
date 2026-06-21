@@ -968,7 +968,6 @@ metadata/_edit_group_ = true
 [node name="AlcineExit" type="CharacterBody2D" parent="Events/ExitScene" unique_id=1280122638]
 position = Vector2(103, 157)
 script = ExtResource("21_p415d")
-Facing = Vector2(1, 0)
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Events/ExitScene/AlcineExit" unique_id=43704205]
@@ -978,7 +977,6 @@ animation = &"IdleDown"
 [node name="AsteriaExit" type="CharacterBody2D" parent="Events/ExitScene" unique_id=1923902325]
 position = Vector2(74, 146)
 script = ExtResource("21_p415d")
-Facing = Vector2(1, 0)
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Events/ExitScene/AsteriaExit" unique_id=1668565077]
@@ -1073,17 +1071,16 @@ shape = SubResource("RectangleShape2D_66y4c")
 position = Vector2(322, 885)
 
 [node name="TransferLindeAlleyR" parent="." unique_id=113743635 instance=ExtResource("28_prfhr")]
-position = Vector2(13, 827)
-scale = Vector2(0.599999, 1)
-Direction = Vector2(-1, 0)
+position = Vector2(12.75, 827)
+trigger_size = Vector2i(31, 80)
 room = "Pyrson"
 subroom = "LindeAlleyL"
 ToCamera = 1
 
 [node name="TransferLindeAlleyL" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
 position = Vector2(-2, 826)
-scale = Vector2(0.399999, 1)
-Direction = Vector2(1, 0)
+trigger_size = Vector2i(34, 80)
+_direction = 4
 room = "Pyrson"
 subroom = "LindeAlleyR"
 
@@ -1449,7 +1446,6 @@ Position = Vector2(14, -226)
 [node name="TransferBasementExit" parent="TownHall" unique_id=283717807 instance=ExtResource("28_prfhr")]
 position = Vector2(-15, -228)
 trigger_size = Vector2i(28, 27)
-Direction = Vector2(-1, 0)
 room = "Pyrson"
 subroom = "TownHall"
 Position = Vector2(367, 130)

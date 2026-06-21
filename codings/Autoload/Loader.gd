@@ -292,6 +292,7 @@ func travel_done(controllable := false) -> void:
 	get_tree().paused = false
 	if scene.size() > 1:
 		var new_pos: Vector2 = await Global.Area.go_to_subroom(scene[1], true)
+		print(new_pos)
 		if new_pos != Vector2.ZERO and traveled_pos == Vector2.ZERO:
 			traveled_pos = new_pos
 	if traveled_pos != Vector2.ZERO:

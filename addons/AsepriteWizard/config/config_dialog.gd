@@ -75,7 +75,7 @@ func _create_file_selection():
 
 
 func _on_file_selected(path: String, file_dialog):
-	if OS.get_name() == "macOS" and path.ends_with(".app"):
+	if OS.to_string() == "macOS" and path.ends_with(".app"):
 		path += "/Contents/MacOS/aseprite"
 	_command_path = path
 	_aseprite_command_field.text = _command_path

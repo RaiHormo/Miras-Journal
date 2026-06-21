@@ -7,9 +7,22 @@ static var LEFT: Direction = from(Vector2.LEFT)
 static var RIGHT: Direction = from(Vector2.RIGHT)
 static var CENTER: Direction = from(Vector2.ZERO)
 
-@export var vector: Vector2:
+enum Ways {
+	CENTER, UP, DOWN, LEFT, RIGHT
+}
+
+@export var way: Ways = Ways.CENTER:
+	set(x):
+		way = x
+		vector = way_to_vector(x)
+
+var vector: Vector2 = Vector2.ZERO:
 	set(x):
 		vector = snap_vector(x)
+	get():
+		if vector == Vector2.ZERO:
+			vector = way_to_vector(way)
+		return vector
 
 static func from(vec: Vector2) -> Direction:
 	vec = snap_vector(vec)
@@ -17,6 +30,25 @@ static func from(vec: Vector2) -> Direction:
 	var dir: Direction = Direction.new()
 	dir.vector = vec
 	return dir
+
+static func way_to_vector(x: Ways) -> Vector2:
+	match x:
+		Ways.UP: return Vector2.UP
+		Ways.DOWN: return Vector2.DOWN
+		Ways.LEFT: return Vector2.LEFT
+		Ways.RIGHT: return Vector2.RIGHT
+		_: return Vector2.ZERO
+
+static func from_way(x: Ways) -> Direction:
+	return from(way_to_vector(x))
+
+static func vector_to_way(vec: Vector2) -> Ways:
+	match vec:
+		Vector2.UP: return Ways.UP
+		Vector2.DOWN: return Ways.DOWN
+		Vector2.LEFT: return Ways.LEFT
+		Vector2.RIGHT: return Ways.RIGHT
+		_: return Ways.CENTER
 
 static func snap_vector(v: Vector2 = Global.PlayerDir, allow_zero := false) -> Vector2:
 	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
@@ -68,7 +100,7 @@ static func from_letter(d: String) -> Direction:
 		_:
 			return CENTER
 
-static func get_name_from_vector(d: Vector2 = Global.PlayerDir) -> String:
+static func vector_to_string(d: Vector2 = Global.PlayerDir) -> String:
 	var dir := snap_vector(d)
 	
 	if dir == Vector2.RIGHT:
@@ -81,7 +113,7 @@ static func get_name_from_vector(d: Vector2 = Global.PlayerDir) -> String:
 		return "Down"
 	else: return "Center"
 
-func get_name() -> String:
+func _to_string() -> String:
 	match vector:
 		Vector2.RIGHT:
 			return "Right"
@@ -104,3 +136,9 @@ func is_letter(string: String) -> bool:
 
 func set_to(vec: Vector2) -> void:
 	vector = snap_vector(vec)
+
+func is_horizontal() -> bool:
+	return vector.x > vector.y
+
+func is_vertical() -> bool:
+	return vector.x < vector.y

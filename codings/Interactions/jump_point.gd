@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 					if player_face.y == 0:
 						coord.y -= 8
 
-					Global.Player.set_anim("Dash" + Direction.get_name_from_vector(Global.Player.dashdir) + "Loop")
+					Global.Player.set_anim("Dash" + Direction.vector_to_string(Global.Player.dashdir) + "Loop")
 					Global.Player.sprite.frame = 0
 					await Global.jump_to(Global.Player, coord, time, height)
 

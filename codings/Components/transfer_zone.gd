@@ -12,7 +12,13 @@ extends Area2D
 				coll.shape = coll.shape.duplicate()
 				coll.shape.size = x
 
-@export var direction: Vector2
+@export var _direction: Direction.Ways = Direction.Ways.LEFT
+var direction: Direction = null:
+	get():
+		if direction == null:
+			direction = Direction.from_way(_direction)
+		return direction
+
 @export var lock_camera := true
 
 @export_category("Transfer To")
@@ -24,7 +30,6 @@ extends Area2D
 ## Use an exact position. Alternatively, specify a subroom
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var UseExactPosition := false
 @export var Position := Vector2.ZERO
-
 
 func _validate_property(property: Dictionary) -> void:
 	if not Engine.is_editor_hint(): return
@@ -44,17 +49,25 @@ func _on_entered(body: Node2D) -> void:
 		if Global.Controllable or Global.Player.dashing or Global.Player.attacking:
 			proceed()
 
+func come_from() -> Vector2:
+	var distance: int
+	if direction.is_horizontal():
+		distance = trigger_size.x
+	else: distance = trigger_size.y
+	return position + ((distance) * -direction.vector)
 
 func proceed() -> void:
 	var frame := Global.Player.sprite.frame
 	Global.Player.camera_follow(false)
 	await Event.take_control(true, true)
 	Global.Player.collision(false)
-	Global.Player.move_dir(direction * 48, false)
+	Global.Player.move_dir(direction.vector * 48, false)
 	Global.Player.sprite.frame = frame
 	#print(name, " to ", room, " with camera index ", ToCamera)
-
-	var room_string: String = room + ";" + subroom
+	
+	var room_string: String = room
+	if not subroom.is_empty():
+		room_string += ";" + subroom
 
 	await Loader.travel_to(room_string, Position, ToCamera)
 
@@ -68,6 +81,6 @@ func _on_preview_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body == Global.Player and Direction.snap_vector(to_local(body.position)) == direction:
-		body.position = position - direction * 48
+	if body == Global.Player and Direction.from(to_local(body.position)).equals(direction):
+		body.position = position - direction.vector * 48
 		_on_entered(body)

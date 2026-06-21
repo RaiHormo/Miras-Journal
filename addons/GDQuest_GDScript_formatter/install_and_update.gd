@@ -121,7 +121,7 @@ func _process_response_download_file(body: PackedByteArray) -> void:
 
 
 func _get_platform_info() -> Dictionary:
-	var os_name := OS.get_name().to_lower()
+	var os_name := OS.to_string().to_lower()
 	var processor_name := OS.get_processor_name().to_lower()
 	var architecture := "x86_64"
 
@@ -227,7 +227,7 @@ func _download_and_install_binary(zip_data: PackedByteArray, platform_info: Dict
 	file.store_buffer(binary_data)
 	file.close()
 
-	if not OS.get_name().to_lower().contains("windows"):
+	if not OS.to_string().to_lower().contains("windows"):
 		OS.execute("chmod", ["+x", binary_path])
 
 	return binary_path

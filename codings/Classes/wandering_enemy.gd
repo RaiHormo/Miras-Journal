@@ -186,7 +186,7 @@ func _on_catch_area_body_entered(body: Node2D) -> void:
 		Global.Player.dashdir = Direction.snap_vector(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		Facing = Direction.snap_vector(to_local(Global.PlayerPos))
+		Facing.vector = to_local(Global.Player.position)
 		Global.intro_effect(Global.Player)
 		begin_battle(2)
 

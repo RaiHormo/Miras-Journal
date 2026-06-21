@@ -24,7 +24,7 @@ func default() -> void:
 	Global.check_party.connect(update)
 	await Event.wait()
 	oposite = (Global.Player.Facing.vector * Vector2(-1, -1)) * 150
-	set_anim("Idle" + Global.Player.Facing.get_name())
+	set_anim("Idle" + Global.Player.Facing.to_string())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()

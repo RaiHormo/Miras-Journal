@@ -37,7 +37,7 @@ func _ready() -> void:
 
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area):
 		cant_save = true
-	Loader.detransition("")
+	Loader.detransition(Direction.CENTER)
 	show()
 
 	$Silhouette.texture = Loader.Preview
@@ -57,7 +57,7 @@ func _ready() -> void:
 		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
 	$Background/Info/User.text = Global.Settings.PlayerName
 	var platform_icon: Texture
-	match OS.get_name():
+	match OS.to_string():
 		"Windows": platform_icon = preload("res://UI/Misc/Platforms/windows.svg")
 		"Linux": platform_icon = preload("res://UI/Misc/Platforms/linux.svg")
 		"Android": platform_icon = preload("res://UI/Misc/Platforms/android.svg")

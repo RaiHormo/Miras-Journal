@@ -319,7 +319,7 @@ func remove_report_issue_command() -> void:
 
 func is_formatter_installed_locally() -> bool:
 	var binary_name := "gdscript-formatter"
-	if OS.get_name().to_lower().contains("windows"):
+	if OS.to_string().to_lower().contains("windows"):
 		binary_name = "gdscript-formatter.exe"
 	var binary_path := formatter_cache_dir.path_join(binary_name)
 	return FileAccess.file_exists(binary_path)
@@ -327,7 +327,7 @@ func is_formatter_installed_locally() -> bool:
 
 func uninstall_formatter() -> void:
 	var binary_name := "gdscript-formatter"
-	if OS.get_name().to_lower().contains("windows"):
+	if OS.to_string().to_lower().contains("windows"):
 		binary_name = "gdscript-formatter.exe"
 	var binary_path := formatter_cache_dir.path_join(binary_name)
 

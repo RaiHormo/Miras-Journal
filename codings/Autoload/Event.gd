@@ -363,8 +363,8 @@ func teleport_followers() -> void:
 	#for i in Global.Area.Followers:
 	#i.jump_to_player()
 	Global.Player.path.curve.clear_points()
-	Global.Player.path.curve.add_point(Global.PlayerPos)
-	Global.Player.path.curve.add_point(Global.PlayerPos)
+	Global.Player.path.curve.add_point(Global.Player.position.round())
+	Global.Player.path.curve.add_point(Global.Player.position.round())
 
 
 func sequence(title: String) -> Node:
