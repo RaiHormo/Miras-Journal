@@ -1,13 +1,13 @@
 @icon("res://art/Icons/Editor/npc.png")
 class_name NPC
 extends CharacterBody2D
-##An extension of [CharacterBody2D] designed for this game. Provides basic movment and interaction.
+##An extension of [CharacterBody2D] designed for this game. Provides basic movement and interaction.
 
 enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 
-##Speed of movment
+##Speed of movement
 @export var speed := 80
-##Used to control the direction of the next movment
+##Used to control the direction of the next movement
 @export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
 @export var Facing: Direction = Direction.CENTER
@@ -42,7 +42,7 @@ var LastStepFrame := -1
 var move_frames := 0
 @export var Shadow: Node2D
 @export var sprite: AnimatedSprite2D
-var minimum_movment: float = 0.2
+var minimum_movement: float = 0.2
 @export var step_frames: Dictionary[String, PackedInt32Array] = {
 	"Walk": [0, 2],
 	"Loop": [0, 1],
@@ -66,16 +66,13 @@ func _ready() -> void:
 	default()
 
 
-func default_id() -> String:
-	return name
+func default_id() -> String: return name
 
 
-func default() -> void:
-	pass
+func default() -> void: pass
 
 
-func extended_process() -> void:
-	pass
+func extended_process() -> void: pass
 
 
 func control_process() -> void:
@@ -129,7 +126,7 @@ func update_anim_prm() -> void:
 	if BodyState == IDLE and not sprite.is_playing(): sprite.play()
 	if BodyState == CUSTOM: return
 	if Facing.vector == Vector2.ZERO: return
-	if RealVelocity.length() > minimum_movment:
+	if RealVelocity.length() > minimum_movement:
 		#BodyState = MOVE
 		if str("Walk" + Facing.to_string()) in sprite.sprite_frames.get_animation_names():
 			sprite.play(str("Walk" + Facing.to_string()))
@@ -230,6 +227,8 @@ func go_to(pos: Vector2, use_coords := false, autostop := false, look_dir: Varia
 		return
 	BodyState = MOVE
 	while round(global_position / accuracy) != round(pos / accuracy):
+		if not is_instance_valid(self) or is_queued_for_deletion():
+			return
 		BodyState = MOVE
 		direction = to_local(pos).normalized()
 		await Event.wait()
@@ -259,7 +258,7 @@ func defeat() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("DebugD"):
+	if Input.is_action_just_pressed("DebugD") and Global.Settings.DebugMode:
 		go_to(get_global_mouse_position(), false)
 
 
