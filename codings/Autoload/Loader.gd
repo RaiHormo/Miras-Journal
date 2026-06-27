@@ -323,8 +323,6 @@ func transition(dir := Global.Player.Facing) -> void:
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
 	if Global.textbox_open and get_tree().root.has_node("Textbox"):
-		#get_tree().root.get_node("Textbox").hide_box()
-		#await Event.wait(0.5, false)
 		lower_layer()
 	t.kill()
 	t = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART).set_parallel()

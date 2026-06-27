@@ -351,14 +351,15 @@ func reset_speed() -> void:
 		i.speed_scale = 1
 
 
-func bump(dir: Vector2 = Vector2.ZERO) -> void:
-	var dir_name := Direction.vector_to_string(dir)
+func bump(dir: Direction = Facing) -> void:
+	var dir_name := dir.to_string()
 	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
 	Global.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
-	if dir == Vector2.ZERO: dir = dashdir
-	Global.jump_to_global(self, global_position - dir * 15, 15, 0.5, false)
+	if dir.is_vector(Vector2.ZERO): 
+		dir.set_to(dashdir)
+	Global.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
 	set_anim("Dash" + dir_name + "Hit")
 	var mem := local_controllable
 	local_controllable = false
@@ -401,7 +402,6 @@ func attack() -> void:
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
 		if direction != Vector2.ZERO and RealVelocity.length() > 0.1:
-			Global.PlayerDir = direction
 			var mation := "Attack" + dir_name + "Walk"
 			if sprite.animation != mation:
 				set_anim(mation)

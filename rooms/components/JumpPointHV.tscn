@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2k3mbup5ml3p"]
 
-[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Interactions/jump_point.gd" id="1_ul3x3"]
+[ext_resource type="Script" uid="uid://cy1ky4g6to5pk" path="res://codings/Components/jump_point.gd" id="1_ul3x3"]
 [ext_resource type="Texture2D" uid="uid://dtw2ihtvn34ge" path="res://art/Icons/Editor/jump.png" id="2_vuday"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_urrj5"]
 [ext_resource type="Texture2D" uid="uid://bmii71t0l2om1" path="res://UI/MenuTextures/Oval.svg" id="4_noxa5"]
@@ -14,7 +14,6 @@ size = Vector2(72, 24)
 [node name="JumpPoint" type="Area2D" unique_id=2144299483]
 script = ExtResource("1_ul3x3")
 trigger_size = Vector2i(3, 1)
-jump_dirs = Array[Vector2]([Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)])
 jump_am = 2
 metadata/_edit_group_ = true
 

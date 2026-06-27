@@ -63,7 +63,7 @@ func control_process() -> void:
 		$Glow.energy = member_info().GlowDef / 2
 		var oldposition := global_position
 		var player_dist := to_local(Global.Player.position).length()
-		target = round((follow.global_position + Global.PlayerDir.rotated(PI / 2) * offset))
+		target = round((follow.global_position + Global.Player.Facing.vector.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
 		if to_local(target).length() < 6: direction = Vector2.ZERO
 		#var path_dist = floor(path.curve.get_baked_length() - follow.progress)

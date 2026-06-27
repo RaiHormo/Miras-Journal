@@ -1,11 +1,16 @@
 extends Resource
 class_name Direction
 
-static var UP: Direction = from(Vector2.UP)
-static var DOWN: Direction = from(Vector2.DOWN)
-static var LEFT: Direction = from(Vector2.LEFT)
-static var RIGHT: Direction = from(Vector2.RIGHT)
-static var CENTER: Direction = from(Vector2.ZERO)
+static var UP: Direction: 
+	get: return from(Vector2.UP)
+static var DOWN: Direction: 
+	get: return from(Vector2.DOWN)
+static var LEFT: Direction: 
+	get: return from(Vector2.LEFT)
+static var RIGHT: Direction: 
+	get: return from(Vector2.RIGHT)
+static var CENTER: Direction: 
+	get: return from(Vector2.ZERO)
 
 enum Ways {
 	CENTER, UP, DOWN, LEFT, RIGHT
@@ -25,10 +30,10 @@ var vector: Vector2 = Vector2.ZERO:
 		return vector
 
 static func from(vec: Vector2) -> Direction:
-	vec = snap_vector(vec)
+	var tor := snap_vector(vec)
 	
 	var dir: Direction = Direction.new()
-	dir.vector = vec
+	dir.vector = tor
 	return dir
 
 static func way_to_vector(x: Ways) -> Vector2:
@@ -50,7 +55,7 @@ static func vector_to_way(vec: Vector2) -> Ways:
 		Vector2.RIGHT: return Ways.RIGHT
 		_: return Ways.CENTER
 
-static func snap_vector(v: Vector2 = Global.PlayerDir, allow_zero := false) -> Vector2:
+static func snap_vector(v: Vector2, allow_zero := true) -> Vector2:
 	if v == Vector2.ZERO and allow_zero: return Vector2.ZERO
 	if abs(v.x) > abs(v.y):
 		if v.x > 0:
@@ -63,7 +68,7 @@ static func snap_vector(v: Vector2 = Global.PlayerDir, allow_zero := false) -> V
 		else:
 			return Vector2.UP
 
-static func get_letter_from_vector(d: Vector2 = Global.PlayerDir) -> String:
+static func get_letter_from_vector(d: Vector2) -> String:
 	match snap_vector(d):
 		Vector2.RIGHT:
 			return "R"
@@ -100,7 +105,7 @@ static func from_letter(d: String) -> Direction:
 		_:
 			return CENTER
 
-static func vector_to_string(d: Vector2 = Global.PlayerDir) -> String:
+static func vector_to_string(d: Vector2) -> String:
 	var dir := snap_vector(d)
 	
 	if dir == Vector2.RIGHT:
@@ -142,3 +147,8 @@ func is_horizontal() -> bool:
 
 func is_vertical() -> bool:
 	return vector.x < vector.y
+
+func oposite() -> Direction:
+	var result := self.duplicate()
+	result.vector = result.vector * -1
+	return result

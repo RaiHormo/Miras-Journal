@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="4_e3kpk"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="5_xdx5l"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="6_dtjwe"]
-[ext_resource type="Script" uid="uid://cocwxyol67r1a" path="res://codings/Interactions/open_door.gd" id="7_akxl2"]
+[ext_resource type="Script" uid="uid://cocwxyol67r1a" path="res://codings/Components/open_door.gd" id="7_akxl2"]
 [ext_resource type="Script" uid="uid://bo5pjlckoc8sc" path="res://codings/Interactions/horizontal_subdoor.gd" id="8_3nvdu"]
 [ext_resource type="Script" uid="uid://ddh88evqiuxdk" path="res://codings/Interactions/flickering_light.gd" id="8_uh3bf"]
 [ext_resource type="PackedScene" uid="uid://4qj3e07t5fsi" path="res://rooms/components/LeftRightDoor.tscn" id="9_ak30l"]

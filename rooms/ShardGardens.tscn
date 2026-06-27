@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c8q4jskbbhvnn" path="res://rooms/components/Interactable.tscn" id="20_pu5uh"]
 [ext_resource type="Texture2D" uid="uid://jnhnt5kow0bq" path="res://art/OV/Objects/BreakableWallHSG.png" id="21_63qd7"]
 [ext_resource type="Script" uid="uid://b05nwmod2wbs2" path="res://codings/Components/hide_on_flag.gd" id="21_mwckp"]
+[ext_resource type="Script" uid="uid://bhw57f1k8vvrj" path="res://codings/Classes/direction.gd" id="22_a7h8m"]
 [ext_resource type="Texture2D" uid="uid://ct33ao2bh7eoj" path="res://art/OV/Objects/SGGate.png" id="23_8huol"]
 [ext_resource type="Texture2D" uid="uid://ubrl1l3wlpgo" path="res://art/OV/Objects/CastSwitch.png" id="24_cd4rc"]
 [ext_resource type="Texture2D" uid="uid://d2moorxu5wbpx" path="res://art/OV/Objects/CastLines1.png" id="25_70av8"]
@@ -499,6 +500,9 @@ ScenePosition = Vector2(650, 465)
 EscPosition = Vector2i(26, 12)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_xjnw0"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_yoqct"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("16_a3r2p"), ExtResource("17_lmpvr"), ExtResource("16_a3r2p")])
@@ -507,6 +511,9 @@ Detransition = true
 EscPosition = Vector2i(-18, -5)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_lj216"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_a7h8m"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("15_3lgvi"), ExtResource("16_a3r2p"), ExtResource("15_3lgvi")])
@@ -514,12 +521,18 @@ ScenePosition = Vector2(453, 686)
 EscPosition = Vector2i(26, 12)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_wk642"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_ggbak"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("17_lmpvr"), ExtResource("20_ohs4u")])
 ScenePosition = Vector2(251, 765)
 EscPosition = Vector2i(23, 37)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_d6l2x"]
+script = ExtResource("22_a7h8m")
 
 [sub_resource type="Resource" id="Resource_lmpvr"]
 script = ExtResource("17_a3r2p")
@@ -529,12 +542,18 @@ Detransition = true
 EscPosition = Vector2i(-13, 26)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_ex6dr"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_qvrxi"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("16_a3r2p"), ExtResource("15_3lgvi")])
 ScenePosition = Vector2(-349, -778)
 EscPosition = Vector2i(-9, -29)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_d3jwk"]
+script = ExtResource("22_a7h8m")
 
 [sub_resource type="Resource" id="Resource_wvntm"]
 script = ExtResource("17_a3r2p")
@@ -544,6 +563,9 @@ Detransition = true
 EscPosition = Vector2i(-14, 22)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_xjok2"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_n6psl"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("15_3lgvi"), ExtResource("20_ohs4u")])
@@ -551,6 +573,9 @@ UseBackground = true
 Detransition = true
 EscPosition = Vector2i(-4, 13)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_k1go5"]
+script = ExtResource("22_a7h8m")
 
 [sub_resource type="Resource" id="Resource_41yyw"]
 script = ExtResource("17_a3r2p")
@@ -560,6 +585,9 @@ Detransition = true
 EscPosition = Vector2i(-5, -10)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
 
+[sub_resource type="Resource" id="Resource_e642t"]
+script = ExtResource("22_a7h8m")
+
 [sub_resource type="Resource" id="Resource_pvsn2"]
 script = ExtResource("17_a3r2p")
 Enemies = Array[ExtResource("15_rqges")]([ExtResource("20_ohs4u"), ExtResource("20_ohs4u"), ExtResource("15_3lgvi"), ExtResource("20_ohs4u")])
@@ -567,6 +595,9 @@ UseBackground = true
 Detransition = true
 EscPosition = Vector2i(-5, -10)
 metadata/_custom_type_script = "uid://blx6fs34ughqo"
+
+[sub_resource type="Resource" id="Resource_8jaei"]
+script = ExtResource("22_a7h8m")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thjc7"]
 size = Vector2(73, 39.0001)
@@ -1111,6 +1142,7 @@ position = Vector2(637, 507)
 BattleSeq = SubResource("Resource_xtlyj")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_xjnw0")
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemySG1" unique_id=2138604952]
@@ -1144,6 +1176,7 @@ position = Vector2(-304, -44)
 BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_lj216")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG10" unique_id=2003674837]
 
@@ -1177,6 +1210,7 @@ position = Vector2(410, 655)
 BattleSeq = SubResource("Resource_a7h8m")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_wk642")
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemySG2" unique_id=181928769]
@@ -1211,6 +1245,7 @@ position = Vector2(271, 759)
 BattleSeq = SubResource("Resource_ggbak")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_d6l2x")
 CameraIndex = 0
 
 [node name="HomePoints" type="Node2D" parent="EnemySG3" unique_id=764794876]
@@ -1242,6 +1277,7 @@ position = Vector2(-456, 434)
 BattleSeq = SubResource("Resource_lmpvr")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_ex6dr")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG4" unique_id=961417351]
 
@@ -1272,6 +1308,7 @@ position = Vector2(-378, -783)
 BattleSeq = SubResource("Resource_qvrxi")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_d3jwk")
 CameraIndex = 2
 
 [node name="HomePoints" type="Node2D" parent="EnemySG5" unique_id=1292102762]
@@ -1305,6 +1342,7 @@ position = Vector2(-275, 429)
 BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_xjok2")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG6" unique_id=258531717]
 
@@ -1337,6 +1375,7 @@ position = Vector2(-161, 190)
 BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_k1go5")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG7" unique_id=1253908807]
 
@@ -1368,6 +1407,7 @@ position = Vector2(-418, -405)
 BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_e642t")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG8" unique_id=1417479069]
 
@@ -1397,6 +1437,7 @@ position = Vector2(-342, -235)
 BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
+Facing = SubResource("Resource_8jaei")
 
 [node name="HomePoints" type="Node2D" parent="EnemySG9" unique_id=1013045367]
 
@@ -1428,7 +1469,6 @@ position = Vector2(32, -29)
 [node name="EvBlockedPath1" parent="." unique_id=450112031 instance=ExtResource("26_yhh0x")]
 position = Vector2(-334, 613)
 scale = Vector2(1.06845, 0.443152)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
@@ -1439,7 +1479,6 @@ Passive = true
 [node name="EvBlockedPath2" parent="." unique_id=113802291 instance=ExtResource("26_yhh0x")]
 position = Vector2(-216, -301)
 scale = Vector2(1.06845, 0.443152)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
@@ -1457,7 +1496,6 @@ itemtype = ""
 
 [node name="EvCastLines" parent="." unique_id=1299527673 instance=ExtResource("26_yhh0x")]
 position = Vector2(-143, -26)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TextFile = "story_2"
 TextNode = "cast_lines_sg"
@@ -1465,7 +1503,6 @@ TextNode = "cast_lines_sg"
 [node name="EvJumpReminder" parent="." unique_id=1221608906 instance=ExtResource("26_yhh0x")]
 position = Vector2(-182, 432)
 scale = Vector2(0.504117, 0.648075)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
@@ -1489,7 +1526,6 @@ shape = SubResource("RectangleShape2D_thjc7")
 [node name="EvSGfindBunker" parent="." unique_id=1389759721 instance=ExtResource("26_yhh0x")]
 position = Vector2(315, -1282)
 scale = Vector2(4.71253, 0.310116)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 TextFile = "story_2"
 TextNode = "sg_find_bunker"
@@ -1555,13 +1591,12 @@ scale = Vector2(1.88, 1)
 
 [node name="JumpPoint5" parent="." unique_id=53393851 instance=ExtResource("33_iqaea")]
 position = Vector2(-491, -298)
-jump_dirs = Array[Vector2]([Vector2(0, 1)])
 height = 1.0
 
 [node name="JumpPoint6" parent="." unique_id=527590548 instance=ExtResource("34_avv3b")]
 position = Vector2(-458.09613, -129.72061)
-scale = Vector2(1.0578103, 2.016095)
-jump_dirs = Array[Vector2]([Vector2(1, 0)])
+trigger_size = Vector2i(3, 2)
+jump_directions = Array[int]([4])
 jump_am_v = 1
 height = 0.8
 
@@ -1622,7 +1657,6 @@ metadata/_edit_group_ = true
 z_index = -1
 use_parent_material = true
 position = Vector2(299, 108)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1641,7 +1675,6 @@ frame_progress = 0.48911
 z_index = -1
 use_parent_material = true
 position = Vector2(590, 900)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1660,7 +1693,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(663, 757)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1679,7 +1711,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(400, 34)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1698,7 +1729,6 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(397, 140)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1717,7 +1747,6 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(636, 332)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1736,7 +1765,6 @@ frame_progress = 0.198226
 z_index = -1
 use_parent_material = true
 position = Vector2(563, 203)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1755,7 +1783,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(516, 35)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1774,7 +1801,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(708, 231)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1793,7 +1819,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(682, 323)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1812,7 +1837,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(589, 540)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1831,7 +1855,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(393, 544)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1850,7 +1873,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(518, 707)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"
@@ -1869,7 +1891,6 @@ frame_progress = 0.142851
 z_index = -1
 use_parent_material = true
 position = Vector2(636, 854)
-TriggerSize = Vector2i(50, 50)
 TakeControl = false
 ReturnControl = false
 EventName = "hurt_1"

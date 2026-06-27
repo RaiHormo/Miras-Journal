@@ -139,7 +139,7 @@ func attacked() -> void:
 		return
 	BodyState = NONE
 	set_anim("Hit")
-	var to_pos := position + Direction.snap_vector() * 12
+	var to_pos := position + Facing.vector * 12
 	Global.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
