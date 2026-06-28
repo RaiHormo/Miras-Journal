@@ -19,6 +19,6 @@ The documentation includes things like story details, worldbuilding as well as t
   
 - All writing under `database/Text/` is also copyrighted. All rights reserved by Iris.
 
-- The GPL license in LICENSE.md only applies to code and assets OUTSIDE the `art/` folder.
+- The GPL license in gpl_licence.txt only applies to code and assets OUTSIDE the `art/` folder.
 
 Copyright © 2023-2026 Iris Hormoviti

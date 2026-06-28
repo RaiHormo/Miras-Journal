@@ -57,7 +57,7 @@ func _ready() -> void:
 		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
 	$Background/Info/User.text = Global.Settings.PlayerName
 	var platform_icon: Texture
-	match OS.to_string():
+	match OS.get_name():
 		"Windows": platform_icon = preload("res://UI/Misc/Platforms/windows.svg")
 		"Linux": platform_icon = preload("res://UI/Misc/Platforms/linux.svg")
 		"Android": platform_icon = preload("res://UI/Misc/Platforms/android.svg")
