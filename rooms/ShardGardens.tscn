@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bt3npue7183vt"]
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_ydfuk"]
+[ext_resource type="PackedScene" uid="uid://cm7b1nuja0jgw" path="res://rooms/components/CameraIndex.tscn" id="2_ggbak"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_jg387"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="3_a7h8m"]
 [ext_resource type="Script" uid="uid://cvp04cgsljoib" path="res://codings/Components/path_hider.gd" id="3_bw084"]
@@ -746,13 +747,51 @@ process_mode = 3
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_ydfuk")
-Name = "Shard gardens"
+title = "Shard Gardens"
+battleback_position = Vector2(-1162, 90)
+FlameInInd = Array[int]([1, -2])
 SpawnPos = Vector2(12, 3)
 SpawnZ = Array[int]([])
 CameraLimits = Array[Vector4]([Vector4(0, -379, 912, 984), Vector4(-694, -552, -24, 696), Vector4(-1000, -1520, 456, -602)])
 CameraZooms = Array[float]([1.0, 1.0, 1.0])
-FlameInInd = Array[int]([1, -2])
-BattlebackPosition = Vector2(-1162, 90)
+
+[node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_ggbak")]
+offset_left = 2.0
+offset_top = -161.0
+offset_right = 912.0
+offset_bottom = 984.0
+spawn_position = Vector2i(152, 83)
+flame = -1
+left = 2
+up = -161
+right = 912
+down = 984
+
+[node name="Index1" parent="." unique_id=1351058019 instance=ExtResource("2_ggbak")]
+offset_left = -695.0
+offset_top = -552.0
+offset_right = -25.0
+offset_bottom = 695.0
+border_color = Color(0.2175174, 0.630144, 0.6800002, 1)
+spawn_position = Vector2i(-181, 635)
+flame = 1
+left = -695
+up = -552
+right = -25
+down = 695
+
+[node name="Index2" parent="." unique_id=1468627911 instance=ExtResource("2_ggbak")]
+offset_left = -991.0
+offset_top = -1524.0
+offset_right = 455.0
+offset_bottom = -602.0
+border_color = Color(0.42566454, 0.64017725, 0.15819278, 1)
+spawn_position = Vector2i(-219, -782)
+flame = -1
+left = -991
+up = -1524
+right = 455
+down = -602
 
 [node name="Label" type="Label" parent="." unique_id=1200116353]
 offset_left = 283.14026
@@ -1143,7 +1182,7 @@ BattleSeq = SubResource("Resource_xtlyj")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_xjnw0")
-CameraIndex = 0
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG1" unique_id=2138604952]
 
@@ -1177,6 +1216,7 @@ BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_lj216")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG10" unique_id=2003674837]
 
@@ -1211,7 +1251,7 @@ BattleSeq = SubResource("Resource_a7h8m")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_wk642")
-CameraIndex = 0
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG2" unique_id=181928769]
 
@@ -1246,7 +1286,7 @@ BattleSeq = SubResource("Resource_ggbak")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_d6l2x")
-CameraIndex = 0
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG3" unique_id=764794876]
 
@@ -1278,6 +1318,7 @@ BattleSeq = SubResource("Resource_lmpvr")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_ex6dr")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG4" unique_id=961417351]
 
@@ -1309,7 +1350,7 @@ BattleSeq = SubResource("Resource_qvrxi")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_d3jwk")
-CameraIndex = 2
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG5" unique_id=1292102762]
 
@@ -1343,6 +1384,7 @@ BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_xjok2")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG6" unique_id=258531717]
 
@@ -1376,6 +1418,7 @@ BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_k1go5")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG7" unique_id=1253908807]
 
@@ -1408,6 +1451,7 @@ BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_e642t")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG8" unique_id=1417479069]
 
@@ -1438,6 +1482,7 @@ BattleSeq = SubResource("Resource_pvsn2")
 chase_speed = 90
 speed = 90
 Facing = SubResource("Resource_8jaei")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySG9" unique_id=1013045367]
 

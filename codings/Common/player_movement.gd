@@ -29,6 +29,7 @@ var local_controllable := true:
 	set(x):
 		local_controllable = x
 
+signal initialized
 
 func _ready() -> void:
 	collision(false)
@@ -47,20 +48,21 @@ func _ready() -> void:
 		Loader.travel_to("Debug")
 		queue_free()
 		return
-	Loader.InBattle = false
+	Loader.in_battle = false
+	
 	if not is_clone:
 		Global.Player = self
 		var cam: Camera2D = Global.get_cam()
 		if cam != null:
-			for i in Global.Area.get_children():
-				if "Camera" in i.name: i.enabled = false
+			Global.Area.cam.enabled = false
 			$Camera2D.remote_path = cam.get_path()
 			cam.enabled = true
+	
 	set_anim("Idle" + Facing.to_string())
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	local_controllable = true
-	Global.player_ready.emit()
+	initialized.emit()
 
 #func _process(delta: float) -> void:
 	#Steam.run_callbacks()

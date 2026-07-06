@@ -1,114 +1,127 @@
 extends Node2D
 class_name Room
 
-@export var Name: String = "???"
-@export var IsDungeon := true
-@export var SpawnPlayer := true
-@export var SpawnPath: Node = self
-##In tilemap coords
-@export var SpawnPos: Vector2 = Vector2(0, 0)
-@export var SpawnZ: Array[int] = [1]
-@export_flags_2d_physics var SpawnLayers := 1
-##[x]: left [y]: top [z]: right [w]: bottom
-@export var CameraLimits: Array[Vector4] = [Vector4(-10000000, -10000000, 10000000, 10000000)]
-@export var CameraZooms: Array[float] = [1]
-var overwrite_zoom: float = 0
-var Stairs: Array[Stair]
-enum { LEFT = 0, TOP = 1, RIGHT = 2, BOTTOM = 3 }
-##[0]: left [1]: top [2]: right [3]: bottom
-var Size: Vector2
-var Cam := Camera2D.new()
-var Followers: Array[CharacterBody2D] = []
-var Layers: Array[TileMapLayer]
-var CurSubRoom: SubRoom = null
-@export var FlameInInd: Array[int]
-@export var BattlebackPosition: Vector2
+@export var title: String = "???"
+@export var battleback_position: Vector2
+@export var is_dungeon := true
 
+var index: int = 0
+var camera_index: CameraIndex
+var cam := Camera2D.new()
+var followers: Array[CharacterBody2D] = []
+var stairs: Array[Stair]
+var layers: Array[TileMapLayer]
+var current_subroom: SubRoom = null
+
+var overwrite_zoom: float = 0
+
+signal initialized
+
+func _init() -> void:
+	Global.Area = self
 
 func _ready() -> void:
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
+	
+	# Setup material
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	Cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-	Cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
-	Cam.position_smoothing_speed = 6
-	add_child(Cam)
-	setup_params()
-
-	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
+	
+	# Fetch TilemapLayers and Indecies
 	for i in get_children():
 		if i is TileMapLayer:
-			Layers.append(i)
-	if CameraLimits[Global.CameraInd] == Vector4.ZERO:
-		Cam.limit_left = -10000000
-		Cam.limit_right = 10000000
-		Cam.limit_top = -10000000
-		Cam.limit_bottom = 10000000
-	else:
-		Cam.limit_left = int((CameraLimits[Global.CameraInd])[LEFT])
-		Cam.limit_right = int((CameraLimits[Global.CameraInd])[RIGHT])
-		Cam.limit_top = int((CameraLimits[Global.CameraInd])[TOP])
-		Cam.limit_bottom = int((CameraLimits[Global.CameraInd])[BOTTOM])
-	if SpawnPlayer:
+			layers.append(i)
+		if i is CameraIndex:
+			if i.index == index:
+				camera_index = i
+	
+	# Setup camera
+	cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
+	cam.position_smoothing_speed = 6
+	add_child(cam)
+	setup_params()
+	if camera_index != null:
+		cam.limit_left = camera_index.left
+		cam.limit_right = camera_index.right
+		cam.limit_top = camera_index.up
+		cam.limit_bottom = camera_index.down
+	
+	# Setup subrooms
+	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
+	
+	# Spawn player
+	var spawn_player := camera_index == null or camera_index.spawn_player
+	if spawn_player:
 		var Player := preload("uid://sql6r7jv7fjq").instantiate()
-		SpawnPath.add_child(Player)
+		add_child(Player)
+		
 		var dist := 30
 		for i in range(1, 4):
 			var follower := preload("uid://da22xhcxygcjl").instantiate()
 			follower.name = "Follower" + str(i)
 			follower.member = i
 			follower.distance = dist
-			Followers.append(follower)
-			SpawnPath.add_child(follower)
+			followers.append(follower)
+			add_child(follower)
 			#match i:
 				#1: follower.offset = 6
 				#2: follower.offset = -6
 				#3: follower.offset = 0
 			dist += round(30 + dist / 4)
 		move_child(Player, 0)
-	Global.Area = self
-	await Global.player_ready
-	Global.check_party.emit()
-	if SpawnPlayer:
-		Global.Player.global_position = map_to_local(SpawnPos)
+	
+		# Wait for player to be ready
+		await Player.initialized
+	
+		Global.Player.global_position = camera_index.spawn_position as Vector2 if camera_index != null else Vector2.ZERO
 		handle_z()
-		Global.Player.collision_layer = SpawnLayers
-		Global.Player.collision_mask = SpawnLayers
-	await Event.wait()
-	if is_instance_valid(Global.Player):
-		if Global.CameraInd in FlameInInd:
-			if not Event.f("FlameActive"): Global.Player.activate_flame()
-		if -Global.CameraInd in FlameInInd or (Global.CameraInd == 0 and -99 in FlameInInd):
-			Event.remove_flag("FlameActive")
+		
+		if camera_index != null:
+			if camera_index.flame == 1:
+				if not Event.f("FlameActive"): Global.Player.activate_flame()
+			elif camera_index.flame == -1:
+				Event.remove_flag("FlameActive")
+			
+			Global.Player.collision_layer = camera_index.layers
+			Global.Player.collision_mask = camera_index.layers
+		
 		Global.Player.collision(true)
+	
+	## Used for extending this script
 	default()
+	
+	## Make controllable
 	if Global.Controllable:
 		PartyUI.UIvisible = true
-		for i in Global.Area.Followers:
+		for i in followers:
 			i.dont_follow = false
+	
+	## Set this node's name to the codename
 	name = codename()
-	Global.area_initialized.emit()
+	
+	initialized.emit()
 
 
 func setup_params(tween_zoom := false) -> void:
-	Cam.limit_smoothed = true
-	Cam.position_smoothing_enabled = true
-	Cam.position_smoothing_speed = 10
-	Cam.process_mode = Node.PROCESS_MODE_ALWAYS
+	cam.limit_smoothed = true
+	cam.position_smoothing_enabled = true
+	cam.position_smoothing_speed = 10
+	cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	var zoom := Vector2(4, 4)
 	if overwrite_zoom > 0:
 		zoom = Vector2(overwrite_zoom, overwrite_zoom)
-	if overwrite_zoom == 0 and Global.CameraInd < CameraZooms.size() and CurSubRoom == null:
-		zoom = Vector2(CameraZooms[Global.CameraInd] * 4, CameraZooms[Global.CameraInd] * 4)
-	elif CurSubRoom is SubRoom:
-		zoom = Vector2(CurSubRoom.cam_zoom, CurSubRoom.cam_zoom)
+	if overwrite_zoom == 0 and camera_index != null and current_subroom == null:
+		zoom = Vector2(camera_index.zoom, camera_index.zoom)
+	elif current_subroom is SubRoom:
+		zoom = Vector2(current_subroom.cam_zoom, current_subroom.cam_zoom)
 	if tween_zoom:
 		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
 		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property(Cam, "zoom", zoom, 0.3)
+		t.tween_property(cam, "zoom", zoom, 0.3)
 	else:
-		Cam.zoom = zoom
+		cam.zoom = zoom
 
 
 func default() -> void:
@@ -117,13 +130,13 @@ func default() -> void:
 
 func handle_z(z := -1) -> void:
 	if not is_instance_valid(Global.Player): return
-	if z == -1: z = SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
+	if z == -1: z = camera_index.z if camera_index != null else 1
 	
 	Global.Player.z_index = z
 	for i in get_children():
-		if i is Stair and i not in Stairs:
-			Stairs.append(i)
-	for i in Stairs:
+		if i is Stair and i not in stairs:
+			stairs.append(i)
+	for i in stairs:
 		if i.zUp == Global.Player.z_index:
 			i.go_up()
 		if i.zDown == Global.Player.z_index:
@@ -132,15 +145,15 @@ func handle_z(z := -1) -> void:
 
 func get_z() -> int:
 	if is_instance_valid(Global.Player): return Global.Player.z_index
-	else: return SpawnZ[Global.CameraInd] if Global.CameraInd < SpawnZ.size() else 0
+	else: return camera_index.z if camera_index != null else 0
 
 
 func map_to_local(vec: Vector2i) -> Vector2:
-	return Layers[0].map_to_local(vec)
+	return layers[0].map_to_local(vec)
 
 
 func local_to_map(vec: Vector2) -> Vector2i:
-	return Layers[0].local_to_map(vec)
+	return layers[0].local_to_map(vec)
 
 var t: Tween
 
@@ -149,25 +162,25 @@ func fade() -> void:
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.tween_property($SubRoomBg, "modulate", Color.WHITE, 0.3)
-	for i in Layers:
+	for i in layers:
 		i.collision_enabled = false
 	await t.finished
-	for i in Layers:
+	for i in layers:
 		i.hide()
 
 
 func unfade() -> void:
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
-	for i in Layers:
+	for i in layers:
 		i.collision_enabled = true
 		i.show()
 	t.tween_property($SubRoomBg, "modulate", Color.TRANSPARENT, 0.3)
 
 
 func _physics_process(delta: float) -> void:
-	if has_node("SubRoomBg") and CurSubRoom != null:
-		$SubRoomBg.position = Cam.position
+	if has_node("SubRoomBg") and current_subroom != null:
+		$SubRoomBg.position = cam.position
 
 
 func go_to_subroom(subroom: String, fast := false) -> Vector2:
@@ -189,7 +202,7 @@ func go_to_subroom(subroom: String, fast := false) -> Vector2:
 
 
 func get_layers() -> Array[TileMapLayer]:
-	return Layers if CurSubRoom == null else CurSubRoom.Layers
+	return layers if current_subroom == null else current_subroom.Layers
 
 
 func get_tile(pos: Vector2, layer: int = 1) -> TileData:
@@ -198,9 +211,9 @@ func get_tile(pos: Vector2, layer: int = 1) -> TileData:
 
 
 func get_terrain(coords: Vector2i) -> String:
-	var layers: Array[TileMapLayer] = get_layers().duplicate()
-	layers.reverse()
-	for i in layers:
+	var tilemap_layers: Array[TileMapLayer] = get_layers().duplicate()
+	tilemap_layers.reverse()
+	for i in tilemap_layers:
 		var data := i.get_cell_tile_data(coords)
 		if is_instance_valid(data) and data.has_custom_data("TerrainType"):
 			var terrain: String = data.get_custom_data("TerrainType")
@@ -211,4 +224,4 @@ func get_terrain(coords: Vector2i) -> String:
 
 
 func codename() -> String:
-	return Name.to_pascal_case()
+	return title.to_pascal_case()

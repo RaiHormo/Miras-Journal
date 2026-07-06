@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func transition(time := 0.3) -> void:
-	Global.Area.CurSubRoom = self
+	Global.Area.current_subroom = self
 	show()
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
@@ -46,7 +46,7 @@ func transition(time := 0.3) -> void:
 
 
 func detransition() -> void:
-	Global.Area.CurSubRoom = null
+	Global.Area.current_subroom = null
 	Global.Area.unfade()
 	Global.Area.setup_params(true)
 	if cant_dash_inside: Global.Player.can_dash = true
@@ -56,7 +56,7 @@ func detransition() -> void:
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false
 	Event.teleport_followers()
 	Global.Player.z_index = Global.Area.z_index
-	if Global.Area.CurSubRoom == self:
+	if Global.Area.current_subroom == self:
 		Event.take_control(true, true)
 		await transition()
 		Event.give_control(false)

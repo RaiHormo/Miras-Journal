@@ -19,7 +19,6 @@ var Camera: Camera2D:
 	get:
 		return get_cam()
 
-var CameraInd := 0
 var Settings: Setting
 var Lights: Array[Light2D] = []
 var device: String = ""
@@ -38,10 +37,8 @@ var Complimentaries: Array[String]
 signal lights_loaded
 signal check_party
 signal anim_done
-signal area_initialized
 signal textbox_close
 signal passive_close
-signal player_ready
 signal controller_changed
 var AppID := 4059970
 var UsingSteam := false
@@ -74,7 +71,7 @@ func quit(save_first := true) -> void:
 		if get_tree().root.has_node("MainMenu"):
 			get_tree().root.get_node("MainMenu").close()
 		if (
-			not Loader.InBattle and is_instance_valid(Player) and is_instance_valid(Area) and (
+			not Loader.in_battle and is_instance_valid(Player) and is_instance_valid(Area) and (
 			Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options"))
 		):
 			Loader.icon_save()
@@ -695,7 +692,7 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 
 func get_cam() -> Camera2D:
 	if !is_instance_valid(Area): return null
-	return Global.Area.Cam
+	return Global.Area.cam
 
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:

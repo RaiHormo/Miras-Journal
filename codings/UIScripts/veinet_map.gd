@@ -77,9 +77,9 @@ func location_selected() -> void:
 
 	var progress_time := false
 	var prev_foc := foc
-	if foc.get_meta("IsDungeon", true) != Global.Area.IsDungeon and not Event.f("FreeTravelOnce"):
+	if foc.get_meta("IsDungeon", true) != Global.Area.is_dungeon and not Event.f("FreeTravelOnce"):
 		var message: String
-		if Global.Area.IsDungeon:
+		if Global.Area.is_dungeon:
 			message = "Exit the dungeon and rest at home."
 		else:
 			message = "Head into a dungeon. Time will pass when returning."
@@ -89,7 +89,7 @@ func location_selected() -> void:
 			PartyUI.hide_all()
 			focus_place(here)
 			return
-		elif Global.Area.IsDungeon:
+		elif Global.Area.is_dungeon:
 			Event.progress_by_time(2)
 			progress_time = true
 			Event.add_flag("eepy1")

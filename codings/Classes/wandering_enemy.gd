@@ -65,14 +65,14 @@ func default() -> void:
 	Nav = $Nav
 	if ID == "":
 		ID = name
-	if ID in Loader.Defeated:
+	if ID in Loader.defeated:
 		queue_free()
 	Loader.battle_start.connect(func() -> void: hide()) #this is really ugly but it's typed now.
 	Loader.battle_end.connect(func() -> void: show())
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
 			homepoints.append(i.global_position)
-	for i in Global.Area.Followers:
+	for i in Global.Area.followers:
 		add_collision_exception_with(i)
 	patrol()
 
@@ -85,7 +85,7 @@ func patrol() -> void:
 
 func extended_process() -> void:
 	var Collision: CollisionShape2D = $Collision
-	if self.get_path in Loader.Defeated:
+	if self.get_path in Loader.defeated:
 		hide()
 		$CatchArea/CollisionShape2D.set_deferred("disabled", true)
 		return
@@ -101,13 +101,13 @@ func extended_process() -> void:
 			if Direction.snap_vector(to_local(Nav.get_next_path_position())) != -Direction.snap_vector(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
-			if not Loader.InBattle:
+			if not Loader.in_battle:
 				Loader.battle_bars(0)
 			patrol()
-			if Loader.Attacker == self:
-				Loader.Attacker = null
+			if Loader.attacker == self:
+				Loader.attacker = null
 	else:
-		if Loader.InBattle:
+		if Loader.in_battle:
 			hide()
 		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
 			if is_on_wall():
@@ -127,7 +127,7 @@ func extended_process() -> void:
 
 
 func begin_battle(advatage := 0) -> void:
-	Loader.Attacker = self
+	Loader.attacker = self
 	Global.Player.dramatic_attack_pause()
 	Global.rumble(1, 1, 0.2)
 	await Loader.start_battle(BattleSeq, advatage)
@@ -151,7 +151,7 @@ func attacked() -> void:
 
 
 func _on_finder_body_entered(body: Node2D) -> void:
-	if body == Global.Player and not PinRange and not Loader.chased and not Loader.InBattle:
+	if body == Global.Player and not PinRange and not Loader.chased and not Loader.in_battle:
 		Nav.set_target_position(Global.Player.position)
 		if not Nav.is_target_reachable():
 			return
@@ -162,7 +162,7 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		BodyState = IDLE
 		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
-		Loader.Attacker = self
+		Loader.attacker = self
 		look_to(Direction.snap_vector(to_local(Global.Player.global_position)))
 		await Event.wait(0.8)
 		look_to(Direction.snap_vector(to_local(Global.Player.global_position)))
@@ -178,7 +178,7 @@ func _on_finder_body_entered(body: Node2D) -> void:
 
 
 func _on_catch_area_body_entered(body: Node2D) -> void:
-	if (body == Global.Player and (not lock) and (not Loader.InBattle) and (not Global.Player.attacking or Global.Player.winding_attack)):
+	if (body == Global.Player and (not lock) and (not Loader.in_battle) and (not Global.Player.attacking or Global.Player.winding_attack)):
 		#print(Global.Player.attacking)
 		$EnemyStrike.disappear()
 		Global.Player.winding_attack = false

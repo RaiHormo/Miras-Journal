@@ -92,7 +92,7 @@ func _validate_property(property: Dictionary) -> void:
 func _on_area_prompt_area_entered(area: Area2D) -> void:
 	if broken:
 		return
-	if Loader.InBattle or not Global.Controllable or not is_instance_valid(Global.Player):
+	if Loader.in_battle or not Global.Controllable or not is_instance_valid(Global.Player):
 		return
 	if not Item.check_item("LightweightAxe", "Key"):
 		return

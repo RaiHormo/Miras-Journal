@@ -1065,7 +1065,7 @@ func FirstBattle1() -> void:
 	Bt.focus_cam(Bt.Troop[0], 0.1, 0)
 	Bt.zoom(6)
 	Bt.Action = true
-	Loader.InBattle = true
+	Loader.in_battle = true
 	Loader.get_node("Can").layer = 3
 	await Global.textbox("story_0", "first_cutscene")
 	Loader.battle_bars(4)
@@ -1082,7 +1082,7 @@ func FirstBattle1() -> void:
 	await Event.wait(1)
 	Global.passive("story_0", "sstay_back")
 	await Event.wait(1)
-	Loader.InBattle = true
+	Loader.in_battle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
 	$"../BattleUI".disable_ability = true
@@ -1173,7 +1173,7 @@ func FirstBattle5() -> void:
 	Bt.zoom(6)
 	$"../EnemyUI".hide()
 	get_tree().paused = false
-	Loader.InBattle = false
+	Loader.in_battle = false
 	Bt.get_actor("Mira").DontIdle = false
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)

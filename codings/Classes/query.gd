@@ -185,9 +185,8 @@ static func get_member_name(n: int) -> String:
 ## Are you calling this private func from somewhere else?? Then it's not private!
 ## And if you are, explain what it does! Why is it checking "on wall" ???
 ## This shouldve just been part of the "global" functin with like a flag if anything!
-static func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	if target.has_method("is_on_wall") and target.is_on_wall(): return
-	else: target.position = _calc_qbezier(ti, p0, p1, p2)
+static func quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
+	target.position = _calc_qbezier(ti, p0, p1, p2)
 
 
 static func global_quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
@@ -320,3 +319,15 @@ static func get_pronoun(form: String = "they", gender: String = "they") -> Strin
 
 static func world_to_canvas(pos: Vector2, from: CanvasItem = Global.Area) -> Vector2:
 	return Global.get_viewport().get_screen_transform() * from.get_global_transform_with_canvas() * pos
+
+static func get_ov_sprites(id: String) -> SpriteFrames:
+	var nam := id.split(":", false)
+	match nam.size():
+		1:
+			nam.append(nam[0] + "OV")
+		2:
+			pass
+		0, _:
+			push_error("Invalid spawn id: " + id)
+			return null
+	return await Loader.load_res("res://art/OV/" + nam[0] + "/" + nam[1] + ".tres")

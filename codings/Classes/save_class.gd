@@ -44,7 +44,7 @@ func migrate() -> SaveFile:
 	if migratable == false:
 		print("File cannot be migrated")
 		return null
-	if version != Loader.SaveVersion:
+	if version != Loader.save_file_version:
 		print("more conversions need to be done")
 		return migrate()
 	else:

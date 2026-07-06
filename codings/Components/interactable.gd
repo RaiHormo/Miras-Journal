@@ -161,8 +161,6 @@ func _ready() -> void:
 		return
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
-	await Global.area_initialized
-	check()
 	Global.check_party.connect(check)
 	do_position()
 	disappear()
@@ -183,12 +181,12 @@ func vein_check() -> void:
 
 
 func check() -> void:
-	if Engine.is_editor_hint() or Loader.InBattle: return
+	if Engine.is_editor_hint() or Loader.in_battle: return
 	if not is_instance_valid(Global.Player): queue_free()
 	if bubble_always:
 		if not Global.Controllable: disappear(true)
 		else: bubble()
-	if Loader.InBattle or not is_instance_valid(Global.Player):
+	if Loader.in_battle or not is_instance_valid(Global.Player):
 		disappear(true)
 		return
 	if event_condition != "" and Event.condition(event_condition) == 0:
@@ -295,7 +293,7 @@ func _input(event: InputEvent) -> void:
 
 
 func do_position() -> void:
-	if Loader.InBattle or not is_instance_valid(Global.Player):
+	if Loader.in_battle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
 	var dir := Direction.snap_vector(to_local(Global.Player.position + Vector2(0, Height - offset)))
@@ -442,7 +440,7 @@ func _on_button_pressed() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if Loader.InBattle or not Global.Controllable or not is_instance_valid(Global.Player):
+	if Loader.in_battle or not Global.Controllable or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):

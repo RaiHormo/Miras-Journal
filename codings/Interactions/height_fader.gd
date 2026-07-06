@@ -11,7 +11,7 @@ var camera_index := -1
 
 
 func _ready() -> void:
-	if camera_index != -1 and camera_index != Global.CameraInd:
+	if camera_index != -1 and camera_index != Global.Area.index:
 		process_mode = Node.PROCESS_MODE_DISABLED
 
 

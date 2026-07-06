@@ -6,7 +6,7 @@ class_name Battle
 ## shortcut to Global.Party, use Party.array() to access it as an array
 var Party: PartyData
 ## Battle sequence of this battle
-var Seq: BattleSequence = Loader.Seq
+var Seq: BattleSequence = Loader.battle_sequence
 ## Array of the enemies of this battle.
 ## Enemies can be added or removed throughout
 var Troop: Array[Actor]
@@ -69,7 +69,7 @@ func _ready() -> void:
 	get_tree().paused = false
 	Global.Controllable = false
 	cam.make_current()
-	Loader.InBattle = true
+	Loader.in_battle = true
 	Action = true
 	TurnInd = -1
 	Turn = 0
@@ -78,10 +78,10 @@ func _ready() -> void:
 		return
 	CurrentChar = Global.Party.Leader
 	CurrentAbility = Global.Party.Leader.StandardAttack
-	if Loader.Seq == null:
+	if Loader.battle_sequence == null:
 		Seq = load("res://database/BattleSeq/DebugDummy.tres")
 	else:
-		Seq = Loader.Seq.duplicate()
+		Seq = Loader.battle_sequence.duplicate()
 	Seq.reset_events(true)
 	Party = Global.Party
 	for i in Seq.Enemies:
@@ -138,10 +138,10 @@ func _ready() -> void:
 		Troop[i].Health = Troop[i].MaxHP
 		Troop[i].Aura = Troop[i].MaxAura
 		dub.add_child(Troop[i].SoundSet.instantiate())
-	if Loader.BtAdvantage == 1:
+	if Loader.battle_advantage == 1:
 		for i in TurnOrder:
 			if not i.IsEnemy: i.SpeedBoost += 5
-	elif Loader.BtAdvantage == 2:
+	elif Loader.battle_advantage == 2:
 		for i in TurnOrder:
 			if i.IsEnemy: i.SpeedBoost += 10
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
@@ -151,7 +151,7 @@ func _ready() -> void:
 		i.BattleLog = [Actor.log_entry.new()]
 		i.load_complimentaries()
 	position_sprites()
-	if is_instance_valid(Loader.Attacker): Loader.Attacker.hide()
+	if is_instance_valid(Loader.attacker): Loader.attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
 	TurnOrder.sort_custom(speed_sort)
 	turn_ui_init()
@@ -295,7 +295,7 @@ func entrance() -> void:
 			t.tween_property(cam, "position", Vector2(-50, 0), 0.5).set_delay(0.5)
 			await Event.wait(0.3, false)
 			$EnemyUI.all_enemy_ui(true)
-			if Loader.BtAdvantage == 1:
+			if Loader.battle_advantage == 1:
 				for i in Troop: damage(i, 1, false, 24 / Troop.size())
 			await Event.wait(0.5, false)
 	if Seq.EntranceSequence == "":
@@ -565,7 +565,7 @@ character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5)
 	var midpoint := start.lerp(target, 0.5) + Vector2.UP * jump_height
 	var jump_time := jump_distance * (time * 0.001)
 	t.tween_method(
-		Query._quad_bezier.bind(start, midpoint, target, character.node),
+		Query.quad_bezier.bind(start, midpoint, target, character.node),
 		0.0,
 		1.0,
 		jump_time
@@ -1101,7 +1101,7 @@ func pop_aura(target: Actor, time: float = 0.5) -> void:
 
 func escape() -> void:
 	print_rich("[color=cornflower-blue]Escaped")
-	Loader.BattleResult = 2
+	Loader.battle_result = 2
 	end_battle()
 
 
@@ -1188,7 +1188,7 @@ func victory(ignore_seq := false) -> void:
 	if Seq.VictoryBanter != "":
 		Global.passive("banter_victory", Seq.VictoryBanter)
 	$Canvas.layer = 1
-	Loader.BattleResult = 1
+	Loader.battle_result = 1
 	for i in Party.array():
 		victory_anim(i)
 	check_party.emit()
@@ -1235,7 +1235,7 @@ func victory(ignore_seq := false) -> void:
 			Global.Player.global_position = $Act/Actor0.global_position
 			for i in range(1, 4):
 				if Party.check_member(i):
-					Global.Area.Followers[i - 1].global_position = $Act.get_node("Actor" + str(i)).global_position
+					Global.Area.followers[i - 1].global_position = $Act.get_node("Actor" + str(i)).global_position
 			Global.Camera.position_smoothing_enabled = false
 			Global.Camera.global_position = cam.global_position
 			Global.Camera.enabled = true

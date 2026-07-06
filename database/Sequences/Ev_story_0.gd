@@ -27,7 +27,7 @@ func new_game() -> void:
 	Item.add_item("Wallet", &"Key", false)
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)
-	Loader.Defeated.clear()
+	Loader.defeated.clear()
 	# Reset Party
 	Global.Party.reset_party()
 	Global.reset_all_members()
@@ -38,7 +38,7 @@ func new_game() -> void:
 	Loader.white_fadeout(7, 1, 0, 1)
 	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, null, false)
 	get_tree().paused = false
-	await Global.area_initialized
+	await Global.Area.initialized
 	# Skip intro shortcut
 	if Input.is_action_pressed("Dash"):
 		Global.refresh()
@@ -224,7 +224,7 @@ func AlcineFollow3() -> void:
 	await Event.wait(1)
 	Event.obj("Pterogon").play("Idle")
 	await Global.textbox("story_0", "stay_back")
-	Loader.Attacker = Event.obj("Pterogon")
+	Loader.attacker = Event.obj("Pterogon")
 	await Event.wait(0.1)
 	Global.Party.Leader.Health = max(Global.Party.Leader.Health, 30)
 	Global.Party.Leader.ClutchDmg = true
@@ -259,16 +259,16 @@ func AlcineFollow4() -> void:
 	var Alcine: NPC = Event.npc("Alcine")
 	Global.check_party.emit()
 	Event.take_control()
-	while Loader.InBattle: await Event.wait(0.1)
+	while Loader.in_battle: await Event.wait(0.1)
 	Event.take_control()
 	Global.Party.Member1.FirstName = "Alcine"
 	Alcine.z_index = 0
 	Event.allow_skipping = false
 	Query.find_member("Mira").OV = "Bag"
-	Alcine.position = Global.Area.Followers[0].position
+	Alcine.position = Global.Area.followers[0].position
 	await Global.Player.go_to(Vector2(67, -45), true)
-	Global.Area.Followers[0].dont_follow = true
-	Global.Area.Followers[0].hide()
+	Global.Area.followers[0].dont_follow = true
+	Global.Area.followers[0].hide()
 	Alcine.show()
 	await Alcine.go_to(Vector2(66, -45), true)
 	await Event.wait(0.3)
@@ -288,7 +288,7 @@ func AlcineFollow4() -> void:
 	PartyUI.UIvisible = true
 	Event.allow_skipping = true
 	Event.add_flag("FlameActive")
-	Global.Area.Followers[0].dont_follow = false
+	Global.Area.followers[0].dont_follow = false
 	Loader.detransition()
 	PartyUI._on_shrink()
 	Event.give_control(true)
@@ -339,7 +339,7 @@ func enter_amberelm_2() -> void:
 	Global.Player.position = Vector2(222, 429)
 	Event.take_control(false, true)
 	await Event.wait(1)
-	Global.Area.Followers[0].position = Global.Player.position + Vector2(0, 24)
+	Global.Area.followers[0].position = Global.Player.position + Vector2(0, 24)
 	Loader.ungray.emit()
 	await Global.textbox(name, "what_happened_here")
 	await Loader.transition(Direction.RIGHT)
@@ -356,7 +356,7 @@ func rest_amberelm() -> void:
 		Event.no_player()
 		Global.check_party.emit()
 		get_tree().paused = false
-		Global.Area.Followers[0].hide()
+		Global.Area.followers[0].hide()
 		var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), Direction.DOWN, true, 8)
 		var alcine: NPC = await Event.spawn("Alcine", Vector2(100, 340), Direction.DOWN, true, 8)
 		mira.BodyState = NPC.NONE
@@ -396,7 +396,7 @@ func oct0_daytime() -> void:
 func amberelm_guardian() -> void:
 	Loader.start_battle("StoneGuardianBoss")
 	await Loader.battle_end
-	if Loader.BattleResult == 1:
+	if Loader.battle_result == 1:
 		Global.Party.set_to_strarr(["Mira"])
 		Loader.ungray.emit()
 		Event.ToDay = 0

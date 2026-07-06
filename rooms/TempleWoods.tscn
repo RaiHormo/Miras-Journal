@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://2sbvfn5kq0id"]
 
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="1_hnsnu"]
+[ext_resource type="PackedScene" uid="uid://cm7b1nuja0jgw" path="res://rooms/components/CameraIndex.tscn" id="2_2y4jd"]
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="2_unic6"]
 [ext_resource type="SpriteFrames" uid="uid://uukatv1k8px0" path="res://art/OV/Alcine/AlcineOV1.tres" id="4_d61pe"]
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="4_e7y1u"]
@@ -340,12 +341,42 @@ agent_radius = 5.0
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("2_unic6")
-Name = "Temple Woods"
-SpawnPos = Vector2(5, 22)
-SpawnZ = Array[int]([1, 1, 1, 1])
-CameraLimits = Array[Vector4]([Vector4(-50, 150, 800, 700), Vector4(1000, -700, 1770, 550), Vector4(1140, -1800, 2100, -870)])
-CameraZooms = Array[float]([1.25, 1.0, 1.1])
-FlameInInd = Array[int]([2])
+title = "Temple Woods"
+
+[node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_2y4jd")]
+offset_left = -50.0
+offset_top = 150.0
+offset_right = 800.0
+offset_bottom = 700.0
+z = 1
+left = -50
+up = 150
+right = 800
+down = 700
+
+[node name="Index1" parent="." unique_id=444745805 instance=ExtResource("2_2y4jd")]
+offset_left = 1000.0
+offset_top = -700.0
+offset_right = 1770.0
+offset_bottom = 550.0
+border_color = Color(0.23783529, 0.66108066, 0.38062164, 1)
+z = 1
+left = 1000
+up = -700
+right = 1770
+down = 550
+
+[node name="Index2" parent="." unique_id=1498018792 instance=ExtResource("2_2y4jd")]
+offset_left = 1140.0
+offset_top = -1800.0
+offset_right = 2100.0
+offset_bottom = -870.0
+border_color = Color(0.050088577, 0.6300901, 0.75872064, 1)
+z = 1
+left = 1140
+up = -1800
+right = 2100
+down = -870
 
 [node name="GetUp" type="Button" parent="." unique_id=240859851]
 visible = false
@@ -529,6 +560,7 @@ tile_map_data = PackedByteArray("AAAGABwABAAIAAYAAAAHABoABAAIAAYAAAAKABkABAAGAAY
 tile_set = ExtResource("1_hnsnu")
 
 [node name="Items" type="Node2D" parent="." unique_id=224220623]
+use_parent_material = true
 
 [node name="ItemLifeLave1" parent="Items" unique_id=2078540959 instance=ExtResource("26_k6j3t")]
 position = Vector2(1616, -214)
@@ -719,6 +751,7 @@ position = Vector2(1.000061, 3.170288)
 shape = SubResource("RectangleShape2D_1mwwj")
 
 [node name="Effects" type="Node2D" parent="." unique_id=944601241]
+use_parent_material = true
 
 [node name="EffectFirefly" type="Marker2D" parent="Effects" unique_id=1824969598]
 process_mode = 3
@@ -787,6 +820,7 @@ texture = SubResource("GradientTexture2D_5n2mj")
 texture_scale = 4.94
 
 [node name="Event" type="Node2D" parent="." unique_id=382083643]
+use_parent_material = true
 
 [node name="EvAlcine" type="CharacterBody2D" parent="Event" unique_id=594605233]
 position = Vector2(1681, -1069)
@@ -795,7 +829,7 @@ script = ExtResource("19_dpu00")
 speed = 100
 DefaultState = 6
 ID = "Alcine"
-CameraIndex = 2
+only_on_index = 2
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Bubble" type="AnimatedSprite2D" parent="Event/EvAlcine" unique_id=1653531886]
@@ -828,7 +862,7 @@ offset = Vector2(0.0496826, -5.866)
 position = Vector2(1258, -652)
 motion_mode = 1
 script = ExtResource("19_dpu00")
-CameraIndex = 1
+only_on_index = 1
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Bubble" type="AnimatedSprite2D" parent="Event/EvAlcineBelow" unique_id=1102887877]
@@ -859,7 +893,6 @@ offset = Vector2(0.0496826, -5.866)
 
 [node name="EvAlcineFollow1" parent="Event" unique_id=1297631556 instance=ExtResource("36_2q7ov")]
 position = Vector2(1250, -635)
-TriggerSize = Vector2i(50, 50)
 Flag = "day=0+AlcineFollow<1"
 FlagIsName = false
 FlagShouldBe = true
@@ -969,7 +1002,6 @@ EventName = "first_battle"
 position = Vector2(1535, -35)
 rotation = -0.53980017
 scale = Vector2(2.0800018, 2.0800018)
-TriggerSize = Vector2i(50, 50)
 AddFlag = true
 ShowTextbox = true
 TextFile = "story_0"
@@ -1077,6 +1109,7 @@ position = Vector2(1365, 223)
 BattleSeq = ExtResource("11_1cjwu")
 Facing = SubResource("Resource_2q7ov")
 ID = "CS1"
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1" unique_id=739350443]
 
@@ -1121,6 +1154,7 @@ position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
 Facing = SubResource("Resource_2q7ov")
 ID = "CS3"
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2" unique_id=421879962]
 
@@ -1164,6 +1198,7 @@ gizmo_extents = 100.0
 position = Vector2(1638, 369)
 BattleSeq = ExtResource("13_812cc")
 Facing = SubResource("Resource_2q7ov")
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3" unique_id=2002211728]
 
@@ -1203,6 +1238,7 @@ position = Vector2(1258, -491)
 BattleSeq = ExtResource("21_e7y1u")
 Facing = SubResource("Resource_2q7ov")
 ID = "CS5"
+only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4" unique_id=1500271890]
 

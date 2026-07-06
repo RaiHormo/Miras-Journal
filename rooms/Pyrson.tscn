@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_prfhr"]
 [ext_resource type="TileSet" uid="uid://dfrkh3lthh51c" path="res://art/Tilesets/Abad.tres" id="2_3r7g5"]
+[ext_resource type="PackedScene" uid="uid://cm7b1nuja0jgw" path="res://rooms/components/CameraIndex.tscn" id="2_nlfpl"]
 [ext_resource type="Script" uid="uid://d0lpg5yelr4ri" path="res://codings/Classes/sub_room.gd" id="3_aq7mb"]
 [ext_resource type="PackedScene" uid="uid://brwxiq17qyyeb" path="res://rooms/components/VPVeinPoint.tscn" id="3_pivbf"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="4_e3kpk"]
@@ -568,13 +569,62 @@ size = Vector2(2, 19)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_prfhr")
-Name = "Pyrson"
-IsDungeon = false
+title = "Pyrson"
+is_dungeon = false
 SpawnPos = Vector2(5, 7)
 SpawnZ = Array[int]([0, 0, 1, 3])
 CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1765), Vector4(-10000, 0, 100, 886), Vector4(-100, -300, 300, -100), Vector4(0, 0, 0, 0)])
 CameraZooms = Array[float]([0.75, 1.25, 1.0, 1.0])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
+
+[node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_nlfpl")]
+offset_right = 792.0
+offset_bottom = 1772.0
+zoom = 3.0
+spawn_position = Vector2i(199, 196)
+layers = null
+right = 792
+down = 1772
+
+[node name="Index1" parent="." unique_id=2104702392 instance=ExtResource("2_nlfpl")]
+offset_left = -388.0
+offset_top = 199.0
+offset_right = 100.0
+offset_bottom = 886.0
+border_color = Color(0.20784314, 0.67058825, 0.26666668, 0.4862745)
+zoom = 5.0
+spawn_position = Vector2i(-80, 805)
+layers = null
+left = -388
+up = 199
+right = 100
+down = 886
+
+[node name="Index2" parent="." unique_id=483705049 instance=ExtResource("2_nlfpl")]
+offset_left = -100.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = -100.0
+border_color = Color(0.20784314, 0.67058825, 0.26666668, 0.4862745)
+spawn_position = Vector2i(32, -206)
+layers = null
+left = -100
+up = -300
+right = 300
+down = -100
+
+[node name="Index3" parent="." unique_id=2071570173 instance=ExtResource("2_nlfpl")]
+offset_left = 429.0
+offset_top = -678.0
+offset_right = 896.0
+offset_bottom = -316.0
+border_color = Color(0.988195, 1.35728715e-05, 0.6587122, 0.4862745)
+spawn_position = Vector2i(545, -485)
+layers = null
+left = 429
+up = -678
+right = 896
+down = -316
 
 [node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
 modulate = Color(1, 1, 1, 0)
@@ -878,7 +928,7 @@ free_on_hide = true
 position = Vector2(421, 621)
 trigger_size = Vector2i(7, 2)
 jump_am = 0
-time = 4
+time = 4.0
 height = 0.3
 RelativePositions = true
 
@@ -886,7 +936,7 @@ RelativePositions = true
 position = Vector2(421, 737)
 trigger_size = Vector2i(7, 2)
 jump_am = 0
-time = 4
+time = 4.0
 height = 0.3
 RelativePositions = true
 
@@ -894,7 +944,7 @@ RelativePositions = true
 position = Vector2(333.00003, 679)
 trigger_size = Vector2i(2, 5)
 jump_am = 0
-time = 4
+time = 4.0
 height = 0.3
 RelativePositions = true
 
@@ -902,7 +952,7 @@ RelativePositions = true
 position = Vector2(507, 679.00006)
 trigger_size = Vector2i(2, 5)
 jump_am = 0
-time = 4
+time = 4.0
 height = 0.3
 RelativePositions = true
 
@@ -912,7 +962,6 @@ position = Vector2(132, 863)
 collision_layer = 14
 collision_mask = 14
 trigger_size = Vector2i(3, 2)
-jump_dirs = Array[Vector2]([Vector2(0, -1)])
 jump_am = 3
 jump_am_v = 1
 to_z = 0
@@ -1336,7 +1385,6 @@ tile_set = SubResource("TileSet_dw7lm")
 [node name="Linde" parent="LindeHouse" unique_id=41972483 instance=ExtResource("16_s1pqb")]
 z_index = 0
 position = Vector2(-175, 555)
-CameraIndex = 1
 
 [node name="TalkPrompt" parent="LindeHouse/Linde" unique_id=2045856511 instance=ExtResource("9_w0u03")]
 position = Vector2(-1, -3)

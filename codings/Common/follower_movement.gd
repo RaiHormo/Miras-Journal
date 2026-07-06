@@ -51,9 +51,9 @@ func control_process() -> void:
 		#animate()
 		BodyState = IDLE
 		return
-	if Global.Party.check_member(member) and not Loader.InBattle and is_instance_valid(follow):
+	if Global.Party.check_member(member) and not Loader.in_battle and is_instance_valid(follow):
 		add_collision_exception_with(Global.Player)
-		for i in Global.Area.Followers:
+		for i in Global.Area.followers:
 			add_collision_exception_with(i)
 		show()
 		z_index = Global.Player.z_index

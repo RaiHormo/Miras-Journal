@@ -4,7 +4,7 @@ var item: ItemData
 
 func use(item_data: ItemData, battle_target: Actor = null) -> void:
 	item = item_data
-	if not Loader.InBattle:
+	if not Loader.in_battle:
 		if get_node_or_null("/root/MainMenu") == null: return
 		$/root/MainMenu.stage = "using_item"
 		var prevfoc := get_viewport().gui_get_focus_owner()

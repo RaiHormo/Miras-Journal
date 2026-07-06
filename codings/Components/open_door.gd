@@ -6,7 +6,7 @@ class_name OpenDoor
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body == Global.Player and Global.Area.CurSubRoom == null:
+	if body == Global.Player and Global.Area.current_subroom == null:
 		if ToSubarea != null: ToSubarea.transition()
 		await Global.Player.stop_dash()
 		Global.Player.local_controllable = false
@@ -15,7 +15,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body == Global.Player and to_local(Global.Player.position).y > 0 and Global.Area.CurSubRoom == ToSubarea:
+	if body == Global.Player and to_local(Global.Player.position).y > 0 and Global.Area.current_subroom == ToSubarea:
 		await Global.Player.stop_dash()
 		Global.Player.local_controllable = false
 		if ToSubarea != null: ToSubarea.detransition()

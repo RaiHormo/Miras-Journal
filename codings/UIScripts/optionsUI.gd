@@ -23,7 +23,7 @@ func _ready() -> void:
 		$/root/Options._on_back_pressed()
 		queue_free()
 		return
-	if Loader.InBattle:
+	if Loader.in_battle:
 		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or $/root/Battle/BattleUI.PrevStage != "root" or not $/root/Battle/BattleUI.active:
 			queue_free()
 			return
@@ -40,7 +40,7 @@ func _ready() -> void:
 	Loader.detransition(Direction.CENTER)
 	show()
 
-	$Silhouette.texture = Loader.Preview
+	$Silhouette.texture = Loader.preview
 	tick()
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	was_controllable = Global.Controllable
@@ -106,7 +106,7 @@ func set_no_main() -> void:
 
 
 func siilhouette() -> void:
-	$Silhouette.texture = Loader.Preview
+	$Silhouette.texture = Loader.preview
 	var ts := create_tween()
 	ts.set_trans(Tween.TRANS_QUART)
 	ts.set_ease(Tween.EASE_OUT)
@@ -176,7 +176,7 @@ func close(force := false) -> void:
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($ManualPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
-	if Loader.InBattle:
+	if Loader.in_battle:
 		$/root/Battle/BattleUI.active = true
 		$/root/Battle/BattleUI.stage = "root"
 
@@ -404,7 +404,7 @@ func _on_focus_changed(control: Control) -> void:
 			if control.get_parent().name == "File0":
 				$SavePanel/Buttons/Overwrite.disabled = true
 				$SavePanel/Buttons/Delete.disabled = true
-				$Silhouette.texture = Loader.Preview
+				$Silhouette.texture = Loader.preview
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
 				$SavePanel/Buttons/Delete.disabled = false
@@ -466,7 +466,6 @@ func load_settings(no_check := false) -> void:
 func load_save_files() -> void:
 	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
-	Loader.SaveFiles.clear()
 	%Files/File0/Info/SavedDate.text = ""
 	var files := DirAccess.get_files_at("user://")
 	for i in files:
@@ -527,13 +526,13 @@ func draw_file(file: SaveFile, node: Control) -> void:
 		panel.get_node("Date/Day").text = "Delete"
 		panel.get_node("Location").text = "Now"
 		return
-	elif file.version < Loader.SaveVersion:
+	elif file.version < Loader.save_file_version:
 		node.get_node("Info/FileName").text = file.Name
 		panel.get_node("Date/Month").text = "Old"
 		panel.get_node("Date/Day").text = "Version"
 		panel.get_node("Location").text = "Load to migrate"
 		return
-	elif file.version > Loader.SaveVersion:
+	elif file.version > Loader.save_file_version:
 		node.get_node("Info/FileName").text = file.Name
 		panel.get_node("Date/Month").text = "Newer"
 		panel.get_node("Date/Day").text = "Version"

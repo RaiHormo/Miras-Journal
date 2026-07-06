@@ -31,9 +31,9 @@ func daze_enemy_1() -> void:
 		await Event.camera_move(Event.npc("EnemyFlowent1").position + Vector2(48, 0))
 		Event.npc("EnemyFlowent1").look_to(Direction.LEFT)
 		await Event.wait(2)
-		await Event.spawn("Daze", Global.Area.Followers[0].position, Direction.LEFT)
-		Global.Area.Followers[0].dont_follow = true
-		Global.Area.Followers[0].hide()
+		await Event.spawn("Daze", Global.Area.followers[0].position, Direction.LEFT)
+		Global.Area.followers[0].dont_follow = true
+		Global.Area.followers[0].hide()
 		Event.npc("Daze").speed = 150
 		await Event.npc("Daze").go_to(Event.npc("EnemyFlowent1").position, false, false, Vector2.LEFT, 10)
 		Event.npc("EnemyFlowent1").attacked()
@@ -173,7 +173,7 @@ func asteria_boss() -> void:
 	await Loader.start_battle("AsteriaBoss")
 	Event.npc("Asteria").hide()
 	await Loader.battle_end
-	if Loader.BattleResult == 1:
+	if Loader.battle_result == 1:
 		Event.npc("Asteria").show()
 		Event.add_flag("AsteriaBoss", 5)
 		Event.take_control()

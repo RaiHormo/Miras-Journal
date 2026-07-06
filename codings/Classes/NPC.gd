@@ -34,7 +34,7 @@ var DefaultPos := Vector2.ZERO
 @export var no_collision: bool = false
 @export var Nav: NavigationAgent2D
 @export var SpawnOnCameraInd := true
-@export var CameraIndex: int = 0
+@export var only_on_index: int = 0
 var stopping := false
 @export var Footsteps := true
 var LastStepFrame := -1
@@ -54,8 +54,8 @@ func _ready() -> void:
 	if has_node("Sprite"): sprite = $Sprite
 	#BodyState = DefaultState
 	if ID == "": ID = default_id()
-	if SpawnOnCameraInd and CameraIndex != Global.CameraInd: queue_free()
-	if ID in Loader.Defeated: queue_free()
+	if SpawnOnCameraInd and only_on_index != Global.Area.index: queue_free()
+	if ID in Loader.defeated: queue_free()
 	Event.add_char(self)
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	if no_collision: collision(false)
@@ -83,10 +83,10 @@ func control_process() -> void:
 func _physics_process(delta: float) -> void:
 	#move_and_collide(Vector2.ZERO)
 	if Engine.is_editor_hint(): return
-	if get_tree().paused or Loader.InBattle:
+	if get_tree().paused or Loader.in_battle:
 		return
 	extended_process()
-	if self.get_path() in Loader.Defeated: queue_free()
+	if self.get_path() in Loader.defeated: queue_free()
 	if Global.Area: coords = Global.Area.local_to_map(global_position)
 	RealVelocity = (PrevPosition - position) / get_physics_process_delta_time()
 	PrevPosition = position
@@ -177,7 +177,8 @@ func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
 
 func look_to(dir: Variant) -> void:
 	if dir is String: dir = Direction.from_letter(dir)
-	if dir is Direction: dir = dir.vector
+	elif dir is Direction: dir = dir.vector
+	else: return
 	BodyState = MOVE
 	Facing.vector = dir
 	direction = dir
@@ -253,7 +254,7 @@ func stop_going() -> void:
 
 
 func defeat() -> void:
-	Loader.Defeated.append(ID)
+	Loader.defeated.append(ID)
 	queue_free()
 
 
@@ -293,14 +294,14 @@ func attacked() -> void:
 
 func chain_moves(moves: Array[Vector2]) -> void:
 	for i in moves:
-		if Loader.InBattle:
+		if Loader.in_battle:
 			await Event.wait()
 		await move_dir(i)
 
 
 func chain_positions(moves: Array[Vector2]) -> void:
 	for i in moves:
-		if Loader.InBattle:
+		if Loader.in_battle:
 			await Event.wait()
 		await go_to(i)
 
@@ -319,7 +320,7 @@ func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble 
 
 
 func change_sprite(id: String) -> void:
-	get_node("Sprite").sprite_frames = await Event.get_ov_sprites(id)
+	get_node("Sprite").sprite_frames = await Query.get_ov_sprites(id)
 
 
 ## Toggles the shadow

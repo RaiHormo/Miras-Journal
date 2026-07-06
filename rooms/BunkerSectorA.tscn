@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbu8jyr0bnj5a" path="res://codings/Classes/room_class.gd" id="1_lifib"]
 [ext_resource type="Texture2D" uid="uid://brrrw5qrvy0ga" path="res://art/Tilesets/NeortoriaObj.png" id="2_41bk5"]
+[ext_resource type="PackedScene" uid="uid://cm7b1nuja0jgw" path="res://rooms/components/CameraIndex.tscn" id="2_226mm"]
 [ext_resource type="Texture2D" uid="uid://3wqcqslduu4i" path="res://art/Tilesets/InsideWall.png" id="3_2g6ay"]
 [ext_resource type="Texture2D" uid="uid://db5kuiwbucmq7" path="res://art/Tilesets/InsideObj2.png" id="4_4n5ci"]
 [ext_resource type="Texture2D" uid="uid://dv71cvsrwc0iu" path="res://art/Branding/Placeholder-mini.png" id="5_2g6ay"]
@@ -316,10 +317,34 @@ fill_to = Vector2(1, 1)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_lifib")
-Name = "Bunker Sector A"
+title = "Bunker - Sector A"
 CameraLimits = Array[Vector4]([Vector4(-10000, -10000, 100000, 696), Vector4(-480, 240, -224, 384)])
 CameraZooms = Array[float]([1.25, 1.25])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
+
+[node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_226mm")]
+offset_left = -249.0
+offset_top = -581.0
+offset_right = 646.0
+offset_bottom = 751.0
+zoom = 5.0
+z = 1
+left = -249
+up = -581
+right = 646
+down = 751
+
+[node name="Index1" parent="." unique_id=1159945191 instance=ExtResource("2_226mm")]
+offset_left = -480.0
+offset_top = 240.0
+offset_right = -224.0
+offset_bottom = 384.0
+zoom = 5.0
+z = 1
+left = -480
+up = 240
+right = -224
+down = 384
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1100839374]
 z_index = -3
@@ -479,7 +504,6 @@ subroom = "BossEntry"
 
 [node name="EvTripwire0" parent="." unique_id=1509055698 instance=ExtResource("8_jy425")]
 position = Vector2(-406, 305)
-TriggerSize = Vector2i(50, 50)
 Flag = "AsteriaBoss=5"
 FlagIsName = false
 EventName = "asteria_boss"

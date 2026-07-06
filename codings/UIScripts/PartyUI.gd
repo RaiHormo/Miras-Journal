@@ -16,7 +16,7 @@ var UIvisible: bool = false:
 		UIvisible = value
 
 		# Run show_all or hide_all when this variable changes
-		if not Loader.InBattle:
+		if not Loader.in_battle:
 			if UIvisible and not Event.check_flag("DisableMenus") and not disabled:
 				if Global.Settings.AutoHideHUD != 1:
 					show_all()
@@ -73,7 +73,7 @@ func _process(_delta: float) -> void:
 
 	$CanvasLayer/VirtualJoystick.visible = Global.Controllable
 
-	if not Loader.InBattle:
+	if not Loader.in_battle:
 		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames > 0:
 			if Global.Settings.AutoHideHUD == 0:
 				if $IdleTimer.time_left == 0:
@@ -95,7 +95,7 @@ func show_all(except_date := false, animate := true) -> void:
 	inactive = false
 	$CanvasLayer.show()
 	# Animate the date UI in, except_date prevents this
-	if not Loader.InBattle and not except_date:
+	if not Loader.in_battle and not except_date:
 		if animate:
 			var tl := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 			tl.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
@@ -111,7 +111,7 @@ func show_all(except_date := false, animate := true) -> void:
 		var offset := -70
 		if i == 0:
 			offset = 0
-		elif Loader.InBattle:
+		elif Loader.in_battle:
 			offset = -60
 
 		if animate:
@@ -121,7 +121,7 @@ func show_all(except_date := false, animate := true) -> void:
 		else:
 			box.offset_transform_position.x = offset
 		## Animate or set the X position when in battle
-		if Loader.InBattle and def_pos_partybox[i] != Vector2.ONE:
+		if Loader.in_battle and def_pos_partybox[i] != Vector2.ONE:
 			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
 
@@ -596,7 +596,7 @@ func focus_now() -> void:
 
 
 func battle_state(from := false) -> void:
-	if not Loader.InBattle:
+	if not Loader.in_battle:
 		$CanvasLayer.hide()
 		return
 	$CanvasLayer.show()
@@ -796,7 +796,7 @@ func cmd(cmd_text := "") -> void:
 		if cmd_text.begins_with("/"):
 			if cmd_text.begins_with("/clear"):
 				Event.Flags.clear()
-				Loader.Defeated.clear()
+				Loader.defeated.clear()
 			elif cmd_text.begins_with("/cam"):
 				Global.Player.camera_follow()
 			elif cmd_text.begins_with("/day"):
@@ -809,7 +809,7 @@ func cmd(cmd_text := "") -> void:
 				var text := cmd_text.replace("/comp ", "")
 				Global.add_complimentary(text)
 			elif cmd_text.begins_with("/enrestore"):
-				Loader.Defeated.clear()
+				Loader.defeated.clear()
 			elif cmd_text.begins_with("/timetrans"):
 				Event.ToDay = Event.Day
 				Event.ToTime = Event.TimeOfDay
@@ -857,7 +857,7 @@ func cmd(cmd_text := "") -> void:
 
 func party_menu() -> void:
 	if (
-			Loader.InBattle == false and
+			Loader.in_battle == false and
 			is_instance_valid(Global.Player) and
 			not Global.Player.dashing and
 			not MemberChoosing and
@@ -873,7 +873,7 @@ func party_menu() -> void:
 
 
 func main_menu() -> void:
-	if not Loader.InBattle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.check_flag("DisableMenus"):
+	if not Loader.in_battle and Global.Controllable and is_instance_valid(Global.Player) and not Global.Player.dashing and not Event.check_flag("DisableMenus"):
 		if Global.Player.move_frames > -10:
 			await Event.wait(0.3, false)
 			if Global.Controllable:
@@ -934,7 +934,7 @@ func abilities() -> void:
 
 
 func back() -> void:
-	if not MemberChoosing and Expanded and not inactive and not Loader.InBattle:
+	if not MemberChoosing and Expanded and not inactive and not Loader.in_battle:
 		if not submenu_opened:
 			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
 			$Audio.play()
@@ -990,7 +990,7 @@ func preform_levelups() -> void:
 
 
 func _on_idle_timer_timeout() -> void:
-	if Global.Controllable and not Loader.InBattle:
+	if Global.Controllable and not Loader.in_battle:
 		if Global.Settings.AutoHideHUD == 0:
 			hide_all()
 		if Global.Settings.AutoHideHUD == 1:

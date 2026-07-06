@@ -263,7 +263,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
 	if not keep_followers:
-		for i in Global.Area.Followers:
+		for i in Global.Area.followers:
 			i.dont_follow = true
 	await wait()
 	if is_instance_valid(Global.Player):
@@ -291,7 +291,7 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 		Global.Player.camera_follow(true)
 	get_tree().paused = false
 	if bring_followers:
-		for i in Global.Area.Followers:
+		for i in Global.Area.followers:
 			i.dont_follow = false
 		#Event.teleport_followers()
 	Global.Area.setup_params(true)
@@ -345,7 +345,6 @@ func get_time_progress_from_now(amount: int) -> TOD:
 
 func get_day_progress_from_now(amount: int) -> int:
 	var toad := TimeOfDay as int
-	print(toad)
 	toad += amount
 	if toad > 5:
 		return Day + 1
@@ -390,7 +389,7 @@ func spawn(id: String, pos: Vector2i, animation: Variant = Direction.DOWN, z: in
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
 	var nam := id.split(":")
-	var sprite := await get_ov_sprites(id)
+	var sprite := await Query.get_ov_sprites(id)
 	if sprite == null:
 		return null
 	sprite_node.sprite_frames = sprite
@@ -400,11 +399,11 @@ func spawn(id: String, pos: Vector2i, animation: Variant = Direction.DOWN, z: in
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
-	if Global.Area.CurSubRoom == null:
+	if Global.Area.current_subroom == null:
 		Global.Area.add_child.call_deferred(chara)
 	else:
-		Global.Area.CurSubRoom.add_child.call_deferred(chara)
-		chara.position -= Global.Area.CurSubRoom.position
+		Global.Area.current_subroom.add_child.call_deferred(chara)
+		chara.position -= Global.Area.current_subroom.position
 	print_rich("[color=purple]Spawned: ", chara.ID)
 	if animation is Direction:
 		await chara.look_to(animation)
@@ -420,23 +419,10 @@ func no_player() -> void:
 	Global.Controllable = false
 	if is_instance_valid(Global.Player):
 		Global.Player.queue_free()
-		for i in Global.Area.Followers:
+		for i in Global.Area.followers:
 			i.queue_free()
 			await get_tree().physics_frame
 	PartyUI.hide_all()
-
-
-func get_ov_sprites(id: String) -> SpriteFrames:
-	var nam := id.split(":", false)
-	match nam.size():
-		1:
-			nam.append(nam[0] + "OV")
-		2:
-			pass
-		0, _:
-			push_error("Invalid spawn id: " + id)
-			return null
-	return await Loader.load_res("res://art/OV/" + nam[0] + "/" + nam[1] + ".tres")
 
 
 ## Take the current value of ToDay and ToTime, and begin a proper transition to that time.
@@ -452,7 +438,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 	if Day != ToDay:
 		Day = ToDay
 		Global.toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
-		Loader.Defeated.clear()
+		Loader.defeated.clear()
 	set_time(ToTime)
 	await start_time_events(location)
 
@@ -503,7 +489,7 @@ func start_time_events(location: String) -> void:
 	else:
 		match location:
 			"Pyrson":
-				if Global.Area.IsDungeon:
+				if Global.Area.is_dungeon:
 					await sequence("return_home_pyrson")
 				else:
 					await sequence("wake_home")
@@ -567,13 +553,3 @@ func add_to_diary(what: String, to_day: int = Day) -> void:
 		Diary.get(to_day).append(what)
 	else:
 		Diary.set(to_day, [what])
-
-
-##Used for jump calculations
-func _quad_bezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2, target: Node2D) -> void:
-	#All of these are Vector2, and they're positions and stuff but the variable names are cryptic
-	var q0 := p0.lerp(p1, ti)
-	var q1 := p1.lerp(p2, ti)
-	var r := q0.lerp(q1, ti)
-
-	target.global_position = r

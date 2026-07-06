@@ -131,7 +131,7 @@ func jump(player_face: Vector2) -> void:
 	Global.Player.shadow(true)
 	prints("Jump!", name)
 
-	for i in Global.Area.Followers:
+	for i in Global.Area.followers:
 		i.player_jumped = true
 		
 	busy = false
