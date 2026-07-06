@@ -232,7 +232,7 @@ func appear() -> void:
 		animating = true
 		do_position()
 		button.text = LabelText
-		button.icon = Global.get_controller().ConfirmIcon
+		button.icon = Controller.get_scheme().ConfirmIcon
 		z_index = 9
 		if is_instance_valid(t): t.kill()
 		t = create_tween()
@@ -419,7 +419,7 @@ func _on_button_pressed() -> void:
 				sound.pitch_scale = 1
 				sound.play()
 			await Global.jump_to_global(Global.Player, global_position)
-			while not Input.is_action_just_pressed(Global.confirm()):
+			while not Input.is_action_just_pressed(Controller.confirm()):
 				await Event.wait()
 			if sound != null:
 				sound.pitch_scale = 0.8

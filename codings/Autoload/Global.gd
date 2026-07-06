@@ -23,10 +23,7 @@ var Camera: Camera2D:
 
 var Settings: Setting
 var Lights: Array[Light2D] = []
-var device: String = ""
 var ProcessFrame := 0
-var LastInput := 0
-var AltConfirm: bool
 var StartTime := 0.0
 var FirstStartTime := 0.0
 var PlayTime := 0.0
@@ -41,7 +38,6 @@ signal check_party
 signal anim_done
 signal textbox_close
 signal passive_close
-signal controller_changed
 var AppID := 4059970
 var UsingSteam := false
 var PlayerName: String = "Local"
@@ -62,7 +58,7 @@ func _ready() -> void:
 	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
 	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
-	rumble(0, 0.5, 0.1)
+	Controller.rumble(0, 0.5, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
 
@@ -250,103 +246,6 @@ func intro_effect(ref: Node) -> void:
 
 #endregion
 
-#region Controller
-
-
-func get_controller() -> ControlScheme:
-	if !Settings: return preload("res://UI/Input/None.tres")
-	if not Settings.ControlSchemeAuto:
-		return Settings.ControlSchemeOverride
-	if device == "":
-		device = Settings.LastUsedDevice
-	Settings.LastUsedDevice = device
-	if device == "Keyboard":
-		return preload("res://UI/Input/Keyboard.tres")
-	#elif device == "Touch":
-		#return preload("res://UI/Input/None.tres")
-	elif "Nintendo" in device or "Pro Controller" in device or "GameCube" in device:
-		return preload("res://UI/Input/Nintendo.tres")
-	elif "XInput" in device or "360" in device:
-		return preload("res://UI/Input/Generic.tres")
-	elif "Series" in device or "Xbox" in device or "XBox" in device:
-		return preload("res://UI/Input/Xbox.tres")
-	elif "PS4" in device or "DualShock 4" in device or "PS5" in device or "DualSense" in device:
-		return preload("res://UI/Input/PlayStation.tres")
-	elif "PS3" in device or "DualShock" in device or "PS2" in device or "Sony" in device or "PlayStation" in device:
-		return preload("res://UI/Input/PlayStationOld.tres")
-	elif "Steam" in device:
-		return preload("res://UI/Input/SteamDeck.tres")
-	else:
-		return preload("res://UI/Input/Generic.tres")
-
-
-func _input(event: InputEvent) -> void:
-	if LastInput == ProcessFrame: return
-	var prev_dev := device
-	if event is InputEventJoypadMotion and event.axis_value < 0.5: return
-	if event is InputEventMouseMotion:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		return
-	#if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		#device = "Touch"
-	if not event.is_pressed(): return
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	if event is InputEventKey:
-		device = "Keyboard"
-	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
-		device = Input.get_joy_name(event.device)
-		AltConfirm = get_controller().AltConfirm
-		if get_controller().AltConfirm:
-			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
-			InputMap.action_add_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
-			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
-			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
-		else:
-			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
-			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
-			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
-			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
-	#if "Steam" in device:
-		#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "28de:11ff")
-		#var steam_controllers = Steam.getConnectedControllers()
-	if prev_dev != device and prev_dev != "":
-		controller_changed.emit()
-		toast("Using " + device)
-	LastInput = ProcessFrame
-	var is_fullscreen := get_window().mode == Window.MODE_FULLSCREEN
-	if is_fullscreen != Settings.Fullscreen:
-		fullscreen(is_fullscreen)
-	#print(device)
-
-
-func cancel() -> String:
-	return "ui_cancel"
-
-
-func confirm() -> String:
-	return "ui_accept"
-
-
-func rumble(strong: float, weak: float, duration: float, delay: float = 0) -> void:
-	if Settings.ControllerVibration:
-		if delay != 0: await Event.wait(delay, false)
-		Input.start_joy_vibration(0, strong, weak, duration)
-		await Event.wait(duration, false)
-		Input.stop_joy_vibration(0)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Fullscreen"):
-		fullscreen()
-	if Input.is_action_just_pressed("Save"):
-		Loader.save()
-	if Input.is_action_just_pressed("Load"):
-		Loader.load_game()
-	if Input.is_action_just_pressed("SaveDir"):
-		OS.shell_open(OS.get_user_data_dir())
-	if Input.is_action_just_pressed("Refresh"):
-		refresh()
-#endregion
 
 #region Settings
 
@@ -673,7 +572,7 @@ func jump_to(character: Node, position: Vector2i, time: float = 5, height: float
 
 func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
 	if character == Player and vibrate:
-		Global.rumble(0, abs(height) / 3, 0.06)
+		Controller.rumble(0, abs(height) / 3, 0.06)
 	var t: Tween = create_tween()
 	var start: Vector2 = character.global_position
 	var jump_distance: float = start.distance_to(position)
@@ -683,7 +582,7 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	if character == Player and vibrate:
-		Global.rumble(0, abs(height) / 2, 0.06)
+		Controller.rumble(0, abs(height) / 2, 0.06)
 	anim_done.emit()
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:

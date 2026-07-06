@@ -5,7 +5,7 @@ class_name TutorialPopup
 func start(id: String) -> void:
 	call(id)
 	$Border2.hide()
-	$Border2/Control/Next.icon = Global.get_controller().ConfirmIcon
+	$Border2/Control/Next.icon = Controller.get_scheme().ConfirmIcon
 
 
 func pop_down() -> void:
@@ -19,7 +19,7 @@ func pop_down() -> void:
 
 
 func dash() -> void:
-	%Text.text = "[center]Hold [img height=48]" + (Global.get_controller().Dash).resource_path + "[/img] to dash.[/center]"
+	%Text.text = "[center]Hold [img height=48]" + (Controller.get_scheme().Dash).resource_path + "[/img] to dash.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("Dash"):
 		await Event.wait()
@@ -33,7 +33,7 @@ func dash() -> void:
 
 
 func ov_attack() -> void:
-	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
+	%Text.text = "[center]Press [img width=48]" + (Controller.get_scheme().OVAttack).resource_path + "[/img] to to swing the axe.[/center]"
 	await pop_down()
 	while not Input.is_action_pressed("OVAttack"):
 		await Event.wait()
@@ -43,7 +43,7 @@ func ov_attack() -> void:
 
 
 func party() -> void:
-	%Text.text = "[center]Press [img]" + (Global.get_controller().Select).resource_path + "[/img] to check on your party.[/center]"
+	%Text.text = "[center]Press [img]" + (Controller.get_scheme().Select).resource_path + "[/img] to check on your party.[/center]"
 	await pop_down()
 	await Event.wait(2)
 	while not Input.is_action_pressed("MainMenu"):
@@ -54,7 +54,7 @@ func party() -> void:
 
 
 func bag() -> void:
-	%Text.text = "[center]Press [img width=48]" + (Global.get_controller().Menu).resource_path + "[/img] to check your bag.[/center]"
+	%Text.text = "[center]Press [img width=48]" + (Controller.get_scheme().Menu).resource_path + "[/img] to check your bag.[/center]"
 	Loader.save()
 	await pop_down()
 	while not Input.is_action_pressed("PartyMenu"):
@@ -65,7 +65,7 @@ func bag() -> void:
 
 
 func walk() -> void:
-	if Global.device == "Keyboard":
+	if Controller.device == "Keyboard":
 		%Text.text = "[center]Use the arrow keys to walk.[/center]"
 	else: %Text.text = "[center]Use the left stick or D-Pad to walk.[/center]"
 	await pop_down()
@@ -81,7 +81,7 @@ func ability() -> void:
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(50, 201)
 	$Border2/Control/Next.hide()
-	$Border2/Text.text = "Press [img width=48]" + (Global.get_controller().AbilityIcon).resource_path + "[/img] to use a magic Ability."
+	$Border2/Text.text = "Press [img width=48]" + (Controller.get_scheme().AbilityIcon).resource_path + "[/img] to use a magic Ability."
 	await Global.Bt.get_node("BattleUI").ability
 	queue_free()
 

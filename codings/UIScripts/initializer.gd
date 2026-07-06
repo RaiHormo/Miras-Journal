@@ -18,7 +18,7 @@ func _ready() -> void:
 	glyph_update()
 	error_hint.text = "Hint: Glyph"
 	Event.add_flag("DisableMenus")
-	#Global.controller_changed.connect(glyph_update)
+	#Controller.controller_changed.connect(glyph_update)
 	if FileAccess.file_exists("user://Autosave.tres"):
 		game_exists = true
 	else:
@@ -87,8 +87,8 @@ func dismiss_title() -> void:
 
 func glyph_update() -> void:
 	var options_screen: Button = $TitleScreen/Options
-	#options_screen.icon = Global.get_controller().ConfirmIcon
-	options_screen.icon = Global.get_controller().Start
+	#options_screen.icon = Controller.get_controller().ConfirmIcon
+	options_screen.icon = Controller.get_scheme().Start
 
 
 func you_can_now_play_as(chara: String) -> void:

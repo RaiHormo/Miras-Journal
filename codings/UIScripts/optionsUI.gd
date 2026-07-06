@@ -50,8 +50,8 @@ func _ready() -> void:
 	get_tree().paused = true
 	$Timer.position = Vector2(-300, 27)
 	$Silhouette.position = Vector2(-1000, -39)
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
+	$Confirm.icon = Controller.get_scheme().ConfirmIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
 	$Background/Info/Version.text += ProjectSettings.get_setting("application/config/version")
 	if Global.UsingSteam:
 		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
@@ -121,9 +121,9 @@ func tick() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Global.LastInput == Global.ProcessFrame: return
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
+	if Controller.last_input == Global.ProcessFrame: return
+	$Confirm.icon = Controller.get_scheme().ConfirmIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
 	#if stage == "game_settings": load_settings()
 #	if Input.is_action_just_pressed("ui_cancel"):
 #		_on_back_pressed()
@@ -272,9 +272,9 @@ func save_managment() -> void:
 	$MainButtons/SaveManagment.show()
 	$MainButtons/SaveManagment.toggle_mode = true
 	$MainButtons/SaveManagment.button_pressed = true
-	$SavePanel/Buttons/Load.icon = Global.get_controller().ConfirmIcon
-	$SavePanel/Buttons/Overwrite.icon = Global.get_controller().ItemIcon
-	$SavePanel/Buttons/Delete.icon = Global.get_controller().CommandIcon
+	$SavePanel/Buttons/Load.icon = Controller.get_scheme().ConfirmIcon
+	$SavePanel/Buttons/Overwrite.icon = Controller.get_scheme().ItemIcon
+	$SavePanel/Buttons/Delete.icon = Controller.get_scheme().CommandIcon
 	$SavePanel/Buttons/Overwrite.disabled = true
 	$SavePanel/Buttons/Delete.disabled = true
 	$SavePanel/FileNaming.hide()
@@ -446,20 +446,20 @@ func load_settings(no_check := false) -> void:
 			1.5: %SettingsVbox/UpscaleFactor/MenuBar.selected = 2
 			2.0: %SettingsVbox/UpscaleFactor/MenuBar.selected = 3
 
-		%SettingsVbox/ControlPreview/A.set_deferred("texture", Global.get_controller().AbilityIcon)
-		%SettingsVbox/ControlPreview/B.set_deferred("texture", Global.get_controller().AttackIcon)
-		%SettingsVbox/ControlPreview/Y.set_deferred("texture", Global.get_controller().ItemIcon)
-		%SettingsVbox/ControlPreview/X.set_deferred("texture", Global.get_controller().CommandIcon)
-		%SettingsVbox/ControlPreview/R.set_deferred("texture", Global.get_controller().R)
-		%SettingsVbox/ControlPreview/L.set_deferred("texture", Global.get_controller().L)
-		%SettingsVbox/ControlPreview/LZ.set_deferred("texture", Global.get_controller().LZ)
-		%SettingsVbox/ControlPreview/RZ.set_deferred("texture", Global.get_controller().RZ)
-		%SettingsVbox/ControlPreview/Start.set_deferred("texture", Global.get_controller().Start)
-		%SettingsVbox/ControlPreview/Select.set_deferred("texture", Global.get_controller().Select)
-		%SettingsVbox/ControlPreview/ConfirmB.set_deferred("texture", Global.get_controller().ConfirmIcon)
-		%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Global.get_controller().CancelIcon)
-		%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Global.get_controller().Menu)
-		%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Global.get_controller().Dash)
+		%SettingsVbox/ControlPreview/A.set_deferred("texture", Controller.get_scheme().AbilityIcon)
+		%SettingsVbox/ControlPreview/B.set_deferred("texture", Controller.get_scheme().AttackIcon)
+		%SettingsVbox/ControlPreview/Y.set_deferred("texture", Controller.get_scheme().ItemIcon)
+		%SettingsVbox/ControlPreview/X.set_deferred("texture", Controller.get_scheme().CommandIcon)
+		%SettingsVbox/ControlPreview/R.set_deferred("texture", Controller.get_scheme().R)
+		%SettingsVbox/ControlPreview/L.set_deferred("texture", Controller.get_scheme().L)
+		%SettingsVbox/ControlPreview/LZ.set_deferred("texture", Controller.get_scheme().LZ)
+		%SettingsVbox/ControlPreview/RZ.set_deferred("texture", Controller.get_scheme().RZ)
+		%SettingsVbox/ControlPreview/Start.set_deferred("texture", Controller.get_scheme().Start)
+		%SettingsVbox/ControlPreview/Select.set_deferred("texture", Controller.get_scheme().Select)
+		%SettingsVbox/ControlPreview/ConfirmB.set_deferred("texture", Controller.get_scheme().ConfirmIcon)
+		%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Controller.get_scheme().CancelIcon)
+		%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Controller.get_scheme().Menu)
+		%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Controller.get_scheme().Dash)
 		Global.apply_settings()
 
 
@@ -793,20 +793,20 @@ func _on_credit_scroll(event: InputEvent) -> void:
 
 
 func _on_website() -> void:
-	Global.confirm()
+	Controller.confirm()
 	OS.shell_open("https://raidev.eu")
 	Global.toast("\"raidev.eu\" was opened in your web browser.")
 
 
 func _on_source_code() -> void:
-	Global.confirm()
+	Controller.confirm()
 	OS.shell_open("https://github.com/RaiHormo/Miras-Journal")
 	Global.toast("\"github.com\" was opened in your web browser.")
 
 
 func _on_reset() -> void:
 	stage = "inactive"
-	Global.confirm()
+	Controller.confirm()
 	if await Global.warning("This will erase autosave save data, and restore settings! 
 The game will then close.\nProceed?"):
 		Global.reset_settings()

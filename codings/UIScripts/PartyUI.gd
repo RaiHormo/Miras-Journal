@@ -219,7 +219,7 @@ func _input(event: InputEvent) -> void:
 			Global.options(3)
 		elif Input.is_action_just_pressed("MainMenu"):
 			main_menu()
-	if Input.is_action_just_pressed(Global.cancel()):
+	if Input.is_action_just_pressed(Controller.cancel()):
 		back()
 	#if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
 	#_on_item_preview_pressed()
@@ -315,9 +315,9 @@ func _on_expand(open_ui := 0) -> void:
 			else:
 				get_node("%Pages/Page" + str(i)).hide()
 		$CanvasLayer/Cursor/MemberOptions.show()
-		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Global.get_controller().CommandIcon
-		$CanvasLayer/Cursor/MemberOptions/VBox/Abilities.icon = Global.get_controller().ItemIcon
-		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.icon = Global.get_controller().ConfirmIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Controller.get_scheme().CommandIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Abilities.icon = Controller.get_scheme().ItemIcon
+		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.icon = Controller.get_scheme().ConfirmIcon
 		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
 		$CanvasLayer/Cursor/MemberOptions.size.y = 1
 		$CanvasLayer/Fade.show()
@@ -329,7 +329,7 @@ func _on_expand(open_ui := 0) -> void:
 			$CanvasLayer/Cursor/MemberOptions.size.x,
 			0.3,
 		).from(0)
-		$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
+		$CanvasLayer/Back.icon = Controller.get_scheme().CancelIcon
 	else:
 		$CanvasLayer/Cursor/MemberOptions.hide()
 		%Pages.hide()
@@ -750,7 +750,7 @@ func choose_member() -> void:
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name
 			+ " x" + str(Item.get_node("ItemEffect").item.Quantity))
 	$CanvasLayer/Cursor/ItemPreview.icon = Item.get_node("ItemEffect").item.Icon
-	$CanvasLayer/Back.icon = Global.get_controller().CancelIcon
+	$CanvasLayer/Back.icon = Controller.get_scheme().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 3, 0.4)

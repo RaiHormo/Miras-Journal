@@ -27,14 +27,14 @@ func _physics_process(delta: float) -> void:
 		Global.Player.set_anim("Climb")
 
 		if Input.is_action_pressed("ui_down"):
-			Global.rumble(0.2, 0, 0.1)
+			Controller.rumble(0.2, 0, 0.1)
 			Global.Player.direction = Vector2.DOWN * 1.5
 		elif Input.is_action_pressed("ui_up"):
 			Global.Player.direction = Vector2.UP * varience * 1.5
 			if varience == 1:
-				Global.rumble(0.05, 0, 0.1)
+				Controller.rumble(0.05, 0, 0.1)
 			if varience == 0:
-				Global.rumble(0, 0.05, 0.1)
+				Controller.rumble(0, 0.05, 0.1)
 		else:
 			Global.Player.direction = Vector2.ZERO
 			Global.Player.sprite.pause()

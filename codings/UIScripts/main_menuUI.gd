@@ -51,7 +51,7 @@ func _ready() -> void:
 	$Back.show()
 	$Confirm.text = "Select"
 	$Back.text = "Close"
-	$Party.icon = Global.get_controller().Select
+	$Party.icon = Controller.get_scheme().Select
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	if Fader == null: queue_free(); get_tree().paused = false; return
 	Fader.show()
@@ -82,8 +82,8 @@ func _ready() -> void:
 		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 2.5, 0.5).from(0.0)
 	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 1.0, 0.5).from(0.0)
 	get_inventory()
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
+	$Confirm.icon = Controller.get_scheme().ConfirmIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
 	$Inventory.hide()
 	#$Rail.hide()
 	$AnimationPlayer.play("open")
@@ -111,10 +111,10 @@ var input_frame: int
 
 
 func _input(event: InputEvent) -> void:
-	if Global.LastInput == Global.ProcessFrame: return
-	$Confirm.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
-	$Party.icon = Global.get_controller().Select
+	if Controller.last_input == Global.ProcessFrame: return
+	$Confirm.icon = Controller.get_scheme().ConfirmIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
+	$Party.icon = Controller.get_scheme().Select
 	Global.Controllable = false
 	if input_frame == Global.ProcessFrame: return
 	match stage:

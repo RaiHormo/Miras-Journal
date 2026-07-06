@@ -129,7 +129,7 @@ func extended_process() -> void:
 func begin_battle(advatage := 0) -> void:
 	Loader.attacker = self
 	Global.Player.dramatic_attack_pause()
-	Global.rumble(1, 1, 0.2)
+	Controller.rumble(1, 1, 0.2)
 	await Loader.start_battle(BattleSeq, advatage)
 	global_position = DefaultPos
 

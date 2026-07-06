@@ -395,8 +395,8 @@ func _input(event: InputEvent) -> void:
 			event.is_action(&"ui_down")
 		) and is_waiting_for_input:
 			#print(event)
-			$Hints/Skip.icon = Global.get_controller().Dash
-			$Hints/Advance.icon = Global.get_controller().ConfirmIcon
+			$Hints/Skip.icon = Controller.get_scheme().Dash
+			$Hints/Advance.icon = Controller.get_scheme().ConfirmIcon
 			$Hints.show()
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)

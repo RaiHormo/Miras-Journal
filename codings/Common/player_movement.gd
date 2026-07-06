@@ -357,7 +357,7 @@ func bump(dir: Direction = Facing) -> void:
 	var dir_name := dir.to_string()
 	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
-	Global.rumble(0.7, 0.3, 0.08)
+	Controller.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
 	if dir.is_vector(Vector2.ZERO): 
 		dir.set_to(dashdir)
@@ -443,7 +443,7 @@ func attack() -> void:
 	if hits:
 		anim = "Attack" + Facing.to_string() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
-		Global.rumble(0.3, 0.3, 0.1, 0.1)
+		Controller.rumble(0.3, 0.3, 0.1, 0.1)
 	$Audio.stream = audio
 	$Audio.play()
 	await set_anim(anim, true)

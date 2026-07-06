@@ -143,7 +143,7 @@ func move_to(pos: Vector2 = Vector2.ZERO, time := 0.3) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Global.LastInput == Global.ProcessFrame: return
+	if Controller.last_input == Global.ProcessFrame: return
 	set_controller_icons()
 	if active:
 		match stage:
@@ -164,7 +164,7 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("Manual"):
 					Global.options(3)
 			&"target":
-				if Input.is_action_just_pressed(Global.cancel()):
+				if Input.is_action_just_pressed(Controller.cancel()):
 					_on_back_pressed()
 				if Input.is_action_just_pressed("ui_down") and active:
 					move_target(Vector2.DOWN)
@@ -175,7 +175,7 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed("ui_right") and active:
 					move_target(Vector2.RIGHT)
 			&"ability":
-				if Input.is_action_just_pressed(Global.cancel()):
+				if Input.is_action_just_pressed(Controller.cancel()):
 					Bt.anim()
 					Global.cancel_sound()
 					root.emit()
@@ -213,7 +213,7 @@ func _input(event: InputEvent) -> void:
 						move_menu()
 						Global.cursor_sound()
 			&"command":
-				if Input.is_action_just_pressed(Global.cancel()):
+				if Input.is_action_just_pressed(Controller.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
 				if Input.is_action_just_pressed("LeftTrigger") and Bt.Seq.CanEscape:
@@ -221,33 +221,33 @@ func _input(event: InputEvent) -> void:
 				if Input.is_action_just_pressed(&"ui_accept"):
 					analyze.emit()
 			&"item":
-				if Input.is_action_just_pressed(Global.cancel()):
+				if Input.is_action_just_pressed(Controller.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
 			&"analyze":
-				if Input.is_action_just_pressed(Global.cancel()):
+				if Input.is_action_just_pressed(Controller.cancel()):
 					Global.cancel_sound()
 					emit_signal(PrevStage)
 
 
 func set_controller_icons() -> void:
 	if stage != "ability":
-		$Ability.icon = Global.get_controller().AbilityIcon
-	$Attack.icon = Global.get_controller().AttackIcon
+		$Ability.icon = Controller.get_scheme().AbilityIcon
+	$Attack.icon = Controller.get_scheme().AttackIcon
 	if stage != "item":
-		$Item.icon = Global.get_controller().ItemIcon
-	$Command.icon = Global.get_controller().CommandIcon
-	canvas.get_node("Confirm").icon = Global.get_controller().ConfirmIcon
-	canvas.get_node("Back").icon = Global.get_controller().CancelIcon
-	canvas.get_node("Give").icon = Global.get_controller().ItemIcon
-	$DescPaper/ShowWheel.icon = Global.get_controller().CommandIcon
-	Bt.get_node("Canvas/TurnOrder").icon = Global.get_controller().Select
-	Bt.get_node("Canvas/TurnOrder/Options").icon = Global.get_controller().Start
-	$CommandMenu/Escape.icon = Global.get_controller().LZ
-	$CommandMenu/Analyze.icon = Global.get_controller().ConfirmIcon
-	$CommandMenu/Strategize.icon = Global.get_controller().ItemIcon
-	$Inventory/Cbutton.icon = Global.get_controller().R
-	$Inventory/BIbutton.icon = Global.get_controller().L
+		$Item.icon = Controller.get_scheme().ItemIcon
+	$Command.icon = Controller.get_scheme().CommandIcon
+	canvas.get_node("Confirm").icon = Controller.get_scheme().ConfirmIcon
+	canvas.get_node("Back").icon = Controller.get_scheme().CancelIcon
+	canvas.get_node("Give").icon = Controller.get_scheme().ItemIcon
+	$DescPaper/ShowWheel.icon = Controller.get_scheme().CommandIcon
+	Bt.get_node("Canvas/TurnOrder").icon = Controller.get_scheme().Select
+	Bt.get_node("Canvas/TurnOrder/Options").icon = Controller.get_scheme().Start
+	$CommandMenu/Escape.icon = Controller.get_scheme().LZ
+	$CommandMenu/Analyze.icon = Controller.get_scheme().ConfirmIcon
+	$CommandMenu/Strategize.icon = Controller.get_scheme().ItemIcon
+	$Inventory/Cbutton.icon = Controller.get_scheme().R
+	$Inventory/BIbutton.icon = Controller.get_scheme().L
 
 
 func _on_root() -> void:

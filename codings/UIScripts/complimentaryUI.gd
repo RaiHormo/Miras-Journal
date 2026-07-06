@@ -100,8 +100,8 @@ func update_equipped() -> void:
 
 
 func refresh() -> void:
-	$Set.icon = Global.get_controller().ConfirmIcon
-	$Back.icon = Global.get_controller().CancelIcon
+	$Set.icon = Controller.get_scheme().ConfirmIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
 	for i in %AbilityList.get_children():
 		if not i is Button: continue
 		if i.get_meta("Ability") in chara.Complimentaries:
@@ -148,7 +148,7 @@ func _on_equipped_focus_entered() -> void:
 		else: $Desc/Wheel.hide()
 		$Desc/RichTextLabel.text = Colorizer.colorize(ab.description)
 	else:
-		$Desc/RichTextLabel.text = "This slot is empty.\n\nPress [img width=48]" + Global.get_controller().ConfirmIcon.resource_path + "[/img] to equip one of the available Complimentary abilities to this slot."
+		$Desc/RichTextLabel.text = "This slot is empty.\n\nPress [img width=48]" + Controller.get_scheme().ConfirmIcon.resource_path + "[/img] to equip one of the available Complimentary abilities to this slot."
 		$Desc/Wheel.hide()
 
 

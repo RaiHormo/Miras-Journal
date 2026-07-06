@@ -68,7 +68,7 @@ func new_game() -> void:
 	t.tween_property(options, "position", Vector2(15, 583), 0.3).set_delay(1.5)
 	while not getup.button_pressed or get_tree().root.has_node("Options"):
 		if not is_instance_valid(getup): return
-		options.icon = Global.get_controller().Start
+		options.icon = Controller.get_scheme().Start
 		if options.button_pressed and not get_tree().root.has_node("Options"):
 			await Global.options()
 			options.button_pressed = false

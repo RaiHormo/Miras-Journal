@@ -88,7 +88,7 @@ func levelup(chara: Actor) -> void:
 		t.tween_property($ChooseUpgrade/NewAb, "modulate", Color.WHITE, 0.2)
 		await Event.wait(0.8, false)
 	$ChooseUpgrade/Cursor/Cont/Button.show()
-	$ChooseUpgrade/Cursor/Cont/Button.icon = Global.get_controller().ConfirmIcon
+	$ChooseUpgrade/Cursor/Cont/Button.icon = Controller.get_scheme().ConfirmIcon
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -242,7 +242,7 @@ func _confirm() -> void:
 			t.tween_property($ChooseUpgrade/NewAb, "position:y", 313, 0.5)
 			t.tween_property($ChooseUpgrade/Desc, "modulate", Color.WHITE, 0.5)
 			await t.finished
-	$ChooseUpgrade/Continue.icon = Global.get_controller().ConfirmIcon
+	$ChooseUpgrade/Continue.icon = Controller.get_scheme().ConfirmIcon
 	$ChooseUpgrade/Continue.show()
 
 

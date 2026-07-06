@@ -663,11 +663,11 @@ overwrite_color: Color = Color.WHITE) -> int:
 	else: pop_num(target, dmg)
 	if not target.IsEnemy: PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
 	if target.Controllable:
-		Global.rumble(remap(dmg * 2, 0, target.MaxHP, 0, 1), remap(dmg, 0, 100, 0, 1), remap(dmg * 2, 0, target.MaxHP, 0, 1))
+		Controller.rumble(remap(dmg * 2, 0, target.MaxHP, 0, 1), remap(dmg, 0, 100, 0, 1), remap(dmg * 2, 0, target.MaxHP, 0, 1))
 	elif CurrentChar.Controllable:
-		Global.rumble(remap(dmg, 0, target.MaxHP, 0, 0.5), remap(dmg, 0, 100, 0, 1), remap(dmg, 0, target.MaxHP, 0, 0.5))
+		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.5), remap(dmg, 0, 100, 0, 1), remap(dmg, 0, target.MaxHP, 0, 0.5))
 	else:
-		Global.rumble(remap(dmg, 0, target.MaxHP, 0, 0.3), remap(dmg, 0, 100, 0, 0.5), remap(dmg, 0, 100, 0, 0.5))
+		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.3), remap(dmg, 0, 100, 0, 0.5), remap(dmg, 0, 100, 0, 0.5))
 	check_party.emit()
 	if target.Health == 0:
 		if target.CantDie:
@@ -723,7 +723,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	var dur := ShakeDuration / times
 	var am := amount
 	if Input.get_joy_vibration_strength(0) == Vector2.ZERO:
-		Global.rumble(amount / 20, times / 10, ShakeDuration)
+		Controller.rumble(amount / 20, times / 10, ShakeDuration)
 	for i in range(0, times):
 		am = am - (amount / times)
 		#print(am)
@@ -1220,7 +1220,7 @@ func victory(ignore_seq := false) -> void:
 	if not ObtainedItems.is_empty(): victory_show_items()
 	$Canvas/TurnOrder.hide()
 	$Canvas/Continue.show()
-	$Canvas/Continue.icon = Global.get_controller().ConfirmIcon
+	$Canvas/Continue.icon = Controller.get_scheme().ConfirmIcon
 	if Global.textbox_open: await Global.passive_close
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -1285,7 +1285,7 @@ func miss(target: Actor = CurrentTarget) -> void:
 	move(target, Vector2(target.node.position.x + offsetize(30), target.node.position.y), 0.3, Tween.EASE_OUT)
 	pop_num(target, "Miss")
 	if target.Controllable or CurrentChar.Controllable:
-		Global.rumble(0.3, 0, 0.3, 0.1)
+		Controller.rumble(0.3, 0, 0.3, 0.1)
 	await Event.wait(0.5)
 	await move(target, prev, 0.3)
 

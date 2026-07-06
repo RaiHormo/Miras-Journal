@@ -9,8 +9,8 @@ var page_day: int = 0
 
 
 func _ready() -> void:
-	$Close.icon = Global.get_controller().CancelIcon
-	$Select.icon = Global.get_controller().ConfirmIcon
+	$Close.icon = Controller.get_scheme().CancelIcon
+	$Select.icon = Controller.get_scheme().ConfirmIcon
 	diary_load_day_list()
 	root()
 
@@ -226,8 +226,8 @@ func insert_images(text: String) -> String:
 
 
 func _input(_event: InputEvent) -> void:
-	$Close.icon = Global.get_controller().CancelIcon
-	$Select.icon = Global.get_controller().ConfirmIcon
+	$Close.icon = Controller.get_scheme().CancelIcon
+	$Select.icon = Controller.get_scheme().ConfirmIcon
 
 	if stage == "diary":
 		if Input.is_action_just_pressed("ui_right"):

@@ -89,8 +89,8 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	$Back.hide()
 	$AbilityPanel.hide()
 	$StatPanel.hide()
-	$Back.icon = Global.get_controller().CancelIcon
-	$Abilities.icon = Global.get_controller().ItemIcon
+	$Back.icon = Controller.get_scheme().CancelIcon
+	$Abilities.icon = Controller.get_scheme().ItemIcon
 
 	swap_mode()
 	show()
@@ -133,7 +133,7 @@ func swap_mode(stability := false) -> void:
 			t.tween_property($StatPanel, "position:x", 60, 0.1).from(300)
 			t.tween_property($StatPanel, "scale:x", 1, 0.1).from(0.1)
 			$Abilities.shortcut.events[0].action = "BtItem"
-			$Abilities.icon = Global.get_controller().ItemIcon
+			$Abilities.icon = Controller.get_scheme().ItemIcon
 		true:
 			var t := create_tween()
 			t.set_parallel()
@@ -152,8 +152,8 @@ func swap_mode(stability := false) -> void:
 			t.tween_property($AbilityPanel, "scale:x", 1, 0.1).from(0.1)
 			t.tween_property($AbilityPanel/AttackTitle, "position:x", 400, 0.5).from(0)
 			$Abilities.shortcut.events[0].action = "BtCommand"
-			$Abilities.icon = Global.get_controller().CommandIcon
-			$AbilityPanel/Complimentary.icon = Global.get_controller().ConfirmIcon
+			$Abilities.icon = Controller.get_scheme().CommandIcon
+			$AbilityPanel/Complimentary.icon = Controller.get_scheme().ConfirmIcon
 
 
 func _on_back_pressed() -> void:

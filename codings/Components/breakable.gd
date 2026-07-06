@@ -43,7 +43,7 @@ func _on_area_break_area_entered(_area: Area2D) -> void:
 		if broken_anim != "":
 			if has_node("Sprite"):
 				$Sprite.play(break_anim)
-			Global.rumble(1, 0.3, 0.2)
+			Controller.rumble(1, 0.3, 0.2)
 		Item.add_item(given_item, item_type, true, false)
 
 
@@ -110,7 +110,7 @@ func _on_area_prompt_area_exited(area: Area2D) -> void:
 func appear() -> void:
 	if broken:
 		return
-	$Pack/Button/Icon.texture = Global.get_controller().OVAttack
+	$Pack/Button/Icon.texture = Controller.get_scheme().OVAttack
 	if to_local(Global.Player.position).x <= 0:
 		$Pack/Button.scale.x = 1
 		$Pack/Button/Label.scale.x = 1
