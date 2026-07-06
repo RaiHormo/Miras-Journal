@@ -2,75 +2,113 @@ extends Node
 
 signal controller_changed
 
+
+const SCHEMES: Dictionary[Variant, Variant] = {
+	"None": "res://UI/Input/None.tres",
+	"Keyboard": "res://UI/Input/Keyboard.tres",
+	"Nintendo": "res://UI/Input/Nintendo.tres",
+	"Generic": "res://UI/Input/Generic.tres",
+	"Xbox": "res://UI/Input/Xbox.tres",
+	"PlayStation": "res://UI/Input/PlayStation.tres",
+	"PlayStationOld": "res://UI/Input/PlayStationOld.tres",
+	"SteamDeck": "res://UI/Input/SteamDeck.tres",
+}
+
 var device: String = ""
-var AltConfirm: bool
 var last_input := 0
+
+var scheme_cache := {}
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	handle_remaps()
 
 
 func get_scheme() -> ControlScheme:
-	if !Global.Settings: return preload("res://UI/Input/None.tres")
+	if !Global.Settings: return get_scheme_from_string("None")
 	if not Global.Settings.ControlSchemeAuto:
 		return Global.Settings.ControlSchemeOverride
+	
 	if device == "":
 		device = Global.Settings.LastUsedDevice
 	Global.Settings.LastUsedDevice = device
+	
+	return get_scheme_from_string(get_scheme_from_device())
+
+
+func get_scheme_from_string(type: String) -> ControlScheme:
+	if not scheme_cache.has(type):
+		scheme_cache[type] = load(SCHEMES[type])
+	return scheme_cache[type]
+
+
+func get_scheme_from_device() -> String:
 	if device == "Keyboard":
-		return preload("res://UI/Input/Keyboard.tres")
-	#elif device == "Touch":
-		#return preload("res://UI/Input/None.tres")
-	elif "Nintendo" in device or "Pro Controller" in device or "GameCube" in device:
-		return preload("res://UI/Input/Nintendo.tres")
-	elif "XInput" in device or "360" in device:
-		return preload("res://UI/Input/Generic.tres")
-	elif "Series" in device or "Xbox" in device or "XBox" in device:
-		return preload("res://UI/Input/Xbox.tres")
-	elif "PS4" in device or "DualShock 4" in device or "PS5" in device or "DualSense" in device:
-		return preload("res://UI/Input/PlayStation.tres")
-	elif "PS3" in device or "DualShock" in device or "PS2" in device or "Sony" in device or "PlayStation" in device:
-		return preload("res://UI/Input/PlayStationOld.tres")
-	elif "Steam" in device:
-		return preload("res://UI/Input/SteamDeck.tres")
-	else:
-		return preload("res://UI/Input/Generic.tres")
+		return "Keyboard"
+	if "Nintendo" in device or "Pro Controller" in device or "GameCube" in device:
+		return "Nintendo"
+	if "XInput" in device or "360" in device:
+		return "Generic"
+	if "Series" in device or "Xbox" in device or "XBox" in device:
+		return "Xbox"
+	if "PS4" in device or "DualShock 4" in device or "PS5" in device or "DualSense" in device:
+		return "PlayStation"
+	if "PS3" in device or "DualShock" in device or "PS2" in device or "Sony" in device or "PlayStation" in device:
+		return "PlayStationOld"
+	if "Steam" in device:
+		return "SteamDeck"
+	return "Generic"
 
 
 func _input(event: InputEvent) -> void:
 	if last_input == Global.ProcessFrame: return
-	var prev_dev := device
-	if event is InputEventJoypadMotion and event.axis_value < 0.5: return
+	
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		return
-	#if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		#device = "Touch"
-	if not event.is_pressed(): return
+	
+	if not event.is_pressed() and not (event is InputEventJoypadMotion and abs(event.axis_value) > 0.5):
+		return
+		
+	var prev_dev := device
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	if event is InputEventKey:
 		device = "Keyboard"
-	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		device = Input.get_joy_name(event.device)
-		AltConfirm = get_scheme().AltConfirm
-		if get_scheme().AltConfirm:
-			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
-			InputMap.action_add_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
-			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
-			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
-		else:
-			InputMap.action_erase_event("ui_accept", InputMap.action_get_events("AltConfirm")[1])
-			InputMap.action_add_event("ui_accept", InputMap.action_get_events("MainConfirm")[1])
-			InputMap.action_erase_event("ui_cancel", InputMap.action_get_events("AltCancel")[1])
-			InputMap.action_add_event("ui_cancel", InputMap.action_get_events("MainCancel")[1])
-	#if "Steam" in device:
-		#OS.set_environment("SDL_GAMECONTROLLER_IGNORE_DEVICES", "28de:11ff")
-		#var steam_controllers = Steam.getConnectedControllers()
-	if prev_dev != device and prev_dev != "":
-		controller_changed.emit()
-		Global.toast("Using " + device)
+	
+	if prev_dev != device:
+		if prev_dev != "":
+			controller_changed.emit()
+			Global.toast("Using " + device)
+		handle_remaps()
+	
 	last_input = Global.ProcessFrame
 	var is_fullscreen := get_window().mode == Window.MODE_FULLSCREEN
-	if is_fullscreen != Global.Settings.Fullscreen:
+	if Global.Settings and is_fullscreen != Global.Settings.Fullscreen:
 		Global.fullscreen(is_fullscreen)
-	#print(device)
+
+
+func handle_remaps() -> void:
+	var scheme := get_scheme()
+	var use_alt := scheme.AltConfirm
+	
+	remap_action("ui_accept", "AltConfirm" if use_alt else "MainConfirm")
+	remap_action("ui_cancel", "AltCancel" if use_alt else "MainCancel")
+
+
+func remap_action(target_action: StringName, source_action: StringName) -> void:
+	# Clean up joypad events from target action
+	for event in InputMap.action_get_events(target_action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			InputMap.action_erase_event(target_action, event)
+	
+	# Copy joypad events from source action
+	for event in InputMap.action_get_events(source_action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			InputMap.action_add_event(target_action, event)
 
 
 func cancel() -> String:
@@ -82,11 +120,9 @@ func confirm() -> String:
 
 
 func rumble(strong: float, weak: float, duration: float, delay: float = 0) -> void:
-	if Global.Settings.ControllerVibration:
-		if delay != 0: await Event.wait(delay, false)
+	if Global.Settings and Global.Settings.ControllerVibration:
+		if delay > 0: await Event.wait(delay, false)
 		Input.start_joy_vibration(0, strong, weak, duration)
-		await Event.wait(duration, false)
-		Input.stop_joy_vibration(0)
 
 
 func _unhandled_input(event: InputEvent) -> void:
