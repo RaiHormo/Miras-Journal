@@ -45,4 +45,4 @@ func _quit() -> void:
 
 func focus(control):
 	if inactive: return
-	Global.cursor_sound()
+	Audio.cursor_sound()

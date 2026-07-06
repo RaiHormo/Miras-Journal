@@ -132,7 +132,7 @@ func _input(event: InputEvent) -> void:
 
 
 func move_menu() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()
 	var ypos: int
 	match index:
 		0:
@@ -169,7 +169,7 @@ func _confirm() -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	t.tween_property($ChooseUpgrade/Label, "modulate", Color.TRANSPARENT, 0.3)
 	match index:
 		0:

@@ -138,14 +138,14 @@ func aura3() -> void:
 func await_input(input := "DialogNext") -> void:
 	while Input.is_action_pressed(input): await Event.wait()
 	while not Input.is_action_pressed(input): await Event.wait()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 
 func await_next() -> void:
 	print("boing")
 	await $Border2/Control/Next.pressed
 	print("boing2")
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 
 func close() -> void:

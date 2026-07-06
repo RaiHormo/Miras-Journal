@@ -3,7 +3,6 @@ extends Node
 var Controllable: bool = true:
 	set(x):
 		Controllable = x
-var Audio := AudioStreamPlayer.new()
 var Party: PartyData
 var Members: Array[Actor]
 var PortraitIMG: Texture
@@ -49,8 +48,6 @@ var UserID: int
 func _ready() -> void:
 	init_user()
 	StartTime = Time.get_unix_time_from_system()
-	add_child(Audio)
-	Audio.volume_db = -5
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
@@ -357,40 +354,7 @@ func save_settings() -> void:
 	print_rich("[color=orange]Settings saved")
 #endregion
 
-
-
-
-
-
-
-#region UI Sounds
-func cursor_sound(dont_force := false) -> void:
-	if not(dont_force and Audio.playing):
-		Audio.stream = preload("res://sound/SFX/cursor.wav")
-		Audio.play()
-func buzzer_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/buzzer.ogg")
-	Audio.play()
-func confirm_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/confirm.ogg")
-	Audio.play()
-func cancel_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/Quit.ogg")
-	Audio.play()
-func item_sound() -> void:
-	Audio.stream = preload("res://sound/SFX/item.ogg")
-	Audio.play()
-func ui_sound(string: String) -> void:
-	Audio.stream = await Loader.load_res("res://sound/SFX/" + string + ".ogg")
-	Audio.play()
-#endregion
-
-
 #region Party Checks
-func get_party() -> PartyData:
-	return Global.Party
-
-
 func heal_party() -> void:
 	for i in Members:
 		i.full_heal()
@@ -566,11 +530,11 @@ func match_profile(named: String) -> TextProfile:
 #endregion
 
 #region Quick Actions
-func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
+func jump_to(character: Node2D, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
 	await jump_to_global(character, Area.to_global(position), time, height)
 
 
-func jump_to_global(character: Node, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
+func jump_to_global(character: Node2D, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
 	if character == Player and vibrate:
 		Controller.rumble(0, abs(height) / 3, 0.06)
 	var t: Tween = create_tween()
@@ -606,7 +570,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	await t.finished
 
 
-func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
+func node_shake(node: Node2D, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
 	ArbData0 = amount
 	var tw := create_tween()

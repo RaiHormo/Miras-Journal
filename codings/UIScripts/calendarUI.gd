@@ -59,16 +59,16 @@ func hide_prompt() -> void:
 
 
 func _on_nevermind_pressed() -> void:
-	Global.cancel_sound()
+	Audio.cancel_sound()
 	await hide_prompt()
 	chosen_time_pass.emit(false)
 
 
 func use_time() -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	hide_prompt()
 	chosen_time_pass.emit(true)
 
 
 func _cursor() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()

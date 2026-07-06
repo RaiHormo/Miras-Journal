@@ -38,21 +38,21 @@ func ask_for_confirm(text: String, label: String = "WARNING", awnser: Array[Stri
 
 func _on_no_pressed() -> void:
 	if not active: return
-	Global.cancel_sound()
+	Audio.cancel_sound()
 	value = 0
 	response.emit()
 
 
 func _on_yes_pressed() -> void:
 	if not active: return
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	value = 1
 	response.emit()
 
 
 func _on_maybe_pressed() -> void:
 	if not active: return
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	value = 2
 	response.emit()
 

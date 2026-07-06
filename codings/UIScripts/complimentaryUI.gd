@@ -32,7 +32,7 @@ func draw_character(character: Actor) -> void:
 	refresh()
 	show()
 	%Equipped.get_child(0).grab_focus()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 	var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	t.tween_property($Title, "modulate", Color.WHITE, 0.9).from(Color.TRANSPARENT)
@@ -120,7 +120,7 @@ func refresh() -> void:
 
 
 func _on_list_focus_entered() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()
 	var ab: Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
 	if not is_instance_valid(ab): return
 	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
@@ -135,7 +135,7 @@ func _on_list_focus_entered() -> void:
 
 func _on_equipped_focus_entered() -> void:
 	#refresh()
-	Global.cursor_sound()
+	Audio.cursor_sound()
 	var foc := get_viewport().gui_get_focus_owner()
 	if foc.has_meta("Ability"):
 		var ab: Ability = foc.get_meta("Ability")
@@ -165,7 +165,7 @@ func _on_back_pressed() -> void:
 		if get_tree().root.has_node("MemberDetails"):
 			get_tree().root.get_node("MemberDetails").fetch_abilities(chara)
 			get_tree().root.get_node("MemberDetails/AbilityPanel/Border1/Scroller/AbilityList").get_child(1).grab_focus()
-		Global.cancel_sound()
+		Audio.cancel_sound()
 
 		var t := create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 		t.tween_property($Title, "modulate", Color.TRANSPARENT, 0.3)
@@ -200,13 +200,13 @@ func _on_slot_pressed() -> void:
 	var foc := get_viewport().gui_get_focus_owner()
 	await fetch_all_abilities()
 	set_ability(foc.get_index())
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 
 func _list_ability_pressed() -> void:
 	var foc := get_viewport().gui_get_focus_owner()
 	if foc.disabled:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 	else:
 		var ab: Ability = foc.get_meta("Ability")
 		var slot: Button = $Equipped.get_child(active_slot)
@@ -223,4 +223,4 @@ func _list_ability_pressed() -> void:
 		#await fetch_equiped_abilities()
 		refresh()
 		_on_back_pressed()
-		Global.confirm_sound()
+		Audio.confirm_sound()

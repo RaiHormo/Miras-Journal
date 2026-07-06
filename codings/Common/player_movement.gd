@@ -379,7 +379,7 @@ func controllable() -> bool:
 
 func attack() -> void:
 	if not Item.check_item("LightweightAxe", "Key") or not Event.check_flag("HasBag"):
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		return
 	if dashing: await stop_dash()
 	reset_speed()

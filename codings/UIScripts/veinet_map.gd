@@ -45,7 +45,7 @@ func focus_place(place: String = here) -> void:
 		t.tween_property(Global.Camera, "position", position + (size / 2), 0.5)
 		t.tween_property($Container, "position:x", 898, 0.3).set_delay(0.3)
 		inited = true
-	else: Global.cursor_sound()
+	else: Audio.cursor_sound()
 	foc = $Container/Scroller/LocationList.get_node(place)
 	foc.show()
 	foc.grab_focus()
@@ -94,7 +94,7 @@ func location_selected() -> void:
 			progress_time = true
 			Event.add_flag("eepy1")
 	foc = prev_foc
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	Event.remove_flag("FlameActive")
 	Event.remove_flag("FreeTravelOnce")
 	var map_point := $Map.get_node_or_null(str(foc.name))

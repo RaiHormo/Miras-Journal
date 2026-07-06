@@ -16,7 +16,7 @@ func draw_character(chara: Actor, menu := 0) -> void:
 		$AbilityPanel/Complimentary.disabled = false
 	actor = chara
 	chara.load_complimentaries()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
 	if chara.SkillCurve != null:
@@ -114,7 +114,7 @@ func draw_character(chara: Actor, menu := 0) -> void:
 
 
 func swap_mode(stability := false) -> void:
-	Global.ui_sound("swap")
+	Audio.ui_sound("swap")
 	stability_menu = stability
 	match stability_menu:
 		false:
@@ -158,7 +158,7 @@ func swap_mode(stability := false) -> void:
 
 func _on_back_pressed() -> void:
 	if inactive: return
-	Global.cancel_sound()
+	Audio.cancel_sound()
 	var t := create_tween()
 	t.tween_property(self, "offset:x", -3500, 0.2)
 	await Event.wait(0.1, false)
@@ -205,7 +205,7 @@ func _on_abilities_pressed() -> void:
 func _on_ab_focus_entered() -> void:
 	if get_viewport().gui_get_focus_owner().get_index() == 1:
 		$AbilityPanel/Border1/Scroller.scroll_vertical = 0
-	if $AbilityPanel.scale == Vector2.ONE: Global.cursor_sound()
+	if $AbilityPanel.scale == Vector2.ONE: Audio.cursor_sound()
 	var ab: Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
 	if not is_instance_valid(ab): return
 	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:

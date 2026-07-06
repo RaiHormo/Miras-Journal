@@ -21,7 +21,7 @@ func _ready() -> void:
 	hide()
 	if not ResourceLoader.exists("user://Autosave.tres"): await Loader.save()
 	if not Event.f(&"HasBag") or Event.f("DisableMenus"):
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		queue_free()
 		get_tree().paused = false
 		Global.Controllable = true
@@ -125,16 +125,16 @@ func _input(event: InputEvent) -> void:
 					$Party.grab_focus()
 					rootIndex = -1
 				else:
-					Global.cursor_sound()
+					Audio.cursor_sound()
 					prevRootIndex = rootIndex
 					rootIndex -= 1
 					move_root()
 			elif Input.is_action_just_pressed("ui_down"):
 				if rootIndex == 3:
 					pass
-					#Global.buzzer_sound()
+					#Audio.buzzer_sound()
 				else:
-					Global.cursor_sound()
+					Audio.cursor_sound()
 					prevRootIndex = rootIndex
 					rootIndex += 1
 					move_root()
@@ -143,10 +143,10 @@ func _input(event: InputEvent) -> void:
 func _on_focus_changed(control: Control) -> void:
 	if stage == "item":
 		if PrevCtrl == control or control == null:
-			#Global.buzzer_sound()
+			#Audio.buzzer_sound()
 			pass
 		else:
-			Global.cursor_sound()
+			Audio.cursor_sound()
 			if control is Button: focus_item(control)
 	PrevCtrl = control
 
@@ -228,7 +228,7 @@ func move_root() -> void:
 		t.set_trans(Tween.TRANS_BACK)
 	if rootIndex == 0:
 		if $Rail/JournalFollow/JournalButton.disabled:
-			Global.buzzer_sound()
+			Audio.buzzer_sound()
 			rootIndex = 1
 			move_root()
 			return
@@ -345,7 +345,7 @@ func _journal() -> void:
 		rootIndex = 0
 		move_root()
 	stage = "journal"
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel()
 	$Rail/JournalFollow/JournalButton.toggle_mode = true
 	$Rail/JournalFollow/JournalButton.set_pressed_no_signal(true)
@@ -426,7 +426,7 @@ func _item() -> void:
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
 		focus_item($Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0))
 	t.tween_property($Rail/ItemFollow/ItemButton, "position", Vector2(-500, -340), 0.3)
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	await t.finished
 	$Rail/ItemFollow/ItemButton.position = Vector2(-500, -340)
 
@@ -447,7 +447,7 @@ func _options() -> void:
 	stage = "options"
 	PartyUI.UIvisible = false
 	get_tree().root.add_child((await Loader.load_res("res://UI/Options/Options.tscn")).instantiate())
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -470,11 +470,11 @@ func _on_confirm_button_down() -> void:
 		if PrevCtrl == null or not PrevCtrl.has_meta("ItemData"): return
 		elif PrevCtrl is Button and PrevCtrl.get_meta("ItemData").Use != 0:
 			Item.use(PrevCtrl.get_meta("ItemData"))
-			Global.confirm_sound()
+			Audio.confirm_sound()
 
 
 func _on_back_button_down() -> void:
-	if stage != "inactive": Global.cancel_sound()
+	if stage != "inactive": Audio.cancel_sound()
 	match stage:
 		"root", "inactive-root":
 			close()
@@ -597,12 +597,12 @@ func _on_party_pressed() -> void:
 
 
 func _on_party_focus_entered() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	t.tween_property($Party, "scale", Vector2(1.8, 1.8), 0.3)
 
 
 func _on_party_focus_exited() -> void:
-	Global.ui_sound("shrink")
+	Audio.ui_sound("shrink")
 	t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	t.tween_property($Party, "scale", Vector2(1.4, 1.4), 0.3)

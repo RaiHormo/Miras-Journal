@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func get_animation(icon: Texture2D, named: String, pickup_anim := true) -> void:
 	if is_instance_valid(t): t.kill()
-	Global.item_sound()
+	Audio.item_sound()
 	if pickup_anim: pickup.emit()
 	label.text = named
 	Dicon.texture = icon

@@ -258,7 +258,7 @@ func configure_menu() -> void:
 		item.gui_input.connect(_on_response_gui_input.bind(item))
 
 	items[0].grab_focus()
-	Global.Audio.stop()
+	Audio.stop()
 
 
 # Get a list of enabled items
@@ -329,11 +329,11 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 		return
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
-		Global.confirm_sound()
+		Audio.confirm_sound()
 	elif event.is_action_pressed("ui_cancel"):
 		responses_menu.get_children().back().grab_focus()
 	elif event.is_action_pressed("DialogNext") and item in get_responses():
-		Global.confirm_sound()
+		Audio.confirm_sound()
 		item.release_focus()
 		t = create_tween()
 		t.set_parallel()
@@ -455,7 +455,7 @@ func draw_portrait() -> void:
 
 
 func _on_button_focus_entered() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()
 
 
 func animate_responces() -> void:

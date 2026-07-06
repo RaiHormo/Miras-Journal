@@ -136,3 +136,48 @@ func _unhandled_input(event: InputEvent) -> void:
 		OS.shell_open(OS.get_user_data_dir())
 	if Input.is_action_just_pressed("Refresh"):
 		Global.refresh()
+	
+	var text_edit_visible := false
+	if PartyUI.has_node("CanvasLayer/TextEdit"):
+		text_edit_visible = PartyUI.get_node("CanvasLayer/TextEdit").visible
+
+	if Global.Controllable and not PartyUI.Expanded and not text_edit_visible:
+		var can_open_menu := false
+		if is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"):
+			can_open_menu = "Idle" in Global.Player.sprite.animation
+		
+		if can_open_menu:
+			if Input.is_action_just_pressed("Options"):
+				Global.options(0)
+			elif Input.is_action_just_pressed("SaveManagment"):
+				Global.options(1)
+			elif Input.is_action_just_pressed("Manual"):
+				Global.options(3)
+			elif Input.is_action_just_pressed("MainMenu"):
+				PartyUI.main_menu()
+
+	if Global.Settings and Global.Settings.DebugMode:
+		if Input.is_action_just_pressed("DebugFlag"):
+			PartyUI.cmd()
+		elif not text_edit_visible:
+			if Input.is_action_just_pressed("Debug"):
+				Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+				Event.remove_flag("HideDate")
+				Event.remove_flag("FlameActive")
+			elif Input.is_action_just_pressed("DebugT"):
+				Global.passive("testbush", "greetings")
+			elif Input.is_action_just_pressed("DebugP"):
+				Global.toast("Controllable set to " + str(!Global.Controllable))
+				if Global.Controllable:
+					Event.take_control()
+				else:
+					Event.give_control()
+			elif Input.is_action_just_pressed("DebugHide"):
+				if PartyUI.has_node("CanvasLayer/DebugText"):
+					PartyUI.get_node("CanvasLayer/DebugText").hide()
+			elif Input.is_action_just_pressed("DebugI"):
+				Item.add_item("SmallPotion", "Con")
+			elif Input.is_action_just_pressed("DebugA"):
+				Global.textbox("testbush", "add_to_party")
+			elif Input.is_action_just_pressed("Debug0"):
+				Engine.time_scale = 1.0 if Engine.time_scale == 0.1 else 0.1

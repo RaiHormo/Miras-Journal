@@ -212,7 +212,7 @@ func close() -> void:
 
 
 func _on_back_pressed() -> void:
-	Global.cancel_sound()
+	Audio.cancel_sound()
 	match stage:
 		"root":
 			close()

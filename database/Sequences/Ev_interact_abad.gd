@@ -17,7 +17,7 @@ func WL_void() -> void:
 
 func hurt_1() -> void:
 	Global.Party.Leader.Health -= 1
-	Global.ui_sound("Crunch")
+	Audio.ui_sound("Crunch")
 	PartyUI.hit_partybox(0, 4, 3)
 	if Global.Party.Leader.Health < 10:
 		if not Event.f("ShardsLowHP") and Global.Party.has_member("Asteria"):

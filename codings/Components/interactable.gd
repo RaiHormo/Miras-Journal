@@ -355,7 +355,7 @@ func _on_button_pressed() -> void:
 		Event.ToTime = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
 	match ActionType:
 		"toggle":
-			Global.confirm_sound()
+			Audio.confirm_sound()
 		"text":
 			await Event.take_control(false, false, true)
 			disappear(true)
@@ -368,11 +368,11 @@ func _on_button_pressed() -> void:
 		"global":
 			Global.call(file)
 		"event":
-			Global.confirm_sound()
+			Audio.confirm_sound()
 			Event.sequence(file)
 		"pass_time":
 			if await PartyUI.confirm_time_passage(title, item):
-				Global.confirm_sound()
+				Audio.confirm_sound()
 				Event.sequence(file)
 		"veinet":
 			await Event.take_control(false, false, true)

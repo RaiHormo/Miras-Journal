@@ -114,7 +114,7 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 
 func load_game(filename: String = "Autosave", sound := true, predefined := false, close_first := true, transition_after_done := true) -> void:
 	if sound:
-		Global.ui_sound("Load")
+		Audio.ui_sound("Load")
 	if filename == "File0":
 		filename = "Autosave"
 	var filepath := "res://database/IncludedSaves/" + filename + ".tres" if predefined else "user://" + filename + ".tres"

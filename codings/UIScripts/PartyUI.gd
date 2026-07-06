@@ -207,51 +207,8 @@ func check_member(mem: Actor, node: Panel, ind: int) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if (
-			(Global.Controllable and (is_instance_valid(Global.Player) and Global.Player.get_node_or_null("%Base"))
-					and "Idle" in Global.Player.sprite.animation) and not Expanded and not $CanvasLayer/TextEdit.visible
-	):
-		if Input.is_action_just_pressed("Options"):
-			Global.options(0)
-		elif Input.is_action_just_pressed("SaveManagment"):
-			Global.options(1)
-		elif Input.is_action_just_pressed("Manual"):
-			Global.options(3)
-		elif Input.is_action_just_pressed("MainMenu"):
-			main_menu()
 	if Input.is_action_just_pressed(Controller.cancel()):
 		back()
-	#if Input.is_action_just_pressed("ui_accept") and MemberChoosing:
-	#_on_item_preview_pressed()
-
-	##Debug shortcuts
-	if Global.Settings.DebugMode:
-		if Input.is_action_just_pressed("Debug"):
-			Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
-			Event.remove_flag("HideDate")
-			Event.remove_flag("FlameActive")
-		if Input.is_action_just_pressed("DebugT"):
-			Global.passive("testbush", "greetings")
-		if Input.is_action_just_pressed("DebugP"):
-			Global.toast("Controllable set to " + str(!Global.Controllable))
-			if Global.Controllable == true:
-				Event.take_control()
-			else:
-				Event.give_control()
-		if Input.is_action_just_pressed("DebugHide"):
-			$CanvasLayer/DebugText.hide()
-		if Input.is_action_just_pressed("DebugI"):
-			Item.add_item("SmallPotion", "Con")
-		if Input.is_action_just_pressed("DebugA"):
-			Global.textbox("testbush", "add_to_party")
-		if Input.is_action_just_pressed("DebugFlag"):
-			cmd()
-		if Input.is_action_just_pressed("Debug0"):
-			if Engine.time_scale == 0.1:
-				Engine.time_scale = 1
-			else:
-				Engine.time_scale = 0.1
-		#Global.check_party.emit()
 
 
 func darken(toggle := true) -> void:
@@ -279,7 +236,7 @@ func _on_expand(open_ui := 0) -> void:
 	inactive = true
 	await Event.wait()
 	if disabled:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		return
 	t.kill()
 	if UIvisible == false:
@@ -482,23 +439,23 @@ func handle_ui() -> void:
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus + 1):
 			focus += 1
-			Global.cursor_sound()
+			Audio.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
 				$Audio.stream = preload("res://sound/SFX/page.ogg")
 			$Audio.play()
 		else:
-			Global.buzzer_sound()
+			Audio.buzzer_sound()
 	if Input.is_action_just_pressed("ui_up"):
 		if focus - 1 != -1:
 			focus -= 1
-			Global.cursor_sound()
+			Audio.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
 				$Audio.stream = preload("res://sound/SFX/page2.ogg")
 			$Audio.play()
 		else:
-			Global.buzzer_sound()
+			Audio.buzzer_sound()
 
 
 func focus_now() -> void:
@@ -769,7 +726,7 @@ func _on_item_preview_pressed() -> void:
 	else:
 		if Item.get_node("ItemEffect").item.Quantity != 0:
 			Global.toast("HP is already maxed out")
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 			+ str(Item.get_node("ItemEffect").item.Quantity))
 
@@ -865,11 +822,11 @@ func party_menu() -> void:
 			not inactive
 	):
 		if disabled:
-			Global.buzzer_sound()
+			Audio.buzzer_sound()
 			return
 		if Global.Controllable:
 			expand.emit()
-			Global.confirm_sound()
+			Audio.confirm_sound()
 
 
 func main_menu() -> void:
@@ -880,7 +837,7 @@ func main_menu() -> void:
 				main_menu()
 			return
 		if Event.check_flag("HasBag"):
-			Global.ui_sound("Menu")
+			Audio.ui_sound("Menu")
 			Global.Player.bag_anim()
 			Global.Controllable = false
 			get_tree().paused = true
@@ -894,7 +851,7 @@ func main_menu() -> void:
 		else:
 			Global.options()
 	elif Global.Controllable:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 
 
 func cycle_states(chara: Actor, rect: TextureRect, reclude := true) -> void:
@@ -939,7 +896,7 @@ func back() -> void:
 			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
 			$Audio.play()
 			shrink.emit()
-			Global.cancel_sound()
+			Audio.cancel_sound()
 			await Event.wait(0.1, false)
 			Global.Controllable = was_controllable
 			if get_tree().root.has_node("MainMenu"):
@@ -962,7 +919,7 @@ func talk() -> void:
 	var dialog: DialogueResource
 	dialog = load("res://database/Text/talk_" + Global.Party.array()[focus].codename.to_lower() + ".dialogue")
 	if not dialog:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		return
 	var key: String = "d" + str(Event.Day) + "_" + str(Event.flag_int(Global.Party.array()[focus].codename + "Talk"))
 	if not key in dialog.get_titles():

@@ -77,7 +77,7 @@ func _ready() -> void:
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
 	siilhouette()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 	# Move the main buttons
 	for button in $MainButtons.get_children():
@@ -130,7 +130,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_back_pressed() -> void:
-	Global.cancel_sound()
+	Audio.cancel_sound()
 	match stage:
 		"main":
 			close()
@@ -138,7 +138,7 @@ func _on_back_pressed() -> void:
 			main()
 		"manual_text":
 			stage = "manual"
-			Global.cancel_sound()
+			Audio.cancel_sound()
 		"credits":
 			gallery()
 			$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
@@ -155,7 +155,7 @@ func close(force := false) -> void:
 		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
-			Global.cancel_sound()
+			Audio.cancel_sound()
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -250,7 +250,7 @@ func game_settings() -> void:
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
 	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$SidePanel.show()
 	await t.finished
 
@@ -291,7 +291,7 @@ func save_managment() -> void:
 	t.tween_property($Background, "position", Vector2(350, 0), 0.5)
 	t.tween_property($Back, "position:x", 26, 0.5)
 	t.tween_property($Confirm, "position:x", -200, 0.5)
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
 	if not save_files_loaded:
 		await load_save_files()
@@ -330,7 +330,7 @@ func manual() -> void:
 	_manual_entry_pressed()
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Timer, "position", Vector2(-700, -39), 0.5)
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$ManualPanel.show()
 	await t.finished
 	stage = "manual"
@@ -354,7 +354,7 @@ func gallery() -> void:
 	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(400, 0), 0.5)
 	$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$GalleryPanel.show()
 
 
@@ -388,7 +388,7 @@ func _on_quit() -> void:
 
 
 func _on_focus_changed(control: Control) -> void:
-	Global.cursor_sound(true)
+	Audio.cursor_sound(true)
 	focus = control
 	if stage == "main" and control.get_parent() == $MainButtons:
 		mainIndex = focus.get_index()
@@ -587,7 +587,7 @@ func _on_save_delete() -> void:
 		if not is_instance_valid(panel): return
 	$SavePanel/Buttons/Delete.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
-		Global.confirm_sound()
+		Audio.confirm_sound()
 		if panel.name == "File0":
 			if cant_save:
 				Global.toast("Press F1 to delete the file manually.")
@@ -608,7 +608,7 @@ func _on_save_delete() -> void:
 		else:
 			%Files.get_child(index).get_node("Button").grab_focus()
 	else:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		hold_down()
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
@@ -633,7 +633,7 @@ func _on_save_overwrite() -> void:
 	$SavePanel/Buttons/Overwrite.button_pressed = false
 	if panel.get_node("ProgressBar").value == 100:
 		Loader.gray_out()
-		Global.confirm_sound()
+		Audio.confirm_sound()
 		print("Overwriting user://" + panel.name + ".tres")
 		await Loader.save(panel.name)
 		await load_save_files()
@@ -644,7 +644,7 @@ func _on_save_overwrite() -> void:
 		#await t.finished
 		Loader.ungray.emit()
 	else:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		hold_down()
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
@@ -674,7 +674,7 @@ func _on_save_load() -> void:
 		if not FileAccess.file_exists("user://" + filename + ".tres"): return
 		await Loader.load_game(filename)
 	else:
-		Global.buzzer_sound()
+		Audio.buzzer_sound()
 		hold_down()
 		t = create_tween()
 		t.set_trans(Tween.TRANS_CUBIC)
@@ -689,7 +689,7 @@ func _on_save_load() -> void:
 
 func _new_file() -> void:
 	stage = "saving"
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	#Loader.gray_out()
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
@@ -726,20 +726,20 @@ func name_file(default: String) -> String:
 	line.placeholder_text = default
 	await line.text_submitted
 	$SavePanel/FileNaming.hide()
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	if line.text == "": line.text = default
 	return line.text
 
 
 func confirm() -> void:
 	if stage == "game_settings":
-		Global.confirm_sound()
+		Audio.confirm_sound()
 		load_settings()
 
 
 func cursor(i: int) -> void:
 	if stage == "game_settings":
-		Global.cursor_sound()
+		Audio.cursor_sound()
 		load_settings()
 
 ## Manual
@@ -747,7 +747,7 @@ func cursor(i: int) -> void:
 
 func _manual_entry_pressed() -> void:
 	stage = "manual"
-	Global.confirm_sound()
+	Audio.confirm_sound()
 
 
 func _manual_entry_select() -> void:
@@ -827,7 +827,7 @@ func _arena_mode() -> void:
 
 func _on_credits(source: Button) -> void:
 	stage = "credits"
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	var text: String
 	match source.name:
 		"Credits":
@@ -853,7 +853,7 @@ func _on_credits(source: Button) -> void:
 
 
 func _on_control_scheme(index: int) -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	Global.Settings.ControlSchemeAuto = false
 	Global.Settings.ControlSchemeEnum = %SettingsVbox/ControlScheme/MenuBar.get_selected_id()
 	match Global.Settings.ControlSchemeEnum:
@@ -951,7 +951,7 @@ func _on_adjust_image(toggle: bool) -> void:
 		%SettingsVbox/BCSadjust.show()
 		%SettingsVbox/BCSadjust/BrtSlider.grab_focus()
 		await Event.wait()
-		Global.confirm_sound()
+		Audio.confirm_sound()
 	else: %SettingsVbox/BCSadjust.hide()
 
 

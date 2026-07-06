@@ -65,7 +65,7 @@ func _on_continue_pressed() -> void:
 func _input(event: InputEvent) -> void:
 	glyph_update()
 	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down") and get_viewport().gui_get_focus_owner().get_parent() == $TitleScreen/Menu:
-		Global.cursor_sound()
+		Audio.cursor_sound()
 		await get_tree().physics_frame
 		var foc: Control = get_viewport().gui_get_focus_owner()
 		if foc.get_parent() == $TitleScreen/Menu:
@@ -109,7 +109,7 @@ func _on_load_pressed() -> void:
 
 
 func _on_new_pressed() -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	if not game_exists or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		dismiss_title()
 		Event.sequence("new_game")

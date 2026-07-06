@@ -41,6 +41,7 @@ buses/default_bus_layout="res://sound/bus.tres"
 
 Global="*res://codings/Autoload/Global.gd"
 Controller="*res://codings/Autoload/Controller.gd"
+Audio="*res://codings/Autoload/Audio.gd"
 PartyUI="*res://codings/Autoload/PartyUI.tscn"
 Loader="*res://codings/Autoload/Loader.tscn"
 Item="*res://codings/Autoload/ItemManager.tscn"

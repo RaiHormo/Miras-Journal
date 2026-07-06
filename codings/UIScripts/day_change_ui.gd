@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _on_next_day_pressed() -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	$Buttons.hide()
 	Event.Day += 1
 	Event.TimeOfDay = Event.TOD.MORNING
@@ -22,14 +22,14 @@ func _on_next_day_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	Global.options()
 
 
 func _on_quit_pressed() -> void:
-	Global.confirm_sound()
+	Audio.confirm_sound()
 	Global.quit()
 
 
 func _cursor() -> void:
-	Global.cursor_sound()
+	Audio.cursor_sound()
