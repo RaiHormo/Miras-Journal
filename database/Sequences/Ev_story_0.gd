@@ -175,7 +175,7 @@ func AlcineFollow3() -> void:
 	Global.Player.set_anim("IdleRight")
 	Global.Player.camera_follow(false)
 	var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
-	t.tween_property(Global.get_cam(), "position:x", 1650, 1)
+	t.tween_property(Global.Camera, "position:x", 1650, 1)
 	Alcine.set_anim("Scared")
 	await t.finished
 	Event.wait(0.5)
@@ -216,7 +216,7 @@ func AlcineFollow3() -> void:
 	Global.Player.reset_sprite()
 	await Event.wait()
 	Global.Player.set_anim("EntrancePrep")
-	Global.get_cam().position += Vector2(50, 0)
+	Global.Camera.position += Vector2(50, 0)
 	await Alcine.go_to(Vector2(1607, -1081), false)
 	await Alcine.go_to(Vector2(1607, -1100), false)
 	Alcine.BodyState = NPC.CUSTOM
@@ -283,7 +283,7 @@ func AlcineFollow4() -> void:
 	await Loader.transition(Direction.RIGHT)
 	Event.flag_progress("AlcineFollow", 4)
 	Alcine.hide()
-	Global.get_cam().zoom = Vector2(4, 4)
+	Global.Camera.zoom = Vector2(4, 4)
 	PartyUI.disabled = false
 	PartyUI.UIvisible = true
 	Event.allow_skipping = true
@@ -329,7 +329,7 @@ func enter_amberelm_2() -> void:
 	Global.Player.camera_follow(false)
 	var t := create_tween()
 	Global.Player.set_anim("IdleUp")
-	t.tween_property(Global.get_cam(), "position", Vector2(150, 252), 7)
+	t.tween_property(Global.Camera, "position", Vector2(150, 252), 7)
 	await Event.wait(1)
 	Global.location_name("Amberelm")
 	await Event.wait(5)
@@ -364,8 +364,8 @@ func rest_amberelm() -> void:
 		mira.set_anim("SitDown")
 		alcine.set_anim("IdleDown")
 		Loader.detransition()
-		Global.get_cam().zoom = Vector2(6, 6)
-		Global.get_cam().position = Vector2(85, 360)
+		Global.Camera.zoom = Vector2(6, 6)
+		Global.Camera.position = Vector2(85, 360)
 		await Event.wait(1)
 		await Global.textbox(name, "rest_amberelm", true)
 		await Loader.transition(Direction.CENTER)
@@ -382,7 +382,7 @@ func oct0_daytime() -> void:
 	Event.no_player()
 	await Loader.detransition()
 	await Loader.transition(Direction.RIGHT)
-	Global.get_cam().zoom = Vector2(4, 4)
+	Global.Camera.zoom = Vector2(4, 4)
 	var mira: NPC = Event.npc("Mira")
 	var alcine: NPC = Event.npc("Alcine")
 	mira.set_anim("SitDown")

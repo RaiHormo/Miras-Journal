@@ -34,10 +34,10 @@ func transition(time := 0.3) -> void:
 	if cant_dash_inside: Global.Player.can_dash = false
 	if lock_cam:
 		Global.Player.camera_follow(false)
-		Global.get_cam().position = cam_pos
+		Global.Camera.position = cam_pos
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	t.tween_property(Global.get_cam(), "zoom", Vector2(cam_zoom, cam_zoom), time)
+	t.tween_property(Global.Camera, "zoom", Vector2(cam_zoom, cam_zoom), time)
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = true
 	await t.finished
 	for i in Layers:

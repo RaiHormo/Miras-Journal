@@ -391,7 +391,8 @@ func _on_button_pressed() -> void:
 		"focus_cam":
 			Event.take_control()
 			Global.Player.camera_follow(false)
-			Global.get_cam().position = focus_position
+			Global.Camera.position = focus_position
+			Global.Camera.position = focus_position
 			await Event.wait(1)
 			if add_flag: Event.add_flag(hide_on_flag, true)
 			Global.check_party.emit()

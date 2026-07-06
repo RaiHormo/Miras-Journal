@@ -52,7 +52,7 @@ func _ready() -> void:
 	
 	if not is_clone:
 		Global.Player = self
-		var cam: Camera2D = Global.get_cam()
+		var cam: Camera2D = Global.Camera
 		if cam != null:
 			Global.Area.cam.enabled = false
 			$Camera2D.remote_path = cam.get_path()
@@ -155,7 +155,7 @@ func control_process() -> void:
 	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("DebugF"):
 			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
-			$CollisionShape2D.disabled = Global.toggle($CollisionShape2D.disabled)
+			$CollisionShape2D.disabled = not $CollisionShape2D.disabled
 
 
 func update_anim_prm() -> void:

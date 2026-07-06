@@ -17,7 +17,9 @@ var Player: Mira:
 var Area: Room
 var Camera: Camera2D:
 	get:
-		return get_cam()
+		if not is_instance_valid(Area): 
+			return null
+		return Global.Area.cam
 
 var Settings: Setting
 var Lights: Array[Light2D] = []
@@ -664,11 +666,6 @@ func match_profile(named: String) -> TextProfile:
 
 #endregion
 
-
-func toggle(boo: bool) -> bool:
-	return not boo
-
-
 #region Quick Actions
 func jump_to(character: Node, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
 	await jump_to_global(character, Area.to_global(position), time, height)
@@ -688,12 +685,6 @@ func jump_to_global(character: Node, position: Vector2, time: float = 5, height:
 	if character == Player and vibrate:
 		Global.rumble(0, abs(height) / 2, 0.06)
 	anim_done.emit()
-
-
-func get_cam() -> Camera2D:
-	if !is_instance_valid(Area): return null
-	return Global.Area.cam
-
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:
 	print(ArbData0, " healed")

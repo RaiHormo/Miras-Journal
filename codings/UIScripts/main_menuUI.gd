@@ -6,8 +6,8 @@ var prevRootIndex := 1
 var prevPos: Vector2
 var zoom: Vector2
 var z: int
-@onready var Cam: Camera2D = Global.get_cam()
-@onready var CamPrev: Camera2D = Global.get_cam().duplicate()
+@onready var Cam: Camera2D = Global.Camera
+@onready var CamPrev: Camera2D = Global.Camera.duplicate()
 @onready var Fader: Control
 var PrevCtrl: Control = null
 var KeyInv: Array[ItemData]
@@ -28,7 +28,7 @@ func _ready() -> void:
 		return
 	cam_follow = Global.Player.get_node("Camera2D").update_position
 	await Event.take_control(true, false, false)
-	if abs(Global.Player.global_position - Global.get_cam().get_screen_center_position()).length() > 15:
+	if abs(Global.Player.global_position - Global.Camera.get_screen_center_position()).length() > 15:
 		duplicated = true
 		player = Global.Player.duplicate()
 		player.is_clone = true
@@ -56,7 +56,7 @@ func _ready() -> void:
 	if Fader == null: queue_free(); get_tree().paused = false; return
 	Fader.show()
 	stage = "pre_root"
-	zoom = Global.get_cam().zoom
+	zoom = Global.Camera.zoom
 	prevPos = player.global_position
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -74,11 +74,11 @@ func _ready() -> void:
 	for i in $Rail.get_children():
 		i.get_child(0).position = Vector2(-30, -30)
 		i.get_child(0).size.x = 64
-	t.tween_property(Global.get_cam(), "zoom", Vector2(5, 5), 0.5)
+	t.tween_property(Global.Camera, "zoom", Vector2(5, 5), 0.5)
 	t.tween_property(Fader, "modulate", Color(0, 0, 0, 0.6), 0.5)
 	if duplicated:
-		Cam.position = Global.get_cam().get_screen_center_position()
-		t.tween_property(player, "global_position", Global.get_cam().get_screen_center_position(), 0.5)
+		Cam.position = Global.Camera.get_screen_center_position()
+		t.tween_property(player, "global_position", Global.Camera.get_screen_center_position(), 0.5)
 		t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 2.5, 0.5).from(0.0)
 	else: t.tween_property(Fader.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 1.0, 0.5).from(0.0)
 	get_inventory()
@@ -187,7 +187,7 @@ func close(give_control := true) -> void:
 	t.tween_property($Ring/Glow, "modulate", Color.TRANSPARENT, 0.3)
 	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	Cam.position = CamPrev.position
-	t.tween_property(Global.get_cam(), "zoom", zoom, 0.3)
+	t.tween_property(Global.Camera, "zoom", zoom, 0.3)
 	if not duplicated: Global.Area.handle_z(z)
 	else: t.tween_property(player, "modulate", Color(0, 0, 0, 0), 0.5)
 	if is_instance_valid(player):
@@ -199,7 +199,7 @@ func close(give_control := true) -> void:
 	if give_control:
 		Event.give_control(cam_follow)
 	Global.Player.set_anim()
-	Global.get_cam().enabled = true
+	Global.Camera.enabled = true
 	if is_instance_valid(Fader): Fader.hide()
 	queue_free()
 

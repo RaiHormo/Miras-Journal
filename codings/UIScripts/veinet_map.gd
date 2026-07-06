@@ -9,10 +9,10 @@ func _ready() -> void:
 	await Event.take_control()
 	#await Loader.save()
 	get_viewport().gui_focus_changed.connect(focus_change)
-	Global.get_cam().limit_bottom = 999999
-	Global.get_cam().limit_right = 999999
-	Global.get_cam().limit_left = -999999
-	Global.get_cam().limit_top = -999999
+	Global.Camera.limit_bottom = 999999
+	Global.Camera.limit_right = 999999
+	Global.Camera.limit_left = -999999
+	Global.Camera.limit_top = -999999
 	for i in $Container/Scroller/LocationList.get_children():
 		#if i is Button: i.pressed.connect(location_selected)
 		if not Event.f("VP" + i.name):
@@ -32,8 +32,8 @@ func focus_place(place: String = here) -> void:
 	if not inited:
 		here = place
 		Global.Player.camera_follow(false)
-		Global.get_cam().position_smoothing_enabled = false
-		position = Global.get_cam().global_position - (size / 2)
+		Global.Camera.position_smoothing_enabled = false
+		position = Global.Camera.global_position - (size / 2)
 		$Container.global_position.x = 1300
 		var t := create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -41,8 +41,8 @@ func focus_place(place: String = here) -> void:
 		t.set_parallel()
 		show()
 		t.tween_property(self, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-		t.tween_property(Global.get_cam(), "zoom", Vector2.ONE, 0.5)
-		t.tween_property(Global.get_cam(), "position", position + (size / 2), 0.5)
+		t.tween_property(Global.Camera, "zoom", Vector2.ONE, 0.5)
+		t.tween_property(Global.Camera, "position", position + (size / 2), 0.5)
 		t.tween_property($Container, "position:x", 898, 0.3).set_delay(0.3)
 		inited = true
 	else: Global.cursor_sound()
@@ -101,8 +101,8 @@ func location_selected() -> void:
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
 	var t := create_tween()
 	t.set_parallel()
-	t.tween_property(Global.get_cam(), "zoom", Vector2(4, 4), 0.3)
-	t.tween_property(Global.get_cam(), "position", map_point.global_position, 0.3)
+	t.tween_property(Global.Camera, "zoom", Vector2(4, 4), 0.3)
+	t.tween_property(Global.Camera, "position", map_point.global_position, 0.3)
 	await Loader.transition(Direction.CENTER)
 	hide()
 	var room: String = foc.get_meta("Room")
