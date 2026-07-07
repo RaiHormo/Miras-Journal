@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cx1hh5a1t043t"]
 
 [ext_resource type="AudioStream" uid="uid://bq4f6vaokdjpm" path="res://sound/SFX/Footsteps/Grass1.ogg" id="1_ex6mo"]
+[ext_resource type="AudioStream" uid="uid://3rknyfwqw33p" path="res://sound/SFX/bump.ogg" id="1_s4rl8"]
 [ext_resource type="AudioStream" uid="uid://cgmtu2qkg8q7g" path="res://sound/SFX/Footsteps/Grass2.ogg" id="2_a7hlt"]
 [ext_resource type="AudioStream" uid="uid://qd53o52mxgsf" path="res://sound/SFX/Footsteps/Grass3.ogg" id="3_mquer"]
 [ext_resource type="AudioStream" uid="uid://xcwj8m5ius2c" path="res://sound/SFX/Footsteps/Grass4.ogg" id="4_newjn"]
@@ -32,6 +33,9 @@
 [ext_resource type="AudioStream" uid="uid://dleqvy3heexci" path="res://sound/SFX/Footsteps/Clean6.ogg" id="30_ejpvl"]
 
 [node name="StdrFootsteps" type="Node2D" unique_id=1832001664]
+
+[node name="Bump" type="AudioStreamPlayer2D" parent="." unique_id=946716213]
+stream = ExtResource("1_s4rl8")
 
 [node name="Grass1" type="AudioStreamPlayer2D" parent="." unique_id=1919657500]
 stream = ExtResource("1_ex6mo")

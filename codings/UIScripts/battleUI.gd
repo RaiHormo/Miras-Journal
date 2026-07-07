@@ -416,9 +416,9 @@ func show_aoe_indicator(chara: Actor) -> void:
 		dub.material = dub.material.duplicate()
 		dub.set_instance_shader_parameter("circle_thickness", 0.04)
 		var texture: GradientTexture1D = dub.texture.duplicate(true)
-		var gradient_color: Color = texture.gradient.gradient.colors[0]
-		gradient_color.v = texture.gradient.colors[0].v - 0.4
-		texture.gradient.gradient.colors[0] = gradient_color
+		var gradient := texture.gradient
+		gradient.color[0].v = gradient.color[0].v - 0.4
+		texture.gradient = gradient
 		dub.texture = texture
 		dub.scale = Vector2(0.17, 0.17)
 		dub.position = Vector2.ZERO - dub.get_combined_pivot_offset()

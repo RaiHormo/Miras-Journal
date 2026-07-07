@@ -1,8 +1,8 @@
 ~ error
-Alcine.Neutral: [[mm?|*{{alcine()}} looks at me*|*stare*|mem?]]
+Alcine.Neutral: [[Mm?|*stare*|Mem?|Mewa?]]
 
 ~ d0_0
-Alcine.Upset: *{{alcine()}} seems scared*
+Alcine.Upset: Wheew...
 
 ~ options
 {{nametag_to_be_used}}: {{line_to_be_used}}

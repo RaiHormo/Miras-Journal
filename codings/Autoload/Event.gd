@@ -134,12 +134,8 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	await t.finished
 
 
-func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
+func node_shake(node: CanvasItem, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
-	var tw := create_tween()
-	tw.set_ease(Tween.EASE_OUT)
-	tw.set_trans(Tween.TRANS_CUBIC)
-	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
 	for i in repeat:
 		var t := create_tween()
 		t.tween_property(node, "position:x", amount, time).as_relative()

@@ -90,12 +90,6 @@ func quit(save_first := true) -> void:
 		Global.save_settings()
 	get_tree().quit()
 
-
-func normal_mode() -> void:
-	Area.queue_free()
-	get_tree().change_scene_to_file("res://scenes/Initializer.tscn")
-
-
 func init_steam() -> void:
 	if not Engine.has_singleton("Steam"):
 		return

@@ -548,6 +548,9 @@ patrol_speed = 220
 chase_speed = 220
 speed = 100
 Facing = SubResource("Resource_ncxtw")
+no_collision = null
+SpawnOnCameraInd = Vector2(0, 0)
+Footsteps = false
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent1" unique_id=776446670]
 
@@ -619,6 +622,9 @@ patrol_speed = 100
 chase_speed = 220
 speed = 100
 Facing = SubResource("Resource_4p2pc")
+no_collision = null
+SpawnOnCameraInd = Vector2(0, 0)
+Footsteps = false
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent2" unique_id=763906550]
 

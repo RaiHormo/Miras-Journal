@@ -830,10 +830,10 @@ y_sort_enabled = true
 position = Vector2(1681, -1069)
 motion_mode = 1
 script = ExtResource("19_dpu00")
-speed = 100
-DefaultState = 6
 ID = "Alcine"
 only_on_index = 2
+speed = 100
+DefaultState = 6
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Bubble" type="AnimatedSprite2D" parent="Event/EvAlcine" unique_id=1653531886]
@@ -1107,8 +1107,9 @@ proper_face = Vector2(1, 0)
 [node name="EnemyCrawlingSludge1" parent="." unique_id=80482356 instance=ExtResource("10_rx6j2")]
 position = Vector2(1365, 223)
 BattleSeq = ExtResource("11_1cjwu")
+only_on_index = 1
 Facing = SubResource("Resource_2q7ov")
-ID = "CS1"
+DefaultState = 1
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge1" unique_id=739350443]
 
@@ -1151,8 +1152,8 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge2" parent="." unique_id=1918852949 instance=ExtResource("10_rx6j2")]
 position = Vector2(1189, -338)
 BattleSeq = ExtResource("14_hs8tf")
+only_on_index = 1
 Facing = SubResource("Resource_2q7ov")
-ID = "CS3"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge2" unique_id=421879962]
 
@@ -1195,6 +1196,7 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge3" parent="." unique_id=1347610146 instance=ExtResource("10_rx6j2")]
 position = Vector2(1638, 369)
 BattleSeq = ExtResource("13_812cc")
+only_on_index = 1
 Facing = SubResource("Resource_2q7ov")
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge3" unique_id=2002211728]
@@ -1233,8 +1235,8 @@ gizmo_extents = 100.0
 [node name="EnemyCrawlingSludge4" parent="." unique_id=28278289 instance=ExtResource("10_rx6j2")]
 position = Vector2(1258, -491)
 BattleSeq = ExtResource("21_e7y1u")
+only_on_index = 1
 Facing = SubResource("Resource_2q7ov")
-ID = "CS5"
 
 [node name="HomePoints" type="Node2D" parent="EnemyCrawlingSludge4" unique_id=1500271890]
 

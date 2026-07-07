@@ -1207,6 +1207,7 @@ position = Vector2(13, -42)
 position = Vector2(-304, -44)
 BattleSeq = SubResource("Resource_yoqct")
 chase_speed = 90
+only_on_index = 1
 speed = 90
 Facing = SubResource("Resource_lj216")
 
@@ -1337,6 +1338,7 @@ gizmo_extents = 100.0
 position = Vector2(-378, -783)
 BattleSeq = SubResource("Resource_qvrxi")
 chase_speed = 90
+only_on_index = 2
 speed = 90
 Facing = SubResource("Resource_d3jwk")
 
@@ -1370,6 +1372,7 @@ position = Vector2(29, 5)
 position = Vector2(-275, 429)
 BattleSeq = SubResource("Resource_wvntm")
 chase_speed = 90
+only_on_index = 1
 speed = 90
 Facing = SubResource("Resource_xjok2")
 
@@ -1403,6 +1406,7 @@ gizmo_extents = 100.0
 position = Vector2(-161, 190)
 BattleSeq = SubResource("Resource_n6psl")
 chase_speed = 90
+only_on_index = 1
 speed = 90
 Facing = SubResource("Resource_k1go5")
 
@@ -1435,6 +1439,7 @@ gizmo_extents = 100.0
 position = Vector2(-418, -405)
 BattleSeq = SubResource("Resource_41yyw")
 chase_speed = 90
+only_on_index = 1
 speed = 90
 Facing = SubResource("Resource_e642t")
 

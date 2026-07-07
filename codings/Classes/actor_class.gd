@@ -164,6 +164,7 @@ func set_health(x: int) -> void:
 func add_health(x: int) -> void:
 	if x == 0: return
 	Health += x
+	Audio.ui_sound("heal")
 	print(FirstName + " gains ", x, " Health")
 	Global.check.emit()
 

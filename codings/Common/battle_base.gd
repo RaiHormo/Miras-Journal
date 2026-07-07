@@ -1395,10 +1395,16 @@ func stat_change(
 		&"Atk": chara.AttackMultiplier += amount
 		&"Mag": chara.MagicMultiplier += amount
 		&"Def": chara.DefenceMultiplier += amount
+		
+	
 	var state := await chara.add_state(stat + updown, turns, CurrentChar)
 	state.parameter = amount
-	pop_num(chara, stat_name(stat)
-	+" x" + str(amount + 1), state.color)
+	pop_num(chara, stat_name(stat) +" x" + str(amount + 1), state.color)
+	
+	if updown == "Up":
+		Audio.ui_sound("powerup")
+	else: Audio.ui_sound("powerdown")
+	
 	print(chara.FirstName, "'  ", stat, " was multiplied by ", str(amount + 1))
 
 

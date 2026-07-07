@@ -5,12 +5,30 @@ extends CharacterBody2D
 
 enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 
+@export var ID: String = ""
+
+@export var only_on_index: int = 0
 ##Speed of movement
 @export var speed := 80
-##Used to control the direction of the next movement
-@export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
 @export var Facing: Direction = Direction.DOWN
+@export var DefaultState := 0
+##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
+@export var no_collision: bool = false
+@export var SpawnOnCameraInd := true
+@export var Footsteps := true
+##How many frames the character has been moving
+@export var Shadow: Node2D
+@export var sprite: AnimatedSprite2D
+@export var Nav: NavigationAgent2D
+@export var step_frames: Dictionary[String, PackedInt32Array] = {
+	"Walk": [0, 2],
+	"Loop": [0, 1],
+}
+
+##Used to control the direction of the next movement
+var direction: Vector2 = Vector2.ZERO
+
 ##0: Idle, Not moving[br]
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
@@ -23,31 +41,16 @@ var BodyState := IDLE:
 		BodyState = x
 		if BodyState == MOVE:
 			pass
-@export var DefaultState := 0
+
+var DefaultPos := Vector2.ZERO
+const minimum_movement: float = 0.2
+var move_frames := 0
+var LastStepFrame := -1
+var stopping := false
 var RealVelocity := Vector2.ZERO
 var PrevPosition := Vector2.ZERO
 ##Coordinates on the [TileMap]
 var coords: Vector2 = Vector2.ZERO
-##The [String] used to refer to this node through [codeblock]Event.npc(ID)[/codeblock]
-@export var ID: String = ""
-var DefaultPos := Vector2.ZERO
-@export var no_collision: bool = false
-@export var Nav: NavigationAgent2D
-@export var SpawnOnCameraInd := true
-@export var only_on_index: int = 0
-var stopping := false
-@export var Footsteps := true
-var LastStepFrame := -1
-##How many frames the character has been moving
-var move_frames := 0
-@export var Shadow: Node2D
-@export var sprite: AnimatedSprite2D
-var minimum_movement: float = 0.2
-@export var step_frames: Dictionary[String, PackedInt32Array] = {
-	"Walk": [0, 2],
-	"Loop": [0, 1],
-}
-
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
@@ -67,12 +70,9 @@ func _ready() -> void:
 
 
 func default_id() -> String: return name
-
-
 func default() -> void: pass
-
-
 func extended_process() -> void: pass
+func attacked() -> void: pass
 
 
 func control_process() -> void:
@@ -153,9 +153,18 @@ func handle_step_sounds(for_sprite: AnimatedSprite2D) -> void:
 		else: rand = randi_range(4, 6)
 		var sound := terrain + str(rand)
 		#print(sprite.animation,sprite.frame)
-		if $StdrFootsteps.has_node(sound):
-			$StdrFootsteps.get_node(sound).play()
+		play_footstep_sound(sound)
 
+func single_footstep() -> void:
+	if has_node("StdrFootsteps"):
+		var terrain := Global.Area.get_terrain(coords)
+		var sound := terrain + str(randi_range(1, 6))
+		play_footstep_sound(sound)
+		
+
+func play_footstep_sound(sound: String) -> void:
+	if $StdrFootsteps.has_node(sound):
+		$StdrFootsteps.get_node(sound).play()
 
 func check_terrain(terrain: String, layer := 1) -> bool:
 	if get_tile(layer):
@@ -311,11 +320,6 @@ func collision(tog: bool = $CollisionShape2D.disabled) -> void:
 	$CollisionShape2D.set_deferred("disabled", not tog)
 
 
-#FIXME
-func attacked() -> void:
-	pass
-
-
 func chain_moves(moves: Array) -> void:
 	for i:Variant in moves:
 		await move_dir(i)
@@ -352,3 +356,11 @@ func shadow(toggle: bool, off_alpha: float = 0) -> void:
 		t.tween_property(get_node("Shadow"), "modulate:a", 1, 0.1)
 	else:
 		t.tween_property(get_node("Shadow"), "modulate:a", off_alpha, 0.1)
+
+func bump(dir: Direction = Facing) -> void:
+	play_footstep_sound("Bump")
+	var dir_name := dir.to_string()
+	Controller.rumble(0.7, 0.3, 0.08)
+	direction = Vector2.ZERO
+	Event.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
+	await set_anim("Dash" + dir_name + "Hit", true)

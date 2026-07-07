@@ -354,6 +354,7 @@ func reset_speed() -> void:
 
 
 func bump(dir: Direction = Facing) -> void:
+	play_footstep_sound("Bump")
 	var dir_name := dir.to_string()
 	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
@@ -365,6 +366,8 @@ func bump(dir: Direction = Facing) -> void:
 	set_anim("Dash" + dir_name + "Hit")
 	var mem := local_controllable
 	local_controllable = false
+	await Event.wait(0.2)
+	single_footstep()
 	if sprite.is_playing(): await sprite.animation_finished
 	local_controllable = mem
 

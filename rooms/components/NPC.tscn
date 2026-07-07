@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="4_xha1c"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="5_qa61s"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="6_yku7r"]
+[ext_resource type="PackedScene" uid="uid://cx1hh5a1t043t" path="res://sound/Sets/FootstepsSoundSet.tscn" id="7_qa61s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnvbs"]
 radius = 7.0
@@ -50,3 +51,5 @@ material = ExtResource("5_qa61s")
 position = Vector2(-0.00622558, -32.0003)
 sprite_frames = ExtResource("6_yku7r")
 animation = &"Sweat"
+
+[node name="StdrFootsteps" parent="." unique_id=1832001664 instance=ExtResource("7_qa61s")]
