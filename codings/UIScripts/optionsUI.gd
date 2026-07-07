@@ -366,7 +366,7 @@ func _on_quit() -> void:
 		if cant_save:
 			text = "Quit the game?\nYour progress cannot be saved right now, so it might be lost."
 	else: text = "Quit the game?"
-	var awnser := await Event.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
+	var awnser := await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
 	match awnser:
 		2:
 			if not cant_save and is_instance_valid(Global.Area):
@@ -418,12 +418,14 @@ func load_settings(no_check := false) -> void:
 		%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
 		%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 		%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
-		%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume * 10
-		%SettingsVbox/EnvSFX/Slider.value = Global.Settings.EnvSFXVolume * 10
-		%SettingsVbox/BtSFX/Slider.value = Global.Settings.BtSFXVolume * 10
-		%SettingsVbox/Music/Slider.value = Global.Settings.MusicVolume * 10
-		%SettingsVbox/UI/Slider.value = Global.Settings.UIVolume * 10
-		%SettingsVbox/Voices/Slider.value = Global.Settings.VoicesVolume * 10
+		
+		%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume
+		%SettingsVbox/SFX/Slider.value = Global.Settings.SFXVolume
+		%SettingsVbox/Music/Slider.value = Global.Settings.MusicVolume
+		%SettingsVbox/SoundEffects/UI/Slider.value = Global.Settings.UIVolume
+		%SettingsVbox/SoundEffects/Footsteps/Slider.value = Global.Settings.FootstepsVolume
+		%SettingsVbox/SoundEffects/Voices/Slider.value = Global.Settings.VoicesVolume
+		
 		%SettingsVbox/BCSadjust/BrtSlider.value = World.environment.adjustment_brightness
 		%SettingsVbox/BCSadjust/ConSlider.value = World.environment.adjustment_contrast
 		%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
@@ -469,7 +471,7 @@ func load_save_files() -> void:
 	%Files/File0/Info/SavedDate.text = ""
 	var files := DirAccess.get_files_at("user://")
 	for i in files:
-		if i.ends_with(".tres") and "Autosave.tres" != i:
+		if i.ends_with(".tres") and "Autosave.tres" != i and not "Settings" in i:
 			var data: SaveFile = await Loader.load_res("user://" + i)
 			if data is SaveFile:
 				#Loader.SaveFiles.append(data)
@@ -488,7 +490,7 @@ func load_save_files() -> void:
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	else:
 		%Files/File0.hide()
-		Event.toast("No Autosave data found.")
+		Global.toast("No Autosave data found.")
 	var sorted := %Files.get_children()
 	sorted.sort_custom(file_sort)
 	for i in %Files.get_children():
@@ -590,7 +592,7 @@ func _on_save_delete() -> void:
 		Audio.confirm_sound()
 		if panel.name == "File0":
 			if cant_save:
-				Event.toast("Press F1 to delete the file manually.")
+				Global.toast("Press F1 to delete the file manually.")
 			else:
 				print("Deleting user://Autosave.tres")
 				DirAccess.remove_absolute("user://Autosave.tres")
@@ -688,6 +690,8 @@ func _on_save_load() -> void:
 
 
 func _new_file() -> void:
+	const banned: Array[String] = ['/', '\\', 'options', ':', '<', '>']
+	
 	stage = "saving"
 	Audio.confirm_sound()
 	#Loader.gray_out()
@@ -697,19 +701,29 @@ func _new_file() -> void:
 	while FileAccess.file_exists("user://File" + str(i) + ".tres"):
 		i += 1
 	var filename := await name_file("File" + str(i))
-	Loader.icon_save()
-	await Loader.save(filename, false)
-	await load_save_files()
-	#Loader.ungray.emit()
-	%Files.get_child(2).get_node("Button").grab_focus()
-	if Loader.get_node("Can/Icon").is_playing():
-		await Loader.get_node("Can/Icon").animation_finished
+	
+	var allowed := true
+	for word in banned:
+		if filename.containsn(word):
+			allowed = false
+			continue
+	
+	if allowed:
+		Loader.icon_save()
+		await Loader.save(filename, false)
+		await load_save_files()
+		#Loader.ungray.emit()
+		%Files.get_child(2).get_node("Button").grab_focus()
+		if Loader.get_node("Can/Icon").is_playing():
+			await Loader.get_node("Can/Icon").animation_finished
+	else:
+		Global.warning("\"%s\" contains a weird word or character.", "SAVE FAILED")
 	stage = "save_managment"
 
 
 func _new_game() -> void:
 	stage = "popup"
-	if not FileAccess.file_exists("user://Autosave.tres") or await Event.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
+	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		was_controllable = false
 		close(true)
 		Event.sequence("new_game")
@@ -759,7 +773,7 @@ func _manual_entry_select() -> void:
 			text = i
 			break
 	if text == "":
-		Event.toast("Entry not found")
+		Global.toast("Entry not found")
 		return
 	text = Colorizer.colorize_explicit(text.replace("#" + entry, "[b]" + focus.text + "[/b]"))
 	$ManualPanel/Text/RichTextLabel.text = text
@@ -795,19 +809,19 @@ func _on_credit_scroll(event: InputEvent) -> void:
 func _on_website() -> void:
 	Controller.confirm()
 	OS.shell_open("https://raidev.eu")
-	Event.toast("\"raidev.eu\" was opened in your web browser.")
+	Global.toast("\"raidev.eu\" was opened in your web browser.")
 
 
 func _on_source_code() -> void:
 	Controller.confirm()
 	OS.shell_open("https://github.com/RaiHormo/Miras-Journal")
-	Event.toast("\"github.com\" was opened in your web browser.")
+	Global.toast("\"github.com\" was opened in your web browser.")
 
 
 func _on_reset() -> void:
 	stage = "inactive"
 	Controller.confirm()
-	if await Event.warning("This will erase autosave save data, and restore settings! 
+	if await Global.warning("This will erase autosave save data, and restore settings! 
 The game will then close.\nProceed?"):
 		Global.reset_settings()
 		var dir := DirAccess.open("user://")
@@ -884,30 +898,27 @@ func _on_fullscreen(tog: bool) -> void:
 		confirm()
 
 
-func _on_master_volume(value: float) -> void:
-	Global.Settings.MasterVolume = value / 10
-	if Global.Settings.MasterVolume == -30:
-		Global.Settings.MasterVolume = -80
-	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
-	$AudioTester.bus = "Master"
-	if stage == "game_settings": $AudioTester.play()
-
-
-func _on_EnvSFX_volume(value: float) -> void:
-	Global.Settings.EnvSFXVolume = value / 10
-	if Global.Settings.EnvSFXVolume == -30:
-		Global.Settings.EnvSFXVolume = -80
-	AudioServer.set_bus_volume_db(2, Global.Settings.EnvSFXVolume)
-	$AudioTester.bus = "EnvSFX"
+func _on_volume(value: float, origin: Slider) -> void:
+	var bus := origin.get_parent().name
+	
+	Global.Settings.set(bus+"Volume", value)
+	if value == origin.min_value:
+		value -= 100
+	
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), value)
+	
+	$AudioTester.bus = bus
 	if stage == "game_settings": $AudioTester.play()
 
 
 func _on_volume_reset() -> void:
-	Global.Settings.MasterVolume = 0
-	AudioServer.set_bus_volume_db(0, Global.Settings.MasterVolume)
-	Global.Settings.EnvSFXVolume = 0
-	AudioServer.set_bus_volume_db(2, Global.Settings.MasterVolume)
 	confirm()
+	
+	for i in Global.Settings.get_property_list():
+		if "Volume" in i.get("name"):
+			Global.Settings.set(i.name, 0)
+	load_settings()
+	
 
 
 func _on_brightness(value: float) -> void:

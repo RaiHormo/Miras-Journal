@@ -1,5 +1,7 @@
 extends Node
 
+const settings_path := "user://Settings.tres"
+
 ## Determines if the player should have control
 ## Prefer to use Event.give_control() and Event.take_control() instead of this
 var Controllable: bool = true:
@@ -82,7 +84,7 @@ func quit(save_first := true) -> void:
 			Loader.icon_save()
 			await Loader.save()
 		elif is_instance_valid(Area):
-			if not await Event.warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
+			if not await Global.warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
 				return
 		await Loader.transition(Direction.CENTER)
 		if Engine.has_singleton("Steam") and using_steam:
@@ -190,7 +192,7 @@ func refresh() -> void:
 func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	if !Settings: await init_settings()
 	if Engine.is_embedded_in_editor():
-		Event.toast("Can't fullscreen while the window is embeded")
+		Global.toast("Can't fullscreen while the window is embeded")
 		Settings.Fullscreen = false
 		return
 	if tog:
@@ -213,7 +215,7 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 func reset_settings() -> void:
 	Settings = Setting.new()
 	customize_default_settings()
-	var error: Error = ResourceSaver.save(Settings, "user://Settings.res")
+	var error: Error = ResourceSaver.save(Settings, settings_path)
 	if error != OK:
 		printerr(error_string(error))
 		#OS.alert("Cannot write to save data directory: "+error_string(error))
@@ -234,16 +236,16 @@ func customize_default_settings() -> void:
 
 
 func init_settings() -> void:
-	if not ResourceLoader.exists("user://Settings.res"):
+	if not ResourceLoader.exists(settings_path):
 		print_rich("[color=orange]No settings found, initializing...")
 		reset_settings()
 		await Event.wait()
-	Settings = ResourceLoader.load("user://Settings.res")
+	Settings = ResourceLoader.load(settings_path)
 	if not is_instance_valid(Settings):
 		print_rich("[color=orange]Settings file is invalid, settings will be restored to default")
 		reset_settings()
 		await Event.wait()
-		Settings = load("user://Settings.res")
+		Settings = load(settings_path)
 	if not is_instance_valid(Settings):
 		OS.alert("Something is wrong with the settings file or user folder")
 	apply_settings()
@@ -264,12 +266,14 @@ func apply_settings() -> void:
 		#get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		#get_window().content_scale_size = base_res * Settings.UpscaleFactor
 		#get_window().content_scale_factor = Settings.UpscaleFactor
+		
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
-	AudioServer.set_bus_volume_db(2, Settings.EnvSFXVolume)
-	AudioServer.set_bus_volume_db(3, Settings.BtSFXVolume)
-	AudioServer.set_bus_volume_db(4, Settings.UIVolume)
+	AudioServer.set_bus_volume_db(2, Settings.SFXVolume)
+	AudioServer.set_bus_volume_db(3, Settings.UIVolume)
 	AudioServer.set_bus_volume_db(4, Settings.VoicesVolume)
+	AudioServer.set_bus_volume_db(5, Settings.FootstepsVolume)
+	
 	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	if using_steam:
@@ -283,7 +287,7 @@ func get_playtime() -> int:
 
 
 func save_settings() -> void:
-	ResourceSaver.save(Settings, "user://Settings.res")
+	ResourceSaver.save(Settings, settings_path)
 	print_rich("[color=orange]Settings saved")
 #endregion
 
@@ -406,3 +410,31 @@ func intro_effect(ref: Node) -> void:
 	get_tree().root.add_child(node)
 	node.ref = ref
 	node.animate()
+
+func toast(string: String) -> void:
+	if get_node_or_null("/root/Toast"):
+		$/root/Toast.free()
+	print_rich("[color=orange]Toast: " + string)
+	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
+	get_tree().root.add_child.call_deferred(tost)
+	tost.get_node("BoxContainer/Toast/Label").set_deferred("text", string)
+
+
+func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
+	if get_node_or_null("/root/Warning"):
+		$/root/Warning.free()
+	print_rich("[color=orange]Warn: " + text)
+	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
+	get_tree().root.add_child(tost)
+	await Event.wait()
+	if is_instance_valid(tost):
+		return await tost.ask_for_confirm(text, label, awnser, color)
+	else: return false
+
+
+func location_name(string: String) -> void:
+	if get_node_or_null("/root/LocationName"):
+		$/root/LocationName.free()
+	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
+	get_tree().root.add_child(tost)
+	tost.get_node("Label").set_deferred("text", string)

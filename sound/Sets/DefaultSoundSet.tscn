@@ -7,6 +7,8 @@
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="." unique_id=1536681691]
 stream = ExtResource("1_aqdhg")
+bus = &"SFX"
 
 [node name="Attack2" type="AudioStreamPlayer2D" parent="." unique_id=42541279]
 stream = ExtResource("2_662ba")
+bus = &"SFX"

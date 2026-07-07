@@ -233,7 +233,7 @@ func add_state(x: Variant, turns := -1, inflicter: Actor = Global.Bt.CurrentChar
 		elif state.name == "Confused":
 			prev_state.turns = -1
 			Global.Bt.battle_msg("state_extended", FirstName, state.name)
-		#else: Event.toast(FirstName+" is already "+state.name)
+		#else: Global.toast(FirstName+" is already "+state.name)
 		return prev_state
 	if turns != -1:
 		state.turns = turns

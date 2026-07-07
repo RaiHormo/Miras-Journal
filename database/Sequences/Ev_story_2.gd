@@ -40,7 +40,7 @@ func nov3_enterSG() -> void:
 	Global.Party.add("Asteria")
 	Global.Party.add("Daze")
 	Global.Player.camera_follow(false)
-	Event.location_name("Shard Gardens")
+	Global.location_name("Shard Gardens")
 	Global.Camera.position = Vector2(663, 241)
 	var t := create_tween().set_ease(Tween.EASE_IN_OUT)
 	t.tween_property(Global.Camera, "position", Vector2(190, 84), 6)

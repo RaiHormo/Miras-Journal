@@ -156,7 +156,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		await mem.load_from_dict(mem_dict)
 		temp_members.append(mem)
 	if temp_members < Global.Members:
-		Event.toast("WARNING: This save file was created in an older version.")
+		Global.toast("WARNING: This save file was created in an older version.")
 		for j in Global.Members:
 			var exists := false
 			for i in temp_members:
@@ -472,7 +472,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 	elif stg is BattleSequence:
 		battle_sequence = stg
 	else:
-		Event.toast("The battle sequence isn't set here, you probably should fix this.")
+		Global.toast("The battle sequence isn't set here, you probably should fix this.")
 		await Event.wait(0.3)
 		Event.give_control()
 		PartyUI.show_all()
@@ -667,7 +667,7 @@ func battle_bars(x: int, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void
 
 func error_handle(res: ResourceLoader.ThreadLoadStatus) -> void:
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		Event.toast("A resource failed to load! \nPress F1 to check the logs.")
+		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
 		loading_thread = false
 		
@@ -728,11 +728,11 @@ func validate_save(savefile: String) -> bool:
 					ResourceSaver.save(file, savefile)
 					return true
 				else:
-					Event.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
+					Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
 					Global.options(1)
 					return false
 		else:
-			Event.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
+			Global.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
 			Global.options(1)
 			return false
 	else:

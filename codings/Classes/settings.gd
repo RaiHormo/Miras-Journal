@@ -21,11 +21,11 @@ class_name Setting
 @export var GlowEffect: bool = true
 @export var BlurEffect: bool = true
 @export_category("Audio")
-@export var MasterVolume: float = -8
+@export var MasterVolume: float = 0
 @export var MusicVolume: float = 0
-@export var EnvSFXVolume: float = 0
-@export var BtSFXVolume: float = 0
+@export var SFXVolume: float = 0
 @export var UIVolume: float = 0
 @export var VoicesVolume: float = 0
+@export var FootstepsVolume: float = 0
 @export_category("System")
 @export var DebugMode: bool = false

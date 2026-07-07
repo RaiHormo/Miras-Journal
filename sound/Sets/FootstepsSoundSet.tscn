@@ -36,147 +36,148 @@
 
 [node name="Bump" type="AudioStreamPlayer2D" parent="." unique_id=946716213]
 stream = ExtResource("1_s4rl8")
+bus = &"SFX"
 
 [node name="Grass1" type="AudioStreamPlayer2D" parent="." unique_id=1919657500]
 stream = ExtResource("1_ex6mo")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Grass2" type="AudioStreamPlayer2D" parent="." unique_id=1491662998]
 stream = ExtResource("2_a7hlt")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Grass3" type="AudioStreamPlayer2D" parent="." unique_id=1519501281]
 stream = ExtResource("3_mquer")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Grass4" type="AudioStreamPlayer2D" parent="." unique_id=1869572988]
 stream = ExtResource("4_newjn")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Grass5" type="AudioStreamPlayer2D" parent="." unique_id=1695853001]
 stream = ExtResource("5_ommgw")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Grass6" type="AudioStreamPlayer2D" parent="." unique_id=522464034]
 stream = ExtResource("6_1dhwg")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt1" type="AudioStreamPlayer2D" parent="." unique_id=41906669]
 stream = ExtResource("7_kk2vg")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt2" type="AudioStreamPlayer2D" parent="." unique_id=939761308]
 stream = ExtResource("8_8gygp")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt3" type="AudioStreamPlayer2D" parent="." unique_id=2092614442]
 stream = ExtResource("9_2gwoa")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt4" type="AudioStreamPlayer2D" parent="." unique_id=1802343073]
 stream = ExtResource("10_37jsj")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt5" type="AudioStreamPlayer2D" parent="." unique_id=438854875]
 stream = ExtResource("11_v8o1u")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Dirt6" type="AudioStreamPlayer2D" parent="." unique_id=2051805536]
 stream = ExtResource("12_i4wkv")
 volume_db = -5.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone1" type="AudioStreamPlayer2D" parent="." unique_id=169670564]
 stream = ExtResource("13_2y07d")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone2" type="AudioStreamPlayer2D" parent="." unique_id=1573658840]
 stream = ExtResource("14_s4rl8")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone3" type="AudioStreamPlayer2D" parent="." unique_id=420733324]
 stream = ExtResource("15_i22vt")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone4" type="AudioStreamPlayer2D" parent="." unique_id=579005714]
 stream = ExtResource("16_gen6t")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone5" type="AudioStreamPlayer2D" parent="." unique_id=1903308833]
 stream = ExtResource("17_o12lf")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Stone6" type="AudioStreamPlayer2D" parent="." unique_id=1560838186]
 stream = ExtResource("18_ejpvl")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood1" type="AudioStreamPlayer2D" parent="." unique_id=2003131500]
 stream = ExtResource("19_mquer")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood2" type="AudioStreamPlayer2D" parent="." unique_id=126315863]
 stream = ExtResource("20_newjn")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood3" type="AudioStreamPlayer2D" parent="." unique_id=322427816]
 stream = ExtResource("24_37jsj")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood4" type="AudioStreamPlayer2D" parent="." unique_id=1578084494]
 stream = ExtResource("22_8gygp")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood5" type="AudioStreamPlayer2D" parent="." unique_id=1765613187]
 stream = ExtResource("23_2gwoa")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Wood6" type="AudioStreamPlayer2D" parent="." unique_id=1433903288]
 stream = ExtResource("21_kk2vg")
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean1" type="AudioStreamPlayer2D" parent="." unique_id=1273034173]
 stream = ExtResource("25_2y07d")
 volume_db = -15.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean2" type="AudioStreamPlayer2D" parent="." unique_id=1629412655]
 stream = ExtResource("26_s4rl8")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean3" type="AudioStreamPlayer2D" parent="." unique_id=1097570919]
 stream = ExtResource("27_i22vt")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean4" type="AudioStreamPlayer2D" parent="." unique_id=271242146]
 stream = ExtResource("28_gen6t")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean5" type="AudioStreamPlayer2D" parent="." unique_id=1995060477]
 stream = ExtResource("29_o12lf")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"
 
 [node name="Clean6" type="AudioStreamPlayer2D" parent="." unique_id=1202943545]
 stream = ExtResource("30_ejpvl")
 volume_db = -10.0
-bus = &"EnvSFX"
+bus = &"Footsteps"

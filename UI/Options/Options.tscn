@@ -536,6 +536,13 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_dxbxq"]
+content_margin_bottom = 12.0
+color = Color(0, 0, 0, 0.08235294)
+grow_begin = 12.0
+grow_end = 12.0
+thickness = 3
+
 [sub_resource type="Theme" id="Theme_srwa7"]
 Button/colors/font_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
 Button/colors/font_focus_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
@@ -1132,7 +1139,6 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
 [node name="SidePanel" type="Panel" parent="." unique_id=1391057141]
-visible = false
 offset_left = 1335.0
 offset_top = -62.0
 offset_right = 2352.0
@@ -1793,20 +1799,22 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master" unique_id=1243398164]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master" unique_id=956344275]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
+min_value = -20.0
+max_value = 20.0
 scrollable = false
 
+[node name="HSeparator" type="HSeparator" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=310528748]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_dxbxq")
+
 [node name="Music" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1654909818]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
@@ -1819,99 +1827,76 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Music"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music" unique_id=1472663198]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music" unique_id=214918760]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
+min_value = -20.0
+max_value = 20.0
 scrollable = false
 
-[node name="EnvSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1543289105]
+[node name="SFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=294077927]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX" unique_id=697290000]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/SFX" unique_id=320436523]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Enviroment SFX"
+text = "Sound Effects"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/EnvSFX" unique_id=1979375946]
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SFX" unique_id=87346508]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
+min_value = -20.0
+max_value = 20.0
 scrollable = false
 
-[node name="BtSFX" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=294077927]
-visible = false
+[node name="SoundEffects" type="VBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=731287268]
+custom_maximum_size = Vector2(610, -1)
 layout_mode = 2
-size_flags_vertical = 3
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 0)
+alignment = 2
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX" unique_id=320436523]
-layout_mode = 2
-size_flags_vertical = 1
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Battle SFX"
-
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/BtSFX" unique_id=2082903867]
-custom_minimum_size = Vector2(340, 50)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
-scrollable = false
-
-[node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1278899376]
-visible = false
+[node name="UI" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects" unique_id=1278899376]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 170
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/UI" unique_id=160171876]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/UI" unique_id=160171876]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "UI"
+text = "Menus"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/UI" unique_id=1738999704]
-custom_minimum_size = Vector2(340, 50)
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/UI" unique_id=927985344]
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
+min_value = -20.0
+max_value = 20.0
 scrollable = false
 
-[node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1234101140]
-visible = false
+[node name="Voices" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects" unique_id=1234101140]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/Voices" unique_id=883699734]
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Voices" unique_id=883699734]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1919,16 +1904,38 @@ theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text sounds"
 
-[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Voices" unique_id=1632352661]
-custom_minimum_size = Vector2(340, 50)
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Voices" unique_id=1122690468]
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
-min_value = -300.0
-max_value = 60.0
-step = 10.0
+min_value = -20.0
+max_value = 20.0
+scrollable = false
+
+[node name="Footsteps" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects" unique_id=1543289105]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Footsteps" unique_id=697290000]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Footsteps"
+
+[node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Footsteps" unique_id=1184670726]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_filter = 1
+theme = SubResource("Theme_6ne1i")
+min_value = -20.0
+max_value = 20.0
 scrollable = false
 
 [node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1998929522]
@@ -2178,6 +2185,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="GalleryPanel" type="Panel" parent="." unique_id=426410032]
+visible = false
 offset_left = 1335.9517
 offset_top = -78.418335
 offset_right = 2604.6475
@@ -2464,6 +2472,7 @@ expand_icon = true
 
 [node name="AudioTester" type="AudioStreamPlayer" parent="." unique_id=146275737]
 stream = ExtResource("25_u17hy")
+pitch_scale = 1.3
 
 [node name="ImageTester" type="Node2D" parent="." unique_id=1524579278]
 visible = false
@@ -2517,12 +2526,12 @@ texture = ExtResource("26_375bk")
 [connection signal="focus_entered" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_show_image_test"]
 [connection signal="focus_exited" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_hide_image_test"]
 [connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BCSadjust/SatSlider" to="." method="_on_saturation"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Master/Slider" to="." method="_on_master_volume"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Music/Slider" to="." method="_on_master_volume"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/EnvSFX/Slider" to="." method="_on_EnvSFX_volume"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/BtSFX/Slider" to="." method="_on_master_volume"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/UI/Slider" to="." method="_on_master_volume"]
-[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Voices/Slider" to="." method="_on_master_volume"]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Master/Slider" to="." method="_on_volume" flags=18]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/Music/Slider" to="." method="_on_volume" flags=18]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/SFX/Slider" to="." method="_on_volume" flags=18]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/UI/Slider" to="." method="_on_volume" flags=18]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Voices/Slider" to="." method="_on_volume" flags=18]
+[connection signal="value_changed" from="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Footsteps/Slider" to="." method="_on_volume" flags=18]
 [connection signal="pressed" from="SidePanel/ScrollContainer/SettingsVbox/ResetVolume" to="." method="_on_volume_reset"]
 [connection signal="toggled" from="SidePanel/ScrollContainer/SettingsVbox/DebugMode/DebugMode" to="." method="_debug_mode"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Introduction" to="." method="_manual_entry_select"]

@@ -334,7 +334,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pgvnx")
 }],
-"loop": false,
+"loop": 0,
 "name": &"FlameActive",
 "speed": 8.0
 }, {
@@ -351,7 +351,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ignla")
 }],
-"loop": true,
+"loop": 1,
 "name": &"FlameFloat",
 "speed": 8.0
 }, {
@@ -365,7 +365,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8ma81")
 }],
-"loop": false,
+"loop": 0,
 "name": &"FlameGo",
 "speed": 10.0
 }, {
@@ -397,7 +397,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8nwlx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleDown",
 "speed": 5.0
 }, {
@@ -432,7 +432,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uaq0e")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleLeft",
 "speed": 4.0
 }, {
@@ -467,7 +467,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k35g6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleRight",
 "speed": 4.0
 }, {
@@ -508,7 +508,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n87f7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"IdleUp",
 "speed": 4.0
 }, {
@@ -528,7 +528,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6e2xk")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ReachOut",
 "speed": 4.0
 }, {
@@ -545,7 +545,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1bo08")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ReachOut2",
 "speed": 4.0
 }, {
@@ -562,7 +562,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rxl0i")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkDown",
 "speed": 4.0
 }, {
@@ -579,7 +579,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7otrl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkLeft",
 "speed": 4.0
 }, {
@@ -596,7 +596,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sb51h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkRight",
 "speed": 4.0
 }, {
@@ -613,7 +613,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lvosg")
 }],
-"loop": true,
+"loop": 1,
 "name": &"WalkUp",
 "speed": 4.0
 }]
@@ -815,7 +815,7 @@ shape = SubResource("RectangleShape2D_6jnlw")
 debug_color = Color(0.321569, 0.533333, 0.870588, 0.419608)
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1543988533]
-bus = &"EnvSFX"
+bus = &"SFX"
 
 [node name="OpenMenu" type="Button" parent="." unique_id=995529857]
 offset_left = -18.0

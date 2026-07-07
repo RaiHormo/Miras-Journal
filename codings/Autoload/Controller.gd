@@ -84,7 +84,7 @@ func _input(event: InputEvent) -> void:
 	if prev_dev != device:
 		if prev_dev != "":
 			controller_changed.emit()
-			Event.toast("Using " + device)
+			Global.toast("Using " + device)
 		handle_remaps()
 	
 	last_input = Global.process_frame
@@ -169,7 +169,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif Input.is_action_just_pressed("DebugT"):
 				Passive.open("testbush", "greetings")
 			elif Input.is_action_just_pressed("DebugP"):
-				Event.toast("Controllable set to " + str(!Global.Controllable))
+				Global.toast("Controllable set to " + str(!Global.Controllable))
 				if Global.Controllable:
 					Event.take_control()
 				else:

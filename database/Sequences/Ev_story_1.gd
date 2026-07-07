@@ -206,7 +206,7 @@ func enter_pyrson() -> void:
 	Loader.ungray.emit()
 	Event.camera_move(Vector2(568, 669))
 	Event.camera_move(Vector2(214, 172), 5)
-	Event.location_name("Pyrson")
+	Global.location_name("Pyrson")
 	await Event.wait(5)
 	Event.spawn("Asteria", Vector2i(214, 182), Direction.RIGHT)
 	await Textbox.open(name, "enter_pyrson")

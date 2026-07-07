@@ -200,43 +200,6 @@ func no_nametag() -> void:
 		Passive.current.no_nametag = true
 
 
-func toast(string: String) -> void:
-	if get_node_or_null("/root/Toast"):
-		$/root/Toast.free()
-		await wait()
-	print_rich("[color=orange]Toast: " + string)
-	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
-	get_tree().root.add_child.call_deferred(tost)
-	await wait()
-	if is_instance_valid(tost):
-		tost.get_node("BoxContainer/Toast/Label").text = string
-
-
-func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
-	if get_node_or_null("/root/Warning"):
-		$/root/Warning.free()
-		await wait()
-	await wait()
-	print_rich("[color=orange]Warn: " + text)
-	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
-	get_tree().root.add_child(tost)
-	await wait()
-	if is_instance_valid(tost):
-		return await tost.ask_for_confirm(text, label, awnser, color)
-	else: return false
-
-
-func location_name(string: String) -> void:
-	if get_node_or_null("/root/LocationName"):
-		$/root/LocationName.free()
-		await wait()
-	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
-	get_tree().root.add_child(tost)
-	await wait()
-	if is_instance_valid(tost):
-		tost.get_node("Label").text = string
-
-
 func match_profile(named: String) -> BoxProfile:
 	return await BoxProfile.match_profile(named)
 #endregion
@@ -591,7 +554,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 	await Loader.flip_time(TimeOfDay, ToTime)
 	if Day != ToDay:
 		Day = ToDay
-		toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
+		Global.toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
 		Loader.defeated.clear()
 	set_time(ToTime)
 	await start_time_events(location)

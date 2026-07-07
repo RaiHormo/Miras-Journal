@@ -104,7 +104,7 @@ func use_animation(icon: Texture2D, named: String, pos: Vector2) -> void:
 
 func add_item(ItemName: Variant, type: StringName = &"", animate := true, player_animate := true, quantity := -1) -> void:
 	if ItemName is String and ItemName == "":
-		Event.toast("You got absolutely nothing!!!")
+		Global.toast("You got absolutely nothing!!!")
 		return
 	item = get_item(ItemName, type).duplicate()
 	if type == &"": type = item.ItemType

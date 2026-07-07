@@ -338,7 +338,7 @@ func _on_button_pressed() -> void:
 	t.tween_property(pack, "scale", Vector2(0.4, 0.4), 0.1).from(Vector2(0.36, 0.36))
 	await Event.wait(0.1, false)
 	if needs_bag and not Event.f("HasBag"):
-		Event.toast("A bag is needed to store that.")
+		Global.toast("A bag is needed to store that.")
 		Event.give_control()
 		return
 	if get_tree().root.has_node("Options"):
@@ -402,7 +402,7 @@ func _on_button_pressed() -> void:
 			await Event.take_control(false)
 			var rank := Event.condition(event_condition)
 			if rank == 0:
-				Event.toast("Something went wrong with the event condition")
+				Global.toast("Something went wrong with the event condition")
 			disappear(true)
 			await Textbox.open(dialogue_file, "rank" + str(rank) + "_prepare")
 		"chair":

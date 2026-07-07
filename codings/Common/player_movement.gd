@@ -154,7 +154,7 @@ func control_process() -> void:
 
 	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("DebugF"):
-			Event.toast("Collision set to " + str($CollisionShape2D.disabled))
+			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = not $CollisionShape2D.disabled
 
 

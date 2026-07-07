@@ -2,6 +2,7 @@ extends AudioStreamPlayer
 
 func _ready() -> void:
 	volume_db = -5
+	bus = "UI"
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func cursor_sound(dont_force := false) -> void:

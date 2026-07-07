@@ -742,15 +742,15 @@ func _on_item_preview_pressed() -> void:
 	if member_choosing_artifact is ItemData:
 		if member_choosing_artifact.Quantity != 0:
 			if Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
-				Event.toast("HP is already maxed out")
+				Global.toast("HP is already maxed out")
 				Audio.buzzer_sound()
 			Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 		else:
-			Event.toast("No more of this item is left")
+			Global.toast("No more of this item is left")
 		$CanvasLayer/Cursor/ItemPreview.text = (member_choosing_artifact.Name + " x" + str(member_choosing_artifact.Quantity))
 	if member_choosing_artifact is Ability:
 		if Global.Party.get_member(focus).Health == Global.Party.get_member(focus).MaxHP:
-			Event.toast("HP is already maxed out")
+			Global.toast("HP is already maxed out")
 			Audio.buzzer_sound()
 		else:
 			Event.heal_in_overworld(Global.Party.get_member(focus), member_choosing_artifact)
@@ -810,14 +810,14 @@ func cmd(cmd_text := "") -> void:
 				var text: String = cmd_text.replace("/item ", "")
 				var split := text.split(":")
 				if split.size() < 2:
-					Event.toast("Item type needed")
+					Global.toast("Item type needed")
 					return
 				Item.add_item(split[0], split[1])
 			elif cmd_text.begins_with("/itemrm"):
 				var text: String = cmd_text.replace("/itemrm ", "")
 				var split := text.split(":")
 				if split.size() < 2:
-					Event.toast("Item type needed")
+					Global.toast("Item type needed")
 					return
 				Item.remove_item(split[0], split[1])
 			elif cmd_text.begins_with("/diaryadd"):
@@ -831,7 +831,7 @@ func cmd(cmd_text := "") -> void:
 			var text := cmd_text
 			Event.add_flag(text, !Event.check_flag(text))
 			if not "=" in text:
-				Event.toast(
+				Global.toast(
 					"Flag \"" + text + "\" set to "
 					+ str(Event.flag_int(text)),
 				)
