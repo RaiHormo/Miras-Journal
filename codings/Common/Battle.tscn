@@ -43,7 +43,7 @@
 [ext_resource type="Script" uid="uid://biopjphf2psbr" path="res://codings/Classes/better_scroll_container.gd" id="43_q1as1"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="44_hti1b"]
 [ext_resource type="Texture2D" uid="uid://crttgauq3if3l" path="res://UI/MainMenu/BagBackgroud.png" id="45_sxqe5"]
-[ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LeightweightAxe.png" id="46_oks1v"]
+[ext_resource type="Texture2D" uid="uid://gceucf27j1t1" path="res://art/Items/LightweightAxe.png" id="46_oks1v"]
 [ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="47_mpk6a"]
 [ext_resource type="Script" uid="uid://b1l6pqqbr4og6" path="res://codings/UIScripts/enemyUI.gd" id="48_vinwk"]
 [ext_resource type="Texture2D" uid="uid://db7yueymge8x6" path="res://UI/Input/Glyphs/A.svg" id="48_y0u2e"]

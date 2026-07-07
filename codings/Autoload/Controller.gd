@@ -150,11 +150,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if can_open_menu:
 			if Input.is_action_just_pressed("Options"):
-				Event.options(0)
+				Global.options(0)
 			elif Input.is_action_just_pressed("SaveManagment"):
-				Event.options(1)
+				Global.options(1)
 			elif Input.is_action_just_pressed("Manual"):
-				Event.options(3)
+				Global.options(3)
 			elif Input.is_action_just_pressed("MainMenu"):
 				PartyUI.main_menu()
 

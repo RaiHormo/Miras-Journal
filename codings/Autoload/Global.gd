@@ -348,3 +348,67 @@ func use_ability_overworld(ab: Ability, user: Actor) -> void:
 	if Ability.TP.HEALING in ab.Types:
 		await PartyUI.choose_member(ab, user)
 #endregion
+
+func game_over() -> void:
+	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
+
+
+func options(submenu := 0) -> void:
+	if get_tree().root.has_node("Options"): return
+	var control := Global.Controllable
+	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
+	Global.Controllable = control
+	match submenu:
+		1:
+			opt.set_no_main()
+			opt.save_managment()
+		3:
+			opt.set_no_main()
+			opt.manual()
+	get_tree().root.add_child(opt)
+
+
+func title_screen() -> void:
+	if Global.Area != null: Global.Area.queue_free()
+	if not get_tree().root.has_node("Initializer"):
+		var init: Node = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
+		get_tree().root.add_child(init)
+	else: get_tree().root.get_node("Initializer").focus()
+
+
+func member_details(chara: Actor, menu := 0) -> void:
+	if chara == null: return
+	var dub: Node = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
+	get_tree().root.add_child(dub)
+	dub.draw_character(chara, menu)
+
+
+func complimentary_ui(chara: Actor) -> void:
+	if chara == null: return
+	var dub: Node = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
+	get_tree().root.add_child(dub)
+	await Event.wait()
+	dub.draw_character(chara)
+
+
+func next_day_ui() -> void:
+	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
+
+
+func alcine_naming() -> void:
+	var scene: Node = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
+	get_tree().root.add_child(scene)
+	await scene.start()
+
+
+func veinet_map(cur: String) -> void:
+	var Map: Node = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
+	get_tree().root.add_child(Map)
+	Map.focus_place(cur)
+
+
+func intro_effect(ref: Node) -> void:
+	var node: Node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
+	get_tree().root.add_child(node)
+	node.ref = ref
+	node.animate()

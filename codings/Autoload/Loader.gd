@@ -729,11 +729,11 @@ func validate_save(savefile: String) -> bool:
 					return true
 				else:
 					Event.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
-					Event.options(1)
+					Global.options(1)
 					return false
 		else:
 			Event.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
-			Event.options(1)
+			Global.options(1)
 			return false
 	else:
 		return false

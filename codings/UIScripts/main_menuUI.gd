@@ -557,7 +557,6 @@ func focus_item(node: Button) -> void:
 	focused_item = item
 	$DescPaper/Title.text = item.Name
 	$DescPaper/Desc.text = Colorizer.colorize(item.Description)
-	$DescPaper/Art.texture = item.Artwork
 	if node.get_parent().name == "KeyItems":
 		$Inventory/Margin/Scroller.scroll_vertical = 0
 	if node.get_parent().name == "BattleItems" and item.BattleEffect and item.BattleEffect.WheelColor != Color.WHITE:
@@ -581,6 +580,8 @@ func focus_item(node: Button) -> void:
 	else:
 		$Confirm.disabled = false
 		$Confirm.text = "Use"
+	
+	$DescPaper/Art.texture = await item.get_artwork()
 
 
 func _on_party_pressed() -> void:

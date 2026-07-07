@@ -34,7 +34,7 @@ func retry() -> void:
 
 func _load() -> void:
 	if inactive: return
-	Event.options(1)
+	Global.options(1)
 	queue_free()
 
 

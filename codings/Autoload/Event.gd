@@ -12,10 +12,12 @@ enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, N
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Dictionary[String, NPC]
+## Objects identified with object identifier script
 var Objects: Dictionary[String, Node2D]
+## Various values for remembering game states
 var Flags: Dictionary[StringName, int]
+## Diary entries for the journal
 var Diary: Dictionary[int, PackedStringArray]
-var ArbData0: Variant = null
 
 var Day: int:
 	set(x):
@@ -26,11 +28,10 @@ var TimeOfDay := TOD.DARKHOUR:
 	set(x):
 		TimeOfDay = x
 		add_flag("time", x)
-var CutsceneHandler: Node = null
-var allow_skipping := true
+
+## New time for the next time transition
 var ToTime := TOD.DARKHOUR
 var ToDay: int
-var operators: Array[String] = ['+', '!', '||', '&&', '=', 'day:', 'time:', '>', '<', '>=', '<=']
 
 @onready var sequences: Node = $Sequences
 
@@ -135,13 +136,11 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 
 func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
-	ArbData0 = amount
 	var tw := create_tween()
 	tw.set_ease(Tween.EASE_OUT)
 	tw.set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
 	for i in repeat:
-		amount = ArbData0
 		var t := create_tween()
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
@@ -150,7 +149,6 @@ func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0
 
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:
-	print(ArbData0, " healed")
 	var amount := int(max(Query.calc_num(ab), target.MaxHP * ((Query.calc_num(ab) * target.Magic) * 0.02)))
 	target.add_health(amount)
 	Global.check.emit()
@@ -163,72 +161,6 @@ func _get_chara_node(chara: Variant) -> Node2D:
 		return npc(chara)
 	return null
 
-
-# region UI Actions
-func game_over() -> void:
-	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
-
-
-func options(submenu := 0) -> void:
-	if get_tree().root.has_node("Options"): return
-	var control := Global.Controllable
-	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
-	Global.Controllable = control
-	match submenu:
-		1:
-			opt.set_no_main()
-			opt.save_managment()
-		3:
-			opt.set_no_main()
-			opt.manual()
-	get_tree().root.add_child(opt)
-
-
-func title_screen() -> void:
-	if Global.Area != null: Global.Area.queue_free()
-	if not get_tree().root.has_node("Initializer"):
-		var init: Node = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
-		get_tree().root.add_child(init)
-	else: get_tree().root.get_node("Initializer").focus()
-
-
-func member_details(chara: Actor, menu := 0) -> void:
-	if chara == null: return
-	var dub: Node = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
-	get_tree().root.add_child(dub)
-	dub.draw_character(chara, menu)
-
-
-func complimentary_ui(chara: Actor) -> void:
-	if chara == null: return
-	var dub: Node = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
-	get_tree().root.add_child(dub)
-	await wait()
-	dub.draw_character(chara)
-
-
-func next_day_ui() -> void:
-	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
-
-
-func alcine_naming() -> void:
-	var scene: Node = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
-	get_tree().root.add_child(scene)
-	await scene.start()
-
-
-func veinet_map(cur: String) -> void:
-	var Map: Node = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
-	get_tree().root.add_child(Map)
-	Map.focus_place(cur)
-
-
-func intro_effect(ref: Node) -> void:
-	var node: Node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
-	get_tree().root.add_child(node)
-	node.ref = ref
-	node.animate()
-#endregion
 
 
 #region Textbox Managment

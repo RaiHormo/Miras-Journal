@@ -221,7 +221,7 @@ func _on_ab_focus_entered() -> void:
 
 func _on_complimentary() -> void:
 	inactive = true
-	Event.complimentary_ui(actor)
+	Global.complimentary_ui(actor)
 
 
 func _input(event: InputEvent) -> void:
@@ -233,10 +233,10 @@ func _input(event: InputEvent) -> void:
 			else:
 				next_char = Global.Party.Leader
 			if is_instance_valid(next_char):
-				Event.member_details(next_char, stability_menu)
+				Global.member_details(next_char, stability_menu)
 				queue_free()
 		elif event.is_action_pressed("LeftTrigger"):
 			var next_char := Global.Party.array()[Global.Party.array().find(actor) - 1]
 			if is_instance_valid(next_char):
-				Event.member_details(next_char, stability_menu)
+				Global.member_details(next_char, stability_menu)
 				queue_free()

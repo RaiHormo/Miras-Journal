@@ -1123,7 +1123,7 @@ func escape() -> void:
 func game_over() -> void:
 	print_rich("[color=cornflower-blue]Game over")
 	if Seq.DefeatSequence == "":
-		Event.game_over()
+		Global.game_over()
 	else: $Act.call(Seq.DefeatSequence)
 
 

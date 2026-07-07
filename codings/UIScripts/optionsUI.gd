@@ -185,7 +185,7 @@ func close(force := false) -> void:
 	get_tree().paused = was_paused
 	Global.Controllable = was_controllable
 	if !is_instance_valid(Global.Area):
-		Event.title_screen()
+		Global.title_screen()
 	Global.check.emit()
 	queue_free()
 
@@ -769,7 +769,7 @@ func _manual_entry_select() -> void:
 
 func rename_alcine() -> void:
 	stage = "popup"
-	await Event.alcine_naming()
+	await Global.alcine_naming()
 	gallery()
 	$GalleryPanel/ScrollContainer/VBoxContainer/RenameAlcine.grab_focus()
 	stage = "gallery"

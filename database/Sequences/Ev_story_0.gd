@@ -69,7 +69,7 @@ func new_game() -> void:
 		if not is_instance_valid(getup): return
 		options.icon = Controller.get_scheme().Start
 		if options.button_pressed and not get_tree().root.has_node("Options"):
-			await Event.options()
+			await Global.options()
 			options.button_pressed = false
 		await Event.wait()
 		if not is_instance_valid(getup): return
@@ -290,7 +290,7 @@ func AlcineFollow4() -> void:
 	Global.Player.look_to(Vector2.LEFT)
 	Global.Player.position = Vector2(1619, -1068)
 	await Textbox.open("story_0", "got_through_that")
-	await Event.alcine_naming()
+	await Global.alcine_naming()
 	await Textbox.open("story_0", "use_name")
 	await Loader.transition(Direction.RIGHT)
 	Event.flag_progress("AlcineFollow", 4)

@@ -7,7 +7,6 @@ var filename: String = "Invalid filename"
 @export_multiline var Description: String = "One that does not exit"
 @export_enum("Key", "Con", "Mat", "Bti") var ItemType: String = ""
 @export var Icon: Texture = preload("res://art/Icons/Items.tres")
-@export var Artwork: Texture
 @export var Quantity: int = 0
 @export var QuantityMeansUses := false
 @export var AmountOnAdd := 1
@@ -19,3 +18,10 @@ enum T { SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES }
 @export var OvTarget: T = T.ONE_ALLY
 @export var BattleEffect: Ability
 @export var Parameter: String
+
+func get_artwork() -> Texture:
+	var path := "res://art/Items/"+filename+".png"
+	if ResourceLoader.exists(path):
+		return await Loader.load_res(path)
+	else: 
+		return null

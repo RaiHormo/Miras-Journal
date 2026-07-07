@@ -23,7 +23,7 @@ func _on_next_day_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	Audio.confirm_sound()
-	Event.options()
+	Global.options()
 
 
 func _on_quit_pressed() -> void:

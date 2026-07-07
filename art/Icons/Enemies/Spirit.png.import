@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2mlrn7q550rg"
-path="res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.ctex"
+path.s3tc="res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.s3tc.ctex"
+path.etc2="res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/Icons/Enemies/Spirit.png"
-dest_files=["res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.ctex"]
+dest_files=["res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.s3tc.ctex", "res://.godot/imported/Spirit.png-5fde1b7df63be6d2cea694d53de1f714.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

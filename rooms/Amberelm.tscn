@@ -1018,7 +1018,7 @@ item_type = "Bti"
 item_name = "SharpRock"
 
 [node name="InteractJumpGap" parent="." unique_id=235540380 instance=ExtResource("5_3ycob")]
-position = Vector2(16, 100)
+position = Vector2(24, 101)
 file = "interact_abad"
 dialogue_file = "interact_abad"
 title = "day10_gap"
@@ -1026,6 +1026,7 @@ itemtype = ""
 Height = 5
 
 [node name="Ladder1" parent="." unique_id=475790957 instance=ExtResource("25_vddgi")]
+position = Vector2(493, 210)
 
 [node name="End1" parent="Ladder1" index="0" unique_id=1730241983]
 position = Vector2(-15, -11)

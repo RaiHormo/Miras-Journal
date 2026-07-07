@@ -75,7 +75,7 @@ func _input(event: InputEvent) -> void:
 func _on_options_pressed() -> void:
 	if inactive: return
 	if get_tree().root.has_node("Options"): return
-	Event.options()
+	Global.options()
 	#dismiss_title()
 
 
@@ -105,7 +105,7 @@ func you_can_now_play_as(chara: String) -> void:
 func _on_load_pressed() -> void:
 	if inactive: return
 	if get_tree().root.has_node("Options"): return
-	Event.options(1)
+	Global.options(1)
 
 
 func _on_new_pressed() -> void:

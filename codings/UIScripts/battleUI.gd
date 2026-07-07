@@ -162,7 +162,7 @@ func _input(event: InputEvent) -> void:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					ability.emit()
 				if Input.is_action_just_pressed("Manual"):
-					Event.options(3)
+					Global.options(3)
 			&"target":
 				if Input.is_action_just_pressed(Controller.cancel()):
 					_on_back_pressed()
@@ -639,7 +639,7 @@ func _on_battle_next_turn() -> void:
 
 func _on_targeted() -> void:
 	if analyzing:
-		Event.member_details(CurrentChar.NextTarget)
+		Global.member_details(CurrentChar.NextTarget)
 		stage = "analyze"
 		PrevStage = "analyze"
 	elif CurrentChar.NextAction == "ItemGive":
@@ -901,7 +901,6 @@ func focus_item(node: Button) -> void:
 	var item_data: ItemData = node.get_meta("ItemData")
 	$Inventory/DescPaper/Title.text = item_data.Name
 	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item_data.Description)
-	$Inventory/DescPaper/Art.texture = item_data.Artwork
 	if item_data.Quantity > 1:
 		$Inventory/DescPaper/Amount.text = str(item_data.Quantity) + " in bag"
 		$Inventory/DescPaper/Amount.show()
@@ -918,6 +917,8 @@ func focus_item(node: Button) -> void:
 
 	%BIbutton.set_pressed_no_signal(node.get_parent() == %BattleItems)
 	%Cbutton.set_pressed_no_signal(node.get_parent() == %Consumables)
+	
+	$Inventory/DescPaper/Art.texture = await item_data.get_artwork()
 
 var given_item: ItemData
 
@@ -973,4 +974,4 @@ func _analyze() -> void:
 
 func _on_options_pressed() -> void:
 	if stage == "root":
-		Event.options()
+		Global.options()

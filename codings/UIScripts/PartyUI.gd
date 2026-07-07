@@ -258,7 +258,6 @@ func _on_expand(open_ui := 0) -> void:
 	Global.Controllable = false
 	$Audio.stream = preload("res://sound/SFX/expand.ogg")
 	$Audio.play()
-	$CanvasLayer/Cursor/ItemPreview.hide()
 	%Pages.show()
 	#Pages
 	for page in %Pages.get_children():
@@ -270,6 +269,7 @@ func _on_expand(open_ui := 0) -> void:
 	t.tween_property(Partybox, "scale", Vector2(1.5, 1.5), 0.4)
 	t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	if open_ui == 0:
+		$CanvasLayer/Cursor/ItemPreview.hide()
 		for i in range(0, 4):
 			if Query.check_member(i):
 				get_node("%Pages/Page" + str(i)).show()
@@ -708,7 +708,7 @@ func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> voi
 		$CanvasLayer/Cursor/ItemPreview.text = (artifact.Name+ " x" + str(artifact.Quantity))
 		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
 		$/root/MainMenu.stage = "choose_member"
-	if artifact is Ability:
+	elif artifact is Ability:
 		$CanvasLayer/Cursor/ItemPreview.text = artifact.name
 		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
 	else: 
@@ -874,9 +874,9 @@ func main_menu() -> void:
 			else:
 				get_tree().root.get_node_or_null("Options").free()
 				Event.give_control()
-				Event.options()
+				Global.options()
 		else:
-			Event.options()
+			Global.options()
 	elif Global.Controllable:
 		Audio.buzzer_sound()
 
@@ -897,7 +897,7 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude := true) -> void:
 
 func details() -> void:
 	if Expanded and not submenu_opened:
-		await Event.member_details(Global.Party.array()[focus])
+		await Global.member_details(Global.Party.array()[focus])
 		submenu_opened = true
 		await Event.wait(0.2, false)
 		%Pages.hide()
@@ -908,7 +908,7 @@ func details() -> void:
 
 func abilities() -> void:
 	if Expanded and not submenu_opened:
-		await Event.member_details(Global.Party.array()[focus], 1)
+		await Global.member_details(Global.Party.array()[focus], 1)
 		submenu_opened = true
 		await Event.wait(0.2, false)
 		%Pages.hide()
@@ -918,7 +918,9 @@ func abilities() -> void:
 
 
 func back() -> void:
-	if MemberChoosing and Expanded:
+	if MemberChoosing and Expanded and not (
+		get_tree().root.has_node("MainMenu") and get_tree().root.get_node("MainMenu").stage == "choose_member"
+	):
 		$CanvasLayer/Cursor/ItemPreview.hide()
 		$CanvasLayer/Cursor/ItemPreview/AnimationPlayer.stop()
 		$CanvasLayer/Cursor/MemberOptions.show()
