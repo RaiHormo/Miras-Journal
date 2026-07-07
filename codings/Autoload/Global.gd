@@ -6,9 +6,6 @@ var Controllable: bool = true:
 	set(x):
 		Controllable = x
 
-## The current party data
-var Party: PartyData
-
 ## Data for all party members (Outside of the party too)
 var Members: Array[Actor]
 
@@ -21,6 +18,9 @@ var Player: Mira:
 		if is_instance_valid(Player):
 			return Player
 		return null
+
+## The current party data
+var Party: PartyData
 
 ## Current room node
 var Area: Room
@@ -342,4 +342,9 @@ func give_every_ability() -> void:
 func add_complimentary(ability: String) -> void:
 	if ability not in Global.Complimentaries:
 		Global.Complimentaries.append(ability)
+
+func use_ability_overworld(ab: Ability, user: Actor) -> void:
+	get_viewport().gui_release_focus()
+	if Ability.TP.HEALING in ab.Types:
+		await PartyUI.choose_member(ab, user)
 #endregion

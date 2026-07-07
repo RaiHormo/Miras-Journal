@@ -55,7 +55,7 @@ func on_confirm(text: String) -> void:
 		textedit.text = "Alcine"
 		on_confirm("Alcine")
 	elif check_for_symbols():
-		response.text = "I shouldn't include symbols"
+		response.text = "Let's just keep it to letters."
 		response.show()
 	elif (  #check for banned words. The dictionary includes two top-level arrays
 		word_list["unallowed_in"].any(func(word: String) -> bool: return word in txt)

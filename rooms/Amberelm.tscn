@@ -206,12 +206,6 @@ y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_45tma")
 title = "Amberelm"
-FlameInInd = Array[int]([-99])
-SpawnPos = Vector2(0, 32)
-SpawnZ = Array[int]([4, 0, 4])
-SpawnLayers = 4
-CameraLimits = Array[Vector4]([Vector4(-100, 60, 1549, 930), Vector4(140, 1100, 575, 1366), Vector4(1272, -500, 2976, 48)])
-CameraZooms = Array[float]([1.0, 1.0, 1.0])
 
 [node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_r6fn3")]
 offset_left = -100.0
@@ -228,18 +222,18 @@ right = 1549
 down = 930
 
 [node name="Index1" parent="." unique_id=1912546656 instance=ExtResource("2_r6fn3")]
-offset_left = 24.0
-offset_top = 1100.0
-offset_right = 575.0
-offset_bottom = 1366.0
+offset_left = 130.0
+offset_top = 1125.0
+offset_right = 467.0
+offset_bottom = 1357.0
 border_color = Color(0.29308906, 0.54635394, 1, 1)
 spawn_player = false
 layers = 4
 flame = -1
-left = 24
-up = 1100
-right = 575
-down = 1366
+left = 130
+up = 1125
+right = 467
+down = 1357
 
 [node name="Index2" parent="." unique_id=120357412 instance=ExtResource("2_r6fn3")]
 offset_left = 1272.0
@@ -745,7 +739,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_dejne")
 Facing = SubResource("Resource_unhv8")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook1" unique_id=676713038]
 
@@ -783,7 +776,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_gb67y")
 Facing = SubResource("Resource_70ffl")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook2" unique_id=713731077]
 
@@ -818,7 +810,6 @@ collision_layer = 512
 collision_mask = 512
 BattleSeq = SubResource("Resource_icl6y")
 Facing = SubResource("Resource_wi37m")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyIronHook3" unique_id=1659952057]
 
@@ -920,18 +911,16 @@ TextNode = "amberelm_rest_first"
 KickDirection = Vector2(0, 1)
 
 [node name="EvRestTree" parent="." unique_id=857458501 instance=ExtResource("5_3ycob")]
-position = Vector2(106, 344)
+z_index = 8
+position = Vector2(106, 348)
 LabelText = "Rest"
-ActionType = "event"
 file = "rest_amberelm"
-dialogue_file = "rest_amberelm"
+dialogue_file = "story_0"
+title = "rest_amberelm"
 itemtype = ""
 to_time = 2
 hide_on_flag = &"EvRestAmberelm"
 Height = 5
-
-[node name="CollisionShape2D" parent="EvRestTree" index="0" unique_id=2035817221]
-position = Vector2(-1, 13)
 
 [node name="EvSplash" parent="." unique_id=1901921073 instance=ExtResource("30_djhcr")]
 z_index = 5
@@ -1160,7 +1149,7 @@ position = Vector2(2220, -156)
 LabelText = "Rest"
 file = "interact_abad"
 dialogue_file = "interact_abad"
-title = "amberelm_bench"
+title = "quick_rest"
 itemtype = ""
 
 [node name="EvDestroyedGuardian" type="StaticBody2D" parent="." unique_id=511751132]
@@ -1244,6 +1233,10 @@ collision_mask = 15
 trigger_size = Vector2i(3, 3)
 jump_am = 3
 
+[node name="MarkerUnderTree" type="Marker2D" parent="." unique_id=2069018403]
+z_index = 7
+position = Vector2(83, 354)
+
 [connection signal="body_entered" from="EffectShadows1" to="EffectShadows1" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectShadows1" to="EffectShadows1" method="_on_body_exited"]
 [connection signal="body_entered" from="EffectUnderthouse" to="EffectUnderthouse" method="_on_body_entered"]
@@ -1251,7 +1244,6 @@ jump_am = 3
 [connection signal="body_entered" from="EffectUndertree" to="EffectUndertree" method="_on_body_entered"]
 [connection signal="body_exited" from="EffectUndertree" to="EffectUndertree" method="_on_body_exited"]
 
-[editable path="EvRestTree"]
 [editable path="InteractSign"]
 [editable path="Ladder1"]
 [editable path="Ladder2"]

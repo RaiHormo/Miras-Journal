@@ -95,13 +95,14 @@ do Global.Player.camera_follow(true)
  Mira.Neutral: [[I thing we're going the wrong way.|I dont this this is where we should be going...|There isn't anything to see back here, let's go the other way.]]
 => END
 
-~ amberelm_bench
+~ quick_rest
 if date_is_reserved():
 	=> {{get_reserved_date_dialog()}}
-if Party.Member1 == null:
-	Should I sit here for a bit?
-else:
-	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?]]
+if Party.size() == 1:
+	if Party.has_member("Mira"):
+		Should I sit here for a bit?
+elif Party.has_member("Mira"):
+	Mira.Neutral: [[Wanna rest here for a bit?|Should we take a break?|Let's take a break.|Seems like a good place to rest.]]
 do Event.progress_by_time(1)
 if confirm_time_passage("Rest", "Fully restore health."):
 	(hide)

@@ -10,6 +10,7 @@ var camera_index: CameraIndex
 var cam := Camera2D.new()
 var followers: Array[CharacterBody2D] = []
 var stairs: Array[Stair]
+var markers: Array[Marker2D]
 var layers: Array[TileMapLayer]
 var current_subroom: SubRoom = null
 
@@ -27,10 +28,14 @@ func _ready() -> void:
 	material = preload("res://codings/Shaders/Pixelart.tres")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	
-	# Fetch TilemapLayers and Indecies
+	# Fetch special nodes
 	for i in get_children():
 		if i is TileMapLayer:
 			layers.append(i)
+		if i is Stair:
+			stairs.append(i)
+		if i is Marker2D:
+			markers.append(i)
 		if i is CameraIndex:
 			if i.index == index:
 				camera_index = i
@@ -87,20 +92,20 @@ func _ready() -> void:
 			Global.Player.collision_mask = camera_index.layers
 		
 		Global.Player.collision(true)
+		
+		## Make controllable
+		if Global.Controllable:
+			PartyUI.UIvisible = true
+			for i in followers:
+				i.dont_follow = false
 	
 	## Used for extending this script
 	default()
 	
-	## Make controllable
-	if Global.Controllable:
-		PartyUI.UIvisible = true
-		for i in followers:
-			i.dont_follow = false
-	
 	## Set this node's name to the codename
 	name = codename()
 	
-	initialized.emit()
+	initialized.emit.call_deferred()
 
 
 func setup_params(tween_zoom := false) -> void:
@@ -133,9 +138,6 @@ func handle_z(z := -1) -> void:
 	if z == -1: z = camera_index.z if camera_index != null else 1
 	
 	Global.Player.z_index = z
-	for i in get_children():
-		if i is Stair and i not in stairs:
-			stairs.append(i)
 	for i in stairs:
 		if i.zUp == Global.Player.z_index:
 			i.go_up()

@@ -16,6 +16,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if Global.Player == null: return
 	var pos := Global.Player.position
 	var to_hide: bool = (
 		(pos.y > y == should_be_greater_than_y or y == 0) and

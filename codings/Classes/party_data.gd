@@ -118,3 +118,6 @@ func has_member(mem: String) -> bool:
 	for i in array():
 		if i != null and i.codename == mem: return true
 	return false
+
+func size() -> int:
+	return array().size()

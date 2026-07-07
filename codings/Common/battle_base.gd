@@ -622,6 +622,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 	var el_mod: float = 1
 	var color := (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
 	var relation := color_relation(color, target.MainColor)
+	
 	if elemental:
 		if target.has_state("AuraBreak"): relation = "op"
 		if relation == "wk": pop_num(target, "WEAK")
@@ -629,31 +630,42 @@ overwrite_color: Color = Color.WHITE) -> int:
 		if relation == "res": pop_num(target, "RESIST")
 		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
+		
 	if target.has_state("Guarding"):
 		el_mod = 1
+		
 	print_rich("[color=cornflower-blue]Attack power: ", x, " * ", el_mod)
+	
 	var attacker: Actor = null if ignore_stats else CurrentChar
 	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
-	for i in target.States:
-		if is_magic: dmg = int(dmg * i.magic_dmg_mult)
-		else: dmg = int(dmg * i.weapon_dmg_mult)
-		if relation == "wk": dmg = int(dmg * i.weak_mult)
+	
+	for state in target.States:
+		if is_magic: dmg = int(dmg * state.magic_dmg_mult)
+		else: dmg = int(dmg * state.weapon_dmg_mult)
+		if relation == "wk": dmg = int(dmg * state.weak_mult)
+		
+		if state.filename == "Frozen":
+			target.remove_state("Frozen")
+			battle_msg("ice_breaks", target.FirstName)
+		
 	dmg = round(dmg)
 	if dmg == 0:
 		pop_num(target, "BLOCKED")
 		return 0
+		
 	target.damage(dmg, limiter)
+	
 	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
 		$Act.call(target.SeqOnClutch, target)
-	if target.has_state("Frozen"):
-		target.remove_state("Frozen")
-		battle_msg("ice_breaks", target.FirstName)
-	print(CurrentChar.FirstName + " deals " +
-	str(dmg) + " damage to " + target.FirstName)
+		
+	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
+	
 	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
 		CurrentChar.get_state("AtkUp").QueueRemove = true
 		print_rich("[color=cornflower-blue]Weapon attack, so AtkUp will be removed")
+		
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg / 2)
+	
 	if elemental:
 		var base_dmg := int(dmg * target.Defence * 2 * target.DefenceMultiplier)
 		var aur_dmg := relation_to_aura_dmg(relation, base_dmg)
@@ -661,6 +673,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		target.add_aura(-aur_dmg)
 		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
+	
 	if not target.IsEnemy: PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
 	if target.Controllable:
 		Controller.rumble(remap(dmg * 2, 0, target.MaxHP, 0, 1), remap(dmg, 0, 100, 0, 1), remap(dmg * 2, 0, target.MaxHP, 0, 1))
@@ -668,6 +681,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.5), remap(dmg, 0, 100, 0, 1), remap(dmg, 0, target.MaxHP, 0, 0.5))
 	else:
 		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.3), remap(dmg, 0, 100, 0, 0.5), remap(dmg, 0, 100, 0, 0.5))
+		
 	check_party.emit()
 	if target.Health == 0:
 		if target.CantDie:
@@ -677,6 +691,7 @@ overwrite_color: Color = Color.WHITE) -> int:
 			if target != CurrentChar and relation == "wk": follow_up_next = true
 			return dmg
 	if target.Health == 0 or target.has_state("Knocked Out"): return dmg
+	
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg * 2)
 		else: target.add_aura(dmg)

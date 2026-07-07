@@ -19,7 +19,7 @@ class_name CameraIndex
 	set(x):
 		spawn_position = x
 		if Engine.is_editor_hint():
-			spawn_pos_marker.global_position = x
+			spawn_pos_marker.global_position = x as Vector2
 			spawn_pos_marker.visible = not x == Vector2i.ZERO
 
 @export_flags_2d_physics var layers := 1

@@ -50,7 +50,10 @@ func add_char(b: NPC) -> void:
 
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
-	return List.get(ID)
+	var rtn: NPC = List.get(ID)
+	if not is_instance_valid(rtn):
+		push_error("NPC with ID ", ID, " isn't valid.")
+	return rtn
 
 
 func obj(ID: String) -> Node2D:
@@ -67,11 +70,11 @@ func move_to(pos: Vector2 = Global.get_direction(), chara: String = "P") -> void
 	await npc(chara).go_to(pos)
 
 
-##Wait a specified amount of time or one frame by default
+## Wait a specified amount of time or one frame by default
 ## short for:
 ## [codeblock]
-##await get_tree().create_timer(time).timeout
-##[/codeblock]
+## await get_tree().create_timer(time).timeout
+## [/codeblock]
 func wait(time: float = 0, pausable := true) -> void:
 	if time != 0:
 		await get_tree().create_timer(time, !pausable).timeout
@@ -79,7 +82,7 @@ func wait(time: float = 0, pausable := true) -> void:
 		await get_tree().physics_frame
 
 
-##Tween an [NPC] to the specified coords (ignores all collision)
+## Tween an [NPC] to the specified coords (ignores all collision)
 func twean_to(pos: Vector2, time: float = 1, chara: String = "P") -> void:
 	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -96,7 +99,7 @@ func tween(object: Node, property: String, to: Variant, time := 0.3) -> void:
 	await t.finished
 
 
-##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
+## Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
 func jump_to(chara: Variant, pos: Vector2, time: float = 5, height: float = 0.5) -> void:
 	await jump_to_global(chara, Global.Area.to_global(pos), time, height)
 
@@ -130,7 +133,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	await t.finished
 
 
-func node_shake(node: Node2D, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
+func node_shake(node: Node, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
 	ArbData0 = amount
 	var tw := create_tween()
@@ -161,7 +164,7 @@ func _get_chara_node(chara: Variant) -> Node2D:
 	return null
 
 
-#region UI Actions
+# region UI Actions
 func game_over() -> void:
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
 
@@ -582,8 +585,29 @@ func sequence_exists(title: String) -> bool:
 			return true
 	return false
 
+## Get the position of a Marker2D in the room who's name starts with "Marker" (don't include the "Marker" part)
+## Use MarkerName+(x,y) to get a position relative to the marker
+func get_marker_pos(title: String) -> Vector2:
+	var offset := Vector2.ZERO
+	if '+' in title:
+		var pos_str := title.split("+")[1]
+		var split := pos_str.split(',')
+		if not split.is_empty():
+			offset.x = split[0].to_int()
+			if split.size() > 1:
+				offset.y = split[1].to_int()
+		title = title.split("+")[0]
+	
+	for marker in Global.Area.markers:
+		if marker.name.replace("Marker", "") == title:
+			return marker.position + offset
+	push_error("Failed to find marker: ", title)
+	return Vector2.ZERO
 
-func spawn(id: String, pos: Vector2i, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_collision := true) -> NPC:
+func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_collision := true) -> NPC:
+	if pos is String:
+		pos = Event.get_marker_pos(pos)
+	
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var sprite_node := AnimatedSprite2D.new()
 	chara.SpawnOnCameraInd = false
@@ -608,12 +632,12 @@ func spawn(id: String, pos: Vector2i, animation: Variant = Direction.DOWN, z: in
 		chara.position -= Global.Area.current_subroom.position
 	print_rich("[color=purple]Spawned: ", chara.ID)
 	if animation is Direction:
-		await chara.look_to(animation)
+		chara.look_to.call_deferred(animation)
 	elif animation is String:
 		if animation.length() == 1:
-			await chara.look_to(Direction.from_letter(animation))
+			chara.look_to.call_deferred(Direction.from_letter(animation))
 		else:
-			chara.set_anim(animation)
+			chara.set_anim.call_deferred(animation, false, true)
 	return chara
 
 

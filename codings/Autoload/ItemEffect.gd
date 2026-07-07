@@ -13,7 +13,7 @@ func use(item_data: ItemData, battle_target: Actor = null) -> void:
 			ItemData.U.CUSTOM:
 				await call(item.filename)
 			ItemData.U.HEALING:
-				await PartyUI.choose_member()
+				await PartyUI.choose_member(item_data)
 				return
 			ItemData.U.INSPECT:
 				await Textbox.open("inspect_item", item.Parameter)

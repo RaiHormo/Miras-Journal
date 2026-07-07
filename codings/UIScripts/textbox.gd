@@ -138,11 +138,12 @@ func show_dialog_line() -> void:
 		responses_menu.remove_child(child)
 		child.queue_free()
 
-	if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
+	if dialogue_line.text == "(hide)" or dialogue_line.text == "[hide]" or dialogue_line.text == "":
 		await hide_box()
 		next(dialogue_line.next_id)
 		redraw_portrait_next_time = true
 		char_name = ""
+		prev_char = ""
 		return
 
 	input_indicator.hide()

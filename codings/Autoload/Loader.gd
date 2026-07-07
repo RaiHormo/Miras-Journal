@@ -190,7 +190,8 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	if $/root.get_node_or_null("Options"):
 		$/root.get_node("Options").queue_free()
 	PartyUI.shrink.emit()
-	await Global.Player.look_to(Vector2.DOWN)
+	
+	
 	if transition_after_done:
 		await detransition(Direction.CENTER)
 		Event.give_control()
@@ -200,11 +201,15 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	preview = (await data.preview())
 	print_rich("[color=green]File loaded!\n-------------------------")
 	await Event.wait()
-	if (chased or Loader.in_battle) and is_instance_valid(attacker):
-		print_rich("[color=green]Too close to an enemy, auto escape")
-		Global.Player.position = attacker.BattleSeq.EscPosition * 24
-		Global.refresh()
-	#await Event.wait(1)
+	
+	if is_instance_valid(Global.Player):
+		await Global.Player.look_to(Vector2.DOWN)
+		
+		if (chased or Loader.in_battle) and is_instance_valid(attacker):
+			print_rich("[color=green]Too close to an enemy, auto escape")
+			Global.Player.position = attacker.BattleSeq.EscPosition * 24
+			Global.refresh()
+
 	prevent_battles = false
 
 
@@ -238,7 +243,13 @@ func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int =
 
 
 ## Takes the player to a specific room. Use ";" to specify a subroom, a marker or a transfer point
-func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans: Variant = Global.Player.Facing, controllable := true) -> void:
+func travel_to(
+	sc: String, pos: Vector2 = Vector2.ZERO, 
+	camera_ind: int = 0, z := -1, 
+	trans: Variant = Global.Player.Facing if Global.Player else remembered_direction, 
+	controllable := true
+) -> void:
+	
 	if trans is String: trans = Direction.from_letter(trans)
 	remembered_direction = trans
 	##Pass Z < -1 for a shortcut to controllable
@@ -285,9 +296,11 @@ func travel_to(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z :
 
 func travel_done(controllable := false, index: int = 0) -> void:
 	chased = false
+	
 	var look_dir: Direction = remembered_direction
 	if is_instance_valid(Global.Player):
 		look_dir = Global.Player.Facing
+		
 	if Global.Area:
 		Global.Area.queue_free()
 	Event.List.clear()
@@ -302,25 +315,32 @@ func travel_done(controllable := false, index: int = 0) -> void:
 	area.index = index
 	get_node(area_spawn_path).add_child(area)
 	
-	await Global.Area.initialized
+	await area.initialized
 	Global.check.emit()
 	
 	Global.Camera.position_smoothing_enabled = false
+	Global.Camera.position = traveled_pos
 	get_tree().paused = false
 	if remembered_scene.size() > 1:
 		var new_pos: Vector2 = await Global.Area.go_to_subroom(remembered_scene[1], true)
 		print(new_pos)
 		if new_pos != Vector2.ZERO and traveled_pos == Vector2.ZERO:
 			traveled_pos = new_pos
-	if traveled_pos != Vector2.ZERO:
-		Global.Player.collision(false)
-		Global.Player.global_position = traveled_pos
-	for i in Global.Area.followers:
-		i.position = traveled_pos
-	if controllable:
-		await Global.Player.look_to(look_dir)
+			
+	if is_instance_valid(Global.Player):
+		if traveled_pos != Vector2.ZERO:
+			Global.Player.collision(false)
+			Global.Player.global_position = traveled_pos
+		
+		for i in Global.Area.followers:
+			i.position = traveled_pos
+			
+		if controllable and look_dir != null:
+			await Global.Player.look_to(look_dir)
+	
 	if remembered_direction != null:
 		detransition()
+	
 	Global.Camera.position_smoothing_enabled = true
 	if controllable:
 		await Event.wait(0.3, false)
@@ -329,7 +349,7 @@ func travel_done(controllable := false, index: int = 0) -> void:
 		Event.give_control(false)
 
 
-func transition(dir: Direction = Global.Player.Facing) -> void:
+func transition(dir: Direction = Global.Player.Facing if Global.Player else remembered_direction) -> void:
 	if dir == null:
 		return
 	

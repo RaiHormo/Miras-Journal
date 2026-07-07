@@ -10,7 +10,7 @@ enum { IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE }
 ##Used to control the direction of the next movement
 @export var direction: Vector2 = Vector2.ZERO
 ##Used to determine what directions the animations face
-@export var Facing: Direction = Direction.CENTER
+@export var Facing: Direction = Direction.DOWN
 ##0: Idle, Not moving[br]
 ##1: Moving, usually when called by the [method go_to] function[br]
 ##2: Interacting, doing something other than walking or talking, usuallly with a special animation[br]
@@ -168,23 +168,41 @@ func get_tile(layer: int) -> TileData:
 	return Global.Area.get_tile(Global.Area.local_to_map(global_position), layer)
 
 
+## Move towards a direction x24
+## Input can be a Vector2, String ("U", "R", etc) or Direction
+## A vector input can be bigger than 1 to move further
 func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
-	if dir is String: dir = Direction.from_letter(dir)
-	if dir is Direction: dir = dir.vector
-	if use_coords: await go_to(coords + dir, use_coords, autostop)
-	else: await go_to(position + dir, use_coords, autostop)
+	var vector: Vector2
+	
+	if dir is String: vector = Direction.from_letter(dir).vector
+	elif dir is Direction: vector = dir.vector
+	elif dir is Vector2: vector = dir
+	else: 
+		push_error("Invalid use of move_dir: ", dir)
+		return
+	
+	if use_coords: await go_to(coords + vector, use_coords, autostop)
+	else: await go_to(position + vector, use_coords, autostop)
 
 
+## The characted looks to a new direction and becomes IDLE
+## Input can be a Vector2, String ("U", "R", etc) or Direction
 func look_to(dir: Variant) -> void:
-	if dir is String: dir = Direction.from_letter(dir)
-	elif dir is Direction: dir = dir.vector
-	else: return
+	var vector: Vector2
+	
+	if dir is String: vector = Direction.from_letter(dir).vector
+	elif dir is Direction: vector = dir.vector
+	elif dir is Vector2: vector = dir
+	else: 
+		push_error("Invalid use of look_to: ", dir)
+		return
+	
 	BodyState = MOVE
-	Facing.vector = dir
-	direction = dir
+	Facing.vector = vector
+	direction = vector
 	await Event.wait()
 	BodyState = IDLE
-	Facing.vector = dir
+	Facing.vector = vector
 
 
 func pathfind_to(pos: Vector2, exact := true, autostop := true, look_dir: Vector2 = Vector2.ZERO) -> void:
@@ -219,7 +237,10 @@ func pathfind_to(pos: Vector2, exact := true, autostop := true, look_dir: Vector
 ##If autostop is true, it will stop when hitting a wall.
 ##look_dir is the direction the NPC will face after reaching the destination.
 ##accuracy detarmines how close to the destination the NPC should get.
-func go_to(pos: Vector2, use_coords := false, autostop := false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
+func go_to(pos: Variant, use_coords := false, autostop := false, look_dir: Variant = Vector2.ZERO, accuracy: int = 6) -> void:
+	if pos is String:
+		pos = Event.get_marker_pos(pos)
+	
 	if self is Mira and Global.Player.controllable(): return
 	await stop_going()
 	if use_coords: pos = Query.globalize(pos)
@@ -242,7 +263,10 @@ func go_to(pos: Vector2, use_coords := false, autostop := false, look_dir: Varia
 
 func set_anim(anim: String, wait := false, overwrite_state := false) -> void:
 	if overwrite_state: BodyState = CUSTOM
-	if is_instance_valid(sprite) and sprite.sprite_frames.has_animation(anim):
+	if not is_instance_valid(sprite):
+		push_warning("Attempted to set animation before sprite was initialized on ", ID)
+		return
+	if sprite.sprite_frames.has_animation(anim):
 		sprite.play(anim)
 		if wait: await sprite.animation_finished
 
@@ -292,10 +316,8 @@ func attacked() -> void:
 	pass
 
 
-func chain_moves(moves: Array[Vector2]) -> void:
-	for i in moves:
-		if Loader.in_battle:
-			await Event.wait()
+func chain_moves(moves: Array) -> void:
+	for i:Variant in moves:
 		await move_dir(i)
 
 

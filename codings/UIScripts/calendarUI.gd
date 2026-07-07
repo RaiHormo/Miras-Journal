@@ -11,16 +11,16 @@ func _ready() -> void:
 
 func _check_party() -> void:
 	if Event.f("HideDate"):
-		$Date/Day.add_theme_font_size_override("font_size", 150)
-		$Date/Month.text = "Unknown"
-		$Date/Day.text = "Date"
+		$Date/Day.add_theme_font_size_override("font_size", 140)
+		$Date/Month.text = "Date"
+		$Date/Day.text = "Unknown"
 		if not $Action.visible: hide()
 	else:
 		$Date/Day.add_theme_font_size_override("font_size", 265)
 		show()
+		$Date/Day.text = Query.get_date_day(Event.Day)
+		$Date/Month.text = Query.get_month_name(Query.get_month(Event.Day))
 	$Container/TimeOfDay.text = Query.to_tod_text(Event.TimeOfDay)
-	$Date/Day.text = Query.get_date_day(Event.Day)
-	$Date/Month.text = Query.get_month_name(Query.get_month(Event.Day))
 	$Container/TimeOfDay.icon = await Query.to_tod_icon(Event.TimeOfDay)
 
 

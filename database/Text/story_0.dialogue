@@ -88,7 +88,7 @@ Maybe I should try approaching it.
 
 ~ you_ok
 Mira.Neutral: Hey little one.
-(hide)
+[hide]
 do wait(0.5)
 do npc("Alcine").set_anim("ScaredTurn1", false, true)
 do wait(1)
@@ -103,8 +103,8 @@ Shewww
 The creature tightly hugs me.
 Their body feels like it's made of liquid...
 Mira.Neutral: What are you so scared about?
-do npc("Alcine").move_dir(Vector2(1,0))
-do npc("Alcine").look_to(Vector2(-1,0))
+do npc("Alcine").move_dir(Direction.RIGHT)
+do npc("Alcine").look_to(Direction.LEFT)
 Mira.Smile: It'll be okay..!
 do portrait("AlcineHappy")
 do next_box("Alcine")
@@ -208,18 +208,36 @@ Alcine.Tired: Sheeww...
 => END
 
 ~ rest_amberelm
-Placeholder description: This is an unfinished cutscene. Boxes like this will describe what should be on screen.
-Placeholder description: Mira is writing something on a paper.
-Mira.Neutral: Hm? Something up {{alcine()}}?
-do picture("RestAmberelmMap")
-Mira.Neutral: I'm just keeping track where we've been so far.
-Mira.Neutral: We don't want to get even more lost, right?
-do picture_clear()
-Mira.Neutral: *Yaaawn...*[next=2]
-Mira.Neutral: Must be nice being a spirit, I'm starving here.
-Placeholder description: Mira takes a nap.
-Alcine.Neutral: ...
-Placeholder description: {{alcine()}} picks up the paper.
+Doesn't look too comfy, but I can't be picky right now.
+do Event.progress_by_time(1)
+if PartyUI.confirm_time_passage("Rest", "Fully recover Health."):
+	[hide]
+	do transition()
+	do save()
+	do no_player()
+	do spawn("Mira:MiraOVBag", "UnderTree", "SitDown", 8)
+	do spawn("Alcine", "UnderTree+(24, -12)", Direction.LEFT, 8)
+	do zoom(6)
+	do camera_move(Vector2(85, 360))
+	do detransition()
+	Placeholder description: This is an unfinished cutscene. Boxes like this will describe what should be on screen.
+	Placeholder description: Mira is writing something on a paper.
+	Mira.Neutral: Hm? Something up {{alcine()}}?
+	do picture("RestAmberelmMap")
+	Mira.Neutral: I'm just keeping track where we've been so far.
+	Mira.Neutral: We don't want to get even more lost, right?
+	do picture_clear()
+	Mira.Neutral: *Yaaawn...*[next=2]
+	Mira.Neutral: Must be nice being a spirit, I'm starving here.
+	Placeholder description: Mira takes a nap.
+	Alcine.Neutral: ...
+	Placeholder description: {{alcine()}} picks up the paper.
+	do transition(Direction.CENTER)
+	do wait(1)
+	do heal_party()
+	do! time_transition()
+else: 
+	do give_control()
 => END
 
 ~ wake_amberelm
@@ -236,7 +254,8 @@ Mira.Smile: You drew this? That's so cute!
 I guess there is one way we can communicate.
 do picture_clear()
 ...
-I wonder where {{alcine()}} came from... They don't seem to be like any of the other hostile spirits around here.
+I wonder where {{alcine()}} came from... 
+They don't seem to be like any of the other hostile spirits around here.
 Where are all these spirits coming from anyways?
 Placeholder description: Mira makes her fire wings apear for a bit
 I guess we should keep moving forward.

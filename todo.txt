@@ -1,4 +1,6 @@
 wizard guy
 properly implement journal
-climbing animation
 jump anim for the others
+figure out a new path in withered leaves
+new puzzles in shard gardens
+alcine alone area art

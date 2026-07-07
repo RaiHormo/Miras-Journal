@@ -826,6 +826,7 @@ texture_scale = 4.94
 use_parent_material = true
 
 [node name="EvAlcine" type="CharacterBody2D" parent="Event" unique_id=594605233]
+y_sort_enabled = true
 position = Vector2(1681, -1069)
 motion_mode = 1
 script = ExtResource("19_dpu00")
@@ -921,8 +922,11 @@ position = Vector2(1956, -1318)
 AddFlag = true
 TakeControl = false
 ReturnControl = false
+ShowTextbox = true
 TextFile = "story_0"
 TextNode = "a_bridge"
+UsePassive = true
+AlterMovement = true
 SlowDown = true
 
 [node name="EvAxe" type="Sprite2D" parent="Event" unique_id=1994878896]

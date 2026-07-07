@@ -39,6 +39,10 @@ var was_controllable := false
 ## Where each partybox should be placed
 var def_pos_partybox: Array[Vector2] = [Vector2.ONE, Vector2.ONE, Vector2.ONE, Vector2.ONE]
 
+## Used for choosing members to use something. Can be Ability or ItemDate
+var member_choosing_artifact: Resource = null
+var member_choosing_user: Actor
+
 @onready var Partybox: VBoxContainer = %Partybox
 @onready var t: Tween
 
@@ -385,6 +389,7 @@ func _on_shrink(hurry_up := false) -> void:
 		i.get_node("AuraDoodle").texture = null
 	await t.finished
 	MemberChoosing = false
+	$CanvasLayer/Cursor/ItemPreview/AnimationPlayer.stop()
 	$CanvasLayer/Back.hide()
 	%Pages.hide()
 	$IdleTimer.start(5)
@@ -696,39 +701,61 @@ func draw_bar(mem: Actor, node: Panel) -> void:
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 
-func choose_member() -> void:
-	if not Item.get_node("ItemEffect").item:
+func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> void:
+	if artifact is ItemData:
+		if not artifact:
+			return
+		$CanvasLayer/Cursor/ItemPreview.text = (artifact.Name+ " x" + str(artifact.Quantity))
+		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
+		$/root/MainMenu.stage = "choose_member"
+	if artifact is Ability:
+		$CanvasLayer/Cursor/ItemPreview.text = artifact.name
+		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
+	else: 
+		push_error("Invalid use of choose_member")
 		return
-	_on_expand(1)
+	
+	member_choosing_artifact = artifact
+	member_choosing_user = user
+	
+	if not Expanded:
+		_on_expand(1)
 	UIvisible = true
 	t = create_tween()
 	$CanvasLayer/Fade.show()
 	$CanvasLayer/Back.show()
-	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name
-			+ " x" + str(Item.get_node("ItemEffect").item.Quantity))
-	$CanvasLayer/Cursor/ItemPreview.icon = Item.get_node("ItemEffect").item.Icon
+	
 	$CanvasLayer/Back.icon = Controller.get_scheme().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1, 1, 1, 1), 0.4)
 	t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 3, 0.4)
 	t.tween_property($CanvasLayer/Fade, "color", Color(0, 0, 0, 0.5), 0.4)
+	$CanvasLayer/Cursor/ItemPreview/AnimationPlayer.play(&"hover")
+	$CanvasLayer/Cursor/ItemPreview.show()
+	$CanvasLayer/Cursor/MemberOptions.hide()
 	await Event.wait(0.3, false)
 	MemberChoosing = true
-	$/root/MainMenu.stage = "choose_member"
-	$CanvasLayer/Cursor/ItemPreview.show()
 	$CanvasLayer/Cursor/ItemPreview.grab_focus()
 
 
 func _on_item_preview_pressed() -> void:
-	if (Item.get_node("ItemEffect").item.Quantity != 0 and
-			Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP):
-		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
-	else:
-		if Item.get_node("ItemEffect").item.Quantity != 0:
+	if member_choosing_artifact is ItemData:
+		if member_choosing_artifact.Quantity != 0:
+			if Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
+				Event.toast("HP is already maxed out")
+				Audio.buzzer_sound()
+			Item.emit_signal("return_member", (Global.Party.get_member(focus)))
+		else:
+			Event.toast("No more of this item is left")
+		$CanvasLayer/Cursor/ItemPreview.text = (member_choosing_artifact.Name + " x" + str(member_choosing_artifact.Quantity))
+	if member_choosing_artifact is Ability:
+		if Global.Party.get_member(focus).Health == Global.Party.get_member(focus).MaxHP:
 			Event.toast("HP is already maxed out")
-		Audio.buzzer_sound()
-	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
-			+ str(Item.get_node("ItemEffect").item.Quantity))
+			Audio.buzzer_sound()
+		else:
+			Event.heal_in_overworld(Global.Party.get_member(focus), member_choosing_artifact)
+			member_choosing_user.add_aura(-member_choosing_artifact.AuraCost)
+			back()
 
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD = Event.ToTime) -> bool:
@@ -891,7 +918,15 @@ func abilities() -> void:
 
 
 func back() -> void:
-	if not MemberChoosing and Expanded and not inactive and not Loader.in_battle:
+	if MemberChoosing and Expanded:
+		$CanvasLayer/Cursor/ItemPreview.hide()
+		$CanvasLayer/Cursor/ItemPreview/AnimationPlayer.stop()
+		$CanvasLayer/Cursor/MemberOptions.show()
+		MemberChoosing = false
+		Audio.confirm_sound()
+		focus = Global.Party.array().find(member_choosing_user)
+		focus_now()
+	elif not MemberChoosing and Expanded and not inactive and not Loader.in_battle:
 		if not submenu_opened:
 			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
 			$Audio.play()
@@ -955,7 +990,7 @@ func _on_idle_timer_timeout() -> void:
 
 
 func hit_partybox(x: int, am: int, rep: int) -> void:
-	print(am, " ", rep)
+	#print(am, " ", rep)
 	Event.node_shake(%Partybox.get_child(x), am, rep)
 
 
