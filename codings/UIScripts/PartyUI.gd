@@ -58,8 +58,8 @@ func _ready() -> void:
 		box.name = "Member" + str(i)
 		Partybox.add_child(box)
 	UIvisible = false
-	Global.check_party.connect(_check_party)
-	Global.check_party.emit()
+	Global.check.connect(_check_party)
+	Global.check.emit()
 
 
 func _process(_delta: float) -> void:
@@ -232,7 +232,7 @@ func darken(toggle := true) -> void:
 
 func _on_expand(open_ui := 0) -> void:
 	#Engine.time_scale = 0.1
-	Global.check_party.emit()
+	Global.check.emit()
 	inactive = true
 	await Event.wait()
 	if disabled:
@@ -302,7 +302,7 @@ func _on_expand(open_ui := 0) -> void:
 	#if open_ui == 0:
 	Global.Controllable = false
 	Expanded = true
-	Global.check_party.emit()
+	Global.check.emit()
 	if open_ui == 0:
 		await focus_now()
 	inactive = false
@@ -354,7 +354,7 @@ func _on_shrink(hurry_up := false) -> void:
 	inactive = true
 	Expanded = false
 	Partybox.show()
-	Global.check_party.emit()
+	Global.check.emit()
 	if not hurry_up:
 		get_tree().paused = WasPaused
 	t = create_tween()
@@ -389,7 +389,7 @@ func _on_shrink(hurry_up := false) -> void:
 	%Pages.hide()
 	$IdleTimer.start(5)
 	inactive = false
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 func shrink_panel(Pan: Panel, mem := 0, time := 0.4) -> void:
@@ -689,10 +689,10 @@ func draw_bar(mem: Actor, node: Panel) -> void:
 	# Borders
 	node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
 	var bord2: StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
-	bord2.border_color = mem.BoxProfile.Bord2
+	bord2.border_color = mem.CharacterBoxProfile.Bord2
 	node.get_node("Border1/Border2").add_theme_stylebox_override("panel", bord2.duplicate())
 	var bord3: StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
-	bord3.border_color = mem.BoxProfile.Bord3
+	bord3.border_color = mem.CharacterBoxProfile.Bord3
 	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 
@@ -725,7 +725,7 @@ func _on_item_preview_pressed() -> void:
 		Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 	else:
 		if Item.get_node("ItemEffect").item.Quantity != 0:
-			Global.toast("HP is already maxed out")
+			Event.toast("HP is already maxed out")
 		Audio.buzzer_sound()
 	$CanvasLayer/Cursor/ItemPreview.text = (Item.get_node("ItemEffect").item.Name + " x"
 			+ str(Item.get_node("ItemEffect").item.Quantity))
@@ -778,19 +778,19 @@ func cmd(cmd_text := "") -> void:
 					if i != null:
 						i.level_up_to(int(text))
 				Global.heal_party()
-				Global.check_party.emit()
+				Global.check.emit()
 			elif cmd_text.begins_with("/item"):
 				var text: String = cmd_text.replace("/item ", "")
 				var split := text.split(":")
 				if split.size() < 2:
-					Global.toast("Item type needed")
+					Event.toast("Item type needed")
 					return
 				Item.add_item(split[0], split[1])
 			elif cmd_text.begins_with("/itemrm"):
 				var text: String = cmd_text.replace("/itemrm ", "")
 				var split := text.split(":")
 				if split.size() < 2:
-					Global.toast("Item type needed")
+					Event.toast("Item type needed")
 					return
 				Item.remove_item(split[0], split[1])
 			elif cmd_text.begins_with("/diaryadd"):
@@ -804,7 +804,7 @@ func cmd(cmd_text := "") -> void:
 			var text := cmd_text
 			Event.add_flag(text, !Event.check_flag(text))
 			if not "=" in text:
-				Global.toast(
+				Event.toast(
 					"Flag \"" + text + "\" set to "
 					+ str(Event.flag_int(text)),
 				)
@@ -847,9 +847,9 @@ func main_menu() -> void:
 			else:
 				get_tree().root.get_node_or_null("Options").free()
 				Event.give_control()
-				Global.options()
+				Event.options()
 		else:
-			Global.options()
+			Event.options()
 	elif Global.Controllable:
 		Audio.buzzer_sound()
 
@@ -870,7 +870,7 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude := true) -> void:
 
 func details() -> void:
 	if Expanded and not submenu_opened:
-		await Global.member_details(Global.Party.array()[focus])
+		await Event.member_details(Global.Party.array()[focus])
 		submenu_opened = true
 		await Event.wait(0.2, false)
 		%Pages.hide()
@@ -881,7 +881,7 @@ func details() -> void:
 
 func abilities() -> void:
 	if Expanded and not submenu_opened:
-		await Global.member_details(Global.Party.array()[focus], 1)
+		await Event.member_details(Global.Party.array()[focus], 1)
 		submenu_opened = true
 		await Event.wait(0.2, false)
 		%Pages.hide()
@@ -927,7 +927,7 @@ func talk() -> void:
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
 	nametag_to_be_used = (await dialog.get_next_dialogue_line(key)).character
 	submenu_opened = true
-	await Global.textbox("talk_" + Global.Party.array()[focus].codename.to_lower(), "options", true)
+	await Textbox.open("talk_" + Global.Party.array()[focus].codename.to_lower(), "options", true)
 	close_submenu()
 
 
@@ -956,7 +956,7 @@ func _on_idle_timer_timeout() -> void:
 
 func hit_partybox(x: int, am: int, rep: int) -> void:
 	print(am, " ", rep)
-	Global.node_shake(%Partybox.get_child(x), am, rep)
+	Event.node_shake(%Partybox.get_child(x), am, rep)
 
 
 func _on_partybox_sort_children() -> void:

@@ -39,7 +39,7 @@ extends Area2D
 ## The ~title in the dialogue to show
 @export var TextNode: String
 ## Open the passive textbox instead of the normal one
-@export var Passive: bool = false
+@export var UsePassive: bool = false
 @export_group("Start Battle")
 ## When entering this tripwire, start a battle immediatly
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var StartBattle := false
@@ -109,10 +109,10 @@ func _on_body_entered(body: Node2D) -> void:
 				Event.sequence(EventName)
 
 		elif TextFile != "":
-			if Passive:
-				await Global.passive(TextFile, TextNode)
+			if UsePassive:
+				await Passive.open(TextFile, TextNode)
 			else:
-				await Global.textbox(TextFile, TextNode)
+				await Textbox.open(TextFile, TextNode)
 		elif BattleSeq != null:
 			Loader.start_battle(BattleSeq)
 		if SlowDown:

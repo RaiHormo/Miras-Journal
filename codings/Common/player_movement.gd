@@ -37,7 +37,7 @@ func _ready() -> void:
 	else: ID = "P"
 	Event.add_char(self)
 	Item.pickup.connect(_on_pickup)
-	Global.check_party.connect(_check_party)
+	Global.check.connect(_check_party)
 	await Event.wait()
 	path = Path2D.new()
 	Global.Area.add_child(path)
@@ -154,7 +154,7 @@ func control_process() -> void:
 
 	if Global.Settings.DebugMode:
 		if Input.is_action_just_pressed("DebugF"):
-			Global.toast("Collision set to " + str($CollisionShape2D.disabled))
+			Event.toast("Collision set to " + str($CollisionShape2D.disabled))
 			$CollisionShape2D.disabled = not $CollisionShape2D.disabled
 
 
@@ -302,7 +302,7 @@ func bag_anim() -> void:
 	BodyState = NONE
 	if get_node_or_null("%Base") == null: return
 	Query.find_member("Mira").OV = "Bag"
-	Global.check_party.emit()
+	Global.check.emit()
 	await set_anim("BagOpen", true)
 	set_anim("BagIdle")
 
@@ -337,7 +337,7 @@ func stop_dash(slide := true) -> void:
 					speed = max(0, speed - 2)
 					await Event.wait()
 		local_controllable = true
-		Global.check_party.emit()
+		Global.check.emit()
 		BodyState = CONTROLLED
 		velocity = Vector2.ZERO
 	dashdir = Vector2.ZERO
@@ -361,7 +361,7 @@ func bump(dir: Direction = Facing) -> void:
 	direction = Vector2.ZERO
 	if dir.is_vector(Vector2.ZERO): 
 		dir.set_to(dashdir)
-	Global.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
+	Event.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
 	set_anim("Dash" + dir_name + "Hit")
 	var mem := local_controllable
 	local_controllable = false

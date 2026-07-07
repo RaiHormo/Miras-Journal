@@ -54,7 +54,7 @@ func set_to(p: PackedStringArray) -> void:
 	else: Member2 = null
 	if p[3] != &"": Member3 = Query.find_member(p[3])
 	else: Member3 = null
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 ## For backwards compatibility
@@ -94,7 +94,7 @@ func overwrite_member(num: int, actor: Actor) -> void:
 
 func add(member: String) -> void:
 	overwrite_member(Query.number_of_party_members(), Query.find_member(member))
-	Global.check_party.emit()
+	Global.check.emit()
 	print(member, " joins the party at position ", Query.number_of_party_members())
 
 

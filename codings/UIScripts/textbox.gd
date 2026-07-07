@@ -1,6 +1,44 @@
 extends CanvasLayer
 class_name Textbox
 
+static var is_open := false
+static var current : Textbox = null:
+	get():
+		if current == null:
+			for i: Node in Engine.get_main_loop().root.get_children():
+				if i is Textbox:
+					current = i 
+					return i
+			return null
+		if not is_instance_valid(current): 
+			return null
+		return current
+
+
+static func open(file: String, title: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
+	kill()
+	is_open = true
+	print_rich("[color=orange]Textbox: ", file, " - ", title)
+	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
+	var box: Textbox = Textbox2.instantiate()
+	var text: DialogueResource = await Loader.load_res("res://database/Text/" + file + ".dialogue")
+	Engine.get_main_loop().root.add_child(box)
+	if is_instance_valid(box): box.start(text, title, extra_game_states)
+	if fade_bg: fade_txt_background()
+	Loader.lower_layer()
+	await Event.textbox_close
+	is_open = false
+
+static func fade_txt_background(alpha := 0.8) -> void:
+	if is_instance_valid(current):
+		var tw := current.create_tween()
+		tw.tween_property(current.get_node("Fader"), "color", Color(0, 0, 0, alpha), 0.5)
+
+static func kill() -> void:
+	if is_instance_valid(current):
+		current.queue_free()
+		await Event.wait()
+
 @onready var balloon: Control = $Balloon
 @onready var character_label: Label = %CharacterLabel
 @onready var character_panel: PanelContainer = $Balloon/CharacterPanel
@@ -9,16 +47,21 @@ class_name Textbox
 @onready var response_template: Button = $Balloon/Responses/Button.duplicate()
 @onready var input_indicator: TextureRect = %InputIndicator
 @onready var container: PanelContainer = $Balloon/Container
+@onready var t: Tween
 
-var mem: TextProfile
+const hold_time: int = 30
+const small_text_size: int = 24
+
+var mem: BoxProfile
 var next_box: String = ""
 var currun := false
 var picture: Texture2D = null
 var no_nametag := false
-@onready var t: Tween
-const hold_time = 30
+var portrait_img: Texture
+var has_portrait := false
+var redraw_portrait_next_time := true
 var skip := false
-const small_text_size = 24
+var prev_char := ""
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -51,8 +94,8 @@ func _ready() -> void:
 	$Hints.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
-	Global.portrait_clear()
-	Global.picture_clear()
+	has_portrait = false
+	portrait_img = null
 	if Input.is_action_pressed("Dash"): skip = true
 
 	match Global.Settings.TextSpeed:
@@ -98,23 +141,24 @@ func show_dialog_line() -> void:
 	if dialogue_line.text == "(hide)" or dialogue_line.text == " ":
 		await hide_box()
 		next(dialogue_line.next_id)
+		redraw_portrait_next_time = true
 		char_name = ""
 		return
 
 	input_indicator.hide()
 	character_panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
 	no_nametag = false
-	while "." in char_name:
-		#print(char_name)
-		char_name = char_name.erase(char_name.length() - 1)
-	if "." in tr(dialogue_line.character, "dialogue"):
+	
+	var splits := dialogue_line.character.split(".")
+	char_name = splits[0]
+	if splits.size() > 1:
 		var redraw: bool = true
-		if Query.member_exists(char_name):
-			if Query.find_member(char_name).FirstName == character_label.text and Global.PortraitIMG != null:
-				redraw = false
-		else:
-			if character_label.text == char_name and Global.PortraitIMG != null: redraw = false
-		Global.portrait(dialogue_line.character.replace(".", ""), redraw)
+		if char_name == prev_char: redraw = false
+		portrait(char_name+splits[1], redraw)
+	elif portrait_img == null:
+		has_portrait = false
+	prev_char = char_name
+	
 	if not Query.member_exists(char_name):
 		character_label.text = char_name
 	else: character_label.text = Query.find_member(char_name).FirstName
@@ -125,7 +169,7 @@ func show_dialog_line() -> void:
 		character_panel.size.x = 1
 
 	if next_box == "": next_box = char_name
-	mem = await Global.match_profile(next_box)
+	mem = await BoxProfile.match_profile(next_box)
 
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
@@ -279,7 +323,7 @@ func _on_close() -> void:
 	$Portrait.hide()
 	Engine.time_scale = 1
 	responses_menu.hide()
-	Global.textbox_close.emit()
+	Event.textbox_close.emit()
 	if self != null: queue_free()
 
 
@@ -303,10 +347,10 @@ func hide_box() -> void:
 		t.tween_property($Portrait, "position:x", -100, 0.3)
 	await t.finished
 	balloon.hide()
-	Global.portrait_clear()
-	Global.PortraitIMG = null
+	portrait_img = null
+	has_portrait = false
 	$Portrait.texture = null
-	Global.PortraitRedraw = true
+	redraw_portrait_next_time = true
 	character_label.text = " "
 
 
@@ -418,17 +462,17 @@ func _input(event: InputEvent) -> void:
 
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
-	if Global.HasPortrait:
+	if has_portrait:
 		if dialogue_line.text.begins_with("[color=") and dialogue_line.text.ends_with("[/color]"):
 			$Balloon/Arrow.hide()
 		else: $Balloon/Arrow.show()
 		var pan: StyleBoxFlat = $Balloon/Arrow.get_theme_stylebox("panel")
 		pan.bg_color = mem.Bord1
-		$Portrait.texture = Global.PortraitIMG
+		$Portrait.texture = portrait_img
 		$Portrait/Shadow.texture = $Portrait.texture
-		Global.portrait_clear()
+		portrait_img = null
 		$Portrait.show()
-		if Global.PortraitRedraw:
+		if redraw_portrait_next_time:
 			#if is_instance_valid(t): t.kill()
 			t = create_tween()
 			t.set_parallel(true)
@@ -473,3 +517,16 @@ func animate_responces() -> void:
 		t.tween_property(i, "position:x", i.position.x, 0.3).from(500)
 		t.tween_property(i, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		await Event.wait(0.1, false)
+
+func set_next_box(profile: String) -> void:
+	current.next_box = profile
+
+
+func set_picture(img: String) -> void:
+	current.picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
+
+
+func portrait(img: String, redraw := true) -> void:
+	redraw_portrait_next_time = redraw
+	has_portrait = true
+	portrait_img = await Loader.load_res("res://art/Portraits/" + img + ".png")

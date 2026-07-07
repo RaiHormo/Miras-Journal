@@ -571,10 +571,6 @@ texture_filter = 1
 script = ExtResource("1_prfhr")
 title = "Pyrson"
 is_dungeon = false
-SpawnPos = Vector2(5, 7)
-SpawnZ = Array[int]([0, 0, 1, 3])
-CameraLimits = Array[Vector4]([Vector4(0, 0, 792, 1765), Vector4(-10000, 0, 100, 886), Vector4(-100, -300, 300, -100), Vector4(0, 0, 0, 0)])
-CameraZooms = Array[float]([0.75, 1.25, 1.0, 1.0])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
 
 [node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_nlfpl")]
@@ -582,7 +578,6 @@ offset_right = 792.0
 offset_bottom = 1772.0
 zoom = 3.0
 spawn_position = Vector2i(199, 196)
-layers = null
 right = 792
 down = 1772
 
@@ -594,7 +589,6 @@ offset_bottom = 886.0
 border_color = Color(0.20784314, 0.67058825, 0.26666668, 0.4862745)
 zoom = 5.0
 spawn_position = Vector2i(-80, 805)
-layers = null
 left = -388
 up = 199
 right = 100
@@ -607,7 +601,7 @@ offset_right = 300.0
 offset_bottom = -100.0
 border_color = Color(0.20784314, 0.67058825, 0.26666668, 0.4862745)
 spawn_position = Vector2i(32, -206)
-layers = null
+z = 1
 left = -100
 up = -300
 right = 300
@@ -620,7 +614,6 @@ offset_right = 896.0
 offset_bottom = -316.0
 border_color = Color(0.988195, 1.35728715e-05, 0.6587122, 0.4862745)
 spawn_position = Vector2i(545, -485)
-layers = null
 left = 429
 up = -678
 right = 896
@@ -997,7 +990,6 @@ chair_faces = Array[String](["L"])
 
 [node name="EvTavern" parent="Events" unique_id=1297631556 instance=ExtResource("26_vxpye")]
 position = Vector2(365, 973)
-TriggerSize = Vector2i(50, 127)
 Flag = "day:3+time:2"
 FlagIsName = false
 FlagShouldBe = true
@@ -1475,7 +1467,6 @@ shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="EvNov2TownHall" parent="TownHall" unique_id=18392500 instance=ExtResource("26_vxpye")]
 position = Vector2(373, 203)
-TriggerSize = Vector2i(26, 24)
 Flag = "day:2+time:4"
 FlagIsName = false
 FlagShouldBe = true

@@ -102,27 +102,27 @@ func _on_battle_get_control() -> void:
 	if disable_item or not Event.check_flag("HasBag"): $Item.disabled = true
 
 	$BaseRing/Ring2.texture.gradient.set_color(0, CurrentChar.MainColor)
-	if CurrentChar.BoxProfile != null:
+	if CurrentChar.CharacterBoxProfile != null:
 		var mem := CurrentChar
-		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.BoxProfile.Bord3)
+		$BaseRing/Ring1.texture.gradient.set_color(0, CurrentChar.CharacterBoxProfile.Bord3)
 		var bord1: StyleBoxFlat = $Inventory/Border1.get_theme_stylebox("panel")
-		bord1.border_color = mem.BoxProfile.Bord1
+		bord1.border_color = mem.CharacterBoxProfile.Bord1
 		$Inventory/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2: StyleBoxFlat = $Inventory/Border1/Border2.get_theme_stylebox("panel")
-		bord2.border_color = mem.BoxProfile.Bord2
+		bord2.border_color = mem.CharacterBoxProfile.Bord2
 		$Inventory/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
 		var bord3: StyleBoxFlat = $Inventory/Border1/Border2/Border3.get_theme_stylebox("panel")
-		bord3.border_color = mem.BoxProfile.Bord3
+		bord3.border_color = mem.CharacterBoxProfile.Bord3
 		$Inventory/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
 		bord1 = $AbilityUI/Border2/Border1.get_theme_stylebox("panel")
-		bord1.border_color = mem.BoxProfile.Bord1
+		bord1.border_color = mem.CharacterBoxProfile.Bord1
 		$AbilityUI/Border2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		bord2 = $AbilityUI/Border2.get_theme_stylebox("panel")
-		bord2.border_color = mem.BoxProfile.Bord2
+		bord2.border_color = mem.CharacterBoxProfile.Bord2
 		$AbilityUI/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
 		bord3 = $AbilityUI.get_theme_stylebox("panel")
-		bord3.border_color = mem.BoxProfile.Bord3
+		bord3.border_color = mem.CharacterBoxProfile.Bord3
 		$AbilityUI.add_theme_stylebox_override("panel", bord3.duplicate())
 
 	fetch_abilities()
@@ -143,7 +143,7 @@ func move_to(pos: Vector2 = Vector2.ZERO, time := 0.3) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Controller.last_input == Global.ProcessFrame: return
+	if Controller.last_input == Global.process_frame: return
 	set_controller_icons()
 	if active:
 		match stage:
@@ -162,7 +162,7 @@ func _input(event: InputEvent) -> void:
 					while Input.is_action_pressed("ui_accept"): await Event.wait()
 					ability.emit()
 				if Input.is_action_just_pressed("Manual"):
-					Global.options(3)
+					Event.options(3)
 			&"target":
 				if Input.is_action_just_pressed(Controller.cancel()):
 					_on_back_pressed()
@@ -639,7 +639,7 @@ func _on_battle_next_turn() -> void:
 
 func _on_targeted() -> void:
 	if analyzing:
-		Global.member_details(CurrentChar.NextTarget)
+		Event.member_details(CurrentChar.NextTarget)
 		stage = "analyze"
 		PrevStage = "analyze"
 	elif CurrentChar.NextAction == "ItemGive":
@@ -973,4 +973,4 @@ func _analyze() -> void:
 
 func _on_options_pressed() -> void:
 	if stage == "root":
-		Global.options()
+		Event.options()

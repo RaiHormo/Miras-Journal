@@ -43,7 +43,7 @@ var IsEnemy: bool = true
 ##Used for the Aura gauge, purely cosmetic. If left black, the color will be automatically generated.
 @export var SecondaryColor: Color = Color.BLACK
 ##Used for textboxes for this character and their box with their stats. If left null, the box will be automatically generated.
-@export var BoxProfile: TextProfile
+@export var CharacterBoxProfile: BoxProfile
 ##Used in the party menu
 @export var LastName: String = ""
 ##Used in the details menu, purely cosmetic
@@ -165,7 +165,7 @@ func add_health(x: int) -> void:
 	if x == 0: return
 	Health += x
 	print(FirstName + " gains ", x, " Health")
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 func set_aura(x: int) -> void:
@@ -177,7 +177,7 @@ func add_aura(x: int) -> void:
 	if x == 0: return
 	Aura += x
 	print(FirstName + " gains ", x, " AP")
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 func add_SP(x: int) -> void:
@@ -232,7 +232,7 @@ func add_state(x: Variant, turns := -1, inflicter: Actor = Global.Bt.CurrentChar
 		elif state.name == "Confused":
 			prev_state.turns = -1
 			Global.Bt.battle_msg("state_extended", FirstName, state.name)
-		#else: Global.toast(FirstName+" is already "+state.name)
+		#else: Event.toast(FirstName+" is already "+state.name)
 		return prev_state
 	if turns != -1:
 		state.turns = turns

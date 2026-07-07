@@ -111,16 +111,16 @@ var input_frame: int
 
 
 func _input(event: InputEvent) -> void:
-	if Controller.last_input == Global.ProcessFrame: return
+	if Controller.last_input == Global.process_frame: return
 	$Confirm.icon = Controller.get_scheme().ConfirmIcon
 	$Back.icon = Controller.get_scheme().CancelIcon
 	$Party.icon = Controller.get_scheme().Select
 	Global.Controllable = false
-	if input_frame == Global.ProcessFrame: return
+	if input_frame == Global.process_frame: return
 	match stage:
 		"root":
 			if Input.is_action_just_pressed("ui_up"):
-				input_frame = Global.ProcessFrame
+				input_frame = Global.process_frame
 				if rootIndex <= 0:
 					$Party.grab_focus()
 					rootIndex = -1

@@ -1,61 +1,71 @@
-#region Variables
 extends Node
+
+## Determines if the player should have control
+## Prefer to use Event.give_control() and Event.take_control() instead of this
 var Controllable: bool = true:
 	set(x):
 		Controllable = x
-var Party: PartyData
-var Members: Array[Actor]
-var PortraitIMG: Texture
 
+## The current party data
+var Party: PartyData
+
+## Data for all party members (Outside of the party too)
+var Members: Array[Actor]
+
+## Current battle scene, null if not in battle
 var Bt: Battle = null
+
+## Current player node
 var Player: Mira:
 	get():
 		if is_instance_valid(Player):
 			return Player
 		return null
+
+## Current room node
 var Area: Room
+
+## Active camera in the Area (Not battle camera)
 var Camera: Camera2D:
 	get:
 		if not is_instance_valid(Area): 
 			return null
 		return Global.Area.cam
 
+## The current settings
 var Settings: Setting
-var Lights: Array[Light2D] = []
-var ProcessFrame := 0
-var StartTime := 0.0
-var FirstStartTime := 0.0
-var PlayTime := 0.0
-var SaveTime := 0.0
-var HasPortrait := false
-var textbox_open := false
-var PortraitRedraw := true
-var ArbData0: Variant = null
-var Complimentaries: Array[String]
-signal lights_loaded
-signal check_party
-signal anim_done
-signal textbox_close
-signal passive_close
-var AppID := 4059970
-var UsingSteam := false
-var PlayerName: String = "Local"
-var UserID: int
-#endregion
 
+## Complimentary abilities available
+var Complimentaries: Array[String]
+
+## Time info
+var process_frame := 0
+var start_time := 0.0
+var first_start_time := 0.0
+var play_time := 0.0
+var save_time := 0.0
+
+## Steam data
+var using_steam := false
+var steam_app_id := 4059970
+var steam_user_id: int
+
+## Account identifier for the player (Shown in the menu)
+var player_name: String = "Local"
+
+## For updating info like the party
+signal check
 
 #region System
 func _ready() -> void:
 	init_user()
-	StartTime = Time.get_unix_time_from_system()
+	start_time = Time.get_unix_time_from_system()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	init_party(Party)
 	init_settings()
 
-	if is_instance_valid(Area): await nodes_of_type(Area, "Light2D", Lights)
-	lights_loaded.emit()
 	#print(Input.get_joy_name(0))
-	Controller.rumble(0, 0.5, 0.1)
+	Controller.rumble(0, 0.1, 0.1)
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 
 
@@ -72,10 +82,10 @@ func quit(save_first := true) -> void:
 			Loader.icon_save()
 			await Loader.save()
 		elif is_instance_valid(Area):
-			if not await warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
+			if not await Event.warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
 				return
 		await Loader.transition(Direction.CENTER)
-		if Engine.has_singleton("Steam") and UsingSteam:
+		if Engine.has_singleton("Steam") and using_steam:
 			Steam.steamShutdown()
 		Global.save_settings()
 	get_tree().quit()
@@ -90,67 +100,63 @@ func init_steam() -> void:
 	if not Engine.has_singleton("Steam"):
 		return
 	var steam := Engine.get_singleton("Steam")
-	OS.set_environment("SteamAppId", str(AppID))
-	OS.set_environment("SteamGameId", str(AppID))
-	var initialize_response: Dictionary = steam.steamInitEx(AppID)
+	OS.set_environment("SteamAppId", str(steam_app_id))
+	OS.set_environment("SteamGameId", str(steam_app_id))
+	var initialize_response: Dictionary = steam.steamInitEx(steam_app_id)
 	print_rich("[color=orange]Did Steam initialize?: %s " % initialize_response)
 	#Steam.inputInit()
 	#Steam.enableDeviceCallbacks()
 	#SteamInput.init()
 	if initialize_response.get("status") == 0:
 		print_rich("[color=orange]Running with Steam")
-		UsingSteam = true
-		UserID = steam.getSteamID32(steam.getSteamID())
-		PlayerName = steam.getPersonaName()
-		print_rich("[color=orange]User: ", PlayerName, " ", UserID)
+		using_steam = true
+		steam_user_id = steam.getSteamID32(steam.getSteamID())
+		player_name = steam.getPersonaName()
+		print_rich("[color=orange]User: ", player_name, " ", steam_user_id)
 	elif (
 		initialize_response.get("status") == 1 and
 		initialize_response.get("verbal") != "Could not determine Steam client install directory."
 	):
 		if not steam.isSubscribed():
-			if AppID == 4059970:
+			if steam_app_id == 4059970:
 				print_rich("[color=orange]The user doesn't own the game, testing playtest")
-				AppID = 4063790
+				steam_app_id = 4063790
 				init_steam()
 				return
-			elif AppID == 4063790:
+			elif steam_app_id == 4063790:
 				print_rich("[color=orange]The user doesn't own playtest either, running locally")
 
 
 func init_user() -> void:
-	UserID = 0
+	steam_user_id = 0
 	init_steam()
 
 	# If a user ID wasn't set by steam
-	if UserID == 0:
+	if steam_user_id == 0:
 		if FileAccess.file_exists("user://last_user_id.txt"):
-			UserID = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
-			print_rich("[color=orange]Using last used user ID, ", UserID)
+			steam_user_id = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
+			print_rich("[color=orange]Using last used user ID, ", steam_user_id)
 
 	# Create a user folder if it doesn't exist
-	if not DirAccess.dir_exists_absolute("user://" + str(UserID)):
-		print_rich("[color=orange]Creating user folder for ", UserID)
-		DirAccess.make_dir_absolute("user://" + str(UserID))
+	if not DirAccess.dir_exists_absolute("user://" + str(steam_user_id)):
+		print_rich("[color=orange]Creating user folder for ", steam_user_id)
+		DirAccess.make_dir_absolute("user://" + str(steam_user_id))
 
 	# If there's an ID now but, the previous one was 0, migrate the save data
 	if FileAccess.file_exists("user://last_user_id.txt"):
 		var last_id: int = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
-		if FileAccess.file_exists("user://" + str(UserID)) and last_id == 0 and UserID != 0:
+		if FileAccess.file_exists("user://" + str(steam_user_id)) and last_id == 0 and steam_user_id != 0:
 			print_rich("[color=orange]Migrating from local to account")
 			for i in DirAccess.get_files_at("user://0"):
-				if not FileAccess.file_exists("user://" + str(UserID) + "/" + i):
-					DirAccess.copy_absolute("user://0/" + i, "user://" + str(UserID) + "/" + i)
+				if not FileAccess.file_exists("user://" + str(steam_user_id) + "/" + i):
+					DirAccess.copy_absolute("user://0/" + i, "user://" + str(steam_user_id) + "/" + i)
 
 	# Write the current ID to a file
 	var last_id_file: FileAccess = FileAccess.open("user://last_user_id.txt", FileAccess.WRITE)
-	last_id_file.store_string(str(UserID))
+	last_id_file.store_string(str(steam_user_id))
 
 	# Move user:// to the new directory
-	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/" + str(UserID))
-
-
-func game_over() -> void:
-	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
+	ProjectSettings.set("application/config/custom_user_dir_name", "miras-journal/" + str(steam_user_id))
 
 
 func _notification(what: int) -> void:
@@ -162,64 +168,7 @@ func _notification(what: int) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	ProcessFrame += 1
-
-
-func options(submenu := 0) -> void:
-	if get_tree().root.has_node("Options"): return
-	var control := Controllable
-	#var init = get_tree().root.get_node_or_null("Initializer")
-	#if init != null: init.queue_free()
-	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()  #Im not sure about this one
-	Controllable = control
-	match submenu:
-		1:
-			opt.set_no_main()
-			opt.save_managment()
-		3:
-			opt.set_no_main()
-			opt.manual()
-	get_tree().root.add_child(opt)
-
-
-func title_screen() -> void:
-	if Global.Area != null: Global.Area.queue_free()
-	if not get_tree().root.has_node("Initializer"):
-		var init: Node = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
-		get_tree().root.add_child(init)
-	else: get_tree().root.get_node("Initializer").focus()
-
-
-func member_details(chara: Actor, menu := 0) -> void:
-	if chara == null: return
-	var dub: Node = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
-	get_tree().root.add_child(dub)
-	#await Event.wait()
-	dub.draw_character(chara, menu)
-
-
-func complimentary_ui(chara: Actor) -> void:
-	if chara == null: return
-	var dub: Node = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
-	get_tree().root.add_child(dub)
-	await Event.wait()
-	dub.draw_character(chara)
-
-
-func next_day_ui() -> void:
-	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
-
-
-func alcine_naming() -> void:
-	var scene: Node = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
-	get_tree().root.add_child(scene)
-	await scene.start()
-
-
-func veinet_map(cur: String) -> void:
-	var Map: Node = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
-	get_tree().root.add_child(Map)
-	Map.focus_place(cur)
+	process_frame += 1
 
 
 static func alcine() -> String:
@@ -232,15 +181,6 @@ func nodes_of_type(node: Node, className: String, result: Array) -> void:
 		if node and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
 	for child in node.get_children():
 		await nodes_of_type(child, className, result)
-
-
-func intro_effect(ref: Node) -> void:
-	#if get_tree().root.has_node("IntroEffect"): return
-	var node: Node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
-	get_tree().root.add_child(node)
-	node.ref = ref
-	node.animate()
-
 #endregion
 
 
@@ -256,7 +196,7 @@ func refresh() -> void:
 func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 	if !Settings: await init_settings()
 	if Engine.is_embedded_in_editor():
-		toast("Can't fullscreen while the window is embeded")
+		Event.toast("Can't fullscreen while the window is embeded")
 		Settings.Fullscreen = false
 		return
 	if tog:
@@ -286,7 +226,7 @@ func reset_settings() -> void:
 
 
 func customize_default_settings() -> void:
-	if UsingSteam:
+	if using_steam:
 		var steam := Engine.get_singleton("Steam")
 		if OS.get_environment("STEAMDECK") == "1" or steam.isSteamRunningOnSteamDeck():
 			Settings.ControlSchemeEnum = 7
@@ -338,15 +278,14 @@ func apply_settings() -> void:
 	AudioServer.set_bus_volume_db(4, Settings.VoicesVolume)
 	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-	if UsingSteam:
-		Settings.PlayerName = PlayerName
-	else: PlayerName = Settings.PlayerName
+	if using_steam:
+		Settings.PlayerName = player_name
+	else: player_name = Settings.PlayerName
 	Global.save_settings()
 
-
 func get_playtime() -> int:
-	PlayTime = SaveTime + Time.get_unix_time_from_system() - StartTime
-	return int(PlayTime)
+	play_time = save_time + Time.get_unix_time_from_system() - start_time
+	return int(play_time)
 
 
 func save_settings() -> void:
@@ -378,11 +317,6 @@ func reset_all_members() -> void:
 ##Alias for find_member()
 
 
-func add_complimentary(ability: String) -> void:
-	if ability not in Global.Complimentaries:
-		Global.Complimentaries.append(ability)
-
-
 func init_party(party: PartyData) -> void:
 	Members.clear()
 	if !is_instance_valid(party): party = PartyData.new()
@@ -404,184 +338,8 @@ func give_every_ability() -> void:
 	for i in ResourceLoader.list_directory("res://database/Abilities/"):
 		var ab: Ability = load("res://database/Abilities/" + i).duplicate()
 		Party.Leader.Abilities.append(ab)
-#endregion
 
-#region Textbox Managment
-
-
-func textbox(file: String, title: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
-	textbox_kill()
-	textbox_open = true
-	print_rich("[color=orange]Textbox: ", file, " - ", title)
-	for i in get_tree().root.get_children():
-		if i is Textbox: i.queue_free()
-	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
-	var balloon: Node = Textbox2.instantiate()
-	var text: DialogueResource = await Loader.load_res("res://database/Text/" + file + ".dialogue")
-	get_tree().root.add_child(balloon)
-	if is_instance_valid(balloon): balloon.start(text, title, extra_game_states)
-	if fade_bg: fade_txt_background()
-	Loader.lower_layer()
-	await textbox_close
-	textbox_open = false
-
-
-func textbox_kill() -> void:
-	if get_tree().root.has_node("Textbox"):
-		get_tree().root.get_node("Textbox").queue_free()
-		await Event.wait()
-
-
-func passive(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	print_rich("[color=orange]Passive: ", file, " - ", title)
-	if get_node_or_null("/root/Passive"):
-		$"/root/Passive"._on_close()
-		await Event.wait(0.3)
-		passive(file, title, extra_game_states)
-		return
-	textbox_open = true
-	var Passive: PackedScene = await Loader.load_res("res://UI/Textbox/Passive.tscn")
-	var balloon: Node = Passive.instantiate()
-	get_tree().root.add_child(balloon)
-	balloon.start(
-		await Loader.load_res("res://database/Text/" + file + ".dialogue") as DialogueResource,
-		title,
-		extra_game_states
-	)
-	await passive_close
-	textbox_open = false
-
-
-func portrait(img: String, redraw := true) -> void:
-	PortraitRedraw = redraw
-	HasPortrait = true
-	PortraitIMG = await Loader.load_res("res://art/Portraits/" + img + ".png")
-
-
-func portrait_clear() -> void:
-	HasPortrait = false
-
-
-func fade_txt_background(alpha := 0.8) -> void:
-	var t := create_tween()
-	t.tween_property(get_tree().root.get_node("Textbox/Fader"), "color", Color(0, 0, 0, alpha), 0.5)
-
-
-func next_box(profile: String) -> void:
-	get_tree().root.get_node("Textbox").next_box = profile
-
-
-func picture(img: String) -> void:
-	get_tree().root.get_node("Textbox").picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
-
-
-func picture_clear() -> void:
-	get_tree().root.get_node("Textbox").picture = null
-
-
-func no_nametag() -> void:
-	get_tree().root.get_node("Textbox").no_nametag = true
-
-
-func toast(string: String) -> void:
-	if get_node_or_null("/root/Toast"):
-		$/root/Toast.free()
-		await Event.wait()
-	print_rich("[color=orange]Toast: " + string)
-	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
-	get_tree().root.add_child.call_deferred(tost)
-	await Event.wait()
-	if is_instance_valid(tost):
-		tost.get_node("BoxContainer/Toast/Label").text = string
-
-
-func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
-	if get_node_or_null("/root/Warning"):
-		$/root/Warning.free()
-		await Event.wait()
-	await Event.wait()
-	print_rich("[color=orange]Warn: " + text)
-	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
-	get_tree().root.add_child(tost)
-	await Event.wait()
-	if is_instance_valid(tost):
-		return await tost.ask_for_confirm(text, label, awnser, color)
-	else: return false
-
-
-func location_name(string: String) -> void:
-	if get_node_or_null("/root/LocationName"):
-		$/root/LocationName.free()
-		await Event.wait()
-	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
-	get_tree().root.add_child(tost)
-	await Event.wait()
-	if is_instance_valid(tost):
-		tost.get_node("Label").text = string
-
-
-#Match profile
-func match_profile(named: String) -> TextProfile:
-	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
-		return preload("res://database/Text/Profiles/DefaultBox.tres")
-	else:
-		return await Loader.load_res("res://database/Text/Profiles/" + named + "Box.tres")
-
-#endregion
-
-#region Quick Actions
-func jump_to(character: Node2D, position: Vector2i, time: float = 5, height: float = 0.5) -> void:
-	await jump_to_global(character, Area.to_global(position), time, height)
-
-
-func jump_to_global(character: Node2D, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
-	if character == Player and vibrate:
-		Controller.rumble(0, abs(height) / 3, 0.06)
-	var t: Tween = create_tween()
-	var start: Vector2 = character.global_position
-	var jump_distance: float = start.distance_to(position)
-	var jump_height: float = jump_distance * height  #will need tweaking
-	var midpoint := start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
-	t.tween_method(Query.global_quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
-	await t.finished
-	if character == Player and vibrate:
-		Controller.rumble(0, abs(height) / 2, 0.06)
-	anim_done.emit()
-
-func heal_in_overworld(target: Actor, ab: Ability) -> void:
-	print(ArbData0, " healed")
-	var amount := int(max(Query.calc_num(ab), target.MaxHP * ((Query.calc_num(ab) * target.Magic) * 0.02)))
-	target.add_health(amount)
-	check_party.emit()
-
-
-func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2) -> void:
-	var t := create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_QUART)
-	var dur := ShakeDuration / times
-	var am := amount
-	for i in range(0, times):
-		am = am - (amount / times)
-		t.tween_property(Camera, "offset",
-		Vector2(randf_range(-am, am), randf_range(-am, am)), dur).as_relative()
-		t.tween_property(Camera, "offset", Vector2.ZERO, dur)
-	await t.finished
-
-
-func node_shake(node: Node2D, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
-	if not is_instance_valid(node): return
-	ArbData0 = amount
-	var tw := create_tween()
-	tw.set_ease(Tween.EASE_OUT)
-	tw.set_trans(Tween.TRANS_CUBIC)
-	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
-	for i in repeat:
-		amount = ArbData0
-		var t := create_tween()
-		t.tween_property(node, "position:x", amount, time).as_relative()
-		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
-		t.tween_property(node, "position:x", amount, time).as_relative()
-		await t.finished
+func add_complimentary(ability: String) -> void:
+	if ability not in Global.Complimentaries:
+		Global.Complimentaries.append(ability)
 #endregion

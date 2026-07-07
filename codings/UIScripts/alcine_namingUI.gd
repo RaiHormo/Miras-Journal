@@ -80,7 +80,7 @@ func on_confirm(text: String) -> void:
 	else:
 		textedit.release_focus()
 		Query.find_member("Alcine").FirstName = txt.capitalize()
-		Global.textbox("naming", "what_about")
+		Textbox.open("naming", "what_about")
 	await get_tree().process_frame
 	textedit.set_caret_column(14)
 

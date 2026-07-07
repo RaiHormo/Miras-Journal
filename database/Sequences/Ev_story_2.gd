@@ -11,7 +11,7 @@ func nov3_morning() -> void:
 	Event.npc("RoomMira").position = Vector2(84, 424)
 	Event.npc("RoomMira").set_anim("Sleep")
 	await Event.wait(2)
-	await Global.textbox(name, "nov3_morning", false)
+	await Textbox.open(name, "nov3_morning", false)
 	Global.Party.set_to(["Mira", "Alcine"])
 	Event.ToDay = 3
 	Event.ToTime = 2
@@ -27,7 +27,7 @@ func nov3_afternoon() -> void:
 	Event.npc("RoomMira").position = Vector2(90, 412)
 	Event.npc("RoomMira").set_anim("SitRight")
 	await Event.wait(2)
-	await Global.textbox(name, "nov3_afternoon", false)
+	await Textbox.open(name, "nov3_afternoon", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(102, 440))
 	Global.Player.look_to(Direction.RIGHT)
 
@@ -40,7 +40,7 @@ func nov3_enterSG() -> void:
 	Global.Party.add("Asteria")
 	Global.Party.add("Daze")
 	Global.Player.camera_follow(false)
-	Global.location_name("Shard Gardens")
+	Event.location_name("Shard Gardens")
 	Global.Camera.position = Vector2(663, 241)
 	var t := create_tween().set_ease(Tween.EASE_IN_OUT)
 	t.tween_property(Global.Camera, "position", Vector2(190, 84), 6)
@@ -48,23 +48,23 @@ func nov3_enterSG() -> void:
 	Global.Player.collision(false)
 	await Event.take_control(false, true)
 	await Global.Player.move_dir(Vector2(6, 0))
-	await Global.textbox(name, "nov3_sg_enter")
+	await Textbox.open(name, "nov3_sg_enter")
 	Event.give_control(true)
 	Event.add_flag("Nov3_WentToSG")
 	await Event.wait(2)
-	Global.passive(name, "very_shiny")
+	Passive.open(name, "very_shiny")
 
 
 func sg_bunker_entrance() -> void:
 	if Event.f("DefeatedLazuliteHeart"):
 		await Event.take_control()
-		await Global.textbox(name, "enter_bunker_2")
+		await Textbox.open(name, "enter_bunker_2")
 		Event.give_control()
 	elif Global.Party.check_member(3):
 		await Event.take_control()
-		Global.textbox(name, "lazulite_warning")
+		Textbox.open(name, "lazulite_warning")
 	else:
-		await Global.textbox(name, "sg_find_bunker")
+		await Textbox.open(name, "sg_find_bunker")
 		Event.give_control()
 
 
@@ -74,7 +74,7 @@ func lazulite_boss() -> void:
 	await Loader.battle_end
 	print("battle done")
 	Loader.ungray.emit()
-	await Global.textbox(name, "lazulite_heart_after")
+	await Textbox.open(name, "lazulite_heart_after")
 	Loader.white_fadeout(0.5, 0.3, 0.5)
 	Event.add_flag("DefeatedLazuliteHeart")
 	Event.progress_by_time(1)

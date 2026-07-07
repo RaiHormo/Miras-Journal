@@ -75,7 +75,7 @@ func _input(event: InputEvent) -> void:
 func _on_options_pressed() -> void:
 	if inactive: return
 	if get_tree().root.has_node("Options"): return
-	Global.options()
+	Event.options()
 	#dismiss_title()
 
 
@@ -99,18 +99,18 @@ func you_can_now_play_as(chara: String) -> void:
 	for i in data.Members:
 		if i.get("codename") == chara: i.set("Controllable", true)
 	ResourceSaver.save(data, "user://Autosave.tres")
-	Global.warning("You can now play as [img height=64]res://art/Icons/Party/" + chara + ".png[/img] " + chara + ".", "CONGRATS", ["A"])
+	Event.warning("You can now play as [img height=64]res://art/Icons/Party/" + chara + ".png[/img] " + chara + ".", "CONGRATS", ["A"])
 
 
 func _on_load_pressed() -> void:
 	if inactive: return
 	if get_tree().root.has_node("Options"): return
-	Global.options(1)
+	Event.options(1)
 
 
 func _on_new_pressed() -> void:
 	Audio.confirm_sound()
-	if not game_exists or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
+	if not game_exists or await Event.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		dismiss_title()
 		Event.sequence("new_game")
 	else:

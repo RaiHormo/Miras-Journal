@@ -60,7 +60,7 @@ func get_animation(icon: Texture2D, named: String, pickup_anim := true) -> void:
 	t.tween_property(panel, "position", Vector2(54, -100), 0.5).as_relative()
 	t.tween_property(panel, "modulate", Color(0, 0, 0, 0), 0.4)
 	t.tween_property(panel, "scale", Vector2(0.3, 0.75), 0.5)
-	Global.check_party.emit()
+	Global.check.emit()
 	await t.finished
 	panel.hide()
 
@@ -97,14 +97,14 @@ func use_animation(icon: Texture2D, named: String, pos: Vector2) -> void:
 	t.tween_property(panel, "position", Vector2(54, -100), 0.5).as_relative()
 	t.tween_property(panel, "modulate", Color(0, 0, 0, 0), 0.4)
 	t.tween_property(panel, "scale", Vector2(0.3, 0.75), 0.5)
-	Global.check_party.emit()
+	Global.check.emit()
 	await t.finished
 	panel.hide()
 
 
 func add_item(ItemName: Variant, type: StringName = &"", animate := true, player_animate := true, quantity := -1) -> void:
 	if ItemName is String and ItemName == "":
-		Global.toast("You got absolutely nothing!!!")
+		Event.toast("You got absolutely nothing!!!")
 		return
 	item = get_item(ItemName, type).duplicate()
 	if type == &"": type = item.ItemType

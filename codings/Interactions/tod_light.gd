@@ -14,7 +14,7 @@ const defmoon = Color(0.9, 0.8, 0.5)
 
 
 func _ready() -> void:
-	Global.check_party.connect(update)
+	Global.check.connect(update)
 
 
 func update() -> void:

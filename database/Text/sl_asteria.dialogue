@@ -1,5 +1,5 @@
 ~ prepare
-do Global.textbox("rank"+str(Event.condition("sl_maple"))+"_prepare")
+do Textbox.open("rank"+str(Event.condition("sl_maple"))+"_prepare")
 => END
 
 ~ rank1_prepare

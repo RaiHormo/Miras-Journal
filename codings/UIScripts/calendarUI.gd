@@ -5,7 +5,7 @@ signal chosen_time_pass(awnser: bool)
 
 
 func _ready() -> void:
-	Global.check_party.connect(_check_party)
+	Global.check.connect(_check_party)
 	hide_prompt()
 
 
@@ -25,7 +25,7 @@ func _check_party() -> void:
 
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD) -> bool:
-	Global.check_party.emit()
+	Global.check.emit()
 	Event.add_flag("DisableMenus", false)
 	Global.Controllable = false
 	get_tree().paused = true

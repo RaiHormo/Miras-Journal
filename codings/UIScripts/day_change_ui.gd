@@ -15,7 +15,7 @@ func _on_next_day_pressed() -> void:
 	Event.Day += 1
 	Event.TimeOfDay = Event.TOD.MORNING
 	$DayCurrent.text = str(Event.Day)
-	Global.check_party.emit()
+	Global.check.emit()
 	await Event.wait(2, false)
 	Event.next_day.emit()
 	queue_free()
@@ -23,7 +23,7 @@ func _on_next_day_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	Audio.confirm_sound()
-	Global.options()
+	Event.options()
 
 
 func _on_quit_pressed() -> void:

@@ -84,7 +84,7 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 	data = SaveFile.new()
 	data.Name = filename
 	data.Party = Global.Party.get_strarr()
-	data.StartTime = Global.FirstStartTime
+	data.StartTime = Global.first_start_time
 	data.Z = Global.Player.z_index if not get_tree().root.has_node("MainMenu") else get_tree().root.get_node("MainMenu").z
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
@@ -133,12 +133,12 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		Loader.detransition()
 		return
 	prevent_battles = true
-	Global.textbox_kill()
+	Event.textbox_kill()
 	chased = false
 	data = await load_res(filepath)
-	Global.StartTime = Time.get_unix_time_from_system()
-	Global.FirstStartTime = data.StartTime
-	Global.SaveTime = data.PlayTime
+	Global.start_time = Time.get_unix_time_from_system()
+	Global.first_start_time = data.StartTime
+	Global.save_time = data.PlayTime
 	Global.Complimentaries = data.Complimentaries
 	defeated = data.Defeated.duplicate()
 	PartyUI.UIvisible = true
@@ -156,7 +156,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		await mem.load_from_dict(mem_dict)
 		temp_members.append(mem)
 	if temp_members < Global.Members:
-		Global.toast("WARNING: This save file was created in an older version.")
+		Event.toast("WARNING: This save file was created in an older version.")
 		for j in Global.Members:
 			var exists := false
 			for i in temp_members:
@@ -210,7 +210,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 
 func load_res(path: String) -> Resource:
 	load_failed = false
-	var frame := Global.ProcessFrame
+	var frame := Global.process_frame
 	
 	if not Global.Settings.HighResTextures:
 		var low_res_path := path.replace(".png", "_low.png")
@@ -227,8 +227,8 @@ func load_res(path: String) -> Resource:
 	loading_thread = true
 	await thread_loaded
 	
-	if Global.ProcessFrame - frame > 1:
-		print_rich("[color=#555555]\tLoaded resource: ", path.get_file(), "\t in ", Global.ProcessFrame - frame, " frames")
+	if Global.process_frame - frame > 1:
+		print_rich("[color=#555555]\tLoaded resource: ", path.get_file(), "\t in ", Global.process_frame - frame, " frames")
 	
 	return ResourceLoader.load_threaded_get(path)
 
@@ -303,11 +303,9 @@ func travel_done(controllable := false, index: int = 0) -> void:
 	get_node(area_spawn_path).add_child(area)
 	
 	await Global.Area.initialized
+	Global.check.emit()
 	
-	Global.Lights.clear()
-	Global.nodes_of_type(Global.Area, "Light2D", Global.Lights)
 	Global.Camera.position_smoothing_enabled = false
-	Global.lights_loaded.emit()
 	get_tree().paused = false
 	if remembered_scene.size() > 1:
 		var new_pos: Vector2 = await Global.Area.go_to_subroom(remembered_scene[1], true)
@@ -342,7 +340,7 @@ func transition(dir: Direction = Global.Player.Facing) -> void:
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
 	
-	if Global.textbox_open and get_tree().root.has_node("Textbox"):
+	if Textbox.is_open and get_tree().root.has_node("Textbox"):
 		lower_layer()
 	
 	if is_instance_valid(t):
@@ -417,7 +415,7 @@ func detransition(dir := remembered_direction) -> void:
 	await Event.wait(0.4, false)
 	if Global.Camera != null:
 		Global.Camera.position_smoothing_enabled = true
-	Global.check_party.emit()
+	Global.check.emit()
 	#Global.ready_window()
 	$Can.hide()
 
@@ -454,7 +452,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 	elif stg is BattleSequence:
 		battle_sequence = stg
 	else:
-		Global.toast("The battle sequence isn't set here, you probably should fix this.")
+		Event.toast("The battle sequence isn't set here, you probably should fix this.")
 		await Event.wait(0.3)
 		Event.give_control()
 		PartyUI.show_all()
@@ -649,7 +647,7 @@ func battle_bars(x: int, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void
 
 func error_handle(res: ResourceLoader.ThreadLoadStatus) -> void:
 	if res == ResourceLoader.THREAD_LOAD_FAILED:
-		Global.toast("A resource failed to load! \nPress F1 to check the logs.")
+		Event.toast("A resource failed to load! \nPress F1 to check the logs.")
 		load_failed = true
 		loading_thread = false
 		
@@ -710,12 +708,12 @@ func validate_save(savefile: String) -> bool:
 					ResourceSaver.save(file, savefile)
 					return true
 				else:
-					Global.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
-					Global.options(1)
+					Event.warning("Sorry but the stored save data is from an incompatible version, and cannot be used.\nYou might have to start a new game or use the proper version of the game.", "ERROR", ["Okay fine"])
+					Event.options(1)
 					return false
 		else:
-			Global.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
-			Global.options(1)
+			Event.warning("The stored save data could not be loaded. You might have to start a new game.", "ERROR", ["Okay"])
+			Event.options(1)
 			return false
 	else:
 		return false

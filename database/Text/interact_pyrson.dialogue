@@ -69,10 +69,10 @@ else:
 		do PartyUI.hide_all()
 		do detransition()
 		Ok, let's go.
-		do Global.veinet_map("Gate")
+		do Event.veinet_map("Gate")
 	- Go alone
 		do Party.reset_party()
-		do Global.veinet_map("Gate")
+		do Event.veinet_map("Gate")
 	- Don't go
 	do give_control()
 => END

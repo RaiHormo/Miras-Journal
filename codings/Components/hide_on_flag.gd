@@ -9,7 +9,7 @@ extends Node2D
 func _ready() -> void:
 	check()
 	get_parent().show()
-	Global.check_party.connect(check)
+	Global.check.connect(check)
 
 
 func check() -> void:

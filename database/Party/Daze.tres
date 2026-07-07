@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://dadlaa3lk8441" path="res://database/Abilities/Guard.tres" id="2_y217q"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="3_g8t8l"]
 [ext_resource type="Resource" uid="uid://06q2mwpgupg3" path="res://database/Abilities/StaticSaber.tres" id="3_ssdks"]
-[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="res://codings/Classes/box_profile_data.gd" id="3_vnjlu"]
+[ext_resource type="Script" uid="uid://ojp6ga7rf3xg" path="box_profile.gd" id="3_vnjlu"]
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
 [ext_resource type="AudioStream" uid="uid://mkdu2qbuty2g" path="res://sound/SFX/thonk.ogg" id="5_g4s8f"]
 [ext_resource type="Resource" uid="uid://dyhjcmwjdkepj" path="res://database/Abilities/Thunderstorm.tres" id="7_jt23b"]
@@ -37,7 +37,7 @@ codename = &"Daze"
 Pronouns = "he"
 WeaponPower = 30
 SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
-BoxProfile = SubResource("Resource_v2ahk")
+CharacterBoxProfile = SubResource("Resource_v2ahk")
 Weapon = "Gold-trimmed Katana"
 PartyPage = "uid://dnpwv61v5vdap"
 RenderArtwork = "uid://dq5adft1l2ps6"

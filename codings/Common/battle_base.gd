@@ -278,10 +278,10 @@ func entrance() -> void:
 		Loader.battle_bars(3)
 		if Seq.EntranceBanter != "":
 			if Seq.EntranceBanterIsPassive:
-				Global.passive("banter_entrance", Seq.EntranceBanter)
+				Passive.open("banter_entrance", Seq.EntranceBanter)
 			else:
-				Global.textbox("banter_entrance", Seq.EntranceBanter)
-				while Global.textbox_open:
+				Textbox.open("banter_entrance", Seq.EntranceBanter)
+				while Textbox.is_open:
 					if cam.position.x > -30: cam.position.x -= 0.03
 					await Event.wait()
 		elif Seq.EntranceSequence == "":
@@ -551,7 +551,7 @@ func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> Strin
 	text = text.replace("[tar_they]", CurrentTarget.get_pronoun("they"))
 	text = text.replace("[tar_them]", CurrentTarget.get_pronoun("them"))
 	text = text.replace("[tar_their]", CurrentTarget.get_pronoun("their"))
-	await Global.toast(text)
+	await Event.toast(text)
 	return text
 
 
@@ -583,7 +583,7 @@ func return_cur(target: Actor = CurrentChar) -> void:
 
 
 func end_turn(confirm_aoe := false) -> void:
-	Global.check_party.emit()
+	Global.check.emit()
 	if CurrentAbility.is_aoe() and not confirm_aoe:
 		aoe_returns += 1
 		return
@@ -900,7 +900,7 @@ func death(target: Actor) -> void:
 	target.add_state("KnockedOut")
 	await Event.wait(1)
 	if target.DeathDialog != "":
-		Global.passive("banter_battle", target.DeathDialog)
+		Passive.open("banter_battle", target.DeathDialog)
 		await Event.wait(0.5)
 	lock_turn = false
 	if is_instance_valid(target.node):
@@ -1108,7 +1108,7 @@ func escape() -> void:
 func game_over() -> void:
 	print_rich("[color=cornflower-blue]Game over")
 	if Seq.DefeatSequence == "":
-		Global.game_over()
+		Event.game_over()
 	else: $Act.call(Seq.DefeatSequence)
 
 
@@ -1186,7 +1186,7 @@ func victory(ignore_seq := false) -> void:
 		$Act.call(Seq.VictorySequence)
 		return
 	if Seq.VictoryBanter != "":
-		Global.passive("banter_victory", Seq.VictoryBanter)
+		Passive.open("banter_victory", Seq.VictoryBanter)
 	$Canvas.layer = 1
 	Loader.battle_result = 1
 	for i in Party.array():
@@ -1221,7 +1221,7 @@ func victory(ignore_seq := false) -> void:
 	$Canvas/TurnOrder.hide()
 	$Canvas/Continue.show()
 	$Canvas/Continue.icon = Controller.get_scheme().ConfirmIcon
-	if Global.textbox_open: await Global.passive_close
+	if Textbox.is_open: await Event.passive_close
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -1500,7 +1500,7 @@ func clear_states(target: Actor) -> void:
 func aura_overwrite(tar: Actor, color: Color, turns: int = 1) -> void:
 	tar.AuraDefault = tar.MainColor
 	tar.MainColor = color
-	Global.check_party.emit()
+	Global.check.emit()
 	var state := await tar.add_state("AuraOverwrite", turns)
 	if state != null: state.color = color
 	if tar.node.material.get_shader_parameter("new_color") != null:

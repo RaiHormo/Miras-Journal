@@ -14,7 +14,9 @@ const SCHEMES: Dictionary[Variant, Variant] = {
 	"SteamDeck": "res://UI/Input/SteamDeck.tres",
 }
 
+## Currently active device, such as "Nintendo Switch" or "Keyboard"
 var device: String = ""
+## Last frame that an input event was received
 var last_input := 0
 
 var scheme_cache := {}
@@ -62,7 +64,7 @@ func get_scheme_from_device() -> String:
 
 
 func _input(event: InputEvent) -> void:
-	if last_input == Global.ProcessFrame: return
+	if last_input == Global.process_frame: return
 	
 	if event is InputEventMouseMotion:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -82,10 +84,10 @@ func _input(event: InputEvent) -> void:
 	if prev_dev != device:
 		if prev_dev != "":
 			controller_changed.emit()
-			Global.toast("Using " + device)
+			Event.toast("Using " + device)
 		handle_remaps()
 	
-	last_input = Global.ProcessFrame
+	last_input = Global.process_frame
 	var is_fullscreen := get_window().mode == Window.MODE_FULLSCREEN
 	if Global.Settings and is_fullscreen != Global.Settings.Fullscreen:
 		Global.fullscreen(is_fullscreen)
@@ -148,11 +150,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if can_open_menu:
 			if Input.is_action_just_pressed("Options"):
-				Global.options(0)
+				Event.options(0)
 			elif Input.is_action_just_pressed("SaveManagment"):
-				Global.options(1)
+				Event.options(1)
 			elif Input.is_action_just_pressed("Manual"):
-				Global.options(3)
+				Event.options(3)
 			elif Input.is_action_just_pressed("MainMenu"):
 				PartyUI.main_menu()
 
@@ -165,9 +167,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				Event.remove_flag("HideDate")
 				Event.remove_flag("FlameActive")
 			elif Input.is_action_just_pressed("DebugT"):
-				Global.passive("testbush", "greetings")
+				Passive.open("testbush", "greetings")
 			elif Input.is_action_just_pressed("DebugP"):
-				Global.toast("Controllable set to " + str(!Global.Controllable))
+				Event.toast("Controllable set to " + str(!Global.Controllable))
 				if Global.Controllable:
 					Event.take_control()
 				else:
@@ -178,6 +180,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif Input.is_action_just_pressed("DebugI"):
 				Item.add_item("SmallPotion", "Con")
 			elif Input.is_action_just_pressed("DebugA"):
-				Global.textbox("testbush", "add_to_party")
+				Textbox.open("testbush", "add_to_party")
 			elif Input.is_action_just_pressed("Debug0"):
 				Engine.time_scale = 1.0 if Engine.time_scale == 0.1 else 0.1

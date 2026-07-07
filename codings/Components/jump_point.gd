@@ -66,7 +66,7 @@ func _physics_process(_delta: float) -> void:
 		return
 		
 	if jump_directions.is_empty():
-		Global.toast("No jump dirs here, fix this!")
+		Event.toast("No jump dirs here, fix this!")
 		return
 
 	var player_face := Global.Player.Facing.vector
@@ -115,7 +115,7 @@ func jump(player_face: Vector2) -> void:
 
 	Global.Player.set_anim("Dash" + Direction.vector_to_string(Global.Player.dashdir) + "Loop")
 	Global.Player.sprite.frame = 0
-	await Global.jump_to(Global.Player, coord, time, height)
+	await Event.jump_to(Global.Player, coord, time, height)
 
 	Global.Player.collision(true)
 	Global.Controllable = true

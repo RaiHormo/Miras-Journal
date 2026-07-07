@@ -9,7 +9,7 @@ func sl_maple_1() -> void:
 	Event.zoom(5)
 	Loader.detransition()
 	await Event.wait(1)
-	await Global.textbox("sl_maple", "rank1_1")
+	await Textbox.open("sl_maple", "rank1_1")
 	Event.progress_by_time(1)
 	Event.time_transition()
 
@@ -27,7 +27,7 @@ func sl_asteria_1() -> void:
 	asteria.set_anim("IdleRight")
 	Event.zoom(5, true)
 	await Event.wait(2)
-	await Global.textbox("sl_asteria", "rank1_1")
+	await Textbox.open("sl_asteria", "rank1_1")
 	Event.add_flag("sl_asteria_1")
 	Event.progress_by_time(1)
 	Event.time_transition()

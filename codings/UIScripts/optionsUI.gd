@@ -46,14 +46,14 @@ func _ready() -> void:
 	was_controllable = Global.Controllable
 	Global.Controllable = false
 	was_paused = get_tree().paused
-	Global.check_party.emit()
+	Global.check.emit()
 	get_tree().paused = true
 	$Timer.position = Vector2(-300, 27)
 	$Silhouette.position = Vector2(-1000, -39)
 	$Confirm.icon = Controller.get_scheme().ConfirmIcon
 	$Back.icon = Controller.get_scheme().CancelIcon
 	$Background/Info/Version.text += ProjectSettings.get_setting("application/config/version")
-	if Global.UsingSteam:
+	if Global.using_steam:
 		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
 	$Background/Info/User.text = Global.Settings.PlayerName
 	var platform_icon: Texture
@@ -121,7 +121,7 @@ func tick() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Controller.last_input == Global.ProcessFrame: return
+	if Controller.last_input == Global.process_frame: return
 	$Confirm.icon = Controller.get_scheme().ConfirmIcon
 	$Back.icon = Controller.get_scheme().CancelIcon
 	#if stage == "game_settings": load_settings()
@@ -146,7 +146,7 @@ func _on_back_pressed() -> void:
 
 func close(force := false) -> void:
 	Global.save_settings()
-	Global.check_party.emit()
+	Global.check.emit()
 	if force:
 		queue_free()
 		return
@@ -185,8 +185,8 @@ func close(force := false) -> void:
 	get_tree().paused = was_paused
 	Global.Controllable = was_controllable
 	if !is_instance_valid(Global.Area):
-		Global.title_screen()
-	Global.check_party.emit()
+		Event.title_screen()
+	Global.check.emit()
 	queue_free()
 
 
@@ -366,7 +366,7 @@ func _on_quit() -> void:
 		if cant_save:
 			text = "Quit the game?\nYour progress cannot be saved right now, so it might be lost."
 	else: text = "Quit the game?"
-	var awnser := await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
+	var awnser := await Event.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
 	match awnser:
 		2:
 			if not cant_save and is_instance_valid(Global.Area):
@@ -488,7 +488,7 @@ func load_save_files() -> void:
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	else:
 		%Files/File0.hide()
-		Global.toast("No Autosave data found.")
+		Event.toast("No Autosave data found.")
 	var sorted := %Files.get_children()
 	sorted.sort_custom(file_sort)
 	for i in %Files.get_children():
@@ -590,7 +590,7 @@ func _on_save_delete() -> void:
 		Audio.confirm_sound()
 		if panel.name == "File0":
 			if cant_save:
-				Global.toast("Press F1 to delete the file manually.")
+				Event.toast("Press F1 to delete the file manually.")
 			else:
 				print("Deleting user://Autosave.tres")
 				DirAccess.remove_absolute("user://Autosave.tres")
@@ -709,7 +709,7 @@ func _new_file() -> void:
 
 func _new_game() -> void:
 	stage = "popup"
-	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
+	if not FileAccess.file_exists("user://Autosave.tres") or await Event.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		was_controllable = false
 		close(true)
 		Event.sequence("new_game")
@@ -759,7 +759,7 @@ func _manual_entry_select() -> void:
 			text = i
 			break
 	if text == "":
-		Global.toast("Entry not found")
+		Event.toast("Entry not found")
 		return
 	text = Colorizer.colorize_explicit(text.replace("#" + entry, "[b]" + focus.text + "[/b]"))
 	$ManualPanel/Text/RichTextLabel.text = text
@@ -769,7 +769,7 @@ func _manual_entry_select() -> void:
 
 func rename_alcine() -> void:
 	stage = "popup"
-	await Global.alcine_naming()
+	await Event.alcine_naming()
 	gallery()
 	$GalleryPanel/ScrollContainer/VBoxContainer/RenameAlcine.grab_focus()
 	stage = "gallery"
@@ -795,19 +795,19 @@ func _on_credit_scroll(event: InputEvent) -> void:
 func _on_website() -> void:
 	Controller.confirm()
 	OS.shell_open("https://raidev.eu")
-	Global.toast("\"raidev.eu\" was opened in your web browser.")
+	Event.toast("\"raidev.eu\" was opened in your web browser.")
 
 
 func _on_source_code() -> void:
 	Controller.confirm()
 	OS.shell_open("https://github.com/RaiHormo/Miras-Journal")
-	Global.toast("\"github.com\" was opened in your web browser.")
+	Event.toast("\"github.com\" was opened in your web browser.")
 
 
 func _on_reset() -> void:
 	stage = "inactive"
 	Controller.confirm()
-	if await Global.warning("This will erase autosave save data, and restore settings! 
+	if await Event.warning("This will erase autosave save data, and restore settings! 
 The game will then close.\nProceed?"):
 		Global.reset_settings()
 		var dir := DirAccess.open("user://")

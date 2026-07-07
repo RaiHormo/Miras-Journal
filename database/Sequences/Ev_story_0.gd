@@ -2,7 +2,7 @@ extends Node
 
 
 func new_game() -> void:
-	Global.FirstStartTime = Time.get_unix_time_from_system()
+	Global.first_start_time = Time.get_unix_time_from_system()
 
 	# Hide any UI
 	if get_tree().root.has_node("/root/Textbox"): $"/root/Textbox"._on_close()
@@ -32,13 +32,12 @@ func new_game() -> void:
 	Global.Party.reset_party()
 	Global.reset_all_members()
 	Global.init_party(Global.Party)
-	Global.check_party.emit()
+	Global.check.emit()
 
 	# Now start the transition
 	Loader.white_fadeout(7, 1, 0, 1)
-	Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, null, false)
+	await Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, null, false)
 	get_tree().paused = false
-	await Global.Area.initialized
 	# Skip intro shortcut
 	if Input.is_action_pressed("Dash"):
 		Global.refresh()
@@ -70,7 +69,7 @@ func new_game() -> void:
 		if not is_instance_valid(getup): return
 		options.icon = Controller.get_scheme().Start
 		if options.button_pressed and not get_tree().root.has_node("Options"):
-			await Global.options()
+			await Event.options()
 			options.button_pressed = false
 		await Event.wait()
 		if not is_instance_valid(getup): return
@@ -125,7 +124,7 @@ func first_battle() -> void:
 	Loader.ungray.emit()
 	Event.camera_move(Vector2(1486, -300), 5, Tween.EASE_IN_OUT, Tween.TRANS_LINEAR)
 	await Event.wait(0.5)
-	Global.location_name("Temple Woods")
+	Event.location_name("Temple Woods")
 	await Event.wait(4.5)
 	Event.camera_move(Vector2(1558, 318), 0)
 	Global.Player.hide()
@@ -147,7 +146,7 @@ func AlcineFollow1() -> void:
 	Alcine.look_to(Vector2.DOWN)
 	await Alcine.bubble("Surprise")
 	await Alcine.move_dir(Vector2.UP * 5)
-	await Global.textbox("story_0", "was_that_a")
+	await Textbox.open("story_0", "was_that_a")
 	Event.flag_progress("AlcineFollow", 1)
 	Event.give_control(true)
 
@@ -158,7 +157,7 @@ func AlcineFollow2() -> void:
 	Event.obj("Pterogon").hide()
 	Alcine.position = Vector2(1282, -990)
 	Global.Player.can_dash = false
-	Global.passive("story_0", "hey_wait")
+	Passive.open("story_0", "hey_wait")
 	await Alcine.go_to(Vector2(1334, -1060))
 	await Alcine.go_to(Vector2(1681, -1070))
 	Alcine.BodyState = NPC.CUSTOM
@@ -179,7 +178,7 @@ func AlcineFollow3() -> void:
 	Alcine.set_anim("Scared")
 	await t.finished
 	Event.wait(0.5)
-	await Global.textbox("story_0", "approach")
+	await Textbox.open("story_0", "approach")
 	Global.Player.collision(false)
 	await Global.Player.go_to(Vector2(67, -45), true)
 	await Event.wait(0.3)
@@ -193,7 +192,7 @@ func AlcineFollow3() -> void:
 	t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
 	await t.finished
 	Event.f_past("FlameActive", false)
-	await Global.textbox("story_0", "you_ok")
+	await Textbox.open("story_0", "you_ok")
 	Alcine.set_anim("ScaredTurn2", false, true)
 	await Event.wait(0.5)
 	await Alcine.go_to(Global.Player.position + Vector2(12, 0))
@@ -203,8 +202,8 @@ func AlcineFollow3() -> void:
 	Alcine.set_anim("Hug")
 	Global.Player.bubble("Surprise")
 	await Event.wait(1.5)
-	await Global.textbox("story_0", "haha")
-	#await Global.textbox("story_0", "good_on_you")
+	await Textbox.open("story_0", "haha")
+	#await Textbox.open("story_0", "good_on_you")
 	Alcine.look_to(Vector2.RIGHT)
 	await Alcine.bubble("Surprise")
 	await Alcine.go_to(Vector2(1630, -1081), false)
@@ -223,7 +222,7 @@ func AlcineFollow3() -> void:
 	Alcine.set_anim("Scared")
 	await Event.wait(1)
 	Event.obj("Pterogon").play("Idle")
-	await Global.textbox("story_0", "stay_back")
+	await Textbox.open("story_0", "stay_back")
 	Loader.attacker = Event.obj("Pterogon")
 	await Event.wait(0.1)
 	Global.Party.Leader.Health = max(Global.Party.Leader.Health, 30)
@@ -257,7 +256,7 @@ func AlcineFollowHelp() -> void:
 
 func AlcineFollow4() -> void:
 	var Alcine: NPC = Event.npc("Alcine")
-	Global.check_party.emit()
+	Global.check.emit()
 	Event.take_control()
 	while Loader.in_battle: await Event.wait(0.1)
 	Event.take_control()
@@ -277,9 +276,9 @@ func AlcineFollow4() -> void:
 	Event.take_control()
 	Global.Player.look_to(Vector2.LEFT)
 	Global.Player.position = Vector2(1619, -1068)
-	await Global.textbox("story_0", "got_through_that")
-	await Global.alcine_naming()
-	await Global.textbox("story_0", "use_name")
+	await Textbox.open("story_0", "got_through_that")
+	await Event.alcine_naming()
+	await Textbox.open("story_0", "use_name")
 	await Loader.transition(Direction.RIGHT)
 	Event.flag_progress("AlcineFollow", 4)
 	Alcine.hide()
@@ -315,7 +314,7 @@ func enter_amberelm() -> void:
 	alcine.speed = 75
 	Event.TimeOfDay = Event.TOD.MORNING
 	Event.Day = 1
-	await Global.textbox(name, "morning")
+	await Textbox.open(name, "morning")
 	mira.speed = 75
 	mira.move_dir(Vector2.UP * 5)
 	alcine.chain_moves([Vector2.RIGHT, Vector2.UP * 5])
@@ -331,7 +330,7 @@ func enter_amberelm_2() -> void:
 	Global.Player.set_anim("IdleUp")
 	t.tween_property(Global.Camera, "position", Vector2(150, 252), 7)
 	await Event.wait(1)
-	Global.location_name("Amberelm")
+	Event.location_name("Amberelm")
 	await Event.wait(5)
 	Loader.gray_out(1, 1)
 	await Event.wait(2)
@@ -341,7 +340,7 @@ func enter_amberelm_2() -> void:
 	await Event.wait(1)
 	Global.Area.followers[0].position = Global.Player.position + Vector2(0, 24)
 	Loader.ungray.emit()
-	await Global.textbox(name, "what_happened_here")
+	await Textbox.open(name, "what_happened_here")
 	await Loader.transition(Direction.RIGHT)
 	Global.Player.position = Vector2(150, 345)
 	Loader.detransition()
@@ -354,7 +353,7 @@ func rest_amberelm() -> void:
 	if await PartyUI.confirm_time_passage("Rest", "Fully recover Health."):
 		await Loader.save()
 		Event.no_player()
-		Global.check_party.emit()
+		Global.check.emit()
 		get_tree().paused = false
 		Global.Area.followers[0].hide()
 		var mira: NPC = await Event.spawn("Mira:MiraOVBag", Vector2(80, 354), Direction.DOWN, true, 8)
@@ -367,7 +366,7 @@ func rest_amberelm() -> void:
 		Global.Camera.zoom = Vector2(6, 6)
 		Global.Camera.position = Vector2(85, 360)
 		await Event.wait(1)
-		await Global.textbox(name, "rest_amberelm", true)
+		await Textbox.open(name, "rest_amberelm", true)
 		await Loader.transition(Direction.CENTER)
 		await Event.wait(1)
 		Global.heal_party()
@@ -387,7 +386,7 @@ func oct0_daytime() -> void:
 	var alcine: NPC = Event.npc("Alcine")
 	mira.set_anim("SitDown")
 	alcine.set_anim("IdleDown")
-	await Global.textbox(name, "wake_amberelm", true)
+	await Textbox.open(name, "wake_amberelm", true)
 	Event.add_flag("EvRestAmberelm", true)
 	await Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)
 	Loader.save()
@@ -406,7 +405,7 @@ func amberelm_guardian() -> void:
 
 
 func oct0_afternoon() -> void:
-	await Global.textbox(name, "oct0_afternoon", true)
+	await Textbox.open(name, "oct0_afternoon", true)
 	Global.Complimentaries.append("FluidBlast")
 	await Loader.travel_to("Amberelm", Vector2(2218, -132), 2)
 	Loader.save()
@@ -419,7 +418,7 @@ func oct0_night() -> void:
 	#Loader.detransition()
 	await Event.spawn("Mira", Vector2(770, -211), Direction.LEFT)
 	await Event.spawn("Daze", Vector2(670, -211), Direction.RIGHT)
-	await Global.textbox(name, "daze_introduction")
+	await Textbox.open(name, "daze_introduction")
 	Item.remove_item("LightweightAxe", &"Key")
 	Event.add_flag("DisableVeinet")
 	Event.remove_flag("HideDate")

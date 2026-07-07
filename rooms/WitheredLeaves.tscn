@@ -343,9 +343,6 @@ animations = [{
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_ofsxd")
-SpawnZ = Array[int]([0])
-CameraLimits = Array[Vector4]([Vector4(-10000000, -10000000, 10000000, 10000000), Vector4(-10000000, -10000000, 10000000, 10000000)])
-CameraZooms = Array[float]([1.0, 1.5])
 metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
 
 [node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_ncxtw")]
@@ -551,7 +548,6 @@ patrol_speed = 220
 chase_speed = 220
 speed = 100
 Facing = SubResource("Resource_ncxtw")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent1" unique_id=776446670]
 
@@ -586,7 +582,6 @@ patrol_speed = 220
 chase_speed = 220
 speed = 100
 Facing = SubResource("Resource_lk1yj")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemySullish" unique_id=61674447]
 
@@ -624,7 +619,6 @@ patrol_speed = 100
 chase_speed = 220
 speed = 100
 Facing = SubResource("Resource_4p2pc")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent2" unique_id=763906550]
 
@@ -661,7 +655,6 @@ BattleSeq = SubResource("Resource_ofsxd")
 patrol_speed = 80
 chase_speed = 200
 Facing = SubResource("Resource_8pygo")
-only_on_index = null
 
 [node name="HomePoints" type="Node2D" parent="EnemyFlowent3" unique_id=431234657]
 

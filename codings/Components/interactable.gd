@@ -161,7 +161,7 @@ func _ready() -> void:
 		return
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
-	Global.check_party.connect(check)
+	Global.check.connect(check)
 	do_position()
 	disappear()
 	if ActionType == "veinet": vein_check()
@@ -338,7 +338,7 @@ func _on_button_pressed() -> void:
 	t.tween_property(pack, "scale", Vector2(0.4, 0.4), 0.1).from(Vector2(0.36, 0.36))
 	await Event.wait(0.1, false)
 	if needs_bag and not Event.f("HasBag"):
-		Global.toast("A bag is needed to store that.")
+		Event.toast("A bag is needed to store that.")
 		Event.give_control()
 		return
 	if get_tree().root.has_node("Options"):
@@ -360,7 +360,7 @@ func _on_button_pressed() -> void:
 			await Event.take_control(false, false, true)
 			disappear(true)
 			if dialogue_file.is_empty(): dialogue_file = file
-			await Global.textbox(dialogue_file, title)
+			await Textbox.open(dialogue_file, title)
 		"item":
 			Item.add_item(item, itemtype)
 		"battle":
@@ -377,9 +377,9 @@ func _on_button_pressed() -> void:
 		"veinet":
 			await Event.take_control(false, false, true)
 			if Event.check_flag("DisableVeinet"):
-				await Global.textbox("interact_abad", "vein_point_idk")
+				await Textbox.open("interact_abad", "vein_point_idk")
 			elif Event.check_flag(get_parent().name):
-				Global.veinet_map(get_parent().name.replace("VP", ""))
+				Event.veinet_map(get_parent().name.replace("VP", ""))
 			else:
 				Event.add_flag(get_parent().name, true)
 				vein_check()
@@ -395,16 +395,16 @@ func _on_button_pressed() -> void:
 			Global.Camera.position = focus_position
 			await Event.wait(1)
 			if add_flag: Event.add_flag(hide_on_flag, true)
-			Global.check_party.emit()
+			Global.check.emit()
 			await Event.wait(3, false)
 			Global.Player.camera_follow(true)
 		"social_link":
 			await Event.take_control(false)
 			var rank := Event.condition(event_condition)
 			if rank == 0:
-				Global.toast("Something went wrong with the event condition")
+				Event.toast("Something went wrong with the event condition")
 			disappear(true)
-			await Global.textbox(dialogue_file, "rank" + str(rank) + "_prepare")
+			await Textbox.open(dialogue_file, "rank" + str(rank) + "_prepare")
 		"chair":
 			await Event.take_control()
 			var face := Global.Player.Facing
@@ -418,14 +418,14 @@ func _on_button_pressed() -> void:
 			if sound != null:
 				sound.pitch_scale = 1
 				sound.play()
-			await Global.jump_to_global(Global.Player, global_position)
+			await Event.jump_to_global(Global.Player, global_position)
 			while not Input.is_action_just_pressed(Controller.confirm()):
 				await Event.wait()
 			if sound != null:
 				sound.pitch_scale = 0.8
 				sound.play()
 			Global.Player.look_to(Direction.snap_vector(to_local(pos)))
-			await Global.jump_to_global(Global.Player, pos)
+			await Event.jump_to_global(Global.Player, pos)
 	if add_flag:
 		if hide_on_flag != "":
 			Event.add_flag(hide_on_flag, true)

@@ -4,6 +4,9 @@ extends Node
 
 signal time_changed
 signal next_day
+signal anim_done
+signal textbox_close
+signal passive_close
 
 enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5 }
 
@@ -12,6 +15,8 @@ var List: Dictionary[String, NPC]
 var Objects: Dictionary[String, Node2D]
 var Flags: Dictionary[StringName, int]
 var Diary: Dictionary[int, PackedStringArray]
+var ArbData0: Variant = null
+
 var Day: int:
 	set(x):
 		Day = x
@@ -91,22 +96,219 @@ func tween(object: Node, property: String, to: Variant, time := 0.3) -> void:
 	await t.finished
 
 
-##Instantly move an [NPC] to the specified coords (ignores all collision)
-func warp_to(pos: Vector2, chara: String = "P") -> void:
-	npc(chara).global_position = Global.Area.map_to_local(pos)
-
-
 ##Make an [NPC] jump to specified coords. The height and time is relative, but keep the numbers low
-func jump_to(pos: Vector2, time: float, chara: String = "P", height: float = 0.1) -> void:
+func jump_to(chara: Variant, pos: Vector2, time: float = 5, height: float = 0.5) -> void:
+	await jump_to_global(chara, Global.Area.to_global(pos), time, height)
+
+
+func jump_to_global(chara: Variant, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
+	var character := _get_chara_node(chara)
 	var t: Tween = create_tween()
-	var position := Global.Area.map_to_local(pos)
-	var start: Vector2 = npc(chara).global_position
+	var start: Vector2 = character.global_position
 	var jump_distance: float = start.distance_to(position)
-	var jump_height: float = jump_distance * height #will need tweaking
-	var midpoint: Vector2 = start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time := jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
-	t.tween_method(Global._quad_bezier.bind(start, midpoint, position, npc(chara)), 0.0, 1.0, jump_time)
+	var jump_height: float = jump_distance * height  #will need tweaking
+	var midpoint := start.lerp(position, 0.5) + Vector2.UP * jump_height
+	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
+	t.tween_method(Query.quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
+	if character == Global.Player and vibrate:
+		Controller.rumble(0, abs(height) / 3, 0.06)
+	anim_done.emit()
+
+
+func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0.2) -> void:
+	var t := create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	var dur := ShakeDuration / times
+	var am := amount
+	for i in range(0, times):
+		am = am - (amount / times)
+		t.tween_property(Global.Camera, "offset",
+		Vector2(randf_range(-am, am), randf_range(-am, am)), dur).as_relative()
+		t.tween_property(Global.Camera, "offset", Vector2.ZERO, dur)
+	await t.finished
+
+
+func node_shake(node: Node2D, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
+	if not is_instance_valid(node): return
+	ArbData0 = amount
+	var tw := create_tween()
+	tw.set_ease(Tween.EASE_OUT)
+	tw.set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(self, "ArbData0", 0, (repeat * time) * 4)
+	for i in repeat:
+		amount = ArbData0
+		var t := create_tween()
+		t.tween_property(node, "position:x", amount, time).as_relative()
+		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
+		t.tween_property(node, "position:x", amount, time).as_relative()
+		await t.finished
+
+
+func heal_in_overworld(target: Actor, ab: Ability) -> void:
+	print(ArbData0, " healed")
+	var amount := int(max(Query.calc_num(ab), target.MaxHP * ((Query.calc_num(ab) * target.Magic) * 0.02)))
+	target.add_health(amount)
+	Global.check.emit()
+
+
+func _get_chara_node(chara: Variant) -> Node2D:
+	if chara is Node2D:
+		return chara
+	if chara is String:
+		return npc(chara)
+	return null
+
+
+#region UI Actions
+func game_over() -> void:
+	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
+
+
+func options(submenu := 0) -> void:
+	if get_tree().root.has_node("Options"): return
+	var control := Global.Controllable
+	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
+	Global.Controllable = control
+	match submenu:
+		1:
+			opt.set_no_main()
+			opt.save_managment()
+		3:
+			opt.set_no_main()
+			opt.manual()
+	get_tree().root.add_child(opt)
+
+
+func title_screen() -> void:
+	if Global.Area != null: Global.Area.queue_free()
+	if not get_tree().root.has_node("Initializer"):
+		var init: Node = (await Loader.load_res("uid://ds1hwdmholrjy")).instantiate()
+		get_tree().root.add_child(init)
+	else: get_tree().root.get_node("Initializer").focus()
+
+
+func member_details(chara: Actor, menu := 0) -> void:
+	if chara == null: return
+	var dub: Node = (await Loader.load_res("uid://b7kxxkiuyhc4n")).instantiate()
+	get_tree().root.add_child(dub)
+	dub.draw_character(chara, menu)
+
+
+func complimentary_ui(chara: Actor) -> void:
+	if chara == null: return
+	var dub: Node = (await Loader.load_res("res://UI/Complimentary/ComplimentaryUI.tscn")).instantiate()
+	get_tree().root.add_child(dub)
+	await wait()
+	dub.draw_character(chara)
+
+
+func next_day_ui() -> void:
+	get_tree().root.add_child((await Loader.load_res("res://UI/Misc/DayChangeUi.tscn")).instantiate())
+
+
+func alcine_naming() -> void:
+	var scene: Node = (await Loader.load_res("uid://c0dgn2l164lj0")).instantiate()
+	get_tree().root.add_child(scene)
+	await scene.start()
+
+
+func veinet_map(cur: String) -> void:
+	var Map: Node = (await Loader.load_res("uid://b31w3e1tiwp0y")).instantiate()
+	get_tree().root.add_child(Map)
+	Map.focus_place(cur)
+
+
+func intro_effect(ref: Node) -> void:
+	var node: Node = (await Loader.load_res("uid://jrg5p2oev3io")).instantiate()
+	get_tree().root.add_child(node)
+	node.ref = ref
+	node.animate()
+#endregion
+
+
+#region Textbox Managment
+func textbox_kill() -> void:
+	await Textbox.kill()
+
+func portrait(img: String, redraw := true) -> void:
+	if Textbox.is_open:
+		await Textbox.current.portrait(img, redraw)
+	elif Passive.is_open:
+		await Passive.current.portrait(img, redraw)
+
+
+func fade_txt_background(alpha := 0.8) -> void:
+	Textbox.fade_txt_background(alpha)
+
+
+func next_box(profile: String) -> void:
+	if Textbox.is_open:
+		Textbox.current.set_next_box(profile)
+	elif Passive.is_open:
+		Passive.current.set_next_box(profile)
+
+
+func picture(img: String) -> void:
+	if Textbox.is_open:
+		await Textbox.current.set_picture(img)
+	elif Passive.is_open:
+		await Passive.current.set_picture(img)
+
+func picture_clear() -> void:
+	if Textbox.is_open:
+		Textbox.current.picture = null
+	elif Passive.is_open:
+		Textbox.current.picture = null
+
+func no_nametag() -> void:
+	if Textbox.is_open:
+		Textbox.current.no_nametag = true
+	elif Passive.is_open:
+		Passive.current.no_nametag = true
+
+
+func toast(string: String) -> void:
+	if get_node_or_null("/root/Toast"):
+		$/root/Toast.free()
+		await wait()
+	print_rich("[color=orange]Toast: " + string)
+	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
+	get_tree().root.add_child.call_deferred(tost)
+	await wait()
+	if is_instance_valid(tost):
+		tost.get_node("BoxContainer/Toast/Label").text = string
+
+
+func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
+	if get_node_or_null("/root/Warning"):
+		$/root/Warning.free()
+		await wait()
+	await wait()
+	print_rich("[color=orange]Warn: " + text)
+	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
+	get_tree().root.add_child(tost)
+	await wait()
+	if is_instance_valid(tost):
+		return await tost.ask_for_confirm(text, label, awnser, color)
+	else: return false
+
+
+func location_name(string: String) -> void:
+	if get_node_or_null("/root/LocationName"):
+		$/root/LocationName.free()
+		await wait()
+	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
+	get_tree().root.add_child(tost)
+	await wait()
+	if is_instance_valid(tost):
+		tost.get_node("Label").text = string
+
+
+func match_profile(named: String) -> BoxProfile:
+	return await BoxProfile.match_profile(named)
+#endregion
 
 
 ## Check if a flag is equal to a given value.[br]
@@ -269,7 +471,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 	if is_instance_valid(Global.Player):
 		Global.Controllable = false
 		Global.Player.position = pos
-		Global.check_party.emit()
+		Global.check.emit()
 		if idle:
 			Global.Player.BodyState = NPC.IDLE
 			Global.Player.set_anim()
@@ -296,7 +498,7 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 		#Event.teleport_followers()
 	Global.Area.setup_params(true)
 	Global.Player.local_controllable = true
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 ## Return the int value of a flag, or returns a nuber if given just a number
@@ -437,7 +639,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 	await Loader.flip_time(TimeOfDay, ToTime)
 	if Day != ToDay:
 		Day = ToDay
-		Global.toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
+		toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
 		Loader.defeated.clear()
 	set_time(ToTime)
 	await start_time_events(location)
@@ -494,11 +696,11 @@ func start_time_events(location: String) -> void:
 				else:
 					await sequence("wake_home")
 			"Dungeon":
-				Global.passive("banter_misc", "rest_dungeon")
+				Passive.open("banter_misc", "rest_dungeon")
 				give_control()
 			_:
 				give_control()
-	Global.check_party.emit()
+	Global.check.emit()
 	Loader.detransition()
 
 

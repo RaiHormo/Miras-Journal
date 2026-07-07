@@ -316,7 +316,7 @@ func hop(height: int = 12, time: float = 0.2) -> void:
 
 func jump_to(to_position: Vector2, time: float = 5, height: float = 0.1, rumble := true) -> void:
 	BodyState = CUSTOM
-	await Global.jump_to_global(self, to_position, time, height, rumble)
+	await Event.jump_to_global(self, to_position, time, height, rumble)
 
 
 func change_sprite(id: String) -> void:

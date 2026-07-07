@@ -1,4 +1,40 @@
 extends CanvasLayer
+class_name Passive
+
+var portrait_img: Texture
+var has_portrait := false
+var redraw_portrait_next_time := true
+static var current: Passive = null:
+	get():
+		if current == null:
+			for i: Node in Engine.get_main_loop().root.get_children():
+				if i is Passive:
+					current = i 
+					return i
+			return null
+		if not is_instance_valid(current): 
+			return null
+		return current
+static var is_open := false
+
+static func open(file: String, title: String = "0", extra_game_states: Array = []) -> void:
+	print_rich("[color=orange]Passive: ", file, " - ", title)
+	if Engine.get_main_loop().root.has_node("Passive"):
+		Engine.get_main_loop().root.get_node("Passive")._on_close()
+		await Event.wait(0.3)
+		open(file, title, extra_game_states)
+		return
+	is_open = true
+	var passive: PackedScene = await Loader.load_res("res://UI/Textbox/Passive.tscn")
+	var box: Node = passive.instantiate()
+	Engine.get_main_loop().root.add_child(box)
+	box.start(
+		await Loader.load_res("res://database/Text/" + file + ".dialogue") as DialogueResource,
+		title,
+		extra_game_states
+	)
+	await Event.passive_close
+	is_open = false
 
 @onready var balloon: ColorRect = $Balloon
 @onready var character_label: Label = null
@@ -40,23 +76,17 @@ var dialogue_line: DialogueLine:
 			next(dialogue_line.next_id)
 			char_name = ""
 			return
-
-		while "." in char_name:
-			#print(char_name)
-			char_name = char_name.erase(char_name.length() - 1)
-		if "." in tr(dialogue_line.character, "dialogue"):
+		
+		var split := char_name.split(".")
+		char_name = split[0]
+		if split.size() > 1:
 			var redraw: bool = true
 			if prev_char == char_name: redraw = false
-			Global.portrait(tr(dialogue_line.character, "dialogue").replace(".", ""), redraw)
+			portrait(char_name+split[1], redraw)
 		prev_char = char_name
-		#if Global.find_member(char_name) == null:
-			#character_label.text = char_name
-		#else: character_label.text = Global.find_member(char_name).FirstName
-
-		#$Balloon/Panel.visible = not dialogue_line.character.is_empty()
-		#character_label.text = tr(dialogue_line.character, "dialogue")
+		
 		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
-		var mem := await Global.match_profile(char_name)
+		var mem := await BoxProfile.match_profile(char_name)
 		bord1.border_color = mem.Bord1
 		$Balloon/Panel2/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2: StyleBoxFlat = $Balloon/Panel2/Border1/Border2.get_theme_stylebox("panel")
@@ -114,7 +144,7 @@ var dialogue_line: DialogueLine:
 		dialogue_label.modulate.a = 1
 		#await get_tree().create_timer(0.2).timeout
 		if not dialogue_line.text.is_empty():
-			var prof := await Global.match_profile(char_name)
+			var prof := await BoxProfile.match_profile(char_name)
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
 		if dialogue_line.time != "":
@@ -162,7 +192,7 @@ func next(next_id: String) -> void:
 
 func _on_close() -> void:
 	await hide_box()
-	Global.passive_close.emit()
+	Event.passive_close.emit()
 	if self != null: queue_free()
 
 
@@ -191,11 +221,11 @@ func _on_mutated(_mutation: Dictionary) -> void:
 
 func draw_portrait() -> void:
 	#await get_tree().create_timer(0.2).timeout
-	if Global.HasPortrait:
-		Portrait.texture = Global.PortraitIMG
-		Global.portrait_clear()
+	if has_portrait:
+		Portrait.texture = portrait_img
+		portrait_clear()
 		Portrait.show()
-		if Global.PortraitRedraw:
+		if redraw_portrait_next_time:
 			t = create_tween()
 			t.set_parallel(true)
 			t.set_ease(Tween.EASE_OUT)
@@ -212,3 +242,22 @@ func draw_portrait() -> void:
 			#t.tween_property(Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
 		Portrait.hide()
+
+func portrait_clear() -> void:
+	has_portrait = false
+
+func set_next_box(profile: String) -> void:
+	current.next_box = profile
+
+
+func set_picture(img: String) -> void:
+	current.picture = await Loader.load_res("res://art/Pictures/" + img + ".png")
+
+
+func picture_clear() -> void:
+	current.picture = null
+
+func portrait(img: String, redraw := false) -> void:
+	redraw_portrait_next_time = redraw
+	has_portrait = true
+	portrait_img = await Loader.load_res("res://art/Portraits/" + img + ".png")

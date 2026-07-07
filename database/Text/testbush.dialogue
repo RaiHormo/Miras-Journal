@@ -44,11 +44,11 @@ Where to go?
 	- Start
 		do travel_to("TempleWoods")
 	- Lake
-		do travel_to("TempleWoods", Vector2(1255, 449), 1)
+		do travel_to("TempleWoods", Vector2.ZERO, 1)
 	- Small temple
 		do travel_to_coords("TempleWoods", Vector2(59, 0), 1)
 	- Road
-		do travel_to("TempleWoods", Vector2(1272, -966), 2)
+		do travel_to("TempleWoods", Vector2.ZERO, 2)
 - Amberelm
 	Part?
 	- Start

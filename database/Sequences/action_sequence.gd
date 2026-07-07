@@ -932,7 +932,7 @@ func ProtectiveField(target: Actor) -> void:
 func Attention(target: Actor) -> void:
 	Bt.zoom()
 	Bt.focus_cam(CurrentChar)
-	Global.passive("banter_battle", "attention")
+	Passive.open("banter_battle", "attention")
 	await Event.wait(1)
 	Bt.focus_cam(target)
 	target.add_state("Aggro")
@@ -1067,7 +1067,7 @@ func FirstBattle1() -> void:
 	Bt.Action = true
 	Loader.in_battle = true
 	Loader.get_node("Can").layer = 3
-	await Global.textbox("story_0", "first_cutscene")
+	await Textbox.open("story_0", "first_cutscene")
 	Loader.battle_bars(4)
 	Global.Player.hide()
 	await Event.wait(0.5, false)
@@ -1080,7 +1080,7 @@ func FirstBattle1() -> void:
 	Bt.get_actor("Mira").node.frame = 2
 	Bt.focus_cam(Bt.get_actor("Mira"), 3, 40)
 	await Event.wait(1)
-	Global.passive("story_0", "sstay_back")
+	Passive.open("story_0", "sstay_back")
 	await Event.wait(1)
 	Loader.in_battle = true
 	await Bt.move(Bt.Troop[0], Vector2(40, 0), 1, Tween.EASE_OUT)
@@ -1113,7 +1113,7 @@ func FirstBattle2(target: Actor) -> void:
 	CurrentChar.node.hide()
 	Bt.play_sound("Attack2", CurrentChar)
 	Bt.damage(target, CurrentChar.Attack, false, 12, false)
-	Global.passive("story_0", "gahh")
+	Passive.open("story_0", "gahh")
 	await Event.wait(2)
 	for i in 3:
 		Bt.play_sound("Attack2", CurrentChar)
@@ -1126,7 +1126,7 @@ func FirstBattle2(target: Actor) -> void:
 	Bt.zoom(7, 1)
 	await Event.wait(4)
 	Bt.glow(1, 2, Bt.Party.Leader)
-	Global.passive("story_0", "my_aura")
+	Passive.open("story_0", "my_aura")
 	await Event.wait(6)
 	Bt.zoom(5, 3)
 	Bt.move_cam(Vector2(-15, 0), 3)
@@ -1178,7 +1178,7 @@ func FirstBattle5() -> void:
 	Global.Party.Leader.node.get_node("Glow").hide()
 	Loader.battle_bars(0)
 	Bt.victory_anim(Global.Party.Leader)
-	await Global.textbox("story_0", "what_this")
+	await Textbox.open("story_0", "what_this")
 	Global.heal_party()
 	Bt.ObtainedItems.clear()
 	Bt.victory(true)
@@ -1189,7 +1189,7 @@ func AlcineWoods1() -> void:
 	Event.flag_progress("AlcineFollow4", 4)
 	Bt.lock_turn = true
 	Bt.Action = true
-	await Global.passive("story_0", "going_nowhere")
+	await Passive.open("story_0", "going_nowhere")
 	Event.sequence("AlcineFollowHelp")
 
 
@@ -1211,11 +1211,11 @@ func AlcineWoods2() -> void:
 
 func AlcineWoods3() -> void:
 	await Bt.jump_to_target(Bt.get_actor("Alcine"), Bt.get_actor("Mira"), Vector2(-30, -10), 5)
-	await Global.passive("story_0", "amazing")
+	await Passive.open("story_0", "amazing")
 
 
 func ArenaGameOver() -> void:
-	Global.textbox("testbush", "arena_over")
+	Textbox.open("testbush", "arena_over")
 
 
 func StoneGuardianLoop() -> void:
@@ -1244,7 +1244,7 @@ func StoneGuardian1() -> void:
 	guardian.NextAction = "Ability"
 	Bt.zoom(6, 2)
 	Bt.focus_cam(guardian, 2, Vector2(-20, -40))
-	await Global.passive("story_0", "stone_guardian_intro")
+	await Passive.open("story_0", "stone_guardian_intro")
 	Bt.entrance_anim(Global.Party.Leader)
 	Bt.entrance_anim(Global.Party.Member1)
 	await Event.wait(0.2)
@@ -1263,7 +1263,7 @@ func StoneGuardian2(target: Actor = CurrentChar) -> void:
 	Bt.CurrentChar = guardian
 	CurrentChar = guardian
 	#if mira.Health > 0:
-		#await Global.passive("story_0", "stone_guardian_still_standing")
+		#await Passive.open("story_0", "stone_guardian_still_standing")
 	Bt.callout(load("res://database/Abilities/Adaptation.tres"))
 	Bt.zoom(6)
 	await Bt.focus_cam(alcine)
@@ -1271,7 +1271,7 @@ func StoneGuardian2(target: Actor = CurrentChar) -> void:
 	guardian.remove_state("AuraOverwrite")
 	await Bt.aura_overwrite(guardian, Color(0.688, 0.636, 0.0, 1.0), -1)
 	#Bt.pop_num(guardian, "Hue-Shift", Color(0.688, 0.636, 0.0, 1.0))
-	Global.check_party.emit()
+	Global.check.emit()
 	await Event.wait(1)
 	Bt.get_actor("Guardian").AttackMultiplier = 2
 	Bt.get_actor("Guardian").MagicMultiplier = 2
@@ -1308,7 +1308,7 @@ func StoneGuardian3() -> void:
 	await Bt.aura_overwrite(guardian, Color(0.498, 0.09, 1.0), -1)
 	Bt.pop_num(guardian, "Hue-Shift", Color(0.498, 0.09, 1.0))
 	guardian.MainColor = Color(0.498, 0.09, 1.0)
-	Global.check_party.emit()
+	Global.check.emit()
 	await Event.wait(1)
 	mira.Aura = 0
 	mira.Health = min(mira.Health, 40)
@@ -1318,7 +1318,7 @@ func StoneGuardian3() -> void:
 	if mira.has_state("Guarding"):
 		mira.remove_state("Guarding")
 		await Event.wait(1)
-		Global.passive("story_0", "stone_guardian_guard")
+		Passive.open("story_0", "stone_guardian_guard")
 		await Event.wait(2)
 		mira.Aura = 0
 		mira.remove_state("Guarding")
@@ -1330,7 +1330,7 @@ func StoneGuardian3() -> void:
 		Bt.anim("Bleed", mira)
 		await mira.add_state("AuraBreak")
 		await Event.wait(2)
-		await Global.passive("story_0", "stone_guardian_my_arm")
+		await Passive.open("story_0", "stone_guardian_my_arm")
 	Bt.follow_up_text()
 	Bt.zoom(7)
 	await Bt.focus_cam(guardian)
@@ -1340,7 +1340,7 @@ func StoneGuardian3() -> void:
 	mira.CantDie = false
 	Loader.gray_out(1)
 	await Event.wait(1)
-	await Global.textbox("story_0", "placeholder_daze")
+	await Textbox.open("story_0", "placeholder_daze")
 	Loader.get_node("Can").layer = 3
 	Bt.victory(true)
 	await Loader.battle_end
@@ -1348,7 +1348,7 @@ func StoneGuardian3() -> void:
 
 
 func AsteriaBoss2() -> void:
-	await Global.passive("story_1", "asteria_boss_2")
+	await Passive.open("story_1", "asteria_boss_2")
 	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[0])
 	await Bt.add_to_troop(Bt.get_actor("Asteria").SummonedAllies[1])
 	Bt.position_sprites()
@@ -1376,7 +1376,7 @@ func AsteriaBoss3() -> void:
 					2: Bt.stat_change("Def", 2, i)
 					3: Bt.stat_change("Atk", 2, i)
 		elif Event.f_past("AsteriaBoss", 3):
-			await Global.textbox("story_1", "asteria_boss_4")
+			await Textbox.open("story_1", "asteria_boss_4")
 			Event.add_flag("AsteriaBoss", 4)
 			asteria.Health = asteria.MaxHP
 			Bt.stat_change("Atk", 2, asteria, -1)
@@ -1384,14 +1384,14 @@ func AsteriaBoss3() -> void:
 			Bt.stat_change("Def", 2, asteria, -1)
 			await Event.wait(3)
 		elif Event.f_past("AsteriaBoss", 2):
-			await Global.textbox("story_1", "asteria_boss_3")
+			await Textbox.open("story_1", "asteria_boss_3")
 			Event.add_flag("AsteriaBoss", 3)
 			asteria.Health = asteria.MaxHP
 		Loader.white_fadeout(0.5, 0, 0)
 	else:
 		Bt.lock_turn = true
 		Bt.anim("", asteria)
-		await Global.passive("story_1", "asteria_boss_5")
+		await Passive.open("story_1", "asteria_boss_5")
 		Event.add_flag("AsteriaBoss", 5)
 		Bt.victory()
 
@@ -1437,7 +1437,7 @@ func LazuliteHeartBoss1() -> void:
 	await Bt.get_actor("LHBody").add_state("UnbreakingAura", -1, mira, false)
 	mira.node.position = Bt.get_actor("LHRight").node.position
 	Loader.battle_bars(2)
-	await Global.passive("story_2", "lazulite_heart_intro")
+	await Passive.open("story_2", "lazulite_heart_intro")
 	#Bt.return_cur(mira)
 	mira.NextAction = "Attack"
 	mira.NextMove = Ability.nothing()
@@ -1450,7 +1450,7 @@ func LazuliteHeartBoss1() -> void:
 
 
 func LazuliteHeartBoss2() -> void:
-	await Global.textbox("story_2", "lazulite_heart_3")
+	await Textbox.open("story_2", "lazulite_heart_3")
 	Loader.gray_out(1, 0.5, 1, Color.WHITE)
 	await Event.wait(1)
 	Bt.victory(true)

@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 			active = false
 			Global.Player.set_anim("IdleUp")
 			Global.Player.shadow(true)
-			await Global.jump_to_global(Global.Player, $End1.global_position, time, height)
+			await Event.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
 		if Global.Player.position.y > $Start2.global_position.y and Global.Player.Facing.is_vector(Vector2.DOWN):
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 			Global.Player.set_anim("IdleDown")
 			Global.Player.look_to(Vector2.DOWN)
 			Global.Player.shadow(true)
-			await Global.jump_to_global(Global.Player, $End2.global_position, time, height)
+			await Event.jump_to_global(Global.Player, $End2.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
 
@@ -67,7 +67,7 @@ func climb_down() -> void:
 	#Global.Player.path.curve.clear_points()
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
-	await Global.jump_to_global(Global.Player, $Start1.global_position, time, height)
+	await Event.jump_to_global(Global.Player, $Start1.global_position, time, height)
 	Global.Player.shadow(false)
 	active = true
 
@@ -76,6 +76,6 @@ func climb_up() -> void:
 	#Global.Player.path.curve.clear_points()
 	Global.Player.collision(false)
 	await Event.take_control(true, true)
-	await Global.jump_to_global(Global.Player, $Start2.global_position, time, height)
+	await Event.jump_to_global(Global.Player, $Start2.global_position, time, height)
 	Global.Player.shadow(false)
 	active = true

@@ -2,7 +2,7 @@ extends Node
 
 
 func jump_playtest() -> void:
-	await Global.textbox("testbush", "jump_playtest")
+	await Textbox.open("testbush", "jump_playtest")
 	Event.Day = 3
 	Event.ToTime = Event.TOD.AFTERNOON
 	Event.remove_flag("HideDate")

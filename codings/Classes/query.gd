@@ -202,7 +202,7 @@ static func _calc_qbezier(ti: float, p0: Vector2, p1: Vector2, p2: Vector2) -> V
 
 
 #Finds an ability of a certain type
-static func find_abilities(Char: Actor, type: String, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
+static func find_abilities(Char: Actor, type: Ability.TP, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Array[Ability]:
 	#print("Chosing a ", type, " ability")
 	var AblilityList: Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
@@ -216,7 +216,7 @@ static func find_abilities(Char: Actor, type: String, ignore_cost := false, targ
 	return Choices
 
 
-static func find_ability(Char: Actor, type: String, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Ability:
+static func find_ability(Char: Actor, type: Ability.TP, ignore_cost := false, targets: Ability.T = Ability.T.ANY) -> Ability:
 	return find_abilities(Char, type, ignore_cost, targets)[0]
 
 

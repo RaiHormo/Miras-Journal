@@ -21,7 +21,7 @@ var follow: PathFollow2D
 
 func default() -> void:
 	hide()
-	Global.check_party.connect(update)
+	Global.check.connect(update)
 	await Event.wait()
 	oposite = (Global.Player.Facing.vector * Vector2(-1, -1)) * 150
 	set_anim("Idle" + Global.Player.Facing.to_string())
@@ -105,7 +105,7 @@ func jump_to_player(_speed := 2) -> void:
 	#new_pos.x += offset
 	#if member == 3: new_pos.y -= 24
 	#if speed > 0:
-		#await Global.jump_to_global(self, new_pos, speed, 0.3)
+		#await Event.jump_to_global(self, new_pos, speed, 0.3)
 	position = new_pos
 
 
@@ -119,7 +119,7 @@ func member_info() -> Actor:
 
 
 func attacked() -> void:
-	Global.jump_to(self, position - Vector2(Global.Player.Facing.vector * 24), 5, 0.5)
+	Event.jump_to(self, position - Vector2(Global.Player.Facing.vector * 24), 5, 0.5)
 
 
 func update() -> void:

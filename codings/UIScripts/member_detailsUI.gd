@@ -40,15 +40,15 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	var abox: StyleBoxFlat = $StatPanel/HPAura/Aura.get_theme_stylebox("fill")
 	abox.bg_color = chara.SecondaryColor
 	$StatPanel/HPAura/Aura.add_theme_stylebox_override("fill", abox.duplicate())
-	if chara.BoxProfile != null:
+	if chara.CharacterBoxProfile != null:
 		var bord1: StyleBoxFlat = $StatPanel/Border1.get_theme_stylebox("panel")
-		bord1.border_color = chara.BoxProfile.Bord1
+		bord1.border_color = chara.CharacterBoxProfile.Bord1
 		$StatPanel/Border1.add_theme_stylebox_override("panel", bord1.duplicate())
 		var bord2: StyleBoxFlat = $StatPanel/Border1/Border2.get_theme_stylebox("panel")
-		bord2.border_color = chara.BoxProfile.Bord2
+		bord2.border_color = chara.CharacterBoxProfile.Bord2
 		$StatPanel/Border1/Border2.add_theme_stylebox_override("panel", bord2.duplicate())
 		var bord3: StyleBoxFlat = $StatPanel/Border1/Border2/Border3.get_theme_stylebox("panel")
-		bord3.border_color = chara.BoxProfile.Bord3
+		bord3.border_color = chara.CharacterBoxProfile.Bord3
 		$StatPanel/Border1/Border2/Border3.add_theme_stylebox_override("panel", bord3.duplicate())
 
 	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_override("fill", hbox.duplicate())
@@ -56,9 +56,9 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	#xbox.bg_color = chara.BoxProfile.Bord3
 	#$StatPanel/LvBox/Vbox/ExpBar.add_theme_stylebox_o]verride("background", xbox)
 
-		$Line1.color = chara.BoxProfile.Bord1
-		$Line1/Line2.color = chara.BoxProfile.Bord2
-		$Line1/Line2/Line3.color = chara.BoxProfile.Bord3
+		$Line1.color = chara.CharacterBoxProfile.Bord1
+		$Line1/Line2.color = chara.CharacterBoxProfile.Bord2
+		$Line1/Line2/Line3.color = chara.CharacterBoxProfile.Bord3
 
 	$StatPanel/StatBars/Attack.value = chara.Attack
 	$StatPanel/StatBars/Defence.value = chara.Defence
@@ -221,7 +221,7 @@ func _on_ab_focus_entered() -> void:
 
 func _on_complimentary() -> void:
 	inactive = true
-	Global.complimentary_ui(actor)
+	Event.complimentary_ui(actor)
 
 
 func _input(event: InputEvent) -> void:
@@ -233,10 +233,10 @@ func _input(event: InputEvent) -> void:
 			else:
 				next_char = Global.Party.Leader
 			if is_instance_valid(next_char):
-				Global.member_details(next_char, stability_menu)
+				Event.member_details(next_char, stability_menu)
 				queue_free()
 		elif event.is_action_pressed("LeftTrigger"):
 			var next_char := Global.Party.array()[Global.Party.array().find(actor) - 1]
 			if is_instance_valid(next_char):
-				Global.member_details(next_char, stability_menu)
+				Event.member_details(next_char, stability_menu)
 				queue_free()

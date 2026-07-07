@@ -28,14 +28,14 @@ func levelup(chara: Actor) -> void:
 	$Line1.position = Vector2(0, 243)
 	$Line1.rotation_degrees = 0
 	$LevelupText.position = Vector2(-52, 364)
-	$Line1.color = chara.BoxProfile.Bord1
-	$Line1/Line3.color = chara.BoxProfile.Bord1
-	$Line1/Line2.color = chara.BoxProfile.Bord2
-	$Line1/Line3/Line2.color = chara.BoxProfile.Bord2
-	$Line1/Line2/Line3.color = chara.BoxProfile.Bord3
-	$Line1/Line3/Line2/Line3.color = chara.BoxProfile.Bord3
+	$Line1.color = chara.CharacterBoxProfile.Bord1
+	$Line1/Line3.color = chara.CharacterBoxProfile.Bord1
+	$Line1/Line2.color = chara.CharacterBoxProfile.Bord2
+	$Line1/Line3/Line2.color = chara.CharacterBoxProfile.Bord2
+	$Line1/Line2/Line3.color = chara.CharacterBoxProfile.Bord3
+	$Line1/Line3/Line2/Line3.color = chara.CharacterBoxProfile.Bord3
 	$Line1/Bg.size.y = 10
-	$LevelupText.add_theme_color_override("default_color", chara.BoxProfile.Bord1)
+	$LevelupText.add_theme_color_override("default_color", chara.CharacterBoxProfile.Bord1)
 	$ChooseUpgrade.modulate = Color.TRANSPARENT
 	$ChooseUpgrade.position.y = 500
 	$ChooseUpgrade/HPCont.modulate = Color.TRANSPARENT
@@ -105,10 +105,10 @@ func level_cutin(chara: Actor) -> void:
 	scale.y = 0.1
 	for i in $Line1/NameChain.get_children():
 		i.text = (chara.FirstName + " " + chara.LastName + " ").to_upper()
-		i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
+		i.add_theme_color_override("font_color", chara.CharacterBoxProfile.Bord3)
 	for i in $Line1/NameChain2.get_children():
 		i.text = (chara.FirstName + " " + chara.LastName + " ").to_upper()
-		i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
+		i.add_theme_color_override("font_color", chara.CharacterBoxProfile.Bord3)
 	var t := create_tween()
 	show()
 	t.set_parallel()

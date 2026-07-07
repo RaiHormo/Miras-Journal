@@ -59,11 +59,11 @@ func run() -> void:
 	if hold_turn: await run_with_await()
 	else:
 		match result:
-			0: Global.passive(parameter1, parameter2)
+			0: Passive.open(parameter1, parameter2)
 			1:
 				print("Call seq: ", parameter1)
 				Global.Bt.get_node("Act").call(parameter1)
-			2: Global.textbox(parameter1, parameter2)
+			2: Textbox.open(parameter1, parameter2)
 			3:
 				if parameter1 == "": parameter1 = "Ability"
 				var actor_data := Global.Bt.get_actor(actor)
@@ -87,7 +87,7 @@ func run() -> void:
 
 func run_with_await() -> void:
 	match result:
-		0: await Global.passive(parameter1, parameter2)
+		0: await Passive.open(parameter1, parameter2)
 		1: await Global.Bt.get_node("Act").call(parameter1)
-		2: await Global.textbox(parameter1, parameter2)
+		2: await Textbox.open(parameter1, parameter2)
 		_: OS.alert("Battle event error: This action cannot hold the turn")

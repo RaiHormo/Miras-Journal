@@ -11,7 +11,7 @@ func sleep_home() -> void:
 
 func WL_void() -> void:
 	await Event.take_control(false, true, true)
-	await Global.textbox("interact_abad", "WL_void")
+	await Textbox.open("interact_abad", "WL_void")
 	Event.give_control()
 
 
@@ -23,10 +23,10 @@ func hurt_1() -> void:
 		if not Event.f("ShardsLowHP") and Global.Party.has_member("Asteria"):
 			Event.take_control(false, true, true)
 			Event.add_flag("ShardsLowHP")
-			await Global.textbox("interact_abad", "shards_low_hp")
+			await Textbox.open("interact_abad", "shards_low_hp")
 			Event.give_control()
 		Global.Party.Leader.Health += 1
-	Global.check_party.emit()
+	Global.check.emit()
 
 
 func wake_home() -> void:
@@ -40,5 +40,5 @@ func return_home_pyrson() -> void:
 	Global.Party.reset_party()
 	Global.heal_party()
 	await Loader.travel_to("Pyrson", Vector2(97, 157))
-	await Global.textbox("interact_pyrson", "return_home_pyrson")
+	await Textbox.open("interact_pyrson", "return_home_pyrson")
 	Event.give_control()

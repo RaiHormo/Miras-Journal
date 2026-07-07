@@ -111,7 +111,7 @@ func extended_process() -> void:
 			hide()
 		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
 			if is_on_wall():
-				Global.jump_to_global(self, CurHomepoint)
+				Event.jump_to_global(self, CurHomepoint)
 			if round(position / 24) == round(CurHomepoint / 24):
 				tmr.start(randf_range(0, 3))
 				CurHomepoint = Vector2.ZERO
@@ -140,10 +140,10 @@ func attacked() -> void:
 	BodyState = NONE
 	set_anim("Hit")
 	var to_pos := position + Facing.vector * 12
-	Global.jump_to_global(self, to_pos, 25, 1)
+	Event.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
-	Global.intro_effect(self)
+	Event.intro_effect(self)
 	if PinRange:
 		begin_battle()
 	else:
@@ -187,7 +187,7 @@ func _on_catch_area_body_entered(body: Node2D) -> void:
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
 		Facing.vector = to_local(Global.Player.position)
-		Global.intro_effect(Global.Player)
+		Event.intro_effect(Global.Player)
 		begin_battle(2)
 
 
