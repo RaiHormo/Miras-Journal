@@ -5605,7 +5605,6 @@ horizontal_alignment = 1
 [node name="Audio" type="Node" parent="." unique_id=233732952]
 
 [node name="Stream0" type="AudioStreamPlayer2D" parent="Audio" unique_id=1685678398]
-bus = &"BtSFX"
 
 [node name="Canvas" type="CanvasLayer" parent="." unique_id=405987260]
 layer = 3

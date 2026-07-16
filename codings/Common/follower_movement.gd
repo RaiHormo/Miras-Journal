@@ -22,7 +22,10 @@ var follow: PathFollow2D
 func default() -> void:
 	hide()
 	Global.check.connect(update)
+	
 	await Event.wait()
+	
+	if not Global.Player: return
 	oposite = (Global.Player.Facing.vector * Vector2(-1, -1)) * 150
 	set_anim("Idle" + Global.Player.Facing.to_string())
 	velocity = oposite
