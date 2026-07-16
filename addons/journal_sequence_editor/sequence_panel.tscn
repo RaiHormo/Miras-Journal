@@ -1,0 +1,224 @@
+[gd_scene format=3 uid="uid://belaoc10b0atd"]
+
+[ext_resource type="Script" uid="uid://cfwf8jfq66b1u" path="res://addons/journal_sequence_editor/sequence_view.gd" id="1_e6wx4"]
+
+[node name="SequencePanel" type="MarginContainer" unique_id=1981059283]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+script = ExtResource("1_e6wx4")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=1589306544]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(300)
+split_offset = 300
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer" unique_id=923639640]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer" unique_id=1150033223]
+layout_mode = 2
+
+[node name="New" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=1157917185]
+layout_mode = 2
+text = "New"
+flat = true
+metadata/Icon = "New"
+
+[node name="Reload" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=2145072575]
+layout_mode = 2
+size_flags_horizontal = 10
+flat = true
+metadata/Icon = "Reload"
+
+[node name="Filter" type="LineEdit" parent="HSplitContainer/VBoxContainer" unique_id=116866704]
+layout_mode = 2
+placeholder_text = "Filter Sequences"
+
+[node name="SequenceList" type="ItemList" parent="HSplitContainer/VBoxContainer" unique_id=166637103]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "Test Sequence"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer" unique_id=1622761957]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer2" unique_id=1795301928]
+layout_mode = 2
+
+[node name="Insert" type="MenuButton" parent="HSplitContainer/VBoxContainer2/HBoxContainer" unique_id=822726346]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Insert"
+switch_on_hover = true
+metadata/Icon = "ToolAddNode"
+
+[node name="GraphEdit" type="GraphEdit" parent="HSplitContainer/VBoxContainer2" unique_id=204266492]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+scroll_offset = Vector2(16.44, 219.69)
+grid_pattern = 1
+panning_scheme = 1
+minimap_enabled = false
+show_grid_buttons = false
+
+[node name="Start" type="GraphNode" parent="HSplitContainer/VBoxContainer2/GraphEdit" unique_id=791776773]
+layout_mode = 0
+offset_left = 23.56
+offset_top = 55.309998
+offset_right = 168.56003
+offset_bottom = 135.30997
+mouse_filter = 1
+position_offset = Vector2(40, 275)
+title = "Start"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Next" type="Label" parent="HSplitContainer/VBoxContainer2/GraphEdit/Start" unique_id=2138085919]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "The beginning"
+
+[node name="End" type="GraphNode" parent="HSplitContainer/VBoxContainer2/GraphEdit" unique_id=617303823]
+editor_description = "The turn ends, and the next begins"
+layout_mode = 0
+offset_left = 717.0
+offset_top = 603.0
+offset_right = 883.00006
+offset_bottom = 682.99994
+mouse_filter = 1
+position_offset = Vector2(733.44, 822.69)
+title = "End"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Desc" type="Label" parent="HSplitContainer/VBoxContainer2/GraphEdit/End" unique_id=75169370]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Next turn begins"
+
+[node name="GraphElements" type="Control" parent="." unique_id=1849573780]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="move_cam" type="GraphNode" parent="GraphElements" unique_id=1774853269]
+layout_mode = 0
+offset_left = -522.0
+offset_top = 124.0
+offset_right = -277.0
+offset_bottom = 243.0
+scaling_menus = true
+title = "Move Camera"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(0.10842078, 0.8328109, 3.85046e-07, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+
+[node name="Next" type="Label" parent="GraphElements/move_cam" unique_id=781395194]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="GraphElements/move_cam" unique_id=1819516071]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Position" type="HBoxContainer" parent="GraphElements/move_cam" unique_id=645270519]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GraphElements/move_cam/Position" unique_id=1531387417]
+layout_mode = 2
+text = "Position"
+
+[node name="X" type="LineEdit" parent="GraphElements/move_cam/Position" unique_id=1753340748]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "X"
+alignment = 1
+
+[node name="y" type="LineEdit" parent="GraphElements/move_cam/Position" unique_id=714152722]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Y"
+alignment = 1
+
+[node name="Time" type="HBoxContainer" parent="GraphElements/move_cam" unique_id=1367236930]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="GraphElements/move_cam/Time" unique_id=1560112330]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GraphElements/move_cam/Time" unique_id=2095303426]
+layout_mode = 2
+text = "Time"
+
+[node name="Value" type="SpinBox" parent="GraphElements/move_cam/Time" unique_id=1017200084]
+layout_mode = 2
+size_flags_horizontal = 6
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[connection signal="pressed" from="HSplitContainer/VBoxContainer/HBoxContainer/Reload" to="." method="_on_reload_button_pressed"]
