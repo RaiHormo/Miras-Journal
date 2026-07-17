@@ -2,7 +2,40 @@
 
 [ext_resource type="Script" uid="uid://cfwf8jfq66b1u" path="res://addons/journal_sequence_editor/sequence_view.gd" id="1_e6wx4"]
 
-[node name="SequencePanel" type="MarginContainer" unique_id=1981059283]
+[sub_resource type="DPITexture" id="DPITexture_e6wx4"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M2 1v14h8v-1H8v-4h2V8h4V6H9V1zm8 0v4h4z\"/><path fill=\"#5fff97\" d=\"M11 9v2H9v2h2v2h2v-2h2v-2h-2V9z\"/></svg>
+"
+base_scale = 1.25
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_brmsj"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M5 8a4 4 0 1 1 4 4v2a6 6 0 1 0-6-6H1l3 4 3-4z\"/></svg>
+"
+base_scale = 1.25
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_6cpbq"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm1 3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm5.25 0a1 1 0 0 1 1 1v1.75H11a1 1 0 0 1 1 1v.5a1 1 0 0 1-1 1H9.25V11a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V9.25H5a1 1 0 0 1-1-1v-.5a1 1 0 0 1 1-1h1.75V5a1 1 0 0 1 1-1z\"/></svg>
+"
+base_scale = 1.25
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[node name="SequenceView" type="MarginContainer" unique_id=1981059283]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,12 +64,21 @@ layout_mode = 2
 [node name="New" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=1157917185]
 layout_mode = 2
 text = "New"
+icon = SubResource("DPITexture_e6wx4")
 flat = true
 metadata/Icon = "New"
+
+[node name="Open" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=988306103]
+layout_mode = 2
+text = "Open"
+icon = SubResource("DPITexture_e6wx4")
+flat = true
+metadata/Icon = "LoadQuick"
 
 [node name="Reload" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer" unique_id=2145072575]
 layout_mode = 2
 size_flags_horizontal = 10
+icon = SubResource("DPITexture_brmsj")
 flat = true
 metadata/Icon = "Reload"
 
@@ -61,14 +103,17 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Insert"
+icon = SubResource("DPITexture_6cpbq")
 switch_on_hover = true
+item_count = 1
+popup/item_0/text = "Move Camera"
+popup/item_0/id = 0
 metadata/Icon = "ToolAddNode"
 
 [node name="GraphEdit" type="GraphEdit" parent="HSplitContainer/VBoxContainer2" unique_id=204266492]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-scroll_offset = Vector2(16.44, 219.69)
 grid_pattern = 1
 panning_scheme = 1
 minimap_enabled = false
@@ -76,10 +121,10 @@ show_grid_buttons = false
 
 [node name="Start" type="GraphNode" parent="HSplitContainer/VBoxContainer2/GraphEdit" unique_id=791776773]
 layout_mode = 0
-offset_left = 23.56
-offset_top = 55.309998
-offset_right = 168.56003
-offset_bottom = 135.30997
+offset_left = 40.0
+offset_top = 275.0
+offset_right = 185.00003
+offset_bottom = 354.99997
 mouse_filter = 1
 position_offset = Vector2(40, 275)
 title = "Start"
@@ -101,10 +146,10 @@ text = "The beginning"
 [node name="End" type="GraphNode" parent="HSplitContainer/VBoxContainer2/GraphEdit" unique_id=617303823]
 editor_description = "The turn ends, and the next begins"
 layout_mode = 0
-offset_left = 717.0
-offset_top = 603.0
-offset_right = 883.00006
-offset_bottom = 682.99994
+offset_left = 733.44
+offset_top = 822.69
+offset_right = 899.44006
+offset_bottom = 902.68994
 mouse_filter = 1
 position_offset = Vector2(733.44, 822.69)
 title = "End"
@@ -125,6 +170,7 @@ text = "Next turn begins"
 
 [node name="GraphElements" type="Control" parent="." unique_id=1849573780]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="move_cam" type="GraphNode" parent="GraphElements" unique_id=1774853269]
@@ -221,4 +267,5 @@ suffix = "s"
 custom_arrow_step = 0.1
 select_all_on_focus = true
 
+[connection signal="pressed" from="HSplitContainer/VBoxContainer/HBoxContainer/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="HSplitContainer/VBoxContainer/HBoxContainer/Reload" to="." method="_on_reload_button_pressed"]
