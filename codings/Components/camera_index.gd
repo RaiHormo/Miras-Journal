@@ -15,11 +15,12 @@ class_name CameraIndex
 @export var spawn_player := true
 
 ## Where the player should spawn by default
-@export var spawn_position := Vector2i(0, 0):
+@export var spawn_position := Vector2i.ZERO:
 	set(x):
 		spawn_position = x
 		if Engine.is_editor_hint():
-			spawn_pos_marker.global_position = x as Vector2
+			if x != null:
+				spawn_pos_marker.global_position = x as Vector2
 			spawn_pos_marker.visible = not x == Vector2i.ZERO
 
 @export_flags_2d_physics var layers := 1
