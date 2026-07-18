@@ -551,7 +551,7 @@ func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> Strin
 	text = text.replace("[tar_they]", CurrentTarget.get_pronoun("they"))
 	text = text.replace("[tar_them]", CurrentTarget.get_pronoun("them"))
 	text = text.replace("[tar_their]", CurrentTarget.get_pronoun("their"))
-	await Global.toast(text)
+	Global.toast(text)
 	return text
 
 

@@ -2,6 +2,7 @@
 extends EditorDock
 class_name SequenceView
 
+var plugin: EditorPlugin
 var start_node: GraphNode
 var nodes: Dictionary[int, GraphNode]
 var current_file: SequenceGraph
@@ -53,21 +54,6 @@ func apply_icons(node: Control):
 			apply_icons(i)
 
 
-func attach_node_ids(node: GraphNode = start_node, count: int = 0) -> void:
-	if node in nodes.values():
-		return
-
-	nodes[count] = node
-	node.name = str(count)
-	print("attaching ", node.name)
-	count += 1
-
-	for connection in graph.connections:
-		if connection["from_node"] == node.name:
-			var target_node: GraphNode = graph.get_node(String(connection["to_node"])) as GraphNode
-			attach_node_ids(target_node, count)
-
-
 func open_from_path(path: String) -> void:
 	if ResourceLoader.exists(path):
 		open_file(ResourceLoader.load(path))
@@ -83,6 +69,9 @@ func open_file(file: SequenceGraph) -> void:
 		node.position = i.position
 
 	graph.connections = current_file.connections.duplicate(true)
+	
+	if plugin:
+		plugin.queue_save_layout()
 
 
 func save() -> void:

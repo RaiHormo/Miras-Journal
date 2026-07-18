@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_rpdr8")
 PlayerName = "Iris"
+DebugMode = true
