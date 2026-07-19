@@ -27,6 +27,7 @@ var elements: Dictionary[StringName, GraphNode]
 @onready var file_name: Label = %FileName
 @onready var save_dialog: EditorFileDialog = %SaveDialog
 @onready var header_actions: HBoxContainer = %HeaderActions
+@onready var node_context_menu: PopupMenu = $SequenceView/NodeContextMenu
 
 
 func _ready() -> void:
@@ -61,7 +62,7 @@ func _ready() -> void:
 
 	graph.connection_request.connect(_graph_connection_request)
 	graph.disconnection_request.connect(_graph_disconnection_request)
-	graph.popup_request.connect(_on_graph_popup_request)
+	graph.popup_request.connect(_open_context_menu)
 
 	header_actions.visible = current_file != null
 
@@ -83,6 +84,13 @@ func insert(type: StringName, pos := Vector2.ZERO) -> GraphNode:
 	else:
 		dub.position_offset = pos
 
+	dub.gui_input.connect(func(event: InputEvent):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			dub.selected = true
+			_open_context_menu()
+			dub.accept_event()
+	)
+
 	create_slots(dub)
 
 	return dub
@@ -102,6 +110,18 @@ func apply_properties(node: Node):
 
 func create_slots(node: Node, graph_node: GraphNode = node if node is GraphNode else null) -> void:
 	for i in node.get_children():
+		if i.name == &"Radio" and i is VBoxContainer:
+			var group := ButtonGroup.new()
+			var stack: Array[Node] = [i]
+
+			while not stack.is_empty():
+				var curr := stack.pop_back()
+
+				if curr is CheckBox:
+					curr.button_group = group
+
+				stack.append_array(curr.get_children())
+
 		# Setup ActorSelector controls
 		if i is Button and i.name.ends_with("Select"):
 			var type := i.name.replace("Select", "")
@@ -163,6 +183,7 @@ func open_file(file: SequenceGraph) -> void:
 	for i in file.nodes:
 		var node := insert(i.type, i.position)
 		node.name = i.id
+		unpack_node_data(node, i.data)
 
 	for conn in current_file.connections:
 		graph.connect_node(
@@ -235,6 +256,29 @@ func pack_node_data(node: GraphNode) -> Dictionary:
 	var node_data := {}
 
 	for child in node.get_children():
+		if child.name == &"Radio" and child is VBoxContainer:
+			var stack: Array[Node] = [child]
+
+			while not stack.is_empty():
+				var curr := stack.pop_back()
+
+				if curr is CheckBox and curr.button_pressed:
+					var val := String(curr.name)
+					var parent: Node = curr.get_parent()
+
+					if parent is HBoxContainer:
+						for sibling in parent.get_children():
+							if sibling != curr:
+								if sibling is LineEdit or sibling is Button:
+									val += sibling.text
+								elif sibling is SpinBox:
+									val += str(sibling.value)
+
+					node_data[&"Radio"] = val
+					break
+
+				stack.append_array(curr.get_children())
+
 		if not child is HBoxContainer:
 			continue
 
@@ -270,6 +314,58 @@ func pack_node_data(node: GraphNode) -> Dictionary:
 
 func unpack_node_data(node: GraphNode, node_data: Dictionary) -> void:
 	for child in node.get_children():
+		if child.name == &"Radio" and child is VBoxContainer:
+			if node_data.has(&"Radio"):
+				var val = node_data[&"Radio"]
+
+				if val is String:
+					var stack: Array[Node] = [child]
+					var checkboxes: Array[CheckBox] = []
+
+					while not stack.is_empty():
+						var curr := stack.pop_back()
+
+						if curr is CheckBox:
+							checkboxes.append(curr)
+
+						stack.append_array(curr.get_children())
+
+					for cb in checkboxes:
+						var cb_name := String(cb.name)
+
+						if val == cb_name:
+							cb.button_pressed = true
+							break
+						elif val.begins_with(cb_name):
+							var remainder: String = val.substr(cb_name.length())
+							var parent := cb.get_parent()
+
+							if parent is HBoxContainer:
+								var has_control := false
+
+								for sibling in parent.get_children():
+									if sibling != cb:
+										if sibling is OptionButton:
+											for idx in range(sibling.item_count):
+												if sibling.get_item_text(idx) == remainder:
+													sibling.selected = idx
+													break
+
+											has_control = true
+										elif sibling is LineEdit:
+											sibling.text = remainder
+											has_control = true
+										elif sibling is Button:
+											sibling.text = remainder
+											has_control = true
+										elif sibling is SpinBox:
+											sibling.value = remainder.to_float()
+											has_control = true
+
+								if has_control:
+									cb.button_pressed = true
+									break
+
 		if not child is HBoxContainer:
 			continue
 
@@ -369,12 +465,11 @@ func _exit_tree() -> void:
 	save()
 
 
-func _on_graph_popup_request(at_position: Vector2) -> void:
-	if current_file == null: return
-	var insert_popup := insert_button.get_popup()
+func _open_context_menu(pos: Vector2i = Vector2i.ZERO):
+	node_context_menu.add_submenu_node_item("Insert", insert_button.get_popup())
+	node_context_menu.popup()
+	node_context_menu.position = get_global_mouse_position()
 
-	# Position the popup at the current global mouse cursor position
-	insert_popup.position = DisplayServer.mouse_get_position()
 
-	# Show the context menu
-	insert_popup.popup()
+func _on_node_context_menu_id_pressed(id: int) -> void:
+	pass # Replace with function body.

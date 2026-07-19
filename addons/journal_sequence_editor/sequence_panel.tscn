@@ -310,7 +310,7 @@ slot/1/left_color = Color(1, 1, 1, 1)
 slot/1/left_icon = null
 slot/1/right_enabled = true
 slot/1/right_type = 2
-slot/1/right_color = Color(0.8745098, 0.003921569, 0.21176471, 1)
+slot/1/right_color = Color(1, 0.6904469, 0.6824662, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
 metadata/insert_id = 1
@@ -456,15 +456,15 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "Normal"
 
-[node name="Missed" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1693368690]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Missed"
-
 [node name="Critical" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1933594841]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Critical"
+
+[node name="Missed" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1693368690]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Missed"
 
 [node name="Reroll" type="HBoxContainer" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=264579771]
 layout_mode = 2
@@ -1867,7 +1867,7 @@ slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
 slot/0/left_icon = null
 slot/0/right_enabled = true
-slot/0/right_type = 1
+slot/0/right_type = 4
 slot/0/right_color = Color(0.84329695, 0, 0.34623787, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
@@ -1960,9 +1960,21 @@ ok_button_text = "Create"
 root_subfolder = "res://database/Sequences"
 filters = PackedStringArray("*.tres")
 
+[node name="NodeContextMenu" type="PopupMenu" parent="SequenceView" unique_id=253258310]
+oversampling_override = 1.0
+size = Vector2i(167, 100)
+item_count = 3
+item_0/text = "Duplicate"
+item_0/id = 0
+item_1/text = "Disconnect Slots"
+item_1/id = 1
+item_2/text = "Delete"
+item_2/id = 2
+
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/New" to="." method="_on_new_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/Reload" to="." method="_on_reload_button_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/Close/CloseButton" to="." method="close"]
 [connection signal="delete_nodes_request" from="SequenceView/HSplitContainer/VBoxContainer2/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
 [connection signal="confirmed" from="SequenceView/SaveDialog" to="." method="_on_save_dialog_confirmed"]
+[connection signal="id_pressed" from="SequenceView/NodeContextMenu" to="." method="_on_node_context_menu_id_pressed"]
