@@ -42,6 +42,8 @@ Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
 Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
 }
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_hcmug"]
+
 [node name="EditorDock" type="EditorDock" unique_id=2097521185]
 custom_minimum_size = Vector2(0, 300)
 offset_left = 12.0
@@ -81,6 +83,7 @@ size_flags_horizontal = 3
 
 [node name="New" type="Button" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=1157917185]
 layout_mode = 2
+tooltip_text = "Create sequence file"
 text = "New"
 icon = SubResource("DPITexture_e6wx4")
 flat = true
@@ -88,13 +91,18 @@ metadata/Icon = "New"
 
 [node name="Open" type="Button" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=988306103]
 layout_mode = 2
+tooltip_text = "Open Sequence file"
 text = "Open"
 icon = SubResource("DPITexture_brmsj")
 flat = true
 metadata/Icon = "LoadQuick"
 
+[node name="VSeparator" type="VSeparator" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=1172797327]
+layout_mode = 2
+
 [node name="Reload" type="Button" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2" unique_id=2145072575]
 layout_mode = 2
+tooltip_text = "Reload Sequence Editor plugin"
 icon = SubResource("DPITexture_6cpbq")
 flat = true
 metadata/Icon = "Reload"
@@ -105,20 +113,63 @@ layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 1
 
-[node name="Insert" type="MenuButton" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer" unique_id=822726346]
+[node name="HeaderActions" type="HBoxContainer" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer" unique_id=1729601423]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Insert" type="MenuButton" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HeaderActions" unique_id=822726346]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Insert"
 icon = SubResource("DPITexture_13q33")
-switch_on_hover = true
-item_count = 3
+item_count = 17
 popup/item_0/text = "Start"
 popup/item_0/id = 0
-popup/item_1/text = "End"
+popup/item_1/text = "Start"
 popup/item_1/id = 1
-popup/item_2/text = "Move Camera"
+popup/item_2/text = "End"
 popup/item_2/id = 2
+popup/item_3/text = "Move Camera"
+popup/item_3/id = 3
+popup/item_4/text = "Move Actor"
+popup/item_4/id = 4
+popup/item_5/text = "Jump to Target"
+popup/item_5/id = 5
+popup/item_6/text = "Return Actor to Original Position"
+popup/item_6/id = 6
+popup/item_7/text = "Zoom"
+popup/item_7/id = 7
+popup/item_8/text = "Screen Shake"
+popup/item_8/id = 8
+popup/item_9/text = "Focus Camera"
+popup/item_9/id = 9
+popup/item_10/text = "Damage"
+popup/item_10/id = 10
+popup/item_11/text = "Actor Sprite Animation"
+popup/item_11/id = 11
+popup/item_12/text = "Play Effect"
+popup/item_12/id = 12
+popup/item_13/text = "Miss Effect"
+popup/item_13/id = 13
+popup/item_14/text = "Play Sound"
+popup/item_14/id = 14
+popup/item_15/text = "Wait"
+popup/item_15/id = 15
+popup/item_16/text = "RNG Contditions"
+popup/item_16/id = 16
 metadata/Icon = "ToolAddNode"
+
+[node name="VSeparator" type="VSeparator" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HeaderActions" unique_id=812248100]
+layout_mode = 2
+
+[node name="Close" type="HBoxContainer" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer" unique_id=443918545]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/Close" unique_id=45042092]
+layout_mode = 2
+flat = true
+metadata/Icon = "Close"
 
 [node name="GraphEdit" type="GraphEdit" parent="SequenceView/HSplitContainer/VBoxContainer2" unique_id=204266492]
 unique_name_in_owner = true
@@ -128,21 +179,25 @@ grid_pattern = 1
 panning_scheme = 1
 right_disconnects = true
 zoom = 0.75
-zoom_step = 1.0
 minimap_enabled = false
 show_grid_buttons = false
 
 [node name="GraphElements" type="Control" parent="SequenceView" unique_id=1849573780]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
-[node name="StartSingle" type="GraphNode" parent="SequenceView/GraphElements" unique_id=1272899058]
+[node name="Terminal" type="Control" parent="SequenceView/GraphElements" unique_id=1771796132]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "PlayStart"
+
+[node name="StartSingle" type="GraphNode" parent="SequenceView/GraphElements/Terminal" unique_id=1272899058]
 layout_mode = 0
-offset_left = -566.0
-offset_top = 5.0
-offset_right = -420.99997
-offset_bottom = 109.0
+offset_left = -718.0
+offset_top = 29.0
+offset_right = -645.0
+offset_bottom = 107.0
 mouse_filter = 1
 position_offset = Vector2(40, 275)
 title = "Start"
@@ -157,19 +212,57 @@ slot/0/right_icon = null
 slot/0/draw_stylebox = true
 metadata/insert_id = 0
 
-[node name="Next" type="Label" parent="SequenceView/GraphElements/StartSingle" unique_id=1367507357]
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Terminal/StartSingle" unique_id=1367507357]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "Single target 
-action begins"
+text = "Next"
 
-[node name="EndTurn" type="GraphNode" parent="SequenceView/GraphElements" unique_id=325208642]
+[node name="StartAOE" type="GraphNode" parent="SequenceView/GraphElements/Terminal" unique_id=1423953649]
+layout_mode = 0
+offset_left = -859.0
+offset_top = 16.0
+offset_right = -773.0
+offset_bottom = 120.0
+mouse_filter = 1
+position_offset = Vector2(40, 275)
+title = "Start"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 0.6904469, 0.6824662, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 2
+slot/1/right_color = Color(0.8745098, 0.003921569, 0.21176471, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+metadata/insert_id = 1
+
+[node name="User" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=201665381]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "User"
+
+[node name="Target" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=1343456364]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Target"
+
+[node name="EndTurn" type="GraphNode" parent="SequenceView/GraphElements/Terminal" unique_id=325208642]
 editor_description = "The turn ends, and the next begins"
 layout_mode = 0
-offset_left = -375.99994
-offset_top = 18.0
-offset_right = -209.99988
-offset_bottom = 97.99994
+offset_left = -592.0
+offset_top = 28.0
+offset_right = -486.0
+offset_bottom = 107.99994
 mouse_filter = 1
 position_offset = Vector2(733.44, 822.69)
 title = "End"
@@ -182,21 +275,152 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
-metadata/insert_id = 1
+metadata/insert_id = 2
 
-[node name="Desc" type="Label" parent="SequenceView/GraphElements/EndTurn" unique_id=1146942237]
+[node name="Desc" type="Label" parent="SequenceView/GraphElements/Terminal/EndTurn" unique_id=1146942237]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Next turn begins"
+text = "End Turn"
 
-[node name="move_cam" type="GraphNode" parent="SequenceView/GraphElements" unique_id=1774853269]
+[node name="Flow" type="Control" parent="SequenceView/GraphElements" unique_id=1494058193]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "Time"
+
+[node name="wait" type="GraphNode" parent="SequenceView/GraphElements/Flow" unique_id=634724574]
 layout_mode = 0
-offset_left = -522.0
-offset_top = 124.0
-offset_right = -277.0
-offset_bottom = 243.0
-scaling_menus = true
-title = "Move Camera"
+offset_left = -1027.0
+offset_top = 888.0
+offset_right = -862.0
+offset_bottom = 999.0
+title = "Wait"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(0.10842078, 0.8328109, 3.85046e-07, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+metadata/insert_id = 15
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Flow/wait" unique_id=40829910]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Timeout"
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Flow/wait" unique_id=1544283961]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Flow/wait/Time" unique_id=49624761]
+layout_mode = 2
+text = "Time"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Flow/wait/Time" unique_id=1782644376]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="RNGCondition" type="GraphNode" parent="SequenceView/GraphElements/Flow" unique_id=106815075]
+layout_mode = 0
+offset_left = -810.0
+offset_top = 899.0
+offset_right = -633.0
+offset_bottom = 1053.0
+title = "RNG Contditions"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 0.6904469, 0.6824662, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.6904469, 0.6824662, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 0.6904469, 0.6824662, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+metadata/insert_id = 16
+
+[node name="NormalHit" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=590955228]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Normal"
+
+[node name="Missed" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1693368690]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Missed"
+
+[node name="Critical" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1933594841]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Critical"
+
+[node name="Reroll" type="HBoxContainer" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=264579771]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition/Reroll" unique_id=1836413858]
+layout_mode = 2
+text = "Re-Roll RNG"
+
+[node name="CheckButton" type="CheckButton" parent="SequenceView/GraphElements/Flow/RNGCondition/Reroll" unique_id=764820983]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Action" type="Control" parent="SequenceView/GraphElements" unique_id=1530141274]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "JoyButton"
+
+[node name="damage" type="GraphNode" parent="SequenceView/GraphElements/Action" unique_id=993738716]
+layout_mode = 0
+offset_left = -1571.0
+offset_top = 235.0
+offset_right = -1305.0
+offset_bottom = 481.0
+title = "Damage"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -212,7 +436,157 @@ slot/1/left_color = Color(1, 1, 1, 1)
 slot/1/left_icon = null
 slot/1/right_enabled = true
 slot/1/right_type = 0
-slot/1/right_color = Color(0.10842078, 0.8328109, 3.85046e-07, 1)
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 3
+slot/2/left_color = Color(0, 0.61960787, 0.07450981, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = true
+slot/2/right_type = 3
+slot/2/right_color = Color(0, 0.61960787, 0.07450981, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = true
+slot/4/left_type = 0
+slot/4/left_color = Color(0, 0.61960787, 0.07450981, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color(1, 1, 1, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = false
+slot/6/right_type = 0
+slot/6/right_color = Color(1, 1, 1, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
+metadata/insert_id = 10
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Action/damage" unique_id=548500425]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Action/damage" unique_id=1416300518]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="AfterFinishing2" type="Label" parent="SequenceView/GraphElements/Action/damage" unique_id=968091743]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Damage Output"
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=1377870217]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Actor" unique_id=912637664]
+layout_mode = 2
+text = "Target"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Action/damage/Actor" unique_id=833985738]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Power" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=1957989962]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Action/damage/Power" unique_id=981455186]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Power" unique_id=421351931]
+layout_mode = 2
+text = "Power"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Action/damage/Power" unique_id=656719306]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+select_all_on_focus = true
+
+[node name="Magic" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=1562653084]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Action/damage/Magic" unique_id=1794272909]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Magic" unique_id=948859755]
+layout_mode = 2
+text = "Is Magic"
+
+[node name="CheckButton" type="CheckButton" parent="SequenceView/GraphElements/Action/damage/Magic" unique_id=1686388265]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Elemental" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=940459739]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=1453718403]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=843649518]
+layout_mode = 2
+text = "Is Elemental"
+
+[node name="CheckButton" type="CheckButton" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=1820661746]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Effects" type="Control" parent="SequenceView/GraphElements" unique_id=1145229663]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "PreviewSun"
+
+[node name="anim" type="GraphNode" parent="SequenceView/GraphElements/Effects" unique_id=796981260]
+layout_mode = 0
+offset_left = -1198.0
+offset_top = 157.0
+offset_right = -952.0
+offset_bottom = 359.0
+title = "Actor Sprite Animation"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
 slot/1/right_icon = null
 slot/1/draw_stylebox = true
 slot/2/left_enabled = false
@@ -233,56 +607,1230 @@ slot/3/right_type = 0
 slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
-metadata/insert_id = 2
+metadata/insert_id = 11
 
-[node name="Next" type="Label" parent="SequenceView/GraphElements/move_cam" unique_id=781395194]
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Effects/anim" unique_id=680754691]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Next"
 
-[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/move_cam" unique_id=1819516071]
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Effects/anim" unique_id=249305313]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "After Finishing"
 
-[node name="Position" type="HBoxContainer" parent="SequenceView/GraphElements/move_cam" unique_id=645270519]
+[node name="Animation" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/anim" unique_id=78998000]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SequenceView/GraphElements/move_cam/Position" unique_id=1531387417]
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/anim/Animation" unique_id=1457307743]
+layout_mode = 2
+text = "Animation"
+
+[node name="AnimationSelect" type="OptionButton" parent="SequenceView/GraphElements/Effects/anim/Animation" unique_id=1157117387]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+search_bar_enabled = true
+item_count = 62
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "Idle"
+popup/item_2/id = 2
+popup/item_3/text = "Attack1"
+popup/item_3/id = 3
+popup/item_4/text = "Attack2"
+popup/item_4/id = 4
+popup/item_5/text = "Ability"
+popup/item_5/id = 5
+popup/item_6/text = "AbilityLoop"
+popup/item_6/id = 6
+popup/item_7/text = "Cast"
+popup/item_7/id = 7
+popup/item_8/text = "Throw"
+popup/item_8/id = 8
+popup/item_9/text = "Drink"
+popup/item_9/id = 9
+popup/item_10/text = "Eat"
+popup/item_10/id = 10
+popup/item_11/text = "Item"
+popup/item_11/id = 11
+popup/item_12/text = "ItemLoop"
+popup/item_12/id = 12
+popup/item_13/text = "Hit"
+popup/item_13/id = 13
+popup/item_14/text = "KnockOut"
+popup/item_14/id = 14
+popup/item_15/text = "Victory"
+popup/item_15/id = 15
+popup/item_16/text = "VictoryLoop"
+popup/item_16/id = 16
+popup/item_17/text = "Entrance"
+popup/item_17/id = 17
+popup/item_18/text = "Command"
+popup/item_18/id = 18
+popup/item_19/text = "FlameSpark"
+popup/item_19/id = 19
+popup/item_20/text = "Bleed"
+popup/item_20/id = 20
+popup/item_21/text = "FirstBattle"
+popup/item_21/id = 21
+popup/item_22/text = "Idle"
+popup/item_22/id = 22
+popup/item_23/text = "Attack1"
+popup/item_23/id = 23
+popup/item_24/text = "Attack2"
+popup/item_24/id = 24
+popup/item_25/text = "Ability"
+popup/item_25/id = 25
+popup/item_26/text = "AbilityLoop"
+popup/item_26/id = 26
+popup/item_27/text = "Cast"
+popup/item_27/id = 27
+popup/item_28/text = "Throw"
+popup/item_28/id = 28
+popup/item_29/text = "Drink"
+popup/item_29/id = 29
+popup/item_30/text = "Eat"
+popup/item_30/id = 30
+popup/item_31/text = "Item"
+popup/item_31/id = 31
+popup/item_32/text = "ItemLoop"
+popup/item_32/id = 32
+popup/item_33/text = "Hit"
+popup/item_33/id = 33
+popup/item_34/text = "KnockOut"
+popup/item_34/id = 34
+popup/item_35/text = "Victory"
+popup/item_35/id = 35
+popup/item_36/text = "VictoryLoop"
+popup/item_36/id = 36
+popup/item_37/text = "Entrance"
+popup/item_37/id = 37
+popup/item_38/text = "Command"
+popup/item_38/id = 38
+popup/item_39/text = "FlameSpark"
+popup/item_39/id = 39
+popup/item_40/text = "Bleed"
+popup/item_40/id = 40
+popup/item_41/text = "FirstBattle"
+popup/item_41/id = 41
+popup/item_42/text = "Idle"
+popup/item_42/id = 42
+popup/item_43/text = "Attack1"
+popup/item_43/id = 43
+popup/item_44/text = "Attack2"
+popup/item_44/id = 44
+popup/item_45/text = "Ability"
+popup/item_45/id = 45
+popup/item_46/text = "AbilityLoop"
+popup/item_46/id = 46
+popup/item_47/text = "Cast"
+popup/item_47/id = 47
+popup/item_48/text = "Throw"
+popup/item_48/id = 48
+popup/item_49/text = "Drink"
+popup/item_49/id = 49
+popup/item_50/text = "Eat"
+popup/item_50/id = 50
+popup/item_51/text = "Item"
+popup/item_51/id = 51
+popup/item_52/text = "ItemLoop"
+popup/item_52/id = 52
+popup/item_53/text = "Hit"
+popup/item_53/id = 53
+popup/item_54/text = "KnockOut"
+popup/item_54/id = 54
+popup/item_55/text = "Victory"
+popup/item_55/id = 55
+popup/item_56/text = "VictoryLoop"
+popup/item_56/id = 56
+popup/item_57/text = "Entrance"
+popup/item_57/id = 57
+popup/item_58/text = "Command"
+popup/item_58/id = 58
+popup/item_59/text = "FlameSpark"
+popup/item_59/id = 59
+popup/item_60/text = "Bleed"
+popup/item_60/id = 60
+popup/item_61/text = "FirstBattle"
+popup/item_61/id = 61
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/anim" unique_id=723127245]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/anim/Actor" unique_id=1181782996]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Effects/anim/Actor" unique_id=263588928]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="play_effect" type="GraphNode" parent="SequenceView/GraphElements/Effects" unique_id=1481345073]
+layout_mode = 0
+offset_left = -924.0
+offset_top = 157.0
+offset_right = -658.0
+offset_bottom = 359.0
+title = "Play Effect"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = true
+slot/2/right_type = 3
+slot/2/right_color = Color(0, 0.76966774, 0.09153967, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+metadata/insert_id = 12
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Effects/play_effect" unique_id=792390289]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Effects/play_effect" unique_id=1055959737]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Effect" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_effect" unique_id=1159495766]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_effect/Effect" unique_id=1017592846]
+layout_mode = 2
+text = "Effect"
+
+[node name="LineEdit" type="LineEdit" parent="SequenceView/GraphElements/Effects/play_effect/Effect" unique_id=1111822352]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Effect Name"
+alignment = 1
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_effect" unique_id=2011531400]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_effect/Actor" unique_id=747608521]
+layout_mode = 2
+text = "On Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Effects/play_effect/Actor" unique_id=714743112]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Offset" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_effect" unique_id=649923317]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_effect/Offset" unique_id=1878290872]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Offset"
+horizontal_alignment = 1
+
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Effects/play_effect/Offset" unique_id=211175780]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Effects/play_effect/Offset" unique_id=1644481298]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="miss" type="GraphNode" parent="SequenceView/GraphElements/Effects" unique_id=1219586575]
+layout_mode = 0
+offset_left = -310.0
+offset_top = 183.0
+offset_right = -96.0
+offset_bottom = 319.0
+title = "Miss Effect"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 3
+slot/2/right_color = Color(0.8745098, 0.003921569, 0.21176471, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+metadata/insert_id = 13
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Effects/miss" unique_id=212096257]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Effects/miss" unique_id=419852682]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/miss" unique_id=1936189248]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/miss/Actor" unique_id=1312191081]
+layout_mode = 2
+text = "On Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Effects/miss/Actor" unique_id=204040331]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="play_sound" type="GraphNode" parent="SequenceView/GraphElements/Effects" unique_id=2023277161]
+layout_mode = 0
+offset_left = -627.0
+offset_top = 163.0
+offset_right = -373.0
+offset_bottom = 340.0
+title = "Play Sound"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 1
+slot/1/right_color = Color(0.9365272, 0.7617476, 7.70092e-07, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 3
+slot/2/right_color = Color(0, 0.76966774, 0.09153967, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+metadata/insert_id = 14
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Effects/play_sound" unique_id=1158603251]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="Effect" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_sound" unique_id=442081072]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_sound/Effect" unique_id=299561744]
+layout_mode = 2
+text = "Sound"
+
+[node name="LineEdit" type="LineEdit" parent="SequenceView/GraphElements/Effects/play_sound/Effect" unique_id=885316016]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Sound Name"
+alignment = 1
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_sound" unique_id=355943895]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_sound/Actor" unique_id=1060644348]
+layout_mode = 2
+text = "On Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Effects/play_sound/Actor" unique_id=82711369]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Volume" type="HBoxContainer" parent="SequenceView/GraphElements/Effects/play_sound" unique_id=482517587]
+layout_mode = 2
+
+[node name="Enabled" type="CheckBox" parent="SequenceView/GraphElements/Effects/play_sound/Volume" unique_id=944593465]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Effects/play_sound/Volume" unique_id=1015353246]
+layout_mode = 2
+text = "Volume"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Effects/play_sound/Volume" unique_id=308847116]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 200.0
+value = 100.0
+alignment = 1
+suffix = "%"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Move Actor" type="Control" parent="SequenceView/GraphElements" unique_id=148308846]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "ToolMove"
+
+[node name="move" type="GraphNode" parent="SequenceView/GraphElements/Move Actor" unique_id=1885894852]
+layout_mode = 0
+offset_left = -1208.0
+offset_top = 381.0
+offset_right = -927.0
+offset_bottom = 583.0
+title = "Move Actor"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+metadata/insert_id = 4
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Move Actor/move" unique_id=606447064]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Move Actor/move" unique_id=596909075]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Position" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/move" unique_id=1563466594]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/move/Position" unique_id=449497845]
 layout_mode = 2
 text = "Position"
 
-[node name="X" type="LineEdit" parent="SequenceView/GraphElements/move_cam/Position" unique_id=1753340748]
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/move/Position" unique_id=1058717619]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "X"
+rounded = true
 alignment = 1
 
-[node name="y" type="LineEdit" parent="SequenceView/GraphElements/move_cam/Position" unique_id=714152722]
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/move/Position" unique_id=1372931935]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Y"
+rounded = true
 alignment = 1
 
-[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/move_cam" unique_id=1367236930]
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/move" unique_id=1363681027]
 layout_mode = 2
 
-[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/move_cam/Time" unique_id=1560112330]
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/move/Actor" unique_id=2087339049]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Move Actor/move/Actor" unique_id=1546280879]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/move" unique_id=1439456824]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SequenceView/GraphElements/move_cam/Time" unique_id=2095303426]
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Move Actor/move/Time" unique_id=1208442484]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/move/Time" unique_id=547840602]
 layout_mode = 2
 text = "Time"
 
-[node name="Value" type="SpinBox" parent="SequenceView/GraphElements/move_cam/Time" unique_id=1017200084]
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/move/Time" unique_id=1004505977]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
 step = 0.1
 value = 0.3
 alignment = 1
 suffix = "s"
 custom_arrow_step = 0.1
 select_all_on_focus = true
+
+[node name="jump_to_target" type="GraphNode" parent="SequenceView/GraphElements/Move Actor" unique_id=1969041988]
+layout_mode = 0
+offset_left = -588.0
+offset_top = 353.0
+offset_right = -307.0
+offset_bottom = 654.0
+title = "Jump to Target"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color(1, 1, 1, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = false
+slot/6/right_type = 0
+slot/6/right_color = Color(1, 1, 1, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
+slot/7/left_enabled = false
+slot/7/left_type = 0
+slot/7/left_color = Color(1, 1, 1, 1)
+slot/7/left_icon = null
+slot/7/right_enabled = false
+slot/7/right_type = 0
+slot/7/right_color = Color(1, 1, 1, 1)
+slot/7/right_icon = null
+slot/7/draw_stylebox = true
+metadata/insert_id = 5
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=1761775100]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=1829567383]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Position" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=513438969]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Position" unique_id=539947199]
+layout_mode = 2
+text = "Position"
+
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Position" unique_id=829271637]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Position" unique_id=634916004]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=2105307623]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Actor" unique_id=1232483124]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Actor" unique_id=743854734]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Target" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=776890567]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Target" unique_id=1842566122]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Target" unique_id=2054550762]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Target"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Offset" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=2112501370]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Offset" unique_id=1311265760]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Offset"
+horizontal_alignment = 1
+
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Offset" unique_id=1772372154]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Offset" unique_id=1034052992]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=1608701704]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Time" unique_id=195559123]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Time" unique_id=739993016]
+layout_mode = 2
+text = "Time"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Time" unique_id=1555422507]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Height" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/jump_to_target" unique_id=1955830077]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Height" unique_id=524377335]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Height" unique_id=447715997]
+layout_mode = 2
+text = "Height"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Move Actor/jump_to_target/Height" unique_id=953812520]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.5
+alignment = 1
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="return_cur" type="GraphNode" parent="SequenceView/GraphElements/Move Actor" unique_id=361155167]
+layout_mode = 0
+offset_left = -881.0
+offset_top = 385.0
+offset_right = -621.0
+offset_bottom = 496.0
+title = "Return Actor to Original Position"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 1
+slot/1/right_color = Color(0.9365272, 0.7617476, 7.70092e-07, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+metadata/insert_id = 6
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Move Actor/return_cur" unique_id=900440053]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Move Actor/return_cur" unique_id=415121292]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Move Actor/return_cur/Actor" unique_id=407598426]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Move Actor/return_cur/Actor" unique_id=1032830101]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Move Actor/return_cur/Actor" unique_id=127862599]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Camera Control" type="Control" parent="SequenceView/GraphElements" unique_id=1954512992]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/CategoryIcon = "Camera"
+
+[node name="move_cam" type="GraphNode" parent="SequenceView/GraphElements/Camera Control" unique_id=1774853269]
+layout_mode = 0
+offset_left = -490.0
+offset_top = 674.0
+offset_right = -209.0
+offset_bottom = 843.0
+title = "Move Camera"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+metadata/insert_id = 3
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Camera Control/move_cam" unique_id=781395194]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Camera Control/move_cam" unique_id=1819516071]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Position" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/move_cam" unique_id=645270519]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/move_cam/Position" unique_id=1531387417]
+layout_mode = 2
+text = "Position"
+
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/move_cam/Position" unique_id=511368350]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/move_cam/Position" unique_id=1552099315]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/move_cam" unique_id=1367236930]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/move_cam/Time" unique_id=1560112330]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/move_cam/Time" unique_id=2095303426]
+layout_mode = 2
+text = "Time"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/move_cam/Time" unique_id=1017200084]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="zoom" type="GraphNode" parent="SequenceView/GraphElements/Camera Control" unique_id=893338208]
+layout_mode = 0
+offset_left = -1043.0
+offset_top = 663.0
+offset_right = -850.0
+offset_bottom = 832.0
+title = "Zoom"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+metadata/insert_id = 7
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Camera Control/zoom" unique_id=1111049662]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Camera Control/zoom" unique_id=1033011385]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Amount" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/zoom" unique_id=1923917301]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/zoom/Amount" unique_id=1886622147]
+layout_mode = 2
+text = "Amount"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/zoom/Amount" unique_id=1359398984]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 5.0
+alignment = 1
+prefix = "x"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/zoom" unique_id=1782646794]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/zoom/Time" unique_id=1602456974]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/zoom/Time" unique_id=2071035291]
+layout_mode = 2
+text = "Time"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/zoom/Time" unique_id=802404334]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="screen_shake" type="GraphNode" parent="SequenceView/GraphElements/Camera Control" unique_id=919536046]
+layout_mode = 0
+offset_left = -1305.0
+offset_top = 647.0
+offset_right = -1081.0
+offset_bottom = 849.0
+title = "Screen Shake"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+metadata/insert_id = 8
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Camera Control/screen_shake" unique_id=319120975]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Camera Control/screen_shake" unique_id=1562777374]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Amount" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/screen_shake" unique_id=803718642]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Amount" unique_id=836696244]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/screen_shake/Amount" unique_id=551679072]
+layout_mode = 2
+text = "Amount"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Amount" unique_id=1970933920]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 15.0
+alignment = 1
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Times" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/screen_shake" unique_id=1428498468]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Times" unique_id=626420779]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/screen_shake/Times" unique_id=801716172]
+layout_mode = 2
+text = "Times"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Times" unique_id=1342915487]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 7.0
+alignment = 1
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Duration" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/screen_shake" unique_id=665586053]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Duration" unique_id=1296628734]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/screen_shake/Duration" unique_id=1077194319]
+layout_mode = 2
+text = "Duration"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/screen_shake/Duration" unique_id=65247347]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.2
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="focus_cam" type="GraphNode" parent="SequenceView/GraphElements/Camera Control" unique_id=162473750]
+layout_mode = 0
+offset_left = -818.0
+offset_top = 674.0
+offset_right = -552.0
+offset_bottom = 876.0
+title = "Focus Camera"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 0.8868195, 0.54214764, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color(1, 1, 1, 1)
+slot/3/left_icon = null
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color(1, 1, 1, 1)
+slot/3/right_icon = null
+slot/3/draw_stylebox = true
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color(1, 1, 1, 1)
+slot/4/left_icon = null
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color(1, 1, 1, 1)
+slot/4/right_icon = null
+slot/4/draw_stylebox = true
+metadata/insert_id = 9
+
+[node name="Next" type="Label" parent="SequenceView/GraphElements/Camera Control/focus_cam" unique_id=477996188]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Next"
+
+[node name="AfterFinishing" type="Label" parent="SequenceView/GraphElements/Camera Control/focus_cam" unique_id=1721928746]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "After Finishing"
+
+[node name="Actor" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/focus_cam" unique_id=1117535205]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/focus_cam/Actor" unique_id=1970636934]
+layout_mode = 2
+text = "Actor"
+
+[node name="ActorSelect" type="Button" parent="SequenceView/GraphElements/Camera Control/focus_cam/Actor" unique_id=521730326]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CurrentChar"
+metadata/CodeFoldedRightArrow = ""
+
+[node name="Time" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/focus_cam" unique_id=1405695256]
+layout_mode = 2
+
+[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Camera Control/focus_cam/Time" unique_id=850348728]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/focus_cam/Time" unique_id=1638316919]
+layout_mode = 2
+text = "Time"
+
+[node name="SpinBox" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/focus_cam/Time" unique_id=1980186731]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+value = 0.3
+alignment = 1
+suffix = "s"
+custom_arrow_step = 0.1
+select_all_on_focus = true
+
+[node name="Offset" type="HBoxContainer" parent="SequenceView/GraphElements/Camera Control/focus_cam" unique_id=1679561304]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Camera Control/focus_cam/Offset" unique_id=1643144926]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Offset"
+horizontal_alignment = 1
+
+[node name="X" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/focus_cam/Offset" unique_id=1155599955]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 30.0
+rounded = true
+alignment = 1
+
+[node name="Y" type="SpinBox" parent="SequenceView/GraphElements/Camera Control/focus_cam/Offset" unique_id=1904983651]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+alignment = 1
 
 [node name="SaveDialog" type="EditorFileDialog" parent="SequenceView" unique_id=319681765]
 unique_name_in_owner = true
@@ -293,8 +1841,76 @@ ok_button_text = "Create"
 root_subfolder = "res://database/Sequences"
 filters = PackedStringArray("*.tres")
 
+[node name="ActorSelect" type="AcceptDialog" parent="SequenceView" unique_id=1343580898]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Select Actor"
+size = Vector2i(246, 298)
+
+[node name="List" type="VBoxContainer" parent="SequenceView/ActorSelect" unique_id=1969695289]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 238.0
+offset_bottom = 249.0
+
+[node name="CurrentChar" type="CheckBox" parent="SequenceView/ActorSelect/List" unique_id=190431970]
+layout_mode = 2
+button_pressed = true
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Current Character"
+
+[node name="Target" type="CheckBox" parent="SequenceView/ActorSelect/List" unique_id=839352644]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Target"
+
+[node name="RandomAlly" type="CheckBox" parent="SequenceView/ActorSelect/List" unique_id=736659070]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Random Ally"
+
+[node name="RandomEnemy" type="CheckBox" parent="SequenceView/ActorSelect/List" unique_id=833715842]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Random Enemy"
+
+[node name="RandomActor" type="CheckBox" parent="SequenceView/ActorSelect/List" unique_id=1046095838]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Random Enemy"
+
+[node name="PartyMember" type="HBoxContainer" parent="SequenceView/ActorSelect/List" unique_id=468914226]
+layout_mode = 2
+
+[node name="PartyMember" type="CheckBox" parent="SequenceView/ActorSelect/List/PartyMember" unique_id=2073519593]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+text = "Party Member"
+
+[node name="LineEdit" type="SpinBox" parent="SequenceView/ActorSelect/List/PartyMember" unique_id=211813445]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 3.0
+rounded = true
+alignment = 1
+suffix = "#"
+select_all_on_focus = true
+
+[node name="SpecifyID" type="HBoxContainer" parent="SequenceView/ActorSelect/List" unique_id=1805243982]
+layout_mode = 2
+
+[node name="SpecifyID" type="CheckBox" parent="SequenceView/ActorSelect/List/SpecifyID" unique_id=4685575]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_hcmug")
+
+[node name="ID" type="LineEdit" parent="SequenceView/ActorSelect/List/SpecifyID" unique_id=1606886842]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Specify ID"
+
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/New" to="." method="_on_new_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/Reload" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/Close/CloseButton" to="." method="close"]
 [connection signal="delete_nodes_request" from="SequenceView/HSplitContainer/VBoxContainer2/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
 [connection signal="confirmed" from="SequenceView/SaveDialog" to="." method="_on_save_dialog_confirmed"]

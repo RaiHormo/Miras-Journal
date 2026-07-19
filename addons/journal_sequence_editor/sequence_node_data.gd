@@ -1,5 +1,5 @@
 extends Resource
-class_name SequenceGraphNode
+class_name SequenceGraphNodeData
 
 @export var id: StringName
 @export var type: StringName

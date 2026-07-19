@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="SequenceGraph" format=3 uid="uid://bu6x0dw8bevv5"]
+
+[ext_resource type="Script" uid="uid://hxb7q40re18b" path="res://addons/journal_sequence_editor/sequence_node_data.gd" id="1_nty57"]
+[ext_resource type="Script" uid="uid://cenwuu5w6vghl" path="res://addons/journal_sequence_editor/sequence_graph_class.gd" id="2_5rmqh"]
+
+[sub_resource type="Resource" id="Resource_nty57"]
+script = ExtResource("1_nty57")
+id = &"StartSingle1983866236"
+type = &"StartSingle"
+position = Vector2(180, 80)
+
+[sub_resource type="Resource" id="Resource_5rmqh"]
+script = ExtResource("1_nty57")
+id = &"RNGCondition1534243025"
+type = &"RNGCondition"
+position = Vector2(1240, 80)
+data = {
+&"Reroll": false
+}
+
+[sub_resource type="Resource" id="Resource_rq6pd"]
+script = ExtResource("1_nty57")
+id = &"EndTurn2263180968"
+type = &"EndTurn"
+position = Vector2(1520, 220)
+
+[sub_resource type="Resource" id="Resource_mpitp"]
+script = ExtResource("1_nty57")
+id = &"miss3502578939"
+type = &"miss"
+position = Vector2(1500, 80)
+data = {
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_eteln"]
+script = ExtResource("1_nty57")
+id = &"anim3099843374"
+type = &"anim"
+position = Vector2(940, 60)
+data = {
+&"Actor": "CurrentChar",
+&"Animation": "Victory"
+}
+
+[sub_resource type="Resource" id="Resource_emwpd"]
+script = ExtResource("1_nty57")
+id = &"focus_cam3956388264"
+type = &"focus_cam"
+position = Vector2(600, 100)
+data = {
+&"Actor": "CurrentChar",
+&"Offset": Vector2(30, 0),
+&"Time": 0.3
+}
+
+[sub_resource type="Resource" id="Resource_ljkbq"]
+script = ExtResource("1_nty57")
+id = &"zoom2482752567"
+type = &"zoom"
+position = Vector2(300, 120)
+data = {
+&"Amount": 5.0,
+&"Time": 0.3
+}
+
+[resource]
+script = ExtResource("2_5rmqh")
+nodes = Array[ExtResource("1_nty57")]([SubResource("Resource_nty57"), SubResource("Resource_5rmqh"), SubResource("Resource_rq6pd"), SubResource("Resource_mpitp"), SubResource("Resource_eteln"), SubResource("Resource_emwpd"), SubResource("Resource_ljkbq")])
+connections = Array[Dictionary]([{
+"from_node": &"StartSingle1983866236",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"zoom2482752567",
+"to_port": 0
+}, {
+"from_node": &"zoom2482752567",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"focus_cam3956388264",
+"to_port": 0
+}, {
+"from_node": &"focus_cam3956388264",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"anim3099843374",
+"to_port": 0
+}, {
+"from_node": &"anim3099843374",
+"from_port": 1,
+"keep_alive": false,
+"to_node": &"RNGCondition1534243025",
+"to_port": 0
+}, {
+"from_node": &"RNGCondition1534243025",
+"from_port": 1,
+"keep_alive": false,
+"to_node": &"miss3502578939",
+"to_port": 0
+}])
