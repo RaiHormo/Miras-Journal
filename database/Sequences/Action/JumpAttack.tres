@@ -5,68 +5,163 @@
 
 [sub_resource type="Resource" id="Resource_nty57"]
 script = ExtResource("1_nty57")
-id = &"StartSingle1983866236"
-type = &"StartSingle"
-position = Vector2(180, 80)
+id = &"zoom2482752567"
+type = &"zoom"
+position = Vector2(-20, -200)
+data = {
+&"Amount": 5.0,
+&"Time": 0.3
+}
 
 [sub_resource type="Resource" id="Resource_5rmqh"]
 script = ExtResource("1_nty57")
 id = &"RNGCondition1534243025"
 type = &"RNGCondition"
-position = Vector2(1240, 80)
+position = Vector2(1420, 300)
 data = {
 &"Reroll": false
 }
 
 [sub_resource type="Resource" id="Resource_rq6pd"]
 script = ExtResource("1_nty57")
-id = &"EndTurn2263180968"
-type = &"EndTurn"
-position = Vector2(1520, 220)
+id = &"play_effect1376192799"
+type = &"play_effect"
+position = Vector2(2480, -40)
+data = {
+&"Actor": "CurrentChar",
+&"Effect": "",
+&"Offset": Vector2(0, 0)
+}
 
 [sub_resource type="Resource" id="Resource_mpitp"]
 script = ExtResource("1_nty57")
-id = &"miss3502578939"
-type = &"miss"
-position = Vector2(1500, 80)
+id = &"damage667657083"
+type = &"damage"
+position = Vector2(1980, -40)
 data = {
-&"Actor": "CurrentChar"
+&"Actor": "Target",
+&"Elemental": false,
+&"Magic": false,
+&"Power": 0.0
 }
 
 [sub_resource type="Resource" id="Resource_eteln"]
 script = ExtResource("1_nty57")
-id = &"anim3099843374"
-type = &"anim"
-position = Vector2(940, 60)
+id = &"play_sound2240381737"
+type = &"play_sound"
+position = Vector2(3120, -40)
 data = {
 &"Actor": "CurrentChar",
-&"Animation": "Victory"
+&"Effect": "",
+&"Volume": 100.0
 }
 
 [sub_resource type="Resource" id="Resource_emwpd"]
 script = ExtResource("1_nty57")
+id = &"screen_shake2471493494"
+type = &"screen_shake"
+position = Vector2(3620, -40)
+data = {
+&"Amount": 15.0,
+&"Duration": 0.2,
+&"Times": 7.0
+}
+
+[sub_resource type="Resource" id="Resource_ljkbq"]
+script = ExtResource("1_nty57")
+id = &"miss3502578939"
+type = &"miss"
+position = Vector2(2040, 1020)
+data = {
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_tenpw"]
+script = ExtResource("1_nty57")
+id = &"wait1747676822"
+type = &"wait"
+position = Vector2(4260, 480)
+data = {
+&"Time": 0.3
+}
+
+[sub_resource type="Resource" id="Resource_mknbj"]
+script = ExtResource("1_nty57")
+id = &"return_cur3384431486"
+type = &"return_cur"
+position = Vector2(4680, 480)
+data = {
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_5pyxv"]
+script = ExtResource("1_nty57")
+id = &"anim3288279312"
+type = &"anim"
+position = Vector2(5300, 480)
+data = {
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_xff35"]
+script = ExtResource("1_nty57")
+id = &"EndTurn1183784479"
+type = &"EndTurn"
+position = Vector2(5840, 480)
+
+[sub_resource type="Resource" id="Resource_3pm6y"]
+script = ExtResource("1_nty57")
+id = &"anim478725268"
+type = &"anim"
+position = Vector2(2420, 440)
+data = {
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_nhlqr"]
+script = ExtResource("1_nty57")
+id = &"StartSingle1983866236"
+type = &"StartSingle"
+position = Vector2(-980, 100)
+
+[sub_resource type="Resource" id="Resource_17y5m"]
+script = ExtResource("1_nty57")
 id = &"focus_cam3956388264"
 type = &"focus_cam"
-position = Vector2(600, 100)
+position = Vector2(-580, 620)
 data = {
 &"Actor": "CurrentChar",
 &"Offset": Vector2(30, 0),
 &"Time": 0.3
 }
 
-[sub_resource type="Resource" id="Resource_ljkbq"]
+[sub_resource type="Resource" id="Resource_lt5lq"]
 script = ExtResource("1_nty57")
-id = &"zoom2482752567"
-type = &"zoom"
-position = Vector2(300, 120)
+id = &"anim3099843374"
+type = &"anim"
+position = Vector2(40, 200)
 data = {
-&"Amount": 5.0,
+&"Actor": "CurrentChar"
+}
+
+[sub_resource type="Resource" id="Resource_gy0w2"]
+script = ExtResource("1_nty57")
+id = &"jump_to_target2556987384"
+type = &"jump_to_target"
+position = Vector2(700, 140)
+data = {
+&"Actor": "CurrentChar",
+&"Height": 0.5,
+&"Offset": Vector2(0, 0),
+&"Position": Vector2(0, 0),
+&"Target": "Target",
 &"Time": 0.3
 }
 
 [resource]
+resource_name = "JumpAttack"
 script = ExtResource("2_5rmqh")
-nodes = Array[ExtResource("1_nty57")]([SubResource("Resource_nty57"), SubResource("Resource_5rmqh"), SubResource("Resource_rq6pd"), SubResource("Resource_mpitp"), SubResource("Resource_eteln"), SubResource("Resource_emwpd"), SubResource("Resource_ljkbq")])
+nodes = Array[ExtResource("1_nty57")]([SubResource("Resource_nty57"), SubResource("Resource_5rmqh"), SubResource("Resource_rq6pd"), SubResource("Resource_mpitp"), SubResource("Resource_eteln"), SubResource("Resource_emwpd"), SubResource("Resource_ljkbq"), SubResource("Resource_tenpw"), SubResource("Resource_mknbj"), SubResource("Resource_5pyxv"), SubResource("Resource_xff35"), SubResource("Resource_3pm6y"), SubResource("Resource_nhlqr"), SubResource("Resource_17y5m"), SubResource("Resource_lt5lq"), SubResource("Resource_gy0w2")])
 connections = Array[Dictionary]([{
 "from_node": &"StartSingle1983866236",
 "from_port": 0,
@@ -74,27 +169,93 @@ connections = Array[Dictionary]([{
 "to_node": &"zoom2482752567",
 "to_port": 0
 }, {
-"from_node": &"zoom2482752567",
-"from_port": 0,
+"from_node": &"RNGCondition1534243025",
+"from_port": 1,
 "keep_alive": false,
-"to_node": &"focus_cam3956388264",
+"to_node": &"miss3502578939",
 "to_port": 0
 }, {
-"from_node": &"focus_cam3956388264",
-"from_port": 0,
-"keep_alive": false,
-"to_node": &"anim3099843374",
-"to_port": 0
-}, {
-"from_node": &"anim3099843374",
+"from_node": &"jump_to_target2556987384",
 "from_port": 1,
 "keep_alive": false,
 "to_node": &"RNGCondition1534243025",
 "to_port": 0
 }, {
-"from_node": &"RNGCondition1534243025",
-"from_port": 1,
+"from_node": &"anim3099843374",
+"from_port": 0,
 "keep_alive": false,
-"to_node": &"miss3502578939",
+"to_node": &"jump_to_target2556987384",
+"to_port": 0
+}, {
+"from_node": &"RNGCondition1534243025",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"damage667657083",
+"to_port": 0
+}, {
+"from_node": &"damage667657083",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"play_effect1376192799",
+"to_port": 0
+}, {
+"from_node": &"play_effect1376192799",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"play_sound2240381737",
+"to_port": 0
+}, {
+"from_node": &"StartSingle1983866236",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"focus_cam3956388264",
+"to_port": 0
+}, {
+"from_node": &"StartSingle1983866236",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"anim3099843374",
+"to_port": 0
+}, {
+"from_node": &"RNGCondition1534243025",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"anim478725268",
+"to_port": 0
+}, {
+"from_node": &"play_sound2240381737",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"screen_shake2471493494",
+"to_port": 0
+}, {
+"from_node": &"screen_shake2471493494",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"wait1747676822",
+"to_port": 0
+}, {
+"from_node": &"miss3502578939",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"wait1747676822",
+"to_port": 0
+}, {
+"from_node": &"wait1747676822",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"return_cur3384431486",
+"to_port": 0
+}, {
+"from_node": &"return_cur3384431486",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"anim3288279312",
+"to_port": 0
+}, {
+"from_node": &"anim3288279312",
+"from_port": 0,
+"keep_alive": false,
+"to_node": &"EndTurn1183784479",
 "to_port": 0
 }])

@@ -36,6 +36,7 @@ data = {
 }
 
 [resource]
+resource_name = "Test"
 script = ExtResource("2_xhpqj")
 nodes = Array[ExtResource("1_2p0m1")]([SubResource("Resource_2p0m1"), SubResource("Resource_xhpqj"), SubResource("Resource_0w7b2"), SubResource("Resource_i24a5")])
 connections = Array[Dictionary]([{

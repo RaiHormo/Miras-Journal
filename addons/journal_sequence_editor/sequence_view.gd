@@ -2,19 +2,19 @@
 extends EditorDock
 class_name SequenceView
 
-const battle_animations: PackedStringArray = [
-	"Idle",
-	"Attack1", "Attack2",
-	"Ability", "AbilityLoop",
-	"Cast", "Throw", "Drink", "Eat",
-	"Item", "ItemLoop",
-	"Hit", "KnockOut",
-	"Victory", "VictoryLoop",
-	"Entrance",
-	"Command",
+const slot_names: Dictionary[int, String] = {
+	0: "Call",
+	1: "String",
+	3: "Number",
+	4: "Actor"
+}
 
-	"FlameSpark", "Bleed", "FirstBattle"
-]
+const slot_colors: Dictionary[int, Color] = {
+	0: Color.WHITE,
+	1: Color("6d4affff"),
+	3: Color("009e13"),
+	4: Color("d70058"),
+}
 
 var plugin: EditorPlugin
 var start_node: GraphNode
@@ -66,18 +66,14 @@ func _ready() -> void:
 	header_actions.visible = current_file != null
 
 
-func insert(type: StringName, position := Vector2.ZERO) -> GraphNode:
+func insert(type: StringName, pos := Vector2.ZERO) -> GraphNode:
 	var dub := elements[type].duplicate()
 	dub.set_meta(&"Type", type)
 	dub.name += str(randi())
 	graph.add_child(dub)
 
-	if position == Vector2.ZERO:
-		# Determine the exact middle pixel of the GraphEdit container control
+	if pos == Vector2.ZERO:
 		var target_screen_center := graph.size / 2.0
-
-		# Let GraphEdit translate screen pixels to zoomed canvas space automatically
-		# This bypasses dividing by zoom variables that trigger the internal C++ error
 		var clean_canvas_pos := (target_screen_center + graph.scroll_offset)
 
 		if graph.zoom > 0.0:
@@ -85,7 +81,9 @@ func insert(type: StringName, position := Vector2.ZERO) -> GraphNode:
 
 		dub.position_offset = clean_canvas_pos - (dub.size / 2.0)
 	else:
-		dub.position_offset = position
+		dub.position_offset = pos
+
+	create_slots(dub)
 
 	return dub
 
@@ -97,19 +95,55 @@ func apply_properties(node: Node):
 			if i is Button:
 				i.icon = EditorInterface.get_base_control().get_theme_icon(i.get_meta("Icon"), "EditorIcons")
 
-		# Setup AnimationSelector controls
-		elif i.name == "AnimationSelect" and i is OptionButton:
-
-			for anim in battle_animations:
-				i.add_item(anim)
-
-				# Setup ActorSelector controls
-		elif i.name == "ActorSelect" and i is Button:
-			i.pressed.connect(_actor_select.bind(i))
-
 		# Recursion
 		elif i.get_child_count() != 0:
 			apply_properties(i)
+
+
+func create_slots(node: Node, graph_node: GraphNode = node if node is GraphNode else null) -> void:
+	for i in node.get_children():
+		# Setup ActorSelector controls
+		if i is Button and i.name.ends_with("Select"):
+			var type := i.name.replace("Select", "")
+
+			var slot: int = slot_names.find_key(type)
+
+			if not slot:
+				printerr("Unspecified slot type for ", i.name)
+				return
+
+			var container := i.get_parent() as HBoxContainer
+
+			if container:
+				if graph_node:
+					var idx := container.get_index()
+					graph_node.set_slot(
+						idx,
+						true,
+						slot,
+						slot_colors.get(slot),
+						graph_node.is_slot_enabled_right(idx),
+						graph_node.get_slot_type_right(idx),
+						graph_node.get_slot_color_right(idx)
+					)
+
+					if elements.has(type):
+						i.pressed.connect(func():
+							var new_node := insert(type, graph_node.position_offset - Vector2(graph_node.size.x * 1.2, 0))
+
+							# Calculate the true left port index by counting enabled left slots above it
+							var port_idx := 0
+
+							for c_idx in range(idx):
+								if graph_node.is_slot_enabled_left(c_idx):
+									port_idx += 1
+
+							_graph_connection_request(new_node.name, 0, graph_node.name, port_idx)
+						)
+
+		# Recursion
+		elif i.get_child_count() != 0:
+			create_slots(i, graph_node)
 
 
 func open_from_path(path: String) -> void:
@@ -118,11 +152,13 @@ func open_from_path(path: String) -> void:
 
 
 func open_file(file: SequenceGraph) -> void:
+	if file == null: return
+
 	save()
 	clear()
 	header_actions.visible = true
 	current_file = file
-	file_name.text = file.resource_path.get_file().replace(".tres", "")
+	file_name.text = file.resource_name
 
 	for i in file.nodes:
 		var node := insert(i.type, i.position)
@@ -143,6 +179,7 @@ func open_file(file: SequenceGraph) -> void:
 func save() -> void:
 	if not current_file: return
 	var resource_path := current_file.resource_path
+	current_file.resource_name = resource_path.get_file().replace(".tres", "")
 
 	current_file.connections = graph.connections.duplicate(true)
 	current_file.nodes.clear()
@@ -225,6 +262,7 @@ func pack_node_data(node: GraphNode) -> Dictionary:
 		else:
 			for i in container.get_children():
 				if i.name.ends_with("Select"):
+
 					node_data[param_name] = i.text
 
 	return node_data
@@ -325,16 +363,6 @@ func _on_graph_edit_delete_nodes_request(nodes_to_delete: Array[StringName]) -> 
 
 	# Update your save file
 	save()
-
-
-func _actor_select(btn: Button) -> void:
-	var popup: AcceptDialog = %ActorSelect
-	popup.popup()
-	await popup.confirmed
-	btn.text = popup.get_node("List/CurrentChar").button_group.get_pressed_button().text
-
-	if btn.text == "SpecifyID":
-		btn.text = popup.get_node("List/SpecifyID/ID").text
 
 
 func _exit_tree() -> void:
