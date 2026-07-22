@@ -8,7 +8,7 @@ signal anim_done
 signal textbox_close
 signal passive_close
 
-enum TOD { DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5 }
+enum TOD {DARKHOUR = 0, MORNING = 1, DAYTIME = 2, AFTERNOON = 3, EVENING = 4, NIGHT = 5}
 
 ##An [Array] of all [NPC] nodes in the current scene
 var List: Dictionary[String, NPC]
@@ -46,14 +46,17 @@ func add_char(b: NPC) -> void:
 		push_warning("Duplicate npc spawned: ", b.ID)
 		if is_instance_valid(List.get(b.ID)):
 			return
+
 	List.set(b.ID, b)
 
 
 ##Get the [NPC] node from a [String] ID
 func npc(ID: String) -> NPC:
 	var rtn: NPC = List.get(ID)
+
 	if not is_instance_valid(rtn):
 		push_error("NPC with ID ", ID, " isn't valid.")
+
 	return rtn
 
 
@@ -110,13 +113,14 @@ func jump_to_global(chara: Variant, position: Vector2, time: float = 5, height: 
 	var t: Tween = create_tween()
 	var start: Vector2 = character.global_position
 	var jump_distance: float = start.distance_to(position)
-	var jump_height: float = jump_distance * height  #will need tweaking
+	var jump_height: float = jump_distance * height #will need tweaking
 	var midpoint := start.lerp(position, 0.5) + Vector2.UP * jump_height
-	var jump_time := jump_distance * (time * 0.001)  #will also need tweaking, this controls how fast the jump is
+	var jump_time := jump_distance * (time * 0.001) #will also need tweaking, this controls how fast the jump is
 	t.tween_method(Query.quad_bezier.bind(start, midpoint, position, character), 0.0, 1.0, jump_time)
 	await t.finished
 	if character == Global.Player and vibrate:
 		Controller.rumble(0, abs(height) / 3, 0.06)
+
 	anim_done.emit()
 
 
@@ -126,11 +130,13 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 	t.set_trans(Tween.TRANS_QUART)
 	var dur := ShakeDuration / times
 	var am := amount
+
 	for i in range(0, times):
 		am = am - (amount / times)
 		t.tween_property(Global.Camera, "offset",
 		Vector2(randf_range(-am, am), randf_range(-am, am)), dur).as_relative()
 		t.tween_property(Global.Camera, "offset", Vector2.ZERO, dur)
+
 	await t.finished
 
 
@@ -153,15 +159,17 @@ func heal_in_overworld(target: Actor, ab: Ability) -> void:
 func _get_chara_node(chara: Variant) -> Node2D:
 	if chara is Node2D:
 		return chara
+
 	if chara is String:
 		return npc(chara)
-	return null
 
+	return null
 
 
 #region Textbox Managment
 func textbox_kill() -> void:
 	await Textbox.kill()
+
 
 func portrait(img: String, redraw := true) -> void:
 	if Textbox.is_open:
@@ -187,11 +195,13 @@ func picture(img: String) -> void:
 	elif Passive.is_open:
 		await Passive.current.set_picture(img)
 
+
 func picture_clear() -> void:
 	if Textbox.is_open:
 		Textbox.current.picture = null
 	elif Passive.is_open:
 		Textbox.current.picture = null
+
 
 func no_nametag() -> void:
 	if Textbox.is_open:
@@ -208,8 +218,10 @@ func match_profile(named: String) -> BoxProfile:
 ## Check if a flag is equal to a given value.[br]
 func check_flag(flag: StringName, value := 1) -> bool:
 	flag = flag.replace(" ", "_")
+
 	if flag in Flags:
 		return Flags.get(flag) == value
+
 	if value == 0:
 		return true
 	else:
@@ -230,10 +242,12 @@ func f(flag: StringName) -> bool:
 	# "true" and "false" when left by themselves will always return that
 	if flag == "true":
 		return true
+
 	if flag == "false":
 		return false
 
 	# ":" is an alias for "="
+
 	if ":" in flag:
 		return f(flag.replace(":", "="))
 
@@ -242,9 +256,11 @@ func f(flag: StringName) -> bool:
 		# Recursively call this function for each expression,
 		# and return false if any of them is false
 		var split := flag.split("+")
+
 		for i in split:
 			if not f(i):
 				return false
+
 		return true
 
 	# For OR expression
@@ -252,9 +268,11 @@ func f(flag: StringName) -> bool:
 		# Recursively call this function for each expression,
 		# and return true if any of them is true
 		var split := flag.split("||")
+
 		for i in split:
 			if f(i):
 				return true
+
 		return false
 
 	# For comparasion expressions
@@ -319,9 +337,11 @@ func f(flag: StringName) -> bool:
 ## Set a flag with [code]do add_flag("Example", 1)[/code]. The second parameter is optional, and is 1 by default.
 func add_flag(flag: StringName, value := 1) -> bool:
 	flag = flag.replace(" ", "_")
+
 	if "=" in flag:
 		var split := flag.split("=")
 		return add_flag(str(split[0]), int(split[1]))
+
 	Flags.set(flag, value)
 	print_rich("[color=purple]Set flag \"", flag, "\" to ", value)
 	return value
@@ -330,6 +350,7 @@ func add_flag(flag: StringName, value := 1) -> bool:
 func remove_flag(flag: StringName) -> void:
 	if flag in Flags:
 		Flags.erase(flag)
+
 	print_rich("[color=purple]Removed flag \"", flag, "\"")
 
 
@@ -343,53 +364,66 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 	if not is_instance_valid(Global.Player):
 		Global.Controllable = false
 		return
+
 	var pos := Global.Player.position
 	print_rich("[color=purple]Taking control")
 	Global.Controllable = false
 	await wait()
 	if not is_instance_valid(Global.Player) or not is_instance_valid(Global.Area):
 		return
+
 	if Global.Player.dashing:
 		await Global.Player.stop_dash(false)
 		Global.Player.dashing = false
+
 	Global.Player.speed = Global.Player.walk_speed
 	Global.Player.dashdir = Vector2.ZERO
 	Global.Player.winding_attack = false
 	Global.Player.direction = Vector2.ZERO
 	PartyUI.UIvisible = keep_ui
 	Global.Controllable = false
+
 	if not keep_followers:
 		for i in Global.Area.followers:
 			i.dont_follow = true
+
 	await wait()
 	if is_instance_valid(Global.Player):
 		Global.Controllable = false
 		Global.Player.position = pos
 		Global.check.emit()
 		if idle:
-			Global.Player.BodyState = NPC.IDLE
+			Global.Player.state = NPC.S.IDLE
 			Global.Player.set_anim()
 
 
 func give_control(camera_follow := false, bring_followers := true) -> void:
 	if Global.Player == null:
 		return
+
 	print_rich("[color=purple]Giving control")
+
 	if get_tree().root.has_node("Warning"):
 		get_tree().root.get_node("Warning").queue_free()
+
 	#if get_tree().root.has_node("MainMenu"):
 	#get_tree().root.get_node("MainMenu").close()
 	Global.Player.direction = Vector2.ZERO
 	Global.Player.collision(true)
 	PartyUI.UIvisible = true
 	Global.Controllable = true
+
 	if camera_follow:
 		Global.Player.camera_follow(true)
+
 	get_tree().paused = false
+
 	if bring_followers:
 		for i in Global.Area.followers:
 			i.dont_follow = false
+
 		#Event.teleport_followers()
+
 	Global.Area.setup_params(true)
 	Global.Player.local_controllable = true
 	Global.check.emit()
@@ -399,6 +433,7 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 func flag_int(string: String) -> int:
 	if string.is_valid_int():
 		return int(string)
+
 	if Flags.has(string) and Flags.get(string) is int:
 		return Flags.get(string)
 	else:
@@ -442,6 +477,7 @@ func get_time_progress_from_now(amount: int) -> TOD:
 func get_day_progress_from_now(amount: int) -> int:
 	var toad := TimeOfDay as int
 	toad += amount
+
 	if toad > 5:
 		return Day + 1
 	else:
@@ -466,6 +502,7 @@ func sequence(title: String) -> Node:
 	for i in sequences.get_children():
 		if i.has_method(title):
 			return await i.call(title)
+
 	OS.alert(title + " is not a valid event")
 	return null
 
@@ -474,54 +511,69 @@ func sequence_exists(title: String) -> bool:
 	for i in sequences.get_children():
 		if i.has_method(title):
 			return true
+
 	return false
+
 
 ## Get the position of a Marker2D in the room who's name starts with "Marker" (don't include the "Marker" part)
 ## Use MarkerName+(x,y) to get a position relative to the marker
 func get_marker_pos(title: String) -> Vector2:
 	var offset := Vector2.ZERO
+
 	if '+' in title:
 		var pos_str := title.split("+")[1]
 		var split := pos_str.split(',')
+
 		if not split.is_empty():
 			offset.x = split[0].to_int()
+
 			if split.size() > 1:
 				offset.y = split[1].to_int()
+
 		title = title.split("+")[0]
-	
+
 	for marker in Global.Area.markers:
 		if marker.name.replace("Marker", "") == title:
 			return marker.position + offset
+
 	push_error("Failed to find marker: ", title)
 	return Vector2.ZERO
+
 
 func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_collision := true) -> NPC:
 	if pos is String:
 		pos = Event.get_marker_pos(pos)
-	
+
 	var chara: NPC = (await Loader.load_res("res://rooms/components/NPC.tscn")).instantiate()
 	var sprite_node := AnimatedSprite2D.new()
-	chara.SpawnOnCameraInd = false
+	chara.only_on_index = -1
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
 	var nam := id.split(":")
 	var sprite := await Query.get_ov_sprites(id)
+
 	if sprite == null:
 		return null
+
 	sprite_node.sprite_frames = sprite
+
 	if no_collision:
 		chara.collision(false)
+
 	chara.name = nam[0]
 	chara.ID = nam[0]
 	chara.position = pos
 	chara.z_index = z
+
 	if Global.Area.current_subroom == null:
 		Global.Area.add_child.call_deferred(chara)
 	else:
 		Global.Area.current_subroom.add_child.call_deferred(chara)
 		chara.position -= Global.Area.current_subroom.position
+
 	print_rich("[color=purple]Spawned: ", chara.ID)
+
 	if animation is Direction:
 		chara.look_to.call_deferred(animation)
 	elif animation is String:
@@ -529,16 +581,19 @@ func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int
 			chara.look_to.call_deferred(Direction.from_letter(animation))
 		else:
 			chara.set_anim.call_deferred(animation, false, true)
+
 	return chara
 
 
 func no_player() -> void:
 	Global.Controllable = false
+
 	if is_instance_valid(Global.Player):
 		Global.Player.queue_free()
 		for i in Global.Area.followers:
 			i.queue_free()
 			await get_tree().physics_frame
+
 	PartyUI.hide_all()
 
 
@@ -548,6 +603,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 	if get_tree().root.has_node("Textbox"):
 		get_tree().root.get_node("Textbox")._on_close()
 		#await Event.wait(0.3, false)
+
 	await Event.take_control()
 	await Loader.transition()
 	Loader.ungray.emit()
@@ -556,6 +612,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 		Day = ToDay
 		Global.toast(Query.get_month_name(Query.get_month(Day)) + " " + str(Day) + " cin16")
 		Loader.defeated.clear()
+
 	set_time(ToTime)
 	await start_time_events(location)
 
@@ -563,6 +620,7 @@ func time_transition(location := Global.Area.codename()) -> void:
 ## Abstraction for setting the camera zoom
 func zoom(val: float, maintain := false) -> void:
 	Global.Camera.zoom = Vector2(val, val)
+
 	if maintain:
 		Global.Area.overwrite_zoom = val
 
@@ -600,6 +658,7 @@ func camera_unlock() -> void:
 ## These could be in any Ev script
 func start_time_events(location: String) -> void:
 	var seq := get_date_identifier()
+
 	if sequence_exists(seq):
 		print_rich("[color=purple]Starting event: " + seq)
 		await sequence(seq)
@@ -610,11 +669,14 @@ func start_time_events(location: String) -> void:
 					await sequence("return_home_pyrson")
 				else:
 					await sequence("wake_home")
+
 			"Dungeon":
 				Passive.open("banter_misc", "rest_dungeon")
 				give_control()
+
 			_:
 				give_control()
+
 	Global.check.emit()
 	Loader.detransition()
 
@@ -650,6 +712,7 @@ func setup_time_changes(from: int, to: int) -> void:
 func date_is_reserved() -> bool:
 	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
 	var date := get_date_identifier()
+
 	if date in dialogue.get_titles():
 		return true
 	else:
@@ -660,8 +723,10 @@ func get_reserved_date_dialog() -> String:
 	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
 	var date := get_date_identifier()
 	var title: String = "default"
+
 	if date in dialogue.get_titles():
 		title = date
+
 	return "reserved_date/" + title
 
 

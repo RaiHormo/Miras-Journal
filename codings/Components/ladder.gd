@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 		if varience == 1:
 			var t := create_tween()
 			t.tween_property(self, "varience", 0, 0.2)
-		Global.Player.BodyState = NPC.CUSTOM
+		Global.Player.state = NPC.S.CUSTOM
 
 		Global.Player.set_anim("Climb")
 
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			Global.Player.direction = Vector2.ZERO
 			Global.Player.sprite.pause()
-		if Global.Player.position.y < $Start1.global_position.y and Global.Player.Facing.is_vector(Vector2.UP):
+		if Global.Player.position.y < $Start1.global_position.y and Global.Player.facing.is_vector(Vector2.UP):
 			if enable_stairs:
 				Global.Player.z_index = zUp
 				Global.Player.collision_layer = LayersUp
@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 			await Event.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
-		if Global.Player.position.y > $Start2.global_position.y and Global.Player.Facing.is_vector(Vector2.DOWN):
+		if Global.Player.position.y > $Start2.global_position.y and Global.Player.facing.is_vector(Vector2.DOWN):
 			if enable_stairs:
 				Global.Player.z_index = zDown
 				Global.Player.collision_layer = LayersDown

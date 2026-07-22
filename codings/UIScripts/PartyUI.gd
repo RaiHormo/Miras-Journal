@@ -13,6 +13,7 @@ var UIvisible: bool = false:
 	set(value):
 		if UIvisible == value:
 			return # Prevents running if the state hasn't changed
+
 		UIvisible = value
 
 		# Run show_all or hide_all when this variable changes
@@ -56,11 +57,13 @@ func _ready() -> void:
 		page.name = "Page" + str(i)
 		page.z_index = 3 - i
 		%Pages.add_child(page)
+
 	%Partybox/Member1.show()
 	for i in range(2, 4):
 		var box: Panel = %Partybox/Member1.duplicate()
 		box.name = "Member" + str(i)
 		Partybox.add_child(box)
+
 	UIvisible = false
 	Global.check.connect(_check_party)
 	Global.check.emit()
@@ -82,7 +85,9 @@ func _process(_delta: float) -> void:
 			if Global.Settings.AutoHideHUD == 0:
 				if $IdleTimer.time_left == 0:
 					show_all()
+
 				$IdleTimer.start(3)
+
 			if Global.Settings.AutoHideHUD == 1:
 				hide_all()
 				$IdleTimer.start(3)
@@ -92,10 +97,13 @@ func _process(_delta: float) -> void:
 func show_all(except_date := false, animate := true) -> void:
 	if disabled:
 		return
+
 	if is_instance_valid(Global.Player) and Global.Settings.AutoHideHUD == 1 and Global.Player.move_frames > 0:
 		return
+
 	if not UIvisible:
 		UIvisible = true
+
 	inactive = false
 	$CanvasLayer.show()
 	# Animate the date UI in, except_date prevents this
@@ -105,6 +113,7 @@ func show_all(except_date := false, animate := true) -> void:
 			tl.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
 		else:
 			$CanvasLayer/CalendarBase.position.y = 0
+
 		$IdleTimer.start(5)
 
 	# Iterate through the boxes
@@ -113,6 +122,7 @@ func show_all(except_date := false, animate := true) -> void:
 		# The Leader gets position 0 since its bigger
 
 		var offset := -70
+
 		if i == 0:
 			offset = 0
 		elif Loader.in_battle:
@@ -124,6 +134,7 @@ func show_all(except_date := false, animate := true) -> void:
 			await Event.wait(0.03, false)
 		else:
 			box.offset_transform_position.x = offset
+
 		## Animate or set the X position when in battle
 		if Loader.in_battle and def_pos_partybox[i] != Vector2.ONE:
 			t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -134,6 +145,7 @@ func show_all(except_date := false, animate := true) -> void:
 func hide_all(animate := true) -> void:
 	if UIvisible:
 		UIvisible = false
+
 	if animate:
 		t = create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -141,6 +153,7 @@ func hide_all(animate := true) -> void:
 		t.set_parallel()
 		for i in range(0, 4):
 			t.tween_property(Partybox.get_child(i), "offset_transform_position:x", -250, 0.3)
+
 		t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
 	else:
 		for i in range(0, 4):
@@ -150,10 +163,13 @@ func hide_all(animate := true) -> void:
 func _check_party() -> void:
 	if not Global.Party:
 		return
+
 	if not is_instance_valid(Global.Party.Leader):
 		return
+
 	if Event.check_flag("DisableMenus"):
 		disabled = true
+
 	#$CanvasLayer/DebugText.visible = Global.Settings.DebugMode
 	check_member(Global.Party.Leader, Partybox.get_node("Leader"), 0)
 	for i in range(1, 4):
@@ -167,13 +183,16 @@ func _check_party() -> void:
 func check_member(mem: Actor, node: Panel, ind: int) -> void:
 	if not is_instance_valid(mem):
 		return
+
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	node.get_node("Name").text = mem.FirstName
+
 	if UIvisible and not Expanded:
 		node.position.y = def_pos_partybox[ind].y
+
 	var txt_color := mem.MainColor
 	txt_color.v = min(txt_color.v, 0.75)
 	get_node("%Pages/Page" + str(ind) + "/Label").add_theme_color_override("font_color", txt_color)
@@ -190,23 +209,29 @@ func check_member(mem: Actor, node: Panel, ind: int) -> void:
 	node.get_node("Aura/ApText").text = str(mem.Aura)
 	node.get_node("Level/Number").text = str(mem.SkillLevel)
 	var timer: Timer = node.get_node("ReviveFlashTimer") as Timer
+
 	if mem.has_state("KnockedOut") and mem.Health > 0:
 		timer.wait_time = 1 - mem.health_ratio()
+
 		if timer.is_stopped():
 			timer.start()
 	else:
 		timer.stop()
 		node.get_node("Health").get_theme_stylebox("fill").bg_color.a = 1
+
 	if Expanded:
 		# Loads render
 		if get_node("%Pages/Page" + str(ind) + "/Render").texture == null and mem.RenderArtwork != null:
 			get_node("%Pages/Page" + str(ind) + "/Render").texture = await Loader.load_res(mem.RenderArtwork)
+
 		# Loads Aura doodle
 		if get_node("%Pages/Page" + str(ind) + "/AuraDoodle").texture == null and mem.PartyPage != null:
 			get_node("%Pages/Page" + str(ind) + "/AuraDoodle").texture = await Loader.load_res(mem.PartyPage)
+
 		# Loads Shadow
 		if get_node("%Pages/Page" + str(ind) + "/Render/Shadow").texture == null:
 			get_node("%Pages/Page" + str(ind) + "/Render/Shadow").texture = await mem.RenderShadow()
+
 	await check_for_levelups(mem, node)
 
 
@@ -218,6 +243,7 @@ func _input(event: InputEvent) -> void:
 func darken(toggle := true) -> void:
 	#print(toggle)
 	t = create_tween().set_parallel()
+
 	if toggle:
 		$CanvasLayer/Fade.show()
 		t.tween_property($CanvasLayer/Fade/Blur.material, "shader_parameter/lod", int(Global.Settings.BlurEffect) * 3, 0.3)
@@ -242,13 +268,17 @@ func _on_expand(open_ui := 0) -> void:
 	if disabled:
 		Audio.buzzer_sound()
 		return
+
 	t.kill()
 	if UIvisible == false:
 		await show_all(true)
+
 	if get_tree().root.has_node("Options"):
 		return
+
 	if open_ui != 2:
 		$CanvasLayer/Cursor.show()
+
 	$CanvasLayer/Cursor.position = get_cursor_pos(0)
 	#if open_ui == 0: WasPaused = false
 	#else:
@@ -262,6 +292,7 @@ func _on_expand(open_ui := 0) -> void:
 	#Pages
 	for page in %Pages.get_children():
 		page.rotation_degrees = randf_range(-2, 2)
+
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_BACK)
@@ -275,6 +306,7 @@ func _on_expand(open_ui := 0) -> void:
 				get_node("%Pages/Page" + str(i)).show()
 			else:
 				get_node("%Pages/Page" + str(i)).hide()
+
 		$CanvasLayer/Cursor/MemberOptions.show()
 		$CanvasLayer/Cursor/MemberOptions/VBox/Details.icon = Controller.get_scheme().CommandIcon
 		$CanvasLayer/Cursor/MemberOptions/VBox/Abilities.icon = Controller.get_scheme().ItemIcon
@@ -294,10 +326,13 @@ func _on_expand(open_ui := 0) -> void:
 	else:
 		$CanvasLayer/Cursor/MemberOptions.hide()
 		%Pages.hide()
+
 	if open_ui < 2:
 		t = create_tween()
 		t.tween_property($CanvasLayer/Cursor, "modulate", Color(1, 1, 1, 1), 0.2)
 		darken()
+		Expanded = true
+
 	expand_panel(Partybox.get_node("Leader"))
 	for i in range(1, 4):
 		expand_panel(Partybox.get_node("Member" + str(i)), i)
@@ -305,10 +340,10 @@ func _on_expand(open_ui := 0) -> void:
 	#Menu
 	#if open_ui == 0:
 	Global.Controllable = false
-	Expanded = true
 	Global.check.emit()
 	if open_ui == 0:
 		await focus_now()
+
 	inactive = false
 
 
@@ -330,6 +365,7 @@ func expand_panel(Pan: Panel, mem := 0) -> void:
 		hp_pos = Vector2(75, 31)
 		au_pos = Vector2(75, 37)
 		nam_pos = Vector2(82, 3)
+
 	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09, 0.09), 0.4)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, 0.4)
 	t.tween_property(Pan.get_node("Health"), "size", Vector2(110, 20), 0.4)
@@ -361,6 +397,7 @@ func _on_shrink(hurry_up := false) -> void:
 	Global.check.emit()
 	if not hurry_up:
 		get_tree().paused = WasPaused
+
 	t = create_tween()
 	t.set_parallel(true)
 	t.set_ease(Tween.EASE_OUT)
@@ -368,8 +405,10 @@ func _on_shrink(hurry_up := false) -> void:
 	focus = 0
 	#Pages
 	#$CanvasLayer/Cursor.position=CursorPosition[0]
+
 	for i in %Pages.get_children():
 		t.tween_property(i, "position", Vector2(1300, 44), 0.3)
+
 	t.tween_property(%Pages/Page0/Render, "position", Vector2(179, 44), 0.6)
 	t.tween_property($CanvasLayer/Back, "position:x", -150, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(0, 0, 0, 0), 0.4)
@@ -387,6 +426,7 @@ func _on_shrink(hurry_up := false) -> void:
 		i.get_node("Render").texture = null
 		i.get_node("Render/Shadow").texture = null
 		i.get_node("AuraDoodle").texture = null
+
 	await t.finished
 	MemberChoosing = false
 	$CanvasLayer/Cursor/ItemPreview/AnimationPlayer.stop()
@@ -417,6 +457,7 @@ func shrink_panel(Pan: Panel, mem := 0, time := 0.4) -> void:
 		au_pos = Vector2(86, 30)
 		bar_size = Vector2(124, 22)
 		nam_pos = Vector2(82, 3)
+
 	t.tween_property(Pan.get_node("Icon"), "scale", Vector2(0.09, 0.09), time)
 	t.tween_property(Pan.get_node("Icon"), "position", icon_pos, time)
 	t.tween_property(Pan.get_node("Health"), "size", bar_size, time)
@@ -441,6 +482,7 @@ func handle_ui() -> void:
 	if disabled or !UIvisible:
 		Expanded = false
 		return
+
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus + 1):
 			focus += 1
@@ -448,9 +490,11 @@ func handle_ui() -> void:
 			focus_now()
 			if not MemberChoosing:
 				$Audio.stream = preload("res://sound/SFX/page.ogg")
+
 			$Audio.play()
 		else:
 			Audio.buzzer_sound()
+
 	if Input.is_action_just_pressed("ui_up"):
 		if focus - 1 != -1:
 			focus -= 1
@@ -458,6 +502,7 @@ func handle_ui() -> void:
 			focus_now()
 			if not MemberChoosing:
 				$Audio.stream = preload("res://sound/SFX/page2.ogg")
+
 			$Audio.play()
 		else:
 			Audio.buzzer_sound()
@@ -474,11 +519,14 @@ func focus_now() -> void:
 	#await get_tree().create_timer(0.3).timeout
 	if MemberChoosing:
 		return
+
 	if focus == 0:
 		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.hide()
 	else:
 		$CanvasLayer/Cursor/MemberOptions/VBox/Talk.show()
+
 	$CanvasLayer/Cursor/MemberOptions.size.y = 1
+
 	for i in range(0, focus):
 		t.tween_property(
 			get_node("%Pages/Page" + str(i)),
@@ -561,11 +609,14 @@ func battle_state(from := false) -> void:
 	if not Loader.in_battle:
 		$CanvasLayer.hide()
 		return
+
 	$CanvasLayer.show()
 	$CanvasLayer/Cursor.hide()
 	Partybox.scale = Vector2(1.25, 1.25)
+
 	if from:
 		hide_all()
+
 	for i in range(0, 4):
 		if Query.check_member(i):
 			Partybox.get_child(i).get_node("Name").show()
@@ -581,11 +632,13 @@ func battle_state(from := false) -> void:
 			Partybox.get_child(i).get_node("Name").modulate = Color.WHITE
 			Partybox.get_child(i).get_node("Aura/ApText").modulate = Color.WHITE
 			Partybox.get_child(i).get_node("Level").position = Vector2(140, 70) if i == 0 else Vector2(140, 78)
+
 			if i != 0:
 				Partybox.get_child(i).size.y = 100
 				Partybox.get_child(i).get_node("Name").position.x = 140
 				Partybox.get_child(i).get_node("Health/HpText").position.x = 64
 				Partybox.get_child(i).get_node("Aura/ApText").position.x = 64
+
 			t = create_tween()
 			t.set_ease(Tween.EASE_OUT)
 			t.set_trans(Tween.TRANS_QUART)
@@ -593,6 +646,7 @@ func battle_state(from := false) -> void:
 			t.tween_property(Partybox.get_child(i), "offset_transform_position:x", 0 if i == 0 else -60, 0.3)
 		else:
 			Partybox.get_child(i).hide()
+
 	for i in range(0, 4):
 		if def_pos_partybox[i] != Vector2.ONE:
 			t.tween_property(Partybox.get_child(i), "position:y", def_pos_partybox[i].y, 0.2)
@@ -601,6 +655,7 @@ func battle_state(from := false) -> void:
 func save_box_positions() -> void:
 	for i in range(0, 4):
 		var box: Control = Partybox.get_child(i)
+
 		if i == 0 or box.position.y > 100:
 			def_pos_partybox[i] = box.position
 
@@ -618,8 +673,10 @@ func only_current() -> void:
 	t.set_parallel(true)
 	for member in Global.Party.array():
 		var i := Global.Party.member_index(member)
+
 		if member == Global.Bt.CurrentChar:
 			t.tween_property(Partybox.get_child(i), "offset_transform_position:x", 0 if i == 0 else -70, 0.2)
+
 			if Global.Bt.CurrentChar != Global.Party.Leader:
 				t.tween_property(Partybox.get_child(i), "position:y", 20, 0.2)
 		else:
@@ -629,6 +686,7 @@ func only_current() -> void:
 func check_for_levelups(mem: Actor, node: Panel) -> void:
 	if mem.SkillCurve == null:
 		return
+
 	t = create_tween()
 	t.set_parallel()
 	t.set_ease(Tween.EASE_OUT)
@@ -648,8 +706,10 @@ func check_for_levelups(mem: Actor, node: Panel) -> void:
 			LevelupChain.append(mem.codename)
 			print(mem.FirstName + " grows to level ", mem.SkillLevel, ", ", mem.SkillPoints, "SP remain")
 			node.get_node("Level/Number").text = str(mem.SkillLevel)
+
 			if mem.SkillCurve != null:
 				node.get_node("Level/ExpBar").max_value = mem.skill_points_for(mem.SkillLevel)
+
 			check_for_levelups(mem, node)
 		else:
 			push_error("Levelup bug occured")
@@ -705,26 +765,28 @@ func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> voi
 	if artifact is ItemData:
 		if not artifact:
 			return
+
 		$CanvasLayer/Cursor/ItemPreview.text = (artifact.Name+ " x" + str(artifact.Quantity))
 		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
 		$/root/MainMenu.stage = "choose_member"
 	elif artifact is Ability:
 		$CanvasLayer/Cursor/ItemPreview.text = artifact.name
 		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
-	else: 
+	else:
 		push_error("Invalid use of choose_member")
 		return
-	
+
 	member_choosing_artifact = artifact
 	member_choosing_user = user
-	
+
 	if not Expanded:
 		_on_expand(1)
+
 	UIvisible = true
 	t = create_tween()
 	$CanvasLayer/Fade.show()
 	$CanvasLayer/Back.show()
-	
+
 	$CanvasLayer/Back.icon = Controller.get_scheme().CancelIcon
 	t.tween_property($CanvasLayer/Back, "position:x", 20, 0.3)
 	t.tween_property($CanvasLayer/Cursor, "modulate", Color(1, 1, 1, 1), 0.4)
@@ -744,10 +806,13 @@ func _on_item_preview_pressed() -> void:
 			if Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
 				Global.toast("HP is already maxed out")
 				Audio.buzzer_sound()
+
 			Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 		else:
 			Global.toast("No more of this item is left")
+
 		$CanvasLayer/Cursor/ItemPreview.text = (member_choosing_artifact.Name + " x" + str(member_choosing_artifact.Quantity))
+
 	if member_choosing_artifact is Ability:
 		if Global.Party.get_member(focus).Health == Global.Party.get_member(focus).MaxHP:
 			Global.toast("HP is already maxed out")
@@ -760,8 +825,10 @@ func _on_item_preview_pressed() -> void:
 
 func confirm_time_passage(title: String, description: String, to_time: Event.TOD = Event.ToTime) -> bool:
 	var awnser: bool = await $CanvasLayer/CalendarBase.confirm_time_passage(title, description, to_time)
+
 	if awnser and is_instance_valid(Global.Player):
 		await Loader.save()
+
 	return awnser
 
 
@@ -801,31 +868,39 @@ func cmd(cmd_text := "") -> void:
 			elif cmd_text.begins_with("/lv"):
 				Global.reset_all_members()
 				var text := cmd_text.replace("/lv ", "")
+
 				for i in Global.Party.array():
 					if i != null:
 						i.level_up_to(int(text))
+
 				Global.heal_party()
 				Global.check.emit()
 			elif cmd_text.begins_with("/item"):
 				var text: String = cmd_text.replace("/item ", "")
 				var split := text.split(":")
+
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
+
 				Item.add_item(split[0], split[1])
 			elif cmd_text.begins_with("/itemrm"):
 				var text: String = cmd_text.replace("/itemrm ", "")
 				var split := text.split(":")
+
 				if split.size() < 2:
 					Global.toast("Item type needed")
 					return
+
 				Item.remove_item(split[0], split[1])
 			elif cmd_text.begins_with("/diaryadd"):
 				var text := cmd_text.replace("/diaryadd ", "").split('>')
 				var key: String = text[0]
 				var day: int = Event.Day
+
 				if text.size() > 1:
 					day = int(text[1])
+
 				Event.add_to_diary(key, day)
 		elif cmd_text != "":
 			var text := cmd_text
@@ -851,6 +926,7 @@ func party_menu() -> void:
 		if disabled:
 			Audio.buzzer_sound()
 			return
+
 		if Global.Controllable:
 			expand.emit()
 			Audio.confirm_sound()
@@ -862,13 +938,16 @@ func main_menu() -> void:
 			await Event.wait(0.3, false)
 			if Global.Controllable:
 				main_menu()
+
 			return
+
 		if Event.check_flag("HasBag"):
 			Audio.ui_sound("Menu")
 			Global.Player.bag_anim()
 			Global.Controllable = false
 			get_tree().paused = true
 			var menu: PackedScene = await Loader.load_res("res://UI/MainMenu/MainMenu.tscn")
+
 			if get_tree().root.get_node_or_null("Options") == null:
 				get_tree().root.add_child(menu.instantiate())
 			else:
@@ -889,9 +968,11 @@ func cycle_states(chara: Actor, rect: TextureRect, reclude := true) -> void:
 	else:
 		var index := wrapi($StateTimer.time_left, 0, chara.States.size())
 		rect.texture = chara.States[index].icon
+
 		while chara.States.size() > 1 and reclude:
 			cycle_states(chara, rect, false)
 			await Event.wait(0.3, false)
+
 	rect.show()
 
 
@@ -936,6 +1017,7 @@ func back() -> void:
 			Audio.cancel_sound()
 			await Event.wait(0.1, false)
 			Global.Controllable = was_controllable
+
 			if get_tree().root.has_node("MainMenu"):
 				get_tree().root.get_node("MainMenu").stage = "root"
 				get_tree().root.get_node("MainMenu").move_root()
@@ -953,14 +1035,19 @@ func close_submenu() -> void:
 func talk() -> void:
 	if submenu_opened or not Expanded:
 		return
+
 	var dialog: DialogueResource
 	dialog = load("res://database/Text/talk_" + Global.Party.array()[focus].codename.to_lower() + ".dialogue")
+
 	if not dialog:
 		Audio.buzzer_sound()
 		return
+
 	var key: String = "d" + str(Event.Day) + "_" + str(Event.flag_int(Global.Party.array()[focus].codename + "Talk"))
+
 	if not key in dialog.get_titles():
 		key = "error"
+
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
 	nametag_to_be_used = (await dialog.get_next_dialogue_line(key)).character
 	submenu_opened = true
@@ -970,8 +1057,10 @@ func talk() -> void:
 
 func preform_levelups() -> void:
 	var scenepack: PackedScene = (await Loader.load_res("res://UI/LevelUp/Levelup.tscn"))
+
 	if Global.Bt:
 		Loader.hide_victory_stuff()
+
 	for i in LevelupChain:
 		var mem: Actor = Query.find_member(i.split(":", false)[0])
 		var scene: Node = scenepack.instantiate()
@@ -979,6 +1068,7 @@ func preform_levelups() -> void:
 		await Event.wait()
 		scene.get_node("Levelup").levelup(mem)
 		await scene.get_node("Levelup").closed
+
 	LevelupChain.clear()
 	show_all()
 
@@ -987,6 +1077,7 @@ func _on_idle_timer_timeout() -> void:
 	if Global.Controllable and not Loader.in_battle:
 		if Global.Settings.AutoHideHUD == 0:
 			hide_all()
+
 		if Global.Settings.AutoHideHUD == 1:
 			show_all()
 

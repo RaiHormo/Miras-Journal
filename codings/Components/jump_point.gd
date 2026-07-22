@@ -69,7 +69,7 @@ func _physics_process(_delta: float) -> void:
 		Global.toast("No jump dirs here, fix this!")
 		return
 
-	var player_face := Global.Player.Facing.vector
+	var player_face := Global.Player.facing.vector
 	var local_player_pos := to_local(Global.Player.position)
 	
 	if dir_mode == 1:
@@ -104,7 +104,7 @@ func jump(player_face: Vector2) -> void:
 			wave_go_away(i)
 
 	var prev_z := Global.Player.z_index
-	Global.Player.BodyState = NPC.NONE
+	Global.Player.state = NPC.S.NONE
 	Global.Player.z_index += 10
 	Global.Controllable = false
 	Global.Player.collision(false)
@@ -138,7 +138,7 @@ func jump(player_face: Vector2) -> void:
 	Event.teleport_followers()
 
 
-func get_target_coords(face := Global.Player.Facing.vector) -> Vector2:
+func get_target_coords(face := Global.Player.facing.vector) -> Vector2:
 	var coord: Vector2
 	if RelativePositions:
 		coord = Global.Player.position + face * TILE

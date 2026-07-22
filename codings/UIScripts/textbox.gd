@@ -2,16 +2,19 @@ extends CanvasLayer
 class_name Textbox
 
 static var is_open := false
-static var current : Textbox = null:
+static var current: Textbox = null:
 	get():
 		if current == null:
 			for i: Node in Engine.get_main_loop().root.get_children():
 				if i is Textbox:
-					current = i 
+					current = i
 					return i
+
 			return null
-		if not is_instance_valid(current): 
+
+		if not is_instance_valid(current):
 			return null
+
 		return current
 
 
@@ -29,10 +32,12 @@ static func open(file: String, title: String = "0", fade_bg := false, extra_game
 	await Event.textbox_close
 	is_open = false
 
+
 static func fade_txt_background(alpha := 0.8) -> void:
 	if is_instance_valid(current):
 		var tw := current.create_tween()
 		tw.tween_property(current.get_node("Fader"), "color", Color(0, 0, 0, alpha), 0.5)
+
 
 static func kill() -> void:
 	if is_instance_valid(current):
@@ -51,6 +56,7 @@ static func kill() -> void:
 
 const hold_time: int = 30
 const small_text_size: int = 24
+const big_text_size: int = 48
 
 var mem: BoxProfile
 var next_box: String = ""
@@ -96,15 +102,18 @@ func _ready() -> void:
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
 	has_portrait = false
 	portrait_img = null
+
 	if Input.is_action_pressed("Dash"): skip = true
 
 	match Global.Settings.TextSpeed:
 		1:
 			dialogue_label.seconds_per_step = 0.01
 			dialogue_label.seconds_per_pause_step = 0.1
+
 		2:
 			dialogue_label.seconds_per_step = 0.001
 			dialogue_label.seconds_per_pause_step = 0.05
+
 	Engine.get_singleton("DialogueManager").mutated.connect(_on_mutated)
 	#Engine.get_singleton("DialogueManager").dialogue_ended.connect(_on_close)
 
@@ -118,6 +127,7 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	#if not PartyUI.Expanded: PartyUI.UIvisible = false
 	#await get_tree().create_timer(0.3).timeout
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
+
 	for i in get_tree().root.get_children():
 		if i is Textbox and i != self:
 			queue_free()
@@ -149,20 +159,24 @@ func show_dialog_line() -> void:
 	input_indicator.hide()
 	character_panel.visible = (not dialogue_line.character.is_empty()) and (not no_nametag)
 	no_nametag = false
-	
+
 	var splits := dialogue_line.character.split(".")
 	char_name = splits[0]
+
 	if splits.size() > 1:
 		var redraw: bool = true
+
 		if char_name == prev_char: redraw = false
 		portrait(char_name+splits[1], redraw)
 	elif portrait_img == null:
 		has_portrait = false
+
 	prev_char = char_name
-	
+
 	if not Query.member_exists(char_name):
 		character_label.text = char_name
 	else: character_label.text = Query.find_member(char_name).FirstName
+
 	if character_label.text.is_empty():
 		character_panel.hide()
 	else:
@@ -172,10 +186,16 @@ func show_dialog_line() -> void:
 	if next_box == "": next_box = char_name
 	mem = await BoxProfile.match_profile(next_box)
 
+	if "[colorize]" in dialogue_line.text:
+		dialogue_line.text = dialogue_line.text.replace("[colorize]", "")
+		dialogue_line.text = Colorizer.colorize(dialogue_line.text)
+
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "[color=#787878]*", 1)
 	dialogue_line.text = Query.replace_occurence(dialogue_line.text, "*", "*[/color]", 2)
 	dialogue_line.text = dialogue_line.text.replace("[small]", "[font_size=%d]" % [small_text_size])
 	dialogue_line.text = dialogue_line.text.replace("[/small]", "[/font_size]")
+	dialogue_line.text = dialogue_line.text.replace("[big]", "[font_size=%d]" % [big_text_size])
+	dialogue_line.text = dialogue_line.text.replace("[/big]", "[/font_size]")
 	set_colors()
 	$PictureFrame/Picture.texture = picture
 
@@ -191,16 +211,20 @@ func show_dialog_line() -> void:
 			# Duplicate the template so we can grab the fonts, sizing, etc
 			var item: Button = response_template.duplicate()
 			item.name = "Response%d" % responses_menu.get_child_count()
+
 			if not response.is_allowed:
 				item.name = String(item.name) + "Disallowed"
 				item.modulate.a = 0.4
+
 			item.text = response.text
 			item.show()
 
 			responses_menu.add_child(item)
 			item.connect("focus_entered", _on_button_focus_entered)
 			item.modulate = Color.TRANSPARENT
+
 		animate_responces()
+
 	# Show our balloon
 	draw_portrait()
 	dialogue_label.text = ""
@@ -221,6 +245,7 @@ func show_dialog_line() -> void:
 		t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		t.tween_property(balloon, "scale", Vector2(1, 1), 0.2).from(Vector2(0.95, 0.95))
 		t.tween_property(container, "size", new_size, 0.2)
+
 	will_hide_balloon = false
 
 	dialogue_label.modulate.a = 1
@@ -277,6 +302,7 @@ func configure_menu() -> void:
 	balloon.focus_mode = Control.FOCUS_NONE
 
 	var items := get_responses()
+
 	for i in items.size():
 		var item: Control = items[i]
 
@@ -309,6 +335,7 @@ func configure_menu() -> void:
 # Get a list of enabled items
 func get_responses() -> Array:
 	var items: Array = []
+
 	for child in responses_menu.get_children():
 		if not "Disallowed" in child.name:
 			items.append(child)
@@ -340,12 +367,14 @@ func hide_box() -> void:
 	if $Portrait.visible:
 		while $Portrait.modulate != Color.WHITE and $Portrait.visible:
 			await Event.wait()
+
 		t = create_tween()
 		t.set_parallel(true)
 		t.set_ease(Tween.EASE_IN)
 		t.set_trans(Tween.TRANS_CUBIC)
 		t.tween_property($Portrait, "modulate", Color(0, 0, 0, 0), 0.3)
 		t.tween_property($Portrait, "position:x", -100, 0.3)
+
 	await t.finished
 	balloon.hide()
 	portrait_img = null
@@ -372,6 +401,7 @@ func _on_response_mouse_entered(item: Control) -> void:
 func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 	if "Disallowed" in item.name:
 		return
+
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.responses[item.get_index()].next_id)
 		Audio.confirm_sound()
@@ -394,6 +424,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 				t.tween_property(i, "modulate", Color.TRANSPARENT, 0.2)
 				t.tween_property(i, "position:x", 500, 0.2).as_relative()
 				await Event.wait(0.05, false)
+
 		await t.finished
 		if item == null or item.get_index() == -1: return
 		next(dialogue_line.responses[item.get_index()].next_id)
@@ -414,6 +445,7 @@ func _input(event: InputEvent) -> void:
 			hold_frames += 1
 			await Event.wait()
 			Engine.time_scale = 4
+
 			if (
 				hold_frames > hold_time and
 				dialogue_line.responses.is_empty()
@@ -423,6 +455,7 @@ func _input(event: InputEvent) -> void:
 				action.pressed = true
 				Input.parse_input_event(action)
 				dialogue_label.visible_ratio = max(0.99, dialogue_label.visible_ratio)
+
 		Engine.time_scale = 1
 		return
 
@@ -430,10 +463,11 @@ func _input(event: InputEvent) -> void:
 	if dialogue_line.responses.size() > 0: return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
 		next(dialogue_line.next_id)
-	elif (event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
+	elif(event.is_action_pressed("DialogNext")) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
+
 	if event is InputEventKey or event is InputEventJoypadButton:
-		if event.is_pressed() and not event.is_action("DialogNext") and not(
+		if event.is_pressed() and not event.is_action("DialogNext") and not (
 			event.is_action(&"ui_left") or
 			event.is_action(&"ui_right") or
 			event.is_action(&"ui_up") or
@@ -452,6 +486,7 @@ func _input(event: InputEvent) -> void:
 			t.tween_property($Hints, "position:x", 1400, 0.5)
 			await t.finished
 			$Hints.hide()
+
 
 #func _unhandled_input(event: InputEvent) -> void:
 	#if not is_waiting_for_input: return
@@ -496,6 +531,7 @@ func draw_portrait() -> void:
 			t.tween_property($Portrait, "modulate", Color(0, 0, 0, 0), 0.3)
 			t.tween_property($Portrait, "position:x", -200, 0.3)
 			await t.finished
+
 		$Portrait.hide()
 
 
@@ -506,9 +542,11 @@ func _on_button_focus_entered() -> void:
 func animate_responces() -> void:
 	await dialogue_label.finished_typing
 	Engine.time_scale = 1
+
 	for i in responses_menu.get_children():
 		if "Disallowed" in i.name:
 			i.hide()
+
 	for i in responses_menu.get_children():
 		if i == null: continue
 		t = create_tween()
@@ -518,6 +556,7 @@ func animate_responces() -> void:
 		t.tween_property(i, "position:x", i.position.x, 0.3).from(500)
 		t.tween_property(i, "modulate", Color.WHITE, 0.3).from(Color.TRANSPARENT)
 		await Event.wait(0.1, false)
+
 
 func set_next_box(profile: String) -> void:
 	current.next_box = profile

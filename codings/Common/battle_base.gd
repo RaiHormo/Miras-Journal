@@ -321,10 +321,13 @@ func entrance() -> void:
 				Passive.open("banter_entrance", Seq.EntranceBanter)
 			else:
 				Textbox.open("banter_entrance", Seq.EntranceBanter)
+				cam.position.x = 60
+
 				while Textbox.is_open:
-					if cam.position.x > -30: cam.position.x -= 0.03
+					if cam.position.x > 0: cam.position.x -= 0.01
 					await Event.wait()
-		elif Seq.EntranceSequence == "":
+
+		if Seq.EntranceSequence == "":
 			cam.zoom = Vector2(4, 4)
 			cam.position = Vector2(90, 10)
 			var t := create_tween()

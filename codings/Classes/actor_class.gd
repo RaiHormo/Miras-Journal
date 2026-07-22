@@ -10,7 +10,10 @@ class_name Actor
 
 @export_category("Info")
 ##Displayed name of the character
-@export var FirstName: String = "Name"
+@export var FirstName: String = "Name":
+	set(x):
+		FirstName = x
+		resource_name = x
 ##Their Aura color
 @export var MainColor: Color = Color.WHITE
 ##Displayed next to their health when focused and in other places
@@ -22,6 +25,7 @@ class_name Actor
 	get():
 		if codename == &"Actor":
 			codename = FirstName.to_pascal_case()
+
 		return codename
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
 @export_enum("it", "he", "she", "they") var Pronouns: String = "it"
@@ -139,6 +143,7 @@ var NextAction: String = ""
 var NextMove: Ability = null:
 	set(x):
 		NextMove = x
+
 		if x is not Ability and x != null:
 			pass
 var NextTarget: Actor = null
@@ -187,6 +192,7 @@ func add_SP(x: int) -> void:
 
 func damage(dmg: int, limiter := false) -> void:
 	var hp := Health - dmg
+
 	if hp <= 0:
 		if limiter or CantDie or (ClutchDmg and Health > 15):
 			hp = min(Health, randf_range(1, 5))
@@ -204,6 +210,7 @@ func calc_dmg(power: float, is_magic: bool, E: Actor = null) -> int:
 		else:
 			atk_stat = E.Attack * E.AttackMultiplier
 			print("Attack stat: ", E.Attack, " * ", E.AttackMultiplier, " = ", atk_stat)
+
 	print("(Power(%.2f) * AttackerStat(%.2f)) / ((Defence(%.2f * %.2f)) + 0.3)" % [power, atk_stat, Defence, DefenceMultiplier])
 	return int(max(((power * atk_stat) / ((Defence * 2 * DefenceMultiplier) + 0.3)), 1))
 
@@ -216,13 +223,16 @@ func add_state(x: Variant, turns := -1, inflicter: Actor = Global.Bt.CurrentChar
 	else:
 		state = (await Loader.load_res("res://database/States/" + x + ".tres")).duplicate()
 		state.filename = x
+
 	print(FirstName + " recived state " + state.name)
 	if not state.is_stat_change and state.name != "Guarding":
 		if IgnoreStates:
 			print("But had the IgnoreStates poperty")
 			return null
+
 	if has_state(state.name) and !state.is_stat_change:
 		var prev_state := get_state(state.name)
+
 		if state.turns != -1:
 			if state.filename != "KnockedOut":
 				prev_state.turns += state.turns
@@ -233,16 +243,20 @@ func add_state(x: Variant, turns := -1, inflicter: Actor = Global.Bt.CurrentChar
 		elif state.name == "Confused":
 			prev_state.turns = -1
 			Global.Bt.battle_msg("state_extended", FirstName, state.name)
+
 		#else: Global.toast(FirstName+" is already "+state.name)
 		return prev_state
+
 	if turns != -1:
 		state.turns = turns
+
 	state.inflicter = inflicter
 	States.append(state)
 	if node:
 		Global.Bt.on_state_add(state, self, effect)
 		if Global.Bt.get_node("Act/Effects").sprite_frames.has_animation(state.name):
 			await Global.Bt.play_effect(state.name, self)
+
 	return state
 
 
@@ -251,6 +265,7 @@ func remove_state(x: Variant) -> void:
 	if x is State:
 		state = x
 	else: state = get_state(x)
+
 	if state == null: return
 	print(FirstName, "'s ", state.name, " state was removed")
 	Global.Bt.remove_state_effect(state.filename, self)
@@ -259,9 +274,11 @@ func remove_state(x: Variant) -> void:
 
 func has_state(x: String) -> bool:
 	#x = x.capitalize()
+
 	for i in States:
 		if i.filename == x or i.name == x:
 			return true
+
 	return false
 
 
@@ -269,6 +286,7 @@ func get_state(x: String) -> State:
 	for i in States:
 		if i.filename == x or i.name == x:
 			return i
+
 	return null
 
 
@@ -306,13 +324,16 @@ func save_to_dict() -> Dictionary:
 func load_from_dict(dict: Dictionary) -> void:
 	for prop in get_property_list():
 		var key: String = prop.get("name")
+
 		if dict.has(key):
 			set(key, dict.get(key))
+
 	if dict.has("AbilitiesList"):
 		Abilities.clear()
 		for i: String in dict.get("AbilitiesList"):
 			if i != "":
 				var ab: Ability = await Loader.load_res("res://database/Abilities/" + i + ".tres")
+
 				if ab not in Abilities: Abilities.append(ab)
 
 
@@ -331,8 +352,10 @@ func get_ability_list() -> Array[String]:
 	var ab_list: Array[String]
 	for i in Abilities:
 		var ab_name := i.resource_path.replace(".tres", "").replace("res://database/Abilities/", "")
+
 		if not ab_name.is_empty():
 			ab_list.append(ab_name)
+
 	return ab_list
 
 
@@ -342,6 +365,7 @@ func is_fully_healed() -> bool:
 
 func get_abilities(include_compl := true, include_attack := false) -> Array[Ability]:
 	var rtn := Abilities.duplicate()
+
 	if include_attack: rtn.append(StandardAttack)
 	if include_compl: rtn.append_array(Complimentaries)
 	return rtn
@@ -351,20 +375,24 @@ func groupped_abilities() -> Array[Array]:
 	var rtn: Array[Array]
 	for i in get_abilities():
 		var found := false
+
 		if i.Group != "":
 			for j in rtn:
 				if j[0].Group == i.Group:
 					j.append(i)
 					found = true
 					break
+
 		if not found:
 			rtn.append([i])
+
 	return rtn
 
 
 ##A shadow for the above artwork
 func RenderShadow() -> Texture:
 	var render_name: String = RenderArtwork.split("/")[-1].replace(".png", "")
+
 	if FileAccess.file_exists("res://UI/Party/" + render_name + "Shadow.png"):
 		return await Loader.load_res("res://UI/Party/" + render_name + "Shadow.png")
 	else: return null
@@ -373,6 +401,7 @@ func RenderShadow() -> Texture:
 func has_ability(ab: String) -> bool:
 	for i in Abilities:
 		if i.name == ab: return true
+
 	return false
 
 
@@ -382,6 +411,7 @@ func skill_points_for(level: int) -> int:
 
 func get_OV() -> SpriteFrames:
 	var path: String = "res://art/OV/" + codename + "/" + codename + "OV" + OV + ".tres"
+
 	if not ResourceLoader.exists(path):
 		if OV != "":
 			OV = ""
@@ -395,6 +425,7 @@ func get_BT() -> SpriteFrames:
 	var path: String
 	if "/" in BT: path = "res://art/BT/" + BT + ".tres"
 	else: path = "res://art/BT/" + codename + "/" + codename + "BT" + BT + ".tres"
+
 	if not ResourceLoader.exists(path):
 		if BT != "":
 			BT = ""
@@ -405,6 +436,7 @@ func get_BT() -> SpriteFrames:
 
 func load_complimentaries() -> void:
 	Complimentaries = []
+
 	for i in ComplimentaryList:
 		if ComplimentaryList.get(i) > 0:
 			Complimentaries.append(await Query.get_ability(i))
@@ -414,11 +446,13 @@ func level_up_to(lv: int) -> void:
 	while SkillLevel < lv:
 		var learnable := find_learnable()
 		var rand := randi_range(0, 2)
+
 		if learnable == null: rand = randi_range(0, 1)
 		match rand:
 			0: MaxHP += HpOnSLvUp
 			1: MaxAura += ApOnSLvUP
 			2: Abilities.append(learnable)
+
 		SkillLevel += 1
 
 
@@ -430,6 +464,7 @@ func find_learnable() -> Ability:
 		if not i in Abilities:
 			learnable = i
 			continue
+
 	return learnable
 
 
@@ -450,8 +485,8 @@ func get_defence() -> float:
 
 
 func health_ratio() -> float:
-	return (float(Health) / float(MaxHP))
+	return(float(Health) / float(MaxHP))
 
 
 func aura_ratio() -> float:
-	return (float(Aura) / float(MaxAura))
+	return(float(Aura) / float(MaxAura))

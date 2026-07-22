@@ -407,11 +407,11 @@ func _on_button_pressed() -> void:
 			await Textbox.open(dialogue_file, "rank" + str(rank) + "_prepare")
 		"chair":
 			await Event.take_control()
-			var face := Global.Player.Facing
-			if not chair_faces.is_empty() and not Global.Player.Facing.get_letter() in chair_faces:
+			var face := Global.Player.facing
+			if not chair_faces.is_empty() and not Global.Player.facing.get_letter() in chair_faces:
 				face = Direction.from_letter(chair_faces[0])
 			var pos := Global.Player.position
-			Global.Player.BodyState = NPC.NONE
+			Global.Player.state = NPC.S.NONE
 			Global.Player.collision(false)
 			Global.Player.set_anim("Sit" + face.to_string())
 			var sound: AudioStreamPlayer2D = get_node_or_null("JumpSound")

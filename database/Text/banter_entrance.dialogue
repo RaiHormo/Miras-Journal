@@ -1,3 +1,23 @@
+~ daze_enemy_tutorial
+Daze.Neutral: Careful Ms. Levenor, this monster is emmiting a [color=#57a0f9]Blue Aura[/color]!
+Daze.Neutral: You understand what this means, right?
+- You don't understand
+	Mira.Neutral: I... uhhh-[next=auto]
+	Daze.Neutral: Your Aura color is [color=#ff6b50]Orange[/color], it's on the oposite side of the spectrum!
+	Daze.Neutral: It's [color=#57a0f9]Liquid[/color] attacks will be fatal if they hit you!
+	Mira.Neutral: I do know about-[next=auto]
+	do! Bt.screen_shake()
+	Daze.Neutral: [big]Just like my [color=#fcde42]Static Saber[/color] will be fatal on it!
+- Obviously
+	Mira.Neutral: Of course I know this! You take me for a capital baby?
+	Mira.Neutral: It's color is the oposite of mine, its attacks will hurt on me!
+	do! Bt.screen_shake()
+	Daze.Neutral: Not if my [color=#fcde42]Static Saber[/color] can finish it off!
+set Query.find_member("Daze").NextAction = "Ability"
+set Query.find_member("Daze").NextMove = Query.get_ability("StaticSaber")
+set Query.find_member("Mira").Controllable = true
+=> END
+
 ~ skritcher_root_daze
 Mira.Neutral: GAAAH! Where did this come from!?
 Daze.Neutral: Calm down Ms. Levenor. 

@@ -421,6 +421,7 @@ offset_bottom = 641.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1o1fc")
 
 [node name="Container" type="PanelContainer" parent="Balloon" unique_id=2017137627]
+custom_maximum_size = Vector2(-1, 240)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.47400004
@@ -564,7 +565,6 @@ offset_bottom = 136.0
 [node name="Skip" type="Button" parent="Hints" unique_id=1403964458]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
-layout_direction = 1
 layout_mode = 0
 offset_left = -82.0
 offset_top = -73.0
@@ -573,6 +573,7 @@ offset_bottom = -40.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 0
 theme = SubResource("Theme_fhrxs")
 theme_override_font_sizes/font_size = 15
@@ -585,7 +586,6 @@ expand_icon = true
 [node name="Advance" type="Button" parent="Hints" unique_id=1466229751]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_ymvef")
-layout_direction = 1
 layout_mode = 0
 offset_left = -82.0
 offset_top = -11.0
@@ -594,6 +594,7 @@ offset_bottom = 22.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 0
 theme = SubResource("Theme_royor")
 theme_override_font_sizes/font_size = 15

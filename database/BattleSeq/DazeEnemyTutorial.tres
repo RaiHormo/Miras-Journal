@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BattleSequence" format=3 uid="uid://db53owwsckm8y"]
+
+[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_h10id"]
+[ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="2_d6nks"]
+[ext_resource type="Resource" uid="uid://briso80ln21mg" path="res://database/Enemies/AquaFlowent.tres" id="3_cdfhe"]
+[ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="4_sotm4"]
+[ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="5_2isgh"]
+
+[sub_resource type="Resource" id="Resource_xovcb"]
+script = ExtResource("4_sotm4")
+after_turn = 2
+result = 2
+parameter1 = "story_1"
+parameter2 = "daze_enemy_3"
+hold_turn = true
+metadata/_custom_type_script = "uid://cn75n6xjwndk3"
+
+[resource]
+script = ExtResource("5_2isgh")
+Enemies = Array[ExtResource("2_d6nks")]([ExtResource("3_cdfhe")])
+ScenePosition = Vector2(416, -141)
+Detransition = true
+EscPosition = Vector2i(28, -8)
+EntranceBanter = "daze_enemy_tutorial"
+EntranceBanterIsPassive = false
+PartyOverride = ["Daze", "Mira"]
+Events = Array[ExtResource("4_sotm4")]([SubResource("Resource_xovcb")])
+metadata/_custom_type_script = "uid://blx6fs34ughqo"

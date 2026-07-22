@@ -93,7 +93,7 @@ func extended_process() -> void:
 		stopping = true
 		if tmr.time_left != 0:
 			Collision.set_deferred("disabled", false)
-			BodyState = CHASE
+			state = S.CHASE
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)
 				if tmr.time_left < 2 and Nav.is_target_reachable():
@@ -115,12 +115,12 @@ func extended_process() -> void:
 			if round(position / 24) == round(CurHomepoint / 24):
 				tmr.start(randf_range(0, 3))
 				CurHomepoint = Vector2.ZERO
-				BodyState = IDLE
+				state = S.IDLE
 			else:
 				show()
 				Collision.set_deferred("disabled", true)
 				speed = patrol_speed
-				BodyState = MOVE
+				state = S.MOVE
 				if CurHomepoint == Vector2.ZERO:
 					CurHomepoint = homepoints.pick_random()
 				direction = to_local(CurHomepoint).normalized()
@@ -131,15 +131,15 @@ func begin_battle(advatage := 0) -> void:
 	Global.Player.dramatic_attack_pause()
 	Controller.rumble(1, 1, 0.2)
 	await Loader.start_battle(BattleSeq, advatage)
-	global_position = DefaultPos
+	global_position = default_position
 
 
 func attacked() -> void:
 	if Global.Player.winding_attack:
 		return
-	BodyState = NONE
+	state = S.NONE
 	set_anim("Hit")
-	var to_pos := position + Facing.vector * 12
+	var to_pos := position + facing.vector * 12
 	Event.jump_to_global(self, to_pos, 25, 1)
 	Global.Player.camera_follow(false)
 	Global.Camera.position = to_pos
@@ -159,7 +159,7 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		Loader.chase_mode()
 		Loader.battle_bars(1)
 		set_dir_marker(to_local(Global.Player.global_position))
-		BodyState = IDLE
+		state = S.IDLE
 		direction = Vector2.ZERO
 		$Bubble.play("Surprise")
 		Loader.attacker = self
@@ -172,7 +172,7 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		#if not Global.Player in $DirectionMarker/Finder.get_overlapping_bodies() or not Nav.is_target_reachable():
 		#$Bubble.play("Ellipsis")
 		#patrol()
-		BodyState = MOVE
+		state = S.MOVE
 		tmr.start(give_up_after)
 		PinRange = true
 
@@ -186,7 +186,7 @@ func _on_catch_area_body_entered(body: Node2D) -> void:
 		Global.Player.dashdir = Direction.snap_vector(Global.Player.to_local(global_position))
 		Global.Player.get_node("Flame").energy = 0
 		Global.Player.bump()
-		Facing.vector = to_local(Global.Player.position)
+		facing.vector = to_local(Global.Player.position)
 		Global.intro_effect(Global.Player)
 		begin_battle(2)
 

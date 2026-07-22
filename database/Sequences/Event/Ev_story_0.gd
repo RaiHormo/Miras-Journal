@@ -42,7 +42,8 @@ func new_game() -> void:
 	if Input.is_action_pressed("Dash"):
 		Global.refresh()
 		return
-	Global.Player.BodyState = NPC.CUSTOM
+
+	Global.Player.state = NPC.S.CUSTOM
 	Global.Player.set_anim("OnFloor", false, true)
 	Global.Player.shadow(false)
 	var t := create_tween()
@@ -68,11 +69,14 @@ func new_game() -> void:
 	while not getup.button_pressed or get_tree().root.has_node("Options"):
 		if not is_instance_valid(getup): return
 		options.icon = Controller.get_scheme().Start
+
 		if options.button_pressed and not get_tree().root.has_node("Options"):
 			await Global.options()
 			options.button_pressed = false
+
 		await Event.wait()
 		if not is_instance_valid(getup): return
+
 	getup.button_pressed = false
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
@@ -93,7 +97,7 @@ func new_game() -> void:
 
 func bag_seq() -> void:
 	Global.Party.Leader.OV = "Bag"
-	Global.Player.BodyState = NPC.CUSTOM
+	Global.Player.state = NPC.S.CUSTOM
 	Global.Player.direction = Vector2.ZERO
 	await Global.Player.set_anim("BagGet", true)
 	Global.Player.set_anim("IdleRight")
@@ -139,7 +143,7 @@ func first_battle() -> void:
 func AlcineFollow1() -> void:
 	var Alcine: NPC = Event.npc("EvAlcineBelow")
 	Alcine.show()
-	Alcine.BodyState = NPC.IDLE
+	Alcine.state = NPC.S.IDLE
 	await Event.take_control()
 	Global.Player.set_anim("IdleUp")
 	await Event.wait(0.5)
@@ -160,7 +164,7 @@ func AlcineFollow2() -> void:
 	Passive.open("story_0", "hey_wait")
 	await Alcine.go_to(Vector2(1334, -1060))
 	await Alcine.go_to(Vector2(1681, -1070))
-	Alcine.BodyState = NPC.CUSTOM
+	Alcine.state = NPC.S.CUSTOM
 	Alcine.set_anim("Scared")
 	Alcine.get_node("Sprite").stop()
 	Global.Player.can_dash = true
@@ -177,17 +181,17 @@ func AlcineFollow3() -> void:
 	t.tween_property(Global.Camera, "position:x", 1650, 1)
 	Alcine.set_anim("Scared", false, true)
 	await t.finished
-	
+
 	Event.wait(0.5)
 	await Textbox.open("story_0", "approach")
-	
+
 	Global.Player.collision(false)
 	await Global.Player.go_to(Vector2(67, -45), true)
 	await Event.wait(0.3)
-	
+
 	if not Input.is_action_pressed(&"Dash"):
-		
-		Global.Player.BodyState = NPC.CUSTOM
+
+		Global.Player.state = NPC.S.CUSTOM
 		Global.Player.set_anim("ReachOut")
 		Global.Player.position = round(Global.Player.position)
 		t = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -195,24 +199,24 @@ func AlcineFollow3() -> void:
 		t.tween_property(Alcine.get_node("Glow"), "texture_scale", 3, 2)
 		Global.Player.get_node("Flame").flicker = false
 		t.tween_property(Global.Player.get_node("Flame"), "energy", 0, 2)
-		
+
 		await t.finished
 
 		Event.f_past("FlameActive", false)
 		await Textbox.open("story_0", "you_ok")
-		
+
 		Alcine.set_anim("ScaredTurn2", false, true)
 		await Event.wait(0.5)
 		await Alcine.go_to(Global.Player.position + Vector2(12, 0))
 		t = create_tween()
 		t.tween_property(Alcine, "position", Global.Player.position + Vector2(2, 4), 0.1)
-		Alcine.BodyState = Alcine.CUSTOM
+		Alcine.state = Alcine.CUSTOM
 		Alcine.set_anim("Hug")
 		Global.Player.bubble("Surprise")
 		await Event.wait(1.5)
-		
+
 		await Textbox.open("story_0", "haha")
-		
+
 		Alcine.look_to(Vector2.RIGHT)
 		await Alcine.bubble("Surprise")
 		await Alcine.go_to(Vector2(1630, -1081), false)
@@ -228,18 +232,18 @@ func AlcineFollow3() -> void:
 		Alcine.z_index = -1
 		await Alcine.go_to(Vector2(1607, -1081), false)
 		await Alcine.go_to(Vector2(1607, -1100), false)
-		Alcine.BodyState = NPC.CUSTOM
+		Alcine.state = NPC.S.CUSTOM
 		Alcine.set_anim("Scared")
 		await Event.wait(1)
 		Event.obj("Pterogon").play("Idle")
-		
+
 		await Textbox.open("story_0", "stay_back")
-		
+
 		Loader.attacker = Event.obj("Pterogon")
 		await Event.wait(0.1)
 		Global.Party.Leader.Health = max(Global.Party.Leader.Health, 30)
 		Global.Party.Leader.ClutchDmg = true
-	
+
 	Event.flag_progress("AlcineFollow", 3)
 	Loader.start_battle("AlcineFollow1")
 
@@ -367,7 +371,7 @@ func oct0_daytime() -> void:
 	Global.Camera.zoom = Vector2(4, 4)
 	await Event.spawn("Mira", "UnderTree", "SitDown", 7)
 	await Event.spawn("Alcine", "UnderTree+(24, -12)", "IdleLeft", 7)
-	
+
 	await Textbox.open(name, "wake_amberelm", true)
 	Event.add_flag("EvRestAmberelm", true)
 	await Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)

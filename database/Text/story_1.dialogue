@@ -11,7 +11,8 @@ I hear a loud noise.
 ...
 Sleeping next to him is quite akward...
 My fur touching his bare Human skin feels weird.
-I do want to sleep a bit longer though, I don't think I can ever get enough rest with all that's happened.
+I do want to sleep a bit longer though-
+I don't think I can ever get enough rest with all that's happened.
 I wonder what Alcine is doing now... I left them all alone...
 Maybe I should ask Daze to go back to Amberelm so I can find them.
 (hide)
@@ -21,7 +22,6 @@ do! time_transition()
 => END
 
 ~ nov1_daytime_0
-do npc("DazeTent").hide()
 Daze seems to have woken up.
 I guess I should get up too...
 => END
@@ -53,11 +53,24 @@ Mira.Neutral: There's a monster!
 Daze.Neutral: Leave it to me.
 => END
 
-~ daze_enemy_2
-if Query.is_in_party("Daze") and Day == 1:
-	Daze.Neutral: Ms. Levenor, just focus on protecting yourself!
-	Mira.Neutral: But I can fight!
+~ daze_enemy_3
+Daze.Neutral: My attack caused an [color=#57a0f9]Aura Break[/color] on it!
+Daze.Neutral: It no longer has the resources to use magic, you should be safe.
 => END
+
+~ dont_treat_me_like_a_child
+Daze.Neutral: I hope you learned something.
+Mira.Angry: Can you please not treat me like child?
+Mira.Angry: I know plenty about magic, I've studied these things thoroughly!
+Mira.Angry: You just wanted to show off [i]how much better you are[/i]!
+do! npc("F1").move_dir(Vector2.DOWN*6)
+Mira.Neutral: Let's just just hurry up, I want to see {{alcine()}}.
+Daze.Neutral: *sigh* [wait=0.5]There I went and did it again...
+[hide]
+do! travel_to("WitheredLeaves", npc("F1").position)
+do! Party.set_to(["Mira", "Daze"])
+=> END
+
 
 ~ destroyed_guardian_event
 do travel_to("Amberelm", Vector2(2559, -112), 2)

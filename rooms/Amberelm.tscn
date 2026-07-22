@@ -851,7 +851,7 @@ motion_mode = 1
 script = ExtResource("8_spg60")
 only_on_index = 1
 speed = 50
-DefaultState = 1
+default_state = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/AlcineCut" unique_id=364060494]
 light_mask = 0
@@ -878,7 +878,7 @@ motion_mode = 1
 script = ExtResource("8_spg60")
 only_on_index = 1
 speed = 50
-DefaultState = 1
+default_state = 1
 
 [node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/MiraCut" unique_id=153070951]
 light_mask = 0

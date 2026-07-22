@@ -12,8 +12,8 @@ var player_jumped := false
 @export var dont_follow := false:
 	set(x):
 		dont_follow = x
-		if dont_follow and BodyState == CONTROLLED: BodyState = IDLE
-		elif not dont_follow: BodyState = CONTROLLED
+		if dont_follow and state == S.CONTROLLED: state = S.IDLE
+		elif not dont_follow: state = S.CONTROLLED
 @export var offset := 0
 var path: Path2D
 var follow: PathFollow2D
@@ -26,8 +26,8 @@ func default() -> void:
 	await Event.wait()
 	
 	if not Global.Player: return
-	oposite = (Global.Player.Facing.vector * Vector2(-1, -1)) * 150
-	set_anim("Idle" + Global.Player.Facing.to_string())
+	oposite = (Global.Player.facing.vector * Vector2(-1, -1)) * 150
+	set_anim("Idle" + Global.Player.facing.to_string())
 	velocity = oposite
 	path = Global.Player.path
 	follow = PathFollow2D.new()
@@ -38,7 +38,7 @@ func default() -> void:
 	await Event.wait(0.1)
 	follow.progress = -distance
 	position = follow.global_position
-	BodyState = CONTROLLED
+	state = S.CONTROLLED
 
 
 func default_id() -> String:
@@ -52,7 +52,7 @@ func control_process() -> void:
 		direction = Vector2.ZERO
 		moving = false
 		#animate()
-		BodyState = IDLE
+		state = S.IDLE
 		return
 	if Global.Party.check_member(member) and not Loader.in_battle and is_instance_valid(follow):
 		add_collision_exception_with(Global.Player)
@@ -66,7 +66,7 @@ func control_process() -> void:
 		$Glow.energy = member_info().GlowDef / 2
 		var oldposition := global_position
 		var player_dist := to_local(Global.Player.position).length()
-		target = round((follow.global_position + Global.Player.Facing.vector.rotated(PI / 2) * offset))
+		target = round((follow.global_position + Global.Player.facing.vector.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
 		if to_local(target).length() < 6: direction = Vector2.ZERO
 		#var path_dist = floor(path.curve.get_baked_length() - follow.progress)
@@ -84,7 +84,7 @@ func control_process() -> void:
 				jump_to_player()
 			if player_dist < 12 and Global.Controllable:
 				update_anim_prm()
-				oposite = (Global.Player.Facing.vector * Vector2(-1, -1))
+				oposite = (Global.Player.facing.vector * Vector2(-1, -1))
 				velocity = oposite * 150
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
@@ -122,7 +122,7 @@ func member_info() -> Actor:
 
 
 func attacked() -> void:
-	Event.jump_to(self, position - Vector2(Global.Player.Facing.vector * 24), 5, 0.5)
+	Event.jump_to(self, position - Vector2(Global.Player.facing.vector * 24), 5, 0.5)
 
 
 func update() -> void:

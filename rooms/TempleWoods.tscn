@@ -833,7 +833,7 @@ script = ExtResource("19_dpu00")
 ID = "Alcine"
 only_on_index = 2
 speed = 100
-DefaultState = 6
+default_state = 6
 metadata/_custom_type_script = "uid://gfinmw5y4txi"
 
 [node name="Bubble" type="AnimatedSprite2D" parent="Event/EvAlcine" unique_id=1653531886]

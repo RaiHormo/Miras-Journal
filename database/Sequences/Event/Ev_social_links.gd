@@ -22,7 +22,7 @@ func sl_asteria_1() -> void:
 	asteria.position = Vector2(506, 640)
 	asteria.look_to(Direction.RIGHT)
 	await Loader.detransition()
-	mira.BodyState = NPC.CUSTOM
+	mira.state = NPC.S.CUSTOM
 	mira.set_anim("SitRight")
 	asteria.set_anim("IdleRight")
 	Event.zoom(5, true)

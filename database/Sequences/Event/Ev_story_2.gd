@@ -6,7 +6,7 @@ func nov3_morning() -> void:
 	Event.add_flag("LampInMirasRoom", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	Event.no_player()
-	Event.npc("RoomMira").BodyState = NPC.CUSTOM
+	Event.npc("RoomMira").state = NPC.S.CUSTOM
 	Event.npc("RoomMira").show()
 	Event.npc("RoomMira").position = Vector2(84, 424)
 	Event.npc("RoomMira").set_anim("Sleep")
@@ -22,7 +22,7 @@ func nov3_morning() -> void:
 func nov3_afternoon() -> void:
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	Event.no_player()
-	Event.npc("RoomMira").BodyState = NPC.CUSTOM
+	Event.npc("RoomMira").state = NPC.S.CUSTOM
 	Event.npc("RoomMira").show()
 	Event.npc("RoomMira").position = Vector2(90, 412)
 	Event.npc("RoomMira").set_anim("SitRight")
