@@ -139,11 +139,10 @@ Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
 [sub_resource type="ButtonGroup" id="ButtonGroup_hcmug"]
 
 [node name="EditorDock" type="EditorDock" unique_id=2097521185]
-custom_minimum_size = Vector2(0, 300)
 offset_left = 12.0
 offset_top = 5.0
 offset_right = 1268.0
-offset_bottom = 788.0
+offset_bottom = 905.0
 title = "Sequence"
 default_slot = 8
 available_layouts = 7
@@ -258,16 +257,16 @@ metadata/Icon = "Close"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+scroll_offset = Vector2(-207.33334, -141.33334)
 grid_pattern = 1
 panning_scheme = 1
 right_disconnects = true
-zoom = 0.75
+zoom = 0.5
 minimap_enabled = false
 show_grid_buttons = false
 
 [node name="GraphElements" type="Control" parent="SequenceView" unique_id=1849573780]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="Terminal" type="Control" parent="SequenceView/GraphElements" unique_id=1771796132]
@@ -330,12 +329,12 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 metadata/insert_id = 1
 
-[node name="User" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=201665381]
+[node name="Condition0" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=201665381]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "User"
 
-[node name="Target" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=1343456364]
+[node name="Condition1" type="Label" parent="SequenceView/GraphElements/Terminal/StartAOE" unique_id=1343456364]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Target"
@@ -466,17 +465,17 @@ slot/3/right_icon = null
 slot/3/draw_stylebox = true
 metadata/insert_id = 4
 
-[node name="NormalHit" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=590955228]
+[node name="Condition0" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=590955228]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Normal"
 
-[node name="Critical" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1933594841]
+[node name="Condition1" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1933594841]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Critical"
 
-[node name="Missed" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1693368690]
+[node name="Condition2" type="Label" parent="SequenceView/GraphElements/Flow/RNGCondition" unique_id=1693368690]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Missed"
@@ -542,7 +541,7 @@ slot/3/right_color = Color(1, 1, 1, 1)
 slot/3/right_icon = null
 slot/3/draw_stylebox = true
 slot/4/left_enabled = true
-slot/4/left_type = 0
+slot/4/left_type = 3
 slot/4/left_color = Color(0, 0.61960787, 0.07450981, 1)
 slot/4/left_icon = null
 slot/4/right_enabled = false
@@ -580,7 +579,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "After Finishing"
 
-[node name="AfterFinishing2" type="Label" parent="SequenceView/GraphElements/Action/damage" unique_id=968091743]
+[node name="Output" type="Label" parent="SequenceView/GraphElements/Action/damage" unique_id=968091743]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Damage Output"
@@ -614,6 +613,17 @@ size_flags_horizontal = 3
 alignment = 1
 select_all_on_focus = true
 
+[node name="Elemental" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=940459739]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=843649518]
+layout_mode = 2
+text = "Is Elemental"
+
+[node name="CheckButton" type="CheckButton" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=1820661746]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Magic" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=1562653084]
 layout_mode = 2
 
@@ -628,20 +638,6 @@ text = "Is Magic"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Elemental" type="HBoxContainer" parent="SequenceView/GraphElements/Action/damage" unique_id=940459739]
-layout_mode = 2
-
-[node name="Enable" type="CheckBox" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=1453718403]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=843649518]
-layout_mode = 2
-text = "Is Elemental"
-
-[node name="CheckButton" type="CheckButton" parent="SequenceView/GraphElements/Action/damage/Elemental" unique_id=1820661746]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="Effects" type="Control" parent="SequenceView/GraphElements" unique_id=1145229663]
 anchors_preset = 0
 offset_right = 40.0
@@ -652,8 +648,8 @@ metadata/CategoryIcon = "PreviewSun"
 layout_mode = 0
 offset_left = -1208.0
 offset_top = 86.0
-offset_right = -958.0
-offset_bottom = 356.0
+offset_right = -994.0
+offset_bottom = 369.0
 title = "Actor Sprite Animation"
 slot/0/left_enabled = true
 slot/0/left_type = 0
@@ -747,7 +743,6 @@ layout_mode = 2
 [node name="Choose" type="CheckBox" parent="SequenceView/GraphElements/Effects/anim/Radio/Choose" unique_id=1222227740]
 layout_mode = 2
 button_group = SubResource("ButtonGroup_e6wx4")
-text = "Choose"
 
 [node name="OptionButton" type="OptionButton" parent="SequenceView/GraphElements/Effects/anim/Radio/Choose" unique_id=1660579478]
 layout_mode = 2
@@ -1980,11 +1975,11 @@ oversampling_override = 1.0
 size = Vector2i(167, 100)
 item_count = 3
 item_0/text = "Duplicate"
-item_0/id = 0
+item_0/id = 1
 item_1/text = "Disconnect Slots"
-item_1/id = 1
+item_1/id = 2
 item_2/text = "Delete"
-item_2/id = 2
+item_2/id = 3
 
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/New" to="." method="_on_new_pressed"]
 [connection signal="pressed" from="SequenceView/HSplitContainer/VBoxContainer2/HBoxContainer/HBoxContainer2/Open" to="." method="_on_open_pressed"]
@@ -1993,3 +1988,4 @@ item_2/id = 2
 [connection signal="delete_nodes_request" from="SequenceView/HSplitContainer/VBoxContainer2/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
 [connection signal="confirmed" from="SequenceView/SaveDialog" to="." method="_on_save_dialog_confirmed"]
 [connection signal="id_pressed" from="SequenceView/NodeContextMenu" to="." method="_on_node_context_menu_id_pressed"]
+[connection signal="popup_hide" from="SequenceView/NodeContextMenu" to="." method="_on_node_context_menu_popup_hide"]

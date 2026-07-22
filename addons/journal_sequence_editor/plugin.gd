@@ -45,3 +45,8 @@ func _set_window_layout(configuration: ConfigFile) -> void:
 
 		if view_instance and ResourceLoader.exists(last_path):
 			view_instance.open_from_path.call_deferred(last_path)
+
+
+func _save_external_data() -> void:
+	if is_instance_valid(view_instance):
+		view_instance.save()

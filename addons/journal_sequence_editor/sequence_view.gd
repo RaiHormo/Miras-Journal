@@ -5,6 +5,7 @@ class_name SequenceView
 const slot_names: Dictionary[int, String] = {
 	0: "Call",
 	1: "String",
+	2: "Vector2",
 	3: "Number",
 	4: "Actor"
 }
@@ -12,6 +13,7 @@ const slot_names: Dictionary[int, String] = {
 const slot_colors: Dictionary[int, Color] = {
 	0: Color.WHITE,
 	1: Color("6d4affff"),
+	2: Color("be4d00ff"),
 	3: Color("009e13"),
 	4: Color("d70058"),
 }
@@ -122,7 +124,6 @@ func create_slots(node: Node, graph_node: GraphNode = node if node is GraphNode 
 
 				stack.append_array(curr.get_children())
 
-		# Setup ActorSelector controls
 		if i is Button and i.name.ends_with("Select"):
 			var type := i.name.replace("Select", "")
 
@@ -204,6 +205,10 @@ func save() -> void:
 
 	current_file.connections = graph.connections.duplicate(true)
 	current_file.nodes.clear()
+
+	var node_map: Dictionary[StringName, GraphNode] = {}
+	var data_map: Dictionary[StringName, SequenceGraphNodeData] = {}
+
 	for node in graph.get_children():
 		if node is GraphNode:
 			var node_data = SequenceGraphNodeData.new()
@@ -220,6 +225,61 @@ func save() -> void:
 
 			node_data.position = node.position_offset
 			current_file.nodes.append(node_data)
+
+			node_map[node.name] = node
+			data_map[node.name] = node_data
+
+	for conn in current_file.connections:
+		var from_id: StringName = conn["from_node"]
+		var to_id: StringName = conn["to_node"]
+		var from_port: int = conn["from_port"]
+		var to_port: int = conn["to_port"]
+
+		if not data_map.has(from_id) or not data_map.has(to_id):
+			continue
+
+		var from_node := node_map[from_id]
+		var to_node := node_map[to_id]
+		var from_data := data_map[from_id]
+		var to_data := data_map[to_id]
+
+		var right_port_idx := 0
+
+		for slot_idx in from_node.get_child_count():
+			if from_node.is_slot_enabled_right(slot_idx):
+				if right_port_idx == from_port:
+					var child_name := String(from_node.get_child(slot_idx).name)
+
+					if from_node.get_slot_type_right(slot_idx) == 0:
+						if child_name == "Next":
+							from_data.next = to_data
+						elif child_name == "AfterFinished":
+							from_data.after_finished = to_data
+						elif child_name.begins_with("Condition"):
+							var idx := child_name.trim_prefix("Condition").to_int()
+
+							while from_data.conditional.size() <= idx:
+								from_data.conditional.append(null)
+
+							from_data.conditional[idx] = to_data
+					else:
+						var left_port_idx := 0
+
+						for to_slot_idx in to_node.get_child_count():
+							if to_node.is_slot_enabled_left(to_slot_idx):
+								if left_port_idx == to_port:
+									var input_param := StringName(to_node.get_child(to_slot_idx).name)
+									var output_param := StringName(child_name)
+
+									to_data.inputs[input_param] = from_data
+									to_data.io_name_match[input_param] = output_param
+									break
+
+								left_port_idx += 1
+
+					break
+
+				right_port_idx += 1
 
 	current_file.resource_path = resource_path
 
@@ -466,10 +526,75 @@ func _exit_tree() -> void:
 
 
 func _open_context_menu(pos: Vector2i = Vector2i.ZERO):
-	node_context_menu.add_submenu_node_item("Insert", insert_button.get_popup())
+	insert_button.get_popup().reparent(node_context_menu)
+	node_context_menu.add_submenu_node_item("Insert", insert_button.get_popup(), 0)
 	node_context_menu.popup()
 	node_context_menu.position = get_global_mouse_position()
 
+	node_context_menu.set_item_icon(0, get_theme_icon(&"Duplicate", &"EditorIcons"))
+	node_context_menu.set_item_icon(1, get_theme_icon(&"Unlinked", &"EditorIcons"))
+	node_context_menu.set_item_icon(2, get_theme_icon(&"Remove", &"EditorIcons"))
+	node_context_menu.set_item_icon(3, get_theme_icon(&"ToolAddNode", &"EditorIcons"))
+
 
 func _on_node_context_menu_id_pressed(id: int) -> void:
-	pass # Replace with function body.
+	match id:
+		1: # Duplicate
+			duplicate_nodes(get_selected_nodes())
+
+		2: # Disconnect Slots
+			disconnect_slots(get_selected_node_names())
+
+		3: # Delete
+			_on_graph_edit_delete_nodes_request(get_selected_node_names())
+
+
+func disconnect_slots(selected_names: Array[StringName]) -> void:
+
+	if selected_names.is_empty():
+		return
+
+	# Make a duplicate of graph.connections to safely iterate through while disconnecting
+	var connections_to_check := graph.connections.duplicate(true)
+
+	for conn in connections_to_check:
+		var from_node: StringName = conn["from_node"]
+		var to_node: StringName = conn["to_node"]
+
+		if from_node in selected_names or to_node in selected_names:
+			var from_port: int = conn["from_port"]
+			var to_port: int = conn["to_port"]
+			graph.disconnect_node(from_node, from_port, to_node, to_port)
+
+
+func duplicate_nodes(node_array: Array[GraphNode]) -> void:
+	for i in node_array:
+		var dup := i.duplicate()
+		graph.add_child(dup)
+		dup.position_offset += Vector2(50, 50)
+		i.selected = false
+
+
+func get_selected_nodes() -> Array[GraphNode]:
+	var selected_nodes: Array[GraphNode] = []
+
+	for child in graph.get_children():
+		if child is GraphNode and child.selected:
+			selected_nodes.append(child)
+
+	return selected_nodes
+
+
+func get_selected_node_names() -> Array[StringName]:
+	var selected_nodes: Array[StringName] = []
+
+	for child in graph.get_children():
+		if child is GraphNode and child.selected:
+			selected_nodes.append(child.name)
+
+	return selected_nodes
+
+
+func _on_node_context_menu_popup_hide() -> void:
+	insert_button.get_popup().reparent(insert_button)
+	node_context_menu.remove_item(3)
