@@ -195,7 +195,7 @@ func get_line(resource: DialogueResource, key: String, extra_game_states: Array)
 
 	# If next_id is an expression we need to resolve it.
 	if data.has(&"next_id_expression"):
-		data.next_id = await _resolve(data.next_id_expression, extra_game_states)
+		data.next_id = await _resolve(data.next_id_expression.duplicate(true), extra_game_states)
 
 	# This title key points to another title key so we should jump there instead
 	if data.type == DMConstants.TYPE_TITLE and data.next_id in resource.titles.values():
@@ -368,6 +368,8 @@ func get_resolved_line_data(data: Dictionary, extra_game_states: Array = []) -> 
 			# by special quotes while translating.
 			index = text.replace("“", "\"").replace("”", "\"").find(replacement.value_in_text)
 		if index > -1:
+			if value is Object and "_to_dialogue_string" in value:
+				value = value._to_dialogue_string()
 			text = text.substr(0, index) + str(value) + text.substr(index + replacement.value_in_text.length())
 
 	var compilation: DMCompilation = DMCompilation.new()
@@ -428,23 +430,20 @@ func _shift_markers(markers: DMResolvedLineData, removed_start: int, removed_end
 	# Calculate the offset for markers after the removed range
 	var after_offset: int = removed_end - removed_start - body_length
 
-	for key in [&"speeds", &"time"]:
-		if markers.get(key) == null: continue
-		var marker = markers.get(key)
-		var next_marker: Dictionary = {}
-		for index in marker:
-			if index < removed_start:
-				next_marker[index] = marker[index]
-			elif index >= removed_end:
-				next_marker[index - after_offset] = marker[index]
-			elif keep_inner:
-				# Marker is inside the conditional range and should be kept
-				# Shift it to account for the [if] tag being removed
-				next_marker[removed_start] = marker[index]
-			else:
-				# marker is inside a failed conditional, remove it
-				continue
-		markers.set(key, next_marker)
+	var next_speeds: Dictionary = {}
+	for index: int in markers.speeds:
+		if index < removed_start:
+			next_speeds[index] = markers.speeds[index]
+		elif index >= removed_end:
+			next_speeds[index - after_offset] = markers.speeds[index]
+		elif keep_inner:
+			# Marker is inside the conditional range and should be kept
+			# Shift it to account for the [if] tag being removed
+			next_speeds[removed_start] = markers.speeds[index]
+		else:
+			# marker is inside a failed conditional, remove it
+			continue
+	markers.speeds = next_speeds
 
 	var mutations: Array[Array] = markers.mutations
 	var next_mutations: Array[Array] = []

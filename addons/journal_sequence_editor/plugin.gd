@@ -43,5 +43,5 @@ func _set_window_layout(configuration: ConfigFile) -> void:
 	if configuration.has_section_key("JournalSequenceEditor", "last_opened_file"):
 		var last_path: String = configuration.get_value("JournalSequenceEditor", "last_opened_file")
 
-		if ResourceLoader.exists(last_path):
+		if view_instance and ResourceLoader.exists(last_path):
 			view_instance.open_from_path.call_deferred(last_path)

@@ -240,10 +240,7 @@ func _add_jump_completions(current_line: String, cursor: Vector2) -> void:
 
 	# Get all titles, including those in imports
 	for title: String in DMCompiler.get_titles_in_text(text, main_view.current_file_path):
-		# Ignore any imported titles that aren't resolved to human readable.
-		if title.to_int() > 0:
-			continue
-		elif "/" in title:
+		if "/" in title:
 			var bits: PackedStringArray = title.split("/")
 			if _matches_prompt(prompt, bits[0]) or _matches_prompt(prompt, bits[1]):
 				add_code_completion_option(CodeEdit.KIND_CLASS, title, title.substr(prompt.length()), theme_overrides.text_color, get_theme_icon("CombineLines", "EditorIcons"))
@@ -258,8 +255,8 @@ func _add_character_name_completions(current_line: String) -> void:
 		if current_line.strip_edges().begins_with(prefix):
 			return
 
-	var name_so_far: String = WEIGHTED_RANDOM_PREFIX.sub(current_line.strip_edges(), "")
-
+	var text_before_cursor: String = current_line.substr(0, get_caret_column(0))
+	var name_so_far: String = WEIGHTED_RANDOM_PREFIX.sub(text_before_cursor.strip_edges(), "")
 	if name_so_far == "": return
 
 	var names: PackedStringArray = get_character_names(name_so_far)
