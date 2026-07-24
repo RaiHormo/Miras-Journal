@@ -6,22 +6,24 @@ class_name ItemData
 var filename: String = "Invalid filename"
 @export_multiline var Description: String = "One that does not exit"
 @export_enum("Key", "Con", "Mat", "Bti") var ItemType: String = ""
-@export var Icon: Texture = preload("res://art/Icons/Items.tres")
+@export var Icon: Texture = load("res://art/Icons/Items.tres")
 @export var Quantity: int = 0
 @export var QuantityMeansUses := false
 @export var AmountOnAdd := 1
-enum U { NONE, INSPECT, CUSTOM, HEALING, SPELL, STATE_HEAL, BUFF_ATK, DEBUFF_ATK }
+enum U {NONE, INSPECT, CUSTOM, HEALING, SPELL, STATE_HEAL, BUFF_ATK, DEBUFF_ATK}
 @export_group("Uses")
 @export var Use: U
 @export var UsedInBattle := false
-enum T { SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES }
+enum T {SELF, ONE_ENEMY, AOE_ENEMIES, ONE_ALLY, AOE_ALLIES}
 @export var OvTarget: T = T.ONE_ALLY
 @export var BattleEffect: Ability
 @export var Parameter: String
 
+
 func get_artwork() -> Texture:
 	var path := "res://art/Items/"+filename+".png"
+
 	if ResourceLoader.exists(path):
 		return await Loader.load_res(path)
-	else: 
+	else:
 		return null

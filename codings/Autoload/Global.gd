@@ -19,6 +19,7 @@ var Player: Mira:
 	get():
 		if is_instance_valid(Player):
 			return Player
+
 		return null
 
 ## The current party data
@@ -30,8 +31,9 @@ var Area: Room
 ## Active camera in the Area (Not battle camera)
 var Camera: Camera2D:
 	get:
-		if not is_instance_valid(Area): 
+		if not is_instance_valid(Area):
 			return null
+
 		return Global.Area.cam
 
 ## The current settings
@@ -58,6 +60,7 @@ var player_name: String = "Local"
 ## For updating info like the party
 signal check
 
+
 #region System
 func _ready() -> void:
 	init_user()
@@ -75,8 +78,10 @@ func quit(save_first := true) -> void:
 	if save_first:
 		if get_tree().root.has_node("Options"):
 			get_tree().root.get_node("Options").close()
+
 		if get_tree().root.has_node("MainMenu"):
 			get_tree().root.get_node("MainMenu").close()
+
 		if (
 			not Loader.in_battle and is_instance_valid(Player) and is_instance_valid(Area) and (
 			Global.Controllable or get_tree().root.has_node("MainMenu") or get_tree().root.has_node("Options"))
@@ -86,15 +91,20 @@ func quit(save_first := true) -> void:
 		elif is_instance_valid(Area):
 			if not await Global.warning("The game cannot be saved right now.\nQuit the game anyways?", "QUIT", ["Canel", "Quit Game"]):
 				return
+
 		await Loader.transition(Direction.CENTER)
 		if Engine.has_singleton("Steam") and using_steam:
 			Steam.steamShutdown()
+
 		Global.save_settings()
+
 	get_tree().quit()
+
 
 func init_steam() -> void:
 	if not Engine.has_singleton("Steam"):
 		return
+
 	var steam := Engine.get_singleton("Steam")
 	OS.set_environment("SteamAppId", str(steam_app_id))
 	OS.set_environment("SteamGameId", str(steam_app_id))
@@ -109,7 +119,7 @@ func init_steam() -> void:
 		steam_user_id = steam.getSteamID32(steam.getSteamID())
 		player_name = steam.getPersonaName()
 		print_rich("[color=orange]User: ", player_name, " ", steam_user_id)
-	elif (
+	elif(
 		initialize_response.get("status") == 1 and
 		initialize_response.get("verbal") != "Could not determine Steam client install directory."
 	):
@@ -141,8 +151,10 @@ func init_user() -> void:
 	# If there's an ID now but, the previous one was 0, migrate the save data
 	if FileAccess.file_exists("user://last_user_id.txt"):
 		var last_id: int = int(FileAccess.get_file_as_string("user://last_user_id.txt"))
+
 		if FileAccess.file_exists("user://" + str(steam_user_id)) and last_id == 0 and steam_user_id != 0:
 			print_rich("[color=orange]Migrating from local to account")
+
 			for i in DirAccess.get_files_at("user://0"):
 				if not FileAccess.file_exists("user://" + str(steam_user_id) + "/" + i):
 					DirAccess.copy_absolute("user://0/" + i, "user://" + str(steam_user_id) + "/" + i)
@@ -159,6 +171,7 @@ func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			quit()
+
 		NOTIFICATION_WM_ABOUT:
 			OS.shell_open("https://raidev.eu/miras-journal")
 
@@ -175,10 +188,10 @@ func nodes_of_type(node: Node, className: String, result: Array) -> void:
 	if !node: return
 	if node.is_class(className):
 		if node and (node is Light2D and node.shadow_enabled) and not "Editor" in node.name: result.push_back(node)
+
 	for child in node.get_children():
 		await nodes_of_type(child, className, result)
 #endregion
-
 
 #region Settings
 
@@ -195,6 +208,7 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 		Global.toast("Can't fullscreen while the window is embeded")
 		Settings.Fullscreen = false
 		return
+
 	if tog:
 		Settings.Fullscreen = true
 		get_window().mode = Window.MODE_FULLSCREEN
@@ -207,6 +221,7 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 			#get_window().size = Vector2i(1280,800)
 			#await get_tree().create_timer(0.03).timeout
 			#get_window().position = DisplayServer.screen_get_size(0)/2 - Vector2i(1280,800)/2
+
 	await get_tree().create_timer(0.15).timeout
 	get_window().grab_focus()
 	save_settings()
@@ -216,6 +231,7 @@ func reset_settings() -> void:
 	Settings = Setting.new()
 	customize_default_settings()
 	var error: Error = ResourceSaver.save(Settings, settings_path)
+
 	if error != OK:
 		printerr(error_string(error))
 		#OS.alert("Cannot write to save data directory: "+error_string(error))
@@ -224,13 +240,16 @@ func reset_settings() -> void:
 func customize_default_settings() -> void:
 	if using_steam:
 		var steam := Engine.get_singleton("Steam")
+
 		if OS.get_environment("STEAMDECK") == "1" or steam.isSteamRunningOnSteamDeck():
 			Settings.ControlSchemeEnum = 7
 			Settings.ControlSchemeOverride = load("res://UI/Input/SteamDeck.tres")
 			print_rich("[color=orange]Running on Steam Deck, setting control scheme")
+
 		if steam.isSteamInBigPictureMode():
 			fullscreen(true)
 			print_rich("[color=orange]Running on Big Picture, enabling fullscreen")
+
 	if OS.to_string() == "macOS":
 		Settings.UpscaledRes = false
 
@@ -240,33 +259,42 @@ func init_settings() -> void:
 		print_rich("[color=orange]No settings found, initializing...")
 		reset_settings()
 		await Event.wait()
+
 	Settings = ResourceLoader.load(settings_path)
+
 	if not is_instance_valid(Settings):
 		print_rich("[color=orange]Settings file is invalid, settings will be restored to default")
 		reset_settings()
 		await Event.wait()
 		Settings = load(settings_path)
+
 	if not is_instance_valid(Settings):
 		OS.alert("Something is wrong with the settings file or user folder")
+
 	apply_settings()
 
 
 func apply_settings() -> void:
 	#const base_res := Vector2(1280, 800)
+
 	if Settings.Fullscreen:
 		fullscreen(true)
+
 	if Settings.GlowEffect:
 		World.environment.glow_enabled = true
 	else: World.environment.glow_enabled = false
+
 	if Settings.UpscaledRes:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	else:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+
 	#else:
 		#get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		#get_window().content_scale_size = base_res * Settings.UpscaleFactor
 		#get_window().content_scale_factor = Settings.UpscaleFactor
 		
+
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
 	AudioServer.set_bus_volume_db(2, Settings.SFXVolume)
@@ -281,6 +309,7 @@ func apply_settings() -> void:
 	else: player_name = Settings.PlayerName
 	Global.save_settings()
 
+
 func get_playtime() -> int:
 	play_time = save_time + Time.get_unix_time_from_system() - start_time
 	return int(play_time)
@@ -290,6 +319,7 @@ func save_settings() -> void:
 	ResourceSaver.save(Settings, settings_path)
 	print_rich("[color=orange]Settings saved")
 #endregion
+
 
 #region Party Checks
 func heal_party() -> void:
@@ -310,6 +340,7 @@ func reset_all_members() -> void:
 	init_party(Party)
 	for i in range(-1, Members.size() - 1):
 		Members[i] = load("res://database/Party/" + Members[i].codename + ".tres").duplicate(true)
+
 	Party.set_to_party(Party)
 
 ##Alias for find_member()
@@ -320,8 +351,10 @@ func init_party(party: PartyData) -> void:
 	if !is_instance_valid(party): party = PartyData.new()
 	for i in ResourceLoader.list_directory("res://database/Party"):
 		var file: Resource = load("res://database/Party/" + i)
+
 		if file is Actor:
 			Members.append(file.duplicate())
+
 	Party = PartyData.new()
 	Party.set_to_party(party)
 
@@ -337,15 +370,18 @@ func give_every_ability() -> void:
 		var ab: Ability = load("res://database/Abilities/" + i).duplicate()
 		Party.Leader.Abilities.append(ab)
 
+
 func add_complimentary(ability: String) -> void:
 	if ability not in Global.Complimentaries:
 		Global.Complimentaries.append(ability)
+
 
 func use_ability_overworld(ab: Ability, user: Actor) -> void:
 	get_viewport().gui_release_focus()
 	if Ability.TP.HEALING in ab.Types:
 		await PartyUI.choose_member(ab, user)
 #endregion
+
 
 func game_over() -> void:
 	$"/root".add_child((await Loader.load_res("res://UI/GameOver/GameOver.tscn")).instantiate())
@@ -356,13 +392,16 @@ func options(submenu := 0) -> void:
 	var control := Global.Controllable
 	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
 	Global.Controllable = control
+
 	match submenu:
 		1:
 			opt.set_no_main()
 			opt.save_managment()
+
 		3:
 			opt.set_no_main()
 			opt.manual()
+
 	get_tree().root.add_child(opt)
 
 
@@ -411,9 +450,11 @@ func intro_effect(ref: Node) -> void:
 	node.ref = ref
 	node.animate()
 
+
 func toast(string: String) -> void:
 	if get_node_or_null("/root/Toast"):
 		$/root/Toast.free()
+
 	print_rich("[color=orange]Toast: " + string)
 	var tost: Node = (preload("res://UI/Misc/Toast.tscn")).instantiate()
 	get_tree().root.add_child.call_deferred(tost)
@@ -423,8 +464,9 @@ func toast(string: String) -> void:
 func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
 	if get_node_or_null("/root/Warning"):
 		$/root/Warning.free()
+
 	print_rich("[color=orange]Warn: " + text)
-	var tost: Node = (preload("res://UI/Misc/Warning.tscn")).instantiate()
+	var tost: Node = (await Loader.load_res("res://UI/Misc/Warning.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	await Event.wait()
 	if is_instance_valid(tost):
@@ -435,6 +477,7 @@ func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["
 func location_name(string: String) -> void:
 	if get_node_or_null("/root/LocationName"):
 		$/root/LocationName.free()
+
 	var tost: Node = (await Loader.load_res("res://UI/Misc/LocationName.tscn")).instantiate()
 	get_tree().root.add_child(tost)
 	tost.get_node("Label").set_deferred("text", string)

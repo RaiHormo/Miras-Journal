@@ -28,24 +28,30 @@ func add_nodes() -> void:
 		marker.name = "1"
 		this_homepoints.add_child(marker)
 		marker.owner = $".."
+
 	if get_node_or_null("Sprite") == null:
 		var this_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
 		this_sprite.name = "Sprite"
-		this_sprite.sprite_frames = preload("res://art/OV/Enemies/GenericEnemy.tres")
+		this_sprite.sprite_frames = await Loader.load("res://art/OV/Enemies/GenericEnemy.tres")
 		add_child(this_sprite)
 		this_sprite.owner = $".."
+
 	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
+
 	if esc_marker == null:
 		esc_marker = Marker2D.new()
 		esc_marker.name = "EscapePosition"
 		add_child(esc_marker)
 		esc_marker.owner = $".."
+
 	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
+
 	if scn_marker == null:
 		scn_marker = Marker2D.new()
 		scn_marker.name = "ScenePosition"
 		add_child(scn_marker)
 		scn_marker.owner = $".."
+
 	if BattleSeq != null:
 		esc_marker.global_position = BattleSeq.EscPosition * 24
 		scn_marker.global_position = BattleSeq.ScenePosition
@@ -54,26 +60,34 @@ func add_nodes() -> void:
 
 func set_positions() -> void:
 	var scn_marker: Marker2D = get_node_or_null("ScenePosition")
+
 	if scn_marker != null and BattleSeq != null:
 		BattleSeq.ScenePosition = scn_marker.global_position
+
 	var esc_marker: Marker2D = get_node_or_null("EscapePosition")
+
 	if esc_marker != null and BattleSeq != null:
 		BattleSeq.EscPosition = Vector2i(esc_marker.global_position / 24)
 
 
 func default() -> void:
 	Nav = $Nav
+
 	if ID == "":
 		ID = name
+
 	if ID in Loader.defeated:
 		queue_free()
+
 	Loader.battle_start.connect(func() -> void: hide()) #this is really ugly but it's typed now.
 	Loader.battle_end.connect(func() -> void: show())
 	if get_node_or_null("HomePoints") != null:
 		for i in $HomePoints.get_children():
 			homepoints.append(i.global_position)
+
 	for i in Global.Area.followers:
 		add_collision_exception_with(i)
+
 	patrol()
 
 
@@ -85,24 +99,30 @@ func patrol() -> void:
 
 func extended_process() -> void:
 	var Collision: CollisionShape2D = $Collision
+
 	if self.get_path in Loader.defeated:
 		hide()
 		$CatchArea/CollisionShape2D.set_deferred("disabled", true)
 		return
+
 	if PinRange and tmr:
 		stopping = true
+
 		if tmr.time_left != 0:
 			Collision.set_deferred("disabled", false)
 			state = S.CHASE
+
 			if Global.Player in $DirectionMarker/Finder.get_overlapping_bodies():
 				Nav.set_target_position(Global.Player.position)
 				if tmr.time_left < 2 and Nav.is_target_reachable():
 					tmr.start(2)
+
 			if Direction.snap_vector(to_local(Nav.get_next_path_position())) != -Direction.snap_vector(direction):
 				direction = to_local(Nav.get_next_path_position()).normalized()
 		else:
 			if not Loader.in_battle:
 				Loader.battle_bars(0)
+
 			patrol()
 			if Loader.attacker == self:
 				Loader.attacker = null
@@ -110,8 +130,10 @@ func extended_process() -> void:
 		if Loader.in_battle:
 			hide()
 		elif not homepoints.is_empty() and tmr.time_left == 0 and not stopping:
+
 			if is_on_wall():
 				Event.jump_to_global(self, CurHomepoint)
+
 			if round(position / 24) == round(CurHomepoint / 24):
 				tmr.start(randf_range(0, 3))
 				CurHomepoint = Vector2.ZERO
@@ -121,8 +143,10 @@ func extended_process() -> void:
 				Collision.set_deferred("disabled", true)
 				speed = patrol_speed
 				state = S.MOVE
+
 				if CurHomepoint == Vector2.ZERO:
 					CurHomepoint = homepoints.pick_random()
+
 				direction = to_local(CurHomepoint).normalized()
 
 
@@ -137,6 +161,7 @@ func begin_battle(advatage := 0) -> void:
 func attacked() -> void:
 	if Global.Player.winding_attack:
 		return
+
 	state = S.NONE
 	set_anim("Hit")
 	var to_pos := position + facing.vector * 12
@@ -155,6 +180,7 @@ func _on_finder_body_entered(body: Node2D) -> void:
 		Nav.set_target_position(Global.Player.position)
 		if not Nav.is_target_reachable():
 			return
+
 		stopping = true
 		Loader.chase_mode()
 		Loader.battle_bars(1)

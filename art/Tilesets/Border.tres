@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" format=3 uid="uid://b6qkg87yougd5"]
+
+[ext_resource type="Texture2D" uid="uid://ce38gactnh78b" path="res://art/Tilesets/border.png" id="1_ijqy7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nkbkd"]
+texture = ExtResource("1_ijqy7")
+texture_region_size = Vector2i(24, 24)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[resource]
+tile_size = Vector2i(24, 24)
+uv_clipping = true
+occlusion_layer_0/light_mask = 3
+occlusion_layer_0/sdf_collision = true
+physics_layer_0/collision_layer = 255
+physics_layer_0/collision_mask = 255
+navigation_layer_0/layers = 3
+custom_data_layer_0/name = "TerrainType"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_nkbkd")

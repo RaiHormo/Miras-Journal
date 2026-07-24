@@ -115,7 +115,7 @@ var SpeedBoost: int = 0
 ##A scene containing the sound effects for this actor
 @export var ShadowOffset: int = 0
 @export var FlipH: bool = false
-@export var SoundSet: PackedScene = preload("res://sound/Sets/DefaultSoundSet.tscn")
+@export var SoundSet: PackedScene = load("res://sound/Sets/DefaultSoundSet.tscn")
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true
 ##The default amount of glow on the sprite

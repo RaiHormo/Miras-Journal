@@ -24,7 +24,7 @@ func levelup(chara: Actor) -> void:
 	$ChooseUpgrade/APCont.position.y = 515
 	$ChooseUpgrade/NewAb.position.y = 654
 	$ChooseUpgrade/NewAb/Hbox/Text.text = "New Ability"
-	$ChooseUpgrade/NewAb/Hbox/Icon.texture = preload("res://UI/LevelUp/QuestionMark.png")
+	$ChooseUpgrade/NewAb/Hbox/Icon.texture = await Loader.load_res("res://UI/LevelUp/QuestionMark.png")
 	$Line1.position = Vector2(0, 243)
 	$Line1.rotation_degrees = 0
 	$LevelupText.position = Vector2(-52, 364)

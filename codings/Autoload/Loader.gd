@@ -196,12 +196,11 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	if !data.RoomPath:
 		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
 
+	Item.load_inventory(data.Inventory)
+	Item.verify_inventory()
+
 	await travel_to(data.RoomPath, data.Position, data.Camera, data.Z, null)
 
-	Item.load_inventory(data.Inventory)
-	PartyUI._check_party()
-
-	Item.verify_inventory()
 	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
 
@@ -253,10 +252,13 @@ func load_res(path: String) -> Resource:
 	loading_thread = true
 	await thread_loaded
 
-	if Global.process_frame - frame > 1:
-		print_rich("[color=#555555]\tLoaded resource: ", path.get_file(), "\t in ", Global.process_frame - frame, " frames")
+	var resource: Resource = ResourceLoader.load_threaded_get(path)
 
-	return ResourceLoader.load_threaded_get(path)
+	if OS.is_debug_build():
+		if Global.process_frame - frame > 1:
+			print_rich("[color=#555555]\tLoaded resource: ", resource.resource_path.get_file(), "\t in ", Global.process_frame - frame, " frames")
+
+	return resource
 
 
 func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans: Direction = Global.Player.facing) -> void:

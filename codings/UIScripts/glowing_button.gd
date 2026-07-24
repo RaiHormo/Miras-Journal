@@ -11,13 +11,16 @@ class_name WaveButton
 ## Apply the accent color to the font when focused
 @export var font_focused_color := true
 @onready var glow: Panel = $Glow
-@onready var timer: Timer = $Timer
+@onready var timer: Timer = Timer.new()
 var focused := false
 
 
 func _ready() -> void:
 	if not get_theme_color("font_focus_color") == theme_color:
 		apply_theme_color()
+
+	add_child(timer)
+	timer.timeout.connect(_on_timer_timeout)
 
 
 func apply_theme_color() -> void:
@@ -26,6 +29,7 @@ func apply_theme_color() -> void:
 		add_theme_color_override("font_focus_color", theme_color)
 		add_theme_color_override("font_pressed_color", theme_color)
 		add_theme_color_override("font_hover_pressed_color", theme_color)
+
 	var glow_panel: StyleBoxFlat = glow.get_theme_stylebox("panel").duplicate()
 	glow_panel.bg_color = theme_color
 	glow.add_theme_stylebox_override("panel", glow_panel)

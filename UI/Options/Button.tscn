@@ -93,8 +93,5 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gfkuk")
 
-[node name="Timer" type="Timer" parent="." unique_id=1779238914]
-
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

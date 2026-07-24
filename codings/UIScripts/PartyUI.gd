@@ -489,7 +489,7 @@ func handle_ui() -> void:
 			Audio.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
-				$Audio.stream = preload("res://sound/SFX/page.ogg")
+				$Audio.stream = await Loader.load_res("res://sound/SFX/page.ogg")
 
 			$Audio.play()
 		else:
@@ -501,7 +501,7 @@ func handle_ui() -> void:
 			Audio.cursor_sound()
 			focus_now()
 			if not MemberChoosing:
-				$Audio.stream = preload("res://sound/SFX/page2.ogg")
+				$Audio.stream = await Loader.load_res("res://sound/SFX/page2.ogg")
 
 			$Audio.play()
 		else:
@@ -1011,7 +1011,7 @@ func back() -> void:
 		focus_now()
 	elif not MemberChoosing and Expanded and not inactive and not Loader.in_battle:
 		if not submenu_opened:
-			$Audio.stream = preload("res://sound/SFX/shrink.ogg")
+			$Audio.stream = await Loader.load_res("res://sound/SFX/shrink.ogg")
 			$Audio.play()
 			shrink.emit()
 			Audio.cancel_sound()

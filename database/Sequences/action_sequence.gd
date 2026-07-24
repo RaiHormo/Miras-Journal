@@ -1150,13 +1150,13 @@ func FirstBattle22() -> void:
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura1")
 	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
-	Bt.get_actor("CrawlingSludge").NextMove = preload("res://database/Abilities/InnerFocus.tres")
+	Bt.get_actor("CrawlingSludge").NextMove = load("res://database/Abilities/InnerFocus.tres")
 
 
 func FirstBattle3() -> void:
 	Bt.get_actor("Mira").Abilities[0].disabled = false
 	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
-	Bt.get_actor("CrawlingSludge").NextMove = preload("res://database/Abilities/SoulTap.tres")
+	Bt.get_actor("CrawlingSludge").NextMove = load("res://database/Abilities/SoulTap.tres")
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura2")
 
@@ -1201,7 +1201,7 @@ func AlcineWoods2() -> void:
 	Bt.get_actor("Alcine").SpeedBoost = +10
 	Bt.TurnOrder.sort_custom(Bt.speed_sort)
 	Bt.get_actor("Alcine").NextAction = "Ability"
-	Bt.get_actor("Alcine").NextMove = preload("res://database/Abilities/SoothingSpray.tres")
+	Bt.get_actor("Alcine").NextMove = load("res://database/Abilities/SoothingSpray.tres")
 	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
 	Bt.get_actor("Alcine").node.show()
 	await Event.wait(2)

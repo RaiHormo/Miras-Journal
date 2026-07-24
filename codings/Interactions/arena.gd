@@ -1,7 +1,7 @@
 extends Room
 
 
-func default():
+func default() -> void:
 	if not Event.add_flag("ArenaRound", 1):
 		Global.reset_all_members()
 	Global.Party.reset_party()
@@ -9,12 +9,12 @@ func default():
 	for i in range(1, 3):
 		await start_round(i)
 	Global.Party.add("Alcine")
-	$Bg.texture = preload("res://art/Backgrounds/ArenaBg/TempleRoadBg.png")
+	$Bg.texture = load("res://art/Backgrounds/ArenaBg/TempleRoadBg.png")
 	for i in range(3, 7):
 		await start_round(i)
 
 
-func start_round(i: int):
+func start_round(i: int) -> void:
 	if Event.add_flag("ArenaRound", i): return
 	for j in Global.Party.array():
 		if j:

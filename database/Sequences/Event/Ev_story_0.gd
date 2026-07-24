@@ -102,7 +102,7 @@ func bag_seq() -> void:
 	await Global.Player.set_anim("BagGet", true)
 	Global.Player.set_anim("IdleRight")
 	Audio.item_sound()
-	var bag_ico: Texture = preload("res://art/Icons/Items.tres")
+	var bag_ico: Texture = await Loader.load_res("res://art/Icons/Items.tres") as Texture
 	bag_ico.region = Rect2(90, 90, 18, 18)
 	Item.get_animation(bag_ico, "Flimsy bag", false)
 	Event.add_flag(&"HasBag", true)

@@ -19,24 +19,29 @@ func _ready() -> void:
 		$/root/MainMenu._on_back_button_down()
 		queue_free()
 		return
+
 	if $/root.get_node_or_null("Options") and $/root/Options != self:
 		$/root/Options._on_back_pressed()
 		queue_free()
 		return
+
 	if Loader.in_battle:
 		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or $/root/Battle/BattleUI.PrevStage != "root" or not $/root/Battle/BattleUI.active:
 			queue_free()
 			return
+
 		get_tree().root.get_node_or_null("Battle/BattleUI").stage = "options"
 		cant_save = true
 
 	# Get current main button positions
 	for button: Button in %MainButtons.get_children():
 		main_button_positions.set(button.name, button.position - Vector2(700, 0))
+
 	$MainButtons/SaveManagment.grab_focus()
 
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area):
 		cant_save = true
+
 	Loader.detransition(Direction.CENTER)
 	show()
 
@@ -52,19 +57,11 @@ func _ready() -> void:
 	$Silhouette.position = Vector2(-1000, -39)
 	$Confirm.icon = Controller.get_scheme().ConfirmIcon
 	$Back.icon = Controller.get_scheme().CancelIcon
-	$Background/Info/Version.text += ProjectSettings.get_setting("application/config/version")
-	if Global.using_steam:
-		$Background/Info/LoggedIn.texture = preload("res://UI/Misc/Platforms/steam.svg")
-	$Background/Info/User.text = Global.Settings.PlayerName
-	var platform_icon: Texture
-	match OS.get_name():
-		"Windows": platform_icon = preload("res://UI/Misc/Platforms/windows.svg")
-		"Linux": platform_icon = preload("res://UI/Misc/Platforms/linux.svg")
-		"Android": platform_icon = preload("res://UI/Misc/Platforms/android.svg")
-		"macOS": platform_icon = preload("res://UI/Misc/Platforms/macos.svg")
-		_: platform_icon = preload("res://UI/Misc/Platforms/LoggedOut.svg")
-	$Background/Info/Platform.texture = platform_icon
+
 	$SavePanel/FileNaming.hide()
+	$SidePanel.hide()
+	$SavePanel.hide()
+	$GalleryPanel.hide()
 	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
@@ -74,8 +71,10 @@ func _ready() -> void:
 	if no_main:
 		$Background.position = Vector2(1500, 0)
 		return
+
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
 	t.tween_property($Timer, "position", Vector2(27, 27), 0.5).from(Vector2(-300, 27))
+	fetch_platform_info()
 	siilhouette()
 	Audio.confirm_sound()
 
@@ -94,10 +93,30 @@ func _ready() -> void:
 	loaded.emit()
 
 
+func fetch_platform_info() -> void:
+	$Background/Info/Version.text += ProjectSettings.get_setting("application/config/version")
+
+	if Global.using_steam:
+		$Background/Info/LoggedIn.texture = await Loader.load_res("res://UI/Misc/Platforms/steam.svg")
+
+	$Background/Info/User.text = Global.Settings.PlayerName
+	var platform_icon: Texture
+	match OS.get_name():
+		"Windows": platform_icon = await Loader.load_res("res://UI/Misc/Platforms/windows.svg")
+		"Linux": platform_icon = await Loader.load_res("res://UI/Misc/Platforms/linux.svg")
+		"Android": platform_icon = await Loader.load_res("res://UI/Misc/Platforms/android.svg")
+		"macOS": platform_icon = await Loader.load_res("res://UI/Misc/Platforms/macos.svg")
+		_: platform_icon = await Loader.load_res("res://UI/Misc/Platforms/LoggedOut.svg")
+
+	$Background/Info/Platform.texture = platform_icon
+
+
 func set_no_main() -> void:
 	no_main = true
+
 	for i in $MainButtons.get_children():
 		i.hide()
+
 	await ready
 	#await Event.wait(0.3, false)
 	stage = "main"
@@ -134,11 +153,14 @@ func _on_back_pressed() -> void:
 	match stage:
 		"main":
 			close()
+
 		"game_settings", "save_managment", "gallery", "manual":
 			main()
+
 		"manual_text":
 			stage = "manual"
 			Audio.cancel_sound()
+
 		"credits":
 			gallery()
 			$GalleryPanel/ScrollContainer/VBoxContainer/Credits.grab_focus()
@@ -150,12 +172,14 @@ func close(force := false) -> void:
 	if force:
 		queue_free()
 		return
+
 	if stage == "closing": return
 	if is_instance_valid(Global.Player):
 		if $/root.get_node_or_null("MainMenu"):
 			$/root.get_node("MainMenu")._on_back_button_down()
 		else:
 			Audio.cancel_sound()
+
 	if is_instance_valid(t): t.kill()
 	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -167,6 +191,7 @@ func close(force := false) -> void:
 			t.tween_property(button, "position:x", 700, 0.3).as_relative()
 		else:
 			t.tween_property(button, "position:x", 1400, 0.5)
+
 	t.tween_property($Timer, "position", Vector2(-300, 27), 0.5)
 	t.tween_property($Background, "position", Vector2(900, -2384), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-1000, -39), 0.5)
@@ -176,6 +201,8 @@ func close(force := false) -> void:
 	t.tween_property($SavePanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($ManualPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
+	t.tween_property($SidePanel/Tooltip, "scale", Vector2.ZERO, 0.5)
+	t.tween_property($SidePanel/Tooltip, "modulate:a", 0, 0.5)
 	if Loader.in_battle:
 		$/root/Battle/BattleUI.active = true
 		$/root/Battle/BattleUI.stage = "root"
@@ -184,8 +211,10 @@ func close(force := false) -> void:
 	await t.finished
 	get_tree().paused = was_paused
 	Global.Controllable = was_controllable
+
 	if !is_instance_valid(Global.Area):
 		Global.title_screen()
+
 	Global.check.emit()
 	queue_free()
 
@@ -195,6 +224,7 @@ func main() -> void:
 	if no_main:
 		close()
 		return
+
 	stage = "main"
 	t = create_tween()
 	t.set_trans(Tween.TRANS_QUART)
@@ -212,6 +242,8 @@ func main() -> void:
 	t.tween_property($GalleryPanel, "position", Vector2(1335, -62), 0.5)
 	t.tween_property($Back, "position:x", 207.0, 0.5)
 	t.tween_property($Confirm, "position:x", 26, 0.5)
+	t.tween_property($SidePanel/Tooltip, "scale", Vector2.ZERO, 0.5)
+	t.tween_property($SidePanel/Tooltip, "modulate:a", 0, 0.5)
 
 	for button: Button in %MainButtons.get_children():
 		t.tween_property(button, "position", main_button_positions[button.name], 0.5)
@@ -221,6 +253,7 @@ func main() -> void:
 	for i in $MainButtons.get_children():
 		i.z_index = 0
 		i.toggle_mode = false
+
 	$Confirm.show()
 	Loader.ungray.emit()
 	await t.finished
@@ -229,6 +262,7 @@ func main() -> void:
 		$SidePanel.hide()
 		$GalleryPanel.hide()
 		$MainButtons.get_child(mainIndex).grab_focus()
+
 	Global.save_settings()
 
 
@@ -243,13 +277,17 @@ func game_settings() -> void:
 	t.set_trans(Tween.TRANS_QUART)
 	t.set_ease(Tween.EASE_OUT)
 	t.set_parallel()
-	$SidePanel/ScrollContainer.scroll_horizontal = 0
+	$SidePanel/ScrollContainer.scroll_vertical = 0
 	$MainButtons/GameSettings.z_index = 1
 	t.tween_property($MainButtons/GameSettings, "position", Vector2(25, 196), 0.5)
 	t.tween_property($SidePanel, "position", Vector2(407, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-700, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
-	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus()
+	t.tween_property($SidePanel/Tooltip, "scale", Vector2.ONE, 0.5).from(Vector2.ZERO)
+	t.tween_property($SidePanel/Tooltip, "modulate:a", 1, 0.5).from(0)
+	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus.call_deferred()
+	$SidePanel/Tooltip/Bubble.size.y = 0
+	$SidePanel/Tooltip/Point.rotation = 0
 	Audio.confirm_sound()
 	$SidePanel.show()
 	await t.finished
@@ -268,6 +306,7 @@ func save_managment() -> void:
 	if cant_save:
 		$SavePanel/Buttons/Overwrite.disabled = true
 		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
+
 	$SavePanel.show()
 	$MainButtons/SaveManagment.show()
 	$MainButtons/SaveManagment.toggle_mode = true
@@ -293,6 +332,7 @@ func save_managment() -> void:
 	t.tween_property($Confirm, "position:x", -200, 0.5)
 	Audio.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
+
 	if not save_files_loaded:
 		await load_save_files()
 		if stage != "save_managment": return
@@ -321,6 +361,7 @@ func manual() -> void:
 	t.tween_property($MainButtons/Manual, "rotation_degrees", -90, 0.5)
 	for i in $MainButtons.get_children():
 		if i != $MainButtons/Manual: t.tween_property(i, "position:x", 850, 0.5)
+
 	t.tween_property($ManualPanel, "position", Vector2(100, -92), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(-200, 0), 0.5)
@@ -350,6 +391,7 @@ func gallery() -> void:
 	t.tween_property($MainButtons/Gallery, "position", Vector2(570, 491), 0.5)
 	for i in $MainButtons.get_children():
 		if i != $MainButtons/Gallery: t.tween_property(i, "position:x", 800, 0.5)
+
 	t.tween_property($GalleryPanel, "position", Vector2(800, -62), 0.5)
 	t.tween_property($Silhouette, "position", Vector2(-100, -39), 0.5)
 	t.tween_property($Background, "position", Vector2(400, 0), 0.5)
@@ -363,25 +405,33 @@ func _on_quit() -> void:
 	var text: String
 	if is_instance_valid(Global.Area):
 		text = "Quit the game?\nYour progress will be saved."
+
 		if cant_save:
 			text = "Quit the game?\nYour progress cannot be saved right now, so it might be lost."
 	else: text = "Quit the game?"
 	var awnser := await Global.warning(text, "QUIT", ["Cancel", "Title Screen", "Quit Game"], Color.hex(0xe3936eff))
+
 	match awnser:
 		2:
 			if not cant_save and is_instance_valid(Global.Area):
 				await Loader.save()
+
 			Global.quit()
+
 		1:
 			if is_instance_valid(Global.Area):
 				Global.Area.queue_free()
 				if not cant_save: await Loader.save()
+
 			if get_tree().root.has_node("MainMenu"):
 				get_tree().root.get_node("MainMenu").queue_free()
+
 			if get_tree().root.has_node("Battle"):
 				get_tree().root.get_node("Battle").queue_free()
+
 			PartyUI.hide_all()
 			close()
+
 		0:
 			main()
 			$MainButtons/Quit.grab_focus()
@@ -390,8 +440,7 @@ func _on_quit() -> void:
 func _on_focus_changed(control: Control) -> void:
 	Audio.cursor_sound(true)
 	focus = control
-	if stage == "main" and control.get_parent() == $MainButtons:
-		mainIndex = focus.get_index()
+
 	if stage == "save_managment":
 		if control.get_parent().get_parent().name == "New":
 			$Confirm.show()
@@ -401,6 +450,7 @@ func _on_focus_changed(control: Control) -> void:
 		else:
 			$Confirm.hide()
 			$SavePanel/Buttons/Load.disabled = false
+
 			if control.get_parent().name == "File0":
 				$SavePanel/Buttons/Overwrite.disabled = true
 				$SavePanel/Buttons/Delete.disabled = true
@@ -408,6 +458,18 @@ func _on_focus_changed(control: Control) -> void:
 			else:
 				$SavePanel/Buttons/Overwrite.disabled = false
 				$SavePanel/Buttons/Delete.disabled = false
+	elif stage == "game_settings":
+		$SidePanel/Tooltip/Bubble/Text.visible_ratio = 0
+		$SidePanel/Tooltip/Bubble/Text.text = focus.editor_description
+		$SidePanel/Tooltip/Bubble.size.y = 0
+		$SidePanel/Tooltip/Bubble/Text.size.y = 0
+		var angle: float = remap($SidePanel/ScrollContainer.scroll_vertical, 0, 1000, 0, 0.5)
+		$SidePanel/Tooltip/Point.rotation = angle
+		var tw := create_tween()
+		tw.tween_property($SidePanel/Tooltip/Bubble/Text, "visible_ratio", 1, 1).from(0)
+	elif control.get_parent() == $MainButtons:
+		mainIndex = focus.get_index()
+
 	if cant_save:
 		$SavePanel/Buttons/Overwrite.disabled = true
 		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
@@ -418,14 +480,14 @@ func load_settings(no_check := false) -> void:
 		%SettingsVbox/AutoHideHUD/MenuBar.selected = Global.Settings.AutoHideHUD
 		%SettingsVbox/ControlScheme/MenuBar.selected = Global.Settings.ControlSchemeEnum
 		%SettingsVbox/Fullscreen/CheckButton.button_pressed = Global.Settings.Fullscreen
-		
+
 		%SettingsVbox/Master/Slider.value = Global.Settings.MasterVolume
 		%SettingsVbox/SFX/Slider.value = Global.Settings.SFXVolume
 		%SettingsVbox/Music/Slider.value = Global.Settings.MusicVolume
 		%SettingsVbox/SoundEffects/UI/Slider.value = Global.Settings.UIVolume
 		%SettingsVbox/SoundEffects/Footsteps/Slider.value = Global.Settings.FootstepsVolume
 		%SettingsVbox/SoundEffects/Voices/Slider.value = Global.Settings.VoicesVolume
-		
+
 		%SettingsVbox/BCSadjust/BrtSlider.value = World.environment.adjustment_brightness
 		%SettingsVbox/BCSadjust/ConSlider.value = World.environment.adjustment_contrast
 		%SettingsVbox/BCSadjust/SatSlider.value = World.environment.adjustment_saturation
@@ -437,11 +499,13 @@ func load_settings(no_check := false) -> void:
 		%SettingsVbox/UpscaledResolution/CheckButton.button_pressed = Global.Settings.UpscaledRes
 		%SettingsVbox/ControllerVibration/CheckButton.button_pressed = Global.Settings.ControllerVibration
 		%SettingsVbox/BlurEffect/CheckButton.button_pressed = Global.Settings.BlurEffect
+
 		match Global.Settings.FPS:
 			0: %SettingsVbox/FPS/MenuBar.selected = 0
 			30: %SettingsVbox/FPS/MenuBar.selected = 1
 			60: %SettingsVbox/FPS/MenuBar.selected = 2
 			144: %SettingsVbox/FPS/MenuBar.selected = 3
+
 		match Global.Settings.UpscaleFactor:
 			0.5: %SettingsVbox/UpscaleFactor/MenuBar.selected = 0
 			1.0: %SettingsVbox/UpscaleFactor/MenuBar.selected = 1
@@ -458,59 +522,72 @@ func load_settings(no_check := false) -> void:
 		%SettingsVbox/ControlPreview/RZ.set_deferred("texture", Controller.get_scheme().RZ)
 		%SettingsVbox/ControlPreview/Start.set_deferred("texture", Controller.get_scheme().Start)
 		%SettingsVbox/ControlPreview/Select.set_deferred("texture", Controller.get_scheme().Select)
-		%SettingsVbox/ControlPreview/ConfirmB.set_deferred("texture", Controller.get_scheme().ConfirmIcon)
-		%SettingsVbox/ControlPreview/CancelB.set_deferred("texture", Controller.get_scheme().CancelIcon)
-		%SettingsVbox/ControlPreview/MenuB.set_deferred("texture", Controller.get_scheme().Menu)
-		%SettingsVbox/ControlPreview/DashB.set_deferred("texture", Controller.get_scheme().Dash)
+		%SettingsVbox/ControlPreview/Labs/ConfirmB.set_deferred("texture", Controller.get_scheme().ConfirmIcon)
+		%SettingsVbox/ControlPreview/Labs/CancelB.set_deferred("texture", Controller.get_scheme().CancelIcon)
+		%SettingsVbox/ControlPreview/Labs/MenuB.set_deferred("texture", Controller.get_scheme().Menu)
+		%SettingsVbox/ControlPreview/Labs/DashB.set_deferred("texture", Controller.get_scheme().Dash)
 		Global.apply_settings()
 
 
 func load_save_files() -> void:
 	for i in %Files.get_children():
 		if i.name != "File0" and i.name != "New": i.set_meta(&"Unprocessed", true)
+
 	%Files/File0/Info/SavedDate.text = ""
 	var files := DirAccess.get_files_at("user://")
+
 	for i in files:
 		if i.ends_with(".tres") and "Autosave.tres" != i and not "Settings" in i:
 			var data: SaveFile = await Loader.load_res("user://" + i)
+
 			if data is SaveFile:
 				#Loader.SaveFiles.append(data)
 				var newpanel: PanelContainer = null
+
 				for j in %Files.get_children():
 					if j.name + ".tres" == i:
 						newpanel = j
 						j.set_meta(&"Unprocessed", false)
+
 				if not is_instance_valid(newpanel):
 					newpanel = %Files/File0.duplicate()
 					newpanel.name = i.replace(".tres", "")
 					%Files.add_child(newpanel)
+
 				newpanel.hide()
 				draw_file(data, newpanel)
+
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)
 	else:
 		%Files/File0.hide()
 		Global.toast("No Autosave data found.")
+
 	var sorted := %Files.get_children()
 	sorted.sort_custom(file_sort)
 	for i in %Files.get_children():
 		%Files.remove_child(i)
+
 	for i in sorted:
 		%Files.add_child(i)
 		i.show()
+
 	%Files.move_child(%Files/File0, 0)
 	%Files.move_child(%Files/New, 0)
 	#%Files/File0/Info/FileName.text = "Autosave"
+
 	for j in %Files.get_children():
 		if j.name != "File0" and j.name != "New": if j.get_meta(&"Unprocessed"): j.queue_free()
+
 	await Event.wait()
 	if not save_files_loaded:
 		Loader.ungray.emit()
+
 	save_files_loaded = true
 
 
 func file_sort(a: Control, b: Control) -> bool:
-	return not(not a.has_meta("sort") or not b.has_meta("sort")) and a.get_meta("sort") > b.get_meta("sort")
+	return not (not a.has_meta("sort") or not b.has_meta("sort")) and a.get_meta("sort") > b.get_meta("sort")
 
 
 func draw_file(file: SaveFile, node: Control) -> void:
@@ -519,6 +596,7 @@ func draw_file(file: SaveFile, node: Control) -> void:
 	# Set default parameters
 	for i in range(0, 4):
 		panel.get_node("Party/Icon" + str(i)).texture = null
+
 	panel.get_node("Time/Playtime").text = "???"
 	panel.get_node("SavedDate").text = ""
 	# Check for invalid states
@@ -540,12 +618,14 @@ func draw_file(file: SaveFile, node: Control) -> void:
 		panel.get_node("Date/Day").text = "Version"
 		panel.get_node("Location").text = "Please update the game"
 		return
+
 	# Set time for sorting
 	node.set_meta("sort", file.SavedTime)
 
 	#Now load in everything
 	node.get_node("Info/FileName").text = file.Name
 	panel.get_node("Date/Day").text = str(file.Flags.get("day"))
+
 	if file.Flags.get("day") <= 30 and file.Flags.get("day") > 0:
 		panel.get_node("Date/Month").text = "November"
 	elif file.Flags.get("day") == 0:
@@ -554,7 +634,9 @@ func draw_file(file: SaveFile, node: Control) -> void:
 	else:
 		panel.get_node("Date/Month").text = "Beyond"
 		panel.get_node("Date/Day").text = "Time"
+
 	panel.get_node("Party/Icon0").texture = Query.find_member(file.Party[0]).PartyIcon
+
 	for i in range(0, 4):
 		if file.Party[i] != &"": panel.get_node("Party/Icon" + str(i)).texture = Query.find_member(file.Party[i]).PartyIcon
 		else: panel.get_node("Party/Icon" + str(i)).texture = null
@@ -581,13 +663,17 @@ func _on_save_delete() -> void:
 	if stage != "save_managment": return
 	var panel := focus.get_parent()
 	var index := focus.get_index()
+
 	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
+
 	while (Input.is_action_pressed("BtCommand") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 2
 		await Event.wait(0.01, false)
 		if not is_instance_valid(panel): return
+
 	$SavePanel/Buttons/Delete.button_pressed = false
+
 	if panel.get_node("ProgressBar").value == 100:
 		Audio.confirm_sound()
 		if panel.name == "File0":
@@ -601,6 +687,7 @@ func _on_save_delete() -> void:
 		else:
 			print("Deleting user://" + panel.name + ".tres")
 			DirAccess.remove_absolute("user://" + panel.name + ".tres")
+
 		var t2 := create_tween()
 		t2.tween_property(panel, "modulate:a", 0, 0.5)
 		await t2.finished
@@ -625,14 +712,18 @@ func _on_save_delete() -> void:
 func _on_save_overwrite() -> void:
 	if stage != "save_managment": return
 	var panel := focus.get_parent()
+
 	if not panel.has_node("ProgressBar"): return
 	panel.get_node("ProgressBar").value = 8
+
 	while (Input.is_action_pressed("BtItem") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 4
 		await Event.wait(0.01, false)
 		if not is_instance_valid(panel): return
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
+
 	$SavePanel/Buttons/Overwrite.button_pressed = false
+
 	if panel.get_node("ProgressBar").value == 100:
 		Loader.gray_out()
 		Audio.confirm_sound()
@@ -654,6 +745,7 @@ func _on_save_overwrite() -> void:
 		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 0.3)
 		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
 		await t.finished
+
 	panel.get_node("ProgressBar").value = 0
 	panel.get_node("ProgressBar").modulate.a = 1
 
@@ -661,17 +753,22 @@ func _on_save_overwrite() -> void:
 func _on_save_load() -> void:
 	if stage != "save_managment" or not is_instance_valid(focus): return
 	var panel := focus.get_parent()
+
 	if "New" in panel.name: return
 	var filename := panel.name
+
 	if panel.name == "File0": filename = "Autosave"
 	if not panel is PanelContainer:
 		$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
 		return
+
 	panel.get_node("ProgressBar").value = 8
+
 	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
 		panel.get_node("ProgressBar").value += 5
 		await Event.wait(0.01, false)
 		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
+
 	if panel.get_node("ProgressBar").value == 100:
 		if not FileAccess.file_exists("user://" + filename + ".tres"): return
 		await Loader.load_game(filename)
@@ -684,6 +781,7 @@ func _on_save_load() -> void:
 		t.tween_property(panel.get_node("ProgressBar"), "modulate:a", 0, 0.3)
 		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
 		await t.finished
+
 	panel.get_node("ProgressBar").value = 0
 	panel.get_node("ProgressBar").modulate.a = 1
 	$SavePanel/Buttons/Load.button_pressed = false
@@ -691,23 +789,26 @@ func _on_save_load() -> void:
 
 func _new_file() -> void:
 	const banned: Array[String] = ['/', '\\', 'options', ':', '<', '>']
-	
+
 	stage = "saving"
 	Audio.confirm_sound()
 	#Loader.gray_out()
 	%Files/New/NewFile.hide()
 	%Files/New/NewFile.show()
 	var i := 1
+
 	while FileAccess.file_exists("user://File" + str(i) + ".tres"):
 		i += 1
+
 	var filename := await name_file("File" + str(i))
-	
+
 	var allowed := true
+
 	for word in banned:
 		if filename.containsn(word):
 			allowed = false
 			continue
-	
+
 	if allowed:
 		Loader.icon_save()
 		await Loader.save(filename, false)
@@ -718,11 +819,13 @@ func _new_file() -> void:
 			await Loader.get_node("Can/Icon").animation_finished
 	else:
 		Global.warning("\"%s\" contains a weird word or character.", "SAVE FAILED")
+
 	stage = "save_managment"
 
 
 func _new_game() -> void:
 	stage = "popup"
+
 	if not FileAccess.file_exists("user://Autosave.tres") or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
 		was_controllable = false
 		close(true)
@@ -768,13 +871,16 @@ func _manual_entry_select() -> void:
 	if not is_instance_valid(focus): return
 	var entry: String = focus.name
 	var text: String = ""
+
 	for i: String in Tutorials:
 		if i.begins_with("#" + entry):
 			text = i
 			break
+
 	if text == "":
 		Global.toast("Entry not found")
 		return
+
 	text = Colorizer.colorize_explicit(text.replace("#" + entry, "[b]" + focus.text + "[/b]"))
 	$ManualPanel/Text/RichTextLabel.text = text
 
@@ -792,6 +898,7 @@ func rename_alcine() -> void:
 func _on_credit_scroll(event: InputEvent) -> void:
 	if get_viewport().gui_get_focus_owner() == $GalleryPanel/Credits:
 		var accel: int = 100
+
 		if Input.is_action_just_pressed("ui_up"):
 			while Input.is_action_pressed("ui_up"):
 				$GalleryPanel/Credits.scroll_by(-accel)
@@ -847,11 +954,14 @@ func _on_credits(source: Button) -> void:
 		"Credits":
 			var file := FileAccess.open("res://CREDITS.txt", FileAccess.READ)
 			text = file.get_as_text()
+
 		"GodotLicense":
 			text = Engine.get_license_text()
+
 		"ProjectLicense":
 			var file := FileAccess.open("res://LICENSE.md", FileAccess.READ)
 			text = file.get_as_text()
+
 	$GalleryPanel/Credits/RichTextLabel.text = text
 	$GalleryPanel/Credits.grab_focus()
 	$GalleryPanel/Credits.scroll_vertical = 0
@@ -870,25 +980,35 @@ func _on_control_scheme(index: int) -> void:
 	Audio.confirm_sound()
 	Global.Settings.ControlSchemeAuto = false
 	Global.Settings.ControlSchemeEnum = %SettingsVbox/ControlScheme/MenuBar.get_selected_id()
+
 	match Global.Settings.ControlSchemeEnum:
 		0:
 			Global.Settings.ControlSchemeAuto = true
+
 		1:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Keyboard.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/Keyboard.tres")
+
 		2:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Nintendo.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/Nintendo.tres")
+
 		3:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Xbox.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/Xbox.tres")
+
 		4:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/Generic.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/Generic.tres")
+
 		5:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStation.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/PlayStation.tres")
+
 		6:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/PlayStationOld.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/PlayStationOld.tres")
+
 		7:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/SteamDeck.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/SteamDeck.tres")
+
 		8:
-			Global.Settings.ControlSchemeOverride = preload("res://UI/Input/None.tres")
+			Global.Settings.ControlSchemeOverride = await Loader.load_res("res://UI/Input/None.tres")
+
 	load_settings()
 
 
@@ -900,25 +1020,26 @@ func _on_fullscreen(tog: bool) -> void:
 
 func _on_volume(value: float, origin: Slider) -> void:
 	var bus := origin.get_parent().name
-	
+
 	Global.Settings.set(bus+"Volume", value)
 	if value == origin.min_value:
 		value -= 100
-	
+
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), value)
-	
+
 	$AudioTester.bus = bus
+
 	if stage == "game_settings": $AudioTester.play()
 
 
 func _on_volume_reset() -> void:
 	confirm()
-	
+
 	for i in Global.Settings.get_property_list():
 		if "Volume" in i.get("name"):
 			Global.Settings.set(i.name, 0)
+
 	load_settings()
-	
 
 
 func _on_brightness(value: float) -> void:
@@ -982,6 +1103,7 @@ func _upscale_factor(index: int) -> void:
 		1: Global.Settings.UpscaleFactor = 1
 		2: Global.Settings.UpscaleFactor = 1.5
 		3: Global.Settings.UpscaleFactor = 2.0
+
 	confirm()
 
 

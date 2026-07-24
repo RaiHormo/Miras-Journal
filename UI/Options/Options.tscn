@@ -29,13 +29,15 @@
 [ext_resource type="Texture2D" uid="uid://dqlbyaselqjhc" path="res://UI/Input/X.png" id="23_gmb0o"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="24_41402"]
 [ext_resource type="Texture2D" uid="uid://dfk4rrxrkurbc" path="res://UI/Input/R.png" id="24_kpda3"]
-[ext_resource type="Texture2D" uid="uid://behkoc7jb5kcx" path="res://UI/Input/+.png" id="25_aibxb"]
 [ext_resource type="AudioStream" uid="uid://ccxb1igpivixb" path="res://sound/SFX/cursor.wav" id="25_u17hy"]
 [ext_resource type="Texture2D" uid="uid://c708d0iwq6aop" path="res://UI/Options/ImageTest.png" id="26_375bk"]
-[ext_resource type="Texture2D" uid="uid://buxt5eft5el2k" path="res://UI/Input/-.png" id="26_jguiy"]
+[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="27_voc1x"]
+[ext_resource type="Texture2D" uid="uid://qxgjwjhmi0i2" path="res://UI/Input/Glyphs/Y.svg" id="28_eb7ok"]
 [ext_resource type="Texture2D" uid="uid://db7yueymge8x6" path="res://UI/Input/Glyphs/A.svg" id="28_gg2m8"]
 [ext_resource type="Texture2D" uid="uid://ddpeq6dvruhph" path="res://UI/Input/Glyphs/B.svg" id="29_nqfss"]
 [ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="29_t6ahs"]
+[ext_resource type="Texture2D" uid="uid://b7nc5pgdp8f2f" path="res://UI/Input/Start.png" id="33_xogwg"]
+[ext_resource type="Texture2D" uid="uid://c6vom7yoykb1i" path="res://UI/Input/Select.png" id="34_gaiib"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ha3i"]
 shader = ExtResource("2_0ss3e")
@@ -543,6 +545,24 @@ grow_begin = 12.0
 grow_end = 12.0
 thickness = 3
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_voc1x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26tpo"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+corner_radius_top_left = 13
+corner_radius_bottom_right = 72
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxbxq"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+corner_radius_top_left = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
 [sub_resource type="Theme" id="Theme_srwa7"]
 Button/colors/font_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
 Button/colors/font_focus_color = Color(0.30980393, 0.30980393, 0.30980393, 1)
@@ -661,6 +681,8 @@ text_overrun_behavior = 1
 [node name="LoggedIn" type="TextureRect" parent="Background/Info" unique_id=647579096]
 modulate = Color(1, 1, 1, 0.21568628)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -5)
 texture = ExtResource("5_srwa7")
 expand_mode = 2
 stretch_mode = 4
@@ -679,6 +701,8 @@ vertical_alignment = 1
 [node name="Platform" type="TextureRect" parent="Background/Info" unique_id=1892800621]
 modulate = Color(1, 1, 1, 0.21568628)
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -5)
 texture = ExtResource("6_srwa7")
 expand_mode = 2
 stretch_mode = 4
@@ -1139,10 +1163,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_clguj")
 text = "Save to new file"
 
 [node name="SidePanel" type="Panel" parent="." unique_id=1391057141]
-offset_left = 1335.0
-offset_top = -62.0
-offset_right = 2352.0
-offset_bottom = 2561.696
+offset_left = 1338.0
+offset_top = -51.999996
+offset_right = 2355.0
+offset_bottom = 2571.696
 rotation = 0.057901
 pivot_offset = Vector2(-0.00598145, 62.8742)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1t27v")
@@ -1187,6 +1211,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Auto-hide HUD"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD" unique_id=1132387334]
+editor_description = "When the HUD elements should hide after a timeout in the overworld."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1213,6 +1238,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text speed"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/TextSpeed" unique_id=812046990]
+editor_description = "Set the typing speed of textboxes.
+
+Timed and passive text is not affected."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1247,6 +1275,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Control scheme"
 
 [node name="MenuBar" type="OptionButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControlScheme" unique_id=665539237]
+editor_description = "Set what button prompts to display.
+
+The \"Nintendo\" layout will also swap Confirm 
+and Cancel."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1273,198 +1305,183 @@ popup/item_8/text = "No prompts"
 popup/item_8/id = 8
 
 [node name="ControlPreview" type="Control" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1894395867]
-custom_minimum_size = Vector2(0, 225)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 mouse_filter = 1
 
 [node name="A" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=718141966]
 layout_mode = 0
-offset_left = 210.731
-offset_top = 104.043
-offset_right = 260.731
-offset_bottom = 154.043
+offset_left = 139.1321
+offset_top = 109.51334
+offset_right = 189.13208
+offset_bottom = 159.51334
 texture = ExtResource("28_gg2m8")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="B" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1487099155]
 layout_mode = 0
-offset_left = 156.718
-offset_top = 154.028
-offset_right = 206.718
-offset_bottom = 204.028
-texture = ExtResource("7_xdp6q")
+offset_left = 91.079254
+offset_top = 150.4514
+offset_right = 141.07925
+offset_bottom = 200.45142
+texture = ExtResource("29_nqfss")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="X" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=217339712]
 layout_mode = 0
-offset_left = 155.745
-offset_top = 55.0281
-offset_right = 205.745
-offset_bottom = 105.028
-texture = ExtResource("23_gmb0o")
+offset_left = 91.18375
+offset_top = 69.45144
+offset_right = 141.18375
+offset_bottom = 119.45134
+texture = ExtResource("27_voc1x")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Y" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=498055822]
 layout_mode = 0
-offset_left = 103.731
-offset_top = 107.014
-offset_right = 153.731
-offset_bottom = 157.014
-texture = ExtResource("22_xyl14")
+offset_left = 41.1322
+offset_top = 109.386955
+offset_right = 91.1322
+offset_bottom = 159.38696
+texture = ExtResource("28_eb7ok")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="L" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1745376610]
 layout_mode = 0
-offset_left = 18.7451
-offset_top = 53.9766
-offset_right = 68.7451
-offset_bottom = 103.977
+offset_left = 19.238008
+offset_top = 27.294107
+offset_right = 69.23801
+offset_bottom = 77.29451
 texture = ExtResource("21_282ro")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="LZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1021245359]
 layout_mode = 0
-offset_left = 67.7575
-offset_top = 8.99015
-offset_right = 117.758
-offset_bottom = 58.9901
+offset_left = 77.314
+offset_top = 4.368925
+offset_right = 127.314
+offset_bottom = 54.368927
 texture = ExtResource("22_w3i7s")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="RZ" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=908204203]
 layout_mode = 0
-offset_left = 240.757
-offset_top = 10.0378
-offset_right = 290.757
-offset_bottom = 60.0378
+offset_left = 281.3138
+offset_top = 4.6320333
+offset_right = 331.31378
+offset_bottom = 54.632034
 texture = ExtResource("23_bqtf5")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="R" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=766235050]
 layout_mode = 0
-offset_left = 294.746
-offset_top = 53.0527
-offset_right = 344.746
-offset_bottom = 103.053
+offset_left = 341.28796
+offset_top = 24.709377
+offset_right = 391.28796
+offset_bottom = 74.70967
 texture = ExtResource("24_kpda3")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Start" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1651202583]
 layout_mode = 0
-offset_left = 290.716
-offset_top = 160.052
-offset_right = 469.721
-offset_bottom = 210.052
-texture = ExtResource("25_aibxb")
+offset_left = 261.08054
+offset_top = 149.60612
+offset_right = 395.3851
+offset_bottom = 199.60612
+texture = ExtResource("33_xogwg")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Select" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=548667109]
 layout_mode = 0
-offset_left = 19.7159
-offset_top = 159.977
-offset_right = 150.71468
-offset_bottom = 209.977
-texture = ExtResource("26_jguiy")
+offset_left = 263.15393
+offset_top = 92.608734
+offset_right = 394.1527
+offset_bottom = 142.60873
+texture = ExtResource("34_gaiib")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1480074097]
+[node name="Labs" type="GridContainer" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=2044401159]
 layout_mode = 0
-offset_left = 592.40686
-offset_top = -3.26423
-offset_right = 736.9061
-offset_bottom = 46.73576
-texture = ExtResource("6_d2agy")
-expand_mode = 1
-stretch_mode = 4
+offset_left = 433.7017
+offset_top = -4.0571327
+offset_right = 752.89795
+offset_bottom = 198.94287
+theme_override_constants/v_separation = 8
+columns = 2
 
-[node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1584231730]
-layout_mode = 0
-offset_left = 435.75903
-offset_top = 4.968793
-offset_right = 586.75903
-offset_bottom = 47.968792
+[node name="Confirm" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1584231730]
+layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Confirm"
 
-[node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1610211722]
-layout_mode = 0
-offset_left = 591.32947
-offset_top = 56.73443
-offset_right = 733.16345
-offset_bottom = 106.73413
-texture = ExtResource("7_xdp6q")
+[node name="ConfirmB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1480074097]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_d2agy")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=825774138]
-layout_mode = 0
-offset_left = 433.32202
-offset_top = 62.530655
-offset_right = 584.322
-offset_bottom = 105.530655
+[node name="Cancel" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=825774138]
+layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Cancel"
 
-[node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1148712420]
-layout_mode = 0
-offset_left = 590.25214
-offset_top = 116.7331
-offset_right = 716.1192
-offset_bottom = 166.7331
-texture = ExtResource("23_gmb0o")
+[node name="CancelB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1610211722]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("7_xdp6q")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1440104093]
-layout_mode = 0
-offset_left = 435.24457
-offset_top = 122.53314
-offset_right = 586.24457
-offset_bottom = 165.53314
+[node name="Menu" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1440104093]
+layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Menu"
 
-[node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=1899993411]
-layout_mode = 0
-offset_left = -22.465942
-offset_top = 176.33963
-offset_right = 116.71472
-offset_bottom = 226.33963
-layout_direction = 3
-texture = ExtResource("22_xyl14")
+[node name="MenuB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1148712420]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("23_gmb0o")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview" unique_id=2027174800]
-layout_mode = 0
-offset_left = 435.16705
-offset_top = 182.5332
-offset_right = 587.16705
-offset_bottom = 225.5332
+[node name="Dash" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=2027174800]
+layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Dash"
+
+[node name="DashB" type="TextureRect" parent="SidePanel/ScrollContainer/SettingsVbox/ControlPreview/Labs" unique_id=1899993411]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+layout_direction = 3
+texture = ExtResource("22_xyl14")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="ControllerVibration" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=159656234]
 layout_mode = 2
@@ -1480,6 +1497,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Controller Vibration"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/ControllerVibration" unique_id=1576481349]
+editor_description = "Enable controller vibration when taking damage or in other situations.
+
+If this works or not depends on your controller setup."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1508,6 +1528,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fullscreen"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Fullscreen" unique_id=2030962562]
+editor_description = "Fulls the screen."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1527,20 +1548,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Native Resolution"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/UpscaledResolution" unique_id=1227651980]
+editor_description = "Renders the game in the window's full 
+resolution.
+
+The game's base resolution is 1280x800."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 button_pressed = true
 alignment = 2
-
-[node name="NativeResText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1488543963]
-layout_mode = 2
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
-theme_override_font_sizes/font_size = 32
-text = "Renders the game in the window's full 
-resolution."
 
 [node name="UpscaleFactor" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=258566776]
 visible = false
@@ -1571,14 +1587,6 @@ popup/item_2/id = 2
 popup/item_3/text = "2"
 popup/item_3/id = 3
 
-[node name="UpscaleText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=717998530]
-layout_mode = 2
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
-theme_override_font_sizes/font_size = 32
-text = "The game's base resolution is 1280x800."
-
 [node name="HighResTextures" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1158978083]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1593,19 +1601,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "High resoultion textures"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/HighResTextures" unique_id=216632991]
+editor_description = "Artwork is shown at the originally drawn 
+resolution. 
+Causes higher memory usage."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 alignment = 2
-
-[node name="HighResText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=18760393]
-layout_mode = 2
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
-theme_override_font_sizes/font_size = 32
-text = "Artwork is shown at the originally drawn 
-resolution. Higher memory usage."
 
 [node name="Vsync" type="HBoxContainer" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1602327089]
 layout_mode = 2
@@ -1621,6 +1623,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "VSync"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/Vsync" unique_id=207652245]
+editor_description = "Sync the framerate to the display's 
+refresh rate."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1669,6 +1673,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Glow effect"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/GlowEffect" unique_id=2060267726]
+editor_description = "Lights will emmit a glow effect when together."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1688,6 +1693,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Blur effect"
 
 [node name="CheckButton" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/BlurEffect" unique_id=1292114426]
+editor_description = "The background of menus will be blurred."
 layout_mode = 2
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
@@ -1800,6 +1806,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Master"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Master" unique_id=956344275]
+editor_description = "The volume of everything in the game.
+
+All other volume sliders inherit from this."
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1828,6 +1837,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Music"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/Music" unique_id=214918760]
+editor_description = "The volume of background music."
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1851,6 +1861,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Sound Effects"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SFX" unique_id=87346508]
+editor_description = "The volume of all sound effects.
+
+The sound effect sliders below inherit from this."
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1882,6 +1895,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Menus"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/UI" unique_id=927985344]
+editor_description = "The volume of menu clicks and boops."
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1905,6 +1919,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Text sounds"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Voices" unique_id=1122690468]
+editor_description = "The volume of the voice sound characters make when talking."
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1928,6 +1943,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Footsteps"
 
 [node name="Slider" type="HSlider" parent="SidePanel/ScrollContainer/SettingsVbox/SoundEffects/Footsteps" unique_id=1184670726]
+editor_description = "The volume of the sound effects the player makes when walking."
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1939,6 +1955,7 @@ max_value = 20.0
 scrollable = false
 
 [node name="ResetVolume" type="Button" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=1998929522]
+editor_description = "Reset all volume levels to default."
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1972,22 +1989,56 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Debug tools"
 
 [node name="DebugMode" type="CheckButton" parent="SidePanel/ScrollContainer/SettingsVbox/DebugMode" unique_id=83996935]
+editor_description = "Unless there is an issue, it's recommended that this is kept off.
+
+Debug tools are used with ctrl key combinations.
+"
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 theme = SubResource("Theme_6ne1i")
 
-[node name="DebugText" type="Label" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=884525833]
+[node name="HSeparator2" type="HSeparator" parent="SidePanel/ScrollContainer/SettingsVbox" unique_id=466057373]
 layout_mode = 2
-mouse_filter = 1
-theme = SubResource("Theme_6ne1i")
-theme_override_colors/font_color = Color(0.713726, 0.713726, 0.713726, 1)
-theme_override_font_sizes/font_size = 32
-text = "Unless there is an issue, it's recommended that
-this is kept off.
-Debug tools are used with ctrl key 
-combinations.
-"
+theme_override_styles/separator = SubResource("StyleBoxEmpty_voc1x")
+
+[node name="Tooltip" type="Control" parent="SidePanel" unique_id=1803527138]
+z_index = 3
+layout_mode = 1
+anchors_preset = 0
+offset_left = 32.5884
+offset_top = 417.70844
+offset_right = 32.5884
+offset_bottom = 417.70844
+
+[node name="Point" type="Panel" parent="SidePanel/Tooltip" unique_id=1665247667]
+layout_mode = 0
+offset_left = -27.070543
+offset_top = -0.4341862
+offset_right = 40.415
+offset_bottom = 65.8625
+pivot_offset = Vector2(23.48462, 25.026825)
+theme_override_styles/panel = SubResource("StyleBoxFlat_26tpo")
+
+[node name="Bubble" type="PanelContainer" parent="SidePanel/Tooltip" unique_id=1663567360]
+custom_minimum_size = Vector2(0, 100)
+custom_maximum_size = Vector2(-1, 350)
+layout_mode = 0
+offset_left = -375.45544
+offset_top = -0.6234374
+offset_right = 0.22756958
+offset_bottom = 151.37656
+theme_override_styles/panel = SubResource("StyleBoxFlat_dxbxq")
+
+[node name="Text" type="RichTextLabel" parent="SidePanel/Tooltip/Bubble" unique_id=1532640642]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("24_41402")
+theme_override_font_sizes/normal_font_size = 32
+text = "This is an explaination of this option in case you don't understand it."
+fit_content = true
+scroll_active = false
+threaded = true
+visible_characters_behavior = 2
 
 [node name="ManualPanel" type="Panel" parent="." unique_id=1885979468]
 visible = false

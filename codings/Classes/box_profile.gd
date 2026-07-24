@@ -6,9 +6,10 @@ class_name BoxProfile
 @export var Bord3: Color = Color(0x4e4e4eff)
 @export var Inner: Color = Color(0x2b2b2bff)
 @export var TextColor: Color = Color.WHITE
-@export var TextSound: AudioStream = preload("res://sound/SFX/thonk.ogg")
+@export var TextSound: AudioStream = load("res://sound/SFX/thonk.ogg")
 @export var AudioFrequency: int = 4
 @export var PitchVariance: float = 1.0
+
 
 static func match_profile(named: String) -> BoxProfile:
 	if not ResourceLoader.exists("res://database/Text/Profiles/" + named + "Box.tres"):
