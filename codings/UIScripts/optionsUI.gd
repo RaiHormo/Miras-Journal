@@ -334,13 +334,15 @@ func save_managment() -> void:
 	Audio.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
 
-	if not save_files_loaded:
-		await load_save_files()
-		if stage != "save_managment": return
-		if %Files/File0.visible:
-			%Files/File0/Button.grab_focus()
-		else: %Files/New/NewGame.grab_focus()
-	stage = "save_managment"
+	(func() -> void:
+		if not save_files_loaded:
+			await load_save_files()
+			if stage != "save_managment": return
+			if %Files/File0.visible:
+				%Files/File0/Button.grab_focus()
+			else: %Files/New/NewGame.grab_focus()
+		stage = "save_managment"
+	).call_deferred()
 
 
 func manual() -> void:
@@ -556,7 +558,7 @@ func load_save_files() -> void:
 					%Files.add_child(newpanel)
 
 				newpanel.hide()
-				draw_file(data, newpanel)
+				draw_file.call_deferred(data, newpanel)
 
 	if ResourceLoader.exists("user://Autosave.tres"):
 		draw_file(await Loader.load_res("user://Autosave.tres"), %Files/File0)

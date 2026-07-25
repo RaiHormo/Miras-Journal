@@ -22,12 +22,15 @@ func check() -> void:
 			get_parent().queue_free()
 		else:
 			get_parent().hide()
+
 		for i in get_parent().get_children():
-			if i is CollisionShape2D: i.disabled = true
+			if i is CollisionShape2D: i.set_deferred("disabled", true)
 	else:
 		if use_sprite:
 			if $Sprite.animation != "default": $Sprite.play("default")
+
 		#else:
 			#get_parent().show()
+
 		for i in get_parent().get_children():
-			if i is CollisionShape2D: i.disabled = false
+			if i is CollisionShape2D: i.set_deferred("disabled", false)

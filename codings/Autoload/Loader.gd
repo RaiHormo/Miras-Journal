@@ -70,7 +70,7 @@ func update_load_status(path: String, is_scene_load: bool) -> void:
 		else:
 			loading_thread = false
 
-		thread_loaded.emit()
+		thread_loaded.emit.call_deferred()
 
 
 func save(filename: String = "Autosave", showicon := true) -> void:
@@ -245,7 +245,7 @@ func load_res(path: String) -> Resource:
 	loaded_resource = path
 
 	if ResourceLoader.exists(path):
-		ResourceLoader.load_threaded_request(path, "", true)
+		ResourceLoader.load_threaded_request(path, "")
 	else:
 		push_error("Resource " + path + " not found")
 		return null
