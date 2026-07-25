@@ -18,7 +18,6 @@ enum S {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ##The default state of the NPC when spawned.
 @export var default_state: S = S.IDLE
 
-
 ## The sprite for this NPC, defaults to a child named "Sprite"
 @export var sprite: AnimatedSprite2D
 ## Sprite of this NPC's shadow, defaults to a child named "Shadow"
@@ -48,13 +47,10 @@ var direction: Vector2 = Vector2.ZERO
 ##5: Custom
 var state: S = S.IDLE:
 	set(x):
-		#if x != BodyState:
+		#if x != state and self is Mira:
 			#print(ID+"'s body state set to ", x)
 
 		state = x
-
-		if state == S.MOVE:
-			pass
 
 var default_position := Vector2.ZERO
 const minimum_movement: float = 0.2
@@ -248,6 +244,8 @@ func look_to(dir: Variant) -> void:
 		push_error("Invalid use of look_to: ", dir)
 		return
 
+	
+	state = S.IDLE
 	facing.vector = vector
 	direction = vector
 

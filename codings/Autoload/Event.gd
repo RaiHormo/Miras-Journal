@@ -109,7 +109,7 @@ func jump_to(chara: Variant, pos: Vector2, time: float = 5, height: float = 0.5)
 
 
 func jump_to_global(chara: Variant, position: Vector2, time: float = 5, height: float = 0.1, vibrate := true) -> void:
-	var character := _get_chara_node(chara)
+	var character := resolve_chara_input(chara)
 	var t: Tween = create_tween()
 	var start: Vector2 = character.global_position
 	var jump_distance: float = start.distance_to(position)
@@ -156,7 +156,7 @@ func heal_in_overworld(target: Actor, ab: Ability) -> void:
 	Global.check.emit()
 
 
-func _get_chara_node(chara: Variant) -> Node2D:
+func resolve_chara_input(chara: Variant) -> Node2D:
 	if chara is Node2D:
 		return chara
 
@@ -424,7 +424,7 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 
 		#Event.teleport_followers()
 
-	Global.Area.setup_params(true)
+	#Global.Area.setup_params(true)
 	Global.Player.local_controllable = true
 	Global.check.emit()
 
@@ -657,11 +657,21 @@ func camera_unlock() -> void:
 ## Start any events specified for this day and time
 ## These could be in any Ev script
 func start_time_events(location: String) -> void:
-	var seq := get_date_identifier()
+	var id := get_date_identifier()
+	var map := ConfigFile.new()
+	map.load("res://database/Sequences/date_event_map.cfg")
 
-	if sequence_exists(seq):
-		print_rich("[color=purple]Starting event: " + seq)
-		await sequence(seq)
+	if map.has_section(id):
+		var event_script: bool = map.get_value(id, "event_script", false)
+		var file: String = map.get_value(id, "file", "")
+		var title: String = map.get_value(id, "title", id)
+
+		print_rich("[color=purple]Starting date event: " + id)
+
+		if event_script:
+			await sequence(title)
+		else:
+			await Textbox.open(file, title)
 	else:
 		match location:
 			"Pyrson":
@@ -684,7 +694,7 @@ func start_time_events(location: String) -> void:
 #TODO Make this adapt to diffrent months
 ## Get an id for the current date, such as "nov1_morning"
 func get_date_identifier(day := Day, time := TimeOfDay) -> String:
-	return Query.get_mmm(Query.get_month(day)).to_lower() + str(day) + "_" + Query.to_tod_text(time).to_lower()
+	return Query.get_mmm(Query.get_month(day)).to_lower() + Query.get_date_day(day) + "_" + Query.to_tod_text(time).to_lower()
 
 
 ## Run a condition script and return the number

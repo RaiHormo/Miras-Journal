@@ -43,7 +43,6 @@ func new_game() -> void:
 		Global.refresh()
 		return
 
-	Global.Player.state = NPC.S.CUSTOM
 	Global.Player.set_anim("OnFloor", false, true)
 	Global.Player.shadow(false)
 	var t := create_tween()
@@ -210,7 +209,7 @@ func AlcineFollow3() -> void:
 		await Alcine.go_to(Global.Player.position + Vector2(12, 0))
 		t = create_tween()
 		t.tween_property(Alcine, "position", Global.Player.position + Vector2(2, 4), 0.1)
-		Alcine.state = Alcine.CUSTOM
+		Alcine.state = NPC.S.CUSTOM
 		Alcine.set_anim("Hug")
 		Global.Player.bubble("Surprise")
 		await Event.wait(1.5)
@@ -219,7 +218,6 @@ func AlcineFollow3() -> void:
 
 		Alcine.look_to(Vector2.RIGHT)
 		await Alcine.bubble("Surprise")
-		await Alcine.go_to(Vector2(1630, -1081), false)
 		Event.obj("Pterogon").show()
 		Event.obj("Pterogon").play("Fly")
 		t = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -230,8 +228,7 @@ func AlcineFollow3() -> void:
 		Global.Player.set_anim("EntrancePrep")
 		Global.Camera.position += Vector2(50, 0)
 		Alcine.z_index = -1
-		await Alcine.go_to(Vector2(1607, -1081), false)
-		await Alcine.go_to(Vector2(1607, -1100), false)
+		await Alcine.go_to(Global.Player.position + Vector2(-24, -24), false)
 		Alcine.state = NPC.S.CUSTOM
 		Alcine.set_anim("Scared")
 		await Event.wait(1)
@@ -279,7 +276,6 @@ func AlcineFollow4() -> void:
 	Event.take_control()
 	Global.Party.Member1.FirstName = "Alcine"
 	Alcine.z_index = 0
-	Event.allow_skipping = false
 	Query.find_member("Mira").OV = "Bag"
 	Alcine.position = Global.Area.followers[0].position
 	await Global.Player.go_to(Vector2(67, -45), true)
@@ -302,7 +298,6 @@ func AlcineFollow4() -> void:
 	Global.Camera.zoom = Vector2(4, 4)
 	PartyUI.disabled = false
 	PartyUI.UIvisible = true
-	Event.allow_skipping = true
 	Event.add_flag("FlameActive")
 	Global.Area.followers[0].dont_follow = false
 	Loader.detransition()
@@ -365,19 +360,6 @@ func enter_amberelm_2() -> void:
 	Global.Player.set_anim("IdleRight")
 
 
-func oct0_daytime() -> void:
-	Event.no_player()
-	Loader.detransition()
-	Global.Camera.zoom = Vector2(4, 4)
-	await Event.spawn("Mira", "UnderTree", "SitDown", 7)
-	await Event.spawn("Alcine", "UnderTree+(24, -12)", "IdleLeft", 7)
-
-	await Textbox.open(name, "wake_amberelm", true)
-	Event.add_flag("EvRestAmberelm", true)
-	await Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)
-	Loader.save()
-
-
 func amberelm_guardian() -> void:
 	Loader.start_battle("StoneGuardianBoss")
 	await Loader.battle_end
@@ -390,14 +372,7 @@ func amberelm_guardian() -> void:
 		Event.time_transition()
 
 
-func oct0_afternoon() -> void:
-	await Textbox.open(name, "oct0_afternoon", true)
-	Global.Complimentaries.append("FluidBlast")
-	await Loader.travel_to("Amberelm", Vector2(2218, -132), 2)
-	Loader.save()
-
-
-func oct0_night() -> void:
+func oct31_night() -> void:
 	Event.add_flag("BeatStoneGuardian")
 	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
 	await Event.no_player()

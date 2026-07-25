@@ -36,6 +36,7 @@ var traveled_pos: Vector2
 
 @onready var t: Tween
 @onready var Icon: AnimatedSprite2D = $Can/Icon
+@onready var can: CanvasLayer = $Can
 @onready var BAR_DOWN_POS: Vector2 = $Can/Bars/Down.position
 @onready var BAR_UP_POS: Vector2 = $Can/Bars/Up.position
 @onready var BAR_LEFT_POS: Vector2 = $Can/Bars/Left.position
@@ -43,7 +44,7 @@ var traveled_pos: Vector2
 
 
 func _ready() -> void:
-	$Can.hide()
+	can.hide()
 	Icon.global_position = Vector2(1181, 870)
 	t = create_tween()
 	t.tween_property(self, "position", position, 0)
@@ -381,6 +382,8 @@ func travel_done(controllable := false, index: int = 0) -> void:
 		await PartyUI.show_all(false, false)
 		PartyUI._on_shrink(true)
 		Event.give_control(false)
+	else:
+		Global.Controllable = false
 
 
 func transition(dir: Direction = Global.Player.facing if Global.Player else remembered_direction) -> void:
@@ -389,8 +392,8 @@ func transition(dir: Direction = Global.Player.facing if Global.Player else reme
 
 	remembered_direction = dir
 	Global.Controllable = false
-	$Can.show()
-	$Can.layer = 9
+	can.show()
+	can.layer = 9
 	$Can/Bars.modulate = Color.WHITE
 	$Can/Bars.self_modulate = Color.WHITE
 
@@ -464,8 +467,7 @@ func detransition(dir := remembered_direction) -> void:
 
 	#Engine.time_scale = 0.1
 
-	if Global.Camera != null:
-		Global.Camera.position_smoothing_enabled = false
+	if Global.Camera: Global.Camera.position_smoothing_enabled = false
 
 	t.kill()
 	t = create_tween()
@@ -479,12 +481,11 @@ func detransition(dir := remembered_direction) -> void:
 	t.tween_property($Can/Bars/Right, "position", BAR_RIGHT_POS, 0.4) #.from(Vector2(-200,-177))
 	dismiss_load_icon()
 	await Event.wait(0.4, false)
-	if Global.Camera != null:
-		Global.Camera.position_smoothing_enabled = true
+	if Global.Camera: Global.Camera.position_smoothing_enabled = true
 
 	Global.check.emit()
 	#Global.ready_window()
-	$Can.hide()
+	can.hide()
 
 
 func restore_bars(dir: String = "") -> void:
@@ -662,7 +663,7 @@ func icon_save() -> void:
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	$Can.show()
+	can.show()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
 	#.from(Vector2(1181, 900))
 	Icon.play("Save")
@@ -672,14 +673,14 @@ func icon_save() -> void:
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property($Can/Icon, "global_position", Vector2(1181, 900), 0.3)
 	await t.finished
-	#$Can.hide()
+	#can.hide()
 
 
 func icon_load() -> void:
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
-	$Can.show()
+	can.show()
 	t.tween_property(Icon, "global_position", Vector2(1181, 702), 0.2)
 	#.from(Vector2(1181, 900))
 	Icon.play("Load")
@@ -709,8 +710,8 @@ func battle_bars(x: int, time: float = 0.5, easing := Tween.EASE_IN_OUT) -> void
 	if is_instance_valid(t):
 		t.kill()
 
-	$Can.layer = 1
-	$Can.show()
+	can.layer = 1
+	can.show()
 	t = create_tween().set_parallel(true).set_ease(easing).set_trans(Tween.TRANS_QUART)
 
 	match x:
@@ -759,9 +760,9 @@ func chase_mode() -> void:
 
 
 func white_fadeout(out_time: float = 7, wait_time: float = 2, in_time: float = 0.1, opacity: float = 1) -> void:
-	$Can.show()
+	can.show()
 	fader = $Can/Bars/Left.duplicate()
-	$Can.add_child(fader)
+	can.add_child(fader)
 	fader.position = Vector2(-134, -189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = Color.WHITE
@@ -769,7 +770,7 @@ func white_fadeout(out_time: float = 7, wait_time: float = 2, in_time: float = 0
 	tf.tween_property(fader, "modulate", Color(1, 1, 1, opacity), in_time)
 	await tf.finished
 	await Event.wait(wait_time, false)
-	$Can.show()
+	can.show()
 	tf = create_tween()
 	tf.tween_property(fader, "modulate", Color.TRANSPARENT, out_time)
 	await tf.finished
@@ -777,10 +778,10 @@ func white_fadeout(out_time: float = 7, wait_time: float = 2, in_time: float = 0
 
 
 func gray_out(amount := 0.8, in_time := 0.3, out_time := 0, color: Color = Color.BLACK) -> void:
-	$Can.show()
-	$Can.layer = 3
+	can.show()
+	can.layer = 3
 	fader = $Can/Bars/Left.duplicate()
-	$Can.add_child(fader)
+	can.add_child(fader)
 	fader.position = Vector2(-134, -189)
 	fader.modulate = Color.TRANSPARENT
 	fader.color = color
@@ -857,7 +858,7 @@ func flip_time(from: Event.TOD, to: Event.TOD) -> void:
 
 
 func lower_layer() -> void:
-	$Can.layer = 3
+	can.layer = 3
 
 
 func _on_ungray() -> void:

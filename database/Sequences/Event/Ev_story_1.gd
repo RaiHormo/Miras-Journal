@@ -100,17 +100,6 @@ func amberelm_reunion() -> void:
 	await Event.time_transition()
 
 
-func nov1_night() -> void:
-	Event.add_flag("InCamp")
-	Event.add_flag("HasBag")
-	Query.find_member("Mira").OV = "Bag"
-	await Loader.travel_to("WitheredLeaves", Vector2(777, -218))
-	Loader.detransition()
-	await Textbox.open(name, "nov1_night")
-	Event.give_control()
-	Loader.save()
-
-
 func nov2_morning() -> void:
 	Loader.gray_out(1)
 	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1)

@@ -32,7 +32,6 @@ func focus_place(place: String = here) -> void:
 	if not inited:
 		here = place
 		Global.Player.camera_follow(false)
-		Global.Camera.position_smoothing_enabled = false
 		position = Global.Camera.global_position - (size / 2)
 		$Container.global_position.x = 1300
 		var t := create_tween()

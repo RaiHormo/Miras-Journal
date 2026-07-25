@@ -118,7 +118,7 @@ func _ready() -> void:
 
 
 func setup_params(tween_zoom := false) -> void:
-	cam.limit_smoothed = true
+	cam.limit_smoothed = false
 	cam.position_smoothing_enabled = false
 	cam.position_smoothing_speed = 10
 	cam.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -139,6 +139,9 @@ func setup_params(tween_zoom := false) -> void:
 		t.tween_property(cam, "zoom", zoom, 0.3)
 	else:
 		cam.zoom = zoom
+
+	await Event.wait(0.4, false)
+	if Global.Camera: Global.Camera.position_smoothing_enabled = true
 
 
 func default() -> void:

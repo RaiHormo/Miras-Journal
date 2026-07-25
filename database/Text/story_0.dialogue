@@ -103,8 +103,8 @@ Shewww
 The creature tightly hugs me.
 Their body feels like it's made of liquid...
 Mira.Neutral: What are you so scared about?
-do npc("Alcine").move_dir(Direction.RIGHT)
-do npc("Alcine").look_to(Direction.LEFT)
+do npc("Alcine").move_dir("R")
+do npc("Alcine").look_to("L")
 Mira.Smile: It'll be okay..!
 do portrait("AlcineHappy")
 do next_box("Alcine")
@@ -183,7 +183,7 @@ Mira.Neutral: Come on let's go! The people there might be able to help us!
 
 ~ what_happened_here
 Mira.Neutral: What... happened here?
-(hide)
+[hide]
 do npc("P").go_to(Vector2(6, 15), true)
 do wait(0.3)
 do npc("P").look_to(Vector2(1, 0))
@@ -193,12 +193,11 @@ do wait(0.3)
 do npc("P").look_to(Vector2(0, -1))
 Mira.Neutral: It's all... in ruins...
 do take_control()
-(hide)
+[hide]
 do npc("P").chain_moves([Vector2(-1, 0), Vector2(0, -1)])
 do wait(0.3)
 do npc("P").camera_follow(false)
-do npc("P").BodyState = NPC.CUSTOM
-do npc("P").set_anim("SitRight")
+do npc("P").set_anim("SitRight", false, true)
 do npc("P").collision(false)
 do jump_to(Player, Vector2(107, 345), 15)
 Mira.Neutral: ...
@@ -241,6 +240,11 @@ else:
 => END
 
 ~ wake_amberelm
+do no_player()
+do zoom(4)
+do spawn("Mira", "UnderTree", "SitDown", 7)
+do spawn("Alcine", "UnderTree+(24, -12)", "IdleLeft", 7)
+do detransition()
 Placeholder description: Mira gets up from sleep.
 Placeholder description: {{alcine()}} who was resting on Mira also gets up.
 Mira.Neutral: Mmm... Good morning {{alcine()}}. Or is it afternoon?
@@ -261,6 +265,7 @@ Placeholder description: Mira makes her fire wings apear for a bit
 I guess we should keep moving forward.
 Mira.Neutral: Come on, let's go {{alcine()}}.
 Alcine.Neutral: Sha...
+[hide]
 #Maybe I could get important information from {{alcine()}} this way.
 #Mira.Neutral: So... I was curious. [p]Before that creature attacked you, how did you end up there?
 #Mira.Neutral: Do you remember anything?
@@ -279,17 +284,22 @@ Alcine.Neutral: Sha...
 #Mira.Neutral: Figures.
 #Mira.Neutral: Well we should probably explore this place a little more before it's too dark.
 #Mira.Smile: Let's keep on the lookout for any castles around, okay?
+do Loader.travel_to("Amberelm", Vector2(120, 360), 0, 7)
+do save()
 => END
 
-~ oct0_afternoon
+~ oct31_afternoon
+do travel_to("Amberelm", Vector2(2218, -132), 2)
 Placeholder description: Unfinished cutscene
 The sky getting brighter. I've really been out here all day...
 Placeholder description: Mira looks forward to Alcine goofing around.
 Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
 Their aura color, and thus affinity for magic, is nearly oposite to mine.
 But... perhaps I could give liquid magic a try.
+do Global.Complimentaries.append("FluidBlast")
 Placeholder description: Unlocked Complimentary Ability: Fluid Blast
 Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
+do save()
 => END
 
 ~ stone_guardian_intro

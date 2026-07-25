@@ -41,6 +41,7 @@ func _ready() -> void:
 
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area):
 		cant_save = true
+		$MainButtons/SaveManagment.text = "Resume the Game"
 
 	Loader.detransition(Direction.CENTER)
 	show()
@@ -295,7 +296,7 @@ func game_settings() -> void:
 
 func save_managment() -> void:
 	if stage == "save_managment": return
-	if stage != "main": await await loaded
+	if stage != "main": await loaded
 	if not save_files_loaded and not no_main:
 		Loader.icon_load()
 		#Loader.gray_out()
@@ -304,8 +305,8 @@ func save_managment() -> void:
 			%Files/File0/Button.grab_focus()
 		else: %Files/New/NewGame.grab_focus()
 	if cant_save:
-		$SavePanel/Buttons/Overwrite.disabled = true
-		$SavePanel/ScrollContainer/Files/New/NewFile.disabled = true
+		$SavePanel/Buttons/Overwrite.hide()
+		$SavePanel/ScrollContainer/Files/New/NewFile.hide()
 
 	$SavePanel.show()
 	$MainButtons/SaveManagment.show()
@@ -581,9 +582,10 @@ func load_save_files() -> void:
 
 	await Event.wait()
 	if not save_files_loaded:
+		save_files_loaded = true
 		Loader.ungray.emit()
-
-	save_files_loaded = true
+		if Input.is_action_pressed(&"ui_accept"):
+			_on_save_load()
 
 
 func file_sort(a: Control, b: Control) -> bool:
@@ -751,6 +753,12 @@ func _on_save_overwrite() -> void:
 
 
 func _on_save_load() -> void:
+	if not save_files_loaded:
+		await Loader.ungray
+
+	const press_speed := 4
+	var quick_load := Global.Area == null
+
 	if stage != "save_managment" or not is_instance_valid(focus): return
 	var panel := focus.get_parent()
 
@@ -762,16 +770,21 @@ func _on_save_load() -> void:
 		$SavePanel/ScrollContainer/Files/File0/Button.grab_focus()
 		return
 
-	panel.get_node("ProgressBar").value = 8
+	if quick_load:
+		t = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		t.tween_property(panel.get_node("ProgressBar"), "value", 100, 0.3)
+	else:
+		panel.get_node("ProgressBar").value = 8
 
-	while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
-		panel.get_node("ProgressBar").value += 5
-		await Event.wait(0.01, false)
-		if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
+		while (Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and panel.get_node("ProgressBar").value != 100:
+			panel.get_node("ProgressBar").value += press_speed
+			await Event.wait(0.01, false)
+			if Input.is_action_pressed("BtCommand"): OS.alert("stop", "no"); return
 
-	if panel.get_node("ProgressBar").value == 100:
+	if panel.get_node("ProgressBar").value == 100 or quick_load:
 		if not FileAccess.file_exists("user://" + filename + ".tres"): return
-		await Loader.load_game(filename)
+		stage = "closing"
+		Loader.load_game(filename)
 	else:
 		Audio.buzzer_sound()
 		hold_down()
@@ -782,9 +795,9 @@ func _on_save_load() -> void:
 		t.tween_property(panel.get_node("ProgressBar"), "value", 8, 0.3)
 		await t.finished
 
-	panel.get_node("ProgressBar").value = 0
-	panel.get_node("ProgressBar").modulate.a = 1
-	$SavePanel/Buttons/Load.button_pressed = false
+		panel.get_node("ProgressBar").value = 0
+		panel.get_node("ProgressBar").modulate.a = 1
+		$SavePanel/Buttons/Load.button_pressed = false
 
 
 func _new_file() -> void:

@@ -1,7 +1,7 @@
 extends Node
 var game_exists := false
 var inactive := false
-var focused := 0
+var focused := 1
 
 @onready var title_screen: CanvasLayer = $TitleScreen
 #unique node names would also be a solution, and makes it less of a pain to write all these vars
@@ -25,6 +25,7 @@ func _ready() -> void:
 		game_exists = false
 		var continue_button: Button = menu_screen.get_node("Continue")
 		continue_button.text = "New game"
+
 	error_hint.text = "Hint: File check"
 	title_screen.show()
 	var splash_screen: TextureRect = $TitleScreen/Splash
@@ -53,9 +54,11 @@ func focus() -> void:
 func _on_continue_pressed() -> void:
 	if inactive: return
 	inactive = true
+
 	if get_tree().root.has_node("Options"): return
 	if Input.is_action_pressed("LeftTrigger"):
 		you_can_now_play_as("Asteria")
+
 	await Loader.load_game("Autosave")
 	dismiss_title()
 	Event.give_control(false)
@@ -68,6 +71,7 @@ func _input(event: InputEvent) -> void:
 		Audio.cursor_sound()
 		await get_tree().physics_frame
 		var foc: Control = get_viewport().gui_get_focus_owner()
+
 		if foc.get_parent() == $TitleScreen/Menu:
 			focused = foc.get_index()
 
@@ -93,11 +97,15 @@ func glyph_update() -> void:
 
 func you_can_now_play_as(chara: String) -> void:
 	var data: SaveFile = load("user://Autosave.tres")
+
 	if chara in data.Party:
 		data.Party[data.Party.find(chara)] = "Mira"
+
 	data.Party[0] = chara
+
 	for i in data.Members:
 		if i.get("codename") == chara: i.set("Controllable", true)
+
 	ResourceSaver.save(data, "user://Autosave.tres")
 	Global.warning("You can now play as [img height=64]res://art/Icons/Party/" + chara + ".png[/img] " + chara + ".", "CONGRATS", ["A"])
 

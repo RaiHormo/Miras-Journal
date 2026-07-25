@@ -2,6 +2,8 @@ extends Resource
 class_name BattleEvent
 
 @export_group("Condition")
+## Should be repeated every turn this condition applies.
+## Otherwise only runs once.
 @export var repeatable := false
 ##Check this flag
 @export var flag: StringName = &""
@@ -10,11 +12,15 @@ class_name BattleEvent
 @export var after_turn: int = -1
 ##The event will play if the actor's HP is lower than [member low_hp]. Leave empty to skip
 @export var actor: StringName = &""
-##To be used with [member actor_hp_low]
+## Activate when HP is below this, -1 to disable
 @export var low_hp: int = -1
+## Activate when HP is below this, -1 to disable
 @export var low_ap: int = -1
 @export_group("Result")
-@export_enum("Passive dialog", "Call function", "Regular dialog", "Force move", "Victory", "Defeat Others") var result := 0
+
+enum RES {PASSIVE_DIALOG, CALL_FUNCTION, REGULAR_DIALOG, FORCE_MOVE, VICTORY, DEFEAT_OTHERS}
+@export var result: RES = RES.PASSIVE_DIALOG
+
 ##Used as text file for dialog, function name for call function, move type for force move
 @export var parameter1: String = ""
 ##Used as node name for dialog
@@ -29,42 +35,56 @@ var ran_this_turn := false
 
 func check() -> bool:
 	var actore := Global.Bt.get_actor(actor)
+
 	if ran_this_turn: return false
 	if not is_instance_valid(Global.Bt): return false
 	if not flag.is_empty() and Event.check_flag(flag) != flag_should_be:
 		return false
+
 	if after_turn != -1:
 		if Global.Bt.Turn < after_turn: return false
+
 	if low_hp != -1 and low_hp >= 0:
 		if actor == &"" or actore == null:
 			push_warning("The event refrences " + actor + " who is not present")
 			return false
+
 		if actore.Health >= low_hp: return false
+
 	if low_ap != -1 and low_ap >= 0:
 		if actor == &"" or actore == null:
 			push_warning("The event refrences " + actor + " who is not present")
 			return false
+
 		if actore.Aura > low_ap: return false
+
 	if low_hp == 0:
 		if actore != null and not actore.has_state("KnockedOut"):
 			return false
+
 	return true
 
 
 func run() -> void:
 	if ran_this_turn: return
 	else: ran_this_turn = true
+
 	if !Global.Bt: return
 	print("Running event type ", result)
 	if hold_turn: await run_with_await()
 	else:
 		match result:
-			0: Passive.open(parameter1, parameter2)
-			1:
+			RES.PASSIVE_DIALOG:
+				Passive.open(parameter1, parameter2)
+
+			RES.CALL_FUNCTION:
 				print("Call seq: ", parameter1)
 				Global.Bt.get_node("Act").call(parameter1)
-			2: Textbox.open(parameter1, parameter2)
-			3:
+
+			RES.REGULAR_DIALOG:
+				Textbox.open(parameter1, parameter2)
+
+			RES.FORCE_MOVE:
 				if parameter1 == "": parameter1 = "Ability"
 				var actor_data := Global.Bt.get_actor(actor)
 				actor_data.NextAction = parameter1
@@ -72,16 +92,20 @@ func run() -> void:
 				print("Forcing ", resource.name, " on ", actor)
 				if not parameter2.is_empty():
 					actor_data.NextTarget = Global.Bt.get_actor(parameter2)
-			4:
+
+			RES.VICTORY:
 				print("Event means win")
 				Global.Bt.victory()
-			5:
+
+			RES.DEFEAT_OTHERS:
 				print("Defeating everyone but ", actor)
 				var actor_data := Global.Bt.get_actor(actor, true)
+
 				if actor_data != null and actor_data.IsEnemy:
 					for i in Global.Bt.Troop:
 						if actor_data != i:
 							Global.Bt.death(i)
+
 	if add_flag and flag != "": Event.add_flag(flag, !flag_should_be)
 
 

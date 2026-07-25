@@ -23,6 +23,7 @@ func dash() -> void:
 	await pop_down()
 	while not Input.is_action_pressed("Dash"):
 		await Event.wait()
+
 	await Event.wait(3)
 	await close()
 	%Text.text = "[center]Jump over obstacles by dashing through them.[/center]"
@@ -37,6 +38,7 @@ func ov_attack() -> void:
 	await pop_down()
 	while not Input.is_action_pressed("OVAttack"):
 		await Event.wait()
+
 	await Event.wait(3)
 	await close()
 	queue_free()
@@ -49,6 +51,7 @@ func party() -> void:
 	while not Input.is_action_pressed("MainMenu"):
 		await Event.wait()
 		if Global.Controllable == false: break
+
 	await close()
 	queue_free()
 
@@ -60,6 +63,7 @@ func bag() -> void:
 	while not Input.is_action_pressed("PartyMenu"):
 		await Event.wait()
 		if Global.Controllable == false: break
+
 	await close()
 	queue_free()
 
@@ -74,6 +78,18 @@ func walk() -> void:
 	queue_free()
 
 
+func weapon_attack() -> void:
+	await Event.wait(0.1, false)
+	Global.Bt.focus_cam(Global.Party.Leader)
+	$Border2.show()
+	$Border2/Control/Arrow.hide()
+	$Border2.position = Vector2(50, 201)
+	$Border2/Control/Next.hide()
+	$Border2/Text.text = "Press [img width=48]" + (Controller.get_scheme().AttackIcon).resource_path + "[/img] to use a Weapon Attack."
+	await Global.Bt.get_node("BattleUI").attack
+	queue_free()
+
+
 func ability() -> void:
 	await Event.wait(0.1, false)
 	Global.Bt.focus_cam(Global.Party.Leader)
@@ -81,7 +97,7 @@ func ability() -> void:
 	$Border2/Control/Arrow.hide()
 	$Border2.position = Vector2(50, 201)
 	$Border2/Control/Next.hide()
-	$Border2/Text.text = "Press [img width=48]" + (Controller.get_scheme().AbilityIcon).resource_path + "[/img] to use a magic Ability."
+	$Border2/Text.text = "Press [img width=48]" + (Controller.get_scheme().AbilityIcon).resource_path + "[/img] to use a Magic Ability."
 	await Global.Bt.get_node("BattleUI").ability
 	queue_free()
 

@@ -13,6 +13,7 @@ signal action()
 		for coll in get_children():
 			if coll is CollisionShape2D:
 				coll.shape = coll.shape.duplicate()
+
 				if coll.shape is RectangleShape2D:
 					coll.shape.size = Vector2(x, x)
 				elif coll.shape is CircleShape2D:
@@ -39,7 +40,7 @@ signal action()
 		notify_property_list_changed()
 var Length: int = 120:
 	get():
-		return (LabelText.length() * 10) + 50
+		return(LabelText.length() * 10) + 50
 @export_category("Action Options")
 @export var file: String = ""
 @export_enum("testbush") var dialogue_file: String
@@ -100,22 +101,28 @@ func setup_action_options() -> void:
 	match ActionType:
 		"text":
 			used_properties = ["title", "return_control", "event_condition", "dialogue_file"]
+
 		"toggle":
 			used_properties = []
 			return_control = true
+
 		"battle":
 			used_properties = ["file", "return_control"]
+
 		"event": used_properties = ["event_condition", "file", "return_control"]
 		"pass_time": used_properties = ["event_condition", "to_time", "return_control", "to_time_relative"]
 		"item":
 			used_properties = ["item", "itemtype"]
 			return_control = true
+
 		"veinet": used_properties = []
 		"social_link":
 			used_properties = ["dialogue_file", "return_control", "event_condition"]
+
 		"focus_cam":
 			used_properties = ["focus_position"]
 			return_control = true
+
 		"chair":
 			used_properties = ["chair_faces"]
 			return_control = true
@@ -128,6 +135,7 @@ func _validate_property(property: Dictionary) -> void:
 		if property.name in used_properties:
 			property.usage |= PROPERTY_USAGE_EDITOR
 		else: property.usage = PROPERTY_USAGE_STORAGE
+
 	match ActionType:
 		"text", "social_link":
 			if property.name == "dialogue_file":
@@ -136,6 +144,7 @@ func _validate_property(property: Dictionary) -> void:
 				for i in files:
 					if not i.ends_with(".import"):
 						files_filtered.append(i.replace(".dialogue", ""))
+
 				property.hint_string = ",".join(files_filtered)
 
 	if property.name == "item":
@@ -145,12 +154,15 @@ func _validate_property(property: Dictionary) -> void:
 			"Bti": type = "BattleItems"
 			"Mat": type = "Materials"
 			"Key": type = "KeyItems"
+
 		var files := DirAccess.get_files_at("res://database/Items/" + type)
 		var items: Array[String]
 		for i in files:
 			items.append(i.replace(".tres", ""))
+
 		property.hint_string = ",".join(items)
-		if get(property.name) != "" and get(property.name)not in items:
+
+		if get(property.name) != "" and get(property.name) not in items:
 			itemtype = ["Con", "Mat", "Bti", "Key"].pick_random()
 			notify_property_list_changed()
 
@@ -159,6 +171,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		setup_action_options()
 		return
+
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
 	Global.check.connect(check)
@@ -176,6 +189,7 @@ func vein_check() -> void:
 		get_parent().get_node("Particle").emitting = true
 		LabelText = "Open"
 		get_parent().get_node("Sprite").hide()
+
 	if Event.check_flag("DisableVeinet"):
 		LabelText = "Inspect"
 
@@ -189,10 +203,13 @@ func check() -> void:
 	if Loader.in_battle or not is_instance_valid(Global.Player):
 		disappear(true)
 		return
+
 	if event_condition != "" and Event.condition(event_condition) == 0:
 		destroy()
+
 	if not check_flag():
 		destroy()
+
 	#print(Global.Controllable, CanInteract)
 	if not Global.Controllable and CanInteract:
 		disappear()
@@ -205,8 +222,10 @@ func check() -> void:
 func check_flag() -> bool:
 	if not show_on_flag.is_empty() and not Event.f(show_on_flag):
 		return false
+
 	if not hide_on_flag.is_empty() and Event.f(hide_on_flag):
 		return false
+
 	return true
 
 
@@ -219,6 +238,7 @@ func destroy() -> void:
 	if hide_parent:
 		get_parent().hide()
 		get_parent().scale = Vector2.ZERO
+
 		if get_parent() is NPC: get_parent().collision(false)
 		if free_on_hide: get_parent().queue_free()
 	else:
@@ -234,6 +254,7 @@ func appear() -> void:
 		button.text = LabelText
 		button.icon = Controller.get_scheme().ConfirmIcon
 		z_index = 9
+
 		if is_instance_valid(t): t.kill()
 		t = create_tween()
 		pack.self_modulate = Color.TRANSPARENT
@@ -249,6 +270,7 @@ func appear() -> void:
 		t.tween_property(button, "custom_minimum_size:x", Length, 0.15).from(48)
 		await get_tree().create_timer(0.1).timeout
 		animating = false
+
 		if not is_instance_valid(Global.Player) or not Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
 			disappear()
 			CanInteract = false
@@ -257,6 +279,7 @@ func appear() -> void:
 func disappear(also_hide_bubble := false) -> void:
 	if not animating:
 		animating = true
+
 		if bubble_always and not also_hide_bubble:
 			await bubble()
 		else:
@@ -268,6 +291,7 @@ func disappear(also_hide_bubble := false) -> void:
 			t.tween_property(button, "custom_minimum_size:x", 48, 0.1)
 			await get_tree().create_timer(0.1).timeout
 			pack.hide()
+
 		z_index = 0
 		animating = false
 
@@ -296,7 +320,9 @@ func do_position() -> void:
 	if Loader.in_battle or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
+
 	var dir := Direction.snap_vector(to_local(Global.Player.position + Vector2(0, Height - offset)))
+
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
 		Vector2.UP:
@@ -306,6 +332,7 @@ func do_position() -> void:
 			$Pack.position.x = 0
 			$Pack/Arrow.flip_h = true
 			$Pack/Arrow.position.y = -42
+
 		Vector2.DOWN:
 			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
 			$Pack/Cnt.position.x = -180
@@ -313,6 +340,7 @@ func do_position() -> void:
 			$Pack.position.y = -10 - Height
 			$Pack/Arrow.flip_h = false
 			$Pack/Arrow.position.y = -6
+
 		Vector2.LEFT:
 			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
 			$Pack/Cnt.position.x = -24
@@ -320,6 +348,7 @@ func do_position() -> void:
 			$Pack.position.y = -10 - Height
 			$Pack/Arrow.flip_h = false
 			$Pack/Arrow.position.y = -6
+
 		Vector2.RIGHT:
 			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_END
 			$Pack/Cnt.position.x = -342
@@ -341,39 +370,52 @@ func _on_button_pressed() -> void:
 		Global.toast("A bag is needed to store that.")
 		Event.give_control()
 		return
+
 	if get_tree().root.has_node("Options"):
 		get_tree().root.get_node("Options").queue_free()
+
 	if proper_face == Vector2.ZERO:
 		Global.Player.look_to(Direction.snap_vector(to_local(Global.Player.position) * -1))
+
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
 		Global.Player.collision(false)
 		await Global.Player.go_to(proper_pos, false, true, proper_face)
+
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
-	if not(to_time == 0 and to_time_relative == 0):
+
+	if not (to_time == 0 and to_time_relative == 0):
 		Event.ToTime = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
+
 	match ActionType:
 		"toggle":
 			Audio.confirm_sound()
+
 		"text":
 			await Event.take_control(false, false, true)
 			disappear(true)
 			if dialogue_file.is_empty(): dialogue_file = file
 			await Textbox.open(dialogue_file, title)
+
 		"item":
 			Item.add_item(item, itemtype)
+
 		"battle":
 			Loader.start_battle(file)
+
 		"global":
 			Global.call(file)
+
 		"event":
 			Audio.confirm_sound()
 			Event.sequence(file)
+
 		"pass_time":
 			if await PartyUI.confirm_time_passage(title, item):
 				Audio.confirm_sound()
 				Event.sequence(file)
+
 		"veinet":
 			await Event.take_control(false, false, true)
 			if Event.check_flag("DisableVeinet"):
@@ -388,50 +430,62 @@ func _on_button_pressed() -> void:
 				CanInteract = false
 				appear()
 				Loader.save()
+
 		"focus_cam":
 			Event.take_control()
 			Global.Player.camera_follow(false)
-			Global.Camera.position = focus_position
 			Global.Camera.position = focus_position
 			await Event.wait(1)
 			if add_flag: Event.add_flag(hide_on_flag, true)
 			Global.check.emit()
 			await Event.wait(3, false)
 			Global.Player.camera_follow(true)
+
 		"social_link":
 			await Event.take_control(false)
 			var rank := Event.condition(event_condition)
+
 			if rank == 0:
 				Global.toast("Something went wrong with the event condition")
+
 			disappear(true)
 			await Textbox.open(dialogue_file, "rank" + str(rank) + "_prepare")
+
 		"chair":
 			await Event.take_control()
 			var face := Global.Player.facing
+
 			if not chair_faces.is_empty() and not Global.Player.facing.get_letter() in chair_faces:
 				face = Direction.from_letter(chair_faces[0])
+
 			var pos := Global.Player.position
 			Global.Player.state = NPC.S.NONE
 			Global.Player.collision(false)
 			Global.Player.set_anim("Sit" + face.to_string())
 			var sound: AudioStreamPlayer2D = get_node_or_null("JumpSound")
+
 			if sound != null:
 				sound.pitch_scale = 1
 				sound.play()
+
 			await Event.jump_to_global(Global.Player, global_position)
 			while not Input.is_action_just_pressed(Controller.confirm()):
 				await Event.wait()
+
 			if sound != null:
 				sound.pitch_scale = 0.8
 				sound.play()
+
 			Global.Player.look_to(Direction.snap_vector(to_local(pos)))
 			await Event.jump_to_global(Global.Player, pos)
+
 	if add_flag:
 		if hide_on_flag != "":
 			Event.add_flag(hide_on_flag, true)
 		else: Event.add_flag(name, true)
 	if return_control:
 		Event.give_control(false)
+
 	if hidesprite:
 		if is_instance_valid(collision): collision.set_deferred("disabled", true)
 		if hide_parent: get_parent().queue_free()
@@ -444,6 +498,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if Loader.in_battle or not Global.Controllable or not is_instance_valid(Global.Player):
 		pack.hide()
 		return
+
 	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
 		if not CanInteract:
 			await appear()

@@ -19,9 +19,11 @@ func _physics_process(delta: float) -> void:
 		if varience == 0:
 			var t := create_tween()
 			t.tween_property(self, "varience", 1, 0.2)
+
 		if varience == 1:
 			var t := create_tween()
 			t.tween_property(self, "varience", 0, 0.2)
+
 		Global.Player.state = NPC.S.CUSTOM
 
 		Global.Player.set_anim("Climb")
@@ -31,29 +33,35 @@ func _physics_process(delta: float) -> void:
 			Global.Player.direction = Vector2.DOWN * 1.5
 		elif Input.is_action_pressed("ui_up"):
 			Global.Player.direction = Vector2.UP * varience * 1.5
+
 			if varience == 1:
 				Controller.rumble(0.05, 0, 0.1)
+
 			if varience == 0:
 				Controller.rumble(0, 0.05, 0.1)
 		else:
 			Global.Player.direction = Vector2.ZERO
 			Global.Player.sprite.pause()
+
 		if Global.Player.position.y < $Start1.global_position.y and Global.Player.facing.is_vector(Vector2.UP):
 			if enable_stairs:
 				Global.Player.z_index = zUp
 				Global.Player.collision_layer = LayersUp
 				Global.Player.collision_mask = LayersUp
+
 			active = false
 			Global.Player.set_anim("IdleUp")
 			Global.Player.shadow(true)
 			await Event.jump_to_global(Global.Player, $End1.global_position, time, height)
 			Event.give_control()
 			#Event.teleport_followers()
+
 		if Global.Player.position.y > $Start2.global_position.y and Global.Player.facing.is_vector(Vector2.DOWN):
 			if enable_stairs:
 				Global.Player.z_index = zDown
 				Global.Player.collision_layer = LayersDown
 				Global.Player.collision_mask = LayersDown
+
 			active = false
 			Global.Player.set_anim("IdleDown")
 			Global.Player.look_to(Vector2.DOWN)
