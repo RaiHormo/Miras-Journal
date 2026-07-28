@@ -142,12 +142,19 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 
 func node_shake(node: CanvasItem, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
-	for i in repeat:
-		var t := create_tween()
+	var decrease_by := maxi((amount / repeat), 2)
+	var original_pos: Vector2 = node.position
+
+	while amount > 0:
+		var t := create_tween().set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		await t.finished
+		amount -= decrease_by
+		print(amount)
+
+	node.position = original_pos
 
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:

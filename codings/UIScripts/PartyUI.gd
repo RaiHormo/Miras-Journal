@@ -1083,7 +1083,7 @@ func _on_idle_timer_timeout() -> void:
 
 
 func hit_partybox(x: int, am: int, rep: int) -> void:
-	#print(am, " ", rep)
+	prints("hit_partybox", x, am, rep)
 	Event.node_shake(%Partybox.get_child(x), am, rep)
 
 

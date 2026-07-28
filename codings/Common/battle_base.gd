@@ -55,6 +55,7 @@ var aoe_returns := 0
 @onready var ui: Control = $BattleUI
 @onready var cam: Camera2D = $Cam
 @onready var canvas: CanvasLayer = $Canvas
+@onready var enemy_ui: CanvasLayer = $EnemyUI
 
 signal GetControl
 signal next_turn
@@ -337,7 +338,7 @@ func entrance() -> void:
 			t.parallel().tween_property(cam, "position", Vector2(90, 0), 0.5)
 			t.tween_property(cam, "position", Vector2(-50, 0), 0.5).set_delay(0.5)
 			await Event.wait(0.3, false)
-			$EnemyUI.all_enemy_ui(true)
+			enemy_ui.all_enemy_ui(true)
 			if Loader.battle_advantage == 1:
 				for i in Troop: damage(i, 1, false, 24 / Troop.size())
 
@@ -349,7 +350,7 @@ func entrance() -> void:
 
 	Loader.battle_bars(2)
 	await Event.wait(0.5, false)
-	if not Seq.Transition: $EnemyUI.all_enemy_ui(true)
+	if not Seq.Transition: enemy_ui.all_enemy_ui(true)
 	PartyUI.battle_state(true)
 	PartyUI.save_box_positions()
 	await Event.wait(0.7, false)
@@ -399,8 +400,8 @@ func _on_next_turn() -> void:
 				end_turn()
 				return
 
-	if CurrentChar.IsEnemy: $EnemyUI._on_battle_ui_target_foc(CurrentChar)
-	else: $EnemyUI.all_enemy_ui()
+	if CurrentChar.IsEnemy: enemy_ui._on_battle_ui_target_foc(CurrentChar)
+	else: enemy_ui.all_enemy_ui()
 	$Act.handle_states()
 
 
@@ -500,7 +501,7 @@ func _on_battle_ui_ability() -> void:
 
 func _on_battle_ui_root() -> void:
 	Engine.time_scale = 1
-	$EnemyUI.all_enemy_ui()
+	enemy_ui.all_enemy_ui()
 	stop_sound("Ability", CurrentChar)
 	anim()
 
@@ -609,7 +610,7 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 
 	if CurrentChar.IsEnemy:
 		ui.emit_signal("targetFoc", CurrentChar)
-	elif ab.Target == 2: $EnemyUI.all_enemy_ui()
+	elif ab.Target == 2: enemy_ui.all_enemy_ui()
 
 	if ab.ActionSequence != &"":
 		CurrentChar.add_aura(-CurrentAbility.AuraCost)
@@ -784,7 +785,11 @@ func damage(
 		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
 	
-	if not target.IsEnemy: PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
+	if !target.IsEnemy: 
+		PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
+	else:
+		Event.node_shake(enemy_ui.get_node("EnemyFocus"), int(dmg), int(dmg * 100 / target.MaxHP * 100) / 300)
+
 	if target.Controllable:
 		Controller.rumble(remap(dmg * 2, 0, target.MaxHP, 0, 1), remap(dmg, 0, 100, 0, 1), remap(dmg * 2, 0, target.MaxHP, 0, 1))
 	elif CurrentChar.Controllable:
@@ -1381,14 +1386,14 @@ func victory(ignore_seq := false) -> void:
 		victory_anim(i)
 
 	check_party.emit()
-	$EnemyUI.colapse_root()
+	enemy_ui.colapse_root()
 	reset_all()
 	var t := create_tween()
 	$Canvas/VictoryText.text = Seq.VictoryText
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.set_parallel()
-	$EnemyUI/EnemyFocus.hide()
+	enemy_ui.get_node("EnemyFocus").hide()
 	$Canvas/TurnOrder.hide()
 	$Canvas/VictoryText.add_theme_color_override("font_color", Color.WHITE)
 	$Canvas/VictoryText.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_RIGHT
@@ -1416,7 +1421,7 @@ func victory(ignore_seq := false) -> void:
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property($Canvas/Continue, "position:x", 1060, 0.5).from(1500).set_delay(1)
-	$EnemyUI.colapse_root()
+	enemy_ui.colapse_root()
 	AwaitVictory = true
 
 	if is_instance_valid(Global.Player):

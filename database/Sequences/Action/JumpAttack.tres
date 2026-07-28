@@ -8,7 +8,7 @@ resource_name = "focus_cam3956388264"
 script = ExtResource("1_nty57")
 id = &"focus_cam3956388264"
 type = &"focus_cam"
-position = Vector2(-740, 440)
+position = Vector2(-359.64, 213.84003)
 data = {
 &"Actor": "CurrentChar",
 &"Offset": Vector2(30, 0),
@@ -20,7 +20,7 @@ resource_name = "jump_to_target2556987384"
 script = ExtResource("1_nty57")
 id = &"jump_to_target2556987384"
 type = &"jump_to_target"
-position = Vector2(720, 200)
+position = Vector2(349.92004, 97.200005)
 data = {
 &"Actor": "CurrentChar",
 &"Height": 0.5,
@@ -35,7 +35,7 @@ resource_name = "anim3099843374"
 script = ExtResource("1_nty57")
 id = &"anim3099843374"
 type = &"anim"
-position = Vector2(-120, 140)
+position = Vector2(-58.320007, 68.04)
 data = {
 &"Actor": "CurrentChar",
 &"Radio": "ChooseAttack1"
@@ -47,7 +47,7 @@ resource_name = "zoom2482752567"
 script = ExtResource("1_nty57")
 id = &"zoom2482752567"
 type = &"zoom"
-position = Vector2(-600, -240)
+position = Vector2(-291.6, -116.640015)
 data = {
 &"Amount": 5.0,
 &"Time": 0.3
@@ -58,7 +58,7 @@ resource_name = "StartSingle1983866236"
 script = ExtResource("1_nty57")
 id = &"StartSingle1983866236"
 type = &"StartSingle"
-position = Vector2(-980, 100)
+position = Vector2(-476.28003, 48.600002)
 next = SubResource("Resource_nty57")
 
 [sub_resource type="Resource" id="Resource_emwpd"]
@@ -66,7 +66,7 @@ resource_name = "Actor3344946680"
 script = ExtResource("1_nty57")
 id = &"Actor3344946680"
 type = &"Actor"
-position = Vector2(3140, 580)
+position = Vector2(1526.0402, 281.88)
 data = {
 &"Radio": "CurrentChar"
 }
@@ -76,7 +76,7 @@ resource_name = "wait1747676822"
 script = ExtResource("1_nty57")
 id = &"wait1747676822"
 type = &"wait"
-position = Vector2(5560, 800)
+position = Vector2(2702.1602, 388.80002)
 data = {
 &"Time": 0.3
 }
@@ -86,7 +86,7 @@ resource_name = "screen_shake2471493494"
 script = ExtResource("1_nty57")
 id = &"screen_shake2471493494"
 type = &"screen_shake"
-position = Vector2(4820, 0)
+position = Vector2(2342.5203, 0)
 data = {
 &"Amount": 15.0,
 &"Duration": 0.2,
@@ -99,7 +99,7 @@ resource_name = "play_sound2240381737"
 script = ExtResource("1_nty57")
 id = &"play_sound2240381737"
 type = &"play_sound"
-position = Vector2(4300, 0)
+position = Vector2(2089.8, 0)
 data = {
 &"Actor": "CurrentChar",
 &"Effect": "",
@@ -112,7 +112,7 @@ resource_name = "play_effect1376192799"
 script = ExtResource("1_nty57")
 id = &"play_effect1376192799"
 type = &"play_effect"
-position = Vector2(3680, 0)
+position = Vector2(1788.4801, 0)
 data = {
 &"Actor": "CurrentChar",
 &"Effect": "",
@@ -131,7 +131,7 @@ resource_name = "anim478725268"
 script = ExtResource("1_nty57")
 id = &"anim478725268"
 type = &"anim"
-position = Vector2(3180, 0)
+position = Vector2(1545.4801, 0)
 data = {
 &"Actor": "CurrentChar",
 &"Radio": "ChooseAttack2"
@@ -143,14 +143,14 @@ resource_name = "EndTurn1183784479"
 script = ExtResource("1_nty57")
 id = &"EndTurn1183784479"
 type = &"EndTurn"
-position = Vector2(7140, 800)
+position = Vector2(3470.0405, 388.80002)
 
 [sub_resource type="Resource" id="Resource_nhlqr"]
 resource_name = "anim3288279312"
 script = ExtResource("1_nty57")
 id = &"anim3288279312"
 type = &"anim"
-position = Vector2(6540, 800)
+position = Vector2(3178.4404, 388.80002)
 data = {
 &"Actor": "CurrentChar",
 &"Radio": "Reset"
@@ -162,7 +162,7 @@ resource_name = "return_cur3384431486"
 script = ExtResource("1_nty57")
 id = &"return_cur3384431486"
 type = &"return_cur"
-position = Vector2(5980, 800)
+position = Vector2(2906.28, 388.80002)
 data = {
 &"Actor": "CurrentChar"
 }
@@ -173,7 +173,7 @@ resource_name = "miss3502578939"
 script = ExtResource("1_nty57")
 id = &"miss3502578939"
 type = &"miss"
-position = Vector2(1820, 1280)
+position = Vector2(884.5201, 622.0801)
 data = {
 &"Actor": "CurrentChar"
 }
@@ -184,7 +184,7 @@ resource_name = "damage667657083"
 script = ExtResource("1_nty57")
 id = &"damage667657083"
 type = &"damage"
-position = Vector2(2660, 0)
+position = Vector2(1260, 0)
 data = {
 &"Actor": "Target",
 &"Elemental": false,
@@ -198,7 +198,7 @@ resource_name = "damage1270467311"
 script = ExtResource("1_nty57")
 id = &"damage1270467311"
 type = &"damage"
-position = Vector2(2040, 440)
+position = Vector2(991.44006, 213.84003)
 data = {
 &"Actor": "Target",
 &"Elemental": false,
@@ -212,7 +212,7 @@ resource_name = "RNGCondition1534243025"
 script = ExtResource("1_nty57")
 id = &"RNGCondition1534243025"
 type = &"RNGCondition"
-position = Vector2(1420, 300)
+position = Vector2(690.12006, 145.8)
 data = {
 &"Reroll": false
 }

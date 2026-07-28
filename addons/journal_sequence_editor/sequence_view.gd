@@ -70,6 +70,8 @@ func _ready() -> void:
 
 
 func insert(type: StringName, pos := Vector2.ZERO) -> GraphNode:
+	const scale := 1.0
+
 	var dub := elements[type].duplicate()
 	dub.set_meta(&"Type", type)
 	dub.name += str(randi())
@@ -84,7 +86,7 @@ func insert(type: StringName, pos := Vector2.ZERO) -> GraphNode:
 
 		dub.position_offset = clean_canvas_pos - (dub.size / 2.0)
 	else:
-		dub.position_offset = pos
+		dub.position_offset = pos * scale
 
 	dub.gui_input.connect(func(event: InputEvent):
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
