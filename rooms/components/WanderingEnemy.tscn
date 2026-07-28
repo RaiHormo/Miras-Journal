@@ -2,10 +2,14 @@
 
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="1_blols"]
 [ext_resource type="Script" uid="uid://5yrkrnrtwy6e" path="res://codings/Classes/wandering_enemy.gd" id="2_2fny2"]
+[ext_resource type="Script" uid="uid://bhw57f1k8vvrj" path="res://codings/Classes/direction.gd" id="3_t0na5"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="4_5o7d6"]
 [ext_resource type="SpriteFrames" uid="uid://cgnsvgqdju2dh" path="res://art/Effects/Bubble.tres" id="4_iawkj"]
 [ext_resource type="Texture2D" uid="uid://duhk4t0vleotj" path="res://art/Icons/Editor/enemy.png" id="5_36xvg"]
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="6_t0na5"]
+
+[sub_resource type="Resource" id="Resource_xcvno"]
+script = ExtResource("3_t0na5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bu4m"]
 
@@ -30,7 +34,7 @@ material = ExtResource("1_blols")
 motion_mode = 1
 script = ExtResource("2_2fny2")
 speed = 20
-CameraIndex = 1
+facing = SubResource("Resource_xcvno")
 step_frames = Dictionary[String, PackedInt32Array]({
 "Loop": PackedInt32Array(0, 1),
 "Walk": PackedInt32Array(0, 2)

@@ -397,7 +397,7 @@ func take_control(keep_ui := false, keep_followers := false, idle := false) -> v
 			Global.Player.set_anim()
 
 
-func give_control(camera_follow := false, bring_followers := true) -> void:
+func give_control(camera_follow := false, bring_followers := true, reset_zoom := true) -> void:
 	if Global.Player == null:
 		return
 
@@ -424,7 +424,9 @@ func give_control(camera_follow := false, bring_followers := true) -> void:
 
 		#Event.teleport_followers()
 
-	#Global.Area.setup_params(true)
+	if reset_zoom:
+		Global.Area.setup_params(true)
+
 	Global.Player.local_controllable = true
 	Global.check.emit()
 
