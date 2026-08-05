@@ -142,6 +142,7 @@ func screen_shake(amount: float = 15, times: float = 7, ShakeDuration: float = 0
 
 func node_shake(node: CanvasItem, amount := 10, repeat := randi_range(4, 8), time := 0.04) -> void:
 	if not is_instance_valid(node): return
+	repeat = max(repeat, 1)
 	var decrease_by := maxi((amount / repeat), 2)
 	var original_pos: Vector2 = node.position
 
