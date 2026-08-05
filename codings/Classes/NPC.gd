@@ -37,6 +37,9 @@ enum S {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 ## -1 to disable.
 @export var only_on_index: int = -1
 
+## Disable collision when this NPC spawns
+@export var dont_use_collision := false
+
 ##Used to control the direction of the next movement
 var direction: Vector2 = Vector2.ZERO
 
@@ -74,6 +77,8 @@ func _ready() -> void:
 	if ID in Loader.defeated: queue_free()
 	Event.add_char(self)
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
+
+	if dont_use_collision: collision(false)
 
 	await Event.wait()
 	if Nav == null: Nav = get_node_or_null("Nav")

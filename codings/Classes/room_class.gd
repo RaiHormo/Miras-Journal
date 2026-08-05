@@ -154,6 +154,9 @@ func handle_z(z := -1) -> void:
 
 	Global.Player.z_index = z
 
+	for i in followers:
+		i.z_index = z
+
 	for i in stairs:
 		if i.zUp == Global.Player.z_index:
 			i.go_up()

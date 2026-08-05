@@ -999,7 +999,8 @@ RightSubarea = NodePath("../../TownHall-Bedroom")
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="EvNov2TownHall" parent="TownHall" unique_id=18392500 instance=ExtResource("26_vxpye")]
-position = Vector2(373, 203)
+position = Vector2(373, 204)
+TriggerSize = Vector2i(50, 4)
 Flag = "day:2+time:4"
 FlagIsName = false
 FlagShouldBe = true

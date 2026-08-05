@@ -473,7 +473,7 @@ do! npc("Asteria").look_to("D")
 do! npc("Mira").look_to("U")
 do! npc("Daze").look_to("L")
 do! npc("Alcine").look_to("U")
-Asteria.Neutral: This is the building.
+Asteria.Neutral: Here, this is the building.
 (hide)
 do add_flag("PyrsonHome")
 do Party.set_to_strarr(["Mira"])
@@ -481,65 +481,87 @@ do Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(112, 439), 0, 2, "", f
 do spawn("Daze", Vector2(153, 474), "U", 0)
 do spawn("Asteria", Vector2(164, 428), "L", 0)
 do spawn("Alcine", Vector2(115, 482), "L", 0)
-do camera_move_relative(Vector2(0, 32))
-do npc("P").look_to("R")
+do camera_move_relative(Vector2(0, 24))
+do npc("P").look_to("L")
+do wait(1)
 Mira: So this is [wait=0.5]my room? As in...[wait=0.5] I can stay here?
+do npc("P").look_to("R")
 Asteria: Right.
 do npc("Asteria").look_to("D")
 Asteria: So... Daze, was it? Your room is upstairs.
+Mira: Our own rooms... 
+Mira.Smile: Do you guys do this with any random person you fight with?
 do npc("Asteria").look_to("L")
-Mira: You're just giving us entire rooms? Do you do this to any random person you fight with?
 Asteria: The more people we have in the village, the better.
-Asteria: We're all stuck here together after all.
-Daze: Don't worry Asteria, we'll all get through this.
+Asteria: We can all help each other after all. We're stuck here togeather.
+do npc("Daze").move_dir(Vector2(-12, -12), false)
+Daze: Don't worry, I'm sure we'll get through this.
 do npc("Asteria").look_to("D")
 Daze: You've seen what we've done as a team already.
-Daze: I'm sure with your help, and everyone else here, we will all eventually go home.
-(hide)
-do npc("Asteria").bubble("Question")
-Asteria: Go home?
-Asteria.Curious: You guys know a way around the void?
+Daze: I'm sure with your help, and everyone else here, we will all eventually break out.
+do npc("P").look_to("D")
+do npc("P").bubble("Question")
+Mira: Wait what, are you talking about?
+Mira: I just want to head back to my village tommorrow, I don't have time to stick around.
+do! npc("Asteria").bubble("Question")
+do npc("P").look_to("R")
+do npc("Asteria").look_to("L")
+Asteria: To your village..?
+Asteria.Curious: You two know a way around the void?
 do! npc("P").bubble("Question")
 Mira: The void?
+do npc("P").look_to("D")
 Daze: The weird shimmering darkness I saw near that bunker?
-Asteria: That's right, the thing keeping all of us in Abad!
+Asteria: That's right, the thing keeping all of us here in Abad!
 (hide)
 do! npc("P").bubble("Surprise")
-Mira: Keeping you? What are you talking about?
+do npc("P").look_to("R")
+Mira: Keeping you? You're trapped here!?
 (hide)
 do npc("Asteria").bubble("Sweat")
 do npc("Asteria").look_to("L")
 Asteria: I'm so sorry, I didn't know you weren't aware...
 Daze: Asteria... [next=auto]
-Mira: Aware of what???
+Mira: Aware of what!?
 Daze: Levenor-
-Asteria: There's...
+do npc("Asteria").look_to("R")
+Asteria: I'm not...
 (hide)
-Mira: Just say it!
-Asteria: There's no way out!
+do! npc("P").bubble("Excited")
+Mira: Come on, spill it!
+Asteria.Neutral: I'm not the only one trapped here...
 (hide)
 do npc("P").bubble("Surprise")
-Mira: Excuse me?
+do npc("Daze").move_dir(Vector2(12, 0), false)
+Mira: Y-You mean...
 Asteria: I thought you knew.
+do npc("Asteria").look_to("U")
 Asteria: The entire realm is surrounded by the void on all sides...
-Asteria: And... [wait=0.5] the people brave enough to have tried to cross it, distort and... [wait=0.5] break apart. [wait=0.5] Perishing soon after...
-Daze: And you're certain of this? Surely you must be mistaken.
+Asteria: And... [wait=0.5] the people brave enough to have tried to cross it-
+Asteria: They distort and... [wait=0.5]break apart. [br][wait=0.5]Perishing soon after...
+Daze: And you're certain of this? Surely there is a way.
+do npc("Asteria").look_to("D")
 Asteria: I've seen it happen myself...
+Mira: You mean I can't...
+Mira: I'm never going... to see...
 Mira: ...
 Mira: No.
 (hide)
 do npc("Asteria").bubble("Question")
-Asteria: No?-[next=auto]
+do npc("Asteria").look_to("L")
+Asteria: No?-[next=0.5]
 Mira: No.[wait=0.5] There is a way out, there has to be!
 do npc("Asteria").bubble("Surprise")
 Asteria: You think my entire village hasn't already tried to-[next=auto]
-Daze: Levenor, please!
-Mira: NO! I'm not going to stand here and- and- take in some villager's dumb folklore!
+Daze: Levenor, please-[next=auto]
+Mira: NO! I'm not going to stand here and- and-
+Mira: [big]Take in some villager's dumb folklore!
 Alcine.Upset: Squee...
 Asteria.Angry: Excuse me?
 do npc("Alcine").set_anim("Scared", false, true)
 Mira: What about the Keepers you mentioned?! That they're the key to freedom?!
-Mira: You just want people trapped in here, and have someone make food for you or-
+Mira: The more the better, right 'steria!?
+Mira: You all just want people trapped in here, and have someone make food for you or-
 Mira: Do your chores or clean the houses!
 Mira: I won't stand for it!
 (hide)
@@ -548,28 +570,26 @@ Daze: Levenor calm down! I know this is a lot to take in but this hysteria won't
 Mira: Hysteria? How can you stay so calm after hearing that?!
 Alcine: Wiieouu!!
 Daze: You're scaring {{alcine()}}!
-Asteria: After everything we've offered you...
+Asteria: We're just doing the best we can!
 Mira: [b]You don't know what it's like![/b] You've never REALLY had to flee a hopeless situation!
-Mira: Surrounded on all sides by chaos, and \n*sniffle* [wait=0.5]\nstill made it out!
-Asteria: You don't know what I've been through!
-Mira: YOU DON'T KNOW WHAT [i]I'VE[/i] BEEN THROUGH!!!
+Mira: Surrounded on all sides by chaos, and *sniffle* [wait=0.5][br]still made it out!
+Asteria: [big]You don't know me! You don't know what I've been through!
+Mira: [big]YOU DON'T KNOW WHAT [i]I'VE[/i] BEEN THROUGH!
 Placeholder description: Mira's wings spread out with rage.
 (hide)
-do npc("P").look_to("L")
-do npc("P").bubble("Ellipsis")
-Mira: Just... leave me by myself for a bit. Okay?
-do npc("Asteria").go_to(Vector2(217, 441))
-do npc("Asteria").hide()
-do npc("Daze").go_to(Vector2(217, 441))
-do npc("Daze").hide()
-...
+Mira: What about you Daze?! You have NOTHING to say about this?
+Daze: I... sort of figured this was the case early on.
+Daze: I didn't want to alarm you Ms. Levenor, I...[next=auto]
+Mira: [big]SO YOU JUST KEEP CRUCIAL INFORMATION TO YOUR SELF!
+Mira: Because that will make the grand reveal [big]SO MUCH BETTER!!
+Mira: And because of all this, I'm NEVER seeing my family, my friends....[br]*sniffle*
+Mira: I...
 (hide)
-do npc("P").go_to(Vector2(160, 441))
-do wait(1)
-do npc("P").move_dir("L")
-do npc("Alcine").look_to("U")
-Mira: I'm sorry {{alcine()}}...
-Mira: I should get some sleep.
+do npc("P").go_to(Vector2(217, 441))
+do npc("P").hide()
+do npc("Daze").look_to("R")
+do npc("Asteria").look_to("R")
+
 set ToDay = 3
 set ToTime = 1
 do! time_transition()
