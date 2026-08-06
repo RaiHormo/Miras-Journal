@@ -31,6 +31,7 @@ var local_controllable := true:
 
 signal initialized
 
+
 func _ready() -> void:
 	collision(false)
 	if is_clone: ID = "MenuPlayer"
@@ -43,26 +44,30 @@ func _ready() -> void:
 	Global.Area.add_child(path)
 	path.curve = Curve2D.new()
 	sprite = %Base
+
 	if Global.Area == null:
 		OS.alert("THIS IS THE PLAYER SCENE", "WRONG SCENE IDIOT")
 		Loader.travel_to("Debug")
 		queue_free()
 		return
+
 	Loader.in_battle = false
-	
+
 	if not is_clone:
 		Global.Player = self
 		var cam: Camera2D = Global.Camera
+
 		if cam != null:
 			Global.Area.cam.enabled = false
 			$Camera2D.remote_path = cam.get_path()
 			cam.enabled = true
-	
+
 	set_anim("Idle" + facing.to_string())
 	$Attack/CollisionShape2D.disabled = true
 	$Attack/AttackPreview/CollisionShape2D.disabled = true
 	local_controllable = true
 	initialized.emit()
+
 
 #func _process(delta: float) -> void:
 	#Steam.run_callbacks()
@@ -73,17 +78,21 @@ func extended_process() -> void:
 	if is_instance_valid(path):
 		if RealVelocity.length() > 350:
 			path.curve.clear_points()
+
 		if path.curve.point_count < 2:
 			path.curve.add_point(position - facing.vector * 24)
 			path.curve.add_point(position - facing.vector)
+
 		path.curve.set_point_position(path.curve.point_count - 1, position)
 		if (path.curve.get_point_position(path.curve.point_count - 1) - path.curve.get_point_position(path.curve.point_count - 2)).length() > 24:
 			path.curve.add_point(position.round())
+
 	if controllable():
 		state = S.CONTROLLED
 		#check_flame()
 	else:
 		first_frame = true
+
 		if state == S.CONTROLLED:
 			state = S.CUSTOM
 
@@ -94,31 +103,39 @@ func control_process() -> void:
 		$Attack/CollisionShape2D.set_deferred("disabled", true)
 		first_frame = false
 		reset_speed()
+
 	if Global.Area: coords = Global.Area.local_to_map(global_position)
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.1)
+
 	if abs(direction.x) < 0.1: direction.y += direction.x; direction.x = 0
 	if abs(direction.y) < 0.1: direction.x += direction.y; direction.y = 0
 	undashable = false
+
 	if is_on_wall():
 		if round(get_wall_normal()) * -1 == Direction.snap_vector(direction):
 			if not jump_points.is_empty() and Input.is_action_pressed("Dash"):
 				position -= direction * 6
 			else:
 				undashable = true
+
 	if controllable():
 		if "Dash" in %Base.animation and not dashing:
 			stop_dash()
+
 		if (
-			(Input.is_action_pressed("Dash")) and 
-			not Direction.from(direction).is_vector(dashdir * Vector2(-1, -1)) 
+			(Input.is_action_pressed("Dash")) and
+			not Direction.from(direction).is_vector(dashdir * Vector2(-1, -1))
 			and direction != Vector2.ZERO and can_dash
 		):
 			if dashing:
 				if dashdir.y == 0:
 					direction.y /= 1.2
+
 			if dashdir.x == 0:
 				direction.x /= 1.2
+
 			speed = min(speed * 1.005, 350)
+
 			if not dashing:
 				if undashable:
 					reset_speed()
@@ -134,21 +151,26 @@ func control_process() -> void:
 					reset_speed()
 					if state == S.CUSTOM:
 						local_controllable = true
+
 					if speed < dash_speed:
 						speed = dash_speed
 			elif Direction.snap_vector(direction.normalized()) != dashdir:
 				stop_dash()
 		elif dashing:
 			stop_dash()
+
 		if dashing:
 			velocity = ((dashdir + direction).normalized() * speed)
 		else:
 			velocity = direction * speed
+
 		if RealVelocity != Vector2.ZERO:
 			if RealVelocity.x == 0: position.x = roundf(position.x)
 			if RealVelocity.y == 0: position.y = roundf(position.y)
+
 		if direction.length() > 0.1:
 			move_and_slide()
+
 		if Input.is_action_just_pressed("OVAttack") and controllable():
 			attack()
 
@@ -165,22 +187,25 @@ func update_anim_prm() -> void:
 	if facing.is_vector(Vector2.ZERO): return
 	if state == S.CONTROLLED:
 		var dir_name: String = facing.to_string()
+
 		if (abs(RealVelocity.length()) > 1 and controllable()):
 			if dashing:
 				reset_speed()
 				var dash_dir_name := Direction.from(dashdir).to_string()
+
 				if has_anim("Dash" + dash_dir_name + "Loop"):
 					set_anim("Dash" + dash_dir_name + "Loop", false, false)
 				else: set_anim("Walk" + dash_dir_name, false, false)
 			else:
 				speed = min(walk_speed, speed)
 				set_anim(str("Walk" + dir_name), false, false)
-			
+
 			if move_frames < 0:
 				move_frames = 0
+
 			move_frames += 1
-		elif (
-			controllable() and 
+		elif(
+			controllable() and
 			("Walk" in sprite.animation or ("Dash" in sprite.animation and dashdir == Vector2.ZERO))
 		):
 			move_frames = 0
@@ -188,10 +213,12 @@ func update_anim_prm() -> void:
 			set_anim(str("Idle" + dir_name), false, false)
 		else:
 			move_frames -= 1
+
 		if direction.length() > RealVelocity.length() and dashing and jump_points.is_empty():
 			stop_dash()
 	else:
 		var dir_name := facing.to_string()
+
 		if RealVelocity.length() > 1:
 			if dashing:
 				set_anim("Dash" + dir_name + "Stop", false, false)
@@ -200,6 +227,7 @@ func update_anim_prm() -> void:
 		else:
 			if RealVelocity == Vector2.ZERO and not is_on_wall():
 				position = round(position)
+
 			set_anim(str("Idle" + dir_name), false, false)
 
 
@@ -221,7 +249,7 @@ func _check_party() -> void:
 
 
 ##Sets the animation for all sprite layers
-func set_anim(anim: String = "Idle" + facing.to_string(), wait := false, overwrite_bodystate := false) -> void:
+func set_anim(anim: String = "Idle" + facing.to_string(), wait := false, overwrite_bodystate := true) -> void:
 	if get_node_or_null("%Base") == null: return
 	if not controllable(): reset_speed()
 	if overwrite_bodystate: state = S.CUSTOM
@@ -232,6 +260,7 @@ func set_anim(anim: String = "Idle" + facing.to_string(), wait := false, overwri
 	else:
 		if wait: await Event.wait()
 		return
+
 	hide_other_sprites()
 	#print(sprite.name, " ", anim)
 	sprite.play(anim)
@@ -258,6 +287,7 @@ func flame_out_of_the_way() -> void:
 		%Flame.play("FlameGo")
 		await %Flame.animation_finished
 		if "Flame" in %Flame.animation: %Flame.play("FlameFloat")
+
 	#elif "Stop" in anim:
 		#%Flame.play_backwards("FlameGo")
 
@@ -269,22 +299,25 @@ func activate_flame(animate := true) -> void:
 	if animate:
 		local_controllable = false
 		state = S.NONE
-		await set_anim("FlameActive", true)
-		set_anim("IdleRight")
+		await set_anim("FlameActive", true, false)
+		set_anim("IdleRight", false)
 		local_controllable = true
 
 
 func check_flame(force := false) -> void:
 	if not controllable() and not force: return
 	flame_active = Event.check_flag(&"FlameActive")
+
 	if flame_active:
 		if get_node_or_null("Flame") == null: return
 		if flame.energy == 0:
 			flame.flicker = true
+
 			if not force: activate_flame(false)
 			while flame.energy < 1.5:
 				flame.energy += 0.03
 				await Event.wait()
+
 			flame.energy = 1.5
 			flame.flicker = true
 	elif get_node_or_null("Flame") and flame.energy != 0:
@@ -300,6 +333,7 @@ func reset_sprite() -> void:
 ##For opening the menu
 func bag_anim() -> void:
 	state = S.NONE
+
 	if get_node_or_null("%Base") == null: return
 	Query.find_member("Mira").OV = "Bag"
 	Global.check.emit()
@@ -317,34 +351,40 @@ func stop_dash(slide := true) -> void:
 		speed = walk_speed
 		await bump()
 	else:
-		set_anim("Dash" + Direction.from(dashdir).to_string() + "Stop")
+		set_anim("Dash" + Direction.from(dashdir).to_string() + "Stop", false, false)
 		local_controllable = false
+
 		if (
-			Input.is_action_pressed("Dash") and 
-			Direction.snap_vector(direction) != dashdir and 
-			direction != Vector2.ZERO and 
+			Input.is_action_pressed("Dash") and
+			Direction.snap_vector(direction) != dashdir and
+			direction != Vector2.ZERO and
 			not Direction.snap_vector(direction) == -dashdir
 		):
 			await get_tree().create_timer(0.1).timeout
 		else:
 			speed = walk_speed
+
 			if slide:
 				while sprite.is_playing() and "Stop" in sprite.animation:
 					if direction == Vector2.ZERO:
 						direction = dashdir * 0.3
 						speed = max(0, speed - 2)
+
 					velocity = dashdir * speed
 					speed = max(0, speed - 2)
 					await Event.wait()
+
 		local_controllable = true
 		Global.check.emit()
 		state = S.CONTROLLED
 		velocity = Vector2.ZERO
+
 	dashdir = Vector2.ZERO
 	move_frames = 0
 	speed = walk_speed
+
 	if "Stop" in sprite.animation or "Hit" in sprite.animation:
-		set_anim(str("Idle" + Direction.vector_to_string(dashdir)))
+		set_anim(str("Idle" + Direction.vector_to_string(dashdir)), false)
 
 
 func reset_speed() -> void:
@@ -356,14 +396,17 @@ func reset_speed() -> void:
 func bump(dir: Direction = facing) -> void:
 	play_footstep_sound("Bump")
 	var dir_name := dir.to_string()
+
 	if cant_bump or not has_anim("Dash" + dir_name + "Hit"): return
 	winding_attack = false
 	Controller.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
-	if dir.is_vector(Vector2.ZERO): 
+
+	if dir.is_vector(Vector2.ZERO):
 		dir.set_to(dashdir)
+
 	Event.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
-	set_anim("Dash" + dir_name + "Hit")
+	set_anim("Dash" + dir_name + "Hit", false)
 	var mem := local_controllable
 	local_controllable = false
 	await Event.wait(0.2)
@@ -384,6 +427,7 @@ func attack() -> void:
 	if not Item.check_item("LightweightAxe", "Key") or not Event.check_flag("HasBag"):
 		Audio.buzzer_sound()
 		return
+
 	if dashing: await stop_dash()
 	reset_speed()
 	speed = 40
@@ -398,22 +442,28 @@ func attack() -> void:
 	check_before_attack()
 	var dir_name := facing.to_string()
 	$Attack.rotation = facing.vector.angle()
+
 	if RealVelocity.length() > 1:
-		set_anim("Attack" + dir_name + "Walk")
+		set_anim("Attack" + dir_name + "Walk", false, false)
 		await Event.wait(0.4)
 	else:
-		await set_anim("Attack" + dir_name + "Windup", true)
+		await set_anim("Attack" + dir_name + "Windup", true, false)
+
 	winding_attack = true
+
 	while Input.is_action_pressed("OVAttack") or not checked:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down", 0.4)
+
 		if direction != Vector2.ZERO and RealVelocity.length() > 0.1:
 			var mation := "Attack" + dir_name + "Walk"
+
 			if sprite.animation != mation:
-				set_anim(mation)
+				set_anim(mation, false, false)
 		else:
 			var mation := "Attack" + dir_name + "Windup"
 			sprite.animation = mation
 			sprite.frame = 1
+
 		check_before_attack()
 		if not winding_attack:
 			attacking = false
@@ -423,8 +473,10 @@ func attack() -> void:
 			$Attack/CollisionShape2D.disabled = false
 			speed = walk_speed
 			return
+
 		checked = true
 		await get_tree().physics_frame
+
 	winding_attack = false
 	$Attack/CollisionShape2D.disabled = false
 	var hits := false
@@ -433,25 +485,30 @@ func attack() -> void:
 	await get_tree().physics_frame
 	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		#print(i)
-		if not(i is NPC or i is Follower or i is Mira):
+		if not (i is NPC or i is Follower or i is Mira):
 			hits = true
+
 	#print("pt1: " + str(hits))
 	for i: Node2D in $Attack.get_overlapping_bodies():
 		#print(i)
 		if (i is NPC or i is Follower) and not i is Mira:
 			hits = false
+
 	#print("pt2: " + str(hits))
 	var audio := preload("res://sound/SFX/Swing.ogg")
 	var anim := "Attack" + facing.to_string()
+
 	if hits:
 		anim = "Attack" + facing.to_string() + "Hit"
 		audio = preload("res://sound/SFX/AxeBlock.ogg")
 		Controller.rumble(0.3, 0.3, 0.1, 0.1)
+
 	$Audio.stream = audio
 	$Audio.play()
 	await set_anim(anim, true)
 	local_controllable = true
 	$DirectionMarker/Finder/Shape.disabled = false
+
 	if Input.is_action_pressed("OVAttack"): attack()
 	else:
 		attacking = false
@@ -463,6 +520,7 @@ func attack() -> void:
 
 func check_before_attack() -> void:
 	$Attack.rotation = facing.vector.angle()
+
 	for i: Node2D in $Attack/AttackPreview.get_overlapping_bodies():
 		if i is NPC or i is Follower:
 			i.attacked()
@@ -477,16 +535,19 @@ func dramatic_attack_pause() -> void:
 			set_anim("Attack" + facing.to_string())
 			pause_anim()
 			var timer := get_tree().create_timer(3)
+
 			while timer.time_left > 0:
 				sprite = %Base
 				hide_other_sprites()
 				%Base.animation = "Attack" + facing.to_string()
 				%Base.frame = 1
 				await Event.wait()
+
 			set_anim()
 		else:
 			set_anim("Dash" + facing.to_string() + "Hit")
 			pause_anim()
+
 		await Event.wait()
 
 

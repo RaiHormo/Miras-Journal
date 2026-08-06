@@ -95,10 +95,14 @@ func twean_to(pos: Vector2, time: float = 1, chara: String = "P") -> void:
 	await t.finished
 
 
-func tween(object: Node, property: String, to: Variant, time := 0.3) -> void:
+func tween_linear(object: Node, property: String, to: Variant, time := 0.3) -> void:
+	await tween(object, property, to, time, Tween.EASE_IN_OUT, Tween.TRANS_LINEAR)
+
+
+func tween(object: Node, property: String, to: Variant, time := 0.3, ease_type := Tween.EASE_OUT, trans := Tween.TRANS_CUBIC) -> void:
 	var t := create_tween()
-	t.set_ease(Tween.EASE_OUT)
-	t.set_trans(Tween.TRANS_CUBIC)
+	t.set_ease(ease_type)
+	t.set_trans(trans)
 	t.tween_property(object, NodePath(property), to, time)
 	await t.finished
 
@@ -179,6 +183,10 @@ func textbox_kill() -> void:
 	await Textbox.kill()
 
 
+func textbox_open(file: String, title: String) -> void:
+	Textbox.open.call_deferred(file, title)
+
+
 func portrait(img: String, redraw := true) -> void:
 	if Textbox.is_open:
 		await Textbox.current.portrait(img, redraw)
@@ -212,10 +220,10 @@ func picture_clear() -> void:
 
 
 func no_nametag() -> void:
-	if Textbox.is_open:
+	var current := Textbox.current
+
+	if current != null:
 		Textbox.current.no_nametag = true
-	elif Passive.is_open:
-		Passive.current.no_nametag = true
 
 
 func match_profile(named: String) -> BoxProfile:
@@ -560,6 +568,7 @@ func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
+	chara.setup_shadow.call_deferred()
 	var nam := id.split(":")
 	var sprite := await Query.get_ov_sprites(id)
 
@@ -592,6 +601,7 @@ func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int
 		else:
 			chara.set_anim.call_deferred(animation, false, true)
 
+	await Event.wait()
 	return chara
 
 

@@ -101,8 +101,9 @@ var SpeedBoost: int = 0
 
 @export_category("Sprites")
 ##The sprite used in the overworld when this actor is in the party
-#@export var OV: SpriteFrames = SpriteFrames.new()
 @export var OV: String
+## Shadow offset for the battle Sprite
+@export var OVShadowOffset: int = 6
 ##The battle sprites for this actor.
 ##Some standard animation names include:
 ##Idle, Hit, Ability, Cast, KnockOut, Entrance, Attack1, Attack2, Item, Command,
@@ -112,9 +113,11 @@ var SpeedBoost: int = 0
 @export var Offset: Vector2 = Vector2.ZERO
 ##Whether the shadow sprite should be drawn, preferable for humanoid characters
 @export var Shadow: bool = false
-##A scene containing the sound effects for this actor
-@export var ShadowOffset: int = 0
+## Shadow offset for the battle Sprite
+@export var BTShadowOffset: int = 0
+## Horizontally flip the battle sprite
 @export var FlipH: bool = false
+##A scene containing the sound effects for this actor
 @export var SoundSet: PackedScene = load("res://sound/Sets/DefaultSoundSet.tscn")
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true
@@ -389,7 +392,7 @@ func groupped_abilities() -> Array[Array]:
 	return rtn
 
 
-##A shadow for the above artwork
+## A shadow for the above artwork
 func RenderShadow() -> Texture:
 	var render_name: String = RenderArtwork.split("/")[-1].replace(".png", "")
 

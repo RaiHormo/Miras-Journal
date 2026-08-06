@@ -14,7 +14,12 @@ var markers: Array[Marker2D]
 var layers: Array[TileMapLayer]
 var current_subroom: SubRoom = null
 
-var overwrite_zoom: float = 0
+var overwrite_zoom: float = 0:
+	set(x):
+		overwrite_zoom = x
+
+		if x > 0:
+			setup_params()
 
 signal initialized
 
@@ -46,9 +51,13 @@ func _ready() -> void:
 				camera_index = i
 
 	# Setup camera
+	add_child(cam)
 	cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
-	add_child(cam)
+	cam.limit_smoothed = false
+	cam.position_smoothing_enabled = false
+	cam.position_smoothing_speed = 10
+	cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	setup_params()
 	if camera_index != null:
 		cam.limit_left = camera_index.left
@@ -116,32 +125,32 @@ func _ready() -> void:
 
 	initialized.emit.call_deferred()
 
+	await Event.wait(0.4, false)
+	if Global.Camera: Global.Camera.position_smoothing_enabled = true
+
+var t_zoom: Tween
+
 
 func setup_params(tween_zoom := false) -> void:
-	cam.limit_smoothed = false
-	cam.position_smoothing_enabled = false
-	cam.position_smoothing_speed = 10
-	cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	var zoom := Vector2(4, 4)
+
+	if is_instance_valid(t_zoom): t_zoom.kill()
 
 	if overwrite_zoom > 0:
 		zoom = Vector2(overwrite_zoom, overwrite_zoom)
-
-	if overwrite_zoom == 0 and camera_index != null and current_subroom == null:
-		zoom = Vector2(camera_index.zoom, camera_index.zoom)
-	elif current_subroom is SubRoom:
-		zoom = Vector2(current_subroom.cam_zoom, current_subroom.cam_zoom)
+	else:
+		if camera_index != null and current_subroom == null:
+			zoom = Vector2(camera_index.zoom, camera_index.zoom)
+		elif current_subroom is SubRoom:
+			zoom = Vector2(current_subroom.cam_zoom, current_subroom.cam_zoom)
 
 	if tween_zoom:
-		t = create_tween()
-		t.set_ease(Tween.EASE_OUT)
-		t.set_trans(Tween.TRANS_QUART)
-		t.tween_property(cam, "zoom", zoom, 0.3)
+		t_zoom = create_tween()
+		t_zoom.set_ease(Tween.EASE_OUT)
+		t_zoom.set_trans(Tween.TRANS_QUART)
+		t_zoom.tween_property(cam, "zoom", zoom, 0.3)
 	else:
 		cam.zoom = zoom
-
-	await Event.wait(0.4, false)
-	if Global.Camera: Global.Camera.position_smoothing_enabled = true
 
 
 func default() -> void:
@@ -221,11 +230,8 @@ func go_to_subroom(subroom: String, fast := false) -> Vector2:
 			return i.cam_pos
 		elif i is TransferZone and i.name == "Transfer" + subroom:
 			return i.come_from()
-		elif i is Marker2D and i.name == "Mark" + subroom:
-			return i.position
 
-	push_warning("Subroom not found: ", subroom)
-	return Vector2.ZERO
+	return Event.get_marker_pos(subroom)
 
 
 func get_layers() -> Array[TileMapLayer]:

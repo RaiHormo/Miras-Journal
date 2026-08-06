@@ -67,7 +67,7 @@ gdscript/warnings/native_method_override=0
 
 [dialogue_manager]
 
-runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item", "Query"]
+runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item", "Query", "Audio"]
 editor/wrap_long_lines=true
 
 [display]

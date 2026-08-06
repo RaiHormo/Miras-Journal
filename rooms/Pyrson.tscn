@@ -813,6 +813,8 @@ flag = "LampInMirasRoom"
 
 [node name="RoomMira" parent="HomeBuilding-MyRoom" unique_id=344934070 instance=ExtResource("16_s1pqb")]
 position = Vector2(-98, 368)
+dont_use_collision = true
+no_shadow = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HomeBuilding-MyRoom/RoomMira" unique_id=1736324877]
 z_index = 1
@@ -1054,6 +1056,9 @@ ToSubarea = NodePath("../TownHall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TownHallDoor" unique_id=1204026787]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6we5s")
+
+[node name="MarkerMapleBench" type="Marker2D" parent="." unique_id=296603525]
+position = Vector2(612, 406)
 
 [connection signal="action" from="HomeBuilding/Lamp3" to="HomeBuilding/Lamp3/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_entered"]

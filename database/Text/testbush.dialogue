@@ -191,7 +191,7 @@ Choose battle
 => END
 
 ~ chapter_select
-Chapter select
+Event select
 - Petrogon fight
 	do Event.Flags.clear()
 	set ToDay = 0
@@ -199,8 +199,10 @@ Chapter select
 	do Event.add_flag("HasBag")
 	do Event.add_flag("FlameActive")
 	do travel_to("TempleWoods", Vector2(1272, -966), 2)
-- Asteria Fight
-	
+- Maple Meet Scene
+	set Day = 2
+	set TimeOfDay = TOD.NIGHT
+	do! textbox_open("story_1", "maple_meet")
 - Going to shard gardens
 	set ToDay = 3
 	set ToTime = TOD.AFTERNOON

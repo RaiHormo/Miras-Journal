@@ -112,6 +112,7 @@ size = Vector2(26.0002, 79.341)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("5_00dms")
+title = "Debug Room"
 
 [node name="Labels" type="Control" parent="." unique_id=797296850]
 modulate = Color(1, 1, 1, 0.32941177)
@@ -317,7 +318,7 @@ offset_bottom = -68.0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("26_ucpyn")
 theme_override_font_sizes/font_size = 8
-text = "Chapter select"
+text = "Event select"
 
 [node name="Label7" type="Label" parent="Labels" unique_id=1547013190]
 light_mask = 0
@@ -451,7 +452,7 @@ shape = SubResource("RectangleShape2D_72f6p")
 
 [node name="NewGame" parent="EvHarold" unique_id=789011594 instance=ExtResource("6_pmuyc")]
 position = Vector2(0, 8)
-LabelText = "Chapter select"
+LabelText = "Select"
 file = "testbush"
 dialogue_file = "testbush"
 title = "chapter_select"

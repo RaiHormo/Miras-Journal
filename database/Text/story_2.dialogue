@@ -13,7 +13,7 @@ set Event.npc("RoomMira").position = Vector2(90, 412)
 do Event.npc("RoomMira").set_anim("SitRight")
 Mira: Come in.
 do spawn("Daze", Vector2(179, 438), "L")
-the door creaks open as Daze enters the room.
+The door creaks open.
 Daze.Neutral: Hey...
 Daze.Neutral: How are you doing?
 Mira.Neutral: I'm... okay.
@@ -24,18 +24,19 @@ Mira.Neutral: How can you stay so calm!? We're BOTH stuck here!
 Mira.Neutral: Am I supposed to just accept the fact that I'll spend the rest of my life in this Donom of a place!?
 Mira.Neutral: That everything I've done has been for NOTHING? That I'll never see my family again?
 Daze.Neutral: I... I didn't mean to-
-Mira.Neutral: Do you have nothing going on in your life?! Or are you just pretending to be calm because you need to always look cool?!
+Mira.Neutral: Do you have nothing going on in your life?! 
+Mira.Neutral: Or are you just pretending to be calm because you need to always look cool?!
 Daze.Neutral: Levenor, listen. I didn't mean to blame you.
 Daze.Neutral: I completely understand why you feel this way. 
 Daze.Neutral: I know it firsthand, maybe a bit too well.
 Daze.Neutral: But both you and I, and everyone here, we all share a goal.
 Mira.Neutral: So then... you agree with me? That there is a way?
 Daze.Neutral: ...
-Daze seems to quickly glance left and right before looking back at me
+Daze quickly glance around before looking back at me.
 Daze.Neutral: What if I told you I already have a lead?
+[hide]
 do npc("RoomMira").bubble("Surprise")
 Daze.Neutral: Look, let's talk about this later in the tavern. I'll be waiting there. Okay?
-
 => END
 
 ~ nov3_tavern

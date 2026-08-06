@@ -12,6 +12,7 @@ var player_jumped := false
 @export var dont_follow := false:
 	set(x):
 		dont_follow = x
+
 		if dont_follow and state == S.CONTROLLED: state = S.IDLE
 		elif not dont_follow: state = S.CONTROLLED
 @export var offset := 0
@@ -22,9 +23,9 @@ var follow: PathFollow2D
 func default() -> void:
 	hide()
 	Global.check.connect(update)
-	
+
 	await Event.wait()
-	
+
 	if not Global.Player: return
 	oposite = (Global.Player.facing.vector * Vector2(-1, -1)) * 150
 	set_anim("Idle" + Global.Player.facing.to_string())
@@ -54,10 +55,12 @@ func control_process() -> void:
 		#animate()
 		state = S.IDLE
 		return
+
 	if Global.Party.check_member(member) and not Loader.in_battle and is_instance_valid(follow):
 		add_collision_exception_with(Global.Player)
 		for i in Global.Area.followers:
 			add_collision_exception_with(i)
+
 		show()
 		z_index = Global.Player.z_index
 		collision_layer = Global.Player.collision_layer
@@ -68,10 +71,12 @@ func control_process() -> void:
 		var player_dist := to_local(Global.Player.position).length()
 		target = round((follow.global_position + Global.Player.facing.vector.rotated(PI / 2) * offset))
 		direction = to_local(target).normalized()
+
 		if to_local(target).length() < 6: direction = Vector2.ZERO
 		#var path_dist = floor(path.curve.get_baked_length() - follow.progress)
 		#if Loader.chased:
 			#$CollisionShape2D.disabled = true
+
 		if false:
 			if player_dist > distance + 80:
 				jump_to_player()
@@ -80,18 +85,25 @@ func control_process() -> void:
 				player_jumped = false
 		else:
 			follow.progress = round(lerpf(follow.progress, max(float(path.curve.get_baked_length() - distance), 0), 0.5))
+
 			if player_dist > 180:
 				jump_to_player()
+
 			if player_dist < 12 and Global.Controllable:
 				update_anim_prm()
 				oposite = (Global.Player.facing.vector * Vector2(-1, -1))
 				velocity = oposite * 150
+
 			#elif path_dist > distance:
 				#$CollisionShape2D.disabled = true
+
 		speed = max(50, Global.Player.speed * (to_local(target).length() / 40))
+
 		if floor(player_dist / 5) < floor(distance / 5):
 			speed /= 2
+
 		velocity = speed * direction
+
 		if (global_position - oldposition).length() > 0.1:
 			moving = true
 			RealVelocity = global_position - oldposition
@@ -99,6 +111,7 @@ func control_process() -> void:
 			moving = false
 	else:
 		hide()
+
 
 func jump_to_player(_speed := 2) -> void:
 	if not is_instance_valid(Global.Player): return
@@ -109,6 +122,7 @@ func jump_to_player(_speed := 2) -> void:
 	#if member == 3: new_pos.y -= 24
 	#if speed > 0:
 		#await Event.jump_to_global(self, new_pos, speed, 0.3)
+
 	position = new_pos
 
 
@@ -127,5 +141,12 @@ func attacked() -> void:
 
 func update() -> void:
 	var mem := member_info()
+
 	if mem != null and sprite.sprite_frames.resource_path != member_info().OV:
 		sprite.sprite_frames = await member_info().get_OV()
+
+		if shadow_sprite:
+			if member_info().Shadow:
+				shadow_sprite.show()
+				shadow_sprite.position.y = member_info().OVShadowOffset
+			else: shadow_sprite.hide()

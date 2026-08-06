@@ -39,6 +39,7 @@ enum S {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 
 ## Disable collision when this NPC spawns
 @export var dont_use_collision := false
+@export var no_shadow := false
 
 ##Used to control the direction of the next movement
 var direction: Vector2 = Vector2.ZERO
@@ -81,10 +82,20 @@ func _ready() -> void:
 	if dont_use_collision: collision(false)
 
 	await Event.wait()
+	setup_shadow()
+	
 	if Nav == null: Nav = get_node_or_null("Nav")
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	default_position = global_position
 	default()
+
+
+func setup_shadow() -> void:
+	if shadow_sprite:
+		if no_shadow:
+			shadow_sprite.hide()
+		else:
+			move_child.call_deferred(shadow_sprite, get_child_count() - 1)
 
 
 func default_id() -> String: return name
@@ -319,7 +330,7 @@ func go_to(pos: Variant, use_coords := false, autostop := false, look_dir: Varia
 	await Event.wait()
 
 
-func set_anim(anim: String, wait := false, overwrite_state := false) -> void:
+func set_anim(anim: String, wait := false, overwrite_state := true) -> void:
 	if overwrite_state: state = S.CUSTOM
 	if not is_instance_valid(sprite):
 		push_warning("Attempted to set animation before sprite was initialized on ", ID)
@@ -416,4 +427,4 @@ func bump(dir: Direction = facing) -> void:
 	Controller.rumble(0.7, 0.3, 0.08)
 	direction = Vector2.ZERO
 	Event.jump_to_global(self, global_position - dir.vector * 15, 15, 0.5, false)
-	await set_anim("Dash" + dir_name + "Hit", true)
+	await set_anim("Dash" + dir_name + "Hit", true, false)

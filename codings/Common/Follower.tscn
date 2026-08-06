@@ -19,14 +19,22 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.852941, 0.894118)
 
-[node name="Follower" type="CharacterBody2D" unique_id=1910152779]
+[node name="Follower" type="CharacterBody2D" unique_id=1910152779 node_paths=PackedStringArray("shadow_sprite")]
 z_index = 1
+use_parent_material = true
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 1.5707964
 script = ExtResource("1_kihhu")
-SpawnOnCameraInd = false
+shadow_sprite = NodePath("Shadow")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1941196585]
+unique_name_in_owner = true
+show_behind_parent = true
+use_parent_material = true
+position = Vector2(0, 6)
+texture = ExtResource("4_qao14")
 
 [node name="Timer" type="Timer" parent="." unique_id=807342352]
 wait_time = 0.1
@@ -41,16 +49,11 @@ disabled = true
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PQpvcF9leHB8PXRydWUKb19mb2xkZXJ8PXJlczovL2FydC9PVi9Bc3RlcmlhLwpvX25hbWV8PUFzdGVyaWFPVjEKb25seV92aXNpYmxlfD1mYWxzZQpvX2V4X3B8PQo="
 texture_filter = 1
 material = ExtResource("2_ppxuy")
+use_parent_material = true
 position = Vector2(0, 5)
 sprite_frames = ExtResource("3_vmt3u")
 animation = &"IdleLeft"
 offset = Vector2(0, -9)
-
-[node name="Shadow" type="Sprite2D" parent="Sprite" unique_id=1941196585]
-show_behind_parent = true
-use_parent_material = true
-position = Vector2(0, -1)
-texture = ExtResource("4_qao14")
 
 [node name="Glow" type="PointLight2D" parent="." unique_id=1295388205]
 texture_filter = 2
