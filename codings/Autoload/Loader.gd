@@ -547,6 +547,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 
 	if battle_sequence.Transition:
 		if is_instance_valid(attacker):
+			Audio.change_music(battle_sequence.MusicIntro)
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)

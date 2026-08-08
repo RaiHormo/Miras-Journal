@@ -169,6 +169,9 @@ func _ready() -> void:
 		i.BattleLog = [Actor.log_entry.new()]
 		i.load_complimentaries()
 
+	
+	Audio.change_music(Seq.Music)
+	
 	position_sprites()
 	if is_instance_valid(Loader.attacker): Loader.attacker.hide()
 	if Seq.EntranceSequence != "": await $Act.call(Seq.EntranceSequence)
@@ -177,6 +180,7 @@ func _ready() -> void:
 	for i in TurnOrder:
 		print(i.Speed + i.SpeedBoost, " - ", i.FirstName)
 
+	
 	await entrance()
 
 
@@ -1301,6 +1305,7 @@ func end_battle() -> void:
 	canvas.get_node("Continue").hide()
 	await PartyUI.preform_levelups()
 	if Global.Area == null: Loader.travel_to("Debug"); queue_free(); return
+	Audio.fade_out_music()
 	await Loader.end_battle()
 	queue_free()
 

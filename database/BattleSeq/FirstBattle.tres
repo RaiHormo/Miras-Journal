@@ -52,5 +52,4 @@ CanEscape = false
 DeleteAttacker = false
 EntranceSequence = "FirstBattle1"
 VictorySequence = "FirstBattle5"
-PartyOverride = ["Mira"]
 Events = Array[ExtResource("2_68ui3")]([SubResource("Resource_6vdia"), SubResource("Resource_g722f"), SubResource("Resource_baynq"), SubResource("Resource_d4pnn")])

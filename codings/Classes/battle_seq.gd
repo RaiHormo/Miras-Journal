@@ -5,6 +5,8 @@ class_name BattleSequence
 @export var Enemies: Array[Actor]
 ## Items to get at the end of the battle
 @export var AdditionalItems: Array[ItemData]
+@export var Music: AudioStream = load("res://sound/Music/v17-battle.ogg")
+@export var MusicIntro: AudioStream = load("res://sound/Music/v17-intro.ogg")
 ## Whether the battle background should be treated as an actual location on the map or a background only for this battle.
 ## If false, the player will be positioned where the party leader was in battle, if true they will be positioned where they were before.
 ## It's recommended to turn on `Detransition` along with this.
@@ -44,6 +46,7 @@ func call_events() -> void:
 func check_events() -> bool:
 	for i in Events:
 		if i.check(): return true
+
 	return false
 
 
@@ -52,5 +55,6 @@ func reset_events(force := false) -> void:
 		if i == null:
 			push_error("There's a null battle event, you better remove that")
 			continue
+
 		if i.repeatable or force:
 			i.ran_this_turn = false
