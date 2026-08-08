@@ -372,8 +372,8 @@ tile_set = ExtResource("4_4p2pc")
 position = Vector2(-1417, -1248)
 
 [node name="Darken" type="PointLight2D" parent="." unique_id=407590979]
-position = Vector2(229.00002, -579.00006)
-scale = Vector2(48.378914, 37.91796)
+position = Vector2(213.56252, -579.00006)
+scale = Vector2(48.86133, 37.91796)
 color = Color(0.07511881, 0.3104994, 0.42818975, 0.5019608)
 energy = 0.8
 blend_mode = 1

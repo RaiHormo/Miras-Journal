@@ -717,6 +717,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SaveManagment" parent="MainButtons" unique_id=716470933 instance=ExtResource("7_5qw8o")]
+editor_description = "Save managment button.
+
+You can't click on it though."
 layout_mode = 0
 offset_left = 1362.0
 offset_top = 62.0
@@ -727,6 +730,9 @@ text = "Save Managment"
 theme_color = Color(0.25145325, 0.67154324, 0.42753023, 1)
 
 [node name="GameSettings" parent="MainButtons" unique_id=466527549 instance=ExtResource("7_5qw8o")]
+editor_description = "That's uhh, the title of the menu...
+
+It doesn't do anything when you click on it."
 layout_mode = 0
 offset_left = 1416.0
 offset_top = 198.0
@@ -737,6 +743,9 @@ text = "Game Settings"
 theme_color = Color(0.5046495, 0.29969653, 0.88087386, 1)
 
 [node name="Manual" parent="MainButtons" unique_id=1371218540 instance=ExtResource("7_5qw8o")]
+editor_description = "Wow, congrats.
+
+The focus is out of bounds now, and it's focusing the Manual button."
 layout_mode = 0
 offset_left = 1528.0
 offset_top = 346.0
@@ -747,6 +756,7 @@ text = "Manuals"
 theme_color = Color(0.8237475, 0.6255797, 0.31959465, 1)
 
 [node name="Gallery" parent="MainButtons" unique_id=1984814241 instance=ExtResource("7_5qw8o")]
+editor_description = "Gallery"
 layout_mode = 0
 offset_left = 1568.5
 offset_top = 490.0
@@ -757,6 +767,7 @@ text = "Extras"
 theme_color = Color(0.1175795, 0.4523369, 0.79537284, 1)
 
 [node name="Quit" parent="MainButtons" unique_id=1905898559 instance=ExtResource("7_5qw8o")]
+editor_description = "I guess you can quit the game in a weird way?"
 layout_mode = 0
 offset_left = 1602.5001
 offset_top = 632.0

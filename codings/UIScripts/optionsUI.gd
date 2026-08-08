@@ -25,13 +25,15 @@ func _ready() -> void:
 		queue_free()
 		return
 
-	if Loader.in_battle:
-		if !get_tree().root.get_node_or_null("Battle/BattleUI") or $/root/Battle/BattleUI.stage != "root" or $/root/Battle/BattleUI.PrevStage != "root" or not $/root/Battle/BattleUI.active:
+	if Loader.in_battle and is_instance_valid(Global.Bt):
+		var battle_ui := Global.Bt.ui
+
+		if (battle_ui.stage == "root" or battle_ui.PrevStage == "root") and battle_ui.active:
+			get_tree().root.get_node_or_null("Battle/BattleUI").stage = "options"
+			cant_save = true
+		else:
 			queue_free()
 			return
-
-		get_tree().root.get_node_or_null("Battle/BattleUI").stage = "options"
-		cant_save = true
 
 	# Get current main button positions
 	for button: Button in %MainButtons.get_children():
@@ -41,7 +43,7 @@ func _ready() -> void:
 
 	if not ResourceLoader.exists("user://Autosave.tres") or not is_instance_valid(Global.Area):
 		cant_save = true
-		$MainButtons/SaveManagment.text = "Resume the Game"
+		$MainButtons/SaveManagment.text = "Start the Game"
 
 	Loader.detransition(Direction.CENTER)
 	show()
@@ -117,6 +119,9 @@ func set_no_main() -> void:
 
 	for i in $MainButtons.get_children():
 		i.hide()
+
+	$Confirm.hide()
+	$Back.position.x = -200
 
 	await ready
 	#await Event.wait(0.3, false)
@@ -268,7 +273,7 @@ func main() -> void:
 
 
 func game_settings() -> void:
-	if stage == "game_settings": return
+	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus.call_deferred()
 	if stage != "main": await loaded
 	load_settings(true)
 	$MainButtons/GameSettings.toggle_mode = true
@@ -286,7 +291,6 @@ func game_settings() -> void:
 	t.tween_property($Background, "position", Vector2(0, 0), 0.5)
 	t.tween_property($SidePanel/Tooltip, "scale", Vector2.ONE, 0.5).from(Vector2.ZERO)
 	t.tween_property($SidePanel/Tooltip, "modulate:a", 1, 0.5).from(0)
-	$SidePanel/ScrollContainer/SettingsVbox/AutoHideHUD/MenuBar.grab_focus.call_deferred()
 	$SidePanel/Tooltip/Bubble.size.y = 0
 	$SidePanel/Tooltip/Point.rotation = 0
 	Audio.confirm_sound()
@@ -333,6 +337,7 @@ func save_managment() -> void:
 	t.tween_property($Confirm, "position:x", -200, 0.5)
 	Audio.confirm_sound()
 	$SavePanel/Buttons/Load.button_pressed = false
+	$Back.show()
 
 	(func() -> void:
 		if not save_files_loaded:
@@ -381,7 +386,9 @@ func manual() -> void:
 
 
 func gallery() -> void:
-	if stage == "inactive": await loaded
+	if stage == "game_settings":
+		_arena_mode()
+
 	$MainButtons/Gallery.toggle_mode = true
 	$MainButtons/Gallery.button_pressed = true
 	stage = "gallery"
@@ -404,6 +411,7 @@ func gallery() -> void:
 
 
 func _on_quit() -> void:
+	#if stage != "main": await loaded
 	stage = "quit"
 	var text: String
 	if is_instance_valid(Global.Area):
@@ -967,7 +975,7 @@ func _on_credits(source: Button) -> void:
 	var text: String
 	match source.name:
 		"Credits":
-			var file := FileAccess.open("res://CREDITS.txt", FileAccess.READ)
+			var file := FileAccess.open("res://credits.txt", FileAccess.READ)
 			text = file.get_as_text()
 
 		"GodotLicense":

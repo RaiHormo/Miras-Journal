@@ -21,7 +21,9 @@ var loading_scene := false
 var load_failed := false
 var loading_thread := false
 
-var in_battle := false
+var in_battle := false:
+	get():
+		return is_instance_valid(Global.Bt)
 var battle_advantage := 0
 var battle_result := 0
 var battle_sequence: BattleSequence
@@ -796,7 +798,7 @@ func validate_save(savefile: String) -> bool:
 		var file: SaveFile = load(savefile)
 
 		if is_instance_valid(file):
-			if file.version == save_file_version:
+			if file.version == save_file_version or not file.version:
 				return true
 			else:
 				# To read resource properties not in the current class, i need to load it as a config file

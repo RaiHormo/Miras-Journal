@@ -7,4 +7,3 @@ script = ExtResource("44_yd2ky")
 Name = "Arena mode"
 RoomPath = "res://rooms/Arena.tscn"
 RoomName = "Arena"
-version = 4

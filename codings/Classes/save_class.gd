@@ -28,22 +28,27 @@ func preview() -> Texture:
 	match Party:
 		["Mira", "Alcine"]:
 			return await Loader.load_res("res://art/Previews/2.png")
+
 		_:
 			return await Loader.load_res("res://art/Previews/1.png")
 
 
 func migrate() -> SaveFile:
 	var migratable := true
+
 	match version:
 		6:
 			Flags.set("day", Day)
 			Flags.set("time", TimeOfDay)
 			version = 7
+
 		_:
 			migratable = false
+
 	if migratable == false:
 		print("File cannot be migrated")
 		return null
+
 	if version != Loader.save_file_version:
 		print("more conversions need to be done")
 		return migrate()
