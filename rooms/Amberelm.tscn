@@ -1146,6 +1146,9 @@ _direction = 4
 room = "WitheredLeaves"
 subroom = "ToAmberelm"
 
+[node name="MarkerBenchBeforeGuardian" type="Marker2D" parent="." unique_id=465164760]
+position = Vector2(2218, -133)
+
 [node name="EvBench" parent="." unique_id=557881661 instance=ExtResource("5_3ycob")]
 position = Vector2(2220, -156)
 LabelText = "Rest"

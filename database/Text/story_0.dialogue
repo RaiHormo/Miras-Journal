@@ -291,7 +291,7 @@ do save()
 ~ oct31_afternoon
 do travel_to("Amberelm", Vector2(2218, -132), 2)
 Placeholder description: Unfinished cutscene
-The sky getting brighter. I've really been out here all day...
+The sky getting darker. I've really been out here all day...
 Placeholder description: Mira looks forward to Alcine goofing around.
 Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
 Their aura color, and thus affinity for magic, is nearly oposite to mine.
@@ -299,6 +299,7 @@ But... perhaps I could give liquid magic a try.
 do Global.Complimentaries.append("FluidBlast")
 Placeholder description: Unlocked Complimentary Ability: Fluid Blast
 Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > Set Complimentary
+do npc("P").jump_to(get_marker_pos("BenchBeforeGuardian"))
 do save()
 => END
 

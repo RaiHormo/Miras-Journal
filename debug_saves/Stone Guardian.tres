@@ -8,7 +8,7 @@ Name = "Stone Guardian"
 Party = Array[StringName]([&"Mira", &"Alcine", &"", &""])
 RoomPath = "res://rooms/Amberelm.tscn"
 RoomName = "Amberelm"
-Position = Vector2(2345, -149)
+Position = Vector2(2333.3328, -149)
 Camera = 2
 Z = 4
 Members = Array[Dictionary]([{
@@ -63,7 +63,7 @@ Members = Array[Dictionary]([{
 "ComplimentaryList": Dictionary[String, int]({}),
 "Controllable": false,
 "FirstName": "Daze",
-"Health": 150,
+"Health": 130,
 "IgnoreStates": false,
 "LastName": "",
 "MaxAura": 24,
@@ -122,9 +122,12 @@ Members = Array[Dictionary]([{
 Complimentaries = Array[String](["FluidBlast"])
 Defeated = ["EnemyIronHook1", "EnemyIronHook2", "EnemyIronHook3"]
 StartTime = 1773014079.152903
-SavedTime = 1773019331.495586
-PlayTime = 1333.0
-Inventory = Array[String](["Wallet:Key", "PenCase:Key", "FoldedPaper:Key", "LightweightAxe:Key", "CyanFragment:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "PurpleFragment:Mat", "PurpleFragment:Mat", "StrangeFruit:Con", "LifeLave:Con", "SmallPotion:Con", "SmallPotion:Con", "SharpRock:Bti", "SharpRock:Bti"])
+SavedTime = 1786184949.218358
+PlayTime = 1364.0
+Diary = Dictionary[int, PackedStringArray]({
+2: PackedStringArray("boo"),
+5: PackedStringArray("boo", "bee")
+})
 Flags = Dictionary[StringName, int]({
 &"AlcineFollow": 4,
 &"AlcineFollow4": 4,
@@ -163,8 +166,5 @@ Flags = Dictionary[StringName, int]({
 &"day": 0,
 &"time": 3
 })
-Diary = Dictionary[int, PackedStringArray]({
-2: PackedStringArray("boo"),
-5: PackedStringArray("boo", "bee")
-})
 version = 7
+Inventory = Array[String](["Wallet:Key", "PenCase:Key", "FoldedPaper:Key", "LightweightAxe:Key", "CyanFragment:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "WhiteSlime:Mat", "PurpleFragment:Mat", "PurpleFragment:Mat", "StrangeFruit:Con", "LifeLave:Con", "SmallPotion:Con", "SmallPotion:Con", "SharpRock:Bti", "SharpRock:Bti"])

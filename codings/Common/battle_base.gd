@@ -1753,17 +1753,17 @@ func confusion_msg() -> void:
 
 
 func follow_up_text() -> void:
+	$Canvas/FollowUp.show()
+	$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
+	var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+
 	if CurrentChar.IsEnemy:
 		$Canvas/FollowUp.rotation_degrees = 15
-		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
-		var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 100, 0.5)
 		t.set_ease(Tween.EASE_IN)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)
 	else:
 		$Canvas/FollowUp.rotation_degrees = -15
-		$Canvas/FollowUp/Text.position = Vector2(-1000, 600)
-		var t := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 450, 0.5)
 		t.set_ease(Tween.EASE_IN)
 		t.tween_property($Canvas/FollowUp/Text, "position:x", 1400, 0.5)

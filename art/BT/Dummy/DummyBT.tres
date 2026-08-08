@@ -96,7 +96,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4ib0d")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Ability",
 "speed": 10.0
 }, {
@@ -125,7 +125,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_51qhr")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Hit",
 "speed": 10.0
 }, {
@@ -133,7 +133,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2nuro")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -156,7 +156,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ks1ar")
 }],
-"loop": false,
+"loop": 0,
 "name": &"KnockOut",
 "speed": 12.0
 }]

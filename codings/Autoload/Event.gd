@@ -552,7 +552,7 @@ func get_marker_pos(title: String) -> Vector2:
 
 	for marker in Global.Area.markers:
 		if marker.name.replace("Marker", "") == title:
-			return marker.position + offset
+			return marker.global_position + offset
 
 	push_error("Failed to find marker: ", title)
 	return Vector2.ZERO
