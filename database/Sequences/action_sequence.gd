@@ -115,7 +115,7 @@ func handle_states() -> void:
 						var choices: Array[Ability] = chara.Abilities.duplicate()
 						choices.append(chara.StandardAttack)
 						chara.NextMove = choices.pick_random()
-						chara.NextAction = "Ability"
+						chara.NextAction = Actor.BtAction.MAGIC
 						chara.NextTarget = TurnOrder.pick_random()
 
 						if chara.Controllable:
@@ -158,7 +158,7 @@ func handle_states() -> void:
 					if randi_range(0, 6) > 1:
 						Bt.focus_cam(chara)
 						Bt.battle_msg("shock")
-						chara.NextAction = "Attack"
+						chara.NextAction = Actor.BtAction.ACT
 						chara.NextMove = Ability.nothing()
 						await Bt.shake_actor(chara)
 
@@ -170,7 +170,7 @@ func handle_states() -> void:
 						print("Saving throw: %.2f" % [saving_throw])
 						if revive_chance == 0.0:
 							print("Character is knocked out, skip turn")
-							chara.NextAction = "Attack"
+							chara.NextAction = Actor.BtAction.ACT
 							chara.NextMove = Ability.nothing()
 						elif saving_throw <= (revive_chance):
 							chara.remove_state(state)
@@ -178,13 +178,13 @@ func handle_states() -> void:
 							Bt.focus_cam(chara, 0.5, 10)
 							Bt.battle_msg("cant_recover")
 							await Bt.shake_actor(chara)
-							chara.NextAction = "Attack"
+							chara.NextAction = Actor.BtAction.ACT
 							chara.NextMove = Ability.nothing()
 
 				"Frozen":
 					Bt.focus_cam(chara)
 					Bt.battle_msg("frozen")
-					chara.NextAction = "Attack"
+					chara.NextAction = Actor.BtAction.ACT
 					chara.NextMove = Ability.nothing()
 					await Bt.shake_actor(chara)
 
@@ -1200,13 +1200,13 @@ func FirstBattle2(target: Actor) -> void:
 func FirstBattle22() -> void:
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura1")
-	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
+	Bt.get_actor("CrawlingSludge").NextAction = Actor.BtAction.MAGIC
 	Bt.get_actor("CrawlingSludge").NextMove = load("res://database/Abilities/InnerFocus.tres")
 
 
 func FirstBattle3() -> void:
 	Bt.get_actor("Mira").Abilities[0].disabled = false
-	Bt.get_actor("CrawlingSludge").NextAction = "Ability"
+	Bt.get_actor("CrawlingSludge").NextAction = Actor.BtAction.MAGIC
 	Bt.get_actor("CrawlingSludge").NextMove = load("res://database/Abilities/SoulTap.tres")
 	Bt.lock_turn = true
 	Event.pop_tutorial("aura2")
@@ -1252,7 +1252,7 @@ func AlcineWoods2() -> void:
 	Bt.focus_cam(Bt.get_actor("Alcine"))
 	Bt.get_actor("Alcine").SpeedBoost = +10
 	Bt.TurnOrder.sort_custom(Bt.speed_sort)
-	Bt.get_actor("Alcine").NextAction = "Ability"
+	Bt.get_actor("Alcine").NextAction = Actor.BtAction.MAGIC
 	Bt.get_actor("Alcine").NextMove = load("res://database/Abilities/SoothingSpray.tres")
 	Bt.get_actor("Alcine").NextTarget = Bt.get_actor("Mira")
 	Bt.get_actor("Alcine").node.show()
@@ -1288,13 +1288,15 @@ func StoneGuardianLoop() -> void:
 
 
 func StoneGuardian1() -> void:
+	Bt.Party.Leader.ClutchDmg = false
+	Bt.Party.Member1.ClutchDmg = false
 	var guardian := Bt.get_actor("Guardian")
 	Bt.zoom(7, 0)
 	guardian.MaterialOverride.set_shader_parameter("new_color", Color(0.235, 0.588, 0.498))
 	await Bt.focus_cam(guardian, 0, 0)
 	Loader.battle_bars(2)
-	guardian.NextMove = load("res://database/Abilities/SturdyGuard.tres")
-	guardian.NextAction = "Ability"
+	guardian.NextMove = await Query.get_ability("SturdyGuard")
+	guardian.NextAction = Actor.BtAction.MAGIC
 	Bt.zoom(6, 2)
 	Bt.focus_cam(guardian, 2, Vector2(-20, -40))
 	await Passive.open("story_0", "stone_guardian_intro")
@@ -1329,7 +1331,7 @@ func StoneGuardian2(target: Actor = CurrentChar) -> void:
 	await Event.wait(1)
 	Bt.get_actor("Guardian").AttackMultiplier = 2
 	Bt.get_actor("Guardian").MagicMultiplier = 2
-	guardian.NextAction = "Ability"
+	guardian.NextAction = Actor.BtAction.MAGIC
 	guardian.NextMove = load("res://database/Abilities/Drill.tres")
 	guardian.MainColor = Color(0.688, 0.636, 0.0, 1.0)
 
@@ -1500,10 +1502,10 @@ func LazuliteHeartBoss1() -> void:
 	Loader.battle_bars(2)
 	await Passive.open("story_2", "lazulite_heart_intro")
 	#Bt.return_cur(mira)
-	mira.NextAction = "Attack"
+	mira.NextAction = Actor.BtAction.ACT
 	mira.NextMove = Ability.nothing()
 	var alcine := Bt.get_actor("Alcine")
-	alcine.NextAction = "Attack"
+	alcine.NextAction = Actor.BtAction.ACT
 	alcine.NextMove = Bt.get_actor("Alcine").StandardAttack
 	alcine.NextTarget = Bt.get_actor("LHRight")
 	Bt.no_misses = true

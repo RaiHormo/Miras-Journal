@@ -1468,6 +1468,18 @@ tracks/55/keys = {
 "update": 2,
 "values": [Vector2(0.3, 0.3)]
 }
+tracks/56/type = "value"
+tracks/56/imported = false
+tracks/56/enabled = true
+tracks/56/path = NodePath("../BattleUI/Inventory/DottedBack:modulate")
+tracks/56/interp = 1
+tracks/56/loop_wrap = true
+tracks/56/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.380392, 0.380392, 0.380392, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_y0u2e"]
 resource_name = "ability"
@@ -2751,6 +2763,18 @@ tracks/19/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 2,
 "values": [Vector2(1350, 536)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("../BattleUI/Inventory/DottedBack:modulate")
+tracks/20/interp = 2
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.51560456, 1),
+"update": 0,
+"values": [Color(0.38039216, 0.38039216, 0.38039216, 0), Color(0.35, 0.35, 0.35, 0.69803923)]
 }
 
 [sub_resource type="Animation" id="Animation_xmfje"]
@@ -5158,17 +5182,8 @@ expand_icon = true
 modulate = Color(0.380392, 0.380392, 0.380392, 1)
 show_behind_parent = true
 light_mask = 0
-position = Vector2(39.8699, 257.851)
-scale = Vector2(0.7, 0.899713)
-texture = ExtResource("45_sxqe5")
-flip_h = true
-
-[node name="DottedBack2" type="Sprite2D" parent="BattleUI/Inventory" unique_id=1897827750]
-modulate = Color(0.380392, 0.380392, 0.380392, 1)
-show_behind_parent = true
-light_mask = 0
-position = Vector2(-729.57, 257.289)
-scale = Vector2(-0.485233, -0.898616)
+position = Vector2(3.3333645, 258.8889)
+scale = Vector2(1.3654515, 1.3654515)
 texture = ExtResource("45_sxqe5")
 flip_h = true
 

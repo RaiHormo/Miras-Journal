@@ -165,7 +165,7 @@ func _ready() -> void:
 	$Act/Actor0.add_child(Party.Leader.SoundSet.instantiate())
 	for i in TurnOrder:
 		sprite_init(i)
-		i.NextAction = ""
+		i.NextAction = Actor.BtAction.UNSET
 		i.BattleLog = [Actor.log_entry.new()]
 		i.load_complimentaries()
 
@@ -419,7 +419,7 @@ func check_for_victory() -> bool:
 
 func make_move() -> void:
 	if check_for_victory(): return
-	if CurrentChar.NextAction == "":
+	if CurrentChar.NextAction == Actor.BtAction.UNSET:
 		if CurrentChar.Controllable:
 			print_rich("[color=cornflower-blue]Control")
 			GetControl.emit()
@@ -439,11 +439,11 @@ func confirm_next(action_anim := true) -> void:
 	print_rich("[color=cornflower-blue]Action: ", CurrentChar.NextAction)
 
 	if CurrentChar.NextMove == CurrentChar.StandardAttack:
-		CurrentChar.NextAction = "Attack"
+		CurrentChar.NextAction = Actor.BtAction.ACT
 
 	if action_anim:
 		match CurrentChar.NextAction:
-			"Ability":
+			Actor.BtAction.MAGIC:
 				focus_cam(CurrentChar)
 				zoom(5.5)
 				callout(CurrentChar.NextMove)
@@ -451,7 +451,7 @@ func confirm_next(action_anim := true) -> void:
 				await anim("Ability")
 				if timer.time_left != 0: await timer.timeout
 
-			"Item":
+			Actor.BtAction.ITEM:
 				focus_cam(CurrentChar)
 				zoom(5.5)
 				var pos := CurrentChar.node.get_global_transform_with_canvas().origin
@@ -559,7 +559,7 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 	var log_entry := Actor.log_entry.new()
 	log_entry.ability = ab; log_entry.target = tar; log_entry.turn = Turn
 	CurrentChar.BattleLog.append(log_entry)
-	CurrentChar.NextAction = ""
+	CurrentChar.NextAction = Actor.BtAction.UNSET
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
 	CurrentAbility = ab

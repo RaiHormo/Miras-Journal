@@ -142,7 +142,9 @@ var SpeedBoost: int = 0
 @export var CantDodge := false
 @export var CantAttack := false
 
-var NextAction: String = ""
+enum BtAction {UNSET, ACT, MAGIC, ITEM, ITEM_GIVE, COMMAND}
+
+var NextAction: BtAction = BtAction.UNSET
 var NextMove: Ability = null:
 	set(x):
 		NextMove = x

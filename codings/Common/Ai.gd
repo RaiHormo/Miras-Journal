@@ -8,11 +8,14 @@ signal ai_chosen
 func ai() -> void:
 	print("AI")
 	Char = Bt.CurrentChar
+
 	if Char.has_state("KnockedOut") or Char.Health == 0:
-		Bt.end_turn()
+		print("Cannot move, skip turn")
+		Char.NextAction = Actor.BtAction.ACT
+		choose(Ability.nothing())
 		return
 
-	if Char.NextAction != "":
+	if Char.NextAction != Actor.BtAction.UNSET:
 		print("Forced move")
 		choose(Char.NextMove, Char.NextTarget)
 		return
@@ -22,6 +25,7 @@ func ai() -> void:
 	var highest_score: float = -1.0
 
 	var available_abilities: Array[Ability] = Char.Abilities.duplicate()
+
 	if Char.StandardAttack: available_abilities.append(Char.StandardAttack)
 
 	print("Available options:")
@@ -30,10 +34,12 @@ func ai() -> void:
 		if not is_instance_valid(ability):
 			push_error("AI found an invalid ability")
 			continue
+
 		print("-> %s" % [ability.name])
 		if ability.AuraCost != 0: print(" - Cost: %d AP" % [ability.AuraCost])
 		if not can_afford(ability):
 			print("	Can't afford")
+
 			continue
 
 		var valid_targets := get_valid_targets(ability)
@@ -42,8 +48,10 @@ func ai() -> void:
 		if ability.is_aoe():
 			# For AOE Abilities, scores are added up, then devided by the number of targets
 			var score := 0.0
+
 			for target in valid_targets:
 				score += evaluate_action(ability, target)
+
 			score += score_modifier
 			score /= valid_targets.size()
 
@@ -98,11 +106,14 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 					# Scales up as HP gets lower
 					if hp_pct <= 0.9:
 						score += (1 - hp_pct)
+
 			Ability.TP.SUMMON:
 				if Bt.get_ally_faction(Char).size() < 3:
 					score += 0.3
+
 				if Bt.get_ally_faction(Char).size() == 1:
 					score += 0.3
+
 			Ability.TP.CHEAP_ATTACK:
 				if is_enemy(tar):
 					# Prioritize an attack that will finish off the enemy
@@ -110,11 +121,13 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 						score = 1
 					else:
 						score += 0.5
+
 					# More likely to use if there's a buff
 					if ab.is_magic() and Char.has_state("MagUp"):
 						score += 0.3
 					elif Char.has_state("AtkUp"):
 						score += 0.3
+
 			Ability.TP.BIG_ATTACK:
 				if is_enemy(tar):
 					score += 0.7
@@ -123,36 +136,47 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 						score += 0.5
 					elif Char.has_state("AtkUp"):
 						score += 0.5
+
 			Ability.TP.CURSE:
 				if is_enemy(tar):
 					if not tar.has_state(ab.InflictsState): score += 0.55
+
 			Ability.TP.ATK_BUFF:
 				if is_ally(tar):
 					if tar.AttackMultiplier <= 1.0:
 						score += 0.2
+
 					if tar.ActorClass == "Attacker":
 						score += 0.4
+
 			Ability.TP.MAG_BUFF:
 				if is_ally(tar):
 					if tar.MagicMultiplier <= 1.0:
 						score += 0.2
+
 					if tar.ActorClass == "Mage":
 						score += 0.4
+
 			Ability.TP.DEF_BUFF:
 				if is_ally(tar):
 					if tar.DefenceMultiplier <= 1.0:
 						score += 0.2
+
 					if tar.ActorClass == "Tank":
 						score += 0.4
+
 			Ability.TP.AGGRO:
 				if is_enemy(tar):
 					if tar.get_attack() > 1:
 						score += 0.5
+
 			Ability.TP.DEFENSIVE:
 				if Char.Health < Char.MaxHP * 0.6:
 					score += 0.3
+
 				if Char.Aura < Char.MaxAura * 0.6:
 					score += 0.4
+
 			_:
 				# Just keep a high enough chance on unkown type things
 				score = max(score, 0.5)
@@ -165,6 +189,7 @@ func get_ability_score_modifiers(ab: Ability) -> float:
 
 	# Penalize high costs
 	var total_cost: float = (ab.AuraCost + (ab.HPCost / 2))
+
 	if total_cost > 0:
 		var penalty: float = (total_cost / float(Char.Aura)) * 0.3
 		score -= penalty
@@ -197,15 +222,20 @@ func can_afford(ab: Ability) -> bool:
 
 func get_valid_targets(ab: Ability) -> Array[Actor]:
 	var targets: Array[Actor] = []
+
 	match ab.Target:
 		Ability.T.SELF:
 			targets.append(Char)
+
 		Ability.T.ONE_ALLY, Ability.T.AOE_ALLIES:
 			targets.append_array(Bt.get_ally_faction(Char))
+
 		Ability.T.ONE_ENEMY, Ability.T.AOE_ENEMIES:
 			targets.append_array(Bt.get_oposing_faction())
+
 		Ability.T.ANY:
 			targets.append_array(Bt.TurnOrder)
+
 	return targets
 
 
@@ -225,15 +255,18 @@ func choose(ab: Ability, tar: Actor = null) -> void:
 	if ab.Target == Ability.T.SELF:
 		tar = Char
 	elif Char.NextTarget == null:
+
 		if tar == null:
 			Char.NextTarget = Bt.random_target(ab)
+
 		Char.NextTarget = tar
 
-	if Char.NextAction == "":
-		if ab == Char.StandardAttack:
-			Char.NextAction = "Attack"
+	if Char.NextAction == Actor.BtAction.UNSET:
+		if ab in Char.Abilities:
+			Char.NextAction = Actor.BtAction.MAGIC
 		else:
-			Char.NextAction = "Ability"
+			Char.NextAction = Actor.BtAction.ACT
+
 		Char.NextMove = ab
 
 	if (Char.has_state("Confused") and not ab.is_aoe()):

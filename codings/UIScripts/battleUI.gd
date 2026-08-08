@@ -330,7 +330,7 @@ func _on_attack() -> void:
 	Audio.confirm_sound()
 	stage = "attack"
 	PrevStage = "root"
-	CurrentChar.NextAction = "Attack"
+	CurrentChar.NextAction = Actor.BtAction.ACT
 	CurrentChar.NextMove = CurrentChar.StandardAttack
 	get_target(Bt.get_oposing_faction())
 
@@ -342,7 +342,7 @@ func _on_ability() -> void:
 
 	canvas.get_node("Confirm").text = "Confirm"
 	canvas.get_node("Back").text = "Back"
-	CurrentChar.NextAction = "Ability"
+	CurrentChar.NextAction = Actor.BtAction.MAGIC
 
 	PartyUI.only_current()
 	Audio.confirm_sound()
@@ -386,7 +386,7 @@ func _on_command() -> void:
 	PrevStage = &"root"
 
 	Bt.get_node("Canvas/Back").text = "Back"
-	CurrentChar.NextAction = "Command"
+	CurrentChar.NextAction = Actor.BtAction.COMMAND
 	analyzing = false
 	animation.play("command")
 
@@ -417,7 +417,7 @@ func _on_item() -> void:
 	Bt.get_node("Canvas/Give").text = "Give"
 	Bt.get_node("Canvas/Confirm").text = "Use"
 
-	CurrentChar.NextAction = "Item"
+	CurrentChar.NextAction = Actor.BtAction.ITEM
 	CurrentChar.NextMove = null
 	CurrentChar.NextTarget = null
 	$Item.icon = null
@@ -536,9 +536,10 @@ func get_target(faction: Array[Actor], ab := CurrentChar.NextMove) -> void:
 	confirm.text = "Target"
 
 	if ab != null:
-		wheel.show_atk_color(ab.WheelColor)
-		if (CurrentChar.NextAction != "Attack" and ab.WheelColor.s > 0
-		and ab.Damage != Ability.D.NONE):
+		if (
+			CurrentChar.NextAction != Actor.BtAction.ACT
+			and ab.WheelColor.s > 0 and ab.Damage != Ability.D.NONE
+		):
 			wheel.show()
 			wheel.show_atk_color(ab.WheelColor)
 		else:
@@ -718,7 +719,7 @@ func _on_targeted() -> void:
 		Global.member_details(CurrentChar.NextTarget)
 		stage = "analyze"
 		PrevStage = "analyze"
-	elif CurrentChar.NextAction == "ItemGive":
+	elif CurrentChar.NextAction == Actor.BtAction.ITEM_GIVE:
 		give_item(given_item)
 	else:
 		PrevStage = "targeted"
@@ -838,7 +839,7 @@ func use_item() -> void:
 		aitem.BattleEffect.Icon = aitem.Icon
 		aitem.BattleEffect.remove_item_on_use = foc.get_meta("ItemData")
 		PrevStage = &"item"
-		CurrentChar.NextAction = "Item"
+		CurrentChar.NextAction = Actor.BtAction.ITEM
 
 		if aitem.BattleEffect.Target == Ability.T.SELF or aitem.BattleEffect.Target == Ability.T.ONE_ALLY:
 			CurrentChar.NextMove = aitem.BattleEffect
@@ -1037,7 +1038,7 @@ func _on_give_pressed() -> void:
 
 		Audio.confirm_sound()
 		CurrentChar.NextMove = null
-		CurrentChar.NextAction = "ItemGive"
+		CurrentChar.NextAction = Actor.BtAction.ITEM_GIVE
 		var item_dat: ItemData = foc.get_meta("ItemData")
 		item_dat.BattleEffect.name = item_dat.Name
 		item_dat.BattleEffect.description = item_dat.Description
@@ -1055,11 +1056,11 @@ func give_item(item_dat: ItemData = given_item) -> void:
 	if CurrentTarget != null:
 		Bt.CurrentTarget = CurrentTarget
 
-		if CurrentTarget.NextAction == "":
+		if CurrentTarget.NextAction == Actor.BtAction.UNSET:
 			close()
 			Bt.focus_cam(CurrentTarget)
 			Bt.zoom(5)
-			CurrentTarget.NextAction = "Item"
+			CurrentTarget.NextAction = Actor.BtAction.ITEM
 			CurrentTarget.NextMove = item_dat.BattleEffect
 			Item.remove_item(item_dat)
 			Bt.battle_msg("use_on_turn", item_dat.Name)
@@ -1067,7 +1068,7 @@ func give_item(item_dat: ItemData = given_item) -> void:
 			fetch_inventory()
 			root.emit()
 			Audio.ui_sound("expand")
-			CurrentChar.NextAction = ""
+			CurrentChar.NextAction = Actor.BtAction.UNSET
 			CurrentChar.NextMove = null
 			CurrentChar.NextTarget = null
 		else:

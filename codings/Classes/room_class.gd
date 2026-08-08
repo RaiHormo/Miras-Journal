@@ -51,13 +51,13 @@ func _ready() -> void:
 				camera_index = i
 
 	# Setup camera
-	add_child(cam)
 	cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	cam.process_callback = Camera2D.CAMERA2D_PROCESS_IDLE
 	cam.limit_smoothed = false
 	cam.position_smoothing_enabled = false
 	cam.position_smoothing_speed = 10
 	cam.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(cam)
 	setup_params()
 	if camera_index != null:
 		cam.limit_left = camera_index.left

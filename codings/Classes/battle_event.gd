@@ -85,9 +85,20 @@ func run() -> void:
 				Textbox.open(parameter1, parameter2)
 
 			RES.FORCE_MOVE:
-				if parameter1 == "": parameter1 = "Ability"
+				var action: Actor.BtAction = Actor.BtAction.MAGIC
+
+				match parameter1:
+					"Attack", "Act":
+						action = Actor.BtAction.ACT
+
+					"Item":
+						action = Actor.BtAction.ITEM
+
+					"Command":
+						action = Actor.BtAction.COMMAND
+
 				var actor_data := Global.Bt.get_actor(actor)
-				actor_data.NextAction = parameter1
+				actor_data.NextAction = action
 				actor_data.NextMove = resource
 				print("Forcing ", resource.name, " on ", actor)
 				if not parameter2.is_empty():

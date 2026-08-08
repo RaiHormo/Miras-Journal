@@ -30,6 +30,7 @@ func draw_wheel() -> void:
 			$DoubleWeakIcon.hide()
 			$Rangeopose1.rotation_degrees = affinity.oposing_range[-1]
 			$ResistIcon.rotation_degrees = avrage_dg($Rangeresist.rotation_degrees, $Rangeopose1.rotation_degrees)
+
 		$Rangeweak.rotation_degrees = affinity.weak_range[0]
 		#$Rangeweak2.rotation_degrees = affinity.weak_range[-1]
 		#$Rangeresist1.rotation_degrees = affinity.resist_range[0]
@@ -38,21 +39,21 @@ func draw_wheel() -> void:
 		$NearIcon.rotation_degrees = avrage_dg($Rangenear2.rotation_degrees, $Rangenear1.rotation_degrees)
 		$NeturalIcon1.rotation_degrees = avrage_dg($Rangeweak.rotation_degrees, $Rangenear2.rotation_degrees)
 		$NeturalIcon2.rotation_degrees = avrage_dg($Rangenear1.rotation_degrees, $Rangeresist.rotation_degrees)
-		$ColorIndicator.rotation_degrees = affinity.hue
-		var IndicatorPanel: StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
-		IndicatorPanel.bg_color = color
+		#$ColorIndicator.rotation_degrees = affinity.hue
+		#var IndicatorPanel: StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel")
+		#IndicatorPanel.bg_color = color
 
 
 func avrage_dg(d1: float, d2: float) -> float:
-	if d1 < d2: return ((359 + d1) + d2) / 2
-	else: return (d1 + d2) / 2
+	if d1 < d2: return((359 + d1) + d2) / 2
+	else: return(d1 + d2) / 2
 
 
 func show_atk_color(clr: Color) -> void:
 	color = clr
+	$ColorIndicator.hide()
 	draw_wheel()
-	await Event.wait()
-	draw_wheel()
+	draw_wheel.call_deferred()
 
 
 func show_trg_color(clr: Color) -> void:
@@ -65,13 +66,16 @@ func show_trg_color(clr: Color) -> void:
 	var IndicatorPanel: StyleBoxFlat = $ColorIndicator.get_theme_stylebox("panel").duplicate()
 	IndicatorPanel.bg_color = tar_aff.color
 	$ColorIndicator.add_theme_stylebox_override("panel", IndicatorPanel)
+	$ColorIndicator.show()
 	relation_ico = null
 	await t.finished
 	IndicatorPanel.bg_color = tar_aff.color
+
 	if tar_aff.hue in affinity.oposing_range: relation_ico = $DoubleWeakIcon
 	elif tar_aff.hue in affinity.weak_range: relation_ico = $WeakIcon
 	elif tar_aff.hue in affinity.resist_range: relation_ico = $ResistIcon
 	elif tar_aff.hue in affinity.near_range: relation_ico = $NearIcon
+
 	if Global.Bt.ui.stage != "target": await Event.wait(0.3)
 	if relation_ico != null:
 		blink_icon(relation_ico)
