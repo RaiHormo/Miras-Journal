@@ -403,6 +403,7 @@ func options(submenu := 0) -> void:
 			opt.manual()
 
 	get_tree().root.add_child(opt)
+	opt.open.call_deferred()
 
 
 func title_screen() -> void:

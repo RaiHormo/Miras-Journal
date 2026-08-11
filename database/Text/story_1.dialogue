@@ -624,9 +624,9 @@ do wait(2)
 
 ~ maple_meet
 do travel_to("Pyrson;MapleBench+(0, 24)")
+do zoom(5, true)
 do no_player()
 do spawn("Mira:MiraOVBag", "MapleBench+(24,150)", "DashUpLoop", 3)
-do zoom(5, true)
 do check.emit()
 do tween_linear(npc("Mira"), "position", get_marker_pos("MapleBench+(24,32)"), 1)
 do npc("Mira").set_anim("DashUpStop")
@@ -660,10 +660,10 @@ Mira.Upset: I'm not...
 do npc("Maple").bubble("Surprise")
 He stares at the bandage on my arm.
 Maple.Neutral: Wait, I know just the thing!
-do npc("Mira").move_dir(Direction.LEFT)
+do npc("Mira").move_dir(Vector2(-24, -12), false)
 do npc("Mira").set_anim("EvAngryWave")
 Mira.Shocked: GET AWAY YOU...!
-do npc("Maple").move_dir(Direction.LEFT)
+do npc("Maple").move_dir(Vector2(-24, 0), false)
 [hide]
 do ui_sound("heal")
 do wait(1)

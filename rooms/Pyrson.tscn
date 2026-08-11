@@ -423,17 +423,17 @@ frame_progress = 0.546041
 offset = Vector2(0, -10)
 
 [node name="Maple" parent="NPCs" unique_id=1141217796 instance=ExtResource("16_s1pqb")]
-z_index = 3
+z_index = 4
 position = Vector2(715, 505)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="NPCs/Maple" unique_id=1495585592]
 use_parent_material = true
-position = Vector2(-1, 2)
+position = Vector2(0, 3)
 sprite_frames = ExtResource("17_585ds")
 animation = &"IdleDown"
 autoplay = "IdleDown"
 frame_progress = 0.137967
-offset = Vector2(1, -11)
+offset = Vector2(0, -16)
 
 [node name="TalkPrompt" parent="NPCs/Maple" unique_id=2087883881 instance=ExtResource("9_w0u03")]
 position = Vector2(1.14441e-05, 1)
@@ -497,27 +497,37 @@ to_layers = 3
 [node name="Chairs" type="Node" parent="." unique_id=729285830]
 
 [node name="Chair" parent="Chairs" unique_id=690503422 instance=ExtResource("33_u6p7b")]
-position = Vector2(516, 1091)
+position = Vector2(516, 1094)
 chair_faces = Array[String](["R"])
 
 [node name="Chair2" parent="Chairs" unique_id=445798075 instance=ExtResource("33_u6p7b")]
-position = Vector2(588, 1091)
+position = Vector2(588, 1094)
 chair_faces = Array[String](["L"])
 
 [node name="Chair3" parent="Chairs" unique_id=1050009947 instance=ExtResource("33_u6p7b")]
-position = Vector2(552, 1043)
+position = Vector2(552, 1046)
 chair_faces = Array[String](["D"])
 
 [node name="Chair4" parent="Chairs" unique_id=1644665959 instance=ExtResource("33_u6p7b")]
-position = Vector2(552, 923)
+position = Vector2(552, 926)
 chair_faces = Array[String](["D"])
 
+[node name="Chair7" parent="Chairs" unique_id=1884803340 instance=ExtResource("33_u6p7b")]
+position = Vector2(624, 420)
+trigger_size = 4
+chair_faces = Array[String](["U"])
+
+[node name="Chair9" parent="Chairs" unique_id=1174175057 instance=ExtResource("33_u6p7b")]
+position = Vector2(600, 420)
+trigger_size = 4
+chair_faces = Array[String](["U"])
+
 [node name="Chair5" parent="Chairs" unique_id=1240111794 instance=ExtResource("33_u6p7b")]
-position = Vector2(660, 1067)
+position = Vector2(660, 1071)
 chair_faces = Array[String](["R"])
 
 [node name="Chair6" parent="Chairs" unique_id=1132110392 instance=ExtResource("33_u6p7b")]
-position = Vector2(732, 1067)
+position = Vector2(732, 1071)
 chair_faces = Array[String](["L"])
 
 [node name="Events" type="Node2D" parent="." unique_id=416298774]
@@ -635,7 +645,7 @@ position = Vector2(319, 885)
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("15_3swys")
-angle = 1.5
+angle = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slope" unique_id=445762477]
 position = Vector2(42, -21)
@@ -1058,7 +1068,7 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="MarkerMapleBench" type="Marker2D" parent="." unique_id=296603525]
-position = Vector2(612, 406)
+position = Vector2(612, 419)
 
 [connection signal="action" from="HomeBuilding/Lamp3" to="HomeBuilding/Lamp3/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_entered"]

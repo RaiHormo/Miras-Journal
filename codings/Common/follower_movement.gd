@@ -147,6 +147,5 @@ func update() -> void:
 
 		if shadow_sprite:
 			if member_info().Shadow:
-				shadow_sprite.show()
-				shadow_sprite.position.y = member_info().OVShadowOffset
-			else: shadow_sprite.hide()
+				shadow(true)
+			else: shadow(false)

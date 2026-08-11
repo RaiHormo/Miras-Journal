@@ -4,3 +4,6 @@ jump anim for the others
 figure out a new path in withered leaves
 new puzzles in shard gardens
 alcine alone area art
+title screen art
+daze portraits
+fix shadows

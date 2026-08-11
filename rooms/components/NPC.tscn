@@ -21,7 +21,7 @@ Nav = NodePath("Nav")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340304904]
-position = Vector2(0.014881, 1.99995)
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_vnvbs")
 debug_color = Color(0, 0.6, 0.7, 0.084)
 
@@ -31,7 +31,7 @@ path_postprocessing = 1
 [node name="Icon" type="Sprite2D" parent="." unique_id=1252636865]
 light_mask = 0
 z_index = 10
-position = Vector2(0, 7)
+position = Vector2(1, 5)
 scale = Vector2(0.223264, 0.223264)
 texture = ExtResource("2_n2ikt")
 script = ExtResource("3_a0g5d")
@@ -52,6 +52,4 @@ frame_progress = 1.0
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
-position = Vector2(0, 2)
 texture = ExtResource("4_xha1c")
-offset = Vector2(0, 9)

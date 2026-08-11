@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name OptionsUI
 var t: Tween
 var stage := "inactive"
 var focus: Control
@@ -13,7 +14,7 @@ var main_button_positions: Dictionary[String, Vector2]
 var Tutorials: Array
 
 
-func _ready() -> void:
+func open() -> void:
 	hide()
 	if $/root.get_node_or_null("MainMenu") and $/root/MainMenu.stage != "options":
 		$/root/MainMenu._on_back_button_down()

@@ -33,7 +33,6 @@ shadow_sprite = NodePath("Shadow")
 unique_name_in_owner = true
 show_behind_parent = true
 use_parent_material = true
-position = Vector2(0, 6)
 texture = ExtResource("4_qao14")
 
 [node name="Timer" type="Timer" parent="." unique_id=807342352]
@@ -41,7 +40,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=48673383]
-position = Vector2(0, 9)
+position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_xvt3h")
 disabled = true
 
@@ -50,10 +49,9 @@ editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi
 texture_filter = 1
 material = ExtResource("2_ppxuy")
 use_parent_material = true
-position = Vector2(0, 5)
 sprite_frames = ExtResource("3_vmt3u")
 animation = &"IdleLeft"
-offset = Vector2(0, -9)
+offset = Vector2(0, -12)
 
 [node name="Glow" type="PointLight2D" parent="." unique_id=1295388205]
 texture_filter = 2

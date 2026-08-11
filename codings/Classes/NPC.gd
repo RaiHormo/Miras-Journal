@@ -91,6 +91,10 @@ func _ready() -> void:
 
 
 func setup_shadow() -> void:
+	if sprite:
+		if sprite.sprite_frames.has_animation("IdleDown"):
+			sprite.offset.y = - sprite.sprite_frames.get_frame_texture("IdleDown", 0).get_size().y / 2 + 7
+
 	if shadow_sprite:
 		if no_shadow:
 			shadow_sprite.hide()
@@ -307,7 +311,9 @@ func go_to(pos: Variant, use_coords := false, autostop := false, look_dir: Varia
 
 	if self is Mira and Global.Player.controllable(): return
 	await stop_going()
-	if use_coords: pos = Query.globalize(pos)
+	
+	if use_coords: pos *= 24
+	
 	if Engine.time_scale > 2:
 		position = pos
 		return

@@ -11,7 +11,7 @@ signal action()
 		trigger_size = x
 
 		for coll in get_children():
-			if coll is CollisionShape2D:
+			if coll is CollisionShape2D and coll.shape:
 				coll.shape = coll.shape.duplicate()
 
 				if coll.shape is RectangleShape2D:

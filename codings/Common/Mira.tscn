@@ -643,12 +643,9 @@ size = Vector2(13, 6)
 
 [node name="Mira" type="CharacterBody2D" unique_id=1955284413 node_paths=PackedStringArray("Nav")]
 process_mode = 3
-z_index = 3
 z_as_relative = false
-y_sort_enabled = true
 material = ExtResource("1_srkwi")
 use_parent_material = true
-position = Vector2(0, -3)
 collision_layer = 3
 collision_mask = 15
 motion_mode = 1
@@ -679,6 +676,7 @@ texture_scale = 1.5
 [node name="Sprite" type="CanvasGroup" parent="." unique_id=1951205845]
 light_mask = 3
 texture_filter = 2
+position = Vector2(0, -5)
 
 [node name="Base" type="AnimatedSprite2D" parent="Sprite" unique_id=288160506]
 unique_name_in_owner = true
@@ -724,28 +722,25 @@ animation = &"ReachOut2"
 unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
-position = Vector2(0, -4)
 texture = ExtResource("10_dxclp")
-offset = Vector2(0, 9)
 
 [node name="Bubble" type="AnimatedSprite2D" parent="." unique_id=1706025424]
 light_mask = 0
 z_index = 3
 material = ExtResource("1_srkwi")
-position = Vector2(-0.00622558, -32.0003)
+position = Vector2(-0.00622558, -34.0003)
 sprite_frames = ExtResource("11_buww2")
 animation = &"Surprise"
 frame = 15
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970471933]
-position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ss1lh")
 one_way_collision_margin = 15.4
 
 [node name="DirectionMarker" type="Marker2D" parent="." unique_id=1161425471]
-position = Vector2(0, 20)
+position = Vector2(0, 17)
 gizmo_extents = 0.0
 
 [node name="Finder" type="Area2D" parent="DirectionMarker" unique_id=137096727]
@@ -758,6 +753,7 @@ debug_color = Color(0.4, 0.603922, 0.239216, 0.419608)
 
 [node name="TerrainDetector" type="Area2D" parent="." unique_id=825912033]
 z_index = -1
+position = Vector2(0, -6)
 collision_layer = 0
 collision_mask = 255
 
@@ -780,6 +776,7 @@ update_scale = false
 [node name="Fader" type="ColorRect" parent="." unique_id=1841963060]
 process_mode = 1
 visible = false
+show_behind_parent = true
 light_mask = 0
 material = SubResource("ShaderMaterial_7m28b")
 offset_left = -302.0
@@ -797,7 +794,6 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Attack" type="Area2D" parent="." unique_id=1395755508]
-position = Vector2(0, 2)
 collision_layer = 767
 collision_mask = 767
 

@@ -532,35 +532,10 @@ metadata/_edit_group_ = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="NPC" unique_id=951535178]
 use_parent_material = true
-position = Vector2(0.0552656, 0.0200653)
 sprite_frames = ExtResource("11_78rf1")
 animation = &"IdleDown"
-offset = Vector2(-0.0924684, -5.01993)
-
-[node name="NPCAsteria" type="CharacterBody2D" parent="." unique_id=1778668115]
-z_index = 1
-position = Vector2(251, 22)
-motion_mode = 1
-script = ExtResource("10_yq8yv")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCAsteria" unique_id=1406627352]
-visible = false
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_dxoxl")
-
-[node name="Shadow" type="Sprite2D" parent="NPCAsteria" unique_id=1113500281]
-show_behind_parent = true
-texture_filter = 1
-position = Vector2(0, 2)
-texture = ExtResource("18_wmbgr")
-offset = Vector2(-0.4, 9.2)
-
-[node name="Sprite" type="AnimatedSprite2D" parent="NPCAsteria" unique_id=1894290467]
-editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9Bc3RlcmlhL0FzdGVyaWFPVi5hc2UKbGF5ZXJ8PUxheWVyIDEKb3BfZXhwfD10cnVlCm9fZm9sZGVyfD1yZXM6Ly9hcnQvT1YvQXN0ZXJpYS8Kb19uYW1lfD1Bc3RlcmlhT1YyLnBuZwpvbmx5X3Zpc2libGV8PXRydWUKb19leF9wfD0K"
-texture_filter = 1
-sprite_frames = ExtResource("19_tuy8d")
-animation = &"IdleUp"
+frame_progress = 0.72594273
+offset = Vector2(0, -17.5)
 
 [node name="NPCDaze" type="CharacterBody2D" parent="." unique_id=1374157244]
 z_index = 1
@@ -600,6 +575,16 @@ to_time = -1
 to_time_relative = 1
 bubble_always = true
 Height = 16
+
+[node name="NPCAsteria" parent="." unique_id=344934070 instance=ExtResource("12_toobe")]
+position = Vector2(247, 36)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="NPCAsteria" unique_id=169870246]
+editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpzb3VyY2V8PXJlczovL2FydC9PVi9EYXplL0RhemVPVi5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9dHJ1ZQpvX2ZvbGRlcnw9cmVzOi8vYXJ0L09WL0RhemUvCm9fbmFtZXw9RGF6ZU9WLnBuZwpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
+texture_filter = 1
+sprite_frames = ExtResource("19_tuy8d")
+animation = &"IdleDown"
+offset = Vector2(0, -18)
 
 [node name="Transfer" parent="." unique_id=1724436530 instance=ExtResource("25_osbeo")]
 position = Vector2(-270, 58)
