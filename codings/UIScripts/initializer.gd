@@ -1,12 +1,12 @@
 extends Node
 var game_exists := false
 var inactive := false
-var focused := 1
 
 @onready var title_screen: CanvasLayer = $TitleScreen
 #unique node names would also be a solution, and makes it less of a pain to write all these vars
-@onready var menu_screen: VBoxContainer = $TitleScreen/Menu
 @onready var error_screen: Panel = $TitleScreen/Error
+@onready var load_button: Button = $TitleScreen/Load
+
 var options: OptionsUI
 
 
@@ -24,8 +24,6 @@ func _ready() -> void:
 		game_exists = true
 	else:
 		game_exists = false
-		var continue_button: Button = menu_screen.get_node("Continue")
-		continue_button.text = "New game"
 
 	error_hint.text = "Hint: Options loading"
 	options = preload("res://UI/Options/Options.tscn").instantiate()
@@ -49,12 +47,13 @@ func _ready() -> void:
 	if game_exists:
 		focus()
 	else:
+		options.queue_free()
 		dismiss_title()
-		Event.sequence("new_game")
+		Event.sequence.call_deferred("new_game")
 
 
 func focus() -> void:
-	menu_screen.get_child(focused).grab_focus()
+	load_button.grab_focus()
 	get_window().grab_focus()
 
 
@@ -113,23 +112,24 @@ func you_can_now_play_as(chara: String) -> void:
 # Deprecated
 
 
-func _on_continue_pressed() -> void:
-	if inactive: return
-	inactive = true
+#func _on_continue_pressed() -> void:
+	#if inactive: return
+	#inactive = true
+#
+	#if Input.is_action_pressed("LeftTrigger"):
+		#you_can_now_play_as("Asteria")
+#
+	#await Loader.load_game("Autosave")
+	#dismiss_title()
+	#Event.give_control(false)
+	#get_tree().paused = false
+#
+#
+#func _on_new_pressed() -> void:
+	#Audio.confirm_sound()
+	#if not game_exists or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
+		#dismiss_title()
+		#Event.sequence("new_game")
 
-	if Input.is_action_pressed("LeftTrigger"):
-		you_can_now_play_as("Asteria")
-
-	await Loader.load_game("Autosave")
-	dismiss_title()
-	Event.give_control(false)
-	get_tree().paused = false
-
-
-func _on_new_pressed() -> void:
-	Audio.confirm_sound()
-	if not game_exists or await Global.warning("Start a new game? Any Autosave data will be overwritten, so make sure to save it into a new file if you want to keep it.", "NEW GAME", ["Cancel", "Start New Game"]):
-		dismiss_title()
-		Event.sequence("new_game")
-	else:
-		focus()
+	#else:
+		#focus()

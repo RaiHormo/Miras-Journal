@@ -1,7 +1,7 @@
 ~ nov1_dream
 do lower_layer()
 I feel like I'm in a city... I walk around... 
-There is one central building... Lots of people...
+There is large buildings... Lots of people...
 Suddenly my view shatters, I see many pieces of glass around me that reflect like mirrors.... 
 The people around me are gone, but I feel like there is still someone with me... 
 I hear a loud noise.
@@ -15,7 +15,7 @@ I do want to sleep a bit longer though-
 I don't think I can ever get enough rest with all that's happened.
 I wonder what {{alcine()}} is doing now... I left them all alone...
 Maybe I should ask Daze to go back to Amberelm so I can find them.
-(hide)
+[hide]
 set ToTime = 2
 set ToDay = 1
 do! time_transition()
@@ -27,25 +27,35 @@ I guess I should get up too...
 => END
 
 ~ nov1_daytime
-Daze: The food I have really won't last us long, I really didn't prepare for this situation.
-Mira: Hey, my supplies weren't even enough to take a step outside my village!
-(hide)
-do transition()
+Daze.Neutral: The food I have really won't last us long, I really didn't prepare for this situation.
+Mira.Smile: Hey, my supplies weren't even enough to take a step outside my village!
+[hide]
+do! gray_out(1)
 do lower_layer()
+do wait(1)
 After we finish eating, I'll ask.
-(hide)
-do detransition()
-Mira: Um... would you mind if we went towards that abandoned city you found me in again?
-Daze: Did you forget something there?
-Mira: Remember that spirit I mentioned?
-Mira: {{alcine()}}, they really helped me out with healing magic in that place but I lost them after the Guardian attacked.
-Daze: I was planning on exploring further today, but I guess we can go back if really want to.
-Mira: Ok let's go then.
+[hide]
+do ungray.emit()
+Mira.Curious: Um... would you mind if we went towards that abandoned city you found me in again?
+Daze.Neutral: Did you forget something there?
+Mira.Neutral: Remember that spirit I mentioned?
+Mira.Smile: {{alcine()}}, they really helped me out with healing magic in that place...
+Mira.Upset: But I lost them when the... Guardian attacked.
+Mira.Neutral: You think we can take a look..?
+Daze.Neutral: I was planning on exploring further today.
+[hide]
+do npc("Mira").bubble("Sweat")
+Daze.Neutral: But... suppose we can go back if really want to.
+do! npc("Mira").bubble("Excited")
+Mira.Smile: Yay![br]We're off then!
+[hide]
+do npc("Mira").move_dir(Direction.UP)
 I go to pick up my axe, but it seems too hard to hold it with my injured arm.
-Daze: No, Ms. Levenor, you are in no state to be fighting.
+Daze.Neutral: No, Ms. Levenor, you are in no state to be fighting.
 Mira: But-
-Daze: No. If we run into any monters I'll do the fighting and you stay back. Undertood?
-Mira: Ugh, fine...
+Daze.Neutral: Absolutely not! If we run into any monters I'll do the fighting and you stay back. Undertood?
+do npc("Mira").look_to(Direction.UP)
+Mira.Angry: Ugh, fine...
 => END
 
 ~ daze_enemy_1
@@ -65,7 +75,7 @@ Mira.Angry: I know plenty about magic, I've studied these things thoroughly!
 Mira.Angry: You just wanted to show off [i]how much better you are[/i]!
 do! npc("F1").move_dir(Vector2.DOWN*6)
 Mira.Neutral: Let's just just hurry up, I want to see {{alcine()}}.
-Daze.Neutral: *sigh* [wait=0.5]There I went and did it again...
+Daze.Neutral: *sigh*
 [hide]
 do! travel_to("WitheredLeaves", npc("F1").position)
 do! Party.set_to(["Mira", "Daze"])

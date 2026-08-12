@@ -322,16 +322,16 @@ down = 552
 
 [node name="Index1" parent="." unique_id=829155680 instance=ExtResource("2_ncxtw")]
 offset_left = -1525.0
-offset_top = -1327.0
+offset_top = -1310.0
 offset_right = -1302.0
-offset_bottom = -1169.0
+offset_bottom = -1181.0
 border_color = Color(0.15918007, 0.6594284, 0.4892642, 1)
 zoom = 6.0
 spawn_player = false
 left = -1525
-up = -1327
+up = -1310
 right = -1302
-down = -1169
+down = -1181
 
 [node name="LeafParticles" type="GPUParticles2D" parent="." unique_id=1703221416]
 z_index = 10
@@ -369,7 +369,7 @@ tile_map_data = PackedByteArray("AAAJAPr/CQACAAIAAAAwAPL/BgAAAAAAAAAwAPX/BgAAAAA
 tile_set = ExtResource("4_4p2pc")
 
 [node name="MarkerTentInside" type="Marker2D" parent="." unique_id=2060736786]
-position = Vector2(-1417, -1248)
+position = Vector2(-1417, -1237)
 
 [node name="Darken" type="PointLight2D" parent="." unique_id=407590979]
 position = Vector2(213.56252, -579.00006)

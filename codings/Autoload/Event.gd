@@ -558,7 +558,7 @@ func get_marker_pos(title: String) -> Vector2:
 	return Vector2.ZERO
 
 
-func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_collision := true) -> NPC:
+func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int = Global.Area.get_z(), no_shadow := false, no_collision := true) -> NPC:
 	if pos is String:
 		pos = Event.get_marker_pos(pos)
 
@@ -568,7 +568,10 @@ func spawn(id: String, pos: Variant, animation: Variant = Direction.DOWN, z: int
 	chara.add_child(sprite_node)
 	sprite_node.name = "Sprite"
 	sprite_node.use_parent_material = true
-	chara.setup_shadow.call_deferred()
+	chara.setup_shadow()
+	if no_shadow:
+		chara.shadow(false)
+
 	var nam := id.split(":")
 	var sprite := await Query.get_ov_sprites(id)
 

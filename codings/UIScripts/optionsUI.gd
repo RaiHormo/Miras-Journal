@@ -456,7 +456,8 @@ func _on_focus_changed(control: Control) -> void:
 	focus = control
 
 	if stage == "save_managment":
-		if control.get_parent().get_parent().name == "New":
+		if control.get_parent().name == "New":
+			$Confirm.position = $Back.position + Vector2(164, 0)
 			$Confirm.show()
 			$SavePanel/Buttons/Overwrite.disabled = true
 			$SavePanel/Buttons/Delete.disabled = true

@@ -92,6 +92,8 @@ func new_game() -> void:
 	Global.Player.set_anim("IdleUp")
 	Global.Controllable = true
 	Event.pop_tutorial("walk")
+	options.hide()
+	getup.hide()
 
 
 func bag_seq() -> void:
