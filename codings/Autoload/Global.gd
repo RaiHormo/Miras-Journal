@@ -390,20 +390,20 @@ func game_over() -> void:
 func options(submenu := 0) -> void:
 	if get_tree().root.has_node("Options"): return
 	var control := Global.Controllable
-	var opt: Node = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
+	var opt: OptionsUI = (await Loader.load_res("uid://bh82q5qur5ppl")).instantiate()
 	Global.Controllable = control
 
 	match submenu:
 		1:
 			opt.set_no_main()
 			opt.save_managment()
+			
 
 		3:
 			opt.set_no_main()
 			opt.manual()
 
 	get_tree().root.add_child(opt)
-	opt.open.call_deferred()
 
 
 func title_screen() -> void:

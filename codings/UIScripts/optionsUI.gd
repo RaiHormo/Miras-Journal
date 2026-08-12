@@ -10,12 +10,18 @@ var was_paused: bool
 var cant_save := false
 var save_files_loaded := false
 var no_main := false
+var dont_open_yet := false
 var main_button_positions: Dictionary[String, Vector2]
 var Tutorials: Array
 
 
-func open() -> void:
+func _init() -> void:
 	hide()
+
+
+func _ready() -> void:
+	if dont_open_yet: return
+
 	if $/root.get_node_or_null("MainMenu") and $/root/MainMenu.stage != "options":
 		$/root/MainMenu._on_back_button_down()
 		queue_free()
@@ -74,6 +80,8 @@ func open() -> void:
 	t.tween_property($Fader, "modulate", Color(0, 0, 0, 0.4), 1).from(Color(0, 0, 0, 0))
 	if no_main:
 		$Background.position = Vector2(1500, 0)
+		stage = "main"
+		loaded.emit()
 		return
 
 	t.tween_property($Background, "position", Vector2(560, 0), 0.5).from(Vector2(900, -2384))
@@ -123,12 +131,6 @@ func set_no_main() -> void:
 
 	$Confirm.hide()
 	$Back.position.x = -200
-
-	await ready
-	#await Event.wait(0.3, false)
-	stage = "main"
-	loaded.emit()
-	#$Background.hide()
 
 
 func siilhouette() -> void:
@@ -595,8 +597,8 @@ func load_save_files() -> void:
 	if not save_files_loaded:
 		save_files_loaded = true
 		Loader.ungray.emit()
-		if Input.is_action_pressed(&"ui_accept"):
-			_on_save_load()
+		#if Input.is_action_pressed(&"ui_accept"):
+			#_on_save_load()
 
 
 func file_sort(a: Control, b: Control) -> bool:

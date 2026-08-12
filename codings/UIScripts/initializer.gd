@@ -7,6 +7,7 @@ var focused := 1
 #unique node names would also be a solution, and makes it less of a pain to write all these vars
 @onready var menu_screen: VBoxContainer = $TitleScreen/Menu
 @onready var error_screen: Panel = $TitleScreen/Error
+var options: OptionsUI
 
 
 func _ready() -> void:
@@ -25,6 +26,12 @@ func _ready() -> void:
 		game_exists = false
 		var continue_button: Button = menu_screen.get_node("Continue")
 		continue_button.text = "New game"
+
+	error_hint.text = "Hint: Options loading"
+	options = preload("res://UI/Options/Options.tscn").instantiate()
+	options.load_save_files.call_deferred()
+	options.dont_open_yet = true
+	get_tree().root.add_child.call_deferred(options)
 
 	error_hint.text = "Hint: File check"
 	title_screen.show()
@@ -51,35 +58,29 @@ func focus() -> void:
 	get_window().grab_focus()
 
 
-func _on_continue_pressed() -> void:
+func _on_load_pressed() -> void:
 	if inactive: return
-	inactive = true
-
-	if get_tree().root.has_node("Options"): return
-	if Input.is_action_pressed("LeftTrigger"):
-		you_can_now_play_as("Asteria")
-
-	await Loader.load_game("Autosave")
-	dismiss_title()
-	Event.give_control(false)
-	get_tree().paused = false
+	if get_tree().root.has_node("Options"):
+		options.dont_open_yet = false
+		options.set_no_main()
+		options.save_managment()
+		options._ready.call_deferred()
+	else:
+		Global.options(1)
 
 
 func _input(event: InputEvent) -> void:
 	glyph_update()
-	#if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_down") and get_viewport().gui_get_focus_owner().get_parent() == $TitleScreen/Menu:
-		#Audio.cursor_sound()
-		#await get_tree().physics_frame
-		#var foc: Control = get_viewport().gui_get_focus_owner()
-#
-		#if foc.get_parent() == $TitleScreen/Menu:
-			#focused = foc.get_index()
 
 
 func _on_options_pressed() -> void:
 	if inactive: return
-	if get_tree().root.has_node("Options"): return
-	Global.options()
+	if get_tree().root.has_node("Options"):
+		options.dont_open_yet = false
+		options._ready()
+	else:
+		Global.options()
+
 	#dismiss_title()
 
 
@@ -109,11 +110,20 @@ func you_can_now_play_as(chara: String) -> void:
 	ResourceSaver.save(data, "user://Autosave.tres")
 	Global.warning("You can now play as [img height=64]res://art/Icons/Party/" + chara + ".png[/img] " + chara + ".", "CONGRATS", ["A"])
 
+# Deprecated
 
-func _on_load_pressed() -> void:
+
+func _on_continue_pressed() -> void:
 	if inactive: return
-	if get_tree().root.has_node("Options"): return
-	Global.options(1)
+	inactive = true
+
+	if Input.is_action_pressed("LeftTrigger"):
+		you_can_now_play_as("Asteria")
+
+	await Loader.load_game("Autosave")
+	dismiss_title()
+	Event.give_control(false)
+	get_tree().paused = false
 
 
 func _on_new_pressed() -> void:
