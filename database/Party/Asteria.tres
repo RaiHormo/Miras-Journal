@@ -9,8 +9,8 @@
 [ext_resource type="Resource" uid="uid://csw8febwm47rj" path="res://database/Abilities/RedShift.tres" id="4_j7xb4"]
 [ext_resource type="Resource" uid="uid://cci8aukur3fo7" path="res://database/Abilities/Drill.tres" id="6_7hmow"]
 [ext_resource type="Resource" uid="uid://dbs3pn78pvpuc" path="res://database/Abilities/Glimmer.tres" id="6_8xal8"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="7_6lfki"]
 [ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="7_75i7m"]
+[ext_resource type="Resource" uid="uid://d2mxyd537mr20" path="res://database/Items/KeyItems/PocessedScarf.tres" id="11_7hmow"]
 
 [sub_resource type="Curve" id="Curve_7hmow"]
 _limits = [0.0, 500.0, 1.0, 50.0]
@@ -28,11 +28,10 @@ PartyIcon = ExtResource("2_jl2mg")
 ActorClass = "Mage"
 codename = &"Asteria"
 Pronouns = "she"
-WeaponPower = 16
 SecondaryColor = Color(0.69189, 0.395577, 0.688155, 1)
 CharacterBoxProfile = ExtResource("3_tcuxw")
 LastName = "Versea"
-Weapon = "Possessed Scarf"
+Weapon = ExtResource("11_7hmow")
 PartyPage = "uid://81tshj45pio3"
 RenderArtwork = "uid://daok3tmqcs2kf"
 HpOnSLvUp = 18
@@ -51,5 +50,4 @@ StandardAttack = ExtResource("7_75i7m")
 LearnableAbilities = Array[ExtResource("1_wfdm5")]([ExtResource("6_7hmow"), ExtResource("6_8xal8")])
 Offset = Vector2(4, -15)
 Shadow = true
-ShadowOffset = 2
 Disappear = false

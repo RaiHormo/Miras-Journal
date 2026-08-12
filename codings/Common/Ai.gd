@@ -117,7 +117,7 @@ func evaluate_action(ab: Ability, tar: Actor) -> float:
 			Ability.TP.CHEAP_ATTACK:
 				if is_enemy(tar):
 					# Prioritize an attack that will finish off the enemy
-					if tar.Health <= (Char.WeaponPower * Char.get_attack() * tar.get_defence()):
+					if tar.Health <= (Char.Weapon.power * Char.get_attack() * tar.get_defence()):
 						score = 1
 					else:
 						score += 0.5

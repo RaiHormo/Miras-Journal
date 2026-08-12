@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponItem" format=3 uid="uid://pd0gagp8jsao"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_oupm5"]
+[ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="2_oupm5"]
+[ext_resource type="Script" uid="uid://5klh1xmhdeg6" path="res://codings/Classes/weapon_class.gd" id="3_iptap"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2bwn"]
+resource_local_to_scene = true
+atlas = ExtResource("1_oupm5")
+region = Rect2(18, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("3_iptap")
+attack = ExtResource("2_oupm5")
+power = 32
+Name = "Gold Plated Katana"
+Description = "A sharp long sword.
+The gold parts on the handle allow the user's Electric magic to pass through."
+ItemType = "Key"
+Icon = SubResource("AtlasTexture_j2bwn")

@@ -440,7 +440,7 @@ func _input(event: InputEvent) -> void:
 		var hold_frames := 1
 		t = create_tween().set_trans(Tween.TRANS_QUART)
 		t.tween_property($Hints, "position:x", 1400, 0.5)
-		while Input.is_action_pressed("Dash"):
+		while Input.is_action_pressed("Dash") and not Global.Controllable:
 			hold_frames += 1
 			await Event.wait()
 			Engine.time_scale = 4

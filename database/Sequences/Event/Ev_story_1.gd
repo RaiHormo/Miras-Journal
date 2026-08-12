@@ -25,6 +25,7 @@ func nov1_daytime() -> void:
 	await Textbox.open(name, "nov1_daytime")
 	Global.Party.set_to_strarr(["Mira", 'Daze'])
 	Item.remove_item("LightweightAxe", &"Key")
+	Query.find_member("Mira").Weapon = load("res://database/Items/KeyItems/NoWeapon.tres")
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
 
 

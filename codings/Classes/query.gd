@@ -2,9 +2,6 @@ extends Node
 class_name Query
 
 
-
-
-
 static func str_length(string: String) -> int:
 	return string.length()
 
@@ -23,6 +20,7 @@ static func get_mmm(month: int) -> String:
 		10: return "Oct"
 		11: return "Nov"
 		12: return "Dec"
+
 	return "???"
 
 
@@ -40,6 +38,7 @@ static func get_month_name(month: int) -> String:
 		10: return "October"
 		11: return "November"
 		12: return "December"
+
 	return "Unknown"
 
 
@@ -72,12 +71,14 @@ static func in_360(nm: int) -> int:
 static func member_exists(Name: StringName) -> bool:
 	for i in Global.Members:
 		if i.codename == Name: return true
+
 	return false
 
 
 static func find_member(Name: StringName) -> Actor:
 	for i in Global.Members:
 		if i.codename == Name: return i
+
 	push_warning("No party member with the name " + Name + " was found")
 	return null
 
@@ -91,9 +92,11 @@ static func calc_num(ab: Ability = Global.Bt.CurrentAbility, chara: Actor = null
 		Ability.D.HEAVY: base = 48
 		Ability.D.SEVERE: base = 96
 		Ability.D.CUSTOM: base = int(ab.Parameter)
-		Ability.D.WEAPON: base = chara.WeaponPower if chara else Global.Bt.CurrentChar.WeaponPower
+		Ability.D.WEAPON: base = chara.Weapon.power if chara else Global.Bt.CurrentChar.Weapon.power
+
 	if ab.DmgVarience:
 		base = int(base * randf_range(0.8, 1.2))
+
 	return base
 
 
@@ -101,6 +104,7 @@ static func get_complimentaries() -> Array[Ability]:
 	var rtn: Array[Ability]
 	for i in Global.Complimentaries:
 		var ability := await get_ability(i)
+
 		if ability != null:
 			rtn.append(ability)
 		else: push_error("The complimentary Ability ", i, " is invalid")
@@ -110,8 +114,10 @@ static func get_complimentaries() -> Array[Ability]:
 static func get_ability(ab: String) -> Ability:
 	if ResourceLoader.exists("res://database/Abilities/" + ab + ".tres"):
 		return await Loader.load_res("res://database/Abilities/" + ab + ".tres")
+
 	if ResourceLoader.exists("res://database/Abilities/Attacks/" + ab + ".tres"):
 		return await Loader.load_res("res://database/Abilities/Attacks/" + ab + ".tres")
+
 	return null
 
 
@@ -122,6 +128,7 @@ static func to_tod_text(x: Event.TOD) -> String:
 		Event.TOD.AFTERNOON: return "Afternoon"
 		Event.TOD.EVENING: return "Evening"
 		Event.TOD.NIGHT: return "Night"
+
 	return "Dark hour"
 
 
@@ -133,8 +140,10 @@ static func to_tod_icon(x: Event.TOD) -> Texture:
 
 static func range_360(n1: int, n2: int) -> Array[int]:
 	var result: Array[int] = []
+
 	for i in range(n2 - n1):
 		result.append(posmod(n1 + i, 360))
+
 	return result
 
 
@@ -149,14 +158,19 @@ static func mem(Name: StringName) -> Actor:
 
 static func number_of_party_members() -> int:
 	var num := 0
+
 	if check_member(0):
 		num += 1
+
 	if check_member(1):
 		num += 1
+
 	if check_member(2):
 		num += 1
+
 	if check_member(3):
 		num += 1
+
 	return num
 
 
@@ -207,6 +221,7 @@ static func find_abilities(Char: Actor, type: Ability.TP, ignore_cost := false, 
 	var AblilityList: Array[Ability] = Char.Abilities.duplicate()
 	AblilityList.push_front(Char.StandardAttack)
 	var Choices: Array[Ability] = []
+
 	for i in AblilityList:
 		if (type in i.Types and (targets == Ability.T.ANY or i.Target == targets)):
 			if ((i.AuraCost < Char.Aura or i.AuraCost == 0) and i.HPCost < Char.Health) or ignore_cost:
@@ -224,6 +239,7 @@ static func is_everyone_fully_healed() -> bool:
 	for i in Global.Party.array():
 		if !is_instance_valid(i): continue
 		if not i.is_fully_healed(): return false
+
 	return true
 
 
@@ -247,8 +263,10 @@ static func is_in_party(n: String) -> bool:
 
 static func replace_occurence(from: String, what: String, forwhat: String, occurence := 1) -> String:
 	var idx := -1
+
 	for i in occurence:
 		idx = from.find(what, idx + 1)
+
 	if idx == -1: return from
 	return from.substr(0, idx) + forwhat + from.substr(idx + what.length())
 
@@ -296,38 +314,47 @@ static func get_pronoun(form: String = "they", gender: String = "they") -> Strin
 				"she": return "she"
 				"it": return "it"
 				"they": return "they"
+
 		"them":
 			match gender:
 				"he": return "him"
 				"she": return "her"
 				"it": return "it"
 				"they": return "them"
+
 		"their":
 			match gender:
 				"he": return "his"
 				"she": return "her"
 				"it": return "its"
 				"they": return "their"
+
 		"themself":
 			match gender:
 				"he": return "himself"
 				"she": return "herself"
 				"it": return "itself"
 				"they": return "themself"
+
 	return form
 
 
 static func world_to_canvas(pos: Vector2, from: CanvasItem = Global.Area) -> Vector2:
 	return Global.get_viewport().get_screen_transform() * from.get_global_transform_with_canvas() * pos
 
+
 static func get_ov_sprites(id: String) -> SpriteFrames:
 	var nam := id.split(":", false)
+
 	match nam.size():
 		1:
 			nam.append(nam[0] + "OV")
+
 		2:
 			pass
+
 		0, _:
 			push_error("Invalid spawn id: " + id)
 			return null
+
 	return await Loader.load_res("res://art/OV/" + nam[0] + "/" + nam[1] + ".tres")

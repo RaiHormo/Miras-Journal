@@ -2,12 +2,16 @@ extends Resource
 
 class_name ItemData
 
-@export var Name: String = "Item Name"
-var filename: String = "Invalid filename"
+@export var Name: String = " - None - "
+@export_storage var filename: String = "Invalid filename":
+	get():
+		if not resource_path.is_empty():
+			filename = resource_path.get_file().replace(".tres", "")
+
+		return filename
 @export_multiline var Description: String = "One that does not exit"
 @export_enum("Key", "Con", "Mat", "Bti") var ItemType: String = ""
 @export var Icon: Texture = load("res://art/Icons/Items.tres")
-@export var Quantity: int = 0
 @export var QuantityMeansUses := false
 @export var AmountOnAdd := 1
 enum U {NONE, INSPECT, CUSTOM, HEALING, SPELL, STATE_HEAL, BUFF_ATK, DEBUFF_ATK}

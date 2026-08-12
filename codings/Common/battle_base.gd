@@ -1386,7 +1386,9 @@ func victory(ignore_seq := false) -> void:
 
 	$Canvas.layer = 1
 	Loader.battle_result = 1
-
+	
+	Audio.fade_out_music(3)
+	
 	for i in Party.array():
 		victory_anim(i)
 
@@ -1421,7 +1423,6 @@ func victory(ignore_seq := false) -> void:
 	$Canvas/Continue.show()
 	$Canvas/Continue.icon = Controller.get_scheme().ConfirmIcon
 
-	if Textbox.is_open: await Event.passive_close
 	t = create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)

@@ -21,6 +21,7 @@ Enemies = Array[ExtResource("2_d6nks")]([ExtResource("3_cdfhe")])
 ScenePosition = Vector2(416, -141)
 Detransition = true
 EscPosition = Vector2i(28, -8)
+CanEscape = false
 EntranceBanter = "daze_enemy_tutorial"
 EntranceBanterIsPassive = false
 PartyOverride = ["Daze", "Mira"]

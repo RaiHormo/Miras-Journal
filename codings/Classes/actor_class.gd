@@ -29,7 +29,6 @@ class_name Actor
 		return codename
 ##Used in system text, 0: subjective, 1: objective, 2: possessive, 3: -self
 @export_enum("it", "he", "she", "they") var Pronouns: String = "it"
-@export var WeaponPower: int = 24
 
 @export_group("Enemy specific")
 ##Used to check if the character is an enemy internally
@@ -51,7 +50,7 @@ var IsEnemy: bool = true
 ##Used in the party menu
 @export var LastName: String = ""
 ##Used in the details menu, purely cosmetic
-@export var Weapon: String
+@export var Weapon: WeaponItem = WeaponItem.new()
 ##Doodles shown in the party menu
 @export_file("*.png") var PartyPage: String
 ##Artwork shown in the party menu
@@ -90,9 +89,15 @@ var SpeedBoost: int = 0
 @export_category("Skills")
 ##The actors current skill list
 @export var Abilities: Array[Ability]
-##The ability used when the "Attack" button is pressed. Also determines the
-##actor's weapon icon
-@export var StandardAttack: Ability = Ability.nothing()
+##The ability used when the "Attack" button is pressed.
+##Can be overriden by the weapon.
+@export var StandardAttack: Ability = Ability.nothing():
+	get():
+		if Weapon and Weapon.attack:
+			return Weapon.attack
+
+		return StandardAttack
+
 ##The abilities that can be unlocked by leveling up, party member only
 @export var LearnableAbilities: Array[Ability]
 @export var Complimentaries: Array[Ability]
@@ -305,8 +310,7 @@ func save_to_dict() -> Dictionary:
 		"codename": codename,
 		"FirstName": FirstName,
 		"LastName": LastName,
-		"WeaponPower": WeaponPower,
-		"Weapon": Weapon,
+		"WeaponName": Weapon.filename if Weapon else "",
 		"Controllable": Controllable,
 		"MaxHP": MaxHP,
 		"MaxAura": MaxAura,
@@ -340,6 +344,9 @@ func load_from_dict(dict: Dictionary) -> void:
 				var ab: Ability = await Loader.load_res("res://database/Abilities/" + i + ".tres")
 
 				if ab not in Abilities: Abilities.append(ab)
+
+	if dict.has("WeaponName") and dict.get("WeaponName") != "":
+		Weapon = await Item.get_item(dict.get("WeaponName"), &"Key")
 
 
 func reset_static_info() -> void:

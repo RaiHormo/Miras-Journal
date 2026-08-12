@@ -230,10 +230,10 @@ func fullscreen(tog: bool = !Settings.Fullscreen) -> void:
 func reset_settings() -> void:
 	Settings = Setting.new()
 	customize_default_settings()
-	var error: Error = ResourceSaver.save(Settings, settings_path)
+	var err: Error = ResourceSaver.save(Settings, settings_path)
 
-	if error != OK:
-		printerr(error_string(error))
+	if err != OK:
+		printerr(error_string(err))
 		#OS.alert("Cannot write to save data directory: "+error_string(error))
 
 
@@ -463,8 +463,8 @@ func toast(string: String) -> void:
 
 
 func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["No", "Yes"], color: Color = Color.hex(0xdc000eff)) -> int:
-	if get_node_or_null("/root/Warning"):
-		$/root/Warning.free()
+	#if get_node_or_null("/root/Warning"):
+		#$/root/Warning.free()
 
 	print_rich("[color=orange]Warn: " + text)
 	var tost: Node = (await Loader.load_res("res://UI/Misc/Warning.tscn")).instantiate()
@@ -473,6 +473,10 @@ func warning(text: String, label: String = "WARNING", awnser: Array[String] = ["
 	if is_instance_valid(tost):
 		return await tost.ask_for_confirm(text, label, awnser, color)
 	else: return false
+
+
+func error(text: String, label: String = "ERROR") -> void:
+	await warning(text, label, ["OK"])
 
 
 func location_name(string: String) -> void:

@@ -2,7 +2,8 @@ extends Node
 
 
 func nov3_morning() -> void:
-	Item.add_item("LightweightAxe", "Key", false, false)
+	Item.add_item("LightweightAxe", &"Key", false, false)
+	Query.find_member("Mira").Weapon = load("res://database/Items/KeyItems/LightweightAxe.tres")
 	Event.add_flag("LampInMirasRoom", false)
 	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
 	Event.no_player()

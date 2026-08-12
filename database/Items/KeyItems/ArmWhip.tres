@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponItem" format=3 uid="uid://d2p8t0dmhxotw"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_kt1w0"]
+[ext_resource type="Resource" uid="uid://bfoi0xxeujmlq" path="res://database/Abilities/Attacks/AttackAlcine.tres" id="2_f6gvw"]
+[ext_resource type="Script" uid="uid://5klh1xmhdeg6" path="res://codings/Classes/weapon_class.gd" id="2_kt1w0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt1w0"]
+resource_local_to_scene = true
+atlas = ExtResource("1_kt1w0")
+region = Rect2(72, 90, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("2_kt1w0")
+attack = ExtResource("2_f6gvw")
+power = 12
+Name = "Arm Whip"
+Description = "Their liquid arm can extend and become more solid at any point, making it a potentially lethal weapon."
+ItemType = "Key"
+Icon = SubResource("AtlasTexture_kt1w0")

@@ -151,6 +151,7 @@ func node_shake(node: CanvasItem, amount := 10, repeat := randi_range(4, 8), tim
 	var original_pos: Vector2 = node.position
 
 	while amount > 0:
+		if not is_instance_valid(node): return
 		var t := create_tween().set_trans(Tween.TRANS_CUBIC)
 		t.tween_property(node, "position:x", amount, time).as_relative()
 		t.tween_property(node, "position:x", -amount * 2, time * 2).as_relative()

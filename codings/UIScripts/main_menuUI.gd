@@ -10,7 +10,6 @@ var z: int
 @onready var CamPrev: Camera2D = Global.Camera.duplicate()
 @onready var Fader: Control
 var PrevCtrl: Control = null
-var KeyInv: Array[ItemData]
 var player: Mira
 var duplicated := false
 var focused_item: ItemData = null
@@ -445,7 +444,7 @@ func _item() -> void:
 	t.tween_property(Cam, "offset:x", 100, 0.6)
 	t.tween_property($Base, "position", Vector2(-500, 0), 0.6).as_relative()
 	t.tween_property($Ring, "position", Vector2(-500, 0), 0.6).as_relative()
-	if not Item.KeyInv.is_empty():
+	if not Item.get_inv(&"Key").is_empty():
 		$Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0).grab_focus()
 		focus_item($Inventory/Margin/Scroller/Vbox/KeyItems.get_child(0))
 
@@ -539,20 +538,25 @@ func _on_back_button_down() -> void:
 
 
 func get_inventory() -> void:
-	if Item.KeyInv.is_empty(): return
+	if Item.Inventory.is_empty(): return
 	Item.verify_inventory()
+	var key_inv: Array[ItemData] = Item.get_inv(&"Key")
+	var con_inv: Array[ItemData] = Item.get_inv(&"Con")
+	var mat_inv: Array[ItemData] = Item.get_inv(&"Mat")
+	var bti_inv: Array[ItemData] = Item.get_inv(&"Bti")
+	var passed: Array[ItemData] = []
 
-	if Item.ConInv.is_empty():
-		$Inventory/Margin/Scroller/Vbox/Consumables.visible = !Item.ConInv.is_empty()
-		$Inventory/Margin/Scroller/Vbox/ConLabel.visible = !Item.ConInv.is_empty()
+	if Item.get_inv(&"Con").is_empty():
+		$Inventory/Margin/Scroller/Vbox/Consumables.visible = not con_inv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/ConLabel.visible = not con_inv.is_empty()
 
-	if Item.MatInv.is_empty():
-		$Inventory/Margin/Scroller/Vbox/Materials.visible = !Item.MatInv.is_empty()
-		$Inventory/Margin/Scroller/Vbox/MatLabel.visible = !Item.MatInv.is_empty()
+	if Item.get_inv(&"Mat").is_empty():
+		$Inventory/Margin/Scroller/Vbox/Materials.visible = not mat_inv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/MatLabel.visible = not mat_inv.is_empty()
 
-	if Item.BtiInv.is_empty():
-		$Inventory/Margin/Scroller/Vbox/BattleItems.visible = !Item.BtiInv.is_empty()
-		$Inventory/Margin/Scroller/Vbox/BtiLabel.visible = !Item.BtiInv.is_empty()
+	if Item.get_inv(&"Bti").is_empty():
+		$Inventory/Margin/Scroller/Vbox/BattleItems.visible = not bti_inv.is_empty()
+		$Inventory/Margin/Scroller/Vbox/BtiLabel.visible = not bti_inv.is_empty()
 
 	for i in $Inventory/Margin/Scroller/Vbox/KeyItems.get_children():
 		i.queue_free()
@@ -566,16 +570,24 @@ func get_inventory() -> void:
 	for i in $Inventory/Margin/Scroller/Vbox/BattleItems.get_children():
 		i.queue_free()
 
-	for item in Item.KeyInv:
+	for item in key_inv:
+		if item in passed: continue
+		passed.append(item)
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/KeyItems)
 
-	for item in Item.ConInv:
+	for item in con_inv:
+		if item in passed: continue
+		passed.append(item)
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/Consumables)
 
-	for item in Item.MatInv:
+	for item in mat_inv:
+		if item in passed: continue
+		passed.append(item)
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/Materials)
 
-	for item in Item.BtiInv:
+	for item in bti_inv:
+		if item in passed: continue
+		passed.append(item)
 		make_slot(item, $Inventory/Margin/Scroller/Vbox/BattleItems)
 
 
@@ -583,9 +595,12 @@ func make_slot(item: ItemData, grid: GridContainer) -> void:
 	var dub: Button = $Inventory/Item.duplicate()
 	dub.icon = item.Icon
 	dub.set_meta("ItemData", item)
-	if item.Quantity > 1:
-		dub.text = str(item.Quantity)
+	var item_count := Item.count(item)
+
+	if item_count > 1:
+		dub.text = str(item_count)
 	else: dub.text = ""
+
 	grid.add_child(dub)
 	dub.show()
 
@@ -605,11 +620,14 @@ func focus_item(node: Button) -> void:
 		$DescPaper/Wheel.color = item.BattleEffect.WheelColor
 		$DescPaper/Wheel.draw_wheel()
 	else: $DescPaper/Wheel.hide()
-	if item.Quantity > 1:
+
+	var item_count := Item.count(item)
+
+	if item_count > 1:
 		if item.QuantityMeansUses:
-			$DescPaper/Amount.text = str(item.Quantity) + " uses remain"
+			$DescPaper/Amount.text = str(item_count) + " uses remain"
 		else:
-			$DescPaper/Amount.text = str(item.Quantity) + " in bag"
+			$DescPaper/Amount.text = str(item_count) + " in bag"
 
 		$DescPaper/Amount.show()
 	else:

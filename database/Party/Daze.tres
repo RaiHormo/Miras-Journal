@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bmvya68gkqnwr" path="res://art/Icons/Party/Daze.png" id="4_ddwib"]
 [ext_resource type="Resource" uid="uid://dyhjcmwjdkepj" path="res://database/Abilities/Thunderstorm.tres" id="7_jt23b"]
 [ext_resource type="Resource" uid="uid://5bc8qntxd2og" path="res://database/Abilities/Attacks/AttackDaze.tres" id="9_l2o8n"]
+[ext_resource type="Resource" uid="uid://pd0gagp8jsao" path="res://database/Items/KeyItems/GoldPlatedKatana.tres" id="10_s8hit"]
 
 [sub_resource type="Resource" id="Resource_v2ahk"]
 script = ExtResource("3_vnjlu")
@@ -33,10 +34,9 @@ PartyIcon = ExtResource("4_ddwib")
 ActorClass = "Tank"
 codename = &"Daze"
 Pronouns = "he"
-WeaponPower = 30
 SecondaryColor = Color(0.522977, 0.640584, 0.370551, 1)
 CharacterBoxProfile = SubResource("Resource_v2ahk")
-Weapon = "Gold-trimmed Katana"
+Weapon = ExtResource("10_s8hit")
 PartyPage = "uid://dnpwv61v5vdap"
 RenderArtwork = "uid://dq5adft1l2ps6"
 HpOnSLvUp = 20

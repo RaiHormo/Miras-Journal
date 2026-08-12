@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_gxbro"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="1_vkgex"]
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="4_ipm4e"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="7_eppa1"]
 
 [sub_resource type="Curve" id="Curve_7tpjl"]
@@ -34,6 +33,5 @@ StandardAttack = ExtResource("7_eppa1")
 OV = "res://art/OV/Erinn/ErinnOV.tres"
 Offset = Vector2(0, -15)
 Shadow = true
-ShadowOffset = 4
 Disappear = false
 GlowDef = 0.0

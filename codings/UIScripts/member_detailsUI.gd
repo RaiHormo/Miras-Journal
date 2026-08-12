@@ -14,17 +14,20 @@ func draw_character(chara: Actor, menu := 0) -> void:
 		$AbilityPanel/Border1/Scroller/AbilityList/CompTxt.hide()
 	else:
 		$AbilityPanel/Complimentary.disabled = false
+
 	actor = chara
 	chara.load_complimentaries()
 	Audio.confirm_sound()
 	$Name/Icon.texture = chara.PartyIcon
 	$Name.text = chara.FirstName + " " + chara.LastName
+
 	if chara.SkillCurve != null:
 		$StatPanel/LvBox/Vbox/LvBar/Number.text = str(chara.SkillLevel)
 		$StatPanel/LvBox/Vbox/LvBar/SPNum.text = str(chara.SkillPoints)
 		$StatPanel/LvBox/Vbox/ExpBar.max_value = chara.skill_points_for(chara.SkillLevel)
 		$StatPanel/LvBox/Vbox/ExpBar.value = chara.SkillPoints
 		$StatPanel/LvBox/Vbox/ToNextLv/Number.text = str(chara.skill_points_for(chara.SkillLevel) - chara.SkillPoints)
+
 	$StatPanel/HPAura/HPText.text = str(chara.MaxHP)
 	$StatPanel/HPAura/APText.text = str(chara.MaxAura)
 	$StatPanel/HPAura/Health.max_value = 300
@@ -63,9 +66,9 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	$StatPanel/StatBars/Attack.value = chara.Attack
 	$StatPanel/StatBars/Defence.value = chara.Defence
 	$StatPanel/StatBars/Magic.value = chara.Magic
-	$StatPanel/Weapon/WeaponName.text = chara.Weapon
-	$StatPanel/Weapon/Icon.texture = chara.StandardAttack.Icon
-	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: " + Query.get_power_rating(chara.WeaponPower)
+	$StatPanel/Weapon/WeaponName.text = chara.Weapon.Name
+	$StatPanel/Weapon/Icon.texture = chara.Weapon.Icon
+	$StatPanel/Weapon/Icon/WeaponRating.text = "Power rating: " + Query.get_power_rating(chara.Weapon.power)
 
 	$StatPanel/Wheel.color = chara.MainColor
 	$StatPanel/Wheel.draw_wheel()
@@ -78,6 +81,7 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	for i in $Line1/NameChain.get_children():
 		i.text = chara.FirstName.to_upper() + " " + chara.LastName.to_upper() + " "
 		#i.add_theme_color_override("font_color", chara.BoxProfile.Bord3)
+
 	await Event.wait(0.1, false)
 	var anim: Animation = $AnimationPlayer.get_animation("scrollname")
 	anim.track_set_key_value(0, 1, Vector2(-$Line1/NameChain/Name3.size.x, 130))
@@ -106,6 +110,7 @@ func draw_character(chara: Actor, menu := 0) -> void:
 	t.tween_property($Line1, "position:x", 750, 0.6).from(-2700)
 	if menu == 1:
 		swap_mode(true)
+
 	await Event.wait(0.1, false)
 	$Name.show()
 	$Fade.show()
@@ -116,6 +121,7 @@ func draw_character(chara: Actor, menu := 0) -> void:
 func swap_mode(stability := false) -> void:
 	Audio.ui_sound("swap")
 	stability_menu = stability
+
 	match stability_menu:
 		false:
 			var t := create_tween()
@@ -134,6 +140,7 @@ func swap_mode(stability := false) -> void:
 			t.tween_property($StatPanel, "scale:x", 1, 0.1).from(0.1)
 			$Abilities.shortcut.events[0].action = "BtItem"
 			$Abilities.icon = Controller.get_scheme().ItemIcon
+
 		true:
 			var t := create_tween()
 			t.set_parallel()
@@ -180,19 +187,23 @@ func fetch_abilities(chara: Actor) -> void:
 		if n is Button:
 			%AbilityList.remove_child(n)
 			n.queue_free()
+
 	for i: Ability in Abilities:
 		var dub: Control = %Ab0.duplicate()
 		dub.show()
 		%AbilityList.add_child(dub)
 		dub.text = i.name
 		dub.get_node("Icon").texture = i.Icon
+
 		if i.AuraCost != 0:
 			dub.get_child(0).text = str(i.AuraCost)
 			dub.get_child(0).show()
 		else:
 			dub.get_child(0).hide()
+
 		dub.name = "Item" + str(dub.get_index(true))
 		dub.set_meta("Ability", i)
+
 	%AbilityList.move_child(%AbilityList/CompTxt, chara.Abilities.size() + 3)
 	%AbilityList.move_child(%AbilityList/AbilitiesTxt, 2)
 
@@ -205,8 +216,10 @@ func _on_abilities_pressed() -> void:
 func _on_ab_focus_entered() -> void:
 	if get_viewport().gui_get_focus_owner().get_index() == 1:
 		$AbilityPanel/Border1/Scroller.scroll_vertical = 0
+
 	if $AbilityPanel.scale == Vector2.ONE: Audio.cursor_sound()
 	var ab: Ability = get_viewport().gui_get_focus_owner().get_meta("Ability")
+
 	if not is_instance_valid(ab): return
 	if ab.WheelColor != Color.WHITE and not ab.ColorSameAsActor and ab.Damage != Ability.D.NONE:
 		$AbilityPanel/AttackTitle/Wheel.show()
@@ -232,11 +245,13 @@ func _input(event: InputEvent) -> void:
 				next_char = Global.Party.array()[Global.Party.array().find(actor) + 1]
 			else:
 				next_char = Global.Party.Leader
+
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()
 		elif event.is_action_pressed("LeftTrigger"):
 			var next_char := Global.Party.array()[Global.Party.array().find(actor) - 1]
+
 			if is_instance_valid(next_char):
 				Global.member_details(next_char, stability_menu)
 				queue_free()

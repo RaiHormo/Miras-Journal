@@ -66,8 +66,8 @@ func stop_music() -> void:
 	bgm_player.volume_linear = 1
 
 
-func fade_out_music() -> void:
+func fade_out_music(time := 1) -> void:
 	var t := create_tween()
-	t.tween_property(bgm_player, "volume_linear", 0, 1)
+	t.tween_property(bgm_player, "volume_linear", 0, time)
 	await t.finished
 	stop_music()

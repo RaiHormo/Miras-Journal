@@ -78,8 +78,9 @@ Mira.Neutral: Let's just just hurry up, I want to see {{alcine()}}.
 Daze.Neutral: *sigh*
 [hide]
 do! travel_to("WitheredLeaves", npc("F1").position)
+do wait(0.5, false)
 do! Party.set_to(["Mira", "Daze"])
-=> END
+=> END!
 
 
 ~ destroyed_guardian_event

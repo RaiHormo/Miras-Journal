@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponItem" format=3 uid="uid://fqs3u3nngwjq"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_i8po8"]
+[ext_resource type="Resource" uid="uid://17bbb0h04khb" path="res://database/Abilities/Attacks/CloseupAttack.tres" id="2_0lreb"]
+[ext_resource type="Script" uid="uid://5klh1xmhdeg6" path="res://codings/Classes/weapon_class.gd" id="3_x41c4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts65q"]
+resource_local_to_scene = true
+atlas = ExtResource("1_i8po8")
+region = Rect2(162, 54, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("3_x41c4")
+attack = ExtResource("2_0lreb")
+power = 10
+Description = "A bare hand attack.
+Might not be very effective."
+ItemType = "Key"
+Icon = SubResource("AtlasTexture_ts65q")

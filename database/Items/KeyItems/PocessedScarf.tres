@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponItem" format=3 uid="uid://d2mxyd537mr20"]
+
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_whqoj"]
+[ext_resource type="Resource" uid="uid://d3fmjjobglnvn" path="res://database/Abilities/Attacks/AttackAsteria.tres" id="2_whqoj"]
+[ext_resource type="Script" uid="uid://5klh1xmhdeg6" path="res://codings/Classes/weapon_class.gd" id="3_rnwar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0spox"]
+resource_local_to_scene = true
+atlas = ExtResource("1_whqoj")
+region = Rect2(36, 18, 18, 18)
+filter_clip = true
+
+[resource]
+script = ExtResource("3_rnwar")
+attack = ExtResource("2_whqoj")
+power = 16
+Name = "Lightweight Axe"
+Description = "A scarf pocessed by a ghost.
+The part that hurts is the magic surrounding it."
+ItemType = "Key"
+Icon = SubResource("AtlasTexture_0spox")

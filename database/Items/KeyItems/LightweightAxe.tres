@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dumcwabsghqgu"]
+[gd_resource type="Resource" script_class="WeaponItem" format=3 uid="uid://dumcwabsghqgu"]
 
 [ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="1_7ejfy"]
-[ext_resource type="Script" uid="uid://b1asade5rjus" path="res://codings/Classes/item_data.gd" id="1_1608p"]
+[ext_resource type="Resource" uid="uid://cu3k0uyihyv24" path="res://database/Abilities/Attacks/AttackMira.tres" id="2_y350c"]
+[ext_resource type="Script" uid="uid://5klh1xmhdeg6" path="res://codings/Classes/weapon_class.gd" id="3_v30n1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y350c"]
 resource_local_to_scene = true
@@ -10,7 +11,8 @@ region = Rect2(0, 18, 18, 18)
 filter_clip = true
 
 [resource]
-script = ExtResource("1_1608p")
+script = ExtResource("3_v30n1")
+attack = ExtResource("2_y350c")
 Name = "Lightweight Axe"
 Description = "A light and easy to weild axe.
 It can be attached to a strap on the bag."

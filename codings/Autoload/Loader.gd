@@ -77,7 +77,7 @@ func update_load_status(path: String, is_scene_load: bool) -> void:
 
 func save(filename: String = "Autosave", showicon := true) -> void:
 	if not Global.Player or not Global.Area:
-		OS.alert("Cannot save right now")
+		Global.error("Cannot save right now")
 		return
 
 	print_rich("[color=green]Saving to user://" + filename + ".tres")
@@ -194,10 +194,10 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		mem.Aura = min(mem.Aura, mem.MaxAura)
 
 	if !data:
-		OS.alert("This save file doen't exist", "WHERE FILE")
+		Global.error("This save file doen't exist", "WHERE FILE")
 
 	if !data.RoomPath:
-		OS.alert("There's no room set in this savefile", "WHERE TF ARE YOU")
+		Global.error("There's no room set in this savefile", "WHERE TF ARE YOU")
 
 	Item.load_inventory(data.Inventory)
 	Item.verify_inventory()
@@ -343,7 +343,6 @@ func travel_done(controllable := false, index: int = 0) -> void:
 	var area_packed: PackedScene = ResourceLoader.load_threaded_get(remembered_scene[0])
 
 	if area_packed == null:
-		load_game()
 		return
 
 	var area: Room = area_packed.instantiate()
@@ -754,7 +753,7 @@ func error_handle(res: ResourceLoader.ThreadLoadStatus) -> void:
 
 		if loading_scene:
 			loading_scene = false
-			OS.alert("The room failed to load.")
+			Global.error("The room failed to load.")
 
 
 func chase_mode() -> void:
