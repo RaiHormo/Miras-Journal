@@ -225,7 +225,7 @@ func AttackMira(target: Actor) -> void:
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
-	if Item.check_item("LightweightAxe", &"Key"):
+	if Item.check_item("LightweightAxe"):
 		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
 		await Bt.anim_done
 		if not miss:

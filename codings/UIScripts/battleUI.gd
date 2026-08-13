@@ -94,7 +94,7 @@ func _on_battle_get_control() -> void:
 	$Command.disabled = false
 	$Item.disabled = false
 
-	$Item.disabled = Item.ConInv.is_empty() and Item.BtiInv.is_empty()
+	$Item.disabled = Item.get_inv(&"Con").is_empty() and Item.get_inv(&"Bti").is_empty()
 
 	if CurrentChar.has_state("Bound"):
 		$Attack.disabled = true
@@ -409,7 +409,7 @@ func _on_item() -> void:
 	PrevStage = &"root"
 	stage = &"pre_item"
 
-	if Item.ConInv.is_empty() and Item.BtiInv.is_empty():
+	if Item.get_inv(&"Con").is_empty() and Item.get_inv(&"Bti").is_empty():
 		$Item.disabled = true
 		return
 
@@ -897,6 +897,7 @@ func _on_show_wheel_pressed() -> void:
 
 func fetch_inventory() -> void:
 	Item.verify_inventory()
+	var passed: Array[ItemData] = []
 	var inventory_grid: Dictionary[String, GridContainer] = {
 		"con": %Consumables,
 		"bti": %BattleItems,
@@ -906,15 +907,21 @@ func fetch_inventory() -> void:
 			i.free()
 
 		for aitem in Item.get_inv(inv):
-			if aitem.UsedInBattle:
+			if aitem.UsedInBattle and aitem not in passed:
 				var dub: Control = %Item.duplicate()
 				dub.icon = aitem.Icon
 				dub.set_meta("ItemData", aitem)
-				if aitem.Quantity > 1:
-					dub.text = str(aitem.Quantity)
-				else: dub.text = ""
+
+				var item_count := Item.count(aitem)
+
+				if item_count > 1:
+					dub.text = str(item_count)
+				else:
+					dub.text = ""
+
 				inventory_grid[inv].add_child(dub)
 				dub.show()
+				passed.append(aitem)
 
 	await Event.wait()
 
@@ -1008,8 +1015,10 @@ func focus_item(node: Button) -> void:
 	$Inventory/DescPaper/Title.text = item_data.Name
 	$Inventory/DescPaper/Desc.text = Colorizer.colorize(item_data.Description)
 
-	if item_data.Quantity > 1:
-		$Inventory/DescPaper/Amount.text = str(item_data.Quantity) + " in bag"
+	var item_count := Item.count(item_data)
+
+	if item_count > 1:
+		$Inventory/DescPaper/Amount.text = str(item_count) + " in bag"
 		$Inventory/DescPaper/Amount.show()
 	else:
 		$Inventory/DescPaper/Amount.hide()

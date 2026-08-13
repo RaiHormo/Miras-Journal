@@ -711,8 +711,6 @@ func check_for_levelups(mem: Actor, node: Panel) -> void:
 				node.get_node("Level/ExpBar").max_value = mem.skill_points_for(mem.SkillLevel)
 
 			check_for_levelups(mem, node)
-		else:
-			push_error("Levelup bug occured")
 
 
 func make_shadow(texture: Texture2D) -> Texture2D:

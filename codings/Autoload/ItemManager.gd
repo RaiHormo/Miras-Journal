@@ -8,7 +8,6 @@ const item_paths: Dictionary[StringName, String] = {
 }
 
 @export var Inventory: Array[ItemData]
-var item: ItemData
 @onready var panel: PanelContainer = $Can/Panel
 @onready var obtained: Label = $Can/Panel/HBoxContainer/Label/Obtained
 @onready var t: Tween
@@ -108,35 +107,43 @@ func use_animation(icon: Texture2D, named: String, pos: Vector2) -> void:
 	panel.hide()
 
 
-func add_item(ItemName: Variant, type: StringName = &"", animate := true, player_animate := true) -> void:
-	if ItemName is String and ItemName == "":
-		Global.toast("You got absolutely nothing!!!")
+func add_item(item_input: Variant, type: StringName = &"", animate := true, player_animate := true) -> void:
+	var to_add: ItemData
+
+	if item_input is String:
+		if item_input.is_empty():
+			Global.toast("You got absolutely nothing!!!")
+			return
+		else:
+			to_add = await get_item(item_input, type)
+	elif item_input is ItemData:
+		to_add = item_input
+
+	if to_add == null:
+		Global.error("THERE'S NO ITEM CALLED " + item_input, "OOPS")
 		return
 
-	item = await get_item(ItemName, type)
-
-	if type == &"": type = item.ItemType
-	if item == null:
-		Global.error("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
-		return
-
-	Inventory.append(item)
+	Inventory.append(to_add)
 
 	if animate:
-		print_rich("[color=cyan]Added item ", item.Name, " of type ", type)
-		get_animation(item.Icon, item.Name, player_animate)
+		print_rich("[color=cyan]Added item ", to_add.Name, " of type ", to_add.ItemType)
+		get_animation(to_add.Icon, to_add.Name, player_animate)
 
 
-func remove_item(ItemName: Variant, type: StringName = &"") -> void:
-	item = await get_item(ItemName, type)
+func remove_item(item_input: Variant, type: StringName = &"") -> void:
+	var to_remove: ItemData
+	if item_input is String:
+		to_remove = await get_item(item_input, type)
+	elif item_input is ItemData:
+		to_remove = item_input
 
-	if type == &"": type = item.ItemType
-	if item == null:
-		Global.error("THERE'S NO ITEM CALLED " + ItemName, "OOPS")
+	if type == &"": type = to_remove.ItemType
+	if to_remove == null:
+		Global.error("THERE'S NO ITEM CALLED " + item_input, "OOPS")
 
-	print_rich("[color=cyan]Item ", item.Name, " removed")
+	print_rich("[color=cyan]Item ", to_remove.Name, " removed")
 
-	Inventory.erase(item)
+	Inventory.erase(to_remove)
 
 
 func check_item(input: Variant) -> bool:
@@ -158,7 +165,6 @@ func get_inv(type: String) -> Array[ItemData]:
 
 
 func use(iteme: ItemData) -> void:
-	item = iteme
 	$ItemEffect.use(iteme)
 
 
