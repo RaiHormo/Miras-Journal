@@ -310,7 +310,7 @@ func save_to_dict() -> Dictionary:
 		"codename": codename,
 		"FirstName": FirstName,
 		"LastName": LastName,
-		"WeaponName": Weapon.filename if Weapon else "",
+		"WeaponName": Weapon.filename if not Weapon.resource_path.is_empty() else "",
 		"Controllable": Controllable,
 		"MaxHP": MaxHP,
 		"MaxAura": MaxAura,

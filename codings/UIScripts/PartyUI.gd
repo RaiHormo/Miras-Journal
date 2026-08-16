@@ -49,7 +49,6 @@ var member_choosing_user: Actor
 
 
 func _ready() -> void:
-	$CanvasLayer.hide()
 	$CanvasLayer/Fade.hide()
 	$CanvasLayer/Cursor.hide()
 	for i in range(1, 4):
@@ -65,6 +64,7 @@ func _ready() -> void:
 		Partybox.add_child(box)
 
 	UIvisible = false
+	hide_all(false)
 	Global.check.connect(_check_party)
 	Global.check.emit()
 
@@ -105,7 +105,6 @@ func show_all(except_date := false, animate := true) -> void:
 		UIvisible = true
 
 	inactive = false
-	$CanvasLayer.show()
 	# Animate the date UI in, except_date prevents this
 	if not Loader.in_battle and not except_date:
 		if animate:
@@ -158,6 +157,8 @@ func hide_all(animate := true) -> void:
 	else:
 		for i in range(0, 4):
 			Partybox.get_child(i).offset_transform_position.x = -250
+
+		$CanvasLayer/CalendarBase.position.y = -150
 
 
 func _check_party() -> void:
@@ -607,10 +608,8 @@ func focus_now() -> void:
 
 func battle_state(from := false) -> void:
 	if not Loader.in_battle:
-		$CanvasLayer.hide()
 		return
 
-	$CanvasLayer.show()
 	$CanvasLayer/Cursor.hide()
 	Partybox.scale = Vector2(1.25, 1.25)
 
@@ -1098,3 +1097,10 @@ func _on_revive_flash_timer_timeout(source: Timer) -> void:
 	tf.tween_property(stylebox, "bg_color:a", 0, source.wait_time / 2)
 	tf.set_ease(Tween.EASE_OUT)
 	tf.tween_property(stylebox, "bg_color:a", 1, source.wait_time / 2)
+
+
+func _on_virtual_joystick_flicked(input_vector: Vector2) -> void:
+	if input_vector.length() >= 1:
+		Input.action_press("Dash")
+		await $CanvasLayer/VirtualJoystick.released
+		Input.action_release("Dash")

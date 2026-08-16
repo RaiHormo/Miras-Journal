@@ -424,7 +424,7 @@ func controllable() -> bool:
 
 
 func attack() -> void:
-	if not Item.check_item("LightweightAxe", "Key") or not Event.check_flag("HasBag"):
+	if not Item.check_item("LightweightAxe") or not Event.check_flag("HasBag"):
 		Audio.buzzer_sound()
 		return
 

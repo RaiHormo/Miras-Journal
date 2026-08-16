@@ -1414,11 +1414,12 @@ text = "DEBUG"
 horizontal_alignment = 2
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer" unique_id=1929564097]
-offset_left = 125.0
-offset_top = 665.0
-offset_right = 125.0
-offset_bottom = 665.0
+offset_left = 1.0
+offset_top = 392.0
+offset_right = 501.0
+offset_bottom = 792.0
 joystick_mode = 1
+joystick_size = 150.0
 visibility_mode = 1
 
 [node name="Audio" type="AudioStreamPlayer" parent="." unique_id=786867749]
@@ -1449,4 +1450,5 @@ one_shot = true
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]
 [connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]
 [connection signal="text_submitted" from="CanvasLayer/TextEdit" to="." method="cmd"]
+[connection signal="flicked" from="CanvasLayer/VirtualJoystick" to="." method="_on_virtual_joystick_flicked"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

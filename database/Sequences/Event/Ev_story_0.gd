@@ -20,10 +20,7 @@ func new_game() -> void:
 	Event.Day = 0
 	Event.TimeOfDay = Event.TOD.NIGHT
 	# Initial Items
-	Item.KeyInv.clear()
-	Item.ConInv.clear()
-	Item.MatInv.clear()
-	Item.BtiInv.clear()
+	Item.Inventory.clear()
 	Item.add_item("Wallet", &"Key", false)
 	Item.add_item("PenCase", &"Key", false)
 	Item.add_item("FoldedPaper", &"Key", false)
