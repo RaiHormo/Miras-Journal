@@ -924,7 +924,10 @@ position = Vector2(1573, -1073)
 Flag = "day=0+AlcineFollow=2"
 FlagIsName = false
 FlagShouldBe = true
-EventName = "AlcineFollow3"
+ReturnControl = false
+ShowTextbox = true
+TextFile = "story_0"
+TextNode = "approach"
 
 [node name="EvAmbWoodsBridge" parent="Event" unique_id=200704634 instance=ExtResource("36_2q7ov")]
 position = Vector2(1956, -1318)
@@ -1287,6 +1290,9 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_ovn4b")
 use_edge_connections = false
 navigation_layers = 2
+
+[node name="MarkerHugSpot" type="Marker2D" parent="." unique_id=1330785023]
+position = Vector2(1613, -1068)
 
 [editable path="Event/EvAxe/PickUp"]
 [editable path="Interactables/InteractSkeleton"]

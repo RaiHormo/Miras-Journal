@@ -48,6 +48,11 @@ func add_char(b: NPC) -> void:
 			return
 
 	List.set(b.ID, b)
+	DialogueManager.unregister_state_context(b.ID)
+	var context := DialogueStateContext.new()
+	context.target = b
+	context.alias = b.ID
+	b.add_child(context)
 
 
 ##Get the [NPC] node from a [String] ID
