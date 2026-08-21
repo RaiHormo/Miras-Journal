@@ -725,62 +725,78 @@ func damage(
 ) -> int:
 	take_dmg.emit()
 	if CurrentAbility == null: CurrentAbility = Ability.nothing()
+	
+	## Elemental modifier
 	var el_mod: float = 1
+	## Color of the offending ability
 	var color := (CurrentAbility.WheelColor if overwrite_color == Color.WHITE else overwrite_color)
+	## Relation from the ability to the target
 	var relation := color_relation(color, target.MainColor)
 	
 	if elemental:
-		if target.has_state("AuraBreak"): relation = "op"
-		if relation == "wk": pop_num(target, "WEAK")
-		if relation == "op": pop_num(target, "WEAK!")
-		if relation == "res": pop_num(target, "RESIST")
-		print(relation)
 		el_mod = relation_to_dmg_modifier(relation)
-		
-
-	if target.has_state("Guarding"):
-		el_mod = 1
-		
+		print("Relation: %s	Modifier: %d"%[relation, el_mod])
 
 	print_rich("[color=cornflower-blue]Attack power: ", x, " * ", el_mod)
 	
+	## Attacker to get offensive stats from (null if stats are ignored)
 	var attacker: Actor = null if ignore_stats else CurrentChar
+	## Initial number of damage
 	var dmg: int = target.calc_dmg(x * el_mod, is_magic, attacker)
 	
+	## State specific modifications
 	for state in target.States:
-		if is_magic: dmg = int(dmg * state.magic_dmg_mult)
-		else: dmg = int(dmg * state.weapon_dmg_mult)
+		# Mutiply with each state's modifiers
+		if is_magic:
+			dmg = int(dmg * state.magic_dmg_mult)
+		else:
+			dmg = int(dmg * state.weapon_dmg_mult)
 
-		if relation == "wk": dmg = int(dmg * state.weak_mult)
-		
-		if state.filename == "Frozen":
-			target.remove_state("Frozen")
-			battle_msg("ice_breaks", target.FirstName)
+		match state.filename:
+			"Frozen":
+				target.remove_state("Frozen")
+				battle_msg("ice_breaks", target.FirstName)
 
-		
+			"Guarding":
+				# With Guarding, you nothing is weak
+				if relation != "res":
+					relation = "n"
+					el_mod = min(el_mod, 1)
 
-	dmg = round(dmg)
+			"AuraBreak":
+				# With AuraBreak, everything is weak
+				if relation != "op":
+					relation = "wk"
+					el_mod = max(el_mod, 1)
 
+		if relation == "wk":
+			dmg = int(dmg * state.weak_mult)
+
+	# If damage is 0, don't do anything below
 	if dmg == 0:
 		pop_num(target, "BLOCKED")
 		return 0
-		
 
+	# Clutch damage, health should never go to 0
+	if (target.ClutchDmg or target.CantDie) and target.Health - dmg < 0:
+		print("Damage on ", target.FirstName, " was clutched")
+		limiter = true
+		
+		# Death sequence in case of clutch and CantDie
+		if target.CantDie and not target.DeathSequence.is_empty() and not limiter:
+			await $Act.call(target.DeathSequence, target)
+
+	# Actual damage happens
 	target.damage(dmg, limiter)
-	
-	if target.ClutchDmg and target.Health <= 5 and target.SeqOnClutch != "" and not limiter:
-		$Act.call(target.SeqOnClutch, target)
-		
-
 	print(CurrentChar.FirstName + " deals " + str(dmg) + " damage to " + target.FirstName)
-	
+
+	# Effects!
 	if not is_magic and CurrentChar.has_state("AtkUp") and CurrentChar.get_state("AtkUp").turns == -2:
 		CurrentChar.get_state("AtkUp").QueueRemove = true
 		print_rich("[color=cornflower-blue]Weapon attack, so AtkUp will be removed")
-		
 
 	if CurrentAbility.RecoverAura: CurrentChar.add_aura(dmg / 2)
-	
+
 	if elemental:
 		var base_dmg := int(dmg * target.Defence * 2 * target.DefenceMultiplier)
 		var aur_dmg := relation_to_aura_dmg(relation, base_dmg)
@@ -788,8 +804,14 @@ func damage(
 		target.add_aura(-aur_dmg)
 		pop_num(target, dmg, color)
 	else: pop_num(target, dmg)
-	
-	if !target.IsEnemy: 
+
+	# Show the popup text
+	match relation:
+		"wk": pop_num(target, "WEAK")
+		"op": pop_num(target, "WEAK!")
+		"res": pop_num(target, "RESIST")
+
+	if !target.IsEnemy:
 		PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
 	else:
 		Event.node_shake(enemy_ui.get_node("EnemyFocus"), int(dmg), int(dmg * 100 / target.MaxHP * 100) / 300)
@@ -800,7 +822,6 @@ func damage(
 		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.5), remap(dmg, 0, 100, 0, 1), remap(dmg, 0, target.MaxHP, 0, 0.5))
 	else:
 		Controller.rumble(remap(dmg, 0, target.MaxHP, 0, 0.3), remap(dmg, 0, 100, 0, 0.5), remap(dmg, 0, 100, 0, 0.5))
-		
 
 	check_party.emit()
 	if target.Health == 0:
@@ -812,7 +833,7 @@ func damage(
 			return dmg
 
 	if target.Health == 0 or target.has_state("Knocked Out"): return dmg
-	
+
 	if target.has_state("Guarding"):
 		if relation == "res": target.add_aura(dmg * 2)
 		else: target.add_aura(dmg)
@@ -1008,22 +1029,71 @@ func stop_sound(SoundName: String, act: Actor) -> void:
 		act.node.get_node("SFX").get_node(SoundName).stop()
 
 
+## Runs when an actor is defeated, usually when HP reaches 0
 func death(target: Actor) -> void:
+	# Skip if already dead
 	if not is_instance_valid(target): return
 	if target == null or target.has_state("KnockedOut"): return
+
+	# Turn must not end until everything here has finished
 	lock_turn = true
+
 	clear_states(target)
+
+	# TODO: Determine if this is balanced enough or not
 	if CurrentChar != target:
 		CurrentChar.add_aura(target.Aura)
 
 	target.set_aura(0)
+	target.set_health(0)
+	# Rewards
 	if target.IsEnemy:
 		totalSP += target.RecivedSP
 
-		if target.DroppedItem: ObtainedItems.append(target.DroppedItem)
+		if target.DroppedItem:
+			ObtainedItems.append(target.DroppedItem)
 
 	anim("KnockOut", target)
-	if not target.IsEnemy and filter_dead(Party.array()).size() < 1:
+
+	if not target.IsEnemy and filter_dead(Party.array()).is_empty():
+		game_over(target)
+
+	# Effects
+	var particle: GPUParticles2D = target.node.get_node("Particle")
+	particle.emitting = true
+	outline(target)
+	particle.process_material.gravity = Vector3(offsetize(120), 0, 0)
+	particle.process_material.color = target.MainColor
+	var td := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART)
+	td.tween_property(target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
+	if target.Disappear:
+		td.parallel().tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
+
+	outline_remove(target)
+
+	print(target.FirstName, " was defeated")
+	target.add_state("KnockedOut")
+
+	await Event.wait(1)
+	if not target.DeathSequence.is_empty():
+		$Act.call(target.DeathSequence, target)
+
+	lock_turn = false
+
+	# Wait for animations to finish, then delete character if applicable
+	if is_instance_valid(target.node):
+		if target.Disappear and not target.CantDie:
+			while target.node.is_playing() and target.node.animation == "KnockOut":
+				await Event.wait()
+
+			if is_instance_valid(target) and is_instance_valid(target.node):
+				target.queue_delete = true
+				target.node.hide()
+
+
+## Pass a target to show a dramatic last hit animation
+func game_over(target: Actor = null) -> void:
+	if target != null:
 		await Event.wait(0.2)
 		get_tree().paused = true
 		CurrentChar.node.pause()
@@ -1034,46 +1104,15 @@ func death(target: Actor) -> void:
 		target.node.play()
 		get_tree().paused = false
 		await Event.wait(1, false)
-		Loader.white_fadeout(0, 1, 2)
-		await Event.wait(3, false)
-		game_over()
-		return
 
-	target.node.get_node("Particle").emitting = true
-	target.Health = 0
-	outline(target)
-	target.node.get_node("Particle"
-	).process_material.gravity = Vector3(offsetize(120), 0, 0)
-	target.node.get_node("Particle"
-	).process_material.color = target.MainColor
-	var td := create_tween()
-	td.set_ease(Tween.EASE_IN)
-	td.set_trans(Tween.TRANS_QUART)
-	td.set_parallel()
-	td.tween_property(
-		target.node.get_node("Shadow"), "modulate", Color.TRANSPARENT, 0.5)
+	Loader.white_fadeout(0, 1, 2)
+	await Event.wait(3, false)
 
-	outline_remove(target)
-	if target.Disappear:
-		td.tween_property(target.node.get_node("Glow"), "energy", 0, 0.5)
+	print_rich("[color=cornflower-blue]Game over")
 
-	print(target.FirstName, " was defeated")
-	target.add_state("KnockedOut")
-	await Event.wait(1)
-	if target.DeathDialog != "":
-		Passive.open("banter_battle", target.DeathDialog)
-		await Event.wait(0.5)
-
-	lock_turn = false
-
-	if is_instance_valid(target.node):
-		if target.Disappear and not target.CantDie:
-			while target.node.is_playing() and target.node.animation == "KnockOut":
-				await Event.wait()
-
-			if is_instance_valid(target) and is_instance_valid(target.node):
-				target.queue_delete = true
-				target.node.hide()
+	if Seq.DefeatSequence == "":
+		Global.game_over()
+	else: $Act.call(Seq.DefeatSequence)
 
 
 func delete_actor(target: Actor) -> void:
@@ -1291,14 +1330,6 @@ func escape() -> void:
 	end_battle()
 
 
-func game_over() -> void:
-	print_rich("[color=cornflower-blue]Game over")
-
-	if Seq.DefeatSequence == "":
-		Global.game_over()
-	else: $Act.call(Seq.DefeatSequence)
-
-
 func end_battle() -> void:
 	AwaitVictory = false
 	reset_all()
@@ -1374,6 +1405,7 @@ func victory_count_sp() -> void:
 
 
 func victory(ignore_seq := false) -> void:
+	if AwaitVictory: return
 	print_rich("[color=cornflower-blue]Victory!")
 	Action = true
 
@@ -1386,9 +1418,9 @@ func victory(ignore_seq := false) -> void:
 
 	$Canvas.layer = 1
 	Loader.battle_result = 1
-	
+
 	Audio.fade_out_music(3)
-	
+
 	for i in Party.array():
 		victory_anim(i)
 
@@ -1535,6 +1567,11 @@ func add_to_troop(en: Actor) -> void:
 	lock_turn = false
 
 
+## Returns the relation between the colors when an attacker is attacking a defender
+## wk: Weak
+## op: Oposite, more weak
+## res: Resist
+## n: Neutral
 func color_relation(attacker: Color, defender: Color) -> String:
 	var affinity := Query.get_affinity(attacker)
 	var def := Query.get_affinity(defender)
@@ -1594,17 +1631,15 @@ func stat_change(
 		&"Atk": chara.AttackMultiplier += amount
 		&"Mag": chara.MagicMultiplier += amount
 		&"Def": chara.DefenceMultiplier += amount
-		
 
-	
 	var state := await chara.add_state(stat + updown, turns, CurrentChar)
 	state.parameter = amount
 	pop_num(chara, stat_name(stat) +" x" + str(amount + 1), state.color)
-	
+
 	if updown == "Up":
 		Audio.ui_sound("powerup")
 	else: Audio.ui_sound("powerdown")
-	
+
 	print(chara.FirstName, "'  ", stat, " was multiplied by ", str(amount + 1))
 
 

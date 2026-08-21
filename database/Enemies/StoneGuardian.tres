@@ -21,7 +21,6 @@ MainColor = Color(0.23529412, 0.5882353, 0.49803922, 1)
 PartyIcon = ExtResource("3_px5pt")
 ActorClass = "Boss"
 codename = &"Guardian"
-WeaponPower = 40
 HealthBar = true
 RecivedSP = 20
 CustomPosition = Vector2i(66, 30)

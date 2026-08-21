@@ -126,26 +126,25 @@ var SpeedBoost: int = 0
 @export var SoundSet: PackedScene = load("res://sound/Sets/DefaultSoundSet.tscn")
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true
-##The default amount of glow on the sprite
+## The default amount of glow on the sprite
 @export var GlowDef: float = 0.3
-##The amound of glow when the animations specified in GlowAnims are played
+## The amound of glow when the animations specified in GlowAnims are played
 @export var GlowSpecial: float = 0.0
-##Specify animations where GlowSpecial is used
+## Specify animations where GlowSpecial is used
 @export var GlowAnims: Array[String] = []
 @export var MaterialOverride: Material = null
 
 @export_group("Additional parameters")
 @export var DontIdle := false
-##If true, the character cannot die unless in very low hp
+## If true, the character cannot die unless in very low hp
 @export var ClutchDmg := false
-##Sequence played when the above happens
-@export var SeqOnClutch := ""
-##If true, the character cannot die, and will always stay at low hp
-@export var DeathDialog := ""
+## Sequence played when dying or clutch in case of CantDie
+@export var DeathSequence := ""
+## If true, the character cannot die, and will always stay at low hp
 @export var CantDie := false
 @export var IgnoreStates := false
+## Abilities on this target will never miss
 @export var CantDodge := false
-@export var CantAttack := false
 
 enum BtAction {UNSET, ACT, MAGIC, ITEM, ITEM_GIVE, COMMAND}
 
@@ -323,7 +322,6 @@ func save_to_dict() -> Dictionary:
 		"ClutchDmg": ClutchDmg,
 		"CantDie": CantDie,
 		"CantDodge": CantDodge,
-		"CantAttack": CantAttack,
 		"IgnoreStates": IgnoreStates,
 		"OV": OV,
 	}

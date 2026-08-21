@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://dsel12nodt7a6" path="res://database/Abilities/Sharpen.tres" id="2_la0sd"]
 [ext_resource type="Resource" uid="uid://crmjudbrr8xf" path="res://database/Abilities/Needle.tres" id="3_bc4v8"]
 [ext_resource type="Texture2D" uid="uid://cqr2l0aaignpu" path="res://art/Icons/Enemies/Dragon.png" id="4_dt0m6"]
-[ext_resource type="PackedScene" uid="uid://co34lfhkwbp56" path="res://sound/Sets/DefaultSoundSet.tscn" id="5_cdjmu"]
 [ext_resource type="Resource" uid="uid://dmm26g6xg665u" path="res://database/Abilities/Attacks/WarpAttack.tres" id="6_g7xkm"]
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="7_n3q5t"]
 
@@ -30,5 +29,5 @@ Offset = Vector2(0, -13)
 Shadow = true
 Disappear = false
 ClutchDmg = true
-SeqOnClutch = "FlyAway"
+DeathSequence = "FlyAway"
 CantDie = true

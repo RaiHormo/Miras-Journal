@@ -99,7 +99,7 @@ func _on_battle_get_control() -> void:
 	if CurrentChar.has_state("Bound"):
 		$Attack.disabled = true
 
-	if disable_attack or CurrentChar.CantAttack: $Attack.disabled = true
+	if disable_attack: $Attack.disabled = true
 	if disable_ability: $Ability.disabled = true
 	if disable_command: $Command.disabled = true
 	if disable_item or not Event.check_flag("HasBag"): $Item.disabled = true
