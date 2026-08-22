@@ -240,8 +240,8 @@ func enter_amberelm() -> void:
 	mira.speed = 50
 	alcine.speed = 50
 	get_tree().paused = false
-	alcine.go_to(Vector2(12, 50), true, false)
-	await mira.go_to(Vector2(12, 49), true, false)
+	alcine.go_to(Vector2(13, 50), true, false)
+	await mira.go_to(Vector2(13, 49), true, false)
 	await Event.wait(0.2)
 	mira.look_to(Vector2.RIGHT)
 	await Event.wait(0.2)

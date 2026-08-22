@@ -1098,6 +1098,7 @@ func FlyAway(chara: Actor) -> void:
 	Bt.move(chara, Vector2(150, -150), 2)
 	await Event.wait(2.5, false)
 	Bt.death(chara)
+	Bt.end_turn()
 #endregion
 
 ################################################

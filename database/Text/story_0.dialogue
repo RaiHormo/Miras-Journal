@@ -176,6 +176,7 @@ Alcine.Happy: Whieaaa!
 => END
 
 ~ got_through_that
+$> Party.Leader.ClutchDmg = false
 Mira.Neutral: We should be safe now.
 Mira.Neutral: If it wasn't for you, I'd be done for.
 Mira.Neutral: We should stick together for now, [wait=0.5]umm...
@@ -200,7 +201,7 @@ Mira.Neutral: Seems like this is our way out of this forest.
 
 ~ morning
 Mira.Neutral: The sky is getting brighter. [p]Seems like it's early morning.
-(hide)
+[hide]
 $> npc("MiraCut").look_to(Vector2(0, -1))
 $> npc("MiraCut").bubble("Surprise")
 

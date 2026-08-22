@@ -74,8 +74,16 @@ func _ready() -> void:
 	#BodyState = DefaultState
 
 	if ID == "": ID = default_id()
-	if only_on_index >= 0 and only_on_index != Global.Area.index: queue_free()
-	if ID in Loader.defeated: queue_free()
+	if only_on_index >= 0 and only_on_index != Global.Area.index: 
+		queue_free()
+		return
+		
+
+	if ID in Loader.defeated: 
+		queue_free()
+		return
+
+	
 	Event.add_char(self)
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 
@@ -238,7 +246,7 @@ func get_tile(layer: int) -> TileData:
 ## Move towards a direction x24
 ## Input can be a Vector2, String ("U", "R", etc) or Direction
 ## A vector input can be bigger than 1 to move further
-func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
+func move_dir(dir: Variant, use_coords := true) -> void:
 	var vector: Vector2
 
 	if dir is String: vector = Direction.from_letter(dir).vector
@@ -248,8 +256,8 @@ func move_dir(dir: Variant, use_coords := true, autostop := false) -> void:
 		push_error("Invalid use of move_dir: ", dir)
 		return
 
-	if use_coords: await go_to(coords + vector, use_coords, autostop)
-	else: await go_to(position + vector, use_coords, autostop)
+	if use_coords: await go_to(position + vector * 24)
+	else: await go_to(position + vector)
 
 
 ## The characted looks to a new direction and becomes IDLE

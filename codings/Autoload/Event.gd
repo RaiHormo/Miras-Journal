@@ -47,8 +47,10 @@ func add_char(b: NPC) -> void:
 		if is_instance_valid(List.get(b.ID)):
 			return
 
+	if not is_instance_valid(b) or not b.is_inside_tree(): return
 	List.set(b.ID, b)
 	DialogueManager.unregister_state_context(b.ID)
+
 	var context := DialogueStateContext.new()
 	context.target = b
 	context.alias = b.ID
@@ -165,7 +167,8 @@ func node_shake(node: CanvasItem, amount := 10, repeat := randi_range(4, 8), tim
 		amount -= decrease_by
 		print(amount)
 
-	node.position = original_pos
+	if is_instance_valid(node):
+		node.position = original_pos
 
 
 func heal_in_overworld(target: Actor, ab: Ability) -> void:

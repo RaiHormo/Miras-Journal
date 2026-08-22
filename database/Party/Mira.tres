@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://cnpmp4umxxgic" path="res://database/Text/Profiles/MiraBox.tres" id="6_u8hid"]
 [ext_resource type="Resource" uid="uid://bc1byaoqk3s1q" path="res://database/Abilities/RagingFire.tres" id="8_27hub"]
 [ext_resource type="PackedScene" uid="uid://tw1kc2hybp1c" path="res://sound/Sets/MiraSoundSet.tscn" id="10_rljiu"]
+[ext_resource type="Resource" uid="uid://dumcwabsghqgu" path="res://database/Items/KeyItems/LightweightAxe.tres" id="14_00vn1"]
 [ext_resource type="Resource" uid="uid://cwp57sgr8rbwo" path="res://database/Enemies/Dummy.tres" id="14_flf11"]
 
 [sub_resource type="Curve" id="Curve_00vn1"]
@@ -34,7 +35,7 @@ SummonedAllies = Array[ExtResource("1_e1lg0")]([ExtResource("14_flf11")])
 SecondaryColor = Color(0.886275, 0.345098, 0.192157, 1)
 CharacterBoxProfile = ExtResource("6_u8hid")
 LastName = "Levenor"
-Weapon = "Lightweight Axe"
+Weapon = ExtResource("14_00vn1")
 PartyPage = "uid://drtjopmyeh8ib"
 RenderArtwork = "uid://dqa765cmwj2am"
 Controllable = true
@@ -56,4 +57,3 @@ Disappear = false
 GlowSpecial = 2.0
 GlowAnims = Array[String](["Ability", "AbilityLoop", "FlameSpark"])
 ClutchDmg = true
-DeathDialog = "mira_death"

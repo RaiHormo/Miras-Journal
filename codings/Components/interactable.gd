@@ -360,7 +360,7 @@ func do_position() -> void:
 
 func _on_button_pressed() -> void:
 	if not check_flag(): return
-	if get_tree().root.has_node("Textbox"): return
+	if not Global.Controllable: return
 	Global.Controllable = false
 	Global.Player.direction = Vector2.ZERO
 	t = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)

@@ -439,11 +439,15 @@ func _on_ai_chosen() -> void:
 
 
 func confirm_next(action_anim := true) -> void:
-	if CurrentChar.Controllable: ui.close()
-	print_rich("[color=cornflower-blue]Action: ", CurrentChar.NextAction)
+	if CurrentChar.NextMove == null:
+		CurrentChar.NextMove = Ability.nothing() 
 
+	if CurrentChar.Controllable: ui.close()
+	
 	if CurrentChar.NextMove == CurrentChar.StandardAttack:
 		CurrentChar.NextAction = Actor.BtAction.ACT
+
+	print_rich("[color=cornflower-blue]Action: ", CurrentChar.NextAction)
 
 	if action_anim:
 		match CurrentChar.NextAction:
@@ -630,19 +634,20 @@ func _on_battle_ui_ability_returned(ab: Ability, tar: Actor) -> void:
 ## Used for showing toasts. These can be set in BattleText from the editor.
 ## Certain strings are replaced, as seen below
 func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> String:
+	var target := CurrentTarget if CurrentTarget else Troop[0]
 	var text := BattleText[id]
 	text = text.replace("[cur]", CurrentChar.FirstName)
-	text = text.replace("[tar]", CurrentTarget.FirstName)
+	text = text.replace("[tar]", target.FirstName)
 	text = text.replace("[insert]", insert)
 	text = text.replace("[insert2]", insert2)
 	text = text.replace("[cur_themself]", CurrentChar.get_pronoun("themself"))
 	text = text.replace("[cur_they]", CurrentChar.get_pronoun("they"))
 	text = text.replace("[cur_them]", CurrentChar.get_pronoun("them"))
 	text = text.replace("[cur_their]", CurrentChar.get_pronoun("their"))
-	text = text.replace("[tar_themself]", CurrentTarget.get_pronoun("themself"))
-	text = text.replace("[tar_they]", CurrentTarget.get_pronoun("they"))
-	text = text.replace("[tar_them]", CurrentTarget.get_pronoun("them"))
-	text = text.replace("[tar_their]", CurrentTarget.get_pronoun("their"))
+	text = text.replace("[tar_themself]", target.get_pronoun("themself"))
+	text = text.replace("[tar_they]", target.get_pronoun("they"))
+	text = text.replace("[tar_them]", target.get_pronoun("them"))
+	text = text.replace("[tar_their]", target.get_pronoun("their"))
 	Global.toast(text)
 	return text
 
@@ -778,13 +783,13 @@ func damage(
 		return 0
 
 	# Clutch damage, health should never go to 0
-	if (target.ClutchDmg or target.CantDie) and target.Health - dmg < 0:
+	if (
+		((target.ClutchDmg and target.Health > 0.2*target.MaxHP) 
+		or target.CantDie) and target.Health - dmg < 0
+	):
 		print("Damage on ", target.FirstName, " was clutched")
 		limiter = true
-		
-		# Death sequence in case of clutch and CantDie
-		if target.CantDie and not target.DeathSequence.is_empty() and not limiter:
-			await $Act.call(target.DeathSequence, target)
+		queue_sequence_for_actor(target, target.DeathSequence)
 
 	# Actual damage happens
 	target.damage(dmg, limiter)
@@ -803,13 +808,13 @@ func damage(
 		print(target.FirstName, " takes ", aur_dmg, " aura damage")
 		target.add_aura(-aur_dmg)
 		pop_num(target, dmg, color)
+		
+		# Show the popup text
+		match relation:
+			"wk": pop_num(target, "WEAK")
+			"op": pop_num(target, "WEAK!")
+			"res": pop_num(target, "RESIST")
 	else: pop_num(target, dmg)
-
-	# Show the popup text
-	match relation:
-		"wk": pop_num(target, "WEAK")
-		"op": pop_num(target, "WEAK!")
-		"res": pop_num(target, "RESIST")
 
 	if !target.IsEnemy:
 		PartyUI.hit_partybox(Party.array().find(target), int(dmg / 2), int(dmg * 100 / target.MaxHP * 100) / 300)
@@ -852,6 +857,15 @@ func damage(
 
 	target.DamageRecivedThisTurn += dmg
 	return dmg
+
+
+func queue_sequence_for_actor(chara: Actor, sequence: String) -> void:
+	var ab := Ability.nothing().duplicate()
+	ab.name = sequence
+	ab.ActionSequence = sequence
+	
+	chara.NextMove = ab
+	chara.NextAction = Actor.BtAction.ACT
 
 
 func hit_animation(tar: Actor) -> void:
@@ -1075,8 +1089,8 @@ func death(target: Actor) -> void:
 	target.add_state("KnockedOut")
 
 	await Event.wait(1)
-	if not target.DeathSequence.is_empty():
-		$Act.call(target.DeathSequence, target)
+	if not target.DeathSequence.is_empty() and not target.CantDie:
+		await $Act.call(target.DeathSequence, target)
 
 	lock_turn = false
 
@@ -1093,6 +1107,8 @@ func death(target: Actor) -> void:
 
 ## Pass a target to show a dramatic last hit animation
 func game_over(target: Actor = null) -> void:
+	lock_turn = true
+	Audio.fade_out_music(2)
 	if target != null:
 		await Event.wait(0.2)
 		get_tree().paused = true
@@ -1521,6 +1537,7 @@ func victory_show_items() -> void:
 
 
 func miss(target: Actor = CurrentTarget) -> void:
+	lock_turn = true
 	play_effect("Miss", target)
 	var prev := target.node.position
 	move(target, Vector2(target.node.position.x + offsetize(30), target.node.position.y), 0.3, Tween.EASE_OUT)
@@ -1530,6 +1547,7 @@ func miss(target: Actor = CurrentTarget) -> void:
 
 	await Event.wait(0.5)
 	await move(target, prev, 0.3)
+	lock_turn = false
 
 
 func _on_battle_ui_command() -> void:
@@ -1633,6 +1651,7 @@ func stat_change(
 		&"Def": chara.DefenceMultiplier += amount
 
 	var state := await chara.add_state(stat + updown, turns, CurrentChar)
+	await Event.wait(1)
 	state.parameter = amount
 	pop_num(chara, stat_name(stat) +" x" + str(amount + 1), state.color)
 

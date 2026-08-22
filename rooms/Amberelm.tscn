@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://cn75n6xjwndk3" path="res://codings/Classes/battle_event.gd" id="13_0o4df"]
 [ext_resource type="PackedScene" uid="uid://h8hsgjo5gg6" path="res://rooms/components/Item.tscn" id="14_15y50"]
 [ext_resource type="Script" uid="uid://blx6fs34ughqo" path="res://codings/Classes/battle_seq.gd" id="14_fac0c"]
-[ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="14_vsd2t"]
 [ext_resource type="PackedScene" uid="uid://d0xlx8uwtl3tj" path="res://rooms/components/Breakable.tscn" id="15_frp5k"]
 [ext_resource type="Resource" uid="uid://c4vpbxeag0n74" path="res://database/Enemies/Steelkee.tres" id="16_0o4df"]
 [ext_resource type="Resource" uid="uid://gk43qq3jxxgn" path="res://database/Enemies/CrimsonFlowent.tres" id="17_dejne"]
@@ -32,6 +31,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cw67sswrcewvj" path="res://art/OV/Enemies/GenericEnemy.tres" id="24_2ksw5"]
 [ext_resource type="PackedScene" uid="uid://ch2j5pngca4u" path="res://rooms/components/StairsV.tscn" id="24_i77sn"]
 [ext_resource type="PackedScene" uid="uid://tcn5wh8gstsu" path="res://rooms/components/Ladder.tscn" id="25_vddgi"]
+[ext_resource type="PackedScene" uid="uid://cr3hn08s615pf" path="res://rooms/components/NPC.tscn" id="26_r6fn3"]
 [ext_resource type="PackedScene" uid="uid://vddf6k6h8067" path="res://rooms/components/EvTripwire.tscn" id="30_djhcr"]
 [ext_resource type="Texture2D" uid="uid://dc01c6q7ceiwc" path="res://art/OV/Objects/GuardianDestroyed.png" id="30_ylfhl"]
 [ext_resource type="PackedScene" uid="uid://b0pk66kwtm38a" path="res://rooms/components/HideOnFlag.tscn" id="31_ylfhl"]
@@ -869,32 +869,11 @@ texture_filter = 1
 sprite_frames = ExtResource("12_ylbqp")
 animation = &"WalkUp"
 
-[node name="MiraCut" type="CharacterBody2D" parent="EvEntranceCutscene" unique_id=502942592]
-z_index = 5
-position = Vector2(299, 1337)
-collision_layer = 0
-collision_mask = 0
-motion_mode = 1
-script = ExtResource("8_spg60")
-speed = 50
-default_state = 1
+[node name="MiraCut" parent="EvEntranceCutscene" unique_id=344934070 instance=ExtResource("26_r6fn3")]
+z_index = 4
+position = Vector2(302, 1336)
 only_on_index = 1
-
-[node name="Bubble" type="AnimatedSprite2D" parent="EvEntranceCutscene/MiraCut" unique_id=153070951]
-light_mask = 0
-material = ExtResource("10_bma1q")
-position = Vector2(0, -30)
-sprite_frames = ExtResource("11_l4igp")
-animation = &"Surprise"
-frame = 14
-frame_progress = 1.0
-
-[node name="Shadow" type="Sprite2D" parent="EvEntranceCutscene/MiraCut" unique_id=1370733261]
-unique_name_in_owner = true
-show_behind_parent = true
-texture_filter = 1
-position = Vector2(0, 10)
-texture = ExtResource("14_vsd2t")
+dont_use_collision = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="EvEntranceCutscene/MiraCut" unique_id=1076550043]
 texture_filter = 1

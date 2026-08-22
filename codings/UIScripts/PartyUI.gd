@@ -763,7 +763,7 @@ func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> voi
 		if not artifact:
 			return
 
-		$CanvasLayer/Cursor/ItemPreview.text = (artifact.Name+ " x" + str(artifact.Quantity))
+		$CanvasLayer/Cursor/ItemPreview.text = (artifact.Name+ " x" + str(Item.count(artifact)))
 		$CanvasLayer/Cursor/ItemPreview.icon = artifact.Icon
 		$/root/MainMenu.stage = "choose_member"
 	elif artifact is Ability:
@@ -799,16 +799,17 @@ func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> voi
 
 func _on_item_preview_pressed() -> void:
 	if member_choosing_artifact is ItemData:
-		if member_choosing_artifact.Quantity != 0:
+		if Item.count(member_choosing_artifact) != 0:
 			if Global.Party.get_member(focus).Health != Global.Party.get_member(focus).MaxHP:
 				Global.toast("HP is already maxed out")
 				Audio.buzzer_sound()
 
 			Item.emit_signal("return_member", (Global.Party.get_member(focus)))
 		else:
+			Audio.buzzer_sound()
 			Global.toast("No more of this item is left")
 
-		$CanvasLayer/Cursor/ItemPreview.text = (member_choosing_artifact.Name + " x" + str(member_choosing_artifact.Quantity))
+		$CanvasLayer/Cursor/ItemPreview.text = (member_choosing_artifact.Name + " x" + str(Item.count(member_choosing_artifact)))
 
 	if member_choosing_artifact is Ability:
 		if Global.Party.get_member(focus).Health == Global.Party.get_member(focus).MaxHP:
@@ -1042,7 +1043,7 @@ func talk() -> void:
 
 	var key: String = "d" + str(Event.Day) + "_" + str(Event.flag_int(Global.Party.array()[focus].codename + "Talk"))
 
-	if not key in dialog.get_titles():
+	if not key in dialog.get_cues():
 		key = "error"
 
 	line_to_be_used = (await dialog.get_next_dialogue_line(key)).text
