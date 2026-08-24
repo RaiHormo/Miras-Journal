@@ -13,6 +13,82 @@ func _ready() -> void:
 	hide()
 
 
+func got_complimentary(ability: Ability, from_name: String) -> void:
+	var color1 := ability.WheelColor
+	var color2 := ability.WheelColor
+	var color3 := ability.WheelColor
+	color2.v -= 0.2
+	color3.v -= 0.5
+	learnable = ability
+	$ChooseUpgrade/NewAb/Hbox/Text.text = ability.name
+	$ChooseUpgrade/NewAb/Hbox/Icon.texture = ability.Icon
+	$Line1.position = Vector2(0, 243)
+	$Line1.rotation_degrees = 0
+	$GotComplimentaryText.position = Vector2(-52, 364)
+	$Line1.color = color1
+	$Line1/Line3.color = color1
+	$Line1/Line2.color = color2
+	$Line1/Line3/Line2.color = color2
+	$Line1/Line2/Line3.color = color3
+	$Line1/Line3/Line2/Line3.color = color3
+	$Line1/Bg.size.y = 10
+	$GotComplimentaryText.add_theme_color_override("default_color", color1)
+	$ChooseUpgrade.modulate = Color.TRANSPARENT
+	$ChooseUpgrade.position.y = 500
+	$ChooseUpgrade/Label.hide()
+	$ChooseUpgrade/Desc.modulate = Color.TRANSPARENT
+	$ChooseUpgrade/HPCont.hide()
+	$ChooseUpgrade/APCont.hide()
+	$ChooseUpgrade/Cursor.hide()
+	$ChooseUpgrade/NewAb.hide()
+	$ChooseUpgrade/NewAb.modulate = Color(1,1,1,0)
+	$ChooseUpgrade/Actor.hide()
+	$ChooseUpgrade/NewAb.position = Vector2(430, 430)
+
+	complimentary_cutin(from_name, color3)
+	await Event.wait(2, false)
+
+	var t := create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_IN)
+	t.set_trans(Tween.TRANS_QUINT)
+	t.tween_property($Line1, "position", Vector2(-32, -100), 0.5)
+	t.tween_property($Line1, "rotation_degrees", -6.2, 0.5)
+	t.tween_property($GotComplimentaryText, "position", Vector2(-180, 11), 0.5)
+	t.tween_property($Line1/Bg, "size:y", 800, 0.5)
+	t.tween_property($ChooseUpgrade, "modulate", Color.WHITE, 0.5)
+	t.tween_property($ChooseUpgrade, "position:y", 0, 0.5)
+
+	await t.finished
+	$ChooseUpgrade/NewAb/Hbox/Icon.texture = ability.Icon
+	$ChooseUpgrade/NewAb/Hbox/Text.text = ability.name
+	t = create_tween()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUINT)
+	#t.tween_property($ChooseUpgrade/NewAb, "self_modulate", Color.WHITE, 1).from(Color(10, 10, 10, 1))
+	$ChooseUpgrade/NewAb.show()
+	t.tween_property($ChooseUpgrade/NewAb, "modulate", Color.WHITE, 1).from(Color(1,1,1, 0))
+	t.tween_property($ChooseUpgrade/NewAb, "scale", Vector2(1.5, 1.5), 1).from(Vector2(2, 2))
+
+	await Event.wait(1, false)
+	$ChooseUpgrade/Desc.show()
+	$ChooseUpgrade/Desc.text = Colorizer.colorize(ability.description)
+	t = create_tween()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_QUART)
+	t.set_parallel()
+	t.tween_property($ChooseUpgrade/NewAb, "position:y", 313, 0.5)
+	t.tween_property($ChooseUpgrade/Desc, "modulate", Color.WHITE, 0.5)
+
+	$Glow.modulate = color1
+	t.tween_property($Glow, "modulate:a", 1, 3).from(0)
+	await t.finished
+
+	$ChooseUpgrade/Continue.icon = Controller.get_scheme().ConfirmIcon
+	$ChooseUpgrade/Continue.show()
+
+
 func levelup(chara: Actor) -> void:
 	working_chara = chara
 	find_learnable()
@@ -87,6 +163,7 @@ func levelup(chara: Actor) -> void:
 		t.tween_property($ChooseUpgrade/NewAb, "position:x", 160, 0.2).from(-100)
 		t.tween_property($ChooseUpgrade/NewAb, "modulate", Color.WHITE, 0.2)
 		await Event.wait(0.8, false)
+
 	$ChooseUpgrade/Cursor/Cont/Button.show()
 	$ChooseUpgrade/Cursor/Cont/Button.icon = Controller.get_scheme().ConfirmIcon
 	t = create_tween()
@@ -95,20 +172,51 @@ func levelup(chara: Actor) -> void:
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property($ChooseUpgrade/Cursor/Cont,
 		"size:x", 190, 0.3).from(1)
+
 	t.tween_property($ChooseUpgrade/Cursor, "modulate", Color.WHITE, 0.2)
 	index = 0
 	active = true
 
 
 func level_cutin(chara: Actor) -> void:
+	$LevelupText.show()
+	$GotComplimentaryText.hide()
 	PartyUI.hide_all()
 	scale.y = 0.1
+
 	for i in $Line1/NameChain.get_children():
 		i.text = (chara.FirstName + " " + chara.LastName + " ").to_upper()
 		i.add_theme_color_override("font_color", chara.CharacterBoxProfile.Bord3)
+
 	for i in $Line1/NameChain2.get_children():
 		i.text = (chara.FirstName + " " + chara.LastName + " ").to_upper()
 		i.add_theme_color_override("font_color", chara.CharacterBoxProfile.Bord3)
+
+	var t := create_tween()
+	show()
+	t.set_parallel()
+	t.set_ease(Tween.EASE_OUT)
+	t.set_trans(Tween.TRANS_CUBIC)
+	t.tween_property(self, "scale:y", 1, 0.3)
+	t.tween_property($Line1/NameChain, "position:x", -800, 10).from(0)
+	t.tween_property($Line1/NameChain2, "position:x", 2300, 10).from(1400)
+
+
+func complimentary_cutin(from_name: String, font_color: Color) -> void:
+	$LevelupText.hide()
+	$GotComplimentaryText.show()
+	PartyUI.hide_all()
+	scale.y = 0.1
+	from_name += " "
+
+	for i in $Line1/NameChain.get_children():
+		i.text = (from_name).to_upper()
+		i.add_theme_color_override("font_color", font_color)
+
+	for i in $Line1/NameChain2.get_children():
+		i.text = (from_name).to_upper()
+		i.add_theme_color_override("font_color", font_color)
+
 	var t := create_tween()
 	show()
 	t.set_parallel()
@@ -123,10 +231,13 @@ func _input(event: InputEvent) -> void:
 	if not active: return
 	if Input.is_action_just_pressed("ui_down"):
 		index += 1
+
 		if index == 3: index = 0
 		move_menu()
+
 	if Input.is_action_just_pressed("ui_up"):
 		index -= 1
+
 		if index == -1: index = 2
 		move_menu()
 
@@ -138,9 +249,11 @@ func move_menu() -> void:
 		0:
 			ypos = 375
 			$ChooseUpgrade/Cursor/Cont/Button.text = "Upgrade Health"
+
 		1:
 			ypos = 515
 			$ChooseUpgrade/Cursor/Cont/Button.text = "Upgrade Aura"
+
 		2:
 			if learnable != null:
 				ypos = 646
@@ -149,6 +262,7 @@ func move_menu() -> void:
 				index = 0
 				move_menu()
 				return
+
 	var t := create_tween()
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT)
@@ -191,6 +305,7 @@ func _confirm() -> void:
 			while $ChooseUpgrade/HPCont/HPBox/HPText.text != str(working_chara.MaxHP):
 				$ChooseUpgrade/HPCont/HPBox/HPText.text = str(count)
 				await Event.wait()
+
 		1:
 			t.tween_property($ChooseUpgrade/APCont, "position", Vector2(334, 450), 0.6)
 			t.tween_property($ChooseUpgrade/HPCont, "position:x", 400, 0.3)
@@ -210,6 +325,7 @@ func _confirm() -> void:
 			while $ChooseUpgrade/APCont/APBox/APText.text != str(working_chara.MaxAura):
 				$ChooseUpgrade/APCont/APBox/APText.text = str(count)
 				await Event.wait()
+
 		2:
 			t.tween_property($ChooseUpgrade/NewAb, "position", Vector2(334, 450), 0.6)
 			t.tween_property($ChooseUpgrade/HPCont, "position:x", 400, 0.3)
@@ -242,6 +358,7 @@ func _confirm() -> void:
 			t.tween_property($ChooseUpgrade/NewAb, "position:y", 313, 0.5)
 			t.tween_property($ChooseUpgrade/Desc, "modulate", Color.WHITE, 0.5)
 			await t.finished
+
 	$ChooseUpgrade/Continue.icon = Controller.get_scheme().ConfirmIcon
 	$ChooseUpgrade/Continue.show()
 

@@ -78,7 +78,7 @@ func _process(_delta: float) -> void:
 	if Expanded and not submenu_opened:
 		handle_ui()
 
-	$CanvasLayer/VirtualJoystick.visible = Global.Controllable
+	$CanvasLayer/VirtualJoystick.visible = Global.Controllable and Global.Player
 
 	if not Loader.in_battle:
 		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames > 0:

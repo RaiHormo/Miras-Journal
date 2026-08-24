@@ -11,6 +11,16 @@
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="9_kw46w"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="10_8nico"]
 
+[sub_resource type="Gradient" id="Gradient_in7es"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 0.49019608, 0.31092757, 0.31092757, 0.31092757, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hcmug"]
+gradient = SubResource("Gradient_in7es")
+fill = 1
+fill_from = Vector2(0.52057457, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ys1q"]
 bg_color = Color(0.101961, 0.101961, 0.101961, 1)
 corner_radius_top_left = 32
@@ -288,6 +298,21 @@ offset_right = 1333.0
 offset_bottom = 1099.0
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
+[node name="Glow" type="TextureRect" parent="Levelup" unique_id=90761537]
+modulate = Color(0.61, 0.5388333, 0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 29.0
+offset_right = 1280.0
+offset_bottom = 800.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hcmug")
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Levelup" unique_id=503731197]
 visible = false
 layout_mode = 1
@@ -323,7 +348,28 @@ grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("1_72ntk")
 theme_override_font_sizes/normal_font_size = 112
 bbcode_enabled = true
-text = "[center]SKILL LEVEL UP![/center]"
+text = "SKILL LEVEL UP!"
+horizontal_alignment = 1
+
+[node name="GotComplimentaryText" type="RichTextLabel" parent="Levelup" unique_id=1695737971]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.0
+offset_top = 11.0
+offset_right = 1098.0
+offset_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_72ntk")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "GOT COMPLIMENTARY!"
+horizontal_alignment = 1
 
 [node name="ChooseUpgrade" type="Control" parent="Levelup" unique_id=292885406]
 anchors_preset = 0
@@ -502,9 +548,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tuywr")
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_gwah4")
 custom_minimum_size = Vector2(0, 33)
-layout_direction = 1
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 0
 theme = SubResource("Theme_pkcqn")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -523,7 +569,6 @@ visible = false
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_gwah4")
 custom_minimum_size = Vector2(0, 33)
-layout_direction = 1
 layout_mode = 0
 offset_left = 22.0
 offset_top = 730.0
@@ -531,6 +576,7 @@ offset_right = 166.0
 offset_bottom = 763.0
 scale = Vector2(1.5, 1.5)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 0
 theme = SubResource("Theme_pkcqn")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -548,7 +594,7 @@ expand_icon = true
 layout_mode = 0
 offset_left = 198.0
 offset_top = 449.0
-offset_right = 846.0
+offset_right = 1077.0
 offset_bottom = 698.0
 theme_override_fonts/normal_font = ExtResource("4_bn54i")
 theme_override_font_sizes/normal_font_size = 48

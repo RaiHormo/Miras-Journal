@@ -48,6 +48,7 @@ func add_char(b: NPC) -> void:
 			return
 
 	if not is_instance_valid(b) or not b.is_inside_tree(): return
+
 	List.set(b.ID, b)
 	DialogueManager.unregister_state_context(b.ID)
 
