@@ -2182,6 +2182,14 @@ mouse_filter = 1
 theme = SubResource("Theme_srwa7")
 text = "FollowUp"
 
+[node name="Complimentary" type="Button" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=1446993536]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 14.435)
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_srwa7")
+text = "Complimentary"
+
 [node name="States" type="Label" parent="ManualPanel/ScrollContainer/VBoxContainer" unique_id=849319346]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -2614,6 +2622,8 @@ texture = ExtResource("26_375bk")
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/HittingWeaknesses" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/FollowUp" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/FollowUp" to="." method="_manual_entry_pressed"]
+[connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/Complimentary" to="." method="_manual_entry_select"]
+[connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/Complimentary" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates1" to="." method="_manual_entry_select"]
 [connection signal="pressed" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates1" to="." method="_manual_entry_pressed"]
 [connection signal="focus_entered" from="ManualPanel/ScrollContainer/VBoxContainer/ElementalStates2" to="." method="_manual_entry_select"]

@@ -48,6 +48,21 @@ With the dash you can get around quickly, but only at one direction at a time. W
 
 "#FollowUp\n\nThe Actor gets to move again. They can also use a special FollowUp move if they have one.\n\nTo get a FollowUp, empty the AP of an enemy by hitting weaknesses.",
 
+"#Complimentary
+
+By spending time with other people, you can unlock [b]Complimentary Abilities[/b].
+
+These abilities can be used by anyone in your party, even by multiple members at once!
+
+However, a new skill always needs practice.
+Complimentary Abilities may not succeed the first time used. 
+The further they are from the user's aura color, the harder they are to learn.
+But with enough practice, anyone can master them!
+
+To equip one, go to the Party menu, 
+select a member, go to Abilities, 
+then \"Set Complimentary\".
+",
 
 "#ProtectionStates\n\n[b]Guarding[/b]\nTakes half damage from any attack, and converts that into Aura.\n\n[b]Magic Shield[/b]\nBlocks any magic damage.\n\n[b]Barrier[/b]\nBlocks any weapon damage.\n\n[b]Hue-Shift[/b]\nTemporarily changes the defensive Aura color.\n\n[b]Unbreaking Aura[/b]\nThis actor's Aura cannot be damaged.",
 
