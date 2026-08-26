@@ -329,10 +329,10 @@ The sky getting darker. I've really been out here all day...
 Placeholder description: Mira looks forward to Alcine goofing around.
 Seeing them pull off Freeze and Liquid spells like that with ease... It kinda makes me jealous.
 Their aura color, and thus affinity for magic, is nearly oposite to mine.
-But... perhaps I could give liquid magic a try.
-$> Global.Complimentaries.append("FluidBlast")
-Placeholder description: Unlocked Complimentary Ability: Fluid Blast
-Placeholder description: To equip Complimentaries, go to the Menu > Party > Abilities > $> Complimentary
+But... {{alcine()}} has kind of inspired me.
+Perhaps I could give liquid magic a try.
+[hide]
+$> add_complimentary("FluidBlast", alcine())
 $> npc("P").jump_to(get_marker_pos("BenchBeforeGuardian"))
 $> save()
 => END
@@ -342,8 +342,16 @@ Mira.Neutral: Wh- What is this!?
 Alcine.Upset: M- Mmeeaw...
 => END
 
+~ anything_goes_comment
+Mira.OpenMouth: It can shift it's own Aura color?!
+Mira.Worried: Careful {{alcine()}}![br]Your attacks might only be effective when it's on specific colors!
+=> END
+
 ~ stone_guardian_still_standing
-Mira.Neutral: This thing just won't go down..!
+if Party.Leader.Health > 0:
+	Mira.Neutral: This thing just won't go down..!
+else:
+	Mira.Upset: It's.... pointless.....
 => END
 
 ~ stone_guardian_guard
@@ -371,7 +379,7 @@ Mira.Neutral: I have so many questions...
 Daze.Neutral: Ask away.
 $> Event.Flags.set("DazeQuestions", 0)
 ~ daze_questions
-What $> I ask?
+What do I ask?
 - Who is he?
 	Mira.Neutral: So... who are you?
 	Daze.Neutral: The name is Daze.
@@ -429,7 +437,8 @@ What $> I ask?
 	Daze.Neutral: And you were fighting that thing? You need like a week's worth of rest...
 	Daze.Neutral: I also got some food packed up. Hold on.
 	$>>  Loader.gray_out(1)
-	He gives me some bread wraps he had. It's nothing special but not having eated a whole day makes anything taste amazing.
+	He gives me some bread wraps he had. 
+	It's nothing special, but not having eated a whole day makes anything taste amazing.
 	$> Loader.ungray.emit()
 	Mira.Neutral: Thank you, I was starving...
 - Nothing else to ask
@@ -452,8 +461,9 @@ $> Event.Flags.set("DazeQuestions", Event.Flags.get("DazeQuestions")+1)
 
 ~ daze_questions_done
 Mira.Neutral: So what's the plan now?
-Daze.Neutral: You stay here and rest now. I want to explore this place further, but let's leave that for tommorow.
-Daze.Neutral: I'll go scout around here for monsters. Just stay here in the camp while I'm away.
+Daze.Neutral: You stay here and rest now. 
+Daze.Neutral: I've been wanting to explore this place further, but... let's leave that for tommorow.
+Daze.Neutral: I'll go scout around here for monsters.[br]Just stay here and rest while I'm away, alright?
 Mira.Neutral: Alright.
 if Query.find_member("Daze").FirstName != "Daze":
 	Mira.Neutral: Oh by the way, I didn't ask. What's your name?
@@ -464,5 +474,5 @@ if Query.find_member("Daze").FirstName != "Daze":
 	Mira.Neutral: Daze...
 	Mira.Neutral: Is that a first or last name?
 	Daze.Neutral: It's... more of a nickname.
-	Mira.Neutral: Oh, okay.
+	Mira.Neutral: Oh, um, got it.
 => END

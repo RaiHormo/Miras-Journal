@@ -1,9 +1,11 @@
 wizard guy
 properly implement journal
 jump anim for the others
-figure out a new path in withered leaves
+polish upper withered leaves
 new puzzles in shard gardens
 alcine alone area art
 title screen art
 daze portraits
-fix shadows
+implement alcine goofing cutscene art
+daze introduction cutscene
+polish bunker

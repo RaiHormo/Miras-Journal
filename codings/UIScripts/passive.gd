@@ -9,28 +9,34 @@ static var current: Passive = null:
 		if current == null:
 			for i: Node in Engine.get_main_loop().root.get_children():
 				if i is Passive:
-					current = i 
+					current = i
 					return i
+
 			return null
-		if not is_instance_valid(current): 
+
+		if not is_instance_valid(current):
 			return null
+
 		return current
 static var is_open := false
 
-static func open(file: String, title: String = "0", extra_game_states: Array = []) -> void:
-	print_rich("[color=orange]Passive: ", file, " - ", title)
+
+static func open(file: String, cue: String = "0", extra_game_states: Array = []) -> void:
+	print_rich("[color=orange]Passive: ", file, " - ", cue)
+
 	if Engine.get_main_loop().root.has_node("Passive"):
 		Engine.get_main_loop().root.get_node("Passive")._on_close()
 		await Event.wait(0.3)
-		open(file, title, extra_game_states)
+		open(file, cue, extra_game_states)
 		return
+
 	is_open = true
 	var passive: PackedScene = await Loader.load_res("res://UI/Textbox/Passive.tscn")
 	var box: Node = passive.instantiate()
 	Engine.get_main_loop().root.add_child(box)
 	box.start(
 		await Loader.load_res("res://database/Text/" + file + ".dialogue") as DialogueResource,
-		title,
+		cue,
 		extra_game_states
 	)
 	await Event.passive_close
@@ -76,15 +82,18 @@ var dialogue_line: DialogueLine:
 			next(dialogue_line.next_id)
 			char_name = ""
 			return
-		
+
 		var split := char_name.split(".")
 		char_name = split[0]
+
 		if split.size() > 1:
 			var redraw: bool = true
+
 			if prev_char == char_name: redraw = false
 			portrait(char_name+split[1], redraw)
+
 		prev_char = char_name
-		
+
 		var bord1: StyleBoxFlat = $Balloon/Panel2/Border1.get_theme_stylebox("panel")
 		var mem := await BoxProfile.match_profile(char_name)
 		bord1.border_color = mem.Bord1
@@ -117,14 +126,17 @@ var dialogue_line: DialogueLine:
 				# Duplicate the template so we can grab the fonts, sizing, etc
 				var item: Button = response_template.duplicate(0)
 				item.name = "Response%d" % responses_menu.get_child_count()
+
 				if not response.is_allowed:
 					item.name = String(item.name) + "Disallowed"
 					item.modulate.a = 0.4
+
 				item.text = response.text
 				item.show()
 
 				responses_menu.add_child(item)
 				t.tween_property(responses_menu, "position", Vector2(832, 318), 1).from(Vector2(2000, 318))
+
 		# Show our balloon
 		draw_portrait()
 		dialogue_label.text = ""
@@ -139,6 +151,7 @@ var dialogue_line: DialogueLine:
 			t.tween_property($Balloon, "scale", Vector2(1, 1), 0.3).from(Vector2(0.7, 0.2))
 #		else:
 #			t.tween_property($Balloon, "scale", Vector2(1,1), 0.2).from(Vector2(0.9,0.9))
+
 		will_hide_balloon = false
 
 		dialogue_label.modulate.a = 1
@@ -147,6 +160,7 @@ var dialogue_line: DialogueLine:
 			var prof := await BoxProfile.match_profile(char_name)
 			dialogue_label.type_out_with_sound(prof.TextSound, prof.AudioFrequency, prof.PitchVariance)
 			await dialogue_label.finished_typing
+
 		if dialogue_line.time != "":
 			var time := dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
@@ -155,12 +169,14 @@ var dialogue_line: DialogueLine:
 			var time := dialogue_line.text.length() * 0.02 + 1
 			await get_tree().create_timer(max(time, 2)).timeout
 			next(dialogue_line.next_id)
+
 	get:
 		return dialogue_line
 
 
 func _ready() -> void:
 	#	response_template.hide()
+
 	Portrait.hide()
 	balloon.hide()
 	balloon.custom_minimum_size.x = balloon.get_viewport_rect().size.x
@@ -180,6 +196,7 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	if resource == null:
 		queue_free()
 		return
+
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
 
@@ -241,10 +258,13 @@ func draw_portrait() -> void:
 			t.tween_property(Portrait, "modulate", Color(0, 0, 0, 0), 0.2)
 			#t.tween_property(Portrait, "position", Vector2(-200, 389), 0.3)
 			await get_tree().create_timer(0.2).timeout
+
 		Portrait.hide()
+
 
 func portrait_clear() -> void:
 	has_portrait = false
+
 
 func set_next_box(profile: String) -> void:
 	current.next_box = profile
@@ -256,6 +276,7 @@ func set_picture(img: String) -> void:
 
 func picture_clear() -> void:
 	current.picture = null
+
 
 func portrait(img: String, redraw := false) -> void:
 	redraw_portrait_next_time = redraw

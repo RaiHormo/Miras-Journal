@@ -18,16 +18,16 @@ static var current: Textbox = null:
 		return current
 
 
-static func open(file: String, title: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
+static func open(file: String, cue: String = "0", fade_bg := false, extra_game_states: Array = []) -> void:
 	await kill()
 	is_open = true
-	print_rich("[color=orange]Textbox: ", file, " - ", title)
+	print_rich("[color=orange]Textbox: ", file, " - ", cue)
 	var Textbox2: PackedScene = await Loader.load_res("res://UI/Textbox/Textbox2.tscn")
 	var box: Textbox = Textbox2.instantiate()
 	var text: DialogueResource = await Loader.load_res("res://database/Text/" + file + ".dialogue")
 	Engine.get_main_loop().root.add_child(box)
 	if is_instance_valid(box):
-		box.start(text, title, extra_game_states)
+		box.start(text, cue, extra_game_states)
 
 	if fade_bg:
 		fade_txt_background()
@@ -159,12 +159,6 @@ func show_dialog_line() -> void:
 		prev_char = ""
 		return
 
-	input_indicator.hide()
-	print(no_nametag)
-	character_panel.visible = not (dialogue_line.character.is_empty() or no_nametag)
-	no_nametag = false
-	character_panel.size.x = 1
-
 	var splits := dialogue_line.character.split(".")
 	char_name = splits[0]
 
@@ -181,6 +175,11 @@ func show_dialog_line() -> void:
 	if not Query.member_exists(char_name):
 		character_label.text = char_name
 	else: character_label.text = Query.find_member(char_name).FirstName
+
+	input_indicator.hide()
+	character_panel.visible = not (character_label.text.is_empty() or no_nametag)
+	no_nametag = false
+	character_panel.size.x = 1
 
 	if next_box == "": next_box = char_name
 	mem = await BoxProfile.match_profile(next_box)

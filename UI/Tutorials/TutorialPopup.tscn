@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://uxyko46qedi" path="res://codings/UIScripts/tutorial_popup.gd" id="1_kw845"]
 [ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="3_5etnr"]
 [ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="3_c8w00"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="3_yev0x"]
 [ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="4_yev0x"]
 [ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="5_vdwkq"]
 
@@ -109,7 +110,7 @@ events = [SubResource("InputEventAction_5etnr"), SubResource("InputEventAction_y
 
 [node name="Control" type="CanvasLayer" unique_id=903447602]
 process_mode = 3
-layer = 2
+layer = 10
 script = ExtResource("1_kw845")
 
 [node name="Fader" type="ColorRect" parent="." unique_id=964943107]
@@ -160,7 +161,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 
 [node name="Border2" type="PanelContainer" parent="." unique_id=1558549862]
-visible = false
 show_behind_parent = true
 offset_left = -412.0
 offset_top = 491.0
@@ -174,7 +174,12 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 12
 theme_override_fonts/normal_font = ExtResource("3_c8w00")
-theme_override_font_sizes/normal_font_size = 27
+theme_override_fonts/bold_font = ExtResource("3_yev0x")
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
@@ -194,7 +199,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4dxh1")
 [node name="Next" type="Button" parent="Border2/Control" unique_id=1005465923]
 visibility_layer = 1024
 material = SubResource("ShaderMaterial_wx1q2")
-layout_direction = 1
 layout_mode = 0
 offset_left = 266.0
 offset_top = 7.99999
@@ -203,6 +207,7 @@ offset_bottom = 41.0
 scale = Vector2(1.4, 1.4)
 pivot_offset = Vector2(19.2536, 14.8241)
 size_flags_stretch_ratio = 0.0
+layout_direction = 1
 focus_mode = 0
 theme = SubResource("Theme_q87ds")
 theme_override_colors/font_color = Color(0, 0, 0, 1)

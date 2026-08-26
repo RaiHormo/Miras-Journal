@@ -146,18 +146,17 @@ Daze.Neutral: Did I do something wrong?
 => END
 
 ~ nov1_night
-do add_flag("InCamp")
-do add_flag("HasBag")
-do find_member("Mira").OV = "Bag"
-do travel_to("WitheredLeaves", Vector2(777, -218))
+$> add_flag("InCamp")
+$> add_flag("HasBag")
+$> travel_to("WitheredLeaves", Vector2(777, -218))
 We setup a camp again, now reunited with {{alcine()}}.
 {{alcine()}}... does't seem to be very fond of him though.
 Every time he approaches, they hide behind me...
 [hide]
 I should fill in my journal for today...[wait=1] Oh I just remembered!
 I need to ask Daze his age.
-do give_control()
-do save()
+$> give_control()
+$> save()
 => END!
 
 ~ nov2_morning

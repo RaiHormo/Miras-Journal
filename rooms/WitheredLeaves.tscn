@@ -677,9 +677,10 @@ position = Vector2(209, -125)
 [node name="ScenePosition" type="Marker2D" parent="EnemyFlowent3" unique_id=1025937914]
 
 [node name="EvDazeEnemy1" parent="." unique_id=2007210965 instance=ExtResource("15_mqvg4")]
-position = Vector2(490, -108)
+position = Vector2(515, -108)
 TriggerSize = Vector2i(11, 180)
-Flag = "!day=1"
+Flag = "day=1"
+FlagShouldBe = true
 AddFlag = true
 ReturnControl = false
 PlayEvent = true

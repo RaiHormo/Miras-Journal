@@ -83,7 +83,11 @@ func got_complimentary(ability: Ability, from_name: String) -> void:
 
 	$Glow.modulate = color1
 	t.tween_property($Glow, "modulate:a", 1, 3).from(0)
-	await t.finished
+
+	await Event.wait(1, false)
+
+	if Global.Complimentaries.is_empty():
+		await Event.pop_tutorial("complimentary")
 
 	$ChooseUpgrade/Continue.icon = Controller.get_scheme().ConfirmIcon
 	$ChooseUpgrade/Continue.show()
@@ -364,6 +368,7 @@ func _confirm() -> void:
 
 
 func close() -> void:
+	Audio.confirm_sound()
 	var t := create_tween()
 	t.set_ease(Tween.EASE_IN)
 	t.set_trans(Tween.TRANS_QUINT)

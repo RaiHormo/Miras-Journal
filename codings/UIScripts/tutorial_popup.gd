@@ -3,9 +3,9 @@ class_name TutorialPopup
 
 
 func start(id: String) -> void:
-	call(id)
 	$Border2.hide()
 	$Border2/Control/Next.icon = Controller.get_scheme().ConfirmIcon
+	await call(id)
 
 
 func pop_down() -> void:
@@ -113,6 +113,29 @@ func aura1() -> void:
 	$Border2/Text.text = Colorizer.colorize("This meter will be drained whenever a magic Ability is used.")
 	await await_next()
 	Global.Bt.lock_turn = false
+	queue_free()
+
+
+func complimentary() -> void:
+	await Event.wait(1)
+	Audio.confirm_sound()
+	$Border2.show()
+	$Border2.position = Vector2(840, 450)
+	$Border2/Control/Arrow.hide()
+	$Border2/Text.text = Colorizer.colorize("By spending time with other people, you can unlock [b]Complimentary Abilities[/b].")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("These abilities can be used by anyone in your party! Even by multiple members at once!")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("However, a new skill always needs practice...")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("Complimentary Abilities may not succeed the first time used...")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("...And the further they are from the user's aura color, the harder they are to learn.")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("But with enough practice, anyone can master them!")
+	await await_next()
+	$Border2/Text.text = Colorizer.colorize("To equip one, go to the Party menu, select a member, go to Abilities, then \"Set Complimentary\".")
+	await await_next()
 	queue_free()
 
 

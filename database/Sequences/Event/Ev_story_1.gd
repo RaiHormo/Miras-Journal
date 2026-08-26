@@ -61,8 +61,9 @@ func where_is_alcine_1() -> void:
 	Global.Party.reset_party()
 	Global.Party.Leader = Query.find_member("Alcine")
 	Global.Party.Leader.Controllable = true
-	await Loader.travel_to("WitheredLeaves", Vector2(-976, 167), 1, -1, "")
+	await Loader.travel_to("WitheredLeaves", Vector2(-976, 167), 0, -1, "")
 	Event.give_control()
+	Loader.save()
 
 
 func WL_alcine_slide() -> void:

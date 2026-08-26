@@ -383,7 +383,7 @@ func remove_flag(flag: StringName) -> void:
 func pop_tutorial(id: String) -> void:
 	var tutorial: TutorialPopup = (await Loader.load_res("res://UI/Tutorials/TutorialPopup.tscn")).instantiate()
 	get_tree().root.add_child(tutorial)
-	tutorial.start(id)
+	await tutorial.start(id)
 
 
 func take_control(keep_ui := false, keep_followers := false, idle := false) -> void:
@@ -756,7 +756,7 @@ func date_is_reserved() -> bool:
 	var dialogue: DialogueResource = load("res://database/Text/reserved_date.dialogue")
 	var date := get_date_identifier()
 
-	if date in dialogue.get_titles():
+	if date in dialogue.get_cues():
 		return true
 	else:
 		return false
@@ -767,7 +767,7 @@ func get_reserved_date_dialog() -> String:
 	var date := get_date_identifier()
 	var title: String = "default"
 
-	if date in dialogue.get_titles():
+	if date in dialogue.get_cues():
 		title = date
 
 	return "reserved_date/" + title

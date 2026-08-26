@@ -371,7 +371,15 @@ func give_every_ability() -> void:
 		Party.Leader.Abilities.append(ab)
 
 
-func add_complimentary(ability: String) -> void:
+func add_complimentary(ability: String, from_name: String = "Mira Levenor", popup:= true) -> void:
+	if popup:
+		var scenepack: PackedScene = load("res://UI/LevelUp/Levelup.tscn")
+		var scene: Node = scenepack.instantiate()
+		get_tree().root.add_child(scene)
+		await Event.wait()
+		scene.get_node("Levelup").got_complimentary(await Query.get_ability(ability), from_name)
+		await scene.get_node("Levelup").closed
+
 	if ability not in Global.Complimentaries:
 		Global.Complimentaries.append(ability)
 

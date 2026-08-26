@@ -297,10 +297,11 @@ func amberelm_guardian() -> void:
 
 
 func oct31_night() -> void:
+	Item.remove_item("LightweightAxe", &"Key")
+	Query.find_member("Mira").Weapon = load("res://database/Items/KeyItems/NoWeapon.tres")
 	Event.add_flag("BeatStoneGuardian")
 	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
 	await Event.no_player()
-	#Loader.detransition()
 	await Event.spawn("Mira", Vector2(770, -211), Direction.LEFT)
 	await Event.spawn("Daze", Vector2(670, -211), Direction.RIGHT)
 	await Textbox.open(name, "daze_introduction")
@@ -310,3 +311,4 @@ func oct31_night() -> void:
 	Global.Party.set_to(["Mira"])
 	Global.Party.Leader.ClutchDmg = false
 	await Loader.travel_to("WitheredLeaves", Vector2(775, -211))
+	Loader.save()

@@ -14,7 +14,6 @@ Z = 4
 Members = Array[Dictionary]([{
 "AbilitiesList": Array[String](["Guard", "SoothingSpray"]),
 "Aura": 15,
-"CantAttack": false,
 "CantDie": false,
 "CantDodge": false,
 "ClutchDmg": false,
@@ -29,13 +28,11 @@ Members = Array[Dictionary]([{
 "OV": "",
 "SkillLevel": 1,
 "SkillPoints": 31,
-"Weapon": "Arms?",
-"WeaponPower": 14,
+"WeaponName": "ArmWhip",
 "codename": &"Alcine"
 }, {
 "AbilitiesList": Array[String](["PhantomGuard", "Tighten", "RedShift"]),
 "Aura": 47,
-"CantAttack": false,
 "CantDie": false,
 "CantDodge": false,
 "ClutchDmg": false,
@@ -50,13 +47,11 @@ Members = Array[Dictionary]([{
 "OV": "",
 "SkillLevel": 7,
 "SkillPoints": 16,
-"Weapon": "Possessed Scarf",
-"WeaponPower": 16,
+"WeaponName": "PocessedScarf",
 "codename": &"Asteria"
 }, {
 "AbilitiesList": Array[String](["Guard", "Attention", "StaticSaber"]),
 "Aura": 24,
-"CantAttack": false,
 "CantDie": false,
 "CantDodge": false,
 "ClutchDmg": false,
@@ -71,13 +66,11 @@ Members = Array[Dictionary]([{
 "OV": "",
 "SkillLevel": 18,
 "SkillPoints": 21,
-"Weapon": "Gold-trimmed Katana",
-"WeaponPower": 30,
+"WeaponName": "GoldPlatedKatana",
 "codename": &"Daze"
 }, {
 "AbilitiesList": Array[String]([]),
 "Aura": 90,
-"CantAttack": false,
 "CantDie": false,
 "CantDodge": false,
 "ClutchDmg": false,
@@ -92,13 +85,11 @@ Members = Array[Dictionary]([{
 "OV": "res://art/OV/Erinn/ErinnOV.tres",
 "SkillLevel": 1,
 "SkillPoints": 0,
-"Weapon": "",
-"WeaponPower": 24,
+"WeaponName": "",
 "codename": &"Erinn"
 }, {
 "AbilitiesList": Array[String](["Guard", "FlameSpark", "HeatWave"]),
 "Aura": 20,
-"CantAttack": false,
 "CantDie": false,
 "CantDodge": false,
 "ClutchDmg": true,
@@ -115,15 +106,13 @@ Members = Array[Dictionary]([{
 "OV": "Bag",
 "SkillLevel": 2,
 "SkillPoints": 33,
-"Weapon": "Lightweight Axe",
-"WeaponPower": 14,
+"WeaponName": "LightweightAxe",
 "codename": &"Mira"
 }])
-Complimentaries = Array[String](["FluidBlast"])
 Defeated = ["EnemyIronHook1", "EnemyIronHook2", "EnemyIronHook3"]
 StartTime = 1773014079.152903
-SavedTime = 1786184949.218358
-PlayTime = 1364.0
+SavedTime = 1787781365.687761
+PlayTime = 1376.0
 Diary = Dictionary[int, PackedStringArray]({
 2: PackedStringArray("boo"),
 5: PackedStringArray("boo", "bee")

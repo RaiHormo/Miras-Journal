@@ -1282,6 +1282,11 @@ func StoneGuardianLoop() -> void:
 			Bt.ignore_end_turn = true
 			Bt.callout(load("res://database/Abilities/AnythingGoes.tres"))
 			await AnythingGoes(Bt.get_actor("Guardian"))
+			if not Event.check_flag("StoneGuardianComment"):
+				await Event.wait(1)
+				await Passive.open("story_0", "anything_goes_comment")
+				Event.add_flag("StoneGuardianComment")
+
 			Bt.ignore_end_turn = false
 
 	if Bt.get_actor("Alcine").Health == 0 and Bt.CurrentChar.codename == "Mira" and Event.f("StoneGuardianFinisher"):
