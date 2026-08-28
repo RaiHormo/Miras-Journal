@@ -46,6 +46,11 @@ var member_choosing_user: Actor
 
 @onready var Partybox: VBoxContainer = %Partybox
 @onready var t: Tween
+@onready var party_menu_button: Button = $CanvasLayer/PartyMenuButton
+@onready var main_menu_button: Button = $CanvasLayer/MainMenuButton
+@onready var virtual_joystick: VirtualJoystick = $CanvasLayer/VirtualJoystick
+@onready var idle_timer: Timer = $IdleTimer
+@onready var calendar_base: TextureRect = $CanvasLayer/CalendarBase
 
 
 func _ready() -> void:
@@ -78,19 +83,20 @@ func _process(_delta: float) -> void:
 	if Expanded and not submenu_opened:
 		handle_ui()
 
-	$CanvasLayer/VirtualJoystick.visible = Global.Controllable and Global.Player
+	virtual_joystick.visible = Global.Controllable and Global.Player
+	main_menu_button.visible = Global.Controllable and Global.Player
 
 	if not Loader.in_battle:
 		if is_instance_valid(Global.Player) and Global.Controllable and Global.Player.move_frames > 0:
 			if Global.Settings.AutoHideHUD == 0:
-				if $IdleTimer.time_left == 0:
+				if idle_timer.time_left == 0:
 					show_all()
 
-				$IdleTimer.start(3)
+				idle_timer.start(3)
 
 			if Global.Settings.AutoHideHUD == 1:
 				hide_all()
-				$IdleTimer.start(3)
+				idle_timer.start(3)
 
 
 ## Shows the Partyboxes
@@ -109,11 +115,11 @@ func show_all(except_date := false, animate := true) -> void:
 	if not Loader.in_battle and not except_date:
 		if animate:
 			var tl := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
-			tl.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+			tl.tween_property(calendar_base, "position:y", 0, 0.3)
 		else:
-			$CanvasLayer/CalendarBase.position.y = 0
+			calendar_base.position.y = 0
 
-		$IdleTimer.start(5)
+		idle_timer.start(5)
 
 	# Iterate through the boxes
 	for i in range(0, 4):
@@ -153,12 +159,12 @@ func hide_all(animate := true) -> void:
 		for i in range(0, 4):
 			t.tween_property(Partybox.get_child(i), "offset_transform_position:x", -250, 0.3)
 
-		t.tween_property($CanvasLayer/CalendarBase, "position:y", -150, 0.3)
+		t.tween_property(calendar_base, "position:y", -150, 0.3)
 	else:
 		for i in range(0, 4):
 			Partybox.get_child(i).offset_transform_position.x = -250
 
-		$CanvasLayer/CalendarBase.position.y = -150
+		calendar_base.position.y = -150
 
 
 func _check_party() -> void:
@@ -281,6 +287,7 @@ func _on_expand(open_ui := 0) -> void:
 		$CanvasLayer/Cursor.show()
 
 	$CanvasLayer/Cursor.position = get_cursor_pos(0)
+	$CanvasLayer/PartyMenuButton.hide()
 	#if open_ui == 0: WasPaused = false
 	#else:
 	WasPaused = get_tree().paused
@@ -416,6 +423,7 @@ func _on_shrink(hurry_up := false) -> void:
 	t.tween_property(Partybox, "scale", Vector2(1, 1), 0.4)
 	t.set_trans(Tween.TRANS_CUBIC)
 	t.tween_property($CanvasLayer/CalendarBase, "position:y", 0, 0.3)
+	$CanvasLayer/PartyMenuButton.show()
 	darken(false)
 	if !UIvisible or disabled:
 		hide_all()
@@ -487,26 +495,34 @@ func handle_ui() -> void:
 	if Input.is_action_just_pressed("ui_down"):
 		if Global.Party.check_member(focus + 1):
 			focus += 1
-			Audio.cursor_sound()
+			page_down_sound()
 			focus_now()
-			if not MemberChoosing:
-				$Audio.stream = await Loader.load_res("res://sound/SFX/page.ogg")
-
-			$Audio.play()
 		else:
 			Audio.buzzer_sound()
 
 	if Input.is_action_just_pressed("ui_up"):
 		if focus - 1 != -1:
 			focus -= 1
-			Audio.cursor_sound()
+			page_up_sound()
 			focus_now()
-			if not MemberChoosing:
-				$Audio.stream = await Loader.load_res("res://sound/SFX/page2.ogg")
-
-			$Audio.play()
 		else:
 			Audio.buzzer_sound()
+
+
+func page_up_sound() -> void:
+	Audio.cursor_sound()
+	if not MemberChoosing:
+		$Audio.stream = await Loader.load_res("res://sound/SFX/page2.ogg")
+
+	$Audio.play()
+
+
+func page_down_sound() -> void:
+	Audio.cursor_sound()
+	if not MemberChoosing:
+		$Audio.stream = await Loader.load_res("res://sound/SFX/page.ogg")
+
+	$Audio.play()
 
 
 func focus_now() -> void:
@@ -1105,3 +1121,20 @@ func _on_virtual_joystick_flicked(input_vector: Vector2) -> void:
 		Input.action_press("Dash")
 		await $CanvasLayer/VirtualJoystick.released
 		Input.action_release("Dash")
+
+
+func _on_main_menu_button_pressed() -> void:
+	main_menu()
+
+
+func _on_partybox_focus_entered(source: Control) -> void:
+	var index := source.get_index()
+
+	if Expanded and index != focus:
+		if index > focus:
+			page_down_sound()
+		else:
+			page_up_sound()
+
+		focus = index
+		focus_now()

@@ -6,6 +6,7 @@
 z_index = 10
 offset_right = 320.0
 offset_bottom = 200.0
+mouse_filter = 2
 border_color = Color(0.99999994, 0.22953579, 0.17418489, 1)
 script = ExtResource("1_1pjnt")
 right = 320
@@ -13,5 +14,4 @@ down = 200
 
 [node name="SpawnPos" type="Marker2D" parent="." unique_id=846270484]
 visible = false
-position = Vector2(961, 919)
 gizmo_extents = 24.0

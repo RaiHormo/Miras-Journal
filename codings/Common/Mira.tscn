@@ -639,8 +639,6 @@ size = Vector2(16.875, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jnlw"]
 size = Vector2(13, 6)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_siatn"]
-
 [node name="Mira" type="CharacterBody2D" unique_id=1955284413 node_paths=PackedStringArray("Nav")]
 process_mode = 3
 z_as_relative = false
@@ -813,16 +811,3 @@ debug_color = Color(0.321569, 0.533333, 0.870588, 0.419608)
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1543988533]
 bus = &"SFX"
-
-[node name="OpenMenu" type="Button" parent="." unique_id=995529857]
-offset_left = -18.0
-offset_top = -22.0
-offset_right = 20.0
-offset_bottom = 16.0
-focus_mode = 0
-mouse_filter = 1
-theme_override_styles/focus = SubResource("StyleBoxEmpty_siatn")
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[connection signal="pressed" from="OpenMenu" to="." method="_on_open_menu_pressed"]

@@ -4,6 +4,4 @@
 
 [resource]
 script = ExtResource("1_rpdr8")
-PlayerName = "Iris"
-MasterVolume = -8.0
 DebugMode = true

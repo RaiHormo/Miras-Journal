@@ -51,18 +51,17 @@ Mira.Neutral: That's it! I can use [outline_size=12][outline_color=#6c3e18][colo
 
 ~ what_this
 Phew, that was scary...
+$> Player.position = Party.Leader.node.global_position
+$> Player.look_to(Direction.RIGHT)
 $> Party.Leader.node.hide()
-$> Global.Player.position = Party.Leader.node.global_position
-$> Global.Player.show()
+$> Player.show()
 Hm, what's that?
-$> Global.Player.go_to(Vector2(1494, 434))
-$> Event.wait(0.1)
-$> Global.Player.BodyState = NPC.CUSTOM
-#$> Global.Player.set_anim("PickUpRight", true, true)
+[hide]
+$> Player.move_dir(Vector2(3, 0))
 $> Item.add_item("WhiteSlime", "Mat")
 $> Event.wait(1)
-This slime seems to contain some of that monster's essence.
-$> Global.Player.set_anim("IdleRight")
+These slime remnants seems to contain some of that monster's essence.
+$> Player.look_to(Direction.RIGHT)
 $> Party.Leader.node.global_position = Global.Player.position
 I feel like it might prove useful.
 => END

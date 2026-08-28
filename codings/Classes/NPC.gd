@@ -130,7 +130,7 @@ func control_process() -> void:
 func _physics_process(delta: float) -> void:
 	#move_and_collide(Vector2.ZERO)
 	if Engine.is_editor_hint(): return
-	if get_tree().paused or Loader.in_battle:
+	if get_tree().paused:
 		return
 
 	extended_process()

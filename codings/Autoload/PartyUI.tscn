@@ -571,6 +571,8 @@ action = &"PartyMenu"
 [sub_resource type="Shortcut" id="Shortcut_dk2bs"]
 events = [SubResource("InputEventAction_8yp3f")]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xr4ts"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0357"]
 content_margin_left = 12.0
 content_margin_top = 12.0
@@ -641,6 +643,7 @@ offset_left = -88.8889
 offset_top = -477.778
 offset_right = 411.111
 offset_bottom = -0.77774
+mouse_filter = 2
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
@@ -650,6 +653,7 @@ offset_left = 75.0
 offset_top = 37.0
 offset_right = 185.0
 offset_bottom = 64.0
+mouse_filter = 2
 theme = SubResource("Theme_acgst")
 value = 13.0
 show_percentage = false
@@ -671,6 +675,7 @@ offset_left = 75.0
 offset_top = 31.0
 offset_right = 185.0
 offset_bottom = 51.0
+mouse_filter = 2
 theme = SubResource("Theme_t8etm")
 value = 75.0
 show_percentage = false
@@ -721,6 +726,7 @@ offset_left = -58.0223
 offset_top = 1.6482
 offset_right = -6.02201
 offset_bottom = 8.6482
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
@@ -732,6 +738,7 @@ offset_left = -40.0
 offset_top = -25.0
 offset_right = 240.0
 offset_bottom = 101.0
+mouse_filter = 2
 theme = SubResource("Theme_x6d55")
 
 [node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1" unique_id=958549904]
@@ -741,6 +748,7 @@ offset_left = 6.0
 offset_top = 5.0
 offset_right = 276.0
 offset_bottom = 122.0
+mouse_filter = 2
 theme = SubResource("Theme_3xf0g")
 
 [node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Leader/Border1/Border2" unique_id=2039758143]
@@ -750,6 +758,7 @@ offset_left = 5.0
 offset_top = -3.0
 offset_right = 267.0
 offset_bottom = 113.0
+mouse_filter = 2
 theme = SubResource("Theme_6a77a")
 
 [node name="ReviveFlashTimer" type="Timer" parent="CanvasLayer/Partybox/Leader" unique_id=480818068]
@@ -774,6 +783,7 @@ offset_left = -107.0
 offset_top = -504.0
 offset_right = 417.0
 offset_bottom = -4.0
+mouse_filter = 2
 texture = SubResource("AtlasTexture_rvx2b")
 stretch_mode = 4
 
@@ -783,6 +793,7 @@ offset_left = 75.0
 offset_top = 46.6667
 offset_right = 185.0
 offset_bottom = 73.6667
+mouse_filter = 2
 theme = SubResource("Theme_k7w14")
 value = 13.0
 show_percentage = false
@@ -804,6 +815,7 @@ offset_left = 75.0
 offset_top = 40.6667
 offset_right = 185.0
 offset_bottom = 60.6667
+mouse_filter = 2
 theme = SubResource("Theme_qmrca")
 value = 75.0
 show_percentage = false
@@ -824,6 +836,7 @@ offset_left = -40.0
 offset_top = -7.0
 offset_right = 243.0
 offset_bottom = 113.0
+mouse_filter = 2
 theme = SubResource("Theme_x6d55")
 
 [node name="Border2" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1" unique_id=729474626]
@@ -831,6 +844,7 @@ show_behind_parent = true
 layout_mode = 0
 offset_right = 277.0
 offset_bottom = 116.0
+mouse_filter = 2
 theme = SubResource("Theme_3xf0g")
 
 [node name="Border3" type="Panel" parent="CanvasLayer/Partybox/Member1/Border1/Border2" unique_id=1252904282]
@@ -840,6 +854,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 274.0
 offset_bottom = 112.0
+mouse_filter = 2
 theme = SubResource("Theme_6a77a")
 
 [node name="Name" type="Label" parent="CanvasLayer/Partybox/Member1" unique_id=192955763]
@@ -878,6 +893,7 @@ offset_left = -60.0
 offset_top = 2.66669
 offset_right = -7.99969
 offset_bottom = 9.66669
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_qr8wo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_o20ut")
 value = 30.0
@@ -1244,6 +1260,25 @@ shortcut_feedback = false
 shortcut_in_tooltip = false
 flat = true
 
+[node name="MainMenuButton" type="Button" parent="CanvasLayer" unique_id=754557364]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -227.0
+offset_top = -214.0
+offset_right = 213.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xr4ts")
+flat = true
+
 [node name="Pages" type="Control" parent="CanvasLayer" unique_id=461101647]
 unique_name_in_owner = true
 layout_mode = 3
@@ -1418,6 +1453,7 @@ offset_left = 1.0
 offset_top = 392.0
 offset_right = 501.0
 offset_bottom = 792.0
+mouse_filter = 1
 joystick_mode = 1
 joystick_size = 150.0
 visibility_mode = 1
@@ -1437,7 +1473,9 @@ one_shot = true
 [connection signal="expand" from="." to="." method="_on_expand"]
 [connection signal="shrink" from="." to="." method="_on_shrink"]
 [connection signal="sort_children" from="CanvasLayer/Partybox" to="." method="_on_partybox_sort_children"]
+[connection signal="mouse_entered" from="CanvasLayer/Partybox/Leader" to="." method="_on_partybox_focus_entered" flags=18]
 [connection signal="timeout" from="CanvasLayer/Partybox/Leader/ReviveFlashTimer" to="." method="_on_revive_flash_timer_timeout" flags=18]
+[connection signal="mouse_entered" from="CanvasLayer/Partybox/Member1" to="." method="_on_partybox_focus_entered" flags=18]
 [connection signal="timeout" from="CanvasLayer/Partybox/Member1/ReviveFlashTimer" to="." method="_on_revive_flash_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Cursor/ItemPreview" to="." method="_on_item_preview_pressed"]
 [connection signal="pressed" from="CanvasLayer/Cursor/MemberOptions/VBox/Talk" to="." method="talk"]
@@ -1449,6 +1487,7 @@ one_shot = true
 [connection signal="pressed" from="CanvasLayer/CalendarBase/Action/UseTime" to="CanvasLayer/CalendarBase" method="use_time"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="back"]
 [connection signal="pressed" from="CanvasLayer/PartyMenuButton" to="." method="party_menu"]
+[connection signal="pressed" from="CanvasLayer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="text_submitted" from="CanvasLayer/TextEdit" to="." method="cmd"]
 [connection signal="flicked" from="CanvasLayer/VirtualJoystick" to="." method="_on_virtual_joystick_flicked"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

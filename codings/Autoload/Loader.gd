@@ -122,6 +122,7 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 
 func load_game(filename: String = "Autosave", sound := true, predefined := false, close_first := true, transition_after_done := true) -> void:
 	if sound:
+		Audio.stop_music()
 		Audio.ui_sound("Load")
 
 	if filename == "File0":

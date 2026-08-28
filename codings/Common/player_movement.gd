@@ -551,11 +551,6 @@ func dramatic_attack_pause() -> void:
 		await Event.wait()
 
 
-func _on_open_menu_pressed() -> void:
-	if controllable():
-		PartyUI.main_menu()
-
-
 func remove_light(node: Node2D = $Sprite) -> void:
 	for i in node.get_children():
 		i.light_mask = 0
