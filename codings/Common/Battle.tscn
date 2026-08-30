@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://chjrhe4gw1iu6"]
 
 [ext_resource type="Script" uid="uid://b78l65ulag6e2" path="res://codings/Common/battle_base.gd" id="1_mokeb"]
+[ext_resource type="SpriteFrames" uid="uid://08nk40b6v8vc" path="res://art/BT/Daze/DazeBT.tres" id="6_iolcm"]
 [ext_resource type="Material" uid="uid://bk3wcarpqpgmi" path="res://codings/Shaders/Pixelart.tres" id="7_ef2go"]
 [ext_resource type="Texture2D" uid="uid://da4wno1fcym1u" path="res://art/Backgrounds/Debug.png" id="8_4wnfp"]
 [ext_resource type="Script" uid="uid://dipdumn1x0rxq" path="res://database/Sequences/action_sequence.gd" id="8_7y1ke"]
 [ext_resource type="Shader" uid="uid://b27n7x5idg5sw" path="res://codings/Shaders/Actor.gdshader" id="9_owm6w"]
-[ext_resource type="SpriteFrames" uid="uid://betyaul8nc6fe" path="res://art/BT/Mira/MiraBT.tres" id="10_wglog"]
 [ext_resource type="Texture2D" uid="uid://c1pk3d7vu8n26" path="res://art/OV/Objects/Shadow1.png" id="11_utluu"]
 [ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="12_2samf"]
 [ext_resource type="Texture2D" uid="uid://jt67hjoa7iye" path="res://art/Effects/AtkUpLoop.png" id="13_8eb6f"]
@@ -4325,10 +4325,12 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_bwtm7")
 position = Vector2(-60.5, -39.5)
-sprite_frames = ExtResource("10_wglog")
-animation = &"AbilityLoop"
-frame_progress = 0.077139355
+sprite_frames = ExtResource("6_iolcm")
+animation = &"Entrance"
+frame = 10
+frame_progress = 1.0
 offset = Vector2(0.5, -15.5)
+metadata/_edit_lock_ = true
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0" unique_id=721850700]
 show_behind_parent = true
@@ -4403,7 +4405,9 @@ z_index = 5
 material = ExtResource("7_ef2go")
 position = Vector2(-60, -39)
 sprite_frames = ExtResource("23_s11xn")
-animation = &"Drill"
+animation = &"Slice"
+frame = 8
+frame_progress = 1.0
 
 [node name="Cam" type="Camera2D" parent="." unique_id=71352168]
 physics_interpolation_mode = 2

@@ -652,17 +652,17 @@ func battle_msg(id: String, insert := "MISSING", insert2 := "MISSING2") -> Strin
 	return text
 
 
-func jump_to_target(
-character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5) -> void:
+func jump_to(
+	character: Actor, to_position: Vector2, time: float, height: float = 0.5
+) -> void:
 	var t := create_tween()
-	var target := tar.node.position + offset
 	var start := character.node.position
-	var jump_distance: float = start.distance_to(target)
+	var jump_distance: float = start.distance_to(to_position)
 	var jump_height: float = jump_distance * height
-	var midpoint := start.lerp(target, 0.5) + Vector2.UP * jump_height
+	var midpoint := start.lerp(to_position, 0.5) + Vector2.UP * jump_height
 	var jump_time := jump_distance * (time * 0.001)
 	t.tween_method(
-		Query.quad_bezier.bind(start, midpoint, target, character.node),
+		Query.quad_bezier.bind(start, midpoint, to_position, character.node),
 		0.0,
 		1.0,
 		jump_time
@@ -671,12 +671,14 @@ character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5)
 	anim_done.emit()
 
 
+func jump_to_target(
+	character: Actor, tar: Actor, offset: Vector2, time: float, height: float = 0.5
+) -> void:
+	await jump_to(character, tar.node.position + offset, time, height)
+
+
 func return_cur(target: Actor = CurrentChar) -> void:
-	var tc := create_tween()
-	tc.set_trans(Tween.TRANS_QUAD)
-	tc.set_ease(Tween.EASE_OUT)
-	tc.tween_property(target.node, "position", initial, 0.2)
-	await tc.finished
+	await jump_to(target, initial, 1, 0.2)
 
 
 func end_turn(confirm_aoe := false) -> void:

@@ -765,13 +765,14 @@ func draw_bar(mem: Actor, node: Panel) -> void:
 	bord1.border_color = mem.MainColor
 
 	# Borders
-	node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
-	var bord2: StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
-	bord2.border_color = mem.CharacterBoxProfile.Bord2
-	node.get_node("Border1/Border2").add_theme_stylebox_override("panel", bord2.duplicate())
-	var bord3: StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
-	bord3.border_color = mem.CharacterBoxProfile.Bord3
-	node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
+	if mem.CharacterBoxProfile:
+		node.get_node("Border1").add_theme_stylebox_override("panel", bord1.duplicate())
+		var bord2: StyleBoxFlat = node.get_node("Border1/Border2").get_theme_stylebox("panel")
+		bord2.border_color = mem.CharacterBoxProfile.Bord2
+		node.get_node("Border1/Border2").add_theme_stylebox_override("panel", bord2.duplicate())
+		var bord3: StyleBoxFlat = node.get_node("Border1/Border2/Border3").get_theme_stylebox("panel")
+		bord3.border_color = mem.CharacterBoxProfile.Bord3
+		node.get_node("Border1/Border2/Border3").add_theme_stylebox_override("panel", bord3.duplicate())
 
 
 func choose_member(artifact: Resource, user: Actor = Global.Party.Leader) -> void:

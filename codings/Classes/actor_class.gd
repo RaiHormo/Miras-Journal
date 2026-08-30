@@ -416,18 +416,17 @@ func has_ability(ab: String) -> bool:
 
 
 func skill_points_for(level: int) -> int:
-	return int(SkillCurve.sample(level))
+	return int(SkillCurve.sample(level)) if SkillCurve else -1
 
 
 func get_OV() -> SpriteFrames:
 	var path: String = "res://art/OV/" + codename + "/" + codename + "OV" + OV + ".tres"
 
 	if not ResourceLoader.exists(path):
-		if OV != "":
-			OV = ""
-			push_warning("Couldn't find " + path + ", using fallback")
-			return await get_BT()
-		else: OS.alert("Invalid OV path, " + path)
+		OV = ""
+		push_warning("Couldn't find " + path + ", using fallback")
+		return await get_BT()
+
 	return await Loader.load_res(path)
 
 

@@ -323,6 +323,9 @@ func save_settings() -> void:
 
 #region Party Checks
 func heal_party() -> void:
+	for i in Party.array():
+		i.full_heal()
+
 	for i in Members:
 		i.full_heal()
 

@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_rpdr8")
+MasterVolume = -10.0
 DebugMode = true

@@ -225,28 +225,22 @@ func AttackMira(target: Actor) -> void:
 	Bt.focus_cam(target, 0.5, 30)
 	Bt.anim("Attack1")
 	Bt.play_sound("Attack1", CurrentChar)
-	if Item.check_item("LightweightAxe"):
-		Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
-		await Bt.anim_done
-		if not miss:
-			Bt.play_sound("Attack2", CurrentChar)
-			Bt.screen_shake(15, 7, 0.2)
-			Bt.anim("Attack2")
-			Bt.play_effect("SimpleHit", target)
-			Bt.damage(target)
-		else:
-			Bt.anim("Attack2")
-			Bt.miss()
-
-		if crit:
-			Bt.damage(target, false, true)
-			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
-	else:
-		await Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 3, 0)
+	Bt.jump_to_target(CurrentChar, target, Vector2(Bt.offsetize(-30), 0), 4)
+	await Bt.anim_done
+	if not miss:
+		Bt.play_sound("Attack2", CurrentChar)
+		Bt.screen_shake(15, 7, 0.2)
 		Bt.anim("Attack2")
-		if not miss:
-			Bt.damage(target, false, false, int(Query.calc_num() / 1.2))
-		else: Bt.miss()
+		Bt.play_effect("SimpleHit", target)
+		Bt.damage(target)
+	else:
+		Bt.anim("Attack2")
+		Bt.miss()
+
+	if crit:
+		Bt.damage(target, false, true)
+		Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+
 	await get_tree().create_timer(0.4).timeout
 	Bt.return_cur()
 	Bt.anim("Idle")
@@ -304,27 +298,33 @@ func AttackAlcine(target: Actor) -> void:
 
 func AttackDaze(target: Actor) -> void:
 	Bt.zoom(5)
-	Bt.focus_cam(target, 0.5, 30)
+	Bt.focus_cam(target)
 	Bt.anim("Attack1")
-	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-30), 0), 0.3)
-	await Bt.anim_done
+	await Bt.move(CurrentChar, CurrentChar.node.position + Vector2(10, -20), 0.1)
+	Bt.play_effect("Slice", target, Vector2.ZERO, true)
+	await Bt.move(CurrentChar, target.node.position + Vector2(0, 15), 0.1, Tween.EASE_IN)
+	Bt.anim("Attack2")
 	if not miss:
 		Bt.play_sound("Attack2", CurrentChar)
 		Bt.damage(target, false, false)
 		Bt.screen_shake(5, 7, 0.2)
 		Bt.shake_actor()
-		Bt.anim("Attack2")
-		Bt.play_effect("SimpleHit", target)
+		await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(45), 0), 0.2, Tween.EASE_OUT)
 		if crit:
-			await Event.wait(0.3)
+			await Event.wait(0.5)
 			Bt.anim("Attack3")
-			Bt.play_effect("SimpleHit", target)
-			Bt.screen_shake(10, 7, 0.2)
-			Bt.damage(target, false, true)
+			await Event.wait(0.2)
+			Bt.zoom(6, 0.2)
 			Bt.pop_num(target, "CRITICAL", Bt.CurrentAbility.WheelColor)
+			await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-30), 0), 0.2, Tween.EASE_OUT)
+			await Event.wait(0.5)
+			Bt.play_effect("SimpleHit", target)
+			Bt.screen_shake(15, 7, 0.2)
+			Bt.damage(target, false, true)
+			await Event.wait(0.7)
 	else: Bt.miss()
-	await Event.wait(0.4)
-	Bt.return_cur()
+	await Event.wait(0.3)
+	await Bt.return_cur()
 	Bt.anim("Idle")
 	Bt.end_turn()
 
@@ -504,7 +504,7 @@ func CrystalHeal(target: Actor) -> void:
 		Bt.anim("Attack2")
 		await Event.wait(0.5)
 		Bt.focus_cam(CurrentChar)
-		Bt.heal(target, CurrentChar.WeaponPower)
+		Bt.heal(target, CurrentChar.Weapon.power)
 		await Event.wait(0.5)
 		Bt.death(CurrentChar)
 		CurrentChar.node.hide()

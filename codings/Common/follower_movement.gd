@@ -142,7 +142,7 @@ func attacked() -> void:
 func update() -> void:
 	var mem := member_info()
 
-	if mem != null and sprite.sprite_frames.resource_path != member_info().OV:
+	if mem != null and sprite.sprite_frames and sprite.sprite_frames.resource_path != member_info().OV:
 		sprite.sprite_frames = await member_info().get_OV()
 
 		if shadow_sprite:
