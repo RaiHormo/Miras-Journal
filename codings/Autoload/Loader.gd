@@ -168,7 +168,11 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 
 	var temp_members: Array[Actor]
 	for mem_dict in data.Members:
-		var mem: Actor = (await Loader.load_res("res://database/Party/" + mem_dict.get("codename") + ".tres")).duplicate()
+		var codename: String = mem_dict.get("codename") if mem_dict.has("codename") else ""
+
+		if codename.is_empty(): continue
+
+		var mem: Actor = (await Loader.load_res("res://database/Party/" + codename + ".tres")).duplicate()
 		await mem.load_from_dict(mem_dict)
 		temp_members.append(mem)
 
@@ -547,7 +551,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 
 	if battle_sequence.Transition:
 		if is_instance_valid(attacker):
-			Audio.change_music(battle_sequence.MusicIntro)
+			Audio.change_music_from_to(battle_sequence.Music.track, 0, battle_sequence.Music.intro_end)
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)

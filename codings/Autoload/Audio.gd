@@ -48,6 +48,17 @@ func change_music(track: AudioStream) -> void:
 	bgm_player.play()
 
 
+func change_music_from_to(track: AudioStream, from: float = 0, to: float = 0) -> void:
+	bgm_player.stream = track.duplicate()
+	bgm_player.play(from)
+	if to != 0:
+		while bgm_player.stream == track and bgm_player.get_playback_position() <= to:
+			await get_tree().process_frame
+
+		if bgm_player.stream == track:
+			stop_music()
+
+
 func queue_music(track: AudioStream) -> void:
 	if bgm_player.playing:
 		music_queue.append(track)

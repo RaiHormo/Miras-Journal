@@ -1,8 +1,28 @@
 [gd_resource type="Resource" script_class="Setting" format=3]
 
-[ext_resource type="Script" path="res://codings/Classes/settings.gd" id="1_rpdr8"]
+[ext_resource type="Script" path="res://codings/Classes/settings.gd" id="1"]
 
 [resource]
-script = ExtResource("1_rpdr8")
-MasterVolume = -10.0
+script = ExtResource("1")
+PlayerName = "Local"
+AutoHideHUD = 0
+TextSpeed = 0
+ControlSchemeAuto = true
+ControlSchemeEnum = 0
+ControllerVibration = true
+LastUsedDevice = "Keyboard"
+Fullscreen = false
+UpscaledRes = true
+UpscaleFactor = 1.0
+HighResTextures = false
+FPS = 0
+VSync = true
+GlowEffect = true
+BlurEffect = true
+MasterVolume = -9.0
+MusicVolume = 0.0
+SFXVolume = 0.0
+UIVolume = 0.0
+VoicesVolume = 0.0
+FootstepsVolume = 0.0
 DebugMode = true

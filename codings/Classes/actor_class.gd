@@ -123,7 +123,12 @@ var SpeedBoost: int = 0
 ## Horizontally flip the battle sprite
 @export var FlipH: bool = false
 ##A scene containing the sound effects for this actor
-@export var SoundSet: PackedScene = load("res://sound/Sets/DefaultSoundSet.tscn")
+@export var SoundSet: PackedScene:
+	get():
+		if not SoundSet:
+			return load("res://sound/Sets/DefaultSoundSet.tscn")
+
+		return SoundSet
 ##When true, the actor will be deleted after being knocked out
 @export var Disappear: bool = true
 ## The default amount of glow on the sprite

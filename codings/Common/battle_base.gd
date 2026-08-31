@@ -130,7 +130,9 @@ func _ready() -> void:
 			dub.sprite_frames = await member.get_BT()
 			TurnOrder.push_front(member)
 			dub.material = dub.material.duplicate()
-			dub.add_child(member.SoundSet.instantiate())
+
+			if member.SoundSet:
+				dub.add_child(member.SoundSet.instantiate())
 
 	for i in Party.array():
 		match Party.array().find(i):
@@ -170,7 +172,7 @@ func _ready() -> void:
 		i.load_complimentaries()
 
 	
-	Audio.change_music(Seq.Music)
+	Audio.change_music_from_to(Seq.Music.track, Seq.Music.battle_start)
 	
 	position_sprites()
 	if is_instance_valid(Loader.attacker): Loader.attacker.hide()
