@@ -50,7 +50,7 @@ var IsEnemy: bool = true
 ##Used in the party menu
 @export var LastName: String = ""
 ##Used in the details menu, purely cosmetic
-@export var Weapon: WeaponItem = WeaponItem.new()
+@export var Weapon: WeaponItem = preload("res://database/Items/KeyItems/DefaultWeapon.tres")
 ##Doodles shown in the party menu
 @export_file("*.png") var PartyPage: String
 ##Artwork shown in the party menu

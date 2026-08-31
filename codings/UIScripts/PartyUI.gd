@@ -876,6 +876,8 @@ func cmd(cmd_text := "") -> void:
 				Global.add_complimentary(text)
 			elif cmd_text.begins_with("/enrestore"):
 				Loader.defeated.clear()
+			elif cmd_text.begins_with("/giant"):
+				Global.Player.scale *= 2
 			elif cmd_text.begins_with("/timetrans"):
 				Event.ToDay = Event.Day
 				Event.ToTime = Event.TimeOfDay

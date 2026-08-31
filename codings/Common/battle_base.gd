@@ -171,8 +171,9 @@ func _ready() -> void:
 		i.BattleLog = [Actor.log_entry.new()]
 		i.load_complimentaries()
 
-	
-	Audio.change_music_from_to(Seq.Music.track, Seq.Music.battle_start)
+	if Seq.Music:
+		Audio.change_music_from_to(Seq.Music.track, Seq.Music.battle_start)
+
 	
 	position_sprites()
 	if is_instance_valid(Loader.attacker): Loader.attacker.hide()

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://msf7qb28ublo" path="res://codings/Classes/actor_class.gd" id="1_gxbro"]
 [ext_resource type="Resource" uid="uid://byyho12ct3pdr" path="res://database/Text/Profiles/ErinnBox.tres" id="1_vkgex"]
 [ext_resource type="Texture2D" uid="uid://dxohyij85nu3v" path="res://art/Icons/Party/Erinn.png" id="2_b55w6"]
+[ext_resource type="Resource" uid="uid://cmt1sh6p1ibl1" path="res://database/Items/KeyItems/DefaultWeapon.tres" id="6_7tpjl"]
 [ext_resource type="Resource" uid="uid://d38c2f7pbaqyj" path="res://database/Abilities/Attacks/JumpAttack.tres" id="7_eppa1"]
 
 [sub_resource type="Curve" id="Curve_7tpjl"]
@@ -17,6 +18,7 @@ Aura = 90
 FirstName = "Erinn"
 MainColor = Color(0.50098, 0.74, 0.4588, 1)
 PartyIcon = ExtResource("2_b55w6")
+ActorClass = "Mage"
 codename = &"Erinn"
 Pronouns = "he"
 SecondaryColor = Color(0.443137, 0.384314, 0.65098, 1)

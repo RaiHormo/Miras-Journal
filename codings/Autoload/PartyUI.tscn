@@ -1418,7 +1418,7 @@ anchors_preset = -1
 anchor_right = 0.078
 anchor_bottom = 0.067
 offset_left = 22.0
-offset_top = 25.0
+offset_top = -52.0
 offset_right = 197.776
 offset_bottom = 339.679
 size_flags_horizontal = 3
@@ -1433,6 +1433,7 @@ text = "/clear
 /comp
 /lv
 /item
+/giant
 /itemrm
 /diaryadd"
 

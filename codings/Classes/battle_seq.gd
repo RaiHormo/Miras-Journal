@@ -5,7 +5,8 @@ class_name BattleSequence
 @export var Enemies: Array[Actor]
 ## Items to get at the end of the battle
 @export var AdditionalItems: Array[ItemData]
-@export var Music: BattleMusicSet = preload("uid://da5vu0jhf55sc")
+## The music configuration for this fight
+@export var Music: BattleMusicSet = preload("res://sound/Music/v17-Set.tres")
 ## Whether the battle background should be treated as an actual location on the map or a background only for this battle.
 ## If false, the player will be positioned where the party leader was in battle, if true they will be positioned where they were before.
 ## It's recommended to turn on `Detransition` along with this.

@@ -177,7 +177,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 		temp_members.append(mem)
 
 	if temp_members < Global.Members:
-		Global.toast("WARNING: This save file was created in an older version.")
+		Global.toast("WARNING: This save file may have been created in an older version. Member data was missing.")
 		for j in Global.Members:
 			var exists := false
 
@@ -551,7 +551,8 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 
 	if battle_sequence.Transition:
 		if is_instance_valid(attacker):
-			Audio.change_music_from_to(battle_sequence.Music.track, 0, battle_sequence.Music.intro_end)
+			if battle_sequence.Music:
+				Audio.change_music_from_to(battle_sequence.Music.track, 0, battle_sequence.Music.intro_end)
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)
