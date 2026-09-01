@@ -1,3 +1,4 @@
+@tool
 extends NPC
 class_name Mira
 ##The script that handles's Mira's movment

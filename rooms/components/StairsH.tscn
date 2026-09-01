@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cqt3rk0rxvrpk" path="res://codings/Components/editor_only.gd" id="3_bqib2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bojbw"]
-size = Vector2(8.25, 37)
+size = Vector2(5, 50)
 
 [node name="Stairs1" type="Area2D" unique_id=1314167504]
 z_index = 4

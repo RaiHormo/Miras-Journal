@@ -1,6 +1,17 @@
+@tool
 @icon("res://art/Icons/Editor/stairs.png")
 extends Area2D
 class_name Stair
+
+## Set the length of the collision shape
+@export_range(10, 300, 1, "prefer_slider") var length: int = 50:
+	set(x):
+		length = x
+
+		if left_right_mode:
+			$CollisionShape2D.shape.size.y = x
+		else:
+			$CollisionShape2D.shape.size.x = x
 
 ## Change to this index when going Down or Left
 @export var down_index: CameraIndex
@@ -14,7 +25,7 @@ class_name Stair
 
 func _on_body_entered(body: Node2D) -> void:
 	print(body.get_class())
-	if body is NPC:
+	if body is Mira:
 		var dir: Vector2 = to_local(body.position) * -1
 		go(dir)
 
@@ -42,7 +53,7 @@ func go(dir: Vector2) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is NPC:
+	if body is Mira:
 		var dir: Vector2 = to_local(body.position)
 		go(dir)
 

@@ -1,3 +1,4 @@
+@tool
 @icon("res://art/Icons/Editor/npc.png")
 class_name NPC
 extends CharacterBody2D
@@ -33,13 +34,13 @@ enum S {IDLE, MOVE, INTERACTING, CONTROLLED, CHASE, CUSTOM, NONE}
 	"Walk": [0, 2],
 	"Loop": [0, 1],
 }
-## Only spawn on this index of the current [Area].
-## -1 to disable.
-@export var only_on_index: int = -1
 
 ## Disable collision when this NPC spawns
 @export var dont_use_collision := false
-@export var no_shadow := false
+@export var no_shadow := false:
+	set(x):
+		no_shadow = x
+		shadow(!x)
 
 ##Used to control the direction of the next movement
 var direction: Vector2 = Vector2.ZERO
@@ -69,15 +70,13 @@ var coords: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	setup_shadow()
+	
 	if Engine.is_editor_hint(): return
-	if has_node("Sprite"): sprite = $Sprite
-	#BodyState = DefaultState
-
+	
 	if ID == "": ID = default_id()
-	if only_on_index >= 0 and only_on_index != Global.Area.index: 
-		queue_free()
-		return
-		
+	if has_node("Sprite"): sprite = $Sprite
+	state = default_state
 
 	if ID in Loader.defeated: 
 		queue_free()
@@ -341,7 +340,6 @@ func go_to(pos: Variant, use_coords := false, autostop := false, look_dir: Varia
 	state = S.IDLE
 
 	if look_dir is String or look_dir != Vector2.ZERO: look_to(look_dir)
-	await Event.wait()
 
 
 func set_anim(anim: String, wait := false, overwrite_state := true) -> void:
