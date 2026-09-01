@@ -2,7 +2,7 @@ extends Node
 
 
 func sl_maple_1() -> void:
-	await Loader.travel_to("Pyrson", Vector2(362, 778), 0, -1, "wait")
+	await Loader.travel_to("Pyrson", Vector2(362, 778), 0, "wait")
 	Event.no_player()
 	await Event.spawn("Mira:MiraOVBag", Vector2(300, 778), Direction.RIGHT)
 	await Event.spawn("Maple", Vector2(350, 778), Direction.LEFT)
@@ -15,7 +15,7 @@ func sl_maple_1() -> void:
 
 
 func sl_asteria_1() -> void:
-	await Loader.travel_to("Pyrson", Vector2(490, 680), 0, -1, "wait")
+	await Loader.travel_to("Pyrson", Vector2(490, 680), 0, "wait")
 	Event.no_player()
 	var mira: NPC = await Event.spawn("Mira:MiraOV", Vector2(506, 680), Direction.RIGHT)
 	var asteria: NPC = Event.npc("AsteriaPlaza")

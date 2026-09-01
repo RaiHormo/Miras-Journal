@@ -33,7 +33,7 @@ func new_game() -> void:
 
 	# Now start the transition
 	Loader.white_fadeout(7, 1, 0, 1)
-	await Loader.travel_to("TempleWoods", Vector2.ZERO, 0, -1, null, false)
+	await Loader.travel_to("TempleWoods", Vector2.ZERO, 0, null, false)
 	get_tree().paused = false
 	# Skip intro shortcut
 	if Input.is_action_pressed("Dash"):
@@ -116,7 +116,7 @@ func axe_seq() -> void:
 
 func first_battle() -> void:
 	Global.Player.move_dir(Vector2.RIGHT * 2)
-	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, -1, Direction.RIGHT, false)
+	Loader.travel_to("TempleWoods", Vector2(1220, 461), 1, Direction.RIGHT, false)
 	await Event.wait(0.2)
 	Loader.gray_out(1)
 	await Event.wait(0.5)
@@ -234,7 +234,7 @@ func AlcineFollow4() -> void:
 
 func enter_amberelm() -> void:
 	Global.Player.move_dir(Vector2(0, -2))
-	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, -2, Direction.UP, false)
+	await Loader.travel_to("Amberelm", Vector2.ZERO, 1, Direction.UP, false)
 	var mira: NPC = Event.npc("MiraCut")
 	var alcine: NPC = Event.npc("AlcineCut")
 	mira.speed = 50
@@ -255,7 +255,7 @@ func enter_amberelm() -> void:
 	Event.npc("MiraCut").move_dir(Vector2.UP * 5)
 	Event.npc("AlcineCut").chain_moves([Vector2.RIGHT, Vector2.UP * 5])
 	await Event.wait(0.8)
-	Loader.travel_to("Amberelm", Vector2.ZERO, 0, -1, Direction.UP)
+	Loader.travel_to("Amberelm", Vector2.ZERO, 0, Direction.UP)
 	Event.add_flag("EnterAmberelm")
 
 
@@ -300,7 +300,7 @@ func oct31_night() -> void:
 	Item.remove_item("LightweightAxe", &"Key")
 	Query.find_member("Mira").Weapon = load("res://database/Items/KeyItems/NoWeapon.tres")
 	Event.add_flag("BeatStoneGuardian")
-	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, -1, "none", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(750, -211), 0, "none", false)
 	await Event.no_player()
 	await Event.spawn("Mira", Vector2(770, -211), Direction.LEFT)
 	await Event.spawn("Daze", Vector2(670, -211), Direction.RIGHT)

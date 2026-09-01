@@ -53,3 +53,6 @@ unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
 texture = ExtResource("4_xha1c")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=17809523]
+rect = Rect2(-50, -50, 100, 100)

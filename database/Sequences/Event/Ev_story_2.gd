@@ -5,7 +5,7 @@ func nov3_morning() -> void:
 	Item.add_item("LightweightAxe", &"Key", false, false)
 	Query.find_member("Mira").Weapon = load("res://database/Items/KeyItems/LightweightAxe.tres")
 	Event.add_flag("LampInMirasRoom", false)
-	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, "", false)
 	Event.no_player()
 	Event.npc("RoomMira").state = NPC.S.CUSTOM
 	Event.npc("RoomMira").show()
@@ -21,7 +21,7 @@ func nov3_morning() -> void:
 
 
 func nov3_afternoon() -> void:
-	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, -1, "", false)
+	await Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(98, 424), 0, "", false)
 	Event.no_player()
 	Event.npc("RoomMira").state = NPC.S.CUSTOM
 	Event.npc("RoomMira").show()
@@ -34,7 +34,7 @@ func nov3_afternoon() -> void:
 
 
 func nov3_enterSG() -> void:
-	await Loader.travel_to("ShardGardens", Vector2(26, 84), 0, -1, "", false)
+	await Loader.travel_to("ShardGardens", Vector2(26, 84), 0, "", false)
 	Global.heal_party()
 	Global.Party.reset_party()
 	Global.Party.add("Alcine")

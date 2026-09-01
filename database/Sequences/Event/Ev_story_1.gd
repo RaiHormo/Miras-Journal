@@ -17,7 +17,7 @@ func nov1_daytime() -> void:
 	Event.no_player()
 	await Event.spawn("Mira", "TentInside+(8,0)", "Sleep", 1, true)
 	await Textbox.open(name, "nov1_daytime_0")
-	await Loader.travel_to("WitheredLeaves", Vector2(720, -211), 0, -1, Direction.DOWN, false)
+	await Loader.travel_to("WitheredLeaves", Vector2(720, -211), 0, Direction.DOWN, false)
 	Event.no_player()
 	Event.zoom(5)
 	await Event.spawn("Mira", Vector2(770, -211), "SitLeft")
@@ -61,7 +61,7 @@ func where_is_alcine_1() -> void:
 	Global.Party.reset_party()
 	Global.Party.Leader = Query.find_member("Alcine")
 	Global.Party.Leader.Controllable = true
-	await Loader.travel_to("WitheredLeaves", Vector2(-976, 167), 0, -1, "")
+	await Loader.travel_to("WitheredLeaves", Vector2(-976, 167), 0, "")
 	Event.give_control()
 	Loader.save()
 
@@ -123,7 +123,7 @@ func nov2_morning() -> void:
 
 
 func nov2_daytime() -> void:
-	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1, -1, "none", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(-96, -384), 1, "none", false)
 	Event.no_player()
 	await Event.spawn("Mira", "TentInside+(8,0)", "Sleep")
 	Loader.ungray.emit()
@@ -132,7 +132,7 @@ func nov2_daytime() -> void:
 	Event.add_flag("HasBag")
 	Event.remove_flag("AlcineAlone")
 	Event.remove_flag("HideDate")
-	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, -1, Direction.DOWN)
+	await Loader.travel_to("WitheredLeaves", Vector2(775, -211), 0, Direction.DOWN)
 	Event.npc("F1").position.x += 24
 	Event.npc("F2").position.y -= 24
 	await Event.take_control(false, true)
@@ -149,14 +149,14 @@ func nov2_daytime() -> void:
 
 func WL_bunker_switch() -> void:
 	await Loader.transition()
-	await Loader.travel_to("WitheredLeaves", Vector2(-250, -1010), 0, -1, "none", false)
+	await Loader.travel_to("WitheredLeaves", Vector2(-250, -1010), 0, "none", false)
 	await Event.no_player()
 	await Event.spawn("Mira:MiraOVBag", Vector2(-250, -1000), Direction.UP)
 	await Event.spawn("Daze", Vector2(-275, -1010), Direction.UP)
 	await Event.spawn("Alcine", Vector2(-275, -990), Direction.UP)
 	await Loader.detransition(Direction.UP)
 	await Textbox.open(name, "WL_bunker_switch")
-	await Loader.travel_to("WitheredLeaves", Vector2(-275, -986), 0, -1, Direction.UP)
+	await Loader.travel_to("WitheredLeaves", Vector2(-275, -986), 0, Direction.UP)
 	await Loader.save()
 
 
@@ -185,7 +185,7 @@ func asteria_joins() -> void:
 		Event.ToTime = Event.TOD.EVENING
 		await Event.time_transition()
 
-	await Loader.travel_to("WitheredLeaves", Vector2(774, -202), 0, -1, Direction.RIGHT, false)
+	await Loader.travel_to("WitheredLeaves", Vector2(774, -202), 0, Direction.RIGHT, false)
 	Event.npc("AlcineCamp").position = Vector2(746, -232)
 	Event.npc("P").look_to(Direction.LEFT)
 	await Textbox.open(name, "asteria_joins")
@@ -195,7 +195,7 @@ func asteria_joins() -> void:
 
 
 func enter_pyrson() -> void:
-	await Loader.travel_to("Pyrson", Vector2(0, 0), 0, -1, Direction.RIGHT, false)
+	await Loader.travel_to("Pyrson", Vector2(0, 0), 0, Direction.RIGHT, false)
 	Event.remove_flag("InCamp")
 	Global.Player.hide()
 	Global.Player.camera_follow(false)

@@ -4,25 +4,5 @@
 
 [resource]
 script = ExtResource("1")
-PlayerName = "Local"
-AutoHideHUD = 0
-TextSpeed = 0
-ControlSchemeAuto = true
-ControlSchemeEnum = 0
-ControllerVibration = true
-LastUsedDevice = "Keyboard"
-Fullscreen = false
-UpscaledRes = true
-UpscaleFactor = 1.0
-HighResTextures = false
-FPS = 0
-VSync = true
-GlowEffect = true
-BlurEffect = true
 MasterVolume = -8.0
-MusicVolume = 0.0
-SFXVolume = 0.0
-UIVolume = 0.0
-VoicesVolume = 0.0
-FootstepsVolume = 0.0
 DebugMode = true

@@ -658,6 +658,15 @@ trigger_size = Vector2i(4, 2)
 [node name="JumpPoint4" parent="JumpPoints" unique_id=922066174 instance=ExtResource("35_2y4jd")]
 position = Vector2(517, 397)
 
+[node name="JumpPoint13" parent="JumpPoints" unique_id=781162525 instance=ExtResource("35_2y4jd")]
+position = Vector2(442, 564)
+
+[node name="JumpPoint17" parent="JumpPoints" unique_id=525876650 instance=ExtResource("35_2y4jd")]
+position = Vector2(397, 519)
+
+[node name="JumpPoint21" parent="JumpPoints" unique_id=1806797643 instance=ExtResource("35_2y4jd")]
+position = Vector2(397, 471)
+
 [node name="JumpPoint5" parent="JumpPoints" unique_id=861036950 instance=ExtResource("36_va2q4")]
 position = Vector2(1499, -55)
 

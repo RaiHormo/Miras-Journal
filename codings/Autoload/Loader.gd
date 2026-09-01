@@ -93,7 +93,6 @@ func save(filename: String = "Autosave", showicon := true) -> void:
 	data.Name = filename
 	data.Party = Global.Party.get_strarr()
 	data.StartTime = Global.first_start_time
-	data.Z = Global.Player.z_index if not get_tree().root.has_node("MainMenu") else get_tree().root.get_node("MainMenu").z
 	data.SavedTime = Time.get_unix_time_from_system()
 	data.PlayTime = Global.get_playtime()
 	data.Position = Global.Player.global_position
@@ -207,7 +206,7 @@ func load_game(filename: String = "Autosave", sound := true, predefined := false
 	Item.load_inventory(data.Inventory)
 	Item.verify_inventory()
 
-	await travel_to(data.RoomPath, data.Position, data.Camera, data.Z, null)
+	await travel_to(data.RoomPath, data.Position, data.Camera, null)
 
 	if $/root.get_node_or_null("MainMenu"):
 		$/root.get_node("MainMenu").queue_free()
@@ -269,23 +268,20 @@ func load_res(path: String) -> Resource:
 	return resource
 
 
-func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, z := -1, trans: Direction = Global.Player.facing) -> void:
-	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, z, trans)
+func travel_to_coords(sc: String, pos: Vector2 = Vector2.ZERO, camera_ind: int = 0, trans: Direction = Global.Player.facing) -> void:
+	travel_to(sc, Global.Area.map_to_local(pos), camera_ind, trans)
 
 
 ## Takes the player to a specific room. Use ";" to specify a subroom, a marker or a transfer point
 func travel_to(
 	sc: String, pos: Vector2 = Vector2.ZERO,
-	camera_ind: int = 0, z := -1,
+	camera_ind: int = 0,
 	trans: Variant = Global.Player.facing if Global.Player else remembered_direction,
 	controllable := true
 ) -> void:
 
 	if trans is String: trans = Direction.from_letter(trans)
 	remembered_direction = trans
-	##Pass Z < -1 for a shortcut to controllable
-	if z < -1:
-		controllable = false
 
 	print_rich(
 		"[color=green]",
@@ -293,8 +289,6 @@ func travel_to(
 		sc.get_file().get_basename(),
 		"\n\tCamera ID: ",
 		camera_ind,
-		"\n\tZ index: ",
-		z,
 		"\n",
 	)
 
@@ -325,9 +319,6 @@ func travel_to(
 		await thread_loaded
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
 			await travel_done(controllable, camera_ind)
-
-	if z >= 0:
-		Global.Area.handle_z(z)
 
 
 func travel_done(controllable := false, index: int = 0) -> void:
@@ -553,6 +544,7 @@ func start_battle(stg: Variant, advantage := 0) -> void:
 		if is_instance_valid(attacker):
 			if battle_sequence.Music:
 				Audio.change_music_from_to(battle_sequence.Music.track, 0, battle_sequence.Music.intro_end)
+
 			battle_bars(2, 0.8, Tween.EASE_OUT)
 			t = create_tween()
 			t.set_trans(Tween.TRANS_QUART)

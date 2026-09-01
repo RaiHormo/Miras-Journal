@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://b7n6s07t8v4qw"
+path="res://.godot/imported/Shadows.aseprite-10b1a16252370e2f1b8a7b79dd78948e.res"
+
+[deps]
+
+source_file="res://art/Tilesets/Shadows.aseprite"
+dest_files=["res://.godot/imported/Shadows.aseprite-10b1a16252370e2f1b8a7b79dd78948e.res"]
+
+[params]
+

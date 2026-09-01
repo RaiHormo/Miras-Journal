@@ -177,7 +177,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif Input.is_action_just_pressed("Load"):
 				Loader.load_game()
 			elif Input.is_action_just_pressed("Debug"):
-				Loader.travel_to("Debug", Vector2.ZERO, 0, -1, "")
+				Loader.travel_to("Debug", Vector2.ZERO, 0, "")
 				Event.remove_flag("HideDate")
 				Event.remove_flag("FlameActive")
 			elif Input.is_action_just_pressed("DebugT"):

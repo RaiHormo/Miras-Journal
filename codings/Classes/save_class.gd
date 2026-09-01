@@ -7,7 +7,6 @@ class_name SaveFile
 @export var RoomName: String = "???"
 @export var Position: Vector2
 @export var Camera: int = 0
-@export var Z: int = 1
 @export var Members: Array[Dictionary]
 @export var Complimentaries: Array[String]
 @export var Defeated: Array
