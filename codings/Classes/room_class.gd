@@ -265,11 +265,13 @@ func codename() -> String:
 func change_index(new_index: CameraIndex) -> void:
 	index = new_index.index
 
+	cam.limit_smoothed = true
+
 	for i in get_children():
 		if i is CameraIndex and i.index == index:
 			camera_index = i
 
-	setup_zoom()
+	setup_zoom(true)
 	setup_camera_limits()
 	setup_z()
 	setup_other_index_params()

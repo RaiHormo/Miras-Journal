@@ -35,6 +35,7 @@ func transition(time := 0.3) -> void:
 	if lock_cam:
 		Global.Player.camera_follow(false)
 		Global.Camera.position = cam_pos
+
 	t.set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUART)
 	t.tween_property(Global.Camera, "zoom", Vector2(cam_zoom, cam_zoom), time)
@@ -48,7 +49,7 @@ func transition(time := 0.3) -> void:
 func detransition() -> void:
 	Global.Area.current_subroom = null
 	Global.Area.unfade()
-	Global.Area.setup_params(true)
+	Global.Area.setup_zoom(true)
 	if cant_dash_inside: Global.Player.can_dash = true
 	Global.Player.camera_follow(true)
 	await fade_out()
@@ -56,6 +57,7 @@ func detransition() -> void:
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false
 	Event.teleport_followers()
 	Global.Player.z_index = Global.Area.z_index
+
 	if Global.Area.current_subroom == self:
 		Event.take_control(true, true)
 		await transition()
@@ -69,6 +71,7 @@ func fade_out() -> void:
 	for i in Layers:
 		i.material = null
 		i.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
 	await t.finished
 	hide()
 	for i in get_children(): if i is TileMapLayer: i.collision_enabled = false

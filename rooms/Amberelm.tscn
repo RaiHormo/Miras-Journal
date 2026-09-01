@@ -783,10 +783,6 @@ itemtype = ""
 [node name="Ladder3" parent="." unique_id=929178601 instance=ExtResource("25_vddgi")]
 position = Vector2(1524, 326)
 enable_stairs = true
-LayersUp = 12
-LayersDown = 4
-zUp = 4
-zDown = 4
 
 [node name="End1" parent="Ladder3" index="0" unique_id=1730241983]
 position = Vector2(-19, -31)
@@ -810,7 +806,6 @@ position = Vector2(0, 150)
 
 [node name="Ladder4" parent="." unique_id=47126867 instance=ExtResource("25_vddgi")]
 position = Vector2(2388, -129)
-LayersDown = 15
 
 [node name="TopInteractable" parent="Ladder4" index="1" unique_id=281369955]
 itemtype = ""
