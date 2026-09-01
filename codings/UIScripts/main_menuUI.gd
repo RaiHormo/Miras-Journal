@@ -195,7 +195,7 @@ func close(give_control := true) -> void:
 	if Fader: t.tween_property(Fader.material, "shader_parameter/lod", 0.0, 0.5)
 	Cam.position = CamPrev.position
 	t.tween_property(Global.Camera, "zoom", zoom, 0.3)
-	if not duplicated: Global.Area.handle_z(z)
+	if not duplicated: Global.Area.setup_z(z)
 	else: t.tween_property(player, "modulate", Color(0, 0, 0, 0), 0.5)
 	if is_instance_valid(player):
 		player.get_node("%Shadow").z_index = 0

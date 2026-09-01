@@ -451,7 +451,7 @@ func give_control(camera_follow := false, bring_followers := true, reset_zoom :=
 		#Event.teleport_followers()
 
 	if reset_zoom:
-		Global.Area.setup_params(true)
+		Global.Area.setup_zoom(true)
 
 	Global.Player.local_controllable = true
 	Global.check.emit()

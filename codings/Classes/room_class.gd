@@ -19,7 +19,7 @@ var overwrite_zoom: float = 0:
 		overwrite_zoom = x
 
 		if x > 0:
-			setup_params()
+			setup_zoom()
 
 signal initialized
 
@@ -58,12 +58,8 @@ func _ready() -> void:
 	cam.position_smoothing_speed = 10
 	cam.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(cam)
-	setup_params()
-	if camera_index != null:
-		cam.limit_left = camera_index.left
-		cam.limit_right = camera_index.right
-		cam.limit_top = camera_index.up
-		cam.limit_bottom = camera_index.down
+	setup_zoom()
+	setup_camera_limits()
 
 	# Setup subrooms
 	if get_node_or_null("SubRoomBg"): $SubRoomBg.modulate = Color.TRANSPARENT
@@ -97,16 +93,8 @@ func _ready() -> void:
 		await Player.initialized
 
 		Global.Player.global_position = camera_index.spawn_position as Vector2 if camera_index != null else Vector2.ZERO
-		handle_z()
-
-		if camera_index != null:
-			if camera_index.flame == 1:
-				if not Event.f("FlameActive"): Global.Player.activate_flame()
-			elif camera_index.flame == -1:
-				Event.remove_flag("FlameActive")
-
-			Global.Player.collision_layer = camera_index.layers
-			Global.Player.collision_mask = camera_index.layers
+		setup_z()
+		setup_other_index_params()
 
 		Global.Player.collision(true)
 
@@ -131,7 +119,26 @@ func _ready() -> void:
 var t_zoom: Tween
 
 
-func setup_params(tween_zoom := false) -> void:
+func setup_camera_limits() -> void:
+	if camera_index != null:
+		cam.limit_left = camera_index.left
+		cam.limit_right = camera_index.right
+		cam.limit_top = camera_index.up
+		cam.limit_bottom = camera_index.down
+
+
+func setup_other_index_params() -> void:
+	if camera_index != null:
+		if camera_index.flame == 1:
+			if not Event.f("FlameActive"): Global.Player.activate_flame()
+		elif camera_index.flame == -1:
+			Event.remove_flag("FlameActive")
+
+		Global.Player.collision_layer = camera_index.layers
+		Global.Player.collision_mask = camera_index.layers
+
+
+func setup_zoom(tween_zoom := false) -> void:
 	var zoom := Vector2(4, 4)
 
 	if is_instance_valid(t_zoom): t_zoom.kill()
@@ -153,11 +160,7 @@ func setup_params(tween_zoom := false) -> void:
 		cam.zoom = zoom
 
 
-func default() -> void:
-	pass
-
-
-func handle_z(z := -1) -> void:
+func setup_z(z := -1) -> void:
 	if not is_instance_valid(Global.Player): return
 	if z == -1: z = camera_index.z if camera_index != null else 1
 
@@ -166,12 +169,9 @@ func handle_z(z := -1) -> void:
 	for i in followers:
 		i.z_index = z
 
-	for i in stairs:
-		if i.zUp == Global.Player.z_index:
-			i.go_up()
 
-		if i.zDown == Global.Player.z_index:
-			i.go_down()
+func default() -> void:
+	pass
 
 
 func get_z() -> int:
@@ -260,3 +260,16 @@ func get_terrain(coords: Vector2i) -> String:
 
 func codename() -> String:
 	return title.to_pascal_case()
+
+
+func change_index(new_index: CameraIndex) -> void:
+	index = new_index.index
+
+	for i in get_children():
+		if i is CameraIndex and i.index == index:
+			camera_index = i
+
+	setup_zoom()
+	setup_camera_limits()
+	setup_z()
+	setup_other_index_params()

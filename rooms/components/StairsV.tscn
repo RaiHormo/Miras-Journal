@@ -12,10 +12,6 @@ z_index = 4
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("1_ew0ml")
-LayersUp = 8
-LayersDown = 4
-zUp = 7
-zDown = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1819985893]
 shape = SubResource("RectangleShape2D_bojbw")

@@ -12,10 +12,6 @@ z_index = 4
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("1_pa66c")
-LayersUp = 4
-LayersDown = 3
-zUp = 3
-Swap = true
 left_right_mode = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1595740080]

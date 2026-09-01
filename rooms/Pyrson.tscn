@@ -110,11 +110,11 @@ metadata/_custom_type_script = "uid://dbu8jyr0bnj5a"
 
 [node name="Index0" parent="." unique_id=383963985 instance=ExtResource("2_nlfpl")]
 offset_right = 792.0
-offset_bottom = 1772.0
+offset_bottom = 1210.0
 zoom = 3.0
 spawn_position = Vector2i(199, 196)
 right = 792
-down = 1772
+down = 1210
 
 [node name="Index1" parent="." unique_id=2104702392 instance=ExtResource("2_nlfpl")]
 offset_left = -388.0
@@ -153,6 +153,18 @@ left = 429
 up = -678
 right = 896
 down = -316
+
+[node name="Index4" parent="." unique_id=558731410 instance=ExtResource("2_nlfpl")]
+offset_top = 363.0
+offset_right = 792.0
+offset_bottom = 1772.0
+zoom = 3.0
+spawn_position = Vector2i(247, 1079)
+layers = 4
+z = 3
+up = 363
+right = 792
+down = 1772
 
 [node name="SubRoomBg" type="Sprite2D" parent="." unique_id=700970848]
 modulate = Color(1, 1, 1, 0)
@@ -594,12 +606,11 @@ hide_parent = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Events/ExitScene/Interact/StaticBody2D" unique_id=1978010159]
 polygon = PackedVector2Array(-51, -4, -90, 13, -63, 26, -2, 37, 18, 38, 31, 31.1863, 31, -6, 31, -46)
 
-[node name="Ladder" parent="." unique_id=812423330 instance=ExtResource("20_xjbvj")]
+[node name="Ladder" parent="." unique_id=812423330 node_paths=PackedStringArray("down_index", "up_index") instance=ExtResource("20_xjbvj")]
 position = Vector2(587, 469)
 enable_stairs = true
-LayersUp = 4
-LayersDown = 3
-zUp = 3
+down_index = NodePath("../Index0")
+up_index = NodePath("../Index4")
 
 [node name="End1" parent="Ladder" index="0" unique_id=1730241983]
 position = Vector2(1, 15)
@@ -652,22 +663,10 @@ position = Vector2(42, -21)
 rotation = -0.471887
 shape = SubResource("RectangleShape2D_66y4c")
 
-[node name="Stairs1" parent="." unique_id=1395634390 instance=ExtResource("14_y8h7v")]
+[node name="Stairs1" parent="." unique_id=1395634390 node_paths=PackedStringArray("down_index", "up_index") instance=ExtResource("14_y8h7v")]
 position = Vector2(322, 885)
-
-[node name="TransferLindeAlleyR" parent="." unique_id=113743635 instance=ExtResource("28_prfhr")]
-position = Vector2(12.75, 827)
-trigger_size = Vector2i(31, 80)
-room = "Pyrson"
-subroom = "LindeAlleyL"
-ToCamera = 1
-
-[node name="TransferLindeAlleyL" parent="." unique_id=910771298 instance=ExtResource("28_prfhr")]
-position = Vector2(-2, 826)
-trigger_size = Vector2i(34, 80)
-_direction = 4
-room = "Pyrson"
-subroom = "LindeAlleyR"
+down_index = NodePath("../Index0")
+up_index = NodePath("../Index4")
 
 [node name="VPGate" parent="." unique_id=1839372317 instance=ExtResource("3_pivbf")]
 position = Vector2(79, 127)
@@ -1069,6 +1068,11 @@ shape = SubResource("RectangleShape2D_6we5s")
 
 [node name="MarkerMapleBench" type="Marker2D" parent="." unique_id=296603525]
 position = Vector2(612, 419)
+
+[node name="Stairs2" parent="." unique_id=1314167504 node_paths=PackedStringArray("down_index", "up_index") instance=ExtResource("14_y8h7v")]
+position = Vector2(0, 828)
+down_index = NodePath("../Index1")
+up_index = NodePath("../Index0")
 
 [connection signal="action" from="HomeBuilding/Lamp3" to="HomeBuilding/Lamp3/PointLight2D" method="_on_interactable_action"]
 [connection signal="body_entered" from="HomeBuilding/RoomDoor" to="HomeBuilding/RoomDoor" method="_on_body_entered"]

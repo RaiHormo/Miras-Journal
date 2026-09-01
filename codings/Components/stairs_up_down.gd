@@ -2,22 +2,20 @@
 extends Area2D
 class_name Stair
 
-@export_flags_2d_physics var LayersUp := 1
-@export_flags_2d_physics var LayersDown := 1
-@export var zUp := 0
-@export var zDown := 0
+## Change to this index when going Down or Left
+@export var down_index: CameraIndex
+## Change to this index when going Up or Right
+@export var up_index: CameraIndex
+## Swap left and right
 @export var Swap := false
+## Left becomes down, Right becomes Up
 @export var left_right_mode := false
-
-#func _ready() -> void:
-	#body_entered.connect(_on_body_entered)
-	#body_exited.connect(_on_body_exited)
 
 
 func _on_body_entered(body: Node2D) -> void:
 	print(body.get_class())
 	if body is NPC:
-		var dir: Vector2 = to_local(body.position)
+		var dir: Vector2 = to_local(body.position) * -1
 		go(dir)
 
 
@@ -26,6 +24,7 @@ func go(dir: Vector2) -> void:
 	if left_right_mode:
 		dir.y = 0
 		dir = Direction.snap_vector(dir)
+
 		if dir == Vector2.RIGHT:
 			go_up()
 		elif dir == Vector2.LEFT:
@@ -33,26 +32,24 @@ func go(dir: Vector2) -> void:
 	else:
 		dir.x = 0
 		dir = Direction.snap_vector(dir)
+
 		if dir == Vector2.UP:
 			go_up()
 		elif dir == Vector2.DOWN:
 			go_down()
+
 	print("entered staircase ", name, " going ", dir)
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is NPC:
 		var dir: Vector2 = to_local(body.position)
-		go(dir * -1)
+		go(dir)
 
 
 func go_up() -> void:
-	Global.Player.collision_layer = LayersUp
-	Global.Player.collision_mask = LayersUp
-	Global.Player.z_index = zUp
+	Global.Area.change_index(up_index)
 
 
 func go_down() -> void:
-	Global.Player.collision_layer = LayersDown
-	Global.Player.collision_mask = LayersDown
-	Global.Player.z_index = zDown
+	Global.Area.change_index(down_index)

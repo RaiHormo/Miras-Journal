@@ -2,11 +2,11 @@
 class_name Ladder
 extends Node2D
 
-@export var enable_stairs := false
-@export_flags_2d_physics var LayersUp := 1
-@export_flags_2d_physics var LayersDown := 1
-@export var zUp := 0
-@export var zDown := 0
+@export_group("Change index")
+## Change the camera index when going up or down like stairs
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var enable_stairs: bool = false
+@export var down_index: CameraIndex
+@export var up_index: CameraIndex
 
 var active := false
 var time: float = 8
@@ -45,9 +45,7 @@ func _physics_process(delta: float) -> void:
 
 		if Global.Player.position.y < $Start1.global_position.y and Global.Player.facing.is_vector(Vector2.UP):
 			if enable_stairs:
-				Global.Player.z_index = zUp
-				Global.Player.collision_layer = LayersUp
-				Global.Player.collision_mask = LayersUp
+				Global.Area.change_index(up_index)
 
 			active = false
 			Global.Player.set_anim("IdleUp")
@@ -58,9 +56,7 @@ func _physics_process(delta: float) -> void:
 
 		if Global.Player.position.y > $Start2.global_position.y and Global.Player.facing.is_vector(Vector2.DOWN):
 			if enable_stairs:
-				Global.Player.z_index = zDown
-				Global.Player.collision_layer = LayersDown
-				Global.Player.collision_mask = LayersDown
+				Global.Area.change_index(down_index)
 
 			active = false
 			Global.Player.set_anim("IdleDown")
