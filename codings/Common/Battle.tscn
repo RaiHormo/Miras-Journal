@@ -4330,7 +4330,6 @@ animation = &"Entrance"
 frame = 10
 frame_progress = 1.0
 offset = Vector2(0.5, -15.5)
-metadata/_edit_lock_ = true
 
 [node name="Shadow" type="Sprite2D" parent="Act/Actor0" unique_id=721850700]
 show_behind_parent = true

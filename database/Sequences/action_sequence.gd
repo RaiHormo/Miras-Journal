@@ -795,15 +795,15 @@ func StaticSaber(target: Actor) -> void:
 	if not is_instance_valid(target): return
 	Bt.anim("Attack2", CurrentChar)
 	Bt.zoom(6)
-	Bt.focus_cam(target, 1)
-	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-30), 0), 0.3)
-	await Event.wait(0.8)
+	Bt.focus_cam(target, 1, 0)
+	await Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(-20), 0), 0.3, Tween.EASE_IN)
+	Bt.move(CurrentChar, target.node.position + Vector2(Bt.offsetize(30), -20), 1, Tween.EASE_OUT)
 	Bt.damage(target, false, true)
 	Bt.screen_shake(8, 5, 0.1)
-	await Event.wait(1)
+	await Event.wait(1.5)
 	if crit: await target.add_state("Zapped")
 	Bt.anim()
-	Bt.return_cur()
+	await Bt.return_cur()
 	Bt.end_turn()
 
 
