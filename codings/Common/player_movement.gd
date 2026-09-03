@@ -165,12 +165,14 @@ func control_process() -> void:
 		else:
 			velocity = direction * speed
 
-		if RealVelocity != Vector2.ZERO:
-			if RealVelocity.x == 0: position.x = roundf(position.x)
-			if RealVelocity.y == 0: position.y = roundf(position.y)
+		#if RealVelocity != Vector2.ZERO:
+			#if RealVelocity.x == 0: position.x = roundf(position.x)
+			#if RealVelocity.y == 0: position.y = roundf(position.y)
 
 		if direction.length() > 0.1:
 			move_and_slide()
+
+		#position = round(position)
 
 		if Input.is_action_just_pressed("OVAttack") and controllable():
 			attack()
@@ -226,8 +228,8 @@ func update_anim_prm() -> void:
 			else:
 				set_anim(str("Walk" + dir_name), false, false)
 		else:
-			if RealVelocity == Vector2.ZERO and not is_on_wall():
-				position = round(position)
+			#if RealVelocity == Vector2.ZERO and not is_on_wall():
+				#position = round(position)
 
 			set_anim(str("Idle" + dir_name), false, false)
 

@@ -94,6 +94,7 @@ func _ready() -> void:
 	if Nav == null: Nav = get_node_or_null("Nav")
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	default_position = global_position
+	
 	default()
 
 
@@ -145,7 +146,7 @@ func _physics_process(delta: float) -> void:
 
 		S.IDLE:
 			direction = Vector2.ZERO
-			position = round(position)
+			#position = round(position)
 			move_and_collide(Vector2.ZERO)
 
 		S.CONTROLLED:

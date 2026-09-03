@@ -6,7 +6,7 @@ signal ungray
 signal thread_loaded
 
 const save_file_version := 7
-const area_spawn_path: NodePath = "/root"
+const area_spawn_path: NodePath = "/root/GameViewport/SubViewport"
 
 var defeated: Array
 var attacker: Node2D
@@ -603,7 +603,7 @@ func end_battle() -> void:
 		t.set_trans(Tween.TRANS_QUART)
 		t.set_parallel()
 		#Engine.time_scale = 0.1
-		Global.Area.setup_params(true)
+		Global.Area.setup_zoom(true)
 		for i in Global.Bt.TurnOrder:
 			t.tween_property(i.node.get_node("Glow"), "energy", 0, 0.3)
 
