@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cm7rj2ceyrie8"]
+
+[node name="GameViewport" type="SubViewportContainer" unique_id=2107716612]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=908074913]
+canvas_item_default_texture_filter = 0
+size = Vector2i(320, 200)
