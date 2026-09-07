@@ -87,9 +87,17 @@ position = Vector2(-3.8147e-06, -3.8147e-06)
 shape = SubResource("CircleShape2D_tykot")
 debug_color = Color(0.745, 0.337, 0.804, 0.072)
 
+[node name="Icon" type="Sprite2D" parent="." unique_id=1758546671]
+light_mask = 0
+z_index = 10
+z_as_relative = false
+position = Vector2(-7.1054274e-15, -14.999998)
+scale = Vector2(0.271667, 0.271667)
+texture = ExtResource("7_tykot")
+script = ExtResource("8_ibccg")
+
 [node name="Pack" type="CanvasGroup" parent="." unique_id=1040141046]
-visible = false
-scale = Vector2(0.4, 0.4)
+scale = Vector2(1.5, 1.5)
 
 [node name="Arrow" type="TextureRect" parent="Pack" unique_id=932353223]
 light_mask = 0
@@ -145,15 +153,6 @@ offset_bottom = 74.99999
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_t8kem")
 expand_mode = 1
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1758546671]
-light_mask = 0
-z_index = 10
-z_as_relative = false
-position = Vector2(-7.1054274e-15, -14.999998)
-scale = Vector2(0.271667, 0.271667)
-texture = ExtResource("7_tykot")
-script = ExtResource("8_ibccg")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

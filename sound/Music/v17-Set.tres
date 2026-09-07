@@ -8,4 +8,5 @@ script = ExtResource("1_4iwqo")
 track = ExtResource("2_diygt")
 intro_end = 1.9
 battle_start = 1.9
+victory = 83.3
 metadata/_custom_type_script = "uid://d1s1l8qt47tvu"

@@ -418,7 +418,7 @@ func bump(dir: Direction = facing) -> void:
 	local_controllable = mem
 
 
-func camera_follow(follow: bool = !$Camera2D.update_position) -> void:
+func camera_follow(follow: bool = false) -> void:
 	$Camera2D.update_position = follow
 
 

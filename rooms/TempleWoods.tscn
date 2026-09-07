@@ -369,7 +369,6 @@ offset_top = -956.0
 offset_right = 1770.0
 offset_bottom = 550.0
 border_color = Color(0.23783529, 0.66108066, 0.38062164, 1)
-zoom = 1.0
 spawn_position = Vector2i(1355, 431)
 z = 1
 left = 1000

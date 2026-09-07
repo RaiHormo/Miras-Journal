@@ -32,8 +32,8 @@ func _ready() -> void:
 	if position != Vector2.ZERO: push_warning(name, " is not at position 0,0")
 
 	# Setup material
-	#material = preload("res://codings/Shaders/Pixelart.tres")
-	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	material = preload("res://codings/Shaders/Pixelart.tres")
+	texture_filter = CanvasItem.TEXTURE_FILTER_PARENT_NODE
 
 	# Fetch special nodes
 	for i in get_children():

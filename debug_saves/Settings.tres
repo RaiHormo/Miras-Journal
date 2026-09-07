@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1")
-MasterVolume = -20.0
+AutoHideHUD = 1
 DebugMode = true

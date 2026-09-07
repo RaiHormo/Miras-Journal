@@ -174,10 +174,15 @@ func _ready() -> void:
 
 	button = pack.get_node("Cnt/Button")
 	arrow = pack.get_node("Arrow")
+
 	Global.check.connect(check)
 	do_position()
 	disappear()
 	if ActionType == "veinet": vein_check()
+
+
+func _exit_tree() -> void:
+	pack.queue_free()
 
 
 func vein_check() -> void:
@@ -321,41 +326,42 @@ func do_position() -> void:
 		pack.hide()
 		return
 
+	var cnt: BoxContainer = pack.get_node("Cnt")
 	var dir := Direction.snap_vector(to_local(Global.Player.position + Vector2(0, Height - offset)))
 
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
 		Vector2.UP:
-			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
-			$Pack/Cnt.position.x = -180
-			$Pack.position.y = 28 - Height
-			$Pack.position.x = 0
-			$Pack/Arrow.flip_h = true
-			$Pack/Arrow.position.y = -42
+			cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+			cnt.position.x = -180
+			pack.position.y = 28 - Height
+			pack.position.x = 0
+			arrow.flip_h = true
+			arrow.position.y = -42
 
 		Vector2.DOWN:
-			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_CENTER
-			$Pack/Cnt.position.x = -180
-			$Pack.position.x = 0
-			$Pack.position.y = -10 - Height
-			$Pack/Arrow.flip_h = false
-			$Pack/Arrow.position.y = -6
+			cnt.alignment = BoxContainer.ALIGNMENT_CENTER
+			cnt.position.x = -180
+			pack.position.x = 0
+			pack.position.y = -10 - Height
+			arrow.flip_h = false
+			arrow.position.y = -6
 
 		Vector2.LEFT:
-			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
-			$Pack/Cnt.position.x = -24
-			$Pack.position.x = 0
-			$Pack.position.y = -10 - Height
-			$Pack/Arrow.flip_h = false
-			$Pack/Arrow.position.y = -6
+			cnt.alignment = BoxContainer.ALIGNMENT_BEGIN
+			cnt.position.x = -24
+			pack.position.x = 0
+			pack.position.y = -10 - Height
+			arrow.flip_h = false
+			arrow.position.y = -6
 
 		Vector2.RIGHT:
-			$Pack/Cnt.alignment = BoxContainer.ALIGNMENT_END
-			$Pack/Cnt.position.x = -342
-			$Pack.position.x = 0
-			$Pack/Arrow.position.y = -6
-			$Pack.position.y = -10 - Height
-			$Pack/Arrow.flip_h = false
+			cnt.alignment = BoxContainer.ALIGNMENT_END
+			cnt.position.x = -342
+			pack.position.x = 0
+			arrow.position.y = -6
+			pack.position.y = -10 - Height
+			arrow.flip_h = false
 
 
 func _on_button_pressed() -> void:

@@ -775,10 +775,6 @@ path_max_distance = 20.0
 
 [node name="Ear" type="AudioListener2D" parent="." unique_id=984354471]
 
-[node name="Camera2D" type="RemoteTransform2D" parent="." unique_id=1856948275]
-update_rotation = false
-update_scale = false
-
 [node name="Fader" type="ColorRect" parent="." unique_id=1841963060]
 process_mode = 1
 visible = false
@@ -819,3 +815,5 @@ debug_color = Color(0.321569, 0.533333, 0.870588, 0.419608)
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1543988533]
 bus = &"SFX"
+
+[node name="Camera2D" type="RemoteTransform2D" parent="." unique_id=1283575545]
