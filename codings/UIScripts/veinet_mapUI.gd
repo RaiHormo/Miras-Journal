@@ -9,10 +9,10 @@ func _ready() -> void:
 	await Event.take_control()
 	#await Loader.save()
 	get_viewport().gui_focus_changed.connect(focus_change)
-	Global.Camera.limit_bottom = 999999
-	Global.Camera.limit_right = 999999
-	Global.Camera.limit_left = -999999
-	Global.Camera.limit_top = -999999
+	Global.camera.limit_bottom = 999999
+	Global.camera.limit_right = 999999
+	Global.camera.limit_left = -999999
+	Global.camera.limit_top = -999999
 
 	for i in $Container/Scroller/LocationList.get_children():
 		#if i is Button: i.pressed.connect(location_selected)
@@ -35,8 +35,8 @@ func _ready() -> void:
 func focus_place(place: String = here) -> void:
 	if not inited:
 		here = place
-		Global.Player.camera_follow(false)
-		position = Global.Camera.global_position - (size / 2)
+		Global.player.camera_follow(false)
+		position = Global.camera.global_position - (size / 2)
 		$Container.global_position.x = 1300
 		var t := create_tween()
 		t.set_ease(Tween.EASE_OUT)
@@ -44,8 +44,8 @@ func focus_place(place: String = here) -> void:
 		t.set_parallel()
 		show()
 		t.tween_property(self, "modulate", Color.WHITE, 0.5).from(Color.TRANSPARENT)
-		t.tween_property(Global.Camera, "zoom", Vector2.ONE, 0.5)
-		t.tween_property(Global.Camera, "position", position + (size / 2), 0.5)
+		t.tween_property(Global.camera, "zoom", Vector2.ONE, 0.5)
+		t.tween_property(Global.camera, "position", position + (size / 2), 0.5)
 		t.tween_property($Container, "position:x", 898, 0.3).set_delay(0.3)
 		inited = true
 	else: Audio.cursor_sound()
@@ -85,20 +85,20 @@ func location_selected() -> void:
 	var progress_time := false
 	var prev_foc := foc
 
-	if foc.get_meta("IsDungeon", true) != Global.Area.is_dungeon and not Event.f("FreeTravelOnce"):
+	if foc.get_meta("IsDungeon", true) != Global.room.is_dungeon and not Event.f("FreeTravelOnce"):
 		var message: String
-		if Global.Area.is_dungeon:
+		if Global.room.is_dungeon:
 			message = "Exit the dungeon and rest at home."
 		else:
 			message = "Head into a dungeon. Time will pass when returning."
 
-		if not await PartyUI.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(2)):
+		if not await Hud.confirm_time_passage("Travel", message, Event.get_time_progress_from_now(2)):
 			inited = true
 			foc = prev_foc
-			PartyUI.hide_all()
+			Hud.hide_all()
 			focus_place(here)
 			return
-		elif Global.Area.is_dungeon:
+		elif Global.room.is_dungeon:
 			Event.progress_by_time(2)
 			progress_time = true
 			Event.add_flag("eepy1")
@@ -112,8 +112,8 @@ func location_selected() -> void:
 	if map_point == null: OS.alert("You forgot to add the map point idiot"); return
 	var t := create_tween()
 	t.set_parallel()
-	t.tween_property(Global.Camera, "zoom", Vector2(4, 4), 0.3)
-	t.tween_property(Global.Camera, "position", map_point.global_position, 0.3)
+	t.tween_property(Global.camera, "zoom", Vector2(4, 4), 0.3)
+	t.tween_property(Global.camera, "position", map_point.global_position, 0.3)
 	await Loader.transition(Direction.CENTER)
 	hide()
 	var room: String = foc.get_meta("Room")
@@ -123,10 +123,10 @@ func location_selected() -> void:
 	elif foc.name == here or not (foc.has_meta("TimePassOverwrite") and foc.get_meta("TimePassOverwrite")):
 		await Loader.travel_to(room, Vector2.ZERO, foc.get_meta("CamID"), Direction.CENTER)
 
-	var VP := Global.Area.get_node_or_null("VP" + foc.name)
+	var VP := Global.room.get_node_or_null("VP" + foc.name)
 
 	if VP == null: push_error("No such vain point exists: ", foc.name); return
-	Global.Player.global_position = VP.global_position + Vector2(0, 24)
+	Global.player.global_position = VP.global_position + Vector2(0, 24)
 	Loader.save()
 	queue_free()
 

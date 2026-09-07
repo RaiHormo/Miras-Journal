@@ -25,7 +25,7 @@ signal initialized
 
 
 func _init() -> void:
-	Global.Area = self
+	Global.room = self
 
 
 func _ready() -> void:
@@ -92,15 +92,15 @@ func _ready() -> void:
 		# Wait for player to be ready
 		await Player.initialized
 
-		Global.Player.global_position = camera_index.spawn_position as Vector2 if camera_index != null else Vector2.ZERO
+		Global.player.global_position = camera_index.spawn_position as Vector2 if camera_index != null else Vector2.ZERO
 		setup_z()
 		setup_other_index_params()
 
-		Global.Player.collision(true)
+		Global.player.collision(true)
 
 		## Make controllable
-		if Global.Controllable:
-			PartyUI.UIvisible = true
+		if Global.controllable:
+			Hud.ui_visible = true
 
 			for i in followers:
 				i.dont_follow = false
@@ -114,7 +114,7 @@ func _ready() -> void:
 	initialized.emit.call_deferred()
 
 	await Event.wait(0.4, false)
-	if Global.Camera: Global.Camera.position_smoothing_enabled = true
+	if Global.camera: Global.camera.position_smoothing_enabled = true
 
 var t_zoom: Tween
 
@@ -130,12 +130,12 @@ func setup_camera_limits() -> void:
 func setup_other_index_params() -> void:
 	if camera_index != null:
 		if camera_index.flame == 1:
-			if not Event.f("FlameActive"): Global.Player.activate_flame()
+			if not Event.f("FlameActive"): Global.player.activate_flame()
 		elif camera_index.flame == -1:
 			Event.remove_flag("FlameActive")
 
-		Global.Player.collision_layer = camera_index.layers
-		Global.Player.collision_mask = camera_index.layers
+		Global.player.collision_layer = camera_index.layers
+		Global.player.collision_mask = camera_index.layers
 
 
 func setup_zoom(tween_zoom := false) -> void:
@@ -161,10 +161,10 @@ func setup_zoom(tween_zoom := false) -> void:
 
 
 func setup_z(z := -1) -> void:
-	if not is_instance_valid(Global.Player): return
+	if not is_instance_valid(Global.player): return
 	if z == -1: z = camera_index.z if camera_index != null else 1
 
-	Global.Player.z_index = z
+	Global.player.z_index = z
 
 	for i in followers:
 		i.z_index = z
@@ -175,7 +175,7 @@ func default() -> void:
 
 
 func get_z() -> int:
-	if is_instance_valid(Global.Player): return Global.Player.z_index
+	if is_instance_valid(Global.player): return Global.player.z_index
 	else: return camera_index.z if camera_index != null else 0
 
 

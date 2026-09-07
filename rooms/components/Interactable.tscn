@@ -97,7 +97,7 @@ texture = ExtResource("7_tykot")
 script = ExtResource("8_ibccg")
 
 [node name="Pack" type="CanvasGroup" parent="." unique_id=1040141046]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.4, 0.4)
 
 [node name="Arrow" type="TextureRect" parent="Pack" unique_id=932353223]
 light_mask = 0

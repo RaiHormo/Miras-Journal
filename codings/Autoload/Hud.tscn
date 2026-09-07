@@ -1,27 +1,27 @@
 [gd_scene format=3 uid="uid://dh64f5bodshv7"]
 
-[ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/PartyUI.gd" id="1_nullq"]
-[ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_v7eva"]
-[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_cich6"]
-[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="4_ujk23"]
-[ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="5_1ty82"]
-[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_w2g12"]
-[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_jb2qv"]
-[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="8_wqv20"]
-[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="9_r3lax"]
-[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="10_3r1mm"]
-[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="10_ihe7c"]
-[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="10_l2ivr"]
-[ext_resource type="Texture2D" uid="uid://5205kcxrxgw4" path="res://UI/Calendar/Base.png" id="11_4pd7b"]
-[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="11_k5mql"]
-[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="12_2fkxq"]
-[ext_resource type="Script" uid="uid://cu8vq74axypex" path="res://codings/UIScripts/calendarUI.gd" id="12_wtwla"]
-[ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="14_fmwou"]
-[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="15_rt2n5"]
-[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="19_xr4ts"]
+[ext_resource type="Script" uid="uid://4ow6ucubdi8b" path="res://codings/UIScripts/hudUI.gd" id="1_ktniu"]
+[ext_resource type="Shader" uid="uid://dbegadw85wjwl" path="res://codings/Shaders/Blur.gdshader" id="2_nx28g"]
+[ext_resource type="Texture2D" uid="uid://cnwsdp6c2x76w" path="res://art/Icons/Party/Mira.png" id="3_1cw42"]
+[ext_resource type="Texture2D" uid="uid://bqbuf3hq8oxm6" path="res://art/Icons/Items.png" id="4_wta45"]
+[ext_resource type="FontFile" uid="uid://sehkl0mea74i" path="res://UI/Fonts/cyrenia-regular.ttf" id="5_omco3"]
+[ext_resource type="Texture2D" uid="uid://bhbfk3uk3pfej" path="res://UI/Party/Cursor.png" id="6_xvgwg"]
+[ext_resource type="Shader" uid="uid://bpx7sdi81bvy6" path="res://codings/Shaders/Unshaded.gdshader" id="7_waq4e"]
+[ext_resource type="FontVariation" uid="uid://b26p56yb7cgso" path="res://UI/Fonts/cyrenia-button.tres" id="8_tpj01"]
+[ext_resource type="Texture2D" uid="uid://bpv6vrrg6tboq" path="res://UI/Input/A.png" id="9_rx0g4"]
+[ext_resource type="Texture2D" uid="uid://bv0rq7hr5ekhr" path="res://UI/Input/Y.png" id="10_nsuc8"]
+[ext_resource type="Texture2D" uid="uid://ch4dlpupg0ywv" path="res://UI/Input/Glyphs/X.svg" id="11_cfr1y"]
+[ext_resource type="PackedScene" uid="uid://bomaairqx0y6l" path="res://UI/Wheel/Wheel.tscn" id="12_y1hts"]
+[ext_resource type="Texture2D" uid="uid://5205kcxrxgw4" path="res://UI/Calendar/Base.png" id="13_s2jyr"]
+[ext_resource type="Script" uid="uid://cu8vq74axypex" path="res://codings/UIScripts/calendarUI.gd" id="14_pk53n"]
+[ext_resource type="FontFile" uid="uid://cumufnoi2wx0i" path="res://UI/Fonts/cyrenia-bold.ttf" id="15_5y22w"]
+[ext_resource type="Texture2D" uid="uid://bq3dxko5coeh1" path="res://UI/Calendar/Morning.png" id="16_wevcq"]
+[ext_resource type="Texture2D" uid="uid://b3rlipd0auqsi" path="res://UI/Input/B.png" id="17_14yb7"]
+[ext_resource type="Texture2D" uid="uid://c0o8cko7xsmmf" path="res://UI/Party/Page.png" id="18_vbpyr"]
+[ext_resource type="FontFile" uid="uid://bks6fau84dtru" path="res://UI/Fonts/Faktos.ttf" id="19_o7jkn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4job"]
-shader = ExtResource("2_v7eva")
+shader = ExtResource("2_nx28g")
 shader_parameter/lod = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_el5ff"]
@@ -33,7 +33,7 @@ expand_margin_left = 18.0
 expand_margin_top = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvx2b"]
-atlas = ExtResource("9_r3lax")
+atlas = ExtResource("4_wta45")
 region = Rect2(162, 18, 18, 18)
 filter_clip = true
 
@@ -74,12 +74,12 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_qyuo7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_0g5cc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_2t2lh"]
-font = ExtResource("4_ujk23")
+font = ExtResource("5_omco3")
 font_size = 20
 outline_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_owkfl"]
-font = ExtResource("4_ujk23")
+font = ExtResource("5_omco3")
 font_size = 14
 font_color = Color(0.533333, 0.533333, 0.533333, 1)
 
@@ -182,7 +182,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_1dava")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_c0w2l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_llexj"]
-shader = ExtResource("7_jb2qv")
+shader = ExtResource("7_waq4e")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2w4v"]
 bg_color = Color(1, 1, 1, 1)
@@ -199,7 +199,7 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 
 [sub_resource type="Theme" id="Theme_uwpxh"]
-default_font = ExtResource("8_wqv20")
+default_font = ExtResource("8_tpj01")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -217,7 +217,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_e2w4v")
 events = [null]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wk61q"]
-atlas = ExtResource("9_r3lax")
+atlas = ExtResource("4_wta45")
 region = Rect2(18, 72, 18, 18)
 filter_clip = true
 
@@ -270,7 +270,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf75l"]
-shader = ExtResource("7_jb2qv")
+shader = ExtResource("7_waq4e")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql22e"]
 content_margin_left = 8.0
@@ -299,7 +299,7 @@ corner_radius_bottom_right = 26
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_xncxc"]
-default_font = ExtResource("8_wqv20")
+default_font = ExtResource("8_tpj01")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -333,11 +333,11 @@ action = &"BtCommand"
 events = [SubResource("InputEventAction_qhcm2")]
 
 [sub_resource type="Theme" id="Theme_f46jh"]
-default_font = ExtResource("12_2fkxq")
+default_font = ExtResource("15_5y22w")
 Label/font_sizes/font_size = 224
 
 [sub_resource type="FontVariation" id="FontVariation_ql22e"]
-base_font = ExtResource("12_2fkxq")
+base_font = ExtResource("15_5y22w")
 spacing_top = 52
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37wmm"]
@@ -357,7 +357,7 @@ expand_margin_left = 12.0
 expand_margin_right = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ovcy8"]
-shader = ExtResource("7_jb2qv")
+shader = ExtResource("7_waq4e")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jen5"]
 content_margin_left = 6.0
@@ -387,7 +387,7 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 26
 
 [sub_resource type="Theme" id="Theme_6s6fi"]
-default_font = ExtResource("8_wqv20")
+default_font = ExtResource("8_tpj01")
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -525,7 +525,7 @@ expand_margin_top = 12.0
 expand_margin_bottom = 12.0
 
 [sub_resource type="FontVariation" id="FontVariation_4cx6l"]
-base_font = ExtResource("12_2fkxq")
+base_font = ExtResource("15_5y22w")
 spacing_glyph = 1
 
 [sub_resource type="Theme" id="Theme_uf457"]
@@ -583,7 +583,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[node name="PartyUI" type="Control" unique_id=974459483]
+[node name="Hud" type="Control" unique_id=974459483]
 process_mode = 3
 texture_filter = 2
 layout_mode = 3
@@ -593,7 +593,7 @@ offset_right = -3.0
 offset_bottom = 0.199951
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nullq")
+script = ExtResource("1_ktniu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1483732302]
 layer = 2
@@ -634,7 +634,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Leader" unique_id=190986066]
 position = Vector2(37, 45)
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("3_cich6")
+texture = ExtResource("3_1cw42")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Leader/Icon" unique_id=1544928473]
 visible = false
@@ -664,7 +664,7 @@ offset_left = 115.0
 offset_top = 12.0
 offset_right = 154.0
 offset_bottom = 38.0
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
@@ -686,7 +686,7 @@ offset_left = 115.0
 offset_top = 1.0
 offset_right = 154.0
 offset_bottom = 24.0
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
@@ -715,7 +715,7 @@ offset_left = 32.9492
 offset_top = -9.33336
 offset_right = 72.9492
 offset_bottom = 22.6666
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
@@ -774,7 +774,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_el5ff")
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/Partybox/Member1" unique_id=510320069]
 position = Vector2(37, 54.333)
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("3_cich6")
+texture = ExtResource("3_1cw42")
 
 [node name="State" type="TextureRect" parent="CanvasLayer/Partybox/Member1/Icon" unique_id=894064193]
 visible = false
@@ -804,7 +804,7 @@ offset_left = 115.0
 offset_top = 12.0
 offset_right = 154.0
 offset_bottom = 37.9999
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 16
 text = "13"
 
@@ -826,7 +826,7 @@ offset_left = 115.0
 offset_top = 1.0
 offset_right = 154.0
 offset_bottom = 25.0
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 16
 text = "70"
 
@@ -882,7 +882,7 @@ offset_left = 32.9492
 offset_top = -9.33336
 offset_right = 72.9492
 offset_bottom = 22.6666
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 20
 text = "1"
 vertical_alignment = 1
@@ -909,7 +909,7 @@ offset_right = 433.0
 offset_bottom = 152.0
 scale = Vector2(0.404152, 0.404152)
 mouse_filter = 2
-texture = ExtResource("6_w2g12")
+texture = ExtResource("6_xvgwg")
 
 [node name="ItemPreview" type="Button" parent="CanvasLayer/Cursor" unique_id=427346250]
 visibility_layer = 1024
@@ -966,7 +966,7 @@ theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_uaes6")
 shortcut_in_tooltip = false
 text = "Talk"
-icon = ExtResource("10_l2ivr")
+icon = ExtResource("9_rx0g4")
 
 [node name="Abilities" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox" unique_id=1425677363]
 visibility_layer = 1024
@@ -984,7 +984,7 @@ theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_g1pyy")
 shortcut_in_tooltip = false
 text = "Abilities"
-icon = ExtResource("11_k5mql")
+icon = ExtResource("10_nsuc8")
 
 [node name="Details" type="Button" parent="CanvasLayer/Cursor/MemberOptions/VBox" unique_id=1437251849]
 visibility_layer = 1024
@@ -1002,9 +1002,9 @@ theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_pbvwb")
 shortcut_in_tooltip = false
 text = "Stats"
-icon = ExtResource("10_3r1mm")
+icon = ExtResource("11_cfr1y")
 
-[node name="Wheel" parent="CanvasLayer" unique_id=1137152955 instance=ExtResource("10_ihe7c")]
+[node name="Wheel" parent="CanvasLayer" unique_id=1137152955 instance=ExtResource("12_y1hts")]
 visible = false
 offset_left = 650.0
 offset_top = 408.0
@@ -1026,8 +1026,8 @@ grow_horizontal = 0
 scale = Vector2(0.260146, 0.260146)
 pivot_offset = Vector2(1542.39, 0)
 mouse_filter = 2
-texture = ExtResource("11_4pd7b")
-script = ExtResource("12_wtwla")
+texture = ExtResource("13_s2jyr")
+script = ExtResource("14_pk53n")
 
 [node name="Date" type="HBoxContainer" parent="CanvasLayer/CalendarBase" unique_id=495101031]
 layout_mode = 0
@@ -1076,13 +1076,13 @@ focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
-theme_override_fonts/font = ExtResource("12_2fkxq")
+theme_override_fonts/font = ExtResource("15_5y22w")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
-icon = ExtResource("14_fmwou")
+icon = ExtResource("16_wevcq")
 alignment = 2
 
 [node name="Future" type="BoxContainer" parent="CanvasLayer/CalendarBase" unique_id=367246423]
@@ -1103,13 +1103,13 @@ focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_constants/icon_max_width = 64
-theme_override_fonts/font = ExtResource("12_2fkxq")
+theme_override_fonts/font = ExtResource("15_5y22w")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_37wmm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_37wmm")
 button_mask = 0
 text = "Morning"
-icon = ExtResource("14_fmwou")
+icon = ExtResource("16_wevcq")
 alignment = 2
 
 [node name="Action" type="Button" parent="CanvasLayer/CalendarBase" unique_id=1937317852]
@@ -1219,7 +1219,7 @@ offset_top = 699.607
 offset_right = 761.524
 offset_bottom = 841.607
 rotation = -1.57079
-texture = ExtResource("6_w2g12")
+texture = ExtResource("6_xvgwg")
 
 [node name="Back" type="Button" parent="CanvasLayer" unique_id=131082473]
 visibility_layer = 1024
@@ -1241,7 +1241,7 @@ theme_override_font_sizes/font_size = 15
 shortcut = SubResource("Shortcut_xaphv")
 shortcut_in_tooltip = false
 text = "Back"
-icon = ExtResource("15_rt2n5")
+icon = ExtResource("17_14yb7")
 text_overrun_behavior = 1
 expand_icon = true
 
@@ -1296,7 +1296,7 @@ offset_right = 2469.0
 offset_bottom = 1496.0
 rotation = -0.010472
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_1ty82")
+texture = ExtResource("18_vbpyr")
 
 [node name="AuraDoodle" type="TextureRect" parent="CanvasLayer/Pages/Page0" unique_id=450780679]
 layout_mode = 0
@@ -1312,7 +1312,7 @@ offset_top = 134.221
 offset_right = 951.599
 offset_bottom = 259.221
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("12_2fkxq")
+theme_override_fonts/font = ExtResource("15_5y22w")
 theme_override_font_sizes/font_size = 110
 text = "Bob Bobbers"
 
@@ -1362,7 +1362,7 @@ offset_top = 699.0
 offset_right = 521.0
 offset_bottom = 782.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_ujk23")
+theme_override_fonts/font = ExtResource("5_omco3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_q0357")
 theme_override_styles/focus = SubResource("StyleBoxFlat_q0357")
@@ -1444,7 +1444,7 @@ offset_top = 760.0
 offset_right = 1272.0
 offset_bottom = 793.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.4509804)
-theme_override_fonts/font = ExtResource("19_xr4ts")
+theme_override_fonts/font = ExtResource("19_o7jkn")
 theme_override_font_sizes/font_size = 32
 text = "DEBUG"
 horizontal_alignment = 2

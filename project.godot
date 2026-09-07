@@ -40,9 +40,10 @@ buses/default_bus_layout="res://sound/bus.tres"
 [autoload]
 
 Global="*res://codings/Autoload/Global.gd"
-PartyUI="*res://codings/Autoload/PartyUI.tscn"
-Loader="*res://codings/Autoload/Loader.tscn"
+Party="*uid://bn4eqhg4e1ago"
 Item="*res://codings/Autoload/ItemManager.tscn"
+Hud="*res://codings/Autoload/Hud.tscn"
+Loader="*res://codings/Autoload/Loader.tscn"
 World="*res://codings/Autoload/WorldEnvironment.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Event="*res://codings/Autoload/Event.tscn"
@@ -68,7 +69,7 @@ gdscript/warnings/native_method_override=0
 
 [dialogue_manager]
 
-runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "PartyUI", "Item", "Query", "Audio"]
+runtime/state_autoload_shortcuts=["Global", "Loader", "World", "Event", "Hud", "Item", "Query", "Audio"]
 editor/wrap_long_lines=true
 editor/advanced/custom_test_scene_path="uid://dro6xc73x3rl4"
 runtime/advanced/ignore_missing_state_values=true

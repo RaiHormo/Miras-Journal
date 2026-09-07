@@ -200,12 +200,12 @@ func vein_check() -> void:
 
 
 func check() -> void:
-	if Engine.is_editor_hint() or Loader.in_battle: return
-	if not is_instance_valid(Global.Player): queue_free()
+	if Engine.is_editor_hint() or Battle.in_battle: return
+	if not is_instance_valid(Global.player): queue_free()
 	if bubble_always:
-		if not Global.Controllable: disappear(true)
+		if not Global.controllable: disappear(true)
 		else: bubble()
-	if Loader.in_battle or not is_instance_valid(Global.Player):
+	if Battle.in_battle or not is_instance_valid(Global.player):
 		disappear(true)
 		return
 
@@ -216,7 +216,7 @@ func check() -> void:
 		destroy()
 
 	#print(Global.Controllable, CanInteract)
-	if not Global.Controllable and CanInteract:
+	if not Global.controllable and CanInteract:
 		disappear()
 		CanInteract = false
 	elif player_is_near():
@@ -235,8 +235,8 @@ func check_flag() -> bool:
 
 
 func player_is_near() -> bool:
-	if not is_instance_valid(Global.Player): return false
-	return Global.Controllable and Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
+	if not is_instance_valid(Global.player): return false
+	return Global.controllable and Global.player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas()
 
 
 func destroy() -> void:
@@ -276,7 +276,7 @@ func appear() -> void:
 		await get_tree().create_timer(0.1).timeout
 		animating = false
 
-		if not is_instance_valid(Global.Player) or not Global.Player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
+		if not is_instance_valid(Global.player) or not Global.player.get_node_or_null("DirectionMarker/Finder") in get_overlapping_areas():
 			disappear()
 			CanInteract = false
 
@@ -315,19 +315,19 @@ func bubble() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Global.Controllable and player_is_near():
+	if Global.controllable and player_is_near():
 		if Input.is_action_just_pressed("ui_accept") and CanInteract:
 			_on_button_pressed()
 		else: appear()
 
 
 func do_position() -> void:
-	if Loader.in_battle or not is_instance_valid(Global.Player):
+	if Battle.in_battle or not is_instance_valid(Global.player):
 		pack.hide()
 		return
 
 	var cnt: BoxContainer = pack.get_node("Cnt")
-	var dir := Direction.snap_vector(to_local(Global.Player.position + Vector2(0, Height - offset)))
+	var dir := Direction.snap_vector(to_local(Global.player.position + Vector2(0, Height - offset)))
 
 	if dir == Vector2.UP and bubble_always: dir = Vector2.DOWN
 	match dir:
@@ -366,9 +366,9 @@ func do_position() -> void:
 
 func _on_button_pressed() -> void:
 	if not check_flag(): return
-	if not Global.Controllable: return
-	Global.Controllable = false
-	Global.Player.direction = Vector2.ZERO
+	if not Global.controllable: return
+	Global.controllable = false
+	Global.player.direction = Vector2.ZERO
 	t = create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(pack, "scale", Vector2(0.4, 0.4), 0.1).from(Vector2(0.36, 0.36))
 	await Event.wait(0.1, false)
@@ -381,18 +381,18 @@ func _on_button_pressed() -> void:
 		get_tree().root.get_node("Options").queue_free()
 
 	if proper_face == Vector2.ZERO:
-		Global.Player.look_to(Direction.snap_vector(to_local(Global.Player.position) * -1))
+		Global.player.look_to(Direction.snap_vector(to_local(Global.player.position) * -1))
 
 	if proper_pos != Vector2.ZERO:
 		await Event.take_control()
-		Global.Player.collision(false)
-		await Global.Player.go_to(proper_pos, false, true, proper_face)
+		Global.player.collision(false)
+		await Global.player.go_to(proper_pos, false, true, proper_face)
 
 	if get_tree().root.has_node("MainMenu"):
 		get_tree().root.get_node("MainMenu").close()
 
 	if not (to_time == 0 and to_time_relative == 0):
-		Event.ToTime = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
+		Event.to_time = to_time if to_time_relative == 0 else Event.get_time_progress_from_now(to_time_relative)
 
 	match ActionType:
 		"toggle":
@@ -408,7 +408,7 @@ func _on_button_pressed() -> void:
 			Item.add_item(item, itemtype)
 
 		"battle":
-			Loader.start_battle(file)
+			Battle.start(file)
 
 		"global":
 			Global.call(file)
@@ -418,7 +418,7 @@ func _on_button_pressed() -> void:
 			Event.sequence(file)
 
 		"pass_time":
-			if await PartyUI.confirm_time_passage(title, item):
+			if await Hud.confirm_time_passage(title, item):
 				Audio.confirm_sound()
 				Event.sequence(file)
 
@@ -439,13 +439,13 @@ func _on_button_pressed() -> void:
 
 		"focus_cam":
 			Event.take_control()
-			Global.Player.camera_follow(false)
-			Global.Camera.position = focus_position
+			Global.player.camera_follow(false)
+			Global.camera.position = focus_position
 			await Event.wait(1)
 			if add_flag: Event.add_flag(hide_on_flag, true)
 			Global.check.emit()
 			await Event.wait(3, false)
-			Global.Player.camera_follow(true)
+			Global.player.camera_follow(true)
 
 		"social_link":
 			await Event.take_control(false)
@@ -459,22 +459,22 @@ func _on_button_pressed() -> void:
 
 		"chair":
 			await Event.take_control()
-			var face := Global.Player.facing
+			var face := Global.player.facing
 
-			if not chair_faces.is_empty() and not Global.Player.facing.get_letter() in chair_faces:
+			if not chair_faces.is_empty() and not Global.player.facing.get_letter() in chair_faces:
 				face = Direction.from_letter(chair_faces[0])
 
-			var pos := Global.Player.position
-			Global.Player.state = NPC.S.NONE
-			Global.Player.collision(false)
-			Global.Player.set_anim("Sit" + face.to_string())
+			var pos := Global.player.position
+			Global.player.state = NPC.S.NONE
+			Global.player.collision(false)
+			Global.player.set_anim("Sit" + face.to_string())
 			var sound: AudioStreamPlayer2D = get_node_or_null("JumpSound")
 
 			if sound != null:
 				sound.pitch_scale = 1
 				sound.play()
 
-			await Event.jump_to_global(Global.Player, global_position)
+			await Event.jump_to_global(Global.player, global_position)
 			while not Input.is_action_just_pressed(Controller.confirm()):
 				await Event.wait()
 
@@ -482,8 +482,8 @@ func _on_button_pressed() -> void:
 				sound.pitch_scale = 0.8
 				sound.play()
 
-			Global.Player.look_to(Direction.snap_vector(to_local(pos)))
-			await Event.jump_to_global(Global.Player, pos)
+			Global.player.look_to(Direction.snap_vector(to_local(pos)))
+			await Event.jump_to_global(Global.player, pos)
 
 	if add_flag:
 		if hide_on_flag != "":
@@ -501,18 +501,18 @@ func _on_button_pressed() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if Loader.in_battle or not Global.Controllable or not is_instance_valid(Global.Player):
+	if Battle.in_battle or not Global.controllable or not is_instance_valid(Global.player):
 		pack.hide()
 		return
 
-	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
+	if area == Global.player.get_node_or_null("DirectionMarker/Finder"):
 		if not CanInteract:
 			await appear()
 			CanInteract = true
 
 
 func _on_area_exited(area: Area2D) -> void:
-	if not is_instance_valid(Global.Player): return
-	if area == Global.Player.get_node_or_null("DirectionMarker/Finder"):
+	if not is_instance_valid(Global.player): return
+	if area == Global.player.get_node_or_null("DirectionMarker/Finder"):
 		await disappear()
 		CanInteract = false

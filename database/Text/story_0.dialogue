@@ -156,7 +156,7 @@ Mira.Neutral: Stay behind me, I'll deal with it!
 $> Loader.attacker = Pterogon
 $> Event.wait(0.1)
 $> Event.flag_progress("AlcineFollow", 3)
-$> Loader.start_battle("AlcineFollow1")
+$> Battle.start("AlcineFollow1")
 => END!
 
 ~ not_going_well
@@ -242,7 +242,7 @@ Alcine.Tired: Sheeww...
 ~ rest_amberelm
 Doesn't look too comfy, but I can't be picky right now.
 $> Event.progress_by_time(1)
-if PartyUI.confirm_time_passage("Rest", "Fully recover Health."):
+if Hud.confirm_time_passage("Rest", "Fully recover Health."):
 	[hide]
 	$> transition()
 	$> save()

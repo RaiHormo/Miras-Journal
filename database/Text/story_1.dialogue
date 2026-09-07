@@ -486,7 +486,7 @@ do! npc("Alcine").look_to("U")
 Asteria.Neutral: Here, this is the building.
 [hide]
 do add_flag("PyrsonHome")
-do Party.set_to_strarr(["Mira"])
+do Party.set_to(["Mira"])
 do Loader.travel_to("Pyrson;HomeBuilding-MyRoom", Vector2(112, 439), 0, 2, "", false)
 do spawn("Daze", Vector2(153, 474), "U", 0)
 do spawn("Asteria", Vector2(164, 428), "L", 0)

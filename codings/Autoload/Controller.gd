@@ -27,14 +27,14 @@ func _ready() -> void:
 
 
 func get_scheme() -> ControlScheme:
-	if !Global.Settings: return get_scheme_from_string("None")
-	if not Global.Settings.ControlSchemeAuto:
-		return Global.Settings.ControlSchemeOverride
+	if !Global.settings: return get_scheme_from_string("None")
+	if not Global.settings.ControlSchemeAuto:
+		return Global.settings.ControlSchemeOverride
 
 	if device == "":
-		device = Global.Settings.LastUsedDevice
+		device = Global.settings.LastUsedDevice
 
-	Global.Settings.LastUsedDevice = device
+	Global.settings.LastUsedDevice = device
 
 	return get_scheme_from_string(get_scheme_from_device())
 
@@ -99,7 +99,7 @@ func _input(event: InputEvent) -> void:
 	last_input = Global.process_frame
 	var is_fullscreen := get_window().mode == Window.MODE_FULLSCREEN
 
-	if Global.Settings and is_fullscreen != Global.Settings.Fullscreen:
+	if Global.settings and is_fullscreen != Global.settings.Fullscreen:
 		Global.fullscreen(is_fullscreen)
 
 
@@ -132,7 +132,7 @@ func confirm() -> String:
 
 
 func rumble(strong: float, weak: float, duration: float, delay: float = 0) -> void:
-	if Global.Settings and Global.Settings.ControllerVibration:
+	if Global.settings and Global.settings.ControllerVibration:
 		if delay > 0: await Event.wait(delay, false)
 		Input.start_joy_vibration(0, strong, weak, duration)
 
@@ -149,14 +149,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	var text_edit_visible := false
 
-	if PartyUI.has_node("CanvasLayer/TextEdit"):
-		text_edit_visible = PartyUI.get_node("CanvasLayer/TextEdit").visible
+	if Hud.has_node("CanvasLayer/TextEdit"):
+		text_edit_visible = Hud.get_node("CanvasLayer/TextEdit").visible
 
-	if Global.Controllable and not PartyUI.Expanded and not text_edit_visible:
+	if Global.controllable and not Hud.expanded and not text_edit_visible:
 		var can_open_menu := false
 
-		if is_instance_valid(Global.Player) and Global.Player.sprite:
-			can_open_menu = "Idle" in Global.Player.sprite.animation
+		if is_instance_valid(Global.player) and Global.player.sprite:
+			can_open_menu = "Idle" in Global.player.sprite.animation
 
 		if can_open_menu:
 			if Input.is_action_just_pressed("Options"):
@@ -166,11 +166,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif Input.is_action_just_pressed("Manual"):
 				Global.options(3)
 			elif Input.is_action_just_pressed("MainMenu"):
-				PartyUI.main_menu()
+				Hud.main_menu()
 
-	if Global.Settings and Global.Settings.DebugMode:
+	if Global.settings and Global.settings.DebugMode:
 		if Input.is_action_just_pressed("DebugFlag"):
-			PartyUI.cmd()
+			Hud.cmd()
 		elif not text_edit_visible:
 			if Input.is_action_just_pressed("Save"):
 				Loader.save()
@@ -183,14 +183,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif Input.is_action_just_pressed("DebugT"):
 				Passive.open("testbush", "greetings")
 			elif Input.is_action_just_pressed("DebugP"):
-				Global.toast("Controllable set to " + str(!Global.Controllable))
-				if Global.Controllable:
+				Global.toast("Controllable set to " + str(!Global.controllable))
+				if Global.controllable:
 					Event.take_control()
 				else:
 					Event.give_control()
 			elif Input.is_action_just_pressed("DebugHide"):
-				if PartyUI.has_node("CanvasLayer/DebugText"):
-					PartyUI.get_node("CanvasLayer/DebugText").hide()
+				if Hud.has_node("CanvasLayer/DebugText"):
+					Hud.get_node("CanvasLayer/DebugText").hide()
 			elif Input.is_action_just_pressed("DebugI"):
 				Item.add_item("SmallPotion", "Con")
 			elif Input.is_action_just_pressed("DebugA"):
