@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1")
-VSync = false
-MasterVolume = -8.0
+MasterVolume = -20.0
 DebugMode = true

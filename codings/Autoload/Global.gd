@@ -57,6 +57,10 @@ var steam_user_id: int
 ## Account identifier for the player (Shown in the menu)
 var player_name: String = "Local"
 
+## Shortcut to alcine's name
+static var alcine: String:
+	get(): return Query.find_member("Alcine").FirstName
+
 ## For updating info like the party
 signal check
 
@@ -180,10 +184,6 @@ func _physics_process(delta: float) -> void:
 	process_frame += 1
 
 
-static func alcine() -> String:
-	return Query.find_member("Alcine").FirstName
-
-
 func nodes_of_type(node: Node, className: String, result: Array) -> void:
 	if !node: return
 	if node.is_class(className):
@@ -293,7 +293,6 @@ func apply_settings() -> void:
 		#get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		#get_window().content_scale_size = base_res * Settings.UpscaleFactor
 		#get_window().content_scale_factor = Settings.UpscaleFactor
-		
 
 	AudioServer.set_bus_volume_db(0, Settings.MasterVolume)
 	AudioServer.set_bus_volume_db(1, Settings.MusicVolume)
@@ -301,7 +300,7 @@ func apply_settings() -> void:
 	AudioServer.set_bus_volume_db(3, Settings.UIVolume)
 	AudioServer.set_bus_volume_db(4, Settings.VoicesVolume)
 	AudioServer.set_bus_volume_db(5, Settings.FootstepsVolume)
-	
+
 	if Settings.VSync: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 	else: DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	if using_steam:
@@ -374,7 +373,7 @@ func give_every_ability() -> void:
 		Party.Leader.Abilities.append(ab)
 
 
-func add_complimentary(ability: String, from_name: String = "Mira Levenor", popup:= true) -> void:
+func add_complimentary(ability: String, from_name: String = "Mira Levenor", popup := true) -> void:
 	if popup:
 		var scenepack: PackedScene = load("res://UI/LevelUp/Levelup.tscn")
 		var scene: Node = scenepack.instantiate()
@@ -408,7 +407,6 @@ func options(submenu := 0) -> void:
 		1:
 			opt.set_no_main()
 			opt.save_managment()
-			
 
 		3:
 			opt.set_no_main()
